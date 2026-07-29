@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **290**
-- Audited conceptual sections: **11743**
-- Total words: **675,220**
-- Findings: **24850** (critical 7482, high 8560, medium 3140, low 5668)
-- File grades: A 0, B 0, C 0, D 290
+- Audited authoritative articles: **291**
+- Audited conceptual sections: **11774**
+- Total words: **677,254**
+- Findings: **24923** (critical 7500, high 8583, medium 3152, low 5688)
+- File grades: A 0, B 0, C 0, D 291
 
 ## Interpretation
 
@@ -42,7 +42,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 973 | 47 | 44 | 16 | 10 | 2239 | `docs/09-kubernetes/api-object-model.md` |
 | D | 970 | 43 | 38 | 32 | 24 | 3838 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
-| D | 970 | 45 | 47 | 13 | 10 | 2009 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
+| D | 970 | 45 | 47 | 13 | 10 | 2010 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
 | D | 969 | 46 | 45 | 16 | 9 | 1916 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
 | D | 960 | 44 | 42 | 20 | 19 | 2638 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | D | 945 | 37 | 46 | 25 | 39 | 3521 | `docs/02-networking-and-web/http.md` |
@@ -55,7 +55,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 888 | 35 | 47 | 16 | 33 | 3254 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
-| D | 873 | 36 | 42 | 19 | 27 | 2992 | `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md` |
+| D | 873 | 36 | 42 | 19 | 27 | 3002 | `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md` |
 | D | 870 | 34 | 52 | 9 | 15 | 2194 | `docs/14-sre-and-operations/backup-and-restore.md` |
 | D | 868 | 41 | 41 | 11 | 13 | 2134 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
@@ -140,7 +140,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 651 | 29 | 30 | 13 | 13 | 1813 | `docs/14-sre-and-operations/sli-slo-sla.md` |
 | D | 648 | 29 | 23 | 23 | 18 | 2325 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 648 | 25 | 38 | 8 | 15 | 2006 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
-| D | 648 | 25 | 35 | 14 | 15 | 2332 | `docs/15-databases-and-distributed-systems/rate-limiting.md` |
+| D | 648 | 25 | 35 | 14 | 15 | 2347 | `docs/15-databases-and-distributed-systems/rate-limiting.md` |
 | D | 647 | 28 | 34 | 6 | 22 | 2316 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 642 | 30 | 28 | 12 | 15 | 2582 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
@@ -241,6 +241,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 470 | 21 | 24 | 6 | 9 | 1468 | `docs/11-cloud-and-aws/iam.md` |
 | D | 469 | 19 | 24 | 8 | 16 | 2046 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 469 | 21 | 26 | 2 | 8 | 1277 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
+| D | 469 | 18 | 23 | 12 | 20 | 2008 | `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md` |
 | D | 468 | 16 | 30 | 5 | 16 | 1975 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | D | 468 | 21 | 22 | 7 | 12 | 2093 | `docs/09-kubernetes/rbac.md` |
 | D | 467 | 18 | 22 | 14 | 15 | 1966 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
@@ -17229,23 +17230,67 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 374, `thin-concept-section` — **16. Competing hypotheses a evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 447, `thin-concept-section` — **19. Transaction acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md`
+
+- **CRITICAL** line 23, `bare-bullet-items` — **2. Exact desired-state subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a trust boundary;`, `path, branch/tag/ref a resolved commit SHA;`, `environment, cluster, namespace a application identity;`, `manifest, Helm chart, Kustomize overlay alebo generator generation;`.
+- **CRITICAL** line 41, `bare-bullet-items` — **3. Git authority a runtime truth**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed alebo partial reconciliation;`, `stale controller cache;`, `direct runtime mutation;`, `mutating admission webhook;`.
+- **CRITICAL** line 41, `outline-instead-of-explanation` — **3. Git authority a runtime truth**: 9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 70, `bare-bullet-items` — **4. Declarative desired state**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolve-ne exact source generation;`, `porovná ju s live state-om;`, `vykoná bounded mutation;`, `overí convergenciu a health;`.
+- **CRITICAL** line 98, `bare-bullet-items` — **5. Versioned a immutable neznamená iba Git repository**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable commit identity;`, `pinned artifacts a dependencies;`, `retained history;`, `chránené authoritative refs;`.
+- **CRITICAL** line 126, `bare-bullet-items` — **6. Authoritative ref a promotion**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment branch;`, `environment directory na jednej branch;`, `immutable release manifest odkazujúci na commit/digests;`, `promotion PR medzi overlays;`.
+- **CRITICAL** line 179, `bare-bullet-items` — **8. Render boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinned chart/plugin/tool versions;`, `deterministic inputs;`, `no hidden environment variables;`, `no uncontrolled network fetch;`.
+- **CRITICAL** line 179, `outline-instead-of-explanation` — **8. Render boundary**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 206, `bare-bullet-items` — **9. Overrides mimo Git-u**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Argo CD parameter overrides;`, `Helm release values uložené v clusteri;`, `CLI flags;`, `environment variables v controlleri alebo plugin-e;`.
+- **CRITICAL** line 288, `bare-bullet-items` — **12. Change governance**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branches alebo equivalent rule;`, `required review a status checks;`, `CODEOWNERS alebo explicitný owner graph;`, `signed commits/tags tam, kde je to required assurance;`.
+- **CRITICAL** line 288, `outline-instead-of-explanation` — **12. Change governance**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 305, `bare-bullet-items` — **13. Source of truth nie je source of every fact**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `customer transactions;`, `current database leader;`, `ephemeral leases;`, `queue offsets;`.
+- **CRITICAL** line 305, `outline-instead-of-explanation` — **13. Source of truth nie je source of every fact**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 383, `no-prose-concept` — **Causal boundaries**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 383, `outline-instead-of-explanation` — **Causal boundaries**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 390, `empty-section` — **Recovery**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 405, `outline-instead-of-explanation` — **15. Acceptance verdict**: 13 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 423, `empty-section` — **16. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 23, `list-heavy-section` — **2. Exact desired-state subject**: 11 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 23, `single-sentence-concept` — **2. Exact desired-state subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 98, `list-heavy-section` — **5. Versioned a immutable neznamená iba Git repository**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 126, `list-heavy-section` — **6. Authoritative ref a promotion**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 150, `single-sentence-concept` — **7. Application source, environment source a generated source**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 154, `single-sentence-concept` — **Application repository**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 158, `single-sentence-concept` — **Configuration alebo environment repository**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 206, `list-heavy-section` — **9. Overrides mimo Git-u**: 9 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 305, `single-sentence-concept` — **13. Source of truth nie je source of every fact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 321, `list-heavy-section` — **14. Connected incident GITOPS-PAY-61**: 11 odrážok a iba 52 slov súvislého vysvetlenia.
+- **HIGH** line 383, `list-first-introduction` — **Causal boundaries**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 405, `single-sentence-concept` — **15. Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 441, `single-sentence-concept` — **Všetko je v Git-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 453, `single-sentence-concept` — **Controller píše status späť do Git-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 457, `single-sentence-concept` — **Break-glass patch opravíme neskôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 461, `single-sentence-concept` — **Synced znamená zhodu s Git-om**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 206, `term-before-explanation` — **9. Overrides mimo Git-u**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CD`, `CLI`, `HPA`, `policy`
+- **HIGH** line 288, `thin-concept-section` — **12. Change governance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 305, `thin-concept-section` — **13. Source of truth nie je source of every fact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 321, `term-before-explanation` — **14. Connected incident GITOPS-PAY-61**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `ROUTE`, `POLICY`, `GENERATION`, `CLI`
+- **HIGH** line 383, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 405, `thin-concept-section` — **15. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2943 | 503 | 0 | 0 | 3446 |
-| `single-sentence-concept` | 0 | 2972 | 0 | 0 | 2972 |
-| `outline-instead-of-explanation` | 2890 | 0 | 0 | 0 | 2890 |
-| `term-before-explanation` | 0 | 604 | 2096 | 0 | 2700 |
-| `thin-concept-section` | 0 | 2440 | 0 | 0 | 2440 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2280 | 2280 |
-| `example-not-explicit` | 0 | 0 | 0 | 2250 | 2250 |
-| `list-first-introduction` | 0 | 1516 | 0 | 0 | 1516 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
-| `short-concept-section` | 0 | 0 | 1044 | 0 | 1044 |
-| `no-prose-concept` | 874 | 0 | 0 | 0 | 874 |
-| `empty-section` | 775 | 0 | 0 | 0 | 775 |
-| `list-heavy-section` | 0 | 525 | 0 | 0 | 525 |
+| `bare-bullet-items` | 2952 | 503 | 0 | 0 | 3455 |
+| `single-sentence-concept` | 0 | 2982 | 0 | 0 | 2982 |
+| `outline-instead-of-explanation` | 2896 | 0 | 0 | 0 | 2896 |
+| `term-before-explanation` | 0 | 606 | 2102 | 0 | 2708 |
+| `thin-concept-section` | 0 | 2444 | 0 | 0 | 2444 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2287 | 2287 |
+| `example-not-explicit` | 0 | 0 | 0 | 2256 | 2256 |
+| `list-first-introduction` | 0 | 1518 | 0 | 0 | 1518 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1145 | 1145 |
+| `short-concept-section` | 0 | 0 | 1050 | 0 | 1050 |
+| `no-prose-concept` | 875 | 0 | 0 | 0 | 875 |
+| `empty-section` | 777 | 0 | 0 | 0 | 777 |
+| `list-heavy-section` | 0 | 530 | 0 | 0 | 530 |
 
 ## Required remediation pattern
 

@@ -3881,7 +3881,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
       "title": "Idempotency a backpressure",
-      "words": 2992,
+      "words": 3002,
       "headings": 55,
       "sections": 55,
       "findings": 124,
@@ -3965,7 +3965,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/rate-limiting.md",
       "title": "Rate limiting",
-      "words": 2332,
+      "words": 2347,
       "headings": 46,
       "sections": 46,
       "findings": 89,
@@ -4007,7 +4007,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
       "title": "Retry, timeout a circuit breaker",
-      "words": 2009,
+      "words": 2010,
       "headings": 55,
       "sections": 55,
       "findings": 115,
@@ -4058,6 +4058,20 @@
       "medium": 9,
       "low": 13,
       "score": 542,
+      "grade": "D"
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "title": "Git ako source of truth",
+      "words": 2008,
+      "headings": 31,
+      "sections": 31,
+      "findings": 73,
+      "critical": 18,
+      "high": 23,
+      "medium": 12,
+      "low": 20,
+      "score": 469,
       "grade": "D"
     }
   ],
@@ -227707,6 +227721,663 @@
       "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
       "section": "Drž lock počas provider callu",
       "line": 502,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "2. Exact desired-state subject",
+      "line": 23,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "2. Exact desired-state subject",
+      "line": 23,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "2. Exact desired-state subject",
+      "line": 23,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a trust boundary;`, `path, branch/tag/ref a resolved commit SHA;`, `environment, cluster, namespace a application identity;`, `manifest, Helm chart, Kustomize overlay alebo generator generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "2. Exact desired-state subject",
+      "line": 23,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "2. Exact desired-state subject",
+      "line": 23,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "2. Exact desired-state subject",
+      "line": 23,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "3. Git authority a runtime truth",
+      "line": 41,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "3. Git authority a runtime truth",
+      "line": 41,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed alebo partial reconciliation;`, `stale controller cache;`, `direct runtime mutation;`, `mutating admission webhook;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "3. Git authority a runtime truth",
+      "line": 41,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "3. Git authority a runtime truth",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "4. Declarative desired state",
+      "line": 70,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolve-ne exact source generation;`, `porovná ju s live state-om;`, `vykoná bounded mutation;`, `overí convergenciu a health;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "4. Declarative desired state",
+      "line": 70,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "4. Declarative desired state",
+      "line": 70,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "5. Versioned a immutable neznamená iba Git repository",
+      "line": 98,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "5. Versioned a immutable neznamená iba Git repository",
+      "line": 98,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable commit identity;`, `pinned artifacts a dependencies;`, `retained history;`, `chránené authoritative refs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "5. Versioned a immutable neznamená iba Git repository",
+      "line": 98,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "5. Versioned a immutable neznamená iba Git repository",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "5. Versioned a immutable neznamená iba Git repository",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "6. Authoritative ref a promotion",
+      "line": 126,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "6. Authoritative ref a promotion",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment branch;`, `environment directory na jednej branch;`, `immutable release manifest odkazujúci na commit/digests;`, `promotion PR medzi overlays;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "6. Authoritative ref a promotion",
+      "line": 126,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "6. Authoritative ref a promotion",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "6. Authoritative ref a promotion",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "6. Authoritative ref a promotion",
+      "line": 126,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `SHA`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "7. Application source, environment source a generated source",
+      "line": 150,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Application repository",
+      "line": 154,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Configuration alebo environment repository",
+      "line": 158,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "8. Render boundary",
+      "line": 179,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "8. Render boundary",
+      "line": 179,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinned chart/plugin/tool versions;`, `deterministic inputs;`, `no hidden environment variables;`, `no uncontrolled network fetch;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "8. Render boundary",
+      "line": 179,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "8. Render boundary",
+      "line": 179,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "8. Render boundary",
+      "line": 179,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "9. Overrides mimo Git-u",
+      "line": 206,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "9. Overrides mimo Git-u",
+      "line": 206,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Argo CD parameter overrides;`, `Helm release values uložené v clusteri;`, `CLI flags;`, `environment variables v controlleri alebo plugin-e;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "9. Overrides mimo Git-u",
+      "line": 206,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "9. Overrides mimo Git-u",
+      "line": 206,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "9. Overrides mimo Git-u",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "9. Overrides mimo Git-u",
+      "line": 206,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CD`, `CLI`, `HPA`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branches alebo equivalent rule;`, `required review a status checks;`, `CODEOWNERS alebo explicitný owner graph;`, `signed commits/tags tam, kde je to required assurance;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "12. Change governance",
+      "line": 288,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CODEOWNERS`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "13. Source of truth nie je source of every fact",
+      "line": 305,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "13. Source of truth nie je source of every fact",
+      "line": 305,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "13. Source of truth nie je source of every fact",
+      "line": 305,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `customer transactions;`, `current database leader;`, `ephemeral leases;`, `queue offsets;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "13. Source of truth nie je source of every fact",
+      "line": 305,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "14. Connected incident GITOPS-PAY-61",
+      "line": 321,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "14. Connected incident GITOPS-PAY-61",
+      "line": 321,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "14. Connected incident GITOPS-PAY-61",
+      "line": 321,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `ROUTE`, `POLICY`, `GENERATION`, `CLI`",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Causal boundaries",
+      "line": 383,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Recovery",
+      "line": 390,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "15. Acceptance verdict",
+      "line": 405,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "16. Troubleshooting flow",
+      "line": 423,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Všetko je v Git-e",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Controller píše status späť do Git-u",
+      "line": 453,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Break-glass patch opravíme neskôr",
+      "line": 457,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
+      "section": "Synced znamená zhodu s Git-om",
+      "line": 461,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
