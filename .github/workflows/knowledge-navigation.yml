@@ -67,7 +67,7 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Synchronize and commit generated documentation
+      - name: Synchronize and record third SRE block
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
         run: |
@@ -97,6 +97,38 @@ jobs:
             fi
           }
 
+          update_sre_ledger() {
+            "$PYTHON_BIN" - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = path.read_text(encoding="utf-8")
+          prefix = "| `14-sre-and-operations` — SRE and Operations |"
+          row = (
+              "| `14-sre-and-operations` — SRE and Operations | 12/15 authoritative drafting | In progress | 2026-07-29 | "
+              "Sekcia je net-new authoritative doména podľa roadmapy. Prvé dva bloky pokrývajú `SRE-PAY-52` a `SRE-PAY-53`: reliability/availability/durability, user-centered SLI/SLO/SLA, error-budget control, toil demand, end-to-end capacity, incident command, sustainable on-call a generation-safe runbooks. Tretí blok používa logical-corruption incident `SRE-PAY-54`. `Root cause analysis` používa `incident subject/evidence cutoff → timeline/state transitions → trigger/proximate mechanism → technical/systemic/escape/detection/amplification/recovery causes → causal graph/counterfactual tests → corrective-action portfolio → recurrence closure`; missing tenant scope sa pri destructive compactor operácii interpretoval ako wildcard a broad-archived `186 420` rows, z toho `7 842` active. `Blameless postmortems` používa `postmortem trigger/subject → impact/timeline → causal a response review → what went well/poorly/luck → owned actions → independent review/publication → effective mechanism closure`; accountability zostáva explicitná bez osobného blame. `Backup a restore` používa `protected subject/consistency group → clean-point semantics → effective backup generation/isolation/key path → candidate selection → isolated restore → validation → fencing/merge/replay/reconciliation`; successful snapshots faithfully zachytili logical corruption a restore path meškal pre stale decrypt grant a neúplný provider consistency manifest. `RPO a RTO` používa `BIA/capability → exact scenario/consistency group → objectives a boundaries → recovery design/dependency budgets → timed exercise → target-versus-actual verdict`; DB-clean point bol 9 sekúnd pred corruption, ale pre-built business consistency point bol starý `11 min 7 s` a actual business recovery trvala `3 h 48 min 53 s`, takže `RPO 5 min`, `RTO 45 min` aj maximum tolerable disruption `2 h` neprešli. Section README je na `12/15 · In progress`; roadmap má prvých 12 topics prelinkovaných a navigation vedie `Runbooks → RCA → Blameless postmortems → Backup/restore → RPO/RTO → ROADMAP`. Glossary fragments `14a`–`14c` a generated `GLOSSARY.md` sú synchronizované, oba audit-failure artifacts sú prázdne. Current primary facts boli overené proti Google SRE postmortem guidance, NIST SP 800-61 Rev. 3, NIST SP 800-34 Rev. 1, NIST RPO/RTO glossary a CISA StopRansomware backup guidance. Zostávajú 3 kapitoly a finálny section-level pass. |"
+          )
+
+          lines = text.splitlines()
+          replaced = False
+          for index, line in enumerate(lines):
+              if line.startswith(prefix):
+                  lines[index] = row
+                  replaced = True
+                  break
+
+          if not replaced:
+              marker = "## Section-level completion criteria"
+              try:
+                  index = lines.index(marker)
+              except ValueError as exc:
+                  raise SystemExit("ledger insertion marker not found") from exc
+              lines[index:index] = [row, ""]
+
+          path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8", newline="\n")
+          PY
+          }
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -113,24 +145,27 @@ jobs:
             fi
 
             synchronize_documentation
-            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json
+            update_sre_ledger
+            git show HEAD^:.github/workflows/knowledge-navigation.yml > .github/workflows/knowledge-navigation.yml
+
+            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json DOCUMENTATION-REVIEW-STATUS.md .github/workflows/knowledge-navigation.yml
 
             if git diff --cached --quiet; then
-              echo "Documentation is already synchronized at ${remote_sha}."
+              echo "Documentation and SRE ledger are already synchronized at ${remote_sha}."
               exit 0
             fi
 
-            git commit -m "docs: synchronize generated documentation"
+            git commit -m "docs(review): record third SRE and Operations authoritative block"
 
             if git push origin "HEAD:${branch}"; then
-              echo "Synchronized documentation pushed successfully."
+              echo "SRE ledger update pushed successfully."
               exit 0
             fi
 
             echo "::warning::Remote ${branch} changed during synchronization attempt ${attempt}; retrying from the latest remote state."
 
             if [ "$attempt" -eq "$max_attempts" ]; then
-              echo "::error::Unable to push synchronized documentation after ${max_attempts} attempts."
+              echo "::error::Unable to push SRE ledger update after ${max_attempts} attempts."
               exit 1
             fi
           done
