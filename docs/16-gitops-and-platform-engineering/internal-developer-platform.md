@@ -43,14 +43,14 @@ Zoznam capability domains preto nie je feature checklist. Každý z nich predsta
 
 IDP je výsledný capability system. Môže zahŕňať:
 
-- service/application provisioning;
-- repository a pipeline bootstrap;
-- environment a infrastructure provisioning;
-- deployment a promotion workflows;
-- secrets, identity a policy integration;
-- observability a operational readiness;
-- software catalog a ownership metadata;
-- support, lifecycle a decommissioning.
+- **Service a application provisioning** — vytvára stable service identity, repository/catalog relationships a runtime contract namiesto jednorazového skeletonu bez ownera.
+- **Repository a pipeline bootstrap** — nastavuje source permissions, branch protections, reusable delivery components a provenance boundary, ktoré zostávajú spravovateľné po prvom commite.
+- **Environment a infrastructure provisioning** — transformuje capability intent na cloud/Kubernetes resources s explicitným state, quota, cost a deletion lifecycle-om.
+- **Deployment a promotion workflows** — oddeľujú candidate build od environment authority a sledujú desired, controller-resolved, runtime a business verdict.
+- **Secrets, identity a policy integration** — viaže workload na least-privilege credentials a presadzuje tenant, data a compliance controls na authoritative boundaries.
+- **Observability a operational readiness** — poskytujú version-aware telemetry, alerts, SLO, runbooks a ownership potrebné na diagnostiku a recovery.
+- **Software catalog a ownership metadata** — prepájajú service, API, resources, ownera a lifecycle a umožňujú impact, orphan a deprecation analysis.
+- **Support, lifecycle a decommissioning** — definujú escalation, upgrades, migrations, ownership transfer a bezpečné odstránenie resources aj data.
 
 ### Internal developer portal
 
@@ -93,14 +93,14 @@ source control
 
 Bez platformovej vrstvy každý application tím potrebuje poznať interné detaily a kompatibility všetkých nástrojov. Vzniká:
 
-- vysoká cognitive load;
-- inconsistent implementations;
-- security controls aplikované neskoro alebo nerovnomerne;
-- ticket queues pre rutinné provisioning úlohy;
-- skryté ownership a support gaps;
-- duplicated automation;
-- rozdielne lifecycle a cleanup semantics;
-- failure diagnosis naprieč množstvom UI a credentials.
+- **Vysoká cognitive load** — developer musí rozumieť provider, Kubernetes, CI/CD, IAM, networking a operations detailom ešte pred implementáciou business capability.
+- **Inconsistent implementations** — rovnaká potreba sa rieši odlišnými templates, permissions a lifecycle semantics a výsledok sa ťažko audituje a podporuje.
+- **Neskoré alebo nerovnomerné security controls** — policy sa objaví až pri review alebo incidente a teams ju obchádzajú custom automationou.
+- **Ticket queues pre rutinné provisioning** — central team sa stáva serial execution bottleneckom a developer stráca okamžitý feedback o constraints a výsledku.
+- **Skryté ownership a support gaps** — resource existuje bez jasného service ownera, operational tieru alebo escalation pathu a incident sa presúva medzi tímami.
+- **Duplicated automation** — každý tím kopíruje scripts a pipelines, ktoré postupne divergujú v dependencies, retry a security behavior-e.
+- **Rozdielne lifecycle a cleanup semantics** — create je jednoduchý, ale update, migration, expiry a delete nemajú konzistentné preconditions a zanechávajú orphan resources.
+- **Fragmentovaná diagnosis** — operation identity a evidence sú rozdelené medzi portal, Git, cloud, CI, cluster a provider, takže local green status zakrýva partial failure.
 
 IDP tento problém nerieši tým, že všetku moc presunie na central team. Rieši ho poskytnutím jasných capability contracts a self-service boundaries, v ktorých application team zostáva ownerom svojho service outcome-u a platform team vlastní shared platform mechanisms.
 
@@ -112,20 +112,20 @@ Každý rozmer subjectu mení provisioning, policy alebo support consequence. Pr
 
 Request `vytvor production-ready service` musí byť rozložený na presný subject:
 
-- requester identity a team ownership;
-- business/system/domain context;
-- requested capability a version;
-- service name a globally unique identity;
-- data classification a compliance profile;
-- runtime model, regiony a availability tier;
-- repository, language a build profile;
-- environment a promotion topology;
-- network exposure a dependency requirements;
-- data stores, queues a secret needs;
-- SLO/operational tier a on-call ownership;
-- cost center, quota a lifecycle/expiry;
-- policy bundle a platform contract version;
-- idempotency key a expected outputs.
+- **Requester identity a team ownership** — určujú, kto request autorizuje, kto nesie application outcome a do ktorého tenant boundary patria outputs.
+- **Business, system a domain context** — prepájajú service s architecture, data a dependency relations a umožňujú policy podľa business kritickosti.
+- **Requested capability a version** — identifikujú contract a implementation generation, podľa ktorých control plane validuje inputs a plánuje migration.
+- **Service name a globally unique identity** — tvoria stable key pre repositories, namespaces, DNS, catalog a idempotent read-back bez kolízie s iným requestom.
+- **Data classification a compliance profile** — menia allowed regions, encryption, retention, audit, network a operator-access controls.
+- **Runtime model, regions a availability tier** — určujú topology, failure domains, capacity a recovery objective namiesto iba výberu veľkosti compute.
+- **Repository, language a build profile** — určujú scaffolding, dependency, test, artifact a supply-chain contract, ktorý platforma bude spravovať.
+- **Environment a promotion topology** — definuje desired-state authorities, predecessor evidence, approvals, rollout rings a recovery flow.
+- **Network exposure a dependency requirements** — určujú ingress/egress, DNS, TLS, service identity a policy relationships s ďalšími systems.
+- **Data stores, queues a secret needs** — deklarujú stateful capabilities, durability, schema/event a credential lifecycle, ktoré musia byť provisioned a verified.
+- **SLO, operational tier a on-call ownership** — nastavujú observability, alerting, support hours, error budget a escalation expectations.
+- **Cost center, quota a lifecycle/expiry** — viažu consumption na budget a limit a poskytujú autoritu pre review, suspension a cleanup.
+- **Policy bundle a platform contract version** — zachytávajú exact decision logic a guarantees, aby retry alebo audit nereinterpretovali historický request novými pravidlami.
+- **Idempotency key a expected output inventory** — umožňujú resume/read-back rovnakého semantic requestu a odhaliť missing, duplicate alebo foreign resources.
 
 Bez exact subjectu retry môže vytvoriť druhý repository, druhú database alebo conflicting DNS name. Rovnako sa nedá rozhodnúť, či update request mení existujúci service alebo vytvára nový.
 
@@ -162,15 +162,15 @@ outputs
 
 Contract musí vysvetliť:
 
-- čo platforma garantuje;
-- ktoré decisions sú fixed defaults;
-- ktoré choices môže consumer meniť;
-- ktoré constraints sú policy;
-- aký je expected provisioning time;
-- ako sa capability pozoruje;
-- kto rieši incidenty;
-- ako sa upgrade-ne, migruje a odstráni;
-- čo platforma negarantuje.
+- **Guarantees** — pomenúvajú availability, security, backup, delivery a support outcomes, za ktoré platform team nesie zodpovednosť.
+- **Fixed defaults** — znižujú cognitive load a vytvárajú supportable baseline; zmena defaultu potrebuje versioning a impact na existing consumers.
+- **Consumer choices** — dávajú flexibilitu iba tam, kde platforma vie validovať a prevádzkovať všetky povolené variants.
+- **Policy constraints** — odlišujú bezpečnostné alebo compliance boundaries od opinionated convenience a musia byť enforced mimo UI.
+- **Expected provisioning time** — vytvára latency/SLO contract a určuje, kedy je operation slow, blocked alebo failed.
+- **Observability contract** — definuje status, metrics, logs, operation IDs a developer-facing evidence potrebné na troubleshooting.
+- **Incident ownership** — rozdeľuje platform mechanism failure, consumer configuration a application business failure a definuje escalation.
+- **Upgrade, migration a deletion lifecycle** — chráni existing data a consumers a zabraňuje tomu, aby create-only automation produkovala permanentný debt.
+- **Explicit non-guarantees** — odhaľujú residual responsibilities a limity, aby consumer nepovažoval abstraction za neexistujúcu end-to-end garanciu.
 
 UI form bez verziovaného capability contractu vedie k implicitným semantics, ktoré sa pri platform update-e nepredvídateľne menia.
 
@@ -276,11 +276,11 @@ team-payments + service settlement-api + capability service-v1
 
 Prvý step často rezervuje global identity. Táto reservation zabraňuje, aby concurrent retries vytvorili:
 
-- dve repositories s podobnými názvami;
-- duplicate catalog entities;
-- overlapping namespaces;
-- druhé cloud resources s novými IDs;
-- conflicting DNS alebo IAM roles.
+- **Duplicate repositories** — rozdelia source a permissions medzi dva candidate identities a znemožnia jednoznačne určiť authoritative codebase.
+- **Duplicate catalog entities** — vytvoria conflicting owner, API a lifecycle projections a pokazia impact a support routing.
+- **Overlapping namespaces alebo runtime scopes** — umožnia dvom operations meniť rovnaké resources a prelomia tenant a cleanup ownership.
+- **Second cloud resources s novými IDs** — vytvoria unmanaged cost, data a credentials, ktoré pôvodný operation ledger nepozná.
+- **Conflicting DNS alebo IAM identities** — môžu presmerovať traffic alebo privilege na nesprávny resource graph aj keď jednotlivé create calls uspeli.
 
 Idempotency neznamená iba „HTTP POST vráti rovnakú odpoveď“. Každý downstream adapter musí vedieť read-before-create alebo používať provider idempotency token a potom overiť semantic equivalence existujúceho resource-u.
 
@@ -338,15 +338,15 @@ Generated repository odkazuje na versioned reusable components alebo platform AP
 
 Templates musia mať:
 
-- input schema a validation;
-- version identity;
-- output inventory;
-- secret-safe rendering;
-- dry-run/preview;
-- idempotent actions;
-- permission boundaries;
-- migration/deprecation strategy;
-- tests nad positive aj forbidden inputs.
+- **Input schema a validation** — určujú allowed request space, typy, constraints a semantic cross-field rules skôr, než action vykoná side effect.
+- **Template/contract version identity** — viaže generated output a support behavior na exact implementation a umožňuje migration inventory.
+- **Output inventory** — zaznamenáva repositories, files, resources a relationships vytvorené operationou pre read-back, update a decommission.
+- **Secret-safe rendering** — zabraňuje vloženiu plaintext credentials do files, task logs, SCM diffs alebo generated documentation.
+- **Dry-run a preview** — ukazujú effective files, permissions a downstream resource plan bez predstierania, že preview je authoritative apply.
+- **Idempotent actions** — používajú stable identities a read-before-create, aby retry obnovil rovnaký output namiesto duplicates.
+- **Permission boundaries** — limitujú template action tokens, allowed destinations a tenant scope a bránia confused-deputy abuse.
+- **Migration a deprecation strategy** — prenáša existing generated consumers na new contract bez manuálneho copy-paste a permanentných old variants.
+- **Positive a forbidden-input tests** — dokazujú expected output aj to, že path injection, arbitrary URLs, privilege escalation a cross-tenant targets sú odmietnuté.
 
 Template, ktorá iba vytvorí „best practice“ files, nie je trvalý guardrail.
 
@@ -360,13 +360,13 @@ Catalog modeluje components, APIs, resources, systems, domains, owners a relatio
 
 Catalog metadata môže odpovedať:
 
-- ktorý tím vlastní service;
-- ktoré APIs implementuje a konzumuje;
-- ktoré runtime resources mu patria;
-- kde je source, documentation a dashboards;
-- aký lifecycle a operational tier má;
-- ktoré dependencies a risks existujú;
-- či je orphaned alebo deprecated.
+- **Service owner** — určuje decision, on-call a lifecycle zodpovednosť a musí vychádzať z authoritative team identity, nie stale text labelu.
+- **Provided a consumed APIs** — umožňujú compatibility a impact analysis pri change-i, deprecation alebo incidente.
+- **Runtime resource relations** — prepájajú catalog entity s cluster, cloud, database a queue identities pre cost, drift a orphan detection.
+- **Source, documentation a dashboards** — poskytujú navigation, ale links musia byť generated alebo health-checked, aby catalog nebol collection stale bookmarks.
+- **Lifecycle a operational tier** — menia support, SLO, compliance, deprecation a deletion policy a nesmú byť iba marketingovým statusom.
+- **Dependencies a risks** — ukazujú blast radius, critical paths a accepted exceptions a potrebujú freshness z authoritative systems.
+- **Orphaned alebo deprecated state** — spúšťa ownership remediation alebo migration/closure workflow namiesto pasívnej catalog značky.
 
 Catalog freshness je zásadná. YAML entity existujúca v Git-e nemusí znamenať, že service reálne existuje. Naopak cloud resource môže existovať bez catalog ownera. IDP potrebuje ingestion, reconciliation a orphan detection.
 
@@ -416,12 +416,12 @@ authenticated requester
 
 Neznamená:
 
-- cluster-admin pre každého developera;
-- arbitrary Terraform execution;
-- možnosť zvoliť ľubovoľnú IAM role;
-- direct production mutation;
-- cross-tenant secret access;
-- obídenie cost alebo data controls.
+- **Cluster-admin pre developera** — obchádza platform subject, policy a audit a dáva callerovi právo meniť unrelated tenants a shared control plane.
+- **Arbitrary Terraform execution** — umožní requestu zvoliť provider, module, backend a side effects mimo versioned capability contractu.
+- **Ľubovoľná IAM role** — mení platform service na privilege-escalation deputy a oddeľuje requested capability od granted cloud authority.
+- **Direct production mutation** — vytvára hidden writer mimo environment Git/controller reconciliation a komplikuje rollback a drift evidence.
+- **Cross-tenant secret access** — porušuje isolation aj vtedy, keď portal UI zobrazuje iba vlastné services; provider a backend musia odmietnuť request.
+- **Obídenie cost alebo data controls** — umožní unlimited spend, wrong region alebo prohibited storage bez review a attribution.
 
 Platform identity má vykonať iba actions odvodené z validovaného requestu a viazané na tenant scope.
 
@@ -528,19 +528,19 @@ Signály v zozname sledujú request lifecycle aj product outcome. Ich kombináci
 
 IDP potrebuje observability podľa operation a capability subjectu:
 
-- request rate, latency a rejection reasons;
-- queue depth a oldest operation age;
-- per-step success/failure/retry;
-- downstream API latency a throttling;
-- duplicate/idempotency conflict rate;
-- partial/unknown operations;
-- reconciliation lag;
-- policy denials a common remediation gaps;
-- time-to-first-successful-deploy;
-- capability adoption a abandonment;
-- support incidents a toil;
-- orphan resources a failed decommissions;
-- cost per capability/tenant.
+- **Request rate, latency a rejection reasons** — ukazujú demand, user-facing responsiveness a či schema/policy friction blokuje validné journeys.
+- **Queue depth a oldest operation age** — odlišujú burst backlog od stuck operation a odhaľujú porušenie provisioning SLO skôr než priemerná latency.
+- **Per-step success, failure a retry** — lokalizujú Git, cloud, IAM, GitOps alebo verification boundary a odhaľujú hot-loop amplification.
+- **Downstream API latency a throttling** — vysvetľujú platform delay a umožňujú backpressure namiesto aggressive retry stormu.
+- **Duplicate a idempotency conflict rate** — odhaľuje unstable semantic keys, provider token mismatch a resources vytvorené mimo operation inventory.
+- **Partial a unknown operations** — predstavujú explicitný recovery queue a nesmú sa stratiť v aggregate failed count-e.
+- **Reconciliation lag** — meria čas medzi authoritative desired mutation a observed/effective resource state-om.
+- **Policy denials a remediation gaps** — ukazujú, či guardrail vysvetľuje actionable fix alebo vytvára tickets a bypass behavior.
+- **Time to first successful deploy** — meria end-to-end developer outcome od requestu po usable delivery, nie iba rýchlosť scaffoldingu.
+- **Capability adoption a abandonment** — odhaľujú, či contract rieši reálnu potrebu alebo users odchádzajú pri configuration/support friction.
+- **Support incidents a toil** — identifikujú abstractions s vysokou hidden complexity a manuálne steps, ktoré treba productizovať.
+- **Orphan resources a failed decommissions** — merajú lifecycle debt, cost a attack surface po partial delete alebo ownership loss.
+- **Cost per capability a tenant** — umožňuje capacity, quota a product decisions a koreluje spend s ownerom a useful outcome-om.
 
 Technical dashboard bez developer outcome môže optimalizovať nesprávnu vec. Rýchle repository creation nie je hodnotné, ak first production deployment trvá týždeň.
 
@@ -581,13 +581,13 @@ Capability version update potrebuje compatibility a migration plan. Platform API
 
 Deprecation obsahuje:
 
-- announced replacement;
-- affected consumer inventory;
-- migration tooling;
-- deadlines a exceptions;
-- progress evidence;
-- final disable/delete gate;
-- rollback alebo restore plan.
+- **Announced replacement** — poskytuje supported successor, compatibility a decision rationale namiesto iba dátumu vypnutia.
+- **Affected consumer inventory** — identifikuje exact services, versions, owners a runtime resources, ktoré ešte závisia od deprecated capability.
+- **Migration tooling** — automatizuje preview, change a verification a musí byť idempotentné a recovery-aware pre partial consumers.
+- **Deadlines a exceptions** — určujú enforcement timeline a bounded waiver s ownerom, riskom a expiry namiesto permanentného odkladu.
+- **Progress evidence** — meria authoritative usage a successful migrations, nie iba self-reported ticket completion.
+- **Final disable a delete gate** — overuje zero required consumers, backup/restore, data retention a owner approval pred irreversible action.
+- **Rollback alebo restore plan** — definuje, ako sa capability dočasne obnoví alebo consumer repairne, ak hidden dependency vznikne po closure.
 
 Platform, ktorá vie resources vytvárať, ale nie bezpečne odstraňovať, produkuje orphan cost a attack surface.
 
@@ -599,16 +599,16 @@ Identity, API, accounts, Git, IAM, secret paths, network, logs a cost attributio
 
 IDP tenant subject môže byť team, business unit, project alebo environment. Isolation musí existovať cez:
 
-- identity a group membership;
-- API authorization;
-- namespace/account/project boundaries;
-- Git repository permissions;
-- cloud IAM a quotas;
-- secret provider paths;
-- network policies;
-- catalog visibility;
-- operation logs a support tooling;
-- cost attribution.
+- **Identity a group membership** — autentizujú requestera a authoritative team relation a nesmú sa spoliehať na user-supplied owner string.
+- **API authorization** — presadzuje action, capability, environment a resource scope na backend-e pre portal, CLI aj automation clients.
+- **Namespace, account a project boundaries** — oddeľujú runtime, quotas, provider resources a administrative blast radius medzi tenants.
+- **Git repository permissions** — obmedzujú source a environment desired-state writes a chránia branch, CODEOWNERS a promotion authority.
+- **Cloud IAM a quotas** — viažu platform execution role na tenant resources a bránia cross-account mutation a noisy-neighbor consumption.
+- **Secret provider paths** — zabezpečujú, že tenant-controlled request nevie cez shared platform identity čítať cudzie credentials.
+- **Network policies** — obmedzujú east-west a egress reachability podľa service identity a nesmú byť iba generated documentation.
+- **Catalog visibility** — chráni sensitive topology a metadata a zároveň nesmie byť považovaná za underlying resource authorization.
+- **Operation logs a support tooling** — filtrujú tenant data a secrets a presadzujú reader scope aj počas incident escalation.
+- **Cost attribution** — viaže resources na tenant a ownera a umožňuje quota, chargeback, anomaly a orphan decisions.
 
 Portal filter `show only my services` nie je authorization. Backend a underlying systems musia odmietnuť cross-tenant action.
 
@@ -624,16 +624,16 @@ IDP je high-value control plane, pretože dokáže vytvárať identities, reposi
 
 Threats:
 
-- compromised developer account požiada o privilege escalation;
-- malicious template input vykoná command alebo path injection;
-- plugin získa broad third-party token;
-- workflow logs secret;
-- confused deputy použije platform identity na cudzí tenant;
-- stale approval sa aplikuje na zmenený request;
-- SSRF alebo arbitrary URL source umožní exfiltration;
-- compromised platform worker zmení Git/cluster mimo operation;
-- catalog metadata odhalí sensitive topology;
-- duplicate retry vytvorí unmanaged resources.
+- **Compromised developer account** — môže poslať syntakticky validný request na higher tier alebo foreign ownera; backend authorization a policy musia odmietnuť escalation.
+- **Malicious template input** — môže uniknúť z workspace, prepísať generated paths alebo ovplyvniť shell/tool arguments; actions potrebujú typed inputs a sandboxing.
+- **Broad plugin token** — kompromitovaný plugin môže čítať alebo meniť repositories, cloud alebo CI mimo current operation subjectu.
+- **Workflow secret logging** — prenesie credential do portal task history, observability alebo support systems s odlišnou retention a reader graphom.
+- **Confused-deputy request** — platform identity vykoná inak nepovolenú action, ak downstream adapter neverifikuje tenant ownership resource coordinate-u.
+- **Stale approval** — autorizuje old subject, no retry/rebase/template update zmení effective outputs bez nového reviewer decisionu.
+- **SSRF alebo arbitrary URL source** — platform worker pristúpi k internal metadata, credentials alebo private endpoints v mene untrusted requestu.
+- **Compromised platform worker** — zneužije broad tokens na mutations bez durable operation ID, takže prevention potrebuje scoped credentials a detection potrebuje writer audit.
+- **Catalog metadata disclosure** — odhalí internal endpoints, owners, data classification alebo dependency graph actorovi bez business need-to-know.
+- **Duplicate retry** — vytvorí second repository, cloud object alebo permission set mimo original inventory a ponechá cost, data a attack surface bez ownera.
 
 Controls musia pokryť request authorization, template sandboxing, egress, token scoping, audit, policy, supply chain a runtime isolation.
 
@@ -665,6 +665,10 @@ Backstage architektúra nepredpisuje celý IDP control plane. Custom actions a p
 
 ## 24. Connected incident `GITOPS-PAY-62`
 
+Incident sequence treba čítať ako päť partial outcomes, nie jeden dokončený task. Každý step zmenil iný system a posledný portal status nevykonal read-back ani nečakal na downstream acceptance.
+
+Preto sa jednotlivé steps nižšie popisujú podľa authority a chýbajúceho closure-u. Ich lokálny úspech nevytvoril usable production capability a retry navyše nebol viazaný na rovnaký resource graph.
+
 LaunchPad workflow treba analyzovať ako distributed operation, ktorej UI task log zachytil iba skoré side effects. Každý vykonaný step vytvoril state v inom authoritative systeme, ale portal nemal persisted resource IDs a completion oracle, ktorý by ich spojil s Flux runtime a business canary.
 
 Repository a catalog creation boli úspešné local outcomes, no direct ConfigMap write a promotion PR zároveň zaviedli hidden authority a ešte nepreukázali usable production capability. Označenie `Completed` preto bolo false-success verdictom, nie iba nepresným textom v UI.
@@ -685,11 +689,11 @@ choose payments-service template
 
 Actual workflow:
 
-1. vytvoril repository;
-2. zapísal catalog entity;
-3. vytvoril shared cluster ConfigMap `launchpad-runtime`;
-4. otvoril promotion PR;
-5. po úspešnej GitHub API odpovedi označil task `Completed`.
+1. **Repository create uspel** — source identity vznikla, ale workflow ešte nemal runtime, secrets, promotion ani business evidence.
+2. **Catalog projection vznikla** — metadata tvrdili existenciu service-u skôr, než authoritative execution systems preukázali usable capability.
+3. **Portal priamo vytvoril shared ConfigMap** — LaunchPad sa stal hidden production desired-state writerom mimo Git a tenant-scoped platform API.
+4. **Promotion proposal vznikol** — PR bol iba request na authority transition a ešte nepreukazoval merge, Flux reconciliation ani runtime generation.
+5. **Portal označil task `Completed` po GitHub API odpovedi** — local API success nahradil durable end-to-end acceptance a skryl pending aj later failed states.
 
 Workflow nemal durable operation beyond portal task log. Pri timeout-e používateľ klikol `Retry`, čím vznikla druhá operation. Repository create bolo náhodou idempotentné podľa názvu, ale ConfigMap update a promotion PR neboli viazané na rovnaký semantic operation.
 

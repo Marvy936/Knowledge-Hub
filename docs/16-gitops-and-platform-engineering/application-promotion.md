@@ -235,35 +235,47 @@ Konfiguráciu treba rozdeliť:
 
 ### Invariant release contract
 
+Invariant fields describe capabilities and compatibility assumptions encoded by the artifact. Ak sa environment overlay od nich odchýli bez explicitného release decisionu, runtime už nevykonáva contract, ktorý prešiel candidate evidence.
+
+Každá položka preto musí zostať versionovaná spolu s artifactom alebo byť overená policy ako compatible range. Promotion nemá dovoliť, aby environment-specific convenience potichu zmenila event, schema, route alebo secret contract.
+
 Fields, ktoré musia zostať spojené s artifactom:
 
-- schema/event compatibility version;
-- required API capabilities;
-- route-policy minimum;
-- secret key names a formats;
-- migration generation;
-- feature-code compatibility.
+- **Schema a event compatibility version** — určuje, ktoré database a message formats candidate dokáže bezpečne čítať a zapisovať počas mixed-version rollout-u.
+- **Required API capabilities** — pomenúvajú endpointy, protocol features a provider semantics, bez ktorých artifact síce môže štartovať, ale nevykoná intended behavior.
+- **Route-policy minimum** — viaže application behavior na najnižšiu podporovanú routing generation a zabraňuje promotion k stale policy, ktorá mení business destination.
+- **Secret key names a formats** — definujú interface medzi workloadom a secret materialization; zmena názvu, encodingu alebo credential formátu vyžaduje coordinated release.
+- **Migration generation** — identifikuje required schema/data transition a určuje, ktoré application versions zostávajú compatible pred a po jej vykonaní.
+- **Feature-code compatibility** — určuje, ktoré feature-flag states sú implementované a bezpečné, aby runtime flag nemohol aktivovať code path neoverený candidate evidence-om.
 
 ### Environment-owned configuration
 
+Environment-owned fields vyjadrujú legitímne differences v capacity, topology a exposure. Ich ownerom je target environment, ale values musia zostať v bounded schema a nesmú meniť invariant application contract.
+
+Promotion review preto nevyžaduje identickú configuration medzi stagingom a production. Vyžaduje vysvetlený delta, policy limits a target-specific evidence tam, kde environment value mení load, dependency alebo security behavior.
+
 Fields legitímne odlišné podľa targetu:
 
-- replicas a resource sizing;
-- regional endpoints;
-- tenant IDs;
-- exposure percentage;
-- alert thresholds;
-- environment-specific secret references.
+- **Replicas a resource sizing** — odrážajú target load a availability tier, no musia rešpektovať application concurrency, startup a dependency-capacity assumptions.
+- **Regional endpoints** — smerujú workload na target-specific dependencies a vyžadujú TLS, authorization, latency a data-residency validation.
+- **Tenant IDs** — viažu deployment na správny business a authorization scope; wrong value môže vytvoriť cross-tenant data alebo billing incident.
+- **Exposure percentage** — určuje rollout cohort a risk budget a musí byť koordinované s observability a automatic abort policy.
+- **Alert thresholds** — môžu byť target-specific podľa trafficu a SLO, ale nesmú skryť release regression zmenou oracle-u počas promotion.
+- **Environment-specific secret references** — odkazujú na target credential authority bez kopírovania plaintextu a musia spĺňať artifactom požadovaný key/version contract.
 
 ### Runtime-owned state
 
+Runtime-owned fields sú observations alebo controller decisions vznikajúce po promotion. Environment Git môže určovať policy pre ich vznik, ale promotion nesmie commitovať volatile hodnoty ako authoritative release input.
+
+Ak by promotion kopírovala runtime state medzi environmentmi, vytvorila by stale feedback loop: current HPA decision, lease alebo provider outcome by sa zmenili na nový intended state bez samostatného business rozhodnutia.
+
 Fields, ktoré nemá promotion prepisovať:
 
-- controller status;
-- HPA current replicas;
-- dynamic leases;
-- queue offsets;
-- provider operation outcomes.
+- **Controller status** — opisuje observed convergence a conditions konkrétneho targetu; je evidence, nie portable desired configuration.
+- **HPA current replicas** — je momentálny autoscaling outcome odvodený z target metrics, nie promotion value, ktorú treba kopírovať zo stagingu.
+- **Dynamic leases** — majú krátku validity a authority v runtime coordination systeme; commitnutie do Git-u by obnovovalo expirovaný operational state.
+- **Queue offsets** — identifikujú consumer progress a patria broker/consumer group authority, nie release manifestu.
+- **Provider operation outcomes** — sú read-back evidence external side effectu a nesmú sa zameniť za desired request alebo opakovať cez promotion.
 
 Chybný overlay môže prepísať invariant field ako environment detail. Promotion validation preto potrebuje schema a policy určujúcu, ktoré fields smú byť overridden.
 
@@ -288,6 +300,10 @@ Promotion record má identifikovať všetky decision-critical nodes. Nemusí pin
 
 ## 11. Database a stateful compatibility
 
+Stateful gate musí modelovať, že code a data sa nevracajú rovnakým mechanizmom. Application digest možno zmeniť novým Git commitom, ale už vykonaná migration, backfill alebo event publication môže zostať nezvratná.
+
+Preto gate skúma reader/writer matrix, rollout order a recovery pre partial outcomes. Jednotlivé otázky nižšie rozhodujú, či je bezpečný rollback, roll-forward alebo iba compensation a data reconciliation.
+
 Stateful promotion je asymetrická. Artifact rollback nemusí obnoviť schema alebo data state.
 
 Bezpečný model:
@@ -303,12 +319,12 @@ expand schema
 
 Promotion gate musí vedieť:
 
-- ktoré application versions čítajú a zapisujú ktoré schema variants;
-- či migration je online, blocking alebo destructive;
-- či rollback old artifactu zostáva compatible;
-- či background jobs alebo event consumers zaostávajú;
-- či regiony/rings používajú mixed versions;
-- ako sa opraví partial alebo unknown migration outcome.
+- **Reader/writer matrix** — mapuje každú active application version na schema variants, ktoré číta a zapisuje, a odhaľuje nekompatibilný mixed-version cohort.
+- **Migration execution class** — online, blocking alebo destructive behavior určuje required capacity, lock budget, maintenance window a rollback boundary.
+- **Rollback compatibility** — overuje, či old code po schema alebo data transitione ešte rozumie novému state-u a nevytvorí ďalšiu korupciu.
+- **Lagging background consumers** — môžu po promotion stále spracúvať old schema/event generation a zmeniť data podľa starého contractu.
+- **Regional a ring version inventory** — ukazuje, kde ešte existujú old readers/writers a kedy možno bezpečne vykonať contract cleanup.
+- **Partial alebo unknown migration recovery** — vyžaduje operation identity, read-back a repair/compensation plan namiesto blind retry potentially non-idempotent migration.
 
 „Staging migration prešla“ nie je dostatočné, ak production dataset, lock duration alebo hidden consumers sú iné.
 
@@ -344,6 +360,10 @@ Spojenie všetkých krokov do jedného bota môže byť efektívne, ale znižuje
 
 ## 13. Promotion graph a concurrency
 
+Promotion graph je state machine nad viacerými evidence a authority branches. Každá edge určuje, ktorý predecessor result je potrebný a každý join musí definovať, či paralelné výsledky patria tej istej candidate generation.
+
+Concurrency preto nie je iba problém Git merge conflictu. Dve syntakticky merge-nuteľné changes môžu vytvoriť semantic release kombináciu, ktorá nikdy neprešla spoločným testom ani approvalom.
+
 Nie každá organizácia má lineárny tok dev → staging → production. Môže existovať:
 
 ```text
@@ -359,13 +379,13 @@ production ring 0
 
 Promotion graph určuje:
 
-- predecessor evidence requirements;
-- parallel branches;
-- merge/join podmienky;
-- environment-specific blockers;
-- expiry dôkazu;
-- rollback propagation;
-- whether a later environment may skip predecessor.
+- **Predecessor evidence requirements** — definujú, ktorý exact environment result a candidate generation oprávňujú vstup do ďalšieho node-u.
+- **Parallel branches** — umožňujú regionálne, performance alebo compliance validation súbežne, ale každý result musí zostať viazaný na rovnaký immutable subject.
+- **Merge a join podmienky** — určujú, či sú required všetky branches, quorum alebo target-specific subset a ako sa invaliduje stale branch result.
+- **Environment-specific blockers** — zachytávajú target outage, capacity, freeze alebo compliance condition bez nesprávneho označenia candidate-u za globálne chybný.
+- **Evidence expiry** — zabraňuje promotion na základe starého resultu po zmene dependencies, policy database alebo target contextu.
+- **Rollback propagation** — určuje, či recovery jedného node-u blokuje alebo vracia downstream rings a ako sa zabráni opätovnému neskorému promotion-u stale candidate-u.
+- **Skip policy** — explicitne rozhoduje, kedy možno environment preskočiť, ktoré equivalent evidence ho nahrádza a kto nesie residual risk.
 
 Dve concurrent promotions do rovnakého targetu môžu vytvoriť lost update. Promotion service potrebuje serialization, merge queue alebo semantic conflict detection nad effective desired-state graphom.
 
@@ -444,16 +464,20 @@ Idempotency key musí identifikovať semantic promotion subject, nie iba HTTP re
 
 ## 17. Rollback, roll-forward a supersession
 
+Recovery decision musí rozložiť release na vrstvy s odlišnou reversibility. Vrátenie image digestu je iba jedna mutation; route, schema, credential, provider registration a data side effects môžu vyžadovať samostatný transition alebo zostať nezvratné.
+
+Nasledujúci inventory slúži na eligibility analysis. Pre každú vrstvu sa určuje current authority, backward compatibility, already-produced side effects a oracle, ktorý potvrdí recovery.
+
 Rollback v GitOps modeli je nový desired-state transition. Musí rozhodnúť, ktoré vrstvy možno vrátiť:
 
-- application artifact;
-- configuration;
-- route/exposure;
-- feature flags;
-- schema;
-- secret generation;
-- provider registration;
-- data side effects.
+- **Application artifact** — možno zvyčajne vrátiť immutable digestom, iba ak old code zostáva compatible s current schema, config a external contracts.
+- **Configuration** — rollback musí obnoviť celý effective values/overlay graph a nesmie ponechať hidden override z novšej release generation.
+- **Route a exposure** — traffic možno presunúť na old cohort, ale sessions, caches a in-flight operations potrebujú drain a cohort-aware verification.
+- **Feature flags** — vypnutie capability môže obmedziť impact, no už vykonané writes alebo events tým nie sú automaticky kompenzované.
+- **Schema** — destructive alebo contracted migration často nie je safely reversible; expand/contract design rozhoduje, či old code možno obnoviť.
+- **Secret generation** — old credential môže byť revoked alebo compromised, takže recovery nesmie slepo obnoviť historical secret reference.
+- **Provider registration** — remote route, webhook alebo credential state má vlastnú authority a môže vyžadovať read-back, compensation alebo new operation.
+- **Data side effects** — settlements, messages a writes sa nevracajú Git commitom; potrebujú idempotent repair, reconciliation alebo business compensation.
 
 Ak schema alebo provider contract už nie je backward-compatible, artifact rollback môže zhoršiť incident. Roll-forward na opravený digest alebo compensation môže byť bezpečnejší.
 
@@ -478,6 +502,10 @@ Dashboard, ktorý zobrazuje iba `production = 9.1`, zahadzuje identity a interme
 
 ## 19. Connected incident `GITOPS-PAY-62`
 
+Incident ukazuje promotion race, v ktorom approval subject zostal statický iba v UI. Shared base a cluster-local substitution sa medzi evidence a merge zmenili, takže final authoritative commit nepredstavoval tested staging generation.
+
+Každý bod nižšie mení inú časť transitive release graphu. Ich spoločným následkom je, že promotion proposal prestal byť fresh a mal byť invalidovaný pred merge-om.
+
 Intended promotion:
 
 ```text
@@ -500,11 +528,11 @@ staging path at commit S1
 
 Kým proposal čakal na approval:
 
-- image automation zmenila shared base z `pay910a` na `pay910b`;
-- LaunchPad zmenil route substitution z `1850` na `1849`;
-- staging evidence `E-778` zostala viazaná na `pay910a/1850`;
-- merge automation rebase-la PR bez re-renderu a revalidácie;
-- production commit preto neidentifikoval skutočný effective configuration graph.
+- **Shared image base sa zmenila** — automation nahradila tested `pay910a` digestom `pay910b`, takže candidate bytes už nezodpovedali staging evidence.
+- **Cluster-local route input sa zmenil** — LaunchPad prepísal substitution na `1849` mimo Git reviewu a z rovnakého source commit-u vytvoril iný effective render.
+- **Evidence zostala viazaná na old subject** — `E-778` dokazovala behavior `pay910a/1850`, nie kombináciu, ktorá sa neskôr dostala do production.
+- **Rebase neinvalidoval approval** — merge automation zmenila target base a transitive content bez final renderu, policy rerunu a nového reviewer decisionu.
+- **Production commit nebol úplný release coordinate** — nepinoval hidden substitution a nedokázal reprodukovať image/route/secret combination vykonanú Fluxom.
 
 Promotion UI tvrdilo:
 
@@ -529,6 +557,10 @@ provider active: pv-43 po rotation
 Promotion decision nebola compare-and-swap transition nad immutable candidate a target base state-om. Approval zostal platný po zmene transitive shared base-u a hidden substitution inputu. Promotion record preto autorizoval subject A, ale merge a Flux vyrenderovali subject B.
 
 ### Redesign
+
+Redesign zavádza immutable release manifest ako jediný promoted subject. Staging aj production referencujú rovnaký contract object a environment PR mení iba jeho reference, takže shared-base alebo hidden substitution drift už nemôžu ticho zmeniť candidate.
+
+Final-merge render, target-base compare-and-swap a runtime generation endpoint uzatvárajú tri rozdielne races: zmenu Git graphu, zmenu target base-u a rozdiel medzi desired a actually loaded generation.
 
 ```text
 candidate release manifest R-910a
@@ -573,6 +605,10 @@ Application promotion design je prijatý, keď:
 - second promotion po failed/rolled-back candidate nezdedí stale evidence alebo locks.
 
 ## 21. Troubleshooting flow
+
+Troubleshooting porovnáva identity v poradí, v akom release získavala authority a bola materializovaná. Prvá odlišná generation ukazuje, či ide o stale evidence, proposal race, controller resolution, runtime rollout alebo business exposure failure.
+
+Recovery vytvorí nový authoritative transition, nie edit historického promotion recordu. Po oprave sa opakuje final render, controller reconciliation aj business canary a second promotion musí prejsť bez zdedených stale approvals alebo locks.
 
 ```text
 Production nebeží na tom, čo prešlo stagingom

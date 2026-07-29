@@ -86,12 +86,12 @@ data:
 
 `data` je base64 encoding, ktorý rieši bezpečný transport arbitrary bytes v YAML/JSON. Každý s read accessom ho vie dekódovať. Plaintext Secret v Git-e sa replikuje do:
 
-- local clones a developer backups;
-- pull request diffs a email notifications;
-- CI workspaces, caches a artifacts;
-- search indexov;
-- Git object history aj po odstránení z current branch;
-- forks, mirrors a audit exports.
+- **Local clones a developer backups** — kopírujú secret bytes mimo central repository controls a môžu zostať na unmanaged diskoch aj po odstránení current file-u.
+- **Pull request diffs a notifications** — distribuujú value reviewerom, botom a email systems, ktoré majú vlastnú retention a access policy.
+- **CI workspaces, caches a artifacts** — môžu plaintext uložiť na runner disk alebo do dlhodobo dostupného artifact store-u s širším reader scope-om.
+- **Search indexes** — extrahujú text pre full-text query a môžu sprístupniť secret actorom, ktorí nemajú priamy clone access.
+- **Git object history** — zachováva blob v reachable alebo reflog/mirror history aj po odstránení z current tree-u, takže bežný follow-up commit exposure neuzatvorí.
+- **Forks, mirrors a audit exports** — vytvárajú ďalšie administratívne domains, v ktorých sa deletion a access revocation vykonávajú nezávisle.
 
 Repository visibility sama osebe nie je cryptographic control. Private repository znižuje exposure, ale kompromitovaný account, token, runner alebo backup stále odhalí plaintext.
 
@@ -148,17 +148,17 @@ Git ExternalSecret/reference
 
 Výhody:
 
-- plaintext value nemusí byť v Git-e ani encrypted formou;
-- provider môže centralizovať generation, rotation, audit a revocation;
-- short-lived credentials a leases sú prirodzenejšie.
+- **No value payload in Git** — repository drží iba logical provider reference a target mapping, takže compromise Git readera priamo neodhalí credential bytes.
+- **Central provider authority** — provider priraďuje versions, vykonáva rotation a revocation a produkuje audit events nad jedným authoritative lifecycle-om.
+- **Short-lived credentials a leases** — môžu byť generované alebo obnovované providerom bez commitu každej ephemeral value do Git history.
 
 Riziká:
 
-- provider availability a IAM sú runtime dependencies;
-- broad SecretStore môže umožniť tenantovi načítať cudzie secrets;
-- reference na mutable alias môže meniť effective value bez Git commit-u;
-- target Secret a consumer môžu zostať stale;
-- provider restore alebo version deletion môže znemožniť rollback.
+- **Provider availability a IAM dependency** — reconciliation alebo workload refresh zlyhá, ak external API, network, workload identity alebo authorization nie sú dostupné.
+- **Broad SecretStore scope** — tenant-controlled ExternalSecret môže zneužiť shared provider role na čítanie pathu mimo svojho namespace alebo business boundary.
+- **Mutable provider alias** — alias ako `current` môže resolve-nuť novú version bez Git change-u, takže exact effective generation musí byť zachytená v runtime evidence.
+- **Stale materialization alebo consumer** — provider už môže mať new version, zatiaľ čo controller, Kubernetes Secret alebo application cache stále používajú old value.
+- **Provider retention boundary** — deleted alebo unavailable historical version znamená, že Git reference sama nedokáže obnoviť predchádzajúcu credential generation.
 
 Oba modely môžu byť správne. Voľba závisí od authority, availability, rotation cadence, audit requirements a blast radius.
 
@@ -246,14 +246,14 @@ source-controller artifact
 
 Failure modes:
 
-- wrong KMS key alebo encryption context;
-- workload identity trust policy nepovoľuje service account;
-- KMS outage/throttling;
-- encrypted regex nechala citlivý field plaintext;
-- key policy povoľuje príliš broad decrypt;
-- shared global credential obchádza tenant boundary;
-- controller log alebo debug output vypíše decrypted content;
-- decrypted Secret sa aplikuje do wrong namespace.
+- **Wrong KMS key alebo encryption context** — ciphertext je validný, ale cryptographic authorization subject nezodpovedá key policy alebo additional authenticated contextu.
+- **Workload-identity trust mismatch** — projected token je vydaný, no cloud role odmietne namespace, service account, issuer alebo audience a controller data key neotvorí.
+- **KMS outage alebo throttling** — source artifact zostáva dostupný, ale render nemôže vzniknúť a aggressive retry môže zosilniť provider pressure.
+- **Incomplete encrypted-field selection** — nesprávny `encrypted_regex` ponechá citlivú value čitateľnú v Git-e aj napriek tomu, že file obsahuje SOPS metadata.
+- **Broad decrypt policy** — shared controller alebo compromised tenant môže otvoriť ciphertext iného environmentu, hoci Kubernetes target RBAC vyzerá oddelene.
+- **Shared global private credential** — jeden age key alebo static cloud key spája všetky tenants do jedného compromise a rotation blast radiusu.
+- **Plaintext logging** — decryption alebo template error môže preniesť secret z transient memory do persistent logs, support bundles a alert systems.
+- **Wrong target namespace** — cryptographically správna value sa materializuje do nesprávneho authorization domainu a stáva sa čitateľnou cudzím workloads.
 
 Decryption identity má byť chápaná ako production secret-reader principal, nie ako technický detail controllera.
 
@@ -353,12 +353,12 @@ Target policy rozhoduje, kto vlastní Kubernetes Secret a čo sa stane pri delet
 
 Questions:
 
-- vytvorí operator celý Secret alebo merge-ne iba vybrané keys?
-- odstráni sa target pri delete ExternalSecretu?
-- smie iný controller meniť rovnaké keys?
-- čo sa stane, ak provider property zmizne?
-- má stale target zostať dostupný alebo sa odstrániť?
-- je target immutable?
+- **Whole-object create verzus key merge** — whole-object ownership zjednodušuje convergence, kým merge umožní shared target, ale zavádza per-key writers a conflict semantics.
+- **Deletion coupling** — owner-based deletion odstráni credential spolu s declaration, zatiaľ čo orphan policy zachová availability za cenu stale secret debt-u.
+- **Multiple key writers** — ak ďalší controller alebo human mení rovnaký key, systém potrebuje precedence contract; inak target oscilluje alebo silently overwrituje values.
+- **Missing provider property** — policy musí rozhodnúť medzi fail-closed deletion/invalid state a zachovaním last-known value s explicitným stale warningom.
+- **Stale-target behavior** — availability a security trade-off musí byť explicitný, pretože ponechaná revoked credential zlyháva inak než okamžite odstránený Secret.
+- **Target immutability** — immutable Secret vyžaduje replace/new-name rollout namiesto in-place update-u a mení rotation aj cleanup ordering.
 
 Owner reference a creation policy môžu uľahčiť cleanup, ale accidental prune ExternalSecretu môže následne odstrániť production Secret. `Orphan` znižuje delete coupling, ale môže ponechať stale credential bez ownera. Potrebný je explicitný decommission a failure policy.
 
@@ -396,12 +396,12 @@ Kubernetes ServiceAccount
 
 Workload identity znižuje potrebu static keys a umožňuje viazať access na namespace/service account. Stále potrebuje:
 
-- issuer a audience validation;
-- trust policy bez wildcardov;
-- provider resource restrictions;
-- token/credential TTL;
-- audit correlation;
-- fail-closed behavior pri identity error.
+- **Issuer a audience validation** — cloud provider musí akceptovať token iba od trusted cluster issueru a pre intended federation endpoint, nie generic bearer token.
+- **Subject-bound trust policy** — namespace a service-account claims sa viažu na konkrétny controller/tenant a wildcard nesmie rozšíriť assume-role na celý cluster.
+- **Provider resource restrictions** — role smie decryptovať alebo čítať iba environment/tenant key a secret paths potrebné pre daný reconciliation subject.
+- **Short token a credential TTL** — obmedzuje usefulness ukradnutej identity a núti pravidelné reauthorization namiesto permanentného bootstrap secretu.
+- **Audit correlation** — cloud request ID, assumed role session a Kubernetes service account sa musia spojiť s Flux/ExternalSecret operation identity.
+- **Fail-closed identity error** — controller nesmie pri federation failure použiť shared fallback key alebo stale broad credential, ktorý obíde tenant boundary.
 
 Ak controller beží ako cluster-admin a používa jednu cloud role pre všetky tenants, Kubernetes RBAC segmentation sama neochráni provider secrets.
 
@@ -413,14 +413,14 @@ Jednotlivé controls preto chránia odlišné paths: RBAC chráni API, etcd encr
 
 Po decryption alebo fetchi sa plaintext často uloží do Kubernetes Secretu. Ochrana potom závisí od:
 
-- API authorization a RBAC;
-- admission a namespace isolation;
-- etcd encryption at rest;
-- control-plane backups;
-- audit logs;
-- node/kubelet access;
-- container runtime a process isolation;
-- debug, exec a ephemeral-container permissions.
+- **API authorization a RBAC** — obmedzujú principals, ktoré môžu list/get/watch Secret objects alebo ich získavať nepriamo cez Pod create a service-account bindings.
+- **Admission a namespace isolation** — zabraňujú materialization do wrong targetu a presadzujú allowed Secret types, labels, mounts a workload relationships.
+- **etcd encryption at rest** — chráni persisted control-plane bytes a backups pred raw storage readerom, ale nie pred legitímnym API server decryptom.
+- **Control-plane backups** — obsahujú historical plaintext-equivalent secret data a potrebujú encryption, access, retention a secure disposal ako production secret store.
+- **Audit logs** — majú zaznamenať metadata o Secret access-e bez request/response bodies, ktoré by samy vytvorili ďalší plaintext archive.
+- **Node a kubelet access** — privileged node actor môže čítať mounted Secret alebo container state, preto scheduling a node administration patria do confidentiality modelu.
+- **Container runtime a process isolation** — chránia environment, files a memory pred susedným workloadom, debug toolingom a host compromise-om.
+- **Debug, exec a ephemeral-container permissions** — môžu obísť application API a priamo čítať mounted files alebo process environment, preto sú secret-reader privileges.
 
 Kubernetes Secret nie je automaticky end-to-end encrypted pred cluster administrators alebo workload node boundary. Encryption at rest chráni etcd bytes, ale API server ich legitímne dešifruje oprávnenému readerovi.
 
@@ -496,24 +496,24 @@ Secret system potrebuje evidence bez plaintextu.
 
 Bezpečné fields:
 
-- secret logical ID a version/generation;
-- ciphertext digest;
-- provider object ARN/path hash;
-- controller operation ID;
-- refresh timestamp a result;
-- target Secret resourceVersion;
-- workload loaded generation;
-- revocation status;
-- KMS key ID a audit request ID.
+- **Logical secret ID a version/generation** — umožňujú korelovať rotation bez zverejnenia value a musia pochádzať z authoritative provider/controller metadata.
+- **Ciphertext digest** — odlišuje encrypted payload generations a dokazuje, ktorý Git blob controller spracoval, no neslúži ako hash plaintextu.
+- **Provider object coordinate alebo bezpečný opaque ID** — identifikuje authority object; path sa má maskovať, ak jeho názov odhaľuje tenant alebo business context.
+- **Controller operation ID** — spája fetch/decrypt/materialize attempt s logs, status conditions a downstream API requestmi.
+- **Refresh timestamp a result** — ukazujú freshness a posledný úspešný/failed provider sync bez tvrdenia, že workload value už načítal.
+- **Target Secret resourceVersion** — dokazuje Kubernetes object update a umožňuje zistiť, ktoré Pods vznikli pred alebo po materialization.
+- **Workload loaded generation** — application endpoint alebo metric potvrdzuje value používanú processom, čo Secret resourceVersion sama nevie.
+- **Revocation status** — provider authority potvrdzuje, či old generation je ešte akceptovaná a či negative test má zlyhať.
+- **KMS key ID a audit request ID** — dokazujú, ktorý cryptographic authority decision otvoril data key a umožňujú incident correlation.
 
 Nebezpečné fields:
 
-- raw values;
-- complete rendered Secret manifests;
-- environment dumps;
-- provider API responses;
-- templating errors obsahujúce secret;
-- debug command history.
+- **Raw values** — nikdy nepatria do logu, diffu ani eventu, pretože observability store by sa stal ďalším neautorizovaným secret managerom.
+- **Complete rendered Secret manifests** — obsahujú všetky data keys a môžu uniknúť cez CI preview, controller debug alebo support export.
+- **Environment dumps** — kopírujú process-loaded secrets spolu s unrelated diagnostics a často sa uchovávajú dlhšie než credential TTL.
+- **Provider API responses** — môžu obsahovať value, lease token alebo sensitive metadata a majú sa parsovať/redactovať pred loggingom.
+- **Templating errors s input contextom** — nesmú serializovať decrypted document alebo substituted value do exception message-u.
+- **Debug command history** — shell, terminal recording a ticket copy môžu zachovať plaintext aj po ukončení incident session.
 
 Redaction musí byť applied pred log persistence. Hash secret value pre correlation môže byť tiež citlivý pri low-entropy secrets a umožniť offline guessing; lepšie je používať provider-assigned version ID.
 
@@ -536,13 +536,13 @@ tenant Git source
 
 Chyby:
 
-- cross-namespace reference na shared decryption Secret;
-- ClusterSecretStore s broad provider role;
-- tenant môže zvoliť arbitrary remote key path;
-- controller používa cluster-wide KMS decrypt;
-- target Secret možno vytvoriť v inom namespace;
-- catalog/portal ukáže secret metadata cudziemu tenantovi;
-- backup alebo support bundle mieša namespaces.
+- **Cross-namespace decryption reference** — tenant môže získať key material alebo controller capability spravovanú v inom trust boundary.
+- **Broad `ClusterSecretStore` role** — namespaced requester môže cez cluster-scoped store čítať provider paths, ktoré Kubernetes namespace policy sama neobmedzuje.
+- **Arbitrary remote key path** — untrusted `remoteRef.key` zmení controller na confused deputy a obíde catalog alebo UI ownership checks.
+- **Cluster-wide KMS decrypt** — compromise jedného controller processu alebo tenant-controlled ciphertextu ohrozuje všetky environment keys.
+- **Cross-tenant target placement** — materializuje plaintext tam, kde ho môžu čítať cudzie service accounts alebo workloads.
+- **Metadata disclosure v portali** — provider paths, versions a ownership môžu odhaliť topology alebo business relationships aj bez plaintext value.
+- **Mixed-tenant backup alebo support bundle** — export obíde runtime namespace boundaries a vytvorí shared reader/retention domain.
 
 Least privilege musí byť enforced na provider boundary, nie iba v UI alebo Git reviewe.
 
@@ -562,11 +562,11 @@ Recovery proof nekončí pri úspešnom decrypt-e. Test workload musí dostať m
 
 Potrebné sú:
 
-- Git history;
-- decryption key/KMS availability;
-- controller manifests a identity trust;
-- target cluster bootstrap;
-- test, že historical required payload sa dá decryptovať.
+- **Git history** — musí uchovať required ciphertext generation a repository trust evidence; samotný current branch nemusí obsahovať rollback candidate.
+- **Decryption key alebo KMS availability** — recovery cluster potrebuje authorization otvoriť historical data key bez použitia broad emergency credentialu.
+- **Controller manifests a identity trust** — obnovujú exact decryption implementation, service account a cloud federation contract, ktoré ciphertext spracujú.
+- **Target cluster bootstrap** — musí bezpečne vytvoriť namespaces, RBAC, KMS trust a Git source skôr, než sa plaintext materializuje.
+- **Functional decryption a consumer test** — overuje nielen cryptographic open, ale aj target Secret, workload load a úspešnú autentizáciu expected version.
 
 ### External provider
 
@@ -576,11 +576,11 @@ Provider audit musí potvrdiť, či restore candidate je ešte validný. Obnoven
 
 Potrebné sú:
 
-- provider backup/version retention;
-- IAM a workload identity restore;
-- SecretStore/ExternalSecret desired state;
-- target Secret reconstruction;
-- decision, či restored old credential je ešte validná.
+- **Provider backup a version retention** — určujú, či logical reference ešte resolve-ne required generation a či provider dokáže obnoviť metadata a value.
+- **IAM a workload-identity restore** — obnovujú subject-bound provider read bez static break-glass key-u alebo cross-tenant wildcardu.
+- **`SecretStore` a `ExternalSecret` desired state** — rekonštruujú provider, authentication, property, refresh a target ownership contract.
+- **Target Secret reconstruction** — musí vytvoriť správny namespace/name/schema a spustiť consumer reload podľa application consumption mode.
+- **Validity decision pre historical credential** — provider a incident policy určia, či old version možno používať, zostáva revoked alebo sa musí nahradiť new generation.
 
 ### Sealed Secrets
 
@@ -589,6 +589,10 @@ Potrebný je controller private key backup a secure restore. Nový cluster s nov
 DR test nemá vypisovať plaintext. Má overiť, že test workload získa credential, autentizuje sa a audit koreluje expected version.
 
 ## 22. Connected incident `GITOPS-PAY-62`
+
+Secret incident je writer a generation race, nie iba nesprávne načasovaný restart. Provider, Git ciphertext, Kubernetes Secret a running process mali štyri odlišné states a manual patch zmenil iba jednu z nich.
+
+Jednotlivé body nižšie vysvetľujú, ako shared decryption authority a chýbajúci rollout/reload contract zabránili bezpečnej rotation. Flux potom správne obnovil starý desired payload, čím emergency patch zvrátil.
 
 Secret contract mal byť:
 
@@ -605,14 +609,14 @@ SOPS-encrypted provider credential pv-42
 
 Skutočnosť:
 
-- ciphertext bol zašifrovaný pre shared age recipient;
-- private age key bol uložený v `flux-system/sops-age` a broad kustomize-controller ho používal pre staging aj production;
-- production Secret obsahoval `pv-42`;
-- emergency operator vytvoril `pv-43` a zmenil Secret, ale neexistoval rollout trigger;
-- running Pods používali environment variable snapshot `pv-42`;
-- provider revokoval `pv-42` pred consumer convergence;
-- Flux health check videl healthy Deployment a existujúci Secret;
-- LaunchPad nemal loaded-secret-generation signal.
+- **Shared age recipient** — rovnaký private key mohol otvoriť staging aj production payloady a vytvoril spoločný compromise a rotation boundary.
+- **Broad controller decryption identity** — jeden controller Secret a service account obchádzali environment isolation pri každom renderi.
+- **Materialized target zostal na `pv-42`** — Kubernetes object zodpovedal old Git desired state-u pred emergency rotation.
+- **Manual target patch bez authoritative transitionu** — `pv-43` sa objavil iba v live objecte a controller ho pri ďalšom reconcile považoval za drift.
+- **Pods držali startup snapshot `pv-42`** — target Secret update nemenil process environment a bez rollout-u nevznikla consumer convergence.
+- **Predčasná provider revocation** — old credential prestala fungovať skôr, než telemetry potvrdila, že všetky Pods používajú `pv-43`.
+- **Incomplete health oracle** — readiness dokazovala available Pods a Secret object, nie loaded credential generation ani provider authentication.
+- **Chýbajúca generation telemetry** — portal nemohol rozlíšiť materialized `pv-43` od process-loaded `pv-42` a oznámil false success.
 
 State:
 
