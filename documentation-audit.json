@@ -3711,6 +3711,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "title": "Operational readiness",
+      "words": 2055,
+      "headings": 58,
+      "sections": 58,
+      "findings": 160,
+      "critical": 56,
+      "high": 73,
+      "medium": 11,
+      "low": 20,
+      "score": 1303,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
       "title": "Reliability, availability a durability",
       "words": 1880,
@@ -205868,6 +205882,1446 @@
       "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
       "section": "Globálne silence počas incidentu",
       "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "1. Readiness subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "1. Readiness subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service alebo capability;`, `change/launch type;`, `release, configuration a infrastructure generation;`, `environment, Region a tenant scope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "1. Readiness subject",
+      "line": 19,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "1. Readiness subject",
+      "line": 19,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "1. Readiness subject",
+      "line": 19,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "1. Readiness subject",
+      "line": 19,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `SLA`, `DR`, `scope`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "2. Launch readiness, release readiness a operational readiness",
+      "line": 55,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Release readiness",
+      "line": 57,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Launch readiness",
+      "line": 61,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odhaliť production gaps pred customer impactom;`, `priradiť ownership a dependencies;`, `vyžadovať mechanistické evidence;`, `rozlíšiť blocking a nonblocking risk;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "3. Production Readiness Review",
+      "line": 77,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "4. Readiness dimensions",
+      "line": 93,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Architecture a dependencies",
+      "line": 97,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Architecture a dependencies",
+      "line": 97,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Architecture a dependencies",
+      "line": 97,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Architecture a dependencies",
+      "line": 97,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current diagram a data/control paths;`, `synchronous/asynchronous dependencies;`, `failure domains a shared dependencies;`, `external providers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Architecture a dependencies",
+      "line": 97,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Reliability a service levels",
+      "line": 106,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Reliability a service levels",
+      "line": 106,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Reliability a service levels",
+      "line": 106,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Reliability a service levels",
+      "line": 106,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `critical journeys;`, `SLI/SLO/SLA;`, `error-budget policy;`, `partial/cohort failure semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Reliability a service levels",
+      "line": 106,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Reliability a service levels",
+      "line": 106,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `SLA`, `policy`, `failure semantics`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Capacity a performance",
+      "line": 115,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Capacity a performance",
+      "line": 115,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Capacity a performance",
+      "line": 115,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Capacity a performance",
+      "line": 115,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical demand a amplification;`, `steady, burst, rollout, failure a recovery capacity;`, `quotas a acquisition lead time;`, `load/soak/failover evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Capacity a performance",
+      "line": 115,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Observability a alerting",
+      "line": 123,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Observability a alerting",
+      "line": 123,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Observability a alerting",
+      "line": 123,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Observability a alerting",
+      "line": 123,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business-outcome telemetry;`, `component/resource signals;`, `dashboards a investigation paths;`, `page vs ticket eligibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Observability a alerting",
+      "line": 123,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Observability a alerting",
+      "line": 123,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Incident, on-call a runbooks",
+      "line": 132,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Incident, on-call a runbooks",
+      "line": 132,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Incident, on-call a runbooks",
+      "line": 132,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Incident, on-call a runbooks",
+      "line": 132,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service ownership;`, `primary/secondary rotation;`, `access a escalation;`, `declaration criteria;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Incident, on-call a runbooks",
+      "line": 132,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Data, backup a recovery",
+      "line": 142,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Data, backup a recovery",
+      "line": 142,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Data, backup a recovery",
+      "line": 142,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Data, backup a recovery",
+      "line": 142,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `acknowledgement/durability contract;`, `consistency groups;`, `backup coverage a clean points;`, `tested restore;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Data, backup a recovery",
+      "line": 142,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Data, backup a recovery",
+      "line": 142,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DR`, `durability`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Security a compliance",
+      "line": 152,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Security a compliance",
+      "line": 152,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Security a compliance",
+      "line": 152,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Security a compliance",
+      "line": 152,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity/authorization;`, `secrets, keys a certificates;`, `data classification;`, `threat model;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Security a compliance",
+      "line": 152,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Security a compliance",
+      "line": 152,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Change a release management",
+      "line": 162,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Change a release management",
+      "line": 162,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Change a release management",
+      "line": 162,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Change a release management",
+      "line": 162,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact a provenance;`, `staged rollout/canary;`, `schema/config compatibility;`, `rollback/roll-forward;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Change a release management",
+      "line": 162,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations a lifecycle",
+      "line": 171,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations a lifecycle",
+      "line": 171,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations a lifecycle",
+      "line": 171,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations a lifecycle",
+      "line": 171,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provisioning/decommissioning;`, `patch/upgrade ownership;`, `cost a quota monitoring;`, `dependency/version lifecycle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations a lifecycle",
+      "line": 171,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations a lifecycle",
+      "line": 171,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable test/run/experiment result;`, `current production read-back;`, `configuration/policy generation;`, `restore/failover exercise;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "5. Evidence, not answers",
+      "line": 181,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "6. Configured, loaded a effective readiness",
+      "line": 216,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Designed",
+      "line": 220,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Configured",
+      "line": 224,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Loaded alebo activated",
+      "line": 228,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Effective",
+      "line": 232,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Rehearsed",
+      "line": 236,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "7. Blockers, gaps a recommendations",
+      "line": 253,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Blocking",
+      "line": 257,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Conditional blocker",
+      "line": 261,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "High-priority gap",
+      "line": 265,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Improvement",
+      "line": 269,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "8. Exception lifecycle",
+      "line": 279,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "8. Exception lifecycle",
+      "line": 279,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact finding a missing mechanismus;`, `affected subject/scope;`, `business justification;`, `quantified risk;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "8. Exception lifecycle",
+      "line": 279,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "8. Exception lifecycle",
+      "line": 279,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "9. Readiness state machine",
+      "line": 304,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "9. Readiness state machine",
+      "line": 304,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "9. Readiness state machine",
+      "line": 304,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `blocking findings closed;`, `exceptions valid;`, `launch cohort a duration bounded;`, `on-call a incident channels active;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "9. Readiness state machine",
+      "line": 304,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "10. Handover a ownership",
+      "line": 334,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "10. Handover a ownership",
+      "line": 334,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service/capability scope;`, `architecture/dependencies;`, `SLO a error budget;`, `dashboards/alerts;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "10. Handover a ownership",
+      "line": 334,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "10. Handover a ownership",
+      "line": 334,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "10. Handover a ownership",
+      "line": 334,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "10. Handover a ownership",
+      "line": 334,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `DR`, `scope`, `error budget`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "11. Launch gate a staged transition",
+      "line": 357,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "11. Launch gate a staged transition",
+      "line": 357,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "11. Launch gate a staged transition",
+      "line": 357,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entry criteria;`, `exact cohort;`, `success a abort criteria;`, `observation duration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "11. Launch gate a staged transition",
+      "line": 357,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normal releases a configuration changes;`, `capacity growth a quota limits;`, `certificate/key/secret rotation;`, `dependency version changes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "12. Day-2 readiness",
+      "line": 384,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "13. Re-readiness triggers",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "13. Re-readiness triggers",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nová Region alebo environment;`, `major architecture/topology change;`, `nový critical dependency;`, `SLO/SLA alebo business criticality change;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "13. Re-readiness triggers",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "13. Re-readiness triggers",
+      "line": 412,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "13. Re-readiness triggers",
+      "line": 412,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `SLA`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "14. Worked readiness failure pred SRE-PAY-55",
+      "line": 432,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 64 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "14. Worked readiness failure pred SRE-PAY-55",
+      "line": 432,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CH-PAY-41 testoval local Pod replacement, nie regional recovery;`, `KMS ticket nepotvrdzoval effective decrypt grant;`, `provider allowlist nebola implementovaná ani canary-tested;`, `runbook bol pre broker v3, production používala v4;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "14. Worked readiness failure pred SRE-PAY-55",
+      "line": 432,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "14. Worked readiness failure pred SRE-PAY-55",
+      "line": 432,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "15. Evidence-preserving response",
+      "line": 467,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "15. Evidence-preserving response",
+      "line": 467,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ORR-PAY-55-v2 snapshot a reviewer comments;`, `evidence links a ich pôvodné generations;`, `open tickets a due dates;`, `launch decision a exceptions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "15. Evidence-preserving response",
+      "line": 467,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "15. Evidence-preserving response",
+      "line": 467,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "15. Evidence-preserving response",
+      "line": 467,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ORR-PAY-55-`, `CH-PAY-41`, `DR`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "16. Authoritative readiness redesign",
+      "line": 482,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Mandatory blocking gates",
+      "line": 486,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Mandatory blocking gates",
+      "line": 486,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Mandatory blocking gates",
+      "line": 486,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Mandatory blocking gates",
+      "line": 486,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business SLI/SLO a standby completion oracle;`, `tested KMS/secret/certificate paths;`, `provider egress/callback canary;`, `current broker checkpoint a fencing generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Mandatory blocking gates",
+      "line": 486,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Mandatory blocking gates",
+      "line": 486,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `KMS`, `DR`, `RPO`, `RTO`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Evidence semantics",
+      "line": 498,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Evidence semantics",
+      "line": 498,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Acceptance",
+      "line": 520,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architecture a complete dependency graph sú current;`, `user journeys, SLO/SLA a error-budget policy sú operationalized;`, `capacity, quotas, overload a recovery headroom sú testované;`, `observability používa business outcomes a má coverage verdict;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "17. Operational-readiness acceptance verdict",
+      "line": 524,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `SLA`, `RPO`, `RTO`, `DR`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "18. Troubleshooting weak readiness procesu",
+      "line": 547,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `early SRE/operations engagement;`, `service-specific PRR template;`, `immutable evidence inventory;`, `mandatory blocker taxonomy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "19. Earlier controls",
+      "line": 564,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRE`, `PRR`, `DR`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Checklist = readiness",
+      "line": 582,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Operations podpísalo",
+      "line": 586,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Ticket je control",
+      "line": 590,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Conditional green bez podmienky",
+      "line": 594,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Launch prešiel, service je ready",
+      "line": 598,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Všetko je blocker",
+      "line": 602,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Nič nie je blocker kvôli deadline-u",
+      "line": 606,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Starý game day platí navždy",
+      "line": 610,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/operational-readiness.md",
+      "section": "Dokumentácia doplnená",
+      "line": 614,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
