@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **303**
+- Audited authoritative articles: **302**
 - Audited conceptual sections: **12272**
-- Total words: **718,979**
+- Total words: **718,964**
 - Findings: **25514** (critical 7591, high 8785, medium 3219, low 5919)
-- File grades: A 1, B 0, C 2, D 300
+- File grades: A 0, B 0, C 2, D 300
 
 ## Interpretation
 
@@ -325,7 +325,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 53 | 0 | 3 | 3 | 15 | 3765 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
-| A | 0 | 0 | 0 | 0 | 0 | 15 | `docs/review-trigger-third-gitops-supply-chain.md` |
 
 ## Critical and high findings
 
