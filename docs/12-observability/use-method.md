@@ -1,557 +1,435 @@
 # USE method
 
-USE method je resource-oriented performance metodika vytvorená Brendanom Greggom. Pre každý relevantný resource systematicky preveruje **Utilization**, **Saturation** a **Errors**. Cieľom je rýchlo a úplne prejsť resource model bez náhodného klikania cez dostupné grafy.
+USE method je resource-oriented performance metodika. Pre každý relevantný bounded resource skúma **Utilization**, **Saturation** a **Errors**. Jej sila nie je v troch skratkách, ale v discipline: najprv vytvoriť úplný resource inventory, potom merať resource na jeho skutočnej enforcement boundary a až následne rozhodnúť, či je príčinou user-facing degradácie.
 
-USE je primárne metodika na hľadanie resource bottlenecks a failures. Nenahrádza workload characterization, RED, distributed tracing, application profiling ani business-level monitoring.
+USE nenahrádza Golden Signals, RED, traces, logs ani profiles. Golden Signals a RED ukážu, ktorá služba a operácia degraduje. USE vysvetlí, ktorý resource nevie prácu obslúžiť a akým mechanizmom vzniká čakanie, throttling alebo failure.
 
-## 1. Mentálny model
-
-Pre každý resource sa opýtaj:
+## 1. Dominantný lifecycle
 
 ```text
-ako veľmi je resource používaný?          → Utilization
-koľko práce čaká alebo sa nevie obslúžiť? → Saturation
-aké failures resource hlási?              → Errors
+user alebo business symptóm
+→ exact service/operation a affected cohort
+→ component a dependency path
+→ complete resource inventory
+→ exact resource subject a enforcement boundary
+→ effective capacity/limit generation
+→ utilization observation
+→ saturation observation
+→ resource error observation
+→ competing resource hypotheses
+→ discriminating evidence
+→ containment alebo bounded capacity change
+→ authoritative recovery
+→ user/business a adjacent-cohort validation
+→ resource inventory a observability closure
 ```
 
-Resource inventory je dôležitejší než zoznam existujúcich metrics.
+USE sa nezačína grafom CPU. Začína otázkou: **ktoré obmedzené resources musia úspešne obslúžiť affected operation?**
 
-## 2. Resource
+## 2. Exact resource-analysis subject
 
-Resource je obmedzená kapacita, ktorá vykonáva alebo podporuje prácu.
+Resource finding má byť viazaný na presný subject. Pre Atlas Payments používame:
+
+```text
+resource-analysis subject: USE-PAY-44
+business capability: CAP-PAY-42
+observability subject: OBS-PAY-44
+operation: final settlement
+release: payments-api 7.20.0
+account/Region: 100000000042 / eu-central-1
+cohort: enterprise settlements v eu-central-1b
+analysis window: 2026-07-29T08:10Z–08:35Z
+resource: provider HTTP connection pool
+resource owner: provider-adapter process
+resource scope: jeden ECS task a provider host
+configured generation: POOL-CFG-64
+loaded/effective limit: 8 connections per task
+caller concurrency: 32 settlement workers per task
+```
+
+Bez tohto subjectu možno zmiešať host CPU, container limit, task-local pool, service-wide provider quota a inú AZ. Všetky sú „capacity“, ale majú inú identity, ownera, limit a recovery.
+
+## 3. Resource inventory pred metrics inventory
+
+Resource je bounded capacity alebo service mechanism, ktorý vykonáva, prenáša, ukladá alebo povoľuje prácu. Inventory pre jednu request path môže obsahovať:
+
+```text
+client concurrency a retry budget
+→ load balancer connections
+→ task CPU quota a memory limit
+→ worker/thread pool
+→ provider connection pool
+→ DNS/TLS socket resources
+→ NAT/conntrack/port capacity
+→ provider request quota
+→ database connection pool
+→ storage IOPS/throughput
+```
+
+Ak dashboard nemá metric pre provider connection pool, resource neprestáva existovať. Vzniká **known observability gap**, nie dôkaz, že pool nie je saturovaný.
+
+Resource inventory má pre každú položku evidovať:
+
+- logical owner a runtime owner;
+- scope: process, container, Node, AZ, Region, account alebo provider;
+- effective capacity a spôsob jej zmeny;
+- utilization, saturation a error observations;
+- resolution a aggregation boundary;
+- failure behavior po vyčerpaní;
+- relation k user outcome-u;
+- recovery a validation path.
+
+## 4. Enforcement boundary a effective capacity
+
+Nominálna capacity nie je vždy capacity dostupná workloadu.
+
+```text
+nominálna kapacita
+− reservations a unavailable members
+− policy/quota limits
+− topology a failover constraints
+− per-process alebo per-tenant limits
+− maintenance a unhealthy capacity
+= effective capacity
+```
 
 Príklady:
 
-- CPU execution capacity,
-- memory capacity,
-- disk alebo block-device I/O,
-- network interface a link,
-- filesystem space a inodes,
-- process/thread pool,
-- connection pool,
-- file descriptors,
-- queue workers,
-- database connections,
-- API quota,
-- Kubernetes Node allocatable capacity,
-- cloud subnet IP addresses,
-- GPU compute a memory,
-- NAT connection/port capacity.
+- host má 32 vCPU, ale container má quota 4 vCPU;
+- database povoľuje 2 000 sessions, ale application pool má maximum 80;
+- subnet má voľné adresy, ale iba jedna AZ má vhodný placement;
+- provider má account quota 1 000 requests/s, ale tenant-specific limit je 200;
+- konfigurácia deklaruje 64 connections, ale loaded library používa default 8.
 
-USE začína resource mapou. Ak resource nie je v checkliste, môže sa úplne prehliadnuť.
+Meranie na nesprávnej boundary vytvára false reassurance. Host CPU 35 % nevylučuje container throttling. Service-wide pool utilization 50 % nevylučuje jeden task na 100 %.
 
-## 3. Utilization
+## 5. Utilization
 
-Utilization vyjadruje, ako veľká časť dostupnej kapacity je používaná v sledovanom intervale.
+Utilization vyjadruje, aká časť effective capacity bola používaná v definovanom intervale.
 
-Príklady:
+Môže byť:
 
-- percento času CPU vykonáva prácu,
-- disk busy time,
-- network throughput voči link capacity,
-- memory used voči usable capacity,
-- active connections voči pool limitu,
-- GPU compute utilization,
-- used subnet IPs voči available IPs.
+- časová: percento času CPU alebo device vykonával prácu;
+- kapacitná: active connections / effective pool limit;
+- throughputová: bytes/s alebo IOPS voči podporovanej hranici;
+- populačná: used IPs, file descriptors alebo memory voči limitu.
 
-### Time-based a capacity-based utilization
+Definícia musí byť explicitná. `80 % CPU`, `80 % memory` a `80 % connection pool` nemajú rovnakú semantiku.
 
-Utilization môže znamenať:
+Vysoká utilization sama osebe nie je incident. Batch job môže legitímne používať 100 % CPU. Connection pool môže byť plne využitý bez waiters. Rozhodujúce je, či vzniká čakanie, rejection, throttling alebo user impact.
 
-- percento času resource pracoval,
-- percento obsadenej kapacity,
-- throughput voči maximálnemu výkonu,
-- concurrency voči limitu.
+### Aggregation risk
 
-Definícia musí byť explicitná. `CPU utilization 80 %` a `memory utilization 80 %` nemajú rovnakú interpretáciu.
+Priemer môže skryť:
 
-### Average utilization
+- jeden hot core alebo serialized worker;
+- jeden task s nesprávnym configom;
+- jeden shard alebo AZ;
+- burst kratší než query window;
+- nerovnomerné traffic distribution;
+- failover cohort s nižšou capacity.
 
-Priemerná utilization môže maskovať:
+Preto sa utilization analyzuje po exact resource instance alebo bounded cohort-e pred service-wide agregáciou.
 
-- hot core,
-- hot disk,
-- jednu preťaženú AZ,
-- jeden shard,
-- jeden network queue,
-- krátke spikes,
-- uneven load distribution.
+## 6. Saturation
 
-Sleduj distribution podľa jednotlivých resources a vhodný časový interval.
+Saturation je extra práca, ktorú resource nevie okamžite obslúžiť. Prejavuje sa ako:
 
-### Vysoká utilization nie je automaticky chyba
+- queue length alebo oldest-item age;
+- wait time alebo acquire latency;
+- runnable, blocked alebo throttled tasks;
+- connection waiters;
+- allocation/reclaim stall;
+- packet drops alebo retransmissions;
+- request rejection alebo quota throttling;
+- scheduler delay;
+- backlog rastúci rýchlejšie než drain rate.
 
-Resource môže byť efektívne využitý bez user impactu.
+Saturation je často priamejší mechanizmus latency než utilization. Resource môže mať nízky dlhodobý priemer a napriek tomu vytvárať krátke kritické queues.
 
-Príklady:
+### Queue length a wait time
 
-- CPU-bound batch job môže správne používať takmer 100 % CPU,
-- cache môže zámerne používať väčšinu memory,
-- network link môže byť vysokou mierou využitý bez packet loss alebo queueing.
+Queue length ukazuje množstvo čakajúcej práce. Wait time ukazuje dopad na operáciu. Obe potrebujú rate a service-time context:
 
-Utilization interpretuj spolu so saturation, errors a workload demand-om.
-
-## 4. Saturation
-
-Saturation vyjadruje prácu, ktorú resource nemôže okamžite obslúžiť.
-
-Prejavuje sa ako:
-
-- queue length,
-- wait time,
-- run queue,
-- blocked tasks,
-- thread-pool queue,
-- connection waiters,
-- throttling,
-- swap pressure,
-- packet drops,
-- I/O wait,
-- request rejection,
-- scheduling delay.
-
-Saturation je často skorší a presnejší signal user-impactu než vysoká average utilization.
-
-### Queue length oproti wait time
-
-Queue length ukazuje množstvo čakajúcej práce.
-
-Wait time ukazuje dopad na jednotlivú operáciu.
-
-Krátka queue pri extrémne pomalom resource-e môže byť kritická. Dlhšia queue pri veľmi rýchlom processingu nemusí mať rovnaký dopad.
+```text
+vyšší arrival rate alebo dlhší service time
+→ resource zostane obsadený dlhšie
+→ vzniknú waiters
+→ rastie queue wait
+→ rastie end-to-end latency
+→ timeouty a retries môžu ďalej zvýšiť demand
+```
 
 ### Hidden queues
 
-Queues môžu existovať vo viacerých vrstvách:
+Jedna request path môže obsahovať viac čakacích vrstiev:
 
 ```text
-client retry/backoff
-→ load balancer queue
-→ application accept queue
-→ thread pool
-→ connection pool
+client backoff
+→ load-balancer accept queue
+→ application worker queue
+→ provider connection-pool wait
+→ DNS/TLS connection setup
+→ provider-side queue
 → database lock wait
-→ disk scheduler
-→ device queue
+→ storage queue
 ```
 
-Sledovanie iba jednej queue môže viesť k nesprávnemu root cause-u.
+Nízka queue na jednej vrstve nevylučuje saturation na inej.
 
-## 5. Errors
+## 7. Errors
 
-Errors zahŕňajú explicitné resource failures.
+Resource errors sú explicitné dôkazy, že resource alebo jeho capacity contract zlyhal. Patria sem:
 
-Príklady:
+- OOM kill alebo allocation failure;
+- connection acquire timeout;
+- rejected task alebo request;
+- quota exceeded a throttling;
+- device I/O error, timeout alebo reset;
+- packet drop a failed connection;
+- file descriptor alebo inode exhaustion;
+- unhealthy pool member;
+- hardware/ECC error;
+- capacity allocation failure.
 
-- ECC alebo hardware errors,
-- disk I/O errors,
-- filesystem errors,
-- packet errors/drops,
-- failed allocation,
-- out-of-memory kill,
-- connection pool timeout,
-- file descriptor exhaustion,
-- quota exceeded,
-- throttling/rejection,
-- GPU errors,
-- device reset.
+Error counter býva cumulative. Pri incidente sa používa rate alebo increase a korelácia s exact resource generation. Errors sa neignorujú pri nízkej utilization: redundantný member môže zlyhať a znížiť effective capacity bez okamžitého outage-u.
 
-Error counter môže byť cumulativny. Pri diagnostike sleduj rate/increase a timestamp correlation.
+## 8. Typické resource classes
 
-Errors sa nemajú ignorovať len preto, že utilization a saturation sú nízke. Hardware alebo configuration failure môže znižovať dostupnú kapacitu alebo spôsobovať silent degradation.
+### CPU
 
-## 6. USE checklist
+- utilization: per-core busy time a container CPU use;
+- saturation: run queue, scheduler wait, throttled time;
+- errors: machine-check alebo quota/throttling events.
 
-Základný postup:
+Celkové CPU 40 % nevylučuje jeden serialized core na 100 % ani container quota exhaustion.
 
-1. vytvor resource inventory,
-2. pre každý resource nájdi utilization signal,
-3. nájdi saturation signal,
-4. nájdi error signal,
-5. identifikuj chýbajúce observability gaps,
-6. koreluj findings s workloadom a user impactom,
-7. iteruj na sub-resources.
+### Memory
 
-Príklad:
+- utilization: working set voči cgroup alebo system capacity;
+- saturation: reclaim, swap, major faults, allocation stalls, pressure;
+- errors: OOM kill alebo failed allocation.
 
-| Resource | Utilization | Saturation | Errors |
-|---|---|---|---|
-| CPU | busy time per core | run queue, throttling | machine check, throttling events |
-| Memory | working set/capacity | reclaim, swap, allocation stall | OOM, allocation failure |
-| Disk | busy time, throughput | queue depth, await | I/O errors, timeouts |
-| Network | throughput/link | queue, drops, retransmits | interface/protocol errors |
-| Thread pool | active/max | queued tasks, wait | rejected tasks |
-| DB pool | active/max | waiters, acquire latency | acquire timeout |
+Nízke `free` memory môže byť zdravá cache. Dôležité je, či reclaim vytvára wait a či workload zostáva pod effective limitom.
 
-## 7. CPU
+### Storage a filesystem
 
-### Utilization
+- utilization: IOPS, throughput, busy time, used bytes/inodes;
+- saturation: queue depth, await, throttling, burst-credit depletion;
+- errors: failed I/O, timeout, read-only remount, full bytes alebo inodes.
 
-- per-core busy time,
-- user/system/steal/irq categories,
-- container CPU usage,
-- quota consumption.
+### Network
 
-### Saturation
+- utilization: bandwidth, packets/s, active flows;
+- saturation: interface queues, retransmissions, conntrack/NAT port pressure, connection latency;
+- errors: drops, resets, DNS/TLS failures alebo route/MTU errors.
 
-- run queue,
-- scheduler wait,
-- CPU throttling,
-- runnable threads,
-- load average interpretovaná spolu s CPU countom a task state-om.
+Nízka bandwidth utilization nevylučuje packet-rate alebo port exhaustion.
 
-### Errors
+### Software pools a quotas
 
-- hardware machine-check events,
-- thermal throttling,
-- CPU quota rejections alebo throttled periods podľa platformy.
+- utilization: active workers/connections/tokens voči limitu;
+- saturation: waiters, queue age, acquire latency, throttling;
+- errors: rejection, timeout, exhausted retry alebo quota response.
 
-### Caveats
+Software resource je rovnako reálny bottleneck ako fyzický device.
 
-Celkový CPU môže byť 40 %, ale jeden serialized worker alebo core môže byť na 100 %. Virtualized environment môže mať steal alebo host contention.
+## 9. USE v incident workflowe
 
-## 8. Memory
+```text
+Golden Signals alebo RED
+→ ktorá user operation a cohort degraduje?
+trace a dependency RED
+→ na ktorej component boundary vzniká čas alebo failure?
+USE
+→ ktorý exact resource je utilized, saturated alebo erroring?
+logs/profile/config evidence
+→ prečo je effective capacity nižšia alebo service time vyšší?
+```
 
-Memory utilization nie je jednoduché `used / total`.
+USE bez user-facing scope-u môže optimalizovať resource bez relevantného dopadu. User-facing monitoring bez USE môže ukázať symptom bez bottleneck mechanizmu.
 
-Rozlišuj:
+## 10. Worked failure: nízke CPU, ale saturovaný provider pool
 
-- application resident set,
-- page cache,
-- reclaimable memory,
-- working set,
-- cgroup/container limit,
-- kernel memory,
-- swap,
-- committed virtual memory.
+### Symptóm
 
-### Saturation
+Po release `7.20.0` vzrastie enterprise final-settlement p95 z `740 ms` na `5.2 s`. HTTP acceptance zostáva rýchla, task CPU je priemerne `37 %` a memory `52 %`. Prvá hypotéza tímu je, že provider je všeobecne pomalý alebo že treba zvýšiť počet ECS tasks.
 
-- reclaim pressure,
-- major page faults,
-- swap in/out,
-- allocation stalls,
-- compaction,
-- memory PSI,
-- container near-limit behavior.
+### Competing hypotheses
 
-### Errors
+1. provider latency vzrástla pre všetky cohorts;
+2. task CPU alebo memory je saturovaná;
+3. NAT alebo network path stráca connections;
+4. provider-side quota throttluje account;
+5. per-task provider connection pool je saturovaný;
+6. telemetry query agreguje nesprávny release alebo AZ;
+7. queue pred workerom rastie ešte pred poolom.
 
-- OOM kill,
-- allocation failure,
-- cgroup limit breach,
-- ECC error.
+### Resource inventory a observations
 
-Free memory blízka nule môže byť normálna kvôli cache. Kritické je, či systém dokáže memory uvoľniť bez významného waitu a failures.
-
-## 9. Storage a block I/O
-
-### Utilization
-
-- device busy time,
-- IOPS,
-- throughput,
-- provisioned performance consumption.
-
-### Saturation
-
-- queue depth,
-- await/service time,
-- throttling,
-- burst balance depletion,
-- filesystem wait,
-- storage network congestion.
-
-### Errors
-
-- read/write failures,
-- timeouts,
-- resets,
-- filesystem corruption,
-- capacity alebo inode exhaustion.
-
-100 % device utilization nemusí znamenať rovnaký throughput pre sequential a random workload. Latency a queueing sú kritické.
-
-## 10. Network
-
-### Utilization
-
-- bytes/bits per second voči link alebo service capacity,
-- packets per second,
-- connection count,
-- flow/table capacity.
-
-### Saturation
-
-- interface queue,
-- packet drops,
-- retransmissions,
-- buffer pressure,
-- conntrack/NAT port pressure,
-- connection establishment latency.
-
-### Errors
-
-- CRC/interface errors,
-- dropped packets,
-- failed connections,
-- reset rate,
-- DNS resolution failures,
-- route/MTU errors.
-
-Low bandwidth utilization nevylučuje packet-per-second, connection alebo NAT port saturation.
-
-## 11. Filesystem
-
-Resources:
-
-- bytes capacity,
-- inodes,
-- file descriptors,
-- mount availability,
-- metadata operations.
-
-Sleduj:
-
-- used space,
-- inode usage,
-- allocation growth,
-- blocked writes,
-- read-only remount,
-- I/O errors,
-- open-file exhaustion.
-
-Filesystem môže zlyhať pre nedostatok inodes aj pri dostatku voľných bytes.
-
-## 12. Pools a software resources
-
-USE sa dá aplikovať aj na bounded software resources.
-
-### Thread pool
-
-- utilization: active workers / max workers,
-- saturation: queue a task wait,
-- errors: rejection, timeout, worker crash.
-
-### Database connection pool
-
-- utilization: active connections / max,
-- saturation: waiters a acquire latency,
-- errors: acquire timeout, broken connection.
-
-### Queue worker pool
-
-- utilization: busy workers,
-- saturation: backlog a oldest item age,
-- errors: failed/dead-letter items.
-
-### API quota
-
-- utilization: requests alebo capacity units voči quota,
-- saturation: throttling/backoff queue,
-- errors: quota exceeded alebo rate-limit response.
-
-## 13. Kubernetes a containers
-
-Relevantné resources:
-
-- Node CPU a memory,
-- Pod/container CPU quota a memory limit,
-- ephemeral storage,
-- PID limits,
-- Node allocatable,
-- image filesystem,
-- CNI IP capacity,
-- volume IOPS/throughput,
-- API server inflight requests,
-- scheduler/controller queues.
-
-Príklady:
-
-- CPU utilization nízka, ale container je throttled pre nízky limit,
-- Node memory vyzerá zdravo, ale konkrétny Pod dosahuje cgroup limit,
-- cluster má CPU, ale Pods sú Pending pre topology alebo IP exhaustion,
-- storage throughput je pod limitom, ale latency rastie pre burst-credit depletion.
-
-Resource boundary musí zodpovedať enforcement boundary.
-
-## 14. Cloud resources
-
-Cloud abstrahuje hardware, ale resource limits nezmiznú.
-
-Príklady:
-
-- EBS IOPS/throughput a queue,
-- RDS connections/storage/IO,
-- Lambda concurrency,
-- NAT ports/connections,
-- subnet IP addresses,
-- load balancer capacity,
-- service quotas,
-- API throttling,
-- KMS request quotas,
-- streaming shards/partitions.
-
-Nie všetky limits sú publikované ako jednoduché percento. Potrebný môže byť derived utilization alebo saturation signal.
-
-## 15. USE a pressure metrics
-
-Linux Pressure Stall Information a podobné metrics merajú čas, keď tasks čakajú na CPU, memory alebo I/O resources.
-
-Pressure môže lepšie vyjadriť saturation než samotná utilization.
-
-Príklad:
-
-- memory used je vysoká,
-- ale bez reclaim stall nie je user impact,
-- po raste memory pressure a allocation stalls rastie latency.
-
-Pressure metrics interpretuj spolu s workload a cgroup scope-om.
-
-## 16. USE a time windows
-
-Krátke spikes sa môžu stratiť v dlhom average.
-
-Použi:
-
-- high-resolution interval počas incidentu,
-- max alebo quantiles per resource,
-- per-core/per-device breakdown,
-- workload/deployment correlation,
-- sustained a burst thresholds.
-
-Scrape interval musí byť dostatočne krátky vzhľadom na failure duration.
-
-## 17. USE a capacity planning
-
-USE pomáha identifikovať headroom, ale capacity planning potrebuje aj:
-
-- workload growth,
-- traffic shape,
-- seasonality,
-- failover capacity,
-- deployment surge,
-- maintenance,
-- quotas,
-- scaling delay,
+```text
+enterprise logical traffic: stabilný
+provider attempt rate: +31 % pre retries
+provider span service time po získaní connection: p95 410 ms
+pool configured value: 64
+pool loaded/effective limit: 8 per task
+active connections: 8/8
+pool waiters: 180–420 per task
+connection acquire p95: 2.7 s
+worker concurrency: 32 per task
+CPU throttling: 0
+NAT allocation errors: 0
+provider 429/quota errors: 0
+```
+
+Runtime library po rename config keyu nepoužila deklarovanú hodnotu `64`; načítala default `8`. Vyššia worker concurrency preto neznamenala vyššiu useful throughput. Viac workers čakalo na rovnakých osem connections.
+
+Mechanizmus je:
+
+```text
+32 workers na task
+→ iba 8 effective provider connections
+→ connections zostávajú obsadené počas downstream callu
+→ 24+ workers čaká
+→ acquire latency dominuje logical duration
+→ caller timeout spúšťa retries
+→ attempts zvyšujú queue a provider demand
+→ p95 a error-budget burn rastú pri nízkom CPU
+```
+
+### Containment
+
+- zastaviť ďalší rollout a concurrency increase;
+- obmedziť immediate retries a worker concurrency;
+- zachovať per-task pool metrics, loaded config, traces a deployment evidence;
+- neškálovať fleet naslepo, pretože ďalšie tasks by mohli znásobiť provider demand;
+- chrániť healthy standard-merchant cohort.
+
+### Authoritative recovery
+
+1. opraviť config key a explicitne publikovať loaded effective pool limit;
+2. nastaviť pool/concurrency podľa provider capacity contractu;
+3. zaviesť bounded exponential backoff a retry budget;
+4. canary-nuť jeden task a overiť pool utilization, waiters a logical duration;
+5. rozšíriť rollout po AZ cohorts;
+6. reconciliovať unknown settlement outcomes pred opakovaním business side effectu.
+
+### Acceptance verdict
+
+Recovery je prijatá iba keď:
+
+- enterprise final-settlement success a latency SLI sa obnovia;
+- pool waiters a acquire latency zostanú pod guardrailom;
+- effective loaded limit je `64`, nie iba desired config;
+- attempt amplification sa vráti k baseline;
+- nevzniknú duplicate provider authorizations;
+- standard cohort a susedná AZ neregresujú;
+- druhý controlled rollout nezopakuje saturation.
+
+## 11. Capacity planning a failover
+
+USE finding je časovo viazaný. Capacity planning musí zohľadniť:
+
+- growth a seasonality;
+- traffic burst shape;
+- loss jednej AZ alebo pool membera;
+- deployment surge;
+- scaling delay;
+- provider a account quotas;
+- maintenance a recovery capacity;
 - cost.
 
-Nízka saturation dnes neznamená dostatok capacity pri strate jednej AZ alebo počas peak-u.
+Headroom sa počíta voči effective capacity po failure, nie iba voči nominálnemu steady-state súčtu.
 
-## 18. USE a RED
-
-RED začína user-facing službou.
-
-USE začína resources.
-
-Odporúčaný incident postup:
+## 12. Resource inventory template
 
 ```text
-RED: ktorá služba a operation degraduje?
-→ trace: ktorá component alebo dependency?
-→ USE: ktorý resource je využitý, saturovaný alebo chybný?
-→ logs/profile: prečo?
-```
-
-Použitie USE bez RED môže optimalizovať resource, ktorý nemá user impact. Použitie RED bez USE môže ukázať symptom bez bottleneck mechanizmu.
-
-## 19. Resource inventory template
-
-```text
-Resource:
+Resource-analysis subject:
+Service/operation/cohort:
+Resource a owner:
 Scope/enforcement boundary:
-Capacity/limit:
-Utilization metric:
-Saturation metric:
-Error metric:
-Resolution:
-Expected baseline:
-Critical threshold alebo SLO relation:
-Owner:
-Runbook:
+Configured capacity generation:
+Loaded/effective capacity:
+Utilization observation:
+Saturation observation:
+Error observation:
+Resolution/aggregation:
+User-impact relation:
+Competing hypotheses:
+Discriminating evidence:
+Containment:
+Recovery:
+Original outcome validation:
+Forbidden outcome validation:
 Known observability gap:
 ```
 
-Inventory udržiavaj spolu s architecture a capacity changes.
+Inventory sa aktualizuje pri architecture, library, capacity, quota alebo topology zmene.
 
-## 20. Troubleshooting príklady
+## 13. Troubleshooting chýbajúceho USE dôkazu
 
-### Latency rastie pri CPU 45 %
+```text
+resource je v inventory?
+→ správna enforcement boundary?
+→ effective limit je exportovaný alebo odvoditeľný?
+→ utilization metric má správny denominator?
+→ saturation queue/wait metric existuje?
+→ resource errors majú counter a timestamp?
+→ resolution zachytí burst?
+→ aggregation neskrýva hot resource?
+→ scrape/export/retention/query path je kompletný?
+```
 
-Over:
+Absencia saturation metric nie je nulová saturation. Je to evidence gap, ktorý treba explicitne zaznamenať.
 
-- per-core utilization,
-- throttling,
-- run queue,
-- serialized worker,
-- lock contention,
-- downstream wait.
-
-### Memory 95 %, ale služba je zdravá
-
-Over working set, reclaim, swap, pressure a OOM events. Môže ísť o efektívnu cache.
-
-### Disk throughput je nízky, latency vysoká
-
-Over queue depth, IOPS limit, random I/O, burst credits, device errors a downstream storage service.
-
-### Connection pool má 100 % utilization
-
-Over waiters a acquire latency. Ak nie sú, pool môže byť správne dimenzovaný; ak rastú, ide o saturation.
-
-### Network bandwidth je nízky, requests zlyhávajú
-
-Over packet loss, PPS, NAT/conntrack, DNS, TLS handshake a connection limits.
-
-## 21. Anti-patterny
+## 14. Anti-patterny
 
 ### Začať dostupnými grafmi
 
-Vedie k metric bias a prehliadnutiu resource-u bez dashboardu.
+Dashboard inventory nahradí resource inventory a resource bez metric zostane neviditeľný.
 
-### Utilization ako jediný signal
+### Utilization ako health verdict
 
-Saturation a errors môžu rásť skôr alebo pri nízkom average.
+Vysoká utilization môže byť zdravá a nízky priemer môže skrývať queues, throttling alebo hot shard.
 
-### Agregovať všetky resources
+### Nominálna capacity ako denominator
 
-Hot shard, core, AZ alebo device sa stratí.
+Ignoruje cgroup, pool, quota, failover, topology a loaded-state constraints.
 
-### CPU load average interpretovaný izolovane
+### Service-wide average
 
-Bez CPU countu, task states a run-queue kontextu môže zavádzať.
+Stratí per-task, per-core, per-shard alebo per-AZ saturation.
 
-### Memory free ako hlavný signal
+### Zvýšenie capacity bez demand kontroly
 
-Ignoruje cache, working set, reclaim a pressure.
+Môže amplifikovať retries alebo downstream overload namiesto odstránenia mechanizmu.
 
-### Cloud service považovaná za neobmedzenú
+### Cloud alebo managed service ako neobmedzený resource
 
-Quotas, concurrency, IOPS, connection a capacity limits stále existujú.
+Quotas, concurrency, connections, partitions, IPs a rate limits zostávajú resource boundaries.
 
-## 22. Kontrolné otázky
+## 15. Kontrolné otázky
 
-1. Čo znamenajú Utilization, Saturation a Errors?
-2. Prečo USE začína resource inventory?
-3. Ako sa líši utilization CPU a memory?
-4. Prečo saturation často lepšie vysvetľuje latency?
-5. Čo sú hidden queues?
-6. Ako aplikuješ USE na connection pool?
-7. Ako container limits menia resource boundary?
+1. Prečo USE začína resource inventory, nie dashboardom?
+2. Čo tvorí exact resource-analysis subject?
+3. Aký je rozdiel medzi nominal a effective capacity?
+4. Prečo utilization bez saturation nestačí?
+5. Ako queue length a wait time vysvetľujú rozdielny dopad?
+6. Čo sú hidden queues?
+7. Ako enforcement boundary mení interpretáciu CPU alebo memory?
 8. Prečo nízky bandwidth nevylučuje network saturation?
-9. Ako USE súvisí s RED?
-10. Ako by vyzeral USE checklist pre tvoju službu?
+9. Ako USE nadväzuje na Golden Signals, RED a traces?
+10. Ako overíš, že capacity recovery neamplifikovala downstream demand?
 
 ## Glossary impact
 
-Relevantné pojmy: USE method, resource inventory, utilization, saturation, error counter, hidden queue, run queue, pressure stall, memory reclaim, working set, connection-pool saturation, resource boundary, enforcement boundary a capacity headroom.
+Relevantné pojmy: resource-analysis subject, resource inventory, effective resource capacity, enforcement boundary, utilization observation, saturation observation, resource error observation, hidden-queue inventory, capacity headroom, loaded resource limit a USE acceptance verdict.
 
 ## Primárne zdroje
 
 - [Brendan Gregg — The USE Method](https://www.brendangregg.com/usemethod.html)
 - [Brendan Gregg — USE Method Rosetta Stone](https://www.brendangregg.com/USEmethod/use-rosetta.html)
 - [Brendan Gregg — Performance Analysis Methodology](https://www.brendangregg.com/methodology.html)
-- [Grafana dashboard best practices — USE method](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
