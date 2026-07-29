@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **266**
-- Audited conceptual sections: **10683**
-- Total words: **624,999**
-- Findings: **22366** (critical 6656, high 7609, medium 2838, low 5263)
-- File grades: A 0, B 0, C 0, D 266
+- Audited authoritative articles: **267**
+- Audited conceptual sections: **10730**
+- Total words: **627,034**
+- Findings: **22499** (critical 6705, high 7663, medium 2853, low 5278)
+- File grades: A 0, B 0, C 0, D 267
 
 ## Interpretation
 
@@ -30,6 +30,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
 | D | 1106 | 52 | 49 | 20 | 20 | 2492 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 1089 | 48 | 45 | 29 | 43 | 3495 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
+| D | 1082 | 49 | 54 | 15 | 15 | 2035 | `docs/14-sre-and-operations/blameless-postmortems.md` |
 | D | 1068 | 46 | 55 | 17 | 21 | 2455 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | D | 1065 | 50 | 53 | 13 | 5 | 2116 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | D | 1063 | 48 | 54 | 12 | 22 | 2499 | `docs/09-kubernetes/control-plane-components.md` |
@@ -14814,6 +14815,112 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 469, `term-before-explanation` — **28. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JML`, `PEP`, `resource`, `step-up`, `posture`, `workload`, `identity`, `delegation`
 - **HIGH** line 469, `thin-concept-section` — **28. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/14-sre-and-operations/blameless-postmortems.md`
+
+- **CRITICAL** line 40, `bare-bullet-items` — **2. Exact postmortem subject**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident ID;`, `service a business capability;`, `impact start/end;`, `affected users, tenants, Regions alebo operations;`.
+- **CRITICAL** line 40, `outline-instead-of-explanation` — **2. Exact postmortem subject**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 69, `bare-bullet-items` — **3. Kedy postmortem vytvoriť**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-visible outage alebo degradation nad threshold;`, `data loss, corruption alebo confidentiality impact;`, `error-budget consumption nad policy hranicu;`, `SEV-1/SEV-2 declaration;`.
+- **CRITICAL** line 69, `outline-instead-of-explanation` — **3. Kedy postmortem vytvoriť**: 10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 114, `bare-bullet-items` — **5. Blameless neznamená anonymný**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident handoff;`, `audit;`, `action ownership;`, `timeline reconstruction;`.
+- **CRITICAL** line 114, `outline-instead-of-explanation` — **5. Blameless neznamená anonymný**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 126, `bare-bullet-items` — **6. Accountability bez blame**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident owner zabezpečí completion dokumentu;`, `action owners doručia alebo explicitne eskalujú blockers;`, `leadership poskytne priority a capacity;`, `reviewers odmietnu plytké causal claims;`.
+- **CRITICAL** line 126, `outline-instead-of-explanation` — **6. Accountability bez blame**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 139, `bare-bullet-items` — **7. Povinná štruktúra**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata a status;`, `executive summary;`, `user/business impact;`, `detection a response summary;`.
+- **CRITICAL** line 139, `outline-instead-of-explanation` — **7. Povinná štruktúra**: 15 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 188, `bare-bullet-items` — **9. Impact**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet affected users/operations;`, `duration;`, `failed, degraded, delayed a unknown outcomes;`, `financial, legal, security alebo support impact;`.
+- **CRITICAL** line 188, `outline-instead-of-explanation` — **9. Impact**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 219, `bare-bullet-items` — **11. Factual timeline**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp a timezone;`, `actor alebo system subject;`, `action/transition;`, `evidence source;`.
+- **CRITICAL** line 219, `outline-instead-of-explanation` — **11. Factual timeline**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 243, `bare-bullet-items` — **12. What went well**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business correctness SLI odhalila silent failure;`, `incident commander zastavil ďalšie destructive jobs;`, `WAL a audit zachovali exact affected IDs;`, `provider podporoval idempotency key lookup;`.
+- **CRITICAL** line 243, `outline-instead-of-explanation` — **12. What went well**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 257, `bare-bullet-items` — **13. What went poorly**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destructive config bola fail-open;`, `canary nemala positive eligible population;`, `job success oracle bol exit code;`, `restore decryption grant nebol current;`.
+- **CRITICAL** line 257, `outline-instead-of-explanation` — **13. What went poorly**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 271, `bare-bullet-items` — **14. Where we got lucky**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency keys zabránili potvrdeným duplicate provider settlements;`, `compactor neodstránil immutable provider reference pre všetky rows;`, `WAL retention ešte obsahovala clean point;`, `incident nastal mimo najvyššieho traffic peak-u;`.
+- **CRITICAL** line 271, `outline-instead-of-explanation` — **14. Where we got lucky**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 284, `bare-bullet-items` — **15. Causal section**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger;`, `technical root cause;`, `systemic root cause;`, `escape/detection causes;`.
+- **CRITICAL** line 284, `outline-instead-of-explanation` — **15. Causal section**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 340, `bare-bullet-items` — **18. Priority a action-item SLO**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potential impact;`, `recurrence likelihood;`, `current exposure;`, `control effectiveness;`.
+- **CRITICAL** line 340, `outline-instead-of-explanation` — **18. Priority a action-item SLO**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 355, `bare-bullet-items` — **19. Review gate**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `impact completeness;`, `timeline evidence;`, `causal depth;`, `blameless factual language;`.
+- **CRITICAL** line 355, `outline-instead-of-explanation` — **19. Review gate**: 10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 372, `bare-bullet-items` — **20. Publication a sharing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owning team;`, `dependent teams;`, `platform/security/data owners;`, `leadership podľa impactu;`.
+- **CRITICAL** line 372, `outline-instead-of-explanation` — **20. Publication a sharing**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 385, `bare-bullet-items` — **21. Action tracking**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `negative test;`, `canary;`, `restore drill;`, `wrong-subject rejection;`.
+- **CRITICAL** line 385, `outline-instead-of-explanation` — **21. Action tracking**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 408, `bare-bullet-items` — **22. Recurrence review**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bol to rovnaký mechanismus alebo iba podobný symptom?`, `boli previous actions dokončené?`, `boli effective v správnom scope-e?`, `vznikol alternate path?`.
+- **CRITICAL** line 408, `outline-instead-of-explanation` — **22. Recurrence review**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 422, `bare-bullet-items` — **23. Cross-incident trend analysis**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované trigger classes;`, `common root/escape causes;`, `detection gaps;`, `affected dependencies;`.
+- **CRITICAL** line 422, `outline-instead-of-explanation` — **23. Cross-incident trend analysis**: 9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 438, `empty-section` — **24. Worked postmortem PM-SRE-PAY-54-v1**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 440, `bare-bullet-items` — **Impact**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `186 420 rows broad-archived;`, `7 842 rows nebolo terminal;`, `613 provider callbacks potrebovalo secondary correlation;`, `91 merchant-visible settlements bolo stale/unknown;`.
+- **CRITICAL** line 440, `no-prose-concept` — **Impact**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 440, `outline-instead-of-explanation` — **Impact**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 450, `bare-bullet-items` — **What went well**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business correctness SLI detegovala silent failure;`, `incident command zastavil destructive jobs;`, `WAL/audit poskytli affected manifest;`, `isolated restore prebehol bez production rewind;`.
+- **CRITICAL** line 450, `no-prose-concept` — **What went well**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 450, `outline-instead-of-explanation` — **What went well**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 459, `bare-bullet-items` — **What went poorly**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing scope bol wildcard;`, `zero-row canary vytvorila false confidence;`, `broad role a unbounded batch zväčšili impact;`, `restore identity nemala current decryption grant;`.
+- **CRITICAL** line 459, `no-prose-concept` — **What went poorly**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 459, `outline-instead-of-explanation` — **What went poorly**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 468, `bare-bullet-items` — **Where we got lucky**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `WAL clean point bol stále retained;`, `provider ledger bol dostupný;`, `immutable external reference zostala pre väčšinu rows;`, `traffic bol pod campaign peakom;`.
+- **CRITICAL** line 468, `no-prose-concept` — **Where we got lucky**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 468, `outline-instead-of-explanation` — **Where we got lucky**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 480, `bare-bullet-items` — **25. Postmortem acceptance verdict**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spĺňa pre-defined trigger criteria;`, `exact incident/document generation je identifikovaná;`, `impact je user/business-centered a kvantifikovaný;`, `timeline je evidence-backed;`.
+- **CRITICAL** line 480, `outline-instead-of-explanation` — **25. Postmortem acceptance verdict**: 15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **HIGH** line 19, `bare-bullet-items` — **1. Prečo postmortem existuje**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reprodukovateľné porozumenie incidentu;`, `konkrétne zníženie pravdepodobnosti alebo impactu recurrence;`.
+- **HIGH** line 40, `single-sentence-concept` — **2. Exact postmortem subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 86, `single-sentence-concept` — **4. Blamelessness ako analysis contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 126, `single-sentence-concept` — **6. Accountability bez blame**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 139, `single-sentence-concept` — **7. Povinná štruktúra**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 161, `single-sentence-concept` — **8. Executive summary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 219, `single-sentence-concept` — **11. Factual timeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 257, `single-sentence-concept` — **13. What went poorly**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 300, `single-sentence-concept` — **16. Action items**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 314, `single-sentence-concept` — **17. Action classes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 318, `single-sentence-concept` — **Prevent**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 322, `single-sentence-concept` — **Detect**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 326, `single-sentence-concept` — **Contain**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 330, `single-sentence-concept` — **Recover**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 355, `single-sentence-concept` — **19. Review gate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 372, `single-sentence-concept` — **20. Publication a sharing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 385, `single-sentence-concept` — **21. Action tracking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 408, `single-sentence-concept` — **22. Recurrence review**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 422, `single-sentence-concept` — **23. Cross-incident trend analysis**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 440, `list-first-introduction` — **Impact**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 450, `list-first-introduction` — **What went well**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 459, `list-first-introduction` — **What went poorly**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 468, `list-first-introduction` — **Where we got lucky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 480, `single-sentence-concept` — **25. Postmortem acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 502, `single-sentence-concept` — **Postmortem ako trest**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 506, `single-sentence-concept` — **Blameless = bez konkrétnosti**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 510, `single-sentence-concept` — **Šablóna vyplnená po pamäti**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 514, `single-sentence-concept` — **Root cause: human error**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 518, `single-sentence-concept` — **Action: buďte opatrnejší**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 522, `single-sentence-concept` — **Všetko P0**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 526, `single-sentence-concept` — **Dokument publikovaný, actions zabudnuté**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 530, `single-sentence-concept` — **Luck ignorovaná**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 19, `thin-concept-section` — **1. Prečo postmortem existuje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 40, `thin-concept-section` — **2. Exact postmortem subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 69, `term-before-explanation` — **3. Kedy postmortem vytvoriť**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SEV-1`, `SEV-2`, `policy`, `recovery time`
+- **HIGH** line 126, `thin-concept-section` — **6. Accountability bez blame**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 139, `thin-concept-section` — **7. Povinná štruktúra**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 188, `thin-concept-section` — **9. Impact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 219, `thin-concept-section` — **11. Factual timeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 243, `thin-concept-section` — **12. What went well**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 257, `term-before-explanation` — **13. What went poorly**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `RTO`, `scope`, `blast radius`
+- **HIGH** line 257, `thin-concept-section` — **13. What went poorly**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 271, `thin-concept-section` — **14. Where we got lucky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 284, `thin-concept-section` — **15. Causal section**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 355, `thin-concept-section` — **19. Review gate**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 385, `thin-concept-section` — **21. Action tracking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 408, `thin-concept-section` — **22. Recurrence review**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 422, `thin-concept-section` — **23. Cross-incident trend analysis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 440, `thin-concept-section` — **Impact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 450, `thin-concept-section` — **What went well**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 459, `term-before-explanation` — **What went poorly**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `scope`, `identity`
+- **HIGH** line 459, `thin-concept-section` — **What went poorly**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 468, `thin-concept-section` — **Where we got lucky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 480, `thin-concept-section` — **25. Postmortem acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/14-sre-and-operations/capacity-planning.md`
 
 - **CRITICAL** line 65, `bare-bullet-items` — **3. Demand model**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique settlement intents;`, `HTTP attempts a client retries;`, `outbox publish attempts;`, `broker deliveries a redeliveries;`.
@@ -15360,18 +15467,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2577 | 472 | 0 | 0 | 3049 |
-| `outline-instead-of-explanation` | 2578 | 0 | 0 | 0 | 2578 |
-| `single-sentence-concept` | 0 | 2534 | 0 | 0 | 2534 |
-| `term-before-explanation` | 0 | 567 | 1900 | 0 | 2467 |
-| `thin-concept-section` | 0 | 2177 | 0 | 0 | 2177 |
-| `example-not-explicit` | 0 | 0 | 0 | 2104 | 2104 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2090 | 2090 |
-| `list-first-introduction` | 0 | 1401 | 0 | 0 | 1401 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1069 | 1069 |
-| `short-concept-section` | 0 | 0 | 938 | 0 | 938 |
-| `no-prose-concept` | 809 | 0 | 0 | 0 | 809 |
-| `empty-section` | 692 | 0 | 0 | 0 | 692 |
+| `bare-bullet-items` | 2599 | 473 | 0 | 0 | 3072 |
+| `outline-instead-of-explanation` | 2600 | 0 | 0 | 0 | 2600 |
+| `single-sentence-concept` | 0 | 2561 | 0 | 0 | 2561 |
+| `term-before-explanation` | 0 | 570 | 1911 | 0 | 2481 |
+| `thin-concept-section` | 0 | 2196 | 0 | 0 | 2196 |
+| `example-not-explicit` | 0 | 0 | 0 | 2109 | 2109 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2099 | 2099 |
+| `list-first-introduction` | 0 | 1405 | 0 | 0 | 1405 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1070 | 1070 |
+| `short-concept-section` | 0 | 0 | 942 | 0 | 942 |
+| `no-prose-concept` | 813 | 0 | 0 | 0 | 813 |
+| `empty-section` | 693 | 0 | 0 | 0 | 693 |
 | `list-heavy-section` | 0 | 458 | 0 | 0 | 458 |
 
 ## Required remediation pattern

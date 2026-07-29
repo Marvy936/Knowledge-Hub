@@ -3599,6 +3599,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "title": "Blameless postmortems",
+      "words": 2035,
+      "headings": 47,
+      "sections": 47,
+      "findings": 133,
+      "critical": 49,
+      "high": 54,
+      "medium": 15,
+      "low": 15,
+      "score": 1082,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/capacity-planning.md",
       "title": "Capacity planning",
       "words": 1818,
@@ -198472,6 +198486,1203 @@
       "path": "docs/13-security-and-identity/zero-trust.md",
       "section": "Marketing maturity score",
       "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "1. Prečo postmortem existuje",
+      "line": 19,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reprodukovateľné porozumenie incidentu;`, `konkrétne zníženie pravdepodobnosti alebo impactu recurrence;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "1. Prečo postmortem existuje",
+      "line": 19,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "2. Exact postmortem subject",
+      "line": 40,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "2. Exact postmortem subject",
+      "line": 40,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "2. Exact postmortem subject",
+      "line": 40,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident ID;`, `service a business capability;`, `impact start/end;`, `affected users, tenants, Regions alebo operations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "2. Exact postmortem subject",
+      "line": 40,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "2. Exact postmortem subject",
+      "line": 40,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "3. Kedy postmortem vytvoriť",
+      "line": 69,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "3. Kedy postmortem vytvoriť",
+      "line": 69,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-visible outage alebo degradation nad threshold;`, `data loss, corruption alebo confidentiality impact;`, `error-budget consumption nad policy hranicu;`, `SEV-1/SEV-2 declaration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "3. Kedy postmortem vytvoriť",
+      "line": 69,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "3. Kedy postmortem vytvoriť",
+      "line": 69,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SEV-1`, `SEV-2`, `policy`, `recovery time`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "4. Blamelessness ako analysis contract",
+      "line": 86,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "5. Blameless neznamená anonymný",
+      "line": 114,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "5. Blameless neznamená anonymný",
+      "line": 114,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident handoff;`, `audit;`, `action ownership;`, `timeline reconstruction;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "5. Blameless neznamená anonymný",
+      "line": 114,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Accountability bez blame",
+      "line": 126,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Accountability bez blame",
+      "line": 126,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Accountability bez blame",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident owner zabezpečí completion dokumentu;`, `action owners doručia alebo explicitne eskalujú blockers;`, `leadership poskytne priority a capacity;`, `reviewers odmietnu plytké causal claims;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Accountability bez blame",
+      "line": 126,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Accountability bez blame",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Accountability bez blame",
+      "line": 126,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata a status;`, `executive summary;`, `user/business impact;`, `detection a response summary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Povinná štruktúra",
+      "line": 139,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "8. Executive summary",
+      "line": 161,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "9. Impact",
+      "line": 188,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "9. Impact",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet affected users/operations;`, `duration;`, `failed, degraded, delayed a unknown outcomes;`, `financial, legal, security alebo support impact;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "9. Impact",
+      "line": 188,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "9. Impact",
+      "line": 188,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "9. Impact",
+      "line": 188,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "11. Factual timeline",
+      "line": 219,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "11. Factual timeline",
+      "line": 219,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "11. Factual timeline",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp a timezone;`, `actor alebo system subject;`, `action/transition;`, `evidence source;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "11. Factual timeline",
+      "line": 219,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "12. What went well",
+      "line": 243,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "12. What went well",
+      "line": 243,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business correctness SLI odhalila silent failure;`, `incident commander zastavil ďalšie destructive jobs;`, `WAL a audit zachovali exact affected IDs;`, `provider podporoval idempotency key lookup;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "12. What went well",
+      "line": 243,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "12. What went well",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "12. What went well",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "12. What went well",
+      "line": 243,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "13. What went poorly",
+      "line": 257,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "13. What went poorly",
+      "line": 257,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "13. What went poorly",
+      "line": 257,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destructive config bola fail-open;`, `canary nemala positive eligible population;`, `job success oracle bol exit code;`, `restore decryption grant nebol current;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "13. What went poorly",
+      "line": 257,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "13. What went poorly",
+      "line": 257,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "13. What went poorly",
+      "line": 257,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `RTO`, `scope`, `blast radius`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "14. Where we got lucky",
+      "line": 271,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "14. Where we got lucky",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency keys zabránili potvrdeným duplicate provider settlements;`, `compactor neodstránil immutable provider reference pre všetky rows;`, `WAL retention ešte obsahovala clean point;`, `incident nastal mimo najvyššieho traffic peak-u;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "14. Where we got lucky",
+      "line": 271,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "14. Where we got lucky",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "14. Where we got lucky",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "14. Where we got lucky",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "15. Causal section",
+      "line": 284,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "15. Causal section",
+      "line": 284,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger;`, `technical root cause;`, `systemic root cause;`, `escape/detection causes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "15. Causal section",
+      "line": 284,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "16. Action items",
+      "line": 300,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "16. Action items",
+      "line": 300,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "16. Action items",
+      "line": 300,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "17. Action classes",
+      "line": 314,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Prevent",
+      "line": 318,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Detect",
+      "line": 322,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Contain",
+      "line": 326,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Recover",
+      "line": 330,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "18. Priority a action-item SLO",
+      "line": 340,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "18. Priority a action-item SLO",
+      "line": 340,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potential impact;`, `recurrence likelihood;`, `current exposure;`, `control effectiveness;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "18. Priority a action-item SLO",
+      "line": 340,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "18. Priority a action-item SLO",
+      "line": 340,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "19. Review gate",
+      "line": 355,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "19. Review gate",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "19. Review gate",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `impact completeness;`, `timeline evidence;`, `causal depth;`, `blameless factual language;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "19. Review gate",
+      "line": 355,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "19. Review gate",
+      "line": 355,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "20. Publication a sharing",
+      "line": 372,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "20. Publication a sharing",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "20. Publication a sharing",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owning team;`, `dependent teams;`, `platform/security/data owners;`, `leadership podľa impactu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "20. Publication a sharing",
+      "line": 372,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "21. Action tracking",
+      "line": 385,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "21. Action tracking",
+      "line": 385,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "21. Action tracking",
+      "line": 385,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `negative test;`, `canary;`, `restore drill;`, `wrong-subject rejection;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "21. Action tracking",
+      "line": 385,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "22. Recurrence review",
+      "line": 408,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "22. Recurrence review",
+      "line": 408,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "22. Recurrence review",
+      "line": 408,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bol to rovnaký mechanismus alebo iba podobný symptom?`, `boli previous actions dokončené?`, `boli effective v správnom scope-e?`, `vznikol alternate path?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "22. Recurrence review",
+      "line": 408,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "22. Recurrence review",
+      "line": 408,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "23. Cross-incident trend analysis",
+      "line": 422,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "23. Cross-incident trend analysis",
+      "line": 422,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "23. Cross-incident trend analysis",
+      "line": 422,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované trigger classes;`, `common root/escape causes;`, `detection gaps;`, `affected dependencies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "23. Cross-incident trend analysis",
+      "line": 422,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "24. Worked postmortem PM-SRE-PAY-54-v1",
+      "line": 438,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Impact",
+      "line": 440,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Impact",
+      "line": 440,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Impact",
+      "line": 440,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Impact",
+      "line": 440,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `186 420 rows broad-archived;`, `7 842 rows nebolo terminal;`, `613 provider callbacks potrebovalo secondary correlation;`, `91 merchant-visible settlements bolo stale/unknown;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Impact",
+      "line": 440,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Impact",
+      "line": 440,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went well",
+      "line": 450,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went well",
+      "line": 450,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went well",
+      "line": 450,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went well",
+      "line": 450,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business correctness SLI detegovala silent failure;`, `incident command zastavil destructive jobs;`, `WAL/audit poskytli affected manifest;`, `isolated restore prebehol bez production rewind;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went well",
+      "line": 450,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went well",
+      "line": 450,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went poorly",
+      "line": 459,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went poorly",
+      "line": 459,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went poorly",
+      "line": 459,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went poorly",
+      "line": 459,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing scope bol wildcard;`, `zero-row canary vytvorila false confidence;`, `broad role a unbounded batch zväčšili impact;`, `restore identity nemala current decryption grant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went poorly",
+      "line": 459,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "What went poorly",
+      "line": 459,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `scope`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Where we got lucky",
+      "line": 468,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Where we got lucky",
+      "line": 468,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Where we got lucky",
+      "line": 468,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Where we got lucky",
+      "line": 468,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `WAL clean point bol stále retained;`, `provider ledger bol dostupný;`, `immutable external reference zostala pre väčšinu rows;`, `traffic bol pod campaign peakom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Where we got lucky",
+      "line": 468,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Where we got lucky",
+      "line": 468,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spĺňa pre-defined trigger criteria;`, `exact incident/document generation je identifikovaná;`, `impact je user/business-centered a kvantifikovaný;`, `timeline je evidence-backed;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "25. Postmortem acceptance verdict",
+      "line": 480,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Postmortem ako trest",
+      "line": 502,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Blameless = bez konkrétnosti",
+      "line": 506,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Šablóna vyplnená po pamäti",
+      "line": 510,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Root cause: human error",
+      "line": 514,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Action: buďte opatrnejší",
+      "line": 518,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Všetko P0",
+      "line": 522,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Dokument publikovaný, actions zabudnuté",
+      "line": 526,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "Luck ignorovaná",
+      "line": 530,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
