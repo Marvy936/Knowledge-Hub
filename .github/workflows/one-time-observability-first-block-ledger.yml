@@ -1,0 +1,81 @@
+name: One-time first Observability ledger update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/one-time-observability-first-block-ledger.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-ledger:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Add Observability ledger row and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          branch="${GITHUB_REF_NAME}"
+          max_attempts=3
+
+          for attempt in $(seq 1 "$max_attempts"); do
+            git fetch origin "$branch"
+            git reset --hard "origin/${branch}"
+
+            python - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = path.read_text(encoding="utf-8")
+          lines = text.splitlines()
+
+          anchor_prefix = "| `11-cloud-and-aws` — Cloud and AWS |"
+          observability_prefix = "| `12-observability` — Observability |"
+
+          if any(line.startswith(observability_prefix) for line in lines):
+              raise SystemExit("Observability ledger row already exists.")
+
+          try:
+              anchor_index = next(i for i, line in enumerate(lines) if line.startswith(anchor_prefix))
+          except StopIteration as exc:
+              raise SystemExit("Cloud and AWS ledger anchor was not found.") from exc
+
+          row = "| `12-observability` — Observability | 4/16 strict revalidation | In progress | 2026-07-29 | Prvý authoritative blok bol kompletne prepísaný okolo connected Atlas Payments evidence subjectu `OBS-PAY-43`: `Monitoring vs. observability` používa `business/operational otázka → exact observed subject a expected outcome → known condition alebo novel investigation → signal-generation a coverage contract → delivery/storage → monitoring verdict alebo investigation evidence → cross-signal causal explanation → bounded decision/recovery → original/forbidden/telemetry validation`; `Metrics, logs, traces a events` používa `system occurrence → observation point → telemetry record → signal-specific model → resource/operation/context/schema identity → delivery/storage → query alebo derived signal → evidence-quality verdict → decision`; `Instrumentation a telemetry` používa `business outcome/failure inventory → telemetry requirements → instrumentation generation → code/zero-code/platform observation → resource/scope/context identity → SDK/agent processing → Collector topology/policy → export/ingestion/consumer compatibility → coverage/overhead/privacy validation → rollout/loaded-state/rollback`; `RED method` používa `caller outcome → exact logical-operation boundary → valid population → Rate denominator → Error numerator/success semantics → Duration distribution → bounded cohorts → retry/fan-out/dependency decomposition → SLI/alert → recovery validation`. Worked failures pokrývajú green HTTP `202` monitoring pri zlyhávajúcej final settlement completion iba pre enterprise release/AZ/config cohort; sampled trace-derived error ratio, ktorý ukázal `0.4 %` namiesto authoritative `4.8 %`, pretože fast TLS failures nemali správny span status a tail sampler ich dropol; Collector resource processor, ktorý prepísal stable `service.name` Pod menom a vytvoril false no-data pri green exporte; a retry policy, ktorá pri 10 000 logical settlements vytvorila 11 800 provider attempts, znížila attempt p95 na `90 ms`, ale zvýšila end-to-end logical p95 na `4.8 s`. Každá kapitola používa exact observed/signal/instrumentation/RED subject, competing hypotheses, discriminating evidence, evidence-preserving containment alebo bounded decision, authoritative recovery a allowed aj forbidden outcome. Navigation chain `CloudOps troubleshooting drills → Monitoring vs. observability → Metrics/logs/traces/events → Instrumentation/telemetry → RED method → USE method` bol zachovaný. Nový `glossary/12a-observability-question-signal-instrumentation-red-lifecycles.md` pridal question/coverage, occurrence/signal authority, instrumentation generation a logical-operation RED terminology; generated `GLOSSARY.md` je synchronizovaný a audit-failure artifacts sú prázdne. Zostáva 12 kapitol a finálny section-level pass. |"
+
+          lines.insert(anchor_index + 1, row)
+          path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+          PY
+
+            git rm .github/workflows/one-time-observability-first-block-ledger.yml
+            git add DOCUMENTATION-REVIEW-STATUS.md
+            git commit -m "docs(review): record first Observability strict revalidation block"
+
+            if git push origin "HEAD:${branch}"; then
+              exit 0
+            fi
+
+            echo "::warning::Remote ${branch} changed during ledger update attempt ${attempt}; retrying."
+            if [ "$attempt" -eq "$max_attempts" ]; then
+              echo "::error::Unable to push Observability ledger update after ${max_attempts} attempts."
+              exit 1
+            fi
+          done
