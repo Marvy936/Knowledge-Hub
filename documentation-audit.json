@@ -3851,6 +3851,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "title": "PostgreSQL, MySQL a Redis",
+      "words": 2203,
+      "headings": 42,
+      "sections": 42,
+      "findings": 105,
+      "critical": 39,
+      "high": 38,
+      "medium": 11,
+      "low": 17,
+      "score": 824,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
       "title": "Relational vs. non-relational databases",
       "words": 2042,
@@ -214579,6 +214593,951 @@
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "section": "Killni blocker",
       "line": 525,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a exact facts;`, `authoritative, derived, cached, ephemeral alebo coordination role;`, `transaction a invariant boundary;`, `required query shapes a relationship model;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "1. Exact product-role subject",
+      "line": 18,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PITR`, `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `complex relational invariants;`, `foreign keys, unique/exclusion/check constraints;`, `advanced SQL, CTE, window functions a rich joins;`, `MVCC a multiple isolation levels;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "2. PostgreSQL mental model",
+      "line": 56,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CTE`, `JSON`, `JSONB`, `PITR`, `DDL`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "3. MySQL mental model",
+      "line": 98,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mature relational transactions a indexing;`, `široký ecosystem a operational familiarity;`, `binary log pre replication a PITR;`, `GTID-based replication identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "3. MySQL mental model",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "4. Redis mental model",
+      "line": 137,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "28 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "4. Redis mental model",
+      "line": 137,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "23 z 28 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strings;`, `hashes;`, `lists;`, `sets a sorted sets;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "4. Redis mental model",
+      "line": 137,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "4. Redis mental model",
+      "line": 137,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "4. Redis mental model",
+      "line": 137,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `RDB`, `AOF`, `HA`, `MULTI`, `EXEC`, `WATCH`, `WAIT`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "5. Transactions a invariant boundaries",
+      "line": 192,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL/MySQL",
+      "line": 194,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 209,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 209,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je exact read/write set;`, `aké conflicts treba detegovať;`, `či rollback alebo compensation je potrebná;`, `aký durability outcome nasleduje po acknowledgement-e;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 209,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "6. Data modeling",
+      "line": 222,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL/MySQL",
+      "line": 224,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL/MySQL",
+      "line": 224,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL/MySQL",
+      "line": 224,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entities a identities;`, `relationships;`, `normalization;`, `referential integrity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL/MySQL",
+      "line": 224,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "7. Indexing a query model",
+      "line": 253,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operators;`, `column order;`, `selectivity a distribution;`, `covering needs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "7. Indexing a query model",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "7. Indexing a query model",
+      "line": 253,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "8. Durability a acknowledgement",
+      "line": 270,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 280,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no persistence;`, `periodic RDB snapshots;`, `AOF s configured fsync policy;`, `RDB + AOF.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 280,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 280,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDB`, `AOF`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "9. Replication a high availability",
+      "line": 291,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL",
+      "line": 293,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL",
+      "line": 293,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL",
+      "line": 293,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL",
+      "line": 293,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical streaming replication;`, `logical replication/publications/subscriptions;`, `synchronous/asynchronous commit options;`, `external promotion/orchestration a fencing;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL",
+      "line": 293,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL",
+      "line": 293,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`, `PITR`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL",
+      "line": 301,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL",
+      "line": 301,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL",
+      "line": 301,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL",
+      "line": 301,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `binary-log-based replication;`, `GTID identity;`, `source/replica topologies;`, `Group Replication/InnoDB Cluster;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL",
+      "line": 301,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL",
+      "line": 301,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GTID`, `PITR`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 310,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 310,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 310,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 310,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asynchronous primary/replica replication;`, `Sentinel alebo Cluster pre HA/topology;`, `partial/full resynchronization;`, `optional WAIT acknowledgement;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 310,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis",
+      "line": 310,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `WAIT`, `AOF`, `RDB`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "10. Backup a recovery",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "11. Operational model",
+      "line": 337,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL signals",
+      "line": 339,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL signals",
+      "line": 339,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL signals",
+      "line": 339,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL signals",
+      "line": 339,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transactions, locks a wait events;`, `connection/backend count;`, `buffer/cache a I/O;`, `checkpoints/WAL/archive;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL signals",
+      "line": 339,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL signals",
+      "line": 339,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL signals",
+      "line": 350,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL signals",
+      "line": 350,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL signals",
+      "line": 350,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL signals",
+      "line": 350,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connections/threads;`, `InnoDB transactions/locks;`, `buffer pool a redo;`, `binary logs/replication appliers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL signals",
+      "line": 350,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL signals",
+      "line": 350,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DDL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis signals",
+      "line": 360,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis signals",
+      "line": 360,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis signals",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis signals",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory fragmentation a eviction;`, `command latency a slow log;`, `clients/buffers;`, `keyspace hit/miss/expiry;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis signals",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis signals",
+      "line": 360,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AOF`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "12. Product role matrix",
+      "line": 373,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "12. Product role matrix",
+      "line": 373,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "13. Connected incident DB-PAY-57",
+      "line": 388,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Causal boundaries",
+      "line": 419,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Causal boundaries",
+      "line": 419,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Causal boundaries",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Causal boundaries",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Causal boundaries",
+      "line": 419,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Causal boundaries",
+      "line": 419,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `Policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "14. Evidence-preserving containment",
+      "line": 426,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "15. Authoritative redesign",
+      "line": 438,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý business fact má jedného authoritative ownera;`, `product semantics zodpovedajú invariant/query/latency requirements;`, `transaction a command boundaries sú explicitné;`, `PostgreSQL/MySQL engine-specific assumptions sú current a testované;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "16. Product-selection acceptance verdict",
+      "line": 473,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `PITR`, `durability`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "17. Troubleshooting cross-product incidentu",
+      "line": 490,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "PostgreSQL na všetko, lebo je powerful",
+      "line": 508,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "MySQL je iba jednoduchší PostgreSQL",
+      "line": 512,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis je databáza, teda je source of truth",
+      "line": 516,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Redis je iba cache",
+      "line": 520,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Cache miss znamená operation neexistuje",
+      "line": 524,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Rovnaký key/value model = rovnaké semantics",
+      "line": 528,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
+      "section": "Vyberieme podľa benchmarku",
+      "line": 532,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

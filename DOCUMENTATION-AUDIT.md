@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **278**
-- Audited conceptual sections: **11219**
-- Total words: **650,399**
-- Findings: **23672** (critical 7086, high 8129, medium 2979, low 5478)
-- File grades: A 0, B 0, C 0, D 278
+- Audited authoritative articles: **279**
+- Audited conceptual sections: **11261**
+- Total words: **652,602**
+- Findings: **23777** (critical 7125, high 8167, medium 2990, low 5495)
+- File grades: A 0, B 0, C 0, D 279
 
 ## Interpretation
 
@@ -64,6 +64,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 37 | 38 | 17 | 22 | 2511 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
+| D | 824 | 39 | 38 | 11 | 17 | 2203 | `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md` |
 | D | 823 | 39 | 37 | 11 | 19 | 2114 | `docs/12-observability/alertmanager.md` |
 | D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 814 | 38 | 42 | 7 | 7 | 2148 | `docs/10-helm-and-cka/upgrade-rollback.md` |
@@ -16175,6 +16176,86 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 452, `thin-concept-section` — **19. Authoritative remediation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 465, `thin-concept-section` — **20. Index/lock/migration acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md`
+
+- **CRITICAL** line 18, `bare-bullet-items` — **1. Exact product-role subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a exact facts;`, `authoritative, derived, cached, ephemeral alebo coordination role;`, `transaction a invariant boundary;`, `required query shapes a relationship model;`.
+- **CRITICAL** line 18, `outline-instead-of-explanation` — **1. Exact product-role subject**: 14 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 56, `bare-bullet-items` — **2. PostgreSQL mental model**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `complex relational invariants;`, `foreign keys, unique/exclusion/check constraints;`, `advanced SQL, CTE, window functions a rich joins;`, `MVCC a multiple isolation levels;`.
+- **CRITICAL** line 56, `outline-instead-of-explanation` — **2. PostgreSQL mental model**: 18 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 98, `bare-bullet-items` — **3. MySQL mental model**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mature relational transactions a indexing;`, `široký ecosystem a operational familiarity;`, `binary log pre replication a PITR;`, `GTID-based replication identity;`.
+- **CRITICAL** line 137, `bare-bullet-items` — **4. Redis mental model**: 23 z 28 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strings;`, `hashes;`, `lists;`, `sets a sorted sets;`.
+- **CRITICAL** line 192, `empty-section` — **5. Transactions a invariant boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 209, `bare-bullet-items` — **Redis**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je exact read/write set;`, `aké conflicts treba detegovať;`, `či rollback alebo compensation je potrebná;`, `aký durability outcome nasleduje po acknowledgement-e;`.
+- **CRITICAL** line 222, `empty-section` — **6. Data modeling**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 224, `bare-bullet-items` — **PostgreSQL/MySQL**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entities a identities;`, `relationships;`, `normalization;`, `referential integrity;`.
+- **CRITICAL** line 224, `outline-instead-of-explanation` — **PostgreSQL/MySQL**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 253, `bare-bullet-items` — **7. Indexing a query model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operators;`, `column order;`, `selectivity a distribution;`, `covering needs;`.
+- **CRITICAL** line 270, `empty-section` — **8. Durability a acknowledgement**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 280, `bare-bullet-items` — **Redis**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no persistence;`, `periodic RDB snapshots;`, `AOF s configured fsync policy;`, `RDB + AOF.`.
+- **CRITICAL** line 280, `outline-instead-of-explanation` — **Redis**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 291, `empty-section` — **9. Replication a high availability**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 293, `bare-bullet-items` — **PostgreSQL**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical streaming replication;`, `logical replication/publications/subscriptions;`, `synchronous/asynchronous commit options;`, `external promotion/orchestration a fencing;`.
+- **CRITICAL** line 293, `no-prose-concept` — **PostgreSQL**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 293, `outline-instead-of-explanation` — **PostgreSQL**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 301, `bare-bullet-items` — **MySQL**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `binary-log-based replication;`, `GTID identity;`, `source/replica topologies;`, `Group Replication/InnoDB Cluster;`.
+- **CRITICAL** line 301, `no-prose-concept` — **MySQL**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 301, `outline-instead-of-explanation` — **MySQL**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 310, `bare-bullet-items` — **Redis**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asynchronous primary/replica replication;`, `Sentinel alebo Cluster pre HA/topology;`, `partial/full resynchronization;`, `optional WAIT acknowledgement;`.
+- **CRITICAL** line 310, `outline-instead-of-explanation` — **Redis**: 5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 337, `empty-section` — **11. Operational model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 339, `bare-bullet-items` — **PostgreSQL signals**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transactions, locks a wait events;`, `connection/backend count;`, `buffer/cache a I/O;`, `checkpoints/WAL/archive;`.
+- **CRITICAL** line 339, `no-prose-concept` — **PostgreSQL signals**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 339, `outline-instead-of-explanation` — **PostgreSQL signals**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 350, `bare-bullet-items` — **MySQL signals**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connections/threads;`, `InnoDB transactions/locks;`, `buffer pool a redo;`, `binary logs/replication appliers;`.
+- **CRITICAL** line 350, `no-prose-concept` — **MySQL signals**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 350, `outline-instead-of-explanation` — **MySQL signals**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 360, `bare-bullet-items` — **Redis signals**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory fragmentation a eviction;`, `command latency a slow log;`, `clients/buffers;`, `keyspace hit/miss/expiry;`.
+- **CRITICAL** line 360, `outline-instead-of-explanation` — **Redis signals**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 419, `no-prose-concept` — **Causal boundaries**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 419, `outline-instead-of-explanation` — **Causal boundaries**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 426, `empty-section` — **14. Evidence-preserving containment**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 473, `bare-bullet-items` — **16. Product-selection acceptance verdict**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý business fact má jedného authoritative ownera;`, `product semantics zodpovedajú invariant/query/latency requirements;`, `transaction a command boundaries sú explicitné;`, `PostgreSQL/MySQL engine-specific assumptions sú current a testované;`.
+- **CRITICAL** line 473, `outline-instead-of-explanation` — **16. Product-selection acceptance verdict**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 490, `empty-section` — **17. Troubleshooting cross-product incidentu**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 18, `single-sentence-concept` — **1. Exact product-role subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 137, `list-heavy-section` — **4. Redis mental model**: 28 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 194, `single-sentence-concept` — **PostgreSQL/MySQL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 209, `list-heavy-section` — **Redis**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 224, `single-sentence-concept` — **PostgreSQL/MySQL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 293, `list-first-introduction` — **PostgreSQL**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 301, `list-first-introduction` — **MySQL**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 310, `list-first-introduction` — **Redis**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 310, `single-sentence-concept` — **Redis**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 339, `list-first-introduction` — **PostgreSQL signals**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 350, `list-first-introduction` — **MySQL signals**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 360, `list-first-introduction` — **Redis signals**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 360, `single-sentence-concept` — **Redis signals**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 419, `list-first-introduction` — **Causal boundaries**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 438, `single-sentence-concept` — **15. Authoritative redesign**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 473, `single-sentence-concept` — **16. Product-selection acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 508, `single-sentence-concept` — **PostgreSQL na všetko, lebo je powerful**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 512, `single-sentence-concept` — **MySQL je iba jednoduchší PostgreSQL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 516, `single-sentence-concept` — **Redis je databáza, teda je source of truth**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 520, `single-sentence-concept` — **Redis je iba cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 524, `single-sentence-concept` — **Cache miss znamená operation neexistuje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 528, `single-sentence-concept` — **Rovnaký key/value model = rovnaké semantics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 532, `single-sentence-concept` — **Vyberieme podľa benchmarku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 18, `thin-concept-section` — **1. Exact product-role subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 56, `term-before-explanation` — **2. PostgreSQL mental model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CTE`, `JSON`, `JSONB`, `PITR`, `DDL`
+- **HIGH** line 137, `term-before-explanation` — **4. Redis mental model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `RDB`, `AOF`, `HA`, `MULTI`, `EXEC`, `WATCH`, `WAIT`
+- **HIGH** line 224, `thin-concept-section` — **PostgreSQL/MySQL**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 280, `thin-concept-section` — **Redis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 293, `thin-concept-section` — **PostgreSQL**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 301, `thin-concept-section` — **MySQL**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 310, `term-before-explanation` — **Redis**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `WAIT`, `AOF`, `RDB`
+- **HIGH** line 310, `thin-concept-section` — **Redis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 339, `thin-concept-section` — **PostgreSQL signals**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 350, `thin-concept-section` — **MySQL signals**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 360, `thin-concept-section` — **Redis signals**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 419, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 473, `term-before-explanation` — **16. Product-selection acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `PITR`, `durability`, `identity`
+- **HIGH** line 473, `thin-concept-section` — **16. Product-selection acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md`
 
 - **CRITICAL** line 20, `bare-bullet-items` — **1. Exact database-selection subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a critical user journeys;`, `authoritative facts a ich ownera;`, `invarianty, ktoré nesmú byť porušené;`, `entity, aggregate a relationship boundaries;`.
@@ -16358,19 +16439,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2769 | 484 | 0 | 0 | 3253 |
-| `single-sentence-concept` | 0 | 2764 | 0 | 0 | 2764 |
-| `outline-instead-of-explanation` | 2743 | 0 | 0 | 0 | 2743 |
-| `term-before-explanation` | 0 | 595 | 1996 | 0 | 2591 |
-| `thin-concept-section` | 0 | 2321 | 0 | 0 | 2321 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2196 | 2196 |
-| `example-not-explicit` | 0 | 0 | 0 | 2178 | 2178 |
-| `list-first-introduction` | 0 | 1471 | 0 | 0 | 1471 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1104 | 1104 |
-| `short-concept-section` | 0 | 0 | 983 | 0 | 983 |
-| `no-prose-concept` | 854 | 0 | 0 | 0 | 854 |
-| `empty-section` | 720 | 0 | 0 | 0 | 720 |
-| `list-heavy-section` | 0 | 494 | 0 | 0 | 494 |
+| `bare-bullet-items` | 2784 | 484 | 0 | 0 | 3268 |
+| `single-sentence-concept` | 0 | 2778 | 0 | 0 | 2778 |
+| `outline-instead-of-explanation` | 2755 | 0 | 0 | 0 | 2755 |
+| `term-before-explanation` | 0 | 599 | 2005 | 0 | 2604 |
+| `thin-concept-section` | 0 | 2332 | 0 | 0 | 2332 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2202 | 2202 |
+| `example-not-explicit` | 0 | 0 | 0 | 2183 | 2183 |
+| `list-first-introduction` | 0 | 1478 | 0 | 0 | 1478 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1110 | 1110 |
+| `short-concept-section` | 0 | 0 | 985 | 0 | 985 |
+| `no-prose-concept` | 859 | 0 | 0 | 0 | 859 |
+| `empty-section` | 727 | 0 | 0 | 0 | 727 |
+| `list-heavy-section` | 0 | 496 | 0 | 0 | 496 |
 
 ## Required remediation pattern
 
