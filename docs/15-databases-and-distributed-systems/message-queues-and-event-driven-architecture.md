@@ -540,3 +540,11 @@ Relevantné pojmy: messaging subject, queue, partitioned log, producer acknowled
 - [Apache Kafka — Producer configuration](https://kafka.apache.org/documentation/#producerconfigs)
 - [RabbitMQ — Consumer acknowledgements and publisher confirms](https://www.rabbitmq.com/docs/confirms)
 - [RabbitMQ — Reliability guide](https://www.rabbitmq.com/docs/reliability)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Synchronous vs. asynchronous communication](synchronous-vs-asynchronous-communication.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Service discovery a API gateway →](service-discovery-and-api-gateway.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

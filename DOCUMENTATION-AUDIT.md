@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **284**
 - Audited conceptual sections: **11469**
-- Total words: **662,613**
+- Total words: **662,675**
 - Findings: **24281** (critical 7295, high 8338, medium 3068, low 5580)
 - File grades: A 0, B 0, C 0, D 284
 
@@ -25,7 +25,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
-| D | 1355 | 65 | 64 | 15 | 19 | 2416 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
+| D | 1355 | 65 | 64 | 15 | 19 | 2419 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
 | D | 1303 | 56 | 73 | 11 | 20 | 2058 | `docs/14-sre-and-operations/operational-readiness.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1141 | 46 | 66 | 14 | 19 | 2062 | `docs/13-security-and-identity/least-privilege.md` |
@@ -85,7 +85,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 774 | 35 | 33 | 17 | 27 | 2700 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
-| D | 764 | 35 | 33 | 19 | 10 | 1692 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
+| D | 764 | 35 | 33 | 19 | 10 | 1705 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | D | 760 | 31 | 44 | 8 | 12 | 2310 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | D | 757 | 31 | 36 | 20 | 23 | 2552 | `docs/09-kubernetes/replicaset.md` |
 | D | 756 | 31 | 43 | 9 | 10 | 2339 | `docs/02-networking-and-web/load-balancing.md` |
@@ -159,7 +159,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
 | D | 612 | 25 | 33 | 7 | 25 | 2141 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | D | 612 | 23 | 37 | 7 | 20 | 2630 | `docs/13-security-and-identity/oauth-2.md` |
-| D | 611 | 26 | 28 | 14 | 17 | 1981 | `docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md` |
+| D | 611 | 26 | 28 | 14 | 17 | 1997 | `docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md` |
 | D | 610 | 27 | 32 | 4 | 16 | 1999 | `docs/12-observability/elasticsearch-opensearch.md` |
 | D | 609 | 27 | 29 | 10 | 15 | 2165 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | D | 605 | 22 | 30 | 19 | 26 | 2325 | `docs/13-security-and-identity/threat-modeling.md` |
@@ -182,7 +182,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 557 | 23 | 30 | 8 | 11 | 1834 | `docs/14-sre-and-operations/toil.md` |
-| D | 554 | 22 | 26 | 16 | 17 | 1954 | `docs/15-databases-and-distributed-systems/caching.md` |
+| D | 554 | 22 | 26 | 16 | 17 | 1967 | `docs/15-databases-and-distributed-systems/caching.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
 | D | 546 | 21 | 25 | 16 | 26 | 2155 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
@@ -210,7 +210,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 513 | 20 | 24 | 12 | 29 | 1972 | `docs/13-security-and-identity/image-signing.md` |
 | D | 510 | 20 | 28 | 5 | 26 | 2111 | `docs/13-security-and-identity/active-directory.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
-| D | 507 | 22 | 20 | 14 | 22 | 1923 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
+| D | 507 | 22 | 20 | 14 | 22 | 1940 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | D | 506 | 26 | 19 | 8 | 14 | 1855 | `docs/09-kubernetes/securitycontext-pod-security.md` |
 | D | 505 | 17 | 31 | 9 | 17 | 1818 | `docs/14-sre-and-operations/capacity-planning.md` |
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |

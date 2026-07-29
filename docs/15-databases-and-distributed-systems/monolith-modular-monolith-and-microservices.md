@@ -709,5 +709,5 @@ Relevantné pojmy: architecture subject, monolith, modular monolith, microservic
 
 **Navigácia**
 
-[← Predchádzajúca: PostgreSQL, MySQL a Redis](postgresql-mysql-and-redis.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: PostgreSQL, MySQL a Redis](postgresql-mysql-and-redis.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Synchronous vs. asynchronous communication →](synchronous-vs-asynchronous-communication.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

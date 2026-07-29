@@ -464,3 +464,11 @@ Relevantné pojmy: route/discovery subject, logical service identity, endpoint i
 - [Kubernetes — DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 - [Kubernetes — Gateway API](https://gateway-api.sigs.k8s.io/)
 - [Envoy — Service discovery](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/operations/dynamic_configuration)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Message queues a event-driven architecture](message-queues-and-event-driven-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Caching →](caching.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

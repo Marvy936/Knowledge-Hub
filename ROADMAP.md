@@ -341,10 +341,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Connection pooling](docs/15-databases-and-distributed-systems/connection-pooling.md)
 - [x] [PostgreSQL, MySQL a Redis](docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md)
 - [x] [Monolith, modular monolith a microservices](docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md)
-- [ ] Synchronous vs. asynchronous communication
-- [ ] Message queues a event-driven architecture
-- [ ] Service discovery a API gateway
-- [ ] Caching
+- [x] [Synchronous vs. asynchronous communication](docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md)
+- [x] [Message queues a event-driven architecture](docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md)
+- [x] [Service discovery a API gateway](docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md)
+- [x] [Caching](docs/15-databases-and-distributed-systems/caching.md)
 - [ ] CAP theorem
 - [ ] Consistency models
 - [ ] Leader election a consensus

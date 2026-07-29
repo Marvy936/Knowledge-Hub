@@ -513,3 +513,11 @@ Relevantné pojmy: cache subject, cache authority boundary, cache key, variant d
 - [Redis — Client-side caching](https://redis.io/docs/latest/develop/clients/client-side-caching/)
 - [Redis — Key eviction](https://redis.io/docs/latest/develop/reference/eviction/)
 - [Redis — Cache](https://redis.io/solutions/caching/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Service discovery a API gateway](service-discovery-and-api-gateway.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

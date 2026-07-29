@@ -488,3 +488,11 @@ Relevantné pojmy: communication subject, synchronous communication, asynchronou
 - [gRPC — Cancellation](https://grpc.io/docs/guides/cancellation/)
 - [HTTP Semantics — RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html)
 - [Microsoft Azure Architecture Center — Asynchronous Request-Reply pattern](https://learn.microsoft.com/azure/architecture/patterns/async-request-reply)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Monolith, modular monolith a microservices](monolith-modular-monolith-and-microservices.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Message queues a event-driven architecture →](message-queues-and-event-driven-architecture.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
