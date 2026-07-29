@@ -1,8 +1,57 @@
 # Observability
 
-Táto sekcia vysvetľuje, ako navrhovať, zbierať, spracúvať, ukladať a používať telemetry tak, aby bolo možné detegovať problémy, skúmať neznáme failure modes, riadiť SLO a robiť evidence-driven operational decisions.
+Táto sekcia vysvetľuje, ako navrhovať, vytvárať, prenášať, ukladať a používať telemetry tak, aby operational decision vychádzal z presného evidence subjectu, nie iba z existencie dashboardu alebo green component healthu.
 
-Cieľom nie je vytvoriť katalóg monitoring produktov. Sekcia najprv buduje stabilné koncepty: signals, instrumentation, correlation, service/resource monitoring methods, alerting a cardinality. Následne ich aplikuje na Prometheus, Alertmanager, Grafana, Loki, Elasticsearch/OpenSearch, Fluent Bit, Jaeger, Tempo a OpenTelemetry.
+Cieľom nie je katalóg produktov. Sekcia buduje jeden súvislý systém od user/business otázky cez signal contract, instrumentation, backend state a query až po actionable alert, recovery a cardinality/cost closure.
+
+## Section-wide learning chain
+
+```text
+user/business outcome alebo operational otázka
+→ exact observed subject a expected population
+→ signal a instrumentation contract
+→ resource, operation, cohort a schema identity
+→ emission a context propagation
+→ collector/agent processing
+→ sampling, redaction, cardinality a routing policy
+→ transport a acknowledgement
+→ backend-specific ingest/storage generation
+→ query, derived signal a visualization
+→ evidence-quality a coverage verdict
+→ SLI/SLO, Golden Signals, RED alebo USE interpretation
+→ alert/action contract alebo novel investigation
+→ competing hypotheses a discriminating observations
+→ containment a authoritative recovery
+→ original, forbidden, adjacent-cohort a telemetry validation
+→ retention, cost, cardinality a recurrence closure
+```
+
+Recurring state distinctions:
+
+```text
+configured
+≠ loaded/effective
+
+record emitted
+≠ collected
+≠ accepted
+≠ durable
+≠ queryovateľný
+
+query result
+≠ správna visualization
+≠ správny operational decision
+
+alert firing
+≠ notification delivered
+≠ incident acknowledged
+≠ user outcome recovered
+
+viac telemetry detailu
+≠ vyššia evidence quality
+```
+
+Connected worked subjects `OBS-PAY-43` až `OBS-PAY-46` používajú Atlas Payments final-settlement workflow. Sekcia preto opakovane odlišuje HTTP acceptance, technical attempts, final business completion, resource saturation, telemetry coverage a notification outcome.
 
 ## Predpoklady
 
@@ -14,7 +63,7 @@ Odporúča sa najprv dokončiť:
 - [Kubernetes](../09-kubernetes/README.md),
 - [Cloud and AWS](../11-cloud-and-aws/README.md).
 
-## Odporúčané poradie
+## Authoritative poradie
 
 1. [Monitoring vs. observability](monitoring-vs-observability.md)
 2. [Metrics, logs, traces a events](metrics-logs-traces-events.md)
@@ -33,131 +82,118 @@ Odporúča sa najprv dokončiť:
 15. [Alert design a alert fatigue](alert-design-alert-fatigue.md)
 16. [Cardinality](cardinality.md)
 
-Sekcia je dokončená. Lineárna dokumentácia pokračuje sekciou [Security and Identity](../13-security-and-identity/README.md).
+Lineárna dokumentácia pokračuje sekciou [Security and Identity](../13-security-and-identity/README.md).
 
 ## Cieľ zvládnutia
 
-### Signals a instrumentation
+### Questions, signals a instrumentation
 
-- presne rozlíšiť monitoring, observability, telemetry a instrumentation,
-- vysvetliť odlišný data model a operational use metrics, logs, traces, events, audit records a profiles,
-- vybrať signal podľa otázky a prejsť od agregovaného symptómu ku konkrétnej operácii,
-- navrhnúť structured log, metric, trace a event correlation contract,
-- vysvetliť counter, gauge, histogram, distribution, temporality a bounded cardinality,
-- odlíšiť parent-child spans, span links, span events a samostatné events,
-- kombinovať manual, automatic a platform instrumentation,
-- riadiť telemetry overhead, privacy, versioning a cost ako production contract.
+Po dokončení má čitateľ vedieť:
 
-### Monitoring methodologies
+- rozlíšiť monitoring condition, observability question, telemetry a instrumentation;
+- definovať exact observed subject, expected outcome a signal coverage;
+- rozlíšiť system occurrence, telemetry record, stored signal, query result a verdict;
+- navrhnúť stable resource, operation, cohort, context a schema identity;
+- kombinovať manual, automatic a platform instrumentation;
+- riadiť sampling, processor order, redaction, privacy, overhead a loaded state;
+- diagnostikovať absent evidence od produceru po consumer query.
 
-- aplikovať RED na HTTP, gRPC, queues a batch workloads,
-- definovať request rate, error numerator/denominator a duration distribution bez retry skreslenia,
-- aplikovať USE cez kompletný resource inventory,
-- analyzovať CPU, memory, storage, network, pools, containers a cloud quotas podľa enforcement boundary,
-- definovať Golden Signals pre konkrétny user journey,
-- naviazať Golden Signals a RED na SLIs/SLOs a saturation na capacity risk,
-- kombinovať Golden Signals, RED, traces, USE, logs a profiles v jednom investigation workflowe.
+### Service a resource health
 
-### Prometheus a Alertmanager
+- používať RED nad logical operations, nie iba technical attempts;
+- aplikovať USE na complete resource inventory a effective capacity;
+- definovať Golden Signals nad kompatibilnou user-outcome population;
+- odlíšiť utilization, saturation, queues, errors a failover headroom;
+- prejsť od SLO/user symptomu cez trace/dependency k resource bottlenecku;
+- overiť recovery cez original aj forbidden business outcome.
 
-- vysvetliť scrape, service discovery, relabeling, multidimenzionálne series a staleness,
-- vysvetliť TSDB, WAL, head block, compaction a retention,
-- používať PromQL selectors, rates, aggregations, vector matching a histogram queries,
-- navrhovať recording a alerting rules a validovať ich cez `promtool`,
-- vysvetliť remote write, federation, HA a hranice lokálneho Prometheus modelu,
-- rozlíšiť alert condition, identity, group a notification,
-- navrhnúť routing tree, grouping, timing, silences, inhibition a templates,
-- diagnostikovať target, rule, notification, deduplication a HA failures.
+### Metrics a alert delivery
 
-### Grafana
+- vysvetliť Prometheus discovery, relabeling, scrape, post-relabel sample set, TSDB, staleness, PromQL a rule state;
+- odlíšiť `up=1`, expected metric completeness, local rule truth a remote read-back;
+- navrhnúť Alertmanager identity, route, grouping, timing, inhibition, silence a receiver contract;
+- diagnostikovať condition, firing, routing, delivery, duplicate a resolved paths;
+- prevádzkovať metric-to-alert canary cez celý pipeline.
 
-- vysvetliť rozdiel medzi Grafanou a telemetry backendom,
-- navrhovať panels a dashboards podľa operational questions,
-- používať variables, annotations, links, correlations a Explore,
-- rozlíšiť query, expression, transformation, field config a visualization,
-- spravovať dashboards, data sources a alerting cez provisioning/IaC,
-- rozlíšiť Grafana-managed a data-source-managed alerting,
-- diagnostikovať `No data`, nesprávne hodnoty, pomalé dashboardy a provisioning drift.
+### Visualization a logs
 
-### Logs
+- odlíšiť backend truth, query request, data frame, transformation a rendered Grafana value;
+- spravovať dashboard source a loaded revision bez multi-writer driftu;
+- vysvetliť Loki stream, chunk, TSDB schema, recent/historical path a retention;
+- navrhnúť explicitný Elasticsearch/OpenSearch product, data-stream, mapping, bulk-item a lifecycle contract;
+- prevádzkovať Fluent Bit od source inode/offsetu cez parser, route, chunk a buffer po backend acknowledgement;
+- diagnostikovať no-data, mapping conflicts, replay duplicates, loss windows a retention mismatch.
 
-- vysvetliť Loki log stream, labels, structured metadata, chunks a TSDB index,
-- rozlíšiť Loki write/read path, deployment modes, multi-tenancy, retention a LogQL,
-- vysvetliť documents, shards, Lucene segments, data streams, mappings a rollover,
-- porovnať Elasticsearch lifecycle modely a OpenSearch ISM bez predpokladu identických semantics,
-- navrhnúť Fluent Bit input, parser, tag, filter, buffering, retry a output pipeline,
-- diagnostikovať missing logs, duplicates, rejected entries, mapping failures, backlog a slow queries,
-- rozpoznať, kedy použiť label-based store, document-search store alebo kombináciu.
+### Tracing a OpenTelemetry
 
-### Distributed tracing
+- vysvetliť expected span graph, propagation, head/tail sampling a trace affinity;
+- odlíšiť tracing ingest acknowledgement, recent availability a historical publication;
+- vysvetliť Jaeger v2 a Tempo 3.0 deployment/write/read boundaries;
+- navrhnúť OpenTelemetry API/SDK, resource/scope/schema, OTLP a Collector topology;
+- overovať signal a Collector component stability samostatne;
+- používať per-hop accounting a multi-signal canary;
+- diagnostikovať incomplete traces, sampling bias, queue loss, duplicate telemetry a semantic drift.
 
-- vysvetliť trace/span identity, context propagation a OTLP ingestion,
-- vysvetliť Jaeger v2 roles, storage a sampling modely,
-- vysvetliť Tempo monolithic a microservices architecture, object storage a TraceQL,
-- rozlíšiť recent a historical trace query paths,
-- navrhnúť head, tail, remote alebo adaptive sampling,
-- prepojiť traces s logs, metrics, exemplars a service graphom,
-- diagnostikovať missing, incomplete a dropped traces, queue lag a storage failures.
+### Alert action a cardinality governance
 
-### OpenTelemetry
+- rozlíšiť page, ticket a informational event;
+- navrhnúť canonical symptom page s action contractom, ownerom a safe first action;
+- merať pages-per-incident, actionable rate, duplicates, flapping a response delay;
+- testovať rule-to-receiver-to-resolved path ako code;
+- rozlíšiť volume, active cardinality a churn;
+- navrhnúť per-signal/per-tenant dimension budget a forbidden-dimension contract;
+- riadiť series, streams, indexed fields, trace attributes, dashboard variables a alert identities;
+- vykonať cardinality containment, authoritative schema recovery a historical-identity retirement.
 
-- vysvetliť rozdiel medzi OpenTelemetry API, SDK, semantic conventions, OTLP a Collectorom,
-- navrhnúť stabilnú resource a instrumentation-scope identity,
-- overovať stability status semantic conventions a riadiť schema migrations,
-- navrhnúť agent a gateway Collector topology,
-- používať receivers, processors, exporters, memory limiter, batching a queues,
-- zabezpečiť trace affinity pre tail sampling,
-- navrhnúť filtering, transformation, redaction a fan-out bez straty kritických signals,
-- prevádzkovať Collector s version pinningom, self-observability, canary testom a rollbackom,
-- diagnostikovať missing, duplicate, throttled a dropped telemetry.
+## Ako sekciu používať
 
-### Alert design
+Odporúčaný investigation postup:
 
-- rozlíšiť page, ticket a informational event,
-- navrhovať actionable symptom alerts s ownerom, impactom, runbookom a validation krokom,
-- používať SLO burn-rate alerting, vhodné thresholds, `for`, `keep_firing_for` a no-data policy,
-- riadiť alert identity, severity, grouping, inhibition, silences a maintenance,
-- merať alert quality cez actionable rate, duplicates, flapping, pages per incident a time to acknowledgement,
-- testovať alerts ako code od rule expression po receiver a acknowledgement,
-- rozpoznať a systematicky znižovať alert fatigue.
+```text
+1. potvrď user/business symptom a population
+2. over signal authority a evidence completeness
+3. lokalizuj operation/dependency cez RED, Golden Signals a traces
+4. lokalizuj resource cez USE
+5. porovnaj metrics, logs, traces, events, release/config a loaded state
+6. zachovaj volatile evidence pred broad mutation
+7. vykonaj bounded containment
+8. oprav authoritative producer/policy/storage generation
+9. over original aj forbidden outcome
+10. over telemetry canaries, cost, retention a cardinality closure
+```
 
-### Cardinality
+Produktové kapitoly čítaj ako realizáciu tohto modelu, nie ako samostatné tool tutorials.
 
-- rozlíšiť telemetry volume a cardinality,
-- vypočítať combinatorial growth dimensions,
-- rozlíšiť bounded a unbounded dimensions,
-- navrhovať cardinality budgets per service a tenant,
-- vysvetliť series a stream churn,
-- riadiť Prometheus series, histogram, Loki stream, indexed-field a trace-attribute cardinality,
-- chrániť platformu cez views, relabeling, allowlists, mappings, quotas a runtime limits,
-- diagnostikovať cardinality spikes a vykonať bezpečnú remediation,
-- naviazať observability cost na producenta, use case a retention model.
+## Section-level completion gate
 
-### Prevádzkový contract
+Sekcia je pripravená na používateľskú kontrolu, keď:
 
-- monitorovať každý observability component ako kritickú platformu,
-- používať end-to-end metric, alert, log a trace canaries,
-- navrhnúť koreláciu `SLO alert → exemplar/trace → logs → resource metrics/profile`,
-- chrániť security a audit telemetry oddelenou access a failure boundary,
-- riadiť upgrades, backups, lifecycle, retention, tenancy a cost.
+1. všetkých 16 authoritative kapitol má dominantný lifecycle a exact subject;
+2. každý komplexný failure používa competing hypotheses a discriminating evidence;
+3. configured/loaded, emitted/accepted/durable/queryable a technical/business boundaries sú konzistentné;
+4. recovery obsahuje original, forbidden a relevantnú adjacent-cohort alebo second-operation validation;
+5. navigation chain funguje od CloudOps troubleshooting po CIA triádu;
+6. section glossary je synchronizovaný do `GLOSSARY.md`;
+7. learning-depth audit artifacts sú prázdne;
+8. current product facts sú overené proti official primary documentation.
 
 ## Stav
 
 | Téma | Status | Úroveň |
 |---|---|---|
-| Monitoring vs. observability | Learning | L2 |
-| Metrics, logs, traces a events | Learning | L2 |
-| Instrumentation a telemetry | Learning | L2 |
-| RED method | Learning | L2 |
-| USE method | Learning | L2 |
-| Golden Signals | Learning | L2 |
-| Prometheus | Learning | L2 |
-| Alertmanager | Learning | L2 |
-| Grafana | Learning | L2 |
-| Loki | Learning | L2 |
-| Elasticsearch alebo OpenSearch | Learning | L2 |
-| Fluent Bit | Learning | L2 |
-| Jaeger a Tempo | Learning | L2 |
-| OpenTelemetry | Learning | L2 |
-| Alert design a alert fatigue | Learning | L2 |
-| Cardinality | Learning | L2 |
+| Monitoring vs. observability | Strict revalidation complete | L2 |
+| Metrics, logs, traces a events | Strict revalidation complete | L2 |
+| Instrumentation a telemetry | Strict revalidation complete | L2 |
+| RED method | Strict revalidation complete | L2 |
+| USE method | Strict revalidation complete | L2 |
+| Golden Signals | Strict revalidation complete | L2 |
+| Prometheus | Strict revalidation complete | L2 |
+| Alertmanager | Strict revalidation complete | L2 |
+| Grafana | Strict revalidation complete | L2 |
+| Loki | Strict revalidation complete | L2 |
+| Elasticsearch alebo OpenSearch | Strict revalidation complete | L2 |
+| Fluent Bit | Strict revalidation complete | L2 |
+| Jaeger a Tempo | Strict revalidation complete | L2 |
+| OpenTelemetry | Strict revalidation complete | L2 |
+| Alert design a alert fatigue | Strict revalidation complete | L2 |
+| Cardinality | Strict revalidation complete | L2 |
