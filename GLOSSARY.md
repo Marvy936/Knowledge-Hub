@@ -70,6 +70,10 @@ Versionovaná realizácia identity, logging, security services, network, DNS, KM
 
 Automatizovaný proces vytvorenia a baseline konfigurácie nového AWS accountu vrátane OU placementu, identity, loggingu, networku, budgets, guardrails a ownership metadata. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Acknowledged-write RPO
+
+Recovery Point Objective vyjadrený voči business operations, ktoré už systém callerovi potvrdil; commit a replication policy musí preukázať, ktoré z nich prežijú konkrétny failure. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## Acknowledgement boundary — reliability
 
 State transition, po ktorej service callerovi tvrdí, že operation alebo intent bol prijatý, committed alebo dokončený a preto musí mať definované retry, durability a recovery semantics. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
@@ -313,6 +317,10 @@ OpenTelemetry Collector nasadený blízko workloadu alebo Node-u na lokálny pr�
 ## Agentless automation — Ansible
 
 Model, v ktorom Ansible typicky nepotrebuje dlhodobo bežiaceho agenta na managed node a používa existujúci transport alebo API; stále však vyžaduje connection, identity a runtime capabilities. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Aggregate boundary
+
+Množina facts a state transitions, ktoré sa typicky čítajú a menia spolu a pre ktoré má byť jasná atomicity a invariant boundary. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
 ## Aggregated ClusterRole
 
@@ -850,6 +858,10 @@ Dôkazy a miera dôvery, že navrhnuté security controls sú správne implement
 
 Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Asynchronous replication
+
+Replication policy, pri ktorej primary môže potvrdiť commit pred required acknowledgementom replica-y; znižuje write latency coupling, ale môže vytvoriť non-zero RPO pri permanentnej strate primary. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## Asyncio
 
 Python framework pre cooperative asynchronous I/O založený na event loop-e, coroutines a tasks. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
@@ -978,6 +990,10 @@ Obnova cez opravený desired-state/source contract, last-known-good generation a
 
 Jediný source alebo controller oprávnený meniť konkrétny dashboard UID, napríklad Git provisioning, Terraform alebo Operator; UI edit bez zmeny autority je iba dočasný drift. Pozri [Grafana](docs/12-observability/grafana.md).
 
+## Authoritative fact
+
+Business fact, ktorého konkrétny store a state transition rozhodujú o pravde systému; derived projections, caches a search indexes ho môžu kopírovať, ale nesmú nevedome vytvoriť druhú authority. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
 ## Authoritative identity source
 
 Systém považovaný za zdroj pravdy pre existenciu, status, ownera alebo attributes identity, napríklad HR systém alebo service catalog. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -1065,6 +1081,10 @@ EC2 fleet controller udržiavajúci minimum, desired a maximum capacity cez laun
 ## Auto unseal — Vault
 
 Vault model, v ktorom Cloud KMS, HSM alebo iný trusted seal mechanism dešifruje root-key material pri štarte bez manuálneho zadávania Shamir shares. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Autocommit
+
+Connection alebo framework behavior, pri ktorom každý SQL statement tvorí samostatnú transaction, ak application explicitne nezačne širšiu transaction. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
 
 ## automated backup — RDS
 
@@ -3450,6 +3470,10 @@ Otázka, či by odstránenie alebo zmena konkrétnej podmienky zabránila incide
 
 Opakované vynechanie rovnakého component classu alebo lifecycle stage-u z SBOM/scanning evidence po generator, configuration alebo pipeline zmene. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
+## Covering index
+
+Index obsahujúci key a ďalšie columns potrebné pre query tak, aby engine mohol obmedziť alebo vynechať access k base table podľa visibility a product semantics. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
 ## CPU millicore
 
 Kubernetes CPU quantity, kde `1000m` predstavuje jednu CPU jednotku a `250m` štvrtinu CPU. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
@@ -3846,6 +3870,10 @@ Elasticsearch lifecycle mechanizmus na retention a správu backing indexes data 
 
 Logical abstraction nad rolling backing indexes optimalizovaná pre timestamped a prevažne append-only data ako logs, events a metrics. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Database-model acceptance verdict
+
+Dôkaz, že authoritative facts, aggregates, relationships, invarianty, access patterns, transaction/consistency semantics, partitioning, derived stores, migration a recovery tvoria správny allowed aj forbidden business outcome. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
 ## Database recovery acceptance verdict
 
 Closure dôkaz, že writer/connection topology, transaction outcome, data invariants, idempotency, performance a forbidden stale-reader/old-writer/master/public paths sú po failover alebo restore správne. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
@@ -3853,6 +3881,10 @@ Closure dôkaz, že writer/connection topology, transaction outcome, data invari
 ## Database restore generation
 
 Nový RDS instance/cluster vytvorený zo snapshotu alebo PITR s exact restore time, KMS, parameter, network, secret, schema a application compatibility identity. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Database-selection subject
+
+Exact business capability, authoritative facts, invariants, entities/aggregates, access patterns, transaction scope, scale, consistency, failure a recovery requirements hodnotené pri výbere databázového modelu. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
 ## Database subject
 
@@ -3881,6 +3913,10 @@ Kolekcia VPC subnets vo viacerých Availability Zones, z ktorej RDS vyberá data
 ## DC locator
 
 AD DS proces, ktorým client pomocou DNS, site informácií a ďalších pravidiel nájde vhodný domain controller. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## DDL lock
+
+Lock alebo metadata-serialization boundary vyžadovaná schema operation, ktorá môže čakať za existujúcimi transactions alebo blokovať ďalšie reads/writes podľa engine-u a statementu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Debug container — Kubernetes
 
@@ -4177,6 +4213,10 @@ Target-group interval, počas ktorého deregistrovaný target zostáva v drainin
 ## Derived credential subject
 
 Krátkodobý cloud, Vault alebo iný external credential vydaný na základe workload identity, s vlastnou expiry, permissions, auditom a revocation lifecycle-om. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
+
+## Derived data store
+
+Store vytvorený z authoritative change streamu alebo rebuild procesu pre read, search, cache či analytical workload; potrebuje lineage, freshness, completeness a recovery contract. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
 ## Derived signal
 
@@ -4793,6 +4833,10 @@ Tiché zahodenie packetu bez explicitnej odpovede klientovi. Typickým symptómo
 ## DSSE
 
 Dead Simple Signing Envelope; envelope format viažuci payload type a payload bytes k signatures s ochranou proti cross-protocol confusion. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Dual authority
+
+Failure-prone stav, keď dva stores alebo writers môžu nezávisle meniť rovnaký business fact bez jedného authoritative transition a reconciliation contractu. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
 ## Dual stack
 
@@ -5446,6 +5490,10 @@ Podiel failed operations voči relevantnému počtu valid operations pri rovnako
 
 Dôvod, prečo defect alebo unsafe condition neodhalili testy, review, policy gate, canary alebo rollout controls pred production impactom. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
+## Estimate-vs-actual verdict
+
+Porovnanie planner estimate-u cardinality/costu s reálne spracovanými rows, časom, buffers a outputom, používané na diagnostiku nesprávneho access pathu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
 ## ETag
 
 HTTP validator reprezentácie používaný na cache revalidation a optimistic concurrency cez conditional requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
@@ -5657,6 +5705,10 @@ Reference z metric sample alebo histogram observation na konkrétny trace ID, kt
 ## Exit status
 
 Číselný výsledok ukončeného procesu alebo shell príkazu. Pozri [Shell, Bash, pipes, redirection a exit codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md).
+
+## Expand–backfill–switch–contract
+
+Phased schema/data migration protocol: pridať kompatibilný model, bezpečne doplniť historical state, prepnúť current readers/writers po reconciliation a až potom odstrániť starý contract. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Expand-contract
 
@@ -5884,7 +5936,7 @@ Riadený presun authoritative data a writer/traffic ownershipu z recovery prostr
 
 ## Failback generation
 
-Exact data, writer, routing, identity, application a dependency state použitý na controlled návrat alebo rebalancing z recovery environmentu späť do obnoveného primary environmentu. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+Versionovaný plan a state transition, ktorým sa authoritative workload vracia alebo presúva z recovery writer-a na novú steady-state topology po vyriešení divergence, capacity a dependency podmienok. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Failed deployment recovery time
 
@@ -7126,6 +7178,10 @@ Container authoritative DNS records pre konkrétny public alebo private DNS name
 
 Magic mapping poskytujúci prístup k host-scoped variables iných inventory hosts; jeho použitie vytvára cross-host coupling a závisí od dostupnosti dát. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## Hot partition
+
+Partition alebo shard, ktorého key distribution sústreďuje neprimeraný traffic, storage alebo contention a porušuje predpoklad rovnomerného horizontal scale-u. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
 ## HPA behavior generation
 
 Versionovaná scale-up/scale-down tolerance, stabilization a rate-policy konfigurácia použitá pri prechode z recommendation na scale action. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
@@ -7566,6 +7622,10 @@ Dynamické načítanie Ansible role počas executionu podľa runtime contextu. P
 
 Výsledok signalizujúci, že autoritatívne rozhodnutie nemožno urobiť, pretože chýba required job, shard, report, artifact alebo tool execution status. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
+## Index/lock/migration acceptance verdict
+
+Dôkaz, že query plan, index validity/use, lock behavior, migration phases, backfill correctness, application compatibility, replication/vacuum guardrails a rollback/restart outcomes prešli v current scale-i. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
 ## Index — search
 
 Logical collection documents s vlastným mappingom, settings a shard topology. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -7577,6 +7637,10 @@ Viac verzií jednej path uložených v Git indexe počas konfliktu: stage 1 je m
 ## Index State Management — ISM
 
 OpenSearch policy framework na riadenie index lifecycle-u cez states, transitions a actions. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Index subject
+
+Exact database/table/index/query generation, data distribution, workload, statistics, lock a migration scope analyzovaného access pathu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Index template
 
@@ -7785,6 +7849,14 @@ Horizontálne škálovaný a vysoko dostupný VPC component poskytujúci route t
 ## invalidation — CloudFront
 
 Požiadavka na odstránenie object pathov z CloudFront edge caches pred prirodzenou TTL expiráciou. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Invariant boundary
+
+Rozsah records, documents, services alebo external operations, ktoré musia spoločne zachovať konkrétne business pravidlo. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
+## Invariant-first model
+
+Data-design postup začínajúci business constraints, concurrency a atomic transition requirements pred optimalizáciou physical queries. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
 ## Inventory cache — Ansible
 
@@ -8530,6 +8602,10 @@ Explicitné porovnanie local Prometheus samples/rule state-u s remote-write queu
 
 AWS infrastructure extension približujúca vybrané služby k určitej metropolitnej oblasti pre latency-sensitive workloady a závislá od parent Regionu podľa service modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## Lock graph
+
+Directed graph transactions/sessions a lock dependencies používaný na rozlíšenie holders, waiters, root blockerov a deadlock cycles. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
 ## Lock-required release gate — Helm
 
 CI policy odmietajúca release build, ak dependency declaration nemá synchronizovaný reviewed lock alebo artifacts nezodpovedajú lock identity. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
@@ -8610,6 +8686,10 @@ Jedna business alebo caller-visible operácia bez ohľadu na počet interných r
 
 Metric counter inkrementovaný raz podľa accepted alebo final outcome jednej business/caller-visible operation bez ohľadu na interný retry alebo fan-out počet. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Logical replication
+
+Replication changes na logical row/event úrovni, ktorá môže byť selective a vhodná pre migrations alebo downstream consumers, ale potrebuje explicitný DDL, ordering, conflict a completeness contract. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## Logical version
 
 Ľudsky alebo procesne významná verzia, napríklad `2.8.1`, ktorá komunikuje release alebo compatibility význam, ale sama nemusí identifikovať konkrétne bytes bez väzby na digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -8685,6 +8765,10 @@ Template function čítajúca live Kubernetes API počas server-connected render
 ## Loop control — Ansible
 
 Task loop metadata a správanie riadené cez `loop_control`, napríklad pomenovaný `loop_var`, label, index alebo pause. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
+
+## Lost update
+
+Concurrency anomaly, pri ktorej neskorší write založený na stale read-e prepíše committed zmenu inej transaction bez conflict verdictu. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
 
 ## Low-level container runtime
 
@@ -8953,6 +9037,10 @@ Jemnozrnná isolation a traffic policy medzi workloadmi alebo resource groups, k
 ## MicroVM
 
 Minimalizovaná VM s rýchlejším startupom a menším overheadom pri zachovaní virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Migration generation
+
+Exact version schema artifactu, backfill code-u, cursor/state-u, application compatibility a effective constraints/indexes tvoriaca jednu database migration. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Milestone generation — Well-Architected
 
@@ -9245,6 +9333,10 @@ Kerberos flow, pri ktorom client aj service cryptographically overia druhú stra
 ## Mutual TLS — mTLS
 
 TLS režim, v ktorom server aj client predkladajú a validujú certificates; poskytuje channel-level mutual authentication, nie automatickú application authorization. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## MVCC — Multi-Version Concurrency Control
+
+Concurrency mechanism používajúci versions records a transaction snapshots na oddelenie visibility readers/writers; neodstraňuje write conflicts, locks, long-transaction pressure ani serialization retry. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
 
 ## NACL ordered-policy generation
 
@@ -9922,6 +10014,10 @@ Dôkaz, že exact service/change generation má current architecture, effective 
 
 Exact service alebo capability, change type, release/config/infrastructure generation, environment/Region/cohort, operating model, objectives, evidence cutoff, launch window a decision authority analyzovanej readiness review. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
 
+## Optimistic concurrency
+
+Concurrency model, v ktorom writer mutuje iba vtedy, keď row/version/state stále zodpovedá observed precondition; zero affected rows znamená conflict alebo stale plan. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
 ## option group — RDS
 
 Engine-specific RDS configuration object povoľujúci vybrané database features alebo integrations s vlastným lifecycle, restart a licensing modelom. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
@@ -10186,6 +10282,10 @@ Predvýpočet policy nad známymi data s vytvorením residual query pre runtime 
 
 Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad vytvorí external resource, ale nestihne uložiť jeho identity do statusu, a musí sa bezpečne zotaviť pri retry. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Partial index
+
+Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bounded active/missing cohort, ak query predicate a business semantics presne zodpovedajú jeho scope-u. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
 ## Partial-result verdict — LDAP
 
 Rozhodnutie, či Search result reprezentuje complete intended population alebo bol obmedzený ACL, limitom, referralom, controlom, timeoutom či stale replica state-om. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -10373,6 +10473,10 @@ Namespaced Kubernetes request na persistent storage definujúci požadovanú cap
 ## Pester
 
 PowerShell test framework pre assertions, mocks, setup/teardown a test discovery. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
+
+## Physical replication
+
+Engine/storage-level replication write-ahead alebo physical changes poskytujúca high-fidelity standby, ale kopírujúca aj logical corruption a často viazaná na užšiu version compatibility. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## PID limit — container
 
@@ -10802,6 +10906,10 @@ Explicitné naviazanie Pod Security Admission režimu na konkrétnu Kubernetes m
 
 Skompilovaná policy vykonávaná ako WebAssembly module v embedded PEP alebo application runtime. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Polyglot persistence
+
+Zámerné použitie viacerých databázových technológií s explicitne odlišnými authoritative alebo derived roles, ownershipom, lineage a recovery contractom. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
 ## Port
 
 16-bit transportný identifikátor socket endpointu. Port sám neurčuje aplikačný protokol. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -11154,6 +11262,10 @@ Span attribute vybraný na indexovanie, metrics generation alebo ďalšie zrých
 
 Riadené rozhodnutie, ktorá replica/Region/topology sa stáva jediným accepted writerom po failover/DR, vrátane fencing, endpoint cutover a failback reconciliation. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
+## Promotion eligibility
+
+Verdict, že konkrétna replica má compatible generation, required data position, acceptable RPO gap, healthy recovery state, access, capacity a fencing path na prevzatie authoritative writer role. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## Promotion evidence
 
 Súbor výsledkov a metadata viazaných na konkrétny artifact alebo release manifest digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
@@ -11390,6 +11502,10 @@ Component vykonávajúci LogQL subqueries nad recent ingestion state-om a histor
 
 Exact sequence DNS names vytvorená resolverom z pôvodného mena, search domains a `ndots` semantics. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
 
+## Query-first model
+
+Data-design postup začínajúci dominantnými predicates, ordering, pagination, fan-out a latency/freshness requirements, následne vyvažovaný invariant a write modelom. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
 ## Query frontend — Loki
 
 Read-path component, ktorý prijíma LogQL queries, splituje ich, aplikuje caching/limits a zlučuje výsledky. Pozri [Loki](docs/12-observability/loki.md).
@@ -11609,6 +11725,10 @@ End-to-end interval od detection/decision cez access, restore, initialization, d
 ## Rebase
 
 Operácia, ktorá replayuje commits na nový base a vytvára nové commit objects s novými IDs. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
+
+## Receive/flush/replay lag
+
+Oddelené replication gaps medzi logom odoslaným primary, prijatým replica-ou, durably uloženým a aplikovaným/query-visible state-om. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Receiver — Alertmanager
 
@@ -11950,6 +12070,10 @@ Zmena passwordu alebo vault identity použitej na šifrovanie existujúceho Vaul
 
 Sigstore transparency log pre signed software supply-chain metadata a inclusion evidence. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
+## Relational model
+
+Data model založený na relations, rows, columns, keys, constraints a declarative queries, prirodzene vhodný pre invariant-heavy facts a relationships, ale stále vyžadujúci správnu transaction a physical design boundary. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
 ## Relationship completeness — SBOM
 
 Miera, do akej BOM správne zachytáva dependency, containment, build-input, tool a variant relationships pre intended subject a lifecycle stage. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
@@ -12206,9 +12330,17 @@ Dôkaz, že exact eligible object version bola úspešne prenesená do intended 
 
 Versionovaný stav synchronizácie replica/mirror určujúci prijaté manifests, blobs, tags, deletes a referrers. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
+## Replication/HA acceptance verdict
+
+Dôkaz, že replication positions, commit policy, lag, reads, promotion, fencing, client convergence, reconciliation, backup a failback spĺňajú scenario-specific availability, durability, RPO a RTO. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## replication lag — RDS
 
 Časový alebo log-position rozdiel medzi source database a asynchronously applying read replica, ktorý určuje stale-read a recovery exposure. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## Replication subject
+
+Exact authoritative data set, primary/replica/timeline generations, replication mechanism, positions, commit policy, read routing, failure, promotion, fencing a recovery scope. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Report artifact — GitLab
 
@@ -12785,6 +12917,10 @@ Explicitné stavy produkčnej expozície s povolenými transitions, observation 
 ## Rollover — search
 
 Lifecycle operácia vytvárajúca nový write index po splnení age, size, document-count alebo shard-size conditions. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Root blocker
+
+Session alebo transaction na začiatku lock-wait chainu, ktorej held lock alebo open transaction nepriamo blokuje ďalšie work. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Root-cause depth
 
@@ -13686,6 +13822,10 @@ Monotónne rastúce číslo snapshotu v jednej state lineage používané na roz
 
 Prechod z Go/template objectu na YAML alebo JSON text a následne späť na parsed structure alebo final Kubernetes document. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
+## Serialization failure
+
+Databázou vrátený abort, keď concurrent transaction nemožno bezpečne potvrdiť podľa requested serializable/consistency modelu; application má retryovať celú logical transaction. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
 ## Series churn
 
 Rýchle vytváranie a zánik time series, ktoré zaťažuje WAL, index, compaction a remote storage aj pri nižšom počte súčasne active series. Pozri [Cardinality](docs/12-observability/cardinality.md).
@@ -13921,6 +14061,10 @@ Rozhodovanie search clusteru, na ktorom node a failure domain-e budú umiestnen�
 ## Shard-assignment verdict
 
 Explicitný green/yellow/red a allocation-explanation stav konkrétneho primary alebo replica shardu, nie všeobecný business-health verdict. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Shard key
+
+Field alebo composite identity určujúca partition placement a routing distributed data; ovplyvňuje locality, balancing, hot partitions, cross-shard queries a transaction scope. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
 ## Shared-control closure verdict
 
@@ -14302,6 +14446,10 @@ Production-ready implementation SPIFFE APIs používajúca node a workload attes
 
 Odovzdanie kolekcie named alebo positional parameters príkazu pomocou hashtable alebo array. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Split brain
+
+Failure state, v ktorom viac nodes alebo partitions súčasne prijíma authoritative writes bez jedného leadership/fencing verdictu a vytvára divergentné histories. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## Split-horizon DNS
 
 DNS model, v ktorom rovnaké meno vracia rozdielne odpovede podľa resolvera, siete alebo klientského contextu. Pozri [DNS](docs/02-networking-and-web/dns.md).
@@ -14337,6 +14485,10 @@ Proces vykonávajúci podpisové operácie pomocou odomknutých private keys v p
 ## SSM Agent
 
 Node-side agent komunikujúci so Systems Manager control plane a vykonávajúci podporované command, session, inventory, patch a state operations. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## Stable backfill cursor
+
+Monotonic alebo otherwise resumable position používaná na deterministic bounded batch selection bez repeated broad scans a bez nejasného restart pointu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Stable bucketing
 
@@ -14393,6 +14545,10 @@ Riadený presun labelov ako `AWSPENDING`, `AWSCURRENT` a `AWSPREVIOUS` medzi imm
 ## Stale approval — GitLab
 
 Approval, ktorý bol udelený pre starší source SHA, target context, candidate alebo policy revision a už neposkytuje dôkaz pre aktuálny merge subject. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
+
+## Stale backfill overwrite
+
+Failure, pri ktorom backfill vypočíta value zo starého snapshotu a neskôr prepíše novší live state bez version/current-state predicate-u. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Staleness — Prometheus
 
@@ -14825,6 +14981,10 @@ Proces prekladu user alebo business symptómu na exact release, render, hook, li
 ## Symptom-to-subject translation
 
 Prevod user alebo business symptómu na konkrétne cluster, release, object, process, data, flow a time identities vhodné na falsifikovateľnú diagnostiku. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Synchronous replication
+
+Replication policy, pri ktorej commit čaká na configured replica/quorum acknowledgement stage; posilňuje acknowledged-write durability za cenu latency a availability coupling. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Synthetic alert
 
@@ -15526,6 +15686,22 @@ Explicitné rozhodnutie otvoriť production traffic až po API, controller, exte
 
 Rozdelenie Route trafficu medzi viac backendRefs podľa weights, používané napríklad pre canary alebo migration rollout. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
+## Transaction acceptance verdict
+
+Dôkaz, že exact business transition, read/write set, constraints, isolation, locks/conflicts, commit/acknowledgement, idempotency, external workflow a concurrent/second-operation outcomes tvoria správny state transition. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
+## Transaction acknowledgement boundary
+
+Moment, po ktorom caller oprávnene považuje logical operation za committed alebo prijatú; musí byť mapovaný na local durability, replication a retry/unknown-outcome semantics. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
+## Transaction snapshot
+
+Visibility view určujúci, ktoré committed row versions transaction alebo statement vidí podľa MVCC a isolation levelu. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
+## Transaction subject
+
+Exact business operation, database/topology generation, read/write set, preconditions, invarianty, isolation, locks, commit, acknowledgement, retry a external-effect scope jednej transaction. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
 ## Transformation generation — Grafana
 
 Versionovaný ordered chain expressions a transformations aplikovaný na query frames pred visualization. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -15696,7 +15872,7 @@ Stav, keď worker nevie, či external side effect neprebehol, prebehol čiastoč
 
 ## Unknown commit outcome
 
-Stav, keď database mohla transaction durable commitnúť, ale application nedostala acknowledgement pre connection failure; vyžaduje idempotency a reconciliation pred retryom. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+Stav, keď client nedostal authoritative response a nevie, či database alebo external operation commitla; bezpečné riešenie vyžaduje stable identity, idempotency a reconciliation. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
 
 ## Unknown Docker operation outcome
 
@@ -16338,6 +16514,10 @@ Versionovaná identita business workloadu, release/topology, owners, constraints
 
 Dočasná zapisovateľná filesystem vrstva konkrétnej container instance nad read-only image layers. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
+## Write amplification — database
+
+Dodatočné index, WAL/redo, replication, vacuum/compaction a storage operations vyvolané jedným logical write-om. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
 ## Write backing index
 
 Najnovší backing index data streamu, do ktorého sa routujú nové documents do ďalšieho rolloveru. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -16354,9 +16534,21 @@ Aktuálny backing index data streamu, do ktorého smerujú nové documents. Pozr
 
 Publication contract, pri ktorom už vydaná logical version alebo candidate identity nemožno prepísať iným digestom. Collision s odlišným contentom je hard failure a unknown outcome sa rieši reconciliation podľa idempotency key. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Write skew
+
+Isolation anomaly, pri ktorej concurrent transactions menia odlišné rows na základe spoločnej precondition a spolu porušia invariant bez direct write/write conflictu. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
+
+## Writer epoch
+
+Monotonic leadership generation pripojená k write authorization alebo records/events, ktorá pomáha odmietnuť stale writer-a po failover-e. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+
 ## Writer epoch — container storage
 
 Monotónna alebo fencing-aware generation authoritative writer-a použitá na odmietnutie stale processu/node-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Writer fencing
+
+Mechanizmus, ktorý preukázateľne zabráni old alebo stale primary-u prijímať authoritative writes pred alebo počas promotion novej writer generation. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Writer-generation identity
 
