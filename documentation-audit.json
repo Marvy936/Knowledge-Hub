@@ -3893,6 +3893,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "title": "Leader election a consensus",
+      "words": 1755,
+      "headings": 38,
+      "sections": 38,
+      "findings": 81,
+      "critical": 30,
+      "high": 28,
+      "medium": 10,
+      "low": 13,
+      "score": 635,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
       "title": "Message queues a event-driven architecture",
       "words": 1997,
@@ -216860,6 +216874,735 @@
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "section": "Killni blocker",
       "line": 525,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "1. Dominantný model",
+      "line": 10,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "1. Dominantný model",
+      "line": 10,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "2. Prečo potrebujeme consensus",
+      "line": 28,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "2. Prečo potrebujeme consensus",
+      "line": 28,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current configuration generation;`, `lock/lease ownership;`, `membership;`, `leader epoch;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "2. Prečo potrebujeme consensus",
+      "line": 28,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "3. Failure model a assumptions",
+      "line": 45,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "3. Failure model a assumptions",
+      "line": 45,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "3. Failure model a assumptions",
+      "line": 45,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `crash-stop alebo crash-recovery nodes;`, `Byzantine behavior či jeho absenciu;`, `message loss, delay a reordering;`, `persistent storage guarantees;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "3. Failure model a assumptions",
+      "line": 45,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "3. Failure model a assumptions",
+      "line": 45,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "6. Election safety",
+      "line": 98,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "6. Election safety",
+      "line": 98,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old processu veriť, že je stále leader;`, `stale client connection;`, `external provideru prijať call od old leadera;`, `application cache držať starý leader flag;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "6. Election safety",
+      "line": 98,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "6. Election safety",
+      "line": 98,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "7. Replicated log",
+      "line": 111,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "7. Replicated log",
+      "line": 111,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proposed;`, `appended;`, `replicated;`, `committed;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "7. Replicated log",
+      "line": 111,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "8. Commit vs. apply",
+      "line": 136,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "8. Commit vs. apply",
+      "line": 136,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current term;`, `leader identity;`, `commit index;`, `applied index;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "8. Commit vs. apply",
+      "line": 136,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "8. Commit vs. apply",
+      "line": 136,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "8. Commit vs. apply",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "8. Commit vs. apply",
+      "line": 136,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "9. Linearizable reads",
+      "line": 153,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requested consistency mode;`, `response revision;`, `cluster/member identity;`, `term;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "9. Linearizable reads",
+      "line": 153,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "9. Linearizable reads",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "9. Linearizable reads",
+      "line": 153,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "11. Leases a clocks",
+      "line": 181,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "11. Leases a clocks",
+      "line": 181,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto meria expiry;`, `renew acknowledgement;`, `failure detector semantics;`, `process pause;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "11. Leases a clocks",
+      "line": 181,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "11. Leases a clocks",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "12. Fencing tokens",
+      "line": 196,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "12. Fencing tokens",
+      "line": 196,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database row writer epoch condition;`, `storage generation pre lock ownera;`, `provider proxy kontrolujúci controller epoch;`, `broker producer epoch;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "12. Fencing tokens",
+      "line": 196,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "12. Fencing tokens",
+      "line": 196,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "14. Leader transfer a planned maintenance",
+      "line": 233,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "14. Leader transfer a planned maintenance",
+      "line": 233,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "14. Leader transfer a planned maintenance",
+      "line": 233,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current leader eligibility;`, `target caught-up state;`, `bounded in-flight proposals;`, `client routing convergence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "14. Leader transfer a planned maintenance",
+      "line": 233,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "16. Consensus a external systems",
+      "line": 264,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "16. Consensus a external systems",
+      "line": 264,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "16. Consensus a external systems",
+      "line": 264,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency key;`, `durable attempt record;`, `provider lookup;`, `reconciliation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "16. Consensus a external systems",
+      "line": 264,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 283,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 51 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 283,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Region B leader nedokázal renew-nuť lease cez quorum.`, `Region A campaigner získal leadership s epoch 52 .`, `Batch loop nekontroloval lease loss medzi provider operations.`, `Provider request neobsahoval fencing epoch.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 283,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "18. Consensus/leadership root cause",
+      "line": 308,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "18. Consensus/leadership root cause",
+      "line": 308,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `60-sekundový non-interruptible batch;`, `local boolean leadership cache;`, `provider API bez epoch validation;`, `retry policy nezviazaná s operation owner epoch;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "18. Consensus/leadership root cause",
+      "line": 308,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "18. Consensus/leadership root cause",
+      "line": 308,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "18. Consensus/leadership root cause",
+      "line": 308,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "19. Dôsledky",
+      "line": 325,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "19. Dôsledky",
+      "line": 325,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "19. Dôsledky",
+      "line": 325,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `old epoch 51 worker spracoval 318 operation records;`, `74 logical operations dostalo attempts z oboch epochs;`, `27 operations vytvorilo duplicate physical provider attempts;`, `provider idempotency zabezpečila jeden financial effect;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "19. Dôsledky",
+      "line": 325,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "19. Dôsledky",
+      "line": 325,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "19. Dôsledky",
+      "line": 325,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 338,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "21. Authoritative redesign",
+      "line": 351,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Short bounded work units",
+      "line": 353,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Transactional leadership guard",
+      "line": 363,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Fencing",
+      "line": 367,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease-loss handling",
+      "line": 380,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease-loss handling",
+      "line": 380,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease-loss handling",
+      "line": 380,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease-loss handling",
+      "line": 380,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `renew failure okamžite ruší new work admission;`, `active operations kontrolujú cancellation boundary;`, `unknown external attempts sa nerepeatnú bez lookupu;`, `old identity sa revokuje pri failover-e;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease-loss handling",
+      "line": 380,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease-loss handling",
+      "line": 380,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact coordination/invariant subject je explicitný;`, `term/epoch, leader, commit a apply state sú observable;`, `election timeout a expected failover window sú testované;`, `linearizable vs. member-local reads sú explicitné;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "22. Consensus acceptance verdict",
+      "line": 388,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "23. Troubleshooting flow",
+      "line": 406,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Lease je timestamp v procese",
+      "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Jediný leader znamená exactly once",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Viac nodes znamená vyššiu availability bez ceny",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Remove/add members naraz",
+      "line": 445,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
+      "section": "Healthy leader znamená current applied state",
+      "line": 449,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
