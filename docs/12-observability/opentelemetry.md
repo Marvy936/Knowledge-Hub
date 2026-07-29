@@ -1,968 +1,494 @@
 # OpenTelemetry
 
-OpenTelemetry je vendor-neutral framework a specification pre vytváranie, propagovanie, spracovanie a export telemetry. Nejde o observability backend ani o jediný konkrétny agent. OpenTelemetry definuje APIs, SDKs, semantic conventions, OTLP a Collector komponenty, ktoré umožňujú oddeliť application instrumentation od konkrétneho storage, query a visualization produktu.
+OpenTelemetry je vendor-neutral specification, API/SDK ecosystem, protocol a Collector framework pre vytváranie, propagovanie, spracovanie a export telemetry. Nie je to observability backend ani hotová monitoring stratégia. Jeho úspech sa neposudzuje podľa toho, či Collector beží, ale podľa toho, či exact signal contract prejde od application occurrence až po správny backend outcome bez neviditeľnej straty, schema driftu alebo privacy porušenia.
 
-## 1. Mentálny model
+## 1. Dominantný mentálny model
 
 ```text
-application a libraries
-→ OpenTelemetry API
-→ OpenTelemetry SDK alebo zero-code agent
-→ traces, metrics a logs
-→ context propagation a resources
-→ OTLP
-→ OpenTelemetry Collector
-→ receivers
-→ processors
-→ exporters
-→ Prometheus, Loki, Tempo, Jaeger, OpenSearch alebo managed backend
+business/operational otázka a signal requirement
+→ exact telemetry subject a schema generation
+→ API alebo zero-code instrumentation
+→ SDK runtime policy
+→ resource, scope a context identity
+→ signal record
+→ OTLP transport
+→ Collector receiver
+→ ordered processors
+→ sampling, filtering, redaction a enrichment
+→ exporter queue/retry
+→ backend acknowledgement
+→ backend query/read-back
+→ coverage, correctness, cost a privacy verdict
+→ rollout, rollback a contract retirement
 ```
 
-OpenTelemetry rieši telemetry generation a transport. Samotné alerting, long-term storage, query, dashboards, SLO a incident workflow zostávajú úlohou backendov a prevádzkového modelu.
+Kritické rozlíšenie:
 
-## 2. Čo OpenTelemetry je a čo nie je
+```text
+OpenTelemetry je nakonfigurované
+≠ SDK alebo agent je načítaný
+≠ record vznikol
+≠ Collector ho prijal
+≠ processor ho zachoval správne
+≠ exporter ho doručil
+≠ backend ho interpretuje podľa rovnakého contractu
+```
 
-OpenTelemetry poskytuje:
+## 2. Exact OpenTelemetry subject
 
-- vendor-neutral APIs a SDKs,
-- automatic a manual instrumentation,
-- traces, metrics a logs data model,
-- context propagation,
-- resource a instrumentation-scope identity,
-- semantic conventions,
-- OTLP protocol,
-- Collector distribution a component ecosystem.
+Pri change alebo incidente zaznamenaj:
 
-OpenTelemetry neposkytuje automaticky:
+```text
+OTel subject ID:
+Business capability a expected signals:
+Application/release/cohort:
+Language SDK alebo auto-instrumentation version:
+API/SDK/config generation:
+Semantic-convention/schema generation:
+Resource-detector a precedence generation:
+Propagation format:
+Sampling generation:
+Agent/gateway topology:
+Collector distribution/image/component inventory:
+Collector config generation a processor order:
+Exporter/backend/tenant:
+Observation window a evidence cut-off:
+```
 
-- production observability bez správneho signal designu,
-- long-term telemetry storage,
-- query UI,
-- SLO a alert strategy,
-- incident ownership,
-- data privacy bez explicitnej konfigurácie,
-- exactly-once telemetry delivery,
-- nulový overhead.
+„Používame OTel“ nie je sufficient identity. Core, contrib, Kubernetes, vendor alebo custom Collector distributions nemusia obsahovať rovnaké components ani rovnakú stability úroveň.
 
-## 3. API a SDK
+## 3. API, SDK a zero-code instrumentation
 
 ### API
 
-API je contract, ktorý používa application code a instrumentation libraries.
-
-Príklady:
-
-- vytvorenie span-u,
-- získanie meter-a,
-- vytvorenie countera alebo histogramu,
-- prístup k current contextu,
-- propagovanie baggage.
-
-Reusable library má používať API a nemá vynucovať konkrétny SDK alebo exporter.
+Application a libraries používajú API na vytváranie spans, metric measurements, log records a context operations. Reusable library nemá vnucovať konkrétny exporter alebo backend.
 
 ### SDK
 
-SDK implementuje runtime behavior:
+SDK realizuje runtime policy:
 
-- span processors,
-- metric readers a views,
-- sampling,
-- batching,
-- aggregation,
-- resource configuration,
-- exporters,
-- limits a shutdown/flush lifecycle.
+- sampling;
+- span/log processors;
+- metric readers, views, aggregation a temporality;
+- batching a queues;
+- resource configuration;
+- exporters, limits a shutdown/flush.
 
-Application owner rozhoduje, aký SDK, exporter a processing policy sa použije.
+### Zero-code alebo automatic instrumentation
 
-## 4. Traces
+Agent alebo operator môže instrumentovať framework bez ručných code changes. To zrýchľuje coverage, ale nevytvára automaticky business outcomes, správne span status semantics ani stabilnú cardinality.
 
-Trace reprezentuje jednu distributed operation a skladá sa zo spans.
+Manual a automatic instrumentation môžu koexistovať, ale ownership musí zabrániť duplicate spans a metrics.
 
-Span obsahuje typicky:
+## 4. Signal maturity nie je jednotná
 
-- trace ID,
-- span ID,
-- parent alebo links,
-- name,
-- kind,
-- start/end time,
-- status,
-- attributes,
-- events,
-- resource,
-- instrumentation scope.
+OpenTelemetry podporuje traces, metrics a logs; events sú pomenovaný log model a profiles sa ďalej rozvíjajú.
 
-### Span names
+Aktuálne dôležité stability rozlíšenia:
 
-Span name má byť stabilný a bounded.
+- metrics data model je Stable;
+- logs data model, Logs API a Logs SDK sú Stable okrem explicitných výnimiek;
+- Profiles specification je Alpha;
+- Collector ako celok má mixed status, pretože jednotlivé receivers, processors, exporters a extensions majú vlastnú stability;
+- semantic conventions a telemetry-producing instrumentations môžu mať odlišný stability status.
 
-Vhodné:
+Production contract musí pinovať konkrétny component a jeho signal-specific stability, nie iba verziu Collector binary.
+
+## 5. Resource, instrumentation scope a schema identity
+
+### Resource
+
+Resource opisuje entitu, ktorá telemetry vytvorila. Stabilná logical identity:
 
 ```text
-GET /orders/{id}
-process payment
-SELECT orders
-publish order.created
+service.name = provider-adapter
 ```
 
-Nevhodné:
+Ephemeral identity:
 
 ```text
-GET /orders/981723
-SELECT * FROM orders WHERE id=981723
-payment failed for user martin@example.com
+service.instance.id = pod/provider-adapter-7d9...
 ```
 
-Dynamic payload v span name vytvára cardinality a privacy problém.
+Pod name nesmie nahradiť logical service name. Resource detectors z environmentu, cloudu, Kubernetes a explicitnej konfigurácie potrebujú definovanú precedence.
 
-### Span kind
+### Instrumentation scope
 
-Bežné kinds:
+Scope identifikuje library/component a version, ktorá record vytvorila. Pomáha odlíšiť application instrumentation, framework instrumentation a problematickú library generation.
 
-- `SERVER`,
-- `CLIENT`,
-- `PRODUCER`,
-- `CONSUMER`,
-- `INTERNAL`.
+### Semantic conventions
 
-Kind pomáha backendu interpretovať service boundaries a zostaviť service graph.
+Semantic conventions zjednocujú names, units a meanings. Upgrade môže premenovať attribute, zmeniť unit alebo status a tým poškodiť dashboards, rules, sampling a backend mappings.
 
-### Status a errors
+Schema migration potrebuje compatibility window, fixture tests a consumer inventory.
 
-Error recording má používať semantic conventions a jasný contract.
+## 6. Context propagation a baggage
 
-Nie každý exception musí znamenať failed span, ak bol očakávane spracovaný. Naopak business failure môže vyžadovať error status aj bez runtime exception.
+W3C Trace Context typicky používa `traceparent` a `tracestate`. Injection a extraction musia fungovať cez HTTP, gRPC, queues, messaging a async boundaries.
 
-## 5. Metrics
+Baggage prenáša contextual fields, ale nie je bezplatný ani dôveryhodný automaticky. Potrebuje:
 
-OpenTelemetry metrics model oddeľuje:
+- allowlist;
+- size limit;
+- trust-boundary policy;
+- zákaz secrets a PII;
+- zákaz automatickej promotion do metric labels;
+- lifecycle pre stale values.
 
-- instrument použitý application code,
-- measurement,
-- aggregation,
-- temporality,
-- exported metric data.
+Broken propagation vytvára nové roots, neúplné traces a nekonzistentné sampling decisions.
 
-Bežné instruments:
+## 7. OTLP contract
 
-- Counter,
-- UpDownCounter,
-- Histogram,
-- ObservableCounter,
-- ObservableUpDownCounter,
-- ObservableGauge.
+OTLP/gRPC a OTLP/HTTP sú odlišné transports. Explicitne definuj:
 
-### Views
+- endpoint a signal path;
+- protocol;
+- TLS/mTLS a CA/SNI;
+- authentication/tenant headers;
+- compression a message-size limit;
+- timeout, batching a retry;
+- acknowledgement semantics.
 
-Views umožňujú meniť:
+TCP connect alebo Collector `/health` nepreukazuje správny OTLP signal path.
 
-- názov exportovanej metric,
-- description,
-- aggregation,
-- histogram buckets,
-- povolené attributes.
+## 8. Collector pipeline a processor order
 
-Views sú dôležitý control point na:
-
-- cardinality reduction,
-- compatibility migration,
-- aggregation tuning,
-- odstránenie citlivých dimensions.
-
-### Temporality
-
-Backend a exporter môžu používať cumulative alebo delta temporality.
-
-Pri migrácii alebo fan-out-e over:
-
-- čo exporter produkuje,
-- čo backend očakáva,
-- ako sa riešia process restarts,
-- či downstream správne interpretuje monotonic counters.
-
-## 6. Logs
-
-OpenTelemetry logs model umožňuje korelovať log records s trace contextom a spoločnými resources.
-
-Log record môže obsahovať:
-
-- timestamp a observed timestamp,
-- severity,
-- body,
-- attributes,
-- trace ID a span ID,
-- resource,
-- instrumentation scope.
-
-OpenTelemetry logging nemusí znamenať nahradenie existujúceho logging API. Bežný model používa logging bridge alebo Collector, ktorý prevádza existujúce records do OpenTelemetry data modelu.
-
-## 7. Events a profiles
-
-OpenTelemetry events smerujú k pomenovanému structured log modelu alebo span events podľa contextu.
-
-Profiles sú rozvíjajúca sa signal vrstva. Pred production implementáciou treba overiť:
-
-- status konkrétnej language implementation,
-- Collector component support,
-- backend compatibility,
-- overhead a sampling,
-- semantic-convention stability.
-
-Návrh nemá predpokladať rovnakú stabilitu všetkých signals a language SDKs.
-
-## 8. Resource
-
-Resource opisuje entitu, ktorá telemetry vytvorila.
-
-Kritické attributes:
-
-- `service.name`,
-- `service.namespace`,
-- `service.version`,
-- `service.instance.id`,
-- deployment environment,
-- cloud provider, account, Region a zone,
-- Kubernetes cluster, namespace, Pod a container,
-- host a process identity.
-
-### Stabilná service identity
-
-`service.name` má reprezentovať logical service, nie ephemeral instance.
-
-Nevhodné:
+Collector pipeline:
 
 ```text
-orders-api-7b9f8d6d74-kp2rx
+receiver
+→ ordered processors
+→ exporter
 ```
 
-Vhodné:
+Relevantné processors:
+
+- memory limiter;
+- batch;
+- resource/attributes;
+- filter/transform;
+- redaction;
+- probabilistic alebo tail sampling;
+- routing podľa dostupnej distribution.
+
+Order je behavior:
 
 ```text
-orders-api
+normalize identity
+→ redact sensitive fields
+→ enforce bounded dimensions
+→ sample/filter
+→ batch/export
 ```
 
-Ephemeral Pod identity patrí do instance/resource attributes.
+Ak redaction nastane po fan-out-e, data už odišli. Ak filter pred normalization očakáva nový attribute name, môže ticho zachovať alebo zahodiť nesprávnu population.
 
-### Resource detection
-
-Resource detectors môžu získať metadata z:
-
-- environment variables,
-- cloud metadata services,
-- Kubernetes Downward API,
-- host/process runtime,
-- explicitnej application konfigurácie.
-
-Pri konflikte musí byť jasná precedence a autoritatívny source.
-
-## 9. Instrumentation scope
-
-Instrumentation scope identifikuje library alebo component, ktorý telemetry vytvoril.
-
-Obsahuje typicky:
-
-- name,
-- version,
-- schema URL.
-
-Použitie:
-
-- odlíšenie application a framework instrumentation,
-- migrácia chybných library versions,
-- troubleshooting duplicate spans,
-- audit schema changes.
-
-## 10. Semantic conventions
-
-Semantic conventions definujú spoločné názvy a významy operations, metrics, attributes, events a resources.
-
-Výhody:
-
-- cross-language konzistencia,
-- reusable dashboards a rules,
-- korelácia medzi services,
-- menší vendor-specific mapping,
-- jednoduchšia platform governance.
-
-### Stability
-
-Semantic conventions nemajú všetky rovnaký stability status.
-
-Pred adoption over:
-
-- stable, experimental alebo development status,
-- migration guide,
-- schema/version,
-- compatibility s používaným SDK a backendom,
-- či auto-instrumentation používa starú alebo novú convention.
-
-Upgrade môže premenovať attributes alebo zmeniť units a tým poškodiť dashboards, rules a SLO queries.
-
-## 11. Context propagation
-
-Context propagation prenáša trace context cez service boundaries.
-
-Typický W3C model:
-
-- `traceparent`,
-- `tracestate`,
-- optional baggage.
-
-Boundaries:
-
-- HTTP,
-- gRPC,
-- messaging,
-- queues,
-- scheduled jobs,
-- batch processing,
-- async callbacks.
-
-### Injection a extraction
-
-Outbound instrumentation injectuje context do carrier-a.
-
-Inbound instrumentation context extrahuje a vytvorí child alebo linked span.
-
-Broken propagation spôsobí:
-
-- nové root traces,
-- fragmentované service graphs,
-- nemožnosť trace-to-logs correlation,
-- nesprávne sampling decisions.
-
-## 12. Baggage
-
-Baggage prenáša contextual key/value metadata.
-
-Možné použitie:
-
-- tenant class,
-- experiment cohort,
-- workflow ID,
-- priority class.
-
-Riziká:
-
-- PII alebo secret leakage,
-- propagation do third-party systems,
-- rast headers,
-- high cardinality po automatickom pridaní do spans/metrics,
-- stale values.
-
-Baggage musí mať allowlist, lifecycle a trust-boundary pravidlá.
-
-## 13. OTLP
-
-OTLP je OpenTelemetry protocol pre prenos telemetry.
-
-Bežné transports:
-
-- gRPC,
-- HTTP/protobuf.
-
-Pri konfigurácii explicitne definuj:
-
-- endpoint,
-- transport,
-- TLS a CA,
-- authentication headers,
-- compression,
-- timeout,
-- batching,
-- retry,
-- max message size,
-- tenant routing.
-
-Port alebo endpoint dostupný na TCP úrovni ešte nepreukazuje správny OTLP protocol a signal path.
-
-## 14. Collector architecture
-
-Collector pipeline má tvar:
-
-```text
-receivers
-→ optional processors
-→ exporters
-```
-
-Collector môže mať viac pipelines pre traces, metrics a logs.
-
-### Receivers
-
-Príklady:
-
-- OTLP,
-- Prometheus,
-- filelog,
-- host metrics,
-- syslog,
-- cloud-specific receivers.
-
-### Processors
-
-Príklady:
-
-- memory limiter,
-- batch,
-- attributes,
-- resource,
-- filter,
-- transform,
-- tail sampling,
-- probabilistic sampling,
-- routing podľa distribúcie/component availability.
-
-### Exporters
-
-Príklady:
-
-- OTLP,
-- Prometheus-compatible remote write,
-- debug,
-- vendor backends,
-- Kafka alebo ďalšie supported targets podľa distribution.
-
-Component availability sa môže líšiť medzi core, contrib a vendor distributions.
-
-## 15. Collector distributions
-
-Nie každý OpenTelemetry Collector binary obsahuje všetky components.
-
-Rozlišuj:
-
-- core distribution,
-- contrib distribution,
-- vendor distribution,
-- custom Collector build.
-
-Production manifest musí pinovať:
-
-- image/version,
-- component inventory,
-- configuration schema,
-- security patches,
-- compatibility tests.
-
-Kopírovanie konfigurácie z internetu môže zlyhať, ak používa component, ktorý v danej distribution nie je.
-
-## 16. Agent a gateway topology
-
-### Agent
-
-Collector pri workload-e alebo Node-e.
-
-Úlohy:
-
-- local OTLP endpoint,
-- file/host collection,
-- resource enrichment,
-- batching,
-- krátkodobý buffer,
-- forwarding.
-
-### Gateway
-
-Shared central processing tier.
-
-Úlohy:
-
-- tail sampling,
-- tenant routing,
-- policy a redaction,
-- backend fan-out,
-- authentication boundary,
-- centralized scaling.
-
-### Combined model
+## 9. Agent a gateway topology
 
 ```text
 applications
-→ node/sidecar agents
-→ load-balanced gateway tier
+→ agent/DaemonSet/sidecar Collectors
+→ gateway Collectors
 → backends
 ```
 
-Gateway je shared failure domain a musí mať HA, capacity, queue a self-monitoring model.
+Agent rieši local endpoint, file/host collection, krátky buffer a resource enrichment. Gateway rieši shared policy, tenant routing, tail sampling, centralized credentials a backend fan-out.
 
-## 17. Load balancing a trace affinity
+Gateway je shared failure domain. Potrebuje:
 
-Stateless processors možno škálovať bežným load balancingom.
+- HA a topology spread;
+- capacity a autoscaling model;
+- bounded queues;
+- independent exporter failure handling;
+- config-generation rollout;
+- end-to-end canary.
 
-Stateful trace processing, najmä tail sampling, potrebuje dostať spans rovnakého trace-u na rovnakú processing identity.
+Cluster-level receiver, ktorý má bežať raz, nesmie byť omylom nasadený na každom Node-e.
 
-Možnosti:
+## 10. Sampling a trace affinity
 
-- trace-ID-aware routing,
-- load-balancing exporter,
-- upstream partitioning,
-- durable queue/stream partitioning podľa trace ID.
+Head sampling je lacné, ale nepozná final outcome. Tail sampling môže zachovať errors a high-latency traces, ale potrebuje všetky spans trace-u na jednej stateful sampling identity.
 
-Náhodný round-robin pred tail samplerom môže vytvoriť neúplné sampling decisions.
+```text
+trace ID
+→ deterministic routing/partition
+→ jeden active tail-sampling subject
+→ wait a completeness decision
+→ keep/drop reason
+```
 
-## 18. Sampling
+Random load balancing pred tail samplers vytvára partial trace populations. Healthy replicas potom robia správne rozhodnutia nad nesprávnymi subjectmi.
 
-### Head sampling
+Sampling policy musí publikovať effective keep rate, drops podľa reason, late spans, incomplete traces a impact na trace-derived metrics.
 
-Rozhodnutie vzniká pri začiatku trace-u.
+## 11. Metrics, logs a backend mapping
 
-Výhody:
+### Metrics
 
-- nízky processing overhead,
-- jednoduché propagation,
-- predictable volume.
+Views riadia aggregation, buckets, names a povolené attributes. Pri Prometheus integrácii over:
 
-Nevýhody:
+- cumulative/delta temporality;
+- counter reset semantics;
+- histogram type a bucket compatibility;
+- units a naming;
+- resource-to-label allowlist;
+- staleness a target identity.
 
-- nevie dopredu, či trace skončí errorom alebo vysokou latency,
-- rare failures môžu byť zahodené.
+Všetky resource attributes nesmú byť automaticky metric labels.
 
-### Tail sampling
+### Logs
 
-Rozhodnutie vzniká po získaní väčšej časti trace-u.
+OTel logs môžu prísť cez application bridge, OTLP, filelog, syslog alebo Fluent Bit. File collection potrebuje persistent checkpoint state, multiline, timestamp, severity mapping a redaction.
 
-Môže zachovať:
+### Fan-out
 
-- errors,
-- high-latency traces,
-- selected services/routes,
-- rare attributes,
-- probabilistic sample ostatných.
+Jeden input môže smerovať do viacerých backends. Každý output potrebuje vlastnú queue, acknowledgement, privacy a termination criteria. Pomalý alebo permanentne chybný exporter nemá blokovať všetky paths.
 
-Cena:
+## 12. Delivery, queues a failure semantics
 
-- state a memory,
-- wait latency,
-- trace affinity,
-- incomplete-trace handling,
-- vyššia prevádzková zložitosť.
-
-### Sampling governance
-
-Dokumentuj:
-
-- policy a ownera,
-- expected keep rate,
-- per-service limits,
-- treatment errors,
-- max trace duration,
-- incomplete traces,
-- cost budget,
-- impact na trace-derived metrics.
-
-## 19. Filtering, transformation a redaction
-
-Collector môže meniť telemetry pred exportom.
-
-Použitie:
-
-- odstránenie PII a secrets,
-- normalized resource identity,
-- drop noisy spans,
-- route tenants,
-- rename legacy attributes,
-- enforce bounded attribute set.
-
-Riziká:
-
-- processor order mení výsledok,
-- drop rule môže poškodiť SLO alebo audit evidence,
-- transformation môže vytvoriť cardinality,
-- redaction po fan-out-e môže byť neskoro,
-- silent config change poškodí queries.
-
-Transformácie testuj na representative telemetry fixtures.
-
-## 20. Memory limiter, batching a queues
-
-### Memory limiter
-
-Chráni Collector pred uncontrolled memory growth a môže odmietať alebo dropovať telemetry podľa component behavior.
-
-Musí byť nastavený vo vzťahu k:
-
-- container limitu,
-- traffic burstu,
-- batch size,
-- queue size,
-- tail-sampling state.
-
-### Batch processor
-
-Znižuje export overhead, ale zvyšuje latency a loss window.
-
-### Sending queue
-
-Exporter queue absorbuje krátke downstream výpadky.
-
-Over:
-
-- queue capacity,
-- memory alebo persistent storage,
-- retry age,
-- dropped records,
-- shutdown drain,
-- backend recovery rate.
+Memory limiter chráni process, ale jeho aktivácia môže odmietať telemetry. Batch znižuje overhead, ale pridáva loss/latency window. Sending queue absorbuje iba bounded outage.
 
 Collector nie je automaticky durable broker.
 
-## 21. Persistent buffering
-
-Pri kritickej telemetry môže byť potrebná persistent queue alebo external durable buffer.
-
-Otázky:
-
-- čo sa stane pri process crashi,
-- ako sa obnoví queue,
-- čo pri plnom disku,
-- aké delivery semantics poskytuje component,
-- ako sa riešia duplicates,
-- aký je maximum outage window,
-- ako sa monitoruje oldest item age.
-
-Audit alebo security telemetry môže vyžadovať odlišný pipeline než best-effort application traces.
-
-## 22. Fan-out
-
-Jeden receiver môže posielať dáta do viacerých pipelines/exporters.
-
-Príklad:
+Pre kritický pipeline definuj:
 
 ```text
-OTLP traces
-→ production tracing backend
-→ security archive
-→ debug sampling backend
+queue type a capacity
+oldest-item age
+retry/backoff limit
+persistent storage generation
+full-disk behavior
+shutdown drain
+unknown acknowledgement policy
+duplicate tolerance
+maximum accepted loss window
 ```
 
-Fan-out trade-offy:
+Audit/security telemetry môže potrebovať oddelený durable pipeline od best-effort traces.
 
-- backend-specific transformations,
-- rozdielne retry a failure behavior,
-- duplicate network cost,
-- privacy boundaries,
-- koordinované sampling semantics.
+## 13. Worked failure: healthy gateways, neúplné tail-sampling decisions
 
-Pomalý exporter nemá bez kontroly zablokovať všetky ostatné paths.
+### Subject
 
-## 23. Prometheus compatibility
+```text
+Incident: OTEL-PAY-46
+Operation: enterprise final settlement
+Release: 7.23.0
+Collector distribution: otelcol-contrib 0.135.x
+Gateway config: OTEL-GW-88
+Gateway replicas: 4
+Tail-sampling policy: keep errors, keep p99 > 2 s, sample 2 % ostatných
+Routing generation: OTEL-ROUTE-19
+Backend: Tempo 3.0 / tenant payments-prod
+```
 
-OpenTelemetry metrics možno integrovať s Prometheus modelom cez:
+### Symptóm
 
-- Prometheus exporter endpoint,
-- Prometheus receiver scraping,
-- Prometheus remote-write exporter podľa distribution,
-- OTLP ingestion v podporovanom backendu.
+Authoritative settlement SLI ukazuje `6.9 %` final failures. Tempo search však nájde iba `0.7 %` error traces a väčšina slow traces má missing provider child span. Collector gateways sú Ready, CPU pod 55 % a exporters hlásia úspešné requests.
 
-Pri mapovaní over:
+### Competing hypotheses
 
-- metric name normalization,
-- units,
-- cumulative/delta temporality,
-- histogram model,
-- resource-to-label conversion,
-- target metadata,
-- staleness semantics,
-- cardinality.
+1. application nenastavuje span status;
+2. provider child spans nevznikajú;
+3. Tempo historical path stráca spans;
+4. semantic-convention migration zmenila operation names;
+5. tail sampler dostáva neúplné traces;
+6. memory limiter dropuje batches;
+7. query používa nesprávny tenant alebo release;
+8. late spans prichádzajú po sampling decision-e.
 
-OpenTelemetry resource attributes nie sú automaticky vhodné ako všetky Prometheus labels.
+### Discriminating evidence
 
-## 24. Logs pipeline
+```text
+SDK sampled flag: true
+agent Collector accepted/exported spans: complete per trace fixture
+agent → gateway load balancer: round-robin per OTLP request
+spans jedného trace-u na gateway replicas: 2–4
+per-gateway tail-sampler incomplete traces: high
+keep-error decisions: below expected
+memory-limiter refusals: 0
+Tempo accepted spans: zodpovedajú kept partial populations
+controlled trace-ID-aware route: complete trace a error keep
+```
 
-OpenTelemetry Collector môže prijímať logs cez:
+Pri scale-out-e sa odstránil load-balancing exporter s trace-ID routingom a agenti začali posielať batches cez bežný round-robin Service. Spans jedného trace-u skončili na rôznych stateful tail sampleroch.
 
-- OTLP,
-- filelog receiver,
-- syslog,
-- external agent ako Fluent Bit,
-- platform-specific receivers.
+Mechanizmus:
 
-Dôležité:
+```text
+complete trace vznikne v aplikáciách
+→ agents exportujú spans v samostatných batches
+→ round-robin ich rozdelí medzi gateways
+→ každý tail sampler vidí partial trace
+→ error/provider span nemusí byť na rovnakej replica
+→ policy neidentifikuje error alebo latency
+→ partial trace sa dropne alebo zachová neúplne
+→ backend je healthy, evidence coverage je chybná
+```
 
-- checkpoint/position state,
-- multiline parsing,
-- timestamp normalization,
-- severity mapping,
-- trace correlation,
-- resource enrichment,
-- redaction,
-- backend delivery.
+### Containment
 
-Pri filelog collection musí byť position state persistentný, inak po reštarte vzniknú duplicity alebo gaps.
+- zastaviť ďalší gateway topology rollout;
+- zachovať per-hop accepted/dropped, sampling reason a trace-ID distribution evidence;
+- dočasne zvýšiť bounded head keep rate pre affected cohort, ak cost budget dovolí;
+- nepovažovať trace-derived error rate za SLI;
+- chrániť metrics/logs pipeline pred spoločným emergency changeom.
 
-## 25. Kubernetes deployment
+### Authoritative recovery
 
-Bežný model:
+1. obnoviť trace-ID-aware routing pred tail samplingom;
+2. pinovať topology a component inventory v manifeste;
+3. vytvoriť multi-service complete-trace fixture;
+4. testovať errors, slow traces, late spans a ordinary traces;
+5. publikovať keep/drop reason metrics per policy;
+6. canary-nuť jednu gateway cohortu;
+7. overiť backend trace completeness a sampling distribution;
+8. vykonať druhý scale/restart test.
 
-### DaemonSet agents
+### Acceptance verdict
 
-- file logs,
-- host metrics,
-- kubelet/node telemetry,
-- local OTLP endpoint.
+Recovery je prijatá, keď:
 
-### Gateway Deployment
+- všetky spans synthetic trace-u dorazia k jednej active sampling identity;
+- error a high-latency fixtures sú zachované;
+- ordinary keep rate zodpovedá policy;
+- incomplete/late trace counters sú bounded;
+- backend trace graph je kompletný;
+- metrics a logs signals neregresujú;
+- forbidden sensitive baggage/attributes nie sú exportované;
+- druhý gateway scale-out zachová affinity a coverage.
 
-- tail sampling,
-- centralized export,
-- tenant routing,
-- policy a transformation.
+## 14. Self-observability a canary
 
-### Cluster receiver singleton
+Sleduj per hop:
 
-Niektoré cluster-level receivers nemajú bežať na každom Node-e, inak vytvoria duplicate telemetry.
-
-Over:
-
-- RBAC,
-- service discovery,
-- Pod/Node resource attributes,
-- topology spread,
-- PDB,
-- HPA/custom scaling,
-- persistent queue volumes,
-- rollout compatibility.
-
-## 26. Security
-
-Chráň:
-
-- OTLP endpoints,
-- Collector configuration,
-- exporter credentials,
-- tenant headers,
-- TLS private keys,
-- debug endpointy,
-- telemetry payloads,
-- internal metadata.
-
-Controls:
-
-- mTLS alebo workload identity,
-- network policies,
-- least privilege,
-- secret injection,
-- attribute allowlists,
-- redaction,
-- tenant validation,
-- config review,
-- audit a rotation.
-
-Collector je privileged observation point a môže vidieť citlivé dáta naprieč službami.
-
-## 27. Telemetry self-observability
-
-Sleduj:
-
-- received records,
-- accepted records,
-- refused/dropped records,
-- queue size a capacity,
-- exporter successes/failures,
-- retry count,
-- batch size a latency,
-- memory limiter actions,
-- processor drops,
-- process CPU/memory,
-- config reload/restart,
-- backend ingestion lag.
+- received, accepted, refused a dropped records;
+- processor/filter/sampling reasons;
+- queue size, capacity a oldest age;
+- exporter attempts, failures a acknowledgement;
+- memory limiter actions;
+- resource/schema distribution;
+- backend ingest lag;
+- process CPU/memory/restarts.
 
 End-to-end canary:
 
 ```text
-synthetic telemetry producer
+known trace + metric + log
 → agent
 → gateway
-→ backend
-→ query validation
+→ policy processors
+→ each intended backend
+→ query/read-back
+→ correlation a forbidden-field check
 ```
 
-Collector `/health` endpoint sám nepreukazuje funkčný telemetry path.
+## 15. Troubleshooting model
 
-## 28. Configuration management
-
-Collector configuration je production code.
-
-Použi:
-
-- version control,
-- pinned image/component versions,
-- schema validation,
-- test fixtures,
-- staging rollout,
-- canary Collectors,
-- config diff,
-- rollback,
-- secret references namiesto plaintextu.
-
-Pri zmene processor order alebo sampling policy vykonaj impact review.
-
-## 29. Migration strategy
-
-### Vendor agent na OpenTelemetry
-
-Postup:
-
-1. inventory existujúcich signals,
-2. mapovanie naming a resources,
-3. dual export alebo shadow pipeline,
-4. porovnanie coverage a cost,
-5. dashboard/rule migration,
-6. sampling parity,
-7. cutover,
-8. odstránenie duplicate instrumentation.
-
-### Legacy semantic conventions
-
-Použi:
-
-- schema mapping,
-- temporary dual attributes,
-- backend query compatibility,
-- staged SDK upgrade,
-- telemetry contract tests.
-
-Nemigruj všetky services a dashboards naraz bez compatibility windowu.
-
-## 30. Troubleshooting: žiadna telemetry
+### Žiadna telemetry
 
 ```text
-application vytvára signal?
-→ SDK/agent inicializovaný?
-→ service.name/resource?
-→ endpoint a protocol?
-→ DNS/TLS/auth?
-→ agent receiver?
-→ pipeline obsahuje signal type?
-→ processor filter/drop?
-→ exporter queue/retry?
-→ backend tenant a ingestion?
-→ query/time range?
+producer signal
+→ SDK/agent loaded state
+→ resource a schema
+→ endpoint/protocol/TLS/auth
+→ receiver pipeline
+→ processors/drop reasons
+→ exporter queue/ack
+→ backend tenant/query
 ```
 
-Zachovaj sample trace ID, Collector logs a internal metrics.
+### Duplicate telemetry
 
-## 31. Troubleshooting: chýbajúce spans
+```text
+manual + auto instrumentation
+→ duplicate discovery/cluster receiver
+→ two agents/file readers
+→ fan-out/migration
+→ ambiguous acknowledgement retry
+→ backend dedup identity
+```
 
-Over:
+### Collector OOM alebo backlog
 
-- sampling decision,
-- context propagation,
-- async boundaries,
-- max span/attribute limits,
-- tail-sampling wait a trace affinity,
-- exporter timeout,
-- backend rejection,
-- incomplete trace handling.
+```text
+ingest/burst
+→ active trace state
+→ batch/queue sizes
+→ tail-sampling wait
+→ exporter/backend throughput
+→ memory limiter
+→ container/disk limit
+→ loss boundary
+```
 
-## 32. Troubleshooting: duplicate telemetry
+### Schema drift
 
-Možné príčiny:
+```text
+producer/instrumentation version
+→ semantic-convention status
+→ resource/scope/schema URL
+→ processor transformations
+→ backend field/label mapping
+→ dashboards/rules/SLO consumers
+```
 
-- manual aj auto-instrumentation rovnakého frameworku,
-- dva agents čítajú rovnaký log file,
-- cluster receiver beží na každom Node-e,
-- retry po ambiguous backend acknowledgement,
-- dual export počas migrácie,
-- duplicate service discovery.
-
-Najprv identifikuj duplicate producer alebo pipeline hop.
-
-## 33. Troubleshooting: Collector OOM
-
-Over:
-
-- ingest rate,
-- active trace count,
-- tail-sampling state,
-- batch size,
-- exporter queue,
-- backend outage,
-- memory limiter,
-- number of pipelines/fan-out,
-- large attributes alebo payloads,
-- container limit a Go runtime behavior.
-
-Zníženie queue bez recovery plánu môže iba zmeniť OOM na dropped telemetry.
-
-## 34. Troubleshooting: backend throttling
-
-Over:
-
-- backend response codes,
-- retry/backoff,
-- queue growth,
-- oldest item age,
-- batching,
-- tenant quotas,
-- cardinality alebo payload size,
-- exporter concurrency,
-- backend recovery throughput.
-
-Pri dlhom throttlingu musí byť explicitne definované, kedy sa telemetry dropne a ako sa alertuje.
-
-## 35. Anti-patterny
+## 16. Anti-patterny
 
 ### OpenTelemetry ako observability stratégia
 
-Framework nerieši, čo má byť merané, kto reaguje a čo je user impact.
+Framework neurčuje user outcome, SLO, alert owner ani incident action.
 
-### Auto-instrumentation bez business signals
+### Collector health ako delivery proof
 
-Vznikne technická call graph telemetry bez business outcome-u.
+Process môže byť healthy pri dropped, misrouted alebo semantically corrupted telemetry.
 
-### Všetky resource attributes exportované ako metric labels
+### Tail sampling za random load balancerom
 
-Vytvorí sa vysoká cardinality.
+Rozdelí stateful trace subject.
 
-### Tail sampling za náhodným load balancerom
+### Experimental component ako stabilný contract
 
-Spans jedného trace-u sa rozdelia medzi samplery.
+Collector binary version nezaručuje component maturity.
 
-### Collector bez self-monitoringu
+### Všetky resource attributes ako labels
 
-Dropped telemetry sa prejaví iba ako chýbajúce dáta.
+Vytvorí cardinality a churn.
 
-### Redaction až v backendu
+### Redaction po fan-out-e
 
-Sensitive data už prešlo transportom a mohlo byť uložené.
+Sensitive data už opustili trusted processing boundary.
 
-### Jeden shared gateway bez HA a capacity modelu
+## 17. Kontrolné otázky
 
-Vznikne centrálny observability bottleneck.
-
-### Experimental semantic convention ako stabilný enterprise contract
-
-Upgrade môže poškodiť dashboards a queries.
-
-## 36. Kontrolné otázky
-
-1. Aký je rozdiel medzi OpenTelemetry API a SDK?
-2. Čo rieši Collector a čo nerieši?
-3. Prečo je `service.name` kritický?
-4. Ako sa líši resource a instrumentation scope?
-5. Na čo slúžia semantic conventions a aké majú stability riziko?
-6. Ako funguje context propagation?
-7. Kedy použiť agent a kedy gateway Collector?
+1. Čo tvorí exact OpenTelemetry subject?
+2. Aký je rozdiel medzi API, SDK a zero-code instrumentation?
+3. Prečo signal a Collector component maturity treba posudzovať samostatne?
+4. Ako resource, scope a schema generation vytvárajú telemetry identity?
+5. Prečo `service.name` nesmie byť Pod name?
+6. Ako processor order mení correctness a privacy?
+7. Kedy agent a gateway topology pridáva shared failure domain?
 8. Prečo tail sampling potrebuje trace affinity?
-9. Ako memory limiter, batching a queues menia failure behavior?
-10. Ako mapovať OpenTelemetry metrics do Prometheus modelu?
-11. Ako diagnostikovať duplicate telemetry?
-12. Ako bezpečne migrovať vendor instrumentation na OpenTelemetry?
+9. Ako queues a memory limiter menia loss semantics?
+10. Ako OTel metrics mapovať do Prometheus modelu?
+11. Ako diagnostikovať duplicate alebo missing telemetry per hop?
+12. Čo musí overiť end-to-end telemetry canary?
 
 ## Glossary impact
 
-Relevantné pojmy: OpenTelemetry, OTel API, OTel SDK, OTLP, Resource, Resource Detector, Instrumentation Scope, Semantic Conventions, schema URL, propagator, W3C Trace Context, baggage, Collector distribution, agent Collector, gateway Collector, receiver, processor, exporter, memory limiter, batch processor, sending queue, persistent queue, tail sampling, trace affinity, telemetry fan-out a telemetry contract test.
+Relevantné pojmy: OpenTelemetry subject, signal-contract generation, Collector distribution generation, component-stability inventory, resource-precedence generation, instrumentation-scope generation, semantic-schema generation, processor-order contract, trace-affinity generation, per-hop telemetry accounting, exporter-delivery subject, telemetry-loss window, multi-signal canary a OpenTelemetry acceptance verdict.
 
 ## Primárne zdroje
 
-- [OpenTelemetry documentation](https://opentelemetry.io/docs/)
 - [OpenTelemetry specification overview](https://opentelemetry.io/docs/specs/otel/overview/)
-- [OpenTelemetry Collector architecture](https://opentelemetry.io/docs/collector/architecture/)
-- [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
+- [OpenTelemetry signals](https://opentelemetry.io/docs/concepts/signals/)
+- [Collector architecture](https://opentelemetry.io/docs/collector/architecture/)
+- [Collector components](https://opentelemetry.io/docs/collector/components/)
+- [Semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
+- [Telemetry stability](https://opentelemetry.io/docs/specs/otel/telemetry-stability/)
+- [Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
+- [Profiles specification](https://opentelemetry.io/docs/specs/otel/profiles/)
 - [OpenTelemetry sampling](https://opentelemetry.io/docs/concepts/sampling/)
-- [OpenTelemetry logs specification](https://opentelemetry.io/docs/specs/otel/logs/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
