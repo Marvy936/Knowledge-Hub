@@ -34,7 +34,7 @@ Odporúča sa najprv dokončiť:
 14. [Chaos engineering](chaos-engineering.md)
 15. [Operational readiness](operational-readiness.md)
 
-Aktuálny authoritative stav sekcie je **15/15 · In progress**. Všetky kapitoly existujú; stav **Ready for user review** možno nastaviť až po finálnom section-level consistency passe.
+Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**. Všetky authoritative kapitoly, navigation väzby, glossary, audit artifacts a section-level consistency gate prešli.
 
 ## Connected learning scenarios
 
@@ -317,4 +317,4 @@ Každá komplexná kapitola rozlišuje:
 | Chaos engineering | Learning | L2 |
 | Operational readiness | Learning | L2 |
 
-Sekcia zostáva **In progress** až do úspešného finálneho section-level consistency passu. Gate musí overiť authoritative ordering všetkých 15 kapitol, connected incident chain, obojsmernú navigation, prechod zo Security and Identity, výstup na roadmapu alebo nasledujúcu authoritative sekciu, glossary merge, prázdne audit-failure artifacts, terminology a current primary-source facts.
+Sekcia je **Ready for user review**. Finálny section-level pass overil authoritative ordering všetkých 15 kapitol, incident chain `SRE-PAY-52` až `SRE-PAY-55`, obojsmernú navigation `Zero Trust ↔ Reliability` a celý vnútorný chain po `Operational readiness → ROADMAP`, synchronizovaný glossary, prázdne audit-failure artifacts, jednotné subject/generation/effective-state/business-outcome terminology a current primary-source facts. Stav neznamená automatické **User reviewed** ani používateľské schválenie.
