@@ -311,7 +311,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| A | 0 | 0 | 0 | 0 | 0 | 13 | `docs/.review-trigger-fourth-database-block.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 13 | `docs/review-trigger-fourth-database-block.md` |
 
 ## Critical and high findings
 

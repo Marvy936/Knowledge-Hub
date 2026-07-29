@@ -1,20 +1,6 @@
 {
   "files": [
     {
-      "path": "docs/.review-trigger-fourth-database-block.md",
-      "title": ".review-trigger-fourth-database-block",
-      "words": 13,
-      "headings": 0,
-      "sections": 0,
-      "findings": 0,
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "low": 0,
-      "score": 0,
-      "grade": "A"
-    },
-    {
       "path": "docs/00-foundations/automation-mindset.md",
       "title": "Automation Mindset",
       "words": 2750,
@@ -4045,6 +4031,20 @@
       "low": 13,
       "score": 542,
       "grade": "D"
+    },
+    {
+      "path": "docs/review-trigger-fourth-database-block.md",
+      "title": "review-trigger-fourth-database-block",
+      "words": 13,
+      "headings": 0,
+      "sections": 0,
+      "findings": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "score": 0,
+      "grade": "A"
     }
   ],
   "findings": [
