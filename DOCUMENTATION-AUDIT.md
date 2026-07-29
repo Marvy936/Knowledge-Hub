@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **281**
-- Audited conceptual sections: **11350**
-- Total words: **656,986**
-- Findings: **24018** (critical 7212, high 8251, medium 3019, low 5536)
-- File grades: A 0, B 0, C 0, D 281
+- Audited authoritative articles: **282**
+- Audited conceptual sections: **11390**
+- Total words: **658,967**
+- Findings: **24103** (critical 7238, high 8279, medium 3033, low 5553)
+- File grades: A 0, B 0, C 0, D 282
 
 ## Interpretation
 
@@ -158,6 +158,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
 | D | 612 | 25 | 33 | 7 | 25 | 2141 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | D | 612 | 23 | 37 | 7 | 20 | 2630 | `docs/13-security-and-identity/oauth-2.md` |
+| D | 611 | 26 | 28 | 14 | 17 | 1981 | `docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md` |
 | D | 610 | 27 | 32 | 4 | 16 | 1999 | `docs/12-observability/elasticsearch-opensearch.md` |
 | D | 609 | 27 | 29 | 10 | 15 | 2165 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | D | 605 | 22 | 30 | 19 | 26 | 2325 | `docs/13-security-and-identity/threat-modeling.md` |
@@ -16178,6 +16179,63 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 452, `thin-concept-section` — **19. Authoritative remediation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 465, `thin-concept-section` — **20. Index/lock/migration acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md`
+
+- **CRITICAL** line 18, `bare-bullet-items` — **1. Exact messaging subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business operation alebo fact;`, `producer a producer generation;`, `event/command type a schema version;`, `stable message a business identity;`.
+- **CRITICAL** line 18, `outline-instead-of-explanation` — **1. Exact messaging subject**: 14 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 51, `empty-section` — **2. Queue, log a stream**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 53, `bare-bullet-items` — **Queue**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `work distribution;`, `bounded command processing;`, `task ownership;`, `competing consumers.`.
+- **CRITICAL** line 53, `outline-instead-of-explanation` — **Queue**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 64, `bare-bullet-items` — **Partitioned log**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event streams;`, `viac nezávislých consumer groups;`, `rebuild projections;`, `audit a replay;`.
+- **CRITICAL** line 64, `outline-instead-of-explanation` — **Partitioned log**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 78, `bare-bullet-items` — **3. Producer lifecycle**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `message nebola odoslaná;`, `broker ju odmietol;`, `leader ju prijal, ale response sa stratila;`, `message je durable podľa konkrétnej replication policy;`.
+- **CRITICAL** line 78, `outline-instead-of-explanation` — **3. Producer lifecycle**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 103, `bare-bullet-items` — **4. Dual write a transactional outbox**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable event identity;`, `publisher concurrency/fencing;`, `broker retry semantics;`, `cleanup/retention boundary;`.
+- **CRITICAL** line 103, `outline-instead-of-explanation` — **4. Dual write a transactional outbox**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 135, `empty-section` — **5. Delivery semantics**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 195, `bare-bullet-items` — **7. Acknowledgement nie je business completion**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publication accepted;`, `queue/partition leader prevzal record;`, `required replicas potvrdili zápis;`, `consumer dostal delivery;`.
+- **CRITICAL** line 195, `outline-instead-of-explanation` — **7. Acknowledgement nie je business completion**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 219, `bare-bullet-items` — **8. Ordering**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `within one queue;`, `within one partition;`, `per aggregate/business key;`, `per producer session;`.
+- **CRITICAL** line 245, `bare-bullet-items` — **9. Consumer groups, rebalancing a ownership**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-flight work pokračuje po strate assignmentu;`, `nový consumer spracuje rovnaký record;`, `stale consumer commitne offset;`, `long processing prekročí heartbeat/session contract;`.
+- **CRITICAL** line 260, `bare-bullet-items` — **10. Backpressure, prefetch a in-flight limit**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `processing latency;`, `consumer concurrency;`, `memory;`, `acknowledgement timeout;`.
+- **CRITICAL** line 285, `bare-bullet-items` — **11. Retry**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient retryable;`, `permanent business rejection;`, `malformed/schema-invalid;`, `authorization/configuration failure;`.
+- **CRITICAL** line 310, `bare-bullet-items` — **12. Events a schema evolution**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer a consumer version inventory;`, `backward/forward/full compatibility;`, `required a optional fields;`, `semantic change bez field change;`.
+- **CRITICAL** line 310, `outline-instead-of-explanation` — **12. Events a schema evolution**: 9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 326, `bare-bullet-items` — **13. Event-driven architecture**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event schemas;`, `semantic meanings;`, `ordering assumptions;`, `partition keys;`.
+- **CRITICAL** line 341, `empty-section` — **14. Event sourcing, CDC a integration events**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 392, `bare-bullet-items` — **Messaging root cause**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký max.poll.records a unbounded provider concurrency;`, `auto commit nezávislý od per-record resultu;`, `retry topic s odlišným partition keyom;`, `absence sent-unknown state;`.
+- **CRITICAL** line 392, `outline-instead-of-explanation` — **Messaging root cause**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 448, `outline-instead-of-explanation` — **18. Messaging acceptance verdict**: 15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 468, `empty-section` — **19. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 18, `single-sentence-concept` — **1. Exact messaging subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 78, `list-first-introduction` — **3. Producer lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 160, `list-first-introduction` — **6. Consumer lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 195, `single-sentence-concept` — **7. Acknowledgement nie je business completion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `list-heavy-section` — **9. Consumer groups, rebalancing a ownership**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 260, `list-heavy-section` — **10. Backpressure, prefetch a in-flight limit**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 285, `list-heavy-section` — **11. Retry**: 15 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 326, `list-heavy-section` — **13. Event-driven architecture**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 357, `list-heavy-section` — **15. Worked incident DB-PAY-58**: 7 odrážok a iba 54 slov súvislého vysvetlenia.
+- **HIGH** line 405, `list-first-introduction` — **16. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 405, `single-sentence-concept` — **16. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 448, `bare-bullet-items` — **18. Messaging acceptance verdict**: 10 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `exact command/event subject a authority sú explicitné;`, `dual write je odstránený alebo koordinovaný outbox/transaction mechani`, `replication/retention zodpovedajú recovery window-u;`, `consumer acknowledgement nastáva po durable required outcome-e;`.
+- **HIGH** line 448, `single-sentence-concept` — **18. Messaging acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 486, `single-sentence-concept` — **Broker ack = spracované**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 490, `single-sentence-concept` — **Exactly-once je checkbox**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 494, `single-sentence-concept` — **Auto commit zjednoduší consumer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 498, `single-sentence-concept` — **Ack až úplne na konci vyrieši duplicates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 502, `single-sentence-concept` — **DLQ znamená vybavené**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 506, `single-sentence-concept` — **Viac consumers vždy zvýši throughput**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 510, `single-sentence-concept` — **Queue depth je backlog health**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 514, `single-sentence-concept` — **Events odstránia coupling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 18, `thin-concept-section` — **1. Exact messaging subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 53, `thin-concept-section` — **Queue**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 103, `thin-concept-section` — **4. Dual write a transactional outbox**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 195, `thin-concept-section` — **7. Acknowledgement nie je business completion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 310, `thin-concept-section` — **12. Events a schema evolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 392, `thin-concept-section` — **Messaging root cause**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 448, `thin-concept-section` — **18. Messaging acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact architecture subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capabilities a user journeys;`, `domain/subdomain a invariant boundaries;`, `team ownership a change coupling;`, `source/module/build/deployment boundaries;`.
@@ -16618,19 +16676,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2821 | 488 | 0 | 0 | 3309 |
-| `single-sentence-concept` | 0 | 2811 | 0 | 0 | 2811 |
-| `outline-instead-of-explanation` | 2786 | 0 | 0 | 0 | 2786 |
-| `term-before-explanation` | 0 | 601 | 2023 | 0 | 2624 |
-| `thin-concept-section` | 0 | 2358 | 0 | 0 | 2358 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2219 | 2219 |
-| `example-not-explicit` | 0 | 0 | 0 | 2199 | 2199 |
-| `list-first-introduction` | 0 | 1490 | 0 | 0 | 1490 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1118 | 1118 |
-| `short-concept-section` | 0 | 0 | 996 | 0 | 996 |
+| `bare-bullet-items` | 2834 | 489 | 0 | 0 | 3323 |
+| `single-sentence-concept` | 0 | 2823 | 0 | 0 | 2823 |
+| `outline-instead-of-explanation` | 2795 | 0 | 0 | 0 | 2795 |
+| `term-before-explanation` | 0 | 601 | 2031 | 0 | 2632 |
+| `thin-concept-section` | 0 | 2365 | 0 | 0 | 2365 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2228 | 2228 |
+| `example-not-explicit` | 0 | 0 | 0 | 2206 | 2206 |
+| `list-first-introduction` | 0 | 1493 | 0 | 0 | 1493 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1119 | 1119 |
+| `short-concept-section` | 0 | 0 | 1002 | 0 | 1002 |
 | `no-prose-concept` | 866 | 0 | 0 | 0 | 866 |
-| `empty-section` | 739 | 0 | 0 | 0 | 739 |
-| `list-heavy-section` | 0 | 503 | 0 | 0 | 503 |
+| `empty-section` | 743 | 0 | 0 | 0 | 743 |
+| `list-heavy-section` | 0 | 508 | 0 | 0 | 508 |
 
 ## Required remediation pattern
 

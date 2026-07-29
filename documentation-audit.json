@@ -3851,6 +3851,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "title": "Message queues a event-driven architecture",
+      "words": 1981,
+      "headings": 40,
+      "sections": 40,
+      "findings": 85,
+      "critical": 26,
+      "high": 28,
+      "medium": 14,
+      "low": 17,
+      "score": 611,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
       "title": "Monolith, modular monolith a microservices",
       "words": 2416,
@@ -214621,6 +214635,771 @@
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "section": "Killni blocker",
       "line": 525,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "1. Exact messaging subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "1. Exact messaging subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "1. Exact messaging subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business operation alebo fact;`, `producer a producer generation;`, `event/command type a schema version;`, `stable message a business identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "1. Exact messaging subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "1. Exact messaging subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "1. Exact messaging subject",
+      "line": 18,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "2. Queue, log a stream",
+      "line": 51,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Queue",
+      "line": 53,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Queue",
+      "line": 53,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `work distribution;`, `bounded command processing;`, `task ownership;`, `competing consumers.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Queue",
+      "line": 53,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Partitioned log",
+      "line": 64,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Partitioned log",
+      "line": 64,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event streams;`, `viac nezávislých consumer groups;`, `rebuild projections;`, `audit a replay;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Partitioned log",
+      "line": 64,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Partitioned log",
+      "line": 64,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `message nebola odoslaná;`, `broker ju odmietol;`, `leader ju prijal, ale response sa stratila;`, `message je durable podľa konkrétnej replication policy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "3. Producer lifecycle",
+      "line": 78,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "4. Dual write a transactional outbox",
+      "line": 103,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "4. Dual write a transactional outbox",
+      "line": 103,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable event identity;`, `publisher concurrency/fencing;`, `broker retry semantics;`, `cleanup/retention boundary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "4. Dual write a transactional outbox",
+      "line": 103,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "4. Dual write a transactional outbox",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "4. Dual write a transactional outbox",
+      "line": 103,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "5. Delivery semantics",
+      "line": 135,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "6. Consumer lifecycle",
+      "line": 160,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "7. Acknowledgement nie je business completion",
+      "line": 195,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "7. Acknowledgement nie je business completion",
+      "line": 195,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "7. Acknowledgement nie je business completion",
+      "line": 195,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publication accepted;`, `queue/partition leader prevzal record;`, `required replicas potvrdili zápis;`, `consumer dostal delivery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "7. Acknowledgement nie je business completion",
+      "line": 195,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "7. Acknowledgement nie je business completion",
+      "line": 195,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "8. Ordering",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `within one queue;`, `within one partition;`, `per aggregate/business key;`, `per producer session;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "8. Ordering",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "9. Consumer groups, rebalancing a ownership",
+      "line": 245,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "9. Consumer groups, rebalancing a ownership",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-flight work pokračuje po strate assignmentu;`, `nový consumer spracuje rovnaký record;`, `stale consumer commitne offset;`, `long processing prekročí heartbeat/session contract;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "9. Consumer groups, rebalancing a ownership",
+      "line": 245,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "9. Consumer groups, rebalancing a ownership",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "9. Consumer groups, rebalancing a ownership",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "10. Backpressure, prefetch a in-flight limit",
+      "line": 260,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "10. Backpressure, prefetch a in-flight limit",
+      "line": 260,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `processing latency;`, `consumer concurrency;`, `memory;`, `acknowledgement timeout;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "10. Backpressure, prefetch a in-flight limit",
+      "line": 260,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "10. Backpressure, prefetch a in-flight limit",
+      "line": 260,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "10. Backpressure, prefetch a in-flight limit",
+      "line": 260,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "11. Retry",
+      "line": 285,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "15 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "11. Retry",
+      "line": 285,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient retryable;`, `permanent business rejection;`, `malformed/schema-invalid;`, `authorization/configuration failure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "11. Retry",
+      "line": 285,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "11. Retry",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "11. Retry",
+      "line": 285,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "12. Events a schema evolution",
+      "line": 310,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "12. Events a schema evolution",
+      "line": 310,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer a consumer version inventory;`, `backward/forward/full compatibility;`, `required a optional fields;`, `semantic change bez field change;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "12. Events a schema evolution",
+      "line": 310,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "12. Events a schema evolution",
+      "line": 310,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "12. Events a schema evolution",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "12. Events a schema evolution",
+      "line": 310,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "13. Event-driven architecture",
+      "line": 326,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "13. Event-driven architecture",
+      "line": 326,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event schemas;`, `semantic meanings;`, `ordering assumptions;`, `partition keys;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "13. Event-driven architecture",
+      "line": 326,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "14. Event sourcing, CDC a integration events",
+      "line": 341,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "15. Worked incident DB-PAY-58",
+      "line": 357,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 54 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "15. Worked incident DB-PAY-58",
+      "line": 357,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Messaging root cause",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Messaging root cause",
+      "line": 392,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký max.poll.records a unbounded provider concurrency;`, `auto commit nezávislý od per-record resultu;`, `retry topic s odlišným partition keyom;`, `absence sent-unknown state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Messaging root cause",
+      "line": 392,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Messaging root cause",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 405,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 405,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `exact command/event subject a authority sú explicitné;`, `dual write je odstránený alebo koordinovaný outbox/transaction mechani`, `replication/retention zodpovedajú recovery window-u;`, `consumer acknowledgement nastáva po durable required outcome-e;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "18. Messaging acceptance verdict",
+      "line": 448,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "19. Troubleshooting flow",
+      "line": 468,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Broker ack = spracované",
+      "line": 486,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Exactly-once je checkbox",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Auto commit zjednoduší consumer",
+      "line": 494,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Ack až úplne na konci vyrieši duplicates",
+      "line": 498,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "DLQ znamená vybavené",
+      "line": 502,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Viac consumers vždy zvýši throughput",
+      "line": 506,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Queue depth je backlog health",
+      "line": 510,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
+      "section": "Events odstránia coupling",
+      "line": 514,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
