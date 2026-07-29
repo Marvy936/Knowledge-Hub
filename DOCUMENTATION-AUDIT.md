@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10528**
-- Total words: **634,767**
-- Findings: **21642** (critical 6363, high 7118, medium 2775, low 5386)
+- Audited conceptual sections: **10516**
+- Total words: **632,714**
+- Findings: **21592** (critical 6358, high 7130, medium 2754, low 5350)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -97,7 +97,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 707 | 27 | 44 | 7 | 11 | 2183 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 701 | 29 | 41 | 6 | 8 | 1775 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | D | 699 | 32 | 35 | 8 | 9 | 1762 | `docs/12-observability/alert-design-alert-fatigue.md` |
-| D | 697 | 28 | 25 | 28 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 695 | 34 | 29 | 14 | 10 | 1929 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | D | 694 | 30 | 35 | 10 | 20 | 2171 | `docs/04-testing-and-quality/shift-right.md` |
 | D | 693 | 30 | 33 | 12 | 22 | 2412 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
@@ -141,6 +140,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 617 | 30 | 24 | 11 | 19 | 2130 | `docs/09-kubernetes/logging-metrics-events.md` |
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
 | D | 612 | 25 | 33 | 7 | 25 | 2141 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
+| D | 612 | 23 | 37 | 7 | 20 | 2630 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 610 | 27 | 32 | 4 | 16 | 1999 | `docs/12-observability/elasticsearch-opensearch.md` |
 | D | 609 | 27 | 29 | 10 | 15 | 2165 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | D | 601 | 31 | 20 | 16 | 10 | 1549 | `docs/09-kubernetes/resourcequota-limitrange.md` |
@@ -14238,59 +14238,66 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/oauth-2.md`
 
-- **CRITICAL** line 17, `bare-bullet-items` — **1. Problém delegovaného accessu**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client dostane token namiesto primary credentialu;`, `token môže mať obmedzený scope, resource a lifetime;`, `authorization možno revoke-nuť per client/grant;`, `Resource Server môže auditovať clienta aj subject;`.
-- **CRITICAL** line 88, `bare-bullet-items` — **6. Authorization request**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `response type=code ;`, `client id ;`, `exact redirect uri ;`, `requested scope ;`.
-- **CRITICAL** line 88, `outline-instead-of-explanation` — **6. Authorization request**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 146, `bare-bullet-items` — **11. Authorization code properties**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `random a neuhádnuteľný;`, `krátkodobý;`, `single-use;`, `viazaný na client ID;`.
-- **CRITICAL** line 146, `outline-instead-of-explanation` — **11. Authorization code properties**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **12. Token endpoint**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `grant type a code state;`, `client binding;`, `redirect URI binding;`, `PKCE verifier;`.
-- **CRITICAL** line 187, `bare-bullet-items` — **14. Client authentication**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP Basic s client secretom;`, `POST client secret, ak interoperabilita vyžaduje;`, `signed JWT assertion s shared secretom;`, `private key jwt ;`.
-- **CRITICAL** line 202, `bare-bullet-items` — **15. Access token**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `určený presnému resource-u alebo audience;`, `obmedzený scopes/actions;`, `krátkodobý podľa risku;`, `prenášaný iba cez TLS;`.
-- **CRITICAL** line 273, `bare-bullet-items` — **21. Opaque access token**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AS môže centralizovať current active state;`, `token claims nie sú viditeľné clientovi;`, `revocation môže byť rýchlejšia;`, `format sa môže meniť bez client coupling-u.`.
-- **CRITICAL** line 273, `outline-instead-of-explanation` — **21. Opaque access token**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 303, `bare-bullet-items` — **23. Token introspection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizovať sa voči endpointu;`, `chrániť token aj response cez TLS;`, `vyhodnotiť active a required audience/scope/subject metadata;`, `definovať bounded cache TTL;`.
-- **CRITICAL** line 319, `bare-bullet-items` — **24. Access-token lifetime**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bearer vs sender-constrained modelu;`, `audience a privileges;`, `client storage risku;`, `Resource Server revocation capability;`.
-- **CRITICAL** line 365, `bare-bullet-items` — **28. Token revocation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `refresh token a family;`, `access token behavior;`, `distributed JWT propagation;`, `introspection/cache invalidation;`.
-- **CRITICAL** line 391, `bare-bullet-items` — **30. Client registration**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client ID a type;`, `redirect URIs;`, `allowed grant/response types;`, `token endpoint authentication method;`.
-- **CRITICAL** line 391, `outline-instead-of-explanation` — **30. Client registration**: 9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 415, `bare-bullet-items` — **32. Authorization Server key lifecycle**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený purpose a environment;`, `stable kid a algorithm allowlist;`, `JWKS publication;`, `overlap pri rotation;`.
-- **CRITICAL** line 415, `outline-instead-of-explanation` — **32. Authorization Server key lifecycle**: 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 473, `bare-bullet-items` — **36. Resource Owner Password Credentials**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `password sa dostane do ďalšej application boundary;`, `client môže credential ukladať alebo phishovať;`, `users sa učia zadávať credentials mimo originu AS;`, `recovery/consent/session semantics sú nejasné.`.
-- **CRITICAL** line 487, `bare-bullet-items` — **37. Browser clients a BFF**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CSRF protection;`, `Secure/HttpOnly/SameSite cookie lifecycle;`, `session fixation/revocation;`, `backend availability;`.
-- **CRITICAL** line 551, `bare-bullet-items` — **43. API gateway**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `token exchange na narrower downstream audience;`, `internal signed identity/delegation context;`, `service workload token oddelený od user delegation.`.
-- **CRITICAL** line 587, `bare-bullet-items` — **46. Multi-tenant authorization**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `token audience per API;`, `tenant claim type a source;`, `server-side object ownership;`, `admin consent scope;`.
-- **CRITICAL** line 606, `bare-bullet-items` — **47. Audit**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issuer a AS instance;`, `client ID a authentication method;`, `subject/resource owner a optional actor;`, `grant type;`.
-- **CRITICAL** line 606, `outline-instead-of-explanation` — **47. Audit**: 13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 646, `bare-bullet-items` — **49. Operational monitoring**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization success/error rate;`, `callback state/issuer/PKCE failures;`, `authorization-code reuse;`, `client authentication failures;`.
-- **CRITICAL** line 646, `outline-instead-of-explanation` — **49. Operational monitoring**: 14 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 694, `bare-bullet-items` — **51. Incident response**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke-ni refresh family/grant a relevantné local sessions;`, `rotate client secret/private key/certificate podľa compromise;`, `zachovaj AS, RS, gateway a client audit evidence;`, `analyzuj token use naprieč audiences a exchanged descendants;`.
-- **CRITICAL** line 694, `outline-instead-of-explanation` — **51. Incident response**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 735, `outline-instead-of-explanation` — **53. Kompletný production príklad**: 11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **HIGH** line 161, `list-heavy-section` — **12. Token endpoint**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 187, `list-heavy-section` — **14. Client authentication**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 202, `list-heavy-section` — **15. Access token**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 303, `list-heavy-section` — **23. Token introspection**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 319, `list-heavy-section` — **24. Access-token lifetime**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 365, `list-heavy-section` — **28. Token revocation**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 487, `list-heavy-section` — **37. Browser clients a BFF**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 572, `list-heavy-section` — **45. Token Exchange**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 587, `list-heavy-section` — **46. Multi-tenant authorization**: 8 odrážok a iba 44 slov súvislého vysvetlenia.
-- **HIGH** line 606, `single-sentence-concept` — **47. Audit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 646, `single-sentence-concept` — **49. Operational monitoring**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 694, `single-sentence-concept` — **51. Incident response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 735, `single-sentence-concept` — **53. Kompletný production príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 146, `term-before-explanation` — **11. Authorization code properties**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URI`, `PKCE`, `Resource`
-- **HIGH** line 146, `thin-concept-section` — **11. Authorization code properties**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 187, `term-before-explanation` — **14. Client authentication**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `POST`, `JWT`, `TLS`, `workload`
-- **HIGH** line 303, `term-before-explanation` — **23. Token introspection**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `TTL`, `scope`, `availability`
-- **HIGH** line 415, `term-before-explanation` — **32. Authorization Server key lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`, `HSM`, `KMS`, `Resource`
-- **HIGH** line 606, `term-before-explanation` — **47. Audit**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `ID`, `URI`, `RS`, `resource`, `policy`
-- **HIGH** line 606, `thin-concept-section` — **47. Audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 646, `term-before-explanation` — **49. Operational monitoring**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `API`, `scope`
-- **HIGH** line 646, `thin-concept-section` — **49. Operational monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 694, `thin-concept-section` — **51. Incident response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 735, `term-before-explanation` — **53. Kompletný production príklad**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `URI`, `PKCE`, `S256`, `API`, `AS`, `JWT`, `RS`
-- **HIGH** line 735, `thin-concept-section` — **53. Kompletný production príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 71, `outline-instead-of-explanation` — **3. Actors a decision boundaries**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 155, `bare-bullet-items` — **8. Access token contract**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `určený presnému Resource Serveru alebo audience;`, `obmedzený scopes/capabilities;`, `krátkodobý podľa risku;`, `prenášaný iba cez TLS;`.
+- **CRITICAL** line 171, `bare-bullet-items` — **9. Scope, audience a local resource policy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schváliť payment iného tenant-a;`, `obísť JIT approval;`, `schváliť vlastný request pri separation of duties;`, `meniť provider route;`.
+- **CRITICAL** line 171, `outline-instead-of-explanation` — **9. Scope, audience a local resource policy**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 226, `bare-bullet-items` — **12. Authorization state nie je len token snapshot**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátkej access-token lifetime;`, `revocation/status mechanismu podľa architecture;`, `event-driven session/grant revocation;`, `current local resource/JIT checku;`.
+- **CRITICAL** line 226, `outline-instead-of-explanation` — **12. Authorization state nie je len token snapshot**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 329, `bare-bullet-items` — **19. Gateway a downstream propagation**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `token exchange na narrower audience;`, `signed internal subject/actor context;`, `oddelený service workload token.`.
+- **CRITICAL** line 374, `empty-section` — **22. Worked failure: secure code flow vydal stale privilege**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 380, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 396, `bare-bullet-items` — **Competing hypotheses**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization code bol intercepted alebo replayed;`, `state alebo issuer binding zlyhali;`, `PKCE downgrade umožnil code injection;`, `AS signing key bol compromised;`.
+- **CRITICAL** line 396, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 396, `outline-instead-of-explanation` — **Competing hypotheses**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 427, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 427, `outline-instead-of-explanation` — **Evidence-preserving containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 436, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 436, `outline-instead-of-explanation` — **Authoritative recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 447, `no-prose-concept` — **Acceptance verdict**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 447, `outline-instead-of-explanation` — **Acceptance verdict**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 457, `bare-bullet-items` — **23. Audit a observability**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization request/result, issuer a client;`, `state/PKCE/redirect/issuer failures;`, `requested a granted resource/scope;`, `client-auth method a key generation;`.
+- **CRITICAL** line 457, `outline-instead-of-explanation` — **23. Audit a observability**: 12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 511, `bare-bullet-items` — **26. Earlier controls**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource-specific audience a minimal scope catalog;`, `client registration owner, expiry a key rotation;`, `entitlement-generation ID v grant audit metadata;`, `event-driven revoke pri privileged mover/leaver/removal;`.
+- **CRITICAL** line 511, `no-prose-concept` — **26. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 511, `outline-instead-of-explanation` — **26. Earlier controls**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 36, `single-sentence-concept` — **2. Exact OAuth subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 71, `bare-bullet-items` — **3. Actors a decision boundaries**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Resource Owner alebo administrative policy, ktorá povoľuje access;`, `Client , ktorý token žiada a používa;`.
+- **HIGH** line 155, `list-heavy-section` — **8. Access token contract**: 7 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 171, `list-first-introduction` — **9. Scope, audience a local resource policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 171, `single-sentence-concept` — **9. Scope, audience a local resource policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 214, `list-first-introduction` — **11. 401 a 403**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 396, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 408, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 427, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 436, `bare-bullet-items` — **Authoritative recovery**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `opraviť AD/LDAP/Kerberos freshness path;`, `invalidovať všetky sessions/grants odvodené zo stale group generation;`, `nahradiť broad atlas-internal audience resource-specific payments-admi`, `zachovať subject+actor pri gateway/token exchange;`.
+- **HIGH** line 436, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 447, `list-first-introduction` — **Acceptance verdict**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 457, `single-sentence-concept` — **23. Audit a observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 476, `list-first-introduction` — **24. Incident response**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 511, `list-first-introduction` — **26. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 526, `single-sentence-concept` — **OAuth access token ako login identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 530, `single-sentence-concept` — **Valid signature = allow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 534, `single-sentence-concept` — **Jeden token pre všetky APIs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 538, `single-sentence-concept` — **Scope ako complete authorization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 542, `single-sentence-concept` — **ROPC alebo implicit flow pre nový client**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 546, `single-sentence-concept` — **Revocation iba refresh tokenu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 550, `single-sentence-concept` — **Gateway header bez non-bypassable trust pathu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 71, `term-before-explanation` — **3. Actors a decision boundaries**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RS`, `API`, `Resource`, `policy`
+- **HIGH** line 71, `thin-concept-section` — **3. Actors a decision boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 171, `thin-concept-section` — **9. Scope, audience a local resource policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 396, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `AS`, `AD`, `LDAP`, `API`, `RS`, `scope`
+- **HIGH** line 396, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 427, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 436, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `LDAP`, `JIT`, `RS`, `ID`, `API`, `JWT`, `freshness`
+- **HIGH** line 436, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 447, `term-before-explanation` — **Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `RS`, `JIT`, `JWT`, `API`, `scope`, `resource`
+- **HIGH** line 447, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 457, `term-before-explanation` — **23. Audit a observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `RS`, `resource`, `scope`
+- **HIGH** line 457, `thin-concept-section` — **23. Audit a observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 511, `term-before-explanation` — **26. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `S256`, `ID`, `JIT`, `policy`, `resource`, `scope`
+- **HIGH** line 511, `thin-concept-section` — **26. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/openid-connect.md`
 
@@ -14540,19 +14547,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2497 | 438 | 0 | 0 | 2935 |
+| `bare-bullet-items` | 2485 | 440 | 0 | 0 | 2925 |
 | `outline-instead-of-explanation` | 2443 | 0 | 0 | 0 | 2443 |
-| `term-before-explanation` | 0 | 549 | 1830 | 0 | 2379 |
-| `single-sentence-concept` | 0 | 2298 | 0 | 0 | 2298 |
-| `example-not-explicit` | 0 | 0 | 0 | 2189 | 2189 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2055 | 2055 |
-| `thin-concept-section` | 0 | 2051 | 0 | 0 | 2051 |
-| `list-first-introduction` | 0 | 1306 | 0 | 0 | 1306 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1142 | 1142 |
-| `short-concept-section` | 0 | 0 | 945 | 0 | 945 |
-| `no-prose-concept` | 755 | 0 | 0 | 0 | 755 |
-| `empty-section` | 668 | 0 | 0 | 0 | 668 |
-| `list-heavy-section` | 0 | 476 | 0 | 0 | 476 |
+| `term-before-explanation` | 0 | 548 | 1821 | 0 | 2369 |
+| `single-sentence-concept` | 0 | 2304 | 0 | 0 | 2304 |
+| `example-not-explicit` | 0 | 0 | 0 | 2166 | 2166 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2056 | 2056 |
+| `thin-concept-section` | 0 | 2054 | 0 | 0 | 2054 |
+| `list-first-introduction` | 0 | 1316 | 0 | 0 | 1316 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1128 | 1128 |
+| `short-concept-section` | 0 | 0 | 933 | 0 | 933 |
+| `no-prose-concept` | 760 | 0 | 0 | 0 | 760 |
+| `empty-section` | 670 | 0 | 0 | 0 | 670 |
+| `list-heavy-section` | 0 | 468 | 0 | 0 | 468 |
 
 ## Required remediation pattern
 

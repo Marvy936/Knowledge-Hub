@@ -3461,15 +3461,15 @@
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
       "title": "OAuth 2.0",
-      "words": 4683,
-      "headings": 56,
-      "sections": 56,
-      "findings": 137,
-      "critical": 28,
-      "high": 25,
-      "medium": 28,
-      "low": 56,
-      "score": 697,
+      "words": 2630,
+      "headings": 44,
+      "sections": 44,
+      "findings": 87,
+      "critical": 23,
+      "high": 37,
+      "medium": 7,
+      "low": 20,
+      "score": 612,
       "grade": "D"
     },
     {
@@ -190190,170 +190190,44 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "1. Problém delegovaného accessu",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client dostane token namiesto primary credentialu;`, `token môže mať obmedzený scope, resource a lifetime;`, `authorization možno revoke-nuť per client/grant;`, `Resource Server môže auditovať clienta aj subject;`.",
-      "score": 12
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "1. Problém delegovaného accessu",
-      "line": 17,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "2. Exact OAuth subject",
+      "line": 36,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "2. Štyri základné role",
-      "line": 31,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "2. Štyri základné role",
-      "line": 31,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "4. Authorization grant",
-      "line": 58,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "4. Authorization grant",
-      "line": 58,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "4. Authorization grant",
-      "line": 58,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "4. Authorization grant",
-      "line": 58,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`, `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "6. Authorization request",
-      "line": 88,
+      "section": "3. Actors a decision boundaries",
+      "line": 71,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "6. Authorization request",
-      "line": 88,
-      "severity": "critical",
+      "section": "3. Actors a decision boundaries",
+      "line": 71,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `response type=code ;`, `client id ;`, `exact redirect uri ;`, `requested scope ;`.",
-      "score": 12
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Resource Owner alebo administrative policy, ktorá povoľuje access;`, `Client , ktorý token žiada a používa;`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "6. Authorization request",
-      "line": 88,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "6. Authorization request",
-      "line": 88,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "6. Authorization request",
-      "line": 88,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S256`, `OIDC`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "7. Redirect URI ako security boundary",
-      "line": 103,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "7. Redirect URI ako security boundary",
-      "line": 103,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "9. PKCE",
-      "line": 126,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "11. Authorization code properties",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "11. Authorization code properties",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `random a neuhádnuteľný;`, `krátkodobý;`, `single-use;`, `viazaný na client ID;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "11. Authorization code properties",
-      "line": 146,
+      "section": "3. Actors a decision boundaries",
+      "line": 71,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -190361,8 +190235,26 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "11. Authorization code properties",
-      "line": 146,
+      "section": "3. Actors a decision boundaries",
+      "line": 71,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "3. Actors a decision boundaries",
+      "line": 71,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RS`, `API`, `Resource`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "7. Public a confidential clients",
+      "line": 147,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -190370,35 +190262,26 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "11. Authorization code properties",
-      "line": 146,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URI`, `PKCE`, `Resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "12. Token endpoint",
-      "line": 161,
+      "section": "8. Access token contract",
+      "line": 155,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "12. Token endpoint",
-      "line": 161,
+      "section": "8. Access token contract",
+      "line": 155,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `grant type a code state;`, `client binding;`, `redirect URI binding;`, `PKCE verifier;`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `určený presnému Resource Serveru alebo audience;`, `obmedzený scopes/capabilities;`, `krátkodobý podľa risku;`, `prenášaný iba cez TLS;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "12. Token endpoint",
-      "line": 161,
+      "section": "8. Access token contract",
+      "line": 155,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -190406,8 +190289,8 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "12. Token endpoint",
-      "line": 161,
+      "section": "8. Access token contract",
+      "line": 155,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -190415,125 +190298,233 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "12. Token endpoint",
-      "line": 161,
+      "section": "8. Access token contract",
+      "line": 155,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URI`, `PKCE`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `RS`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "14. Client authentication",
-      "line": 187,
+      "section": "9. Scope, audience a local resource policy",
+      "line": 171,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "14. Client authentication",
-      "line": 187,
+      "section": "9. Scope, audience a local resource policy",
+      "line": 171,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "9. Scope, audience a local resource policy",
+      "line": 171,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP Basic s client secretom;`, `POST client secret, ak interoperabilita vyžaduje;`, `signed JWT assertion s shared secretom;`, `private key jwt ;`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "14. Client authentication",
-      "line": 187,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "9. Scope, audience a local resource policy",
+      "line": 171,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schváliť payment iného tenant-a;`, `obísť JIT approval;`, `schváliť vlastný request pri separation of duties;`, `meniť provider route;`.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "14. Client authentication",
-      "line": 187,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "14. Client authentication",
-      "line": 187,
+      "section": "9. Scope, audience a local resource policy",
+      "line": 171,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `POST`, `JWT`, `TLS`, `workload`",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "15. Access token",
-      "line": 202,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "15. Access token",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `určený presnému resource-u alebo audience;`, `obmedzený scopes/actions;`, `krátkodobý podľa risku;`, `prenášaný iba cez TLS;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "15. Access token",
-      "line": 202,
+      "section": "9. Scope, audience a local resource policy",
+      "line": 171,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `URL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "16. Bearer token",
-      "line": 218,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "11. 401 a 403",
+      "line": 214,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "17. Scope",
+      "section": "12. Authorization state nie je len token snapshot",
       "line": 226,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "19. Resource Server validation",
+      "section": "12. Authorization state nie je len token snapshot",
+      "line": 226,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátkej access-token lifetime;`, `revocation/status mechanismu podľa architecture;`, `event-driven session/grant revocation;`, `current local resource/JIT checku;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "12. Authorization state nie je len token snapshot",
+      "line": 226,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "12. Authorization state nie je len token snapshot",
+      "line": 226,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "13. Refresh-token lifecycle",
       "line": 248,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "19. Resource Server validation",
-      "line": 248,
+      "section": "16. Device Authorization a native/browser clients",
+      "line": 298,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "17. Deprecated alebo forbidden patterns",
+      "line": 306,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "19. Gateway a downstream propagation",
+      "line": 329,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `token exchange na narrower audience;`, `signed internal subject/actor context;`, `oddelený service workload token.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "19. Gateway a downstream propagation",
+      "line": 329,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "19. Gateway a downstream propagation",
+      "line": 329,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "20. 401 oproti 403",
-      "line": 259,
+      "section": "22. Worked failure: secure code flow vydal stale privilege",
+      "line": 374,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Exact subject",
+      "line": 380,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Competing hypotheses",
+      "line": 396,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Competing hypotheses",
+      "line": 396,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Competing hypotheses",
+      "line": 396,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Competing hypotheses",
+      "line": 396,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization code bol intercepted alebo replayed;`, `state alebo issuer binding zlyhali;`, `PKCE downgrade umožnil code injection;`, `AS signing key bol compromised;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Competing hypotheses",
+      "line": 396,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Competing hypotheses",
+      "line": 396,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -190541,35 +190532,8 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "21. Opaque access token",
-      "line": 273,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "21. Opaque access token",
-      "line": 273,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AS môže centralizovať current active state;`, `token claims nie sú viditeľné clientovi;`, `revocation môže byť rýchlejšia;`, `format sa môže meniť bez client coupling-u.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "21. Opaque access token",
-      "line": 273,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "21. Opaque access token",
-      "line": 273,
+      "section": "Competing hypotheses",
+      "line": 396,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -190577,224 +190541,62 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "21. Opaque access token",
-      "line": 273,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "21. Opaque access token",
-      "line": 273,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "22. JWT access token",
-      "line": 293,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "23. Token introspection",
-      "line": 303,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "23. Token introspection",
-      "line": 303,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizovať sa voči endpointu;`, `chrániť token aj response cez TLS;`, `vyhodnotiť active a required audience/scope/subject metadata;`, `definovať bounded cache TTL;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "23. Token introspection",
-      "line": 303,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "23. Token introspection",
-      "line": 303,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "23. Token introspection",
-      "line": 303,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "23. Token introspection",
-      "line": 303,
+      "section": "Competing hypotheses",
+      "line": 396,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `TTL`, `scope`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `AS`, `AD`, `LDAP`, `API`, `RS`, `scope`",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "24. Access-token lifetime",
-      "line": 319,
+      "section": "Discriminating evidence",
+      "line": 408,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "24. Access-token lifetime",
-      "line": 319,
+      "section": "Evidence-preserving containment",
+      "line": 427,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bearer vs sender-constrained modelu;`, `audience a privileges;`, `client storage risku;`, `Resource Server revocation capability;`.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "24. Access-token lifetime",
-      "line": 319,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "24. Access-token lifetime",
-      "line": 319,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "24. Access-token lifetime",
-      "line": 319,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "25. Refresh token",
-      "line": 335,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "28. Token revocation",
-      "line": 365,
+      "section": "Evidence-preserving containment",
+      "line": 427,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "28. Token revocation",
-      "line": 365,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `refresh token a family;`, `access token behavior;`, `distributed JWT propagation;`, `introspection/cache invalidation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "28. Token revocation",
-      "line": 365,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "28. Token revocation",
-      "line": 365,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "29. Consent a administrative authorization",
-      "line": 381,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "29. Consent a administrative authorization",
-      "line": 381,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "30. Client registration",
-      "line": 391,
+      "section": "Evidence-preserving containment",
+      "line": 427,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "30. Client registration",
-      "line": 391,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client ID a type;`, `redirect URIs;`, `allowed grant/response types;`, `token endpoint authentication method;`.",
-      "score": 12
+      "section": "Evidence-preserving containment",
+      "line": 427,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "30. Client registration",
-      "line": 391,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "30. Client registration",
-      "line": 391,
+      "section": "Evidence-preserving containment",
+      "line": 427,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -190802,8 +190604,8 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "30. Client registration",
-      "line": 391,
+      "section": "Evidence-preserving containment",
+      "line": 427,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -190811,395 +190613,53 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "30. Client registration",
-      "line": 391,
+      "section": "Evidence-preserving containment",
+      "line": 427,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `JWKS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RS`, `AS`, `PKCE`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "32. Authorization Server key lifecycle",
-      "line": 415,
+      "section": "Authoritative recovery",
+      "line": 436,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Authoritative recovery",
+      "line": 436,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "32. Authorization Server key lifecycle",
-      "line": 415,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený purpose a environment;`, `stable kid a algorithm allowlist;`, `JWKS publication;`, `overlap pri rotation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "32. Authorization Server key lifecycle",
-      "line": 415,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "32. Authorization Server key lifecycle",
-      "line": 415,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "32. Authorization Server key lifecycle",
-      "line": 415,
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`, `HSM`, `KMS`, `Resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "35. Implicit flow",
-      "line": 465,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "35. Implicit flow",
-      "line": 465,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "36. Resource Owner Password Credentials",
-      "line": 473,
-      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `password sa dostane do ďalšej application boundary;`, `client môže credential ukladať alebo phishovať;`, `users sa učia zadávať credentials mimo originu AS;`, `recovery/consent/session semantics sú nejasné.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "36. Resource Owner Password Credentials",
-      "line": 473,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "36. Resource Owner Password Credentials",
-      "line": 473,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "36. Resource Owner Password Credentials",
-      "line": 473,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "36. Resource Owner Password Credentials",
-      "line": 473,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "37. Browser clients a BFF",
-      "line": 487,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `opraviť AD/LDAP/Kerberos freshness path;`, `invalidovať všetky sessions/grants odvodené zo stale group generation;`, `nahradiť broad atlas-internal audience resource-specific payments-admi`, `zachovať subject+actor pri gateway/token exchange;`.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "37. Browser clients a BFF",
-      "line": 487,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CSRF protection;`, `Secure/HttpOnly/SameSite cookie lifecycle;`, `session fixation/revocation;`, `backend availability;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "37. Browser clients a BFF",
-      "line": 487,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "37. Browser clients a BFF",
-      "line": 487,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "37. Browser clients a BFF",
-      "line": 487,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "38. Native applications",
-      "line": 503,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "39. mTLS client authentication",
-      "line": 513,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "40. Certificate-bound access tokens",
-      "line": 521,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "41. DPoP",
-      "line": 529,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "41. DPoP",
-      "line": 529,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "42. Bearer oproti sender-constrained tokenu",
-      "line": 539,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "43. API gateway",
-      "line": 551,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `token exchange na narrower downstream audience;`, `internal signed identity/delegation context;`, `service workload token oddelený od user delegation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "43. API gateway",
-      "line": 551,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "43. API gateway",
-      "line": 551,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "43. API gateway",
-      "line": 551,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `delegation`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "44. Token propagation a confused deputy",
-      "line": 564,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "45. Token Exchange",
-      "line": 572,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "45. Token Exchange",
-      "line": 572,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "45. Token Exchange",
-      "line": 572,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "45. Token Exchange",
-      "line": 572,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "45. Token Exchange",
-      "line": 572,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `delegation`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "46. Multi-tenant authorization",
-      "line": 587,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "46. Multi-tenant authorization",
-      "line": 587,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `token audience per API;`, `tenant claim type a source;`, `server-side object ownership;`, `admin consent scope;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "46. Multi-tenant authorization",
-      "line": 587,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "46. Multi-tenant authorization",
-      "line": 587,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "46. Multi-tenant authorization",
-      "line": 587,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "46. Multi-tenant authorization",
-      "line": 587,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `URI`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "47. Audit",
-      "line": 606,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "47. Audit",
-      "line": 606,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "47. Audit",
-      "line": 606,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issuer a AS instance;`, `client ID a authentication method;`, `subject/resource owner a optional actor;`, `grant type;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "47. Audit",
-      "line": 606,
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -191207,188 +190667,8 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "47. Audit",
-      "line": 606,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "47. Audit",
-      "line": 606,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `ID`, `URI`, `RS`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "48. Threats a controls",
-      "line": 626,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "49. Operational monitoring",
-      "line": 646,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "49. Operational monitoring",
-      "line": 646,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "49. Operational monitoring",
-      "line": 646,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization success/error rate;`, `callback state/issuer/PKCE failures;`, `authorization-code reuse;`, `client authentication failures;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "49. Operational monitoring",
-      "line": 646,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "49. Operational monitoring",
-      "line": 646,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "49. Operational monitoring",
-      "line": 646,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `API`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "50. Troubleshooting flow",
-      "line": 667,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "51. Incident response",
-      "line": 694,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "51. Incident response",
-      "line": 694,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "51. Incident response",
-      "line": 694,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke-ni refresh family/grant a relevantné local sessions;`, `rotate client secret/private key/certificate podľa compromise;`, `zachovaj AS, RS, gateway a client audit evidence;`, `analyzuj token use naprieč audiences a exchanged descendants;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "51. Incident response",
-      "line": 694,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "51. Incident response",
-      "line": 694,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "51. Incident response",
-      "line": 694,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RS`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "52. Časté anti-patterny",
-      "line": 711,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -191396,8 +190676,8 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -191405,8 +190685,8 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -191414,12 +190694,282 @@
     },
     {
       "path": "docs/13-security-and-identity/oauth-2.md",
-      "section": "53. Kompletný production príklad",
-      "line": 735,
+      "section": "Authoritative recovery",
+      "line": 436,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `URI`, `PKCE`, `S256`, `API`, `AS`, `JWT`, `RS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `LDAP`, `JIT`, `RS`, `ID`, `API`, `JWT`, `freshness`",
       "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Acceptance verdict",
+      "line": 447,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `RS`, `JIT`, `JWT`, `API`, `scope`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "23. Audit a observability",
+      "line": 457,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "23. Audit a observability",
+      "line": 457,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "23. Audit a observability",
+      "line": 457,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization request/result, issuer a client;`, `state/PKCE/redirect/issuer failures;`, `requested a granted resource/scope;`, `client-auth method a key generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "23. Audit a observability",
+      "line": 457,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "23. Audit a observability",
+      "line": 457,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "23. Audit a observability",
+      "line": 457,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `RS`, `resource`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "24. Incident response",
+      "line": 476,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource-specific audience a minimal scope catalog;`, `client registration owner, expiry a key rotation;`, `entitlement-generation ID v grant audit metadata;`, `event-driven revoke pri privileged mover/leaver/removal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "26. Earlier controls",
+      "line": 511,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `S256`, `ID`, `JIT`, `policy`, `resource`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "OAuth access token ako login identity",
+      "line": 526,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Valid signature = allow",
+      "line": 530,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Jeden token pre všetky APIs",
+      "line": 534,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Scope ako complete authorization",
+      "line": 538,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "ROPC alebo implicit flow pre nový client",
+      "line": 542,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Revocation iba refresh tokenu",
+      "line": 546,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/oauth-2.md",
+      "section": "Gateway header bez non-bypassable trust pathu",
+      "line": 550,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/openid-connect.md",
