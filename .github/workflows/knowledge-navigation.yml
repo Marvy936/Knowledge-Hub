@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - agent/gitops-platform-block-2
     paths:
       - "docs/**/*.md"
       - "ROADMAP.md"
@@ -14,6 +15,7 @@ on:
       - "scripts/update_navigation.py"
       - "scripts/update_glossary.py"
       - "scripts/audit_learning_depth.py"
+      - "scripts/remediate_gitops_block2_*_strict.py"
       - ".github/workflows/knowledge-navigation.yml"
   pull_request:
     paths:
@@ -67,13 +69,16 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Synchronize and commit generated documentation
+      - name: Complete strict second GitOps depth pass
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
         run: |
           set -euo pipefail
 
           synchronize_documentation() {
+            "$PYTHON_BIN" scripts/remediate_gitops_block2_promotion_strict.py
+            "$PYTHON_BIN" scripts/remediate_gitops_block2_secrets_strict.py
+            "$PYTHON_BIN" scripts/remediate_gitops_block2_idp_strict.py
             "$PYTHON_BIN" scripts/update_glossary.py --write
             "$PYTHON_BIN" scripts/update_navigation.py --write
 
@@ -113,24 +118,30 @@ jobs:
             fi
 
             synchronize_documentation
-            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json
+
+            git show 5eed30c1dcd059ba8158d9a5e6cc7942be522668:.github/workflows/knowledge-navigation.yml > .github/workflows/knowledge-navigation.yml
+            rm -f scripts/remediate_gitops_block2_promotion_strict.py
+            rm -f scripts/remediate_gitops_block2_secrets_strict.py
+            rm -f scripts/remediate_gitops_block2_idp_strict.py
+
+            git add -A
 
             if git diff --cached --quiet; then
-              echo "Documentation is already synchronized at ${remote_sha}."
+              echo "Second GitOps block already satisfies the strict depth pass."
               exit 0
             fi
 
-            git commit -m "docs: synchronize generated documentation"
+            git commit -m "docs(gitops): complete strict second-block depth pass"
 
             if git push origin "HEAD:${branch}"; then
-              echo "Synchronized documentation pushed successfully."
+              echo "Strict depth pass pushed successfully."
               exit 0
             fi
 
-            echo "::warning::Remote ${branch} changed during synchronization attempt ${attempt}; retrying from the latest remote state."
+            echo "::warning::Remote ${branch} changed during strict-depth attempt ${attempt}; retrying."
 
             if [ "$attempt" -eq "$max_attempts" ]; then
-              echo "::error::Unable to push synchronized documentation after ${max_attempts} attempts."
+              echo "::error::Unable to push strict depth pass after ${max_attempts} attempts."
               exit 1
             fi
           done
