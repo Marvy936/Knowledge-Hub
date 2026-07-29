@@ -3363,15 +3363,15 @@
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
       "title": "CIA triáda",
-      "words": 1922,
-      "headings": 69,
-      "sections": 69,
-      "findings": 231,
-      "critical": 86,
-      "high": 109,
-      "medium": 26,
-      "low": 10,
-      "score": 1986,
+      "words": 2144,
+      "headings": 31,
+      "sections": 31,
+      "findings": 65,
+      "critical": 18,
+      "high": 25,
+      "medium": 7,
+      "low": 15,
+      "score": 457,
       "grade": "D"
     },
     {
@@ -184331,62 +184331,26 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "2. Confidentiality",
-      "line": 18,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty confidentiality",
-      "line": 28,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty confidentiality",
-      "line": 28,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty confidentiality",
-      "line": 28,
+      "section": "2. Exact security subject",
+      "line": 31,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty confidentiality",
-      "line": 28,
+      "section": "2. Exact security subject",
+      "line": 31,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `uniknuté credentials alebo API tokeny,`, `verejný object-storage bucket,`, `broad database read access,`, `logovanie secrets alebo osobných údajov,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider client certificate a private key;`, `settlement routing policy;`, `worker capacity a queue progress;`, `final settlement correctness;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty confidentiality",
-      "line": 28,
+      "section": "2. Exact security subject",
+      "line": 31,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -184394,647 +184358,35 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty confidentiality",
-      "line": 28,
+      "section": "2. Exact security subject",
+      "line": 31,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `workload`, `identity`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 39,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 39,
+      "section": "3. Confidentiality",
+      "line": 62,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "13 odrážok a iba 64 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 39,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 39,
+      "section": "3. Confidentiality",
+      "line": 62,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication,`, `authorization a least privilege,`, `encryption at rest a in transit,`, `secrets management,`.",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítanie secretu alebo private key-u;`, `cross-tenant disclosure;`, `broad database alebo object-store read;`, `logovanie tokenu, PII alebo interného payloadu;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 39,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality nie je iba šifrovanie",
-      "line": 53,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality nie je iba šifrovanie",
-      "line": 53,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality nie je iba šifrovanie",
-      "line": 53,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprávneného používateľa s príliš širokými právami,`, `application bug vracajúci cudzie dáta,`, `compromise po dešifrovaní v memory,`, `logovanie plaintextu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality nie je iba šifrovanie",
-      "line": 53,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality nie je iba šifrovanie",
-      "line": 53,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "3. Integrity",
-      "line": 64,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty integrity",
-      "line": 74,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty integrity",
-      "line": 74,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty integrity",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty integrity",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `útočník upraví artifact alebo container image,`, `chybný deployment prepíše production konfiguráciu,`, `SQL injection zmení dáta,`, `message sa spracuje dvakrát,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty integrity",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty integrity",
-      "line": 74,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `DNS`, `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 86,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 86,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 86,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 86,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hashes a cryptographic signatures,`, `code review a protected branches,`, `artifact signing a provenance,`, `database constraints a transactions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 86,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity a authenticity",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "4. Availability",
-      "line": 115,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty availability",
-      "line": 125,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty availability",
-      "line": 125,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty availability",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty availability",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `výpadok služby,`, `DDoS,`, `vyčerpanie quota alebo disk capacity,`, `expired certificate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty availability",
-      "line": 125,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Príklady straty availability",
-      "line": 125,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 139,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 139,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 139,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 139,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundancy a fault isolation,`, `autoscaling a capacity planning,`, `backups a tested restore,`, `disaster recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 139,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Typické controls",
-      "line": 139,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability nie je iba uptime",
-      "line": 153,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability nie je iba uptime",
-      "line": 153,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability nie je iba uptime",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `extrémnu latency,`, `stale alebo neúplné dáta,`, `chýbajúcu kritickú funkciu,`, `nefunkčnú authentication cestu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability nie je iba uptime",
-      "line": 153,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "5. Vzťah medzi C, I a A",
-      "line": 165,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Encryption",
-      "line": 171,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Encryption",
-      "line": 171,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Encryption",
-      "line": 171,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje confidentiality,`, `môže podporiť integrity,`, `pri strate keys môže zničiť availability.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Encryption",
-      "line": 171,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Encryption",
-      "line": 171,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Strict access policy",
-      "line": 177,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Strict access policy",
-      "line": 177,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Strict access policy",
-      "line": 177,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje confidentiality,`, `môže znížiť availability legitímnym používateľom.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Strict access policy",
-      "line": 177,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Strict access policy",
-      "line": 177,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Replication",
-      "line": 182,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Replication",
-      "line": 182,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Replication",
-      "line": 182,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje availability,`, `zväčšuje počet kópií a confidentiality exposure,`, `môže šíriť logical corruption a poškodiť integrity.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Replication",
-      "line": 182,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Replication",
-      "line": 182,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Caching",
-      "line": 188,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Caching",
-      "line": 188,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Caching",
-      "line": 188,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje availability a performance,`, `môže servovať stale data a poškodiť integrity,`, `môže rozšíriť exposure citlivých dát.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Caching",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Caching",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Immutable backups",
-      "line": 194,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Immutable backups",
-      "line": 194,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Immutable backups",
-      "line": 194,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšujú integrity a recoverability,`, `môžu komplikovať deletion a privacy requirements,`, `potrebujú správnu key a access availability.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Immutable backups",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Immutable backups",
-      "line": 194,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "6. Assets",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "6. Assets",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business data,`, `credentials a keys,`, `source code,`, `artifacts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "6. Assets",
-      "line": 202,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "6. Assets",
-      "line": 202,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "6. Assets",
-      "line": 202,
+      "section": "3. Confidentiality",
+      "line": 62,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -185042,494 +184394,26 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "6. Assets",
-      "line": 202,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "7. Data lifecycle",
-      "line": 228,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "7. Data lifecycle",
-      "line": 228,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "15 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "7. Data lifecycle",
-      "line": 228,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production database je správne šifrovaná,`, `ale export CSV zostáva v otvorenom shared storage.`, `source data je správne,`, `ale ETL pipeline nesprávne transformuje hodnoty.`.",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenu routing policy alebo deployment konfigurácie;`, `modified artifact alebo dependency;`, `duplicate payment či message processing;`, `neautorizovaný policy alebo role assignment;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "7. Data lifecycle",
-      "line": 228,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "7. Data lifecycle",
-      "line": 228,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "7. Data lifecycle",
-      "line": 228,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSV`, `ETL`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "8. Data states",
-      "line": 258,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data at rest",
-      "line": 260,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data at rest",
-      "line": 260,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data at rest",
-      "line": 260,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data at rest",
-      "line": 260,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database,`, `filesystem,`, `object storage,`, `backup,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data at rest",
-      "line": 260,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in transit",
-      "line": 269,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in transit",
-      "line": 269,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in transit",
-      "line": 269,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in transit",
-      "line": 269,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-server traffic,`, `service-to-service traffic,`, `replication,`, `telemetry export,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in transit",
-      "line": 269,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in use",
-      "line": 277,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in use",
-      "line": 277,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in use",
-      "line": 277,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process memory,`, `CPU/GPU processing,`, `temporary files,`, `decrypted payload,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in use",
-      "line": 277,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Data in use",
-      "line": 277,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `GPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "9. Threat, vulnerability, risk a impact",
-      "line": 287,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Threat",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Threat",
-      "line": 289,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Threat",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attacker,`, `insider,`, `human error,`, `hardware failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Threat",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Vulnerability",
-      "line": 302,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Vulnerability",
-      "line": 302,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Vulnerability",
-      "line": 302,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public access,`, `chýbajúci patch,`, `broad IAM role,`, `single point of failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Vulnerability",
-      "line": 302,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Vulnerability",
-      "line": 302,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Impact",
-      "line": 314,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "10. Security controls",
-      "line": 324,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa funkcie",
-      "line": 328,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa funkcie",
-      "line": 328,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa funkcie",
-      "line": 328,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa funkcie",
-      "line": 328,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preventive,`, `detective,`, `corrective,`, `recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa funkcie",
-      "line": 328,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa typu",
-      "line": 337,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa typu",
-      "line": 337,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa typu",
-      "line": 337,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa typu",
-      "line": 337,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `management,`, `operational,`, `technical,`, `physical.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Podľa typu",
-      "line": 337,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "11. Prevent, detect, respond a recover",
-      "line": 352,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "11. Prevent, detect, respond a recover",
-      "line": 352,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "11. Prevent, detect, respond a recover",
-      "line": 352,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prevent: least privilege, patching, segmentation,`, `detect: anomaly a audit alerts,`, `respond: isolation a credential revocation,`, `recover: immutable tested backups,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "11. Prevent, detect, respond a recover",
-      "line": 352,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "12. Assurance",
-      "line": 381,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "12. Assurance",
-      "line": 381,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "12. Assurance",
-      "line": 381,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testy,`, `configuration review,`, `audit,`, `penetration testing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "12. Assurance",
-      "line": 381,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "13. Authentication, authorization a auditing",
-      "line": 409,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Authentication určuje, kto alebo čo sa prihlasuje.`, `Authorization určuje, čo smie vykonať.`, `Auditing zaznamenáva, čo sa vykonalo.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "13. Authentication, authorization a auditing",
-      "line": 409,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -185537,8 +184421,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "13. Authentication, authorization a auditing",
-      "line": 409,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -185546,44 +184430,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "14. Privacy oproti confidentiality",
-      "line": 421,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "14. Privacy oproti confidentiality",
-      "line": 421,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či sa dáta vôbec majú zbierať,`, `na aký účel,`, `ako dlho,`, `s akým právnym základom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "14. Privacy oproti confidentiality",
-      "line": 421,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "14. Privacy oproti confidentiality",
-      "line": 421,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "14. Privacy oproti confidentiality",
-      "line": 421,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -185591,197 +184439,17 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "15. Safety a reliability",
-      "line": 438,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nesprávne dáta môžu fyzicky alebo finančne poškodiť používateľa,`, `automatizácia môže vykonať nebezpečnú akciu,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "15. Safety a reliability",
-      "line": 438,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "15. Safety a reliability",
-      "line": 438,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "15. Safety a reliability",
-      "line": 438,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AI`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "16. Cloud shared responsibility",
-      "line": 450,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "16. Cloud shared responsibility",
-      "line": 450,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical infrastructure,`, `hypervisor/platform,`, `časť service availability.`, `identities a permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "16. Cloud shared responsibility",
-      "line": 450,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "16. Cloud shared responsibility",
-      "line": 450,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "16. Cloud shared responsibility",
-      "line": 450,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "17. Kubernetes príklad",
-      "line": 474,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 476,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 476,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 476,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 476,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Secrets access,`, `RBAC,`, `etcd encryption,`, `network policies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 476,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 476,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 484,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 484,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 484,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 484,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed images,`, `admission policy,`, `immutable tags/digests,`, `GitOps reconciliation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 484,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 484,
+      "section": "4. Integrity",
+      "line": 96,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -185789,485 +184457,26 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 492,
+      "section": "5. Availability",
+      "line": 140,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 68 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 492,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 492,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 492,
+      "section": "5. Availability",
+      "line": 140,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replicas,`, `topology spread,`, `PDB,`, `resource requests,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fault isolation a redundancy;`, `capacity, quotas a rate limits;`, `failover a graceful degradation;`, `credential, key a DNS availability;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 492,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 492,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDB`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "18. CI/CD a supply chain príklad",
-      "line": 503,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 505,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 505,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 505,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pipeline secrets,`, `private source code,`, `protected logs a artifacts.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 505,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 511,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 511,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 511,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 511,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branches,`, `review,`, `pinned dependencies,`, `signed artifacts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 511,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 520,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 520,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 520,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 520,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundant runners,`, `registry availability,`, `dependency mirrors,`, `rollback artifacts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 520,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 520,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "19. Observability príklad",
-      "line": 530,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 534,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 534,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 534,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 534,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PII`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 538,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 538,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 538,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 542,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 542,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 542,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "20. AI a agentické systémy",
-      "line": 548,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 550,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 550,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 550,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 550,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prompt leakage,`, `retrieval cez neoprávnené dáta,`, `tool output exposure,`, `model provider data handling.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Confidentiality",
-      "line": 550,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 557,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 557,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 557,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 557,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prompt injection,`, `poisoned knowledge source,`, `malicious tool result,`, `neautorizovaná agent action.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Integrity",
-      "line": 557,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 564,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 564,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 564,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 564,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider outage,`, `rate limits,`, `token exhaustion,`, `runaway agent loop,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability",
-      "line": 564,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "21. Security categorization",
-      "line": 574,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `low,`, `moderate,`, `high,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "21. Security categorization",
-      "line": 574,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "22. CIA matrix",
-      "line": 595,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "22. CIA matrix",
-      "line": 595,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "22. CIA matrix",
-      "line": 595,
+      "section": "5. Availability",
+      "line": 140,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -186275,8 +184484,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "23. Validation",
-      "line": 607,
+      "section": "7. Threat, vulnerability, exposure, impact a risk",
+      "line": 179,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186284,26 +184493,17 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "23. Validation",
-      "line": 607,
+      "section": "7. Threat, vulnerability, exposure, impact a risk",
+      "line": 179,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "23. Validation",
-      "line": 607,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `access-control tests,`, `secret scanning,`, `data-exposure review,`, `tenant-isolation tests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "23. Validation",
-      "line": 607,
+      "section": "7. Threat, vulnerability, exposure, impact a risk",
+      "line": 179,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -186311,17 +184511,62 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "24. Troubleshooting security incident cez CIA",
-      "line": 634,
+      "section": "7. Threat, vulnerability, exposure, impact a risk",
+      "line": 179,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "7. Threat, vulnerability, exposure, impact a risk",
+      "line": 179,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIA`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "9. Assurance a effective control state",
+      "line": 224,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 50 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "24. Troubleshooting security incident cez CIA",
-      "line": 634,
+      "section": "9. Assurance a effective control state",
+      "line": 224,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration a runtime read-back;`, `positive a negative authorization tests;`, `signature/provenance verification;`, `tenant-isolation test;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "10. Worked incident: jedna stale access cesta narušila C, I aj A",
+      "line": 252,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Competing hypotheses",
+      "line": 280,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -186329,17 +184574,26 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "24. Troubleshooting security incident cez CIA",
-      "line": 634,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `confidentiality: attacker mohol čítať dáta,`, `integrity: mohol ich meniť,`, `availability: revocation alebo destructive action môže spôsobiť outage`.",
-      "score": 8
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "24. Troubleshooting security incident cez CIA",
-      "line": 634,
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider outage spôsobil settlement failure;`, `GitOps rollout načítal chybnú route generation;`, `external attacker zneužil application API;`, `compromised workload prečítal secret nezávisle od human identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Competing hypotheses",
+      "line": 280,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -186347,17 +184601,269 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "24. Troubleshooting security incident cez CIA",
-      "line": 634,
+      "section": "Competing hypotheses",
+      "line": 280,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`, `identity`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Discriminating evidence",
+      "line": 290,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Evidence-preserving containment",
+      "line": 326,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SESSION-771`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Authoritative recovery",
+      "line": 336,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Acceptance verdict",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `workload`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 365,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `CI`, `workload`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "12. Trade-offy medzi C, I a A",
+      "line": 377,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "12. Trade-offy medzi C, I a A",
+      "line": 377,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "12. Trade-offy medzi C, I a A",
+      "line": 377,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "12. Trade-offy medzi C, I a A",
+      "line": 377,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
+      "section": "13. Security incident troubleshooting cez CIA",
+      "line": 389,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/cia-triad.md",
       "section": "CIA ako checkbox",
-      "line": 658,
+      "line": 409,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186365,8 +184871,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Encryption = security",
-      "line": 662,
+      "section": "Encryption = confidentiality solved",
+      "line": 413,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186374,8 +184880,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Availability bez security constraints",
-      "line": 666,
+      "section": "Uptime = availability",
+      "line": 417,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186383,8 +184889,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Security control bez validation",
-      "line": 670,
+      "section": "Control existence = assurance",
+      "line": 421,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186392,8 +184898,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Backup iba ako availability control",
-      "line": 674,
+      "section": "Restore availability bez integrity reconciliation",
+      "line": 425,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186401,8 +184907,8 @@
     },
     {
       "path": "docs/13-security-and-identity/cia-triad.md",
-      "section": "Absolútna maximalizácia jednej osi",
-      "line": 678,
+      "section": "Maximalizácia jednej osi",
+      "line": 429,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

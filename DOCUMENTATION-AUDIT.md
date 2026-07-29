@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10554**
-- Total words: **633,598**
-- Findings: **21763** (critical 6435, high 7173, medium 2812, low 5343)
+- Audited conceptual sections: **10516**
+- Total words: **633,820**
+- Findings: **21597** (critical 6367, high 7089, medium 2793, low 5348)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -24,7 +24,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Grade | Score | Critical | High | Medium | Low | Words | File |
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
-| D | 1986 | 86 | 109 | 26 | 10 | 1922 | `docs/13-security-and-identity/cia-triad.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
@@ -207,6 +206,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 468 | 21 | 22 | 7 | 12 | 2093 | `docs/09-kubernetes/rbac.md` |
 | D | 467 | 18 | 22 | 14 | 15 | 1966 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 467 | 20 | 20 | 12 | 17 | 2550 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
+| D | 457 | 18 | 25 | 7 | 15 | 2144 | `docs/13-security-and-identity/cia-triad.md` |
 | D | 451 | 20 | 23 | 6 | 5 | 1596 | `docs/10-helm-and-cka/named-templates.md` |
 | D | 450 | 18 | 25 | 6 | 12 | 1787 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | D | 446 | 18 | 22 | 10 | 15 | 2170 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
@@ -13807,201 +13807,49 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/cia-triad.md`
 
-- **CRITICAL** line 28, `bare-bullet-items` — **Príklady straty confidentiality**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `uniknuté credentials alebo API tokeny,`, `verejný object-storage bucket,`, `broad database read access,`, `logovanie secrets alebo osobných údajov,`.
-- **CRITICAL** line 28, `no-prose-concept` — **Príklady straty confidentiality**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 28, `outline-instead-of-explanation` — **Príklady straty confidentiality**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 39, `bare-bullet-items` — **Typické controls**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication,`, `authorization a least privilege,`, `encryption at rest a in transit,`, `secrets management,`.
-- **CRITICAL** line 39, `no-prose-concept` — **Typické controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 39, `outline-instead-of-explanation` — **Typické controls**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 53, `bare-bullet-items` — **Confidentiality nie je iba šifrovanie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprávneného používateľa s príliš širokými právami,`, `application bug vracajúci cudzie dáta,`, `compromise po dešifrovaní v memory,`, `logovanie plaintextu,`.
-- **CRITICAL** line 53, `outline-instead-of-explanation` — **Confidentiality nie je iba šifrovanie**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 74, `bare-bullet-items` — **Príklady straty integrity**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `útočník upraví artifact alebo container image,`, `chybný deployment prepíše production konfiguráciu,`, `SQL injection zmení dáta,`, `message sa spracuje dvakrát,`.
-- **CRITICAL** line 74, `no-prose-concept` — **Príklady straty integrity**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 74, `outline-instead-of-explanation` — **Príklady straty integrity**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 86, `bare-bullet-items` — **Typické controls**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hashes a cryptographic signatures,`, `code review a protected branches,`, `artifact signing a provenance,`, `database constraints a transactions,`.
-- **CRITICAL** line 86, `no-prose-concept` — **Typické controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 86, `outline-instead-of-explanation` — **Typické controls**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 125, `bare-bullet-items` — **Príklady straty availability**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `výpadok služby,`, `DDoS,`, `vyčerpanie quota alebo disk capacity,`, `expired certificate,`.
-- **CRITICAL** line 125, `no-prose-concept` — **Príklady straty availability**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 125, `outline-instead-of-explanation` — **Príklady straty availability**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 139, `bare-bullet-items` — **Typické controls**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundancy a fault isolation,`, `autoscaling a capacity planning,`, `backups a tested restore,`, `disaster recovery,`.
-- **CRITICAL** line 139, `no-prose-concept` — **Typické controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 139, `outline-instead-of-explanation` — **Typické controls**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 153, `bare-bullet-items` — **Availability nie je iba uptime**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `extrémnu latency,`, `stale alebo neúplné dáta,`, `chýbajúcu kritickú funkciu,`, `nefunkčnú authentication cestu,`.
-- **CRITICAL** line 153, `outline-instead-of-explanation` — **Availability nie je iba uptime**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 171, `no-prose-concept` — **Encryption**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 177, `no-prose-concept` — **Strict access policy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 182, `no-prose-concept` — **Replication**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 188, `no-prose-concept` — **Caching**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 202, `bare-bullet-items` — **6. Assets**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business data,`, `credentials a keys,`, `source code,`, `artifacts,`.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **6. Assets**: 14 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 228, `bare-bullet-items` — **7. Data lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production database je správne šifrovaná,`, `ale export CSV zostáva v otvorenom shared storage.`, `source data je správne,`, `ale ETL pipeline nesprávne transformuje hodnoty.`.
-- **CRITICAL** line 228, `outline-instead-of-explanation` — **7. Data lifecycle**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 258, `empty-section` — **8. Data states**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 260, `bare-bullet-items` — **Data at rest**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database,`, `filesystem,`, `object storage,`, `backup,`.
-- **CRITICAL** line 260, `no-prose-concept` — **Data at rest**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 260, `outline-instead-of-explanation` — **Data at rest**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 269, `bare-bullet-items` — **Data in transit**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-server traffic,`, `service-to-service traffic,`, `replication,`, `telemetry export,`.
-- **CRITICAL** line 269, `no-prose-concept` — **Data in transit**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 269, `outline-instead-of-explanation` — **Data in transit**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 277, `bare-bullet-items` — **Data in use**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process memory,`, `CPU/GPU processing,`, `temporary files,`, `decrypted payload,`.
-- **CRITICAL** line 277, `outline-instead-of-explanation` — **Data in use**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 287, `empty-section` — **9. Threat, vulnerability, risk a impact**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 289, `bare-bullet-items` — **Threat**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attacker,`, `insider,`, `human error,`, `hardware failure,`.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **Threat**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 302, `bare-bullet-items` — **Vulnerability**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public access,`, `chýbajúci patch,`, `broad IAM role,`, `single point of failure,`.
-- **CRITICAL** line 302, `outline-instead-of-explanation` — **Vulnerability**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 328, `bare-bullet-items` — **Podľa funkcie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preventive,`, `detective,`, `corrective,`, `recovery,`.
-- **CRITICAL** line 328, `no-prose-concept` — **Podľa funkcie**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 328, `outline-instead-of-explanation` — **Podľa funkcie**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 337, `bare-bullet-items` — **Podľa typu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `management,`, `operational,`, `technical,`, `physical.`.
-- **CRITICAL** line 337, `outline-instead-of-explanation` — **Podľa typu**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 352, `bare-bullet-items` — **11. Prevent, detect, respond a recover**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prevent: least privilege, patching, segmentation,`, `detect: anomaly a audit alerts,`, `respond: isolation a credential revocation,`, `recover: immutable tested backups,`.
-- **CRITICAL** line 352, `outline-instead-of-explanation` — **11. Prevent, detect, respond a recover**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 381, `bare-bullet-items` — **12. Assurance**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testy,`, `configuration review,`, `audit,`, `penetration testing,`.
-- **CRITICAL** line 381, `outline-instead-of-explanation` — **12. Assurance**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 421, `bare-bullet-items` — **14. Privacy oproti confidentiality**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či sa dáta vôbec majú zbierať,`, `na aký účel,`, `ako dlho,`, `s akým právnym základom,`.
-- **CRITICAL** line 421, `outline-instead-of-explanation` — **14. Privacy oproti confidentiality**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 450, `bare-bullet-items` — **16. Cloud shared responsibility**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical infrastructure,`, `hypervisor/platform,`, `časť service availability.`, `identities a permissions,`.
-- **CRITICAL** line 450, `outline-instead-of-explanation` — **16. Cloud shared responsibility**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 474, `empty-section` — **17. Kubernetes príklad**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 476, `bare-bullet-items` — **Confidentiality**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Secrets access,`, `RBAC,`, `etcd encryption,`, `network policies,`.
-- **CRITICAL** line 476, `no-prose-concept` — **Confidentiality**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 476, `outline-instead-of-explanation` — **Confidentiality**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 484, `bare-bullet-items` — **Integrity**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed images,`, `admission policy,`, `immutable tags/digests,`, `GitOps reconciliation,`.
-- **CRITICAL** line 484, `no-prose-concept` — **Integrity**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 484, `outline-instead-of-explanation` — **Integrity**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 492, `bare-bullet-items` — **Availability**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replicas,`, `topology spread,`, `PDB,`, `resource requests,`.
-- **CRITICAL** line 492, `outline-instead-of-explanation` — **Availability**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 503, `empty-section` — **18. CI/CD a supply chain príklad**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 505, `no-prose-concept` — **Confidentiality**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 511, `bare-bullet-items` — **Integrity**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branches,`, `review,`, `pinned dependencies,`, `signed artifacts,`.
-- **CRITICAL** line 511, `no-prose-concept` — **Integrity**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 511, `outline-instead-of-explanation` — **Integrity**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 520, `bare-bullet-items` — **Availability**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundant runners,`, `registry availability,`, `dependency mirrors,`, `rollback artifacts,`.
-- **CRITICAL** line 520, `outline-instead-of-explanation` — **Availability**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 534, `no-prose-concept` — **Confidentiality**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 538, `no-prose-concept` — **Integrity**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 548, `empty-section` — **20. AI a agentické systémy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 550, `bare-bullet-items` — **Confidentiality**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prompt leakage,`, `retrieval cez neoprávnené dáta,`, `tool output exposure,`, `model provider data handling.`.
-- **CRITICAL** line 550, `no-prose-concept` — **Confidentiality**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 550, `outline-instead-of-explanation` — **Confidentiality**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 557, `bare-bullet-items` — **Integrity**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prompt injection,`, `poisoned knowledge source,`, `malicious tool result,`, `neautorizovaná agent action.`.
-- **CRITICAL** line 557, `no-prose-concept` — **Integrity**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 557, `outline-instead-of-explanation` — **Integrity**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 564, `bare-bullet-items` — **Availability**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider outage,`, `rate limits,`, `token exhaustion,`, `runaway agent loop,`.
-- **CRITICAL** line 564, `outline-instead-of-explanation` — **Availability**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 607, `bare-bullet-items` — **23. Validation**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `access-control tests,`, `secret scanning,`, `data-exposure review,`, `tenant-isolation tests,`.
-- **CRITICAL** line 607, `outline-instead-of-explanation` — **23. Validation**: 16 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 18, `single-sentence-concept` — **2. Confidentiality**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 28, `list-first-introduction` — **Príklady straty confidentiality**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 39, `list-first-introduction` — **Typické controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 53, `single-sentence-concept` — **Confidentiality nie je iba šifrovanie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 64, `single-sentence-concept` — **3. Integrity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 74, `list-first-introduction` — **Príklady straty integrity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 86, `list-first-introduction` — **Typické controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 101, `single-sentence-concept` — **Integrity a authenticity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 115, `single-sentence-concept` — **4. Availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 125, `list-first-introduction` — **Príklady straty availability**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 139, `list-first-introduction` — **Typické controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 153, `single-sentence-concept` — **Availability nie je iba uptime**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 165, `single-sentence-concept` — **5. Vzťah medzi C, I a A**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 171, `bare-bullet-items` — **Encryption**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje confidentiality,`, `môže podporiť integrity,`, `pri strate keys môže zničiť availability.`.
-- **HIGH** line 171, `list-first-introduction` — **Encryption**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 177, `bare-bullet-items` — **Strict access policy**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje confidentiality,`, `môže znížiť availability legitímnym používateľom.`.
-- **HIGH** line 177, `list-first-introduction` — **Strict access policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 182, `bare-bullet-items` — **Replication**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje availability,`, `zväčšuje počet kópií a confidentiality exposure,`, `môže šíriť logical corruption a poškodiť integrity.`.
-- **HIGH** line 182, `list-first-introduction` — **Replication**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 188, `bare-bullet-items` — **Caching**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšuje availability a performance,`, `môže servovať stale data a poškodiť integrity,`, `môže rozšíriť exposure citlivých dát.`.
-- **HIGH** line 188, `list-first-introduction` — **Caching**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 194, `bare-bullet-items` — **Immutable backups**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zvyšujú integrity a recoverability,`, `môžu komplikovať deletion a privacy requirements,`, `potrebujú správnu key a access availability.`.
-- **HIGH** line 194, `list-first-introduction` — **Immutable backups**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 194, `single-sentence-concept` — **Immutable backups**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 228, `single-sentence-concept` — **7. Data lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 260, `list-first-introduction` — **Data at rest**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 269, `list-first-introduction` — **Data in transit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 277, `list-first-introduction` — **Data in use**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 289, `single-sentence-concept` — **Threat**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 302, `single-sentence-concept` — **Vulnerability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 314, `single-sentence-concept` — **Impact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 324, `single-sentence-concept` — **10. Security controls**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 328, `list-first-introduction` — **Podľa funkcie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 337, `list-first-introduction` — **Podľa typu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 337, `single-sentence-concept` — **Podľa typu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 352, `single-sentence-concept` — **11. Prevent, detect, respond a recover**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 381, `single-sentence-concept` — **12. Assurance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 409, `bare-bullet-items` — **13. Authentication, authorization a auditing**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Authentication určuje, kto alebo čo sa prihlasuje.`, `Authorization určuje, čo smie vykonať.`, `Auditing zaznamenáva, čo sa vykonalo.`.
-- **HIGH** line 438, `bare-bullet-items` — **15. Safety a reliability**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nesprávne dáta môžu fyzicky alebo finančne poškodiť používateľa,`, `automatizácia môže vykonať nebezpečnú akciu,`.
-- **HIGH** line 476, `list-first-introduction` — **Confidentiality**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 484, `list-first-introduction` — **Integrity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 492, `list-first-introduction` — **Availability**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 492, `single-sentence-concept` — **Availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 505, `bare-bullet-items` — **Confidentiality**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pipeline secrets,`, `private source code,`, `protected logs a artifacts.`.
-- **HIGH** line 505, `list-first-introduction` — **Confidentiality**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 511, `list-first-introduction` — **Integrity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 520, `list-first-introduction` — **Availability**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 520, `single-sentence-concept` — **Availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 530, `single-sentence-concept` — **19. Observability príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 534, `list-first-introduction` — **Confidentiality**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 538, `list-first-introduction` — **Integrity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 542, `list-first-introduction` — **Availability**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 542, `single-sentence-concept` — **Availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 550, `list-first-introduction` — **Confidentiality**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 557, `list-first-introduction` — **Integrity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 564, `list-first-introduction` — **Availability**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 564, `single-sentence-concept` — **Availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 574, `bare-bullet-items` — **21. Security categorization**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `low,`, `moderate,`, `high,`.
-- **HIGH** line 595, `single-sentence-concept` — **22. CIA matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 607, `single-sentence-concept` — **23. Validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 634, `bare-bullet-items` — **24. Troubleshooting security incident cez CIA**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `confidentiality: attacker mohol čítať dáta,`, `integrity: mohol ich meniť,`, `availability: revocation alebo destructive action môže spôsobiť outage`.
-- **HIGH** line 634, `list-first-introduction` — **24. Troubleshooting security incident cez CIA**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 634, `single-sentence-concept` — **24. Troubleshooting security incident cez CIA**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 658, `single-sentence-concept` — **CIA ako checkbox**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 662, `single-sentence-concept` — **Encryption = security**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 666, `single-sentence-concept` — **Availability bez security constraints**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 670, `single-sentence-concept` — **Security control bez validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 674, `single-sentence-concept` — **Backup iba ako availability control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 678, `single-sentence-concept` — **Absolútna maximalizácia jednej osi**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 28, `thin-concept-section` — **Príklady straty confidentiality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 39, `thin-concept-section` — **Typické controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 53, `thin-concept-section` — **Confidentiality nie je iba šifrovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 74, `thin-concept-section` — **Príklady straty integrity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 86, `thin-concept-section` — **Typické controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 125, `thin-concept-section` — **Príklady straty availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 139, `thin-concept-section` — **Typické controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 153, `thin-concept-section` — **Availability nie je iba uptime**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 171, `thin-concept-section` — **Encryption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 177, `thin-concept-section` — **Strict access policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 182, `thin-concept-section` — **Replication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 188, `thin-concept-section` — **Caching**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 194, `thin-concept-section` — **Immutable backups**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 202, `thin-concept-section` — **6. Assets**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 228, `thin-concept-section` — **7. Data lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 260, `thin-concept-section` — **Data at rest**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 269, `thin-concept-section` — **Data in transit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 277, `thin-concept-section` — **Data in use**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **Threat**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 302, `thin-concept-section` — **Vulnerability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 328, `thin-concept-section` — **Podľa funkcie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 337, `thin-concept-section` — **Podľa typu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 352, `thin-concept-section` — **11. Prevent, detect, respond a recover**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 381, `thin-concept-section` — **12. Assurance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 476, `thin-concept-section` — **Confidentiality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 484, `thin-concept-section` — **Integrity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 492, `thin-concept-section` — **Availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 505, `thin-concept-section` — **Confidentiality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 511, `thin-concept-section` — **Integrity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 520, `thin-concept-section` — **Availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 534, `thin-concept-section` — **Confidentiality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 538, `thin-concept-section` — **Integrity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 542, `thin-concept-section` — **Availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 550, `thin-concept-section` — **Confidentiality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 557, `thin-concept-section` — **Integrity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 564, `thin-concept-section` — **Availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 574, `thin-concept-section` — **21. Security categorization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 607, `thin-concept-section` — **23. Validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 634, `thin-concept-section` — **24. Troubleshooting security incident cez CIA**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 31, `bare-bullet-items` — **2. Exact security subject**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider client certificate a private key;`, `settlement routing policy;`, `worker capacity a queue progress;`, `final settlement correctness;`.
+- **CRITICAL** line 31, `outline-instead-of-explanation` — **2. Exact security subject**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 62, `bare-bullet-items` — **3. Confidentiality**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítanie secretu alebo private key-u;`, `cross-tenant disclosure;`, `broad database alebo object-store read;`, `logovanie tokenu, PII alebo interného payloadu;`.
+- **CRITICAL** line 96, `bare-bullet-items` — **4. Integrity**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenu routing policy alebo deployment konfigurácie;`, `modified artifact alebo dependency;`, `duplicate payment či message processing;`, `neautorizovaný policy alebo role assignment;`.
+- **CRITICAL** line 96, `outline-instead-of-explanation` — **4. Integrity**: 15 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 140, `bare-bullet-items` — **5. Availability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fault isolation a redundancy;`, `capacity, quotas a rate limits;`, `failover a graceful degradation;`, `credential, key a DNS availability;`.
+- **CRITICAL** line 179, `outline-instead-of-explanation` — **7. Threat, vulnerability, exposure, impact a risk**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 224, `bare-bullet-items` — **9. Assurance a effective control state**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration a runtime read-back;`, `positive a negative authorization tests;`, `signature/provenance verification;`, `tenant-isolation test;`.
+- **CRITICAL** line 252, `empty-section` — **10. Worked incident: jedna stale access cesta narušila C, I aj A**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 280, `bare-bullet-items` — **Competing hypotheses**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider outage spôsobil settlement failure;`, `GitOps rollout načítal chybnú route generation;`, `external attacker zneužil application API;`, `compromised workload prečítal secret nezávisle od human identity;`.
+- **CRITICAL** line 280, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 280, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 326, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 326, `outline-instead-of-explanation` — **Evidence-preserving containment**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 351, `outline-instead-of-explanation` — **Acceptance verdict**: 9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 365, `no-prose-concept` — **11. Earlier controls odvodené z incidentu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 365, `outline-instead-of-explanation` — **11. Earlier controls odvodené z incidentu**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 377, `outline-instead-of-explanation` — **12. Trade-offy medzi C, I a A**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **HIGH** line 62, `list-heavy-section` — **3. Confidentiality**: 13 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 140, `list-heavy-section` — **5. Availability**: 8 odrážok a iba 68 slov súvislého vysvetlenia.
+- **HIGH** line 179, `single-sentence-concept` — **7. Threat, vulnerability, exposure, impact a risk**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 224, `list-heavy-section` — **9. Assurance a effective control state**: 8 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 280, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 290, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 326, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 336, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 351, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 365, `list-first-introduction` — **11. Earlier controls odvodené z incidentu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 389, `list-first-introduction` — **13. Security incident troubleshooting cez CIA**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 409, `single-sentence-concept` — **CIA ako checkbox**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 413, `single-sentence-concept` — **Encryption = confidentiality solved**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 417, `single-sentence-concept` — **Uptime = availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 421, `single-sentence-concept` — **Control existence = assurance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 425, `single-sentence-concept` — **Restore availability bez integrity reconciliation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 429, `single-sentence-concept` — **Maximalizácia jednej osi**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 31, `thin-concept-section` — **2. Exact security subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 179, `thin-concept-section` — **7. Threat, vulnerability, exposure, impact a risk**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 280, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 326, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 351, `term-before-explanation` — **Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `workload`, `policy`, `identity`
+- **HIGH** line 351, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 365, `term-before-explanation` — **11. Earlier controls odvodené z incidentu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `CI`, `workload`, `policy`, `identity`
+- **HIGH** line 365, `thin-concept-section` — **11. Earlier controls odvodené z incidentu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md`
 
@@ -14667,19 +14515,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2555 | 441 | 0 | 0 | 2996 |
-| `outline-instead-of-explanation` | 2484 | 0 | 0 | 0 | 2484 |
-| `term-before-explanation` | 0 | 532 | 1866 | 0 | 2398 |
-| `single-sentence-concept` | 0 | 2335 | 0 | 0 | 2335 |
-| `example-not-explicit` | 0 | 0 | 0 | 2178 | 2178 |
-| `thin-concept-section` | 0 | 2106 | 0 | 0 | 2106 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2025 | 2025 |
-| `list-first-introduction` | 0 | 1294 | 0 | 0 | 1294 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
-| `short-concept-section` | 0 | 0 | 946 | 0 | 946 |
-| `no-prose-concept` | 747 | 0 | 0 | 0 | 747 |
-| `empty-section` | 649 | 0 | 0 | 0 | 649 |
-| `list-heavy-section` | 0 | 465 | 0 | 0 | 465 |
+| `bare-bullet-items` | 2531 | 431 | 0 | 0 | 2962 |
+| `outline-instead-of-explanation` | 2462 | 0 | 0 | 0 | 2462 |
+| `term-before-explanation` | 0 | 534 | 1849 | 0 | 2383 |
+| `single-sentence-concept` | 0 | 2313 | 0 | 0 | 2313 |
+| `example-not-explicit` | 0 | 0 | 0 | 2182 | 2182 |
+| `thin-concept-section` | 0 | 2073 | 0 | 0 | 2073 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2024 | 2024 |
+| `list-first-introduction` | 0 | 1270 | 0 | 0 | 1270 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1142 | 1142 |
+| `short-concept-section` | 0 | 0 | 944 | 0 | 944 |
+| `no-prose-concept` | 729 | 0 | 0 | 0 | 729 |
+| `empty-section` | 645 | 0 | 0 | 0 | 645 |
+| `list-heavy-section` | 0 | 468 | 0 | 0 | 468 |
 
 ## Required remediation pattern
 
