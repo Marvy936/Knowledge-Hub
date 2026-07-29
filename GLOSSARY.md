@@ -266,6 +266,10 @@ Policy as Code pravidlo, ktorého výsledok je viditeľný a auditovaný, ale sa
 
 Authenticated Encryption with Associated Data; encryption model poskytujúci confidentiality plaintextu a zároveň integrity a authenticity ciphertextu a voliteľných nešifrovaných metadata. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Affected-state verdict — vulnerability
+
+Dôkaz, či exact component, version, configuration, feature a runtime generation skutočne spĺňajú advisory affected conditions, odlíšený od samotnej component presence alebo scanner matchu. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## Affinity population subject
 
 Exact množina existujúcich Podov vybraná label a namespace selectorom pre required/preferred Pod affinity alebo anti-affinity výpočet. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
@@ -706,6 +710,10 @@ GitLab pravidlo definujúce počet required approvals, eligible users alebo grou
 
 Versionovaný súbor rozhodnutí o endpoint identity, etcd topology, failure domains, CIDRs, runtime, CNI/CSI, PKI, storage, backup a upgrade modeli. Pozri [Cluster installation a lifecycle](../docs/09-kubernetes/cluster-installation-lifecycle.md).
 
+## Architecture generation — threat model
+
+Versionovaná kombinácia services, data flows, identities, trust boundaries, dependencies, deployment paths a assumptions, ku ktorej sa viaže konkrétny threat model. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## ARP — Address Resolution Protocol
 
 IPv4 protokol mapujúci lokálnu next-hop IP adresu na MAC adresu. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
@@ -969,6 +977,10 @@ Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu po
 ## Authoritative writer
 
 Jediný systém alebo workflow oprávnený meniť konkrétny mutable object alebo attribute; viac writerov vytvára ownership conflict a perpetual drift. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Authority compromise interval — supply chain
+
+Časové okno, počas ktorého compromised source, builder, signer, publisher alebo policy authority mohla vytvoriť alebo schváliť odvodené artifacts, ktoré treba enumerovať a re-evaluovať. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Authorization
 
@@ -1622,6 +1634,10 @@ Samostatný build filesystem a graph scope vytvorený instruction `FROM`, ktorý
 
 Krátky smoke test nad novým buildom overujúci, či je artifact spustiteľný a vhodný na drahšie testovanie. Pozri [Smoke a regression tests](docs/04-testing-and-quality/smoke-and-regression-tests.md).
 
+## Builder execution generation
+
+Exact runner, builder image digest, toolchain, cache namespace, isolation class, external parameters a job identity, ktoré vytvorili konkrétny artifact. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Builder instance — Buildx
 
 Logical Buildx objekt združujúci jeden alebo viac BuildKit nodes, driver, endpoints, podporované platforms a configuration. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -1638,9 +1654,17 @@ Identita jedného BuildKit node-u zahŕňajúca endpoint, worker, BuildKit versi
 
 Lifecycle content store-u, snapshots, cache records, active leases, temporary exports, logs, node capacity, retention, garbage collection a retirement konkrétnej builder instance. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Builder/toolchain BOM
+
+BOM opisujúci runner image, compiler, build helper, actions a ďalšie build-time components, ktoré ovplyvňujú output, ale nemusia byť súčasťou runtime artifactu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Builder trust domain
 
 Izolovaná bezpečnostná oblasť pre build workloads, cache a credentials; untrusted pull-request buildy nemajú zdieľať release signing alebo production registry oprávnenia. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Builder vulnerability
+
+Weakness alebo zraniteľný component v runneri, build helperi, compilery, action-e alebo build service, ktorý môže meniť output alebo kradnúť release authority bez zmeny application source-u. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## BuildKit
 
@@ -2630,6 +2654,10 @@ Stabilný index konkrétneho logical completion slotu pri Indexed Job-e, použí
 
 Deterministická väzba Indexed Job completion indexu na business partition alebo work-item identity, typicky scoped logical run key-om. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
+## Component-identity confidence
+
+Evidence-backed úroveň istoty, že SBOM alebo vulnerability record správne identifikuje ecosystem, package, version, distribution, architecture, supplier a konkrétne bytes componentu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Component metrics — Kubernetes
 
 Prometheus-style metrics publikované API serverom, schedulerom, controller-managerom, kubeletom, etcd a ďalšími system components. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
@@ -2717,6 +2745,10 @@ CloudWatch alarm kombinujúci boolean stav viacerých underlying alarmov na kore
 ## Composite CloudOps lab
 
 Časovo ohraničený experiment pokrývajúci viac SOA-C03 domains, unknown failure diagnosis, bounded recovery, negative validation a full cleanup bez krokového návodu. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
+
+## Compromise assessment — vulnerability
+
+Samostatný investigation verdict určujúci, či exploitable condition bola zneužitá, aké persistence, credentials, artifacts alebo business effects vznikli a čo patch samotný neodstráni. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Compute quota — Kubernetes
 
@@ -3285,6 +3317,10 @@ Exact unblended, blended, amortized, net amortized alebo invoice perspective pou
 ## Counter — metric
 
 Monotónne rastúca metric hodnota používaná pre počty udalostí alebo práce; pri analýze sa typicky prevádza na rate alebo increase za časové okno. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Coverage recurrence
+
+Opakované vynechanie rovnakého component classu alebo lifecycle stage-u z SBOM/scanning evidence po generator, configuration alebo pipeline zmene. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## CPU millicore
 
@@ -4141,6 +4177,10 @@ Vyhodnotenie rovnakého corpus-u inputs cez starú a novú policy revision s kon
 ## Digest pinning
 
 Viazanie dependency, action, image alebo artifact reference na immutable cryptographic content digest namiesto mutable tagu alebo version range. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Digest-to-runtime mapping
+
+Vzťah od immutable artifact alebo platform manifest digestu k running workloads, environments, owners, autoscaling templates a rollback catalogu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Dimension inventory — observability
 
@@ -5238,6 +5278,10 @@ Lambda resource s pollermi, ktoré čítajú batches z podporovaných queue aleb
 
 Model, v ktorom API write uloží desired state okamžite, ale controllers, scheduler, kubelet a external systems ho realizujú asynchrónne a stav sa zhoduje až po čase. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Evidence authority — security
+
+Identity a trust boundary oprávnená vydať konkrétny evidence claim, napríklad provenance, SBOM, test alebo vulnerability verdict, oddelená od subjectu, ktorý claim opisuje. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md) a [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Evidence completeness
 
 Kontrola, že pre presný candidate existuje celý očakávaný manifest required testov, scanov, shardov, reports a tool execution statusov. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
@@ -5245,6 +5289,10 @@ Kontrola, že pre presný candidate existuje celý očakávaný manifest require
 ## Evidence coverage
 
 Preukázaný set accounts, Regions, resources, event categories, log groups, metrics, cohorts a retention windows, ktoré observability/audit design skutočne zbiera; neprítomný selector alebo source nemožno nahradiť neskorším query. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## Evidence coverage matrix
+
+Prehľad source, build, artifact, host a runtime observation methods a component classes, ktoré pokrývajú alebo nepokrývajú, používaný na odhalenie false-negative gaps. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Evidence cut-off — architecture review
 
@@ -5257,6 +5305,10 @@ Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, tel
 ## Evidence freshness
 
 Pravidlá určujúce, či evidence stále patrí k aktuálnemu candidate, artifactu, policy a target environment stateu a ešte neprekročila definovanú expiráciu. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Evidence-generation method — SBOM
+
+Konkrétny spôsob, tool, configuration a lifecycle observation point, ktorým vznikol SBOM inventory, napríklad lockfile resolution, build graph alebo final filesystem/binary analysis. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## Evidence manifest
 
@@ -5473,6 +5525,10 @@ Komponent telemetry pipeline, ktorý odosiela spracované signals do backendu al
 ## Exposure event
 
 Telemetry udalosť dokazujúca, že subjekt reálne dostal konkrétny experiment alebo feature variant; assignment bez exposure nemusí znamenať ovplyvnenie. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Exposure verdict — vulnerability
+
+Rozhodnutie, či relevantný actor môže dosiahnuť affected condition cez actual network, identity, feature, privilege a tenant paths napriek compensating controls. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Exposure — vulnerability management
 
@@ -5758,6 +5814,10 @@ Versionované poradie parse, enrichment, normalization, redaction, cardinality c
 
 Scheduling Framework plugin vyhodnocujúci, či konkrétny Node spĺňa hard constraints Podu. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
 
+## Final-artifact SBOM
+
+SBOM vytvorený z inspection konkrétneho final package, binary alebo OCI manifest filesystemu a viazaný na jeho immutable digest, odlíšený od source alebo builder inventory. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Final-outcome class — RED
 
 Klasifikácia logical operation ako definitive success, definitive failure, partial success, cancellation, timeout, success after retry alebo iný finálny contract verdict. Pozri [RED method](docs/12-observability/red-method.md).
@@ -5785,6 +5845,10 @@ Informácia o delay, estimated/finalized state a late adjustments cost datasetu 
 ## Financial safety boundary — AWS lab
 
 Kombinácia sandbox isolation, bounded permissions/quotas, budget signals, TTL, cost-driver observation a cleanup contractu obmedzujúca finančný blast radius experimentu. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
+
+## Finding generation — vulnerability
+
+Versionovaný súbor advisory revision, scanner/plugin logic, asset inventory, scan position, credential coverage, timestamp a matching evidence, ktoré vytvorili finding. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## FinOps
 
@@ -7818,6 +7882,10 @@ Najnovší presne identifikovaný runtime subject, ktorý je technicky, dátovo,
 
 Presne identifikovaný artifact, configuration a compatibility stav s overenou produkčnou evidence, ktorý možno použiť ako recovery target. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
 
+## Last-known-good chain — supply chain
+
+Overená kombinácia source revision, build definition, builder platform, dependencies, signing identity, registry state a deployment policy, z ktorej možno po compromise vytvoriť nový trusted artifact. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Latency
 
 Čas potrebný na dokončenie operácie alebo requestu. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -7937,6 +8005,10 @@ Logical launch alebo termination side effect viazaný na instance ID, transition
 ## Lifecycle meta-argument — Terraform
 
 Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ako `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, preconditions a postconditions. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Lifecycle-stage declaration — SBOM
+
+Explicitné metadata určujúce, či BOM opisuje source dependencies, builder/toolchain inputs, build graph, final artifact alebo deployed/runtime snapshot. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## LimitRange
 
@@ -8549,6 +8621,10 @@ Test double poskytujúci deterministické provider schemas a hodnoty pre native 
 ## Mock — test double
 
 Test double s explicitnými očakávaniami na interakcie. Je vhodný, keď komunikácia sama tvorí relevantný kontrakt. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Model acceptance verdict — threat modeling
+
+Dôkaz, že threat model zodpovedá current architecture generation, critical assumptions majú evidence, high-impact threats majú mechanisms, requirements a negative tests a residual risks majú ownerov. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
 ## Module composition — Terraform
 
@@ -9218,6 +9294,10 @@ Jedna lifetime identity objectu vyjadrená UID spolu s konkrétnou desired-state
 
 Server-generated immutable identity konkrétnej object inštancie; znovu vytvorený object s rovnakým menom dostane nové UID. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Objective-to-negative-test lifecycle
+
+Threat-model chain od konkrétneho chráneného outcome-u cez system model, attack path a mitigation po testovateľný requirement a forbidden-path verification. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Observability
 
 Schopnosť porozumieť internému stavu systému z jeho externých outputs a skúmať aj neočakávané otázky pomocou kvalitnej, korelovateľnej telemetry. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -9309,6 +9389,10 @@ Protokol na zisťovanie revocation statusu certificate; server môže status pos
 ## OIDC subject
 
 Exact issuer/discovery generation, client registration, transaction state, token header/claims, identity mapping, claims revision, local session, requested resource a revocation descendants analyzovaného OIDC loginu. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
+## Old-digest recurrence
+
+Návrat zraniteľného alebo nedôveryhodného artifact digestu cez rollback, autoscaling template, cache, stale manifest alebo alternate deployment path po údajnej remediation. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Old-generation retirement — Kubernetes upgrade
 
@@ -10558,6 +10642,10 @@ Riadené rozhodnutie, ktorá replica/Region/topology sa stáva jediným accepted
 
 Súbor výsledkov a metadata viazaných na konkrétny artifact alebo release manifest digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
+## Promotion preservation verdict
+
+Dôkaz, že registry promotion alebo replication zachovala exact artifact digest aj všetky required signatures, provenance, SBOM a ďalšie related artifacts a že destination read-back sedí. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md) a [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Promotion subject
 
 Kompletný deployment tuple hodnotený pred promotion, typicky release manifest, rendered configuration, infrastructure revision, target environment a relevantný shared-state snapshot. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
@@ -11226,6 +11314,10 @@ Zmena passwordu alebo vault identity použitej na šifrovanie existujúceho Vaul
 
 Sigstore transparency log pre signed software supply-chain metadata a inclusion evidence. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
+## Relationship completeness — SBOM
+
+Miera, do akej BOM správne zachytáva dependency, containment, build-input, tool a variant relationships pre intended subject a lifecycle stage. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
 ## Relative Distinguished Name — RDN
 
 Časť Distinguished Name identifikujúca LDAP entry relatívne voči jeho parent entry. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -11306,6 +11398,10 @@ Cadence model, v ktorom zmeny pripravené do definovaného cutoffu vstúpia do s
 
 Konečný verdict upgrade/recovery, ktorý viaže final Helm revision na live Kubernetes generations, durable data/contracts, business acceptance, forbidden outcomes a retirement starej alebo nekompatibilnej generation. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Release trust subject
+
+Complete release identity zahŕňajúca source revision, controls, resolved inputs, builder generation, artifact digest, evidence subjects, registry promotion, policy revision a deployed runtime digest. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
 ## Release unit
 
 Presne definovaná množina artifactov, configov, migrations alebo koordinovaných komponentov, ktoré sa schvaľujú a release-ujú ako jeden celok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -11325,6 +11421,10 @@ Exact alarm/event generation, target manifest, automation/runbook version, execu
 ## Remediation hierarchy — Kubernetes
 
 Preferované poradie opráv od úzkeho declarative rollbacku alebo obnovy dependency cez Pod/Node replacement a roll-forward až po disaster recovery. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Remediation subject
+
+Exact asset, component, build, process, digest, deployment, rollback a evidence scope, ku ktorému sa viaže vulnerability finding a closure decision. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Remote backend — Terraform
 
@@ -11549,6 +11649,10 @@ Konečný pipeline YAML model po spracovaní includes, components, defaults, inh
 ## Resolved dependency artifact — Helm
 
 Exact dependency chart version a digest zvolený resolverom z declaration constraintu a source repository state-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Resolved-input generation
+
+Exact set dependency artifacts, base images, CI actions, workflows, toolchains a configuration values, ktoré resolver a build platform použili pre konkrétny release. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Resolved-model policy
 
@@ -12142,6 +12246,10 @@ Job failure spôsobený runnerom, executorom, infrastructure alebo prepare/clean
 
 Izolovaný PowerShell execution environment s vlastným session state, používaný aj pri paralelnom spracovaní. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Runtime activation — vulnerability
+
+Transition, pri ktorom fixed package, process, kernel, Pod, node alebo service generation skutočne nahradí affected running state a prejde functional aj security verification. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
 ## Runtime authority generation — Kubernetes
 
 Effective OCI/container runtime security configuration pre konkrétny Pod UID, container ID, Node a RuntimeClass generation. Pozri [SecurityContext a Pod Security](../docs/09-kubernetes/securitycontext-pod-security.md).
@@ -12197,6 +12305,10 @@ Host-admin-like authority získaná accessom k container-engine socketu. Pozri [
 ## Runtime socket exposure
 
 Sprístupnenie Engine API socketu workloadu, ktoré často umožňuje ovládať host cez privileged containers alebo mounts. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Runtime trust re-evaluation
+
+Opätovné vyhodnotenie už existujúceho immutable artifactu a jeho deployments po novej vulnerability, compromised builder/signer, policy zmene alebo supplier incidente. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## RuntimeClass overhead
 
@@ -12341,6 +12453,10 @@ Konkrétny plan artifact a digest viazaný na configuration, resolved dependenci
 ## SBOM
 
 Machine-readable inventory software components a relationships viazaný na konkrétny software artifact alebo system. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## SBOM acceptance verdict
+
+Dôkaz, že SBOM má správny immutable subject, lifecycle stage, generation method, component/relationship quality, approved authority, preserved distribution a digest-to-runtime mapping a že wrong-stage, incomplete a old-artifact paths sú odmietnuté. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
 ## SBOM accuracy
 
@@ -12805,6 +12921,10 @@ Version a stability selection OpenTelemetry semantic conventions spolu s emitted
 ## Semantic conventions — telemetry
 
 Štandardizované názvy a významy operations, resources a attributes umožňujúce interoperabilitu instrumentation a backendov. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Semantic evidence policy
+
+Policy, ktorá hodnotí issuer, subject, predicate type, builder, source, parameters, lifecycle stage, completeness a ďalšie claim values namiesto kontroly samotnej existencie signature alebo attestation. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
 ## Semantic-schema generation — OpenTelemetry
 
@@ -14338,6 +14458,10 @@ Potenciálna príčina neželaného bezpečnostného incidentu, napríklad attac
 
 Štruktúrovaný opis assets, trust boundaries, aktérov, attack surfaces, abuse cases a mitigations. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## Threat-model recurrence trigger
+
+Architecture, identity, supplier, deployment, incident alebo control zmena, ktorá invaliduje assumptions a vyžaduje targeted update threat-model generation. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
 ## Threat modeling
 
 Systematický proces modelovania assets, actors, architecture, trust boundaries, threats, mitigations, verification a residual risk pred incidentom. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
@@ -15153,6 +15277,10 @@ Veľkosť virtuálneho adresného priestoru procesu. Pozri [Memory a CPU fundame
 ## Vulnerability
 
 Slabina v systéme, konfigurácii, procese alebo control-e, ktorú môže threat využiť. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Vulnerability acceptance verdict
+
+Dôkaz, že fixed alebo mitigated effective runtime nahradil affected state, compromise workstream je uzavretý, old artifact a creation paths sú zakázané a second-operation test nevráti risk. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
 ## Vulnerability debt
 
