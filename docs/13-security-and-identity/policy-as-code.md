@@ -1,271 +1,264 @@
 # Policy as Code
 
-Policy as Code je prístup, pri ktorom systémové rozhodnutia o povolenom stave alebo operácii vyjadrujeme ako versionované, testovateľné a automaticky vyhodnocované pravidlá. Neznamená to prepísať každý interný dokument do programovacieho jazyka. Formalizujú sa najmä tie pravidlá, ktoré musí software konzistentne presadiť pri authorization, build-e, deployment-e, Kubernetes admission, Infrastructure as Code alebo runtime operácii.
+Policy as Code vyjadruje opakovateľné rozhodnutia o povolenom stave alebo operácii ako versionované, testovateľné a automaticky vyhodnocované rules. Policy file však nie je control. Control vznikne iba vtedy, keď exact input zachytí správny Policy Enforcement Point, decision engine používa intended policy a data generation, výsledok sa správne presadí a všetky bypass, exception, outage a recovery paths sú overené.
 
-Policy file sám osebe nie je security control. Reálna kontrola vznikne až vtedy, keď správny enforcement point zachytí každú relevantnú operáciu, použije správnu policy revision, dostane dôveryhodné inputs a dokáže výsledok presadiť. Policy as Code je preto celý lifecycle od ľudského zámeru cez decision až po audit a recovery.
+Dominantný model kapitoly je **intent-to-enforcement lifecycle**:
 
 ```text
-policy intent
+business alebo security intent
+→ exact decision subject a input contract
 → executable policy a supporting data
-→ versionovaný policy artifact
-→ distribúcia do decision points
-→ vyhodnotenie trusted inputu
-→ structured decision
-→ enforcement
-→ decision log, exception a lifecycle management
+→ immutable policy artifact
+→ distribúcia a loaded generation
+→ evaluation a structured decision
+→ enforcement na authoritative boundary
+→ decision audit a runtime evidence
+→ exception, rollout, rollback a revocation
+→ bypass a second-decision validation
 ```
 
-## 1. Prečo Policy as Code existuje
+Policy syntax je iba jedna vrstva. Hlavná otázka je, či intended decision vznikol a bol presadený na každom relevantnom path-e.
 
-Organizačné pravidlo napísané v dokumente môže byť správne, ale software ho nevie automaticky a konzistentne vyhodnotiť. Ľudia môžu rovnakú vetu interpretovať odlišne, kontrola sa môže vykonávať iba pri manuálnom review a audit často nevie preukázať, ktorá verzia pravidla rozhodla o konkrétnej operácii.
+## 1. Policy intent
 
-Policy as Code rieši túto medzeru tým, že policy intent preloží do deterministického decision contractu. Napríklad veta „production workloads musia používať schválené images“ sa zmení na pravidlo, ktoré presne určí production scope, identity image-u, trusted registries alebo signing identities, požadované attestations, exception model a failure behavior.
-
-Výsledkom nie je iba automatické `allow` alebo `deny`. Dobre navrhnutý systém poskytuje vysvetliteľný decision, policy revision, audit evidence a bezpečný rollout. To umožňuje policy testovať pred deploymentom, porovnať intended a actual behavior a obnoviť predchádzajúcu známu validnú revision.
-
-## 2. Policy, configuration a control
-
-**Policy** určuje, čo je povolené, zakázané, požadované alebo odporúčané. **Configuration** nastavuje konkrétny component. **Control** je celý mechanizmus, ktorý threatu zabraňuje, deteguje ho alebo umožňuje recovery.
-
-Napríklad pravidlo „container nesmie bežať privileged“ je policy. `ValidatingAdmissionPolicy`, Gatekeeper Constraint alebo Kyverno rule je executable representation. Kubernetes API admission je enforcement boundary. Decision logs, audit mode a incident postup dopĺňajú celý control.
-
-Toto rozlíšenie bráni falošnému pocitu bezpečnosti. Policy môže existovať v Git-e, ale ak cluster nepoužíva príslušný admission mechanism alebo workload možno vytvoriť iným bypass pathom, control neexistuje. Rovnako správne nakonfigurovaný policy engine nepomôže, ak supporting data sú stale alebo attacker môže meniť policy artifact bez review.
-
-## 3. Policy intent a executable policy
-
-Policy intent je ľudsky formulovaný cieľ. Musí byť zrozumiteľný vlastníkom risku a systému. Executable policy je presný machine-readable contract, podľa ktorého decision engine vyhodnotí konkrétny input.
+Intent formuluje owner risku alebo systému zrozumiteľne pre človeka.
 
 ```text
-Intent:
-Production workloads musia používať podpísané images.
-
-Executable contract musí určiť:
-- čo presne patrí do production scope-u;
-- ktorý OCI digest je signed subject;
-- ktoré issuer a signer identities sú dôveryhodné;
-- aké provenance alebo SBOM attestations sú povinné;
-- kedy a na ktorej boundary sa decision vykonáva;
-- čo sa stane pri nedostupnej verification dependency;
-- kto a na ako dlho môže schváliť exception.
+Production smie spustiť iba release artifact,
+ktorý vytvoril approved builder,
+ktorý podpísal approved release workflow
+a ktorého exact digest má required provenance a SBOM.
 ```
 
-Preklad intentu do executable policy je design a governance činnosť. Syntax je až posledná vrstva. Ak sú pojmy ako „approved“, „secure“ alebo „critical“ nejasné, code iba automatizuje nejasnosť.
+Executable contract musí doplniť:
 
-## 4. Policy lifecycle
+- production scope;
+- exact principal, action a resource;
+- immutable image subject;
+- signer, issuer, workflow a builder identities;
+- required evidence predicates;
+- input a data schemas;
+- missing/unknown behavior;
+- enforcement boundary;
+- timeout a degraded semantics;
+- exception a recovery model.
 
-Policy má lifecycle podobný application code-u, ale jej chyba môže naraz povoliť alebo zablokovať veľký počet operácií. Preto potrebuje ešte presnejší rollout a recovery model.
+Slová `approved`, `secure` alebo `critical` bez authoritative data source-u iba automatizujú nejasnosť.
+
+## 2. Exact policy decision subject
+
+Decision subject je viac než policy file:
+
+- request alebo object generation;
+- caller identity a delegation;
+- requested action a resource;
+- environment, tenant a classification;
+- policy ID a immutable revision;
+- supporting data revision a freshness;
+- PDP/evaluator instance;
+- PEP a match scope;
+- cache generation;
+- decision result a obligations;
+- enforcement outcome a audit correlation.
+
+Bez tejto identity sa nedá reprodukovať, prečo rovnaký request raz prešiel a inokedy zlyhal.
+
+## 3. Policy, configuration a control
+
+**Policy** určuje allowed, denied alebo required outcome. **Configuration** nastavuje konkrétny component. **Control** je celý mechanism od intentu po enforced a overený outcome.
+
+Príklad:
 
 ```text
-identifikácia risku
-→ definícia intentu a ownera
-→ formalizácia inputu, data a decisionu
-→ review a threat analysis
-→ unit a integration tests
-→ audit-only alebo shadow evaluation
-→ canary enforcement
-→ širší rollout
-→ monitoring a exception management
-→ zmena, rollback alebo retirement
+policy
+→ production image musí mať trusted evidence
+
+configuration
+→ ValidatingAdmissionPolicy, Gatekeeper alebo Kyverno resource
+
+control
+→ protected policy source + distribution + active evaluator
+  + complete admission match + fail behavior + decision log
+  + background/runtime audit + recovery
 ```
 
-Policy bez ownera a retirement podmienok sa časom stane stale. Napríklad dočasný registry allowlist môže zostať navždy a neskôr povoliť už neudržiavaný source. Lifecycle preto musí zahŕňať effective date, review cadence, compatibility a evidence, že policy je stále vykonávaná na zamýšľanej boundary.
+Policy uložená v Git-e bez active PEP-u je dokumentácia, nie preventive control.
 
-## 5. PAP, PDP, PEP a PIP
+## 4. PAP, PDP, PEP a PIP
 
-Policy architecture sa dá rozdeliť na štyri logické roly. Môžu ich implementovať samostatné produkty alebo viac components jedného systému.
+**Policy Administration Point — PAP** spravuje intent, authoring, review, publication, rollout, exceptions, rollback a retirement.
 
-**Policy Administration Point — PAP** spravuje authoring, approval, publication, rollout, rollback, ownership, exceptions a retirement. PAP môže byť kombinácia Git repository, CI pipeline, artifact registry a change-management workflow.
+**Policy Decision Point — PDP** vyhodnotí exact input proti policy a supporting data generation a vráti structured decision.
 
-**Policy Decision Point — PDP** prijme input a supporting data, vyhodnotí konkrétnu policy revision a vráti decision. PDP má byť deterministický pre rovnaké inputs alebo explicitne uviesť časové a external dependencies.
+**Policy Enforcement Point — PEP** zachytí chránenú operation a result reálne presadí.
 
-**Policy Enforcement Point — PEP** zachytí chránenú operáciu a výsledok presadí. Príkladom je API gateway, Kubernetes admission, Terraform pipeline gate, deployment controller alebo application middleware. PEP musí byť neobíditeľný alebo musí existovať spoľahlivá detekcia bypassu.
-
-**Policy Information Point — PIP** poskytuje attributes a reference data, napríklad identity groups, device posture, asset classification, approved registries alebo vulnerability status. Nesprávne alebo stale PIP data spôsobia nesprávny decision aj pri bezchybnej policy logike.
+**Policy Information Point — PIP** poskytuje identity, posture, asset, vulnerability, signer, quarantine alebo ďalšie contextual data.
 
 ```text
-PAP publikuje policy revision
-→ PDP načíta policy a PIP data
-→ PEP odošle request input
-→ PDP vráti structured decision
-→ PEP decision presadí
-→ decision log zachová identity a revision
+PAP publikuje policy artifact
+→ PDP načíta policy a PIP generation
+→ PEP pošle exact request input
+→ PDP vráti decision
+→ PEP result presadí
+→ audit spojí request, revision a outcome
 ```
 
-## 6. Structured decision ako operational contract
+Bezchybná rule nad stale PIP data vytvára chybný decision. Správny PDP bez complete PEP coverage vytvára bypass.
 
-Jednoduchý boolean môže stačiť v malej function, ale production policy potrebuje vysvetliteľný a auditovateľný result. Structured decision môže obsahovať `allow`, reasons, policy IDs, revision, obligations a decision identifier.
+## 5. Input a supporting-data contract
+
+Input je request-specific state. Supporting data sú reusable reference facts.
+
+Production image decision môže používať:
+
+```text
+input
+→ image index/manifest digest, namespace, caller, operation
+
+supporting data
+→ trusted signer identities, builder allowlist,
+  quarantine set, namespace classification, exception objects
+```
+
+Obe vrstvy potrebujú:
+
+- schema a version;
+- source identity a integrity;
+- freshness a loaded revision;
+- missing, empty a unknown semantics;
+- cardinality a size limits;
+- compatibility počas producer/consumer rollout-u.
+
+Missing quarantine data nesmie byť ticho interpretované ako „artifact nie je quarantined“.
+
+## 6. Structured decision
+
+Production result nemá byť iba boolean. Užitočný contract obsahuje:
 
 ```json
 {
   "allow": false,
-  "decision_id": "01J...",
-  "policy_id": "K8S-IMAGE-004",
-  "policy_revision": "sha256:...",
-  "reason": "image registry is not approved",
-  "violations": [
-    {
-      "path": "spec.template.spec.containers[0].image",
-      "expected": "registry.example.com/*"
-    }
-  ]
+  "decision_id": "POL-DEC-51-8842",
+  "policy_id": "POL-IMG-17",
+  "policy_revision": "sha256:polimg17",
+  "input_subject": "sha256:pay7240-arm",
+  "reason": "signature subject mismatch",
+  "violations": ["signed sha256:pay7240-amd"],
+  "obligations": [],
+  "data_revision": "TRUST-22"
 }
 ```
 
-PEP musí rozumieť semantics resultu. Ak PDP vráti obligation `require_step_up`, ale application pozná iba boolean, obligation sa stratí. Decision schema preto patrí k versionovanému contractu rovnako ako API response.
+PEP musí rozumieť obligations ako step-up, mutation, masking alebo audit. Obligation, ktorú PEP ignoruje, nie je enforced policy.
 
-Reason nesmie vyzradiť sensitive interné data nedôveryhodnému callerovi. Používateľská správa môže byť všeobecná, zatiaľ čo interný decision log uchová presnejšiu diagnostiku.
+External error message má byť bezpečný; interný decision log môže niesť detailnejší evidence.
 
-## 7. Input, supporting data a schema
+## 7. Defaults a combining semantics
 
-**Input** predstavuje konkrétny request alebo object vyhodnocovaný teraz. **Supporting data** obsahujú reference state používaný viacerými decisions.
+Undefined, error a not-applicable nie sú synonymá.
 
-Pri Kubernetes admission je inputom AdmissionReview s vytváraným Deploymentom a caller contextom. Supporting data môžu obsahovať approved registries, namespace classification alebo allowed capabilities.
+- **default deny** odmietne neexplicitne povolený high-risk request;
+- **default allow** môže byť dočasný advisory behavior, nie implicitný production default;
+- **deny overrides** zablokuje operation pri jednom mandatory deny;
+- **all must pass** vyžaduje úspech všetkých applicable controls;
+- **advisory + enforcing** oddeľuje warning od blocking resultu.
 
-Obe vrstvy potrebujú schema, provenance, freshness a integrity contract. Policy musí rozlišovať „field neexistuje“, „field má prázdnu hodnotu“ a „data source je nedostupný“. Tiché zamieňanie missing data za bezpečnú default hodnotu je častý authorization a admission failure.
+Policy composition musí riešiť conflicts. Image mutation na digest a následná signature validation musia pracovať nad tým istým final objectom; ordering nesmie byť skrytý correctness dependency.
 
-Schema versioning je dôležité pri rollout-e. Nový producer môže pridať alebo premenovať fields skôr, než všetky PDP instances načítajú kompatibilnú policy. Compatibility tests preto musia zahŕňať starý aj nový input shape.
+## 8. Policy artifact a loaded generation
 
-## 8. Declarative policy a jej limity
-
-Declarative policy opisuje požadovaný invariant alebo decision bez detailného imperatívneho postupu. OPA Rego a Kubernetes CEL sú príklady jazykov určených na reasoning nad structured data.
-
-Declarative model uľahčuje composition, testovanie a partial evaluation, ale syntax sama nezaručuje zrozumiteľnosť. Komplexné negácie, implicitné defaults a nejasné helper rules môžu byť rovnako nebezpečné ako procedural code.
-
-Policy má pomenovať business alebo security invariant, nie implementačný trik. Namiesto jedného veľkého rule-u je vhodné oddeliť reusable predicates, violation reasons a scope selection tak, aby reviewer vedel vysvetliť výsledok bez simulácie celého programu v hlave.
-
-## 9. Defaults, allowlist a denylist
-
-Každý policy domain potrebuje explicitný behavior pre neznámy alebo neaplikovateľný prípad.
-
-**Default deny** odmietne request, ktorý nebol explicitne povolený. Je vhodný pre authorization a high-risk operations, ale pri neúplnom inventory alebo missing data môže spôsobiť outage.
-
-**Default allow** nechá neznámy prípad pokračovať. Môže byť vhodný počas audit-only rollout-u alebo pre advisory policy, ale nesmie sa omylom stať permanentným security defaultom.
-
-Allowlist enumeruje známe povolené identities, registries, actions alebo resources. Denylist blokuje známe zlé prípady. Denylist je užitočný pre emergency response, no nevie predvídať všetky nové unsafe states.
-
-Príklad: production image policy má používať allowlist trusted signing identities. Emergency denylist konkrétneho digestu môže okamžite zablokovať compromised release, ale nenahrádza positive trust policy.
-
-## 10. Policy composition a conflicts
-
-Jednu operation často hodnotí viac policies: security, compliance, cost, platform a tenant policy. Systém musí mať explicitné combining semantics.
-
-- **Deny overrides** znamená, že jediný deny zablokuje operation.
-- **All must pass** vyžaduje úspech všetkých applicable mandatory policies.
-- **First applicable** používa prvú matching policy a vyžaduje stabilné ordering.
-- **Priority-based** rieši conflicts podľa explicitnej priority.
-- **Advisory plus enforcing** oddeľuje warnings od blocking decisions.
-
-Conflict vznikne, keď policies požadujú nezlučiteľné states. Platform policy môže generovať sidecar, zatiaľ čo security policy blokuje jeho capabilities. Region policy môže súčasne vyžadovať dve odlišné locations.
-
-Conflict detection má byť súčasťou tests a pre-production evaluation. Ak sa conflict objaví až v admission-e, používateľ vidí iba blocked deployment a platform team musí spätne zisťovať, ktorá kombinácia revisions ho spôsobila.
-
-## 11. Policy identity, revision a artifact
-
-Každá decision-relevant policy potrebuje stabilné ID, ownera, scope, severity, effective date a immutable revision. Revision môže byť commit SHA, artifact digest alebo release version podľa distribution modelu.
-
-Historical decision bez revision metadata nie je reprodukovateľný. Current source code môže byť už iný než policy, ktorá rozhodla v čase incidentu.
-
-Production policy je vhodné distribuovať ako immutable artifact alebo bundle obsahujúci policy modules, supporting data, manifest, compatibility metadata a integrity evidence. Priamo načítaná mutable branch zhoršuje audit, rollback a supply-chain protection.
-
-Artifact identity tiež umožňuje canary rollout. Časť PDP instances môže načítať novú revision a porovnávať decisions so stabilnou revision pred širšou aktiváciou.
-
-## 12. Repository governance a separation of duties
-
-Policy repository je high-impact source. Malicious change môže otvoriť access, vypnúť image verification alebo zablokovať všetky deployments.
-
-Použi protected branches, CODEOWNERS, mandatory review, CI tests, immutable releases a podľa risku signed artifacts. Write permissions majú byť užšie než read permissions.
-
-Separation of duties oddeľuje policy authora, approvera, artifact publishera, enforcement administratora a exception approvera. Jedna compromised identity nemá vedieť zmeniť policy, publikovať ju, vypnúť PEP a zmazať decision logs.
-
-Emergency path musí byť auditovaný a časovo obmedzený. Break-glass nie je argument pre permanentné admin permissions k celému policy plane-u.
-
-## 13. Policy distribution a OPA bundles
-
-PDP potrebuje dostať správnu policy revision a data. Distribution môže používať container image, configuration artifact, GitOps sync alebo policy-specific bundle protocol.
-
-OPA bundle je tarball alebo directory representation obsahujúca Rego, JSON data a manifest. OPA dokáže bundles periodicky sťahovať, validovať a aktivovať. Ak activation zlyhá, bezpečný model zachová poslednú známu validnú revision a odošle status error.
-
-Signed bundle chráni integrity a publisher authenticity pri prenose a storage. Nepotvrdzuje však, že policy intent je správny alebo že publisher account nebol compromised.
-
-Distribution potrebuje observability: každá PDP instance má hlásiť active revision, posledný successful update a validation failure. Bez toho môže časť fleet-u dlhodobo používať starú policy bez viditeľného incidentu.
-
-## 14. Revision skew, caching a consistency
-
-Pri distribuovaných PDPs nevznikne nová revision všade naraz. **Revision skew** je stav, keď rôzne instances vyhodnocujú rovnaký typ requestu podľa rozdielnych policy versions.
-
-Skew môže byť krátkodobý a prijateľný, ale musí mať limit. High-risk migration môže vyžadovať coordinated activation alebo routing requests iba na ready PDPs.
-
-Decision caching znižuje latency, ale cache key musí zahŕňať všetky decision-relevant inputs: principal, action, resource, tenant, policy revision a relevantný context. Cache iba podľa URL môže nesprávne zdieľať allow medzi users.
-
-Expiration musí rešpektovať revocation requirements. Ak policy zablokuje compromised identity okamžite, desaťminútový cached allow predĺži exposure o desať minút.
-
-## 15. OPA a Rego mentálny model
-
-Open Policy Agent je general-purpose policy engine pre structured data. Application alebo PEP pošle input a položí query do OPA data document tree. Rego rules vytvárajú virtual documents alebo hodnoty, ktoré predstavujú decision.
+Production policy má immutable revision: commit, bundle digest alebo signed artifact. Artifact môže obsahovať modules, data, schema, manifest a compatibility metadata.
 
 ```text
-request input
-+ loaded base data
-+ Rego rules
-→ query result
+source revision
+→ testovaný policy bundle sha256:polimg17
+→ signed publication
+→ fleet download
+→ validation a atomic activation
+→ active-generation telemetry
 ```
 
-Rego nie je event processor ani enforcement proxy. OPA vyhodnotí policy; caller musí result správne interpretovať a presadiť.
+Current source v repository nemusí byť revision, ktorá rozhodla v incidente. Každý PDP/PEP preto reportuje active revision, last successful activation a error state.
 
-Dôležité je rozlišovať undefined od explicitného `false`. Query môže nemať výsledok, ak sa žiadne rule body nevyhodnotí. Authorization policy má preto definovať bezpečný default a testovať missing fields.
+OPA bundle môže atomicky distribuovať Rego a data. Signed bundle chráni transfer integrity a publisher identity; nedokazuje correctness intentu ani bezpečnosť publisher accountu.
 
-OPA sa môže používať ako sidecar, daemon, centralized service, Go library alebo compiled WebAssembly podľa latency, isolation a distribution requirements. Topology mení failure a consistency model, nie samotnú policy semantics.
+## 9. Revision skew a cache
 
-## 16. Partial evaluation a WebAssembly
+Distributed rollout vytvára revision skew. Musí mať bounded duration a observability.
 
-Partial evaluation vopred vyhodnotí časť policy voči známym data a vytvorí zjednodušenú residual policy pre inputs, ktoré budú známe až neskôr. Môže znížiť runtime cost alebo preložiť policy bližšie k data source-u.
+Cache key musí obsahovať všetky decision-relevant dimensions, napríklad:
 
-WebAssembly umožňuje skompilovať časť OPA policy na portable runtime module. To je užitočné v environments, kde nechceme samostatný OPA process alebo potrebujeme low-latency local evaluation.
+```text
+principal + action + resource/digest + tenant
++ policy revision + data revision + quarantine generation
+```
 
-Oba modely pridávajú artifact a compatibility lifecycle. Musíme vedieť, z ktorej source revision compiled policy vznikla, s akým runtime ABI je kompatibilná a ako sa aktualizuje. Compiled policy nesmie byť neauditovateľný binary oddelený od source a tests.
+Cache podľa repository/tagu alebo URL môže preniesť allow na iný artifact či usera. Revocation SLA musí byť kratšia než cache lifetime alebo musí existovať event-driven invalidation.
 
-## 17. Policy testing
+## 10. OPA a Rego
 
-Unit test overuje konkrétne allow, deny a violation outputs pre definované inputs. Table-driven tests pokrývajú kombinácie identities, resources, environments a edge cases bez duplicity test code-u.
+Open Policy Agent oddeľuje policy decision od enforcementu a používa Rego na reasoning nad structured inputom a data.
 
-Negative tests sú rovnako dôležité ako positive tests. Policy pre approved registry musí testovať podobne vyzerajúci attacker domain, missing digest, uppercase alebo normalization edge cases a exception expiration.
+```text
+input document
++ loaded data
++ Rego rules
+→ queried virtual document alebo value
+```
 
-Property tests overujú invariant naprieč veľkým input priestorom, napríklad „žiadny unauthenticated principal nesmie dostať write“. Differential tests porovnávajú starú a novú revision a zobrazia všetky zmenené decisions nad reprezentatívnym corpusom.
+OPA nie je proxy ani admission boundary sám osebe. Caller musí query result správne interpretovať a presadiť.
 
-Integration test musí overiť celý path od PEP po PDP a späť. Samotný Rego unit test nepreukazuje, že API gateway posiela správny tenant alebo že Kubernetes admission binding matchuje zamýšľané namespaces.
+Rego policy potrebuje explicitný safe default a tests pre undefined results, missing fields, normalization, negation a type mismatches. JSON schema a strict checks znižujú chyby, ale nenahrádzajú integration test PEP-u.
 
-## 18. Shift-left, runtime enforcement a background audit
+Partial evaluation a WebAssembly pridávajú compiled-artifact lifecycle. Consumer musí vedieť source revision, compiler/runtime compatibility a update/revocation path.
 
-Shift-left policy poskytuje skorý feedback v developer workflowe. Conftest môže vyhodnocovať OPA/Rego policies nad YAML, JSON alebo Terraform planom ešte pred deploymentom.
+## 11. Policy testing
 
-Runtime enforcement chráni skutočnú operation na authoritative boundary. Background audit periodicky kontroluje už existujúce resources a odhaľuje drift alebo objects vytvorené pred zavedením policy.
+Test portfolio má pokryť:
+
+- allowed examples;
+- forbidden examples;
+- missing a malformed inputs;
+- boundary a normalization cases;
+- property invariants;
+- conflict/combining behavior;
+- differential corpus medzi old a new revision;
+- integration PEP → PDP → enforcement;
+- outage, timeout a stale-data behavior;
+- alternate path a bypass tests.
+
+Pre `SEC-PAY-51` sú required fixtures:
+
+```text
+valid signature + wrong subject       → deny
+approved signer + wrong workflow      → deny
+signed amd64 + selected arm64         → deny
+quarantined digest + cached allow     → deny
+stale policy replica                  → not ready / no traffic
+custom release CRD bypass             → deny
+known-good exact release              → allow
+```
+
+Unit test rule-u nepreukazuje, že admission matchuje všetky resources ani že runtime spustí accepted digest.
+
+## 12. Shift-left, request-time enforcement a background audit
 
 ```text
 shift-left
-→ rýchly feedback, ale môže byť obídený
+→ early developer feedback
 
-runtime enforcement
-→ blokuje skutočnú operation na boundary
+request-time enforcement
+→ authoritative operation gate
 
-background audit
-→ deteguje existujúci alebo vzniknutý drift
+background/runtime audit
+→ existing resources, drift a later trust changes
 ```
 
-Tieto vrstvy sa dopĺňajú. CI pass nie je dôkaz runtime enforcementu. Admission policy zase neposkytuje developerovi taký rýchly a zrozumiteľný feedback ako local test.
+Vrstvy sa dopĺňajú. CI policy možno obísť manual deploymentom. Admission policy neprehodnotí automaticky running workload po signer compromise. Background audit nemusí poznať historical caller identity.
 
-## 19. Infrastructure as Code policy
+## 13. Kubernetes admission model
 
-IaC policy môže hodnotiť source configuration, Terraform plan alebo actual cloud state. Každá vrstva vidí inú informáciu.
-
-Source scan vidí author intent, ale nie všetky computed values. Plan policy vidí provider-resolved proposed changes a replacement actions. Runtime audit odhalí drift a zmeny vykonané mimo Terraformu.
-
-Terraform plan je sensitive artifact: môže obsahovať secrets alebo interné topology data. Policy engine preto potrebuje least-privilege access a redaction. Saved plan a policy decision musia patriť k rovnakému source revision a provider contextu; inak môžeme schváliť jeden plan a aplikovať iný.
-
-Príklad cost policy nemá iba blokovať „instance type je príliš drahý“. Má poznať environment, ownera, exception a business purpose. Inak bude obchádzaná alebo bude blokovať legitímne high-capacity workloads.
-
-## 20. Kubernetes admission flow
-
-Kubernetes admission prebieha po authentication a authorization API requestu, ale pred persistence objectu do etcd. Mutating mechanisms môžu object zmeniť a validating mechanisms ho môžu odmietnuť.
+Kubernetes admission prebieha po authentication a authorization, ale pred persistence objectu.
 
 ```text
 API request
@@ -274,225 +267,200 @@ API request
 → mutation
 → validation
 → persistence
-→ controllers reagujú na nový desired state
+→ controller reconciliation
 ```
 
-Admission policy chráni create, update a niektoré delete operations podľa API semantics. Neoveruje automaticky runtime správanie po vytvorení resource-u ani external resources mimo Kubernetes API.
+`ValidatingAdmissionPolicy` je in-process CEL validation mechanism; current Kubernetes documentation ho označuje stable. Policy, binding a prípadný parameter resource tvoria oddelený contract. `Deny`, `Warn` a `Audit` actions majú rozdielne enforcement semantics.
 
-Caller identity dostupná v admission requeste môže byť dôležitá pre request-time policy, ale background audit často nemá rovnaký user context. Policy musí rozlišovať, ktoré rules sú auditovateľné bez historical caller data.
+`MutatingAdmissionPolicy` je in-process CEL mutation mechanism. Mutation cez apply configuration alebo JSON Patch musí byť idempotentná a následná validation musí overiť final invariant. Pre samotný zákaz unsafe state-u je validation jednoduchšia.
 
-## 21. ValidatingAdmissionPolicy a CEL
+External webhooks pridávajú network, TLS, certificate, latency a availability dependencies. `failurePolicy: Ignore` zachová API availability, ale vytvorí enforcement gap; `Fail` chráni invariant, ale potrebuje recovery path.
 
-`ValidatingAdmissionPolicy` je Kubernetes in-process declarative validation mechanism. Používa Common Expression Language — CEL a nevyžaduje external webhook network call.
+## 14. Gatekeeper a Kyverno
 
-Policy object definuje logic, binding určuje scope a enforcement actions a voliteľný parameter resource dopĺňa environment-specific data. Toto oddelenie umožňuje jednu reusable policy použiť s rôznymi parameters.
+Gatekeeper používa Constraint Framework. `ConstraintTemplate` definuje policy code a parameter schema; `Constraint` vytvorí konkrétny scope a enforcement instance. Admission a background audit majú odlišnú evidence boundary.
 
-In-process evaluation znižuje network dependency, ale stále môže zablokovať API operations pri chybnej expression alebo príliš širokom match-e. Preto treba používať test cluster, scoped bindings, audit alebo warn rollout a recovery model pre admission configuration.
+Kyverno poskytuje Kubernetes-native policy APIs. Current policy model obsahuje CEL-based `ValidatingPolicy`, `ImageValidatingPolicy`, `MutatingPolicy`, `GeneratingPolicy` a `DeletingPolicy`; legacy `ClusterPolicy` model má samostatný deprecation lifecycle. Version a API status treba overovať pri upgrade, nie preberať staré manifests.
 
-Validation je vhodná, keď chceme object prijať alebo odmietnuť bez mutation. Príkladom je zákaz privileged containers alebo požiadavka na approved image registry.
+`ImageValidatingPolicy` môže extrahovať image references, mutate-nuť tag na digest a overovať signatures/attestations. Tool feature však nenahrádza exact subject, signer a PEP-coverage design.
 
-## 22. MutatingAdmissionPolicy
+## 15. Exceptions a break-glass
 
-`MutatingAdmissionPolicy` je Kubernetes declarative in-process mutation mechanism používajúci CEL. V Kubernetes v1.36 je stable a podporuje mutation cez apply configuration alebo JSON Patch.
+Exception je scoped, approved a expirovateľný object:
 
-Mutation mení submitted object pred validation a persistence. Je vhodná pre jednoduché, deterministické defaults alebo platform metadata, ale zvyšuje vzdialenosť medzi authorovým manifestom a stored objectom.
+- policy ID a exact subject/resource;
+- owner, approver a dôvod;
+- start a expiration;
+- compensating controls;
+- permitted actions;
+- audit a review trigger.
 
-Mutation musí byť idempotentná: opakované vyhodnotenie nemá stále meniť object. Viaceré mutators môžu interagovať a ordering nemusí byť vhodný základ correctness. Po mutation je preto dôležitá validation, ktorá overí final invariant.
+`disable_policy=true` pre celý cluster nie je exception. Break-glass je oddelený emergency path pre recovery; musí byť silno chránený, alertovaný, časovo obmedzený a po použití reviewed.
 
-Ak je cieľ iba zakázať unsafe state, validation je jednoduchšia než mutation. Automatické „opravovanie“ security-sensitive fields môže skryť chybný intent a komplikovať troubleshooting.
+Expiration sa presadzuje technicky. Ticket s dátumom bez removal mechanizmu nevytvára lifecycle.
 
-## 23. Admission webhooks oproti in-process policy
+## 16. Worked incident `SEC-PAY-51`
 
-Admission webhook volá external HTTPS service. Je flexibilný a môže používať ľubovoľný jazyk alebo external data, ale pridáva network, TLS, certificate, availability a latency dependencies do Kubernetes API pathu.
+Policy intent bol správny: production má povoliť iba exact signed release s approved provenance a SBOM.
 
-In-process CEL policy beží v API server admission stacku a odstráni external network hop. Má užší execution model, čo znižuje niektoré operational risks, ale nemusí pokryť komplexné use cases.
-
-Výber závisí od potreby external lookups, language expressiveness, performance a failure modelu. Webhook `failurePolicy: Fail` chráni invariant, ale outage webhooku môže zablokovať API writes. `Ignore` zachová availability, ale počas outage-u vytvorí enforcement gap.
-
-Timeout, match scope, side effects a recovery musia byť explicitné. Admission component nemá blokovať vlastný repair path bez break-glass alebo manifest-based recovery mechanizmu.
-
-## 24. Gatekeeper: ConstraintTemplate a Constraint
-
-Gatekeeper je Kubernetes policy controller postavený na OPA. `ConstraintTemplate` definuje reusable violation logic a schema parameters. Z neho vznikne custom resource type pre konkrétne `Constraint` objects.
-
-Constraint potom určuje parameters, match scope a enforcement behavior. Napríklad template môže definovať „vyžaduj labels“ a constraints môžu pre production a development používať rozdielne required labels.
-
-Tento model oddeľuje policy implementation od instances, ale template schema je compatibility contract. Zmena parameter shape môže rozbiť existujúce Constraints. Versioning a migration preto musia byť plánované.
-
-Gatekeeper môže vyhodnocovať admission requests a vykonávať background audit existujúcich resources. Audit výsledky však reprezentujú current state a nemusia mať caller context dostupný pri pôvodnom requeste.
-
-## 25. Gatekeeper audit a jeho hranice
-
-Gatekeeper audit periodicky prejde existing resources a zapíše violations do Constraint statusu, metrics alebo events podľa configuration. Je užitočný pri zavedení novej policy, pre-existing objects a detection driftu.
-
-Audit nie je historical event log. Typicky ukazuje posledný audit state a počet výsledkov môže byť limitovaný. Pre dlhodobú evidenciu treba exportovať metrics, events alebo findings do external systemu.
-
-Rules závislé od admission `userInfo` nemusia byť v background audite vyhodnotiteľné, pretože historical caller identity nie je súčasťou stored objectu. Takéto policy treba navrhovať ako request-time controls a ich decisions logovať pri admission-e.
-
-## 26. Kyverno policy model
-
-Kyverno poskytuje Kubernetes-native policy APIs a pracuje s validation, mutation, generation, image verification a ďalšími lifecycle operáciami. Jeho API sa vyvíja smerom k CEL-based policy types.
-
-Aktuálna dokumentácia odlišuje nové `ValidatingPolicy`, `ImageValidatingPolicy`, `MutatingPolicy`, `GeneratingPolicy` a `DeletingPolicy` typy od staršieho `ClusterPolicy` modelu. Pri návrhu treba overiť version a deprecation state konkrétnej Kyverno release, nie kopírovať starý manifest bez compatibility review.
-
-Kyverno Policy Reports sú current-state compliance resources, nie úplný historical audit. `PolicyReport` je namespaced a `ClusterPolicyReport` cluster-scoped. Audit mode môže povoliť object a zapísať violation; Enforce mode ho zablokuje.
-
-Kubernetes-native syntax znižuje bariéru pre platform teams, ale nemení potrebu tests, rollout-u, exception governance a protection policy repository.
-
-## 27. Image verification policy
-
-Image verification policy spája admission s artifact trust modelom z kapitoly [Image signing](image-signing.md). Policy nemá kontrolovať iba tag alebo prítomnosť ľubovoľnej signature.
-
-Decision potrebuje immutable image digest, trusted signer identity, issuer, repository/workflow constraints a požadované attestations. Pri multi-architecture image treba vedieť, či sa podpisuje image index alebo platform manifests.
-
-Verification dependency outage potrebuje explicitný model. Production môže fail-closed, zatiaľ čo development môže krátko použiť audit mode. Cached verification musí byť viazaná na digest a trust-policy revision.
-
-Image policy musí byť presadená na každom deployment path-e. Ak cluster admission kontroluje Pods, ale privileged operator môže priamo spustiť image na nodes mimo Kubernetes, boundary zostáva neúplná.
-
-## 28. Exceptions a break-glass
-
-Policy exception je riadené a časovo ohraničené odchýlenie od pravidla. Potrebuje ownera, scope, business alebo incident dôvod, approvera, expiration, compensating controls a audit.
-
-Exception nemá byť broad boolean `disable_policy`. Má sa viazať na konkrétny resource, tenant, artifact digest alebo action. Čím presnejší scope, tým menší blast radius.
-
-Break-glass je emergency path pre situáciu, keď bežný policy alebo identity mechanism bráni recovery. Musí byť oddelený, silno chránený a po použití reviewed. Permanentná hidden allow rule nie je break-glass, ale bypass.
-
-Expiration sa má presadzovať technicky. Ticket s dátumom ukončenia nepomôže, ak allowlist zostane v policy data navždy.
-
-## 29. Audit-only, canary a enforcement rollout
-
-Nová policy môže odhaliť stovky existujúcich violations alebo obsahovať false positives. Priamy global enforcement môže spôsobiť outage.
-
-Audit-only alebo shadow mode vyhodnocuje requests bez blokovania a zbiera expected impact. Po oprave major violations možno enforcement zapnúť pre test namespace, non-critical tenant alebo malý cohort.
-
-Canary musí merať denied legitimate operations, latency, PDP errors, revision activation a bypass paths. Promotion má mať explicitné criteria a rollback.
-
-Audit mode nesmie byť permanentný bez risk acceptance. Policy, ktorá iba reportuje critical unsafe state a nikdy neprejde do enforcementu, je detection control, nie preventive control.
-
-## 30. Decision logs a observability
-
-Decision log má zachytiť query, result, policy revision, decision ID, PDP instance a relevantný context. OPA decision logs môžu obsahovať input a bundle metadata a podporujú masking sensitive fields pred exportom.
-
-Logs musia byť korelovateľné s PEP requestom. Ak gateway loguje request ID a OPA iný decision ID bez väzby, incident investigation nevie spojiť decision s actual operation.
-
-Status telemetry má ukazovať loaded bundle revision, activation errors, plugin health a last successful update. Metrics majú pokrývať evaluation latency, errors, undefined decisions, cache behavior a decision counts podľa policy ID bez neobmedzenej cardinality.
-
-Policy telemetry môže obsahovať sensitive identities a resource data. Access, retention a redaction patria k designu, nie k neskoršej log-platform úprave.
-
-## 31. Performance a availability
-
-Policy evaluation sa často nachádza v latency-sensitive request path-e. Komplexné rules, veľké data documents alebo synchronous external lookups môžu zhoršiť tail latency.
-
-Preferuj local deterministic evaluation a pravidelne distribuované supporting data, ak freshness requirements dovoľujú. External lookup pri každom requeste pridáva failure dependency a môže vytvoriť cascading outage.
-
-Timeout musí mať explicitný outcome. Authorization request po timeout-e nesmie náhodne prejsť iba preto, že caller nerozlišuje `deny` od `PDP unavailable`.
-
-PDP capacity plánuj podľa peak request rate-u, evaluation costu a rollout events. Bundle update alebo cache invalidation môže krátkodobo zvýšiť CPU a latency vo všetkých instances.
-
-## 32. Security policy plane-u
-
-Policy plane je high-value target. Threats zahŕňajú malicious source change, compromised publisher, bundle tampering, stale policy, poisoned supporting data, PEP bypass a decision-log deletion.
-
-Ochrana zahŕňa least privilege, separation of duties, artifact signatures, secure distribution, revision reporting, immutable audit a monitoring changes. Policy signing keys a CI workload identities majú mať úzky scope.
-
-Input je často nedôveryhodný. Policy language a engine musia bezpečne spracovať crafted nested data, large payloads a missing fields bez denial of service alebo panic-u.
-
-Policy nemá obsahovať secrets. Secret použitý ako allowlist alebo API credential v bundle-i sa distribuuje do všetkých PDPs a objaví sa v artifacts alebo debug outpute.
-
-## 33. Incident response
-
-Pri malicious alebo chybnej policy revision je prvým cieľom zastaviť ďalšiu distribúciu a zistiť active revision v každom PDP.
+Real policy subject:
 
 ```text
-freeze publication
-→ identify affected revision a scope
-→ rollback na last-known-good artifact
-→ verify activation vo fleet-e
-→ preserve source, approval, CI a decision evidence
-→ identify decisions vykonané počas exposure window
-→ remove bypass alebo poisoned data
-→ rotate publisher credentials, ak boli compromised
-→ add regression tests a rollout guardrails
+policy ID:       POL-IMG-17
+bundle digest:   sha256:polimg17
+trust data:      TRUST-22
+PEP:             atlas-image-admission
+PDP replicas:    6
+resource:        AtlasRelease/payments-7-24-0
+image index:     sha256:pay7240
+runtime arm64:   sha256:pay7240-arm
 ```
 
-Rollback source code-u nestačí, ak PDPs naďalej používajú cached bundle. Recovery musí potvrdiť actual active state na enforcement path-e.
+Failure chain:
 
-Ak policy neprimerane blokovala operations, treba overiť aj partial side effects. Napríklad deployment mohol vytvoriť niektoré resources pred neskorším policy failure-om v external workflowe.
+1. štyri PDP replicas načítali `POL-IMG-17`, dve zostali na `POL-IMG-16` po bundle activation error-e;
+2. old revision kontrolovala iba broad OIDC issuer/repository regex;
+3. PEP posielal repository a tag, nie final index/platform digest;
+4. verification cache bola keyed podľa `repository:tag:namespace`;
+5. `AtlasRelease` CRD nebolo v match scope-e; controller neskôr vytvoril Deployment pod exempt ServiceAccountom;
+6. webhook používal `failurePolicy: Ignore` počas 23-sekundového timeout windowu;
+7. arm64 Pods vznikli bez exact subject verdictu.
 
-## 34. Kompletný príklad: production image admission
+Root cause bol **neúplný intent-to-enforcement contract a PEP coverage**. Malicious release bol trigger. Revision skew, tag cache, fail-open timeout a custom-controller path boli amplifiers.
 
-Cieľ je povoliť iba release images vytvorené schváleným CI workflowom.
+## 17. Discriminating evidence
 
-1. Build pipeline vytvorí OCI image a určí immutable digest.
-2. Protected release workflow podpíše digest keyless identity a pripojí provenance attestation.
-3. Kubernetes admission PEP zachytí Deployment request a odošle image digest, namespace a caller context do PDP alebo in-process policy.
-4. PIP data určia, že namespace je production a ktoré signer/workflow identities sú trusted.
-5. Policy overí digest reference, signature identity, provenance subject a exception state.
-6. Structured decision uvedie allow alebo konkrétne violations a policy revision.
-7. PEP request odmietne alebo prijme. Decision log sa koreluje s Kubernetes audit eventom.
-8. Background audit pravidelne kontroluje existing workloads a registry re-scanning môže spustiť quarantine proces pre compromised digest.
+- decision logs z allow requestov uvádzali rozdielne `policy_revision`;
+- dve PDP replicas reportovali activation error a old bundle;
+- input neobsahoval `sha256:pay7240-arm`;
+- cache hit pre tag vznikol pred quarantine generation;
+- Kubernetes audit ukázal create `AtlasRelease`, ale nie image-policy decision pre resulting Deployment;
+- controller ServiceAccount bol exempted z webhook match condition;
+- počas timeout-u vznikol admission allow bez decision ID.
 
-Failure modes zahŕňajú mutable tag bez digestu, unavailable transparency evidence, stale trust roots, direct Pod creation bypass cez privileged path alebo PEP configuration, ktorá nematchuje custom workload CRD.
+Tým sa oddelila policy-logic chyba od distribution, PEP, cache a failure-semantics chýb.
 
-## 35. Troubleshooting workflow
+## 18. Containment a authoritative recovery
 
-Pri neočakávanom deny alebo allow postupuj po celom chain-e:
+Containment:
+
+- freeze policy publication aj release deployments;
+- preserve policy source, approvals, bundles, status, decision logs, audit events a controller logs;
+- odstrániť not-ready PDPs z trafficu;
+- quarantine affected digests;
+- zablokovať custom-controller reconciliation bez mazania evidence.
+
+Recovery:
+
+1. vydať `POL-IMG-18` s exact digest/subject a evidence semantics;
+2. publikovať immutable signed bundle;
+3. vyžadovať active revision readiness pred trafficom;
+4. posielať final mutated object a resolved digests do decisionu;
+5. keyovať cache digestom, policy/data revision a quarantine generation;
+6. nastaviť production fail-closed s oddeleným known-good break-glass;
+7. zahrnúť native workload kinds, image-bearing fields a `AtlasRelease` path;
+8. zrušiť broad ServiceAccount exemption;
+9. vykonať background scan running a rollback digests;
+10. overiť second bundle rollout a stale-replica failure.
+
+Rollback source code-u bez potvrdenia loaded generation nie je recovery.
+
+## 19. Policy acceptance verdict
+
+Control je prijatý až keď:
+
+- intent má ownera a testovateľný contract;
+- input a supporting data majú schema, authority a freshness;
+- immutable policy artifact je active vo všetkých intended evaluators;
+- revision skew je bounded a not-ready instances neprijímajú traffic;
+- exact request/resource/digest vstupuje do decisionu;
+- structured result sa presadí bez straty obligations;
+- cache a exceptions rešpektujú revocation;
+- všetky direct, controller, custom-resource a emergency paths prechádzajú equivalentným controlom;
+- request-time aj background/runtime evidence sú korelovateľné;
+- allowed operation funguje;
+- wrong subject, stale revision, timeout, expired exception a bypass paths zlyhajú;
+- druhý rollout a rollback obnovia intended state bez hidden fail-open.
+
+## 20. Troubleshooting flow
 
 ```text
-request a exact input
-→ PEP match a scope
+exact operation a resource
+→ PEP match/scope/final object
 → PDP endpoint alebo in-process evaluator
 → loaded policy revision
-→ supporting data revision a freshness
-→ query result a undefined handling
-→ combining semantics
+→ supporting-data revision a freshness
+→ input schema a normalization
+→ query result/undefined/default
+→ combining semantics a obligations
+→ cache/exception/quarantine state
 → enforcement action
-→ decision log a bypass paths
+→ decision/audit correlation
+→ alternate paths a runtime outcome
 ```
 
-Ak local test povoľuje a production deny, porovnaj input schema, policy revision a data. Ak PDP vracia allow, ale operation je blocked, skontroluj PEP mapping a ďalšie policies v chain-e. Ak operation prejde bez decision logu, hľadaj bypass alebo fallback.
+Ak local test povoľuje a production deny, porovnaj input, bundle a data generations. Ak PDP povoľuje, ale operation zlyhá, skontroluj PEP mapping alebo ďalší policy layer. Operation bez decision ID signalizuje bypass alebo fallback.
 
-Pri Kubernetes admission skontroluj policy a binding match, namespace selectors, parameter resource, failure policy, webhook timeout a final object po mutation. Pri OPA bundles skontroluj status API, active revision, signature validation a download errors.
+## 21. Earlier controls
 
-## 36. Časté anti-patterny
+- policy intent s explicitným enforcement contractom;
+- immutable signed bundles;
+- active-generation readiness telemetry;
+- schemas pre input, data a structured decisions;
+- safe default a explicitné combining semantics;
+- differential a property tests;
+- integration a alternate-path fixtures;
+- digest/policy/quarantine-aware cache;
+- scoped expiring exceptions;
+- audit → canary → enforcing rollout;
+- production fail-closed s isolated break-glass;
+- background/runtime re-evaluation;
+- second-rollout a rollback rehearsal.
 
-**Policy file equals control.** Pravidlo je v Git-e, ale neexistuje neobíditeľný PEP.
+## 22. Anti-patterny
 
-**Boolean bez explanation.** User ani operator nevie, ktorá policy a field decision spôsobili.
+### Policy file equals control
 
-**Stale PIP data.** Správna logika rozhoduje nad starým allowlistom alebo posture.
+Rule existuje, ale operation neprechádza PEP-om.
 
-**Permanentný audit mode.** Critical violations sa reportujú, ale nikdy neblokujú ani nemajú risk ownera.
+### Green unit tests
 
-**Global exception.** Jeden emergency case vypne policy pre celý cluster alebo environment.
+Policy logic funguje nad fixture, no production posiela iný input alebo nič.
 
-**Mutable distribution.** PDPs načítavajú branch bez immutable revision a fleet reporting-u.
+### Mutable branch distribution
 
-**Policy unit tests bez integration testu.** Rego je správne, ale PEP posiela nesprávny tenant alebo vôbec nematchuje request.
+Historical decisions nemožno reprodukovať a fleet môže používať rozdielne state.
 
-**Fail-open bez visibility.** PDP outage automaticky povoľuje operations a nevytvára urgentný alert.
+### Cache bez revision a digestu
 
-## 37. Kontrolné otázky
+Old allow prežije artifact alebo policy change.
 
-1. Prečo policy súbor nie je sám osebe security control?
-2. Ako sa líšia PAP, PDP, PEP a PIP a aké trust boundaries medzi nimi vznikajú?
-3. Čo má obsahovať structured decision pre audit a troubleshooting?
-4. Prečo input a supporting data potrebujú samostatný schema a freshness contract?
-5. Ako sa líši default deny, allowlist a emergency denylist?
-6. Ako odhalíš conflict medzi dvoma policies pred enforcement rolloutom?
-7. Prečo decision cache musí obsahovať policy revision a všetky relevantné dimensions?
-8. Aký je rozdiel medzi shift-left policy, runtime enforcementom a background auditom?
-9. Kedy zvoliť Kubernetes CEL admission policy a kedy external webhook?
-10. Prečo mutation potrebuje následnú validation a idempotenciu?
-11. Ako fungujú Gatekeeper ConstraintTemplate a Constraint?
-12. Aké limitations má background audit pri policy závislej od caller identity?
-13. Ako navrhneš časovo ohraničenú policy exception bez global bypassu?
-14. Ako obnovíš fleet po malicious policy bundle-i a preukážeš active revision?
-15. Navrhni tests a rollout pre production image-signing policy.
+### Permanent audit mode
+
+Critical unsafe state sa iba reportuje bez preventive outcome-u alebo risk ownera.
+
+### Global exception alebo fail-open
+
+Jeden recovery case vytvorí broad bypass.
+
+## 23. Kontrolné otázky
+
+1. Čo tvorí exact policy decision subject?
+2. Prečo policy file nie je control?
+3. Ako sa PAP, PDP, PEP a PIP líšia?
+4. Čo má obsahovať input, data a structured-decision contract?
+5. Ako sa undefined, false, error a not-applicable líšia?
+6. Prečo policy artifact potrebuje active-generation telemetry?
+7. Ako revision skew a cache predlžujú exposure?
+8. Čo Rego/OPA rieši a čo musí vykonať caller?
+9. Ako sa shift-left, request-time a background audit dopĺňajú?
+10. Kedy zvoliť in-process CEL a kedy webhook/controller?
+11. Ako custom CRD alebo controller vytvorí enforcement bypass?
+12. Čo musí overiť policy acceptance verdict?
 
 ## Glossary impact
 
-Relevantné pojmy: Policy as Code, policy intent, executable policy, policy lifecycle, Policy Administration Point, Policy Decision Point, Policy Enforcement Point, Policy Information Point, policy input, policy data, declarative policy, default deny, policy composition, policy conflict, policy revision, policy artifact, policy bundle, signed policy bundle, policy distribution, revision skew, Open Policy Agent, Rego, undefined decision, structured decision, partial evaluation, policy WebAssembly, policy unit test, differential policy testing, shift-left policy, Conftest, infrastructure policy, admission policy, ValidatingAdmissionPolicy, ValidatingAdmissionPolicyBinding, MutatingAdmissionPolicy, CEL policy, admission webhook, failure policy, Gatekeeper, ConstraintTemplate, Constraint, Gatekeeper audit, Kyverno, Policy Report, policy obligation, policy exception, break-glass policy, policy canary, decision log a policy bypass.
+Relevantné pojmy: policy decision subject, intent-to-enforcement lifecycle, input/data generation pair, active policy generation, structured enforcement contract, policy realization chain, revision-skew boundary, PEP coverage verdict, quarantine-aware decision cache, policy revocation closure, policy acceptance verdict a second-decision validation.
 
 ## Primárne zdroje
 
@@ -500,16 +468,12 @@ Relevantné pojmy: Policy as Code, policy intent, executable policy, policy life
 - [OPA Policy Language — Rego](https://www.openpolicyagent.org/docs/policy-language)
 - [OPA Bundles](https://www.openpolicyagent.org/docs/management-bundles)
 - [OPA Decision Logs](https://www.openpolicyagent.org/docs/management-decision-logs)
-- [OPA Status](https://www.openpolicyagent.org/docs/management-status)
 - [Gatekeeper documentation](https://open-policy-agent.github.io/gatekeeper/website/docs/)
-- [Gatekeeper Constraint Templates](https://open-policy-agent.github.io/gatekeeper/website/docs/constrainttemplates/)
-- [Gatekeeper Audit](https://open-policy-agent.github.io/gatekeeper/website/docs/audit/)
 - [Kubernetes Validating Admission Policy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/)
 - [Kubernetes Mutating Admission Policy](https://kubernetes.io/docs/reference/access-authn-authz/mutating-admission-policy/)
 - [Kubernetes admission webhook good practices](https://kubernetes.io/docs/concepts/cluster-administration/admission-webhooks-good-practices/)
 - [Kyverno policy types](https://kyverno.io/docs/policy-types/overview/)
-- [Kyverno Policy Reports](https://kyverno.io/docs/guides/reports/)
-- [Conftest documentation](https://www.conftest.dev/)
+- [Kyverno ImageValidatingPolicy](https://kyverno.io/docs/policy-types/image-validating-policy/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
