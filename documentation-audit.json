@@ -3531,15 +3531,15 @@
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
       "title": "Secrets management",
-      "words": 5784,
-      "headings": 68,
-      "sections": 68,
-      "findings": 132,
-      "critical": 23,
-      "high": 18,
-      "medium": 19,
-      "low": 72,
-      "score": 579,
+      "words": 2264,
+      "headings": 35,
+      "sections": 35,
+      "findings": 74,
+      "critical": 17,
+      "high": 23,
+      "medium": 5,
+      "low": 29,
+      "score": 438,
       "grade": "D"
     },
     {
@@ -193214,638 +193214,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "1. Čo je secret a prečo je to capability",
-      "line": 19,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database password alebo connection credential;`, `API key, webhook secret alebo package-registry token;`, `OAuth client secret alebo refresh token;`, `cloud access key alebo temporary session credential;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "1. Čo je secret a prečo je to capability",
-      "line": 19,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "2. Secret oproti identity",
-      "line": 36,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "2. Secret oproti identity",
-      "line": 36,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "4. Secret classification",
-      "line": 63,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "4. Secret classification",
-      "line": 63,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a cieľový systém;`, `authoritative ownera;`, `human alebo workload consumers;`, `environment, tenant a data scope;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "4. Secret classification",
-      "line": 63,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "4. Secret classification",
-      "line": 63,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "4. Secret classification",
-      "line": 63,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `scope`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "5. Static secret",
-      "line": 94,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "5. Static secret",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kopíruje sa medzi consumers a environments;`, `ownership sa časom stráca;`, `rotation vyžaduje coordinated update;`, `audit často ukazuje iba shared account;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "5. Static secret",
-      "line": 94,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "7. Secret zero",
-      "line": 124,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 61 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "7. Secret zero",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud instance alebo task identity;`, `Kubernetes projected ServiceAccount token;`, `CI OIDC token;`, `hardware-backed machine identity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "7. Secret zero",
-      "line": 124,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "8. Workload identity ako bootstrap",
-      "line": 140,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "9. Human access",
-      "line": 155,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "9. Human access",
-      "line": 155,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `just-in-time approval;`, `vygenerovaný temporary credential namiesto zobrazenia shared value;`, `session recording alebo detailed audit;`, `oddelené break-glass identities;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "9. Human access",
-      "line": 155,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "10. Secret storage",
-      "line": 171,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "10. Secret storage",
-      "line": 171,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "12. Delivery pattern: environment variable",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `child process ho zdedí;`, `value sa typicky neaktualizuje bez restartu;`, `accidental environment dump unikne celý set;`, `application nerozlišuje version ani lease metadata.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "12. Delivery pattern: environment variable",
-      "line": 196,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "12. Delivery pattern: environment variable",
-      "line": 196,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "12. Delivery pattern: environment variable",
-      "line": 196,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "12. Delivery pattern: environment variable",
-      "line": 196,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "13. Delivery pattern: file alebo mounted volume",
-      "line": 210,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "14. Delivery pattern: sidecar alebo node agent",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application a agent často zdieľajú filesystem;`, `agent outage môže zablokovať refresh;`, `race pri file replacement môže spôsobiť partial read;`, `misconfigured template môže zalogovať secret;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "14. Delivery pattern: sidecar alebo node agent",
-      "line": 218,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "14. Delivery pattern: sidecar alebo node agent",
-      "line": 218,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "14. Delivery pattern: sidecar alebo node agent",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "15. Delivery pattern: direct API retrieval",
-      "line": 232,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "15. Delivery pattern: direct API retrieval",
-      "line": 232,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "16. Cache a plaintext lifetime",
-      "line": 240,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 56 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "16. Cache a plaintext lifetime",
-      "line": 240,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TTL a refresh-before-expiry;`, `jitter;`, `behavior pri refresh failure;`, `maximum stale interval;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "16. Cache a plaintext lifetime",
-      "line": 240,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "16. Cache a plaintext lifetime",
-      "line": 240,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "19. Rotation frequency",
-      "line": 289,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "20. Lease",
-      "line": 297,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "20. Lease",
-      "line": 297,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "21. Versioning static secrets",
-      "line": 312,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "22. Least-privilege authorization",
-      "line": 320,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "22. Least-privilege authorization",
-      "line": 320,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read current value;`, `list names alebo metadata;`, `read historical versions;`, `create/update;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "22. Least-privilege authorization",
-      "line": 320,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "22. Least-privilege authorization",
-      "line": 320,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "22. Least-privilege authorization",
-      "line": 320,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "22. Least-privilege authorization",
-      "line": 320,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "23. Listing risk",
-      "line": 338,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "23. Listing risk",
-      "line": 338,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "24. CI/CD secrets",
-      "line": 346,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "25. Build secrets",
-      "line": 361,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "26. Git a encrypted-secret patterns",
-      "line": 369,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "26. Git a encrypted-secret patterns",
-      "line": 369,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recipients a encryption keys sú oddelené od repository;`, `decrypt access je least-privilege a auditovaný;`, `CI nepublikuje plaintext;`, `key rotation a re-encryption fungujú;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "26. Git a encrypted-secret patterns",
-      "line": 369,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "26. Git a encrypted-secret patterns",
-      "line": 369,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "26. Git a encrypted-secret patterns",
-      "line": 369,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "27. Terraform state",
-      "line": 384,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "27. Terraform state",
-      "line": 384,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "27. Terraform state",
-      "line": 384,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "28. Container images",
-      "line": 392,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Dockerfile ARG alebo ENV určeného pre secret;`, `copied configuration vo build context-e;`, `package-manager credentials vo final image;`, `build cache alebo exported layer;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "28. Container images",
-      "line": 392,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "28. Container images",
-      "line": 392,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "28. Container images",
-      "line": 392,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "28. Container images",
-      "line": 392,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARG`, `ENV`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "30. Kubernetes Secret object",
-      "line": 425,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "30. Kubernetes Secret object",
-      "line": 425,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "31. Kubernetes indirect access paths",
-      "line": 433,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 59 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "31. Kubernetes indirect access paths",
-      "line": 433,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod creation a ServiceAccount use;`, `exec/debug permissions;`, `node a kubelet compromise;`, `CSI/provider permissions;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "31. Kubernetes indirect access paths",
-      "line": 433,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "31. Kubernetes indirect access paths",
-      "line": 433,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSI`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "2. Exact secret subject",
+      "line": 24,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193853,26 +193223,269 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "3. Secret, identity a capability",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "4. Classification podľa semantics",
+      "line": 71,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `least-privilege RBAC a obmedzenie list/watch ;`, `secure ServiceAccounts a projected short-lived tokens;`, `audit API accessu;`, `node hardening a kubelet protection;`.",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "4. Classification podľa semantics",
+      "line": 71,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target system a accepted operations;`, `ownera a consumers;`, `environment, tenant a purpose;`, `lifetime, cryptoperiod a maximum stale interval;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "4. Classification podľa semantics",
+      "line": 71,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "4. Classification podľa semantics",
+      "line": 71,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "4. Classification podľa semantics",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "5. Static a dynamic secret",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "6. Secret zero a bootstrap identity",
+      "line": 107,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "6. Secret zero a bootstrap identity",
+      "line": 107,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes projected ServiceAccount token s exact audience;`, `cloud workload identity;`, `CI OIDC identity viazaná na repository/workflow/environment;`, `SPIFFE alebo platform-issued mTLS identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "6. Secret zero a bootstrap identity",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "6. Secret zero a bootstrap identity",
+      "line": 107,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "6. Secret zero a bootstrap identity",
+      "line": 107,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `OIDC`, `SPIFFE`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "7. Storage encryption a access policy",
+      "line": 122,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "7. Storage encryption a access policy",
+      "line": 122,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "8. Delivery a loaded state",
+      "line": 136,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "9. Cache, renewal a unknown outcome",
+      "line": 163,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "12. Kubernetes Secret boundary",
+      "line": 207,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "12. Kubernetes Secret boundary",
+      "line": 207,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `get , list alebo watch Secrets;`, `permission vytvoriť Pod, ktorý Secret mountne;`, `výber privileged ServiceAccountu;`, `pods/exec , debug alebo ephemeral containers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "12. Kubernetes Secret boundary",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "12. Kubernetes Secret boundary",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "12. Kubernetes Secret boundary",
+      "line": 207,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "12. Kubernetes Secret boundary",
+      "line": 207,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSI`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "13. External store patterns",
+      "line": 229,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "13. External store patterns",
+      "line": 229,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "14. Vault model",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "15. Build, Git, state a image copies",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "16. Worked failure — shared federation key získaný cez indirect Pod access",
+      "line": 276,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `etcd storage leak;`, `CI/Git/image leakage;`, `direct Secret API read;`, `node compromise;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -193880,8 +193493,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -193889,8 +193502,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -193898,8 +193511,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -193907,404 +193520,53 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "33. Kubernetes controls",
-      "line": 466,
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 293,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `RBAC`, `policy`, `workload`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `API`, `KMS`, `HSM`, `FED-SIGN-07`, `OIDC`, `SAML`",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "37. CSI rotation",
-      "line": 521,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "37. CSI rotation",
-      "line": 521,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "38. ESO oproti CSI oproti direct API",
-      "line": 529,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "39. HashiCorp Vault mentálny model",
-      "line": 539,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "40. Vault auth methods",
-      "line": 556,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "41. Vault policies",
-      "line": 564,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "41. Vault policies",
-      "line": 564,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "42. Vault token",
-      "line": 572,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "43. Vault secrets engines",
-      "line": 582,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "43. Vault secrets engines",
-      "line": 582,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "43. Vault secrets engines",
-      "line": 582,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "43. Vault secrets engines",
-      "line": 582,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "43. Vault secrets engines",
-      "line": 582,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KV`, `PKI`, `HMAC`, `SSH`, `KMS`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "46. Vault static database roles",
-      "line": 622,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "47. Vault PKI engine",
-      "line": 630,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "49. Vault seal a encryption barrier",
-      "line": 646,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "50. Shamir unseal",
-      "line": 654,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "50. Shamir unseal",
-      "line": 654,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "53. Vault Integrated Storage a HA",
-      "line": 678,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "54. Vault snapshots a recovery",
-      "line": 686,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "54. Vault snapshots a recovery",
-      "line": 686,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "55. Disaster recovery model",
-      "line": 694,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "55. Disaster recovery model",
-      "line": 694,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Raft snapshot alebo Enterprise replication podľa edition;`, `seal/KMS availability a permissions;`, `DNS/load-balancer cutover;`, `auth-method dependencies, napríklad Kubernetes API alebo cloud IAM;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "55. Disaster recovery model",
-      "line": 694,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "55. Disaster recovery model",
-      "line": 694,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "55. Disaster recovery model",
-      "line": 694,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "55. Disaster recovery model",
-      "line": 694,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `API`, `IAM`, `availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "56. Secrets-platform outage",
-      "line": 709,
-      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať ešte platný cached credential do expiry;`, `odmietnuť nové sessions, ale dokončiť existing work;`, `prejsť do read-only alebo degraded mode;`, `zastaviť startup;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "56. Secrets-platform outage",
-      "line": 709,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "56. Secrets-platform outage",
-      "line": 709,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "57. Application rotation support",
-      "line": 723,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "57. Application rotation support",
-      "line": 723,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `refresh pred lease expiry;`, `atomic file reload;`, `connection-pool reconnect;`, `dual credential overlap;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "57. Application rotation support",
-      "line": 723,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "57. Application rotation support",
-      "line": 723,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "58. Logging a telemetry",
-      "line": 740,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `quarantine affected ServiceAccount a Pods;`, `zastaviť nové signing operations keyom FED-SIGN-07 ;`, `revoke-nuť sessions a tokens/assertions z exposure interval-u;`, `nevymazať Secret pred inventory všetkých copies a consumers.`.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "58. Logging a telemetry",
-      "line": 740,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `auth success/failure a role mapping;`, `policy deny;`, `issuance, renewal a revocation;`, `lease near expiry;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "58. Logging a telemetry",
-      "line": 740,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "58. Logging a telemetry",
-      "line": 740,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "58. Logging a telemetry",
-      "line": 740,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "58. Logging a telemetry",
-      "line": 740,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSI`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "61. Typické failure modes",
-      "line": 799,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication a token issuance success rate;`, `retrieval latency/error rate;`, `lease renewal failure rate;`, `rotation success a time-to-activation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -194312,8 +193574,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -194321,8 +193583,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -194330,53 +193592,71 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "62. Metrics a SLO",
-      "line": 817,
+      "section": "18. Evidence-preserving containment",
+      "line": 317,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ESO`, `CSI`, `freshness`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `UID`, `identity`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "64. Časté anti-patterny",
-      "line": 845,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "65. Kompletný production príklad",
-      "line": 867,
+      "section": "19. Authoritative recovery",
+      "line": 327,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "65. Kompletný production príklad",
-      "line": 867,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "19. Authoritative recovery",
+      "line": 327,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "65. Kompletný production príklad",
-      "line": 867,
+      "section": "19. Authoritative recovery",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "19. Authoritative recovery",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť štyri samostatné key subjects: staging/prod × OIDC/SAML;`, `používať non-exportable KMS/HSM signing operations, ak platforma podpo`, `oddeliť namespaces, ServiceAccounts, policies a trust metadata;`, `publikovať new public keys/certificates s bounded overlapom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "19. Authoritative recovery",
+      "line": 327,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "19. Authoritative recovery",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "19. Authoritative recovery",
+      "line": 327,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -194384,8 +193664,8 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "65. Kompletný production príklad",
-      "line": 867,
+      "section": "19. Authoritative recovery",
+      "line": 327,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -194393,12 +193673,210 @@
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",
-      "section": "65. Kompletný production príklad",
-      "line": 867,
+      "section": "19. Authoritative recovery",
+      "line": 327,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DB`, `KMS`, `DR`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SAML`, `KMS`, `HSM`, `FED-SIGN-07`, `policy`",
       "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `staging workload nedokáže použiť production signing capability;`, `old FED-SIGN-07 signature je odmietnutá všetkými production verifiers;`, `new key podpisuje iba intended issuer/protocol artifacts;`, `provider/KMS outage má testovaný bounded behavior;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "20. Acceptance verdict",
+      "line": 340,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SAML`, `FED-SIGN-07`, `KMS`, `workload`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "21. Troubleshooting flow",
+      "line": 353,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no cross-environment alebo cross-protocol key reuse;`, `workload identity namiesto shared bootstrap secretu;`, `indirect Kubernetes privilege analysis;`, `non-exportable signing keys;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "22. Earlier controls",
+      "line": 368,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "Secret je encrypted, teda bezpečný",
+      "line": 382,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "Nemá get secrets , teda Secret neprečíta",
+      "line": 386,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "Source version bola zmenená, teda rotation je hotová",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "Jeden key pre viac purposes",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/secrets-management.md",
+      "section": "Secret odstránený zo store-u = revoked",
+      "line": 398,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
