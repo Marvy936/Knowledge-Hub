@@ -3293,15 +3293,15 @@
     {
       "path": "docs/12-observability/prometheus.md",
       "title": "Prometheus",
-      "words": 2668,
-      "headings": 61,
-      "sections": 61,
-      "findings": 165,
-      "critical": 61,
-      "high": 62,
-      "medium": 22,
-      "low": 20,
-      "score": 1318,
+      "words": 2334,
+      "headings": 50,
+      "sections": 50,
+      "findings": 95,
+      "critical": 32,
+      "high": 34,
+      "medium": 12,
+      "low": 17,
+      "score": 720,
       "grade": "D"
     },
     {
@@ -189164,8 +189164,17 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -189173,188 +189182,26 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
+      "section": "3. Measurement contract pred scrape konfiguráciou",
+      "line": 56,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
+      "section": "3. Measurement contract pred scrape konfiguráciou",
+      "line": 56,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus server,`, `instrumented applications,`, `exporters pre systémy bez native metrics endpointu,`, `service-discovery integrácie,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je measurement a v akej base unit;`, `counter, gauge alebo histogram semantics;`, `observation a reset boundary;`, `bounded labels a ich meanings;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "2. Architektúra",
-      "line": 22,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TSDB`, `HTTP`, `API`, `UI`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "3. Pull model",
-      "line": 46,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "3. Pull model",
-      "line": 46,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centrálne riadený scrape interval a timeout,`, `jednoznačný zoznam expected targets,`, `jednoduchá detekcia nedostupného endpointu cez up ,`, `service discovery a target metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "3. Pull model",
-      "line": 46,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "3. Pull model",
-      "line": 46,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Čo signal up znamená",
-      "line": 61,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `1 znamená, že scrape prebehol úspešne,`, `0 znamená, že scrape zlyhal.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Čo signal up znamená",
-      "line": 61,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "4. Exporters",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "4. Exporters",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Node Exporter,`, `database exporter,`, `blackbox exporter,`, `SNMP exporter,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "4. Exporters",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "4. Exporters",
-      "line": 74,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "4. Exporters",
-      "line": 74,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNMP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "5. Pushgateway",
-      "line": 98,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "5. Pushgateway",
-      "line": 98,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target health semantics sa presúvajú na Pushgateway,`, `machine alebo instance metrics strácajú prirodzený lifecycle,`, `grouping key môže vytvoriť cardinality alebo stale data.`, `timestamp posledného úspechu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "5. Pushgateway",
-      "line": 98,
+      "section": "3. Measurement contract pred scrape konfiguráciou",
+      "line": 56,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -189362,8 +189209,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "5. Pushgateway",
-      "line": 98,
+      "section": "3. Measurement contract pred scrape konfiguráciou",
+      "line": 56,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -189371,89 +189218,35 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "5. Pushgateway",
-      "line": 98,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "5. Pushgateway",
-      "line": 98,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Cardinality",
-      "line": 143,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Cardinality",
-      "line": 143,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion,`, `active head memory,`, `WAL,`, `disk blocks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Cardinality",
-      "line": 143,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Cardinality",
-      "line": 143,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "7. Metric naming",
-      "line": 160,
+      "section": "3. Measurement contract pred scrape konfiguráciou",
+      "line": 56,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `resource`, `identity`, `freshness`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "7. Metric naming",
-      "line": 160,
+      "section": "Target relabeling",
+      "line": 95,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "7. Metric naming",
-      "line": 160,
+      "section": "Target relabeling",
+      "line": 95,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilný názov,`, `jednu presnú vec,`, `správnu base unit,`, `suffix podľa semantics,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keep/drop targetov;`, `address, scheme alebo metrics path;`, `mapovanie discovery metadata na stabilné labels;`, `environment/service/cluster identity;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "7. Metric naming",
-      "line": 160,
+      "section": "Target relabeling",
+      "line": 95,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -189461,8 +189254,35 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "7. Metric naming",
-      "line": 160,
+      "section": "Target relabeling",
+      "line": 95,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "5. Scrape attempt a up",
+      "line": 107,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "5. Scrape attempt a up",
+      "line": 107,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `1 znamená, že konkrétny scrape attempt prebehol úspešne;`, `0 znamená scrape failure.`, `business health;`, `prítomnosť každej očakávanej metric;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "5. Scrape attempt a up",
+      "line": 107,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -189470,8 +189290,80 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "8. Metric types",
-      "line": 182,
+      "section": "5. Scrape attempt a up",
+      "line": 107,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "6. Metric relabeling a post-relabel sample set",
+      "line": 142,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dropnúť metrics alebo series;`, `odstrániť rizikový label;`, `normalizovať values;`, `znížiť stored a remote-written cardinality.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "6. Metric relabeling a post-relabel sample set",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "7. Time-series identity a cardinality",
+      "line": 166,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request, trace alebo user ID;`, `raw URL s dynamickým segmentom;`, `exception message;`, `timestamp;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "7. Time-series identity a cardinality",
+      "line": 166,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "7. Time-series identity a cardinality",
+      "line": 166,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "7. Time-series identity a cardinality",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "7. Time-series identity a cardinality",
+      "line": 166,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `UID`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "8. Metric types a distributions",
+      "line": 187,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -189480,7 +189372,7 @@
     {
       "path": "docs/12-observability/prometheus.md",
       "section": "Gauge",
-      "line": 196,
+      "line": 197,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -189488,26 +189380,35 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Gauge",
-      "line": 196,
+      "section": "9. Local TSDB state",
+      "line": 215,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "WAL",
+      "line": 228,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Gauge",
-      "line": 196,
+      "section": "WAL",
+      "line": 228,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue depth,`, `active connections,`, `temperature,`, `current replicas.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disk full alebo corruption;`, `dlhý WAL replay;`, `cardinality/churn explosion;`, `compaction failure;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Gauge",
-      "line": 196,
+      "section": "WAL",
+      "line": 228,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -189515,125 +189416,26 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Histogram",
-      "line": 207,
+      "section": "Staleness",
+      "line": 244,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Histogram",
-      "line": 207,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `cumulative bucket counters bucket{le=\"...\"} ,`, `count ,`, `sum .`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Histogram",
-      "line": 207,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Native histogram",
-      "line": 217,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Native histogram",
-      "line": 217,
+      "section": "Staleness",
+      "line": 244,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer už metric neemituje;`, `target zmizol alebo scrape zlyhal;`, `label set sa zmenil;`, `metric bola relabelingom dropnutá;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Native histogram",
-      "line": 217,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `verziu Prometheus a client library,`, `feature a storage compatibility,`, `remote-write/backend podporu,`, `query a dashboard kompatibilitu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Native histogram",
-      "line": 217,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "9. Exposition a scrape lifecycle",
-      "line": 235,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "9. Exposition a scrape lifecycle",
-      "line": 235,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "9. Exposition a scrape lifecycle",
-      "line": 235,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target selection,`, `HTTP request,`, `exposition parsing,`, `sample a label validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "9. Exposition a scrape lifecycle",
-      "line": 235,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "9. Exposition a scrape lifecycle",
-      "line": 235,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `TSDB`, `DNS`, `TLS`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "10. Scrape configuration",
-      "line": 268,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zachytí kratšie udalosti,`, `znižuje detection latency,`, `zvyšuje requests, samples, storage a query cost.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "10. Scrape configuration",
-      "line": 268,
+      "section": "Staleness",
+      "line": 244,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -189641,53 +189443,35 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "12. Target relabeling",
-      "line": 318,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "Staleness",
+      "line": 244,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "12. Target relabeling",
-      "line": 318,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keep/drop targetov,`, `výber address, scheme alebo metrics path,`, `mapovanie discovery metadata na stabilné labels,`, `normalizácia environment/service/namespace,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "12. Target relabeling",
-      "line": 318,
+      "section": "11. Recording-rule generation",
+      "line": 286,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Anti-pattern",
-      "line": 340,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 40 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "13. Metric relabeling",
-      "line": 344,
+      "section": "11. Recording-rule generation",
+      "line": 286,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drop nepotrebných metrics,`, `odstránenie rizikových labels,`, `normalizácia label values,`, `obmedzenie ingestion costu.`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `štandardné RED/Golden-Signal rates;`, `SLI numerators a denominators;`, `drahé stabilné queries;`, `hierarchické aggregations.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "13. Metric relabeling",
-      "line": 344,
+      "section": "11. Recording-rule generation",
+      "line": 286,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -189695,8 +189479,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "13. Metric relabeling",
-      "line": 344,
+      "section": "11. Recording-rule generation",
+      "line": 286,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -189704,71 +189488,35 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "14. External labels",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "14. External labels",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster,`, `region,`, `prometheus replica,`, `tenant.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "14. External labels",
-      "line": 359,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "14. External labels",
-      "line": 359,
+      "section": "11. Recording-rule generation",
+      "line": 286,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RED`, `SLI`",
       "score": 4
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "15. Local TSDB",
-      "line": 378,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "15. Local TSDB",
-      "line": 378,
+      "section": "12. Alerting-rule state",
+      "line": 309,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "15. Local TSDB",
-      "line": 378,
+      "section": "12. Alerting-rule state",
+      "line": 309,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-memory head block,`, `Write-Ahead Log — WAL,`, `pravidelne vytvárané immutable blocks,`, `index a chunk files,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expression vracia expected series;`, `evaluation je fresh a úspešná;`, `for zodpovedá failure dynamics;`, `no-data policy je explicitná;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "15. Local TSDB",
-      "line": 378,
+      "section": "12. Alerting-rule state",
+      "line": 309,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -189776,89 +189524,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "15. Local TSDB",
-      "line": 378,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "WAL",
-      "line": 389,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "WAL",
-      "line": 389,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "WAL",
-      "line": 389,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomalý alebo poškodený disk,`, `príliš veľký replay čas,`, `nedostatok disk space,`, `filesystem corruption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "WAL",
-      "line": 389,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "16. Staleness",
-      "line": 407,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "16. Staleness",
-      "line": 407,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "16. Staleness",
-      "line": 407,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instant-vector queries,`, `target disappearance,`, `scrape failures,`, `label-set changes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "16. Staleness",
-      "line": 407,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "16. Staleness",
-      "line": 407,
+      "section": "12. Alerting-rule state",
+      "line": 309,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -189866,8 +189533,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "16. Staleness",
-      "line": 407,
+      "section": "12. Alerting-rule state",
+      "line": 309,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -189875,404 +189542,17 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "17. PromQL data types",
-      "line": 428,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "17. PromQL data types",
-      "line": 428,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "17. PromQL data types",
-      "line": 428,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instant vectors,`, `range vectors,`, `scalars,`, `strings v obmedzenom kontexte.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "17. PromQL data types",
-      "line": 428,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Instant vector",
-      "line": 437,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "18. Selectors a matchers",
-      "line": 455,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "18. Selectors a matchers",
-      "line": 455,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "18. Selectors a matchers",
-      "line": 455,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `= equality,`, `!= inequality,`, `=~ regex,`, `!~ negative regex.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "18. Selectors a matchers",
-      "line": 455,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "20. Aggregation",
-      "line": 492,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "20. Aggregation",
-      "line": 492,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "20. Aggregation",
-      "line": 492,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `numerator a denominator majú odlišný scope,`, `zabudnutý by alebo without ,`, `mix rôznych units,`, `duplicate series z HA replicas,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "20. Aggregation",
-      "line": 492,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "20. Aggregation",
-      "line": 492,
+      "section": "12. Alerting-rule state",
+      "line": 309,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "21. Vector matching",
-      "line": 516,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "21. Vector matching",
-      "line": 516,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `default one-to-one matching,`, `on(...) ,`, `ignoring(...) ,`, `group left ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "21. Vector matching",
-      "line": 516,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "22. Histograms a latency",
-      "line": 532,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "23. Recording rules",
-      "line": 555,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "23. Recording rules",
-      "line": 555,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drahé alebo opakované dashboards,`, `štandardné service-level rates,`, `SLI numerators a denominators,`, `hierarchické agregácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "23. Recording rules",
-      "line": 555,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "23. Recording rules",
-      "line": 555,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "25. Rule evaluation",
-      "line": 623,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "25. Rule evaluation",
-      "line": 623,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "25. Rule evaluation",
-      "line": 623,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `evaluation duration,`, `missed iterations,`, `rule failures,`, `query sample limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "25. Rule evaluation",
-      "line": 623,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "27. Remote write",
-      "line": 659,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "27. Remote write",
-      "line": 659,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `long-term storage,`, `centralizovaná metrics platforma,`, `multi-cluster aggregation,`, `managed monitoring backend.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "27. Remote write",
-      "line": 659,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "27. Remote write",
-      "line": 659,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "27. Remote write",
-      "line": 659,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "27. Remote write",
-      "line": 659,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "28. Remote read a global query",
-      "line": 684,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query naprieč viacerými Prometheus servers,`, `HA replica deduplication,`, `long-term object storage,`, `tenant isolation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "28. Remote read a global query",
-      "line": 684,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "28. Remote read a global query",
-      "line": 684,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "29. Federation",
-      "line": 698,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "29. Federation",
-      "line": 698,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hierarchické aggregation,`, `global overview metrics,`, `vybrané cross-cluster signals.`, `duplicate series,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "29. Federation",
-      "line": 698,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "29. Federation",
-      "line": 698,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scrape-ne targets samostatne,`, `má vlastný local TSDB,`, `vyhodnocuje rules,`, `posiela alerts Alertmanagerom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
+      "section": "13. Remote write, local truth a global views",
+      "line": 332,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -190280,98 +189560,26 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "30. High availability",
-      "line": 718,
+      "section": "14. High availability",
+      "line": 356,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatne objavuje a scrape-uje targets;`, `má vlastnú local TSDB;`, `samostatne vyhodnocuje rules;`, `posiela alerts všetkým Alertmanager replicas.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "14. High availability",
+      "line": 356,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TSDB`, `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "31. Kubernetes deployment",
-      "line": 738,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "31. Kubernetes deployment",
-      "line": 738,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "31. Kubernetes deployment",
-      "line": 738,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `StatefulSet,`, `persistent volume,`, `ServiceAccounts a RBAC pre discovery,`, `ServiceMonitor/PodMonitor pri Prometheus Operator modeli,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "31. Kubernetes deployment",
-      "line": 738,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "31. Kubernetes deployment",
-      "line": 738,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `TSDB`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "32. Security",
-      "line": 762,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "32. Security",
-      "line": 762,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "32. Security",
-      "line": 762,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus UI a HTTP API,`, `scrape credentials,`, `remote-write credentials,`, `service-discovery permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "32. Security",
-      "line": 762,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "32. Security",
-      "line": 762,
+      "section": "14. High availability",
+      "line": 356,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -190379,53 +189587,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "32. Security",
-      "line": 762,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `HTTP`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "33. Self-monitoring",
-      "line": 785,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "33. Self-monitoring",
-      "line": 785,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process CPU/memory,`, `TSDB head series,`, `samples ingested,`, `series churn,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "33. Self-monitoring",
-      "line": 785,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "33. Self-monitoring",
-      "line": 785,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "33. Self-monitoring",
-      "line": 785,
+      "section": "14. High availability",
+      "line": 356,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -190433,35 +189596,26 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "33. Self-monitoring",
-      "line": 785,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `TSDB`, `WAL`",
-      "score": 4
+      "section": "15. Worked failure: up=1 , ale pool saturation signal zmizol",
+      "line": 369,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "34. Troubleshooting target down",
-      "line": 806,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Competing hypotheses",
+      "line": 375,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "35. Troubleshooting missing series",
-      "line": 833,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "35. Troubleshooting missing series",
-      "line": 833,
+      "section": "Competing hypotheses",
+      "line": 375,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -190469,26 +189623,26 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "35. Troubleshooting missing series",
-      "line": 833,
+      "section": "Competing hypotheses",
+      "line": 375,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "35. Troubleshooting missing series",
-      "line": 833,
+      "section": "Competing hypotheses",
+      "line": 375,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw endpoint,`, `Prometheus expression browser,`, `rule output,`, `remote backend.`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application metric nikdy neemituje;`, `iba release 7.20.0 používa iný metric name;`, `target discovery alebo scrape path je nesprávny;`, `exposition parser metric odmieta;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "35. Troubleshooting missing series",
-      "line": 833,
+      "section": "Competing hypotheses",
+      "line": 375,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -190496,8 +189650,125 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "36. Troubleshooting high memory alebo disk",
-      "line": 854,
+      "section": "Competing hypotheses",
+      "line": 375,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TSDB`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Discriminating observations",
+      "line": 386,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Containment",
+      "line": 432,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Containment",
+      "line": 432,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Containment",
+      "line": 432,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Containment",
+      "line": 432,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Containment",
+      "line": 432,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PROM-CFG-118`, `SLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Authoritative recovery",
+      "line": 440,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Authoritative recovery",
+      "line": 440,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Authoritative recovery",
+      "line": 440,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Authoritative recovery",
+      "line": 440,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nahradiť broad regex explicitným allow/drop contractom;`, `canary-nuť Prometheus config na jednej replica;`, `porovnať raw a post-relabel sample inventory;`, `overiť local query a recording-rule output;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Authoritative recovery",
+      "line": 440,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Authoritative recovery",
+      "line": 440,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Prometheus acceptance verdict",
+      "line": 451,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190505,26 +189776,26 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "36. Troubleshooting high memory alebo disk",
-      "line": 854,
+      "section": "Prometheus acceptance verdict",
+      "line": 451,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "36. Troubleshooting high memory alebo disk",
-      "line": 854,
+      "section": "Prometheus acceptance verdict",
+      "line": 451,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active head series,`, `new series rate,`, `label-value explosion,`, `scrape sample counts,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `post-relabel sample set obsahuje pool metrics;`, `rule output používa správny task/service denominator;`, `controlled saturation vytvorí firing alert;`, `zero waiters a absent series sú rozlíšiteľné;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "36. Troubleshooting high memory alebo disk",
-      "line": 854,
+      "section": "Prometheus acceptance verdict",
+      "line": 451,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -190532,8 +189803,17 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "36. Troubleshooting high memory alebo disk",
-      "line": 854,
+      "section": "Prometheus acceptance verdict",
+      "line": 451,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Prometheus acceptance verdict",
+      "line": 451,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -190541,35 +189821,35 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "36. Troubleshooting high memory alebo disk",
-      "line": 854,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
+      "section": "16. Native-histogram compatibility gate",
+      "line": 464,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "37. Troubleshooting slow PromQL",
-      "line": 879,
+      "section": "16. Native-histogram compatibility gate",
+      "line": 464,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "37. Troubleshooting slow PromQL",
-      "line": 879,
+      "section": "16. Native-histogram compatibility gate",
+      "line": 464,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad selectors,`, `príliš dlhý range,`, `vysokú cardinality,`, `regex matchers,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `classic/native dual exposure alebo migration mode;`, `bucket/quantile query equivalence;`, `remote receiver support;`, `rule a dashboard functions;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "37. Troubleshooting slow PromQL",
-      "line": 879,
+      "section": "16. Native-histogram compatibility gate",
+      "line": 464,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -190577,8 +189857,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Prometheus ako event alebo log store",
-      "line": 898,
+      "section": "17. Self-monitoring a canaries",
+      "line": 487,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190586,8 +189866,62 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "User ID, request ID alebo trace ID v labels",
-      "line": 902,
+      "section": "17. Self-monitoring a canaries",
+      "line": 487,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "17. Self-monitoring a canaries",
+      "line": 487,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target discovery a up ;`, `scrape duration/sample counts/failures;`, `active head series a churn;`, `WAL, compaction a disk;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "17. Self-monitoring a canaries",
+      "line": 487,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "17. Self-monitoring a canaries",
+      "line": 487,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "17. Self-monitoring a canaries",
+      "line": 487,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "18. Troubleshooting paths",
+      "line": 514,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Target down",
+      "line": 516,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190595,8 +189929,53 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "up == 1 ako jediný service health signal",
-      "line": 906,
+      "section": "Target down",
+      "line": 516,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Missing series",
+      "line": 531,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "High memory alebo disk",
+      "line": 543,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "up == 1 ako service verdict",
+      "line": 562,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Metric relabeling bez dependency inventory",
+      "line": 566,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/prometheus.md",
+      "section": "Dynamic identifiers v labels",
+      "line": 570,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190605,7 +189984,7 @@
     {
       "path": "docs/12-observability/prometheus.md",
       "section": "Summary quantiles agregované naprieč instances",
-      "line": 910,
+      "line": 574,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190613,8 +189992,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Scrape interval 5 sekúnd pre všetko",
-      "line": 914,
+      "section": "Remote dashboard ako jediná truth",
+      "line": 578,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190622,8 +190001,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Metric relabeling bez dependency auditu",
-      "line": 918,
+      "section": "Jedna replika s lokálnym diskom ako HA/DR",
+      "line": 582,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -190631,17 +190010,8 @@
     },
     {
       "path": "docs/12-observability/prometheus.md",
-      "section": "Jedna Prometheus replika s lokálnym diskom ako enterprise DR",
-      "line": 922,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/prometheus.md",
-      "section": "Alert labels s dynamickým textom",
-      "line": 926,
+      "section": "Config syntax check ako runtime acceptance",
+      "line": 586,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
