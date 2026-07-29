@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **289**
+- Audited authoritative articles: **288**
 - Audited conceptual sections: **11642**
-- Total words: **669,909**
+- Total words: **669,896**
 - Findings: **24637** (critical 7421, high 8483, medium 3107, low 5626)
-- File grades: A 1, B 0, C 0, D 288
+- File grades: A 0, B 0, C 0, D 288
 
 ## Interpretation
 
@@ -311,7 +311,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| A | 0 | 0 | 0 | 0 | 0 | 13 | `docs/review-trigger-fourth-database-block.md` |
 
 ## Critical and high findings
 
