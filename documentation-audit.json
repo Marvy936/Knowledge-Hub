@@ -3627,6 +3627,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "title": "Incident management",
+      "words": 1711,
+      "headings": 32,
+      "sections": 32,
+      "findings": 78,
+      "critical": 26,
+      "high": 35,
+      "medium": 6,
+      "low": 11,
+      "score": 622,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
       "title": "Reliability, availability a durability",
       "words": 1880,
@@ -199712,6 +199726,708 @@
       "path": "docs/14-sre-and-operations/error-budgets.md",
       "section": "Remaining budget bez burn rate",
       "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "2. Exact incident subject",
+      "line": 24,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "3. Incident declaration",
+      "line": 57,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "3. Incident declaration",
+      "line": 57,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `critical user journey porušuje alebo pravdepodobne poruší SLO;`, `error budget sa spaľuje nad definovanou rýchlosťou;`, `impact rastie rýchlejšie než normal troubleshooting dokáže reagovať;`, `viac tímov alebo failure domains potrebuje koordináciu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "3. Incident declaration",
+      "line": 57,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "3. Incident declaration",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "3. Incident declaration",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "3. Incident declaration",
+      "line": 57,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `error budget`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "4. Severity",
+      "line": 74,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `criticality business capability;`, `affected users, tenants a Regions;`, `data loss alebo incorrect side effects;`, `duration a growth rate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "4. Severity",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "5. Command roles",
+      "line": 100,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Incident Commander — IC",
+      "line": 104,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Incident Commander — IC",
+      "line": 104,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Incident Commander — IC",
+      "line": 104,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Incident Commander — IC",
+      "line": 104,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drží incident objective a priority;`, `prideľuje roles a owners;`, `schvaľuje alebo zastavuje riskantné mitigations;`, `udržiava shared state a decision cadence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Incident Commander — IC",
+      "line": 104,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Operations lead",
+      "line": 114,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Operations lead",
+      "line": 114,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Operations lead",
+      "line": 114,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Operations lead",
+      "line": 114,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `koordinuje technickú diagnostiku a zmeny;`, `udržiava hypothesis/action/evidence chain;`, `zaisťuje, že súčasné zásahy nekolidujú;`, `reportuje effective outcome IC.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Operations lead",
+      "line": 114,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Operations lead",
+      "line": 114,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IC`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Communications lead",
+      "line": 121,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Communications lead",
+      "line": 121,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Communications lead",
+      "line": 121,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Communications lead",
+      "line": 121,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publikuje interné a externé updates;`, `oddeľuje confirmed facts od hypotheses;`, `udržiava stakeholder cadence;`, `chráni responders pred opakovanými status otázkami.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Communications lead",
+      "line": 121,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Planning alebo logistics lead",
+      "line": 128,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Planning alebo logistics lead",
+      "line": 128,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `sleduje follow-up úlohy, handoff a staffing;`, `rieši access, vendor support a dlhší recovery horizon;`, `zaznamenáva divergence od normal state-u.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Planning alebo logistics lead",
+      "line": 128,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "7. Stabilization pred root cause",
+      "line": 156,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "7. Stabilization pred root cause",
+      "line": 156,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout;`, `obmedziť admission;`, `izolovať affected cohort;`, `vypnúť noncritical feature;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "7. Stabilization pred root cause",
+      "line": 156,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "8. Hypothesis-driven response",
+      "line": 181,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "9. Change control počas incidentu",
+      "line": 208,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "9. Change control počas incidentu",
+      "line": 208,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact subject a scope;`, `initiator a approver podľa severity;`, `current generation;`, `expected effect;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "9. Change control počas incidentu",
+      "line": 208,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "9. Change control počas incidentu",
+      "line": 208,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "11. Recovery criteria",
+      "line": 240,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "11. Recovery criteria",
+      "line": 240,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `completion latency je v SLO;`, `queue age klesá a drain rate je stabilná;`, `DB/provider saturation sú v guardraile;`, `duplicate alebo lost settlements nevznikajú;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "11. Recovery criteria",
+      "line": 240,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "11. Recovery criteria",
+      "line": 240,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "11. Recovery criteria",
+      "line": 240,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 258,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `database engineer zvýšil connection pool limit;`, `support lead požiadal o replay starších settlements;`, `provider owner zmenil retry interval;`, `DB connection pressure vzrástol;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "14. Handoff",
+      "line": 303,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "14. Handoff",
+      "line": 303,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "14. Handoff",
+      "line": 303,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current incident subject a severity;`, `effective state a unresolved risks;`, `executed actions a outcomes;`, `active hypotheses;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "14. Handoff",
+      "line": 303,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "14. Handoff",
+      "line": 303,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "14. Handoff",
+      "line": 303,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IC`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "15. Closure",
+      "line": 318,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "15. Closure",
+      "line": 318,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "15. Closure",
+      "line": 318,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `impact je odstránený alebo explicitne akceptovaný;`, `recovery criteria prešli;`, `temporary mitigations majú ownera a expiry;`, `evidence a timeline sú zachované;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "15. Closure",
+      "line": 318,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "15. Closure",
+      "line": 318,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "15. Closure",
+      "line": 318,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `declaration criteria a severity boli správne použité;`, `incident subject a impact boli explicitné;`, `IC, Ops, Comms a Planning responsibilities boli jasné;`, `state document zachytával current truth;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "16. Incident-management acceptance verdict",
+      "line": 334,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IC`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "17. Troubleshooting response failure",
+      "line": 351,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "17. Troubleshooting response failure",
+      "line": 351,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "18. Earlier controls",
+      "line": 369,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "18. Earlier controls",
+      "line": 369,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "18. Earlier controls",
+      "line": 369,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "18. Earlier controls",
+      "line": 369,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné declaration a severity criteria;`, `incident roles a backups;`, `static alebo dependency-independent coordination channel;`, `incident state template;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "18. Earlier controls",
+      "line": 369,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Najseniornejší engineer je automaticky IC",
+      "line": 386,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Najprv nájdime root cause",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Všetci skúšajú zmeny",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Chat je incident state",
+      "line": 398,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Zelený endpoint znamená recovered",
+      "line": 402,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/incident-management.md",
+      "section": "Incident končí po mitigation",
+      "line": 406,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

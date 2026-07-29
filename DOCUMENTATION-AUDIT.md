@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **262**
-- Audited conceptual sections: **10524**
-- Total words: **617,908**
-- Findings: **22017** (critical 6546, high 7452, medium 2804, low 5215)
-- File grades: A 0, B 0, C 0, D 262
+- Audited authoritative articles: **263**
+- Audited conceptual sections: **10556**
+- Total words: **619,619**
+- Findings: **22095** (critical 6572, high 7487, medium 2810, low 5226)
+- File grades: A 0, B 0, C 0, D 263
 
 ## Interpretation
 
@@ -140,6 +140,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 623 | 27 | 33 | 8 | 12 | 1922 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 623 | 30 | 25 | 14 | 9 | 1816 | `docs/12-observability/opentelemetry.md` |
 | D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
+| D | 622 | 26 | 35 | 6 | 11 | 1711 | `docs/14-sre-and-operations/incident-management.md` |
 | D | 617 | 30 | 24 | 11 | 19 | 2130 | `docs/09-kubernetes/logging-metrics-events.md` |
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
 | D | 612 | 25 | 33 | 7 | 25 | 2141 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
@@ -14906,6 +14907,70 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 316, `thin-concept-section` — **15. Error-budget acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 349, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/14-sre-and-operations/incident-management.md`
+
+- **CRITICAL** line 57, `bare-bullet-items` — **3. Incident declaration**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `critical user journey porušuje alebo pravdepodobne poruší SLO;`, `error budget sa spaľuje nad definovanou rýchlosťou;`, `impact rastie rýchlejšie než normal troubleshooting dokáže reagovať;`, `viac tímov alebo failure domains potrebuje koordináciu;`.
+- **CRITICAL** line 57, `outline-instead-of-explanation` — **3. Incident declaration**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 74, `bare-bullet-items` — **4. Severity**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `criticality business capability;`, `affected users, tenants a Regions;`, `data loss alebo incorrect side effects;`, `duration a growth rate;`.
+- **CRITICAL** line 104, `bare-bullet-items` — **Incident Commander — IC**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drží incident objective a priority;`, `prideľuje roles a owners;`, `schvaľuje alebo zastavuje riskantné mitigations;`, `udržiava shared state a decision cadence;`.
+- **CRITICAL** line 104, `outline-instead-of-explanation` — **Incident Commander — IC**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 114, `bare-bullet-items` — **Operations lead**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `koordinuje technickú diagnostiku a zmeny;`, `udržiava hypothesis/action/evidence chain;`, `zaisťuje, že súčasné zásahy nekolidujú;`, `reportuje effective outcome IC.`.
+- **CRITICAL** line 114, `no-prose-concept` — **Operations lead**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 114, `outline-instead-of-explanation` — **Operations lead**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 121, `bare-bullet-items` — **Communications lead**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publikuje interné a externé updates;`, `oddeľuje confirmed facts od hypotheses;`, `udržiava stakeholder cadence;`, `chráni responders pred opakovanými status otázkami.`.
+- **CRITICAL** line 121, `no-prose-concept` — **Communications lead**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 121, `outline-instead-of-explanation` — **Communications lead**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 156, `bare-bullet-items` — **7. Stabilization pred root cause**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout;`, `obmedziť admission;`, `izolovať affected cohort;`, `vypnúť noncritical feature;`.
+- **CRITICAL** line 156, `outline-instead-of-explanation` — **7. Stabilization pred root cause**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 208, `bare-bullet-items` — **9. Change control počas incidentu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact subject a scope;`, `initiator a approver podľa severity;`, `current generation;`, `expected effect;`.
+- **CRITICAL** line 208, `outline-instead-of-explanation` — **9. Change control počas incidentu**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 240, `bare-bullet-items` — **11. Recovery criteria**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `completion latency je v SLO;`, `queue age klesá a drain rate je stabilná;`, `DB/provider saturation sú v guardraile;`, `duplicate alebo lost settlements nevznikajú;`.
+- **CRITICAL** line 240, `outline-instead-of-explanation` — **11. Recovery criteria**: 9 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `bare-bullet-items` — **14. Handoff**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current incident subject a severity;`, `effective state a unresolved risks;`, `executed actions a outcomes;`, `active hypotheses;`.
+- **CRITICAL** line 303, `outline-instead-of-explanation` — **14. Handoff**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 318, `bare-bullet-items` — **15. Closure**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `impact je odstránený alebo explicitne akceptovaný;`, `recovery criteria prešli;`, `temporary mitigations majú ownera a expiry;`, `evidence a timeline sú zachované;`.
+- **CRITICAL** line 318, `outline-instead-of-explanation` — **15. Closure**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 334, `bare-bullet-items` — **16. Incident-management acceptance verdict**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `declaration criteria a severity boli správne použité;`, `incident subject a impact boli explicitné;`, `IC, Ops, Comms a Planning responsibilities boli jasné;`, `state document zachytával current truth;`.
+- **CRITICAL** line 334, `outline-instead-of-explanation` — **16. Incident-management acceptance verdict**: 12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 369, `bare-bullet-items` — **18. Earlier controls**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné declaration a severity criteria;`, `incident roles a backups;`, `static alebo dependency-independent coordination channel;`, `incident state template;`.
+- **CRITICAL** line 369, `no-prose-concept` — **18. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 369, `outline-instead-of-explanation` — **18. Earlier controls**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 24, `single-sentence-concept` — **2. Exact incident subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 100, `single-sentence-concept` — **5. Command roles**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 104, `list-first-introduction` — **Incident Commander — IC**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 104, `single-sentence-concept` — **Incident Commander — IC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 114, `list-first-introduction` — **Operations lead**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 121, `list-first-introduction` — **Communications lead**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 128, `bare-bullet-items` — **Planning alebo logistics lead**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `sleduje follow-up úlohy, handoff a staffing;`, `rieši access, vendor support a dlhší recovery horizon;`, `zaznamenáva divergence od normal state-u.`.
+- **HIGH** line 128, `list-first-introduction` — **Planning alebo logistics lead**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 181, `single-sentence-concept` — **8. Hypothesis-driven response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 258, `bare-bullet-items` — **12. Worked incident SRE-PAY-53**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `database engineer zvýšil connection pool limit;`, `support lead požiadal o replay starších settlements;`, `provider owner zmenil retry interval;`, `DB connection pressure vzrástol;`.
+- **HIGH** line 303, `single-sentence-concept` — **14. Handoff**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 318, `single-sentence-concept` — **15. Closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 334, `single-sentence-concept` — **16. Incident-management acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 351, `list-first-introduction` — **17. Troubleshooting response failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 351, `single-sentence-concept` — **17. Troubleshooting response failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 369, `list-first-introduction` — **18. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 386, `single-sentence-concept` — **Najseniornejší engineer je automaticky IC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 390, `single-sentence-concept` — **Najprv nájdime root cause**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 394, `single-sentence-concept` — **Všetci skúšajú zmeny**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 398, `single-sentence-concept` — **Chat je incident state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 402, `single-sentence-concept` — **Zelený endpoint znamená recovered**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 406, `single-sentence-concept` — **Incident končí po mitigation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 57, `thin-concept-section` — **3. Incident declaration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 104, `thin-concept-section` — **Incident Commander — IC**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 114, `thin-concept-section` — **Operations lead**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 121, `thin-concept-section` — **Communications lead**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 128, `thin-concept-section` — **Planning alebo logistics lead**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 156, `thin-concept-section` — **7. Stabilization pred root cause**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 208, `thin-concept-section` — **9. Change control počas incidentu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 240, `thin-concept-section` — **11. Recovery criteria**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 303, `thin-concept-section` — **14. Handoff**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 318, `thin-concept-section` — **15. Closure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 334, `thin-concept-section` — **16. Incident-management acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 369, `thin-concept-section` — **18. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/14-sre-and-operations/reliability-availability-durability.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact reliability subject**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétnu business operation alebo journey;`, `actor alebo traffic cohort;`, `vstupné a výstupné conditions;`, `environment, Region a release generation;`.
@@ -15077,17 +15142,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2530 | 466 | 0 | 0 | 2996 |
-| `outline-instead-of-explanation` | 2535 | 0 | 0 | 0 | 2535 |
-| `single-sentence-concept` | 0 | 2454 | 0 | 0 | 2454 |
-| `term-before-explanation` | 0 | 566 | 1872 | 0 | 2438 |
-| `thin-concept-section` | 0 | 2135 | 0 | 0 | 2135 |
-| `example-not-explicit` | 0 | 0 | 0 | 2088 | 2088 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2063 | 2063 |
-| `list-first-introduction` | 0 | 1376 | 0 | 0 | 1376 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1064 | 1064 |
+| `bare-bullet-items` | 2542 | 468 | 0 | 0 | 3010 |
+| `outline-instead-of-explanation` | 2546 | 0 | 0 | 0 | 2546 |
+| `single-sentence-concept` | 0 | 2468 | 0 | 0 | 2468 |
+| `term-before-explanation` | 0 | 566 | 1878 | 0 | 2444 |
+| `thin-concept-section` | 0 | 2147 | 0 | 0 | 2147 |
+| `example-not-explicit` | 0 | 0 | 0 | 2091 | 2091 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2070 | 2070 |
+| `list-first-introduction` | 0 | 1383 | 0 | 0 | 1383 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1065 | 1065 |
 | `short-concept-section` | 0 | 0 | 932 | 0 | 932 |
-| `no-prose-concept` | 795 | 0 | 0 | 0 | 795 |
+| `no-prose-concept` | 798 | 0 | 0 | 0 | 798 |
 | `empty-section` | 686 | 0 | 0 | 0 | 686 |
 | `list-heavy-section` | 0 | 455 | 0 | 0 | 455 |
 
