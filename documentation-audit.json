@@ -3851,6 +3851,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "title": "Monolith, modular monolith a microservices",
+      "words": 2404,
+      "headings": 56,
+      "sections": 56,
+      "findings": 163,
+      "critical": 65,
+      "high": 64,
+      "medium": 15,
+      "low": 19,
+      "score": 1355,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
       "title": "PostgreSQL, MySQL a Redis",
       "words": 2203,
@@ -214593,6 +214607,1473 @@
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "section": "Killni blocker",
       "line": 525,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "1. Exact architecture subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "1. Exact architecture subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "1. Exact architecture subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capabilities a user journeys;`, `domain/subdomain a invariant boundaries;`, `team ownership a change coupling;`, `source/module/build/deployment boundaries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "1. Exact architecture subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "1. Exact architecture subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "1. Exact architecture subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché local development a end-to-end debugging;`, `in-process calls bez network failure semantics;`, `jednoduchšie atomic transactions cez jeden database boundary;`, `menej deployment, identity, certificate, discovery a observability obj`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 74,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `failure semantics`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `whole-artifact release coupling;`, `shared process failure a resource contention;`, `coarse independent scaling;`, `slow build/test/deploy pri nekontrolovanom raste;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Náklady",
+      "line": 84,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "3. Modular monolith",
+      "line": 97,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "3. Modular monolith",
+      "line": 97,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "3. Modular monolith",
+      "line": 97,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný business purpose;`, `public contract;`, `private implementation;`, `controlled dependencies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "3. Modular monolith",
+      "line": 97,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 121,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 121,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 121,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 121,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zachováva jednoduché deployment a operations;`, `znižuje network/distributed-system overhead;`, `vytvára boundaries použiteľné pre budúcu extraction;`, `podporuje team ownership bez okamžitého distributed runtime-u;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Výhody",
+      "line": 121,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boundaries môžu existovať iba v diagramoch;`, `priame SQL/shared ORM entities ich obídu;`, `jeden deploy stále koordinuje release;`, `resource/failure isolation zostáva process-level;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Riziká",
+      "line": 130,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `ORM`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "4. Microservices",
+      "line": 141,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Potenciálne výhody",
+      "line": 156,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Potenciálne výhody",
+      "line": 156,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Potenciálne výhody",
+      "line": 156,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Potenciálne výhody",
+      "line": 156,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `independent deployment a release cadence;`, `failure a resource isolation;`, `independent scaling;`, `jasnejšie team/service ownership;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Potenciálne výhody",
+      "line": 156,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Potenciálne výhody",
+      "line": 156,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Povinné náklady",
+      "line": 166,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Povinné náklady",
+      "line": 166,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Povinné náklady",
+      "line": 166,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network latency, timeout a partial failure;`, `service discovery, identity, TLS a authorization;`, `API/event versioning a compatibility;`, `distributed tracing/log correlation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Povinné náklady",
+      "line": 166,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Povinné náklady",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Povinné náklady",
+      "line": 166,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `API`, `SLO`, `identity`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "5. Boundary dimensions",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "6. Domain a invariant boundaries",
+      "line": 199,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "6. Domain a invariant boundaries",
+      "line": 199,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability;`, `ubiquitous language;`, `invariantov, ktoré musia byť atomic alebo strongly coordinated;`, `data ownership;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "6. Domain a invariant boundaries",
+      "line": 199,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "6. Domain a invariant boundaries",
+      "line": 199,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "6. Domain a invariant boundaries",
+      "line": 199,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "7. Data ownership",
+      "line": 231,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Shared database",
+      "line": 233,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Shared database",
+      "line": 233,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Shared database",
+      "line": 233,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service A číta private tables service B;`, `schema change obchádza contract;`, `ownership incidentu je nejasné;`, `independent deployment je iba zdanlivý.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Shared database",
+      "line": 233,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Database per service",
+      "line": 242,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `separate database;`, `separate schema s enforced role ownership;`, `separate cluster pri isolation potrebe.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Database per service",
+      "line": 242,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Derived data",
+      "line": 252,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "8. Transactions naprieč boundaries",
+      "line": 266,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "8. Transactions naprieč boundaries",
+      "line": 266,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local transaction per service;`, `transactional outbox/inbox;`, `durable message delivery;`, `idempotency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "8. Transactions naprieč boundaries",
+      "line": 266,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "9. Communication coupling",
+      "line": 291,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Synchronous",
+      "line": 293,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Synchronous",
+      "line": 293,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Synchronous",
+      "line": 293,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immediate response;`, `jednoduchší caller mental model;`, `prirodzené request/response validation.`, `runtime availability coupling;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Synchronous",
+      "line": 293,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Synchronous",
+      "line": 293,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Asynchronous",
+      "line": 309,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Asynchronous",
+      "line": 309,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Asynchronous",
+      "line": 309,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporal decoupling;`, `buffering a independent consumption;`, `fan-out;`, `durable workflow evidence.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Asynchronous",
+      "line": 309,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "10. Deployment a compatibility",
+      "line": 329,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "10. Deployment a compatibility",
+      "line": 329,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "10. Deployment a compatibility",
+      "line": 329,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old/new service versions;`, `event backlog;`, `rollback artifacts;`, `projections;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "10. Deployment a compatibility",
+      "line": 329,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "11. Scaling a resource multiplication",
+      "line": 354,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "11. Scaling a resource multiplication",
+      "line": 354,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "11. Scaling a resource multiplication",
+      "line": 354,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application instances;`, `connection pools;`, `caches;`, `telemetry agents;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "11. Scaling a resource multiplication",
+      "line": 354,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "11. Scaling a resource multiplication",
+      "line": 354,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "12. Failure isolation",
+      "line": 376,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "12. Failure isolation",
+      "line": 376,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky services používajú jednu overloaded database;`, `shared Redis cluster zlyhá ako central authority;`, `synchronous call chain prenesie latency;`, `common library defect sa rolloutne všade;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "12. Failure isolation",
+      "line": 376,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "12. Failure isolation",
+      "line": 376,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`, `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "13. Observability a operations",
+      "line": 391,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "13. Observability a operations",
+      "line": 391,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "13. Observability a operations",
+      "line": 391,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera;`, `SLI/SLO a error budget;`, `dashboards a actionable alerts;`, `logs/traces/events s stable identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "13. Observability a operations",
+      "line": 391,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "13. Observability a operations",
+      "line": 391,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "13. Observability a operations",
+      "line": 391,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `error budget`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "14. Organizational boundaries",
+      "line": 409,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "14. Organizational boundaries",
+      "line": 409,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain expertise;`, `cognitive load;`, `communication paths;`, `release autonomy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "14. Organizational boundaries",
+      "line": 409,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "14. Organizational boundaries",
+      "line": 409,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "15. Migration patterns",
+      "line": 434,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modularize first",
+      "line": 436,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Strangler extraction",
+      "line": 447,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Event-carried projection",
+      "line": 462,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Event-carried projection",
+      "line": 462,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact generation;`, `single authority;`, `dual-write avoidance alebo reconciliation;`, `cohort boundaries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Event-carried projection",
+      "line": 462,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "16. Kedy zvoliť ktorý model",
+      "line": 476,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Monolith je rozumný, keď",
+      "line": 478,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Monolith je rozumný, keď",
+      "line": 478,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Monolith je rozumný, keď",
+      "line": 478,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Monolith je rozumný, keď",
+      "line": 478,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tím je malý;`, `domain boundaries sa menia;`, `local transaction prináša veľkú hodnotu;`, `scale/failure profile je podobný;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Monolith je rozumný, keď",
+      "line": 478,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular monolith je rozumný, keď",
+      "line": 487,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular monolith je rozumný, keď",
+      "line": 487,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular monolith je rozumný, keď",
+      "line": 487,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular monolith je rozumný, keď",
+      "line": 487,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `treba jasné domain/ownership boundaries;`, `jeden deployment je stále efektívny;`, `transactions naprieč niektorými modulmi sú legitímne;`, `budúca extraction je možná, ale nie nutná;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular monolith je rozumný, keď",
+      "line": 487,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Microservices sú rozumné, keď",
+      "line": 495,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Microservices sú rozumné, keď",
+      "line": 495,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Microservices sú rozumné, keď",
+      "line": 495,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Microservices sú rozumné, keď",
+      "line": 495,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded capabilities sú stabilné;`, `independent deployment/scale/failure isolation prináša merateľnú hodno`, `data ownership a cross-service workflow sú explicitné;`, `team/platform vie prevádzkovať fleet;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Microservices sú rozumné, keď",
+      "line": 495,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "17. Connected incident DB-PAY-57",
+      "line": 503,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "17. Connected incident DB-PAY-57",
+      "line": 503,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared end-to-end on-call tím bez service-specific ownership;`, `synchronous policy + idempotency + ledger chain;`, `jeden business invariant rozdelený medzi tri services;`, `Redis cache miss použitý ako authority decision;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "17. Connected incident DB-PAY-57",
+      "line": 503,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "17. Connected incident DB-PAY-57",
+      "line": 503,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DTO`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Architecture root cause",
+      "line": 551,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Architecture root cause",
+      "line": 551,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain/invariant boundaries;`, `data authority;`, `transaction/outbox workflow;`, `product roles;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Architecture root cause",
+      "line": 551,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Architecture root cause",
+      "line": 551,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 565,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "19. Authoritative redesign",
+      "line": 578,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular command core",
+      "line": 582,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Separate services",
+      "line": 590,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Separate services",
+      "line": 590,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Separate services",
+      "line": 590,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Separate services",
+      "line": 590,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider execution je asynchronous service consuming durable outbox/ev`, `projection/reporting je independent rebuildable service;`, `Redis je cache/admission accelerator, nie business authority.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Separate services",
+      "line": 590,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Separate services",
+      "line": 590,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `contracts sú independently versionované;`, `shared DTO package nie je synchronized-release gate;`, `end-to-end settlement capability má jedného incident/reconciliation ow`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Compatibility a ownership",
+      "line": 597,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DTO`, `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact business capabilities a invarianty sú explicitné;`, `module/service boundaries zodpovedajú coherent ownership;`, `každý authoritative fact má jedného writera/ownera;`, `local vs cross-boundary transaction model je mechanistický;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "20. Architecture acceptance verdict",
+      "line": 607,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "21. Troubleshooting architecture failure-u",
+      "line": 626,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Microservices sú modernejšie",
+      "line": 645,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Jeden service na entity",
+      "line": 649,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Database per service = server per service",
+      "line": 653,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Shared database, ale services sú independent",
+      "line": 657,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Všetko cez synchronous HTTP",
+      "line": 661,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Všetko cez events",
+      "line": 665,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Modular monolith je dočasný neúspech",
+      "line": 669,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Každý tím vlastný stack",
+      "line": 673,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
+      "section": "Extraction bez retirementu",
+      "line": 677,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

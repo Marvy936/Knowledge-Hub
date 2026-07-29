@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **279**
-- Audited conceptual sections: **11261**
-- Total words: **652,602**
-- Findings: **23777** (critical 7125, high 8167, medium 2990, low 5495)
-- File grades: A 0, B 0, C 0, D 279
+- Audited authoritative articles: **280**
+- Audited conceptual sections: **11317**
+- Total words: **655,006**
+- Findings: **23940** (critical 7190, high 8231, medium 3005, low 5514)
+- File grades: A 0, B 0, C 0, D 280
 
 ## Interpretation
 
@@ -25,6 +25,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
+| D | 1355 | 65 | 64 | 15 | 19 | 2404 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
 | D | 1303 | 56 | 73 | 11 | 20 | 2058 | `docs/14-sre-and-operations/operational-readiness.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1141 | 46 | 66 | 14 | 19 | 2062 | `docs/13-security-and-identity/least-privilege.md` |
@@ -16176,6 +16177,138 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 452, `thin-concept-section` — **19. Authoritative remediation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 465, `thin-concept-section` — **20. Index/lock/migration acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md`
+
+- **CRITICAL** line 18, `bare-bullet-items` — **1. Exact architecture subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capabilities a user journeys;`, `domain/subdomain a invariant boundaries;`, `team ownership a change coupling;`, `source/module/build/deployment boundaries;`.
+- **CRITICAL** line 18, `outline-instead-of-explanation` — **1. Exact architecture subject**: 14 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 74, `bare-bullet-items` — **Výhody**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché local development a end-to-end debugging;`, `in-process calls bez network failure semantics;`, `jednoduchšie atomic transactions cez jeden database boundary;`, `menej deployment, identity, certificate, discovery a observability obj`.
+- **CRITICAL** line 74, `no-prose-concept` — **Výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 74, `outline-instead-of-explanation` — **Výhody**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 84, `bare-bullet-items` — **Náklady**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `whole-artifact release coupling;`, `shared process failure a resource contention;`, `coarse independent scaling;`, `slow build/test/deploy pri nekontrolovanom raste;`.
+- **CRITICAL** line 84, `outline-instead-of-explanation` — **Náklady**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 97, `bare-bullet-items` — **3. Modular monolith**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný business purpose;`, `public contract;`, `private implementation;`, `controlled dependencies;`.
+- **CRITICAL** line 97, `outline-instead-of-explanation` — **3. Modular monolith**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 121, `no-prose-concept` — **Výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 121, `outline-instead-of-explanation` — **Výhody**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 130, `bare-bullet-items` — **Riziká**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boundaries môžu existovať iba v diagramoch;`, `priame SQL/shared ORM entities ich obídu;`, `jeden deploy stále koordinuje release;`, `resource/failure isolation zostáva process-level;`.
+- **CRITICAL** line 130, `outline-instead-of-explanation` — **Riziká**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 156, `bare-bullet-items` — **Potenciálne výhody**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `independent deployment a release cadence;`, `failure a resource isolation;`, `independent scaling;`, `jasnejšie team/service ownership;`.
+- **CRITICAL** line 156, `no-prose-concept` — **Potenciálne výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 156, `outline-instead-of-explanation` — **Potenciálne výhody**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 166, `bare-bullet-items` — **Povinné náklady**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network latency, timeout a partial failure;`, `service discovery, identity, TLS a authorization;`, `API/event versioning a compatibility;`, `distributed tracing/log correlation;`.
+- **CRITICAL** line 166, `outline-instead-of-explanation` — **Povinné náklady**: 10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 199, `bare-bullet-items` — **6. Domain a invariant boundaries**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability;`, `ubiquitous language;`, `invariantov, ktoré musia byť atomic alebo strongly coordinated;`, `data ownership;`.
+- **CRITICAL** line 199, `outline-instead-of-explanation` — **6. Domain a invariant boundaries**: 14 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 231, `empty-section` — **7. Data ownership**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 233, `bare-bullet-items` — **Shared database**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service A číta private tables service B;`, `schema change obchádza contract;`, `ownership incidentu je nejasné;`, `independent deployment je iba zdanlivý.`.
+- **CRITICAL** line 233, `outline-instead-of-explanation` — **Shared database**: 4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 266, `bare-bullet-items` — **8. Transactions naprieč boundaries**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local transaction per service;`, `transactional outbox/inbox;`, `durable message delivery;`, `idempotency;`.
+- **CRITICAL** line 291, `empty-section` — **9. Communication coupling**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 293, `bare-bullet-items` — **Synchronous**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immediate response;`, `jednoduchší caller mental model;`, `prirodzené request/response validation.`, `runtime availability coupling;`.
+- **CRITICAL** line 293, `outline-instead-of-explanation` — **Synchronous**: 8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 309, `bare-bullet-items` — **Asynchronous**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporal decoupling;`, `buffering a independent consumption;`, `fan-out;`, `durable workflow evidence.`.
+- **CRITICAL** line 309, `outline-instead-of-explanation` — **Asynchronous**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 329, `bare-bullet-items` — **10. Deployment a compatibility**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old/new service versions;`, `event backlog;`, `rollback artifacts;`, `projections;`.
+- **CRITICAL** line 329, `outline-instead-of-explanation` — **10. Deployment a compatibility**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 354, `bare-bullet-items` — **11. Scaling a resource multiplication**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application instances;`, `connection pools;`, `caches;`, `telemetry agents;`.
+- **CRITICAL** line 354, `outline-instead-of-explanation` — **11. Scaling a resource multiplication**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 376, `bare-bullet-items` — **12. Failure isolation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky services používajú jednu overloaded database;`, `shared Redis cluster zlyhá ako central authority;`, `synchronous call chain prenesie latency;`, `common library defect sa rolloutne všade;`.
+- **CRITICAL** line 376, `outline-instead-of-explanation` — **12. Failure isolation**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 391, `bare-bullet-items` — **13. Observability a operations**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera;`, `SLI/SLO a error budget;`, `dashboards a actionable alerts;`, `logs/traces/events s stable identity;`.
+- **CRITICAL** line 391, `outline-instead-of-explanation` — **13. Observability a operations**: 11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `bare-bullet-items` — **14. Organizational boundaries**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain expertise;`, `cognitive load;`, `communication paths;`, `release autonomy;`.
+- **CRITICAL** line 434, `empty-section` — **15. Migration patterns**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 436, `empty-section` — **Modularize first**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 447, `empty-section` — **Strangler extraction**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 462, `bare-bullet-items` — **Event-carried projection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact generation;`, `single authority;`, `dual-write avoidance alebo reconciliation;`, `cohort boundaries;`.
+- **CRITICAL** line 462, `outline-instead-of-explanation` — **Event-carried projection**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 476, `empty-section` — **16. Kedy zvoliť ktorý model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 478, `bare-bullet-items` — **Monolith je rozumný, keď**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tím je malý;`, `domain boundaries sa menia;`, `local transaction prináša veľkú hodnotu;`, `scale/failure profile je podobný;`.
+- **CRITICAL** line 478, `no-prose-concept` — **Monolith je rozumný, keď**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 478, `outline-instead-of-explanation` — **Monolith je rozumný, keď**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 487, `bare-bullet-items` — **Modular monolith je rozumný, keď**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `treba jasné domain/ownership boundaries;`, `jeden deployment je stále efektívny;`, `transactions naprieč niektorými modulmi sú legitímne;`, `budúca extraction je možná, ale nie nutná;`.
+- **CRITICAL** line 487, `no-prose-concept` — **Modular monolith je rozumný, keď**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 487, `outline-instead-of-explanation` — **Modular monolith je rozumný, keď**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 495, `bare-bullet-items` — **Microservices sú rozumné, keď**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded capabilities sú stabilné;`, `independent deployment/scale/failure isolation prináša merateľnú hodno`, `data ownership a cross-service workflow sú explicitné;`, `team/platform vie prevádzkovať fleet;`.
+- **CRITICAL** line 495, `no-prose-concept` — **Microservices sú rozumné, keď**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 495, `outline-instead-of-explanation` — **Microservices sú rozumné, keď**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 503, `bare-bullet-items` — **17. Connected incident DB-PAY-57**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared end-to-end on-call tím bez service-specific ownership;`, `synchronous policy + idempotency + ledger chain;`, `jeden business invariant rozdelený medzi tri services;`, `Redis cache miss použitý ako authority decision;`.
+- **CRITICAL** line 503, `outline-instead-of-explanation` — **17. Connected incident DB-PAY-57**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 551, `bare-bullet-items` — **Architecture root cause**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain/invariant boundaries;`, `data authority;`, `transaction/outbox workflow;`, `product roles;`.
+- **CRITICAL** line 565, `empty-section` — **18. Evidence-preserving containment**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 582, `empty-section` — **Modular command core**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 590, `bare-bullet-items` — **Separate services**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider execution je asynchronous service consuming durable outbox/ev`, `projection/reporting je independent rebuildable service;`, `Redis je cache/admission accelerator, nie business authority.`.
+- **CRITICAL** line 590, `no-prose-concept` — **Separate services**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 590, `outline-instead-of-explanation` — **Separate services**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 597, `outline-instead-of-explanation` — **Compatibility a ownership**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 607, `bare-bullet-items` — **20. Architecture acceptance verdict**: 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact business capabilities a invarianty sú explicitné;`, `module/service boundaries zodpovedajú coherent ownership;`, `každý authoritative fact má jedného writera/ownera;`, `local vs cross-boundary transaction model je mechanistický;`.
+- **CRITICAL** line 607, `outline-instead-of-explanation` — **20. Architecture acceptance verdict**: 14 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 626, `empty-section` — **21. Troubleshooting architecture failure-u**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 18, `single-sentence-concept` — **1. Exact architecture subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 74, `list-first-introduction` — **Výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 84, `list-first-introduction` — **Náklady**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 97, `single-sentence-concept` — **3. Modular monolith**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 121, `bare-bullet-items` — **Výhody**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zachováva jednoduché deployment a operations;`, `znižuje network/distributed-system overhead;`, `vytvára boundaries použiteľné pre budúcu extraction;`, `podporuje team ownership bez okamžitého distributed runtime-u;`.
+- **HIGH** line 121, `list-first-introduction` — **Výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 130, `list-first-introduction` — **Riziká**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 130, `single-sentence-concept` — **Riziká**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 141, `single-sentence-concept` — **4. Microservices**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 156, `list-first-introduction` — **Potenciálne výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 166, `list-first-introduction` — **Povinné náklady**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 233, `single-sentence-concept` — **Shared database**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 242, `bare-bullet-items` — **Database per service**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `separate database;`, `separate schema s enforced role ownership;`, `separate cluster pri isolation potrebe.`.
+- **HIGH** line 252, `single-sentence-concept` — **Derived data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 266, `list-heavy-section` — **8. Transactions naprieč boundaries**: 8 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 293, `single-sentence-concept` — **Synchronous**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 309, `single-sentence-concept` — **Asynchronous**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 329, `single-sentence-concept` — **10. Deployment a compatibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 354, `single-sentence-concept` — **11. Scaling a resource multiplication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 391, `single-sentence-concept` — **13. Observability a operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 409, `list-heavy-section` — **14. Organizational boundaries**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 478, `list-first-introduction` — **Monolith je rozumný, keď**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 487, `list-first-introduction` — **Modular monolith je rozumný, keď**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 495, `list-first-introduction` — **Microservices sú rozumné, keď**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 551, `list-heavy-section` — **Architecture root cause**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 578, `single-sentence-concept` — **19. Authoritative redesign**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 590, `list-first-introduction` — **Separate services**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 597, `bare-bullet-items` — **Compatibility a ownership**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `contracts sú independently versionované;`, `shared DTO package nie je synchronized-release gate;`, `end-to-end settlement capability má jedného incident/reconciliation ow`.
+- **HIGH** line 597, `list-first-introduction` — **Compatibility a ownership**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 607, `single-sentence-concept` — **20. Architecture acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 645, `single-sentence-concept` — **Microservices sú modernejšie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 649, `single-sentence-concept` — **Jeden service na entity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 653, `single-sentence-concept` — **Database per service = server per service**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 657, `single-sentence-concept` — **Shared database, ale services sú independent**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 661, `single-sentence-concept` — **Všetko cez synchronous HTTP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 665, `single-sentence-concept` — **Všetko cez events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 669, `single-sentence-concept` — **Modular monolith je dočasný neúspech**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 673, `single-sentence-concept` — **Každý tím vlastný stack**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 677, `single-sentence-concept` — **Extraction bez retirementu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 18, `thin-concept-section` — **1. Exact architecture subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 74, `thin-concept-section` — **Výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 84, `thin-concept-section` — **Náklady**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 97, `thin-concept-section` — **3. Modular monolith**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 121, `thin-concept-section` — **Výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 130, `thin-concept-section` — **Riziká**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 156, `thin-concept-section` — **Potenciálne výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 166, `term-before-explanation` — **Povinné náklady**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `API`, `SLO`, `identity`, `resource`
+- **HIGH** line 166, `thin-concept-section` — **Povinné náklady**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 233, `thin-concept-section` — **Shared database**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 242, `thin-concept-section` — **Database per service**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 293, `thin-concept-section` — **Synchronous**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 309, `thin-concept-section` — **Asynchronous**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 329, `thin-concept-section` — **10. Deployment a compatibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 354, `thin-concept-section` — **11. Scaling a resource multiplication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 376, `thin-concept-section` — **12. Failure isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 391, `term-before-explanation` — **13. Observability a operations**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `error budget`, `identity`
+- **HIGH** line 391, `thin-concept-section` — **13. Observability a operations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 462, `thin-concept-section` — **Event-carried projection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 478, `thin-concept-section` — **Monolith je rozumný, keď**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 487, `thin-concept-section` — **Modular monolith je rozumný, keď**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 495, `thin-concept-section` — **Microservices sú rozumné, keď**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 590, `thin-concept-section` — **Separate services**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 597, `thin-concept-section` — **Compatibility a ownership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 607, `thin-concept-section` — **20. Architecture acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact product-role subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a exact facts;`, `authoritative, derived, cached, ephemeral alebo coordination role;`, `transaction a invariant boundary;`, `required query shapes a relationship model;`.
@@ -16439,19 +16572,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2784 | 484 | 0 | 0 | 3268 |
-| `single-sentence-concept` | 0 | 2778 | 0 | 0 | 2778 |
-| `outline-instead-of-explanation` | 2755 | 0 | 0 | 0 | 2755 |
-| `term-before-explanation` | 0 | 599 | 2005 | 0 | 2604 |
-| `thin-concept-section` | 0 | 2332 | 0 | 0 | 2332 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2202 | 2202 |
-| `example-not-explicit` | 0 | 0 | 0 | 2183 | 2183 |
-| `list-first-introduction` | 0 | 1478 | 0 | 0 | 1478 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1110 | 1110 |
-| `short-concept-section` | 0 | 0 | 985 | 0 | 985 |
-| `no-prose-concept` | 859 | 0 | 0 | 0 | 859 |
-| `empty-section` | 727 | 0 | 0 | 0 | 727 |
-| `list-heavy-section` | 0 | 496 | 0 | 0 | 496 |
+| `bare-bullet-items` | 2809 | 487 | 0 | 0 | 3296 |
+| `single-sentence-concept` | 0 | 2800 | 0 | 0 | 2800 |
+| `outline-instead-of-explanation` | 2779 | 0 | 0 | 0 | 2779 |
+| `term-before-explanation` | 0 | 601 | 2016 | 0 | 2617 |
+| `thin-concept-section` | 0 | 2355 | 0 | 0 | 2355 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2211 | 2211 |
+| `example-not-explicit` | 0 | 0 | 0 | 2190 | 2190 |
+| `list-first-introduction` | 0 | 1489 | 0 | 0 | 1489 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1113 | 1113 |
+| `short-concept-section` | 0 | 0 | 989 | 0 | 989 |
+| `no-prose-concept` | 866 | 0 | 0 | 0 | 866 |
+| `empty-section` | 736 | 0 | 0 | 0 | 736 |
+| `list-heavy-section` | 0 | 499 | 0 | 0 | 499 |
 
 ## Required remediation pattern
 
