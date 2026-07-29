@@ -1,604 +1,372 @@
 # Encryption at rest a in transit
 
-Encryption chráni confidentiality transformáciou plaintextu na ciphertext pomocou cryptographic algoritmu a keyu. Moderný návrh má zároveň chrániť integrity ciphertextu, pretože attacker nesmie vedieť data meniť bez detekcie.
+Encryption je cryptographic mechanism na ochranu confidentiality. Moderné použitie zároveň chráni integrity ciphertextu cez authenticated encryption. Security výsledok však nevzniká z checkboxu `encrypted`. Vzniká z threat modelu, exact data a key subjectu, algorithm/mode correctness, key authorization, plaintext boundaries, consumer behavior, rotation, revocation a recovery.
 
-„Encryption enabled“ nie je kompletný security control. Účinnosť závisí od threat modelu, cryptographic boundary, key lifecycle-u, authorization, plaintext accessu, audit evidence a recovery. Full-disk encryption môže chrániť odcudzený vypnutý notebook, ale nie data čítané compromised processom po odomknutí systému.
+At-rest encryption môže chrániť ukradnutý disk alebo leaked etcd backup. TLS môže chrániť packet path. Ani jedno automaticky nechráni plaintext pred workloadom, ktorý ho smie načítať, pred debug Podom s indirect Secret accessom alebo pred application processom oprávneným volať KMS `Decrypt`.
+
+## 1. Dominantný asset-to-key-boundary lifecycle
 
 ```text
-data asset a threat model
-→ určiť at-rest / in-transit / in-use boundary
-→ zvoliť authenticated cryptographic mechanism
-→ vytvoriť a chrániť key material
-→ autorizovať encrypt/decrypt alebo session establishment
-→ auditovať key a plaintext access
-→ rotate, revoke, archive alebo destroy keys
-→ testovať recovery a compromise response
+data alebo trust asset a threat model
+→ exact protection subject a state: rest/transit/use
+→ required confidentiality/integrity/authentication property
+→ algorithm, protocol a format generation
+→ key purpose, owner, scope a cryptographic boundary
+→ authorized encrypt/decrypt/sign/verify/session operation
+→ ciphertext alebo protected-channel publication
+→ consumer validation a plaintext boundary
+→ rotation, rekey, rewrap, revocation a migration
+→ restore, compromise response a forbidden-old-path validation
 ```
 
-## 1. Security properties cryptography
+Jedna kapitola musí držať oddelené tri otázky:
 
-Encryption primárne poskytuje confidentiality: bez správneho keyu nemá attacker získať plaintext. Authenticated encryption pridáva integrity a authenticity ciphertextu.
+1. Čo chráni cryptography?
+2. Pred ktorým attackerom a na ktorej boundary?
+3. Kto stále môže oprávnene získať plaintext alebo vykonať signing/decrypt operation?
 
-Cryptography môže poskytovať rôzne properties:
+## 2. Exact cryptographic subject
 
-- confidentiality — data nie sú čitateľné neautorizovaným actorom;
-- integrity — zmena data je detegovateľná;
-- origin authentication — receiver overí, ktorý key holder message vytvoril;
-- peer authentication — endpoint overí identity druhej strany;
-- non-repudiation v obmedzenom právnom/technical zmysle pri signatures;
-- key establishment — parties vytvoria shared secret cez nedôveryhodný channel.
-
-Jeden algorithm alebo product neposkytuje automaticky všetky properties. AES-GCM chráni data, ale nevyrieši, komu KMS dovolí decrypt. TLS autentizuje endpoint podľa certificate validation, ale application stále potrebuje user authorization.
-
-## 2. Data at rest, in transit a in use
-
-**Data at rest** sú persistentné alebo dlhšie uložené data: disks, database files, logs, object storage, snapshots, backups, queues, indexes, container layers, swap a crash dumps.
-
-**Data in transit** sa prenášajú medzi components: client a server, service a service, application a database, control plane a node, replication stream alebo CI runner a registry.
-
-**Data in use** sú plaintext v process memory, CPU registers, caches alebo application objects počas spracovania. Bežné storage a transport encryption ich pred compromised authorized processom nechráni.
-
-Tieto states sa prekrývajú. TLS decryptne request na serveri a data sa stanú „in use“. Application ich môže zapísať do logu, kde sa z nich stanú ďalšie „at rest“ copy.
-
-## 3. Threat model pred výberom algoritmu
-
-Najprv definuj attacker-a a boundary. At-rest threats môžu byť stolen disk, leaked backup, unauthorized object-storage access, media disposal alebo cross-tenant storage failure.
-
-In-transit threats zahŕňajú packet capture, man-in-the-middle, DNS/routing manipulation, rogue proxy, compromised trust store, downgrade alebo plaintext segment za TLS terminatorom.
-
-In-use threats zahŕňajú compromised application, memory dump, debug endpoint, overprivileged operator alebo injection, ktorá prinúti application vykonať authorized decrypt.
-
-Rovnaký control má inú hodnotu proti rôznym threats. Disk encryption chráni lost device, ale nie root account na running hoste. Application-level field encryption môže chrániť pred database operatorom, ale application runtime sa stáva high-value plaintext boundary.
-
-## 4. Encryption nie je encoding
-
-Encoding mení representation pre transport alebo compatibility a nepoužíva secret key. Base64, hexadecimal a URL encoding neposkytujú confidentiality.
+Pri návrhu alebo incidente zachovaj:
 
 ```text
-Base64(secret)
-→ každý ho vie dekódovať
-
-Encrypt(secret, key)
-→ plaintext získa iba actor s vhodným key accessom
+asset/data set alebo signed-artifact class
++ confidentiality/integrity/authentication objective
++ at-rest, in-transit a in-use copies
++ algorithm, mode, protocol a format version
++ key ID, version, purpose a cryptoperiod
++ nonce/IV/tag/AAD alebo signature context
++ KMS/HSM/store a authorization policy
++ producers, consumers a loaded trust generation
++ ciphertext/session/artifact inventory
++ backup, recovery, revocation a destruction state
 ```
 
-Base64 sa často používa na serialization encrypted bytes alebo Kubernetes Secret fields. To nemení jeho security property.
-
-## 5. Encryption, hashing, MAC a signature
-
-**Encryption** je reverzibilná transformácia s keyom. **Hash** vytvára one-way digest bez secret keyu. **Message Authentication Code — MAC** používa shared secret na integrity a origin authentication medzi parties, ktoré key zdieľajú. **Digital signature** používa private key na podpis a public key na verification.
-
-Hash sám nepreukazuje origin: attacker môže zmeniť file aj publikovaný hash. Signature alebo authenticated metadata viažu digest na trusted identity.
-
-Encryption bez authentication môže umožniť controlled modification ciphertextu alebo oracle attacks. Pre nové designs preferuj approved authenticated encryption scheme namiesto ručného skladania cipher + checksum.
-
-## 6. Symmetric cryptography
-
-Symmetric cryptography používa rovnaký secret alebo closely related key material na encryption a decryption. Je efektívna pre bulk data.
-
-Main challenge je distribution a lifecycle. Každý actor s decrypt keyom môže čítať data a pri shared MAC keyu môže vytvárať validné messages. Shared key preto často neposkytuje precise attribution medzi participants.
-
-Examples authenticated symmetric algorithms sú AES-GCM a ChaCha20-Poly1305. Bezpečnosť závisí aj od nonce rules, tag validation a usage limits, nie iba od key size.
-
-## 7. Asymmetric cryptography
-
-Asymmetric cryptography používa public/private key pair. Public key možno distribuovať, private key musí zostať chránený.
-
-Používa sa na digital signatures, key agreement a key encapsulation. Bulk data sa zvyčajne nešifrujú priamo public-key algorithmom; asymmetry vytvorí shared secret a následne sa použije symmetric AEAD.
-
-Private key compromise umožní podľa use case-u podpisovať, decryptovať alebo impersonovať. Jeden key nemá byť automaticky používaný na viac purposes; key usage a policy majú byť explicitné.
-
-## 8. Hybrid cryptography
-
-Reálne protocols kombinujú asymmetric a symmetric mechanisms:
+Connected subject `CRYPTO-PAY-49`:
 
 ```text
-asymmetric key agreement alebo KEM
-→ vytvorí shared secret
-→ KDF odvodí session keys
-→ symmetric AEAD chráni bulk traffic
+key: FED-SIGN-07
+algorithm: RSA signature key
+purposes: OIDC JWS + SAML XML Signature
+environments: staging + production
+storage: Kubernetes Secret encrypted in etcd cez KMS v2
+transport: API/kubelet TLS
+plaintext boundary: projected file v IdP Pod-e
+trust consumers: OIDC JWKS caches + SAML metadata caches
+exposure result: forged or attacker-controlled federation assertions
 ```
 
-TLS 1.3 je hybridný protocol v tomto zmysle. Certificate signature autentizuje endpoint, ephemeral key agreement vytvára shared secret a AEAD chráni records.
+## 3. Encryption, hashing, MAC a signature
 
-„RSA certificate“ neznamená, že celý traffic je RSA-encrypted. Certificate algorithm, key exchange a data-encryption cipher sú samostatné choices.
+Tieto mechanisms majú rozdielne properties:
 
-## 9. AEAD
+- encryption — reversible confidentiality s keyom;
+- hash — one-way digest bez secret keyu;
+- MAC — integrity a origin authentication medzi holders shared secretu;
+- digital signature — private-key signing a public-key verification;
+- key establishment/KEM — vytvorenie shared secretu pre ďalšiu symmetric protection.
 
-Authenticated Encryption with Associated Data — AEAD — poskytuje confidentiality plaintextu a integrity ciphertextu aj additional authenticated data.
+Hash file-u bez trusted signature nepreukazuje origin. Encryption bez integrity môže byť malleable. Signature neposkytuje confidentiality. Signing private key a encryption private key nemajú byť zdieľané iba preto, že oba sú RSA alebo EC material.
 
-Encryption vytvorí ciphertext a authentication tag. Decryption najprv overí tag; pri failure nesmie application použiť plaintext.
-
-AAD sa nešifruje, ale je cryptographically viazané k ciphertextu. Môže obsahovať tenant ID, record ID, message type, protocol version alebo key version.
+## 4. Data at rest, in transit a in use
 
 ```text
-ciphertext pre tenant A
-+ AAD tenant=A
-→ validation zlyhá, ak sa data interpretujú ako tenant B
+at rest
+→ disks, object storage, databases, etcd, snapshots, backups, logs
+
+in transit
+→ client–server, service–service, replication, CI–registry
+
+in use
+→ process memory, CPU, file descriptor, decrypted object, debug dump
 ```
 
-AAD representation musí byť canonical. Odlišné ordering alebo encoding spôsobí legitimate validation failures.
+TLS decryptne traffic na endpoint-e. Storage encryption decryptne data pre authorized readera. Po decryption vzniká plaintext boundary, ktorú chránia identity, authorization, process isolation, minimal lifetime, logging discipline a memory controls.
 
-## 10. Nonce a IV
+Rovnaké data sa môžu presúvať medzi states. Encrypted request sa po TLS termination stane plaintextom a môže byť neúmyselne zapísaný do logu ako nová at-rest copy.
 
-Nonce alebo Initialization Vector je per-operation value používaná s keyom. Nemusí byť secret, ale scheme určuje, či musí byť unique, unpredictable alebo oboje.
+## 5. Threat model pred algoritmom
 
-Pri AES-GCM reuse rovnakého nonce pod rovnakým keyom môže odhaliť plaintext relationships a umožniť tag forgery. Distributed system preto potrebuje collision-safe generation strategy.
+At-rest threats:
 
-Random 96-bit nonce s secure RNG môže byť vhodný pri bounded operation count. Counter-based scheme potrebuje koordináciu a persistence cez restarts. Usage limit má vyvolať key rotation skôr, než collision risk narastie.
+- ukradnuté médium alebo snapshot;
+- leaked backup;
+- etcd/object-storage-only compromise;
+- nesprávna media disposal;
+- storage operator bez decrypt permission.
 
-## 11. Key separation
+In-transit threats:
 
-Jeden key nemá byť používaný na unrelated purposes, tenants alebo environments bez explicitného analysis. Compromise potom zasiahne všetky domains a misuse môže porušiť algorithm assumptions.
+- packet capture;
+- MITM a rogue proxy;
+- DNS/routing manipulation;
+- disabled hostname validation;
+- plaintext internal leg;
+- protocol downgrade.
 
-Key separation možno dosiahnuť independent keys alebo derivation z master secretu s domain-separated contextom.
+In-use threats:
+
+- compromised application;
+- broad decrypt/sign permission;
+- debug/exec access;
+- memory dump;
+- injection, ktorá prinúti application vykonať validnú cryptographic operation.
+
+Disk encryption nechráni running root compromise. KMS nechráni pred callerom s broad `Decrypt`. HSM chráni key extraction, nie authorized malicious signing request.
+
+## 6. Authenticated encryption, nonce a AAD
+
+AEAD chráni plaintext confidentiality aj ciphertext integrity. Decryption musí overiť tag pred použitím plaintextu.
+
+AAD nie je šifrované, ale je viazané k ciphertextu. Môže obsahovať tenant ID, object ID, schema version alebo purpose:
 
 ```text
-master secret
-→ KDF(context="tenant-A:data")
-→ tenant A data key
-
-master secret
-→ KDF(context="tenant-B:data")
-→ tenant B data key
+ciphertext documentu
++ AAD tenant=atlas-payments, object=PAY-884219, schema=3
+→ nemožno bezpečne presunúť do iného tenant/object contextu
 ```
 
-KDF context musí byť unambiguous a versioned. Derived keys stále závisia od ochrany master keyu.
+Nonce/IV rules sú algorithm-specific. AES-GCM nonce reuse pod rovnakým keyom môže poškodiť confidentiality aj integrity. Distributed producer potrebuje collision-safe generation, operation limits a key rotation policy.
 
-## 12. Key a ciphertext separation
+AAD serialization musí byť canonical a versionovaná. Wrong ordering alebo encoding vytvorí legitimate decrypt failures; missing tenant context môže umožniť ciphertext substitution.
 
-Ciphertext a key material nemajú byť v rovnakej compromise boundary s rovnakými permissions.
+## 7. Key separation
+
+Key má byť oddelený podľa:
+
+- purpose — encryption, signing, MAC, wrapping;
+- environment — staging, production;
+- tenant alebo data domain;
+- protocol a trust domain;
+- actor alebo workload scope;
+- cryptoperiod a compromise boundary.
 
 ```text
-ciphertext v database alebo object storage
-→ DEK chránený KEK-om
-→ KEK v KMS/HSM s oddeleným IAM a auditom
+prod OIDC signing key
+≠ prod SAML signing key
+≠ staging OIDC signing key
+≠ data-encryption KEK
 ```
 
-Separation je meaningful iba pri odlišných identities, administrators a access paths. Ak application account má broad database read aj unrestricted KMS decrypt, compromise applicationu stále odhalí všetky data.
+Cross-purpose reuse zvyšuje blast radius a môže porušiť protocol assumptions. Cross-environment reuse mení staging compromise na production compromise.
 
-Defense value je často ochrana proti storage-only compromise, backup leak alebo limited operator role, nie proti fully compromised application.
+Key separation možno realizovať independent keys alebo approved domain-separated derivation. Human-readable label bez policy a key identity nie je separation.
 
-## 13. DEK, KEK a envelope encryption
+## 8. Envelope encryption
 
-Data Encryption Key — DEK — šifruje payload. Key Encryption Key — KEK — wrapuje DEK alebo iný key material.
-
-Envelope encryption flow:
+Envelope encryption používa Data Encryption Key — DEK — na payload a Key Encryption Key — KEK — na wrapping DEK-u:
 
 ```text
-workload vygeneruje alebo získa DEK
-→ lokálne encryptne data pomocou AEAD
-→ KMS wrapne DEK pomocou KEK
-→ uloží ciphertext, wrapped DEK, nonce, tag a metadata
-→ pri čítaní authorized workload požiada o unwrap
-→ decrypt vykoná v controlled process memory
+vygenerovať DEK
+→ AEAD encrypt payload
+→ KMS wrap DEK pod KEK a encryption contextom
+→ uložiť ciphertext, wrapped DEK, nonce, tag a format version
+→ authorized consumer unwrapne DEK
+→ plaintext existuje iba v bounded process memory
 ```
 
-Výhody sú výkon a centralizovaný KEK authorization. Rewrap umožní rotate KEK bez re-encryption všetkých payloads.
+Rewrap mení KEK protection wrapped DEK-u bez full payload re-encryption. Rekey/re-encrypt vytvorí nový data key a nový ciphertext. Tieto operations nie sú synonymá.
 
-Risks sú plaintext DEK v memory, broad decrypt permission, unsafe cache a missing AAD/encryption context.
+Envelope encryption centralizuje key authorization, ale compromised application s broad unwrap permission stále môže decryptovať všetky data. Encryption context/AAD, resource scoping a audit sú kritické.
 
-## 14. KMS
+## 9. KMS a HSM boundaries
 
-Key Management Service poskytuje creation/import keys, policies, cryptographic operations, versions, rotation, disable/delete states a audit.
-
-KMS centralizuje control, ale application stále rozhoduje, kedy požiada o decrypt. Ak compromised application má validnú permission a correct context, KMS môže operation oprávnene vykonať.
-
-Policy má obmedziť principal, operation, key, environment a encryption context. `kms:Decrypt` na všetky keys je opakom least privilege.
-
-KMS availability je application dependency. Cache a degraded mode musia byť navrhnuté podľa data criticality a revocation requirements.
-
-## 15. HSM
-
-Hardware Security Module — HSM — je tamper-resistant hardware boundary pre key generation, storage a cryptographic operations s obmedzeným exportom key materialu.
-
-HSM znižuje risk key extraction, ale nezabráni authorized malicious signing alebo decrypt requestu. Access control, quorum a audit zostávajú potrebné.
-
-Cloud KMS môže používať HSM-backed keys, ale KMS je management service a HSM je cryptographic boundary. Pojmy nie sú synonymá.
-
-## 16. Key metadata a inventory
-
-Key inventory musí vedieť:
-
-- stable key ID a versions;
-- ownera a business purpose;
-- algorithm, strength a allowed operations;
-- environment a tenant scope;
-- activation, expiration a cryptoperiod;
-- parent KEK alebo trust root;
-- consumers a protected data sets;
-- backup/recovery policy;
-- compromise, disable a deletion state.
-
-Metadata sú security-relevant. Zámena key purpose alebo environmentu môže byť rovnako nebezpečná ako leakage raw key bytes.
-
-## 17. Key lifecycle
-
-Key lifecycle:
+KMS poskytuje versionované keys, cryptographic operations, policies, disable/delete states, rotation a audit. HSM je hardware cryptographic boundary s obmedzeným key exportom.
 
 ```text
-requirements a classification
-→ generation alebo import
+HSM-backed alebo non-exportable key
+→ znižuje theft raw private keyu
+→ nebráni authorized malicious sign/decrypt requestu
+```
+
+Policy obmedzuje principal, operation, key, environment a context. Broad `Decrypt` alebo `Sign` na všetky keys je cryptographic equivalent broad admin role.
+
+KMS/HSM availability, throttling, cache a disaster recovery sú runtime dependencies. Backup ciphertext bez recoverable key hierarchy je data loss. Backup key bez policy/audit recovery môže obnoviť zakázaný trust.
+
+## 10. Key lifecycle a cryptoperiod
+
+```text
+requirement a purpose
+→ generation/import
 → registration a activation
 → authorized use
-→ rotation / rekey / rewrap
-→ deactivation
-→ archival alebo recovery retention
-→ revocation pri compromise
+→ rotation alebo migration
+→ deactivation/revocation
+→ archival podľa recovery potreby
 → destruction
 ```
 
-Key creation bez retirement planu vedie k permanentne active keys. Deletion bez dependency mappingu môže spôsobiť irreversible data loss.
+Rotation pri routine expiry môže používať controlled overlap. Compromise potrebuje rýchle zastavenie new operations, removal trustu a posúdenie artifacts/sessions z exposure interval-u.
 
-Lifecycle events majú byť auditované a podľa impactu chránené separation of duties alebo delayed deletion.
+Key deletion bez dependency inventory môže spôsobiť irreversible data loss. Permanentne active key bez ownera a retirement planu vytvára hidden trust.
 
-## 18. Key generation
+## 11. At-rest layers
 
-Keys musia vzniknúť z approved cryptographically secure random source alebo approved derivation mechanismu. Timestamp, username, predictable PRNG a human-generated phrase nie sú vhodný raw key material.
+### Full-disk alebo volume encryption
 
-Generation environment musí chrániť seed, entropy source a output. Imported key potrebuje secure transfer a evidence originu.
+Chráni lost/offline media. Running host po unlocku vidí plaintext.
 
-Key size musí zodpovedať algorithmu a required security strength. „Viac bitov“ nevyrieši broken mode, nonce reuse alebo key exposure.
+### Database/TDE alebo object-storage encryption
 
-## 19. Cryptoperiod
+Chráni files, devices a vybrané backups. SQL principal alebo object API caller s read permission stále dostane plaintext.
 
-Cryptoperiod je obdobie alebo usage limit, počas ktorého key smie vykonávať operations. Závisí od algorithmu, data volume, threat exposure, protected-data lifetime a ability revoke.
+### Application/field-level encryption
 
-Session key môže žiť minúty. Database KEK roky s controlled rotation. Certificate private key má validity a operational lifecycle.
+Môže chrániť pred database operatorom a viazať tenant/object context. Application runtime a KMS authorization sa stávajú high-value boundary.
 
-Rotation interval bez usage a threat modelu je arbitrary compliance ritual. Naopak permanentný key zvyšuje accumulated exposure a incident scope.
+### Backup encryption
 
-## 20. Rotation, rekey, re-encryption a rewrap
+Backup potrebuje independent access, integrity, key retention a restore rehearsal. Encryption bez recoverable keyu nie je backup. Key dostupný rovnakému compromised production administratorovi znižuje isolation.
 
-**Rotation** aktivuje novú key version pre nové operations. **Rekey** nahrádza key alebo hierarchy. **Re-encryption** decryptuje data starým keyom a encryptuje novým. **Rewrap** ponechá DEK, ale wrapne ho novým KEK-om.
+## 12. Kubernetes encryption boundary
+
+Kubernetes Secret values sú base64 representation. API-layer encryption at rest musí byť explicitne configured. KMS v2 používa envelope model pre data uložené v etcd.
 
 ```text
-full re-encryption
-→ mení payload ciphertext a je drahšie
-
-DEK rewrap
-→ mení iba envelope a je lacnejšie
+etcd ciphertext
+→ chráni etcd/storage-only compromise
+→ API server authorized read decryptne object
+→ kubelet projektuje plaintext do Podu
+→ application alebo debug path môže key čítať
 ```
 
-Read path musí vedieť vybrať historical key version. Write path má používať current active version. Rotation bez version metadata spôsobí data loss alebo manual guessing.
+Zmena EncryptionConfiguration automaticky nepreukazuje rewrite existing objects. Provider order, data rewrite generation, old key retention a restore musia byť overené.
 
-## 21. Revocation a compromise
+At-rest encryption neodoberá RBAC `get/list/watch`, Pod-mount, exec, node alebo backup access.
 
-Compromise response nie je iba create new key:
+## 13. TLS in transit
+
+TLS poskytuje endpoint authentication, key establishment a record confidentiality/integrity:
 
 ```text
-zastaviť nové use compromised keyu
-→ identifikovať protected data, certificates a consumers
-→ určiť exposure interval
-→ revoke/disable a obmedziť sessions
-→ rekey, rewrap alebo re-encrypt
-→ redeploy consumers
-→ overiť starú cestu ako neplatnú
-→ zachovať audit evidence
+client validates certificate chain a hostname
+→ handshake vytvorí shared secrets
+→ session keys chránia application records
 ```
 
-Rotation obmedzí future impact, ale nevráti leaked plaintext. Signing-key compromise môže zneplatniť trust k artifacts vytvoreným počas exposure interval-u.
+Certificate chain bez hostname/SAN matchu neautentizuje intended service. Vypnuté hostname verification ponecháva active MITM path.
 
-## 22. Backup a key recovery
+TLS terminator je plaintext boundary. Re-encryption vytvára nový proxy–backend TLS session; passthrough nechá L4 intermediate bez plaintextu. Service mesh mTLS chráni iba paths, ktoré skutočne prechádzajú proxies a nie sú v permissive/plaintext mode.
 
-Encrypted backup je obnoviteľný iba spolu s keys, trust roots, KMS/HSM availability, IAM a configuration metadata.
+mTLS identifikuje endpoint key. Business authorization, tenant a initiating user stále rieši application policy.
 
-Restore test musí pokrývať historical key versions a disaster scenario. Backup stored v region-e A s key dostupným iba cez destroyed region-A control plane nie je recoverable design.
+## 14. TLS 1.3, forward secrecy a 0-RTT
 
-Key backup/escrow zvyšuje availability, ale vytvára ďalšiu compromise path. Split knowledge, quorum a offline storage môžu znižovať risk podľa use case-u.
+TLS 1.3 oddeľuje certificate authentication, ephemeral key agreement a AEAD record protection. Long-term certificate key nešifruje priamo celý traffic.
 
-## 23. Crypto-shredding
+Ephemeral key agreement poskytuje forward secrecy proti neskoršiemu compromise certificate keyu pre zaznamenané sessions. Nechráni endpoint compromised počas session ani plaintext logs.
 
-Crypto-shredding zneprístupní ciphertext zničením všetkých potrebných key copies. Je useful pre large encrypted datasets, kde physical overwrite každej replica nie je practical.
+0-RTT early data môže byť replayed. Payment approval, secret rotation, one-time grant alebo iná state-changing operation nemá byť defaultne povolená v 0-RTT bez application replay protection.
 
-Funguje iba pri úplnom key inventory. Backups, exports, caches, escrow alebo copied plaintext môžu zachovať alternate path.
+## 15. Signing a verification trust
 
-Deletion keyu musí byť deliberate, auditované a po retention checks. Accidental crypto-shredding je irreversible availability incident.
-
-## 24. Full-disk a volume encryption
-
-Full-disk encryption chráni device, keď je vypnutý alebo locked. Boot authentication odomkne volume a running OS vidí plaintext.
-
-Threaty, ktoré nerieši:
-
-- malware po login-e;
-- root/admin access;
-- application authorization flaws;
-- plaintext network transfer;
-- copied backups mimo encrypted volume.
-
-Volume encryption v cloud storage chráni media a snapshots podľa provider boundary. KMS access model určuje, kto môže attach/read volume.
-
-## 25. File, record a field encryption
-
-Jemnejšia granularita umožňuje oddeliť data sets a identities. File encryption chráni individual object, record/field encryption môže viazať key na tenant alebo data class.
-
-Trade-offs sú key lookup, query/index support, rotation, migration, backup consistency a application complexity.
-
-Granularity má nasledovať threat boundary. Encrypt každý field vlastným keyom bez operational tooling môže zhoršiť reliability viac než security zlepší.
-
-## 26. Database encryption
-
-Transparent Data Encryption chráni database files, WAL/transaction logs a backups pred storage-level compromise. Database engine decryptuje pages pre authorized operations.
-
-TDE nechráni pred SQL accountom s `SELECT`, compromised database processom ani application accountom s broad access.
-
-Application-level field encryption môže skryť plaintext pred database administrators a replicas, ale application/KMS boundary sa stane kritickou. Queries, indexes a analytics sa komplikujú.
-
-## 27. Deterministic encryption
-
-Randomized encryption vytvára pre rovnaký plaintext rozdielny ciphertext. Lepšie skrýva equality patterns.
-
-Deterministic encryption umožňuje equality lookup, ale rovnaké plaintexty majú rovnaký ciphertext. Attacker vidí frequency a pri small domain môže hodnoty enumerate-nuť.
-
-Použitie musí byť explicitný trade-off s domain-size analysis a access controls. Nie je to default pre convenience search.
-
-## 28. Object storage, snapshots a backups
-
-Data-copy graph zahŕňa live objects, replicas, versions, snapshots, cross-region copies, exports a lifecycle archives.
-
-Encryption policy musí byť konzistentná cez celý graph. Primary bucket s customer-managed key nepomôže, ak export job uloží plaintext do analytics bucketu.
-
-Key disable/delete môže zneprístupniť všetky copies. Lifecycle policy a retention musia byť coordinated s key lifecycle-om.
-
-## 29. Logs, caches a temporary data
-
-Plaintext často uniká do debug logs, traces, metrics labels, search indexu, Redis cache, temporary file-u, swapu, core dumpu, dead-letter queue alebo CI artifactu.
-
-Data-flow inventory má zahrnúť derived a transient copies. „Database is encrypted“ nie je statement o celom data lifecycle.
-
-Redaction má prebehnúť pred telemetry exportom. Encrypted observability backend nechráni sensitive value pred broad dashboard userom.
-
-## 30. Multi-tenant encryption
-
-Tenant-specific keys môžu zmenšiť blast radius a podporiť crypto-shredding tenant data. Potrebujú stable tenant identity, key hierarchy, quotas a recovery.
-
-Jedna global application key je jednoduchšia, ale compromise zasiahne všetkých tenants. Key-per-record môže byť operationally expensive.
-
-AAD má viazať ciphertext na tenant a object context. Application authorization stále musí overiť, či caller smie požiadať o decrypt.
-
-## 31. Data in use
-
-Po decrypt-e sa plaintext nachádza v process memory a môže byť dostupný debuggeru, memory dumpu, compromised dependency alebo injection útoku.
-
-Controls zahŕňajú least privilege, process isolation, minimal plaintext lifetime, memory-safe code, disabling unsafe dumps, protected enclaves podľa threat modelu a strict logging.
-
-Confidential computing môže chrániť memory pred určitými host/hypervisor threats, ale neprenáša automaticky trust do application code-u. Remote attestation a key release policy sú ďalšie boundaries.
-
-## 32. TLS security model
-
-TLS chráni application traffic medzi two endpoints. Poskytuje server authentication, optional client authentication, key establishment a record confidentiality/integrity.
+Digital signature acceptance lifecycle:
 
 ```text
-client validates server certificate a hostname
-→ handshake establishes shared secrets
-→ session keys are derived
-→ AEAD protects application records
+artifact class a signer identity
+→ exact signing key/purpose generation
+→ private-key authorization
+→ signature nad canonical subjectom/contextom
+→ public-key publication pod trusted identity
+→ verifier key, algorithm a subject binding
+→ semantic authorization
 ```
 
-TLS endpoint je plaintext boundary. Reverse proxy môže decryptnúť external TLS a poslať plaintext backendu, ak internal leg nie je chránený.
+Signature verification sama nepreukazuje správny issuer, entity, environment alebo purpose. OIDC potrebuje `iss`/`aud`; SAML potrebuje entity/metadata/audience/recipient. Shared verification key bez identity bindingu je incomplete trust model.
 
-## 33. TLS 1.3 handshake
+## 16. Worked failure — encryption green, trust boundary broken
 
-TLS 1.3 odstraňuje legacy algorithms a skracuje handshake. ClientHello ponúkne protocol/cipher parameters a key share. ServerHello vyberie parameters a key share; parties odvodia handshake secrets.
+Atlas cluster používal Kubernetes KMS v2 encryption at rest. API server, kubelet a IdP traffic používali TLS s validnými certificates. Storage a transport controls boli technicky účinné.
 
-Server posiela certificate a CertificateVerify signature, ktorou dokazuje control private keyu nad handshake transcriptom. Finished messages overujú integrity handshake-u.
-
-Po úspechu parties odvodia application traffic secrets. Certificate iba viaže public key na identity claims; client musí validovať chain, validity, hostname a usage.
-
-## 34. Certificate chain a trust store
-
-Server certificate je podpísaný intermediate CA, ktorá chainuje k trusted root v client trust store. Root sa zvyčajne neposiela a je trust bootstrap.
-
-Validation zahŕňa:
-
-- signatures v chain-e;
-- validity periods;
-- hostname/SAN match;
-- key usage a extended key usage;
-- basic constraints;
-- algorithm policy;
-- revocation/status policy podľa environmentu.
-
-Installing private CA root do broad trust store dáva tejto CA authority nad všetky relevantné names. Root distribution je high-impact change.
-
-## 35. Hostname validation
-
-Valid certificate chain pre `example.com` nesmie autentizovať `payments.internal`, ak SAN neobsahuje expected name.
-
-Client, ktorý vypne hostname verification, chráni traffic iba proti passive observerovi, nie proti active MITM s ľubovoľným trusted certificate-om.
-
-IP access, wildcard certificates a service aliases potrebujú explicitný identity design. SNI určuje requested server name počas connection setupu, ale nie je replacement za certificate validation.
-
-## 36. mTLS
-
-Mutual TLS vyžaduje certificate od servera aj clienta. Obe strany cryptographically autentizujú endpoint key.
-
-mTLS poskytuje service/device identity a encrypted channel, ale neurčuje business permissions, tenant scope ani user delegation. Application alebo proxy policy mapuje certificate identity na actions/resources.
-
-Certificate issuance a rotation sú kritické. Long-lived shared client certificate znižuje attribution a revocation granularity.
-
-## 37. TLS termination, re-encryption a passthrough
-
-**Termination** decryptuje TLS na load balanceri/proxy. Backend leg môže byť plaintext alebo nový TLS session.
-
-**Re-encryption** vytvorí separate TLS connection proxy → backend. Chráni internal transit, ale proxy stále vidí plaintext.
-
-**Passthrough** prenáša encrypted stream k backendu bez decryption na intermediate L4 component-e. Znižuje proxy visibility a L7 routing capabilities.
-
-Vyber podľa plaintext boundary, inspection, certificate ownership, network threat a operational requirements.
-
-## 38. Forward secrecy
-
-Forward secrecy znamená, že neskorší compromise long-term certificate private keyu neumožní decrypt historical sessions, ak attacker iba zaznamenal traffic a sessions použili ephemeral key agreement.
-
-TLS 1.3 bežne používa ephemeral (EC)DHE. Long-term key autentizuje handshake, ale session secret závisí od ephemeral private values, ktoré sa po use zahodia.
-
-Forward secrecy nechráni sessions, ak endpoint bol compromised počas session alebo plaintext bol logovaný.
-
-## 39. Session resumption a tickets
-
-TLS resumption znižuje handshake latency použitím PSK odvodeného z previous session alebo session ticketu.
-
-Ticket encryption keys sa stávajú security assets. Shared keys across fleet umožnia resumption na viacerých servers, ale zväčšia blast radius.
-
-Ticket lifetime a rotation ovplyvňujú forward secrecy a revocation. Certificate revoke nemusí okamžite ukončiť already established/resumable sessions podľa implementation.
-
-## 40. TLS 1.3 0-RTT
-
-0-RTT umožňuje clientovi poslať early data pri resumed session pred dokončením full handshake-u. Znižuje latency, ale early data môže byť replayed.
-
-Používaj iba pre idempotentné operations alebo implementuj application-level replay protection. Payment, state change alebo one-time token exchange nie sú bezpečný default pre 0-RTT.
-
-Server môže 0-RTT odmietnuť a client musí request retry-nuť podľa protocol semantics.
-
-## 41. TLS downgrade a legacy protocols
-
-Protocol downgrade vzniká, keď attacker alebo misconfiguration prinúti endpoints použiť slabšiu version/cipher. Disable unsupported legacy versions a weak algorithms.
-
-Compatibility fallback musí byť explicitný a monitored. „Temporary TLS 1.0 endpoint“ bez ownera a expiry sa stáva permanentným riskom.
-
-Cipher suite name v TLS 1.3 opisuje record AEAD/hash, nie certificate a key-exchange algorithm rovnakým spôsobom ako legacy TLS naming.
-
-## 42. Secret a certificate rotation
-
-Certificate rotation zahŕňa new key/certificate issuance, distribution, overlap, activation a removal old identity.
-
-Overlap zabraňuje outage-u pri distributed rollout-e. Consumer trust a server cert changes musia byť coordinated.
-
-Rotation testuj pred expiry. Alert na 30 dní nestačí, ak manual approval, HSM ceremony alebo device update trvá dlhšie.
-
-Private key compromise vyžaduje revocation/deny, replacement a investigation issued signatures/sessions, nie iba renewal.
-
-## 43. Service mesh mTLS
-
-Service mesh môže automatizovať workload certificates a mTLS medzi proxies. Znižuje manual certificate management a poskytuje service identity.
-
-Mesh nešifruje traffic, ktorý proxy bypassuje, host-network process alebo external path mimo mesh. Permissive mode môže akceptovať plaintext a znižovať assurance.
-
-Application authorization, tenant scope a compromised proxy/node threats zostávajú. Mesh identity issuance a trust domain patria do threat modelu.
-
-## 44. Kubernetes data at rest
-
-Kubernetes API resources sú v etcd bez additional API-layer encryption, ak encryption configuration používa default `identity` provider. Base64 v Secret manifeste nie je encryption.
-
-EncryptionConfiguration určuje resource types a providers. Existing data sa po zmene configuration automaticky neprepíšu; treba controlled rewrite.
-
-Local raw key v control-plane config chráni proti etcd-only compromise, ale host compromise môže získať key. KMS provider oddeľuje KEK do external service a používa envelope encryption.
-
-KMS v2 je stable od Kubernetes v1.29 a je preferovaný oproti deprecated KMS v1. KMS outage a cached DEKs majú explicitné availability/revocation semantics.
-
-## 45. Kubernetes Secrets boundary
-
-At-rest encryption chráni etcd storage, nie authorized API reads ani Pod access. RBAC `get`, `list` alebo `watch` Secrets je high-impact permission.
-
-Workload môže získať Secret cez environment alebo volume; plaintext potom existuje v process environment/filesystem. Rotation vyžaduje update source, projection/reload a consumer behavior.
-
-Node compromise môže odhaliť mounted secrets a workload memory. External secret provider alebo short-lived workload identity môže zmenšiť static secret exposure, ale pridáva availability dependency.
-
-## 46. CI/CD a artifact encryption
-
-CI logs, caches, artifacts a runner workspaces môžu obsahovať plaintext secrets alebo sensitive build outputs. Encryption backendu nerieši broad job access.
-
-Build secrets používaj cez ephemeral secret mounts alebo identity federation. Nezapisuj ich do image layers, environment dumps ani provenance parameters.
-
-Artifact encryption môže chrániť private binaries pri distribution, ale release consumer potrebuje key distribution a signature verification. Encryption nenahrádza artifact integrity a provenance.
-
-## 47. Cryptographic agility
-
-Crypto agility je schopnosť inventarizovať algorithms/keys/protocols a migrovať ich bez uncontrolled outage alebo data loss.
-
-Potrebuje:
-
-- cryptographic inventory;
-- versioned algorithm identifiers;
-- pluggable protocols/formats;
-- dual-read/dual-trust migration;
-- re-encryption/re-signing strategy;
-- compatibility tests;
-- deprecation policy;
-- ownerov a timelines.
-
-Hardcoded algorithm bez metadata komplikuje future migration. Data format musí vedieť, ktorou version/key bolo encrypted.
-
-## 48. Post-quantum migration
-
-Quantum-capable adversary by ohrozil widely used public-key algorithms pre key establishment a signatures. Symmetric algorithms potrebujú appropriate strength, ale hlavná migration sa týka public-key cryptography.
-
-NIST v roku 2024 finalizoval FIPS 203 ML-KEM pre key establishment a FIPS 204/205 pre signatures. Adoption vyžaduje protocol a ecosystem support, performance testing, certificate/PKI decisions a inventory.
-
-„Harvest now, decrypt later“ znamená, že long-lived sensitive traffic zachytený dnes môže byť targetom future decryption. Migration priority závisí od data confidentiality lifetime.
-
-Hybrid classical + post-quantum mechanisms môžu znížiť transition risk, ale musia byť štandardne a bezpečne kombinované, nie ručne concatenate-nuté bez protocol analysis.
-
-## 49. Cryptographic failure modes
-
-Časté failures:
-
-- nonce reuse;
-- missing tag validation;
-- hardcoded/shared keys;
-- wrong AAD serialization;
-- broad decrypt permissions;
-- key deletion before data retention end;
-- certificate hostname validation disabled;
-- plaintext backend leg;
-- stale trust store;
-- unsupported legacy protocol fallback;
-- backups bez keys alebo keys bez backups;
-- secret leakage do logs/memory dumps;
-- rotation, ktorá neaktualizuje consumers.
-
-Cryptographic error message má byť diagnostikovateľná pre operatora, ale nemá vytvárať detailed oracle pre attacker-a.
-
-## 50. Incident response
-
-Pri key/certificate compromise:
+Napriek tomu `FED-SIGN-07` unikol:
 
 ```text
-identifikovať key a purpose
-→ zastaviť nové operations
-→ určiť consumers, protected data a exposure interval
-→ revoke/disable a zablokovať sessions
-→ rotate/rekey/rewrap/re-encrypt
-→ redeploy a reload consumers
-→ hunt plaintext leakage alebo forged artifacts
-→ overiť staré credentials ako neplatné
-→ zachovať audit evidence
+KMS decrypt pre authorized API server
+→ authorized Secret read pre kubelet
+→ authorized projection do attacker-created Podu
+→ plaintext private key file
+→ key copy mimo cluster
 ```
 
-Pri storage ciphertext leak-u posúď, či key boundary ostala intact, algorithms/nonce usage sú validné a data lifetime odôvodňuje future cryptanalytic risk.
+Key bol navyše použitý pre staging aj production a pre OIDC aj SAML. Attacker therefore získal signing authority naprieč štyrmi trust subjects.
 
-## 51. Kompletný príklad envelope encryption
+Production verifiers overili signatures, ale OIDC RP neoverilo exact issuer a SAML SP neviazalo key na exact metadata entity. `Encryption enabled` tak chránilo storage a packet path, ale nie authorization, plaintext runtime ani key-purpose separation.
 
-Multi-tenant application ukladá tax documents.
+## 17. Competing hypotheses a discriminating evidence
 
-1. Application vygeneruje random DEK pre document.
-2. Encryptne document cez AEAD; AAD obsahuje tenant ID, document ID a schema version.
-3. Pošle DEK do KMS `Encrypt/Wrap` s rovnakým encryption contextom.
-4. Uloží ciphertext, nonce, tag, wrapped DEK a key version.
-5. Read request prejde tenant authorization.
-6. Application požiada KMS o unwrap s expected contextom.
-7. Plaintext existuje iba krátko v process memory a nie je logovaný.
-8. KEK rotation rewrapne DEKs bez full document re-encryption.
-9. Incident disable keyu zablokuje new decrypt a audit ukáže affected tenants/documents.
-10. Restore test overí historical wrapped DEKs, KMS policy a backup consistency.
+Hypotézy:
 
-## 52. Troubleshooting
+1. KMS master-key compromise;
+2. etcd ciphertext decryptnutý offline;
+3. TLS interception;
+4. weak RSA algorithm;
+5. private key export z authorized Pod pathu;
+6. verifier trust-binding defect.
 
-Pri decrypt failure postupuj:
+Evidence:
+
+- KMS audit neukázal attacker principal ani unauthorized cryptographic request;
+- etcd remained ciphertext a storage snapshot neunikol;
+- TLS certificate/hostname validation bola successful;
+- private-key fingerprint z incident copy sedel s projected Secretom;
+- Kubernetes audit dokázal Pod create, mount a exec chain;
+- rovnaký public key bol v staging/prod JWKS a SAML metadata;
+- production sessions prijali artifacts s wrong issuer/entity.
+
+Root cause je shared exportable key a incomplete authorization/trust binding. KMS/TLS neboli broken; chránili iné threat boundaries.
+
+## 18. Evidence-preserving containment
+
+- disable new signing operations `FED-SIGN-07`;
+- odstrániť key z verifier trustu podľa coordinated emergency procedure;
+- quarantine workloads, ServiceAccounts a nodes involved v plaintext access path-e;
+- preserve-nuť key fingerprint, KMS/API/kubelet audit, Pod UID, trust metadata/JWKS generations a session artifacts hashes;
+- revoke-nuť affected OIDC/SAML sessions a downstream credentials;
+- neodstrániť old public key bez inventory historical verification/recovery requirement;
+- neprepnúť transport alebo signature validation do insecure compatibility mode.
+
+## 19. Authoritative recovery
+
+1. vytvoriť independent non-exportable keys per environment a protocol purpose;
+2. zúžiť KMS/HSM `Sign` policy na exact issuer workload identity;
+3. odstrániť private-key Secret projection, ak signing service/HSM supports required protocol;
+4. publikovať new OIDC JWKS a SAML metadata s bounded overlapom;
+5. overiť loaded signer generation na každej issuer replica;
+6. overiť loaded verifier generation na každej RP/SP replica;
+7. odstrániť old key z signing aj trust paths;
+8. revoke-nuť sessions/artifacts z exposure interval-u;
+9. testovať storage restore, key hierarchy recovery a emergency disable;
+10. vykonať second rotation bez cross-purpose reuse.
+
+## 20. Acceptance verdict
+
+- etcd backup bez KMS authorization zostáva nečitateľný;
+- authorized API read stále podlieha least privilege a indirect Pod tests;
+- old `FED-SIGN-07` nedokáže vytvoriť accepted OIDC ani SAML artifact;
+- each environment/protocol akceptuje iba vlastný key a identity context;
+- wrong nonce/AAD/tag, key version alebo signature context zlyhá;
+- TLS client odmietne wrong hostname, chain a plaintext fallback;
+- new signing keys zostávajú non-exportable a audit ukazuje exact workload actor-a;
+- backup/restore zachová current data bez resurrectovania revoked trust;
+- second key rollover prejde bez outage-u a bez old-key acceptance;
+- pôvodný settlement workflow funguje a forged/cross-environment paths zlyhávajú.
+
+## 21. Troubleshooting flow
+
+### Decrypt alebo verify failure
 
 ```text
-ciphertext a format version
-→ key ID/version a state
-→ nonce/tag/AAD
+asset/artifact a format generation
+→ algorithm/mode/purpose
+→ key ID/version/state
+→ nonce/tag/AAD alebo signed subject
 → caller identity a authorization
-→ KMS/HSM availability
-→ serialization/canonicalization
-→ historical migration state
+→ KMS/HSM/store availability
+→ consumer loaded generation
+→ semantic identity/resource binding
 ```
 
-Pri TLS failure:
+### TLS failure
 
 ```text
 DNS a endpoint
@@ -608,69 +376,95 @@ DNS a endpoint
 → hostname/SAN
 → validity/time
 → trust store
-→ mTLS client certificate
+→ mTLS identity
 → ALPN/application protocol
 ```
 
-Pri Kubernetes decryption over EncryptionConfiguration provider order, key/KMS availability, data rewrite state a API server logs. Neodstraňuj old provider/key, kým všetky historical records neboli migrované a verified.
+### Kubernetes at-rest failure
 
-## 53. Časté anti-patterny
+```text
+EncryptionConfiguration/provider order
+→ API server loaded generation
+→ KMS plugin health/policy
+→ object ciphertext prefix
+→ existing-object rewrite state
+→ old key/provider retention
+→ restore read-back
+```
 
-**Base64 equals encryption.** Representation sa zamieňa za confidentiality.
+## 22. Crypto agility a post-quantum planning
 
-**AES-256 checkbox.** Mode, nonce, tag, key lifecycle a authorization sa ignorujú.
+Crypto agility znamená inventory algorithms, protocols, keys a protected data a schopnosť vykonať dual-trust/dual-read migration bez uncontrolled outage alebo data loss.
 
-**Key vedľa ciphertextu s rovnakým accessom.** Separation je iba vizuálna.
+NIST FIPS 203, 204 a 205 štandardizujú ML-KEM, ML-DSA a SLH-DSA. Adoption nie je simple algorithm toggle. Potrebuje protocol support, key/certificate formats, performance, interoperability, inventory a data-confidentiality lifetime analysis.
 
-**TDE equals application authorization.** SQL principal stále číta plaintext.
+Hardcoded algorithm alebo key without format version komplikuje akúkoľvek future migration, nielen post-quantum transition.
 
-**TLS everywhere, hostname verification off.** Active MITM zostáva možný.
+## 23. Earlier controls
 
-**One key for all tenants/environments.** Compromise má maximal blast radius.
+- cryptographic inventory s ownerom, purpose a consumers;
+- independent keys per environment, tenant a protocol;
+- non-exportable private keys pre high-impact signing;
+- encryption context/AAD a nonce tests;
+- verifier tests pre wrong identity s valid signature;
+- TLS hostname a plaintext-leg canaries;
+- KMS policy a indirect Kubernetes access analysis;
+- key rollover, emergency disable a restore rehearsal;
+- old-key forbidden-path test po každej migration.
 
-**Rotation without historical read plan.** Data sa stanú nečitateľné.
+## 24. Anti-patterny
 
-**Encrypted backup without recovery keys.** Confidential, ale unrecoverable.
+### Base64 je encryption
 
-**KMS as magic security.** Compromised authorized application stále decryptuje.
+Je to iba representation.
 
-## 54. Kontrolné otázky
+### AES-256 checkbox
 
-1. Ako sa líšia data at rest, in transit a in use?
-2. Prečo threat model predchádza výberu algoritmu?
-3. Ako sa encryption, hash, MAC a signature líšia?
-4. Čo poskytuje AEAD a akú úlohu má AAD?
-5. Prečo je nonce reuse pri AES-GCM kritické?
-6. Ako funguje envelope encryption?
-7. Ako sa líšia KMS a HSM?
-8. Čo musí obsahovať key inventory a lifecycle?
-9. Ako sa rotation líši od re-encryption a rewrap?
-10. Čo treba urobiť pri key compromise okrem rotation?
-11. Aké threats rieši full-disk encryption a ktoré nie?
-12. Prečo TDE nechráni pred authorized SQL principalom?
-13. Aké leakage prináša deterministic encryption?
-14. Ako TLS 1.3 autentizuje server a chráni records?
-15. Prečo valid certificate chain bez hostname validation nestačí?
-16. Čo mTLS dokazuje a čo neurčuje?
-17. Kedy zvoliť termination, re-encryption alebo passthrough?
-18. Aké riziko má TLS 1.3 0-RTT?
-19. Ako funguje Kubernetes KMS envelope encryption?
-20. Navrhni crypto-agility a PQC migration plan pre long-lived data.
+Mode, nonce, tag, key authorization a plaintext boundary zostávajú.
+
+### KMS/HSM vyrieši compromised application
+
+Authorized malicious operation môže byť stále úspešná.
+
+### TLS všade, hostname verification vypnuté
+
+Active MITM zostáva možný.
+
+### Jeden key pre viac purposes a environments
+
+Compromise prekročí trust domains.
+
+### Key rotated = old trust odstránený
+
+Verifiers, sessions, backups a caches môžu old generation stále používať.
+
+## 25. Kontrolné otázky
+
+1. Ako sa encryption, hash, MAC a signature líšia?
+2. Aké threats riešia at-rest, in-transit a in-use controls?
+3. Prečo AEAD potrebuje správny nonce a AAD?
+4. Ako DEK, KEK, rewrap a rekey súvisia?
+5. Čo KMS a HSM chránia a čo nie?
+6. Prečo key purpose a environment separation znižujú blast radius?
+7. Čo je plaintext boundary pri TLS a Kubernetes Secret-e?
+8. Prečo valid signature nepreukazuje správny issuer alebo entity?
+9. Ako sa routine rotation líši od compromise revocation?
+10. Čo musí overiť cryptographic acceptance verdict?
 
 ## Glossary impact
 
-Relevantné pojmy: plaintext, ciphertext, data at rest, data in transit, data in use, authenticated encryption, AEAD, nonce, initialization vector, authentication tag, Additional Authenticated Data, symmetric cryptography, asymmetric cryptography, hybrid cryptography, key separation, Data Encryption Key, Key Encryption Key, envelope encryption, key wrapping, Key Management Service, Hardware Security Module, key inventory, cryptoperiod, key rotation, rekey, re-encryption, rewrap, key revocation, key recovery, crypto-shredding, full-disk encryption, Transparent Data Encryption, deterministic encryption, TLS 1.3, certificate chain, trust store, hostname validation, mutual TLS, TLS termination, re-encryption, TLS passthrough, forward secrecy, session resumption, 0-RTT, Kubernetes EncryptionConfiguration, Kubernetes KMS v2, crypto agility, post-quantum cryptography a ML-KEM.
+Relevantné pojmy: cryptographic protection subject, plaintext boundary, key-purpose generation, cross-environment key reuse, non-exportable key boundary, verifier trust generation, cryptographic acceptance verdict, old-key forbidden path, rewrap/rekey distinction a protection-state verdict.
 
 ## Primárne zdroje
 
 - [NIST SP 800-57 Part 1 Rev. 5 — Key Management](https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final)
 - [NIST SP 800-38D — GCM and GMAC](https://csrc.nist.gov/pubs/sp/800/38/d/final)
-- [RFC 8446 — TLS 1.3](https://datatracker.ietf.org/doc/html/rfc8446)
-- [RFC 9325 — Recommendations for Secure Use of TLS and DTLS](https://datatracker.ietf.org/doc/html/rfc9325)
-- [Kubernetes Encrypting Confidential Data at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
-- [Kubernetes KMS Provider](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/)
-- [NIST FIPS 203 — ML-KEM](https://csrc.nist.gov/pubs/fips/203/final)
-- [NIST Post-Quantum Cryptography Standards](https://csrc.nist.gov/News/2024/postquantum-cryptography-fips-approved)
+- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446)
+- [Kubernetes encrypting confidential data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+- [Kubernetes KMS provider](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/)
+- [FIPS 203 — ML-KEM](https://csrc.nist.gov/pubs/fips/203/final)
+- [FIPS 204 — ML-DSA](https://csrc.nist.gov/pubs/fips/204/final)
+- [FIPS 205 — SLH-DSA](https://csrc.nist.gov/pubs/fips/205/final)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
