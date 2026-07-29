@@ -78,6 +78,10 @@ Recovery Point Objective vyjadrený voči business operations, ktoré už systé
 
 State transition, po ktorej service callerovi tvrdí, že operation alebo intent bol prijatý, committed alebo dokončený a preto musí mať definované retry, durability a recovery semantics. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
+## Acknowledgement level
+
+Explicitný stupeň evidence, napríklad socket receipt, durable intent, broker responsibility, local consumer commit, external effect alebo final reconciled outcome. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## ACL — Access Control List
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
@@ -886,6 +890,14 @@ Dôkazy a miera dôvery, že navrhnuté security controls sú správne implement
 
 Stav, keď forward a return traffic rovnakého flow používajú rozdielne network paths. Pozri [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md).
 
+## Async-over-sync
+
+Asynchronous top-level workflow, ktorého worker vykonáva synchronous dependency call a potrebuje vlastný deadline, cancellation, retry a unknown-outcome contract. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
+## Asynchronous communication
+
+Interaction, pri ktorej immediate acknowledgement oddeľuje prijatie intentu od neskoršieho final outcome-u; vyžaduje durable acceptance, status/result visibility, retry a reconciliation. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Asynchronous replication
 
 Replication policy, pri ktorej primary môže potvrdiť commit pred required acknowledgementom replica-y; znižuje write latency coupling, ale môže vytvoriť non-zero RPO pri permanentnej strate primary. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
@@ -893,6 +905,14 @@ Replication policy, pri ktorej primary môže potvrdiť commit pred required ack
 ## Asyncio
 
 Python framework pre cooperative asynchronous I/O založený na event loop-e, coroutines a tasks. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## At-least-once delivery
+
+Delivery semantics, pri ktorej message môže byť redelivered, kým broker nedostane acknowledgement; duplicate delivery je normálna failure podmienka. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## At-most-once delivery
+
+Delivery semantics, pri ktorej message nemusí byť retryovaná a môže sa stratiť, ale system sa zámerne vyhýba redelivery. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## Atomic publication — GitLab registry
 
@@ -1606,6 +1626,10 @@ Incident action s exact subjectom, ownerom, hypothesis, scope-om, expected obser
 
 Jeden obmedzený, rekonštruovateľný krok control loopu, napríklad ensure finalizer, create/adopt external resource, update owned fields alebo verify cleanup, po ktorom sa state znovu pozoruje. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Bounded stale use
+
+Explicitne povolené použitie starej generation počas definovaného času a scenára, s forbidden values/operations a authority fallbackom. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Bounded telemetry failure
 
 Failure contract, pri ktorom telemetry export, buffering alebo backend outage nespôsobí nekontrolované blokovanie business threadu ani vyčerpanie application resources. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -1661,6 +1685,10 @@ Odstránenie connection z poolu po network/protocol/transaction ambiguity namies
 ## Broken main
 
 Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality gates a nemá byť považovaná za dôveryhodný integračný základ. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
+## Broker responsibility boundary
+
+Stav, po ktorom broker publication prijal a chráni podľa konkrétnej leader/replication/queue policy, bez tvrdenia o downstream business completion. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## Brownout
 
@@ -1862,9 +1890,21 @@ Telemetry alebo validation merajúca final caller-visible či business-visible c
 
 Exact business capability, primary/recovery account a Region, application/data/trust generations, RTO, RPO, minimálna capacity a forbidden outcomes použité na DR rozhodovanie. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Cache acceptance verdict
+
+Dôkaz, že key identity, generations, freshness, invalidation, eviction, failure fallback a mutation/failover/second-read tests chránia správny business outcome. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
+## Cache-aside
+
+Pattern, pri ktorom application najprv číta cache a pri miss-e číta authority a následne cache naplní. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
+## Cache authority boundary
+
+Explicitné rozhodnutie, či cache je odvodená optimization, coordination state alebo durability/authority boundary a ktoré outcomes smie určovať. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Cache authority inversion
 
-Failure mode, pri ktorom cache hit/miss/TTL alebo eviction začne rozhodovať o authoritative business existencii alebo external side effecte namiesto zrýchľovania authority lookupu. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+Failure model, pri ktorom evictable alebo incomplete cache hit/miss začne rozhodovať o authoritative business existence alebo side effecte. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## cache behavior — CloudFront
 
@@ -1896,7 +1936,7 @@ Stav, keď zmena instruction, parent resultu alebo relevantného inputu zmení c
 
 ## Cache key
 
-Identifikátor cache odvodený zo všetkých významných vstupov, napríklad OS, architecture, toolchain version, lockfile hash a build configuration. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+Identity cached representation-u obsahujúca všetky dimensions, ktoré menia result a isolation scope. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## cache key — CloudFront
 
@@ -1922,6 +1962,14 @@ Trust-boundary failure, pri ktorom nedôveryhodný writer ovplyvní shared build
 
 Policy určujúca cache-key inputs a minimum, default a maximum TTL pre CloudFront cache behavior. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Cache stampede
+
+Súbežný authority load po expiry/miss populárneho keyu, keď veľa callers vykoná rovnaký fill. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
+## Cache subject
+
+Exact cached value, authoritative owner/generation, cache layer, key/variants, freshness, invalidation, failure, fallback a business tolerance. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Cache-sync boundary — Kubernetes controller
 
 Prechod, pri ktorom controller potvrdí initial list/informer synchronization pred spustením workers alebo leader-ready behavior; nedodržanie môže interpretovať neúplnú cache ako chýbajúci state. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -1933,6 +1981,10 @@ Samostatné rozhodnutie potvrdzujúce, že cached result pochádza z povoleného
 ## Cache trust namespace — GitLab CI
 
 Oddelený cache key/prefix a write policy podľa trust contextu, napríklad fork, non-protected, protected alebo release. Zabraňuje tomu, aby menej dôveryhodný writer ovplyvnil citlivejší build. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Cache validator
+
+Metadata ako generation, ETag alebo version umožňujúca overiť equivalence cached representation-u s authority. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## Calendar versioning
 
@@ -1978,6 +2030,10 @@ Obmedzený Organizations scope používaný na staged policy a baseline validati
 
 Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľov s porovnávaním technických a business signálov pred širšou promotion. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Cancellation boundary
+
+Bod oddeľujúci prácu, ktorú možno bezpečne zastaviť, od už commitnutých, external alebo iba compensatable/reconcileable effects. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Candidate integration state
 
 Presný výsledný source tree, ktorý by po integrácii vznikol, typicky reprezentovaný synthetic merge alebo merge-queue SHA a overovaný proti aktuálnemu targetu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
@@ -2013,6 +2069,10 @@ Explicitný zoznam kernel, filesystem, network, device, host a API operations, k
 ## Capability — Linux capability
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
+
+## Capability readiness
+
+Eligibility endpointu prijímať nový traffic pre exact operation a contract, nie iba process liveness alebo generic HTTP health. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
 
 ## Capability target — secret
 
@@ -2450,6 +2510,10 @@ Domain controller, KDC alebo Global Catalog vybraný konkrétnym clientom cez DN
 
 Presný request/connection path od client Podu a Node-u cez Service VIP a node dataplane ku konkrétnemu endpointu a reverse pathu. Pozri [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md).
 
+## Client-side discovery
+
+Model, pri ktorom client načíta endpoint inventory a sám vykonáva selection, refresh a load balancing. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## `CLOSE-WAIT`
 
 TCP state, v ktorom remote peer poslal FIN, ale lokálna aplikácia ešte nezavrela socket. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -2766,6 +2830,10 @@ Rast počtu telemetry identities spôsobený kombináciou viacerých dimensions,
 
 Spoločná identita hybridného release-u viažuca Terraform plan/state/resource inventory, publikovanú host-contract generation, Ansible run subject, expected/verified fleet a application-runtime verification. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Command
+
+Správa žiadajúca konkrétneho ownera vykonať business transition; má recipienta, stable identity a očakávaný outcome. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Command continuity
 
 Zachovanie incident objective, roles, state, decisions, risks a authority počas shift, geography alebo personnel handoffu. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
@@ -2785,6 +2853,14 @@ Git object obsahujúci root tree snapshotu, parent commits, author/committer met
 ## Commitment baseline — AWS cost
 
 Forecast stabilného useful eligible usage po odstránení incident, retry, migration a temporary waste, používaný pred Savings Plan alebo reservation purchase. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Communication acceptance verdict
+
+Dôkaz, že immediate/final outcomes, deadlines, cancellation, acknowledgements, status visibility, retries a second-attempt/dependency-failure scenarios tvoria truthful communication contract. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
+## Communication subject
+
+Exact logical operation, caller/callee generations, immediate a final outcomes, deadline, cancellation, acknowledgement, retry identity, result visibility a recovery scope analyzovanej communication hranice. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
 ## Compatibility dimension
 
@@ -3038,6 +3114,10 @@ Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej
 
 Explicitný contract určujúci, ktoré workload, identity, data a management operations pokračujú, fail-closed alebo sa bufferujú pri strate WAN alebo central cloud control plane-u. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
+## Connection convergence
+
+Čas a dôkaz, že DNS caches, proxies, pools a long-lived connections prestali používať old endpoint/route generation. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## Connection draining
 
 Postup, pri ktorom sa backendu prestane posielať nový traffic, ale existujúce requests alebo connections dostanú čas na dokončenie. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -3098,9 +3178,21 @@ Gatekeeper resource definujúci reusable validation logic a parameter schema pre
 
 Inventory transformation model vytvárajúci derived variables a groups z existujúcich host metadata pomocou expressions a grouping pravidiel. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
+## Consumer acknowledgement
+
+Consumer-to-broker signal, že delivery možno považovať za spracovanú podľa application contractu; musí nasledovať po required durable outcome-e. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Consumer-driven contract
 
 Kontrakt definovaný consumerom podľa interactions, ktoré reálne potrebuje, a overovaný providerom v jeho pipeline. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## Consumer generation
+
+Version alebo epoch aktuálneho assignmentu, používaná na odmietnutie stale consumer ownershipu a commitov. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## Consumer group
+
+Logical subscription, v ktorej broker prideľuje partitions alebo deliveries aktívnym consumers a riadi ich ownership/rebalance. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## Consumer inventory — Terraform module
 
@@ -3297,6 +3389,10 @@ Priebežné prepájanie architecture decisions, deployment evidence, SLO/securit
 ## Contract drift
 
 Rozdiel medzi správaním test double alebo dokumentovaného kontraktu a skutočnou dependency. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Contract-generation eligibility
+
+Podmienka, že endpoint podporuje exact API, acknowledgement, schema a operational contract požadovaný route-om. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
 
 ## Contract proof — database
 
@@ -4010,6 +4106,18 @@ AD DS proces, ktorým client pomocou DNS, site informácií a ďalších pravidi
 
 Lock alebo metadata-serialization boundary vyžadovaná schema operation, ktorá môže čakať za existujúcimi transactions alebo blokovať ďalšie reads/writes podľa engine-u a statementu. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
+## Dead-letter queue
+
+Destination unresolved alebo permanently rejected deliveries; nie je final business outcome a potrebuje ownera, age, evidence a replay/retirement contract. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## Deadline budget
+
+End-to-end časový budget rozdelený medzi routing, queueing, execution, downstream calls, response transport a safety reserve. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
+## Deadline propagation
+
+Prenos remaining alebo child deadline-u cez dependency chain tak, aby každá vrstva nezačínala nový nezávislý plný timeout. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Debug container — Kubernetes
 
 Ephemeral container pridaný do existujúceho Podu na diagnostiku pomocou schváleného debug image-u, RBAC a auditu. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -4546,6 +4654,10 @@ Exact business capability, disruption scenario, primary/recovery locations, cons
 
 Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime pri strate spojenia s central cloud control plane alebo WAN dependency. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
+## Discovery generation
+
+Versionovaný snapshot service-to-endpoint mapovania načítaný registry clientom, proxy alebo dataplane-om. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## Discretionary change — error budget
 
 Zmena prinášajúca voliteľnú product alebo operational hodnotu, ktorú možno pri vyčerpanom budgete odložiť bez blokovania security, recovery alebo root-cause remediation. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
@@ -4957,6 +5069,10 @@ Hodnota potrebná iba na vyplnenie parametra bez aktívneho použitia v testovan
 ## Durability subject
 
 Exact acknowledged data alebo business-state identity, commit boundary, required retention interval, copies/logs, mutation/deletion rules, key dependencies, backup lineage a reconstructability contract. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
+## Durable acceptance
+
+Acknowledgement vydaný až po uložení stable operation identity a required intentu do recovery-capable authoritative state-u. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
 ## Durable function — Lambda
 
@@ -5394,6 +5510,14 @@ Transition medzi endpoint states `ready`, `serving` a `terminating` spolu s data
 
 Versionovaný stav spájajúci readiness removal, EndpointSlice conditions, dataplane/LB propagation, existing connections a Pod termination. Pozri [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md).
 
+## Endpoint draining
+
+Transition, ktorá zastaví new work, propaguje discovery change, dokončí alebo odmietne bounded in-flight requests a uzavrie old connections pred termination. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
+## Endpoint identity
+
+Konkrétna runtime address, port, release/contract generation, readiness, locality a capacity jedného backendu. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## Endpoint readiness — Kubernetes
 
 EndpointSlice condition signalizujúci, či je backend vhodný pre bežný Service traffic podľa Pod readiness a publication policy. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
@@ -5633,6 +5757,10 @@ Point-in-time backup etcd data store-u používaný v testovanom Kubernetes cont
 ## Ethernet frame
 
 Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a kontrolné metadata. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## Event
+
+Immutable oznámenie business alebo system factu, ktorý už nastal; nemá predstierať budúce dokončenie. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
 ## Event-based availability
 
@@ -6250,6 +6378,10 @@ Scheduling Framework plugin vyhodnocujúci, či konkrétny Node spĺňa hard con
 
 SBOM vytvorený z inspection konkrétneho final package, binary alebo OCI manifest filesystemu a viazaný na jeho immutable digest, odlíšený od source alebo builder inventory. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
+## Final outcome
+
+Authoritative terminal alebo explicitne reconcileable business stav operation po dokončení deferred processingu a external effects. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Final-outcome class — RED
 
 Klasifikácia logical operation ako definitive success, definitive failure, partial success, cancellation, timeout, success after retry alebo iný finálny contract verdict. Pozri [RED method](docs/12-observability/red-method.md).
@@ -6465,6 +6597,10 @@ Dôkaz, že nový lookup a nová connection použili accepted address a dosiahli
 ## Fresh-flow revocation test
 
 Negatívne overenie, že po odstránení allow pathu nový connection attempt zlyhá, oddelene od testu existujúcich long-lived alebo pooled sessions. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
+## Freshness — cache
+
+Business verdict, či cached value možno použiť pre konkrétnu operation bez authoritative validation. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## Front-channel logout
 
@@ -7286,6 +7422,10 @@ Container authoritative DNS records pre konkrétny public alebo private DNS name
 
 Magic mapping poskytujúci prístup k host-scoped variables iných inventory hosts; jeho použitie vytvára cross-host coupling a závisí od dostupnosti dát. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## Hot key
+
+Cache key s neúmerne vysokým request rate-om, ktorý môže vyčerpať jeden shard, thread alebo network path. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Hot partition
 
 Partition alebo shard, ktorého key distribution sústreďuje neprimeraný traffic, storage alebo contention a porušuje predpoklad rovnomerného horizontal scale-u. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
@@ -7582,6 +7722,10 @@ Kubernetes Secret reference používaná kubeletom alebo container runtime pri a
 
 Token-based druhá verzia EC2 Instance Metadata Service používaná na získanie instance metadata a temporary role credentials s lepšou ochranou proti niektorým SSRF a proxy útokom. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Immediate outcome
+
+Výsledok pôvodnej interaction, napríklad rejected alebo durably accepted, ktorý nemusí znamenať final business completion. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Immutable build input inventory
 
 Úplná identita source/contextu, Dockerfile/frontendu, base/external image digestov, dependencies, args, secret references, platformy, buildera, cache a targetu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
@@ -7661,6 +7805,10 @@ Prioritizovaný súbor konkrétnych remediation položiek s ownerom, target stat
 ## Improvement validation — Well-Architected
 
 Subject-bound test a evidence, ktoré preukazujú, že implemented improvement odstránil failure mechanism bez vytvorenia forbidden outcomes. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## In-flight message limit
+
+Bound na deliveries súčasne spracúvané consumerom pred acknowledgement-om, odvodený z latency, memory, downstream capacity a recovery tolerance. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## in-toto
 
@@ -7922,6 +8070,10 @@ Exact combination application release-u, instrumentation generation, semantic-co
 
 Autoritatívne rozhodnutie, či sa konkrétny candidate integration state môže bezpečne pridať k aktuálnej mainline na základe complete a fresh evidence. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
+## Integration event
+
+Stabilný external contract oznamujúci relevantný business fact bez leakovania interného persistence schema detailu. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Integration test
 
 Test reálnej spolupráce komponentov alebo systému s technickou dependency, napríklad databázou, brokerom, filesystemom alebo cloud API. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -7961,6 +8113,10 @@ Horizontálne škálovaný a vysoko dostupný VPC component poskytujúci route t
 ## invalidation — CloudFront
 
 Požiadavka na odstránenie object pathov z CloudFront edge caches pred prirodzenou TTL expiráciou. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Invalidation race
+
+Concurrency failure, pri ktorom fill, authority commit a delete/update event skončia v poradí vytvárajúcom stale cache state. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## Invariant boundary
 
@@ -8810,6 +8966,10 @@ Metric counter inkrementovaný raz podľa accepted alebo final outcome jednej bu
 
 Replication changes na logical row/event úrovni, ktorá môže byť selective a vhodná pre migrations alebo downstream consumers, ale potrebuje explicitný DDL, ordering, conflict a completeness contract. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
+## Logical service identity
+
+Stabilný názov capability contractu, ktorý sa mapuje na meniaci sa endpoint inventory; nemá zlučovať incompatible API semantics. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## Logical version
 
 Ľudsky alebo procesne významná verzia, napríklad `2.8.1`, ktorá komunikuje release alebo compatibility význam, ale sama nemusí identifikovať konkrétne bytes bez väzby na digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -9106,6 +9266,14 @@ Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich int
 
 Path resolution cez writable upper layer a ordered lower layers so zohľadnením whiteouts a opaque directories. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
+## Messaging acceptance verdict
+
+Dôkaz, že publication, routing, durability, ordering, consumer acknowledgement, duplicates, external outcomes, retry/DLQ, replay a second-delivery tests tvoria správny event flow. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## Messaging subject
+
+Exact business message/event identity, producer, schema, broker route/partition, durability, consumer group, delivery, acknowledgement, retry, replay a external-effect scope. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Metadata trust generation — SAML
 
 Versionovaný SAML trust state spájajúci entity ID, endpoints, bindings, signing/encryption keys, NameID/attribute contract a validity/rollover metadata. Pozri [SAML](docs/13-security-and-identity/saml.md).
@@ -9366,6 +9534,10 @@ Používanie services od viacerých cloud providers z obchodných, geografickýc
 
 Nekonvergentný stav, pri ktorom dva individuálne idempotentné controllers autoritatívne zapisujú rozdielne hodnoty rovnakého fieldu alebo external resource-u. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Multi-level cache
+
+Reťazec viacerých cache layers, napríklad browser, CDN, gateway, process memory a Redis, s nezávislými keys, validators a invalidation. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Multi-loop ownership
 
 Rozdelenie autoritatívnych fields a signals medzi HPA, VPA, Node autoscaler, GitOps a workload controller tak, aby loops nebojovali alebo neoscilovali. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
@@ -9613,6 +9785,10 @@ Explicitný directed acyclic graph job dependencies vytvorený cez `needs`, ktor
 ## Negative-cache generation
 
 NXDOMAIN alebo iný negative DNS verdict uložený v konkrétnej cache vrstve s vlastným TTL a ownerom. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
+
+## Negative caching
+
+Uloženie absent/rejected resultu na obmedzený čas; musí odlíšiť authoritative absence od transient failure-u a key mismatchu. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## Negative DNS caching
 
@@ -10014,6 +10190,10 @@ Low-level runtime implementujúci OCI Runtime Specification a vytvárajúci cont
 
 Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Offset commit
+
+Zápis consumer position-u označujúci records, ku ktorým sa group po recovery štandardne nevráti; timing musí zodpovedať durable processing boundary. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## OIDC discovery
 
 Štandardizované získanie OpenID Provider metadata vrátane issuer, endpoints a JWKS URI. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
@@ -10394,6 +10574,10 @@ Systems Manager configuration store pre hierarchické String, StringList a KMS-p
 
 Reference z Route na Gateway, listener alebo iný supported parent, ku ktorému sa Route pokúša pripojiť. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
+## Parking queue
+
+Inventory messages dočasne vyradených z automatic processingu pre investigation alebo controlled replay, s ownerom a reason metadata. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Parquet trace block
 
 Columnar Tempo storage block obsahujúci traces a attributes v Apache Parquet formáte pre efektívnejšie selective querying. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
@@ -10429,6 +10613,14 @@ Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bound
 ## Partial-result verdict — LDAP
 
 Rozhodnutie, či Search result reprezentuje complete intended population alebo bol obmedzený ACL, limitom, referralom, controlom, timeoutom či stale replica state-om. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## Partition key
+
+Hodnota určujúca partition/routing a tým ordering scope, load distribution a hot-partition risk. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## Partitioned log
+
+Retained ordered records rozdelené do partitions, ktoré nezávislé consumer groups čítajú a replayujú podľa positions. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## Partitioned-node execution
 
@@ -11166,6 +11358,10 @@ Pending high-priority Pod, candidate Node, victim inventory, termination state a
 
 Soft Node taint effect, ktorému sa scheduler pokúsi vyhnúť, ale pri nedostatku vhodných možností môže Pod na Node umiestniť. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## Prefetch
+
+Limit alebo batch delivery model určujúci počet messages doručených consumerovi bez potvrdenia; ovplyvňuje throughput, memory a redelivery scope. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Prefix list — AWS VPC
 
 Spravovaný zoznam CIDR prefixes použiteľný v route tables alebo Security Group rules na zníženie duplicity a centralizáciu network identity. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
@@ -11321,6 +11517,10 @@ Semantics určujúca poradie Collector processors, pretože enrichment, overwrit
 ## Processor-order contract — OpenTelemetry
 
 Versionované poradie identity normalization, redaction, cardinality control, sampling/filtering, batching a exportu určujúce final telemetry outcome. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
+## Producer acknowledgement
+
+Evidence o publication boundary medzi producerom a brokerom; nepreukazuje consumer processing ani final business effect. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## Producer cost attribution — observability
 
@@ -11618,6 +11818,10 @@ Subnet s route pathom na Internet Gateway; konkrétny resource potrebuje ešte p
 
 Versionovaný stav host publications, endpoint mappings, firewall/upstream policies a intended client scope použitý na audit dostupnosti aj neplánovanej exposure. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
+## Publisher confirm
+
+RabbitMQ publisher-side acknowledgement, že broker prevzal zodpovednosť za publication podľa queue/stream durability contractu; je oddelený od consumer acknowledgement-u. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Pull-through cache — registry
 
 Registry cache, ktorý pri prvom pull-e načíta content z upstream a následne ho poskytuje lokálne podľa freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
@@ -11674,6 +11878,10 @@ Dočasné vyradenie nestabilného testu z blocking suite pri zachovaní pravidel
 
 Component vykonávajúci LogQL subqueries nad recent ingestion state-om a historical object-storage dátami. Pozri [Loki](docs/12-observability/loki.md).
 
+## Query
+
+Požiadavka na current alebo odvodenú representation, ktorá typicky nemá meniť authoritative state. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Query expansion subject
 
 Exact sequence DNS names vytvorená resolverom z pôvodného mena, search domains a `ndots` semantics. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
@@ -11709,6 +11917,10 @@ Exact practice question generation spolu s outcome, constraints, scope, plane, o
 ## Question-error closure
 
 Uzavretie reasoning chyby až po oprave autoritatívneho modelu a úspešnom vyriešení nového scenario variantu bez phrasing recognition. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
+## Queue
+
+Messaging abstraction distribuujúca work deliveries eligible consumers, typicky s odstránením alebo completion po acknowledgement-e. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
 ## Queue drain rate
 
@@ -12170,6 +12382,10 @@ Exact logical operation, measurement/completion boundaries, release, RED schema,
 
 Evidence názvov fields, source provenance, epochs a hashes bez plaintext secrets, ktorá vysvetľuje container create a process-loaded configuration. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
+## Redelivery
+
+Opätovné doručenie rovnakej logical message po chýbajúcom acknowledgement-e, consumer failure-e alebo replay-i. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Redirect URI
 
 Pre-registered client endpoint, na ktorý authorization server vracia browser authorization response. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
@@ -12490,6 +12706,10 @@ Nový Pod object vytvorený controllerom ako náhrada zaniknutého alebo nevyhov
 
 Druhá alebo ďalšia backend kópia toho istého source eventu vytvorená rereadom, timeout retry, position-state stratou alebo multi-reader fan-outom. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Replay generation
+
+Versionovaný manifest, code/schema generation, source positions a safety policy použité pri opätovnom spracovaní historical messages. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Replay identity — batch
 
 Explicitná identita operátorského alebo recovery replay-u viazaná na pôvodný logical run bez kolízie so scheduled runom. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
@@ -12661,6 +12881,10 @@ Evidence spájajúca admitted Pod contract, scheduler profile generation, feasib
 ## Resolved route configuration
 
 Controller-generated effective configuration po zlúčení Routes, listeners, references, policies, Services, EndpointSlices a certificates. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
+
+## Resolved route graph
+
+Effective gateway configuration po vyhodnotení listeners, matches, precedence, policies, backend references a loaded generations. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
 
 ## Resolved runtime configuration — Docker
 
@@ -12918,6 +13142,10 @@ Opakovanie rovnakého tasku podľa `until`, `retries` a `delay`, určené pre bo
 
 Queue chunks čakajúcich na opakovaný output flush po retryable failure. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Retry topic
+
+Samostatný stream pre delayed alebo classified retries; musí zachovať business identity, ordering context, age a bounded attempt policy. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Reusable pipeline
 
 Versionovaný pipeline component alebo workflow s explicitným input, output, permissions a failure contractom určený na použitie vo viacerých projects. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
@@ -13174,6 +13402,14 @@ Obojstranný parent/listener decision viažuci Route generation na parentRef, al
 
 Full attached-route inventory pre overlapping hostname/path space vrátane controller conflict/precedence verdictov. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
 
+## Route/discovery acceptance verdict
+
+Dôkaz, že effective route graph, compatible service identity, endpoint eligibility, discovery convergence, retries, draining a second-request/failover tests tvoria správny backend selection outcome. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
+## Route/discovery subject
+
+Exact API operation, gateway route generation, service identity, discovery inventory, endpoint generations, readiness, connection state a response/business contract. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## Route origin — AWS VPC
 
 Pôvod route, napríklad local, static alebo propagated, ktorý ovplyvňuje ownership, priority, change path a recovery evidence. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -13185,6 +13421,10 @@ Presná parent Gateway/listener generation, ku ktorej patria Route conditions a 
 ## Route-policy generation — Alertmanager
 
 Versionovaný route tree, matcher order, inherited grouping/timing, `continue` behavior a receiver mapping načítané konkrétnym Alertmanager runtime-om. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Route precedence
+
+Pravidlá určujúce, ktorý z viacerých matching gateway routes vyhrá podľa specificity, priority a implementation contractu. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
 
 ## Route propagation — AWS
 
@@ -13666,6 +13906,10 @@ Overenie dát voči deklarovaným typom, required fields a constraints. Neoveruj
 
 Rozhodnutie, či je subject a požadovaný control resource-, AZ-, Region-, account-, organization- alebo multi-Region scoped. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
 
+## Scoped exactly-once
+
+Exactly-once claim obmedzený na explicitný transaction/log/state boundary; automaticky sa nevzťahuje na arbitrary external effects. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
 ## Score closure
 
 Uzavretie tasku po hard validation, forbidden-outcome checku a zaznamenaní partial-credit alebo penalty evidence.
@@ -13922,6 +14166,10 @@ Oddelený member account používaný ako delegated administrator a operational 
 
 Immutable index fragment v rámci shardu; nové documents sa sprístupňujú refreshom a segments sa neskôr zlučujú merge procesom. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Selected-backend evidence
+
+Per-request telemetry identifikujúca exact gateway route, service, endpoint a release/contract generation, ktoré request spracovali. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
+
 ## Selected build target
 
 Explicitne zvolený final, test, development, debug alebo artifact stage, ktorý je súčasťou release subjectu a publication policy. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
@@ -14041,6 +14289,10 @@ Nameraný počet open a active database server connections, ktorý workload bezp
 ## Server-side apply — Kubernetes
 
 Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Server-side discovery
+
+Model, pri ktorom client používa stable proxy/virtual service a infrastructure layer vyberá aktuálny endpoint. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
 
 ## Serverless acceptance verdict
 
@@ -14470,6 +14722,10 @@ Review príbuzných services, workflows alebo control implementations s cieľom 
 
 LDAP Bind mechanism používajúci identity a password; musí byť chránený TLS, pretože sám neposkytuje transport encryption. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
+## Single-flight cache fill
+
+Koordinácia, pri ktorej jeden request načíta missing value a ostatní čakajú alebo použijú bounded stale result. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Single Logout — SAML
 
 SAML protocol na koordináciu logoutu medzi IdP a SP sessions, ktorý môže zlyhať čiastočne a nepredstavuje automatickú globálnu revocation. Pozri [SAML](docs/13-security-and-identity/saml.md).
@@ -14770,6 +15026,10 @@ Approval, ktorý bol udelený pre starší source SHA, target context, candidate
 
 Failure, pri ktorom backfill vypočíta value zo starého snapshotu a neskôr prepíše novší live state bez version/current-state predicate-u. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
+## Staleness — cache
+
+Rozdiel medzi cached generation a required/current authoritative generation, vyhodnotený podľa use-case tolerance. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Staleness — Prometheus
 
 Semantics, ktorou Prometheus prestane považovať starú sample za aktuálnu po zmiznutí targetu alebo series. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -14921,6 +15181,10 @@ Dlhšie žijúca a opakovane používaná secret hodnota, ktorá potrebuje expli
 ## Static separation of duties
 
 Constraint zakazujúci prideliť jednému principalu konfliktujúce roles alebo entitlements súčasne. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Status resource
+
+Stable autorizovaný resource sprístupňujúci current authoritative alebo explicitne derived state asynchronous operation. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
 ## Steady state — chaos engineering
 
@@ -15209,6 +15473,14 @@ Proces prekladu user alebo business symptómu na exact release, render, hook, li
 ## Symptom-to-subject translation
 
 Prevod user alebo business symptómu na konkrétne cluster, release, object, process, data, flow a time identities vhodné na falsifikovateľnú diagnostiku. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Sync-over-async
+
+Pattern, v ktorom caller publikuje asynchronous command, ale blokuje na reply a preto zostáva synchronous z pohľadu deadline-u a availability. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
+## Synchronous communication
+
+Interaction, pri ktorej caller čaká na response v jednom request lifetime-e a preto zdedí availability, latency, timeout a unknown-outcome semantics celého dependency pathu. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
 ## Synchronous replication
 
@@ -16158,6 +16430,10 @@ Stav, keď Lambda invocation timeoutne alebo stratí downstream response po tom,
 
 Failure stav, keď Terraform odoslal successor snapshot, ale pre timeout alebo network partition nevie, či backend write commitol. Pred ďalším writerom treba overiť version history, lineage/serial, lock a remote mutation timeline. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md) a [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Unknown synchronous outcome
+
+Stav, keď caller po timeout-e alebo strate response nevie, či callee operation neprijala, commitla alebo dokončila external effect. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
+
 ## Unknown value — Terraform
 
 Typovo známa, ale konkrétne neurčená hodnota počas planu, ktorú Terraform získa až pri apply alebo neskoršom provider read-e. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
@@ -16322,6 +16598,10 @@ Sada reprezentatívnych values kombinácií vrátane defaults, production varian
 
 Pravidlá rozhodujúce, ktorá z viacerých definitions rovnakého variable name sa použije podľa source a explicitnosti. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## Variant dimension
+
+Request, tenant, authorization, locale, API, policy alebo cohort attribute, ktorého zmena vytvára odlišnú cached representation. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
+
 ## Vault audit device
 
 Vault component zaznamenávajúci API requests a responses do file, syslog alebo socket destination a ovplyvňujúci request availability pri úplnom write failure. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
@@ -16397,6 +16677,10 @@ Constraint vyjadrujúci množinu akceptovaných dependency versions, ktorého ko
 ## Version skew — ring
 
 Obdobie, počas ktorého rôzne deployment rings používajú odlišné release alebo client verzie nad spoločnými APIs a mutable state-om. Potrebuje maximálny podporovaný rozsah, compatibility contract a deadline. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
+
+## Versioned cache key
+
+Cache identity obsahujúca immutable authority generation, často oddelenú od mutable current-pointer keyu. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## Vertical Pod Autoscaler — VPA
 
@@ -16757,6 +17041,10 @@ Dodatočné index, WAL/redo, replication, vacuum/compaction a storage operations
 ## Write backing index
 
 Najnovší backing index data streamu, do ktorého sa routujú nové documents do ďalšieho rolloveru. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Write-behind cache
+
+Pattern, pri ktorom cache acknowledge-ne mutation pred neskorším authoritative persistence write-om a tým sa stáva ordering/durability/recovery boundary. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
 ## Write compatibility
 
