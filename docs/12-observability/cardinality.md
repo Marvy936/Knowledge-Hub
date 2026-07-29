@@ -1,761 +1,581 @@
 # Cardinality
 
-Cardinality je počet unikátnych hodnôt alebo kombinácií dimensions v telemetry a indexed data modeli. V observability systémoch je cardinality zároveň funkčný, nákladový aj reliability parameter. Nesprávne zvolený label, attribute alebo indexed field môže vytvoriť milióny nových time series, log streams, trace indexes alebo document terms a destabilizovať ingestion, memory, storage aj query vrstvu.
+Cardinality je počet unikátnych identities alebo kombinácií dimensions vytvorených telemetry contractom. Je to súčasne funkčný, cost, capacity a reliability parameter. Jeden dynamický label alebo promoted attribute môže rozmnožiť Prometheus series, Loki streams, trace-derived metrics, alert instances a document-index terms rýchlejšie, než rastie samotný traffic.
 
-## 1. Mentálny model
+## 1. Dominantný mentálny model
 
 ```text
-počet dimensions
-× počet možných hodnôt každej dimension
-× kombinácie, ktoré sa reálne objavia
-→ cardinality
-→ počet series, streams, buckets, terms alebo index entries
-→ memory, storage, CPU, network a query cost
+operational question a required drilldown
+→ exact telemetry subject a dimension inventory
+→ bounded/unbounded classification
+→ expected values a combination model
+→ cardinality budget a forbidden dimensions
+→ producer/schema generation
+→ backend identity multiplication
+→ ingestion, memory, storage, query a alert cost
+→ runtime limits a observed growth
+→ capacity/cost/evidence verdict
+→ containment
+→ authoritative schema migration a historical retirement
+→ user, telemetry a forbidden-outcome validation
 ```
 
-Cardinality nie je iba počet labels. Aj niekoľko labels s veľkým alebo nekontrolovaným priestorom hodnôt môže byť nebezpečných.
+Kritické rozlíšenie:
 
-## 2. Cardinality oproti volume
+```text
+viac detailu
+≠ viac užitočnej observability
+
+nižší retention
+≠ nižšia active cardinality
+
+hash unikátnej hodnoty
+≠ zníženie počtu unikátnych hodnôt
+```
+
+## 2. Exact cardinality subject
+
+Pri návrhu alebo incidente zaznamenaj:
+
+```text
+Cardinality subject ID:
+Business/operational question:
+Producer/service/release/tenant:
+Signal a backend:
+Metric/log/trace/document identity:
+Dimension/field inventory:
+Expected distinct values a combinations:
+Current active count a churn:
+Budget/limit generation:
+Retention a cost owner:
+Dependent dashboards/rules/SLOs:
+Forbidden dimensions:
+Observation window a evidence cut-off:
+```
+
+„Máme veľa series“ nestačí. Treba poznať producer generation, exact metric/stream/index/derived signal, dimension a tenant, ktorý rast vytvoril.
+
+## 3. Volume, cardinality a churn
 
 ### Volume
 
-Koľko records alebo bytes systém spracuje.
-
-Príklady:
-
-- 100 000 log lines za sekundu,
-- 10 000 spans za sekundu,
-- 1 milión metric samples za minútu.
+Počet records, samples, spans alebo bytes za čas.
 
 ### Cardinality
 
-Koľko unikátnych identities alebo indexed combinations vznikne.
+Počet unikátnych identities alebo indexed combinations.
 
-Príklady:
+### Churn
 
-- počet Prometheus time series,
-- počet Loki log streams,
-- počet unikátnych values v indexed OpenSearch field-e,
-- počet span attribute values používaných pri search indexe.
+Rýchlosť vzniku a zániku identities.
 
-Vysoký volume s nízkou cardinality môže byť zvládnuteľný cez throughput scaling. Nízky volume s extrémnou cardinality môže vyčerpať memory a metadata limits.
+```text
+nízky volume + milión unikátnych IDs
+→ metadata/memory problém
 
-## 3. Combinatorial growth
+vysoký volume + malý stabilný label set
+→ throughput problém
 
-Príklad labels:
+mierny active count + rýchly ephemeral churn
+→ WAL/index/compaction/recovery problém
+```
+
+Tieto tri osy sa merajú samostatne.
+
+## 4. Combinatorial growth
+
+Ak dimensions majú teoretické počty hodnôt:
 
 ```text
 environment: 3
 region: 4
-service: 100
-operation: 50
-status: 5
+service: 40
+operation: 25
+status_class: 5
 ```
 
-Teoretický priestor:
+potenciálny priestor je:
 
 ```text
-3 × 4 × 100 × 50 × 5 = 300 000 kombinácií
+3 × 4 × 40 × 25 × 5 = 60 000 combinations
 ```
 
-Ak pridáš:
+Pridanie `merchant_id` s 80 000 hodnotami nevytvorí „iba jeden label navyše“. Potenciálny priestor narastie o faktor 80 000.
 
-```text
-customer_id: 100 000
-```
+Nie všetky kombinácie sa objavia, ale budget sa nesmie spoliehať na dočasne nízky traffic.
 
-potenciálny priestor exploduje.
-
-Nie všetky kombinácie sa musia reálne objaviť, ale návrh sa nemá spoliehať na náhodne nízku aktivitu.
-
-## 4. Bounded a unbounded dimensions
+## 5. Bounded a unbounded dimensions
 
 ### Bounded
 
-Majú malý, kontrolovaný a stabilný set hodnôt.
+Kontrolovaný a stabilný set:
 
-Príklady:
-
-- environment,
-- Region,
-- HTTP method,
-- status class,
-- deployment ring,
-- service,
-- normalized route.
+- environment;
+- Region;
+- service;
+- normalized route/operation;
+- HTTP method;
+- status class;
+- deployment ring;
+- bounded customer tier.
 
 ### Unbounded alebo effectively unbounded
 
-Hodnoty rastú s každou operáciou, používateľom alebo resource instance.
+Rastú s každou operáciou, používateľom alebo instance:
 
-Príklady:
+- request, trace, session, order alebo merchant ID;
+- raw URL;
+- timestamp;
+- full SQL statement;
+- exception message;
+- Pod UID alebo Job run ID;
+- arbitrary Kubernetes label/annotation;
+- user-defined JSON key.
 
-- request ID,
-- trace ID,
-- user ID,
-- order ID,
-- session ID,
-- raw URL,
-- exception message,
-- timestamp,
-- full SQL statement,
-- Pod UID,
-- random file path.
+Unbounded field môže byť oprávnený v log/trace body alebo exact-search indexe. To však neznamená, že patrí do metric labels, Loki stream labels, alert identity alebo trace-derived metric dimensions.
 
-Takéto hodnoty patria do logs, trace attributes, structured metadata alebo document body podľa use case-u, nie automaticky do indexed labels.
+## 6. Cardinality budget
 
-## 5. Cardinality budget
+Budget definuje:
 
-Každý telemetry contract má mať cardinality budget.
-
-Definuj:
-
-- povolené dimensions,
-- očakávaný počet hodnôt,
-- max series/streams/documents per service alebo tenant,
-- growth trend,
-- retention,
-- cost ownera,
-- enforcement a alerting,
-- exception process.
+- allowed dimensions;
+- expected distinct values a growth;
+- active identities a churn limit;
+- per-service/per-tenant quota;
+- retention a storage tier;
+- query a alert dependencies;
+- cost ownera;
+- runtime enforcement;
+- exception a expiry process.
 
 Príklad:
 
 ```text
-Metric: http.server.request.duration
-Required dimensions: service, route, method, status_class, region
-Forbidden dimensions: user_id, request_id, trace_id, raw_url
-Expected active series: < 20 000 per service
-Review trigger: +25 % week-over-week
+Signal: settlement.duration
+Backend: Prometheus
+Required dimensions: service, normalized_operation, status_class, region, merchant_tier
+Forbidden: merchant_id, trace_id, settlement_id, raw_url
+Expected active series: < 30 000/service
+Churn guardrail: < 5 % active count/hour
+Review trigger: +20 % after release
 ```
 
-## 6. Prometheus cardinality
+Budget je acceptance contract instrumentation change-u, nie iba platform capacity spreadsheet.
 
-Prometheus time series identity je:
+## 7. Prometheus identity multiplication
+
+Prometheus series identity:
 
 ```text
 metric name + celý label set
 ```
 
-Každá unikátna kombinácia vytvorí samostatnú series.
-
-Dopad:
-
-- head memory,
-- WAL a disk,
-- compaction,
-- remote write,
-- query fan-out,
-- recording rules,
-- startup a recovery.
-
-### Rizikové labels
-
-- `user_id`,
-- `request_id`,
-- `trace_id`,
-- raw `path`,
-- error text,
-- container ID,
-- dynamic target metadata.
-
-### Series churn
-
-Churn je rýchle vytváranie a zánik series.
-
-Príklady:
-
-- ephemeral Pods s instance labels,
-- batch jobs s unique run ID,
-- autoscaling workload,
-- dynamic route labels.
-
-Aj keď počet active series nie je extrémny, vysoký churn zaťažuje WAL, compaction a downstream storage.
-
-## 7. Histograms a cardinality
-
-Classic Prometheus histogram vytvára pre každý label set viac series:
-
-- bucket pre každý boundary,
-- `_sum`,
-- `_count`.
-
-Ak má histogram 15 buckets a 10 000 label combinations, vznikne približne 170 000 series.
-
-Preto:
-
-- obmedz labels,
-- zvoľ potrebné buckets,
-- používaj recording rules pre drahé queries,
-- vyhodnoť native histogram support a backend compatibility,
-- neaplikuj histogram na každú granular operation bez use case-u.
-
-## 8. Recording rules
-
-Recording rules môžu cardinality:
-
-- znížiť agregáciou,
-- zachovať pre critical dimensions,
-- alebo zvýšiť vytvorením ďalších series.
-
-Dobrý rule:
-
-```promql
-sum by (service, route) (
-  rate(http_requests_total[5m])
-)
-```
-
-Rizikový rule zachová všetky ephemeral labels alebo pridáva nové dynamické labels.
-
-Recording-rule output má mať vlastný budget a naming contract.
-
-## 9. Relabeling a metric filtering
-
-Prometheus `metric_relabel_configs` môže:
-
-- dropnúť nepotrebné metrics,
-- odstrániť labels,
-- normalizovať values,
-- obmedziť vysokú cardinality pred storage.
-
-Riziká:
-
-- silent poškodenie dashboardov a SLO,
-- odlišná konfigurácia medzi replicas,
-- nejasný owner,
-- odstránenie diagnosticky dôležitého signalu.
-
-Filter testuj na sample exposition a dependency inventory.
-
-## 10. Loki cardinality
-
-Loki log stream je definovaný label setom.
-
-Vysoká stream cardinality spôsobuje:
-
-- veľa active streams,
-- malé a zle využité chunks,
-- vyšší index overhead,
-- vyššiu memory potrebu ingesterov,
-- drahšie query planning,
-- rate-limit alebo stream-limit failures.
-
-Loki odporúča používať málo stabilných labels. Unikátne hodnoty ako trace ID, user ID, IP alebo order ID patria do log body alebo structured metadata, nie do indexed stream labels.
-
-### Príklad
-
-Vhodné labels:
+Classic histogram vytvára pre každý label set:
 
 ```text
-cluster, namespace, service, environment, level
+N bucket series + _sum + _count
 ```
 
-Nevhodné:
+Histogram s 15 buckets a 100 000 label combinations vytvorí približne 1.7 milióna series.
+
+Dopady:
+
+- head memory;
+- WAL a replay;
+- disk/compaction;
+- remote-write bandwidth a backlog;
+- rule/query fan-out;
+- startup a recovery time.
+
+Recording rule môže cardinality znížiť agregáciou alebo zvýšiť zachovaním ephemeral labels. Output rule má vlastný budget.
+
+Metric relabeling je silný emergency control, ale broad drop bez dependency inventory môže odstrániť SLO numerator alebo saturation evidence.
+
+## 8. Loki streams
+
+Loki stream identity:
 
 ```text
-pod_uid, request_id, trace_id, user_id, filename s random suffixom
+tenant + úplný label set
 ```
 
-## 11. Loki stream churn
+High-cardinality labels vytvárajú:
 
-Ephemeral Kubernetes labels môžu vytvárať nové streams pri každom rolloute.
+- veľa active streams;
+- malé neefektívne chunks;
+- ingester memory a stream-limit pressure;
+- index/object-store operations;
+- broad query fan-out.
 
-Over:
+Trace/request/customer identity patrí typicky do structured metadata alebo body. Kubernetes workload name môže byť label; Pod UID typicky nie.
 
-- Pod name oproti workload identity,
-- container restart,
-- dynamic annotations,
-- filename,
-- label drop rules,
-- structured metadata.
+Odstránenie labelu z nových entries nezmaže historical streams okamžite. Recovery zahŕňa ich prirodzený retention lifecycle.
 
-Nie každá Kubernetes metadata hodnota má byť Loki label.
+## 9. Elasticsearch/OpenSearch fields a mappings
 
-## 12. Elasticsearch a OpenSearch cardinality
+High-cardinality `keyword` field môže byť oprávnený pre exact search, ale zvyšuje:
 
-Lucene-based systémy indexujú field values a terms.
+- index size;
+- term dictionaries/global ordinals;
+- aggregation memory;
+- heap a query latency;
+- snapshot/restore volume.
 
-High-cardinality `keyword` fields môžu zvyšovať:
-
-- index size,
-- global ordinals,
-- aggregation memory,
-- query latency,
-- heap pressure,
-- shard overhead.
-
-Príklady:
-
-- user ID,
-- session ID,
-- IP address,
-- URL,
-- trace ID,
-- UUID.
-
-Na rozdiel od Prometheus nemusí byť high-cardinality field automaticky zakázaný. Môže byť potrebný na exact search. Musí však mať explicitný search, aggregation, mapping a retention use case.
-
-### Indexed oproti stored
-
-Field možno:
-
-- indexovať pre search,
-- ukladať v `_source`,
-- použiť pre aggregations podľa mappingu,
-- vypnúť alebo obmedziť podľa potreby.
-
-Nie každý field v documente musí byť indexed a aggregatable.
-
-## 13. Mapping explosion
-
-Dynamic mapping môže vytvoriť tisíce nových field names.
-
-Príčiny:
-
-- arbitrary JSON keys,
-- tenant-defined metadata,
-- dynamic labels uložené ako object fields,
-- flattened business payload,
-- Kubernetes annotations.
-
-Dopad:
-
-- veľký cluster state,
-- heap pressure,
-- mapping conflicts,
-- ingestion rejection,
-- pomalé updates.
+Samostatný problém je mapping explosion: veľké množstvo field names, často z arbitrary JSON keys alebo Kubernetes annotations. To zväčšuje cluster state a môže blokovať ingestion.
 
 Controls:
 
-- explicit templates,
-- `dynamic: false` alebo strict model podľa use case-u,
-- flattened field type,
-- allowlist,
-- field-count limits,
-- schema versioning.
+- explicit template/mapping generation;
+- `dynamic: false` alebo strict podľa use case-u;
+- field allowlist;
+- flattened/raw object pre bounded search potrebu;
+- field-count limits;
+- rollover a schema quarantine.
 
-## 14. Trace cardinality
+Nie každý field v `_source` musí byť indexed alebo aggregatable.
 
-Trace storage zvyčajne ukladá unikátne trace/span IDs, ale hlavný cardinality problém vzniká pri indexed alebo promoted attributes.
+## 10. Traces a derived metrics
 
-Rizikové attributes:
+Trace/span IDs sú prirodzene unikátne, ale hlavný platform risk vzniká pri:
 
-- raw URL,
-- SQL statement,
-- user ID,
-- request ID,
-- arbitrary tool arguments,
-- prompt text,
-- exception message.
+- indexed/promoted attributes;
+- raw span names;
+- attribute search cez dlhú retention;
+- metrics-generator dimensions;
+- service-graph fragmentation.
 
-Dopad:
+Span metrics nad dimensions ako `service`, `span.kind`, `status` a normalized operation môžu byť bounded. `trace_id`, user ID, full URL alebo SQL statement v derived metric vytvára Prometheus incident.
 
-- index/storage growth,
-- query cost,
-- privacy risk,
-- service graph fragmentation,
-- metrics-generator series explosion.
+Sampling znižuje volume, nie automaticky cardinality každého indexed attribute. Rare unikátne values môžu zostať vysoko variabilné aj v sampled population.
 
-Span attributes môžu byť užitočné na exact trace lookup bez toho, aby sa všetky používali ako indexed dimensions alebo derived metrics labels.
+## 11. Alerts a dashboards ako multiplikátory
 
-## 15. Trace-derived metrics
+Alert rule môže vytvoriť jednu alert instance na každý output label set. Per-Pod alebo per-customer output môže zmeniť telemetry cardinality na pager storm.
 
-Span metrics generátor môže vytvoriť RED metrics podľa span attributes.
+Dashboard variables a repeating panels môžu expandovať každý label value:
 
-Ak zahrnieš high-cardinality attributes, vznikne Prometheus cardinality incident.
+```text
+values × panels × queries × viewers × refresh cadence
+```
 
-Bezpečné dimensions:
+Default overview má byť agregovaný. Exact instance/tenant detail patrí do bounded drilldownu alebo searchu.
 
-- service,
-- span kind,
-- status,
-- normalized operation,
-- bounded peer service.
+## 12. Multi-tenancy a cost attribution
 
-Rizikové:
+Shared platform potrebuje per-tenant limits:
 
-- trace ID,
-- user ID,
-- full endpoint,
-- database statement,
-- message ID.
+- series/stream/field count;
+- ingestion rate;
+- new-identity rate;
+- label count/value limits;
+- query range a concurrency;
+- retention tiers;
+- cost attribution.
 
-## 16. OpenTelemetry attribute limits
+Globálny limit bez producer attribution iba presunie incident na platform team. Cost visibility vytvára feedback medzi instrumentation detailom a jeho skutočnou hodnotou.
 
-SDK alebo Collector môže obmedzovať:
-
-- počet attributes,
-- value length,
-- počet events,
-- počet links,
-- cardinality metrics streams podľa implementation.
-
-Limits chránia runtime, ale môžu silent odstrániť diagnostický context.
-
-Monitoruj dropped attributes a dokumentuj priority fields.
-
-## 17. Resource attributes a cardinality
-
-Resource identity je potrebná, ale nie každá resource hodnota patrí do každého backendového indexu.
-
-Príklad:
-
-- `service.name` je stabilná logical identity,
-- `service.instance.id` je unikátna instance identity.
-
-`service.instance.id` môže byť užitočné v traces/logs, ale ako dimension na všetkých long-term metrics môže vytvárať churn.
-
-Pri resource-to-label mappingu vytvor allowlist.
-
-## 18. Kubernetes cardinality
-
-Kubernetes je prirodzene dynamické prostredie.
-
-Riziká:
-
-- Pod names,
-- Pod UIDs,
-- ReplicaSet hashes,
-- container IDs,
-- arbitrary labels/annotations,
-- Job run IDs,
-- owner references.
-
-Preferuj stabilné workload identity:
-
-- cluster,
-- namespace,
-- workload kind,
-- workload name,
-- service,
-- environment.
-
-Ephemeral identity ponechaj iba tam, kde je potrebná na krátkodobý troubleshooting.
-
-## 19. Multi-tenancy
-
-Cardinality musí byť riadená per tenant, nie iba globálne.
-
-Controls:
-
-- series/stream limits,
-- ingestion rate limits,
-- label count/value limits,
-- query concurrency,
-- maximum query range,
-- shard/field limits,
-- retention tiers,
-- quotas a cost attribution.
-
-Bez tenant limits môže jeden tím destabilizovať shared observability platformu.
-
-## 20. Cost model
-
-Cardinality ovplyvňuje:
-
-- ingestion pricing,
-- active-series pricing,
-- index storage,
-- memory,
-- object-store requests,
-- query compute,
-- remote-write bandwidth,
-- retention,
-- backup a replication.
-
-Cost attribution podľa service/team/tenant vytvára spätnú väzbu pre instrumentation decisions.
-
-Bez cost visibility vzniká observability tragedy of the commons.
-
-## 21. Detection
+## 13. Detection a evidence
 
 Sleduj:
 
-- active series/streams,
-- new series/streams rate,
-- series churn,
-- top metrics podľa series count,
-- top labels podľa distinct values,
-- ingestion bytes,
-- index size,
-- field count,
-- rejected samples/streams/documents,
-- query scanned data,
-- top tenants,
-- growth po deploymente.
+- active series/streams;
+- new identities rate a churn;
+- top metrics/labels/fields podľa distinct count;
+- histogram bucket multiplication;
+- field count a cluster-state growth;
+- rejected samples/streams/documents;
+- remote-write alebo backend backlog;
+- query scanned bytes/series/shards;
+- alert instances;
+- top tenants a release correlation;
+- cost per service/signal.
 
-Deployment annotations pomáhajú korelovať cardinality spike s instrumentation zmenou.
+Deployment annotation bez producer/schema generation nestačí. Exact dimension diff je diskriminačný dôkaz.
 
-## 22. Prometheus investigation
+## 14. Worked failure: jeden `merchant_id`, štyri platformové incidenty
 
-Otázky:
-
-- Ktoré metric names majú najviac series?
-- Ktoré labels majú najviac distinct values?
-- Ktorý job/tenant/service rastie?
-- Je problém active count alebo churn?
-- Vznikla nová metric alebo nový label?
-- Zmenil sa histogram bucket count?
-- Recording rule duplikuje raw dimensions?
-
-Použi TSDB status a backend-specific cardinality tooling podľa deploymentu.
-
-## 23. Loki investigation
-
-Over:
-
-- top labels a values,
-- active streams per tenant,
-- streams per service,
-- chunk utilization,
-- rejected streams,
-- label set po collector pipeline,
-- deployment alebo Kubernetes metadata change.
-
-`trace_id` alebo `request_id` ako label je častý okamžitý root cause.
-
-## 24. Search-index investigation
-
-Over:
-
-- index mappings,
-- field count,
-- top high-cardinality keyword fields,
-- global ordinals,
-- shard size/count,
-- aggregation queries,
-- dynamic field creation,
-- data stream/template change.
-
-Odstránenie field mappingu neopraví automaticky už existujúce indexes; môže byť potrebný rollover/reindex alebo retention-based recovery.
-
-## 25. Prevention v CI/CD
-
-Instrumentation change má prejsť:
-
-- schema diff,
-- label/attribute allowlist,
-- representative load test,
-- estimated series/stream count,
-- forbidden-dimension checks,
-- dashboard/SLO dependency test,
-- privacy scan,
-- cost estimate.
-
-Príklad testu:
+### Subject
 
 ```text
-new dimension: customer_id
-expected distinct values: 250 000/day
-backend use: exact log search only
-allowed as metric label: no
-allowed as Loki stream label: no
-allowed as structured log field: yes, with retention/privacy policy
+Incident: CARD-PAY-46
+Release: provider-adapter 7.23.0
+Change: merchant_id promoted for per-merchant debugging
+Metric generation: METRIC-124
+Loki label generation: LOKI-LABEL-37
+Tempo metrics-generator generation: TEMPO-MG-22
+Alert rule generation: ALERT-72
+Tenants: payments-prod
+Window: 02:00–02:22 UTC
 ```
 
-## 26. Runtime enforcement
+### Change
 
-Controls:
+Rovnaký dynamic field bol pridaný do:
 
-- SDK views,
-- Collector filter/transform processors,
-- Prometheus relabeling,
-- Loki label allowlists a limits,
-- Fluent Bit filters,
-- index templates,
-- attribute promotion allowlists,
-- tenant quotas.
+```text
+Prometheus histogram label: merchant_id
+Loki stream label: merchant_id
+Tempo span-metrics dimension: merchant_id
+Alert output labels: merchant_id
+```
 
-Runtime drop musí byť monitorovaný. Silent data removal môže vytvoriť observability gap.
+Počet active merchantov v okne bol 46 000.
 
-## 27. Remediation
+### Symptómy
 
-Pri cardinality incidente:
+```text
+Prometheus active series: 210 000 → 5.4 million
+new series rate: 38 000/s peak
+remote-write oldest sample: 19 min
+Prometheus replica 2: OOM restart
 
-1. zastav ďalší rast,
-2. identifikuj producer a dimension,
-3. dropni alebo normalize-nuť problematickú hodnotu,
-4. chráň platformu limitmi,
-5. zachovaj critical signals,
-6. vyhodnoť existing data cleanup/retention,
-7. oprav dashboards/rules,
-8. pridaj CI guardrail,
-9. vykonaj cost a incident review.
+Loki active streams: 82 000 → 2.1 million
+ingester stream-limit rejections: rising
+chunk utilization: sharply down
 
-Emergency drop rule má byť minimálna a auditovaná.
+Tempo metrics-generator series: 160 000 → 3.8 million
+metrics-generator queue: saturated
 
-## 28. Normalization
+Alert instances: 18 → 12 400
+Alertmanager notification groups: 9 700+
+```
 
-Príklady:
+Business settlement traffic vzrástol iba o 6 %.
 
-Raw URL:
+### Competing hypotheses
+
+1. legitímny traffic spike;
+2. duplicate scrape targets;
+3. retry amplification;
+4. histogram bucket expansion;
+5. new merchant dimension;
+6. Kubernetes Pod churn;
+7. remote backend outage;
+8. alert rule zachovala unbounded output label.
+
+### Discriminating evidence
+
+```text
+request/log/span volume: +6 až +9 %
+distinct merchant_id: 46 000
+series/streams grouped without merchant_id: near baseline
+release/schema diff: merchant_id added in all four pipelines
+Prometheus top label distinct count: merchant_id
+Loki top stream label: merchant_id
+Tempo generated metric dimensions: merchant_id present
+alert fingerprints differ only by merchant_id
+```
+
+Mechanizmus:
+
+```text
+one per-operation identifier
+→ promoted do multiple indexed identities
+→ combinations sa rozmnožia per operation/status/region/bucket
+→ active metadata a churn rastú
+→ Prometheus/Loki/Tempo queues a memory sa saturujú
+→ queries/rules zaostávajú
+→ alert output vytvorí tisíce identities
+→ observability platforma degraduje počas business incidentu
+```
+
+### Containment
+
+- zastaviť rollout instrumentation generation;
+- zachovať schema/config diff a top-dimension evidence;
+- odstrániť `merchant_id` z new Prometheus/Loki/metrics-generator/alert identities cez presný emergency control;
+- ponechať business SLI a service/Region/merchant-tier dimensions;
+- chrániť backends tenant limitmi a query concurrency;
+- nehashovať merchant ID ako údajný cardinality fix;
+- ponechať exact identifier v redacted structured log/trace field-e s bounded retention a accessom.
+
+### Authoritative recovery
+
+1. zaviesť `merchant_tier` ako bounded operational dimension;
+2. ponechať `merchant_id` iba v approved exact-search fields;
+3. opraviť SDK views, Collector/Fluent Bit transforms, Loki labels, Tempo dimensions a alert aggregation;
+4. vytvoriť CI cardinality fixture s 50 000 merchant IDs;
+5. canary-nuť jednu service/tenant cohortu;
+6. overiť active count, churn, backlog a query latency;
+7. počkať na retirement historical streams/series/index terms podľa backend lifecycle-u;
+8. prepočítať cost a capacity budget.
+
+### Acceptance verdict
+
+Recovery je prijatá, keď:
+
+- active series/streams a generated metrics sú pod budgetom;
+- churn a backlog sa vrátia k baseline;
+- SLO, saturation a alert inputs zostanú kompletné;
+- exact merchant lookup funguje iba v schválenom log/trace search path-e;
+- alert vytvorí service/Region incident, nie per-merchant storm;
+- forbidden ID nie je metric/Loki/alert dimension;
+- neighboring tenant neregresuje;
+- druhý rollout/restart nevytvorí nový identity spike.
+
+## 15. Containment a remediation lifecycle
+
+```text
+protect platform
+→ stop new identity creation
+→ locate producer/dimension
+→ preserve critical signals
+→ apply minimal bounded drop/normalization
+→ validate dependencies
+→ migrate authoritative schema
+→ retire historical identities
+→ update budget, cost a CI guardrail
+```
+
+Emergency drop je containment. Authoritative recovery opravuje producer a všetky downstream promotions.
+
+## 16. Normalization a aggregation
+
+Bezpečné príklady:
 
 ```text
 /orders/981723/items/55
+→ /orders/{order_id}/items/{item_id}
 ```
-
-Normalized route:
 
 ```text
-/orders/{order_id}/items/{item_id}
+merchant_id
+→ merchant_tier
 ```
 
-Error message:
+```text
+HTTP 503
+→ status_class=5xx
+```
 
 ```text
 connection failed to db-17 at 10.0.4.18
+→ error_type=DB_CONNECTION_FAILED
 ```
 
-Normalized error type:
+Raw detail môže zostať v bounded-retention log alebo trace evidence. Aggregation nesmie odstrániť Region, tenant tier alebo failure-domain dimension potrebnú na rozhodnutie.
+
+Hashing nemení počet distinct values. Je privacy transformácia, nie cardinality transformácia.
+
+## 17. Prevention v delivery pipeline
+
+Instrumentation change musí prejsť:
 
 ```text
-DB_CONNECTION_FAILED
+schema/dimension diff
+→ bounded/unbounded classification
+→ representative distinct-value fixture
+→ series/stream/index estimate
+→ forbidden-dimension policy
+→ privacy a cost review
+→ dashboard/rule dependency test
+→ canary runtime count/churn
+→ promotion alebo rollback
 ```
 
-Raw detail môže zostať v log body alebo trace evente.
+Runtime enforcement:
 
-## 29. Hashing
+- SDK metric views;
+- Collector processors;
+- Prometheus relabeling a limits;
+- Loki label allowlists/tenant limits;
+- Fluent Bit filters;
+- Tempo metrics-generator dimension allowlist;
+- explicit search mappings;
+- alert aggregation policy.
 
-Hashing unique value neznižuje cardinality. Milión unikátnych user IDs vytvorí milión unikátnych hashov.
+Každý runtime drop musí mať counter a ownera.
 
-Hash môže pomôcť s pseudonymizáciou, nie s cardinality reduction.
+## 18. Troubleshooting model
 
-## 30. Aggregation
-
-Cardinality možno znížiť agregáciou:
-
-- status code → status class,
-- raw endpoint → route template,
-- instance → service/workload,
-- exact customer → customer tier,
-- error message → error type,
-- exact latency → histogram buckets.
-
-Aggregation musí zachovať decision use case.
-
-Príliš agresívna agregácia skryje regionálny alebo tenant-specific incident.
-
-## 31. Retention tiers
-
-Nie všetka granular telemetry potrebuje rovnakú retention.
-
-Príklad:
-
-- per-instance metrics: 7 dní,
-- service aggregates: 13 mesiacov,
-- detailed logs: 14 dní,
-- audit logs: podľa compliance,
-- sampled traces: 7–30 dní,
-- SLO recording rules: dlhodobé.
-
-Retention znižuje storage cost, ale nerieši active memory/index cardinality počas ingestionu.
-
-## 32. Privacy a security
-
-High-cardinality identifiers často obsahujú osobné alebo citlivé údaje.
-
-Controls:
-
-- data classification,
-- minimization,
-- hashing/tokenization podľa threat modelu,
-- access control,
-- retention,
-- deletion,
-- audit,
-- tenant isolation.
-
-Technicky queryovateľný field nie je automaticky oprávnený na zber.
-
-## 33. Cardinality a alerting
-
-Alert rule môže vytvoriť jednu alert instance pre každý output label set.
-
-Riziká:
-
-- alert storm,
-- Alertmanager memory/routing load,
-- stovky notifications,
-- silences sa ťažko matchujú.
-
-Agreguj alert condition na actionable scope:
+### Prometheus
 
 ```text
-service + cluster + symptom
+metric name
+→ top label combinations
+→ active count vs churn
+→ histogram buckets
+→ scrape/recording duplication
+→ producer/config generation
+→ remote-write/backlog impact
 ```
 
-nie automaticky na každý Pod alebo request.
+### Loki
 
-## 34. Cardinality a dashboards
+```text
+tenant active streams
+→ top label/value counts
+→ stream churn/chunk utilization
+→ collector label mapping
+→ release generation
+→ limits/rejections
+```
 
-Dashboard variables a repeating panels môžu queryovať každý label value.
+### Search backend
 
-Riziká:
+```text
+data stream/index
+→ field/mapping count
+→ high-cardinality keyword terms
+→ dynamic field creation
+→ shard/heap/query impact
+→ template generation
+```
 
-- tisíce variable options,
-- query storm,
-- browser overload,
-- backend fan-out.
+### Tracing/derived metrics
 
-Použi:
+```text
+span attribute/name inventory
+→ indexed/promoted dimensions
+→ service graph/metrics-generator output
+→ sampling population
+→ downstream Prometheus cardinality
+```
 
-- bounded variables,
-- search/filter,
-- top-N,
-- drilldown,
-- query limits,
-- default aggregate view.
+## 19. Anti-patterny
 
-## 35. Anti-patterny
+### Unique ID ako metric alebo stream label
 
-### Unique ID ako metric label
+Time-series/log-stream store sa používa ako event database.
 
-Time-series systém sa používa ako event database.
+### Hashovanie ako fix
 
-### Všetky Kubernetes labels automaticky exportované
+Milión IDs zostáva miliónom hashov.
 
-Arbitrary metadata vytvára nekontrolované series a streams.
+### Kratšia retention ako jediná remediation
 
-### Hashovanie ako cardinality fix
+Active memory/index identities zostanú počas ingestu.
 
-Počet unikátnych hodnôt zostáva rovnaký.
+### Broad drop bez dependency inventory
 
-### High-cardinality field indexovaný „pre istotu“
+Môže odstrániť SLO alebo incident evidence.
 
-Platí sa index cost bez reálneho query use case-u.
+### Všetky Kubernetes labels automaticky
 
-### Riešenie iba kratšou retention
+Producer nemá bounded schema ani privacy control.
 
-Active series/streams stále zaťažujú ingestion a memory.
+### High-cardinality field „pre istotu“
 
-### Drop bez dependency analýzy
+Platí sa permanentný index cost bez query use case-u.
 
-SLO, alerts alebo investigation workflow stratia vstup.
+## 20. Kontrolné otázky
 
-### Global limit bez tenant attribution
-
-Nie je možné identifikovať ani motivovať problematického producenta.
-
-## 36. Kontrolné otázky
-
-1. Aký je rozdiel medzi volume a cardinality?
-2. Ako vzniká combinatorial growth?
-3. Čo je bounded a unbounded dimension?
-4. Ako cardinality ovplyvňuje Prometheus TSDB?
-5. Čo je series churn?
-6. Prečo Loki indexuje iba málo stabilných labels?
-7. Kedy môže byť high-cardinality OpenSearch field oprávnený?
-8. Čo je mapping explosion?
-9. Ako trace-derived metrics vytvoria metrics cardinality?
-10. Prečo hashing neznižuje cardinality?
-11. Ako nastaviť cardinality budget?
-12. Ako postupovať pri cardinality incidente?
+1. Čo tvorí exact cardinality subject?
+2. Aký je rozdiel medzi volume, active cardinality a churn?
+3. Ako vzniká combinatorial growth?
+4. Kedy je dimension bounded alebo effectively unbounded?
+5. Prečo histogram násobí series?
+6. Ako sa líši Prometheus series, Loki stream a indexed document field?
+7. Prečo sampling alebo hashing automaticky nerieši cardinality?
+8. Ako trace attributes vytvoria downstream metric cardinality?
+9. Čo musí obsahovať per-tenant budget?
+10. Ako alert labels a dashboard variables násobia incident impact?
+11. Aký je rozdiel medzi containment dropom a authoritative schema recovery?
+12. Ako overíš, že remediation zachovala critical evidence?
 
 ## Glossary impact
 
-Relevantné pojmy: cardinality, bounded dimension, unbounded dimension, combinatorial cardinality, active series, active stream, series churn, stream churn, cardinality budget, mapping explosion, global ordinals, promoted trace attribute, attribute allowlist, cardinality incident, normalization, observability cost attribution a telemetry tragedy of the commons.
+Relevantné pojmy: cardinality subject, dimension inventory, active-cardinality verdict, identity-churn rate, combination-space estimate, cardinality-budget generation, forbidden-dimension contract, cross-signal cardinality amplification, historical-identity retirement, exact-search exception, cardinality containment, cardinality recovery generation, producer cost attribution a cardinality acceptance verdict.
 
 ## Primárne zdroje
 
@@ -763,8 +583,9 @@ Relevantné pojmy: cardinality, bounded dimension, unbounded dimension, combinat
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
 - [Loki cardinality](https://grafana.com/docs/loki/latest/get-started/labels/cardinality/)
 - [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
-- [Elasticsearch mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html)
-- [OpenSearch mappings](https://docs.opensearch.org/latest/field-types/)
+- [OpenTelemetry metrics data model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/)
+- [Elasticsearch mappings](https://www.elastic.co/docs/manage-data/data-store/mapping)
+- [OpenSearch field types](https://docs.opensearch.org/latest/field-types/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
