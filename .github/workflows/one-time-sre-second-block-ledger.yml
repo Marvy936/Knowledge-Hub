@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - .github/workflows/one-time-sre-second-block-ledger.yml
+  workflow_dispatch:
 
 permissions:
   contents: write
