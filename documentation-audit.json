@@ -3503,15 +3503,15 @@
     {
       "path": "docs/13-security-and-identity/saml.md",
       "title": "SAML",
-      "words": 3919,
-      "headings": 47,
-      "sections": 47,
-      "findings": 95,
-      "critical": 13,
-      "high": 13,
-      "medium": 13,
-      "low": 56,
-      "score": 378,
+      "words": 1847,
+      "headings": 29,
+      "sections": 29,
+      "findings": 69,
+      "critical": 16,
+      "high": 23,
+      "medium": 8,
+      "low": 22,
+      "score": 427,
       "grade": "D"
     },
     {
@@ -191828,800 +191828,8 @@
     },
     {
       "path": "docs/13-security-and-identity/saml.md",
-      "section": "1. Prečo federation existuje",
-      "line": 19,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "2. Štyri vrstvy SAML štandardu",
-      "line": 27,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "2. Štyri vrstvy SAML štandardu",
-      "line": 27,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "2. Štyri vrstvy SAML štandardu",
-      "line": 27,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "2. Štyri vrstvy SAML štandardu",
-      "line": 27,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "2. Štyri vrstvy SAML štandardu",
-      "line": 27,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `POST`, `SOAP`, `SSO`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "3. Hlavné role",
-      "line": 40,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "3. Hlavné role",
-      "line": 40,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "4. Assertion ako security artifact",
-      "line": 50,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "4. Assertion ako security artifact",
-      "line": 50,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "4. Assertion ako security artifact",
-      "line": 50,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "4. Assertion ako security artifact",
-      "line": 50,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "5. Response oproti Assertion",
-      "line": 64,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "5. Response oproti Assertion",
-      "line": 64,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "5. Response oproti Assertion",
-      "line": 64,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "6. AuthnRequest",
-      "line": 72,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "6. AuthnRequest",
-      "line": 72,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique request ID;`, `SP entity ID v Issuer ;`, `IdP destination;`, `requested ACS URL alebo index;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "6. AuthnRequest",
-      "line": 72,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "6. AuthnRequest",
-      "line": 72,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "8. IdP-initiated browser SSO",
-      "line": 105,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "8. IdP-initiated browser SSO",
-      "line": 105,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "9. Web Browser SSO profile",
-      "line": 113,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "9. Web Browser SSO profile",
-      "line": 113,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "10. HTTP Redirect binding",
-      "line": 121,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "12. HTTP Artifact binding",
-      "line": 137,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "13. Metadata ako trust bootstrap",
-      "line": 145,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "13. Metadata ako trust bootstrap",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entity ID;`, `SSO a SLO endpoints;`, `Assertion Consumer Service endpoints a indexes;`, `supported bindings;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "13. Metadata ako trust bootstrap",
-      "line": 145,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "13. Metadata ako trust bootstrap",
-      "line": 145,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "13. Metadata ako trust bootstrap",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SSO`, `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "14. Entity ID",
-      "line": 162,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "14. Entity ID",
-      "line": 162,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "15. Assertion Consumer Service",
-      "line": 170,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "15. Assertion Consumer Service",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať HTTPS;`, `akceptovať iba configured binding a registered endpoint identity;`, `používať secure XML parser a bounded payload;`, `validovať signature a semantic constraints;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "15. Assertion Consumer Service",
-      "line": 170,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "15. Assertion Consumer Service",
-      "line": 170,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "15. Assertion Consumer Service",
-      "line": 170,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `XML`, `CSRF`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "16. Subject a NameID",
-      "line": 187,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "17. SubjectConfirmation",
-      "line": 202,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACS`, `ID`, `SP-`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "18. Conditions",
-      "line": 214,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "20. Destination, Recipient a ACS URL",
-      "line": 230,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "21. InResponseTo a transaction state",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nájde non-expired pending request;`, `overí exact match;`, `po successful consumption state atomicky odstráni;`, `odmietne ďalšie použitie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "21. InResponseTo a transaction state",
-      "line": 238,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "21. InResponseTo a transaction state",
-      "line": 238,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "23. AuthnStatement",
-      "line": 260,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "23. AuthnStatement",
-      "line": 260,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "24. Authentication Context",
-      "line": 268,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "26. Attribute governance",
-      "line": 292,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "26. Attribute governance",
-      "line": 292,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative source;`, `required/optional status;`, `single alebo multi-value semantics;`, `case, Unicode a whitespace normalization;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "26. Attribute governance",
-      "line": 292,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "26. Attribute governance",
-      "line": 292,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "26. Attribute governance",
-      "line": 292,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registrovať ID attributes bezpečným spôsobom;`, `odmietnuť duplicate IDs;`, `overiť expected signed element;`, `spracovať presne element, ktorý verification vrátila ako signed;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "27. XML Signature model",
-      "line": 310,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "28. XML Signature Wrapping",
-      "line": 326,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "29. Secure XML processing",
-      "line": 341,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "30. XML Encryption",
-      "line": 349,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "30. XML Encryption",
-      "line": 349,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "31. Certificate a key trust model",
-      "line": 359,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 57 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "31. Certificate a key trust model",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SPs metadata načítajú a potvrdia;`, `IdP začne podpisovať novým keyom;`, `monitoring sleduje failures;`, `starý key sa odstráni po bounded overlap;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "31. Certificate a key trust model",
-      "line": 359,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "32. Clock a time validation",
-      "line": 374,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "34. Local identity a session",
-      "line": 390,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "34. Local identity a session",
-      "line": 390,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "36. Single Logout",
-      "line": 413,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "37. Federation discovery a multi-tenant trust",
-      "line": 421,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "38. Federation contract",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "38. Federation contract",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entity IDs, endpoints a bindings;`, `signing/encryption requirements;`, `supported key rollover process;`, `required NameID format;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "38. Federation contract",
-      "line": 429,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "38. Federation contract",
-      "line": 429,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "38. Federation contract",
-      "line": 429,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "38. Federation contract",
-      "line": 429,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "40. Observability",
-      "line": 455,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "40. Observability",
-      "line": 455,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AuthnRequest creation a redirect;`, `IdP response status;`, `parse/schema failures;`, `signature/key/certificate failures;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "40. Observability",
-      "line": 455,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "40. Observability",
-      "line": 455,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "40. Observability",
-      "line": 455,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "40. Observability",
-      "line": 455,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "41. Troubleshooting flow",
-      "line": 474,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "41. Troubleshooting flow",
-      "line": 474,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "42. Incident response",
-      "line": 495,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "43. Časté anti-patterny",
-      "line": 514,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "43. Časté anti-patterny",
-      "line": 514,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
+      "section": "2. Exact SAML subject",
+      "line": 25,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -192629,35 +191837,26 @@
     },
     {
       "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
+      "section": "3. Metadata je trust bootstrap",
+      "line": 56,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "3. Metadata je trust bootstrap",
+      "line": 56,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entity ID;`, `SSO/SLO a ACS endpoints;`, `bindings;`, `signing a encryption keys;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
+      "section": "3. Metadata je trust bootstrap",
+      "line": 56,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -192665,8 +191864,62 @@
     },
     {
       "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
+      "section": "3. Metadata je trust bootstrap",
+      "line": 56,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SSO`, `SLO`, `ACS`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "4. SP-initiated transaction",
+      "line": 82,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "5. Browser bindings",
+      "line": 99,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "5. Browser bindings",
+      "line": 99,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS;`, `XML signature;`, `exact endpoint a entity bindingu;`, `request/response state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "5. Browser bindings",
+      "line": 99,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "5. Browser bindings",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "5. Browser bindings",
+      "line": 99,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -192674,12 +191927,525 @@
     },
     {
       "path": "docs/13-security-and-identity/saml.md",
-      "section": "44. Kompletný production príklad",
-      "line": 534,
+      "section": "5. Browser bindings",
+      "line": 99,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `XML`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "6. Secure XML a signed-node binding",
+      "line": 115,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "6. Secure XML a signed-node binding",
+      "line": 115,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limitovať payload, depth, elements a attributes;`, `odmietnuť duplicate IDs;`, `resolve-nuť unique signed element;`, `použiť key iba z trusted entity metadata;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "6. Secure XML a signed-node binding",
+      "line": 115,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "6. Secure XML a signed-node binding",
+      "line": 115,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "6. Secure XML a signed-node binding",
+      "line": 115,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "6. Secure XML a signed-node binding",
+      "line": 115,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DTD`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "8. Audience, Destination a Recipient",
+      "line": 147,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "8. Audience, Destination a Recipient",
+      "line": 147,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP`, `ACS`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "9. Čas a replay",
+      "line": 157,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "13. Local session a authorization",
+      "line": 200,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "14. Worked failure — certificate trusted bez entity boundary",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "14. Worked failure — certificate trusted bez entity boundary",
+      "line": 216,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "15. Competing hypotheses a discriminating evidence",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "15. Competing hypotheses a discriminating evidence",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `XML Signature Wrapping;`, `replay legitímnej production assertion;`, `wrong reverse-proxy URL;`, `compromised production IdP;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "15. Competing hypotheses a discriminating evidence",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "15. Competing hypotheses a discriminating evidence",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "15. Competing hypotheses a discriminating evidence",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "15. Competing hypotheses a discriminating evidence",
+      "line": 245,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `XML`, `URL`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť FED-SIGN-07 z production trusted metadata;`, `zablokovať IdP-initiated login pre high-risk SP;`, `zastaviť privileged session creation z affected entity/key interval-u;`, `revoke-nuť affected local sessions a downstream credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "16. Evidence-preserving containment",
+      "line": 269,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP`, `ID`, `ACS`, `MFA`, `TLS`, `XML`, `Identity`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `SP`, `ID`, `XML`",
       "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `publikovať trusted production metadata s exact entity ID;`, `obnoviť exact Destination, Recipient, Audience a InResponseTo validati`, `opraviť trusted proxy external-URL configuration;`, `mapovať identity cez entity + NameID format/value;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "17. Authoritative recovery",
+      "line": 278,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAML`, `OIDC`, `ID`, `URL`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `validly signed staging assertion je v production odmietnutá;`, `unsigned/extra/ambiguous assertion a wrapping fixture zlyhajú;`, `same-email subject z inej entity neprevezme účet;`, `untrusted Role attribute nevytvorí privilege;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "18. Acceptance verdict",
+      "line": 291,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP`, `SLO`, `JIT`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "19. Troubleshooting flow",
+      "line": 304,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed metadata refresh a rollover canary;`, `required SP-initiated flow pre privileged applications;`, `secure parser a wrapping regression fixtures;`, `exact external ACS test za reverse proxy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "20. Earlier controls",
+      "line": 321,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP-`, `ACS`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "Trusted certificate = trusted IdP",
+      "line": 335,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "Valid signature = valid SAML login",
+      "line": 339,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "Recipient validation vypnutá za proxy",
+      "line": 343,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "IdP role = application role",
+      "line": 347,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/saml.md",
+      "section": "SLO = complete revocation",
+      "line": 351,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
