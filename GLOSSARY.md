@@ -762,6 +762,10 @@ Stage-specific rozhodnutie, či Kerberos zlyhal pri initial TGT issuance, servic
 
 Auto Scaling Group desired state, current instance/lifecycle inventory, health sources, scaling activities, suspended processes a launch/termination decisions pre jednu fleet generation. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Assertion acceptance verdict — SAML
+
+Dôkaz, že signed XML element, trusted metadata entity, issuer, audience, destination, recipient, time, request binding, replay state, identity mapping a local authorization vytvárajú správny session outcome a odmietajú wrong-entity, replay, wrapping a untrusted-attribute paths. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Assertion Consumer Service — ACS
 
 Service Provider endpoint prijímajúci a validujúci SAML Response pri browser SSO. Pozri [SAML](docs/13-security-and-identity/saml.md).
@@ -1454,6 +1458,10 @@ Podmienka, ktorá drží nový Node mimo bežného workload scheduling-u, kým c
 
 Minimálna počiatočná konfigurácia potrebná na bezpečné pripojenie targetu k dlhodobému management workflowu, napríklad identity, trusted CA, management transport a inventory registration. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Bootstrap identity boundary — secrets
+
+Prvotná platformová alebo cryptographic identity, ktorou workload preukáže oprávnenie získať ďalší secret alebo vykonať cryptographic operation bez permanentného shared bootstrap credentialu. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Bootstrap token — kubeadm
 
 Časovo obmedzený credential používaný pri kubeadm node discovery a TLS bootstrap workflowe; musí overovať CA identity a nesmie byť dlhodobo uložený. Pozri [Cluster installation a lifecycle](docs/09-kubernetes/cluster-installation-lifecycle.md).
@@ -1846,6 +1854,10 @@ Explicitný zoznam kernel, filesystem, network, device, host a API operations, k
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Capability target — secret
+
+Cieľový systém a operácie, ktorým secret alebo private key poskytuje authority, napríklad database session, token issuance, decryption alebo federation signing. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Capacity acceptance verdict
 
 Closure dôkaz, že capacity zmena zvýšila successful business throughput, zachovala downstream budgets, bezpečný scale-in a definovaný failure-domain outcome bez forbidden duplicít alebo straty. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
@@ -2157,6 +2169,10 @@ Exact cluster/object/process/data/flow identity, ku ktorej patria symptóm, scop
 ## Claimant
 
 Entita, ktorá sa pokúša preukázať kontrolu nad authenticatorom a byť rozpoznaná ako konkrétny subscriber alebo principal. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Claims-authority contract — federation
+
+Versionovaný contract určujúci, ktorý issuer alebo IdP smie vydávať konkrétny claim/attribute, jeho typ, cardinality, allowed values, freshness a spôsob mapovania na local identity alebo entitlement. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md) a [SAML](docs/13-security-and-identity/saml.md).
 
 ## Class-controller ownership
 
@@ -2858,6 +2874,10 @@ Kontrakt definovaný consumerom podľa interactions, ktoré reálne potrebuje, a
 
 Evidencia module consumers, používaných versions, environments, owners, provider/Terraform constraints a podporovaných upgrade paths. Umožňuje bezpečné deprecation, security remediation a retirement starého contractu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
+## Consumer-loaded secret generation
+
+Exact secret alebo key version reálne načítaná konkrétnym processom, agentom alebo workload replica, odlíšená od current source a delivered file/object generation. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Consumer-loaded secret state
 
 Secret version a credential generation skutočne načítaná konkrétnym processom, taskom, Lambda environmentom, sidecarom alebo connection poolom. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -3346,6 +3366,10 @@ Kópia recovery pointu do oddeleného AWS accountu na zníženie credential a ad
 
 Vytváranie binary pre target platform odlišnú od build host platformy pomocou toolchainu a automatic platform arguments ako `TARGETOS` a `TARGETARCH`. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Cross-environment key reuse
+
+Použitie rovnakého private alebo symmetric key materialu v staging, production alebo ďalších environmentoch, ktoré mení compromise menej dôveryhodného environmentu na širší production trust incident. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Cross-pillar decision — Well-Architected
 
 Versionované architecture rozhodnutie zaznamenávajúce benefit, trade-offs, guardrails a validation naprieč reliability, security, performance, operations, cost a sustainability outcomes. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -3353,6 +3377,10 @@ Versionované architecture rozhodnutie zaznamenávajúce benefit, trade-offs, gu
 ## Cross-pillar optimization guardrail
 
 SLO, security, recovery, performance alebo capacity condition, ktorá musí zostať splnená počas cost optimization change-u. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Cross-purpose key reuse
+
+Použitie jedného keyu pre nesúvisiace cryptographic purposes alebo protocols, napríklad OIDC a SAML signing, čím sa spájajú ich attack surface, authorization a revocation blast radius. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Cross-Region backup copy
 
@@ -3386,6 +3414,10 @@ Versionovaný inventory objektov a atribútov spravovaných viacerými automatio
 
 Zneprístupnenie encrypted dát bezpečným zničením všetkých key copies potrebných na ich decryption; účinnosť závisí od úplného key inventory a backup lifecycle-u. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Cryptographic acceptance verdict
+
+Dôkaz, že asset, format, algorithm, key purpose/version, nonce/AAD alebo signed subject, caller authorization, loaded verifier state, recovery a old-key rejection spĺňajú intended confidentiality, integrity alebo authentication outcome. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Cryptographic agility
 
 Schopnosť inventarizovať a kontrolovane meniť cryptographic algorithms, protocols, parameters, certificates a key mechanisms bez neplánovaného prepisu celého systému. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -3397,6 +3429,10 @@ Effective allow alebo deny výsledok z caller/session identity, IAM/SCP/boundary
 ## Cryptographic BOM — CBOM
 
 Inventory cryptographic algorithms, keys, certificates, protocols a dependencies používaný na crypto governance a migration planning. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Cryptographic protection subject
+
+Exact data alebo artifact class, protection property, state at rest/transit/use, algorithm/format generation, key ID/purpose/version, producers, consumers, cryptographic boundary, plaintext points a recovery state analyzovanej protection. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Cryptoperiod
 
@@ -5038,6 +5074,10 @@ Governed inventory assignable roles, groups a capabilities s purpose, actions, s
 
 Complete desired identity-to-entitlement graph vypočítaný z authoritative identity, job-function, ownership a policy state-u pre konkrétny reconciliation cycle. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
+## Entity-bound signing key — SAML
+
+Signing public key dôveryhodný iba ako súčasť konkrétnej SAML metadata entity a generation, nie ako samostatná federation identity použiteľná naprieč issuers alebo environments. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Entity ID — SAML
 
 Stabilný identifier SAML Identity Providera alebo Service Providera používaný v metadata a issuer/audience trust contracte. Pozri [SAML](docs/13-security-and-identity/saml.md).
@@ -5637,6 +5677,10 @@ Runtime control oddeľujúci deployment kódu od sprístupnenia capability pomoc
 ## Federation
 
 Trust model, v ktorom relying party prijíma authentication assertion alebo token od samostatne spravovaného identity provider-a. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Federation identity key
+
+Stable external identity zložená z federation trust namespace-u a subject identifiera, napríklad OIDC `issuer + sub` alebo SAML `IdP entity ID + NameID format + NameID value`. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md) a [SAML](docs/13-security-and-identity/saml.md).
 
 ## Federation — Prometheus
 
@@ -6878,6 +6922,10 @@ Security analýza využívajúca runtime informácie z instrumentovanej aplikác
 
 Signed OIDC JWT určený Relying Party, ktorý obsahuje issuer, subject, audience a authentication context claims. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## ID Token acceptance verdict
+
+Dôkaz, že trusted issuer/client transaction, signature, `iss`, `aud`, `azp`, time, nonce, assurance, `issuer + sub` mapping, claims authority, local session a resource authorization vytvárajú intended login a odmietajú wrong-issuer alebo token-substitution paths. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## ID token — GitLab CI/CD
 
 Krátkodobý signed OIDC token vydaný jobu s definovaným audience a claims, používaný na federované overenie voči cloud alebo secret provideru. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
@@ -7142,6 +7190,10 @@ Authority vznikajúca kombináciou zdanlivo úzkych permissions, napríklad `iam
 
 Povolená operation, ktorá umožní získať inú alebo vyššiu authority cez workload creation, credential read, role binding, impersonation, delegated role, trusted artifact alebo policy mutation. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
+## Indirect Secret access — Kubernetes
+
+Schopnosť získať Kubernetes Secret bez priameho `get`, napríklad vytvorením Podu s oprávnenou ServiceAccount, mountom Secretu, `exec`, debug containerom alebo node/kubelet accessom. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Indirect workload capability
 
 Autorita získaná cez permission vytvoriť alebo meniť Pod/Deployment/Job, napríklad použitie silnejšej ServiceAccount, mounted Secretu, internal networku alebo runtime fields. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
@@ -7393,6 +7445,10 @@ Subnet bez všeobecného inbound internet pathu aj bez general outbound internet
 ## Isolation boundary
 
 Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Issuer trust generation — OIDC
+
+Versionovaná väzba exact OIDC issuer-a na approved discovery metadata, endpoints, JWKS, algorithms, client registration a tenant/environment policy. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
 ## Item inventory — Ansible
 
@@ -8386,6 +8442,10 @@ Queue model, ktorý overuje viac merge requests v predpokladanom poradí ich int
 
 Path resolution cez writable upper layer a ordered lower layers so zohľadnením whiteouts a opaque directories. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
+## Metadata trust generation — SAML
+
+Versionovaný SAML trust state spájajúci entity ID, endpoints, bindings, signing/encryption keys, NameID/attribute contract a validity/rollover metadata. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Metamonitoring — alerting
 
 Monitoring celého monitoring a notification reťazca vrátane source signalov, rule evaluation, Alertmanagera a externého receivera. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
@@ -9030,6 +9090,10 @@ Node taint effect blokujúci nové Pody bez matching toleration a schopný evict
 
 Dočasný Pod status signal používaný schedulerom najmä pri preemption workflowe, ktorý označuje očakávaný kandidátny Node, ale nie je finálnym bindingom. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
 
+## Non-exportable signing capability
+
+Model, v ktorom workload môže po authorization požiadať KMS, HSM alebo signing service o podpis, ale raw private key material neopustí cryptographic boundary. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md) a [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
 ## Non-repudiation
 
 Schopnosť poskytnúť dôkaz o pôvode alebo vykonaní operácie tak, aby ju zodpovedná entita nemohla vierohodne poprieť. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
@@ -9242,9 +9306,17 @@ Protokol na zisťovanie revocation statusu certificate; server môže status pos
 
 Štandardizované získanie OpenID Provider metadata vrátane issuer, endpoints a JWKS URI. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## OIDC subject
+
+Exact issuer/discovery generation, client registration, transaction state, token header/claims, identity mapping, claims revision, local session, requested resource a revocation descendants analyzovaného OIDC loginu. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
 ## Old-generation retirement — Kubernetes upgrade
 
 Overené odstránenie starej control-plane, Node, add-on, credential a telemetry generation po prijatí target platformy. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
+
+## Old-key forbidden path
+
+Negative acceptance test dokazujúci, že retired alebo compromised key už nedokáže decryptovať, podpisovať accepted artifact, vytvoriť session ani byť znovu načítaný cez stale cache, backup alebo alternate verifier. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Omitted target — Ansible
 
@@ -9857,6 +9929,10 @@ Scheduler decision, že task alebo Pod spĺňa viditeľné resource, attribute, 
 ## Plaintext
 
 Nešifrované dáta dostupné application alebo používateľovi pred encryption alebo po decryption. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Plaintext boundary
+
+Miesto, kde sa encrypted data alebo secret po authorized decryption stane čitateľným, napríklad process memory, TLS terminator, Pod volume, environment alebo debug output. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Plan artifact — Terraform
 
@@ -10517,6 +10593,10 @@ Versionovaná identita business value alebo credentialu, KMS key/materialu, secr
 ## Protected variable — GitLab
 
 CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa GitLab trust pravidiel; stále vyžaduje bezpečný runner a pipeline kód. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Protection-state verdict
+
+Rozhodnutie, či konkrétna data copy je at rest, in transit alebo in use a ktorý attacker/control model sa na túto boundary reálne vzťahuje. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Provenance attestation
 
@@ -12194,6 +12274,10 @@ Kombinácia assertions, protocols a bindings pre konkrétny use case, napríklad
 
 Request/response messages definované SAML, napríklad AuthnRequest, Response alebo LogoutRequest. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
+## SAML subject
+
+Exact trusted metadata/entity/key generation, request and assertion IDs, signed XML element, semantic constraints, NameID/attributes, local session, replay a logout/revocation state analyzovaného SAML loginu. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
 ## Sample — Prometheus
 
 Timestampovaná hodnota patriaca ku konkrétnej Prometheus time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -12494,6 +12578,10 @@ Opakovaný identity/entitlement reconciliation cycle dokazujúci, že odstránen
 
 Citlivý credential alebo cryptographic material, ktorého získanie umožňuje access, impersonation, decryption, signing alebo privileged operation. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Secret acceptance verdict
+
+Dôkaz, že intended identity môže získať alebo použiť correct secret generation, consumers ju skutočne načítali, target dôveruje new generation a old direct, indirect, copied a derived credential paths sú neplatné. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
 ## Secret access graph
 
 Inventory priamych aj nepriamych paths k Secret plaintextu cez API verbs, Pod/Job creation, workload edits, exec/debug, node access, backups a external caches. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
@@ -12520,7 +12608,7 @@ Proces creation, storage, authorization, distribution, use, rotation, revocation
 
 ## Secret lifecycle subject
 
-Exact secret ARN, metadata/KMS generation, version IDs, staging labels, rotation workflow, target credential principals, consumer cohorts a loaded-state evidence. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+Exact purpose, target, credential type, secret/key ID a generation, source, owner, policies, consumers, delivery, loaded state, target trust, descendants, backup a destruction state analyzovaného secretu. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Secret lifecycle subject — Ansible Vault
 
@@ -12545,6 +12633,10 @@ Resource-based policy na Secrets Manager secret-e určujúca principals a condit
 ## Secret revocation
 
 Technické zneplatnenie credentialu v authoritative cieľovom systéme. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Secret revocation graph
+
+Inventory vzťahov od source secretu cez distributed copies a loaded processes po target sessions, issued tokens/assertions/certificates, exchanged descendants, caches a backups, ktoré musia byť pri compromise zneplatnené alebo posúdené. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Secret rotation
 
@@ -13089,6 +13181,10 @@ CloudFront private-content authorization token v cookies, ktorý môže oprávni
 ## Signed image subject
 
 OCI image index alebo platform manifest digest, ku ktorému sa signature alebo attestation explicitne viaže. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Signed-node binding — SAML
+
+Požiadavka, aby application claims spracovala presne XML element, ktorého reference, digest a signature boli overené, a odmietla duplicate IDs, extra assertions alebo ambiguous document shape. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
 ## Signed policy bundle
 
@@ -13949,6 +14045,10 @@ Navrhovaná release revision so všetkými target chart/dependency/values/manife
 ## target tracking — Auto Scaling
 
 Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na target hodnote zmenou desired capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## Target-trust generation — secret
+
+Exact target-side credential alebo public-key state, ktorý rozhoduje, či secret/key generation zostáva použiteľná, odlíšený od value uloženej v secret store. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
 ## Targeted follow-up drill
 
@@ -14889,6 +14989,10 @@ Vyhradená záverečná časť timed labu, počas ktorej sa všetky úlohy znovu
 ## Verification — testing
 
 Overenie, či systém alebo artifact zodpovedá explicitnej špecifikácii, kontraktu alebo pravidlu. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
+
+## Verifier trust generation
+
+Versionovaný set issuer/entity bindings, public keys, algorithms, audience/resource rules a cache state skutočne načítaný Relying Party, Service Provider alebo iným signature consumerom. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md), [SAML](docs/13-security-and-identity/saml.md) a [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
 ## Version-bound manifest
 
