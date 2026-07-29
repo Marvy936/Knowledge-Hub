@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10567**
-- Total words: **634,084**
-- Findings: **21904** (critical 6500, high 7224, medium 2832, low 5348)
+- Audited conceptual sections: **10562**
+- Total words: **633,749**
+- Findings: **21824** (critical 6466, high 7198, medium 2824, low 5336)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -26,7 +26,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 1986 | 86 | 109 | 26 | 10 | 1922 | `docs/13-security-and-identity/cia-triad.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
-| D | 1348 | 66 | 61 | 16 | 21 | 2097 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | D | 1336 | 64 | 63 | 21 | 7 | 2104 | `docs/12-observability/cardinality.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
@@ -99,6 +98,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 714 | 29 | 39 | 10 | 16 | 2038 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 707 | 27 | 44 | 7 | 11 | 2183 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 701 | 29 | 41 | 6 | 8 | 1775 | `docs/06-gitlab/merge-requests-and-approvals.md` |
+| D | 699 | 32 | 35 | 8 | 9 | 1762 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | D | 697 | 28 | 25 | 28 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 695 | 34 | 29 | 14 | 10 | 1929 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | D | 694 | 30 | 35 | 10 | 20 | 2171 | `docs/04-testing-and-quality/shift-right.md` |
@@ -12713,133 +12713,73 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/12-observability/alert-design-alert-fatigue.md`
 
-- **CRITICAL** line 22, `empty-section` — **2. Page, ticket a informational signal**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 24, `bare-bullet-items` — **Page**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje významný aktuálny alebo bezprostredný user impact,`, `automatická remediation nestačí,`, `oneskorenie zvyšuje škodu,`, `responder má konkrétnu akciu.`.
-- **CRITICAL** line 24, `outline-instead-of-explanation` — **Page**: 4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 33, `bare-bullet-items` — **Ticket**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capacity sa blíži k limitu v horizonte dní,`, `certificate expiruje o niekoľko týždňov,`, `backup coverage chýba pre nový resource,`, `deprecated API bude odstránené,`.
-- **CRITICAL** line 33, `outline-instead-of-explanation` — **Ticket**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 43, `bare-bullet-items` — **Informational event**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment marker,`, `autoscaling event,`, `config reload,`, `instance replacement,`.
-- **CRITICAL** line 43, `outline-instead-of-explanation` — **Informational event**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 55, `bare-bullet-items` — **3. Actionability**: 10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kto je owner?`, `Aký je user alebo business impact?`, `Čo má responder urobiť teraz?`, `Ako dlho možno čakať?`.
-- **CRITICAL** line 55, `outline-instead-of-explanation` — **3. Actionability**: 11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 76, `bare-bullet-items` — **4. Symptom oproti príčine**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error-rate SLO burn,`, `latency SLO burn,`, `unavailable user journey,`, `queue freshness prekračujúca business limit,`.
-- **CRITICAL** line 76, `outline-instead-of-explanation` — **4. Symptom oproti príčine**: 16 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 103, `bare-bullet-items` — **5. Alert condition**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný signal contract,`, `správny scope,`, `stabilný denominator,`, `vhodné time window,`.
-- **CRITICAL** line 103, `outline-instead-of-explanation` — **5. Alert condition**: 13 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 133, `bare-bullet-items` — **6. Threshold alerting**: 10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limit je fyzický alebo explicitný,`, `signal má stabilnú interpretáciu,`, `threshold súvisí s impactom,`, `seasonality nie je dominantná.`.
-- **CRITICAL** line 133, `outline-instead-of-explanation` — **6. Threshold alerting**: 12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 156, `bare-bullet-items` — **7. SLO a burn-rate alerting**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `page je naviazaný na user outcome,`, `threshold sa prispôsobí reliability targetu,`, `rozlišuje krátky prudký outage a dlhú miernu degradáciu,`, `redukuje noise z malých neškodných odchýlok.`.
-- **CRITICAL** line 156, `outline-instead-of-explanation` — **7. SLO a burn-rate alerting**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 175, `bare-bullet-items` — **8. Anomaly detection**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exploratory signal,`, `ticket,`, `doplnok k known thresholds,`, `detection nezvyčajného costu alebo trafficu.`.
-- **CRITICAL** line 175, `outline-instead-of-explanation` — **8. Anomaly detection**: 10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 195, `bare-bullet-items` — **9. for a pending state**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie krátkych transientov,`, `čakanie na autoscaling alebo self-healing,`, `stabilizácia noisy metrics.`, `príliš dlhé for oneskorí kritický detection,`.
-- **CRITICAL** line 195, `outline-instead-of-explanation` — **9. for a pending state**: 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `bare-bullet-items` — **10. No data**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic je legitímne nulový,`, `target neexistuje,`, `scrape/export zlyhal,`, `query labels sa zmenili,`.
-- **CRITICAL** line 214, `outline-instead-of-explanation` — **10. No data**: 12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 238, `bare-bullet-items` — **11. Alert identity**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname ,`, `service ,`, `team ,`, `severity ,`.
-- **CRITICAL** line 238, `outline-instead-of-explanation` — **11. Alert identity**: 12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 276, `bare-bullet-items` — **13. Ownership**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `team,`, `service,`, `escalation policy,`, `runbook,`.
-- **CRITICAL** line 276, `outline-instead-of-explanation` — **13. Ownership**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 290, `bare-bullet-items` — **14. Notification content**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stručný symptom,`, `affected service a environment,`, `user/business impact,`, `začiatok a duration,`.
-- **CRITICAL** line 290, `outline-instead-of-explanation` — **14. Notification content**: 15 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 313, `bare-bullet-items` — **15. Runbook**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo alert znamená,`, `čo neznamená,`, `immediate safety checks,`, `user impact validation,`.
-- **CRITICAL** line 313, `outline-instead-of-explanation` — **15. Runbook**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **16. Grouping**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname,`, `cluster,`, `service,`, `environment.`.
-- **CRITICAL** line 330, `outline-instead-of-explanation` — **16. Grouping**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 353, `bare-bullet-items` — **17. Inhibition**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad matcher potlačí nezávislý incident,`, `root-cause alert sa sám nevytvorí,`, `scope labels nesedia,`, `security alert je potlačený infra alertom.`.
-- **CRITICAL** line 353, `outline-instead-of-explanation` — **17. Inhibition**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 375, `bare-bullet-items` — **18. Silences a maintenance**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plánovaná maintenance,`, `známy incident počas remediation,`, `krátkodobý test.`, `ownera,`.
-- **CRITICAL** line 375, `outline-instead-of-explanation` — **18. Silences a maintenance**: 12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 402, `bare-bullet-items` — **19. Alert fatigue**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alerts sa ignorujú,`, `pomalšie acknowledgement,`, `vypínanie notifications,`, `horší on-call well-being,`.
-- **CRITICAL** line 402, `outline-instead-of-explanation` — **19. Alert fatigue**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 415, `bare-bullet-items` — **Typické príčiny**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alert na každú metric,`, `cause alerts namiesto symptoms,`, `chýbajúce grouping/inhibition,`, `flapping,`.
-- **CRITICAL** line 415, `no-prose-concept` — **Typické príčiny**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 415, `outline-instead-of-explanation` — **Typické príčiny**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 429, `bare-bullet-items` — **20. Alert quality metrics**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet pages za on-call shift,`, `pages per incident,`, `actionable rate,`, `false-positive rate,`.
-- **CRITICAL** line 429, `outline-instead-of-explanation` — **20. Alert quality metrics**: 12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 448, `bare-bullet-items` — **21. Alert review**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré alerts pageovali,`, `aká akcia nasledovala,`, `či alert prišiel včas,`, `či bol symptom správny,`.
-- **CRITICAL** line 448, `outline-instead-of-explanation` — **21. Alert review**: 12 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 468, `bare-bullet-items` — **22. Automation**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger je spoľahlivý,`, `action je bounded a idempotentná,`, `má safety checks,`, `je auditovaná,`.
-- **CRITICAL** line 468, `outline-instead-of-explanation` — **22. Automation**: 11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 509, `bare-bullet-items` — **24. Security alerts**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rarity nemusí znamenať nízku dôležitosť,`, `evidence retention je kritická,`, `attacker môže ovplyvniť telemetry,`, `confidentiality a need-to-know routing,`.
-- **CRITICAL** line 509, `outline-instead-of-explanation` — **24. Security alerts**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 522, `bare-bullet-items` — **25. Capacity alerts**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `growth rate,`, `seasonality,`, `recovery time,`, `failover capacity,`.
-- **CRITICAL** line 522, `outline-instead-of-explanation` — **25. Capacity alerts**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 546, `bare-bullet-items` — **26. Batch alerts**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry funguje,`, `freshness deadline nie je ohrozený,`, `ďalší run má dostatočný čas.`, `time since last successful completion,`.
-- **CRITICAL** line 546, `outline-instead-of-explanation` — **26. Batch alerts**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 562, `bare-bullet-items` — **27. Kubernetes alerts**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý Pod restart,`, `jeden Pending Pod počas rolloutu,`, `každá Eviction,`, `Node NotReady počas kontrolovaného drainu.`.
-- **CRITICAL** line 562, `outline-instead-of-explanation` — **27. Kubernetes alerts**: 10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 582, `bare-bullet-items` — **28. Testing alerts**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule syntax,`, `query fixtures,`, `pending/firing/resolved lifecycle,`, `no-data behavior,`.
-- **CRITICAL** line 582, `outline-instead-of-explanation` — **28. Testing alerts**: 12 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 601, `bare-bullet-items` — **29. Alert as Code**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rules,`, `route tree,`, `inhibition policies,`, `notification templates,`.
-- **CRITICAL** line 601, `outline-instead-of-explanation` — **29. Alert as Code**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 627, `empty-section` — **30. Troubleshooting: alert condition sa nespustila**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 641, `empty-section` — **31. Troubleshooting: firing, ale bez notification**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 655, `bare-bullet-items` — **32. Troubleshooting: duplicate pages**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica label v alert identity,`, `viac Alertmanager clusters bez koordinácie,`, `continue: true ,`, `duplicitné rules v Prometheus a Grafane,`.
-- **CRITICAL** line 655, `outline-instead-of-explanation` — **32. Troubleshooting: duplicate pages**: 7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 667, `bare-bullet-items` — **33. Troubleshooting: flapping**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threshold pri baseline,`, `scrape gaps,`, `short window,`, `for ,`.
-- **CRITICAL** line 667, `outline-instead-of-explanation` — **33. Troubleshooting: flapping**: 9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 5, `single-sentence-concept` — **1. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 24, `single-sentence-concept` — **Page**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 33, `single-sentence-concept` — **Ticket**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 43, `single-sentence-concept` — **Informational event**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 55, `single-sentence-concept` — **3. Actionability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 76, `single-sentence-concept` — **4. Symptom oproti príčine**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `single-sentence-concept` — **5. Alert condition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 133, `single-sentence-concept` — **6. Threshold alerting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 175, `single-sentence-concept` — **8. Anomaly detection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 262, `bare-bullet-items` — **12. Severity**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `page — okamžitá ľudská reakcia,`, `ticket — plánovaná engineering práca,`, `info — correlation alebo reporting.`.
-- **HIGH** line 290, `single-sentence-concept` — **14. Notification content**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 402, `single-sentence-concept` — **19. Alert fatigue**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 415, `list-first-introduction` — **Typické príčiny**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 448, `single-sentence-concept` — **21. Alert review**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 468, `single-sentence-concept` — **22. Automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 509, `single-sentence-concept` — **24. Security alerts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 546, `single-sentence-concept` — **26. Batch alerts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 562, `single-sentence-concept` — **27. Kubernetes alerts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 582, `single-sentence-concept` — **28. Testing alerts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 601, `single-sentence-concept` — **29. Alert as Code**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 655, `single-sentence-concept` — **32. Troubleshooting: duplicate pages**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 667, `single-sentence-concept` — **33. Troubleshooting: flapping**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 685, `single-sentence-concept` — **Page na každý failure mode**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 689, `single-sentence-concept` — **Alert bez ownera**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 693, `single-sentence-concept` — **Runbook link iba na homepage dokumentácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 697, `single-sentence-concept` — **Threshold kopírovaný medzi službami**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 701, `single-sentence-concept` — **Permanentné silences**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 705, `single-sentence-concept` — **„Auto-resolved, teda dobrý alert“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 709, `single-sentence-concept` — **Dashboard threshold považovaný za page policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 713, `single-sentence-concept` — **Duplicitné alerting engines bez autority**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 24, `thin-concept-section` — **Page**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 33, `thin-concept-section` — **Ticket**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 43, `thin-concept-section` — **Informational event**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 55, `thin-concept-section` — **3. Actionability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 76, `term-before-explanation` — **4. Symptom oproti príčine**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `CPU`, `GC`, `freshness`
-- **HIGH** line 76, `thin-concept-section` — **4. Symptom oproti príčine**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 103, `thin-concept-section` — **5. Alert condition**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 133, `term-before-explanation` — **6. Threshold alerting**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`, `CPU`, `workload`, `scope`
-- **HIGH** line 133, `thin-concept-section` — **6. Threshold alerting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 156, `thin-concept-section` — **7. SLO a burn-rate alerting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 175, `thin-concept-section` — **8. Anomaly detection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 214, `thin-concept-section` — **10. No data**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 238, `thin-concept-section` — **11. Alert identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 276, `thin-concept-section` — **13. Ownership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 290, `thin-concept-section` — **14. Notification content**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 313, `thin-concept-section` — **15. Runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 353, `thin-concept-section` — **17. Inhibition**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 375, `thin-concept-section` — **18. Silences a maintenance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 402, `thin-concept-section` — **19. Alert fatigue**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 415, `thin-concept-section` — **Typické príčiny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 429, `thin-concept-section` — **20. Alert quality metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 448, `thin-concept-section` — **21. Alert review**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 468, `thin-concept-section` — **22. Automation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 509, `thin-concept-section` — **24. Security alerts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 546, `thin-concept-section` — **26. Batch alerts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 562, `thin-concept-section` — **27. Kubernetes alerts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 582, `thin-concept-section` — **28. Testing alerts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 601, `thin-concept-section` — **29. Alert as Code**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 655, `thin-concept-section` — **32. Troubleshooting: duplicate pages**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 667, `thin-concept-section` — **33. Troubleshooting: flapping**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 55, `empty-section` — **3. Page, ticket a informational event**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 57, `bare-bullet-items` — **Page**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje významný aktuálny alebo bezprostredný user/business impact;`, `oneskorenie zvyšuje škodu;`, `automatic remediation nestačí;`, `on-call má bezpečnú konkrétnu akciu;`.
+- **CRITICAL** line 57, `outline-instead-of-explanation` — **Page**: 5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 86, `bare-bullet-items` — **4. Symptom a cause boundary**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO error-budget burn;`, `end-to-end latency alebo availability;`, `data correctness/integrity failure;`, `queue freshness prekračujúca business deadline;`.
+- **CRITICAL** line 100, `bare-bullet-items` — **5. Action contract**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je poškodené a koho sa to týka;`, `odkedy a v akom scope;`, `prečo je reakcia urgentná;`, `kto je owner;`.
+- **CRITICAL** line 100, `outline-instead-of-explanation` — **5. Action contract**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 115, `bare-bullet-items` — **6. Condition a population**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact numerator a denominator;`, `kompatibilný scope a cohort;`, `traffic/minimum-population guard;`, `evaluation a observation windows;`.
+- **CRITICAL** line 115, `outline-instead-of-explanation` — **6. Condition a population**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 156, `bare-bullet-items` — **8. No data**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímne nulový demand;`, `odstránený target;`, `exporter/scrape/ingest failure;`, `schema alebo label drift;`.
+- **CRITICAL** line 156, `outline-instead-of-explanation` — **8. No data**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 215, `bare-bullet-items` — **11. Alert fatigue ako feedback failure**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysokým pages-per-incident;`, `nízkym actionable rate;`, `duplicate notifications;`, `častým auto-resolution bez akcie;`.
+- **CRITICAL** line 215, `outline-instead-of-explanation` — **11. Alert fatigue ako feedback failure**: 16 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 241, `empty-section` — **12. Worked failure: 43 pages pre jeden settlement incident**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 243, `empty-section` — **Subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 273, `bare-bullet-items` — **Competing hypotheses**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO alert bol nesprávny;`, `alert delivery zlyhala;`, `duplicate engines vytvorili viac incidentov;`, `per-task labels vytvorili cardinality storm;`.
+- **CRITICAL** line 273, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 273, `outline-instead-of-explanation` — **Competing hypotheses**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 311, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 311, `outline-instead-of-explanation` — **Containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 320, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 320, `outline-instead-of-explanation` — **Authoritative recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 331, `bare-bullet-items` — **Acceptance verdict**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controlled settlement burn vytvorí jednu canonical external page;`, `cause signals zostanú dostupné bez duplicate paging;`, `same incident sa deduplikuje aj pri HA retry;`, `forbidden cross-environment inhibition a broad silence nefungujú;`.
+- **CRITICAL** line 331, `outline-instead-of-explanation` — **Acceptance verdict**: 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 344, `bare-bullet-items` — **13. Runbook a notification content**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `význam a non-meaning alertu;`, `safety checks;`, `user-impact validation;`, `top hypotheses a discriminating queries;`.
+- **CRITICAL** line 344, `outline-instead-of-explanation` — **13. Runbook a notification content**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 359, `bare-bullet-items` — **14. Alert as Code a testovanie**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rules a recording dependencies;`, `routing/grouping/inhibition;`, `templates a receiver references;`, `ownership a runbook metadata;`.
+- **CRITICAL** line 359, `outline-instead-of-explanation` — **14. Alert as Code a testovanie**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 400, `empty-section` — **16. Troubleshooting model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 402, `empty-section` — **Condition sa nespustila**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 413, `empty-section` — **Firing bez notification**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 424, `empty-section` — **Duplicate pages**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 435, `empty-section` — **Flapping**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 5, `list-first-introduction` — **1. Dominantný mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 5, `single-sentence-concept` — **1. Dominantný mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 57, `single-sentence-concept` — **Page**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 67, `single-sentence-concept` — **Ticket**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 71, `single-sentence-concept` — **Informational event**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 115, `single-sentence-concept` — **6. Condition a population**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 145, `bare-bullet-items` — **7. Burn-rate a time semantics**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `fast burn — krátky prudký outage;`, `slow burn — dlhšiu miernu degradáciu.`.
+- **HIGH** line 156, `single-sentence-concept` — **8. No data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 273, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 284, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 284, `single-sentence-concept` — **Discriminating evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 311, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 320, `bare-bullet-items` — **Authoritative recovery**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `určiť Prometheus + Alertmanager ako jediný owner settlement page-u;`, `odstrániť dynamic task identity z page labels;`, `opraviť grouping, inhibition a external incident key;`, `nahradiť runbook konkrétnym containment/recovery postupom;`.
+- **HIGH** line 320, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 331, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 344, `single-sentence-concept` — **13. Runbook a notification content**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 385, `list-first-introduction` — **15. Metamonitoring**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 385, `single-sentence-concept` — **15. Metamonitoring**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 448, `single-sentence-concept` — **Page na každý failure mode**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 452, `single-sentence-concept` — **Auto-resolved ako quality proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 456, `single-sentence-concept` — **Dashboard threshold ako alert policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 460, `single-sentence-concept` — **Duplicate engines bez autority**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 464, `single-sentence-concept` — **Permanentná silence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 468, `single-sentence-concept` — **Alert bez forbidden action**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 57, `thin-concept-section` — **Page**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 100, `thin-concept-section` — **5. Action contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 115, `thin-concept-section` — **6. Condition a population**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 156, `thin-concept-section` — **8. No data**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 215, `thin-concept-section` — **11. Alert fatigue ako feedback failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 273, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 311, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 320, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 331, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 344, `thin-concept-section` — **13. Runbook a notification content**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 359, `thin-concept-section` — **14. Alert as Code a testovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/12-observability/alertmanager.md`
 
@@ -14783,18 +14723,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2596 | 441 | 0 | 0 | 3037 |
-| `outline-instead-of-explanation` | 2524 | 0 | 0 | 0 | 2524 |
-| `term-before-explanation` | 0 | 535 | 1879 | 0 | 2414 |
-| `single-sentence-concept` | 0 | 2355 | 0 | 0 | 2355 |
-| `example-not-explicit` | 0 | 0 | 0 | 2177 | 2177 |
-| `thin-concept-section` | 0 | 2143 | 0 | 0 | 2143 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2030 | 2030 |
-| `list-first-introduction` | 0 | 1285 | 0 | 0 | 1285 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1141 | 1141 |
-| `short-concept-section` | 0 | 0 | 953 | 0 | 953 |
-| `no-prose-concept` | 743 | 0 | 0 | 0 | 743 |
-| `empty-section` | 637 | 0 | 0 | 0 | 637 |
+| `bare-bullet-items` | 2575 | 442 | 0 | 0 | 3017 |
+| `outline-instead-of-explanation` | 2504 | 0 | 0 | 0 | 2504 |
+| `term-before-explanation` | 0 | 533 | 1874 | 0 | 2407 |
+| `single-sentence-concept` | 0 | 2343 | 0 | 0 | 2343 |
+| `example-not-explicit` | 0 | 0 | 0 | 2176 | 2176 |
+| `thin-concept-section` | 0 | 2126 | 0 | 0 | 2126 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2022 | 2022 |
+| `list-first-introduction` | 0 | 1289 | 0 | 0 | 1289 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
+| `short-concept-section` | 0 | 0 | 950 | 0 | 950 |
+| `no-prose-concept` | 745 | 0 | 0 | 0 | 745 |
+| `empty-section` | 642 | 0 | 0 | 0 | 642 |
 | `list-heavy-section` | 0 | 465 | 0 | 0 | 465 |
 
 ## Required remediation pattern

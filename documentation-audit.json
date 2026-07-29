@@ -3111,15 +3111,15 @@
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "title": "Alert design a alert fatigue",
-      "words": 2097,
-      "headings": 49,
-      "sections": 49,
-      "findings": 164,
-      "critical": 66,
-      "high": 61,
-      "medium": 16,
-      "low": 21,
-      "score": 1348,
+      "words": 1762,
+      "headings": 44,
+      "sections": 44,
+      "findings": 84,
+      "critical": 32,
+      "high": 35,
+      "medium": 8,
+      "low": 9,
+      "score": 699,
       "grade": "D"
     },
     {
@@ -171245,7 +171245,7 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný mentálny model",
       "line": 5,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -171254,7 +171254,7 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný mentálny model",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -171263,8 +171263,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "2. Page, ticket a informational signal",
-      "line": 22,
+      "section": "3. Page, ticket a informational event",
+      "line": 55,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -171273,7 +171273,7 @@
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Page",
-      "line": 24,
+      "line": 57,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171282,25 +171282,25 @@
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Page",
-      "line": 24,
+      "line": 57,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Page",
-      "line": 24,
+      "line": 57,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje významný aktuálny alebo bezprostredný user impact,`, `automatická remediation nestačí,`, `oneskorenie zvyšuje škodu,`, `responder má konkrétnu akciu.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existuje významný aktuálny alebo bezprostredný user/business impact;`, `oneskorenie zvyšuje škodu;`, `automatic remediation nestačí;`, `on-call má bezpečnú konkrétnu akciu;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Page",
-      "line": 24,
+      "line": 57,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -171309,52 +171309,7 @@
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Ticket",
-      "line": 33,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Ticket",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Ticket",
-      "line": 33,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capacity sa blíži k limitu v horizonte dní,`, `certificate expiruje o niekoľko týždňov,`, `backup coverage chýba pre nový resource,`, `deprecated API bude odstránené,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Ticket",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Ticket",
-      "line": 33,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Informational event",
-      "line": 43,
+      "line": 67,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171363,34 +171318,7 @@
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Informational event",
-      "line": 43,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Informational event",
-      "line": 43,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment marker,`, `autoscaling event,`, `config reload,`, `instance replacement,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Informational event",
-      "line": 43,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
+      "line": 71,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171398,350 +171326,17 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
+      "section": "4. Symptom a cause boundary",
+      "line": 86,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kto je owner?`, `Aký je user alebo business impact?`, `Čo má responder urobiť teraz?`, `Ako dlho možno čakať?`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO error-budget burn;`, `end-to-end latency alebo availability;`, `data correctness/integrity failure;`, `queue freshness prekračujúca business deadline;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "3. Actionability",
-      "line": 55,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error-rate SLO burn,`, `latency SLO burn,`, `unavailable user journey,`, `queue freshness prekračujúca business limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "4. Symptom oproti príčine",
-      "line": 76,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `CPU`, `GC`, `freshness`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "5. Alert condition",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "5. Alert condition",
-      "line": 103,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "5. Alert condition",
-      "line": 103,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný signal contract,`, `správny scope,`, `stabilný denominator,`, `vhodné time window,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "5. Alert condition",
-      "line": 103,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "5. Alert condition",
-      "line": 103,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "5. Alert condition",
-      "line": 103,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limit je fyzický alebo explicitný,`, `signal má stabilnú interpretáciu,`, `threshold súvisí s impactom,`, `seasonality nie je dominantná.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "6. Threshold alerting",
-      "line": 133,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`, `CPU`, `workload`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "7. SLO a burn-rate alerting",
-      "line": 156,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "7. SLO a burn-rate alerting",
-      "line": 156,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `page je naviazaný na user outcome,`, `threshold sa prispôsobí reliability targetu,`, `rozlišuje krátky prudký outage a dlhú miernu degradáciu,`, `redukuje noise z malých neškodných odchýlok.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "7. SLO a burn-rate alerting",
-      "line": 156,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "7. SLO a burn-rate alerting",
-      "line": 156,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "7. SLO a burn-rate alerting",
-      "line": 156,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "8. Anomaly detection",
-      "line": 175,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "8. Anomaly detection",
-      "line": 175,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "8. Anomaly detection",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exploratory signal,`, `ticket,`, `doplnok k known thresholds,`, `detection nezvyčajného costu alebo trafficu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "8. Anomaly detection",
-      "line": 175,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "9. for a pending state",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "9. for a pending state",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie krátkych transientov,`, `čakanie na autoscaling alebo self-healing,`, `stabilizácia noisy metrics.`, `príliš dlhé for oneskorí kritický detection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "9. for a pending state",
-      "line": 195,
+      "section": "4. Symptom a cause boundary",
+      "line": 86,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -171749,53 +171344,35 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "9. for a pending state",
-      "line": 195,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "9. for a pending state",
-      "line": 195,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "9. for a pending state",
-      "line": 195,
+      "section": "4. Symptom a cause boundary",
+      "line": 86,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `availability`, `freshness`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "10. No data",
-      "line": 214,
+      "section": "5. Action contract",
+      "line": 100,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "10. No data",
-      "line": 214,
+      "section": "5. Action contract",
+      "line": 100,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic je legitímne nulový,`, `target neexistuje,`, `scrape/export zlyhal,`, `query labels sa zmenili,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je poškodené a koho sa to týka;`, `odkedy a v akom scope;`, `prečo je reakcia urgentná;`, `kto je owner;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "10. No data",
-      "line": 214,
+      "section": "5. Action contract",
+      "line": 100,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -171803,8 +171380,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "10. No data",
-      "line": 214,
+      "section": "5. Action contract",
+      "line": 100,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -171812,107 +171389,17 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "10. No data",
-      "line": 214,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "11. Alert identity",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "11. Alert identity",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname ,`, `service ,`, `team ,`, `severity ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "11. Alert identity",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "12. Severity",
-      "line": 262,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `page — okamžitá ľudská reakcia,`, `ticket — plánovaná engineering práca,`, `info — correlation alebo reporting.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "12. Severity",
-      "line": 262,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "12. Severity",
-      "line": 262,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "13. Ownership",
-      "line": 276,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "13. Ownership",
-      "line": 276,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `team,`, `service,`, `escalation policy,`, `runbook,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "13. Ownership",
-      "line": 276,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "13. Ownership",
-      "line": 276,
+      "section": "5. Action contract",
+      "line": 100,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "14. Notification content",
-      "line": 290,
+      "section": "6. Condition a population",
+      "line": 115,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171920,26 +171407,26 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "14. Notification content",
-      "line": 290,
+      "section": "6. Condition a population",
+      "line": 115,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "14. Notification content",
-      "line": 290,
+      "section": "6. Condition a population",
+      "line": 115,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stručný symptom,`, `affected service a environment,`, `user/business impact,`, `začiatok a duration,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact numerator a denominator;`, `kompatibilný scope a cohort;`, `traffic/minimum-population guard;`, `evaluation a observation windows;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "14. Notification content",
-      "line": 290,
+      "section": "6. Condition a population",
+      "line": 115,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -171947,152 +171434,26 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "14. Notification content",
-      "line": 290,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "14. Notification content",
-      "line": 290,
+      "section": "6. Condition a population",
+      "line": 115,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PII`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "15. Runbook",
-      "line": 313,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "15. Runbook",
-      "line": 313,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo alert znamená,`, `čo neznamená,`, `immediate safety checks,`, `user impact validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "15. Runbook",
-      "line": 313,
+      "section": "7. Burn-rate a time semantics",
+      "line": 145,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "16. Grouping",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "16. Grouping",
-      "line": 330,
-      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname,`, `cluster,`, `service,`, `environment.`.",
-      "score": 12
+      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `fast burn — krátky prudký outage;`, `slow burn — dlhšiu miernu degradáciu.`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "16. Grouping",
-      "line": 330,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "16. Grouping",
-      "line": 330,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "17. Inhibition",
-      "line": 353,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "17. Inhibition",
-      "line": 353,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad matcher potlačí nezávislý incident,`, `root-cause alert sa sám nevytvorí,`, `scope labels nesedia,`, `security alert je potlačený infra alertom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "17. Inhibition",
-      "line": 353,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "18. Silences a maintenance",
-      "line": 375,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "18. Silences a maintenance",
-      "line": 375,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plánovaná maintenance,`, `známy incident počas remediation,`, `krátkodobý test.`, `ownera,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "18. Silences a maintenance",
-      "line": 375,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "18. Silences a maintenance",
-      "line": 375,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "18. Silences a maintenance",
-      "line": 375,
+      "section": "7. Burn-rate a time semantics",
+      "line": 145,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -172100,8 +171461,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "19. Alert fatigue",
-      "line": 402,
+      "section": "8. No data",
+      "line": 156,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172109,8 +171470,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "19. Alert fatigue",
-      "line": 402,
+      "section": "8. No data",
+      "line": 156,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
@@ -172118,17 +171479,17 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "19. Alert fatigue",
-      "line": 402,
+      "section": "8. No data",
+      "line": 156,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alerts sa ignorujú,`, `pomalšie acknowledgement,`, `vypínanie notifications,`, `horší on-call well-being,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímne nulový demand;`, `odstránený target;`, `exporter/scrape/ingest failure;`, `schema alebo label drift;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "19. Alert fatigue",
-      "line": 402,
+      "section": "8. No data",
+      "line": 156,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172136,8 +171497,71 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Typické príčiny",
-      "line": 415,
+      "section": "11. Alert fatigue ako feedback failure",
+      "line": 215,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "16 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "11. Alert fatigue ako feedback failure",
+      "line": 215,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysokým pages-per-incident;`, `nízkym actionable rate;`, `duplicate notifications;`, `častým auto-resolution bez akcie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "11. Alert fatigue ako feedback failure",
+      "line": 215,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "11. Alert fatigue ako feedback failure",
+      "line": 215,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "11. Alert fatigue ako feedback failure",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "12. Worked failure: 43 pages pre jeden settlement incident",
+      "line": 241,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Subject",
+      "line": 243,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Competing hypotheses",
+      "line": 273,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -172145,8 +171569,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Typické príčiny",
-      "line": 415,
+      "section": "Competing hypotheses",
+      "line": 273,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -172154,26 +171578,26 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Typické príčiny",
-      "line": 415,
+      "section": "Competing hypotheses",
+      "line": 273,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Typické príčiny",
-      "line": 415,
+      "section": "Competing hypotheses",
+      "line": 273,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alert na každú metric,`, `cause alerts namiesto symptoms,`, `chýbajúce grouping/inhibition,`, `flapping,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO alert bol nesprávny;`, `alert delivery zlyhala;`, `duplicate engines vytvorili viac incidentov;`, `per-task labels vytvorili cardinality storm;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Typické príčiny",
-      "line": 415,
+      "section": "Competing hypotheses",
+      "line": 273,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172181,44 +171605,17 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "20. Alert quality metrics",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "Competing hypotheses",
+      "line": 273,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "20. Alert quality metrics",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet pages za on-call shift,`, `pages per incident,`, `actionable rate,`, `false-positive rate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "20. Alert quality metrics",
-      "line": 429,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "20. Alert quality metrics",
-      "line": 429,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "21. Alert review",
-      "line": 448,
+      "section": "Discriminating evidence",
+      "line": 284,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172226,26 +171623,44 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "21. Alert review",
-      "line": 448,
+      "section": "Discriminating evidence",
+      "line": 284,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Containment",
+      "line": 311,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Containment",
+      "line": 311,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Containment",
+      "line": 311,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "21. Alert review",
-      "line": 448,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré alerts pageovali,`, `aká akcia nasledovala,`, `či alert prišiel včas,`, `či bol symptom správny,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "21. Alert review",
-      "line": 448,
+      "section": "Containment",
+      "line": 311,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172253,8 +171668,80 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "21. Alert review",
-      "line": 448,
+      "section": "Containment",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Containment",
+      "line": 311,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `určiť Prometheus + Alertmanager ako jediný owner settlement page-u;`, `odstrániť dynamic task identity z page labels;`, `opraviť grouping, inhibition a external incident key;`, `nahradiť runbook konkrétnym containment/recovery postupom;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Authoritative recovery",
+      "line": 320,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -172262,8 +171749,17 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "22. Automation",
-      "line": 468,
+      "section": "Authoritative recovery",
+      "line": 320,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172271,26 +171767,26 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "22. Automation",
-      "line": 468,
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "22. Automation",
-      "line": 468,
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger je spoľahlivý,`, `action je bounded a idempotentná,`, `má safety checks,`, `je auditovaná,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controlled settlement burn vytvorí jednu canonical external page;`, `cause signals zostanú dostupné bez duplicate paging;`, `same incident sa deduplikuje aj pri HA retry;`, `forbidden cross-environment inhibition a broad silence nefungujú;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "22. Automation",
-      "line": 468,
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172298,8 +171794,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "22. Automation",
-      "line": 468,
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -172307,179 +171803,26 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "24. Security alerts",
-      "line": 509,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "24. Security alerts",
-      "line": 509,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "24. Security alerts",
-      "line": 509,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rarity nemusí znamenať nízku dôležitosť,`, `evidence retention je kritická,`, `attacker môže ovplyvniť telemetry,`, `confidentiality a need-to-know routing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "24. Security alerts",
-      "line": 509,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "25. Capacity alerts",
-      "line": 522,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "25. Capacity alerts",
-      "line": 522,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `growth rate,`, `seasonality,`, `recovery time,`, `failover capacity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "25. Capacity alerts",
-      "line": 522,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "25. Capacity alerts",
-      "line": 522,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "26. Batch alerts",
-      "line": 546,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "26. Batch alerts",
-      "line": 546,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "26. Batch alerts",
-      "line": 546,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry funguje,`, `freshness deadline nie je ohrozený,`, `ďalší run má dostatočný čas.`, `time since last successful completion,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "26. Batch alerts",
-      "line": 546,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "26. Batch alerts",
-      "line": 546,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "27. Kubernetes alerts",
-      "line": 562,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "27. Kubernetes alerts",
-      "line": 562,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "27. Kubernetes alerts",
-      "line": 562,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý Pod restart,`, `jeden Pending Pod počas rolloutu,`, `každá Eviction,`, `Node NotReady počas kontrolovaného drainu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "27. Kubernetes alerts",
-      "line": 562,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "27. Kubernetes alerts",
-      "line": 562,
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "27. Kubernetes alerts",
-      "line": 562,
+      "section": "Acceptance verdict",
+      "line": 331,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `scope`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "28. Testing alerts",
-      "line": 582,
+      "section": "13. Runbook a notification content",
+      "line": 344,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172487,26 +171830,26 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "28. Testing alerts",
-      "line": 582,
+      "section": "13. Runbook a notification content",
+      "line": 344,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "28. Testing alerts",
-      "line": 582,
+      "section": "13. Runbook a notification content",
+      "line": 344,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule syntax,`, `query fixtures,`, `pending/firing/resolved lifecycle,`, `no-data behavior,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `význam a non-meaning alertu;`, `safety checks;`, `user-impact validation;`, `top hypotheses a discriminating queries;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "28. Testing alerts",
-      "line": 582,
+      "section": "13. Runbook a notification content",
+      "line": 344,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172514,8 +171857,35 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "29. Alert as Code",
-      "line": 601,
+      "section": "14. Alert as Code a testovanie",
+      "line": 359,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "14. Alert as Code a testovanie",
+      "line": 359,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rules a recording dependencies;`, `routing/grouping/inhibition;`, `templates a receiver references;`, `ownership a runbook metadata;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "14. Alert as Code a testovanie",
+      "line": 359,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/alert-design-alert-fatigue.md",
+      "section": "15. Metamonitoring",
+      "line": 385,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172523,35 +171893,17 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "29. Alert as Code",
-      "line": 601,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "29. Alert as Code",
-      "line": 601,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rules,`, `route tree,`, `inhibition policies,`, `notification templates,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "29. Alert as Code",
-      "line": 601,
+      "section": "15. Metamonitoring",
+      "line": 385,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "30. Troubleshooting: alert condition sa nespustila",
-      "line": 627,
+      "section": "16. Troubleshooting model",
+      "line": 400,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -172559,8 +171911,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "31. Troubleshooting: firing, ale bez notification",
-      "line": 641,
+      "section": "Condition sa nespustila",
+      "line": 402,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -172568,89 +171920,35 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "32. Troubleshooting: duplicate pages",
-      "line": 655,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "32. Troubleshooting: duplicate pages",
-      "line": 655,
+      "section": "Firing bez notification",
+      "line": 413,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "32. Troubleshooting: duplicate pages",
-      "line": 655,
+      "section": "Duplicate pages",
+      "line": 424,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica label v alert identity,`, `viac Alertmanager clusters bez koordinácie,`, `continue: true ,`, `duplicitné rules v Prometheus a Grafane,`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "32. Troubleshooting: duplicate pages",
-      "line": 655,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "32. Troubleshooting: duplicate pages",
-      "line": 655,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "33. Troubleshooting: flapping",
-      "line": 667,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "33. Troubleshooting: flapping",
-      "line": 667,
+      "section": "Flapping",
+      "line": 435,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "33. Troubleshooting: flapping",
-      "line": 667,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threshold pri baseline,`, `scrape gaps,`, `short window,`, `for ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "33. Troubleshooting: flapping",
-      "line": 667,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
       "section": "Page na každý failure mode",
-      "line": 685,
+      "line": 448,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172658,8 +171956,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Alert bez ownera",
-      "line": 689,
+      "section": "Auto-resolved ako quality proof",
+      "line": 452,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172667,8 +171965,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Runbook link iba na homepage dokumentácie",
-      "line": 693,
+      "section": "Dashboard threshold ako alert policy",
+      "line": 456,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172676,8 +171974,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Threshold kopírovaný medzi službami",
-      "line": 697,
+      "section": "Duplicate engines bez autority",
+      "line": 460,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172685,8 +171983,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Permanentné silences",
-      "line": 701,
+      "section": "Permanentná silence",
+      "line": 464,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172694,26 +171992,8 @@
     },
     {
       "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "„Auto-resolved, teda dobrý alert“",
-      "line": 705,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Dashboard threshold považovaný za page policy",
-      "line": 709,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alert-design-alert-fatigue.md",
-      "section": "Duplicitné alerting engines bez autority",
-      "line": 713,
+      "section": "Alert bez forbidden action",
+      "line": 468,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
