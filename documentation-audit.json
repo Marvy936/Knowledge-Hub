@@ -3223,15 +3223,15 @@
     {
       "path": "docs/12-observability/jaeger-tempo.md",
       "title": "Jaeger a Tempo",
-      "words": 2595,
-      "headings": 61,
-      "sections": 61,
-      "findings": 201,
-      "critical": 78,
-      "high": 73,
-      "medium": 32,
-      "low": 18,
-      "score": 1644,
+      "words": 1687,
+      "headings": 36,
+      "sections": 36,
+      "findings": 67,
+      "critical": 22,
+      "high": 26,
+      "medium": 7,
+      "low": 12,
+      "score": 514,
       "grade": "D"
     },
     {
@@ -178895,17 +178895,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "1. Mentálny model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "1. Mentálny model",
-      "line": 7,
+      "section": "1. Dominantný mentálny model",
+      "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -178913,215 +178904,26 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "2. Trace a span identity",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "2. Trace a span identity",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID,`, `span ID,`, `parent span ID alebo links,`, `operation name,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "2. Trace a span identity",
-      "line": 24,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "2. Trace a span identity",
-      "line": 24,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "2. Trace a span identity",
-      "line": 24,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
+      "section": "3. Trace continuity a span graph",
+      "line": 58,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
+      "section": "3. Trace continuity a span graph",
+      "line": 58,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP headers,`, `gRPC metadata,`, `message headers,`, `queue attributes,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID a span ID;`, `parent span ID alebo links;`, `stable operation name a kind;`, `start/end time a status;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "3. Context propagation",
-      "line": 44,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "4. OTLP",
-      "line": 67,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "4. OTLP",
-      "line": 67,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OTLP/gRPC,`, `OTLP/HTTP.`, `endpoint a port,`, `TLS/mTLS,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "4. OTLP",
-      "line": 67,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "4. OTLP",
-      "line": 67,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "5. OpenTelemetry Collector pred tracing backendom",
-      "line": 90,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "5. OpenTelemetry Collector pred tracing backendom",
-      "line": 90,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `receiver termination,`, `batching,`, `memory limiting,`, `resource detection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "5. OpenTelemetry Collector pred tracing backendom",
-      "line": 90,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "5. OpenTelemetry Collector pred tracing backendom",
-      "line": 90,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "6. Jaeger v2 architektúra",
-      "line": 117,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "6. Jaeger v2 architektúra",
-      "line": 117,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "6. Jaeger v2 architektúra",
-      "line": 117,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "6. Jaeger v2 architektúra",
-      "line": 117,
+      "section": "3. Trace continuity a span graph",
+      "line": 58,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -179129,98 +178931,26 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "6. Jaeger v2 architektúra",
-      "line": 117,
+      "section": "3. Trace continuity a span graph",
+      "line": 58,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`, `identity`",
       "score": 4
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "7. Jaeger all-in-one",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development,`, `lokálne testy,`, `demo,`, `malé laby.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "7. Jaeger all-in-one",
-      "line": 131,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "8. Jaeger direct-to-storage",
-      "line": 146,
+      "section": "4. Jaeger v2",
+      "line": 83,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `collector prijíma traces a zapisuje ich do storage;`, `query poskytuje query APIs a UI;`, `all-in-one kombinuje collector a query;`.",
       "score": 8
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "8. Jaeger direct-to-storage",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "8. Jaeger direct-to-storage",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchšia architektúra,`, `nižšia latency a menej komponentov,`, `collector/query možno škálovať samostatne.`, `storage musí absorbovať peak writes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "8. Jaeger direct-to-storage",
-      "line": 146,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "9. Jaeger cez Kafka",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "9. Jaeger cez Kafka",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `durable buffer,`, `oddelenie ingestion burstu od storage throughputu,`, `replay,`, `nezávislé scaling consumers.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "9. Jaeger cez Kafka",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "9. Jaeger cez Kafka",
-      "line": 170,
+      "section": "4. Jaeger v2",
+      "line": 83,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -179228,125 +178958,35 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "10. Jaeger storage",
-      "line": 199,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "10. Jaeger storage",
-      "line": 199,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `supported version,`, `index/schema lifecycle,`, `write throughput,`, `search latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "10. Jaeger storage",
-      "line": 199,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "11. Jaeger Query a UI",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "11. Jaeger Query a UI",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace lookup,`, `service/operation search,`, `UI,`, `dependency/service performance views podľa konfigurácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "11. Jaeger Query a UI",
-      "line": 218,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "11. Jaeger Query a UI",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "12. Jaeger Service Performance Monitoring",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate,`, `error rate,`, `duration distributions,`, `service dependencies.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "12. Jaeger Service Performance Monitoring",
-      "line": 232,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "13. Jaeger remote sampling",
-      "line": 245,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "13. Jaeger remote sampling",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `probabilistic sampling,`, `rate-limiting sampling,`, `service/operation-specific policies,`, `adaptive sampling podľa podporovaného storage a verzie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "13. Jaeger remote sampling",
-      "line": 245,
+      "section": "5. Tempo 3.0",
+      "line": 116,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "14. Tempo architektúra",
-      "line": 258,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `monolithic mode,`, `microservices mode.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "14. Tempo architektúra",
-      "line": 258,
+      "section": "Microservices write path",
+      "line": 120,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `číta pridelené Kafka partitions;`, `skladá spans do blocks;`, `zapisuje Parquet blocks do object storage;`, `až po úspešnom flushi commitne consumer progress.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Microservices write path",
+      "line": 120,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Microservices write path",
+      "line": 120,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -179354,35 +178994,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "15. Tempo microservices write path",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "15. Tempo microservices write path",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzumujú partitions,`, `skladajú spans do blocks,`, `zapisujú Parquet/object-store formát,`, `commitujú consumer progress.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "15. Tempo microservices write path",
-      "line": 271,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "16. Tempo monolithic write path",
-      "line": 296,
+      "section": "Monolithic write path",
+      "line": 145,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179390,872 +179003,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "16. Tempo monolithic write path",
-      "line": 296,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `development,`, `menší deployment,`, `jednoduchšiu prevádzku.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "16. Tempo monolithic write path",
-      "line": 296,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "17. Tempo recent a historical data",
-      "line": 315,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "17. Tempo recent a historical data",
-      "line": 315,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "17. Tempo recent a historical data",
-      "line": 315,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `live stores pre recent traces,`, `object storage pre historical blocks.`, `prijme trace ID alebo TraceQL query,`, `rozdelí search na jobs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "17. Tempo recent a historical data",
-      "line": 315,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "17. Tempo recent a historical data",
-      "line": 315,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "17. Tempo recent a historical data",
-      "line": 315,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "18. Tempo object storage",
-      "line": 337,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "18. Tempo object storage",
-      "line": 337,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3/S3-compatible,`, `GCS,`, `Azure Blob Storage,`, `local filesystem pre development/test.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "18. Tempo object storage",
-      "line": 337,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "18. Tempo object storage",
-      "line": 337,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "18. Tempo object storage",
-      "line": 337,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `S3-`, `GCS`, `PUT`, `GET`, `LIST`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "19. Parquet blocks",
-      "line": 361,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "19. Parquet blocks",
-      "line": 361,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "19. Parquet blocks",
-      "line": 361,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `column pruning,`, `efektívnejší attribute search,`, `compression,`, `query parallelism.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "19. Parquet blocks",
-      "line": 361,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "20. Backend scheduler a workers",
-      "line": 383,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `compaction,`, `retention,`, `redaction podľa podpory.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "20. Backend scheduler a workers",
-      "line": 383,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "21. Tempo metrics-generator",
-      "line": 395,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "21. Tempo metrics-generator",
-      "line": 395,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `span metrics,`, `service graphs,`, `exemplars,`, `RED metrics.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "21. Tempo metrics-generator",
-      "line": 395,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "21. Tempo metrics-generator",
-      "line": 395,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "21. Tempo metrics-generator",
-      "line": 395,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RED`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "22. TraceQL",
-      "line": 415,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "22. TraceQL",
-      "line": 415,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource attributes,`, `span attributes,`, `span duration,`, `status,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "22. TraceQL",
-      "line": 415,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "22. TraceQL",
-      "line": 415,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "23. Jaeger search oproti Tempo TraceQL",
-      "line": 438,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "23. Jaeger search oproti Tempo TraceQL",
-      "line": 438,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query patterns,`, `storage preference,`, `Grafana integration,`, `existing Elasticsearch/OpenSearch/Cassandra footprint,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "23. Jaeger search oproti Tempo TraceQL",
-      "line": 438,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "23. Jaeger search oproti Tempo TraceQL",
-      "line": 438,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "24. Sampling",
-      "line": 455,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Head sampling",
-      "line": 459,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Head sampling",
-      "line": 459,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Head sampling",
-      "line": 459,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nízky backend a network cost,`, `jednoduché,`, `SDK-level.`, `nepozná outcome,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Head sampling",
-      "line": 459,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Head sampling",
-      "line": 459,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK-`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tail sampling",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tail sampling",
-      "line": 475,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tail sampling",
-      "line": 475,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `errors,`, `high latency,`, `specific tenants/routes,`, `rare attribute combinations.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tail sampling",
-      "line": 475,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "25. Sampling a completeness",
-      "line": 500,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "25. Sampling a completeness",
-      "line": 500,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "25. Sampling a completeness",
-      "line": 500,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace search coverage,`, `incident forensics,`, `service graph,`, `span metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "25. Sampling a completeness",
-      "line": 500,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "25. Sampling a completeness",
-      "line": 500,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "25. Sampling a completeness",
-      "line": 500,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "26. Tail sampling architecture",
-      "line": 523,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "26. Tail sampling architecture",
-      "line": 523,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load balancer bez trace-ID affinity,`, `trace dlhší než decision wait,`, `late spans po rozhodnutí,`, `memory pressure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "26. Tail sampling architecture",
-      "line": 523,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "26. Tail sampling architecture",
-      "line": 523,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "26. Tail sampling architecture",
-      "line": 523,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "27. Trace retention",
-      "line": 539,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "27. Trace retention",
-      "line": 539,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "27. Trace retention",
-      "line": 539,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident investigation window,`, `sampling rate,`, `compliance/privacy,`, `object/index storage cost,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "27. Trace retention",
-      "line": 539,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "28. Multi-tenancy",
-      "line": 553,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "28. Multi-tenancy",
-      "line": 553,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingest authentication,`, `storage prefix/index,`, `query,`, `limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "28. Multi-tenancy",
-      "line": 553,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "19 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "19 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP headers,`, `URLs a query parameters,`, `database statements,`, `RPC payload metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "29. Security a privacy",
-      "line": 570,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPC`, `SDK`, `TLS`, `OTLP`, `RBAC`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "30. Trace-to-logs",
-      "line": 599,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "30. Trace-to-logs",
-      "line": 599,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "30. Trace-to-logs",
-      "line": 599,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID,`, `span ID,`, `service,`, `timestamp window,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "30. Trace-to-logs",
-      "line": 599,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "30. Trace-to-logs",
-      "line": 599,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "30. Trace-to-logs",
-      "line": 599,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "31. Trace-to-metrics a exemplars",
-      "line": 619,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "31. Trace-to-metrics a exemplars",
-      "line": 619,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "31. Trace-to-metrics a exemplars",
-      "line": 619,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatible instrumentation,`, `metrics backend support,`, `trace retention,`, `sampling coverage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "31. Trace-to-metrics a exemplars",
-      "line": 619,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "31. Trace-to-metrics a exemplars",
-      "line": 619,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "32. Service graph",
-      "line": 641,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "32. Service graph",
-      "line": 641,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `caller/callee edges,`, `request rate,`, `error rate,`, `latency.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "32. Service graph",
-      "line": 641,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "33. Span naming",
-      "line": 663,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "33. Span naming",
-      "line": 663,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `GET /orders/{id} ,`, `payments.authorize ,`, `orders.consume .`, `raw URL s ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "33. Span naming",
-      "line": 663,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "33. Span naming",
-      "line": 663,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GET`, `URL`, `ID`, `SQL`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "34. Attribute governance",
-      "line": 682,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "34. Attribute governance",
-      "line": 682,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "34. Attribute governance",
-      "line": 682,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required semantic conventions,`, `bounded operational dimensions,`, `high-cardinality correlation fields,`, `sensitive fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "34. Attribute governance",
-      "line": 682,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "35. Self-monitoring",
-      "line": 701,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "35. Self-monitoring",
-      "line": 701,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "35. Self-monitoring",
-      "line": 701,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDK export errors,`, `Collector accepted/refused/dropped spans,`, `queue size/capacity,`, `tail-sampling state/drops,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "35. Self-monitoring",
-      "line": 701,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "35. Self-monitoring",
-      "line": 701,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "35. Self-monitoring",
-      "line": 701,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `CPU`, `GC`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "36. Troubleshooting: trace sa nenájde",
-      "line": 723,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "36. Troubleshooting: trace sa nenájde",
-      "line": 723,
+      "section": "Monolithic write path",
+      "line": 145,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -180263,287 +179012,17 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "37. Troubleshooting: broken trace",
-      "line": 742,
+      "section": "Read a maintenance path",
+      "line": 156,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "37. Troubleshooting: broken trace",
-      "line": 742,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "37. Troubleshooting: broken trace",
-      "line": 742,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac roots,`, `missing child spans,`, `orphan spans,`, `nesprávne duration overlap,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "37. Troubleshooting: broken trace",
-      "line": 742,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "38. Troubleshooting: recent traces nefungujú, historical áno",
-      "line": 765,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "38. Troubleshooting: recent traces nefungujú, historical áno",
-      "line": 765,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "38. Troubleshooting: recent traces nefungujú, historical áno",
-      "line": 765,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `live stores,`, `Kafka consumer offsets,`, `partition ring,`, `recent-data query path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "38. Troubleshooting: recent traces nefungujú, historical áno",
-      "line": 765,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "39. Troubleshooting: historical traces nefungujú, recent áno",
-      "line": 782,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "39. Troubleshooting: historical traces nefungujú, recent áno",
-      "line": 782,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "39. Troubleshooting: historical traces nefungujú, recent áno",
-      "line": 782,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `block flush/build,`, `object storage alebo external storage,`, `index/schema,`, `compaction/blocklist,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "39. Troubleshooting: historical traces nefungujú, recent áno",
-      "line": 782,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "39. Troubleshooting: historical traces nefungujú, recent áno",
-      "line": 782,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "40. Troubleshooting: slow trace search",
-      "line": 794,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "40. Troubleshooting: slow trace search",
-      "line": 794,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "40. Troubleshooting: slow trace search",
-      "line": 794,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact trace lookup alebo attribute search,`, `time range,`, `tenant,`, `service/operation filters,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "40. Troubleshooting: slow trace search",
-      "line": 794,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "40. Troubleshooting: slow trace search",
-      "line": 794,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "41. Troubleshooting: dropped spans",
-      "line": 813,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "41. Troubleshooting: dropped spans",
-      "line": 813,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDK queue full,`, `exporter timeout,`, `Collector memory limiter,`, `batch queue,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "41. Troubleshooting: dropped spans",
-      "line": 813,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "41. Troubleshooting: dropped spans",
-      "line": 813,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "42. Troubleshooting: Kafka lag v trace pipeline",
-      "line": 830,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "42. Troubleshooting: Kafka lag v trace pipeline",
-      "line": 830,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "42. Troubleshooting: Kafka lag v trace pipeline",
-      "line": 830,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer rate,`, `partitions,`, `consumer group,`, `block builder/ingester throughput,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "42. Troubleshooting: Kafka lag v trace pipeline",
-      "line": 830,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "43. Troubleshooting: object-store cost rastie",
-      "line": 846,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "43. Troubleshooting: object-store cost rastie",
-      "line": 846,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "43. Troubleshooting: object-store cost rastie",
-      "line": 846,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion bytes,`, `sampling rate,`, `retention,`, `block size/compaction,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "43. Troubleshooting: object-store cost rastie",
-      "line": 846,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "43. Troubleshooting: object-store cost rastie",
-      "line": 846,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LIST`, `GET`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "44. Jaeger oproti Tempo",
-      "line": 863,
+      "section": "6. Sampling a trace completeness",
+      "line": 168,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -180551,80 +179030,125 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Jaeger",
-      "line": 865,
+      "section": "Tail sampling",
+      "line": 174,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 58 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Jaeger",
-      "line": 865,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Jaeger",
-      "line": 865,
+      "section": "Tail sampling",
+      "line": 174,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chceš Jaeger UI a ecosystem,`, `používaš supported external storage,`, `potrebuješ direct-to-storage alebo Kafka-ingester model,`, `máš existujúci Elasticsearch/OpenSearch/Cassandra skillset,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace-ID-aware routing;`, `state a memory;`, `decision wait;`, `late-span policy;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Jaeger",
-      "line": 865,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "Tail sampling",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Jaeger",
-      "line": 865,
+      "section": "Tail sampling",
+      "line": 174,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Tail sampling",
+      "line": 174,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID-`",
       "score": 4
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tempo",
-      "line": 875,
+      "section": "7. Lookup, search a derived views",
+      "line": 189,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `span metrics;`, `service graph;`, `trace-to-logs links;`, `exemplars z metrics na trace;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "7. Lookup, search a derived views",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "8. Worked failure: acknowledged traces bez historical evidence",
+      "line": 216,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Subject",
+      "line": 218,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Competing hypotheses",
+      "line": 239,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Competing hypotheses",
+      "line": 239,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tempo",
-      "line": 875,
+      "section": "Competing hypotheses",
+      "line": 239,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tempo",
-      "line": 875,
+      "section": "Competing hypotheses",
+      "line": 239,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preferuješ object-storage-first tracing,`, `používaš Grafana stack,`, `chceš TraceQL,`, `potrebuješ nezávislé read/write scaling,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application trace nebola sampled;`, `propagation vytvorila nový trace ID;`, `Collector filter trace dropol;`, `tenant header pri query je nesprávny;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tempo",
-      "line": 875,
+      "section": "Competing hypotheses",
+      "line": 239,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180632,8 +179156,134 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Trace všetkého bez sampling a attribute governance",
-      "line": 897,
+      "section": "Competing hypotheses",
+      "line": 239,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Discriminating evidence",
+      "line": 250,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Containment",
+      "line": 280,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Containment",
+      "line": 280,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Containment",
+      "line": 280,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Containment",
+      "line": 280,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť ďalšie partition/topology changes;`, `obnoviť block-builder consumer capacity pre všetky partitions;`, `neoznačiť missing historical query za „trace sa nestala“;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Containment",
+      "line": 280,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Containment",
+      "line": 280,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Authoritative recovery",
+      "line": 289,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Authoritative recovery",
+      "line": 289,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Authoritative recovery",
+      "line": 289,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Authoritative recovery",
+      "line": 289,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zosúladiť Kafka partitions, block-builder a live-store ownership;`, `nastaviť retention headroom nad maximum recovery/replay window;`, `alertovať na lag age, nie iba record count;`, `overiť object-store block publication a offset commit;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Authoritative recovery",
+      "line": 289,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Authoritative recovery",
+      "line": 289,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Acceptance verdict",
+      "line": 299,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180641,8 +179291,161 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Head sampling 1 % a očakávanie všetkých errors",
-      "line": 901,
+      "section": "Acceptance verdict",
+      "line": 299,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Acceptance verdict",
+      "line": 299,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `všetky partitions majú consumer ownera a bounded lag;`, `Kafka retention pokrýva failure a restart objective;`, `neighboring tenant a partition neregresujú;`, `forbidden cross-tenant lookup zlyhá;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Acceptance verdict",
+      "line": 299,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Acceptance verdict",
+      "line": 299,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Acceptance verdict",
+      "line": 299,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Acceptance verdict",
+      "line": 299,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "9. Jaeger alebo Tempo",
+      "line": 312,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "9. Jaeger alebo Tempo",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact lookup a search patterns;`, `ingest durability a outage window;`, `sampling control;`, `storage/index cost;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "9. Jaeger alebo Tempo",
+      "line": 312,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "9. Jaeger alebo Tempo",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "9. Jaeger alebo Tempo",
+      "line": 312,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "9. Jaeger alebo Tempo",
+      "line": 312,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "10. Troubleshooting model",
+      "line": 329,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Trace sa nenájde",
+      "line": 331,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Broken trace",
+      "line": 346,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Recent áno, historical nie",
+      "line": 358,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Historical áno, recent nie",
+      "line": 369,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/jaeger-tempo.md",
+      "section": "Backend acknowledgement ako retention proof",
+      "line": 381,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180650,8 +179453,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Tail sampling bez trace-ID-aware routing",
-      "line": 905,
+      "section": "Tail sampling bez trace affinity",
+      "line": 385,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180659,8 +179462,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Raw URL alebo SQL ako span name",
-      "line": 909,
+      "section": "Trace-derived metrics ako exact SLI",
+      "line": 389,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180668,8 +179471,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Trace-derived metrics ako exact SLI bez sampling analýzy",
-      "line": 913,
+      "section": "Raw URL, SQL alebo customer ID ako span name",
+      "line": 393,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180677,8 +179480,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "All-in-one in-memory deployment označený ako production HA",
-      "line": 917,
+      "section": "In-memory all-in-one ako production HA",
+      "line": 397,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180686,17 +179489,8 @@
     },
     {
       "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Object-store lifecycle mimo Tempo retention",
-      "line": 921,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/jaeger-tempo.md",
-      "section": "Collector bez self-monitoringu",
-      "line": 925,
+      "section": "Recent lookup ako historical canary",
+      "line": 401,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
