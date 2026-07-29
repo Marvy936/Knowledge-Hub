@@ -238,6 +238,10 @@ Authenticated Encryption with Associated Data; encryption model poskytujúci con
 
 Exact množina existujúcich Podov vybraná label a namespace selectorom pre required/preferred Pod affinity alebo anti-affinity výpočet. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## Aged-log canary
+
+Synthetic log event, ktorého recent, historical a retention-expiry query behavior sa periodicky overuje cez celý collector, Loki storage a query lifecycle. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Agent Collector
 
 OpenTelemetry Collector nasadený blízko workloadu alebo Node-u na lokálny príjem, enrichment, batching, buffering a forwarding telemetry. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
@@ -317,6 +321,10 @@ Klasifikácia požadovanej reakcie a urgency, napríklad page, ticket alebo info
 ## Alert storm
 
 Veľké množstvo súvisiacich alebo duplicitných alerts a notifications, ktoré zahlcuje Alertmanager, receivers alebo on-call tím. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alerting control-plane ownership — Grafana
+
+Explicitné určenie, či rule evaluation, alert identity a notification policy vlastní Grafana-managed alerting alebo data-source-managed systém ako Prometheus/Loki. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Alerting rule — Prometheus
 
@@ -838,6 +846,10 @@ Jediný explicitne určený controller alebo tool oprávnený zapisovať konkré
 
 Obnova cez opravený desired-state/source contract, last-known-good generation alebo clean recovery manifest namiesto manual snowflake mutation. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
 
+## Authoritative dashboard writer
+
+Jediný source alebo controller oprávnený meniť konkrétny dashboard UID, napríklad Git provisioning, Terraform alebo Operator; UI edit bez zmeny autority je iba dočasný drift. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Authoritative identity source
 
 Systém považovaný za zdroj pravdy pre existenciu, status, ownera alebo attributes identity, napríklad HR systém alebo service catalog. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -1121,6 +1133,10 @@ Account-visible názov Availability Zone, napríklad `eu-central-1a`, ktorého h
 ## Back-channel logout
 
 OIDC logout model, pri ktorom OpenID Provider posiela signed logout token priamo backendu Relying Party. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
+## Backend acknowledgement — log delivery
+
+Výsledok output requestu potvrdený cieľovým backendom vrátane per-item semantics, nie iba transportného HTTP statusu. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Backend acknowledgement — telemetry
 
@@ -1934,9 +1950,17 @@ Samostatný pipeline run vytvorený parent pipelineom pre component, matrix čas
 
 Vzťah, v ktorom Deployment vlastní ReplicaSet revision a autoritatívne riadi jej scale počas rollout-u; manual write na child ReplicaSet môže vyšší controller prepísať. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md) a [Deployment](docs/09-kubernetes/deployment.md).
 
+## Chunk-delivery state — Fluent Bit
+
+Runtime stav buffered chunku voči jednému alebo viacerým outputs, napríklad queued, flushing, retrying, acknowledged alebo dropped. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Chunk — Fluent Bit
 
 Interná jednotka zoskupujúca telemetry records na buffering, routing a output flush. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Chunk generation — Loki
+
+Versionovaný compressed object obsahujúci log entries jedného streamu za časový interval a publikovaný spolu s index reference. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Chunk — Loki
 
@@ -3342,6 +3366,18 @@ Odkaz z dashboardu na ďalší dashboard alebo external systém s voliteľným p
 
 Automatické vytváranie a synchronizácia Grafana dashboards z deklaratívneho source-u, typicky files alebo IaC. Pozri [Grafana](docs/12-observability/grafana.md).
 
+## Dashboard query budget
+
+Odhad a guardrail query loadu odvodený z počtu panels, queries, variable expansions, viewers, refresh cadence a backend fan-outu. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Dashboard render canary
+
+End-to-end test, ktorý otvorí exact dashboard UID, vykoná known query a overí raw value, transformation, unit, rendered value a drilldown. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Dashboard source generation
+
+Immutable alebo versionovaný dashboard artifact vytvorený v authoritative source workflowe pred provisioningom do Grafany. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## DAST — Dynamic Application Security Testing
 
 Security testovanie bežiacej aplikácie zvonka cez jej runtime rozhrania. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
@@ -3357,6 +3393,10 @@ Cryptographic key používaný priamo na encryption application dát alebo stora
 ## Data Flow Diagram — DFD
 
 Model external entities, processes, data stores, data flows a trust boundaries používaný na systematickú identifikáciu threats. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
+## Data-frame generation — Grafana
+
+Typed query result normalizovaný Grafanou do fields a frames pred expressions, transformations a visualization. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Data frame — Grafana
 
@@ -3406,6 +3446,10 @@ Schopnosť exportovať dáta, metadata a configuration zo služby do použiteľn
 
 Plugin a configuration umožňujúca Grafane queryovať externý metrics, logs, traces, SQL, cloud alebo iný backend. Pozri [Grafana](docs/12-observability/grafana.md).
 
+## Data-source identity — Grafana
+
+Stable UID, plugin type, endpoint, tenant, credentials, TLS a query settings konkrétneho Grafana data source-u. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Data-source-managed alert
 
 Alert rule uložená a vyhodnocovaná v Prometheus, Mimir, Loki alebo inom podporovanom ruler systéme, pričom Grafana poskytuje management UI. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -3417,6 +3461,10 @@ Grafana plugin implementujúci query, authentication, health-check a data-frame 
 ## Data source — Terraform
 
 Provider-defined read-only query, ktorá načíta informácie o existujúcom alebo odvodenom objekte bez správy jeho lifecycle Terraform resource bindingom. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Data-stream generation — document search
+
+Logical append-oriented telemetry subject a jeho current backing-index generation vytvorená cez template, rollover a product-specific lifecycle. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Data Stream Lifecycle — Elasticsearch
 
@@ -4217,6 +4265,14 @@ Exact SSM document name, version, content hash, schema, parameters, platform pre
 ## Document — search
 
 JSON objekt uložený v Elasticsearch/OpenSearch indexe a spracovaný podľa mappingu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Document-search acceptance verdict
+
+Dôkaz, že documents prešli per-item ingestom, správnou mapping generation, search visibility, lifecycle a recovery testom bez forbidden schema alebo tenant outcome-u. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Document-search subject
+
+Exact Elasticsearch alebo OpenSearch product/version, cluster, data stream/index, template, mapping, pipeline, backing index, lifecycle, snapshot a query scope analyzovanej telemetry. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Document stream — YAML
 
@@ -5382,6 +5438,10 @@ Identita declarative alebo programmatic writera zaznamenaná v `managedFields`, 
 
 Rekonštruovateľný inventory field managers, owned object paths, subresources, conflicts, force transfers a authoritative team/controller pre konkrétnu object UID/generation. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Field-semantics contract — Grafana
+
+Explicitný vzťah medzi raw value, reducerom, unitom, mappings, thresholds a rendered operational meaningom. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## File capability
 
 Capability metadata uložené na executable súbore v extended attribute. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
@@ -5402,6 +5462,10 @@ CI/CD variable, ktorej hodnota je zapísaná do dočasného súboru a environmen
 
 Výsledok kombinácie process UID/GID/groups, Unix permissions/ACL, mount flags, CSI ownership, user-namespace mapping a SELinux/AppArmor policy pre exact path a operation. Pozri [SecurityContext a Pod Security](../docs/09-kubernetes/securitycontext-pod-security.md).
 
+## Filesystem-backlog generation — Fluent Bit
+
+Množina persistentných local chunks, ich age, size, output references a storage limits počas backend backpressure alebo outage. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Filesystem buffering — Fluent Bit
 
 Buffering telemetry chunks na local filesystem na zvýšenie backlog capacity a restart recovery oproti memory-only modelu. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
@@ -5409,6 +5473,10 @@ Buffering telemetry chunks na local filesystem na zvýšenie backlog capacity a 
 ## Filesystem transition — Dockerfile
 
 Build-time zmena stage filesystemu cez `COPY`, `ADD` alebo `RUN`, ktorá vstupuje do layer graphu a môže preniesť content, ownership, permissions alebo secret residue. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Filter-order contract — Fluent Bit
+
+Versionované poradie parse, enrichment, normalization, redaction, cardinality control a routing filters, ktoré určuje final record a security outcome. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Filter plugin — Kubernetes scheduler
 
@@ -5513,6 +5581,14 @@ Exact communication identity obsahujúca source a destination Pod/Node identity,
 ## Fluent Bit
 
 Ľahký telemetry agent na inputs, parsing, filtering, buffering, routing a export logs, metrics a traces. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Fluent Bit acceptance verdict
+
+Dôkaz, že exact sources, offsets, routes, buffers a outputs prežijú fault/restart scenáre a vytvoria queryovateľné telemetry s definovaným loss/duplicate contractom. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Fluent Bit subject
+
+Exact Node/source, DaemonSet/config, input, inode, Tail DB, parser, tag, filter order, buffer, output, credential a acknowledgement identity analyzovanej pipeline. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Folder permission — Grafana
 
@@ -5846,6 +5922,10 @@ Riadené ukončenie inputov, flush queued chunks a uloženie offset state-u pred
 
 Platforma na queryovanie, vizualizáciu, alerting a interaktívne skúmanie telemetry z externých data sources. Pozri [Grafana](docs/12-observability/grafana.md).
 
+## Grafana acceptance verdict
+
+Dôkaz, že backend query, raw frame, transformation, unit, loaded dashboard revision, permissions a alert ownership vytvárajú správny allowed aj forbidden operational outcome. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Grafana correlation
 
 Konfigurácia prepájajúca fields a query context medzi metrics, logs, traces alebo ďalšími data sources počas investigation. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -5862,6 +5942,10 @@ Server-side alebo alerting calculation nad výsledkami jednej či viacerých dat
 
 Multi-instance Grafana deployment so spoločnou podporovanou SQL database, konzistentnou configuration, plugins a load-balancing modelom. Pozri [Grafana](docs/12-observability/grafana.md).
 
+## Grafana investigation path
+
+Versionovaný drilldown chain od SLO/Golden Signals panelu cez cohort, dependency, trace/log/resource evidence až po runbook alebo incident. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Grafana-managed alert
 
 Alert rule uložená a vyhodnocovaná Grafana alerting engine-om nad podporovanými data sources a expressions. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -5873,6 +5957,10 @@ Routing a grouping policy Grafana Alerting, ktorá mapuje alert instances na con
 ## Grafana panel
 
 Základný dashboard component kombinujúci query, transformations, field configuration a visualization. Pozri [Grafana](docs/12-observability/grafana.md).
+
+## Grafana subject
+
+Exact organization, folder UID, dashboard/panel UID, data-source UID, source/loaded revision, query, transformation, field config, alert owner a viewer scope. Pozri [Grafana](docs/12-observability/grafana.md).
 
 ## Grafana variable
 
@@ -6261,6 +6349,10 @@ Významná odchýlka od Well-Architected best practices s relevantným security,
 ## Histogram — metric
 
 Metric aggregation zaznamenávajúca počet observations v definovaných buckets spolu s count a typicky sum, vhodná na latency distributions a threshold SLIs. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Historical-log path — Loki
+
+Query path závislý od TSDB index blocks, flushed chunks, schema periods, object-store access, compaction a retention. Pozri [Loki](docs/12-observability/loki.md).
 
 ## History rewrite
 
@@ -7306,6 +7398,10 @@ Jedna versionovaná realizácia lab manifestu, resources, configuration, fault a
 
 Rozhodnutie po evidence review, či lab generation prešla, potrebuje nový variant, musí zopakovať rovnaký failure alebo odhalila prerequisite gap. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
 
+## Label-contract generation — Loki
+
+Versionovaná množina bounded stream labels, structured metadata rules a forbidden dynamic dimensions používaná pri ingestovaní logs. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Label — Kubernetes
 
 Indexovateľné key/value metadata určené na grouping a selection Kubernetes objects. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -7550,6 +7646,10 @@ Kubernetes Service type, ktorý prostredníctvom cloud alebo platform controller
 
 Certificate identity reálne načítaná konkrétnou edge instance, typicky identifikovaná SAN, serialom, expiry a config generation. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
 
+## Loaded dashboard revision
+
+Dashboard representation skutočne uložená a používaná Grafanou po provisioningu alebo UI mutation, odlíšená od source artifactu. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Loaded instrumentation state
 
 Instrumentation, agent, SDK alebo Collector configuration skutočne používaná bežiacim processom, ktorá sa môže líšiť od deklarovaného environmentu alebo desired configu. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -7618,13 +7718,25 @@ Oddelený AWS member account určený na centrálne, dlhodobo chránené uložen
 
 Periodicky generovaný synthetic log event používaný na overenie end-to-end collection, ingestion, storage a query latency. Pozri [Loki](docs/12-observability/loki.md).
 
+## Log-delivery canary
+
+Bounded synthetic event sledovaný od source inputu cez Fluent Bit acknowledgement až po backend query, duplicate count a delivery latency. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Log loss boundary
 
 Konkrétny stav, pri ktorom telemetry pipeline môže zahodiť logs, napríklad full buffer, volatile crash, permanent output error alebo odstránený file pred dočítaním. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Log-loss window
+
+Časový a source-specific interval, pre ktorý telemetry records nemožno preukázateľne obnoviť pre offset, buffer, rotation, drop alebo backend failure. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Log replay
 
 Opätovné načítanie a odoslanie log records po reštarte, offset strate alebo backlog recovery, ktoré môže vytvoriť duplicates. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Log-stream identity
+
+Tenant ID a úplný bounded Loki label set, ktoré spoločne definujú jeden log stream. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Log stream — Loki
 
@@ -7674,9 +7786,21 @@ Loki query language kombinujúci stream selectors, line filters, parsing a metri
 
 Label-indexed log aggregation systém ukladajúci log body komprimovane v chunks a používajúci object-storage-oriented storage model. Pozri [Loki](docs/12-observability/loki.md).
 
+## Loki acceptance verdict
+
+Dôkaz, že exact tenant/stream/schema logy sú ingestované, queryovateľné cez recent aj historical path a expirované iba podľa authoritative retention policy. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Loki Compactor
 
 Maintenance component, ktorý compactuje index blocks a podľa konfigurácie vykonáva retention a log deletion lifecycle. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki entry acceptance
+
+Distributor/ingester verdict, že log entry spĺňa tenant, label, timestamp, line-size, ordering a rate-limit contract a bola prijatá do write pathu. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki evidence-completeness verdict
+
+Rozhodnutie, či LogQL result reprezentuje očakávanú occurrence population alebo je neúplný pre collector, rejection, chunk, schema, retention či query failure. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Loki labels
 
@@ -7686,9 +7810,17 @@ Bounded metadata tvoriace identity log streamov a indexovaný výberový priesto
 
 Policy a maintenance proces určujúci, ako dlho sa log chunks a index data uchovávajú a kedy sa bezpečne odstránia. Pozri [Loki](docs/12-observability/loki.md).
 
+## Loki retention generation
+
+Versionovaný per-tenant/per-stream retention, Compactor/delete-delay a object-store lifecycle contract. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Loki ruler
 
 Component vyhodnocujúci LogQL recording alebo alerting rules. Pozri [Loki](docs/12-observability/loki.md).
+
+## Loki subject
+
+Exact tenant, stream-label generation, collector, schema period, deployment, object store, encryption, retention a LogQL scope analyzovaných logs. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Longest-prefix match
 
@@ -7717,6 +7849,10 @@ Runtime vytvárajúci a spúšťajúci process podľa OCI runtime bundle a sprav
 ## Lucene
 
 Search library tvoriaca základ Elasticsearch a OpenSearch shards a segment-based indexing/search modelu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Lucene segment lifecycle
+
+Prechod indexed documents cez refresh-created immutable segments, merges a neskoršie fyzické odstránenie deleted/updated records. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## MAC address
 
@@ -7793,6 +7929,10 @@ Stav, keď API, persistence, scheduling alebo reconciliation capability je degra
 ## Mapping explosion
 
 Nekontrolovaný rast počtu indexed field definitions spôsobený dynamic schemas alebo arbitrary object keys. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Mapping generation
+
+Versionovaný field-type a structure contract aplikovaný na konkrétny index alebo backing-index generation. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Mapping — search
 
@@ -8630,6 +8770,10 @@ Hash-based identifikátor Git objectu odvodený z typu a obsahu objektu. Pozri [
 
 Pipeline prenášajúca .NET objekty s properties a methods namiesto iba formátovaných textových riadkov. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Object-store lifecycle mismatch — Loki
+
+Stav, keď bucket expiration alebo transition odstráni či zneprístupní index/chunks skôr alebo inak než authoritative Loki retention model. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Object UID generation
 
 Jedna lifetime identity objectu vyjadrená UID spolu s konkrétnou desired-state generation; odlišuje name reuse aj viac zmien v rámci jednej object inštancie. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -8914,6 +9058,10 @@ Question intake discipline, pri ktorej sa pred service keywordom identifikuje po
 
 Deployment zo staršieho pipeline, ktorý sa pokúša prepísať environment po tom, čo už bol nasadený novší pipeline alebo artifact. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
+## Output-independent liveness — Fluent Bit
+
+Liveness contract, ktorý overuje schopnosť agent processu pokračovať bez reštartu iba preto, že vzdialený telemetry backend je dočasne nedostupný. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Output plugin — Fluent Bit
 
 Plugin odosielajúci routed telemetry records do konkrétneho backendu alebo destination. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
@@ -9105,6 +9253,10 @@ Skupina application, load-balancer alebo service endpoints klasifikovaná podľa
 ## Per-host task transition — Ansible
 
 Jedna task operation vyhodnotená a vykonaná pre konkrétny host s vlastnou eligibility, action/module contextom a resultom `ok`, `changed`, `failed`, `unreachable` alebo `skipped`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Per-item bulk verdict
+
+Accepted, retryable, permanent-failure, quarantined alebo unknown outcome každého documentu v Elasticsearch/OpenSearch bulk response. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Per-metric HPA recommendation
 
@@ -9610,6 +9762,10 @@ Host-side forwarding alebo proxy konfigurácia sprístupňujúca container port 
 
 Persistentný state Tail inputu uchovávajúci file identity a read offset na restart a rotation recovery. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Position-state durability — Fluent Bit
+
+Schopnosť Tail DB a source offset/inode state-u prežiť definovaný container, Pod alebo Node restart boundary. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Post-import plan — Terraform
 
 Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či configuration remote stav adoptuje, zmení alebo by nebezpečne vyvolala update či replacement. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -9789,6 +9945,10 @@ Prechod medzi spusteným processom a schopnosťou bezpečne prijímať traffic a
 ## Processor-order contract
 
 Semantics určujúca poradie Collector processors, pretože enrichment, overwrite, filtering, redaction, sampling a routing môžu pri inom poradí vytvoriť odlišný effective signal. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Product-generation identity — document search
+
+Explicitná Elasticsearch alebo OpenSearch product/version a deployment generation, ktorá určuje podporované API, mapping, lifecycle, security a recovery semantics. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Production-derived test data
 
@@ -10086,6 +10246,10 @@ Read-path component, ktorý prijíma LogQL queries, splituje ich, aplikuje cachi
 
 Read-path component, ktorý sharduje trace lookup alebo TraceQL search na jobs, distribuuje ich queriers a zlučuje výsledky. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Query generation — Grafana
+
+Exact data source, text, variables, time range, step/interval a execution options použité na vytvorenie jedného query resultu. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Query scheduler — Loki
 
 Component koordinujúci a frontujúci query work medzi query frontendmi a queriers. Pozri [Loki](docs/12-observability/loki.md).
@@ -10273,6 +10437,10 @@ Komponent telemetry pipeline, ktorý prijíma signals cez OTLP, scrape, logs ale
 ## Recent-change correlation — AWS incident
 
 Versionované prepojenie symptómu s deploymentom, policy, route, rotation, failover, patchom, automation alebo capacity transition v relevantnom time windowe. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
+
+## Recent-log path — Loki
+
+Query path k neflushnutým alebo recentným entries cez live ingesters a current ring ownership. Pozri [Loki](docs/12-observability/loki.md).
 
 ## Reclaim policy — Kubernetes storage
 
@@ -10682,6 +10850,10 @@ Hash alebo iná immutable identity final rendered manifest setu používaná na 
 
 Výsledný Kubernetes YAML vytvorený kombináciou chart templates, effective values, release contextu a capabilities pred aplikovaním na API server. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
+## Rendered-value verdict — Grafana
+
+Rozhodnutie, či panel display zachováva numeric a categorical semantics raw backend value-u po transformations, units, mappings a overrides. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Repair-versus-restore verdict
 
 Rozhodnutie, či incident pri zachovanom quorum a healthy state-e riešiť member/network/disk/TLS opravou alebo vykonať destructive cluster-state rollback zo snapshotu. Pozri [etcd backup a restore](../docs/09-kubernetes/etcd-backup-restore.md).
@@ -10713,6 +10885,10 @@ Dôkaz, že replacement container pripojil rovnaký expected persistent data sub
 ## Replacement Pod
 
 Nový Pod object vytvorený controllerom ako náhrada zaniknutého alebo nevyhovujúceho Podu; má nový UID, IP a runtime lifecycle aj pri podobnom mene alebo template. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
+
+## Replay duplicate — Fluent Bit
+
+Druhá alebo ďalšia backend kópia toho istého source eventu vytvorená rereadom, timeout retry, position-state stratou alebo multi-reader fan-outom. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Replay identity — batch
 
@@ -11750,6 +11926,10 @@ Schopnosť aktívnych application a data consumers fungovať s aktuálnou sadou 
 
 Časovo ohraničená Loki storage schema configuration používaná na forward-compatible zmenu index/storage formátu pre nové dáta. Pozri [Loki](docs/12-observability/loki.md).
 
+## Schema quarantine — document search
+
+Bounded storage a workflow pre documents odmietnuté pre mapping alebo validation conflict, ktoré sa nesmú nekonečne retryovať ani ticho zahodiť. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Schema URL — OpenTelemetry
 
 Reference na semantic-convention schema používanú resource alebo instrumentation scope-om na podporu compatibility a migration. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
@@ -11793,6 +11973,10 @@ Distinguished Name určujúci východiskový entry pre LDAP Search operation. Po
 ## Search scope — LDAP
 
 Rozsah LDAP Search operation: base object, one level alebo subtree. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## Search-visibility boundary
+
+Prechod medzi acknowledged/durable document write-om a okamihom, keď refresh sprístupní document query engine-u. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Seccomp profile — container
 
@@ -12278,6 +12462,10 @@ Threshold shares používané na rekonštrukciu Vault unseal materialu v manuál
 
 Rozhodovanie search clusteru, na ktorom node a failure domain-e budú umiestnené primary a replica shard copies. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Shard-assignment verdict
+
+Explicitný green/yellow/red a allocation-explanation stav konkrétneho primary alebo replica shardu, nie všeobecný business-health verdict. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Shared-control closure verdict
 
 Dôkaz, že provider capability, customer configuration, monitoring, recovery a forbidden-outcome controls spolu dosiahli požadovaný security alebo business outcome. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
@@ -12494,6 +12682,10 @@ Metadata viažuce snapshot na source cluster/member, revision, hash, key count, 
 
 Referencia chrániaca unpacked content a snapshots používané pullom, buildom alebo containerom pred GC. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
+## Snapshot-recovery generation — document search
+
+Exact repository, snapshot, product/version compatibility, selected indexes/system state, restore target a validation contract. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
 ## Snapshot subject — container filesystem
 
 Runtime-specific unpacked representation verified image layers, z ktorej vzniká rootfs a per-container writable layer. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
@@ -12537,6 +12729,10 @@ Súbor ľudí, identities, source repositories, dependencies, build systems, too
 ## Source/destination check — AWS
 
 EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo destination trafficu; network appliance alebo NAT instance ju môže potrebovať vypnúť. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Source-file generation — Fluent Bit
+
+Exact path, inode, rotation state, producer/container identity a time window source log file-u čítaného Tail inputom. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Source provenance
 
@@ -12922,6 +13118,10 @@ Textový output named template-u, ktorý reprezentuje YAML/JSON object a caller 
 
 Log record so stabilnými typed fields a schema namiesto závislosti na parsovaní voľného textu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Structured-metadata boundary — Loki
+
+Pravidlo určujúce, ktoré dynamic per-entry fields zostanú structured metadata namiesto stream labels, aby nevytvárali stream explosion. Pozri [Loki](docs/12-observability/loki.md).
+
 ## Structured metadata — Loki
 
 Per-entry key/value metadata uložené bez vytvorenia novej stream identity, vhodné pre high-cardinality correlation fields. Pozri [Loki](docs/12-observability/loki.md).
@@ -13138,6 +13338,10 @@ Simulované incident alebo disaster-recovery cvičenie bez technického fault in
 
 Ref používaný typicky na stabilné označenie konkrétneho release commitu alebo iného objektu. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
 
+## Tag-route generation — Fluent Bit
+
+Versionovaný mapping input tags cez filter/output `Match` pravidlá na intended a forbidden destinations. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
 ## Tail input — Fluent Bit
 
 Input plugin sledujúci log files, ich offsets a rotation lifecycle. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
@@ -13145,6 +13349,10 @@ Input plugin sledujúci log files, ich offsets a rotation lifecycle. Pozri [Flue
 ## Tail latency
 
 Latency najpomalšej časti request distribution, typicky sledovaná cez vyššie percentiles alebo threshold compliance. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Tail offset generation
+
+Exact file identity a byte/record position uchovaná Tail DB pre pokračovanie čítania po flushi, rotate alebo restart-e. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Tail sampling
 
@@ -13357,6 +13565,10 @@ Dôkaz, že controlled alebo adoptovaný Pod zodpovedá expected ReplicaSet temp
 ## `template` — Helm
 
 Go template action vkladajúca named template inline; na rozdiel od `include` neposkytuje output ako pipeline string. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Template-resolution generation — document search
+
+Effective merge matching index/component templates, priorít, settings a mappings použitý pri vytvorení nového backing indexu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Template type graph — Helm
 
@@ -13698,6 +13910,10 @@ Explicitné rozhodnutie otvoriť production traffic až po API, controller, exte
 
 Rozdelenie Route trafficu medzi viac backendRefs podľa weights, používané napríklad pre canary alebo migration rollout. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
+## Transformation generation — Grafana
+
+Versionovaný ordered chain expressions a transformations aplikovaný na query frames pred visualization. Pozri [Grafana](docs/12-observability/grafana.md).
+
 ## Transformation — Grafana
 
 Operácia aplikovaná na query results po ich získaní z data source-u na úpravu data frame-u pred vizualizáciou. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -13765,6 +13981,10 @@ Per-host alebo per-item result, ktorý pravdivo rozlišuje no-op od vykonanej mu
 ## TSDB index store — Loki
 
 Odporúčaný Loki index format ukladajúci TSDB index blocks v object storage popri chunks. Pozri [Loki](docs/12-observability/loki.md).
+
+## TSDB schema period — Loki
+
+Dátumom ohraničená Loki storage/index generation určujúca store, object store, schema version a index prefix pre writes a historical reads. Pozri [Loki](docs/12-observability/loki.md).
 
 ## TTL-after-finished
 
@@ -13857,6 +14077,10 @@ Stav, keď klient nevie, či Engine mutation neprebehla, zanechala partial objec
 ## Unknown hook outcome
 
 Stav, keď hook side effect mohol commitnúť, ale Helm/Job completion alebo response evidence chýba; ďalší attempt musí najprv pozorovať durable operation state. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Unknown log-delivery outcome
+
+Stav, keď agent nedostal acknowledgement po requeste, hoci backend mohol record prijať, takže retry nesie duplicate risk a checkpoint loss risk. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
 ## Unknown notification outcome
 
@@ -14445,6 +14669,10 @@ Versionovaná identita business workloadu, release/topology, owners, constraints
 ## Writable layer — container
 
 Dočasná zapisovateľná filesystem vrstva konkrétnej container instance nad read-only image layers. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+
+## Write backing index
+
+Najnovší backing index data streamu, do ktorého sa routujú nové documents do ďalšieho rolloveru. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
 ## Write compatibility
 
