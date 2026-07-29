@@ -1674,6 +1674,10 @@ Minimálna počiatočná konfigurácia potrebná na bezpečné pripojenie target
 
 Prvotná platformová alebo cryptographic identity, ktorou workload preukáže oprávnenie získať ďalší secret alebo vykonať cryptographic operation bez permanentného shared bootstrap credentialu. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Bootstrap template
+
+Template, ktorý vytvorí počiatočné files alebo resources, no po copy nemusí zachovať managed upgrade, compatibility alebo runtime contract. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
 ## Bootstrap token — kubeadm
 
 Časovo obmedzený credential používaný pri kubeadm node discovery a TLS bootstrap workflowe; musí overovať CA identity a nesmie byť dlhodobo uložený. Pozri [Cluster installation a lifecycle](docs/09-kubernetes/cluster-installation-lifecycle.md).
@@ -2198,6 +2202,10 @@ Explicitný zoznam kernel, filesystem, network, device, host a API operations, k
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Capability parity gate
+
+Dôkaz, že nová alebo povinne migrovaná platform capability pokrýva required current journeys, controls, lifecycle a recovery pre target segment pred uzavretím starej cesty. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Capability readiness
 
 Eligibility endpointu prijímať nový traffic pre exact operation a contract, nie iba process liveness alebo generic HTTP health. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
@@ -2477,6 +2485,10 @@ Operácia, ktorá aplikuje zmenu vybraného commitu na aktuálny tip a vytvorí 
 ## Child module — Terraform
 
 Reusable Terraform konfigurácia volaná z root alebo iného child modulu cez `module` block; jej resources sú súčasťou graphu a state-u caller root module runu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Child operation identity
+
+Stable ID downstream Git, cloud, identity, runtime alebo provider operation uložené pri parent platform requeste pre polling, read-back, retry a audit correlation. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## Child pipeline
 
@@ -4422,6 +4434,10 @@ Service-specific organization capability viazaná na delegated account ID, role/
 
 Member account zaregistrovaný na centralizovanú správu podporovanej AWS služby naprieč organization, aby sa znížil počet operácií vykonávaných v management account-e. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Delegated platform execution identity
+
+Least-privilege short-lived principal, ktorým platforma vykonáva autorizované mutations v mene upstream requestera bez vydania broad provider alebo cluster credentials používateľovi. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
 ## Delegation — identity
 
 Kontrolované odovzdanie obmedzenej authority z jedného principalu na iný principal alebo service. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -4714,6 +4730,10 @@ Presná identita daemonu, projektu, volume objectu, logical data ID, ownera, bac
 
 Stav, v ktorom `HEAD` ukazuje priamo na commit namiesto symbolického odkazu na branch. Nové commits treba zachytiť branch refom, inak môžu zostať unreachable. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
 
+## Detached path ownership
+
+Explicitný lifecycle stav, v ktorom team opustí managed path a preberie definované security, upgrade, operations a audit responsibilities. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
 ## Detection cause
 
 Dôvod, prečo production evidence alebo monitoring neodhalili failure mechanismus skôr alebo na správnej user/business boundary. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
@@ -4742,13 +4762,65 @@ Dôkaz, že fixný chart, dependency graph, values, release context, capabilitie
 
 Serializácia, pri ktorej rovnaký logický vstup vytvára stabilný byte alebo textový výstup podľa definovaných pravidiel. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Developer cognitive load
+
+Mentálna kapacita potrebná na pochopenie a vykonanie software tasku vrátane intrinsic problem complexity a extraneous complexity vytvorenej nekonzistentnými interfaces, skrytými dependencies alebo tribal knowledge. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer-experience acceptance verdict
+
+Dôkaz, že reprezentatívna mixed-method evidence a counterbalanced outcomes potvrdzujú zlepšenie exact journey-u cez vysvetlený mechanismus bez punitive measurement alebo presunu toil-u a risku. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer experience sampling
+
+Krátke context-bound zisťovanie perception blízko konkrétneho workflow eventu, ktoré znižuje recall bias a viaže feedback na exact journey a generation. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer-experience subject
+
+Exact developer/team cohort, goal, journey, tool/platform generation, repository/environment context, time window, outcome constraints, measurement instruments a privacy scope. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer feedback-loop quality
+
+Kombinácia latency, relevance, dôveryhodnosti, actionability, subject identity a reproducibility informácie medzi developer action a poznaním výsledku. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer flow state
+
+Sústredená práca s jasným cieľom, primeranou výzvou a minimom zbytočných interruptions, waiting a context switching, hodnotená v kontexte team outcome-u. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer friction taxonomy
+
+Klasifikácia waiting, interaction, decision, feedback, access/dependency, operational a organizational friction podľa mechanismu a consequence v developer journey. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
 ## Developer-functional verification
 
 Dôkaz, že platform owner output nielen vytvorila, ale application team ho môže reálne použiť, napríklad autentizovať sa, deploynuť sample alebo pripojiť k managed capability. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
+## Developer journey
+
+End-to-end sekvencia actions, decisions, tools, handoffs, waiting a evidence od developer goalu po delivery, operational alebo business outcome. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer moment of truth
+
+Journey bod s disproporčným vplyvom na dôveru a adopciu, napríklad prvý onboarding, prvá failure, prvý production deploy, incident alebo upgrade. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## Developer-outcome guard metric
+
+Quality, security, reliability, cost, collaboration alebo well-being signal, ktorý musí zostať v povolenom rozsahu počas DevEx intervention. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
 ## Development target — Dockerfile
 
 Multi-stage build target obsahujúci development-only tools, debugger, hot reload alebo source-mount contract, ktorý nesmie byť neúmyselne publikovaný ako production runtime image. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## DevEx counterbalanced metrics
+
+Súbor speed, quality, experience/effectiveness, reliability, safety a business-impact measures, ktorý bráni optimalizácii jednej activity metriky na úkor celého systému. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## DevEx feedback closure
+
+Proces korelácie friction signálu s cohortom a journey, vytvorenia causal hypothesis, priradenia ownera, bounded intervention a overenia developer aj business výsledku. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
+## DevEx mixed-method evidence
+
+Kombinácia system telemetry, survey, interview, observation, support a outcome dát použitá na pochopenie developer experience a jej mechanizmu. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
 
 ## Device Authorization flow
 
@@ -5337,6 +5409,10 @@ Autoritatívny persistentný záznam hook operácií podľa operation ID, source
 ## Durable platform operation
 
 Persistovaný distributed workflow record s operation ID, semantic subjectom, step state-om, downstream resource IDs, attempts, partial outcomes a recovery verdictom. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Durable self-service operation
+
+Persistovaný state machine record requestu, child operations, transitions, outputs a recovery, ktorý prežije process timeout, restart a asynchronous provider behavior. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## Duration distribution
 
@@ -6438,6 +6514,10 @@ Kubernetes Service type poskytujúci DNS alias na external name bez bežného Cl
 
 Custom Resource deklarujúci external provider reference, refresh behavior, transformáciu a target Kubernetes Secret materialization. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
+## Extraneous developer load
+
+Cognitive load, ktorá nevychádza z business alebo technického problému, ale z nejasných tools, policies, handoffs, duplicate inputs, hidden state a potreby pamätať si workaroundy. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
+
 ## Fact cache — Ansible
 
 Cache backend uchovávajúci host facts medzi runs podľa definovanej freshness, access a invalidation policy. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
@@ -6761,6 +6841,14 @@ Podiel testov, ktoré prejdú na prvý pokus bez retry. Je citlivejším signál
 ## First-match routing verdict — ALB
 
 Výsledok ordered listener-rule evaluation, pri ktorom prvá matching rule určí action; broad higher-priority rule môže shadowovať presnejšiu canary rule. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## First production platform outcome
+
+Prvý verified production business alebo operational výsledok dosiahnutý cez konkrétnu platform capability generation a journey. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
+## First usable platform outcome
+
+Prvý stav, v ktorom owner dokáže platformou vytvorenú capability reálne použiť podľa integration a developer-functional contractu, nie iba pozorovať existenciu resources. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md) a [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## Flag debt
 
@@ -7170,6 +7258,10 @@ Value uložená pod top-level `global`, ktorú môžu čítať parent chart aj s
 
 Shell expansion, ktorá nahrádza wildcard pattern paths zodpovedajúcimi filesystem entries. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
 
+## Golden cage
+
+Path, ktorý je povinný alebo technicky uzamknutý bez capability parity, extension, exception alebo detached ownership modelu a preto presúva legitimate potreby do forks a bypassov. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
 ## Golden image
 
 Versionovaný immutable machine image obsahujúci vopred zostavený a otestovaný základ systému; configuration tool môže image vytvoriť a provisioning tool nasadiť jeho konkrétnu verziu. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
@@ -7177,6 +7269,14 @@ Versionovaný immutable machine image obsahujúci vopred zostavený a otestovan�
 ## Golden path
 
 Podporovaný a automatizovaný spôsob vývoja a delivery poskytujúci bezpečné defaults, reusable tooling, observability a policy guardrails. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
+
+## Golden-path acceptance verdict
+
+Dôkaz, že exact reprodukovateľná path generation pokrýva lifecycle, ownership, extension, security, testing, upgrade a end-to-end developer/business outcome bez skrytého cage alebo detached driftu. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
+## Golden-path subject
+
+Exact path identity/version, target segment a job, input decisions, resolved executable dependencies, authoritative outputs, ownership, upgrade, exception a acceptance scope. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
 
 ## Golden-Signal acceptance verdict
 
@@ -8538,6 +8638,10 @@ Container-to-container flow cez spoločnú Docker network a service DNS priamo n
 
 Service policy ovplyvňujúca výber cluster-wide alebo node-local backendov pre traffic prichádzajúci z clusteru. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## Internal user segment — Platform
+
+Skupina platform consumers s podobnými jobs, constraints, riskom a support potrebami, pre ktorú možno definovať jeden zmysluplný capability contract a outcome. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Internet-egress subject — AWS
 
 Exact outbound flow identity obsahujúca source ENI/subnet/AZ, selected route, IGW/NAT identity, original a translated tuple, destination/DNS/TLS identity, connection generation a business operation. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
@@ -9593,6 +9697,10 @@ Stav, v ktorom exact machine má podporovaný OS, funkčný SSM Agent, správnu 
 ## Managed node — Systems Manager
 
 EC2 alebo non-EC2 machine zaregistrovaná v Systems Manager s funkčnou identity, agentom a network connectivity. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## Managed path component
+
+Versionovaný reusable pipeline, module, chart, policy alebo controller contract konzumovaný cez stabilný interface a spravovaný aj po prvom bootstrap-e. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
 
 ## Managed rotation — Secrets Manager
 
@@ -11154,6 +11262,10 @@ Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad 
 
 Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bounded active/missing cohort, ak query predicate a business semantics presne zodpovedajú jeho scope-u. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
+## Partial platform outcome
+
+Stav, v ktorom časť authoritative mutations alebo outputs existuje, ale complete capability contract nebol splnený a systém musí retry, compensate alebo vyžiadať structured intervention. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
 ## Partial-result verdict — LDAP
 
 Rozhodnutie, či Search result reprezentuje complete intended population alebo bol obmedzený ACL, limitom, referralom, controlom, timeoutom či stale replica state-om. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -11218,13 +11330,33 @@ Risk-based časový záväzok pre remediation definovaný podľa exploitation, e
 
 Tretia časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible oprave deklarovaného behavioru. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Path composition graph
+
+Dependency a ownership graph repositories, pipelines, artifacts, runtime, data, identity, policy, observability, catalog a support outputs tvoriacich jeden end-to-end golden path. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
+## Path decision architecture
+
+Klasifikácia golden-path decisions na fixed invariants, defaults, required explicit choices, derived values, unsupported combinations a supported extension points. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
+## Path generation compliance
+
+Dôkaz, že effective repository, managed components, runtime a policies stále zodpovedajú podporovanej path generation; historické použitie template-u samo nestačí. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
 ## Path traversal
 
 Zraniteľnosť, pri ktorej vstup s prvkami ako `..` alebo absolútnou cestou unikne z povoleného adresára. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Path upgrade channel
+
+Mechanizmus consumer inventory, compatibility diffu, reviewed alebo automated change-u, rollout-u, rollback-u a residual closure pri prechode na novú golden-path generation. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
 ## PathType — Ingress
 
 Ingress field určujúci semantics HTTP path matching-u ako `Exact`, `Prefix` alebo `ImplementationSpecific`. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Paved-road contract
+
+Organizačne preferovaný a podporovaný journey contract, do ktorého platforma investuje reliability, security, documentation a lifecycle, pričom zachováva explicitné alternatívy a odchýlky. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
 
 ## PDC Emulator
 
@@ -11490,9 +11622,17 @@ Uložený Terraform plan viazaný na configuration, variables, provider/module s
 
 Native Terraform test run používajúci `command = plan` na overenie plan-time contractu bez vytvorenia reálnej infraštruktúry. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
+## Platform adoption funnel
+
+Generation-aware postup od target users cez awareness, discovery, eligibility, request, usable outcome, production outcome a repeat use po retained managed adoption. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Platform API
 
 Authoritative interface alebo declarative resource model, ktorým clients vyjadrujú high-level platform intent a control plane ho transformuje na bounded downstream operations. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Platform-as-a-Product acceptance verdict
+
+Dôkaz, že explicitný segment, job, value hypothesis, capability contract, adoption, reliability, cost, feedback a lifecycle vytvárajú udržateľný interný produkt s overeným outcome-om. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
 
 ## Platform authority graph
 
@@ -11506,13 +11646,17 @@ Identita jednej target-platform vetvy build graphu zahŕňajúca selected node, 
 
 Versionovaný internal product contract, napríklad managed runtime, database alebo delivery flow, s definovanými inputs, outputs, guarantees, constraints, ownershipom, supportom a lifecycle-om. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
+## Platform capability contract
+
+Versionovaný product sľub definujúci inputs, outputs, states, defaults, constraints, SLO, security, ownership, cost, compatibility, support a exit semantics platformovej capability. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Platform compatibility contract — container
 
 Požiadavky na kernel/runtime features, CPU, libc, devices, filesystem, seccomp/LSM, storage a network potrebné na spustenie workloadu. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Platform compensation
 
-Per-step bounded recovery action pre partial distributed platform operation, vykonaná iba pri explicitnej eligibility a preconditions, nie generický destructive rollback. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+Best-effort alebo contract-defined reverzná operácia, ktorá po partial failure odstráni, revokuje alebo neutralizuje už vykonané effects a následne overí residual state. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## Platform control plane
 
@@ -11530,6 +11674,10 @@ Disciplína navrhovania, budovania a prevádzkovania shared internal platform ca
 
 End-to-end property, že retry rovnakého semantic platform requestu read-backne a obnoví ten istý intended resource graph namiesto vytvorenia duplicates alebo conflicting side effects. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
+## Platform job-to-be-done
+
+Konkrétny pokrok, ktorý application alebo product team potrebuje dosiahnuť v danom kontexte, napríklad bezpečne vytvoriť production-ready regulovaný service, nie iba vykonať lokálnu portal action. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Platform manifest — OCI
 
 Konkrétny manifest vybraný z indexu pre OS/architecture/variant, odkazujúci na config a layers. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -11542,9 +11690,37 @@ Nesúlad medzi target OS/architecture a vybraným image manifestom alebo executa
 
 Explicitné rozdelenie zodpovednosti za control plane, etcd, Nodes, add-ons, upgrades, identity, application data, recovery a incident support medzi provider/platform/application owners. Pozri [Cluster installation a lifecycle](../docs/09-kubernetes/cluster-installation-lifecycle.md).
 
+## Platform preflight
+
+Read-only alebo reservation-aware fáza, ktorá pred mutation overí identity, conflicts, policy, quota, dependencies, compatibility a current-state freshness a vytvorí vysvetliteľný plán. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
+## Platform product feedback closure
+
+Proces, ktorý koreluje user signal s journey a capability generation, určí action alebo vysvetlený non-action, komunikuje rozhodnutie a neskôr overí outcome. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
+## Platform product outcome tree
+
+Decision model prepájajúci business outcome, user outcomes, observed opportunities a bounded experiments tak, aby roadmapa nebola iba zoznam technických outputs. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
+## Platform product owner
+
+Accountable authority za user problem, capability contract, roadmap, adoption, feedback closure a product outcome; nepreberá automaticky runtime ownership každého underlying componentu. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
+## Platform product subject
+
+Exact platform capability/version, internal user segment, job-to-be-done, journey, interface, environment, outcome, ownership, adoption cohort, cost a lifecycle scope jedného product decisionu. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Platform request subject
 
 Exact requester/team, capability/version, service identity, environment, data/operations tier, requested inputs, quota, policy bundle, idempotency key a expected outputs jednej platform operation. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Platform value hypothesis
+
+Falsifikovateľné tvrdenie spájajúce target segment, current problem, platform capability, očakávaný developer/business outcome a guard conditions. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
+## Platform waiting state
+
+Ne-terminálny operation state s explicitným dôvodom, ownerom, deadline-om a wake-up mechanismom, napríklad WaitingApproval, WaitingCapacity alebo WaitingExternal. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## Playbook — operations
 
@@ -12177,6 +12353,10 @@ Escalation spustená absenciou qualified response alebo effective mitigation pro
 ## Progressive delivery
 
 Evidence-driven riadenie postupnej produkčnej exposure pomocou rollout stratégie, segmentácie, observability, promotion policy a recovery mechanizmov. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
+## Progressive disclosure — Platform
+
+Experience model, ktorý pri bežnom toku ukazuje jednoduchý intent a outcome, pri decisione consequences a pri failure underlying state, identity, evidence a recovery. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
 
 ## Project collision incident
 
@@ -13846,6 +14026,10 @@ Najprísnejší built-in PSS profil pre bežné workloads, vyžadujúci non-root
 
 Pravidlo, že process môže skončiť exit code 0 až po durable result commit-e a overení business invariantov. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
+## Retained managed adoption
+
+Dlhodobé používanie podporovanej capability generation bez detached forks, hidden bypassov alebo neudržateľného manual supportu. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
+
 ## Retained-PVC reuse boundary
 
 Preflight rozhodnutie, či PVC zachovaný po StatefulSet scale-down-e obsahuje správny cluster/member/data state a môže byť bezpečne použitý pri scale-up-e. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
@@ -15006,9 +15190,25 @@ Hodnotenie lab úloh cez explicitné validation commands, partial-credit criteri
 
 Automated reconciliation live driftu späť na desired state bez potreby novej source revision, ak diff a policy označia field ako Git-owned a mutation ako safe. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
 
+## Self-service acceptance verdict
+
+Dôkaz, že discoverable bounded request cez exact authorization, preflight, durable idempotent operation, truthful states, capacity, recovery a lifecycle vedie k usable outcome-u bez unrestricted privilege. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
+## Self-service backpressure
+
+Admission, queue, fairness, quota, priority a bounded-retry mechanizmy chrániace platform control plane a downstream providers pred overloadom a retry amplification. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
 ## Self-service boundary
 
 Authorization, schema, quota a policy envelope, v ktorom autentizovaný tenant môže bez central ticketu spustiť vopred approved platform action bez unrestricted underlying privilege. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Self-service eligibility
+
+Current policy decision, či daný principal, team, service a environment smú použiť capability vzhľadom na ownership, classification, prerequisites, quota a target scope. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
+## Self-service request subject
+
+Exact requester/owner, capability version, target identity, action, environment, classification, dependency context, expected current state, idempotency a outcome scope jedného self-service intentu. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## SELinux options — Kubernetes
 
@@ -15053,6 +15253,10 @@ Policy, ktorá hodnotí issuer, subject, predicate type, builder, source, parame
 ## Semantic payload fingerprint
 
 Canonical digest business-relevant method/path/payload a critical dimensions použitý na odlíšenie duplicate rovnakého intentu od reuse rovnakého keyu pre iný intent. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
+## Semantic request idempotency
+
+Mechanizmus viažuci retries na rovnaký business/platform intent a desired generation tak, aby sa vrátil existing result alebo konflikt namiesto duplicate side effectu. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## Semantic-schema generation — OpenTelemetry
 
@@ -16210,6 +16414,10 @@ Verdikt, že dôkazy pre exact incident, release, Pod, Node a request subject po
 
 Záverečný verdict spájajúci root cause, authoritative remediation, original/forbidden outcomes, adjacent cohorts, telemetry coverage a preventive control s exact incident subjectom. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Subject-bound platform plan
+
+Predicted mutation a output graph viazaný na exact request digest, policy version a expected base state, ktorého zmena invaliduje approval alebo execution eligibility. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
 ## Subject-bound referrer — OCI
 
 Signature, provenance, SBOM alebo iný artifact explicitne viazaný na image index alebo platform manifest digest. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -16301,6 +16509,10 @@ Risk-based overovanie identity, procesov, controls, evidence, maintenance, incid
 ## Support boundary — cloud
 
 Hranica určujúca, ktorú časť incidentu môže meniť alebo diagnostikovať provider, zákazník alebo third party a aké evidence sú potrebné na efektívnu eskaláciu. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
+## Supported path extension
+
+Versionovaný extension point umožňujúci custom behavior bez modifikácie alebo forku interného golden-path implementation graphu. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
 
 ## Supported upgrade path — Terraform module
 
@@ -16858,6 +17070,10 @@ Kerberos ticket používaný clientom na získavanie service tickets bez opakova
 
 Podiel času, počas ktorého je exact service capability usable, voči celému eligible service window-u. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
+## Time-bounded path exception
+
+Schválená dočasná odchýlka s exact scope-om, riskom, compensating controls, ownerom, expiry a návratovým plánom. Pozri [Golden paths a paved road](../docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md).
+
 ## Time-budget state machine — CloudOps exam
 
 Question workflow `read/classify → solve alebo defer → provisional answer/confidence → second pass → consistency review`, ktorý chráni celý exam queue pred time collapse. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
@@ -16881,6 +17097,10 @@ Prúd timestampovaných samples identifikovaný metric name a úplným label set
 ## Time-to-full-performance
 
 Recovery interval od incident decisionu po restored storage/application schopnú spĺňať production latency a throughput, nie iba po resource state `available`. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Time-to-understand
+
+Čas od dostupnosti feedbacku alebo incident signálu po schopnosť developera správne klasifikovať príčinu a zvoliť action, odlišný od samotného execution time-u. Pozri [Developer experience](../docs/16-gitops-and-platform-engineering/developer-experience.md).
 
 ## `TIME-WAIT`
 
@@ -17306,6 +17526,10 @@ Stav, keď responder nevie, či operational side effect nastal alebo v akom scop
 
 Operation outcome, pri ktorom side effect mohol nastať, ale acknowledgement alebo authoritative evidence chýba; pred retry potrebuje reconciliation. Pozri [RED method](docs/12-observability/red-method.md).
 
+## Unknown platform outcome
+
+Stav po strate acknowledgementu alebo neúplnom evidence, keď mutation mohla alebo nemusela nastať a pred retry je povinný authoritative read-back. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
+
 ## Unknown publication outcome — BuildKit
 
 Stav po timeoute alebo partial exporte, keď nie je známe, či registry prijala úplný index, manifests, blobs, tag a attestations; pred retry vyžaduje registry read-back a graph-generation reconciliation. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -17405,6 +17629,10 @@ External alebo split-horizon DNS path identifikovaný CoreDNS forward rule, upst
 ## URI — Uniform Resource Identifier
 
 Identifikátor resource; URL je typ URI, ktorý zároveň opisuje spôsob alebo miesto prístupu. Pozri [HTTP](docs/02-networking-and-web/http.md).
+
+## Usable capability outcome
+
+Verified stav, v ktorom required resources, integrations, permissions a developer-functional behavior umožňujú ownerovi vykonať intended job, nie iba pozorovať successful create response. Pozri [Self-service](../docs/16-gitops-and-platform-engineering/self-service.md).
 
 ## USE acceptance verdict
 
