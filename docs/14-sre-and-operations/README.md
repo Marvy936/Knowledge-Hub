@@ -1,6 +1,6 @@
 # SRE and Operations
 
-Táto sekcia vysvetľuje, ako prevádzkovať služby podľa explicitných user a business reliability objectives namiesto nejasného cieľa `udržať systém hore`. Začína rozlíšením reliability, availability a durability, pokračuje merateľnými SLI/SLO a error-budget control loopom a následne prechádza cez toil, capacity, incident response, on-call, causal learning, recovery a operational readiness.
+Táto sekcia vysvetľuje, ako prevádzkovať služby podľa explicitných user a business reliability objectives namiesto nejasného cieľa `udržať systém hore`. Vedie od definície spoľahlivého outcome-u cez measurement, risk a operational demand až po incident response, causal learning, recovery, controlled experiments a production readiness.
 
 SRE tu nie je názov produktu ani synonymum pre tradičné operations. Je to engineering prístup, ktorý spája software design, production evidence, bounded risk, incident learning, automatizáciu a vlastníctvo služby.
 
@@ -16,7 +16,7 @@ Odporúča sa najprv dokončiť:
 - [Observability](../12-observability/README.md),
 - [Security and Identity](../13-security-and-identity/README.md).
 
-## Authoritative poradie — aktívne kapitoly
+## Authoritative poradie
 
 1. [Reliability, availability a durability](reliability-availability-durability.md)
 2. [SLI, SLO a SLA](sli-slo-sla.md)
@@ -30,16 +30,11 @@ Odporúča sa najprv dokončiť:
 10. [Blameless postmortems](blameless-postmortems.md)
 11. [Backup a restore](backup-and-restore.md)
 12. [RPO a RTO](rpo-and-rto.md)
+13. [Disaster recovery](disaster-recovery.md)
+14. [Chaos engineering](chaos-engineering.md)
+15. [Operational readiness](operational-readiness.md)
 
-Aktuálny authoritative stav sekcie je **12/15 · In progress**.
-
-## Plánované pokračovanie
-
-Authoritative poradie bude pokračovať bez zmeny roadmapy:
-
-13. Disaster recovery
-14. Chaos engineering
-15. Operational readiness
+Aktuálny authoritative stav sekcie je **15/15 · In progress**. Všetky kapitoly existujú; stav **Ready for user review** možno nastaviť až po finálnom section-level consistency passe.
 
 ## Connected learning scenarios
 
@@ -56,9 +51,7 @@ merchant settlement request
 → final customer-visible state
 ```
 
-Broker partition spustila backlog. Opakovaný manuálny cleanup odstránil `4 182` ešte nepublikovaných outbox commands. Front-door HTTP availability zostala zelená, no end-to-end settlement reliability a durability acknowledged intentu zlyhali.
-
-Incident vytvára chain:
+Broker partition vytvorila backlog. Opakovaný privileged cleanup odstránil `4 182` ešte nepublikovaných outbox commands. Front-door availability zostala zelená, no end-to-end completion a durability acknowledged intentu zlyhali.
 
 ```text
 business reliability subject
@@ -71,7 +64,7 @@ business reliability subject
 
 ### `SRE-PAY-53` — capacity, incident command, on-call a runbook safety
 
-End-of-month campaign vytvorila `2 800` unique settlements/s pri provider slowdown-e. API prijímala `3 600` HTTP attempts/s, ale safe end-to-end completion capacity bola iba `1 850` settlements/s a one-AZ-safe capacity `1 420/s`.
+End-of-month campaign vytvorila `2 800` unique settlements/s pri provider slowdown-e. API prijímala `3 600` HTTP attempts/s, ale safe completion capacity bola `1 850/s` a one-AZ-safe capacity `1 420/s`.
 
 ```text
 forecast a SLO
@@ -86,21 +79,11 @@ forecast a SLO
 → bounded admission, incident command a reconciliation
 ```
 
-Trigger bol traffic spike a provider slowdown. Primary capacity root cause bol model viazaný na priemerný HTTP request rate a API CPU namiesto logical demandu, constrained completion pathu, retry amplificationu a failure headroomu.
+Capacity root cause bol model viazaný na priemerný request rate a API CPU namiesto logical demandu, constrained completion pathu, retries a failure headroomu. Stale runbook resetoval `62 418` in-flight lease-ov a vytvoril `143` sent-unknown operations.
 
-Causal amplifiers:
+### `SRE-PAY-54` — causal learning, logical-corruption recovery a objectives
 
-- admission nebola naviazaná na downstream completion capacity;
-- 24-minútové oneskorenie incident declaration;
-- on-call escalation sledovala iba acknowledgement, nie mitigation progress alebo severity;
-- stale runbook `RB-PAY-17` resetoval `62 418` lease-ov bez state classification;
-- `143` operations prešlo do `sent-unknown` cohortu a vyžadovalo provider-ledger reconciliation.
-
-Recovery použila explicitný IC/Ops/Comms/Planning model, admission `1 700 unique intents/s`, shared retry budget, bounded worker concurrency, provider escalation, queue cohort inventory, controlled drain a business reconciliation.
-
-### `SRE-PAY-54` — causal learning, logical-corruption recovery a objective validation
-
-Release `payments-api 7.25.0` pridal `settlement-ledger-compactor`. Intended destructive operation vyžadovala exact tenant, terminal settlement, provider-finalized state a age nad 90 dní. Production config však vynechala `tenant_scope` a runtime interpretoval missing scope ako wildcard.
+Release `payments-api 7.25.0` pridal compactor, ktorého missing `tenant_scope` sa interpretoval ako wildcard.
 
 ```text
 release 7.25.0
@@ -108,17 +91,17 @@ release 7.25.0
 → wildcard destructive query
 → 186 420 rows archived
 → 7 842 active rows poškodených
-→ provider/outbox correlation metadata odstránené
+→ correlation metadata odstránené
 → 613 callbacks vyžadovalo secondary correlation
 → 91 merchant-visible stale/unknown outcomes
-→ logical corruption replikovaná do replicas a nových snapshots
+→ corruption replikovaná do replicas a snapshots
 ```
 
-Primary technical root cause bol fail-open wildcard semantics. Systemic root cause bol chýbajúci destructive-operation contract: mandatory scope, affected manifest, max rows/rate, dual authorization a business invariant gate. Escape cause bol zero-row canary a exit-code oracle. Recovery delay vytvorili stale decryption grants, unrehearsed isolated restore a neúplný consistency-group manifest.
+Technical root cause bol fail-open wildcard contract. Systemic cause bol chýbajúci destructive-operation safety model; escape a recovery-delay causes zahŕňali zero-row canary, exit-code oracle, stale decrypt grants, unrehearsed restore a neúplný consistency group.
 
 ```text
-RCA evidence a causal graph
-→ blameless postmortem a action portfolio
+RCA a causal graph
+→ blameless postmortem
 → clean-point selection
 → isolated PITR
 → affected manifest
@@ -128,168 +111,191 @@ RCA evidence a causal graph
 → objective-versus-actual verdict
 ```
 
-Deklarované objectives boli `RPO 5 min`, `RTO 45 min` a maximum tolerable disruption `2 h`. Database-only clean point bol `02:13:58 UTC`, deväť sekúnd pred corruption, ale posledný pre-built business consistency checkpoint bol `02:03:00 UTC`, teda 11 minút 7 sekúnd pred corruption. Business recovery skončila o `06:03 UTC`, `3 h 48 min 53 s` po first bad mutation. Potvrdená permanentná strata acknowledged settlements bola nakoniec nula, ale initial business-consistent RPO a end-to-end RTO neboli splnené.
+Deklarované objectives `RPO 5 min`, `RTO 45 min` a maximum tolerable disruption `2 h` neprešli. Database clean point bol 9 sekúnd pred corruption, business-consistent point bol starý `11 min 7 s` a recovery trvala `3 h 48 min 53 s`.
+
+### `SRE-PAY-55` — DR, chaos evidence a operational readiness
+
+Primary Region stratil network/control-plane connectivity. Warm standby mala database lag iba 32 sekúnd, ale complete business recovery graph nebol current.
+
+```text
+regional disruption
+→ DR activation
+→ database promotion
+→ /healthz green a DNS cutover
+→ runtime KMS grant missing
+→ provider egress/callback path nepripravený
+→ broker checkpoint a fencing stale
+→ HTTP 202 bez final completion
+→ bounded degraded mode
+→ provider/broker/data reconciliation
+→ safe recovery za 2 h 19 min
+```
+
+Primary DR root cause bol warm-standby plan bez versionovaného end-to-end business recovery graphu a current rehearsal-u.
+
+Pred incidentom bol narrow experiment `CH-PAY-41`, ktorý zabil iba worker Pody a sledoval HTTP `202`, nesprávne interpretovaný ako regional DR evidence. Review `ORR-PAY-55-v2` súčasne prijala open tickets, configured placeholders a stale runbook ako `conditional green` bez blocking semantics, expiry alebo effective-state evidence.
+
+```text
+DR failure graph
+→ exact chaos hypothesis a bounded business cohort
+→ provider/KMS/broker/DNS/fencing experiment
+→ falsified keep-alive routing assumption
+→ remediation a repeat experiment
+→ business recovery 31 min 42 s
+→ operational-readiness gates a day-2 acceptance
+```
 
 ## Cieľ zvládnutia prvého bloku
 
 ### Reliability, availability a durability
 
-- definovať exact reliability subject cez required function, stated conditions a period;
-- rozlíšiť reliability, availability, correctness, latency a durability;
-- vybrať time-based alebo event-based availability model;
-- identifikovať partial availability podľa cohortu, Region, operation alebo release generation;
-- navrhnúť acknowledgement a durable-state boundary;
-- vysvetliť, prečo replication nechráni pred logical corruption;
-- overiť reconstructability cez restore a business reconciliation;
-- diagnostikovať front-door success pri zlyhanom downstream outcome-e.
+- definovať exact reliability subject a success boundary;
+- odlíšiť availability, correctness, latency, durability a reconstructability;
+- navrhnúť acknowledgement boundary;
+- vysvetliť partial availability a logical corruption;
+- validovať user/business outcome namiesto process healthu.
 
 ### SLI, SLO a SLA
 
-- definovať valid-event population, good event, observation point a measurement generation;
-- navrhnúť user-centered availability, latency, correctness, completion a durability indicators;
-- rozlíšiť request attempts od unique business operations;
-- používať rolling a calendar compliance windows;
-- odlíšiť interný SLO od contractual SLA;
-- navrhnúť exclusions a missing-data semantics;
-- pracovať s provisional, late a corrected outcomes;
-- preukázať, že SLO verdict je reprodukovateľný.
+- definovať eligible population, good/bad event a observation point;
+- rozlišovať request attempts a unique business operations;
+- používať rolling/calendar windows a missing-data semantics;
+- odlíšiť interný SLO od external SLA;
+- vytvoriť reprodukovateľný service-level verdict.
 
 ### Error budgets
 
-- odvodiť allowed bad events zo SLO a eligible population;
-- vysvetliť remaining, consumed a forecast budget;
-- používať burn rate a multi-window alerting;
-- navrhnúť error-budget policy s release a incident consequences;
-- odlíšiť discretionary risk od remediation a security changes;
-- riadiť viac critical SLOs bez neplatného priemerovania;
-- zachovať user impact pri shared-dependency attribution;
-- overiť reset, recurrence a second-window behavior.
+- odvodiť budget z SLO a population;
+- používať consumption, forecast a multi-window burn rate;
+- premeniť budget state na bounded release/incident decision;
+- odlíšiť discretionary risk od remediation/security changes;
+- validovať recurrence a second-window behavior.
 
 ### Toil
 
-- odlíšiť toil od engineering worku, overheadu a grungy worku;
-- identifikovať manual, repetitive, automatable, tactical, non-enduring a scale-linked vlastnosti;
-- merať frequency, touch time, interruption cost, risk a growth;
+- klasifikovať manual, repetitive, automatable, tactical, non-enduring a scale-linked work;
+- merať frequency, touch time, interruption, risk a growth;
 - nájsť root operational demand;
-- vybrať elimination, redesign, automation, self-service alebo explicit acceptance;
-- navrhnúť bezpečnú automation s idempotency, bounded scope a auditom;
-- odhaliť toil presunutý na iný tím alebo používateľa;
-- preukázať trvalé zníženie demandu bez reliability regresie.
+- vybrať elimination, redesign, automation, self-service alebo acceptance;
+- overiť trvalé zníženie demandu bez reliability regresie.
 
 ## Cieľ zvládnutia druhého bloku
 
 ### Capacity planning
 
-- definovať capacity subject cez business operation, SLO, topology a failure assumptions;
-- modelovať unique demand a retry/fan-out amplification;
+- modelovať logical demand a amplification;
 - mapovať end-to-end constrained resources;
-- rozlíšiť configured, installed a effective capacity;
-- odvodiť steady-state, burst, failover, rollout a recovery headroom;
-- započítať provisioning a provider-quota lead time;
-- navrhnúť load, stress, soak, failover a backlog-recovery experiments;
-- preukázať second-peak a one-failure-domain acceptance.
+- rozlíšiť configured a effective capacity;
+- odvodiť burst, failover, rollout a recovery headroom;
+- započítať acquisition/provisioning lead time;
+- preukázať load, soak, failover, backlog a second-peak acceptance.
 
 ### Incident management
 
-- definovať incident subject, declaration criteria a severity;
-- oddeliť IC, Operations, Communications a Planning responsibilities;
-- udržiavať authoritative incident state;
+- definovať declaration, severity a incident subject;
+- oddeliť IC, Operations, Communications a Planning;
 - používať evidence-preserving stabilization;
-- viazať mitigations na hypotheses, owners a abort criteria;
-- koordinovať accelerated, ale auditovateľný change control;
-- definovať business recovery, handoff a closure criteria;
-- overiť adjacent cohort a recurrence watch.
+- viazať actions na hypotheses, owners a abort criteria;
+- definovať business recovery, handoff a closure.
 
 ### On-call a escalation
 
-- definovať service support contract a page eligibility;
+- definovať support contract a page eligibility;
 - odlíšiť delivery, acknowledgement a qualified response;
-- navrhnúť primary/secondary coverage a shift handoff;
-- používať time, skill, authority, capacity, severity a dependency escalation;
-- overiť schedule, timezone, access a vendor contacts;
-- merať page quality a sustainable load;
-- odstrániť duplicate/nonurgent pages;
-- preukázať second-shift a schedule-failure response.
+- navrhnúť primary/secondary coverage a tested escalation;
+- overiť access, contacts a schedule;
+- merať page quality a sustainable load.
 
 ### Runbooks a playbooks
 
-- rozlíšiť repeatable runbook od širšieho playbooku;
-- definovať exact document subject, generation a eligibility;
-- zapisovať preconditions, safety boundary a decision branches;
-- používať read-before-write, dry-run, bounded manifests a idempotency;
-- riešiť partial a unknown outcomes cez rollback, compensation alebo reconciliation;
-- overiť technical, business, forbidden a second-operation outcomes;
-- testovať wrong-subject a stale-generation rejection;
-- withdrawnúť a nahradiť nebezpečný dokument bez straty incident evidence.
+- rozlíšiť repeatable procedure a decision framework;
+- definovať document subject, generation a eligibility;
+- zapisovať preconditions, safety, branches a bounded actions;
+- riešiť partial/unknown outcome cez rollback, compensation alebo reconciliation;
+- rehearse, withdrawnúť a nahradiť stale dokumenty.
 
 ## Cieľ zvládnutia tretieho bloku
 
 ### Root cause analysis
 
-- definovať exact RCA subject a evidence cutoff;
 - odlíšiť trigger, proximate mechanismus a business impact;
-- rozlišovať technical, systemic, escape, detection, amplification a recovery-delay causes;
-- vytvoriť evidence-backed timeline a causal graph;
-- používať competing hypotheses a counterfactual tests;
-- poznať limity lineárneho Five Whys;
-- formulovať blameless, ale konkrétne human/system actions;
-- navrhnúť corrective-action portfolio s mechanism closure verification.
+- analyzovať technical, systemic, escape, detection, amplification a recovery causes;
+- používať evidence timeline, causal graph a counterfactual tests;
+- navrhnúť mechanism-level corrective actions a recurrence closure.
 
 ### Blameless postmortems
 
-- definovať objective postmortem triggers a immutable document subject;
-- kvantifikovať user/business impact;
-- zapísať factual timeline bez osobného hodnotenia;
-- vyhodnotiť response, what went well, what went poorly a where we got lucky;
-- odlíšiť blamelessness od absencie accountability;
-- mapovať action items na failure mechanisms;
-- vykonať independent review, publication a privacy/security redaction;
-- sledovať actions až po effective-state a recurrence verification.
+- vytvoriť factual impact a timeline;
+- zachovať accountability bez osobného blame;
+- vyhodnotiť response, luck a organizational context;
+- sledovať action portfolio až po effective-state verification;
+- vykonávať independent review a cross-incident learning.
 
 ### Backup a restore
 
-- definovať protected subject a business consistency group;
-- odlíšiť backup, replication, snapshot, archive, export, restore a recovery;
-- rozlišovať crash-, application-, transaction- a business-consistent point;
-- navrhnúť isolation, immutability, retention a key recoverability;
-- vybrať clean recovery candidate namiesto latest pointu;
-- vykonať isolated restore, fencing a post-point divergence processing;
-- overiť infrastructure, engine, data, application, business a forbidden outcomes;
-- navrhnúť realistický full-stack a second-responder restore drill.
+- definovať protected subject a consistency group;
+- odlíšiť backup, replication, snapshot, archive, restore a recovery;
+- vybrať clean point namiesto automatického latest pointu;
+- testovať isolation, keys, restore, fencing a reconciliation;
+- validovať infrastructure, data, application a business outcome.
 
 ### RPO a RTO
 
-- definovať exact recovery-objective subject a failure scenario;
-- odvodiť RPO/RTO z business impact analysis;
-- odlíšiť RPO, RTO, maximum tolerable disruption a work recovery time;
-- používať time-based aj event/data RPO semantics;
-- viazať RTO na business disruption a safe service boundary;
-- rozdeliť end-to-end RTO na dependency budgets;
-- odlíšiť objective od actual recovered point a actual recovery time;
-- overiť objectives timed current-generation exercise-om.
+- odvodiť objectives z BIA a exact scenario;
+- odlíšiť RPO, RTO, maximum tolerable disruption a work recovery;
+- používať time aj event/data boundaries;
+- merať actual recovered point a actual recovery time;
+- overiť objectives current-generation timed exercise-om.
+
+## Cieľ zvládnutia záverečného bloku
+
+### Disaster recovery
+
+- odlíšiť HA, incident response a DR;
+- definovať recovery subject, consistency group a strategy tier;
+- modelovať complete recovery graph vrátane control plane-u, identities, providers a routing;
+- navrhnúť writer fencing, degraded mode, cutover a failback;
+- merať RPO/RTO a work recovery počas full exercise-u.
+
+### Chaos engineering
+
+- definovať exact experiment subject, cohorts a falsifikovateľnú steady-state hypotézu;
+- vybrať realistic event a reprezentatívny bounded blast radius;
+- používať safety state machine, abort a injection identity;
+- odlíšiť supported, falsified, inconclusive a incident verdict;
+- uzatvoriť finding remediation repeat experimentom.
+
+### Operational readiness
+
+- odlíšiť release, launch a operational readiness;
+- vytvoriť service-specific PRR s current evidence inventory;
+- rozlišovať designed, configured, loaded, effective a rehearsed controls;
+- používať blocker taxonomy a expiring exact exceptions;
+- riadiť staged launch, handover, day-2 ownership a re-readiness triggers.
 
 ## Dominantný model sekcie
 
 ```text
 user a business capability
-→ exact reliability/recovery subject
+→ exact reliability/recovery/operating subject
 → objective a tolerance failure-u
-→ production evidence
+→ production evidence a current generation
 → risk alebo operational demand
-→ bounded decision a action
+→ bounded decision, action alebo experiment
 → effective-state a business verification
 → recovery alebo learning
-→ recurrence a second-operation closure
+→ recurrence, second-operation a lifecycle closure
 ```
 
-Každá komplexná kapitola musí rozlišovať:
+Každá komplexná kapitola rozlišuje:
 
-- configured, observed a effective state;
+- configured, observed, loaded a effective state;
 - technical success a user/business outcome;
 - trigger, root cause a causal amplifier;
-- containment, remediation a recovery;
+- containment, remediation, recovery a work recovery;
 - activity metric a reliability evidence;
-- prvý úspech a second-operation/reconciliation closure.
+- prvý úspech a second-operation/reconciliation closure;
+- exact evidence scope a širší nepreukázaný claim.
 
 ## Stav
 
@@ -307,8 +313,8 @@ Každá komplexná kapitola musí rozlišovať:
 | Blameless postmortems | Learning | L2 |
 | Backup a restore | Learning | L2 |
 | RPO a RTO | Learning | L2 |
-| Disaster recovery | Not Started | L0 |
-| Chaos engineering | Not Started | L0 |
-| Operational readiness | Not Started | L0 |
+| Disaster recovery | Learning | L2 |
+| Chaos engineering | Learning | L2 |
+| Operational readiness | Learning | L2 |
 
-Sekcia zostáva **In progress**. Stav **Ready for user review** možno použiť až po vytvorení všetkých 15 authoritative kapitol, overení ich navigation chainu, glossary, audit artifacts a finálnom section-level consistency passe.
+Sekcia zostáva **In progress** až do úspešného finálneho section-level consistency passu. Gate musí overiť authoritative ordering všetkých 15 kapitol, connected incident chain, obojsmernú navigation, prechod zo Security and Identity, výstup na roadmapu alebo nasledujúcu authoritative sekciu, glossary merge, prázdne audit-failure artifacts, terminology a current primary-source facts.
