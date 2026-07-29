@@ -3153,15 +3153,15 @@
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
       "title": "Elasticsearch alebo OpenSearch",
-      "words": 2503,
-      "headings": 57,
-      "sections": 57,
-      "findings": 185,
-      "critical": 70,
-      "high": 64,
-      "medium": 23,
-      "low": 28,
-      "score": 1465,
+      "words": 1999,
+      "headings": 40,
+      "sections": 40,
+      "findings": 79,
+      "critical": 27,
+      "high": 32,
+      "medium": 4,
+      "low": 16,
+      "score": 610,
       "grade": "D"
     },
     {
@@ -175070,7 +175070,7 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný model",
       "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -175079,7 +175079,7 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný model",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -175088,8 +175088,8 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "2. Document",
-      "line": 24,
+      "section": "3. Oddelené stavy",
+      "line": 50,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -175097,1304 +175097,8 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "2. Document",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "2. Document",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `machine-queryable fields,`, `full-text content,`, `exact identifiers,`, `numeric/date fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "2. Document",
-      "line": 24,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "3. Index",
-      "line": 62,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 55 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "3. Index",
-      "line": 62,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet primary shards,`, `počet replicas,`, `refresh interval,`, `analyzers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "3. Index",
-      "line": 62,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "3. Index",
-      "line": 62,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "3. Index",
-      "line": 62,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "4. Primary a replica shard",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "4. Primary a replica shard",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundancy,`, `failover,`, `vyššiu read capacity.`, `ochranu pred logical deletion alebo corruption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "4. Primary a replica shard",
-      "line": 81,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "4. Primary a replica shard",
-      "line": 81,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "4. Primary a replica shard",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "5. Lucene segment",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "5. Lucene segment",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "5. Lucene segment",
-      "line": 102,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `časté updates/deletes vytvárajú deleted documents a merge pressure,`, `príliš častý refresh zvyšuje segment count a overhead,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "5. Lucene segment",
-      "line": 102,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "5. Lucene segment",
-      "line": 102,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "6. Refresh",
-      "line": 123,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "6. Refresh",
-      "line": 123,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup,`, `durable flush,`, `cluster replication,`, `index rollover.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "6. Refresh",
-      "line": 123,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "6. Refresh",
-      "line": 123,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "7. Transaction log a durability",
-      "line": 142,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "7. Transaction log a durability",
-      "line": 142,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `acknowledgement level,`, `in-sync replica model,`, `translog durability,`, `flush a recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "7. Transaction log a durability",
-      "line": 142,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "7. Transaction log a durability",
-      "line": 142,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "7. Transaction log a durability",
-      "line": 142,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `durability`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "8. Data streams",
-      "line": 157,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "8. Data streams",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má stabilný logical name,`, `posiela writes do aktuálneho write indexu,`, `searchuje naprieč backing indexes,`, `používa index template,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "8. Data streams",
-      "line": 157,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "8. Data streams",
-      "line": 157,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "9. Index templates",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "9. Index templates",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index patterns,`, `priority,`, `component templates,`, `mappings,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "9. Index templates",
-      "line": 183,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "9. Index templates",
-      "line": 183,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "10. Mappings",
-      "line": 201,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "10. Mappings",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "10. Mappings",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keyword ,`, `text ,`, `date ,`, `integer/long/double,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "10. Mappings",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "10. Mappings",
-      "line": 201,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "keyword oproti text",
-      "line": 218,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "keyword oproti text",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "keyword oproti text",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact match,`, `sorting,`, `aggregation,`, `identifiers a bounded categories.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "keyword oproti text",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Multi-fields",
-      "line": 235,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "11. Dynamic mapping",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "11. Dynamic mapping",
-      "line": 253,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "11. Dynamic mapping",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mapping explosion,`, `nekontrolované user keys vytvoria tisíce fields,`, `schema drift,`, `vyšší cluster-state a heap overhead.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "11. Dynamic mapping",
-      "line": 253,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "11. Dynamic mapping",
-      "line": 253,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "11. Dynamic mapping",
-      "line": 253,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "12. Mapping conflict",
-      "line": 273,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "12. Mapping conflict",
-      "line": 273,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový field name alebo schema,`, `nový index/data stream generation,`, `reindex historických dát,`, `producer/collector fix.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "12. Mapping conflict",
-      "line": 273,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "12. Mapping conflict",
-      "line": 273,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "13. Elasticsearch a OpenSearch rozdiel",
-      "line": 298,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Elasticsearch",
-      "line": 300,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 304,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 304,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétnu verziu,`, `REST API compatibility,`, `query DSL,`, `client libraries,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 304,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 304,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 304,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `REST`, `API`, `DSL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "14. Lifecycle management",
-      "line": 325,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Elasticsearch",
-      "line": 327,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Elasticsearch",
-      "line": 327,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Elasticsearch",
-      "line": 327,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Index Lifecycle Management,`, `Data Stream Lifecycle,`, `data tiers,`, `rollover,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Elasticsearch",
-      "line": 327,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 345,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollover,`, `replica change,`, `read-only,`, `force merge,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "OpenSearch",
-      "line": 345,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "15. Rollover",
-      "line": 359,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "15. Rollover",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "15. Rollover",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `age,`, `size,`, `document count,`, `shard size.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "15. Rollover",
-      "line": 359,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "16. Shard sizing",
-      "line": 377,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "16. Shard sizing",
-      "line": 377,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `heap a cluster-state overhead,`, `pomalé recovery,`, `veľa file handles,`, `query fan-out,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "16. Shard sizing",
-      "line": 377,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "16. Shard sizing",
-      "line": 377,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "16. Shard sizing",
-      "line": 377,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "17. Cluster a node roles",
-      "line": 409,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster-manager/master-eligible,`, `data roles alebo tiers,`, `ingest,`, `coordinating,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "17. Cluster a node roles",
-      "line": 409,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "17. Cluster a node roles",
-      "line": 409,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "18. Cluster state",
-      "line": 425,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "18. Cluster state",
-      "line": 425,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "18. Cluster state",
-      "line": 425,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indexes,`, `mappings,`, `shard allocation,`, `node membership,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "18. Cluster state",
-      "line": 425,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "19. Cluster health",
-      "line": 445,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "19. Cluster health",
-      "line": 445,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "20. Shard allocation",
-      "line": 457,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "20. Shard allocation",
-      "line": 457,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `available nodes a roles,`, `disk watermarks,`, `awareness attributes/zones,`, `include/exclude filters,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "20. Shard allocation",
-      "line": 457,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "21. Ingest pipeline",
-      "line": 472,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "21. Ingest pipeline",
-      "line": 472,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parsing,`, `field rename,`, `date normalization,`, `enrichment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "21. Ingest pipeline",
-      "line": 472,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "21. Ingest pipeline",
-      "line": 472,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "22. Bulk ingestion",
-      "line": 495,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "22. Bulk ingestion",
-      "line": 495,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "22. Bulk ingestion",
-      "line": 495,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `väčší batch zvyšuje throughput,`, `partial failures treba spracovať per item,`, `retry celého batchu môže vytvárať duplicity.`, `2xx request s partial item failures,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "22. Bulk ingestion",
-      "line": 495,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "22. Bulk ingestion",
-      "line": 495,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "22. Bulk ingestion",
-      "line": 495,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "23. Search",
-      "line": 514,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "23. Search",
-      "line": 514,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `full-text query,`, `exact term filter,`, `range,`, `boolean logic,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "23. Search",
-      "line": 514,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "24. Expensive queries",
-      "line": 543,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "24. Expensive queries",
-      "line": 543,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "24. Expensive queries",
-      "line": 543,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `leading wildcard,`, `regex nad high-cardinality fieldom,`, `broad query cez dlhú retention,`, `large aggregation cardinality,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "24. Expensive queries",
-      "line": 543,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "24. Expensive queries",
-      "line": 543,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "24. Expensive queries",
-      "line": 543,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "25. Aggregations",
-      "line": 566,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "25. Aggregations",
-      "line": 566,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `counts,`, `terms/top-N,`, `histograms,`, `percentiles,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "25. Aggregations",
-      "line": 566,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "26. Near-real-time semantics",
-      "line": 582,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "26. Near-real-time semantics",
-      "line": 582,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `collector neodoslal,`, `indexing zlyhal,`, `document je durable, ale ešte nie refreshed,`, `query time range/timezone je chybný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "26. Near-real-time semantics",
-      "line": 582,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "26. Near-real-time semantics",
-      "line": 582,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "27. Storage tiers",
-      "line": 597,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "27. Storage tiers",
-      "line": 597,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "27. Storage tiers",
-      "line": 597,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `delete — retention koniec.`, `incident investigation window,`, `compliance,`, `query SLO,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "27. Storage tiers",
-      "line": 597,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "27. Storage tiers",
-      "line": 597,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "27. Storage tiers",
-      "line": 597,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "28. Snapshots",
-      "line": 617,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "28. Snapshots",
-      "line": 617,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository isolation,`, `encryption,`, `credentials,`, `retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "28. Snapshots",
-      "line": 617,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "28. Snapshots",
-      "line": 617,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "29. Security",
-      "line": 637,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "29. Security",
-      "line": 637,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `REST API,`, `inter-node transport,`, `Dashboards/Kibana,`, `snapshot repository,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "29. Security",
-      "line": 637,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "29. Security",
-      "line": 637,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "29. Security",
-      "line": 637,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `REST`, `API`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "30. Multi-tenancy",
-      "line": 664,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "30. Multi-tenancy",
-      "line": 664,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "30. Multi-tenancy",
-      "line": 664,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatný cluster,`, `index/data-stream per tenant,`, `shared index s tenant fieldom,`, `namespace/account segmentation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "30. Multi-tenancy",
-      "line": 664,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "30. Multi-tenancy",
-      "line": 664,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "31. Monitoring clusteru",
-      "line": 686,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "31. Monitoring clusteru",
-      "line": 686,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "31. Monitoring clusteru",
-      "line": 686,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster health,`, `unassigned shards,`, `node membership,`, `cluster-state publication,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "31. Monitoring clusteru",
-      "line": 686,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "31. Monitoring clusteru",
-      "line": 686,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "31. Monitoring clusteru",
-      "line": 686,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JVM`, `GC`, `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "32. Troubleshooting: yellow alebo red cluster",
-      "line": 710,
+      "section": "3. Oddelené stavy",
+      "line": 50,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -176402,260 +175106,35 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "33. Troubleshooting: disk watermark",
-      "line": 726,
+      "section": "4. Document a field contract",
+      "line": 71,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "33. Troubleshooting: disk watermark",
-      "line": 726,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "33. Troubleshooting: disk watermark",
-      "line": 726,
+      "section": "4. Document a field contract",
+      "line": 71,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shard relocation,`, `allocation blocked,`, `index read-only block,`, `red/yellow health,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact identifiers a bounded categories;`, `full-text content;`, `numeric/date/boolean values;`, `object oproti nested structure;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "33. Troubleshooting: disk watermark",
-      "line": 726,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "33. Troubleshooting: disk watermark",
-      "line": 726,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "33. Troubleshooting: disk watermark",
-      "line": 726,
+      "section": "4. Document a field contract",
+      "line": 71,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "34. Troubleshooting: mapping conflict",
-      "line": 747,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "34. Troubleshooting: mapping conflict",
-      "line": 747,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed document response,`, `exact field path,`, `current mapping,`, `template priority,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "34. Troubleshooting: mapping conflict",
-      "line": 747,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "35. Troubleshooting: indexing 429",
-      "line": 761,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "35. Troubleshooting: indexing 429",
-      "line": 761,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `write thread pool/queue,`, `ingest pipeline CPU,`, `shard count a hot shards,`, `bulk size/concurrency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "35. Troubleshooting: indexing 429",
-      "line": 761,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "35. Troubleshooting: indexing 429",
-      "line": 761,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `GC`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "36. Troubleshooting: vysoký heap a GC",
-      "line": 778,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "36. Troubleshooting: vysoký heap a GC",
-      "line": 778,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `príliš veľa shards,`, `mapping/field explosion,`, `high-cardinality aggregations,`, `fielddata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "36. Troubleshooting: vysoký heap a GC",
-      "line": 778,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "37. Troubleshooting: pomalé queries",
-      "line": 793,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "37. Troubleshooting: pomalé queries",
-      "line": 793,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "37. Troubleshooting: pomalé queries",
-      "line": 793,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time/index scope,`, `query DSL a filters,`, `shard fan-out,`, `slow logs/profile,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "37. Troubleshooting: pomalé queries",
-      "line": 793,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "37. Troubleshooting: pomalé queries",
-      "line": 793,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DSL`, `GC`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "38. Troubleshooting: documents chýbajú",
-      "line": 811,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "38. Troubleshooting: documents chýbajú",
-      "line": 811,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "39. Elasticsearch/OpenSearch oproti Loki",
-      "line": 828,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "39. Elasticsearch/OpenSearch oproti Loki",
-      "line": 828,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "39. Elasticsearch/OpenSearch oproti Loki",
-      "line": 828,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rich field indexing,`, `full-text search,`, `complex document queries,`, `broad analytics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "39. Elasticsearch/OpenSearch oproti Loki",
-      "line": 828,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "39. Elasticsearch/OpenSearch oproti Loki",
-      "line": 828,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "39. Elasticsearch/OpenSearch oproti Loki",
-      "line": 828,
+      "section": "4. Document a field contract",
+      "line": 71,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -176663,8 +175142,593 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Daily index pre každú malú service",
-      "line": 851,
+      "section": "5. Data stream a backing-index lifecycle",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "6. Template a mapping generation",
+      "line": 116,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `field/mapping explosion;`, `scalar/object conflicts;`, `nesprávny date alebo numeric type;`, `cluster-state a heap pressure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "6. Template a mapping generation",
+      "line": 116,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "7. Shards, segments a search visibility",
+      "line": 140,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "7. Shards, segments a search visibility",
+      "line": 140,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "8. Bulk-ingest contract",
+      "line": 160,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "8. Bulk-ingest contract",
+      "line": 160,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request 2xx môže obsahovať failed items;`, `429 potrebuje bounded backoff a queue control;`, `mapping conflict je permanentný pre túto schema generation;`, `timeout po write môže mať unknown outcome;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "8. Bulk-ingest contract",
+      "line": 160,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "8. Bulk-ingest contract",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "9. Cluster health a allocation",
+      "line": 184,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "9. Cluster health a allocation",
+      "line": 184,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "10. Shard a resource economics",
+      "line": 209,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "10. Shard a resource economics",
+      "line": 209,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingest volume a document size;`, `retention a rollover;`, `mapping/field count;`, `query concurrency a aggregations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "10. Shard a resource economics",
+      "line": 209,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "10. Shard a resource economics",
+      "line": 209,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "11. Search a aggregation contract",
+      "line": 225,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "11. Search a aggregation contract",
+      "line": 225,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "11. Search a aggregation contract",
+      "line": 225,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `leading wildcard alebo broad regex;`, `long range cez všetky indexes;`, `high-cardinality terms aggregation;`, `deep pagination;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "11. Search a aggregation contract",
+      "line": 225,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "11. Search a aggregation contract",
+      "line": 225,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "12. Lifecycle semantics: Elasticsearch verzus OpenSearch",
+      "line": 249,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "13. Snapshots a recovery",
+      "line": 261,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "13. Snapshots a recovery",
+      "line": 261,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a isolation;`, `encryption a credentials;`, `index/system/security scope;`, `retention;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "13. Snapshots a recovery",
+      "line": 261,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "13. Snapshots a recovery",
+      "line": 261,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "14. Security a tenancy",
+      "line": 278,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "15. Self-observability a canary",
+      "line": 286,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "15. Self-observability a canary",
+      "line": 286,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "15. Self-observability a canary",
+      "line": 286,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster state publication a node membership;`, `primary/replica assignment;`, `heap, GC, CPU a disk watermarks;`, `indexing rate/latency/rejections;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "15. Self-observability a canary",
+      "line": 286,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "15. Self-observability a canary",
+      "line": 286,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GC`, `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "16. Worked failure: bulk request je 200, error logs chýbajú",
+      "line": 315,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Exact subject",
+      "line": 321,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Exact subject",
+      "line": 321,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Competing hypotheses",
+      "line": 351,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application failure log vôbec nevznikol;`, `collector filter ho zahodil;`, `bulk transport alebo auth zlyháva;`, `cluster/backing index je red;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Competing hypotheses",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Discriminating evidence",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Discriminating evidence",
+      "line": 362,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Containment",
+      "line": 393,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Containment",
+      "line": 393,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Containment",
+      "line": 393,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Containment",
+      "line": 393,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť producer rollout alebo problematický field emission;`, `prestať interpretovať log-derived failure count ako business truth;`, `smerovať permanent failed items do bounded quarantine;`, `ne-retryovať celý batch naslepo.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Containment",
+      "line": 393,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `testovať starú aj novú producer schema;`, `opraviť bulk relay tak, aby klasifikoval per-item outcomes;`, `overiť search visibility, counts a sample documents;`, `reconciliovať business unknown outcomes nezávisle od logov;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Authoritative recovery",
+      "line": 401,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nový write backing index používa očakávanú mapping generation;`, `producer 7.21.x aj 7.22.0 fixtures majú definovaný outcome;`, `query vráti recovered failure documents bez uncontrolled duplicates;`, `mapping conflict alert funguje;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Acceptance verdict",
+      "line": 412,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "17. Troubleshooting model",
+      "line": 425,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Missing documents",
+      "line": 427,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Yellow alebo red",
+      "line": 442,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "Indexing 429",
+      "line": 453,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "High heap alebo slow query",
+      "line": 465,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/elasticsearch-opensearch.md",
+      "section": "HTTP 200 ako bulk success",
+      "line": 478,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176673,7 +175737,7 @@
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
       "section": "Dynamic mapping pre arbitrary JSON",
-      "line": 855,
+      "line": 482,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176681,8 +175745,8 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Jedna replica označená ako backup",
-      "line": 859,
+      "section": "Replica ako backup",
+      "line": 486,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176690,8 +175754,8 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "refresh po každom documente",
-      "line": 863,
+      "section": "Refresh po každom documente",
+      "line": 490,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176699,8 +175763,8 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Retry celého bulk requestu bez item analysis",
-      "line": 867,
+      "section": "Retry celého batchu",
+      "line": 494,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176708,26 +175772,8 @@
     },
     {
       "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Wildcard query cez všetky indexes",
-      "line": 871,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Shared admin credentials v collectoroch",
-      "line": 875,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/elasticsearch-opensearch.md",
-      "section": "Dashboard permissions ako jediná tenant isolation",
-      "line": 879,
+      "section": "Jeden lifecycle model kopírovaný medzi produktmi",
+      "line": 498,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
