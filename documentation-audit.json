@@ -3821,6 +3821,20 @@
       "low": 20,
       "score": 538,
       "grade": "D"
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "title": "Transactions a ACID",
+      "words": 1913,
+      "headings": 42,
+      "sections": 42,
+      "findings": 73,
+      "critical": 21,
+      "high": 30,
+      "medium": 9,
+      "low": 13,
+      "score": 542,
+      "grade": "D"
     }
   ],
   "findings": [
@@ -212601,6 +212615,663 @@
       "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
       "section": "Read replica alebo cache je source of truth",
       "line": 405,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "1. Exact transaction subject",
+      "line": 20,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "1. Exact transaction subject",
+      "line": 20,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "1. Exact transaction subject",
+      "line": 20,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business operation a actor;`, `transaction ID alebo correlation identity;`, `database, schema a topology generation;`, `read set, write set a dependent records;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "1. Exact transaction subject",
+      "line": 20,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "1. Exact transaction subject",
+      "line": 20,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "1. Exact transaction subject",
+      "line": 20,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "3. Consistency",
+      "line": 76,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "3. Consistency",
+      "line": 76,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary a unique keys;`, `foreign keys;`, `CHECK constraints;`, `exclusion constraints;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "3. Consistency",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "3. Consistency",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "3. Consistency",
+      "line": 76,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "3. Consistency",
+      "line": 76,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CHECK`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "4. Isolation",
+      "line": 95,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Bežné anomálie",
+      "line": 99,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Dirty read",
+      "line": 101,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Non-repeatable read",
+      "line": 105,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Phantom",
+      "line": 109,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Lost update",
+      "line": 113,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "6. MVCC",
+      "line": 139,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "6. MVCC",
+      "line": 139,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `write/write conflicts;`, `row a table locks;`, `unique constraint races;`, `long-running transaction impact;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "6. MVCC",
+      "line": 139,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "6. MVCC",
+      "line": 139,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "6. MVCC",
+      "line": 139,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "6. MVCC",
+      "line": 139,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DDL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "7. Pessimistic a optimistic concurrency",
+      "line": 164,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Pessimistic locking",
+      "line": 166,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Optimistic concurrency",
+      "line": 179,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "8. Locks, waits a deadlocks",
+      "line": 191,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "8. Locks, waits a deadlocks",
+      "line": 191,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilné poradie acquisition;`, `kratšie transactions;`, `menší lock footprint;`, `vhodné indexes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "8. Locks, waits a deadlocks",
+      "line": 191,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "8. Locks, waits a deadlocks",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "10. Unknown commit outcome",
+      "line": 229,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "10. Unknown commit outcome",
+      "line": 229,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "10. Unknown commit outcome",
+      "line": 229,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable idempotency/business key;`, `unique constraint;`, `queryable operation status;`, `transaction/reconciliation identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "10. Unknown commit outcome",
+      "line": 229,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "10. Unknown commit outcome",
+      "line": 229,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "11. Transactions a external side effects",
+      "line": 250,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transactional outbox;`, `inbox/deduplication;`, `saga a compensating action;`, `idempotent external operation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "12. Autocommit",
+      "line": 275,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "12. Autocommit",
+      "line": 275,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction begin/commit logs;`, `connection/ORM configuration;`, `statement grouping;`, `exception a rollback handling;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "12. Autocommit",
+      "line": 275,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "12. Autocommit",
+      "line": 275,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "14. Transaction length",
+      "line": 312,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "14. Transaction length",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čakanie na user input;`, `dlhý HTTP call;`, `large batch bez checkpointov;`, `pomalý file transfer;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "14. Transaction length",
+      "line": 312,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "14. Transaction length",
+      "line": 312,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "15. Worked incident DB-PAY-56",
+      "line": 327,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "15. Worked incident DB-PAY-56",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `settlement intent commitol na PostgreSQL primary;`, `response k statementu sa stratila;`, `application retry našiel existing intent;`, `document upsert prešiel;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Root causes",
+      "line": 366,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Root causes",
+      "line": 366,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Root causes",
+      "line": 366,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Root causes",
+      "line": 366,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `settlement a outbox neboli v jednej transaction;`, `read-modify-write flow nemal concurrency contract;`, `acknowledgement neoveroval complete durable intent.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Root causes",
+      "line": 366,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "16. Competing hypotheses a evidence",
+      "line": 374,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "16. Competing hypotheses a evidence",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "16. Competing hypotheses a evidence",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `settlement transaction abortla;`, `settlement commitla, outbox statement sa nikdy nezačal;`, `outbox commitol a neskôr bol deleted;`, `read smeruje na stale replica;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "16. Competing hypotheses a evidence",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "16. Competing hypotheses a evidence",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "17. Evidence-preserving containment",
+      "line": 399,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact business operation a invarianty sú explicitné;`, `read/write set a authority sú známe;`, `transaction boundary zodpovedá invariant-u;`, `autocommit a ORM runtime behavior sú overené;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "19. Transaction acceptance verdict",
+      "line": 447,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ORM`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "20. Troubleshooting flow",
+      "line": 464,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Method s anotáciou je určite transaction",
+      "line": 482,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "ACID znamená, že application je correct",
+      "line": 486,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Vyšší isolation level opraví všetko",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Timeout znamená rollback",
+      "line": 494,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Retry posledného statementu",
+      "line": 498,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
+      "section": "Drž lock počas provider callu",
+      "line": 502,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
