@@ -3641,6 +3641,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "title": "Disaster recovery",
+      "words": 2263,
+      "headings": 51,
+      "sections": 51,
+      "findings": 131,
+      "critical": 48,
+      "high": 56,
+      "medium": 12,
+      "low": 15,
+      "score": 1075,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/error-budgets.md",
       "title": "Error budgets",
       "words": 1804,
@@ -201367,6 +201381,1185 @@
       "path": "docs/14-sre-and-operations/capacity-planning.md",
       "section": "Viac retries zvyšuje reliability",
       "line": 421,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "High availability",
+      "line": 24,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "High availability",
+      "line": 24,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "High availability",
+      "line": 24,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod alebo VM replacement;`, `database failover v jednej Region;`, `strata jednej Availability Zone;`, `traffic redistribution medzi zdravé replicas.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "High availability",
+      "line": 24,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "High availability",
+      "line": 24,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `Availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "2. Exact DR subject",
+      "line": 54,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "2. Exact DR subject",
+      "line": 54,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "2. Exact DR subject",
+      "line": 54,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a critical journeys;`, `disruption scenario;`, `primary a recovery locations;`, `application, data a dependency consistency group;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "2. Exact DR subject",
+      "line": 54,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "2. Exact DR subject",
+      "line": 54,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "2. Exact DR subject",
+      "line": 54,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DNS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "3. Business impact analysis a recovery tier",
+      "line": 91,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "3. Business impact analysis a recovery tier",
+      "line": 91,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "3. Business impact analysis a recovery tier",
+      "line": 91,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `financial a contractual impact;`, `data integrity a legal risk;`, `customer tolerance;`, `maximum tolerable disruption;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "3. Business impact analysis a recovery tier",
+      "line": 91,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "3. Business impact analysis a recovery tier",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "3. Business impact analysis a recovery tier",
+      "line": 91,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Warm standby",
+      "line": 117,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Active-passive",
+      "line": 121,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "4. Recovery graph",
+      "line": 131,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "4. Recovery graph",
+      "line": 131,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source of truth;`, `recovery mechanismus;`, `current generation;`, `dependency order;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "4. Recovery graph",
+      "line": 131,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "5. Control plane a data plane",
+      "line": 161,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data plane",
+      "line": 165,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data plane",
+      "line": 165,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data plane",
+      "line": 165,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data plane",
+      "line": 165,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user a business records;`, `message a event state;`, `object/block/file data;`, `consumer offsets;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data plane",
+      "line": 165,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Control plane",
+      "line": 174,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Control plane",
+      "line": 174,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Control plane",
+      "line": 174,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `infrastructure definitions;`, `cluster a deployment controllers;`, `DNS a certificates;`, `identity, policies, secrets a keys;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Control plane",
+      "line": 174,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Control plane",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Control plane",
+      "line": 174,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "6. Replication, clean point a corruption",
+      "line": 187,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "6. Replication, clean point a corruption",
+      "line": 187,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "6. Replication, clean point a corruption",
+      "line": 187,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical corruption;`, `malicious writes;`, `mistaken deletes;`, `incompatible schema state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "6. Replication, clean point a corruption",
+      "line": 187,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "6. Replication, clean point a corruption",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "6. Replication, clean point a corruption",
+      "line": 187,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "7. Writer fencing a split brain",
+      "line": 218,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "7. Writer fencing a split brain",
+      "line": 218,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database promotion generation;`, `lease alebo epoch token;`, `consensus/leader election;`, `network isolation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "7. Writer fencing a split brain",
+      "line": 218,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "8. Activation trigger a authority",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "8. Activation trigger a authority",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objective trigger;`, `decision authority;`, `required consultation;`, `maximum waiting time;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "8. Activation trigger a authority",
+      "line": 242,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "8. Activation trigger a authority",
+      "line": 242,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "9. Recovery phases",
+      "line": 267,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Declaration a stabilization",
+      "line": 271,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Declaration a stabilization",
+      "line": 271,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Declaration a stabilization",
+      "line": 271,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Declaration a stabilization",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `declare disaster subject a authority;`, `preserve volatile evidence;`, `freeze unrelated changes;`, `classify physical vs logical vs malicious failure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Declaration a stabilization",
+      "line": 271,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Environment activation",
+      "line": 280,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Environment activation",
+      "line": 280,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Environment activation",
+      "line": 280,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Environment activation",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `verify recovery account/Region access;`, `activate network, compute a service control plane;`, `load approved release/config generation;`, `verify key, secret a certificate paths;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Environment activation",
+      "line": 280,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Environment activation",
+      "line": 280,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data a dependency recovery",
+      "line": 288,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data a dependency recovery",
+      "line": 288,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data a dependency recovery",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data a dependency recovery",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `select replicated alebo clean recovery state;`, `restore/promote database a broker state;`, `recover external correlations;`, `validate schema a invariants;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Data a dependency recovery",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Traffic cutover",
+      "line": 296,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Traffic cutover",
+      "line": 296,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Traffic cutover",
+      "line": 296,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Traffic cutover",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prove health at business boundary;`, `update routing generation;`, `observe resolver/cache behavior;`, `ramp traffic podľa guardrailov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Traffic cutover",
+      "line": 296,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Work recovery",
+      "line": 304,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Work recovery",
+      "line": 304,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Work recovery",
+      "line": 304,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Work recovery",
+      "line": 304,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `drain backlog;`, `reconcile post-point operations;`, `resume scheduled/batch work;`, `remove temporary overrides;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Work recovery",
+      "line": 304,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "10. Degraded mode",
+      "line": 312,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "10. Degraded mode",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijímať settlement intents, ale odložiť provider submission;`, `povoliť read-only history;`, `prioritizovať regulated alebo high-value cohorts;`, `pozastaviť reporting a recomputation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "10. Degraded mode",
+      "line": 312,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "10. Degraded mode",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "10. Degraded mode",
+      "line": 312,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "11. DR testing a exercise classes",
+      "line": 334,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Tabletop",
+      "line": 338,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Component recovery test",
+      "line": 342,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Parallel recovery",
+      "line": 346,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Partial traffic exercise",
+      "line": 350,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Full regional exercise",
+      "line": 354,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Surprise alebo limited-notice exercise",
+      "line": 358,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Surprise alebo limited-notice exercise",
+      "line": 358,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Surprise alebo limited-notice exercise",
+      "line": 358,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `declaration time;`, `access a environment activation;`, `data recovered point;`, `technical service recovery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Surprise alebo limited-notice exercise",
+      "line": 358,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Surprise alebo limited-notice exercise",
+      "line": 358,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "12. Worked incident SRE-PAY-55",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime nevedel decryptnúť provider credential;`, `callbacks smerovali na primary Region;`, `standby worker scale prekročil DB pool guardrail;`, `monitoring ukazoval front-door availability, nie provider-confirmed co`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "12. Worked incident SRE-PAY-55",
+      "line": 374,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 424,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť exact recovery manifest REC-PAY-55-1 ;`, `opraviť runtime KMS grant a overiť decrypt canary;`, `pridať recovery egress IPs do provider allowlistu;`, `presunúť callback routing na recovery Region;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "14. Authoritative recovery",
+      "line": 441,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `REC-PAY-55-1`, `KMS`, `SLI`, `DB`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "15. Failback",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "15. Failback",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current authoritative writer identity;`, `reverse replication alebo merge plan;`, `conflict a post-point manifest;`, `restored primary capacity a dependencies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "15. Failback",
+      "line": 458,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "15. Failback",
+      "line": 458,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "15. Failback",
+      "line": 458,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "15. Failback",
+      "line": 458,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `complete recovery graph má owners a recovery mechanisms;`, `writer/consumer fencing zabraňuje split brain;`, `recovery identity a access sú testované;`, `capacity a quotas prežijú failure-mode load;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "16. DR acceptance verdict",
+      "line": 475,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BIA`, `RPO`, `RTO`, `DNS`, `control plane`, `data plane`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "17. Troubleshooting flow",
+      "line": 495,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `BIA a scenario-specific objectives;`, `versionovaný recovery graph;`, `recovery account/Region independence;`, `immutable infrastructure a artifact availability;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "18. Earlier controls",
+      "line": 513,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BIA`, `DR`, `DNS`, `availability`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Druhý Region existuje",
+      "line": 531,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Database replica je DR",
+      "line": 535,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Healthcheck je green",
+      "line": 539,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Failover bez fencing",
+      "line": 543,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "DR test bez trafficu alebo provider pathu",
+      "line": 547,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Runbook bol testovaný minulý rok",
+      "line": 551,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "RTO končí pri DNS cutover-e",
+      "line": 555,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/disaster-recovery.md",
+      "section": "Failback hneď po obnove primary Regionu",
+      "line": 559,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
