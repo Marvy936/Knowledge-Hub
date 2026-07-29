@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **282**
-- Audited conceptual sections: **11390**
-- Total words: **658,967**
-- Findings: **24103** (critical 7238, high 8279, medium 3033, low 5553)
-- File grades: A 0, B 0, C 0, D 282
+- Audited authoritative articles: **283**
+- Audited conceptual sections: **11427**
+- Total words: **660,659**
+- Findings: **24200** (critical 7273, high 8312, medium 3052, low 5563)
+- File grades: A 0, B 0, C 0, D 283
 
 ## Interpretation
 
@@ -85,6 +85,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 774 | 35 | 33 | 17 | 27 | 2700 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
+| D | 764 | 35 | 33 | 19 | 10 | 1692 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | D | 760 | 31 | 44 | 8 | 12 | 2310 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | D | 757 | 31 | 36 | 20 | 23 | 2552 | `docs/09-kubernetes/replicaset.md` |
 | D | 756 | 31 | 43 | 9 | 10 | 2339 | `docs/02-networking-and-web/load-balancing.md` |
@@ -16573,6 +16574,77 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 452, `term-before-explanation` — **20. Replication/HA acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DNS`, `PITR`
 - **HIGH** line 452, `thin-concept-section` — **20. Replication/HA acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md`
+
+- **CRITICAL** line 18, `bare-bullet-items` — **1. Exact route a discovery subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client operation a API version;`, `hostname, port, protocol a TLS identity;`, `gateway/listener/route generation;`, `path, method, headers a priority match;`.
+- **CRITICAL** line 18, `outline-instead-of-explanation` — **1. Exact route a discovery subject**: 12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 61, `empty-section` — **3. Discovery mechanizmy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 63, `bare-bullet-items` — **Client-side discovery**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `locality/capacity-aware selection;`, `menej proxy hops;`, `direct per-endpoint telemetry.`, `každý client potrebuje discovery, load-balancing a refresh logic;`.
+- **CRITICAL** line 63, `outline-instead-of-explanation` — **Client-side discovery**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 79, `bare-bullet-items` — **Server-side discovery**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centralizované routing a policy;`, `jednoduchší clients;`, `bounded convergence point.`, `ďalší data-path component;`.
+- **CRITICAL** line 79, `outline-instead-of-explanation` — **Server-side discovery**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 99, `bare-bullet-items` — **4. Kubernetes Service a EndpointSlice**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod existuje;`, `Pod je Ready;`, `endpoint je publikovaný;`, `dataplane má aktuálnu generation;`.
+- **CRITICAL** line 99, `outline-instead-of-explanation` — **4. Kubernetes Service a EndpointSlice**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 136, `bare-bullet-items` — **Startup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema migration nie je kompatibilná;`, `policy/cache generation chýba;`, `provider credentials nie sú loaded;`, `outbox publication stojí;`.
+- **CRITICAL** line 136, `outline-instead-of-explanation` — **Startup**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 151, `bare-bullet-items` — **6. API gateway responsibilities**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS termination a client identity;`, `authentication/authorization;`, `routing a version selection;`, `request/response transformation;`.
+- **CRITICAL** line 151, `outline-instead-of-explanation` — **6. API gateway responsibilities**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 168, `bare-bullet-items` — **7. Route matching a precedence**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host;`, `path prefix/exact match;`, `HTTP method;`, `headers;`.
+- **CRITICAL** line 168, `outline-instead-of-explanation` — **7. Route matching a precedence**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 193, `bare-bullet-items` — **8. Contract generation a backend eligibility**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/release generation;`, `supported API/schema generations;`, `loaded config/policy generation;`, `data migration compatibility;`.
+- **CRITICAL** line 193, `outline-instead-of-explanation` — **8. Contract generation a backend eligibility**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 209, `bare-bullet-items` — **9. Connection reuse a draining**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keep-alive HTTP connections;`, `HTTP/2 multiplexed streams;`, `gRPC channels;`, `connection pool entries;`.
+- **CRITICAL** line 209, `outline-instead-of-explanation` — **9. Connection reuse a draining**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 233, `bare-bullet-items` — **10. Discovery freshness a convergence**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry/controller update latency;`, `EndpointSlice generation age;`, `DNS TTL a resolver behavior;`, `proxy config version;`.
+- **CRITICAL** line 233, `outline-instead-of-explanation` — **10. Discovery freshness a convergence**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 248, `bare-bullet-items` — **11. Load balancing a locality**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `round robin;`, `least requests/connections;`, `consistent hashing;`, `random/power-of-two choices;`.
+- **CRITICAL** line 248, `outline-instead-of-explanation` — **11. Load balancing a locality**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 262, `bare-bullet-items` — **12. Timeouts a retries v gatewayi**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation je idempotentná alebo má stable idempotency key;`, `timeout/failure klasifikácia je správna;`, `original attempt outcome je známy alebo reconcileable;`, `retry budget je bounded;`.
+- **CRITICAL** line 262, `outline-instead-of-explanation` — **12. Timeouts a retries v gatewayi**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 275, `bare-bullet-items` — **13. API gateway vs. service mesh**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency;`, `transaction boundary;`, `acknowledgement semantics;`, `schema compatibility;`.
+- **CRITICAL** line 275, `outline-instead-of-explanation` — **13. API gateway vs. service mesh**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 321, `bare-bullet-items` — **Discovery/gateway root cause**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generic readiness bez contract canary;`, `shared service name pre incompatible acknowledgement semantics;`, `gateway retry na ambiguous POST outcome;`, `connection draining bez protocol-aware evidence;`.
+- **CRITICAL** line 321, `outline-instead-of-explanation` — **Discovery/gateway root cause**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 333, `empty-section` — **15. Evidence-preserving containment**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 346, `bare-bullet-items` — **16. Authoritative redesign**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a contract generation;`, `PostgreSQL schema compatibility;`, `loaded policy/config generation;`, `atomic settlement/outbox canary;`.
+- **CRITICAL** line 346, `outline-instead-of-explanation` — **16. Authoritative redesign**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 374, `bare-bullet-items` — **17. Route/discovery acceptance verdict**: 10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route precedence a effective resolved graph sú overené;`, `authentication/authorization/rate-limit policies patria správnemu rout`, `Service/registry identity reprezentuje compatible capability;`, `endpoint inventory obsahuje generation, readiness, locality a capacity`.
+- **CRITICAL** line 374, `outline-instead-of-explanation` — **17. Route/discovery acceptance verdict**: 13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 392, `empty-section` — **18. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 18, `single-sentence-concept` — **1. Exact route a discovery subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 63, `single-sentence-concept` — **Client-side discovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 79, `single-sentence-concept` — **Server-side discovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 124, `single-sentence-concept` — **5. Readiness a health**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 128, `single-sentence-concept` — **Liveness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 132, `single-sentence-concept` — **Readiness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 209, `single-sentence-concept` — **9. Connection reuse a draining**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 233, `single-sentence-concept` — **10. Discovery freshness a convergence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 262, `single-sentence-concept` — **12. Timeouts a retries v gatewayi**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 288, `bare-bullet-items` — **14. Worked incident DB-PAY-58**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `31 % requests dosiahlo legacy v8.1 backend;`, `oba cohorts mali /healthz=200 a Kubernetes Ready;`, `EndpointSlices boli current podľa selectoru;`, `gateway retryovala niektoré upstream resets na druhý endpoint;`.
+- **HIGH** line 288, `list-heavy-section` — **14. Worked incident DB-PAY-58**: 8 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 346, `list-first-introduction` — **16. Authoritative redesign**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 346, `single-sentence-concept` — **16. Authoritative redesign**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 374, `single-sentence-concept` — **17. Route/discovery acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 410, `single-sentence-concept` — **DNS resolveuje, discovery funguje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 414, `single-sentence-concept` — **Service selector podľa app labelu stačí**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 418, `single-sentence-concept` — **Ready Pod podporuje všetky routes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 422, `single-sentence-concept` — **Gateway config bola accepted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 426, `single-sentence-concept` — **Oprava selectoru odstráni traffic okamžite**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 430, `single-sentence-concept` — **Retry na inom backend-e zvýši availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 434, `single-sentence-concept` — **Gateway je business orchestration layer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 438, `single-sentence-concept` — **Service mesh vyrieši compatibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 18, `term-before-explanation` — **1. Exact route a discovery subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `TLS`, `identity`, `policy`
+- **HIGH** line 18, `thin-concept-section` — **1. Exact route a discovery subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 63, `thin-concept-section` — **Client-side discovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 79, `thin-concept-section` — **Server-side discovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 151, `thin-concept-section` — **6. API gateway responsibilities**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 168, `thin-concept-section` — **7. Route matching a precedence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 209, `thin-concept-section` — **9. Connection reuse a draining**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 233, `thin-concept-section` — **10. Discovery freshness a convergence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 262, `thin-concept-section` — **12. Timeouts a retries v gatewayi**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 346, `thin-concept-section` — **16. Authoritative redesign**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 374, `thin-concept-section` — **17. Route/discovery acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md`
 
 - **CRITICAL** line 20, `bare-bullet-items` — **1. Exact communication subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical business operation;`, `caller a callee identity/generation;`, `request, command alebo event type a schema generation;`, `immediate response contract;`.
@@ -16676,19 +16748,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2834 | 489 | 0 | 0 | 3323 |
-| `single-sentence-concept` | 0 | 2823 | 0 | 0 | 2823 |
-| `outline-instead-of-explanation` | 2795 | 0 | 0 | 0 | 2795 |
-| `term-before-explanation` | 0 | 601 | 2031 | 0 | 2632 |
-| `thin-concept-section` | 0 | 2365 | 0 | 0 | 2365 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2228 | 2228 |
-| `example-not-explicit` | 0 | 0 | 0 | 2206 | 2206 |
-| `list-first-introduction` | 0 | 1493 | 0 | 0 | 1493 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1119 | 1119 |
-| `short-concept-section` | 0 | 0 | 1002 | 0 | 1002 |
+| `bare-bullet-items` | 2850 | 490 | 0 | 0 | 3340 |
+| `single-sentence-concept` | 0 | 2842 | 0 | 0 | 2842 |
+| `outline-instead-of-explanation` | 2811 | 0 | 0 | 0 | 2811 |
+| `term-before-explanation` | 0 | 602 | 2043 | 0 | 2645 |
+| `thin-concept-section` | 0 | 2375 | 0 | 0 | 2375 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2233 | 2233 |
+| `example-not-explicit` | 0 | 0 | 0 | 2210 | 2210 |
+| `list-first-introduction` | 0 | 1494 | 0 | 0 | 1494 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1120 | 1120 |
+| `short-concept-section` | 0 | 0 | 1009 | 0 | 1009 |
 | `no-prose-concept` | 866 | 0 | 0 | 0 | 866 |
-| `empty-section` | 743 | 0 | 0 | 0 | 743 |
-| `list-heavy-section` | 0 | 508 | 0 | 0 | 508 |
+| `empty-section` | 746 | 0 | 0 | 0 | 746 |
+| `list-heavy-section` | 0 | 509 | 0 | 0 | 509 |
 
 ## Required remediation pattern
 

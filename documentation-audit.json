@@ -3921,6 +3921,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "title": "Service discovery a API gateway",
+      "words": 1692,
+      "headings": 37,
+      "sections": 37,
+      "findings": 97,
+      "critical": 35,
+      "high": 33,
+      "medium": 19,
+      "low": 10,
+      "score": 764,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
       "title": "Synchronous vs. asynchronous communication",
       "words": 1923,
@@ -219513,6 +219527,879 @@
       "path": "docs/15-databases-and-distributed-systems/replication-and-high-availability.md",
       "section": "Failback je reverse failover",
       "line": 513,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "1. Exact route a discovery subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "1. Exact route a discovery subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "1. Exact route a discovery subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client operation a API version;`, `hostname, port, protocol a TLS identity;`, `gateway/listener/route generation;`, `path, method, headers a priority match;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "1. Exact route a discovery subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "1. Exact route a discovery subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `TLS`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "3. Discovery mechanizmy",
+      "line": 61,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Client-side discovery",
+      "line": 63,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Client-side discovery",
+      "line": 63,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Client-side discovery",
+      "line": 63,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `locality/capacity-aware selection;`, `menej proxy hops;`, `direct per-endpoint telemetry.`, `každý client potrebuje discovery, load-balancing a refresh logic;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Client-side discovery",
+      "line": 63,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Server-side discovery",
+      "line": 79,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Server-side discovery",
+      "line": 79,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Server-side discovery",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centralizované routing a policy;`, `jednoduchší clients;`, `bounded convergence point.`, `ďalší data-path component;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Server-side discovery",
+      "line": 79,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Server-side discovery",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "4. Kubernetes Service a EndpointSlice",
+      "line": 99,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "4. Kubernetes Service a EndpointSlice",
+      "line": 99,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod existuje;`, `Pod je Ready;`, `endpoint je publikovaný;`, `dataplane má aktuálnu generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "4. Kubernetes Service a EndpointSlice",
+      "line": 99,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "4. Kubernetes Service a EndpointSlice",
+      "line": 99,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "4. Kubernetes Service a EndpointSlice",
+      "line": 99,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "5. Readiness a health",
+      "line": 124,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Liveness",
+      "line": 128,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Readiness",
+      "line": 132,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Startup",
+      "line": 136,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Startup",
+      "line": 136,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema migration nie je kompatibilná;`, `policy/cache generation chýba;`, `provider credentials nie sú loaded;`, `outbox publication stojí;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Startup",
+      "line": 136,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Startup",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Startup",
+      "line": 136,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "6. API gateway responsibilities",
+      "line": 151,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "6. API gateway responsibilities",
+      "line": 151,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS termination a client identity;`, `authentication/authorization;`, `routing a version selection;`, `request/response transformation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "6. API gateway responsibilities",
+      "line": 151,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "6. API gateway responsibilities",
+      "line": 151,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "6. API gateway responsibilities",
+      "line": 151,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "7. Route matching a precedence",
+      "line": 168,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "7. Route matching a precedence",
+      "line": 168,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host;`, `path prefix/exact match;`, `HTTP method;`, `headers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "7. Route matching a precedence",
+      "line": 168,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "7. Route matching a precedence",
+      "line": 168,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "8. Contract generation a backend eligibility",
+      "line": 193,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "8. Contract generation a backend eligibility",
+      "line": 193,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/release generation;`, `supported API/schema generations;`, `loaded config/policy generation;`, `data migration compatibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "8. Contract generation a backend eligibility",
+      "line": 193,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "8. Contract generation a backend eligibility",
+      "line": 193,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "9. Connection reuse a draining",
+      "line": 209,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "9. Connection reuse a draining",
+      "line": 209,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "9. Connection reuse a draining",
+      "line": 209,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keep-alive HTTP connections;`, `HTTP/2 multiplexed streams;`, `gRPC channels;`, `connection pool entries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "9. Connection reuse a draining",
+      "line": 209,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "9. Connection reuse a draining",
+      "line": 209,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `DNS`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "10. Discovery freshness a convergence",
+      "line": 233,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "10. Discovery freshness a convergence",
+      "line": 233,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "10. Discovery freshness a convergence",
+      "line": 233,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry/controller update latency;`, `EndpointSlice generation age;`, `DNS TTL a resolver behavior;`, `proxy config version;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "10. Discovery freshness a convergence",
+      "line": 233,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "10. Discovery freshness a convergence",
+      "line": 233,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "11. Load balancing a locality",
+      "line": 248,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "11. Load balancing a locality",
+      "line": 248,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `round robin;`, `least requests/connections;`, `consistent hashing;`, `random/power-of-two choices;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "11. Load balancing a locality",
+      "line": 248,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "12. Timeouts a retries v gatewayi",
+      "line": 262,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "12. Timeouts a retries v gatewayi",
+      "line": 262,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "12. Timeouts a retries v gatewayi",
+      "line": 262,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation je idempotentná alebo má stable idempotency key;`, `timeout/failure klasifikácia je správna;`, `original attempt outcome je známy alebo reconcileable;`, `retry budget je bounded;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "12. Timeouts a retries v gatewayi",
+      "line": 262,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "12. Timeouts a retries v gatewayi",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "13. API gateway vs. service mesh",
+      "line": 275,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "13. API gateway vs. service mesh",
+      "line": 275,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency;`, `transaction boundary;`, `acknowledgement semantics;`, `schema compatibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "13. API gateway vs. service mesh",
+      "line": 275,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "14. Worked incident DB-PAY-58",
+      "line": 288,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "14. Worked incident DB-PAY-58",
+      "line": 288,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `31 % requests dosiahlo legacy v8.1 backend;`, `oba cohorts mali /healthz=200 a Kubernetes Ready;`, `EndpointSlices boli current podľa selectoru;`, `gateway retryovala niektoré upstream resets na druhý endpoint;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "14. Worked incident DB-PAY-58",
+      "line": 288,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "14. Worked incident DB-PAY-58",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "14. Worked incident DB-PAY-58",
+      "line": 288,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Discovery/gateway root cause",
+      "line": 321,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Discovery/gateway root cause",
+      "line": 321,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generic readiness bez contract canary;`, `shared service name pre incompatible acknowledgement semantics;`, `gateway retry na ambiguous POST outcome;`, `connection draining bez protocol-aware evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Discovery/gateway root cause",
+      "line": 321,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Discovery/gateway root cause",
+      "line": 321,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Discovery/gateway root cause",
+      "line": 321,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Discovery/gateway root cause",
+      "line": 321,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POST`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "15. Evidence-preserving containment",
+      "line": 333,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "16. Authoritative redesign",
+      "line": 346,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "16. Authoritative redesign",
+      "line": 346,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "16. Authoritative redesign",
+      "line": 346,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "16. Authoritative redesign",
+      "line": 346,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a contract generation;`, `PostgreSQL schema compatibility;`, `loaded policy/config generation;`, `atomic settlement/outbox canary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "16. Authoritative redesign",
+      "line": 346,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "16. Authoritative redesign",
+      "line": 346,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route precedence a effective resolved graph sú overené;`, `authentication/authorization/rate-limit policies patria správnemu rout`, `Service/registry identity reprezentuje compatible capability;`, `endpoint inventory obsahuje generation, readiness, locality a capacity`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "17. Route/discovery acceptance verdict",
+      "line": 374,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "18. Troubleshooting flow",
+      "line": 392,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "DNS resolveuje, discovery funguje",
+      "line": 410,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Service selector podľa app labelu stačí",
+      "line": 414,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Ready Pod podporuje všetky routes",
+      "line": 418,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Gateway config bola accepted",
+      "line": 422,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Oprava selectoru odstráni traffic okamžite",
+      "line": 426,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Retry na inom backend-e zvýši availability",
+      "line": 430,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Gateway je business orchestration layer",
+      "line": 434,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
+      "section": "Service mesh vyrieši compatibility",
+      "line": 438,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
