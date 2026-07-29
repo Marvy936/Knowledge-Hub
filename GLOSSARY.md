@@ -78,6 +78,10 @@ State transition, po ktorej service callerovi tvrdí, že operation alebo intent
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Acquisition lead time — capacity
+
+Čas od identifikácie capacity potreby cez approval, quota/hardware získanie, provisioning, warmup a validation po production availability. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
+
 ## Action contract — alerting
 
 Versionovaný contract určujúci user impact, urgency, ownera, safe first action, forbidden action, runbook a resolution validation konkrétneho page-u. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
@@ -273,6 +277,10 @@ Policy as Code pravidlo, ktorého výsledok je viditeľný a auditovaný, ale sa
 ## AEAD
 
 Authenticated Encryption with Associated Data; encryption model poskytujúci confidentiality plaintextu a zároveň integrity a authenticity ciphertextu a voliteľných nešifrovaných metadata. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Affected manifest — operations
+
+Immutable zoznam exact resource, record alebo message identities, nad ktorými sa má vykonať bounded remediation, replay, restore alebo compensation. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
 
 ## Affected-state verdict — vulnerability
 
@@ -1498,9 +1506,17 @@ Prvotná platformová alebo cryptographic identity, ktorou workload preukáže o
 
 Konkrétny ServiceAccount token identifikovaný issuerom, audience, expiry, object bindingom a bezpečným fingerprintom. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
 
+## Bounded command
+
+Operational command viazaný na exact target manifest, maximálny scope/rate, timeout, audit, expected output a partial/unknown-outcome handling. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
 ## Bounded dimension
 
 Telemetry dimension s malým, riadeným a relatívne stabilným počtom možných hodnôt. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Bounded incident change
+
+Incident action s exact subjectom, ownerom, hypothesis, scope-om, expected observation, abort criterion, rollback alebo compensation a recorded resultom. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
 
 ## Bounded reconcile transition
 
@@ -1896,7 +1912,7 @@ Cieľový systém a operácie, ktorým secret alebo private key poskytuje author
 
 ## Capacity acceptance verdict
 
-Closure dôkaz, že capacity zmena zvýšila successful business throughput, zachovala downstream budgets, bezpečný scale-in a definovaný failure-domain outcome bez forbidden duplicít alebo straty. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+Dôkaz, že demand, amplification, constrained resources, headroom, provisioning lead time a overload behavior sú správne modelované a load/failover/backlog-recovery experiment potvrdil original aj degraded business outcome. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Capacity cliff
 
@@ -1913,6 +1929,10 @@ Rozdiel medzi aktuálnym demandom alebo využitím a effective capacity po zohľ
 ## Capacity lifecycle subject
 
 Versionovaná identita business demandu, workload unit, compute/data/dependency capacity, failure-domain inventory, scaling policy, metric contract a požadovaného business outcome-u. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
+## Capacity-planning subject
+
+Exact business operation, valid demand population, tenant/Region/cohort, release/configuration/topology generation, SLO, dependency/quota state, failure assumptions, planning window a provisioning lead time analyzovaného capacity modelu. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Capacity realization — containers
 
@@ -2602,6 +2622,10 @@ Rast počtu telemetry identities spôsobený kombináciou viacerých dimensions,
 
 Spoločná identita hybridného release-u viažuca Terraform plan/state/resource inventory, publikovanú host-contract generation, Ansible run subject, expected/verified fleet a application-runtime verification. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Command continuity
+
+Zachovanie incident objective, roles, state, decisions, risks a authority počas shift, geography alebo personnel handoffu. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
 ## Command fluency — CKA
 
 Schopnosť rýchlo a presne používať kubectl, shell, editor a cluster administration commands bez zbytočného hľadania syntaxe. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -2897,6 +2921,10 @@ Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo od
 ## Consolidated billing — AWS
 
 AWS Organizations capability združujúca billing member accounts do centrálneho payer/management scope-u pri zachovaní resource ownershipu v jednotlivých účtoch. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Constrained resource — capacity
+
+Required resource alebo dependency boundary, ktorého sustainable capacity aktuálne limituje end-to-end business throughput alebo SLO. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Constraint — Gatekeeper
 
@@ -3873,6 +3901,10 @@ Exact source resource, event-source mapping alebo asynchronous invocation config
 ## Demand amplification
 
 Pomer interných attempts, fan-out calls alebo redeliveries voči logical demandu, ktorý môže rásť bez rastu user trafficu a vytvárať downstream overload. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Demand amplification — capacity
+
+Pomer technických attempts, retries, redeliveries alebo fan-out operácií voči unique business demandu, ktorý určuje skutočný pressure na required service boundaries. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Demand unit
 
@@ -4918,6 +4950,10 @@ Kernel-enforced state vzniknutý z image defaults, deployment overrides, daemon/
 
 Control, ktorého schválená generation je načítaná a presadzovaná na každej relevantnej boundary a ktorého allowed, forbidden a recovery outcomes boli testované. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Effective service capacity
+
+Kapacita skutočne dostupná analyzovanému business subjectu po odpočítaní unhealthy members, reservations, topology constraints, safe utilization margin, rollout/failover reserve a external quotas. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
+
 ## Effective value — GitLab CI
 
 Hodnota, ktorú konkrétny pipeline alebo job skutočne použije po vyhodnotení všetkých variable sources, precedence, protected/environment scope-u, availability phase a downstream forwarding-u. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
@@ -5705,6 +5741,10 @@ Kubernetes Event reason indikujúci, že scheduler nenašiel alebo nevedel bindn
 ## Failover
 
 Presun trafficu, processingu alebo write ownershipu z nefunkčného primárneho componentu alebo lokality na pripravený náhradný target. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Failover headroom
+
+Remaining effective capacity po strate definovaného failure domainu, ktorá musí udržať critical workload v požadovanom degraded alebo full SLO contracte. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## failover routing — Route 53
 
@@ -7302,6 +7342,46 @@ Supply-chain attestation structure obsahujúca subject digest, predicate type a 
 
 Verdict potvrdzujúci, že authoritative recovery je nasadená, pôvodný business outcome funguje, forbidden outcomes sú absent, adjacent scope bol overený a skorší preventive control má ownera. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
+## Incident Commander — IC
+
+Rola vlastniaca incident objective, priority, command structure, decision cadence, escalation, handoff a closure; nemusí byť najhlbším technical expertom. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident Communications lead
+
+Rola publikujúca potvrdený impact, current action a update cadence pre interných alebo externých stakeholders bez zamieňania hypothesis za fact. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident declaration
+
+Explicitný transition z normal troubleshootingu do coordinated incident režimu s pridelenou severity, authority, roles, communication a recovery contractom. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident-management acceptance verdict
+
+Dôkaz, že incident bol včas deklarovaný, koordinovaný explicitnými roles, stabilizovaný bounded actions a uzavretý až po business recovery, forbidden tests, handoffe a follow-up ownership. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident Operations lead
+
+Rola koordinujúca technical hypotheses, observations, bounded changes a effective outcomes počas incidentu. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident Planning lead
+
+Rola sledujúca staffing, handoffs, logistics, temporary divergence, follow-up work a dlhší recovery horizon. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident recovery criteria
+
+Explicitný súbor technical, user, business, data a forbidden-outcome podmienok, ktoré musia prejsť pred označením incidentu ako recovered. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident stabilization
+
+Evidence-preserving bounded actions určené na zastavenie rastu blast radiusu a obnovenie bezpečného service outcome-u pred úplným root-cause vysvetlením. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident state document
+
+Authoritative priebežný záznam incident subjectu, impactu, timeline-u, hypotheses, evidence, actions, owners, risks, communication a recovery criteria. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Incident subject
+
+Exact business capability, affected outcome, start/detection/declaration timeline, tenant/Region/cohort, release/configuration/topology generations, SLO impact, active mitigations a command ownership jedného incidentu. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
 ## Incident usage — FinOps
 
 Metered compute, request, transfer, storage alebo telemetry volume vytvorený failure amplification, attackom alebo remediation a nevhodný ako normal commitment alebo forecast baseline. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -7986,6 +8066,10 @@ Presne identifikovaný artifact, configuration a compatibility stav s overenou p
 
 Overená kombinácia source revision, build definition, builder platform, dependencies, signing identity, registry state a deployment policy, z ktorej možno po compromise vytvoriť nový trusted artifact. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
+## Last-tested generation — runbook
+
+Najnovšia environment, architecture a tool generation, proti ktorej bol runbook úspešne rehearsed vrátane wrong-subject a failure branchov. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
 ## Latency
 
 Čas potrebný na dokončenie operácie alebo requestu. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
@@ -8317,6 +8401,10 @@ Identita jednej finite business operation zahŕňajúca run key, schedule alebo 
 ## Logical data identity — Kubernetes
 
 Application-owned identita persistentného datasetu, oddelená od Pod mena, PVC mena, PV phase a physical volume assetu. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## Logical demand unit — capacity
+
+Jedna unique business operation, napríklad settlement intent, oddelená od HTTP retries, broker redeliveries, provider attempts a internal fan-out calls. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Logical demand unit — Golden Signals
 
@@ -9330,6 +9418,10 @@ Receiver-specific správa vytvorená z jednej alert group podľa routing, timing
 
 Alertmanager lifecycle od prijatého alertu cez route, grouping, timing, silence/mute/inhibition verdict, template a receiver attempt po external incident outcome. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
+## Notification-delivery chain
+
+Lifecycle od alert firingu cez routing, provider/device delivery a acknowledgement po qualified human ownership, action alebo escalation. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
 ## Notification-path canary
 
 Kontrolovaný alert prechádzajúci rule, všetky Alertmanager replicas, route/group/muting policy, test receiver, external acknowledgement a resolved closure. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
@@ -9522,6 +9614,18 @@ Negative acceptance test dokazujúci, že retired alebo compromised key už nedo
 
 Host alebo target, ktorý mal patriť do rollout scope-u, ale nevstúpil do resolved target inventory. Nemá task result ani `unreachable` verdict, preto sa odhalí iba porovnaním s expected target inventory. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## On-call acceptance verdict
+
+Dôkaz, že správny urgentný page dosiahne pripraveného respondera, escalation reaguje na time/skill/authority/capacity/severity a dlhodobý page load zostáva udržateľný. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
+## On-call support contract
+
+Versionovaný contract podporovanej služby určujúci coverage hours, page eligibility, primary/secondary roles, response a escalation targets, required skills/access, dependencies, handoff a sustainability limits. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
+## On-call sustainability
+
+Dlhodobý stav, v ktorom rotation poskytuje požadované coverage bez chronickej únavy, key-person dependency, nadmerného interruption loadu alebo vytlačenia reliability engineering práce. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
 ## One-shot operation subject
 
 Identita Compose migration alebo init jobu zahŕňajúca operation ID, image/config/data subject, project, concurrency lock, result a rerun/unknown-outcome semantics. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
@@ -9597,6 +9701,10 @@ Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/r
 ## Operational acceptance verdict — Systems Manager
 
 Closure dôkaz, že exact approved targets dostali pinned document/configuration cez správnu identity a bounded execution, dosiahli technical aj business postconditions a forbidden tag-expansion, broad-role, stale-compliance a full-fleet mutation paths zostali zablokované. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## Operational decision point
+
+Explicitné mapovanie observation a state classification na allowed runbook branch, approval, action a next expected evidence. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
 
 ## Operational demand — toil
 
@@ -9742,6 +9850,10 @@ Nebezpečný stav, keď viac controllerov zodpovedá rovnakým Pod labelom a mô
 
 Pod network model zapuzdrujúci cross-node Pod traffic do tunnel packetov, čím znižuje potrebu upstream route knowledge za cenu encapsulation a MTU overheadu. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
 
+## Overload contract
+
+Explicitné pravidlá admission controlu, prioritization, load sheddingu, backpressure, degraded mode-u a caller-visible failure semantics pri prekročení safe completion capacity. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
+
 ## Owner-dependent graph subject
 
 Inventory Kubernetes ownerReferences, owner/dependent UIDs, selectors, revisions, propagation policy a current lifecycle state pre konkrétnu top-level object generation. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -9786,6 +9898,10 @@ Kompaktný Git storage formát ukladajúci viac objektov s možnou delta kompres
 
 RAM používaná kernelom na cache file-backed dát. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
+## Page eligibility
+
+Verdikt, že signal je urgentný, relevantný, dostatočne spoľahlivý, actionable pre receiving role a časovo citlivý vzhľadom na user/business impact. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
 ## Page eligibility contract
 
 Kritériá urgentnosti, importance, actionability a reality, ktoré musí signal splniť pred preradením na human page. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
@@ -9793,6 +9909,10 @@ Kritériá urgentnosti, importance, actionability a reality, ktoré musí signal
 ## Page fault
 
 Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupné. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Page quality
+
+Hodnotenie pages podľa actionability, false positives, duplicates, urgency, contextu, runbook coverage, response time a contribution k user/business recovery. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
 
 ## Pages-per-incident
 
@@ -10182,6 +10302,10 @@ Nesúlad medzi target OS/architecture a vybraným image manifestom alebo executa
 
 Explicitné rozdelenie zodpovednosti za control plane, etcd, Nodes, add-ons, upgrades, identity, application data, recovery a incident support medzi provider/platform/application owners. Pozri [Cluster installation a lifecycle](../docs/09-kubernetes/cluster-installation-lifecycle.md).
 
+## Playbook — operations
+
+Širší decision framework pre triedu incidents alebo operational scenárov, ktorý podľa evidence a risku vyberá konkrétne branches, controls a runbooks. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
 ## Pod
 
 Najmenší deployable Kubernetes compute object predstavujúci jeden alebo viac co-scheduled containers so spoločnou Pod network identity, lifecycle boundary a volumes. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -10558,6 +10682,10 @@ Control znižujúci pravdepodobnosť vzniku bezpečnostného incidentu. Pozri [C
 
 Hlavný product, application alebo artifact, ktorého composition daná SBOM opisuje. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
+## Primary on-call
+
+Prvá zodpovedná rotačná rola pre triage, safe first response, incident declaration a ownership do explicitného handoffu. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
 ## Primary shard
 
 Autoritatívna shard kópia subsetu documents, z ktorej sa koordinuje replication. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -10725,6 +10853,10 @@ Vzorka alebo agregácia stackov ukazujúca, kde proces trávi CPU čas, čaká a
 ## Programmed dataplane generation
 
 Konkrétna route/config generation načítaná edge proxy, load balancer alebo inou dataplane instance. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
+
+## Progress-based escalation
+
+Escalation spustená absenciou qualified response alebo effective mitigation progressu, aj keď pôvodný page bol acknowledged. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
 
 ## Progress deadline — Deployment
 
@@ -10982,6 +11114,10 @@ Policy určujúca, či sa StatefulSet-created PVCs zachovajú alebo odstránia p
 
 QoS class odvodená z effective CPU/memory requests a limits relevantných containers alebo Pod-level resources; ovplyvňuje resource/eviction behavior, ale nie je SLA. Pozri [Requests, limits a QoS](../docs/09-kubernetes/requests-limits-qos.md).
 
+## Qualified response — on-call
+
+Stav, keď pripravený responder potvrdil exact subject a impact a začal bezpečnú diagnosis, mitigation, incident declaration alebo escalation; je silnejší než samotné acknowledgement. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
 ## Quality gate
 
 Automatizovaný alebo kombinovaný rozhodovací bod, ktorý vyhodnotí versionovanú policy nad konkrétnou evidence a povolí, zablokuje alebo eskaluje ďalší krok delivery. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
@@ -11037,6 +11173,10 @@ Exact practice question generation spolu s outcome, constraints, scope, plane, o
 ## Question-error closure
 
 Uzavretie reasoning chyby až po oprave autoritatívneho modelu a úspešnom vyriešení nového scenario variantu bez phrasing recognition. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
+## Queue drain rate
+
+Rozdiel medzi completed service rate a new arrival rate pre konkrétnu queue population; kladná hodnota znamená, že backlog sa zmenšuje. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## QUIC
 
@@ -11293,6 +11433,10 @@ Pre-change alebo incident-time rozhodnutie, či konkrétny rollback, roll-forwar
 ## Recovery fencing
 
 Mechanizmus, ktorý zabráni corrupted alebo old production writers spracúvať nové writes/side effects počas restore, reconciliation a traffic cutoveru. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Recovery headroom
+
+Kapacita umožňujúca súčasne obsluhovať live demand a bezpečne drainovať backlog alebo rekonštruovať state po incidente. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Recovery keys — Vault
 
@@ -12410,6 +12554,26 @@ Capability na vzdialené vykonanie versionovaného command documentu na jednom a
 
 SecurityContext guard požadujúci, aby container process nebežal s root UID; potrebuje kompatibilný image a runtime-resolvable user identity. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
+## Runbook
+
+Versionovaný repeatable operational postup pre rozpoznateľný exact state, explicitné preconditions, bounded actions, verification a rollback/escalation. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
+## Runbook acceptance verdict
+
+Dôkaz, že current runbook správne klasifikuje subject, presadzuje safety boundary, dosahuje technical/business outcome, odmieta forbidden branches a prejde new-responder rehearsal-om. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
+## Runbook generation
+
+Exact version dokumentu spolu s compatible architecture, tool, API, schema a permission assumptions. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
+## Runbook subject
+
+Exact service, environment, architecture generation, resource/data identity, trigger, actor, allowed scope, expected/forbidden outcomes a recovery boundary analyzovaného operational postupu. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
+## Runbook withdrawal
+
+Riadené vyradenie nebezpečnej alebo stale document generation pri zachovaní historical evidence, komunikácii affected responders a publikovaní replacement pathu. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
 ## Runner — CI/CD
 
 Agent alebo execution capacity, ktorá prijme job od CI control plane a vykoná ho prostredníctvom zvoleného executora. Runner je zároveň capacity a security boundary. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -12545,6 +12709,10 @@ Maximálny throughput alebo concurrency, pri ktorom celý critical path spĺňa 
 ## Safe loader — YAML
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Safety boundary — runbook
+
+Maximálny scope, rate, concurrency, dry-run, approvals, abort criteria, evidence preservation, forbidden cohorts a recovery pravidlá konkrétneho runbooku. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
 
 ## Safety state machine
 
@@ -12730,6 +12898,10 @@ Stav, keď HPA dosiahlo max/rate/capacity boundary a ďalší demand už nevie p
 
 Definícia metric source-u, pracovnej jednotky, dimensions, aggregation windowu, freshness, no-data behavioru a očakávanej reakcie na zmenu kapacity. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
+## Schedule canary — on-call
+
+Kontrolovaná notification overujúca current schedule, timezone, overrides, routing, primary/secondary delivery a acknowledgement/escalation behavior. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
+
 ## `ScheduleAnyway` — topology spread
 
 Soft topology spread behavior, pri ktorom scheduler môže Pod umiestniť aj pri porušení ideálneho skew a používa constraint pri scoring-u. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
@@ -12882,6 +13054,10 @@ Opakovanie protected business operation s fresh identities a generations spolu s
 
 Zopakovanie controller alebo business operácie po oprave, napríklad ďalší replacement, retry, deployment, copy alebo refresh, aby sa preukázala stabilita mimo prvého manual testu. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
 
+## Second-peak validation
+
+Opakovaný production-like alebo controlled peak test po capacity zmene, ktorý preukazuje, že first successful recovery nebol jednorazový alebo závislý od hidden manuálneho override-u. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
+
 ## Second-reconciliation verdict — Kubernetes
 
 Dôkaz, že ďalší controller reconcile, retry, replacement alebo failover zostane bounded a nevytvorí znovu drift, duplicate alebo chybný side effect. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -12893,6 +13069,10 @@ Validation, ktorá overí odstránený privilege v predtým active session aj v 
 ## Second-sync test
 
 Opakovaný identity/entitlement reconciliation cycle dokazujúci, že odstránený group, role alebo binding sa z authoritative source-u alebo stale mappingu znovu nevytvorí. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Secondary on-call
+
+Backup alebo parallel-response rola pre ďalšie alerts, deep diagnosis, primary replacement, IC/Ops podporu a ochranu primary pred overloadom. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
 
 ## Secret
 
@@ -13182,6 +13362,10 @@ Versionovaná identita Lambda function, artifactu, published version/aliasu, sou
 
 Contract určujúci, ktorá service vlastní konkrétny alias v danej Docker network a aké replica/load-distribution semantics caller očakáva. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
+## Service capacity model
+
+End-to-end model required processing boundaries, ich sustainable throughputu, concurrency, queueing, dependency limits a failure behavioru pre konkrétny business operation subject. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
+
 ## Service contract — cloud
 
 Dokumentovaný súbor support, availability, security, data, backup, lifecycle a responsibility podmienok konkrétnej cloud služby. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -13350,6 +13534,10 @@ Systems Manager capability poskytujúca IAM-authorized interactive shell alebo p
 
 Dôkaz, že browser sessions, access/refresh tokens, delegated grants a ďalšie artifacts odvodené z identity alebo authenticatora už verifier a resource services neprijímajú. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Severity contract — incident
+
+Organizačný model mapujúci user/business/data/security impact a growth uncertainty na response urgency, roles, communication a escalation požiadavky. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
 ## Severity — log
 
 Klasifikácia operational závažnosti log recordu, napríklad DEBUG, INFO, WARN, ERROR alebo FATAL, ktorá musí odrážať význam pre konkrétnu operáciu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
@@ -13433,6 +13621,10 @@ Executor spúšťajúci CI/CD job priamo na runner hoste s jeho používateľsk�
 ## Shell expansion
 
 Fáza, v ktorej shell spracuje parameter, command a arithmetic expansion, word splitting a pathname expansion pred spustením príkazu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Shift handoff — on-call
+
+Explicitný transfer active incidents, pages, risks, temporary overrides, recent changes, constraints, commitments a follow-up owners medzi on-call generations. Pozri [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md).
 
 ## Shift-left
 
@@ -14001,6 +14193,10 @@ Constraint zakazujúci prideliť jednému principalu konfliktujúce roles alebo 
 ## Steady state — chaos engineering
 
 Merateľné používateľské alebo prevádzkové správanie, ktoré má systém počas definovaného faultu zachovať v prijateľných hraniciach. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Steady-state headroom
+
+Rezerva effective capacity nad očakávaným normal demandom určená na forecast uncertainty, krátke bursty a control latency. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
 ## Step-up authentication
 
@@ -15006,6 +15202,10 @@ Udalosť alebo explicitný pokyn, ktorý vytvorí pipeline run a určí jeho com
 
 Resolved runtime contract vytvorený triggerom, ktorý spája event identity, actor, candidate a workflow revision, typed inputs, permissions, secret scope a concurrency policy. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
+## Trigger eligibility — runbook
+
+Testovateľné conditions určujúce, že current state patrí do supported runbook branchu a postup možno bezpečne začať. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
+
 ## Trunk-based development
 
 Branching model založený na častej integrácii malých zmien do jednej hlavnej branch, podporený krátkodobými branches, CI a feature flags. Pozri [Branching strategies](docs/03-git-and-automation/branching-strategies.md).
@@ -15149,6 +15349,10 @@ Stav po timeout-e alebo prerušení write operation, keď nie je známe, či API
 ## Unknown-operation outcome — Kubernetes
 
 Stav, keď request timeoutol alebo response zanikla, ale Kubernetes controller alebo external provider mohol side effect dokončiť; pred retry je potrebný authoritative read-back. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Unknown operational outcome
+
+Stav, keď responder nevie, či operational side effect nastal alebo v akom scope-e, a preto musí vykonať authoritative read-back/reconciliation namiesto blind retry-u. Pozri [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md).
 
 ## Unknown-outcome class — RED
 
