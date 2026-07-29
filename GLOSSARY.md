@@ -222,6 +222,10 @@ Overenie, že oprava funguje aj na relevantných Nodes, Pods, endpoints alebo fa
 
 Overenie, že recovery funguje nielen na pôvodnom affected subjecte, ale aj na susedných Node, zone, release, tenant alebo endpoint cohortách. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Administrative connection reserve
+
+Connection slots, identity a route vyhradené pre incident inspection, fencing, recovery a administratívne operations pri application saturation. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Admission control — Kubernetes
 
 Request-time vrstva Kubernetes API, ktorá po authentication a authorization mutuje alebo validuje relevantné create, update a delete requests pred persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
@@ -690,6 +694,10 @@ Mandatory Access Control profil definujúci povolené paths, execute transitions
 
 Host-level Linux Security Module profil obmedzujúci filesystem, capability, network a ďalšie operations container procesu podľa Node a runtime podpory. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
+## Append Only File — Redis
+
+Persistence log Redis write operations, ktorý možno replaynuť pri štarte; durability window závisí od configured fsync policy. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
 ## Applicability verdict — Well-Architected
 
 Explicitné rozhodnutie, či best practice je implemented, partial, missing, not applicable s evidence alebo unknown pre chýbajúce dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -701,6 +709,10 @@ Spoločná identita clusteru, top-level object UID/generation, dependent resourc
 ## Application-aware readiness — stateful workload
 
 Readiness verdict odvodený z application role, synchronization, membership, data generation a client-serving capability, nie iba z otvoreného portu alebo živého processu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
+
+## Application connection pool
+
+Client-side cache a admission mechanism, ktorý reuses database connections a riadi checkout, active/idle count, timeouts a cleanup v jednom application process-e. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
 ## Application-consistent backup
 
@@ -750,6 +762,14 @@ Platnosť approvalu viazaná na nezmenený subject, evidence, target environment
 
 GitLab pravidlo definujúce počet required approvals, eligible users alebo groups a branch/policy scope merge requestu. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Architecture acceptance verdict
+
+Dôkaz, že capability/invariant boundaries, authority, transactions, communication, compatibility, scale, failure isolation, operations, migration a second-change/failure tests tvoria udržateľný outcome. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
+## Architecture benefit verdict
+
+Evidence-backed porovnanie intended independent deployment/scale/failure/ownership benefitu s effective coordination, platform, reliability a recovery costom. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Architecture contract — Kubernetes cluster
 
 Versionovaný súbor rozhodnutí o endpoint identity, etcd topology, failure domains, CIDRs, runtime, CNI/CSI, PKI, storage, backup a upgrade modeli. Pozri [Cluster installation a lifecycle](../docs/09-kubernetes/cluster-installation-lifecycle.md).
@@ -757,6 +777,14 @@ Versionovaný súbor rozhodnutí o endpoint identity, etcd topology, failure dom
 ## Architecture generation — threat model
 
 Versionovaná kombinácia services, data flows, identities, trust boundaries, dependencies, deployment paths a assumptions, ku ktorej sa viaže konkrétny threat model. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
+
+## Architecture subject — application boundaries
+
+Exact capabilities, invariant/data ownership, source/build/deployment/process boundaries, communication, transactions, scale, ownership, operations a migration generation analyzovanej architecture. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
+## Archive read-back
+
+Independent overenie, že archived backup/log object existuje, je čitateľný, má správny checksum/identity a možno ho retrieve-nuť cez reálny restore path. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## ARP — Address Resolution Protocol
 
@@ -1366,6 +1394,10 @@ Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, 
 
 Recovery stratégia, pri ktorej sa náhradné prostredie a state obnovujú zo záloh po incidente; má nízky steady-state cost a typicky vyššie RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Backup/PITR acceptance verdict
+
+Dôkaz, že base backup, log continuity, keys/access, target selection, isolated restore, validation, reconciliation, promotion/fencing a second restore spĺňajú business RPO/RTO a forbidden scenarios. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
+
 ## Backup plan — AWS
 
 Policy expression určujúci schedule, windows, vault, lifecycle, retention, copy actions a ďalšie backup semantics pre priradené resources. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -1385,6 +1417,10 @@ Contextual key/value informácie propagované cez service boundaries spolu s tra
 ## Bare repository
 
 Git repository bez working tree, používaný typicky ako serverový alebo integračný endpoint. Pozri [Clone, fetch, pull a push](docs/03-git-and-automation/clone-fetch-pull-push.md).
+
+## Base backup
+
+Physical starting state, od ktorého možno replaynuť kontinuálny WAL alebo iný change log do recovery targetu. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Base image — Dockerfile
 
@@ -1441,6 +1477,10 @@ Kubernetes QoS class pre Pod bez CPU a memory requests alebo limits podľa platn
 ## Billing-generation identity
 
 Exact billing dataset, period, payer scope, pricing/discount rules, cost metric a finalized/estimated state použitý pri cost reasoning. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Binary-log continuity
+
+Dôkaz, že MySQL binary-log files/events, positions alebo GTID intervaly od full backupu po target tvoria complete recovery sequence. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Bind — LDAP
 
@@ -1574,6 +1614,10 @@ Failure contract, pri ktorom telemetry export, buffering alebo backend outage ne
 
 Horná hranica Linux capabilities, ktoré proces a jeho potomkovia môžu získať. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Branch by abstraction
+
+Migration pattern, pri ktorom callers používajú stabilnú abstraction a implementation sa postupne nahrádza bez permanentného dual write-u. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Branch coverage
 
 Podiel výsledkov rozhodovacích vetiev vykonaných test suite. Poskytuje jemnejší signál než samotná line coverage. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
@@ -1609,6 +1653,10 @@ Silno chránený emergency credential dostupný cez auditovaný a obmedzený rec
 ## Broadcast domain
 
 L2 oblasť, v ktorej sa šíri Ethernet broadcast. Typicky ju oddeľuje router alebo VLAN boundary. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## Broken-connection discard
+
+Odstránenie connection z poolu po network/protocol/transaction ambiguity namiesto jej vrátenia ďalšiemu borrowerovi. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
 ## Broken main
 
@@ -1813,6 +1861,10 @@ Telemetry alebo validation merajúca final caller-visible či business-visible c
 ## Business recovery subject
 
 Exact business capability, primary/recovery account a Region, application/data/trust generations, RTO, RPO, minimálna capacity a forbidden outcomes použité na DR rozhodovanie. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Cache authority inversion
+
+Failure mode, pri ktorom cache hit/miss/TTL alebo eviction začne rozhodovať o authoritative business existencii alebo external side effecte namiesto zrýchľovania authority lookupu. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
 
 ## cache behavior — CloudFront
 
@@ -2210,6 +2262,10 @@ Semantic version package contractu uvedená v `Chart.yaml`, ktorá identifikuje 
 
 Best-effort režim predikcie zmien bez ich vykonania pri modules, ktoré ho podporujú; nie je transakčnou ani saved-plan garanciou. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Checkout wait
+
+Čas od požiadania o connection po jej pridelenie z poolu, meraný ako distribution a porovnávaný s request deadline-om. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Checkpoint subject — batch
 
 Versionovaný durable progress state jedného logical runu, partition alebo work itemu spolu s owner epoch, input generation a result lineage. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
@@ -2325,6 +2381,10 @@ Recovery point klasifikovaný ako nezasiahnutý analyzovanou corruption, comprom
 ## Clean recovery candidate
 
 Recovery point alebo manifest set preukázateľne vytvorený pred corruption/compromise boundary a vhodný pre business recovery po zohľadnení RPO a reconciliation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Clean recovery point — database
+
+Recovery candidate pred alebo mimo corruption interval, ktorý je log-complete, decryptable, schema-compatible a business-valid pre daný protected subject. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Clean restore verdict
 
@@ -2990,6 +3050,14 @@ Riadené ukončovanie targetu, pri ktorom load balancer prestane posielať nové
 
 Plugin definujúci transport a remote execution semantics medzi control node a targetom, napríklad SSH, local, WinRM alebo network API connection. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Connection-pooling subject
+
+Exact application fleet, pooler/client generations, endpoint/role, min/max connections, pooling mode, session requirements, database envelope, timeouts, queue a failover behavior. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
+## Connection reset contract
+
+Pravidlá rollbacku, resetu alebo discardu connection pred reuse, vrátane failed transaction, role, session parameters, temp objects, locks a protocol state-u. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Conntrack
 
 State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Pozri [NAT](docs/02-networking-and-web/nat.md) a [Firewally](docs/02-networking-and-web/firewalls.md).
@@ -3197,6 +3265,10 @@ Priebežné získavanie identity, endpoint, workload, network, cloud a applicati
 ## Continuous Integration
 
 Pracovný a technický model častej integrácie malých zmien do spoločnej hlavnej línie s automatizovaným verdictom nad presným candidate integration stateom. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
+
+## Continuous log archive
+
+Durable, ordered a čitateľný archív WAL, binary-log alebo ekvivalentných change records potrebných na incremental alebo point-in-time recovery. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Continuous rescanning — GitLab
 
@@ -3574,6 +3646,10 @@ Versionované architecture rozhodnutie zaznamenávajúce benefit, trade-offs, gu
 
 SLO, security, recovery, performance alebo capacity condition, ktorá musí zostať splnená počas cost optimization change-u. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Cross-product reconciliation
+
+Correlation PostgreSQL, MySQL, Redis, event a external-provider evidence podľa stable business operation identity na určenie authoritative outcome-u. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
 ## Cross-purpose key reuse
 
 Použitie jedného keyu pre nesúvisiace cryptographic purposes alebo protocols, napríklad OIDC a SAML signing, čím sa spájajú ich attack surface, authorization a revocation blast radius. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -3582,6 +3658,10 @@ Použitie jedného keyu pre nesúvisiace cryptographic purposes alebo protocols,
 
 Kópia recovery pointu do iného AWS Regionu pre regionálnu isolation a disaster-recovery model. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Cross-service workflow
+
+Versionovaný state machine koordinujúci local commits, durable events, retries, compensation a reconciliation naprieč service boundaries. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Cross-signal cardinality amplification
 
 Násobenie jednej dynamic dimension naprieč metrics, log streams, trace-derived metrics, indexed fields, dashboard variables a alert identities. Pozri [Cardinality](docs/12-observability/cardinality.md).
@@ -3589,6 +3669,10 @@ Násobenie jednej dynamic dimension naprieč metrics, log streams, trace-derived
 ## Cross-state contract
 
 Explicitné rozhranie medzi samostatnými Terraform states, typicky cez publikované outputs alebo externý registry, ktoré musí mať ownership, compatibility a access policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
+## Cross-store recovery checkpoint
+
+Versionovaný correlation point medzi authoritative positions alebo event IDs viacerých stores a external systems, používaný na business-consistent recovery a reconciliation. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Cross-system recovery consistency
 
@@ -3874,9 +3958,17 @@ Logical abstraction nad rolling backing indexes optimalizovaná pre timestamped 
 
 Dôkaz, že authoritative facts, aggregates, relationships, invarianty, access patterns, transaction/consistency semantics, partitioning, derived stores, migration a recovery tvoria správny allowed aj forbidden business outcome. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
+## Database per service
+
+Exclusive authority nad data capability cez service contract; môže byť realizovaná samostatným serverom, database alebo enforced schema/role boundary. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Database recovery acceptance verdict
 
 Closure dôkaz, že writer/connection topology, transaction outcome, data invariants, idempotency, performance a forbidden stale-reader/old-writer/master/public paths sú po failover alebo restore správne. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Database recovery subject
+
+Exact engine/cluster, protected data a consistency group, acknowledgement boundary, base backup, change-log interval, timeline/position, schema, key/access generation, recovery target, objectives a post-point recovery scope. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Database restore generation
 
@@ -4138,6 +4230,10 @@ Inventory komponentov viazaný na artifact alebo system nasadený v konkrétnom 
 
 Kubernetes workload controller, ktorý deklaratívne riadi ReplicaSety a rollout zameniteľných Podov. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
+## Deployment boundary
+
+Najmenší subject, ktorý možno release-nuť, rollback-nuť alebo promote-nuť nezávisle s vlastnou compatibility a evidence generáciou. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Deployment downtime
 
 Čas, počas ktorého deployment spôsobí úplnú alebo neprijateľnú nedostupnosť služby. Pri recreate zahŕňa shutdown, deployment, startup, migrations, readiness a routing. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md).
@@ -4217,6 +4313,10 @@ Krátkodobý cloud, Vault alebo iný external credential vydaný na základe wor
 ## Derived data store
 
 Store vytvorený z authoritative change streamu alebo rebuild procesu pre read, search, cache či analytical workload; potrebuje lineage, freshness, completeness a recovery contract. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
+
+## Derived-key absence
+
+Redis/cache miss, ktorý znamená iba neprítomnosť derived evidence v current cache generation, nie automaticky neprítomnosť authoritative business operation. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
 
 ## Derived signal
 
@@ -4485,6 +4585,10 @@ Kategórie nesprávnych options ako wrong scope, half path, configured-not-effec
 ## Distributed cache — GitLab Runner
 
 CI cache uložená v shared backend-e, typicky object storage, aby ju mohli používať viaceré alebo autoscaled runners. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Distributed monolith
+
+Systém s viacerými remote deployments, ktorý stále vyžaduje synchronized releases, shared data access alebo tightly coupled runtime availability, a preto nesie distributed cost bez autonomy. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
 
 ## Distributed recovery consistency
 
@@ -5965,6 +6069,10 @@ DNS routing policy s primary a secondary records, ktorá mení odpovede podľa h
 ## Failure artifact
 
 Diagnostický dôkaz zachovaný pri zlyhaní testu, napríklad screenshot, trace, log, packet capture, request ID alebo environment metadata. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
+
+## Failure boundary — application architecture
+
+Rozsah process/resource/dependency failure-u, ktorý má byť izolovaný od ostatných capabilities a pre ktorý existuje independent recovery contract. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
 
 ## Failure-domain narrowing
 
@@ -7738,6 +7846,10 @@ Hranica určujúca, či init container vykonáva iba bezpečnú local prípravu 
 
 Short-lived least-privilege principal oprávnený aplikovať iba schválený chaos fault na exact target, environment, scope a duration s auditom, kill switchom a automatic expiry. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
+## InnoDB transaction role
+
+Použitie MySQL/InnoDB ako authoritative relational boundary s MVCC, locks, redo/undo, binary log a engine-specific durability/recovery semantics. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
 ## Inode
 
 Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
@@ -8582,6 +8694,10 @@ PV reprezentujúci storage fyzicky viazaný na konkrétny Node alebo topology do
 
 Resource-Server decision nad validným tokenom, exact action/resource/tenant, current business state, JIT approval, separation-of-duties a ďalšími local authorization podmienkami. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Local transaction boundary
+
+Data a invariant scope, ktorý možno atomicky commitnúť v jednom service/database authority bez remote distributed workflowu. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Local TSDB generation — Prometheus
 
 Queryovateľný local state konkrétnej Prometheus replica vytvorený z WAL, head blocku, immutable blocks, compaction a retention lifecycle-u. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -8653,6 +8769,10 @@ Tenant ID a úplný bounded Loki label set, ktoré spoločne definujú jeden log
 ## Log stream — Loki
 
 Množina log entries s rovnakým tenant ID a úplným label setom. Pozri [Loki](docs/12-observability/loki.md).
+
+## Logical backup
+
+Engine-aware logical export schemas, objects a rows určený na portable alebo selected-object restore; nie je physical base backupom pre WAL/redo replay. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Logical batch run subject
 
@@ -9034,6 +9154,10 @@ Alpha, beta alebo stable lifecycle contract system metrics ovplyvňujúci ich de
 
 Jemnozrnná isolation a traffic policy medzi workloadmi alebo resource groups, ktorá obmedzuje lateral movement bez považovania segmentu za automaticky trusted. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
+## Microservice
+
+Independently deployable service vlastniaci coherent business capability, contract, runtime failure boundary a authoritative data/workflow responsibilities. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## MicroVM
 
 Minimalizovaná VM s rýchlejším startupom a menším overheadom pri zachovaní virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
@@ -9053,6 +9177,10 @@ Snapshot stavu workload review-u v konkrétnom čase používaný na meranie zme
 ## Minimum detectable effect
 
 Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size a power spoľahlivo detegovať. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Minimum-idle storm
+
+Súbežné vytváranie veľkého množstva idle connections po scale-out-e, restart-e alebo failover-e v dôsledku vysokého minimum pool size bez jitter/admission budgetu. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
 ## Minimum-TTL override
 
@@ -9102,6 +9230,14 @@ Test double s explicitnými očakávaniami na interakcie. Je vhodný, keď komun
 
 Dôkaz, že threat model zodpovedá current architecture generation, critical assumptions majú evidence, high-impact threats majú mechanisms, requirements a negative tests a residual risks majú ownerov. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
+## Modular monolith
+
+Jeden deployment/process boundary s explicitnými internal module APIs, private implementation/data access a enforced dependency/ownership pravidlami. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
+## Module boundary
+
+In-process contract oddeľujúci public capability od private modelu, dependencies a data accessu v modular monolith-e. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
+
 ## Module composition — Terraform
 
 Skladanie menších capability modules v root module prepájaním ich explicitných outputs a inputs do jedného dependency graphu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
@@ -9141,6 +9277,10 @@ Systematické sledovanie vopred definovaných signals, states a thresholds s cie
 ## Monitoring condition contract
 
 Versionovaná známa otázka, measurement query, threshold/no-data semantics, duration, owner, route, action a recovery condition používaná na monitoring verdict. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Monolith
+
+Application buildovaná a deployovaná ako jeden významný artifact alebo runtime unit; môže byť dobre modularizovaná alebo silno previazaná. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
 
 ## Monorepo
 
@@ -10474,6 +10614,10 @@ Namespaced Kubernetes request na persistent storage definujúci požadovanú cap
 
 PowerShell test framework pre assertions, mocks, setup/teardown a test discovery. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
 
+## Physical backup
+
+Kópia engine storage generation vytvorená cez consistency-aware backup alebo snapshot protocol a viazaná na engine/version/storage/log semantics. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
+
 ## Physical replication
 
 Engine/storage-level replication write-ahead alebo physical changes poskytujúca high-fidelity standby, ale kopírujúca aj logical corruption a často viazaná na užšiu version compatibility. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
@@ -10826,6 +10970,10 @@ Explicitný, scoped, approved a expirovateľný object povoľujúci dokumentovan
 
 Časovo obmedzený a auditovaný override konkrétnej policy s ownerom, dôvodom, compensating controls, approvalom, expiration a remediation plánom. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
+## Policy generation identity
+
+Immutable version alebo effective-interval identity merchant/provider policy uložená spolu s business decisionom, aby sa dal outcome reprodukovať a reconciliovať. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
 ## Policy-information freshness
 
 Dôkaz, že group, ownership, tenant, device, risk a ďalšie PIP attributes použité pri authorization zodpovedajú current authoritative state-u. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -10910,6 +11058,18 @@ Skompilovaná policy vykonávaná ako WebAssembly module v embedded PEP alebo ap
 
 Zámerné použitie viacerých databázových technológií s explicitne odlišnými authoritative alebo derived roles, ownershipom, lineage a recovery contractom. Pozri [Relational vs. non-relational databases](../docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md).
 
+## Pool multiplication
+
+Fleet-wide násobenie connection demandu cez počet services, replicas, processes, users/databases a per-instance pool maxima. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
+## Pool queue
+
+Fronta application requests alebo client sessions čakajúcich na reusable server connection; jej latency je samostatná od query execution latency. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
+## Pooling acceptance verdict
+
+Dôkaz, že fleet connection demand, database envelope, pooling mode, session hygiene, queues/timeouts, admin reserve, failover a second-client/burst tests vytvárajú bounded a correct outcome. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Port
 
 16-bit transportný identifikátor socket endpointu. Port sám neurčuje aplikačný protokol. Pozri [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md).
@@ -10940,7 +11100,7 @@ Review prvého planu po importe, ktorý rozhoduje, či sa remote hodnoty adoptuj
 
 ## Post-point divergence
 
-Množina validných, unknown alebo external operations vzniknutých po zvolenom recovery pointe, ktoré treba replaynúť, merge-núť, kompenzovať alebo reconciliovať. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+Operations a state transitions, ktoré vznikli po selected recovery point-e a musia byť replaynuté, merge-nuté, compensated alebo reconciled. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Post-promotion watch
 
@@ -10949,6 +11109,10 @@ Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené,
 ## Post-relabel sample set
 
 Exact množina samples a labels, ktorá zostane po target-label application a metric relabelingu a môže byť ingestovaná do local TSDB. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## PostgreSQL authority role
+
+Použitie PostgreSQL ako authoritative relational boundary s MVCC, constraints, WAL, transactions a recovery contractom pre konkrétne business facts. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
 
 ## Postmortem acceptance verdict
 
@@ -11166,6 +11330,14 @@ Priradenie ingestion, active-identity, storage, query a retention costu konkrét
 
 Explicitná Elasticsearch alebo OpenSearch product/version a deployment generation, ktorá určuje podporované API, mapping, lifecycle, security a recovery semantics. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Product-role subject — database
+
+Exact business/data role, authority classification, invariant, access pattern, durability, consistency, scale, recovery a operational ownership priradené konkrétnemu database produktu. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
+## Product-selection acceptance verdict
+
+Dôkaz, že product roles, authority, transactions, durability, recovery, cache semantics, cross-product identity a failure tests zodpovedajú workloadu bez dual authority. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
 ## Production-derived test data
 
 Testovacie dáta odvodené z produkcie, ktoré vyžadujú data minimization, anonymizáciu, access control a retention policy. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
@@ -11293,6 +11465,10 @@ Versionovaný recovery subject spájajúci business capability, exact data store
 ## Protected branch — GitLab
 
 Branch s policy obmedzujúcou push, merge, force push, deletion a podľa konfigurácie Code Owner alebo approval behavior. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Protected consistency group — database recovery
+
+Súbor databázových a external facts, ktoré sa musia obnoviť alebo reconciliovať spolu, aby business invariant zostal platný. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Protected environment
 
@@ -11594,6 +11770,10 @@ Rozhodnutie, že incident má evidence-backed timeline, dostatočný causal mode
 
 Versionovaný analysis subject spájajúci incident, affected business capability, exact service/data/operation scope, release/configuration generations, impact interval, evidence cutoff a ownera. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
+## RDB snapshot — Redis
+
+Point-in-time persistence súbor Redis datasetu vytváraný podľa configured snapshot policy. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
+
 ## RDS endpoint
 
 DNS name poskytujúci stable logical connection identity pre RDS database, ktorého resolved address sa môže zmeniť pri failover-e alebo maintenance. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
@@ -11782,6 +11962,10 @@ Opakovaný proces observe, compare, act a report, ktorý približuje actual stat
 
 Rekonštruovateľná identita jedného control-loop rozhodnutia zahŕňajúca controller/version/leader, cluster, object UID/generation/resourceVersion, queue attempt, dependents, external bindings, credentials a reconcile ID. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Reconnect storm
+
+Súbežná vlna connection handshakes a retries po failure/restart/failover-e, ktorá môže preťažiť nový primary alebo pooler skôr než business workload. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Reconstructability
 
 Schopnosť z authoritative production alebo approved recovery lineage znovu vytvoriť complete a business-consistent acknowledged state vrátane dependencies a identity semantics. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
@@ -11926,6 +12110,10 @@ Zvolený contingency model, napríklad backup/restore, pilot light, warm standby
 
 Versionovaná identita workload data, RPO/RTO, backup plan/assignment, recovery points, copy/vault/key lineage, recovery manifest, restore target a business validation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Recovery target — database
+
+Exact time, named point, LSN, transaction, binlog position, GTID alebo business event boundary, na ktorom má recovery replay skončiť. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
+
 ## Recovery Time Actual — RTA
 
 Skutočný čas od začiatku recovery procesu po obnovenie validovanej business capability, porovnávaný s cieľovým RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -11937,6 +12125,10 @@ Celkový prijateľný recovery interval pre exact capability pred prekročením 
 ## Recovery Time Objective — RTO
 
 Cieľový maximálny čas na obnovenie definovanej business capability po incidente vrátane detekcie, rozhodnutia, data recovery, startupu, validácie a traffic cutoveru. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery timeline — database
+
+Versionovaná log history vytvorená po recovery/promotion, ktorá odlišuje nový write branch od pôvodnej alebo predchádzajúcich recovery histories. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## Recovery traffic cutover
 
@@ -11981,6 +12173,10 @@ Evidence názvov fields, source provenance, epochs a hashes bez plaintext secret
 ## Redirect URI
 
 Pre-registered client endpoint, na ktorý authorization server vracia browser authorization response. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Redis data-structure role
+
+Použitie Redis keys a native data structures pre cache, counters, ranking, streams, coordination alebo low-latency state podľa explicitných TTL, persistence, replication a authority semantics. Pozri [PostgreSQL, MySQL a Redis](../docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md).
 
 ## ReDoS — Regular Expression Denial of Service
 
@@ -12654,6 +12850,10 @@ Time-bound principal, role a approval scope oprávnený vybrať recovery manifes
 
 Nový resource topology vytvorený z exact recovery pointu a restore metadata s vlastnou network, identity, encryption, schema a initialization state identity. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Restore generation — database
+
+Immutable subject konkrétneho restore pokusu: source manifest, target environment, engine/schema/application versions, recovered position/timeline a validation evidence. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
+
 ## Restore rehearsal
 
 Pravidelný test obnovy reálneho backup artifactu v izolovanom prostredí vrátane merania RTO a application consistency validation. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
@@ -13197,6 +13397,10 @@ Maximálny scope, rate, concurrency, dry-run, approvals, abort criteria, evidenc
 ## Safety state machine
 
 Riadený lifecycle fault experimentu od prechecks cez fault activation a removal až po recovery a cleanup, pričom každý stav má povolené transitions, timeouty a safety guardrails. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Saga alebo process manager
+
+Mechanizmus, ktorý sleduje multi-step business workflow naprieč services a riadi next action, timeout, retry, compensation a terminal verdict. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
 
 ## Same-node coexistence contract
 
@@ -13830,6 +14034,10 @@ Databázou vrátený abort, keď concurrent transaction nemožno bezpečne potvr
 
 Rýchle vytváranie a zánik time series, ktoré zaťažuje WAL, index, compaction a remote storage aj pri nižšom počte súčasne active series. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Server connection envelope
+
+Nameraný počet open a active database server connections, ktorý workload bezpečne unesie pri normal, burst, failover a recovery conditions po odpočítaní reserved capacity. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Server-side apply — Kubernetes
 
 Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -13845,6 +14053,10 @@ Versionovaná identita Lambda function, artifactu, published version/aliasu, sou
 ## Service alias ownership
 
 Contract určujúci, ktorá service vlastní konkrétny alias v danej Docker network a aké replica/load-distribution semantics caller očakáva. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Service boundary
+
+Remote runtime a ownership boundary s explicitným API/event contractom, independent deploymentom, local state/transaction a failure/recovery semantics. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
 
 ## Service capacity model
 
@@ -14014,9 +14226,17 @@ Cryptographic alebo policy väzba session/token contextu na konkrétny device, k
 
 Systems Manager capability poskytujúca IAM-authorized interactive shell alebo port-forwarding sessions bez potreby inbound SSH/RDP portu. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
+## Session pooling
+
+Pool mode, v ktorom server connection zostáva priradená clientovi až do client disconnectu a zachováva server-session affinity. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Session revocation closure
 
 Dôkaz, že browser sessions, access/refresh tokens, delegated grants a ďalšie artifacts odvodené z identity alebo authenticatora už verifier a resource services neprijímajú. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Session-state compatibility
+
+Verdict, či tenant context, temporary objects, prepared statements, advisory locks, role/search path a ďalší connection-local state fungujú s konkrétnym pooling mode-om. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
 ## Severity contract — incident
 
@@ -14662,6 +14882,10 @@ Firewall posudzujúci každý packet podľa explicitných pravidiel bez connecti
 
 Explicitné rules potrebné pre response direction vrátane client ephemeral destination ports, pretože NACL nepozná stav pôvodnej connection. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
+## Statement pooling
+
+Pool mode, v ktorom sa server connection uvoľní po jednom statemente a multi-statement transactions nie sú podporované. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Static analysis
 
 Analýza source alebo jeho reprezentácie bez vykonania celej aplikácie, napríklad linting, type checking alebo data-flow analysis. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
@@ -14773,6 +14997,10 @@ Versionovaný provisioning contract zahŕňajúci CSI provisioner, parameters, r
 ## `strace`
 
 Nástroj na sledovanie system calls, ich výsledkov a trvania. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Strangler extraction
+
+Incremental migration, pri ktorej bounded operation/cohort prechádza na nový service, outcomes sa porovnávajú a starý path sa po acceptance retire-nuje. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
 
 ## Strategy plugin — Ansible
 
@@ -15694,6 +15922,10 @@ Dôkaz, že exact business transition, read/write set, constraints, isolation, l
 
 Moment, po ktorom caller oprávnene považuje logical operation za committed alebo prijatú; musí byť mapovaný na local durability, replication a retry/unknown-outcome semantics. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
 
+## Transaction pooling
+
+Pool mode, v ktorom sa server connection uvoľní po transaction a ďalšia transaction rovnakého clienta môže použiť inú server session. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
 ## Transaction snapshot
 
 Visibility view určujúci, ktoré committed row versions transaction alebo statement vidí podľa MVCC a isolation levelu. Pozri [Transactions a ACID](../docs/15-databases-and-distributed-systems/transactions-and-acid.md).
@@ -16333,6 +16565,10 @@ L7 security control vyhodnocujúci HTTP requests podľa aplikačných pravidiel;
 ## `WaitForFirstConsumer`
 
 StorageClass binding mode odkladajúci provisioning alebo PV binding, kým scheduler pozná Pod placement constraints a vie koordinovať storage topology s vybraným Node-om. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## WAL continuity
+
+Dôkaz, že od required base-backup position po target nechýba žiadny PostgreSQL WAL segment ani timeline metadata potrebná na replay. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
 
 ## WAL — Prometheus
 
