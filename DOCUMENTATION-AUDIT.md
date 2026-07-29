@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10516**
-- Total words: **633,820**
-- Findings: **21597** (critical 6367, high 7089, medium 2793, low 5348)
+- Audited conceptual sections: **10522**
+- Total words: **633,604**
+- Findings: **21675** (critical 6399, high 7119, medium 2808, low 5349)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -67,6 +67,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 812 | 26 | 59 | 3 | 28 | 2268 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
 | D | 811 | 37 | 41 | 8 | 19 | 2477 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | D | 807 | 40 | 31 | 18 | 12 | 2145 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
+| D | 805 | 34 | 39 | 17 | 20 | 2230 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | D | 802 | 37 | 42 | 7 | 5 | 2208 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 795 | 35 | 38 | 13 | 25 | 2399 | `docs/09-kubernetes/daemonset.md` |
@@ -272,7 +273,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
-| D | 125 | 2 | 9 | 2 | 19 | 2446 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
@@ -13793,17 +13793,79 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/authentication-authorization-auditing.md`
 
-- **CRITICAL** line 186, `bare-bullet-items` — **17. Čo je security auditing**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event time a trusted time source,`, `actor/principal a prípadne delegated subject,`, `session alebo credential identifier bez secret value,`, `action a target resource,`.
-- **CRITICAL** line 291, `empty-section` — **25. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 22, `bare-bullet-items` — **2. Identity, account, subject, principal a credential**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identity je reprezentácia osoby, workloadu, zariadenia alebo organizác`, `Account je administratívny záznam identity v konkrétnom systéme.`, `Subject je entita, ktorá sa pokúša vykonať operáciu.`.
-- **HIGH** line 22, `list-heavy-section` — **2. Identity, account, subject, principal a credential**: 6 odrážok a iba 59 slov súvislého vysvetlenia.
-- **HIGH** line 186, `list-heavy-section` — **17. Čo je security auditing**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 297, `single-sentence-concept` — **Role sa kontroluje iba v UI**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `single-sentence-concept` — **Shared admin account**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 305, `single-sentence-concept` — **Signature tokenu je validná, audience sa nekontroluje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 309, `single-sentence-concept` — **Auditujú sa iba úspešné operácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **Audit zostáva iba na kompromitovateľnom workload-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 186, `term-before-explanation` — **17. Čo je security auditing**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `workload`, `policy`
+- **CRITICAL** line 63, `outline-instead-of-explanation` — **3. Identity, account, subject, principal, credential a authenticator**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 118, `bare-bullet-items` — **6. Human a workload authentication**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `passkeys/WebAuthn;`, `smart cards;`, `password plus MFA;`, `federation;`.
+- **CRITICAL** line 141, `bare-bullet-items` — **7. Credential a authenticator lifecycle**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active browser sessions;`, `access a refresh tokens;`, `API keys;`, `certificates;`.
+- **CRITICAL** line 141, `outline-instead-of-explanation` — **7. Credential a authenticator lifecycle**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 167, `bare-bullet-items` — **8. Authentication event, session a token**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overall a inactivity timeout;`, `secure session-secret storage;`, `logout a server-side invalidation;`, `CSRF a replay protection;`.
+- **CRITICAL** line 189, `bare-bullet-items` — **9. Step-up a freshness**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridelenie production role;`, `zmena provider credentialu;`, `vypnutie auditu;`, `break-glass activation;`.
+- **CRITICAL** line 189, `outline-instead-of-explanation` — **9. Step-up a freshness**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 212, `bare-bullet-items` — **10. Authorization decision**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role a group memberships;`, `tenant a resource ownership;`, `environment a Region;`, `session assurance a auth time ;`.
+- **CRITICAL** line 212, `outline-instead-of-explanation` — **10. Authorization decision**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 244, `outline-instead-of-explanation` — **11. Authorization models**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 254, `outline-instead-of-explanation` — **12. PAP, PIP, PDP a PEP**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 272, `bare-bullet-items` — **13. Federation a local authorization**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validovať assertion/token;`, `mapovať external identity na local principal;`, `normalizovať trusted attributes;`, `vykonať local authorization;`.
+- **CRITICAL** line 302, `bare-bullet-items` — **15. Auditing ako security evidence lifecycle**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event a observed time;`, `stable actor/principal identity;`, `delegated alebo impersonated subject;`, `session/credential identifier bez secretu;`.
+- **CRITICAL** line 302, `outline-instead-of-explanation` — **15. Auditing ako security evidence lifecycle**: 9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 330, `bare-bullet-items` — **16. Audit integrity, availability a separation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centralized append-oriented storage;`, `oddelený account, tenant alebo failure domain;`, `minimal delete permission;`, `immutable retention podľa threat modelu;`.
+- **CRITICAL** line 330, `outline-instead-of-explanation` — **16. Audit integrity, availability a separation**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 347, `empty-section` — **17. Worked incident: authentication bola správna, access nie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 349, `empty-section` — **Subject a request chain**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 368, `bare-bullet-items` — **Competing hypotheses**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `WebAuthn signature alebo verifier binding zlyhali;`, `IdP mapoval nesprávny account na subject 7421 ;`, `session bola ukradnutá po validnej authentication;`, `application/Kubernetes použili stale group claim;`.
+- **CRITICAL** line 368, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 368, `outline-instead-of-explanation` — **Competing hypotheses**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 398, `bare-bullet-items` — **Evidence-preserving containment**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `terminate SESSION-771 a associated refresh/session artifacts;`, `suspend account a invalidate authenticator podľa incident decisionu;`, `remove stale nested membership a binding path;`, `block ďalšie privileged requests pri PEP;`.
+- **CRITICAL** line 398, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 398, `outline-instead-of-explanation` — **Evidence-preserving containment**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `bare-bullet-items` — **Authoritative recovery**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť mover desired-state reconciliation;`, `revoke-nuť sessions pri privileged entitlement removal;`, `rozdeliť broad operator role na JIT mediated capabilities;`, `korelovať human actor → Pod create → ServiceAccount → Secret use;`.
+- **CRITICAL** line 409, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 409, `outline-instead-of-explanation` — **Authoritative recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 419, `outline-instead-of-explanation` — **Acceptance verdict**: 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 432, `empty-section` — **18. Failure models**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 434, `empty-section` — **Authentication failure**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 447, `empty-section` — **Authorization failure**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 460, `empty-section` — **Audit failure**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 472, `bare-bullet-items` — **19. Break-glass access**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený credential a storage;`, `minimálny počet eligible principals;`, `explicitný trigger a reason;`, `step-up alebo equivalent assurance;`.
+- **CRITICAL** line 472, `outline-instead-of-explanation` — **19. Break-glass access**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný access lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný access lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 63, `list-first-introduction` — **3. Identity, account, subject, principal, credential a authenticator**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 76, `bare-bullet-items` — **4. Identity proofing, enrollment a eligibility**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identity Assurance Level — identity proofing;`, `Authentication Assurance Level — control nad authenticatorom;`, `Federation Assurance Level — federovaný assertion flow.`.
+- **HIGH** line 118, `list-heavy-section` — **6. Human a workload authentication**: 11 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 141, `list-first-introduction` — **7. Credential a authenticator lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 141, `single-sentence-concept` — **7. Credential a authenticator lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 167, `list-heavy-section` — **8. Authentication event, session a token**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 212, `single-sentence-concept` — **10. Authorization decision**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 244, `list-first-introduction` — **11. Authorization models**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 254, `list-first-introduction` — **12. PAP, PIP, PDP a PEP**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 302, `list-first-introduction` — **15. Auditing ako security evidence lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 302, `single-sentence-concept` — **15. Auditing ako security evidence lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 364, `single-sentence-concept` — **Symptóm**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 368, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 398, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 409, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 419, `bare-bullet-items` — **Acceptance verdict**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alternate nested-group a direct-binding paths zlyhajú;`, `audit zachová original human actora aj delegated workload;`, `denied attempt aj successful approved task sú queryovateľné;`, `druhý mover reconciliation cycle neobnoví odstránený entitlement.`.
+- **HIGH** line 419, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 472, `single-sentence-concept` — **19. Break-glass access**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 490, `single-sentence-concept` — **Authenticated = authorized**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 494, `single-sentence-concept` — **Signature validná, audience sa nekontroluje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 498, `single-sentence-concept` — **Role kontrolovaná iba v UI**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 502, `single-sentence-concept` — **Group claim ako permanentná pravda**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 506, `single-sentence-concept` — **Shared admin account**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 510, `single-sentence-concept` — **Audit iba successful actions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 514, `single-sentence-concept` — **Audit iba na workload-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 118, `term-before-explanation` — **6. Human a workload authentication**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `OIDC`, `SPIFFE`, `identity`
+- **HIGH** line 141, `thin-concept-section` — **7. Credential a authenticator lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 212, `thin-concept-section` — **10. Authorization decision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 302, `term-before-explanation` — **15. Auditing ako security evidence lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `resource`, `workload`, `policy`
+- **HIGH** line 302, `thin-concept-section` — **15. Auditing ako security evidence lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 368, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 398, `term-before-explanation` — **Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SESSION-771`, `PEP`, `workload`, `identity`
+- **HIGH** line 398, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 409, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 419, `term-before-explanation` — **Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `JIT`, `step-up`, `workload`
+- **HIGH** line 419, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 472, `thin-concept-section` — **19. Break-glass access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/cia-triad.md`
 
@@ -14515,18 +14577,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2531 | 431 | 0 | 0 | 2962 |
-| `outline-instead-of-explanation` | 2462 | 0 | 0 | 0 | 2462 |
-| `term-before-explanation` | 0 | 534 | 1849 | 0 | 2383 |
-| `single-sentence-concept` | 0 | 2313 | 0 | 0 | 2313 |
-| `example-not-explicit` | 0 | 0 | 0 | 2182 | 2182 |
-| `thin-concept-section` | 0 | 2073 | 0 | 0 | 2073 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2024 | 2024 |
-| `list-first-introduction` | 0 | 1270 | 0 | 0 | 1270 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1142 | 1142 |
-| `short-concept-section` | 0 | 0 | 944 | 0 | 944 |
-| `no-prose-concept` | 729 | 0 | 0 | 0 | 729 |
-| `empty-section` | 645 | 0 | 0 | 0 | 645 |
+| `bare-bullet-items` | 2542 | 432 | 0 | 0 | 2974 |
+| `outline-instead-of-explanation` | 2475 | 0 | 0 | 0 | 2475 |
+| `term-before-explanation` | 0 | 537 | 1857 | 0 | 2394 |
+| `single-sentence-concept` | 0 | 2322 | 0 | 0 | 2322 |
+| `example-not-explicit` | 0 | 0 | 0 | 2179 | 2179 |
+| `thin-concept-section` | 0 | 2081 | 0 | 0 | 2081 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2030 | 2030 |
+| `list-first-introduction` | 0 | 1279 | 0 | 0 | 1279 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
+| `short-concept-section` | 0 | 0 | 951 | 0 | 951 |
+| `no-prose-concept` | 732 | 0 | 0 | 0 | 732 |
+| `empty-section` | 650 | 0 | 0 | 0 | 650 |
 | `list-heavy-section` | 0 | 468 | 0 | 0 | 468 |
 
 ## Required remediation pattern

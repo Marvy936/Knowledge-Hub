@@ -3349,15 +3349,15 @@
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
       "title": "Authentication, authorization a auditing",
-      "words": 2446,
-      "headings": 34,
-      "sections": 34,
-      "findings": 32,
-      "critical": 2,
-      "high": 9,
-      "medium": 2,
-      "low": 19,
-      "score": 125,
+      "words": 2230,
+      "headings": 40,
+      "sections": 40,
+      "findings": 110,
+      "critical": 34,
+      "high": 39,
+      "medium": 17,
+      "low": 20,
+      "score": 805,
       "grade": "D"
     },
     {
@@ -184043,98 +184043,44 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "2. Identity, account, subject, principal a credential",
-      "line": 22,
+      "section": "1. Dominantný access lifecycle",
+      "line": 7,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 59 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "2. Identity, account, subject, principal a credential",
-      "line": 22,
+      "section": "1. Dominantný access lifecycle",
+      "line": 7,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identity je reprezentácia osoby, workloadu, zariadenia alebo organizác`, `Account je administratívny záznam identity v konkrétnom systéme.`, `Subject je entita, ktorá sa pokúša vykonať operáciu.`.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "2. Identity, account, subject, principal a credential",
-      "line": 22,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "3. Identity, account, subject, principal, credential a authenticator",
+      "line": 63,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "2. Identity, account, subject, principal a credential",
-      "line": 22,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "3. Identity, account, subject, principal, credential a authenticator",
+      "line": 63,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "5. Human a workload authentication",
-      "line": 67,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "6. Credential lifecycle",
-      "line": 75,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "7. Authentication event, session a token nie sú to isté",
-      "line": 95,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "7. Authentication event, session a token nie sú to isté",
-      "line": 95,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "8. Step-up a reauthentication",
-      "line": 110,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "10. Authorization models a ich úloha",
-      "line": 137,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "11. Policy administration, decision, information a enforcement",
-      "line": 143,
+      "section": "3. Identity, account, subject, principal, credential a authenticator",
+      "line": 63,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -184142,17 +184088,8 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "11. Policy administration, decision, information a enforcement",
-      "line": 143,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "11. Policy administration, decision, information a enforcement",
-      "line": 143,
+      "section": "3. Identity, account, subject, principal, credential a authenticator",
+      "line": 63,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -184160,17 +184097,8 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "11. Policy administration, decision, information a enforcement",
-      "line": 143,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Enforcement`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "12. Enforcement musí byť pri skutočnej boundary",
-      "line": 154,
+      "section": "3. Identity, account, subject, principal, credential a authenticator",
+      "line": 63,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -184178,62 +184106,17 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "13. Default deny, explicit deny a combining semantics",
-      "line": 160,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "14. Federation presúva authentication, nie resource authorization",
-      "line": 166,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "15. Delegation, impersonation a confused deputy",
-      "line": 172,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "16. Break-glass access",
-      "line": 180,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "17. Čo je security auditing",
-      "line": 186,
+      "section": "4. Identity proofing, enrollment a eligibility",
+      "line": 76,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identity Assurance Level — identity proofing;`, `Authentication Assurance Level — control nad authenticatorom;`, `Federation Assurance Level — federovaný assertion flow.`.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "17. Čo je security auditing",
-      "line": 186,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event time a trusted time source,`, `actor/principal a prípadne delegated subject,`, `session alebo credential identifier bez secret value,`, `action a target resource,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "17. Čo je security auditing",
-      "line": 186,
+      "section": "5. Authentication ako dôkaz kontroly",
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -184241,17 +184124,134 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "17. Čo je security auditing",
-      "line": 186,
+      "section": "6. Human a workload authentication",
+      "line": 118,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "6. Human a workload authentication",
+      "line": 118,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `passkeys/WebAuthn;`, `smart cards;`, `password plus MFA;`, `federation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "6. Human a workload authentication",
+      "line": 118,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "6. Human a workload authentication",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "6. Human a workload authentication",
+      "line": 118,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `workload`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `OIDC`, `SPIFFE`, `identity`",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "18. Authentication, authorization a administrative events",
-      "line": 203,
+      "section": "7. Credential a authenticator lifecycle",
+      "line": 141,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "7. Credential a authenticator lifecycle",
+      "line": 141,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "7. Credential a authenticator lifecycle",
+      "line": 141,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "7. Credential a authenticator lifecycle",
+      "line": 141,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active browser sessions;`, `access a refresh tokens;`, `API keys;`, `certificates;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "7. Credential a authenticator lifecycle",
+      "line": 141,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "7. Credential a authenticator lifecycle",
+      "line": 141,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "8. Authentication event, session a token",
+      "line": 167,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "8. Authentication event, session a token",
+      "line": 167,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overall a inactivity timeout;`, `secure session-secret storage;`, `logout a server-side invalidation;`, `CSRF a replay protection;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "8. Authentication event, session a token",
+      "line": 167,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "8. Authentication event, session a token",
+      "line": 167,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -184259,8 +184259,125 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "18. Authentication, authorization a administrative events",
-      "line": 203,
+      "section": "8. Authentication event, session a token",
+      "line": 167,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `step-up`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "9. Step-up a freshness",
+      "line": 189,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "9. Step-up a freshness",
+      "line": 189,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridelenie production role;`, `zmena provider credentialu;`, `vypnutie auditu;`, `break-glass activation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "9. Step-up a freshness",
+      "line": 189,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "10. Authorization decision",
+      "line": 212,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "10. Authorization decision",
+      "line": 212,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "10. Authorization decision",
+      "line": 212,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role a group memberships;`, `tenant a resource ownership;`, `environment a Region;`, `session assurance a auth time ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "10. Authorization decision",
+      "line": 212,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "10. Authorization decision",
+      "line": 212,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "10. Authorization decision",
+      "line": 212,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `posture`, `delegation`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "11. Authorization models",
+      "line": 244,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "11. Authorization models",
+      "line": 244,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "11. Authorization models",
+      "line": 244,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "11. Authorization models",
+      "line": 244,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -184268,8 +184385,80 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "20. Accounting oproti auditing",
-      "line": 217,
+      "section": "11. Authorization models",
+      "line": 244,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `RBAC`, `ABAC`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "12. PAP, PIP, PDP a PEP",
+      "line": 254,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "12. PAP, PIP, PDP a PEP",
+      "line": 254,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "12. PAP, PIP, PDP a PEP",
+      "line": 254,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "12. PAP, PIP, PDP a PEP",
+      "line": 254,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "12. PAP, PIP, PDP a PEP",
+      "line": 254,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Policy`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "13. Federation a local authorization",
+      "line": 272,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validovať assertion/token;`, `mapovať external identity na local principal;`, `normalizovať trusted attributes;`, `vykonať local authorization;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "13. Federation a local authorization",
+      "line": 272,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "13. Federation a local authorization",
+      "line": 272,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -184277,8 +184466,134 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "25. Typické anti-patterny",
-      "line": 291,
+      "section": "13. Federation a local authorization",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "14. Delegation, impersonation a confused deputy",
+      "line": 286,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "15. Auditing ako security evidence lifecycle",
+      "line": 302,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "15. Auditing ako security evidence lifecycle",
+      "line": 302,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "15. Auditing ako security evidence lifecycle",
+      "line": 302,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "15. Auditing ako security evidence lifecycle",
+      "line": 302,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event a observed time;`, `stable actor/principal identity;`, `delegated alebo impersonated subject;`, `session/credential identifier bez secretu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "15. Auditing ako security evidence lifecycle",
+      "line": 302,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "15. Auditing ako security evidence lifecycle",
+      "line": 302,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `resource`, `workload`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "16. Audit integrity, availability a separation",
+      "line": 330,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "16. Audit integrity, availability a separation",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `centralized append-oriented storage;`, `oddelený account, tenant alebo failure domain;`, `minimal delete permission;`, `immutable retention podľa threat modelu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "16. Audit integrity, availability a separation",
+      "line": 330,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "16. Audit integrity, availability a separation",
+      "line": 330,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "16. Audit integrity, availability a separation",
+      "line": 330,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "16. Audit integrity, availability a separation",
+      "line": 330,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "17. Worked incident: authentication bola správna, access nie",
+      "line": 347,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -184286,8 +184601,404 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "Role sa kontroluje iba v UI",
-      "line": 297,
+      "section": "Subject a request chain",
+      "line": 349,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Symptóm",
+      "line": 364,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `WebAuthn signature alebo verifier binding zlyhali;`, `IdP mapoval nesprávny account na subject 7421 ;`, `session bola ukradnutá po validnej authentication;`, `application/Kubernetes použili stale group claim;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Competing hypotheses",
+      "line": 368,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `terminate SESSION-771 a associated refresh/session artifacts;`, `suspend account a invalidate authenticator podľa incident decisionu;`, `remove stale nested membership a binding path;`, `block ďalšie privileged requests pri PEP;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Evidence-preserving containment",
+      "line": 398,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SESSION-771`, `PEP`, `workload`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authoritative recovery",
+      "line": 409,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authoritative recovery",
+      "line": 409,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authoritative recovery",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authoritative recovery",
+      "line": 409,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť mover desired-state reconciliation;`, `revoke-nuť sessions pri privileged entitlement removal;`, `rozdeliť broad operator role na JIT mediated capabilities;`, `korelovať human actor → Pod create → ServiceAccount → Secret use;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authoritative recovery",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authoritative recovery",
+      "line": 409,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alternate nested-group a direct-binding paths zlyhajú;`, `audit zachová original human actora aj delegated workload;`, `denied attempt aj successful approved task sú queryovateľné;`, `druhý mover reconciliation cycle neobnoví odstránený entitlement.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Acceptance verdict",
+      "line": 419,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `JIT`, `step-up`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "18. Failure models",
+      "line": 432,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authentication failure",
+      "line": 434,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authorization failure",
+      "line": 447,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Audit failure",
+      "line": 460,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "19. Break-glass access",
+      "line": 472,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "19. Break-glass access",
+      "line": 472,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "19. Break-glass access",
+      "line": 472,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený credential a storage;`, `minimálny počet eligible principals;`, `explicitný trigger a reason;`, `step-up alebo equivalent assurance;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "19. Break-glass access",
+      "line": 472,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "19. Break-glass access",
+      "line": 472,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "19. Break-glass access",
+      "line": 472,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `step-up`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Authenticated = authorized",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Signature validná, audience sa nekontroluje",
+      "line": 494,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Role kontrolovaná iba v UI",
+      "line": 498,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
+      "section": "Group claim ako permanentná pravda",
+      "line": 502,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -184296,7 +185007,7 @@
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
       "section": "Shared admin account",
-      "line": 301,
+      "line": 506,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -184304,8 +185015,8 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "Signature tokenu je validná, audience sa nekontroluje",
-      "line": 305,
+      "section": "Audit iba successful actions",
+      "line": 510,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -184313,17 +185024,8 @@
     },
     {
       "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "Auditujú sa iba úspešné operácie",
-      "line": 309,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/authentication-authorization-auditing.md",
-      "section": "Audit zostáva iba na kompromitovateľnom workload-e",
-      "line": 313,
+      "section": "Audit iba na workload-e",
+      "line": 514,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
