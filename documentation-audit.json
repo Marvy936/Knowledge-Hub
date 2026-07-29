@@ -3639,6 +3639,20 @@
       "low": 13,
       "score": 651,
       "grade": "D"
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "title": "Toil",
+      "words": 1823,
+      "headings": 46,
+      "sections": 46,
+      "findings": 72,
+      "critical": 23,
+      "high": 30,
+      "medium": 8,
+      "low": 11,
+      "score": 557,
+      "grade": "D"
     }
   ],
   "findings": [
@@ -200476,6 +200490,654 @@
       "path": "docs/14-sre-and-operations/sli-slo-sla.md",
       "section": "SLO bez consequence",
       "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "1. Exact toil subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "1. Exact toil subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service a operational capability;`, `trigger alebo demand source;`, `actor a skill level;`, `exact workflow steps;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "1. Exact toil subject",
+      "line": 19,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "1. Exact toil subject",
+      "line": 19,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Automatizovateľná",
+      "line": 65,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Taktická a reaktívna",
+      "line": 69,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Bez enduring value",
+      "line": 73,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "3. Toil, engineering, overhead a grungy work",
+      "line": 83,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Toil",
+      "line": 85,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "4. On-call nie je celé toil",
+      "line": 111,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "4. On-call nie je celé toil",
+      "line": 111,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novel incident diagnosis;`, `opakované known-issue response;`, `urgent decision s neautomatizovateľným judgmentom;`, `routine execution runbooku;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "4. On-call nie je celé toil",
+      "line": 111,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "5. Toil demand model",
+      "line": 124,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "5. Toil demand model",
+      "line": 124,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unreliable service behavior;`, `chýbajúcej self-service capability;`, `unsafe alebo príliš častej release procedúry;`, `manuálnej access approval;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "5. Toil demand model",
+      "line": 124,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "5. Toil demand model",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "5. Toil demand model",
+      "line": 124,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "5. Toil demand model",
+      "line": 124,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "6. Meranie toil-u",
+      "line": 153,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 68 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "6. Meranie toil-u",
+      "line": 153,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet occurrences;`, `human touch time;`, `elapsed lead time;`, `počet interruptions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "6. Meranie toil-u",
+      "line": 153,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "7. Toil budget",
+      "line": 180,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "7. Toil budget",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sa meria;`, `za aké obdobie;`, `či zahŕňa on-call, tickets a releases;`, `team-level a individual distribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "7. Toil budget",
+      "line": 180,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "8. Prioritization",
+      "line": 203,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "8. Prioritization",
+      "line": 203,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "8. Prioritization",
+      "line": 203,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká frekvencia a jasný deterministic workflow;`, `vysoký privilege alebo destructive risk;`, `lineárny rast s trafficom;`, `častý after-hours interrupt;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "8. Prioritization",
+      "line": 203,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "8. Prioritization",
+      "line": 203,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `error budget`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "9. Elimination strategies",
+      "line": 227,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Redesign service contract",
+      "line": 233,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Full automation",
+      "line": 237,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Partial automation",
+      "line": 241,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Self-service",
+      "line": 245,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Standardization",
+      "line": 249,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Explicit acceptance",
+      "line": 257,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "10. Automation risk",
+      "line": 261,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "10. Automation risk",
+      "line": 261,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input authority a freshness;`, `preconditions;`, `idempotency;`, `maximum scope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "10. Automation risk",
+      "line": 261,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "10. Automation risk",
+      "line": 261,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "10. Automation risk",
+      "line": 261,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "11. Runbook ako automation candidate",
+      "line": 287,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "11. Runbook ako automation candidate",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ak to vyzerá zle ;`, `vyber staré rows ;`, `reštartuj podľa potreby ;`, `skontroluj, či je všetko OK .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "11. Runbook ako automation candidate",
+      "line": 287,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "11. Runbook ako automation candidate",
+      "line": 287,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "12. Connected failure SRE-PAY-52",
+      "line": 309,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "14. Human-in-the-loop boundary",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "14. Human-in-the-loop boundary",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schválenie replayu sent-unknown cohortu s finančným impactom;`, `výber business compensation pre poškodeného merchanta;`, `rozhodnutie o degraded mode počas provider incidentu;`, `incident command a external communication.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "14. Human-in-the-loop boundary",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "14. Human-in-the-loop boundary",
+      "line": 345,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root demand je pomenovaný;`, `nový mechanismus znižuje occurrences alebo human touch;`, `allowed operation zostáva dostupná;`, `automation má bounded scope, idempotency a audit;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "15. Toil reduction acceptance verdict",
+      "line": 356,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "16. Troubleshooting reduction failure",
+      "line": 373,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "16. Troubleshooting reduction failure",
+      "line": 373,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "17. Earlier controls",
+      "line": 391,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "17. Earlier controls",
+      "line": 391,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "17. Earlier controls",
+      "line": 391,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "17. Earlier controls",
+      "line": 391,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `toil taxonomy a workflow IDs;`, `periodic time sampling;`, `on-call interrupt classification;`, `runbook occurrence counters;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "17. Earlier controls",
+      "line": 391,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Všetko manuálne je toil",
+      "line": 408,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Automatizuj existujúce kroky bez redesignu",
+      "line": 412,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Počet tickets je jediná metric",
+      "line": 416,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "SRE tím absorbuje všetky operations",
+      "line": 420,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Toil hero",
+      "line": 424,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "50 % ako univerzálny zákon",
+      "line": 428,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/toil.md",
+      "section": "Automation bez ownera",
+      "line": 432,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
