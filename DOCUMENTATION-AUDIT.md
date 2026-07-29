@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10398**
-- Total words: **620,801**
-- Findings: **21446** (critical 6352, high 7177, medium 2718, low 5199)
+- Audited conceptual sections: **10387**
+- Total words: **619,184**
+- Findings: **21429** (critical 6351, high 7190, medium 2713, low 5175)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -143,6 +143,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 612 | 23 | 37 | 7 | 20 | 2630 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 610 | 27 | 32 | 4 | 16 | 1999 | `docs/12-observability/elasticsearch-opensearch.md` |
 | D | 609 | 27 | 29 | 10 | 15 | 2165 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
+| D | 605 | 22 | 30 | 19 | 26 | 2325 | `docs/13-security-and-identity/threat-modeling.md` |
 | D | 601 | 31 | 20 | 16 | 10 | 1549 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | D | 599 | 31 | 20 | 12 | 19 | 2239 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
 | D | 598 | 28 | 29 | 5 | 16 | 1823 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
@@ -157,7 +158,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 579 | 24 | 27 | 15 | 18 | 1864 | `docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md` |
 | D | 578 | 26 | 25 | 5 | 41 | 4386 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | D | 577 | 27 | 20 | 14 | 29 | 2686 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
-| D | 569 | 23 | 17 | 24 | 50 | 3942 | `docs/13-security-and-identity/threat-modeling.md` |
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -14484,46 +14484,58 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/threat-modeling.md`
 
-- **CRITICAL** line 57, `bare-bullet-items` — **4. Scope a jeho hranice**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový OIDC login a session lifecycle;`, `multi-tenant export endpoint;`, `Kubernetes image admission;`, `secrets delivery do workloads;`.
-- **CRITICAL** line 74, `bare-bullet-items` — **5. Assets a security impact**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera;`, `required security properties;`, `classification a business impact;`, `kde vzniká, tečie, ukladá sa a zaniká;`.
-- **CRITICAL** line 101, `bare-bullet-items` — **7. Attacker model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `initial access a network position;`, `credentials, roles alebo stolen tokens;`, `knowledge source code-u a architecture;`, `control nad clientom, device-om alebo dependency;`.
-- **CRITICAL** line 116, `bare-bullet-items` — **8. Assumptions**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `gateway je jediný ingress k backendu;`, `identity provider správne overuje phishing-resistant MFA;`, `build runner je ephemeral a izolovaný;`, `KMS private key nie je exportovateľný;`.
-- **CRITICAL** line 132, `bare-bullet-items` — **9. Dependencies**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a trust bootstrap;`, `data a privileges, ktoré jej odovzdávaš;`, `availability a latency dependency;`, `compromise impact;`.
-- **CRITICAL** line 156, `bare-bullet-items` — **11. Trust boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `browser ↔ web gateway;`, `gateway ↔ backend;`, `Pod ↔ node kernel;`, `tenant A ↔ shared database;`.
-- **CRITICAL** line 200, `outline-instead-of-explanation` — **14. Úroveň detailu modelu**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 211, `bare-bullet-items` — **15. Data inventory v modeli**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data class a tenant ownership;`, `source, destination a derived copies;`, `identity/delegation context;`, `integrity a ordering requirements;`.
-- **CRITICAL** line 211, `outline-instead-of-explanation` — **15. Data inventory v modeli**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 226, `bare-bullet-items` — **16. State a lifecycle**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `draft payment sa mení na approved a executed;`, `secret sa vydá, renew-ne, revoke-ne a rotate-ne;`, `artifact postúpi z build-u do production;`, `account recovery vydá nový authenticator.`.
-- **CRITICAL** line 226, `outline-instead-of-explanation` — **16. State a lifecycle**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 271, `outline-instead-of-explanation` — **19. STRIDE ako elicitation mnemonic**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 284, `bare-bullet-items` — **20. Spoofing podrobne**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `phishing-resistant MFA a session binding pre human identity;`, `issuer, audience, nonce a signature validation pre tokens;`, `mTLS alebo signed requests pre services;`, `trusted-proxy configuration pre identity headers;`.
-- **CRITICAL** line 383, `outline-instead-of-explanation` — **30. Risk treatment**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 429, `bare-bullet-items` — **33. Negative tests a abuse-case verification**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-tenant object access;`, `expired alebo wrong-audience token;`, `direct backend bypass gateway;`, `replay signed callbacku;`.
-- **CRITICAL** line 454, `bare-bullet-items` — **35. Operational evidence a detection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `decision logs a audit identity;`, `security-relevant metrics;`, `detection rule alebo alert;`, `correlation IDs;`.
-- **CRITICAL** line 454, `outline-instead-of-explanation` — **35. Operational evidence a detection**: 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 478, `bare-bullet-items` — **37. Multi-tenant systems**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object-level authorization bypass;`, `cache key bez tenant dimension;`, `shared queue message bez tenant bindingu;`, `background job s broad database credentialom;`.
-- **CRITICAL** line 511, `bare-bullet-items` — **40. Workshop execution**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrdiť objectives a scope;`, `walkthrough architecture a critical journeys;`, `označiť assets a boundaries;`, `formulovať threats cez abuse cases a STRIDE;`.
-- **CRITICAL** line 536, `bare-bullet-items` — **42. Trigger na aktualizáciu**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novej trust boundary alebo external dependency;`, `zmene identity, authorization alebo recovery flow;`, `novom data type alebo tenant model-e;`, `deployment architecture change;`.
-- **CRITICAL** line 536, `outline-instead-of-explanation` — **42. Trigger na aktualizáciu**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 584, `bare-bullet-items` — **45. Troubleshooting threat modelu**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objectives nie sú príliš všeobecné;`, `diagram obsahuje identities a data, nie iba boxes;`, `attacker má capabilities, nie iba label;`, `boundaries zodpovedajú real topology;`.
-- **CRITICAL** line 584, `outline-instead-of-explanation` — **45. Troubleshooting threat modelu**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **HIGH** line 36, `list-heavy-section` — **3. Security objectives**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 74, `list-heavy-section` — **5. Assets a security impact**: 6 odrážok a iba 65 slov súvislého vysvetlenia.
-- **HIGH** line 101, `list-heavy-section` — **7. Attacker model**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 116, `list-heavy-section` — **8. Assumptions**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 132, `list-heavy-section` — **9. Dependencies**: 7 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 156, `list-heavy-section` — **11. Trust boundary**: 8 odrážok a iba 49 slov súvislého vysvetlenia.
-- **HIGH** line 284, `list-heavy-section` — **20. Spoofing podrobne**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 429, `list-heavy-section` — **33. Negative tests a abuse-case verification**: 8 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 478, `list-heavy-section` — **37. Multi-tenant systems**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 511, `list-heavy-section` — **40. Workshop execution**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 536, `single-sentence-concept` — **42. Trigger na aktualizáciu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 584, `single-sentence-concept` — **45. Troubleshooting threat modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 200, `thin-concept-section` — **14. Úroveň detailu modelu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 271, `thin-concept-section` — **19. STRIDE ako elicitation mnemonic**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 383, `thin-concept-section` — **30. Risk treatment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 536, `thin-concept-section` — **42. Trigger na aktualizáciu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 584, `thin-concept-section` — **45. Troubleshooting threat modelu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 18, `bare-bullet-items` — **1. Threat-model subject**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service alebo critical flow;`, `source a architecture revision;`, `environment a tenant model;`, `entry a exit points;`.
+- **CRITICAL** line 18, `outline-instead-of-explanation` — **1. Threat-model subject**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 60, `bare-bullet-items` — **4. Assets nie sú iba data**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision a review history;`, `build definition a reusable workflows;`, `builder image a runner isolation;`, `dependency a cache graph;`.
+- **CRITICAL** line 78, `bare-bullet-items` — **5. Actors, principals a attacker capabilities**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous internet actor;`, `authenticated tenant;`, `external contributor kontrolujúci PR branch a metadata;`, `compromised maintainer account;`.
+- **CRITICAL** line 95, `bare-bullet-items` — **6. Data, commands a state transitions**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data alebo command type;`, `origin a authoritative ownera;`, `protocol a serialization;`, `identity alebo delegation context;`.
+- **CRITICAL** line 95, `outline-instead-of-explanation` — **6. Data, commands a state transitions**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 123, `bare-bullet-items` — **7. Trust boundaries**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contributor-controlled metadata → trusted workflow interpreter;`, `repository → CI control plane;`, `tenant build step → runner host;`, `untrusted build process → provenance/signing service;`.
+- **CRITICAL** line 149, `bare-bullet-items` — **8. Assumptions a dependencies**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner je ephemeral a po každom jobe zničený;`, `release job nespúšťa untrusted metadata ako command source;`, `provenance signing material je mimo tenant build processu;`, `SBOM analyzuje final artifact, nie iba source lockfile;`.
+- **CRITICAL** line 210, `outline-instead-of-explanation` — **11. STRIDE ako elicitation, nie výsledok**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `outline-instead-of-explanation` — **Prečo model zlyhal**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 315, `bare-bullet-items` — **16. Evidence-preserving model update**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contributor metadata flow;`, `builder image a toolchain inventory;`, `runner persistence a cache boundaries;`, `provenance issuer a signing-key boundary;`.
+- **CRITICAL** line 315, `outline-instead-of-explanation` — **16. Evidence-preserving model update**: 9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 331, `bare-bullet-items` — **17. Residual risk**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malicious source schválený dvoma compromised reviewers;`, `zero-day v build toolchain-e bez dostupnej detection;`, `malicious dependency, ktorá je immutable a správne zaznamenaná;`, `insider s oprávneným emergency bypassom.`.
+- **CRITICAL** line 331, `outline-instead-of-explanation` — **17. Residual risk**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 343, `bare-bullet-items` — **18. Operational evidence**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision, approvals a branch-policy generation;`, `runner ID, image digest a ephemeral lifecycle;`, `resolved dependency, action a cache identities;`, `process graph a network egress release jobu;`.
+- **CRITICAL** line 343, `outline-instead-of-explanation` — **18. Operational evidence**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 360, `outline-instead-of-explanation` — **19. Fail-open a degraded behavior**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 380, `bare-bullet-items` — **21. Update triggers a model-as-code**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novej trust alebo administrative boundary;`, `zmene runnera, buildera, cache alebo CI platformy;`, `novom supplierovi, dependency registry alebo build action;`, `zmene signing, provenance, SBOM alebo admission flowu;`.
+- **CRITICAL** line 380, `outline-instead-of-explanation` — **21. Update triggers a model-as-code**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 394, `outline-instead-of-explanation` — **22. Acceptance verdict**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `no-prose-concept` — **23. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 409, `outline-instead-of-explanation` — **23. Earlier controls**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 60, `list-heavy-section` — **4. Assets nie sú iba data**: 9 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 78, `list-heavy-section` — **5. Actors, principals a attacker capabilities**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 95, `single-sentence-concept` — **6. Data, commands a state transitions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 123, `list-heavy-section` — **7. Trust boundaries**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 149, `list-heavy-section` — **8. Assumptions a dependencies**: 6 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 223, `list-first-introduction` — **12. Attack tree pre production artifact compromise**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 261, `single-sentence-concept` — **14. Requirement a negative test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 303, `bare-bullet-items` — **Prečo model zlyhal**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `runner lifecycle nebol viazaný na inventory evidence;`, `PR metadata neboli modelované ako attacker-controlled input;`, `SBOM stage nebola pomenovaná;`, `deployment control overoval existence evidence, nie semantics;`.
+- **HIGH** line 303, `list-first-introduction` — **Prečo model zlyhal**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 343, `single-sentence-concept` — **18. Operational evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 360, `bare-bullet-items` — **19. Fail-open a degraded behavior**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nové production deployments fail-closed;`, `existing verified workloads pokračujú;`, `po obnovení sa všetky deferred decisions re-evaluujú.`.
+- **HIGH** line 394, `bare-bullet-items` — **22. Acceptance verdict**: 6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `model generation zodpovedá current architecture a inventory;`, `critical assumptions majú runtime evidence;`, `mitigations uvádzajú enforcement mechanism;`, `requirements majú allowed aj forbidden tests;`.
+- **HIGH** line 394, `single-sentence-concept` — **22. Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 409, `bare-bullet-items` — **23. Earlier controls**: 6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `architecture inventory pre runner, builder a evidence authorities;`, `assumptions registry s owners a canaries;`, `abuse-case fixtures pre untrusted metadata;`, `requirements-as-code pre provenance/SBOM/admission claims;`.
+- **HIGH** line 409, `list-first-introduction` — **23. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 423, `single-sentence-concept` — **Diagram bez threat statements**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 427, `single-sentence-concept` — **STRIDE checklist bez flow contextu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 431, `single-sentence-concept` — **Assumption bez evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 435, `single-sentence-concept` — **Mitigation ako slogan**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 439, `single-sentence-concept` — **Existence evidence ako control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 443, `single-sentence-concept` — **Accepted risk bez ownera**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 95, `thin-concept-section` — **6. Data, commands a state transitions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 210, `term-before-explanation` — **11. STRIDE ako elicitation, nie výsledok**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `workload`, `identity`, `policy`
+- **HIGH** line 210, `thin-concept-section` — **11. STRIDE ako elicitation, nie výsledok**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 303, `thin-concept-section` — **Prečo model zlyhal**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 331, `thin-concept-section` — **17. Residual risk**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 343, `thin-concept-section` — **18. Operational evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 380, `thin-concept-section` — **21. Update triggers a model-as-code**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 394, `thin-concept-section` — **22. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 409, `thin-concept-section` — **23. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/vulnerability-and-patch-management.md`
 
@@ -14588,19 +14600,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2450 | 446 | 0 | 0 | 2896 |
-| `outline-instead-of-explanation` | 2447 | 0 | 0 | 0 | 2447 |
-| `term-before-explanation` | 0 | 550 | 1811 | 0 | 2361 |
-| `single-sentence-concept` | 0 | 2331 | 0 | 0 | 2331 |
-| `example-not-explicit` | 0 | 0 | 0 | 2081 | 2081 |
-| `thin-concept-section` | 0 | 2067 | 0 | 0 | 2067 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2022 | 2022 |
-| `list-first-introduction` | 0 | 1339 | 0 | 0 | 1339 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1096 | 1096 |
-| `short-concept-section` | 0 | 0 | 907 | 0 | 907 |
-| `no-prose-concept` | 777 | 0 | 0 | 0 | 777 |
+| `bare-bullet-items` | 2445 | 450 | 0 | 0 | 2895 |
+| `outline-instead-of-explanation` | 2450 | 0 | 0 | 0 | 2450 |
+| `term-before-explanation` | 0 | 551 | 1811 | 0 | 2362 |
+| `single-sentence-concept` | 0 | 2339 | 0 | 0 | 2339 |
+| `example-not-explicit` | 0 | 0 | 0 | 2070 | 2070 |
+| `thin-concept-section` | 0 | 2070 | 0 | 0 | 2070 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2014 | 2014 |
+| `list-first-introduction` | 0 | 1342 | 0 | 0 | 1342 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1091 | 1091 |
+| `short-concept-section` | 0 | 0 | 902 | 0 | 902 |
+| `no-prose-concept` | 778 | 0 | 0 | 0 | 778 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
-| `list-heavy-section` | 0 | 444 | 0 | 0 | 444 |
+| `list-heavy-section` | 0 | 438 | 0 | 0 | 438 |
 
 ## Required remediation pattern
 

@@ -3559,15 +3559,15 @@
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
       "title": "Threat modeling",
-      "words": 3942,
-      "headings": 49,
-      "sections": 49,
-      "findings": 114,
-      "critical": 23,
-      "high": 17,
-      "medium": 24,
-      "low": 50,
-      "score": 569,
+      "words": 2325,
+      "headings": 38,
+      "sections": 38,
+      "findings": 97,
+      "critical": 22,
+      "high": 30,
+      "medium": 19,
+      "low": 26,
+      "score": 605,
       "grade": "D"
     },
     {
@@ -194519,359 +194519,8 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "3. Security objectives",
-      "line": 36,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "3. Security objectives",
-      "line": 36,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "3. Security objectives",
-      "line": 36,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "3. Security objectives",
-      "line": 36,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "3. Security objectives",
-      "line": 36,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "4. Scope a jeho hranice",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový OIDC login a session lifecycle;`, `multi-tenant export endpoint;`, `Kubernetes image admission;`, `secrets delivery do workloads;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "4. Scope a jeho hranice",
-      "line": 57,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "4. Scope a jeho hranice",
-      "line": 57,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "5. Assets a security impact",
-      "line": 74,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 65 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "5. Assets a security impact",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera;`, `required security properties;`, `classification a business impact;`, `kde vzniká, tečie, ukladá sa a zaniká;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "5. Assets a security impact",
-      "line": 74,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "5. Assets a security impact",
-      "line": 74,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "6. Actors a principals",
-      "line": 91,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "7. Attacker model",
-      "line": 101,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "7. Attacker model",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `initial access a network position;`, `credentials, roles alebo stolen tokens;`, `knowledge source code-u a architecture;`, `control nad clientom, device-om alebo dependency;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "7. Attacker model",
-      "line": 101,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "7. Attacker model",
-      "line": 101,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "7. Attacker model",
-      "line": 101,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "7. Attacker model",
-      "line": 101,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "8. Assumptions",
-      "line": 116,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "8. Assumptions",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `gateway je jediný ingress k backendu;`, `identity provider správne overuje phishing-resistant MFA;`, `build runner je ephemeral a izolovaný;`, `KMS private key nie je exportovateľný;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "8. Assumptions",
-      "line": 116,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "8. Assumptions",
-      "line": 116,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `KMS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "9. Dependencies",
-      "line": 132,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "9. Dependencies",
-      "line": 132,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a trust bootstrap;`, `data a privileges, ktoré jej odovzdávaš;`, `availability a latency dependency;`, `compromise impact;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "9. Dependencies",
-      "line": 132,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "9. Dependencies",
-      "line": 132,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "9. Dependencies",
-      "line": 132,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "9. Dependencies",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "10. Entry points a exit points",
-      "line": 148,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "11. Trust boundary",
-      "line": 156,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "11. Trust boundary",
-      "line": 156,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `browser ↔ web gateway;`, `gateway ↔ backend;`, `Pod ↔ node kernel;`, `tenant A ↔ shared database;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "11. Trust boundary",
-      "line": 156,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `KMS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "12. Administrative a identity boundaries",
-      "line": 173,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "14. Úroveň detailu modelu",
-      "line": 200,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "14. Úroveň detailu modelu",
-      "line": 200,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "14. Úroveň detailu modelu",
-      "line": 200,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "14. Úroveň detailu modelu",
-      "line": 200,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "14. Úroveň detailu modelu",
-      "line": 200,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "15. Data inventory v modeli",
-      "line": 211,
+      "section": "1. Threat-model subject",
+      "line": 18,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
@@ -194879,17 +194528,17 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "15. Data inventory v modeli",
-      "line": 211,
+      "section": "1. Threat-model subject",
+      "line": 18,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data class a tenant ownership;`, `source, destination a derived copies;`, `identity/delegation context;`, `integrity a ordering requirements;`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service alebo critical flow;`, `source a architecture revision;`, `environment a tenant model;`, `entry a exit points;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "15. Data inventory v modeli",
-      "line": 211,
+      "section": "1. Threat-model subject",
+      "line": 18,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -194897,44 +194546,8 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "15. Data inventory v modeli",
-      "line": 211,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "16. State a lifecycle",
-      "line": 226,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "16. State a lifecycle",
-      "line": 226,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `draft payment sa mení na approved a executed;`, `secret sa vydá, renew-ne, revoke-ne a rotate-ne;`, `artifact postúpi z build-u do production;`, `account recovery vydá nový authenticator.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "16. State a lifecycle",
-      "line": 226,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "16. State a lifecycle",
-      "line": 226,
+      "section": "1. Threat-model subject",
+      "line": 18,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -194942,17 +194555,26 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "17. Threat statement",
-      "line": 240,
+      "section": "1. Threat-model subject",
+      "line": 18,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "18. Abuse a misuse cases",
-      "line": 258,
+      "section": "2. Security objectives",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "3. Scope a critical journeys",
+      "line": 49,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -194960,35 +194582,17 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "18. Abuse a misuse cases",
-      "line": 258,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`",
-      "score": 4
+      "section": "3. Scope a critical journeys",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "19. STRIDE ako elicitation mnemonic",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "19. STRIDE ako elicitation mnemonic",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "19. STRIDE ako elicitation mnemonic",
-      "line": 271,
+      "section": "3. Scope a critical journeys",
+      "line": 49,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -194996,8 +194600,8 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "19. STRIDE ako elicitation mnemonic",
-      "line": 271,
+      "section": "3. Scope a critical journeys",
+      "line": 49,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -195005,44 +194609,71 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "20. Spoofing podrobne",
-      "line": 284,
+      "section": "4. Assets nie sú iba data",
+      "line": 60,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "detail": "9 odrážok a iba 41 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "20. Spoofing podrobne",
-      "line": 284,
+      "section": "4. Assets nie sú iba data",
+      "line": 60,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `phishing-resistant MFA a session binding pre human identity;`, `issuer, audience, nonce a signature validation pre tokens;`, `mTLS alebo signed requests pre services;`, `trusted-proxy configuration pre identity headers;`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision a review history;`, `build definition a reusable workflows;`, `builder image a runner isolation;`, `dependency a cache graph;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "20. Spoofing podrobne",
-      "line": 284,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "20. Spoofing podrobne",
-      "line": 284,
+      "section": "4. Assets nie sú iba data",
+      "line": 60,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "22. Repudiation a accountability",
-      "line": 307,
+      "section": "4. Assets nie sú iba data",
+      "line": 60,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "4. Assets nie sú iba data",
+      "line": 60,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "5. Actors, principals a attacker capabilities",
+      "line": 78,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "5. Actors, principals a attacker capabilities",
+      "line": 78,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous internet actor;`, `authenticated tenant;`, `external contributor kontrolujúci PR branch a metadata;`, `compromised maintainer account;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "5. Actors, principals a attacker capabilities",
+      "line": 78,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -195050,8 +194681,8 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "22. Repudiation a accountability",
-      "line": 307,
+      "section": "5. Actors, principals a attacker capabilities",
+      "line": 78,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -195059,7 +194690,313 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "23. Information disclosure",
+      "section": "5. Actors, principals a attacker capabilities",
+      "line": 78,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "5. Actors, principals a attacker capabilities",
+      "line": 78,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "6. Data, commands a state transitions",
+      "line": 95,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "6. Data, commands a state transitions",
+      "line": 95,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "6. Data, commands a state transitions",
+      "line": 95,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data alebo command type;`, `origin a authoritative ownera;`, `protocol a serialization;`, `identity alebo delegation context;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "6. Data, commands a state transitions",
+      "line": 95,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "6. Data, commands a state transitions",
+      "line": 95,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "6. Data, commands a state transitions",
+      "line": 95,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `delegation`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "7. Trust boundaries",
+      "line": 123,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "7. Trust boundaries",
+      "line": 123,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contributor-controlled metadata → trusted workflow interpreter;`, `repository → CI control plane;`, `tenant build step → runner host;`, `untrusted build process → provenance/signing service;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "7. Trust boundaries",
+      "line": 123,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "7. Trust boundaries",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "7. Trust boundaries",
+      "line": 123,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `control plane`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "8. Assumptions a dependencies",
+      "line": 149,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "8. Assumptions a dependencies",
+      "line": 149,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner je ephemeral a po každom jobe zničený;`, `release job nespúšťa untrusted metadata ako command source;`, `provenance signing material je mimo tenant build processu;`, `SBOM analyzuje final artifact, nie iba source lockfile;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "8. Assumptions a dependencies",
+      "line": 149,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "11. STRIDE ako elicitation, nie výsledok",
+      "line": 210,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "11. STRIDE ako elicitation, nie výsledok",
+      "line": 210,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "11. STRIDE ako elicitation, nie výsledok",
+      "line": 210,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "11. STRIDE ako elicitation, nie výsledok",
+      "line": 210,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "11. STRIDE ako elicitation, nie výsledok",
+      "line": 210,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `workload`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "12. Attack tree pre production artifact compromise",
+      "line": 223,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "13. Controls ako mechanisms",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "14. Requirement a negative test",
+      "line": 261,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "15. Worked incident SEC-PAY-50",
+      "line": 291,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Prečo model zlyhal",
+      "line": 303,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Prečo model zlyhal",
+      "line": 303,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Prečo model zlyhal",
+      "line": 303,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `runner lifecycle nebol viazaný na inventory evidence;`, `PR metadata neboli modelované ako attacker-controlled input;`, `SBOM stage nebola pomenovaná;`, `deployment control overoval existence evidence, nie semantics;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Prečo model zlyhal",
+      "line": 303,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Prečo model zlyhal",
+      "line": 303,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Prečo model zlyhal",
+      "line": 303,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DFD`, `PR`, `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "16. Evidence-preserving model update",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "16. Evidence-preserving model update",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contributor metadata flow;`, `builder image a toolchain inventory;`, `runner persistence a cache boundaries;`, `provenance issuer a signing-key boundary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "16. Evidence-preserving model update",
+      "line": 315,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "16. Evidence-preserving model update",
       "line": 315,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -195068,7 +195005,7 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "23. Information disclosure",
+      "section": "16. Evidence-preserving model update",
       "line": 315,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -195077,16 +195014,43 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "24. Denial of Service",
-      "line": 323,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "16. Evidence-preserving model update",
+      "line": 315,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "25. Elevation of Privilege",
+      "section": "17. Residual risk",
+      "line": 331,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "17. Residual risk",
+      "line": 331,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malicious source schválený dvoma compromised reviewers;`, `zero-day v build toolchain-e bez dostupnej detection;`, `malicious dependency, ktorá je immutable a správne zaznamenaná;`, `insider s oprávneným emergency bypassom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "17. Residual risk",
+      "line": 331,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "17. Residual risk",
       "line": 331,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -195095,323 +195059,17 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "26. Attack trees",
-      "line": 339,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "27. CAPEC, ATT&CK a ďalšie knowledge bases",
-      "line": 357,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "28. Privacy threat modeling a LINDDUN",
-      "line": 365,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "29. Likelihood a impact",
-      "line": 373,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "29. Likelihood a impact",
-      "line": 373,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "30. Risk treatment",
-      "line": 383,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "30. Risk treatment",
-      "line": 383,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "30. Risk treatment",
-      "line": 383,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "30. Risk treatment",
-      "line": 383,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "32. Security requirement",
-      "line": 411,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "33. Negative tests a abuse-case verification",
-      "line": 429,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "33. Negative tests a abuse-case verification",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-tenant object access;`, `expired alebo wrong-audience token;`, `direct backend bypass gateway;`, `replay signed callbacku;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "33. Negative tests a abuse-case verification",
-      "line": 429,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "33. Negative tests a abuse-case verification",
-      "line": 429,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "33. Negative tests a abuse-case verification",
-      "line": 429,
+      "section": "17. Residual risk",
+      "line": 331,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `posture`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `control plane`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "34. Residual risk",
-      "line": 446,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "35. Operational evidence a detection",
-      "line": 454,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "35. Operational evidence a detection",
-      "line": 454,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `decision logs a audit identity;`, `security-relevant metrics;`, `detection rule alebo alert;`, `correlation IDs;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "35. Operational evidence a detection",
-      "line": 454,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "37. Multi-tenant systems",
-      "line": 478,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "37. Multi-tenant systems",
-      "line": 478,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object-level authorization bypass;`, `cache key bez tenant dimension;`, `shared queue message bez tenant bindingu;`, `background job s broad database credentialom;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "37. Multi-tenant systems",
-      "line": 478,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "37. Multi-tenant systems",
-      "line": 478,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "37. Multi-tenant systems",
-      "line": 478,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "38. Cloud, Kubernetes a CI/CD models",
-      "line": 493,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "38. Cloud, Kubernetes a CI/CD models",
-      "line": 493,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "39. AI-assisted systems",
-      "line": 503,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "39. AI-assisted systems",
-      "line": 503,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "40. Workshop execution",
-      "line": 511,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "40. Workshop execution",
-      "line": 511,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrdiť objectives a scope;`, `walkthrough architecture a critical journeys;`, `označiť assets a boundaries;`, `formulovať threats cez abuse cases a STRIDE;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "40. Workshop execution",
-      "line": 511,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "40. Workshop execution",
-      "line": 511,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "40. Workshop execution",
-      "line": 511,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "40. Workshop execution",
-      "line": 511,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `STRIDE`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "41. Model-as-code a automation",
-      "line": 528,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "42. Trigger na aktualizáciu",
-      "line": 536,
+      "section": "18. Operational evidence",
+      "line": 343,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -195419,26 +195077,26 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "42. Trigger na aktualizáciu",
-      "line": 536,
+      "section": "18. Operational evidence",
+      "line": 343,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "42. Trigger na aktualizáciu",
-      "line": 536,
+      "section": "18. Operational evidence",
+      "line": 343,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novej trust boundary alebo external dependency;`, `zmene identity, authorization alebo recovery flow;`, `novom data type alebo tenant model-e;`, `deployment architecture change;`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision, approvals a branch-policy generation;`, `runner ID, image digest a ephemeral lifecycle;`, `resolved dependency, action a cache identities;`, `process graph a network egress release jobu;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "42. Trigger na aktualizáciu",
-      "line": 536,
+      "section": "18. Operational evidence",
+      "line": 343,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -195446,8 +195104,8 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "42. Trigger na aktualizáciu",
-      "line": 536,
+      "section": "18. Operational evidence",
+      "line": 343,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -195455,35 +195113,89 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "42. Trigger na aktualizáciu",
-      "line": 536,
+      "section": "18. Operational evidence",
+      "line": 343,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SBOM`, `policy`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "43. Threat-model debt",
-      "line": 551,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "19. Fail-open a degraded behavior",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "44. Kompletný príklad",
-      "line": 559,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "19. Fail-open a degraded behavior",
+      "line": 360,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nové production deployments fail-closed;`, `existing verified workloads pokračujú;`, `po obnovení sa všetky deferred decisions re-evaluujú.`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "45. Troubleshooting threat modelu",
-      "line": 584,
+      "section": "19. Fail-open a degraded behavior",
+      "line": 360,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "21. Update triggers a model-as-code",
+      "line": 380,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "21. Update triggers a model-as-code",
+      "line": 380,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novej trust alebo administrative boundary;`, `zmene runnera, buildera, cache alebo CI platformy;`, `novom supplierovi, dependency registry alebo build action;`, `zmene signing, provenance, SBOM alebo admission flowu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "21. Update triggers a model-as-code",
+      "line": 380,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "21. Update triggers a model-as-code",
+      "line": 380,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "21. Update triggers a model-as-code",
+      "line": 380,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "22. Acceptance verdict",
+      "line": 394,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -195491,26 +195203,26 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "45. Troubleshooting threat modelu",
-      "line": 584,
+      "section": "22. Acceptance verdict",
+      "line": 394,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "45. Troubleshooting threat modelu",
-      "line": 584,
-      "severity": "critical",
+      "section": "22. Acceptance verdict",
+      "line": 394,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objectives nie sú príliš všeobecné;`, `diagram obsahuje identities a data, nie iba boxes;`, `attacker má capabilities, nie iba label;`, `boundaries zodpovedajú real topology;`.",
-      "score": 12
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `model generation zodpovedá current architecture a inventory;`, `critical assumptions majú runtime evidence;`, `mitigations uvádzajú enforcement mechanism;`, `requirements majú allowed aj forbidden tests;`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "45. Troubleshooting threat modelu",
-      "line": 584,
+      "section": "22. Acceptance verdict",
+      "line": 394,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -195518,17 +195230,17 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "45. Troubleshooting threat modelu",
-      "line": 584,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`",
-      "score": 4
+      "section": "22. Acceptance verdict",
+      "line": 394,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "46. Časté anti-patterny",
-      "line": 600,
+      "section": "22. Acceptance verdict",
+      "line": 394,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -195536,12 +195248,147 @@
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
-      "section": "46. Časté anti-patterny",
-      "line": 600,
+      "section": "22. Acceptance verdict",
+      "line": 394,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "22. Acceptance verdict",
+      "line": 394,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `architecture inventory pre runner, builder a evidence authorities;`, `assumptions registry s owners a canaries;`, `abuse-case fixtures pre untrusted metadata;`, `requirements-as-code pre provenance/SBOM/admission claims;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "23. Earlier controls",
+      "line": 409,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Diagram bez threat statements",
+      "line": 423,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "STRIDE checklist bez flow contextu",
+      "line": 427,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Assumption bez evidence",
+      "line": 431,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Mitigation ako slogan",
+      "line": 435,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Existence evidence ako control",
+      "line": 439,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/threat-modeling.md",
+      "section": "Accepted risk bez ownera",
+      "line": 443,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
