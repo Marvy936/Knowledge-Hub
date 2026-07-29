@@ -326,6 +326,10 @@ Synthetic log event, ktorého recent, historical a retention-expiry query behavi
 
 OpenTelemetry Collector nasadený blízko workloadu alebo Node-u na lokálny príjem, enrichment, batching, buffering a forwarding telemetry. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
+## Agent-side policy
+
+Validation a authorization vykonaná deployment agentom nad final rendered state-om a exact destination contextom pred target mutation. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
 ## Agentless automation — Ansible
 
 Model, v ktorom Ansible typicky nepotrebuje dlhodobo bežiaceho agenta na managed node a používa existujúci transport alebo API; stále však vyžaduje connection, identity a runtime capabilities. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -461,6 +465,10 @@ YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komp
 ## Allocation-rule generation
 
 Versionovaná sada tag, account, Cost Category a shared-cost rules použitá na mapovanie billing line items k owners/products. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Allow-empty — Argo CD
+
+Automated-sync option povoľujúca desired resource set bez objects; pri prune môže byť destructive a vyžaduje explicitný safety contract. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## Allowed bad events
 
@@ -746,6 +754,10 @@ Snapshot vytvorený po koordinovanom flush, quiesce alebo engine-native checkpoi
 
 EBS snapshot alebo coordinated multi-volume snapshots viazané na application checkpoint/LSN po quiesce/flush procedure, nie iba crash-consistent block capture. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
+## Application controller — Argo CD
+
+Kubernetes controller, ktorý porovnáva Application desired/live state, vyhodnocuje sync a health a vykonáva sync, hooks, prune alebo self-heal podľa policy. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Application data generation — Kubernetes storage
 
 Application-level identita mounted dát, napríklad tenant, schema, checkpoint, replication epoch a backup lineage; nie je odvodená iba z PVC alebo PV phase. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -762,6 +774,10 @@ Concurrent application execution viacerých actorov, hoci underlying consensus c
 
 Version aplikácie deklarovaná chart metadata fieldom `appVersion`; je informačná a nie je automaticky chart version, image tag ani release revision. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
+## ApplicationSet authority
+
+Generator/template vrstva, ktorá je authoritative nad generated Argo CD Applications a môže prepísať direct edit child Application objectu. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Applied index
 
 Najvyšší committed log position už vykonaný lokálnou state machine; môže krátko zaostávať za commit indexom. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
@@ -769,6 +785,10 @@ Najvyšší committed log position už vykonaný lokálnou state machine; môže
 ## Apply test — Terraform
 
 Terraform test run, ktorý vykoná apply proti reálnemu alebo testovaciemu provider environmentu, vyhodnotí assertions a následne sa pokúsi vytvorenú infraštruktúru odstrániť. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## AppProject boundary
+
+Argo CD policy boundary obmedzujúca trusted source repositories, destination clusters/namespaces, resource kinds a project roles pre skupinu Applications. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## Approval — CI/CD
 
@@ -805,6 +825,18 @@ Exact capabilities, invariant/data ownership, source/build/deployment/process bo
 ## Archive read-back
 
 Independent overenie, že archived backup/log object existuje, je čitateľný, má správny checksum/identity a možno ho retrieve-nuť cez reálny restore path. Pozri [Backups a point-in-time recovery](../docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md).
+
+## Argo CD acceptance verdict
+
+Dôkaz, že Application/AppProject, all resolved sources, scoped credentials, sync/prune/self-heal, tracking, diff, hooks, health a second-sync tests vytvárajú correct GitOps deployment bez hidden override alebo wrong destination. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
+## Argo CD Application subject
+
+Exact Application UID/generation, AppProject, source revisions, render inputs, destination, sync/diff/tracking policy, credentials, controller generation, health a business acceptance scope. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
+## Argo health verdict
+
+Resource-specific Argo CD classification Healthy, Progressing, Degraded, Suspended, Missing alebo Unknown, ktorá nenahrádza business acceptance. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## ARP — Address Resolution Protocol
 
@@ -1074,6 +1106,10 @@ Systém považovaný za zdroj pravdy pre existenciu, status, ownera alebo attrib
 
 Mapovanie current exam task statements na authoritative Knowledge Hub kapitoly a ich lifecycle/failure models namiesto vytvárania paralelných skrátených service definícií. Pozri [AWS Certified CloudOps Engineer – Associate](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
 
+## Authoritative ref
+
+Branch, tag, commit alebo release coordinate, ktorého transition predstavuje schválený desired-state alebo promotion decision pre konkrétny environment. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
 ## Authoritative remediation — Docker
 
 Recovery vykonaná cez versionovaný source, configuration, policy, nový immutable artifact alebo explicitnú state generation namiesto ponechania ručnej mutation v bežiacom containeri. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
@@ -1169,6 +1205,10 @@ Automatizované vyhodnotenie canary verzie voči baseline podľa technických a 
 ## Automated promotion
 
 Policy-driven rozhodnutie posunúť artifact alebo rollout do ďalšej fázy bez rutinného manuálneho approvalu na základe complete evidence, risku a environment health. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Automated sync — Argo CD
+
+Policy, pri ktorej Argo CD po zistení OutOfSync desired change-u automaticky vykoná sync bez direct deployment actionu CI pipeline. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## Automatic instrumentation
 
@@ -1713,6 +1753,10 @@ Oddelený, časovo obmedzený a auditovaný policy path pre emergency access pri
 ## Break-glass secret
 
 Silno chránený emergency credential dostupný cez auditovaný a obmedzený recovery postup, po ktorého použití nasleduje kontrola a typicky rotation. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Break-glass writer
+
+Short-lived incident identity alebo mutation path s bounded scope-om, auditom, expiry, povinným desired-state reconciliation a následným revocation. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md) a [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
 
 ## Breaker scope
 
@@ -3654,6 +3698,10 @@ Model, v ktorom vyšší controller vytvára desired state pre nižší resource
 
 Verdikt, že latest desired generation bola spracovaná, owned Kubernetes aj external state zodpovedá contractu, status je generation-current, subsequent reconcile je no-op a pôvodný workload outcome bol overený. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Controller desired state
+
+Desired state, ktorý controller skutočne resolve-ol po aplikovaní refs, dependencies, parameters, overlays, plugins a internal normalization. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
 ## Controller ownership boundary
 
 Rozhranie určujúce, ktoré resource types, object UIDs, fields, dependents a external resources môže konkrétny controller autoritatívne pozorovať, meniť, reportovať a čistiť. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
@@ -4610,6 +4658,14 @@ Exact ECS task-definition/service deployment alebo Kubernetes API object/control
 
 Intent deklarovaný v Kubernetes object `spec` alebo odvodený vyšším controllerom, ku ktorému control loops približujú aktuálny stav. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Desired-state rollback
+
+Nová schválená desired-state transition na compatible predchádzajúcu alebo opravenú generation, ktorú pull agent reconcile-ne do targetu. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
+## Desired-state subject
+
+Exact repository, path, ref/commit, render inputs, target environment, object/field ownership, controller policy a acceptance scope deklaratívne riadeného system state-u. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
 ## Destination-tuple concentration
 
 Sústredenie veľkého počtu concurrent alebo short-lived connections na rovnaký destination IP, port a protocol, ktoré môže vytvoriť NAT source-port pressure aj pri nízkom bandwidth-e. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
@@ -5186,6 +5242,10 @@ Opakovaný alebo nerelevantný plan diff spôsobený napríklad provider normali
 
 Riadené rozhodnutie drift revertovať, adoptovať do configuration, zmeniť ownership alebo odstrániť Terraform management s následným overením state a remote výsledku. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
+## Drift taxonomy
+
+Classification desired/live rozdielov na unauthorized, controller-owned, defaulted, admission-mutated, dependency, orphan, missing alebo runtime drift. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Drill score closure
 
 Vyhodnotenie root-cause accuracy, minimal repair, validation, evidence safety a času ako oddelených výsledkov.
@@ -5490,6 +5550,10 @@ Route table, ktorú subnet skutočne používa po explicitnej asociácii alebo i
 
 Kernel-enforced state vzniknutý z image defaults, deployment overrides, daemon/orchestrator defaults a node policy vrátane credentials, capabilities, seccomp, LSM, mounts, devices, network a cgroups. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
+## Effective runtime state — GitOps
+
+Skutočná workload generation, loaded configuration, endpoints a external behavior vzniknuté z live objects a downstream controllers. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Effective security control
 
 Control, ktorého schválená generation je načítaná a presadzovaná na každej relevantnej boundary a ktorého allowed, forbidden a recovery outcomes boli testované. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
@@ -5789,6 +5853,10 @@ Pravidlá určujúce výslednú environment hodnotu pri kombinácii CLI override
 ## Environment promotion
 
 Riadený posun rovnakého artifactu do ďalšieho prostredia na základe dôkazov, policy a compatibility podmienok. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
+
+## Environment repository
+
+Repository alebo jeho authority boundary obsahujúca environment-specific desired state, napríklad image digests, routes, replicas, policy references a platform bindings. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
 
 ## Environment-scoped variable — GitLab
 
@@ -6414,6 +6482,10 @@ Výsledok, pri ktorom test hlási chybu, hoci testované správanie je správne.
 
 Finding označujúci asset ako vulnerable, hoci affected code, configuration alebo exploitable condition v danom runtime neexistuje. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
+## False-Synced state
+
+Status, pri ktorom diff pipeline pre broad ignore, normalization, tracking alebo hidden desired inputs neukáže behavior-critical rozdiel medzi intended a live state-om. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Fan-in — pipeline
 
 Bod pipeline grafu, v ktorom downstream job čaká na výsledky viacerých upstream jobs alebo shards a overuje ich úplnosť. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
@@ -6505,6 +6577,10 @@ Jedna typed column alebo series v Grafana data frame s values, labels a display 
 ## Field manager — Kubernetes
 
 Identita declarative alebo programmatic writera zaznamenaná v `managedFields`, ktorá vlastní konkrétne object fields pri server-side apply. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Field ownership — GitOps
+
+Explicitný contract priraďujúci každý riadený field jednému authoritative writerovi alebo presne definovanému coordination modelu. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md) a [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
 
 ## Field ownership subject — Kubernetes
 
@@ -6881,6 +6957,10 @@ Server-managed číslo reprezentujúce verziu relevantného desired state-u obje
 ## Generation lag
 
 Rozdiel medzi aktuálnym `metadata.generation` a generáciou reportovanou controllerom ako spracovanou, signalizujúci zaostávajúcu reconciliation. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Git desired state
+
+State priamo deklarovaný v authoritative version control source pred controller resolution, overrides a runtime mutation. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
 
 ## Git index
 
@@ -7890,6 +7970,10 @@ Korelácia human alebo upstream principalu, jeho session a authorization s vytvo
 
 Lifecycle rule, ktorá pri update plánovaní ignoruje zmeny vybraných atribútov. Musí mať explicitný external owner a monitoring, pretože potláča Terraform remediation, nie existenciu driftu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Ignore rule — GitOps
+
+Versionovaná exception z diff oracle-u viazaná na exact resource/field/writera, dôvod, ownera, expiry a negative test. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Image-config contract test
 
 Assertion nad final image configom a runtime overrides overujúca entrypoint, command, user, environment, healthcheck, signal, ports a writable paths pre exact digest. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
@@ -7957,6 +8041,10 @@ Exact testovaný Helm artifact a environment contract vrátane chart/dependency/
 ## Immutable ConfigMap alebo Secret
 
 ConfigMap alebo Secret s `immutable: true`, ktorý nemožno in-place meniť a vyžaduje nový versioned object a consumer rollout. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Immutable desired generation
+
+Reprodukovateľná combination commitov, artifact digestov, chart/plugin/tool versions, parameters a policy inputs, ktorá jednoznačne opisuje intended system state. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
 
 ## Immutable infrastructure
 
@@ -9850,6 +9938,10 @@ Synthetic trace, metric a log overený cez agent, gateway, processing policies, 
 
 Disaster-recovery stratégia, v ktorej viac geografických lokalít aktívne obsluhuje production traffic a potrebuje cross-site routing, capacity a data consistency model. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Multi-source Application
+
+Argo CD Application kombinujúca viac repository/chart/value sources do jedného rendered desired resource set-u a vyžadujúca evidence všetkých resolved revisions a precedence rules. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Multi-stage build
 
 Dockerfile build s viacerými `FROM` stages, ktorý oddeľuje compilation, test, artifact a runtime filesystemy a umožňuje kopírovať do final image-u iba explicitné artifacts. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
@@ -10426,6 +10518,10 @@ Rozhodnutie, ktorá client, edge, service, queue, dependency alebo business boun
 
 Status hodnota signalizujúca, ktorú verziu object desired state-u controller alebo agent už spracoval. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Observed state — GitOps
+
+Live target API state načítaný controllerom v konkrétnom observation čase a generation context-e. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Observed state — Kubernetes
 
 Stav, ktorý controller alebo agent aktuálne vidí cez API cache, runtime alebo external systém a používa ho pri reconciliation. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -10865,6 +10961,10 @@ StatefulSet policy umožňujúca vytváranie alebo odstraňovanie Podov bez čak
 ## Parallel trust path
 
 Alternatívna cesta k resource-u, ktorá používa slabšiu identity, policy, session alebo enforcement boundary než intended primary Zero Trust path. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Parameter override — GitOps
+
+Desired-state input uložený mimo primary Git source values, ktorý môže mať precedence nad Git deklaráciou a vytvoriť hidden secondary authority. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md) a [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## Parameter Store
 
@@ -11970,6 +12070,10 @@ Dôkaz, že registry promotion alebo replication zachovala exact artifact digest
 
 Kompletný deployment tuple hodnotený pred promotion, typicky release manifest, rendered configuration, infrastructure revision, target environment a relevantný shared-state snapshot. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
+## Promotion transition — GitOps
+
+Explicitná zmena authoritative environment reference alebo manifestu, ktorá po required evidence a approval-e povoľuje controlleru nasadiť novú generation. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
 ## PromQL
 
 Prometheus Query Language na selection, aggregation a výpočty nad time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -12094,6 +12198,10 @@ Bezprostredný technický state transition, ktorým trigger vytvoril nežiaduci 
 
 Sprostredkovateľ ukončujúci jednu komunikáciu a vytvárajúci samostatnú komunikáciu k ďalšiemu endpointu. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
 
+## Prune eligibility — GitOps
+
+Dôkaz, že live resource je tracked, desired inventory je validný a jeho deletion vrátane dependents je bezpečná a intended. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## PSA admission verdict
 
 `enforce`, `audit` alebo `warn` výsledok pre exact Pod request, namespace policy level a pinned Pod Security Standards version. Pozri [SecurityContext a Pod Security](../docs/09-kubernetes/securitycontext-pod-security.md).
@@ -12142,6 +12250,14 @@ Versionovaný stav host publications, endpoint mappings, firewall/upstream polic
 
 RabbitMQ publisher-side acknowledgement, že broker prevzal zodpovednosť za publication podľa queue/stream durability contractu; je oddelený od consumer acknowledgement-u. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
+## Pull-based acceptance verdict
+
+Dôkaz, že scoped target agent automaticky pozoruje authoritative source, CI neobchádza mutation boundary, outage/break-glass/rollback paths sú bounded a second-pull obnoví convergenciu. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
+## Pull-based deployment subject
+
+Exact approved source, target environment, deployment agent, credentials, render, sync, health, rollback a continuous-observation scope jedného pull-based rollout-u. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
 ## Pull-through cache — registry
 
 Registry cache, ktorý pri prvom pull-e načíta content z upstream a následne ho poskytuje lokálne podľa freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
@@ -12149,6 +12265,10 @@ Registry cache, ktorý pri prvom pull-e načíta content z upstream a následne 
 ## `--push` — Buildx
 
 Build exporter skratka publikujúca image alebo multi-platform index priamo do registry. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Push/pull hybrid
+
+Deployment model, v ktorom GitOps agent, CI pipeline alebo humans súčasne menia rovnaký target state, čím vzniká multi-writer race a nejednoznačný rollback. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
 
 ## Pushgateway
 
@@ -12502,9 +12622,17 @@ PV lifecycle pravidlo `Delete` alebo `Retain` určujúce, čo sa má stať s PV 
 
 Rozdiel medzi estimated savings recommendation a skutočne implemented, stable a normalized measured financial outcome. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Reconcile hot loop
+
+Opakovaná apply–mutation–diff slučka bez convergencie, ktorá spotrebúva source, controller, API a admission capacity. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Reconciliation
 
 Proces porovnania a opravy rozdielov medzi dvoma reprezentáciami alebo stores, napríklad počas dual write migration. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
+## Reconciliation acceptance verdict
+
+Dôkaz, že schema-aware diff, tracking/field ownership, narrow ignore rules, self-heal/prune safety, health/business oracles a second-observation tests spoľahlivo detegujú a opravujú required drift. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
 
 ## Reconciliation hot loop
 
@@ -12518,9 +12646,17 @@ Stabilná identity resource-u, typicky `namespace/name`, vložená do controller
 
 Opakovaný proces observe, compare, act a report, ktorý približuje actual state Kubernetes alebo external systému k desired state-u. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Reconciliation loop — GitOps
+
+Opakovaný chain source resolution, desired renderu, live observation, normalization, diffu, classified decisionu, bounded mutation a convergence verification. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## Reconciliation subject
 
 Rekonštruovateľná identita jedného control-loop rozhodnutia zahŕňajúca controller/version/leader, cluster, object UID/generation/resourceVersion, queue attempt, dependents, external bindings, credentials a reconcile ID. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Reconciliation subject — GitOps
+
+Exact source/render generation, target resource inventory, tracking identity, field ownership, diff/ignore policy, sync/prune/self-heal behavior a acceptance scope jedného control loopu. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
 
 ## Reconnect storm
 
@@ -12998,6 +13134,10 @@ Lokálny ref pod `refs/remotes/` reprezentujúci stav remote branch pri posledno
 
 Asynchrónny pipeline odosielajúci ingested samples cez queues, batching a retries do kompatibilného remote-storage receivera. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Render boundary — GitOps
+
+Transition z versionovaných source inputs cez Helm, Kustomize alebo plugin generation na final manifest inventory porovnávaný a aplikovaný controllerom. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
 ## Render generation — Helm
 
 Konkrétny výpočet chartu, dependency graphu, effective values, release contextu, capabilities, Helm engine-u a voliteľných dynamic inputs na rendered manifest. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
@@ -13122,6 +13262,10 @@ Exact authoritative data set, primary/replica/timeline generations, replication 
 
 Machine-readable job artifact v podporovanej schéme, ktorý GitLab interpretuje pre test, coverage, code-quality, dotenv, SBOM alebo security výsledky. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
 
+## Repository server — Argo CD
+
+Argo CD component, ktorý získava source revisions a generuje Kubernetes manifests z repository URL, revision, path/chart, values, parameters a plugin settings. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Representation isolation
 
 Požiadavka, aby viewer requests s rozdielnou tenant/user/language alebo inou content-changing identity nemohli zdieľať nesprávnu cached response. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
@@ -13222,6 +13366,10 @@ Konečný pipeline YAML model po spracovaní includes, components, defaults, inh
 
 Exact dependency chart version a digest zvolený resolverom z declaration constraintu a source repository state-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
 
+## Resolved desired state
+
+Final desired manifests alebo object graph po resolve-nutí source refs, dependencies, values, parameters, overlays a generators controllerom. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md) a [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Resolved-input generation
 
 Exact set dependency artifacts, base images, CI actions, workflows, toolchains a configuration values, ktoré resolver a build platform použili pre konkrétny release. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
@@ -13241,6 +13389,10 @@ Výsledná pipeline definícia po spracovaní includes, templates, inheritance, 
 ## Resolved placement evidence
 
 Evidence spájajúca admitted Pod contract, scheduler profile generation, feasible-Node set, score vector a final Pod-to-Node binding. Pozri [Scheduling](../docs/09-kubernetes/scheduling.md).
+
+## Resolved revision — Argo CD
+
+Exact commit SHA, chart version alebo iný immutable coordinate, na ktorý Argo CD resolve-ovalo configured branch, tag, range alebo symbolic target revision. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## Resolved route configuration
 
@@ -13318,6 +13470,10 @@ Podiel a kvalita access paths ku critical resources, ktoré skutočne prechádza
 
 Pipeline mechanizmus serializujúci jobs, ktoré mutujú rovnaký environment alebo shared resource, aby sa zabránilo súbežným konfliktujúcim operáciám. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
+## Resource hook — Argo CD
+
+Kubernetes manifest označený hook annotation, ktorý Argo CD vykoná v definovanej sync phase a ktorého side effect, cleanup a retry musia byť idempotentné a recoverable. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Resource inventory — USE
 
 Systematický zoznam bounded hardware, software a cloud resources, pre ktoré sa hľadajú utilization, saturation a error signals. Pozri [USE method](docs/12-observability/use-method.md).
@@ -13377,6 +13533,10 @@ API alebo služba validujúca access token a presadzujúca resource-level author
 ## Resource-specific token
 
 OAuth access token vydaný pre jeden explicitný Resource Server alebo úzku audience namiesto broad tokenu akceptovaného množstvom unrelated APIs. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Resource tracking method — Argo CD
+
+Mechanizmus, ktorým Argo CD identifikuje resources patriace Application, napríklad annotation, annotation+label alebo label. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
 
 ## Resource-versus-scope identity
 
@@ -14598,6 +14758,10 @@ Service bez `spec.selector`, ktorého backend EndpointSlices spravuje operator a
 
 Hodnotenie lab úloh cez explicitné validation commands, partial-credit criteria, čas a bezpečnosť namiesto subjektívneho dojmu. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
 
+## Self-heal — GitOps
+
+Automated reconciliation live driftu späť na desired state bez potreby novej source revision, ak diff a policy označia field ako Git-owned a mutation ako safe. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
 ## SELinux options — Kubernetes
 
 SecurityContext fields nastavujúce SELinux label identity container procesu a volumes podľa host policy, runtime a storage podpory. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
@@ -14629,6 +14793,10 @@ Version a stability selection OpenTelemetry semantic conventions spolu s emitted
 ## Semantic conventions — telemetry
 
 Štandardizované názvy a významy operations, resources a attributes umožňujúce interoperabilitu instrumentation a backendov. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Semantic diff — GitOps
+
+Porovnanie desired a live resources po schema-aware normalization, field ownership a úzkych exceptions tak, aby verdict odrážal behavior-relevant delta. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
 
 ## Semantic evidence policy
 
@@ -15274,6 +15442,18 @@ EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo dest
 
 Exact path, inode, rotation state, producer/container identity a time window source log file-u čítaného Tail inputom. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Source observation — GitOps
+
+Polling, webhook-assisted refresh alebo iný mechanismus, ktorým agent zisťuje current authoritative desired-state generation. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
+## Source-of-truth acceptance verdict
+
+Dôkaz, že exact immutable desired generation, promotion authority, resolved inputs, writer/field ownership, rollback a second-change tests vytvárajú reprodukovateľný system intent bez hidden overrides. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
+## Source-of-truth boundary
+
+Hranica určujúca, ktoré properties systému musí meniť iba authoritative versionovaný desired-state process a ktoré zostávajú runtime, observed alebo external state-om. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
+
 ## Source provenance
 
 Attestation opisujúca, ako konkrétna source revision vznikla, kto a aký process ju vytvoril a ktoré source-control controls boli presadené. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
@@ -15898,6 +16078,14 @@ Prevod user alebo business symptómu na konkrétne cluster, release, object, pro
 
 Pattern, v ktorom caller publikuje asynchronous command, ale blokuje na reply a preto zostáva synchronous z pohľadu deadline-u a availability. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
+## Sync phase — Argo CD
+
+Coarse deployment stage, napríklad PreSync, Sync alebo PostSync, určujúci lifecycle ordering hooks a resources počas sync operation. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
+## Sync wave — Argo CD
+
+Numerické ordering resources v rámci sync phase, ktoré umožňuje postupné apply podľa dependencies a health gates. Pozri [Argo CD](../docs/16-gitops-and-platform-engineering/argo-cd.md).
+
 ## Synchronous communication
 
 Interaction, pri ktorej caller čaká na response v jednom request lifetime-e a preto zdedí availability, latency, timeout a unknown-outcome semantics celého dependency pathu. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
@@ -15998,6 +16186,10 @@ Key/value/effect značka na Node-e, ktorá odpudzuje Pody bez matching toleratio
 
 Rozhodnutie, či incoming Pod toleruje všetky relevantné Node taints pre daný effect; toleration sama Node nevyberá. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## Target credential boundary
+
+Trust boundary určujúca, ktorá identity drží permission meniť production target a či CI/developer môže obísť pull agent. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
 ## Target credential generation
 
 Credential value a principal state, ktoré target database, provider alebo service aktuálne akceptuje; nemusí sa zhodovať so secret version označenou `AWSCURRENT`. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -16045,6 +16237,10 @@ Prometheus relabeling fáza pred scrape-nutím, ktorá filtruje targets a mapuje
 ## Target release generation — Helm
 
 Navrhovaná release revision so všetkými target chart/dependency/values/manifest, image, hook a durable-state generations, ktoré majú po transitione tvoriť accepted state. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## Target-side agent
+
+Software agent pri target trust boundary, ktorý vlastnou scoped identity pulluje desired declarations a vykonáva compare/reconciliation proti target API. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
 
 ## target tracking — Auto Scaling
 
@@ -17314,6 +17510,10 @@ Invocation v už existujúcom Lambda execution environment, ktorý môže reuse-
 
 Špecializovaná AWS edge zóna integrovaná do telekomunikačnej 5G siete pre veľmi nízkolatenčné workloady a obmedzený service katalóg. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## Webhook hint — GitOps
+
+Event urýchľujúci source refresh, ktorý nenahrádza periodické observation a continuous reconciliation pri lost evente alebo source mutation bez eventu. Pozri [Pull-based deployment](../docs/16-gitops-and-platform-engineering/pull-based-deployment.md).
+
 ## WebSocket
 
 Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade alebo ekvivalentnom transportnom mechanizme. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
@@ -17513,6 +17713,10 @@ Mechanizmus, ktorý preukázateľne zabráni old alebo stale primary-u prijíma�
 ## Writer-generation identity
 
 Exact current RDS writer resource, AZ, endpoint mapping, engine/schema/parameter generation a failover timeline, ktoré určujú write authority. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Writer inventory — GitOps
+
+Zoznam human, CI, GitOps, autoscaling, operator, admission a secret-management identities, ktoré môžu meniť konkrétne objects alebo fields. Pozri [Git ako source of truth](../docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md).
 
 ## Writes-follow-reads
 
