@@ -1,673 +1,510 @@
 # Kerberos
 
-Kerberos V5 je ticket-based network authentication protocol. Umožňuje clientovi a network service-u vzájomne overiť identity bez toho, aby user alebo service posielali svoj long-term password či key každej protistrane. Centrálna Key Distribution Center — KDC — infraštruktúra vydáva časovo obmedzené tickets a session keys.
+Kerberos V5 je ticket-based network authentication protocol. KDC vydáva časovo obmedzené tickets a session keys, aby client nemusel posielať svoj long-term password alebo service key každej protistrane. Platný ticket však dokazuje iba Kerberos authentication context. Nezaručuje aktuálnu account eligibility, správnu group generation, application authorization ani revocation downstream sessions.
 
-Kerberos rieši authentication a distribúciu session keys. Neurčuje celý directory model, business authorization ani transportnú ochranu každej application. Po úspešnom Kerberos exchange musí service stále rozhodnúť, ktoré actions a resources smie authenticated principal používať.
-
-```text
-principal + long-term credential
-→ Authentication Service exchange
-→ Ticket-Granting Ticket
-→ Ticket-Granting Service exchange
-→ service ticket
-→ Application exchange
-→ client a service sa autentizujú
-→ application vykoná vlastnú authorization
-```
-
-## 1. Prečo Kerberos existuje
-
-V jednoduchom password modeli by user zadával credential každej službe alebo by každá služba potrebovala overovať password voči centrálnej database. Tým by sa password dostával do mnohých application boundaries a každá compromised service by ho mohla ukradnúť.
-
-Kerberos tento problém rieši nepriamo. User najprv preukáže control nad long-term credentialom KDC. KDC vydá Ticket-Granting Ticket — TGT. Client následne používa TGT na získanie service-specific tickets bez opätovného zadávania passwordu.
-
-Service nikdy nepotrebuje user password. Dostane ticket encrypted keyom, ktorý pozná iba service a KDC, a authenticator vytvorený clientom pomocou session keyu.
-
-## 2. Realm
-
-Realm je Kerberos administrative a naming boundary. Typický realm vyzerá ako uppercase DNS domain:
+## 1. Dominantný lifecycle
 
 ```text
-EXAMPLE.COM
+principal, realm a long-term credential
+→ KDC discovery a pre-authentication
+→ AS exchange a TGT
+→ TGS exchange pre exact service principal
+→ service ticket, KVNO, enctype a flags
+→ AP exchange, authenticator a replay verdict
+→ GSS/application security context
+→ PAC/group/local-principal mapping
+→ resource/business authorization
+→ ticket, session a delegated-credential lifecycle
+→ revocation, rotation a second-ticket validation
 ```
 
-Realm obsahuje principals, KDC database, long-term keys, ticket policy a trust relationships k ďalším realms. Názov sa často podobá DNS domainu, ale nejde o rovnaký objekt. DNS pomáha discovery a service naming-u; realm určuje Kerberos identity namespace a trust boundary.
-
-Production a test realms majú byť oddelené. Ticket vydaný test KDC nemá byť trusted production service-om iba preto, že hostname alebo username vyzerá rovnako.
-
-## 3. Principal
-
-Principal je Kerberos identity usera, hosta alebo service-u. Zapisuje sa typicky ako components a realm:
+Oddeľuj:
 
 ```text
-alice@EXAMPLE.COM
-host/server01.example.com@EXAMPLE.COM
-HTTP/app.example.com@EXAMPLE.COM
+TGT bol vydaný
+≠ service ticket bol vydaný
+≠ service ticket bolo možné decryptovať
+≠ AP exchange a mutual authentication uspeli
+≠ current directory eligibility je správna
+≠ application operation je povolená
 ```
 
-`alice` je user principal. `host/server01.example.com` a `HTTP/app.example.com` sú service principals. Service principal určuje, pre ktorú logical service a hostname KDC vydáva ticket.
+## 2. Exact Kerberos subject
 
-Principal name nie je iba display label. Je súčasť cryptographic a authorization bindingu. Client žiada ticket pre presný service principal; service musí mať corresponding long-term key.
-
-## 4. Service Principal Name
-
-Service Principal Name — SPN — identifikuje service instance, napríklad HTTP service na konkrétnom hostname. V Active Directory je SPN attribute priradený accountu, pod ktorým service používa Kerberos key.
+Pri incidente zaznamenaj:
 
 ```text
-HTTP/app.example.com
-→ ticket bude encrypted keyom accountu vlastniaceho tento SPN
+realm a KDC/DC identity
+client principal a credential/logon generation
+requested service principal/SPN
+AS, TGS alebo AP stage
+ticket start/end/renew-until a flags
+KVNO a encryption types
+credential cache alebo keytab identity
+PAC/authorization-data generation, ak je relevantná
+GSS/SPNEGO mechanismus a fallback
+application principal mapping a resource decision
 ```
 
-Ak SPN chýba, client nevie získať service ticket. Ak je duplicate, KDC nevie bezpečne určiť správneho ownera. Ak service beží pod iným accountom než SPN owner, nedokáže ticket decryptovať.
-
-Load balancer, DNS alias a service migration preto potrebujú SPN plán. Client vytvára service principal podľa mena, ktorým service oslovuje, nie podľa interného názvu procesu.
-
-## 5. KDC
-
-Key Distribution Center logicky obsahuje dve protocol services a principal database:
-
-- Authentication Service — AS — vydáva TGT;
-- Ticket-Granting Service — TGS — vydáva service tickets;
-- principal database — uchováva long-term keys a policy.
-
-AS a TGS môžu bežať v jednom process-e. V Active Directory ich poskytujú domain controllers spolu s directory a ďalšími services.
-
-KDC je vysoko dôveryhodný control plane. Compromise KDC alebo jeho database môže umožniť vydávať forged tickets, kradnúť keys alebo impersonovať principals podľa zasiahnutého key materialu. Production realm preto potrebuje redundant KDCs, protected administration, backup a recovery plan.
-
-## 6. Long-term keys
-
-Každý principal má long-term key material. User key môže byť odvodený z passwordu alebo viazaný na iný credential mechanismus. Service key sa typicky uchováva v keytab-e alebo platform-managed account-e.
-
-Long-term key sa bežne nepoužíva na encryption application payloadu. KDC ho používa na ochranu bootstrap response-u alebo tickets a na distribúciu krátkodobejších session keys.
-
-Slabý service-account password znamená slabý Kerberos key. Attacker môže získať service ticket a skúšať offline password guesses proti encrypted časti ticketu, čo je základ Kerberoasting risku v AD prostredí.
-
-## 7. Ticket anatomy
-
-Kerberos ticket je KDC-issued structure určená konkrétnemu service principalu. Obsahuje najmä:
-
-- client principal;
-- server/service principal;
-- client-service session key;
-- validity interval;
-- flags;
-- optional addresses a authorization data;
-- key version a encryption information podľa encodingu.
-
-Ticket je encrypted long-term keyom cieľovej service. Client ho môže prenášať, ale bežne nevie prečítať alebo meniť jeho protected obsah.
-
-Ticket je bearer-like credential v tom zmysle, že ukradnutý ticket spolu s potrebným session keyom môže umožniť impersonation počas validity.
-
-## 8. Ticket-Granting Ticket
-
-TGT je ticket určený Ticket-Granting Service principalu realm-u. Client ho používa na získavanie service tickets bez opätovného preukazovania passwordu.
-
-TGT obsahuje client/TGS session key. Samotný TGT je encrypted long-term keyom TGS, ktorý je v praxi jedným z najcitlivejších realm keys.
-
-Client uchováva TGT a corresponding session key v credential cache. Krádež cache môže umožniť pass-the-ticket: attacker nemusí poznať user password, ak má usable ticket a session material.
-
-## 9. Service ticket
-
-Service ticket je vydaný pre konkrétny service principal. KDC vytvorí client/service session key a doručí ho clientovi aj service-u v rozdielnych protected častiach:
-
-- client dostane session key protected client/TGS session keyom;
-- service dostane rovnaký session key vo vnútri ticketu encrypted svojím long-term keyom.
-
-Service po decrypt-e ticketu pozná authenticated client principal a shared session key. Následne overí authenticator a vytvorí security context.
-
-Platný service ticket nie je permission na všetky operations. Application môže mapovať principal na local account, groups, ACLs alebo resource-level policy.
-
-## 10. AS exchange
-
-Authentication Service exchange získava TGT.
+Connected Atlas subject:
 
 ```text
-client → KDC AS:
-  AS-REQ pre client principal a TGS principal
-
-KDC → client:
-  AS-REP obsahujúci
-  - TGT encrypted TGS keyom
-  - client/TGS session key protected client long-term keyom
+security incident: SEC-PAY-48
+Kerberos subject: KRB-PAY-48
+realm: CORP.ATLAS.EXAMPLE
+client: martina.kovacova@CORP.ATLAS.EXAMPLE
+KDC/DC: DC-FRA-02
+service principal: HTTP/settlement-console.corp.atlas.example
+TGT issuance: 2026-07-29 08:11 UTC
+privileged group removal: 2026-07-29 07:40 UTC na DC-BTS-01
 ```
 
-Client decryptne svoju časť pomocou keyu odvodeného z passwordu alebo získaného iným credential mechanismom. Ak credential nesedí, client nezíska usable session key.
+## 3. Realm, principal a SPN
 
-AS exchange neautentizuje application service. Vytvára bootstrap credential pre ďalšiu komunikáciu s TGS.
+Realm je Kerberos naming a administrative boundary. Často sa podobá DNS domainu, ale nie je to ten istý objekt.
 
-## 11. Pre-authentication
-
-Pre-authentication vyžaduje, aby client preukázal control nad credentialom ešte pred tým, než KDC vydá response vhodný na offline guessing.
-
-Tradičný timestamp pre-auth mechanismus odošle timestamp encrypted client long-term keyom. KDC ho decryptne a overí freshness. Moderné deployments môžu používať ďalšie pre-auth methods, smart cards alebo FAST-protected exchanges.
-
-Ak password principal nemá required pre-authentication, attacker môže požiadať o AS response a skúšať password candidates offline. V AD security terminológii sa tento pattern označuje ako AS-REP roasting.
-
-Pre-authentication nevyrieši slabý password úplne, ale odstráni unauthenticated offline-verification path pre bežný AS request.
-
-## 12. TGS exchange
-
-Client používa TGT na získanie service ticketu.
+Principals:
 
 ```text
-client → KDC TGS:
-  TGT
-  authenticator encrypted client/TGS session keyom
-  requested service principal
-
-KDC → client:
-  service ticket encrypted service keyom
-  client/service session key protected client/TGS session keyom
+martina.kovacova@CORP.ATLAS.EXAMPLE
+host/node01.corp.atlas.example@CORP.ATLAS.EXAMPLE
+HTTP/settlement-console.corp.atlas.example@CORP.ATLAS.EXAMPLE
 ```
 
-TGS overí TGT, authenticator, ticket validity a realm policy. Môže tiež vyhodnotiť delegation, transited realms a requested ticket flags.
-
-TGS response neznamená, že service je reachable alebo že client má application permission. Dokazuje, že KDC bol ochotný vydať authentication credential pre tento service principal.
-
-## 13. AP exchange
-
-Application exchange prebieha priamo medzi clientom a service-om.
+Service Principal Name viaže logical service a hostname na account/key, ktorým service decryptuje tickets. Client žiada ticket pre meno použité v protocol path-e. DNS alias, load balancer alebo proxy preto potrebuje explicitný SPN a key-ownership plán.
 
 ```text
-client → service:
-  AP-REQ = service ticket + authenticator
-
-service → client:
-  optional AP-REP pre mutual authentication
+requested SPN
+→ owner account
+→ long-term key generation/KVNO
+→ deployed keytab alebo managed service identity
 ```
 
-Service decryptne ticket vlastným long-term keyom, získa client/service session key a tým overí authenticator. Authenticator obsahuje client identity a fresh time/subkey/sequence context podľa use case-u.
+Missing, duplicate alebo wrong-owner SPN vedie k odlišným failures. Test cez `localhost` alebo interný hostname nemusí používať rovnaký SPN ako production client.
 
-AP-REP umožní clientovi overiť, že protistrana skutočne pozná session key získaný z ticketu. Tým Kerberos podporuje mutual authentication.
+## 4. KDC, AS a TGS
 
-## 14. Authenticator
+KDC logicky obsahuje:
 
-Authenticator je fresh client-created structure encrypted session keyom. Viaže presentation ticketu na aktuálny client request a pomáha chrániť pred replayom.
+- Authentication Service — AS — vydávajúcu TGT;
+- Ticket-Granting Service — TGS — vydávajúcu service tickets;
+- principal/key a policy database.
 
-Ticket môže byť validný niekoľko hodín, ale authenticator používa current timestamp a podľa protocol contextu sequence/subkey information. Service alebo replay cache odmietne duplicate authenticator v povolenom time windowe.
+V AD DS ich poskytujú domain controllers. KDC je vysoko dôveryhodný control plane; compromise realm/TGS keys môže umožniť forged tickets a realm-wide impersonation.
 
-Ticket bez corresponding session keyu nestačí na vytvorenie validného authenticatora. Preto ochrana credential cache zahŕňa oba artifacts, nie iba ticket bytes.
+### AS exchange
 
-## 15. Session keys
+```text
+client → AS-REQ + pre-auth evidence
+KDC → AS-REP:
+  TGT encrypted TGS keyom
+  client/TGS session key protected client credentialom
+```
 
-Kerberos vytvára viac session keys:
+AS success preukazuje, že KDC akceptoval client principal a pre-authentication. Nepreukazuje availability konkrétnej application service.
 
-- client/TGS session key pre TGS exchanges;
-- client/service session key pre application security context;
-- optional negotiated subkeys pre konkrétny application exchange.
+### TGS exchange
 
-Session key je kratšie žijúci než long-term key a obmedzuje exposure. Application protocol alebo GSS-API mechanismus ho môže použiť na message integrity a confidentiality.
+```text
+client → TGT + authenticator + requested SPN
+KDC → service ticket + client/service session key
+```
 
-Kerberos ticket authentication automaticky neznamená, že celý application payload je encrypted. To závisí od protocolu a zvolených GSS-API protection services.
+TGS success preukazuje, že KDC vydal credential pre exact SPN podľa current KDC state/policy. Nepreukazuje reachability service ani business permission.
 
-## 16. Credential cache
+### AP exchange
 
-Credential cache uchováva TGT, service tickets a corresponding session keys pre user/session context. Implementácia môže byť file, kernel keyring, memory, Windows LSA alebo iný platform store.
+```text
+client → service ticket + fresh authenticator
+service → optional AP-REP pre mutual authentication
+```
 
-MIT Kerberos tools:
+Service decryptne ticket long-term keyom, overí authenticator, freshness a replay a vytvorí security context.
+
+## 5. Tickets, authenticators a session keys
+
+Ticket obsahuje client a service identity, session key, validity, flags a optional authorization data. Je encrypted keyom cieľovej service alebo TGS.
+
+Authenticator je fresh client-created structure encrypted session keyom. Viaže prezentáciu ticketu na aktuálny request a replay cache.
+
+```text
+valid ticket
++ matching session key
++ fresh authenticator
++ acceptable clock skew
++ no replay
+→ accepted AP context
+```
+
+Ticket bytes bez corresponding session keyu typicky nestačia. Ukradnutá credential cache však môže obsahovať oboje a umožniť pass-the-ticket.
+
+Kerberos session key môže GSS/application protocol použiť na integrity alebo confidentiality. Samotná Kerberos authentication automaticky neznamená, že application payload je encrypted.
+
+## 6. Pre-authentication
+
+Pre-authentication vyžaduje dôkaz kontroly nad client credentialom pred vydaním usable AS response. Znižuje unauthenticated offline-guessing path, ale nerieši weak password úplne.
+
+Pri password-based principaloch je security závislá od entropy a enctype-specific string-to-key semantics. Service account s human-chosen passwordom môže byť zraniteľný voči offline guessing z service ticketu.
+
+Moderné deployments používajú required pre-auth, strong/managed credentials a podľa platformy smart-card alebo FAST-protected mechanisms.
+
+## 7. Credential cache a keytab sú odlišné secrets
+
+Credential cache drží TGT, service tickets a session material pre user/process session.
 
 ```bash
-kinit alice@EXAMPLE.COM
-klist
+kinit martina.kovacova@CORP.ATLAS.EXAMPLE
+klist -ef
 kdestroy
 ```
 
-`kinit` získa alebo obnoví initial credentials. `klist` zobrazí principal, validity, service principals a flags. `kdestroy` odstráni cache reference, ale neznamená universal server-side revocation všetkých už vytvorených application sessions.
+`kdestroy` odstráni local cache reference. Nezruší automaticky application sessions alebo všetky tickets skopírované inde.
 
-Cache permissions, process isolation, forwarding a cleanup sú critical. Root alebo compromised same-user process môže podľa platformy credentials získať.
-
-## 17. Keytab
-
-Keytab je file alebo protected store obsahujúci long-term keys pre service/host principals. Entry typicky obsahuje principal, Key Version Number — KVNO — encryption type a key material.
-
-Keytab je ekvivalent passwordu alebo private keyu. Kto ho skopíruje, môže impersonovať service, decryptovať relevantné tickets alebo podľa permissions získať ďalšie credentials.
-
-Controls:
-
-- restrictive owner/mode;
-- no Git, image layer, ticket alebo chat storage;
-- secure automated distribution;
-- minimal principals;
-- managed rotation;
-- protected backup iba ak recovery vyžaduje;
-- no broad shared keytab across unrelated services;
-- audit accessu.
-
-## 18. KVNO
-
-Key Version Number identifikuje version long-term keyu principalu. Pri password/key rotation KDC zvýši KVNO a začne vydávať tickets encrypted novým keyom.
-
-Service musí dostať keytab s corresponding KVNO. Controlled overlap môže ponechať old key krátko dostupný na decrypt tickets vydaných pred cutoverom.
+Keytab drží long-term service keys:
 
 ```text
-KDC vydáva ticket kvno=8
-service keytab obsahuje iba kvno=7
-→ service nevie ticket decryptovať
+principal
++ KVNO
++ enctype
++ key material
 ```
 
-Príliš skoré odstránenie old keyu preruší in-flight tickets. Príliš dlhý overlap predlžuje trust compromised keyu.
+Keytab je ekvivalent service password/private keyu. Nesmie byť v Git-e, image layeri, ticket-e ani zdieľaný medzi nesúvisiacimi services. Potrebuje restrictive access, ownera, rotation a audit.
 
-## 19. Encryption types
+## 8. KVNO a service-key rotation
 
-Kerberos encryption type — enctype — definuje cryptographic algorithm a associated key derivation/protection semantics. Client, KDC a service musia mať spoločný supported secure enctype.
-
-Treba rozlišovať:
-
-- enctypes dostupné pre principal long-term keys;
-- enctype ticket encryption;
-- enctype session keyu;
-- application/GSS protection support;
-- policy preference a downgrade behavior.
-
-Moderné deployments preferujú AES-based enctypes a odstraňujú DES/RC4 podľa platform supportu a migration planu. Jednostranné vypnutie legacy enctype môže rozbiť starý device; jeho ponechanie však zachová weak attack path.
-
-## 20. String-to-key a password strength
-
-Pri password-based principals sa long-term key odvodzuje z passwordu a salt-u pomocou enctype-specific string-to-key function. Security preto závisí od password entropy a derivation semantics.
-
-Service account s human-chosen weak passwordom je vulnerable voči offline guessing z captured service ticketu. Long random managed password alebo platform-managed service account výrazne znižuje practical risk.
-
-Password rotation bez aktualizácie service keytabu spôsobí KVNO mismatch. Managed account mechanisms môžu coordination automatizovať.
-
-## 21. Time synchronization
-
-Kerberos používa timestamps a ticket validity na freshness a replay protection. Clients, KDCs a services potrebujú čas v configured clock-skew intervale.
-
-Typické symptoms:
-
-- `Clock skew too great`;
-- ticket je `not yet valid` alebo `expired`;
-- iba časť hosts zlyháva;
-- intermittent failures po VM suspend/resume;
-- replay cache behavior je nepredvídateľné.
-
-Time source, NTP hierarchy a monitoring sú security dependencies. Vypnutie time validation odstraňuje podstatnú replay ochranu; správna oprava je synchronizácia hodín.
-
-## 22. DNS a service discovery
-
-Kerberos často používa DNS na KDC discovery, realm mapping, hostname canonicalization a tvorbu service principalu. DNS SRV records môžu publikovať KDC endpoints.
-
-Client žiada ticket podľa hostname, ktorý používa v application protocol-e. Alias alebo load balancer name preto musí mať zodpovedajúci SPN a service key ownership.
-
-Troubleshooting musí porovnať:
-
-- user-visible hostname;
-- resolved canonical name;
-- requested service principal v `klist`/trace;
-- registered SPN;
-- keytab principal;
-- reverse proxy/load balancer behavior;
-- realm mapping.
-
-DNSSEC nie je inherentnou súčasťou Kerberos trustu; incorrect DNS môže stále poslať clienta na wrong endpoint alebo wrong SPN path.
-
-## 23. Ticket lifetime
-
-Ticket má start/end time a podľa policy renewable-until time. Krátka lifetime znižuje duration stolen ticketu, ale zvyšuje dependency na KDC a renewal.
-
-TGT môže byť dlhší než service ticket. High-risk admin principal môže mať kratšie lifetimes než bežný workstation user.
-
-Ticket expiry neukončí automaticky všetky application sessions vytvorené skôr. Service musí mať vlastný session lifecycle a incident revocation model.
-
-## 24. Ticket flags
-
-Flags menia ticket semantics:
-
-- `initial` — vznikol cez initial AS exchange;
-- `pre-authenticated` — client použil pre-authentication;
-- `renewable` — možno získať nový ticket do renew-until limitu;
-- `forwardable` — možno odvodiť/forwardovať credentials do ďalšieho host contextu;
-- `proxiable` alebo proxy-related semantics podľa implementation;
-- delegation-related flags;
-- invalid/postdated podľa specialized use cases.
-
-Flag nie je iba informational. Forwardable TGT zväčšuje credential theft blast radius. Service alebo KDC policy má povoľovať iba potrebné flags.
-
-## 25. Renewal
-
-Renewable ticket umožňuje predĺžiť usable lifetime bez opätovného zadania primary credentialu, ale iba do maximum renew-until time.
-
-Long-running batch alebo workstation session môže TGT renewovať. Renewal process musí monitorovať failure a nesmie udržiavať credential nekonečne.
-
-Ak account zablokuješ alebo key rotate-neš, already-issued renewable ticket behavior závisí od KDC policy a revocation modelu. Kerberos nemá univerzálny online status check pri každom AP requeste.
-
-## 26. Delegation
-
-Delegation umožňuje front-end service konať voči downstream service v user context-e. Používa sa napríklad pri web application → database alebo file service flowe.
-
-Bez delegation downstream vidí iba service identity front-endu. S delegation môže downstream authorization zohľadniť user principal, ale front-end získava capability konať za usera.
-
-Threats:
-
-- credential forwarding alebo theft;
-- broad transitive authority;
-- compromised front-end impersonuje users downstream;
-- confused deputy;
-- nejasný audit actor chain;
-- unconstrained access k services, ktoré user pôvodne nezamýšľal.
-
-Preferuj constrained model viazaný na specific downstream service a preserve-ni initiating user aj executing service v audite.
-
-## 27. Unconstrained a constrained delegation v AD
-
-Pri unconstrained delegation môže service host získať forwardable user TGT alebo broad delegated credential a použiť ho voči ďalším services. Compromise takého hosta má vysoký impact, najmä ak sa naň prihlási privileged user.
-
-Constrained delegation obmedzuje, ku ktorým service SPNs môže front-end delegovať. Resource-based constrained delegation presúva rozhodnutie na target resource account podľa AD modelu.
-
-Protocol transition môže umožniť service získať Kerberos delegation context aj po inom upstream authentication mechanizme. Je high-impact a potrebuje explicitný authorization design.
-
-## 28. Cross-realm trust
-
-Cross-realm trust umožňuje principalovi realm-u A získať service ticket pre realm B cez inter-realm TGTs.
+KVNO označuje version long-term keyu. Pri rotation KDC začne vydávať tickets pre novú version; fleet musí dostať corresponding key.
 
 ```text
-client@A
-→ TGT pre krbtgt/B@A alebo trust path
-→ KDC B
+KDC ticket kvno=8
+service keytab iba kvno=7
+→ ticket decrypt failure
+```
+
+Safe rotation:
+
+```text
+inventory principal/SPNs/consumers
+→ vytvoriť new key generation
+→ distribuovať do celej service cohorty
+→ canary decrypt new ticket
+→ bounded overlap old/new KVNO
+→ odstrániť old key
+→ reload a monitorovať
+→ forbidden old-key test
+```
+
+Príliš skoré odstránenie old keyu zlomí ešte platné tickets. Príliš dlhý overlap predlžuje compromise window. Rotation service keyu neodstráni stolen user tickets ani application sessions.
+
+## 9. Encryption types
+
+Client, KDC a service potrebujú spoločný secure enctype. Oddeľuj long-term-key enctype, ticket encryption a session-key enctype.
+
+Legacy RC4 a 3DES paths sú deprecated; migration musí inventarizovať principals, devices, keytabs a negotiated mechanisms. Jednostranné vypnutie môže spôsobiť outage, ale permanentný fallback zachováva weak offline-attack path.
+
+Monitoring má ukazovať actual negotiated enctype, nie iba configured allowlist.
+
+## 10. Time, freshness a replay
+
+Kerberos používa timestamps a validity intervals. Client, KDC a service musia byť v accepted clock-skew windowe.
+
+```text
+service time
+− authenticator time
+→ freshness verdict
+→ replay-cache lookup
+```
+
+Vypnutie time/replay validation nie je availability fix; odstraňuje security property. Oprav NTP hierarchy, suspend/resume behavior a secure time source.
+
+Tickets majú start, end a optional renew-until. Expiry ticketu automaticky neukončí application session vytvorenú predtým.
+
+## 11. DNS a service discovery
+
+Kerberos používa DNS pre KDC discovery, hostname/SPN formation a realm mapping. Troubleshooting porovnáva:
+
+```text
+user-visible hostname
+→ resolved/canonical hostname
+→ requested SPN
+→ directory SPN owner
+→ keytab principal
+→ proxy/load-balancer topology
+```
+
+DNS success nepreukazuje SPN correctness. HTTP proxy môže ukončiť Kerberos a vytvoriť nový backend identity path; spoofable `X-User` header nie je ekvivalent Kerberos authentication.
+
+## 12. PAC a AD group generation
+
+Active Directory tickets môžu obsahovať Privilege Attribute Certificate — PAC — s user SID, group memberships a ďalším authorization data. KDC ho vytvára z directory state-u, ktorý má k dispozícii.
+
+```text
+selected DC/KDC directory generation
+→ PAC group generation
+→ Windows/application principal mapping
+→ resource authorization
+```
+
+Fresh ticket vydaný neconverged DC môže byť cryptographically validný a niesť stale group SID. Valid PAC signature chráni integrity structure; nepreukazuje, že underlying directory membership už convergovala na business-intended state.
+
+Existing Windows logon token, service session alebo OAuth token odvodený z PAC/group claimu môže prežiť neskoršiu directory opravu.
+
+## 13. Kerberos, LDAP a application authorization
+
+```text
+Kerberos
+→ autentizuje principal a distribuuje session key
+
+LDAP
+→ poskytuje current alebo replica-local directory attributes
+
+PAC/Windows token
+→ prenáša vybrané identity/group data
+
+application policy
+→ rozhoduje action/resource/business state
+```
+
+LDAP Simple Bind na domain controller nie je Kerberos. Kerberos-authenticated LDAP connection stále podlieha directory ACL. Platný service ticket stále nepovoľuje cross-tenant alebo high-risk operation bez application authorization.
+
+## 14. GSS-API, SPNEGO a HTTP Negotiate
+
+GSS-API poskytuje application interface pre mutual authentication, integrity, confidentiality, replay/sequence detection a delegation. SPNEGO umožní negotiation mechanismu; HTTP `Negotiate` môže skončiť Kerberosom alebo fallbackom.
+
+Monitoring musí odlíšiť:
+
+- Kerberos accepted;
+- NTLM fallback;
+- anonymous/backend header path;
+- mutual-auth result;
+- delegated credential use;
+- subsequent application authorization.
+
+„Login funguje“ cez NTLM fallback môže skrývať broken SPN, DNS alebo keytab generation.
+
+## 15. Delegation a actor chain
+
+Delegation umožní front-end service konať voči downstream service v user context-e. Zväčšuje blast radius front-end compromise-u.
+
+```text
+initiating user
+→ front-end service actor
+→ delegated credential
+→ exact downstream SPN
+→ downstream authorization
+```
+
+Preferuj constrained/resource-based model viazaný na specific downstream services. Audit musí zachovať subject aj actor. Unconstrained delegation alebo forwardable TGT na low-trust hoste je high-impact credential path.
+
+Protocol transition potrebuje explicitný threat a authorization model; nesmie sa stať implicitnou user impersonation capability.
+
+## 16. Cross-realm trust
+
+Cross-realm trust umožní authentication path cez inter-realm TGTs. Direction, transitivity, trust keys a name mapping určujú scope.
+
+```text
+principal@A
+→ trust path
 → service ticket pre service@B
+→ target realm/application authorization
 ```
 
-Trust má direction, transitivity, shared/inter-realm keys, name mapping a path selection. Authentication path neznamená automatic authorization v target realm-e.
+Trust neudeľuje automatic resource access. Abandoned trust bez ownera a key rotation je hidden authentication path.
 
-Transited realm information a local policy pomáhajú service/KDC posúdiť trust chain. Long trust paths a bidirectional transitive trusts zväčšujú systemic blast radius.
+## 17. Containers a ephemeral workloads
 
-## 29. Realm trust keys
+Ephemeral replicas komplikujú stable SPN, keytab distribution, hostname canonicalization a rotation. Jeden shared keytab medzi všetkými Pods znamená spoločný long-term principal; compromise jednej replica umožní impersonovať celý service až do rotation.
 
-Inter-realm trust používa long-term keys medzi TGS principals. Compromise trust key môže umožniť forged cross-realm tickets v danom direction/scope.
+Preferuj managed service identities, gMSA pre podporované Windows workloads alebo modernú workload federation, keď Kerberos nie je required compatibility boundary. Keytab nikdy nepatrí do image layeru.
 
-Keys potrebujú rotation coordinated oboma realms, overlap a audit. Abandoned trust bez ownera je permanentný hidden authentication path.
+## 18. Worked failure: fresh ticket, stale authorization data
 
-## 30. Kerberos v Active Directory
+### Symptom
 
-Active Directory Domain Services integruje directory identities, KDC, DNS, SPNs, machine accounts, group data, Windows logon a service authentication.
+Martina sa o `08:11 UTC` nanovo prihlási a settlement console prijme HTTP Negotiate. O `08:17 UTC` dostane `payments.approve`, hoci privileged AD membership bola odstránená o `07:40 UTC`.
 
-Domain controller poskytuje AS/TGS. User alebo computer account password reprezentuje Kerberos long-term keys. SPNs sú attributes accountov. Domain/forest trust vytvára cross-domain authentication paths.
+### Exact subject
 
-Kerberos authentication je iba časť Windows access token creation. Group SIDs, local groups, user rights a ACLs určujú authorization po logine.
+```text
+Kerberos subject: KRB-PAY-48
+client principal: martina.kovacova@CORP.ATLAS.EXAMPLE
+KDC: DC-FRA-02
+TGT issue time: 08:11 UTC
+service SPN: HTTP/settlement-console.corp.atlas.example
+service key KVNO: 12
+negotiated mechanism: Kerberos, nie NTLM
+PAC privileged SID: present
+```
 
-## 31. Privilege Attribute Certificate
+### Competing hypotheses
 
-Privilege Attribute Certificate — PAC — je Microsoft authorization-data structure v Kerberos tickets. Nesie user SID, group memberships a ďalšie identity/authorization data vytvorené domain infrastructure.
+1. browser použil old pre-removal TGT;
+2. SPNEGO fallbackol na NTLM;
+3. duplicate/wrong SPN mapoval na iný service account;
+4. service keytab/KVNO mismatch spôsobil fallback path;
+5. KDC vytvoril PAC zo stale directory replica;
+6. application ignorovala PAC a použila stale LDAP/cache claim;
+7. application scope mapping povoľuje action bez current JIT eligibility.
 
-Service/OS môže PAC použiť na vytvorenie Windows access tokenu. PAC má signatures a validation rules, aby arbitrary client nemohol pridať admin group.
+### Discriminating evidence
 
-PAC nie je súčasť generic application authorization modelu vo všetkých Kerberos implementations. Service stále potrebuje správne mapovať identity a overovať resource permissions.
+```text
+TGT issue time 08:11 UTC > removal time 07:40 UTC
+KDC/DC identity: DC-FRA-02
+DC-FRA-02 group state: user stále member
+DC-BTS-01 group state: user removed
+requested SPN: exact expected HTTP SPN
+service ticket KVNO 12: keytab decrypt success
+SPNEGO mechanism: Kerberos
+PAC/group output: privileged SID present
+new isolated session against converged DC: privileged SID absent
+```
 
-## 32. Kerberos a LDAP
+Fresh TGT diskriminuje old-cache hypotézu. Successful AP exchange diskriminuje SPN/KVNO failure. Root cause je fresh Kerberos credential vytvorený z stale KDC directory state-u.
 
-Kerberos a LDAP riešia odlišné vrstvy:
+### Evidence-preserving containment
 
-- Kerberos — authentication a session-key distribution;
-- LDAP — directory queries a modifications;
-- ACL/RBAC/application policy — authorization.
+- preserve-nuť TGT/service-ticket metadata, KDC identity, PAC/group output, SPN/KVNO a application audit bez raw reusable ticket blobu;
+- revoke-nuť application/OAuth sessions odvodené z affected Kerberos session;
+- zastaviť privileged operations pre affected principal/group generation;
+- pri podozrení na credential theft disable-nuť account a analyzovať ticket use;
+- neotáčať service keytab bez evidence, ak service key compromise nie je hypotéza;
+- nevynucovať NTLM fallback ako workaround.
 
-AD client môže získať TGT cez Kerberos, použiť Kerberos/GSSAPI na authenticated LDAP connection a následne čítať directory attributes podľa LDAP access controls.
+### Authoritative recovery
 
-LDAP Simple Bind s passwordom nie je Kerberos, hoci endpoint poskytuje domain controller. Authentication mechanismus musí byť overený, nie odvodený iba z portu alebo server role.
+1. opraviť AD replication a site/subnet selection;
+2. overiť group convergence na všetkých KDC/DCs;
+3. zrušiť affected logon sessions a credential caches podľa platformy;
+4. vydať fresh TGT cez intended/converged KDC a overiť PAC bez privileged SID;
+5. revoke-nuť downstream application sessions, OAuth grants a exchanged tokens;
+6. oddeliť high-risk capability od permanentného PAC/group snapshotu cez JIT/fresh authorization;
+7. monitorovať actual Kerberos mechanism, KDC identity a privileged group generation.
 
-## 33. Kerberos a TLS
+### Acceptance verdict
 
-Kerberos môže autentizovať endpoints a GSS-API môže poskytovať message integrity/confidentiality. Nie každá Kerberos-enabled application však tieto protection services používa.
+- fresh AS/TGS/AP flow uspeje pre oprávneného principalu;
+- removed principal dostane fresh TGT, ale bez privileged authorization data;
+- old credential cache, application session a downstream token už action nepovolia;
+- duplicate SPN, wrong audience, NTLM fallback a old KVNO fixtures zlyhajú podľa contractu;
+- resource server stále vykoná object/business authorization aj pri validnom ticket-e;
+- druhá controlled group removal prejde KDC failover a second-logon testom.
 
-HTTP Negotiate/SPNEGO môže autentizovať browser usera, zatiaľ čo HTTPS stále poskytuje server certificate, transport encryption a protection pred intermediaries.
+## 19. Troubleshooting flow
 
-TLS a Kerberos sa dopĺňajú. TLS termination za proxy musí zachovať trustworthy client identity path; spoofable `X-User` header nie je náhrada backend authentication.
+```text
+realm, principal a time
+→ KDC discovery
+→ AS/pre-auth a TGT
+→ requested SPN
+→ TGS/service ticket
+→ KVNO/enctype/keytab
+→ AP/authenticator/replay
+→ GSS/SPNEGO actual mechanism
+→ PAC/local principal mapping
+→ application authorization
+→ session/delegation/revocation
+```
 
-## 34. GSS-API
-
-Generic Security Service Application Program Interface — GSS-API — poskytuje application-neutral interface pre authentication mechanismy, vrátane Kerberos V5.
-
-Application vytvára security context a môže žiadať:
-
-- mutual authentication;
-- integrity protection (`wrap`/MIC semantics);
-- confidentiality;
-- replay a sequence detection;
-- delegated credentials.
-
-GSS-API status rozlišuje generic major status a mechanism-specific minor status. Troubleshooting preto potrebuje application log aj Kerberos trace.
-
-## 35. SPNEGO a HTTP Negotiate
-
-SPNEGO umožňuje peers negotiate-nuť GSS mechanismus. HTTP `Negotiate` authentication ho často používa na výber Kerberos a v niektorých Windows environments fallback NTLM.
-
-Ak application „funguje“, ale použila NTLM fallback, Kerberos SPN/DNS/keytab problém môže zostať skrytý. Monitoring má rozlišovať actual negotiated mechanism.
-
-Browser allowlists, trusted zones, service hostname a proxy topology ovplyvňujú, či browser vôbec pošle Negotiate token.
-
-## 36. Kerberos v containers a cloud-e
-
-Ephemeral workloads komplikujú stable service identity, keytab distribution, DNS, clock, hostname canonicalization a rotation.
-
-Mount jedného keytabu do mnohých replicas vytvára shared long-term credential. Compromise jednej Pod instance umožní impersonovať celý service principal, kým key rotate-neš.
-
-Možnosti sú workload-specific principals, managed keytab injection, sidecar/agent, gMSA pre Windows containers alebo moderná workload identity federation, ak application nemusí používať Kerberos.
-
-Node a image boundaries sú critical: keytab nesmie byť v image layeri a runtime mount má mať restrictive permissions.
-
-## 37. Observability
-
-KDC a service telemetry má rozlišovať protocol stage:
-
-- AS request rate a pre-auth failures;
-- unknown client principals;
-- TGS request rate a unknown service principals;
-- requested SPNs a enctypes;
-- ticket lifetime/flags;
-- clock-skew failures;
-- KVNO/keytab decrypt failures;
-- replay-cache failures;
-- delegation use;
-- cross-realm paths;
-- KDC latency/availability;
-- actual Kerberos vs NTLM mechanism;
-- application authorization result po authentication.
-
-Neloguj key material, session keys, raw keytab alebo reusable ticket blobs do bežných logs. Ticket/client/service identifiers sú citlivé metadata a potrebujú access/retention policy.
-
-## 38. Client-side troubleshooting
-
-Začni od initial credentials:
+Common evidence:
 
 ```bash
-kinit alice@EXAMPLE.COM
 klist -ef
-kvno HTTP/app.example.com@EXAMPLE.COM
+kvno HTTP/settlement-console.corp.atlas.example@CORP.ATLAS.EXAMPLE
 ```
 
-`kinit` testuje realm/KDC discovery, client principal, pre-auth a password/key. `klist` ukáže TGT, validity, flags a enctypes. `kvno` požiada o service ticket a ukáže jeho key version podľa toolu.
+`Server not found` smeruje k SPN/realm/hostname. `Cannot decrypt` smeruje k owner/keytab/KVNO/enctype. `Clock skew` smeruje k time boundary. `Kerberos success + 403` smeruje k application authorization, nie k ďalšiemu keytab retry.
 
-MIT Kerberos trace environment môže zobraziť discovery, requests, selected enctypes a cache behavior. Trace obsah môže byť citlivý a nemá sa bez redaction publikovať.
+## 20. Compromise a recovery model
 
-## 39. Service-side troubleshooting
+### User ticket/cache compromise
 
-Service musí vedieť:
+- revoke application sessions a downstream grants;
+- disable/reset identity podľa incident scope;
+- posúdiť ticket lifetime, renewal, forwarding a copied caches;
+- analyzovať service-ticket use a resource actions.
 
-- ktorý SPN client žiada;
-- ktorý account/key SPN vlastní;
-- ktoré principals/KVNO/enctypes obsahuje keytab;
-- pod akou OS identity process beží;
-- akú keytab/cache location používa;
-- či hostname/proxy canonicalization sedí;
-- či GSS mechanismus a mutual auth sú enabled;
-- ako authenticated principal mapuje na local user/role.
+### Service keytab compromise
 
-Test musí používať rovnaký hostname a network path ako reálny client. Test cez `localhost` môže žiadať úplne iný SPN.
+- isolate service cohort;
+- rotate service key/KVNO a distribute trusted keytab;
+- minimalizovať overlap;
+- posúdiť impersonation/decryption exposure;
+- validate old-key rejection.
 
-## 40. Failure-domain troubleshooting flow
+### KDC/realm/domain compromise
 
-```text
-1. čas synchronizovaný?
-2. DNS, realm a KDC discovery správne?
-3. client principal existuje a pre-auth uspeje?
-4. TGT bol vydaný a je validný?
-5. client žiada správny service principal?
-6. TGS vydal service ticket?
-7. service keytab/account obsahuje správny principal, KVNO a enctype?
-8. AP exchange a replay cache uspeli?
-9. GSSAPI/SPNEGO vyjednali Kerberos, nie fallback?
-10. application identity mapping a authorization uspeli?
-```
+- zachovať directory/KDC evidence;
+- izolovať affected control plane;
+- použiť platform-specific staged high-value key/forest recovery;
+- reset privileged, service a trust credentials;
+- hľadať forged tickets a delegation persistence;
+- obnoviť z trusted state a vykonať realm-wide acceptance.
 
-„Kerberos nefunguje“ je príliš broad diagnóza. Rozdeľ AS, TGS, AP a application authorization.
+## 21. Earlier controls
 
-## 41. Common errors vysvetlené
+- KDC/site identity v authentication audite;
+- per-site fresh-group Kerberos canary;
+- SPN uniqueness a ownership validation;
+- KVNO/keytab fleet inventory;
+- legacy enctype a NTLM fallback inventory;
+- minimal delegation a actor-chain audit;
+- ticket/session revocation workflow viazaný na mover/leaver events;
+- negative test `valid ticket, forbidden resource`;
+- tested KDC/domain/forest recovery.
 
-**Client not found in Kerberos database** — KDC nepozná requested client principal. Over realm suffix, account existence, aliases a správny KDC.
+## 22. Anti-patterny
 
-**Server not found in Kerberos database** — requested service principal/SPN neexistuje v realm-e alebo client vytvoril nesprávny hostname.
+### Platný ticket = permission
 
-**Clock skew too great** — timestamp je mimo accepted window. Over client, KDC aj service time source, nie iba local clock display.
+Kerberos autentizuje principal; resource policy stále rozhoduje.
 
-**Key table entry not found** — application nenašla requested principal/enctype v selected keytab-e alebo číta inú keytab path.
+### Keytab v image alebo shared Git secret
 
-**Cannot decrypt ticket / KVNO mismatch** — ticket bol encrypted key versionou, ktorú service nemá, alebo SPN patrí inému accountu.
+Long-term service identity sa stane durable a kopírovateľná.
 
-**Credentials cache not found** — process nemá TGT, používa inú OS identity/session alebo environment ukazuje na inú cache.
+### DNS alias bez SPN plánu
 
-**Message stream modified / integrity failure** — môže ísť o key mismatch, broken token handling, proxy modification alebo GSS protection error podľa protocolu.
+Client žiada ticket pre meno, ktoré service key nepozná.
 
-## 42. Attacks
+### NTLM fallback ako recovery
 
-**Password guessing / AS-REP roasting** — principal bez pre-auth umožní offline verification password-derived keyu.
+Maskuje Kerberos defect a zachová slabší path.
 
-**Kerberoasting** — attacker s domain accessom získa service ticket a skúša offline guess service-account passwordu.
+### Rotation bez KVNO overlap/retirement contractu
 
-**Pass-the-ticket** — stolen TGT/service ticket a session material sa použije bez passwordu.
+Časť fleet-u odmietne nové alebo ešte platné old tickets.
 
-**Keytab theft** — attacker získa long-term service key a môže service impersonovať alebo decryptovať tickets.
+### Group removal bez session revocation
 
-**Forged tickets** — compromise TGS/domain keys umožní vytvoriť tickets, ktoré sa javia ako KDC-issued.
+PAC, Windows token, application session a downstream token môžu prežiť.
 
-**Unconstrained delegation abuse** — compromised delegated host získa high-value user credentials.
+## 23. Kontrolné otázky
 
-**Legacy enctype downgrade** — slabší algorithm uľahčí offline attacks alebo poruší policy.
-
-**SPN manipulation** — attacker s directory write permissions môže presmerovať service identity alebo vytvoriť delegation path.
-
-## 43. Controls
-
-- required pre-authentication a strong modern authentication;
-- long random/managed service-account credentials;
-- AES enctypes a removal legacy algorithms;
-- protected KDC/domain-controller administration;
-- restrictive keytab/cache permissions;
-- short ticket lifetimes podľa risku;
-- minimal forwarding/delegation;
-- constrained/resource-based delegation;
-- SPN ownership monitoring a duplicate detection;
-- gMSA alebo managed key rotation v AD;
-- privileged tiering;
-- actual mechanism monitoring, aby NTLM fallback neukryl problém;
-- incident response a realm/forest recovery drills.
-
-Každý control rieši inú boundary. Strong service password nezabráni theft already issued TGT-u; short ticket lifetime nevyrieši KDC compromise.
-
-## 44. Service-key rotation
-
-Bezpečný rotation flow:
-
-```text
-inventarizovať principal, SPNs a consumers
-→ vytvoriť novú key version
-→ distribuovať nový keytab/managed credential
-→ potvrdiť, že všetky service instances vedia decryptovať new tickets
-→ ponechať bounded overlap pre old tickets
-→ odstrániť old key
-→ reload/restart services podľa implementation
-→ monitorovať KVNO a authentication failures
-```
-
-Pri compromise overlap minimalizuj a posúď already-issued tickets a application sessions. Rotation keyu neodstráni stolen tickets automaticky.
-
-## 45. KDC alebo domain compromise
-
-Compromise KDC/TGS alebo AD domain trust keys má realm-wide impact. Rotation jedného service keyu nestačí.
-
-Recovery môže vyžadovať:
-
-- isolation affected domain controllers/KDCs;
-- preservation security logs a directory state;
-- rotation high-value realm keys podľa platform-specific staged procedure;
-- reset privileged/user/service credentials;
-- invalidation trust relationships;
-- rebuild KDC/domain infrastructure zo trusted state;
-- review forged tickets, delegation a persistence;
-- forest/domain recovery plan v AD.
-
-Improvised simultaneous key reset bez understanding replication/ticket overlap môže spôsobiť outage alebo incomplete recovery.
-
-## 46. Časté anti-patterny
-
-**Keytab v Git-e alebo image.** Long-term service credential sa stane durable a kopírovateľný.
-
-**DNS alias bez SPN plánu.** Client žiada ticket pre name, ktorý service key nepozná.
-
-**Shared keytab pre unrelated services.** Compromise jednej application otvorí viac principals.
-
-**Vypnutá time validation.** Replay protection sa odstráni namiesto opravy clocku.
-
-**Unconstrained delegation pre pohodlie.** Front-end host dostane neprimeranú user authority.
-
-**NTLM fallback považovaný za Kerberos success.** SPN/keytab problem ostáva neviditeľný.
-
-**Authentication považovaná za authorization.** Platný ticket neoveruje object, tenant ani business permission.
-
-**Rotation bez KVNO/overlap plánu.** Časť fleet-u nedokáže decryptovať nové alebo ešte platné old tickets.
-
-## 47. Kompletný príklad HTTP Kerberos loginu
-
-User `alice@EXAMPLE.COM` otvorí `https://app.example.com` na domain workstation-e.
-
-1. Workstation má validný TGT v user credential cache.
-2. Browser podľa HTTP Negotiate policy vytvorí request pre SPN `HTTP/app.example.com@EXAMPLE.COM`.
-3. Client pošle TGT + authenticator TGS-u a dostane service ticket.
-4. Browser odošle SPNEGO/GSS token application endpointu cez HTTPS.
-5. Service alebo front-end decryptne ticket keytabom/SPN account keyom a overí authenticator/replay.
-6. Mutual authentication podľa GSS contextu môže potvrdiť service clientovi.
-7. Application mapuje Kerberos principal na local account a načíta authorization attributes z trusted source.
-8. Resource-level policy rozhodne, ktoré reports Alice smie čítať.
-9. Audit spojí client principal, service principal, mechanism, source a authorization result.
-10. Ak browser fallbackne na NTLM, monitoring to označí ako odlišný mechanismus a incident/troubleshooting signal.
-
-## 48. Kontrolné otázky
-
-1. Prečo Kerberos neposiela user password každej service?
-2. Ako sa realm, DNS domain a principal líšia?
-3. Čo SPN identifikuje a prečo duplicate SPN spôsobí problém?
-4. Aké role majú AS, TGS a KDC database?
-5. Ako sa TGT a service ticket líšia?
-6. Čo sa deje v AS, TGS a AP exchange?
-7. Čo authenticator dokazuje a ako pomáha proti replayu?
-8. Aké session keys Kerberos vytvára?
-9. Prečo credential cache a keytab predstavujú odlišné secrets?
-10. Na čo slúži KVNO a ako vyzerá safe overlap pri rotation?
-11. Ako sa long-term, ticket a session enctypes líšia?
-12. Prečo Kerberos závisí od času a DNS?
-13. Aké security dôsledky majú renewable a forwardable flags?
-14. Ako delegation mení actor chain a blast radius?
-15. Ako cross-realm trust vytvára authentication path bez automatic authorization?
-16. Ako PAC súvisí s Windows authorization?
-17. Ako sa Kerberos, LDAP, TLS a GSS-API dopĺňajú?
-18. Ako rozlíšiť AS, TGS, AP a application-authorization failure?
-19. Ako vzniká Kerberoasting a ktoré controls ho obmedzujú?
-20. Ako reagovať na compromised service key oproti compromised KDC/domainu?
+1. Čo tvorí exact Kerberos subject?
+2. Ako sa AS, TGS a AP exchange líšia?
+3. Čo ticket, authenticator a session key dokazujú?
+4. Prečo SPN a user-visible hostname musia sedieť?
+5. Ako sa credential cache líši od keytabu?
+6. Prečo KVNO potrebuje bounded overlap?
+7. Ako čas a replay cache chránia AP exchange?
+8. Prečo valid PAC môže niesť stale group generation?
+9. Ako sa Kerberos, LDAP, GSS a application authorization dopĺňajú?
+10. Ako odlíšiš user-ticket, service-key a KDC compromise?
 
 ## Glossary impact
 
-Relevantné pojmy: Kerberos, realm, principal, Service Principal Name, Key Distribution Center, Authentication Service, Ticket-Granting Service, long-term key, ticket, Ticket-Granting Ticket, service ticket, AS exchange, pre-authentication, TGS exchange, AP exchange, authenticator, session key, credential cache, keytab, Key Version Number, encryption type, string-to-key, clock skew, ticket lifetime, ticket flags, renewable ticket, forwardable ticket, delegation, unconstrained delegation, constrained delegation, cross-realm trust, inter-realm key, Active Directory Kerberos, Privilege Attribute Certificate, GSS-API, SPNEGO, HTTP Negotiate, pass-the-ticket, AS-REP roasting a Kerberoasting.
+Relevantné pojmy: Kerberos subject, ticket-generation identity, KDC-selected directory generation, PAC group generation, fresh-but-stale Kerberos ticket, AS/TGS/AP verdict, SPN-to-key ownership, KVNO overlap generation, mechanism-fallback verdict, delegated actor chain a Kerberos acceptance verdict.
 
 ## Primárne zdroje
 
-- [RFC 4120 — The Kerberos Network Authentication Service V5](https://www.rfc-editor.org/rfc/rfc4120)
-- [RFC 4121 — Kerberos V5 GSS-API Mechanism](https://www.rfc-editor.org/rfc/rfc4121)
-- [RFC 6113 — Kerberos Pre-Authentication Framework](https://www.rfc-editor.org/rfc/rfc6113)
+- [RFC 4120 — Kerberos V5](https://www.rfc-editor.org/rfc/rfc4120)
+- [RFC 4121 — Kerberos GSS-API mechanism](https://www.rfc-editor.org/rfc/rfc4121)
+- [RFC 6113 — Kerberos pre-authentication framework](https://www.rfc-editor.org/rfc/rfc6113)
+- [RFC 8129 — Authentication indicators in Kerberos tickets](https://www.rfc-editor.org/rfc/rfc8129)
+- [RFC 8429 — Deprecate 3DES and RC4 in Kerberos](https://www.rfc-editor.org/rfc/rfc8429)
 - [MIT Kerberos documentation](https://web.mit.edu/kerberos/krb5-latest/doc/)
-- [MIT Kerberos application servers](https://web.mit.edu/kerberos/krb5-latest/doc/admin/appl_servers.html)
-- [MIT Kerberos keytab](https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html)
-- [MIT Kerberos encryption types](https://web.mit.edu/kerberos/krb5-latest/doc/admin/enctypes.html)
-- [Microsoft Kerberos authentication overview](https://learn.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview)
-- [Microsoft Service Principal Names](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-service-accounts)
+- [Microsoft Kerberos overview](https://learn.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
