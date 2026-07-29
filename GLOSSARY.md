@@ -26,6 +26,10 @@ Test overujúci, či systém spĺňa dohodnuté business alebo používateľské
 
 Route alebo Gateway status condition indikujúca, že zodpovedný controller prijal resource alebo jeho attachment k parentu podľa class, listener a policy pravidiel. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
 
+## Access acceptance verdict
+
+Dôkaz, že current identity/session mapovanie, authorization policy, enforcement path, operation result a audit chain vytvárajú správny allowed aj forbidden outcome a prežijú second-login alebo second-sync test. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Access mode — Kubernetes storage
 
 PV/PVC contract opisujúci podporovaný spôsob mount accessu, napríklad ReadWriteOnce, ReadOnlyMany, ReadWriteMany alebo ReadWriteOncePod; nepredstavuje application-level locking ani databázový clustering. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -41,6 +45,10 @@ EFS behavior, pri ktorom access point obmedzí root path a nahradí client opera
 ## Access review
 
 Pravidelné alebo event-driven overenie, či principal stále potrebuje pridelené permissions, či ich scope a duration zostávajú primerané a či access možno odstrániť. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Access subject
+
+Exact identity, account, authenticator, session/token, principal mapping, requested action/resource/context, policy generation, enforcement point a audit scope analyzovaného accessu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Access token
 
@@ -742,6 +750,10 @@ Auto Scaling Group desired state, current instance/lifecycle inventory, health s
 
 Service Provider endpoint prijímajúci a validujúci SAML Response pri browser SSO. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
+## Asset-impact matrix — CIA
+
+System-specific mapping assetu alebo business procesu na confidentiality, integrity a availability loss, impact threshold, controls, evidence a ownera. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
 ## Asset — security
 
 Dáta, systém, identita, služba, konfigurácia, artifact alebo business process, ktorého strata alebo kompromitovanie má hodnotiteľný dopad. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
@@ -826,6 +838,10 @@ Rozdelenie počtu technical attempts pripadajúcich na jednu logical operation, 
 
 Signed statement, ktorý viaže subject digest na konkrétny predicate a identity vydávajúcu dané tvrdenie. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
+## Attribute-authority matrix
+
+Mapping identity, ownership a authorization attributes na ich authoritative source, consumers, freshness a invalidation contract. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Attribute-Based Access Control — ABAC
 
 Authorization model používajúci attributes principalu, resource-u, action a environmentu na vytvorenie access decisionu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -838,6 +854,10 @@ Total spoľahlivo allocated workload cost vydelený validným business outcome v
 
 Identifier zamýšľaného konzumenta tokenu alebo assertion; musí byť validovaný, aby sa artifact nedal použiť voči inému clientovi alebo resource serveru. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md), [OpenID Connect](docs/13-security-and-identity/openid-connect.md) a [SAML](docs/13-security-and-identity/saml.md).
 
+## Audit completeness verdict — identity
+
+Rozhodnutie, či security audit zachoval trusted time, original actora, delegated subject, action, target, policy generation, result a celý source-to-query delivery path. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Audit-delivery contract — CloudTrail
 
 Trail scope a event selectors spolu s S3 destination, bucket/KMS policies, integrity validation, retention, protection a monitoringom delivery failures, ktoré určujú dostupnosť audit evidence. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
@@ -845,6 +865,10 @@ Trail scope a event selectors spolu s S3 destination, bucket/KMS policies, integ
 ## Audit/Event/business-event separation
 
 Rozlíšenie API audit requestu, krátkodobého Kubernetes diagnostického Eventu a durable application business udalosti. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
+
+## Audit-generation subject
+
+Exact source event, schema, actor/delegation fields, exporter, queue, central store, retention, access a query generation relevantnej security evidence. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Audit record
 
@@ -857,6 +881,10 @@ Vulnerability scanning vykonaný s oprávneným host alebo application accessom,
 ## Authentication
 
 Proces overenia identity alebo kontroly nad authenticatorom pred vytvorením session, tokenu alebo iného authenticated contextu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Authentication-event generation
+
+Versionovaný výsledok verifiera viažuci principal, authenticator, method, assurance, verifier identity, timestamp a subsequent session alebo token issuance. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Authentication Service — Kerberos AS
 
@@ -906,6 +934,10 @@ Minimálna zmena na skutočnom source-of-truth alebo owner boundary, po ktorej m
 
 Pipeline run určený policy ako jediný zdroj required verdictu alebo release artifactu pre konkrétny candidate a workflow revision. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
+## Authoritative security recovery
+
+Obnova identity, credential, configuration, data a business state-u z dôveryhodných sources vrátane revocation, rotation, reconciliation a allowed/forbidden validation. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
 ## Authoritative source — IaC
 
 Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu požadovaného infraštruktúrneho stavu; manuálne runtime zmeny sa voči nemu musia adoptovať, vrátiť alebo explicitne vyriešiť. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -930,9 +962,17 @@ Incident closure dokazujúci odstránenie všetkých direct/group/aggregation pe
 
 Krátkodobý jednorazový OAuth grant, ktorý client vymieňa na token endpoint-e za access token. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Authorization explainability
+
+Schopnosť rekonštruovať principal/session, direct a nested assignments, roles/policies, resource/context, combining semantics, decision, enforcement a výsledok jedného allow alebo deny. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Authorization request subject
 
 Exact authenticated user/groups/extras, verb, API group, resource/subresource, namespace, resourceName a request timestamp vyhodnocované authorizerom. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
+
+## Authorization request tuple
+
+Exact principal, action, resource a context spolu s policy generation, nad ktorými vzniká authorization decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Authorization server
 
@@ -1762,6 +1802,10 @@ Model, v ktorom držanie konkrétnej obmedzenej capability alebo reference oprá
 
 Render generation, ktorej output závisí od explicitného Kubernetes/API capability inventory alebo live cluster discovery. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
+## Capability confidentiality
+
+Confidentiality property citlivej capability, pri ktorej principal nesmie secret alebo key iba čítať, ale ani neobmedzene používať signing, decryption, impersonation či export operation. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
 ## Capability drop — container
 
 Runtime policy odstraňujúca Linux capabilities z process credential sets, ideálne drop-all s explicitným pridaním iba potrebných oprávnení. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
@@ -2037,6 +2081,14 @@ Versionovaný reusable pipeline contract publikovaný v GitLabe a používaný c
 ## `CI_JOB_TOKEN`
 
 Krátkodobá GitLab job identity používaná na podporované API, artifact, package, registry alebo cross-project operácie podľa explicitného access modelu. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## CIA acceptance verdict
+
+Dôkaz, že chránený asset zachoval required confidentiality, integrity a availability, incident bol reconciled a forbidden aj residual-risk outcomes boli explicitne vyhodnotené. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## CIA security subject
+
+Exact business capability, assets, identities, data/config generations, trust boundaries, impact thresholds, controls a evidence scope analyzovanej CIA otázky. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
 ## CIA triáda
 
@@ -2978,6 +3030,10 @@ Klasifikácia question alebo incidentu podľa toho, či zlyháva API/configurati
 
 Rekonštruovateľná identita rozhodovania `when`/loop/handler pathu zahŕňajúca host, typed effective inputs, fact a registered-result freshness, item inventory, include path, changed signals, handler definitions a batch/run context. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Control generation — security
+
+Versionovaný source a runtime realization security policy, identity rule, key/credential boundary, detector alebo recovery controlu. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
 ## Control group — experiment
 
 Skupina používateľov, requestov alebo systémových instances, ktorá nedostane experimentálnu zmenu a poskytuje súbežnú baseline na porovnanie. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -3657,6 +3713,10 @@ Go template action deklarujúca named template pod globálnym menom bez okamžit
 ## Degraded access mode — Zero Trust
 
 Explicitný obmedzený access model počas outage-u identity, posture, policy alebo enforcement dependency, napríklad bounded existing sessions alebo low-risk read-only operations. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Delegated-actor chain
+
+Auditovateľný chain od original human alebo workload actora cez session/token, impersonation alebo delegated workload identity až po downstream action a target. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Delegated-administration subject
 
@@ -4590,6 +4650,10 @@ Výsledná množina permissions po vyhodnotení direct a inherited assignments, 
 
 Výsledná množina capabilities subjectu nad konkrétnym resource-om po vyhodnotení všetkých direct, inherited, shared, tokenových, custom-role a resource-policy access paths. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Effective-access graph
+
+Výsledný graph direct, group, nested, inherited, delegated a resource-policy paths spájajúci principal so sensitive capability po zohľadnení session a platform semantics. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Effective allocation coverage
 
 Podiel in-scope spendu priradený správnemu ownerovi cez dôveryhodné a validné dimensions, nie iba syntakticky vložený do default bucketu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -4658,6 +4722,10 @@ Výsledný SCP, RCP alebo declarative configuration stav vypočítaný z root, p
 
 Reachable authorization paths od principal/session identity cez trust, identity/resource policies, permissions boundary, session policy, SCP/RCP, conditions a service-specific policies k exact action/resource verdictu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
+## Effective-privilege graph
+
+Výsledná množina priamych aj nepriamych capabilities principalu vrátane role inheritance, workload creation, credential access, impersonation a policy-modification paths. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
 ## Effective process authority — Kubernetes
 
 Skutočná runtime autorita procesu po aplikovaní UID/GID/groups, capabilities, `no_new_privs`, seccomp, LSM, mounts, devices, host namespaces a runtime socketov. Pozri [SecurityContext a Pod Security](../docs/09-kubernetes/securitycontext-pod-security.md).
@@ -4689,6 +4757,10 @@ Route table, ktorú subnet skutočne používa po explicitnej asociácii alebo i
 ## Effective runtime policy subject
 
 Kernel-enforced state vzniknutý z image defaults, deployment overrides, daemon/orchestrator defaults a node policy vrátane credentials, capabilities, seccomp, LSM, mounts, devices, network a cgroups. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Effective security control
+
+Control, ktorého schválená generation je načítaná a presadzovaná na každej relevantnej boundary a ktorého allowed, forbidden a recovery outcomes boli testované. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
 ## Effective value — GitLab CI
 
@@ -4894,6 +4966,10 @@ Množina endpoint Pod UIDs patriacich jednej Deployment/ReplicaSet revision, pou
 
 Vrstva, na ktorej sa reálne presadzuje resource limit alebo quota, napríklad cgroup, Node, connection pool, Availability Zone alebo cloud account. Pozri [USE method](docs/12-observability/use-method.md).
 
+## Enforcement-path coverage
+
+Dôkaz, že authorization decision je presadený na každej skutočnej API, data-plane, delegated alebo alternate ceste ku chránenému side effectu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Enforcement-point verdict — Kubernetes networking
 
 Allow alebo drop rozhodnutie pre exact packet/flow v konkrétnom pre-NAT alebo post-NAT observation pointe dataplane-u. Pozri [CNI a NetworkPolicy](../docs/09-kubernetes/cni-networkpolicy.md).
@@ -4909,6 +4985,14 @@ Elastic network interface identity zahŕňajúca ENI ID, private/public addresse
 ## Entitlement
 
 Konkrétne oprávnenie, role, group membership alebo capability, ktorú možno prideliť principalu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Entitlement catalog
+
+Governed inventory assignable roles, groups a capabilities s purpose, actions, scope, ownerom, eligibility, activation, conflicts, review, tests a retirement contractom. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Entitlement desired generation
+
+Complete desired identity-to-entitlement graph vypočítaný z authoritative identity, job-function, ownership a policy state-u pre konkrétny reconciliation cycle. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Entity ID — SAML
 
@@ -5113,6 +5197,10 @@ Zachovanie object statusu, Events, logs, metrics, timestamps a configuration pre
 ## Evidence-preserving containment — CloudOps
 
 Dočasná bounded action zastavujúca rast dopadu pri zachovaní forensic, rollback a recovery options. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
+
+## Evidence-preserving security containment
+
+Bounded action, ktorá zastaví pokračujúci security impact a exposure bez zničenia session, identity, policy, workload, data a audit evidence potrebnej na reconstruction. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
 ## Exact-search exception — cardinality
 
@@ -6686,6 +6774,10 @@ AWS IAM capability na analýzu external accessu, policy validation a vybrané un
 
 RDS authentication model pre podporované engines, pri ktorom client generuje krátkodobý signed token cez IAM namiesto dlhodobého database passwordu. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
+## IAM drift
+
+Rozdiel medzi authoritative identity/entitlement desired state-om a effective downstream accounts, groups, roles, sessions alebo resource policies. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## IAM Identity Center
 
 AWS služba pre centralizovaný workforce access, permission sets a federované temporary sessions do viacerých AWS accounts. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
@@ -6698,6 +6790,10 @@ Citlivá IAM action umožňujúca principalu odovzdať role AWS službe; musí b
 
 Autentifikovaná alebo identifikovateľná AWS request identity, napríklad root user, IAM user, role session, federated principal alebo service principal. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
+## IAM/RBAC acceptance verdict
+
+Dôkaz, že authoritative state, reconciliation, session claims, policy bindings a effective access sú zhodné, required access funguje, forbidden paths zlyhávajú a second reconciliation neobnoví defect. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## IAM role
 
 AWS identity s trust policy a permissions policy modelom, ktorú principal preberá a používa cez temporary session credentials. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
@@ -6709,6 +6805,10 @@ Resource-based policy role určujúca, ktoré principals a za akých conditions 
 ## IAM session policy
 
 Policy odovzdaná pri vytváraní temporary session, ktorá môže zúžiť, ale nie rozšíriť permissions nad role a ostatné guardrails. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## IAM subject
+
+Exact authoritative identity record, entitlement generation, group/role graph, federation/session, platform policy, resource scope a audit generation analyzovaného IAM lifecycle-u. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## IAST — Interactive Application Security Testing
 
@@ -6766,6 +6866,10 @@ IAM policy pripojená k userovi, group alebo role, ktorá povoľuje alebo denyuj
 
 Rýchlosť tvorby a zániku telemetry identities, ktorá môže destabilizovať WAL, index, compaction a recovery aj pri miernom active count-e. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Identity eligibility generation
+
+Versionovaný stav určujúci, či identity stále spĺňa organizational a risk podmienky na použitie accountu, service-u alebo privileged entitlementu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Identity operation outcome
 
 Auditovaný výsledok konkrétnej API alebo external operácie vykonanej workload identity, nie iba dôkaz, že credential existoval. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
@@ -6778,9 +6882,17 @@ Proces zhromažďovania a overovania evidence, ktorým sa digitálna identita sp
 
 SAML entita autentizujúca principal-a a vydávajúca signed assertions. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
+## Identity reconciliation
+
+Proces porovnávajúci authoritative identity/entitlement desired state s downstream accounts, groups, roles, sessions a local access paths a pridávajúci aj odstraňujúci delta. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Identity, Service, routing a DNS acceptance verdict
 
 Záverečný verdict príslušnej kapitoly, ktorý overuje current object/generation subjects, effective runtime/dataplane state, pôvodný business outcome a relevantné forbidden outcomes. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md), [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md), [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md) a [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
+
+## Identity-to-workload audit chain
+
+Korelácia human alebo upstream principalu, jeho session a authorization s vytvorenou workload identity a downstream actions tejto workload identity. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
 ## `ignore_changes` — Terraform
 
@@ -6965,6 +7077,10 @@ Kubernetes Job s `completionMode: Indexed`, kde každý completion slot dostáva
 ## Indirect IAM capability
 
 Authority vznikajúca kombináciou zdanlivo úzkych permissions, napríklad `iam:PassRole` s vytvorením workloadu alebo edit policy/trust s následným assume-role pathom. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Indirect privilege path
+
+Povolená operation, ktorá umožní získať inú alebo vyššiu authority cez workload creation, credential read, role binding, impersonation, delegated role, trusted artifact alebo policy mutation. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Indirect workload capability
 
@@ -7297,6 +7413,10 @@ Deklaratívny schema jazyk na validáciu štruktúry, typov a vybraných constra
 ## Just-enough administration
 
 Privilege model poskytujúci iba konkrétne administratívne capabilities potrebné na úlohu namiesto full admin shellu alebo broad role. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Just-enough capability
+
+Mediated a bounded operation poskytujúca presný business alebo administrative task bez full shellu, broad role alebo ambient control-plane authority. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Just-in-time access
 
@@ -8082,6 +8202,10 @@ Podmienka nad alert labels používaná v route, silence alebo inhibition pravid
 
 Pipeline model generujúci viac jobs z kombinácie dimensions ako OS, architecture, runtime version alebo deployment target. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
+## Maximum-permission envelope
+
+Guardrail, boundary alebo architecture contract určujúci najvyššiu authority, ktorú principal, delegated administrator alebo workload môže získať bez ohľadu na jednotlivé role assignments. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
 ## Maximum surge
 
 Limit dočasnej capacity nad desired replica count, ktorú môže rolling update vytvoriť na zachovanie dostupnosti a zrýchlenie rollout-u. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
@@ -8349,6 +8473,10 @@ Versionovaná deklarácia `from` a `to` addressy, ktorou Terraform zachová reso
 ## Moved history — Terraform
 
 Sada `moved` blocks zachovaná naprieč module releases tak, aby consumers preskakujúci verzie mohli premapovať staré addresses bez neúmyselných replacements. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Mover reconciliation
+
+Identity lifecycle transition, ktorá vypočíta nové desired entitlements, odstráni staré incompatible paths, vykoná SoD kontrolu, pridá nové access paths a revoke-ne stale sessions. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## MSS — Maximum Segment Size
 
@@ -8633,6 +8761,10 @@ Cacheovanie negatívnej DNS odpovede, napríklad `NXDOMAIN`. Pozri [DNS](docs/02
 ## Negative qualifier — exam reasoning
 
 Explicitná podmienka ako `without public internet`, `must retain evidence` alebo `without downtime`, ktorá vylučuje inak technicky funkčné candidate solutions. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
+## Nested-group access path
+
+Transitive entitlement cesta, v ktorej principal získava role alebo permission cez jednu alebo viac vnorených group memberships. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Network acceptance verdict
 
@@ -9806,6 +9938,10 @@ Komponent vyhodnocujúci authorization request voči policies a contextu a vraca
 
 Komponent vyhodnocujúci policy nad inputom a supporting data a vracajúci structured decision. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Policy-decision verdict
+
+Exact allow, deny alebo error výsledok PDP nad principal–action–resource–context tuple-om a konkrétnou policy/attribute generation. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Policy distribution skew
 
 Dočasný stav, keď distributed PDP alebo PEP instances používajú rozdielne policy revisions pre asynchronous rollout alebo activation failure. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -9833,6 +9969,10 @@ Explicitný, scoped, approved a expirovateľný object povoľujúci dokumentovan
 ## Policy exception — Terraform
 
 Časovo obmedzený a auditovaný override konkrétnej policy s ownerom, dôvodom, compensating controls, approvalom, expiration a remediation plánom. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Policy-information freshness
+
+Dôkaz, že group, ownership, tenant, device, risk a ďalšie PIP attributes použité pri authorization zodpovedajú current authoritative state-u. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Policy Information Point — PIP
 
@@ -9998,6 +10138,10 @@ Autoritatívna shard kópia subsetu documents, z ktorej sa koordinuje replicatio
 
 Security identity používaná pri authentication alebo authorization, napríklad user, workload, service alebo device. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Principal-mapping generation
+
+Versionované pravidlá mapujúce federovaný issuer/subject a claims na local application, cloud alebo Kubernetes principal. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## PriorityClass
 
 Cluster-scoped Kubernetes resource definujúci numerickú Pod priority a preemption policy semantics. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -10017,6 +10161,18 @@ Subnet bez priameho inbound internet pathu, ktorý môže používať NAT, VPC e
 ## Privilege creep
 
 Postupné hromadenie nepotrebných alebo zastaraných permissions počas zmien role, projektov a manuálnych grants. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Privilege-dimension inventory
+
+Explicitný inventory action, resource, data, environment, tenant, time, delegation, session-assurance a operation-budget scope-u jedného entitlementu. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Privilege-removal closure
+
+Dôkaz, že source assignment, nested paths, active sessions, tokens, delegated workloads a alternate identities už neposkytujú odstránenú capability. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Privilege subject
+
+Exact principal, business task, entitlement generation, activation/session, action/resource/data/time scope, maximum envelope a validation set analyzovaného privilege-u. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
 
 ## Privileged container
 
@@ -11150,6 +11306,10 @@ Per-function limit, ktorý rezervuje časť regional concurrency poolu a zárove
 
 Risk zostávajúci po aplikovaní mitigations a controls, ktorý musí mať explicitného ownera, acceptance decision a review trigger. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
+## Residual-risk verdict
+
+Explicitné rozhodnutie o zostávajúcom security risku po containment, recovery a effective-control validation vrátane ownera, duration a acceptance podmienok. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
 ## Resilience engineering
 
 Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -11521,6 +11681,10 @@ Evidencia repositories, playbooks a owners používajúcich konkrétnu role/coll
 ## Role contract — Ansible
 
 Verejné a prevádzkové rozhranie role tvorené inputs, defaults, outputs/facts, handlers, side effects, supported platforms, privileges, idempotency a upgrade behaviorom. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
+## Role-contract generation
+
+Versionovaný role design s purpose, permissions, scope, ownerom, eligibility, activation, conflicts, tests, review a retirement semantics. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Role defaults — Ansible
 
@@ -12182,6 +12346,14 @@ Zopakovanie controller alebo business operácie po oprave, napríklad ďalší r
 
 Dôkaz, že ďalší controller reconcile, retry, replacement alebo failover zostane bounded a nevytvorí znovu drift, duplicate alebo chybný side effect. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Second-session revocation test
+
+Validation, ktorá overí odstránený privilege v predtým active session aj v novo vydanej session po source a policy reconciliation. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Second-sync test
+
+Opakovaný identity/entitlement reconciliation cycle dokazujúci, že odstránený group, role alebo binding sa z authoritative source-u alebo stale mappingu znovu nevytvorí. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
 ## Secret
 
 Citlivý credential alebo cryptographic material, ktorého získanie umožňuje access, impersonation, decryption, signing alebo privileged operation. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
@@ -12261,6 +12433,10 @@ Vault component mountnutý na path, ktorý ukladá, generuje alebo cryptographic
 ## Secure Access Service Edge — SASE
 
 Architecture category kombinujúca networking a cloud-delivered security services; môže podporovať Zero Trust, ale sama nie je dôkazom resource-level policy. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Security assurance verdict
+
+Grounds for confidence založené na source/runtime read-backu, allowed a forbidden tests, audit evidence a recovery rehearsal, že security objectives konkrétnej implementácie sú splnené. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
 ## Security categorization
 
@@ -12602,6 +12778,10 @@ Load-balancing policy smerujúca klienta alebo key opakovane na rovnaký backend
 
 Service behavior preferujúci rovnaký backend pre klienta podľa ClientIP a timeoutu; nie je náhradou durable session storage. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## Session-assurance state
+
+Current authentication method, assurance level, authentication age, device/risk context, validity a revocation state dlhšie trvajúcej session. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
 ## Session binding — Zero Trust
 
 Cryptographic alebo policy väzba session/token contextu na konkrétny device, key, client alebo communication channel s cieľom obmedziť replay ukradnutého credentialu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -12609,6 +12789,10 @@ Cryptographic alebo policy väzba session/token contextu na konkrétny device, k
 ## Session Manager
 
 Systems Manager capability poskytujúca IAM-authorized interactive shell alebo port-forwarding sessions bez potreby inbound SSH/RDP portu. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## Session revocation closure
+
+Dôkaz, že browser sessions, access/refresh tokens, delegated grants a ďalšie artifacts odvodené z identity alebo authenticatora už verifier a resource services neprijímajú. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
 ## Severity — log
 
@@ -13630,6 +13814,10 @@ Security a blast-radius hranica oddeľujúca oprávnenie meniť tags/resource-gr
 
 Port alebo pomenovaný Pod container port, na ktorý Service dataplane smeruje traffic z publikovaného Service `port`. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## Task-capability contract
+
+Mapping jedného business alebo administrative tasku na required observations, preconditions, exact mutation, resource/data scope, forbidden actions, validation a audit. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
 ## Task intake protocol
 
 Krátky pre-mutation záznam contextu, namespace-u, subjectu, desired change, hard constraints, forbidden changes, validation a časového budgetu.
@@ -14185,6 +14373,10 @@ Miesto, kde sa mení úroveň dôvery, identity authority, administrative contro
 ## Trust domain — SPIFFE
 
 SPIFFE administrative a security boundary určujúca namespace workload identities a trust bundle pre ich verification. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Trusted-attribute contract
+
+Pravidlo určujúce authoritative source, schema, writer permissions, freshness, normalization a failure behavior attribute-u používaného pri ABAC alebo role eligibility. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Trusted Node label
 
@@ -14837,6 +15029,10 @@ Počet workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločn
 ## Workload federation — Zero Trust
 
 Explicitné prepájanie workload trust domains alebo identity authorities s riadenou výmenou trust bundles a samostatnou authorization policy. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Workload IAM subject
+
+Exact workload owner, runtime/deployment binding, issuer, audience, credential generation, permissions, expiration, rotation, usage a audit identity non-human principalu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
 ## Workload identity chain — containers
 
