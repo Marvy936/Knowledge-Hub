@@ -3641,6 +3641,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "title": "On-call a escalation",
+      "words": 1652,
+      "headings": 37,
+      "sections": 37,
+      "findings": 92,
+      "critical": 30,
+      "high": 41,
+      "medium": 10,
+      "low": 11,
+      "score": 735,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
       "title": "Reliability, availability a durability",
       "words": 1880,
@@ -200428,6 +200442,834 @@
       "path": "docs/14-sre-and-operations/incident-management.md",
       "section": "Incident končí po mitigation",
       "line": 406,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "2. Exact on-call support contract",
+      "line": 26,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "3. Page eligibility",
+      "line": 57,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "3. Page eligibility",
+      "line": 57,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "3. Page eligibility",
+      "line": 57,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `urgentný;`, `relevantný pre podporovanú službu;`, `dostatočne spoľahlivý;`, `actionable pre receiving role;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "3. Page eligibility",
+      "line": 57,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "3. Page eligibility",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "4. Notification delivery nie je response",
+      "line": 83,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "4. Notification delivery nie je response",
+      "line": 83,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time to page creation;`, `routing latency;`, `delivery success;`, `acknowledgement time;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "4. Notification delivery nie je response",
+      "line": 83,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "5. Rotation design",
+      "line": 111,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "5. Rotation design",
+      "line": 111,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet ľudí a časových pásiem;`, `primary/secondary model;`, `shift length a frequency;`, `nočné a víkendové zaťaženie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "5. Rotation design",
+      "line": 111,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "5. Rotation design",
+      "line": 111,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "6. Primary, secondary a specialist roles",
+      "line": 131,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Primary on-call",
+      "line": 133,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Primary on-call",
+      "line": 133,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Primary on-call",
+      "line": 133,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Primary on-call",
+      "line": 133,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijíma prvý page;`, `potvrdí subject a impact;`, `vykoná safe first response;`, `deklaruje incident alebo eskaluje;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Primary on-call",
+      "line": 133,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Secondary on-call",
+      "line": 141,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Secondary on-call",
+      "line": 141,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Secondary on-call",
+      "line": 141,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Secondary on-call",
+      "line": 141,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prevezme ďalšie alerts alebo tickets;`, `poskytne paralelnú diagnostiku;`, `nahradí primary pri nedostupnosti alebo overload-e;`, `môže prevziať IC alebo Operations rolu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Secondary on-call",
+      "line": 141,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Secondary on-call",
+      "line": 141,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IC`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Specialist alebo service owner",
+      "line": 149,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Specialist alebo service owner",
+      "line": 149,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Specialist alebo service owner",
+      "line": 149,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Specialist alebo service owner",
+      "line": 149,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poskytuje deep component knowledge;`, `schvaľuje high-risk domain decisions;`, `rieši architecture, vendor alebo data-recovery hranice;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Specialist alebo service owner",
+      "line": 149,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "8. Escalation dimensions",
+      "line": 176,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Time escalation",
+      "line": 180,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Skill escalation",
+      "line": 184,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Authority escalation",
+      "line": 188,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Capacity escalation",
+      "line": 192,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Severity escalation",
+      "line": 196,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Dependency escalation",
+      "line": 200,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "9. Access a readiness",
+      "line": 210,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "9. Access a readiness",
+      "line": 210,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "9. Access a readiness",
+      "line": 210,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a MFA;`, `JIT alebo break-glass process;`, `read access k production telemetry a auditom;`, `bounded remediation permissions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "9. Access a readiness",
+      "line": 210,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "9. Access a readiness",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "9. Access a readiness",
+      "line": 210,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `JIT`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "10. Page quality",
+      "line": 226,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "10. Page quality",
+      "line": 226,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "10. Page quality",
+      "line": 226,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `actionable rate;`, `false-positive rate;`, `duplicate rate;`, `pages per shift a per incident;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "10. Page quality",
+      "line": 226,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "10. Page quality",
+      "line": 226,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "11. On-call health a sustainability",
+      "line": 244,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "11. On-call health a sustainability",
+      "line": 244,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "11. On-call health a sustainability",
+      "line": 244,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nočné prerušenia a recovery time;`, `simultánne incidents;`, `shift swap a absence patterns;`, `self-reported fatigue;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "11. On-call health a sustainability",
+      "line": 244,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "11. On-call health a sustainability",
+      "line": 244,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 272,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `provider P1 contact nebol v current runbooku;`, `responder predpokladal transient a nevyhlásil incident.`, `malá rotation a vysoký duplicate page load;`, `stale secondary schedule;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 272,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "13. Containment on-call failure-u",
+      "line": 306,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "13. Containment on-call failure-u",
+      "line": 306,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktiváciu backup secondary mimo stale schedule;`, `presun support tickets na nonincident ownera;`, `grouping/silence duplicate symptom alerts pod incident ID;`, `explicitné provider a DB specialist escalation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "13. Containment on-call failure-u",
+      "line": 306,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "13. Containment on-call failure-u",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "13. Containment on-call failure-u",
+      "line": 306,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "13. Containment on-call failure-u",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "14. Authoritative redesign",
+      "line": 320,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "14. Authoritative redesign",
+      "line": 320,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "14. Authoritative redesign",
+      "line": 320,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capacity trend alerts prešli na ticket/report;`, `duplicate symptom alerts sa groupujú podľa incident subjectu;`, `schedule a timezone sa validujú canary notificationou;`, `pre-shift checklist testuje access a contacts;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "14. Authoritative redesign",
+      "line": 320,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "14. Authoritative redesign",
+      "line": 320,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "14. Authoritative redesign",
+      "line": 320,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SEV-1`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support scope, hours a severity sú explicitné;`, `page eligibility je user-impacting, urgentná a actionable;`, `schedule má primary, secondary a tested escalation;`, `notification delivery a qualified response sú oddelené;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "15. On-call acceptance verdict",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "16. Troubleshooting on-call failure",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "16. Troubleshooting on-call failure",
+      "line": 362,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "17. Earlier controls",
+      "line": 380,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "17. Earlier controls",
+      "line": 380,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "17. Earlier controls",
+      "line": 380,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "17. Earlier controls",
+      "line": 380,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service support contract;`, `page eligibility review;`, `primary/secondary coverage;`, `schedule a timezone canary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "17. Earlier controls",
+      "line": 380,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "17. Earlier controls",
+      "line": 380,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Každý alert je page",
+      "line": 397,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Acknowledged znamená handled",
+      "line": 401,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Primary musí všetko vyriešiť sám",
+      "line": 405,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Heroická rotation",
+      "line": 409,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Escalation je zlyhanie jednotlivca",
+      "line": 413,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/on-call-and-escalation.md",
+      "section": "Globálne silence počas incidentu",
+      "line": 417,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
