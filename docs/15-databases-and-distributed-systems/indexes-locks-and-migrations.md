@@ -1,4 +1,4 @@
-# Indexy, locks a migrácie
+# Indexy, locks a migrations
 
 Index, lock a schema migration nie sú tri oddelené témy. Index mení access path a write cost. Access path ovplyvňuje, koľko rows a pages transaction navštívi a uzamkne. Migration mení schema, indexes, constraints alebo dáta počas concurrent production trafficu. Bez spoločného modelu môže správna DDL zmena vytvoriť lock queue, replication lag alebo neúplný rollout.
 
@@ -557,5 +557,5 @@ Relevantné pojmy: index subject, access path, query selectivity, multicolumn in
 
 **Navigácia**
 
-[← Predchádzajúca: Transactions a ACID](transactions-and-acid.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Replikácia a high availability →](replication-and-high-availability.md)
+[← Predchádzajúca: Transactions a ACID](transactions-and-acid.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Replication a high availability →](replication-and-high-availability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

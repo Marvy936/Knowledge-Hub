@@ -3810,7 +3810,7 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
-      "title": "Indexy, locks a migrácie",
+      "title": "Indexy, locks a migrations",
       "words": 2104,
       "headings": 42,
       "sections": 42,
@@ -3838,7 +3838,7 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/replication-and-high-availability.md",
-      "title": "Replikácia a high availability",
+      "title": "Replication a high availability",
       "words": 2135,
       "headings": 37,
       "sections": 37,

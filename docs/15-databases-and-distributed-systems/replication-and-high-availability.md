@@ -1,4 +1,4 @@
-# Replikácia a high availability
+# Replication a high availability
 
 Replikácia vytvára ďalšie copies alebo odvodené logické state-y. High availability používa tieto copies, failure detection, promotion, routing a fencing na obnovenie služby. Samotná existencia replica preto nie je HA verdict a počet copies nie je durability guarantee.
 
@@ -545,5 +545,5 @@ Relevantné pojmy: replication subject, physical replication, logical replicatio
 
 **Navigácia**
 
-[← Predchádzajúca: Indexy, locks a migrácie](indexes-locks-and-migrations.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Indexy, locks a migrations](indexes-locks-and-migrations.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

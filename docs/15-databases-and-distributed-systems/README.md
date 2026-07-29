@@ -23,8 +23,8 @@ Odporúča sa najprv dokončiť:
 
 1. [Relational vs. non-relational databases](relational-vs-non-relational-databases.md)
 2. [Transactions a ACID](transactions-and-acid.md)
-3. [Indexy, locks a migrácie](indexes-locks-and-migrations.md)
-4. [Replikácia a high availability](replication-and-high-availability.md)
+3. [Indexy, locks a migrations](indexes-locks-and-migrations.md)
+4. [Replication a high availability](replication-and-high-availability.md)
 
 Aktuálny authoritative stav sekcie je **4/18 · In progress**.
 
@@ -153,7 +153,7 @@ fence all writers
 - používať stable idempotency a transactional outbox pre external workflows;
 - overiť skutočnú ORM/autocommit runtime boundary.
 
-### Indexy, locks a migrácie
+### Indexy, locks a migrations
 
 - definovať exact query/index/migration subject a scale;
 - vysvetliť planner, selectivity a access paths;
@@ -165,7 +165,7 @@ fence all writers
 - navrhnúť resumable, idempotent a conflict-safe backfill;
 - overiť valid/effective index a constraint state.
 
-### Replikácia a high availability
+### Replication a high availability
 
 - definovať replication topology, commit policy a recovery objectives;
 - rozlíšiť physical a logical replication;
@@ -210,8 +210,8 @@ Každá komplexná kapitola musí rozlišovať:
 |---|---|---|
 | Relational vs. non-relational databases | Learning | L2 |
 | Transactions a ACID | Learning | L2 |
-| Indexy, locks a migrácie | Learning | L2 |
-| Replikácia a high availability | Learning | L2 |
+| Indexy, locks a migrations | Learning | L2 |
+| Replication a high availability | Learning | L2 |
 | Backups a point-in-time recovery | Not Started | L0 |
 | Connection pooling | Not Started | L0 |
 | PostgreSQL, MySQL a Redis | Not Started | L0 |

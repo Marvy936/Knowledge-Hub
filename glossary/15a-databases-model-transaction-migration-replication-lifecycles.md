@@ -2,7 +2,7 @@
 
 ## Acknowledged-write RPO
 
-Recovery Point Objective vyjadrený voči business operations, ktoré už systém callerovi potvrdil; commit a replication policy musí preukázať, ktoré z nich prežijú konkrétny failure. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Recovery Point Objective vyjadrený voči business operations, ktoré už systém callerovi potvrdil; commit a replication policy musí preukázať, ktoré z nich prežijú konkrétny failure. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Aggregate boundary
 
@@ -10,7 +10,7 @@ Množina facts a state transitions, ktoré sa typicky čítajú a menia spolu a 
 
 ## Asynchronous replication
 
-Replication policy, pri ktorej primary môže potvrdiť commit pred required acknowledgementom replica-y; znižuje write latency coupling, ale môže vytvoriť non-zero RPO pri permanentnej strate primary. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Replication policy, pri ktorej primary môže potvrdiť commit pred required acknowledgementom replica-y; znižuje write latency coupling, ale môže vytvoriť non-zero RPO pri permanentnej strate primary. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Autocommit
 
@@ -22,7 +22,7 @@ Business fact, ktorého konkrétny store a state transition rozhodujú o pravde 
 
 ## Covering index
 
-Index obsahujúci key a ďalšie columns potrebné pre query tak, aby engine mohol obmedziť alebo vynechať access k base table podľa visibility a product semantics. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Index obsahujúci key a ďalšie columns potrebné pre query tak, aby engine mohol obmedziť alebo vynechať access k base table podľa visibility a product semantics. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Database-model acceptance verdict
 
@@ -42,19 +42,19 @@ Failure-prone stav, keď dva stores alebo writers môžu nezávisle meniť rovna
 
 ## DDL lock
 
-Lock alebo metadata-serialization boundary vyžadovaná schema operation, ktorá môže čakať za existujúcimi transactions alebo blokovať ďalšie reads/writes podľa engine-u a statementu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Lock alebo metadata-serialization boundary vyžadovaná schema operation, ktorá môže čakať za existujúcimi transactions alebo blokovať ďalšie reads/writes podľa engine-u a statementu. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Estimate-vs-actual verdict
 
-Porovnanie planner estimate-u cardinality/costu s reálne spracovanými rows, časom, buffers a outputom, používané na diagnostiku nesprávneho access pathu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Porovnanie planner estimate-u cardinality/costu s reálne spracovanými rows, časom, buffers a outputom, používané na diagnostiku nesprávneho access pathu. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Expand–backfill–switch–contract
 
-Phased schema/data migration protocol: pridať kompatibilný model, bezpečne doplniť historical state, prepnúť current readers/writers po reconciliation a až potom odstrániť starý contract. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Phased schema/data migration protocol: pridať kompatibilný model, bezpečne doplniť historical state, prepnúť current readers/writers po reconciliation a až potom odstrániť starý contract. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Failback generation
 
-Versionovaný plan a state transition, ktorým sa authoritative workload vracia alebo presúva z recovery writer-a na novú steady-state topology po vyriešení divergence, capacity a dependency podmienok. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Versionovaný plan a state transition, ktorým sa authoritative workload vracia alebo presúva z recovery writer-a na novú steady-state topology po vyriešení divergence, capacity a dependency podmienok. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Hot partition
 
@@ -62,11 +62,11 @@ Partition alebo shard, ktorého key distribution sústreďuje neprimeraný traff
 
 ## Index/lock/migration acceptance verdict
 
-Dôkaz, že query plan, index validity/use, lock behavior, migration phases, backfill correctness, application compatibility, replication/vacuum guardrails a rollback/restart outcomes prešli v current scale-i. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Dôkaz, že query plan, index validity/use, lock behavior, migration phases, backfill correctness, application compatibility, replication/vacuum guardrails a rollback/restart outcomes prešli v current scale-i. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Index subject
 
-Exact database/table/index/query generation, data distribution, workload, statistics, lock a migration scope analyzovaného access pathu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Exact database/table/index/query generation, data distribution, workload, statistics, lock a migration scope analyzovaného access pathu. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Invariant boundary
 
@@ -78,11 +78,11 @@ Data-design postup začínajúci business constraints, concurrency a atomic tran
 
 ## Lock graph
 
-Directed graph transactions/sessions a lock dependencies používaný na rozlíšenie holders, waiters, root blockerov a deadlock cycles. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Directed graph transactions/sessions a lock dependencies používaný na rozlíšenie holders, waiters, root blockerov a deadlock cycles. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Logical replication
 
-Replication changes na logical row/event úrovni, ktorá môže byť selective a vhodná pre migrations alebo downstream consumers, ale potrebuje explicitný DDL, ordering, conflict a completeness contract. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Replication changes na logical row/event úrovni, ktorá môže byť selective a vhodná pre migrations alebo downstream consumers, ale potrebuje explicitný DDL, ordering, conflict a completeness contract. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Lost update
 
@@ -90,7 +90,7 @@ Concurrency anomaly, pri ktorej neskorší write založený na stale read-e prep
 
 ## Migration generation
 
-Exact version schema artifactu, backfill code-u, cursor/state-u, application compatibility a effective constraints/indexes tvoriaca jednu database migration. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Exact version schema artifactu, backfill code-u, cursor/state-u, application compatibility a effective constraints/indexes tvoriaca jednu database migration. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## MVCC — Multi-Version Concurrency Control
 
@@ -102,11 +102,11 @@ Concurrency model, v ktorom writer mutuje iba vtedy, keď row/version/state stá
 
 ## Partial index
 
-Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bounded active/missing cohort, ak query predicate a business semantics presne zodpovedajú jeho scope-u. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bounded active/missing cohort, ak query predicate a business semantics presne zodpovedajú jeho scope-u. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Physical replication
 
-Engine/storage-level replication write-ahead alebo physical changes poskytujúca high-fidelity standby, ale kopírujúca aj logical corruption a často viazaná na užšiu version compatibility. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Engine/storage-level replication write-ahead alebo physical changes poskytujúca high-fidelity standby, ale kopírujúca aj logical corruption a často viazaná na užšiu version compatibility. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Polyglot persistence
 
@@ -114,7 +114,7 @@ Zámerné použitie viacerých databázových technológií s explicitne odlišn
 
 ## Promotion eligibility
 
-Verdict, že konkrétna replica má compatible generation, required data position, acceptable RPO gap, healthy recovery state, access, capacity a fencing path na prevzatie authoritative writer role. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Verdict, že konkrétna replica má compatible generation, required data position, acceptable RPO gap, healthy recovery state, access, capacity a fencing path na prevzatie authoritative writer role. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Query-first model
 
@@ -122,7 +122,7 @@ Data-design postup začínajúci dominantnými predicates, ordering, pagination,
 
 ## Receive/flush/replay lag
 
-Oddelené replication gaps medzi logom odoslaným primary, prijatým replica-ou, durably uloženým a aplikovaným/query-visible state-om. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Oddelené replication gaps medzi logom odoslaným primary, prijatým replica-ou, durably uloženým a aplikovaným/query-visible state-om. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Relational model
 
@@ -130,15 +130,15 @@ Data model založený na relations, rows, columns, keys, constraints a declarati
 
 ## Replication/HA acceptance verdict
 
-Dôkaz, že replication positions, commit policy, lag, reads, promotion, fencing, client convergence, reconciliation, backup a failback spĺňajú scenario-specific availability, durability, RPO a RTO. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Dôkaz, že replication positions, commit policy, lag, reads, promotion, fencing, client convergence, reconciliation, backup a failback spĺňajú scenario-specific availability, durability, RPO a RTO. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Replication subject
 
-Exact authoritative data set, primary/replica/timeline generations, replication mechanism, positions, commit policy, read routing, failure, promotion, fencing a recovery scope. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Exact authoritative data set, primary/replica/timeline generations, replication mechanism, positions, commit policy, read routing, failure, promotion, fencing a recovery scope. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Root blocker
 
-Session alebo transaction na začiatku lock-wait chainu, ktorej held lock alebo open transaction nepriamo blokuje ďalšie work. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Session alebo transaction na začiatku lock-wait chainu, ktorej held lock alebo open transaction nepriamo blokuje ďalšie work. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Serialization failure
 
@@ -150,19 +150,19 @@ Field alebo composite identity určujúca partition placement a routing distribu
 
 ## Split brain
 
-Failure state, v ktorom viac nodes alebo partitions súčasne prijíma authoritative writes bez jedného leadership/fencing verdictu a vytvára divergentné histories. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Failure state, v ktorom viac nodes alebo partitions súčasne prijíma authoritative writes bez jedného leadership/fencing verdictu a vytvára divergentné histories. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Stable backfill cursor
 
-Monotonic alebo otherwise resumable position používaná na deterministic bounded batch selection bez repeated broad scans a bez nejasného restart pointu. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Monotonic alebo otherwise resumable position používaná na deterministic bounded batch selection bez repeated broad scans a bez nejasného restart pointu. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Stale backfill overwrite
 
-Failure, pri ktorom backfill vypočíta value zo starého snapshotu a neskôr prepíše novší live state bez version/current-state predicate-u. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Failure, pri ktorom backfill vypočíta value zo starého snapshotu a neskôr prepíše novší live state bez version/current-state predicate-u. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Synchronous replication
 
-Replication policy, pri ktorej commit čaká na configured replica/quorum acknowledgement stage; posilňuje acknowledged-write durability za cenu latency a availability coupling. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Replication policy, pri ktorej commit čaká na configured replica/quorum acknowledgement stage; posilňuje acknowledged-write durability za cenu latency a availability coupling. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Transaction acceptance verdict
 
@@ -186,7 +186,7 @@ Stav, keď client nedostal authoritative response a nevie, či database alebo ex
 
 ## Write amplification — database
 
-Dodatočné index, WAL/redo, replication, vacuum/compaction a storage operations vyvolané jedným logical write-om. Pozri [Indexy, locks a migrácie](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+Dodatočné index, WAL/redo, replication, vacuum/compaction a storage operations vyvolané jedným logical write-om. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
 
 ## Write skew
 
@@ -194,8 +194,8 @@ Isolation anomaly, pri ktorej concurrent transactions menia odlišné rows na z�
 
 ## Writer epoch
 
-Monotonic leadership generation pripojená k write authorization alebo records/events, ktorá pomáha odmietnuť stale writer-a po failover-e. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Monotonic leadership generation pripojená k write authorization alebo records/events, ktorá pomáha odmietnuť stale writer-a po failover-e. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
 
 ## Writer fencing
 
-Mechanizmus, ktorý preukázateľne zabráni old alebo stale primary-u prijímať authoritative writes pred alebo počas promotion novej writer generation. Pozri [Replikácia a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).
+Mechanizmus, ktorý preukázateľne zabráni old alebo stale primary-u prijímať authoritative writes pred alebo počas promotion novej writer generation. Pozri [Replication a high availability](../docs/15-databases-and-distributed-systems/replication-and-high-availability.md).

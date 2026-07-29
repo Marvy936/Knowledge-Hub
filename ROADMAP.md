@@ -335,8 +335,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 - [x] [Relational vs. non-relational databases](docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md)
 - [x] [Transactions a ACID](docs/15-databases-and-distributed-systems/transactions-and-acid.md)
-- [ ] Indexy, locks a migrations
-- [ ] Replication a high availability
+- [x] [Indexy, locks a migrations](docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md)
+- [x] [Replication a high availability](docs/15-databases-and-distributed-systems/replication-and-high-availability.md)
 - [ ] Backups a point-in-time recovery
 - [ ] Connection pooling
 - [ ] PostgreSQL, MySQL a Redis
