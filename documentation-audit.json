@@ -3377,15 +3377,15 @@
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
       "title": "Encryption at rest a in transit",
-      "words": 4266,
-      "headings": 56,
-      "sections": 56,
-      "findings": 78,
-      "critical": 9,
-      "high": 10,
+      "words": 2323,
+      "headings": 40,
+      "sections": 40,
+      "findings": 85,
+      "critical": 18,
+      "high": 28,
       "medium": 6,
-      "low": 53,
-      "score": 279,
+      "low": 33,
+      "score": 496,
       "grade": "D"
     },
     {
@@ -185312,170 +185312,35 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "1. Security properties cryptography",
-      "line": 18,
+      "section": "1. Dominantný asset-to-key-boundary lifecycle",
+      "line": 7,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "1. Security properties cryptography",
-      "line": 18,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "1. Dominantný asset-to-key-boundary lifecycle",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "1. Security properties cryptography",
-      "line": 18,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "1. Security properties cryptography",
-      "line": 18,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "1. Security properties cryptography",
-      "line": 18,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "2. Data at rest, in transit a in use",
-      "line": 33,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "2. Data at rest, in transit a in use",
-      "line": 33,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "3. Threat model pred výberom algoritmu",
-      "line": 43,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "5. Encryption, hashing, MAC a signature",
-      "line": 67,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "5. Encryption, hashing, MAC a signature",
-      "line": 67,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "6. Symmetric cryptography",
-      "line": 75,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "7. Asymmetric cryptography",
-      "line": 83,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "8. Hybrid cryptography",
-      "line": 91,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "9. AEAD",
-      "line": 106,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "10. Nonce a IV",
-      "line": 122,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "15. HSM",
-      "line": 191,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "16. Key metadata a inventory",
-      "line": 199,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "16. Key metadata a inventory",
-      "line": 199,
-      "severity": "critical",
+      "section": "1. Dominantný asset-to-key-boundary lifecycle",
+      "line": 7,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable key ID a versions;`, `ownera a business purpose;`, `algorithm, strength a allowed operations;`, `environment a tenant scope;`.",
-      "score": 12
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo chráni cryptography?`, `Pred ktorým attackerom a na ktorej boundary?`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "16. Key metadata a inventory",
-      "line": 199,
+      "section": "1. Dominantný asset-to-key-boundary lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -185483,98 +185348,17 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "16. Key metadata a inventory",
-      "line": 199,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "16. Key metadata a inventory",
-      "line": 199,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "16. Key metadata a inventory",
-      "line": 199,
+      "section": "2. Exact cryptographic subject",
+      "line": 28,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `KEK`, `scope`, `policy`",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "18. Key generation",
-      "line": 235,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "18. Key generation",
-      "line": 235,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "19. Cryptoperiod",
-      "line": 243,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "22. Backup a key recovery",
-      "line": 282,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "22. Backup a key recovery",
-      "line": 282,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "23. Crypto-shredding",
-      "line": 290,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "24. Full-disk a volume encryption",
-      "line": 298,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malware po login-e;`, `root/admin access;`, `application authorization flaws;`, `plaintext network transfer;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "24. Full-disk a volume encryption",
-      "line": 298,
+      "section": "3. Encryption, hashing, MAC a signature",
+      "line": 59,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -185582,8 +185366,17 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "24. Full-disk a volume encryption",
-      "line": 298,
+      "section": "3. Encryption, hashing, MAC a signature",
+      "line": 59,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "3. Encryption, hashing, MAC a signature",
+      "line": 59,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -185591,8 +185384,26 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "25. File, record a field encryption",
-      "line": 312,
+      "section": "3. Encryption, hashing, MAC a signature",
+      "line": 59,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "3. Encryption, hashing, MAC a signature",
+      "line": 59,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `KEM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "4. Data at rest, in transit a in use",
+      "line": 71,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -185600,8 +185411,44 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "26. Database encryption",
-      "line": 320,
+      "section": "5. Threat model pred algoritmom",
+      "line": 88,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "16 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "5. Threat model pred algoritmom",
+      "line": 88,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ukradnuté médium alebo snapshot;`, `leaked backup;`, `etcd/object-storage-only compromise;`, `nesprávna media disposal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "5. Threat model pred algoritmom",
+      "line": 88,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "5. Threat model pred algoritmom",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "5. Threat model pred algoritmom",
+      "line": 88,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -185609,7 +185456,340 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "27. Deterministic encryption",
+      "section": "5. Threat model pred algoritmom",
+      "line": 88,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MITM`, `DNS`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "6. Authenticated encryption, nonce a AAD",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "7. Key separation",
+      "line": 133,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "7. Key separation",
+      "line": 133,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment — staging, production;`, `tenant alebo data domain;`, `protocol a trust domain;`, `actor alebo workload scope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "7. Key separation",
+      "line": 133,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "7. Key separation",
+      "line": 133,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "7. Key separation",
+      "line": 133,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "7. Key separation",
+      "line": 133,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `trust domain`, `workload`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "8. Envelope encryption",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "9. KMS a HSM boundaries",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "9. KMS a HSM boundaries",
+      "line": 172,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "11. At-rest layers",
+      "line": 203,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "12. Kubernetes encryption boundary",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "13. TLS in transit",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "13. TLS in transit",
+      "line": 237,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "14. TLS 1.3, forward secrecy a 0-RTT",
+      "line": 253,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "14. TLS 1.3, forward secrecy a 0-RTT",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "16. Worked failure — encryption green, trust boundary broken",
+      "line": 277,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `KMS master-key compromise;`, `etcd ciphertext decryptnutý offline;`, `TLS interception;`, `weak RSA algorithm;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RSA`, `JWKS`, `SAML`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 318,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `KMS`, `API`, `UID`, `JWKS`, `OIDC`, `SAML`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "19. Authoritative recovery",
+      "line": 328,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "19. Authoritative recovery",
+      "line": 328,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "19. Authoritative recovery",
+      "line": 328,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "19. Authoritative recovery",
+      "line": 328,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `overiť loaded signer generation na každej issuer replica;`, `overiť loaded verifier generation na každej RP/SP replica;`, `odstrániť old key z signing aj trust paths;`, `revoke-nuť sessions/artifacts z exposure interval-u;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "19. Authoritative recovery",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "19. Authoritative recovery",
       "line": 328,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -185618,17 +185798,8 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "28. Object storage, snapshots a backups",
-      "line": 336,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "29. Logs, caches a temporary data",
-      "line": 344,
+      "section": "19. Authoritative recovery",
+      "line": 328,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -185636,62 +185807,62 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "30. Multi-tenant encryption",
-      "line": 352,
+      "section": "19. Authoritative recovery",
+      "line": 328,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "30. Multi-tenant encryption",
-      "line": 352,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "31. Data in use",
-      "line": 360,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "33. TLS 1.3 handshake",
-      "line": 381,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "34. Certificate chain a trust store",
-      "line": 389,
+      "section": "19. Authoritative recovery",
+      "line": 328,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `HSM`, `OIDC`, `JWKS`, `SAML`, `RP`, `SP`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "34. Certificate chain a trust store",
-      "line": 389,
+      "section": "20. Acceptance verdict",
+      "line": 341,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signatures v chain-e;`, `validity periods;`, `hostname/SAN match;`, `key usage a extended key usage;`.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "34. Certificate chain a trust store",
-      "line": 389,
+      "section": "20. Acceptance verdict",
+      "line": 341,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "20. Acceptance verdict",
+      "line": 341,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "20. Acceptance verdict",
+      "line": 341,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "20. Acceptance verdict",
+      "line": 341,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -185699,8 +185870,8 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "34. Certificate chain a trust store",
-      "line": 389,
+      "section": "20. Acceptance verdict",
+      "line": 341,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -185708,170 +185879,161 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "34. Certificate chain a trust store",
-      "line": 389,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`, `policy`",
-      "score": 4
+      "section": "20. Acceptance verdict",
+      "line": 341,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "37. TLS termination, re-encryption a passthrough",
+      "section": "20. Acceptance verdict",
+      "line": 341,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `API`, `FED-SIGN-07`, `OIDC`, `SAML`, `AAD`, `TLS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "21. Troubleshooting flow",
+      "line": 354,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "Decrypt alebo verify failure",
+      "line": 356,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "TLS failure",
+      "line": 369,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "Kubernetes at-rest failure",
+      "line": 383,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "22. Crypto agility a post-quantum planning",
+      "line": 395,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "22. Crypto agility a post-quantum planning",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cryptographic inventory s ownerom, purpose a consumers;`, `independent keys per environment, tenant a protocol;`, `non-exportable private keys pre high-impact signing;`, `encryption context/AAD a nonce tests;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "23. Earlier controls",
+      "line": 403,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAD`, `TLS`, `KMS`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "Base64 je encryption",
+      "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
+      "section": "AES-256 checkbox",
       "line": 421,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "39. Session resumption a tickets",
-      "line": 439,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "40. TLS 1.3 0-RTT",
-      "line": 447,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "41. TLS downgrade a legacy protocols",
-      "line": 455,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "42. Secret a certificate rotation",
-      "line": 463,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "43. Service mesh mTLS",
-      "line": 473,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "43. Service mesh mTLS",
-      "line": 473,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "45. Kubernetes Secrets boundary",
-      "line": 491,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "46. CI/CD a artifact encryption",
-      "line": 499,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "47. Cryptographic agility",
-      "line": 507,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "47. Cryptographic agility",
-      "line": 507,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cryptographic inventory;`, `versioned algorithm identifiers;`, `pluggable protocols/formats;`, `dual-read/dual-trust migration;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "47. Cryptographic agility",
-      "line": 507,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "47. Cryptographic agility",
-      "line": 507,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "47. Cryptographic agility",
-      "line": 507,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "48. Post-quantum migration",
-      "line": 524,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "48. Post-quantum migration",
-      "line": 524,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "48. Post-quantum migration",
-      "line": 524,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -185879,62 +186041,8 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nonce reuse;`, `missing tag validation;`, `hardcoded/shared keys;`, `wrong AAD serialization;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "49. Cryptographic failure modes",
-      "line": 534,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAD`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "50. Incident response",
-      "line": 554,
+      "section": "KMS/HSM vyrieši compromised application",
+      "line": 425,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -185942,8 +186050,8 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
+      "section": "TLS všade, hostname verification vypnuté",
+      "line": 429,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -185951,66 +186059,21 @@
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
+      "section": "Jeden key pre viac purposes a environments",
+      "line": 433,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "51. Kompletný príklad envelope encryption",
-      "line": 572,
+      "section": "Key rotated = old trust odstránený",
+      "line": 437,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DEK`, `AEAD`, `AAD`, `ID`, `KMS`, `KEK`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/encryption-at-rest-and-in-transit.md",
-      "section": "53. Časté anti-patterny",
-      "line": 617,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",

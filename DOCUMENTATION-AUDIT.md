@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10440**
-- Total words: **624,812**
-- Findings: **21475** (critical 6352, high 7149, medium 2727, low 5247)
+- Audited conceptual sections: **10424**
+- Total words: **622,869**
+- Findings: **21482** (critical 6361, high 7167, medium 2727, low 5227)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -191,6 +191,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 499 | 21 | 23 | 12 | 16 | 2288 | `docs/09-kubernetes/scheduling.md` |
 | D | 498 | 20 | 26 | 8 | 17 | 1840 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 497 | 21 | 24 | 10 | 13 | 1995 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
+| D | 496 | 18 | 28 | 6 | 33 | 2323 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 490 | 21 | 25 | 6 | 17 | 1993 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 487 | 22 | 25 | 5 | 10 | 1297 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | D | 483 | 19 | 26 | 9 | 12 | 2131 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
@@ -243,7 +244,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 283 | 13 | 12 | 4 | 13 | 1700 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
-| D | 279 | 9 | 10 | 6 | 53 | 4266 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
@@ -13880,25 +13880,52 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md`
 
-- **CRITICAL** line 199, `bare-bullet-items` — **16. Key metadata a inventory**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable key ID a versions;`, `ownera a business purpose;`, `algorithm, strength a allowed operations;`, `environment a tenant scope;`.
-- **CRITICAL** line 199, `outline-instead-of-explanation` — **16. Key metadata a inventory**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 298, `bare-bullet-items` — **24. Full-disk a volume encryption**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malware po login-e;`, `root/admin access;`, `application authorization flaws;`, `plaintext network transfer;`.
-- **CRITICAL** line 389, `bare-bullet-items` — **34. Certificate chain a trust store**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signatures v chain-e;`, `validity periods;`, `hostname/SAN match;`, `key usage a extended key usage;`.
-- **CRITICAL** line 507, `bare-bullet-items` — **47. Cryptographic agility**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cryptographic inventory;`, `versioned algorithm identifiers;`, `pluggable protocols/formats;`, `dual-read/dual-trust migration;`.
-- **CRITICAL** line 507, `outline-instead-of-explanation` — **47. Cryptographic agility**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 534, `bare-bullet-items` — **49. Cryptographic failure modes**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nonce reuse;`, `missing tag validation;`, `hardcoded/shared keys;`, `wrong AAD serialization;`.
-- **CRITICAL** line 534, `outline-instead-of-explanation` — **49. Cryptographic failure modes**: 13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 572, `outline-instead-of-explanation` — **51. Kompletný príklad envelope encryption**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **HIGH** line 18, `list-heavy-section` — **1. Security properties cryptography**: 6 odrážok a iba 52 slov súvislého vysvetlenia.
-- **HIGH** line 389, `list-heavy-section` — **34. Certificate chain a trust store**: 7 odrážok a iba 46 slov súvislého vysvetlenia.
-- **HIGH** line 534, `single-sentence-concept` — **49. Cryptographic failure modes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 554, `single-sentence-concept` — **50. Incident response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 572, `single-sentence-concept` — **51. Kompletný príklad envelope encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 199, `term-before-explanation` — **16. Key metadata a inventory**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `KEK`, `scope`, `policy`
-- **HIGH** line 199, `thin-concept-section` — **16. Key metadata a inventory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 534, `thin-concept-section` — **49. Cryptographic failure modes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 572, `term-before-explanation` — **51. Kompletný príklad envelope encryption**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DEK`, `AEAD`, `AAD`, `ID`, `KMS`, `KEK`, `policy`
-- **HIGH** line 572, `thin-concept-section` — **51. Kompletný príklad envelope encryption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 88, `bare-bullet-items` — **5. Threat model pred algoritmom**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ukradnuté médium alebo snapshot;`, `leaked backup;`, `etcd/object-storage-only compromise;`, `nesprávna media disposal;`.
+- **CRITICAL** line 88, `outline-instead-of-explanation` — **5. Threat model pred algoritmom**: 16 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 133, `bare-bullet-items` — **7. Key separation**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment — staging, production;`, `tenant alebo data domain;`, `protocol a trust domain;`, `actor alebo workload scope;`.
+- **CRITICAL** line 203, `empty-section` — **11. At-rest layers**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 295, `outline-instead-of-explanation` — **17. Competing hypotheses a discriminating evidence**: 13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 318, `no-prose-concept` — **18. Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 318, `outline-instead-of-explanation` — **18. Evidence-preserving containment**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 328, `no-prose-concept` — **19. Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 328, `outline-instead-of-explanation` — **19. Authoritative recovery**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 341, `no-prose-concept` — **20. Acceptance verdict**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 341, `outline-instead-of-explanation` — **20. Acceptance verdict**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 354, `empty-section` — **21. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 356, `empty-section` — **Decrypt alebo verify failure**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 369, `empty-section` — **TLS failure**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 383, `empty-section` — **Kubernetes at-rest failure**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 403, `bare-bullet-items` — **23. Earlier controls**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cryptographic inventory s ownerom, purpose a consumers;`, `independent keys per environment, tenant a protocol;`, `non-exportable private keys pre high-impact signing;`, `encryption context/AAD a nonce tests;`.
+- **CRITICAL** line 403, `no-prose-concept` — **23. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 403, `outline-instead-of-explanation` — **23. Earlier controls**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `bare-bullet-items` — **1. Dominantný asset-to-key-boundary lifecycle**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo chráni cryptography?`, `Pred ktorým attackerom a na ktorej boundary?`.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný asset-to-key-boundary lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný asset-to-key-boundary lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 28, `single-sentence-concept` — **2. Exact cryptographic subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 133, `list-heavy-section` — **7. Key separation**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 295, `bare-bullet-items` — **17. Competing hypotheses a discriminating evidence**: 9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `KMS master-key compromise;`, `etcd ciphertext decryptnutý offline;`, `TLS interception;`, `weak RSA algorithm;`.
+- **HIGH** line 318, `list-first-introduction` — **18. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 328, `bare-bullet-items` — **19. Authoritative recovery**: 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `overiť loaded signer generation na každej issuer replica;`, `overiť loaded verifier generation na každej RP/SP replica;`, `odstrániť old key z signing aj trust paths;`, `revoke-nuť sessions/artifacts z exposure interval-u;`.
+- **HIGH** line 328, `list-first-introduction` — **19. Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 341, `list-first-introduction` — **20. Acceptance verdict**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 403, `list-first-introduction` — **23. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 417, `single-sentence-concept` — **Base64 je encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 421, `single-sentence-concept` — **AES-256 checkbox**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 425, `single-sentence-concept` — **KMS/HSM vyrieši compromised application**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 429, `single-sentence-concept` — **TLS všade, hostname verification vypnuté**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 433, `single-sentence-concept` — **Jeden key pre viac purposes a environments**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 437, `single-sentence-concept` — **Key rotated = old trust odstránený**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 7, `thin-concept-section` — **1. Dominantný asset-to-key-boundary lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 133, `term-before-explanation` — **7. Key separation**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `trust domain`, `workload`, `scope`
+- **HIGH** line 295, `thin-concept-section` — **17. Competing hypotheses a discriminating evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 318, `term-before-explanation` — **18. Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `KMS`, `API`, `UID`, `JWKS`, `OIDC`, `SAML`
+- **HIGH** line 318, `thin-concept-section` — **18. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 328, `term-before-explanation` — **19. Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `HSM`, `OIDC`, `JWKS`, `SAML`, `RP`, `SP`, `policy`
+- **HIGH** line 328, `thin-concept-section` — **19. Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 341, `term-before-explanation` — **20. Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `API`, `FED-SIGN-07`, `OIDC`, `SAML`, `AAD`, `TLS`, `identity`
+- **HIGH** line 341, `thin-concept-section` — **20. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 403, `term-before-explanation` — **23. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAD`, `TLS`, `KMS`, `identity`, `policy`
+- **HIGH** line 403, `thin-concept-section` — **23. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/iam-rbac.md`
 
@@ -14560,19 +14587,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2464 | 442 | 0 | 0 | 2906 |
-| `outline-instead-of-explanation` | 2444 | 0 | 0 | 0 | 2444 |
-| `term-before-explanation` | 0 | 547 | 1813 | 0 | 2360 |
-| `single-sentence-concept` | 0 | 2318 | 0 | 0 | 2318 |
-| `example-not-explicit` | 0 | 0 | 0 | 2112 | 2112 |
-| `thin-concept-section` | 0 | 2061 | 0 | 0 | 2061 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2039 | 2039 |
-| `list-first-introduction` | 0 | 1328 | 0 | 0 | 1328 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1096 | 1096 |
-| `short-concept-section` | 0 | 0 | 914 | 0 | 914 |
-| `no-prose-concept` | 771 | 0 | 0 | 0 | 771 |
-| `empty-section` | 673 | 0 | 0 | 0 | 673 |
-| `list-heavy-section` | 0 | 453 | 0 | 0 | 453 |
+| `bare-bullet-items` | 2462 | 445 | 0 | 0 | 2907 |
+| `outline-instead-of-explanation` | 2446 | 0 | 0 | 0 | 2446 |
+| `term-before-explanation` | 0 | 550 | 1812 | 0 | 2362 |
+| `single-sentence-concept` | 0 | 2323 | 0 | 0 | 2323 |
+| `example-not-explicit` | 0 | 0 | 0 | 2098 | 2098 |
+| `thin-concept-section` | 0 | 2064 | 0 | 0 | 2064 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2030 | 2030 |
+| `list-first-introduction` | 0 | 1333 | 0 | 0 | 1333 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1099 | 1099 |
+| `short-concept-section` | 0 | 0 | 915 | 0 | 915 |
+| `no-prose-concept` | 775 | 0 | 0 | 0 | 775 |
+| `empty-section` | 678 | 0 | 0 | 0 | 678 |
+| `list-heavy-section` | 0 | 452 | 0 | 0 | 452 |
 
 ## Required remediation pattern
 
