@@ -1,495 +1,458 @@
 # Active Directory
 
-Active Directory Domain Services (AD DS) je distribuovaná directory a identity platforma pre Windows doménové prostredia. Uchováva objekty ako users, groups, computers a services, poskytuje LDAP directory access, Kerberos a NTLM authentication, Group Policy, DNS-integrated service discovery a multimaster replication medzi domain controllers.
+Active Directory Domain Services — AD DS — je distribuovaná directory, authentication a policy platforma. Bezpečnostný výsledok nevzniká iba tým, že user alebo group object existuje. Závisí od toho, na ktorom domain controlleri change vznikol, kam sa replikoval, ktorý DC našiel client, aký directory a Kerberos state načítal a ktoré sessions alebo downstream tokens boli z tohto state-u vytvorené.
 
-Active Directory nie je synonymum pre Microsoft Entra ID. AD DS je doménová directory platforma založená na domains, forests, domain controllers, LDAP, Kerberos, DNS a Group Policy. Microsoft Entra ID je cloudová identity and access management služba s odlišným object, protocol a management modelom.
+AD DS preto treba chápať ako versionovaný identity state distribuovaný cez DNS, sites, replication, LDAP, Kerberos, SYSVOL a Windows authorization boundaries.
 
-## 1. Mentálny model
-
-```text
-forest a schema
-→ domains a trusts
-→ domain controllers
-→ replicated directory partitions
-→ DNS service discovery
-→ LDAP directory operations
-→ Kerberos/NTLM authentication
-→ groups, ACLs a Group Policy
-→ audit, backup a recovery
-```
-
-AD DS je zároveň identity system, directory database, authentication infrastructure a policy distribution platforma.
-
-## 2. Directory objects
-
-AD DS uchováva objects definované schema triedami a attributes.
-
-Príklady:
-
-- users,
-- groups,
-- computers,
-- managed service accounts,
-- organizational units,
-- contacts,
-- printers,
-- service connection points,
-- Group Policy containers.
-
-Každý object má distinguished name a ďalšie identifiers, napríklad SID alebo object GUID podľa typu a use case-u.
-
-## 3. Forest
-
-Forest je najvyššia AD DS logical security a schema boundary.
-
-Domains vo forest-e zdieľajú:
-
-- schema,
-- configuration partition,
-- global catalog,
-- forest-wide trusts,
-- niektoré forest-wide operations roles.
-
-Forest admin alebo compromise forest-level controlu má extrémne široký blast radius. Samostatný domain nie je plná isolation boundary voči forest admins.
-
-## 4. Domain
-
-Domain je logical partition s:
-
-- vlastným DNS name,
-- users, groups, computers a policies,
-- domain-wide replication,
-- domain SID namespace,
-- domain-specific operations master roles.
-
-Väčšina organizácií nepotrebuje vytvárať veľa domains iba podľa organizačnej štruktúry. OUs a delegation často riešia administratívne členenie s nižšou komplexitou.
-
-## 5. Organizational Units
-
-OU je container používaný hlavne na:
-
-- delegation administration,
-- aplikáciu Group Policy,
-- organizáciu objects.
-
-OU nie je authentication realm ani automatická security boundary.
-
-ACL na OU a inheritance určujú, kto môže meniť objects. Nesprávna delegation môže umožniť reset passwords, pridať members do privilegovaných groups alebo meniť computer accounts.
-
-## 6. Domain controllers
-
-Domain controller hostuje directory partitions a poskytuje:
-
-- LDAP,
-- Kerberos KDC,
-- authentication,
-- replication,
-- Group Policy/SYSVOL access,
-- service discovery cez DNS.
-
-Production návrh potrebuje viac DCs v relevantných sites/failure domains.
-
-DC nie je bežný application server. Kompromitácia domain controllera môže viesť ku kompromitácii celej domény alebo forest-u.
-
-## 7. Directory partitions
-
-AD DS používa naming contexts/partitions:
-
-- schema partition,
-- configuration partition,
-- domain partition,
-- application partitions podľa use case-u.
-
-Replication scope sa líši podľa partition.
-
-Global Catalog obsahuje partial attribute set z objects naprieč forestom a umožňuje forest-wide search a podporu niektorých logon/group resolution scenárov.
-
-## 8. DNS dependency
-
-AD DS silno závisí od DNS.
-
-Clients používajú DNS SRV records na nájdenie:
-
-- domain controllers,
-- Kerberos services,
-- Global Catalog,
-- site-appropriate services.
-
-Typický troubleshooting chain:
+## 1. Dominantný lifecycle
 
 ```text
-client DNS configuration
-→ domain DNS zone
-→ SRV records
-→ DC locator
-→ network ports
-→ LDAP/Kerberos communication
+authoritative identity alebo policy change
+→ exact forest/domain/object/DC generation
+→ local directory commit a replication metadata
+→ topology, site link a partition replication
+→ DNS/DC locator a selected replica
+→ LDAP/Kerberos/Group Policy read
+→ logon token, group alebo policy effective state
+→ resource/application authorization
+→ audit a convergence verdict
+→ revocation, recovery a second-session validation
 ```
 
-Použitie public DNS resolvera priamo na domain clientovi často poškodí domain discovery.
-
-## 9. Sites a subnets
-
-AD sites reprezentujú network topology a používajú sa na:
-
-- client affinity k blízkemu DC,
-- replication topology,
-- service location,
-- riadenie cross-site trafficu.
-
-Subnets musia byť správne mapované na sites. Inak sa client môže autentizovať vo vzdialenom DC a replication môže byť neefektívna.
-
-AD DS používa multimaster, store-and-forward replication. Nie všetky operácie sú však multimaster.
-
-## 10. FSMO roles
-
-Flexible Single Master Operations roles riešia úlohy, ktoré nemajú byť vykonávané súčasne viacerými DCs.
-
-Forest-wide:
-
-- Schema Master,
-- Domain Naming Master.
-
-Per-domain:
-
-- RID Master,
-- PDC Emulator,
-- Infrastructure Master.
-
-PDC Emulator je významný pre:
-
-- time hierarchy,
-- password change preference,
-- account lockout a compatibility scenáre,
-- niektoré Group Policy operations.
-
-FSMO role holder outage má odlišný dopad podľa role a duration. Nie každý výpadok vyžaduje okamžité seizure.
-
-## 11. Replication
-
-Replication závisí od:
-
-- DNS,
-- network connectivity,
-- authentication/authorization,
-- directory database,
-- topology,
-- time,
-- SYSVOL/DFSR podľa obsahu.
-
-Concepts:
-
-- update sequence numbers,
-- invocation ID,
-- replication metadata,
-- up-to-dateness vectors,
-- site links a schedules,
-- Knowledge Consistency Checker.
-
-Neopravuj replication manuálnym kopírovaním directory database alebo SYSVOL súborov.
-
-## 12. Conflict a convergence
-
-Multimaster replication znamená, že changes môžu vzniknúť na rôznych DCs.
-
-Directory používa replication metadata a conflict-resolution rules na convergence.
-
-Operational otázky:
-
-- Kde change vznikol?
-- Replikoval sa do všetkých partnerov?
-- Je object tombstoned/deleted?
-- Existuje lingering object?
-- Je problém iba v AD database alebo aj SYSVOL/DNS?
-
-## 13. Authentication
-
-AD DS štandardne používa Kerberos pre domain authentication, s NTLM compatibility/fallback scenármi.
-
-Kerberos potrebuje:
-
-- správny DNS,
-- synchronizovaný čas,
-- service principal names,
-- funkčný KDC/DC,
-- správne keys a encryption support.
-
-NTLM usage má byť inventoryované a redukované, pretože môže signalizovať legacy dependency alebo chybný Kerberos configuration.
-
-## 14. Security identifiers a access tokens
-
-Windows authorization používa SIDs.
-
-Po authentication sa vytvorí access token obsahujúci napríklad:
-
-- user SID,
-- group SIDs,
-- privileges,
-- integrity/context fields.
-
-Resource DACL sa vyhodnocuje voči tokenu.
-
-Group membership zmena nemusí byť viditeľná v už existujúcej logon session. Môže byť potrebné vytvoriť novú session/token.
-
-## 15. Groups
-
-Group scopes:
-
-- domain local,
-- global,
-- universal.
-
-Typický model AGDLP/AGUDLP oddeľuje:
+Tento lifecycle oddeľuje stavy, ktoré sa často zamieňajú:
 
 ```text
-Accounts
-→ Global groups
-→ Universal groups podľa potreby
-→ Domain Local groups
-→ Permissions
+change je uložený na jednom DC
+≠ change je replikovaný do všetkých required replicas
+≠ client číta converged replica
+≠ existujúca logon session používa nový group state
+≠ downstream application alebo token už starý access nepovoľuje
 ```
 
-Cieľom je nevkladať jednotlivých users priamo do veľkého množstva resource ACLs.
+## 2. Exact AD DS subject
 
-Nested groups zjednodušujú správu, ale komplikujú effective access a token size.
+Pri incidente nestačí názov domény. Zaznamenaj:
 
-## 16. Group Policy
+```text
+forest a domain
+schema/config/domain partition
+object GUID, SID a distinguished name
+attribute alebo group edge
+originating DC a originating time
+attribute version, USN a invocation ID
+replication partners, sites a site links
+selected client/KDC/LDAP DC
+authentication a logon-session generation
+SYSVOL/GPO generation, ak je relevantná
+application alebo resource consumer
+```
 
-Group Policy Objects majú directory a SYSVOL časti.
+Connected Atlas Payments subject:
 
-Aplikácia závisí od:
+```text
+security incident: SEC-PAY-48
+AD subject: AD-PAY-48
+forest/domain: corp.atlas.example
+privileged group: GG-PAY-Settlement-Approvers
+member SID: S-1-5-21-2418-6317-9044-1842
+origin DC: DC-BTS-01
+stale DC: DC-FRA-02
+sites: Bratislava-HQ, Frankfurt-Prod
+management subnet: 10.48.24.0/24
+membership removal: 2026-07-29 07:40 UTC
+```
 
-- site/domain/OU linkov,
-- inheritance a enforced/block inheritance,
-- security filtering,
-- WMI filters,
-- client-side extensions,
-- SYSVOL dostupnosti,
-- replication.
+## 3. Forest, domain a OU riešia odlišné boundaries
 
-Troubleshooting musí porovnať AD metadata a SYSVOL content.
+Forest zdieľa schema, configuration partition, Global Catalog model a transitive trust fabric. Forest-level compromise má preto mimoriadne široký blast radius. Samostatný domain nie je plná isolation boundary voči forest-level administration.
 
-## 17. Schema
+Domain poskytuje vlastný DNS namespace, domain partition, SID namespace, domain controllers a domain-wide policies. Organizational Unit je administratívny container pre delegation a Group Policy. OU nie je samostatný authentication realm ani pevná security boundary; jej ACL a inheritance môžu byť zle delegované alebo prekročené vyššou forest/domain authority.
 
-Schema definuje object classes a attributes.
+Praktické pravidlo:
 
-Schema extension je forest-wide a typicky ťažko vratná. Vyžaduje:
+```text
+organizácia objects alebo GPO targeting → OU
+separate namespace a domain replication scope → domain
+separate high-assurance security boundary → spravidla separate forest alebo iná platformová boundary
+```
 
-- compatibility review,
-- unique OIDs,
-- test forest,
-- backup/recovery plán,
-- ownera a dokumentáciu.
+## 4. Objects, schema a identifiers
 
-Aplikácia nemá rozširovať schema bez dlhodobého lifecycle záväzku.
+AD DS uchováva users, groups, computers, service accounts, OUs, Group Policy containers a ďalšie objects. Schema určuje object classes, attributes, syntax a constraints.
 
-## 18. Trusts
+Dôležité identities:
 
-Trust umožňuje authentication path medzi domains alebo forests.
+- distinguished name opisuje aktuálnu pozíciu objectu;
+- object GUID stabilne identifikuje object cez rename alebo move;
+- SID sa používa vo Windows authorization;
+- `sIDHistory` a trust translation môžu vytvoriť ďalšiu effective access cestu;
+- attribute replication metadata identifikuje verziu a origin change-u.
 
-Properties:
+Schema extension je forest-wide a ťažko vratná. Potrebuje unique OID, compatibility review, test forest, ownera a recovery plán.
 
-- direction,
-- transitivity,
-- scope,
-- selective authentication,
-- SID filtering,
-- name suffix routing.
+## 5. Domain controller a directory partitions
 
-Trust nie je automatické povolenie na resource. Umožňuje identitu rozpoznať; authorization stále vyžaduje permission.
+Domain controller poskytuje viac navzájom previazaných services:
 
-## 19. Service accounts
+```text
+LDAP directory
++ Kerberos KDC
++ Windows authentication
++ DNS-integrated discovery
++ AD replication
++ SYSVOL/NETLOGON
++ Group Policy distribution
+```
 
-Preferuj podľa platformy:
+Directory používa minimálne schema, configuration a domain partitions. Application partitions majú vlastný replication scope. Global Catalog drží partial attribute set z objects naprieč forestom a podporuje forest-wide lookup a niektoré logon/group-resolution paths.
 
-- group Managed Service Accounts,
-- managed identities v cloud scenároch,
-- oddelené service principals,
-- automatickú password/key rotation.
+Healthy process alebo reachable LDAP port nepreukazuje, že DC má aktuálnu required partition alebo SYSVOL generation.
 
-Riziká klasických service accounts:
+## 6. DNS, sites, subnets a DC locator
 
-- password never expires,
-- interactive logon,
-- broad group membership,
-- shared use,
-- SPN conflicts,
-- neznámy owner.
+AD clients objavujú domain controllers, KDCs a Global Catalog cez DNS SRV records a DC locator. Sites a subnet objects mapujú network location na vhodné services a replication topology.
 
-## 20. Tiering a privileged administration
+```text
+client IP
+→ matching AD subnet object
+→ AD site
+→ DNS SRV/DC locator
+→ preferred local DC/KDC/GC
+→ fallback mimo site, ak local path nie je dostupný
+```
 
-Privileged identities a devices majú byť oddelené podľa trust tieru.
+Chýbajúci alebo prekrývajúci sa subnet môže spôsobiť, že client použije vzdialený alebo nečakaný DC. To mení latency, availability aj freshness identity state-u.
+
+Pri diagnostike zachovaj:
+
+- client IP, DNS servers a timestamp;
+- výsledok site determination;
+- queried SRV records;
+- selected DC/KDC/GC;
+- fallback dôvod;
+- network path a firewall/RPC state.
+
+Public DNS resolver priamo na domain clientovi nie je náhrada AD-integrated DNS discovery.
+
+## 7. Replication je causal state transition
+
+Multimaster neznamená okamžitú globálnu consistency. Change vznikne na jednom DC, získa replication metadata a prechádza topology podľa partition, site linkov, schedule, availability a partner state-u.
+
+```text
+LDAP write na origin DC
+→ local commit
+→ attribute version/USN/invocation identity
+→ replication notification alebo scheduled intersite transfer
+→ partner apply
+→ ďalšia propagation
+→ convergence verdict
+```
+
+Pri každom security-relevant change-i rozlišuj:
+
+- originating write success;
+- outbound replication eligibility;
+- inbound apply na required DCs;
+- Global Catalog alebo SYSVOL convergence;
+- client selection konkrétnej replica;
+- cache/session state odvodený pred alebo po convergence.
+
+Manual copy `ntds.dit` alebo SYSVOL súborov nie je podporovaná replication recovery.
+
+## 8. Replication metadata a conflict model
+
+Replication troubleshooting potrebuje object-level evidence, nie iba všeobecný `replication healthy` dashboard.
+
+Over:
+
+```text
+object GUID/DN
+→ attribute version
+→ originating DC a time
+→ local USN a invocation ID
+→ up-to-dateness vector
+→ partner failure/error
+→ tombstone/lingering-object state
+```
+
+Multimaster conflict resolution vedie ku convergence podľa metadata rules; nemusí zachovať business intent posledného human change-u. Preto destructive alebo security-sensitive conflict potrebuje application/owner validation.
+
+## 9. FSMO roles
+
+Nie všetky operations sú multimaster. Forest-wide FSMO roles sú Schema Master a Domain Naming Master. Per-domain roles sú RID Master, PDC Emulator a Infrastructure Master.
+
+PDC Emulator je dôležitý pre time hierarchy, password-change preference, lockout a compatibility paths. Outage FSMO holdera má odlišný dopad podľa role a duration. Seizure je recovery decision po posúdení návratu pôvodného ownera, nie reflex pri každom krátkom výpadku.
+
+## 10. LDAP, Kerberos a Windows authorization
+
+AD DS spája viac vrstiev, ktoré sa nesmú zlúčiť:
+
+```text
+LDAP
+→ číta alebo mení directory state
+
+Kerberos/NTLM
+→ autentizuje principal a vytvára security context
+
+Windows access token + ACL/policy
+→ rozhoduje effective OS/resource access
+
+application policy
+→ rozhoduje business operation
+```
+
+Fresh Kerberos authentication voči stale DC môže byť cryptographically validná a súčasne niesť starý group state. LDAP search na inom DC môže v rovnakom čase vrátiť inú membership generation.
+
+## 11. Groups a effective Windows access
+
+Group scopes — global, universal a domain local — umožňujú modelovať accounts, business memberships a resource permissions. AGDLP/AGUDLP oddeľuje user membership od resource ACLs.
+
+Nested groups však vytvárajú graph:
+
+```text
+user SID
+→ global/universal memberships
+→ domain-local resource group
+→ ACL allow
+```
+
+Po logine Windows access token typicky obsahuje user SID, group SIDs a privileges. Zmena group membership neprepíše automaticky už existujúci token. Potrebná môže byť nová logon session, service restart alebo explicitná downstream revocation.
+
+Pre access review preto nestačí skontrolovať current group object. Potrebuješ effective graph aj active sessions/tokens.
+
+## 12. Group Policy ako dvojdielna generation
+
+Group Policy Object má directory metadata a SYSVOL content. Effective application závisí od:
+
+```text
+site/domain/OU links
+→ link order, inheritance a enforced state
+→ security a WMI filtering
+→ AD metadata generation
+→ SYSVOL content generation
+→ client-side extension processing
+→ resultant set of policy
+```
+
+GPO viditeľné v konzole nepreukazuje, že konkrétny client načítal matching AD aj SYSVOL generation. AD/SYSVOL divergence môže vytvoriť partial policy state.
+
+## 13. Trusts a service identities
+
+Trust umožní authentication path medzi domains alebo forests; neudeľuje automaticky resource permission. Direction, transitivity, selective authentication, SID filtering a name-suffix routing určujú blast radius.
+
+Service identities potrebujú explicitný owner, SPNs, allowed hosts, group memberships a rotation. Preferuj gMSA alebo iný managed mechanismus tam, kde je podporovaný. Classic account s `password never expires`, interactive logon a broad groups je hidden long-term credential path.
+
+## 14. Privileged administration a recovery boundary
+
+Domain controllers a privileged admin sessions patria do najvyššieho trust tieru. Domain-admin credential na bežnom workstatione prenáša forest/domain authority do nižšej boundary.
 
 Controls:
 
-- separate admin accounts,
-- privileged access workstations,
-- deny logon na nižších tiers,
-- JIT/JEA/PAM podľa prostredia,
-- monitorovanie privileged groups,
-- chránené admin sessions.
+- separate privileged accounts a workstations;
+- minimal standing membership;
+- JIT/JEA/PAM podľa platformy;
+- monitoring privileged group a delegation changes;
+- protected backups a DSRM/recovery credentials;
+- tested forest recovery;
+- žiadne implicitné spoliehanie sa iba na hypervisor snapshot.
 
-Domain admin credential použitý na kompromitovanom workstatione môže kompromitovať celú doménu.
+Recycle Bin rieši vybrané object deletions. Nerobí forest compromise dôveryhodne obnoviteľným.
 
-## 21. Backup a recovery
+## 15. Worked failure: fresh session z neconverged directory state-u
 
-AD recovery potrebuje:
+### Symptom
 
-- System State backups relevantných DCs,
-- forest recovery plán,
-- DSRM credentials,
-- authoritative/non-authoritative restore znalosti,
-- pravidelné recovery rehearsal,
-- backup isolation.
+O `08:17 UTC` bývalá settlement approverka úspešne schváli provider-route change, hoci jej privileged membership bola odstránená o `07:40 UTC`. Security tím najprv predpokladá ukradnutý starý browser token.
 
-Snapshot hypervisora nie je univerzálny substitute za podporovaný AD recovery model.
-
-Recycle Bin pomáha pri object deletion, ale nerieši každý forest-wide compromise alebo corruption scenár.
-
-## 22. Monitoring
-
-Sleduj:
-
-- DC availability,
-- DNS a SRV records,
-- replication failures/latency,
-- SYSVOL/NETLOGON shares,
-- time synchronization,
-- authentication failures,
-- account lockouts,
-- privileged group changes,
-- directory service events,
-- disk/database health,
-- backup/restore validation,
-- certificate a secure LDAP lifecycle.
-
-## 23. Troubleshooting domain logon
+### Exact subject
 
 ```text
-client time
-→ client DNS points to AD DNS?
-→ domain/DC SRV lookup?
-→ closest site?
-→ network ports/firewall?
-→ computer trust/account?
-→ Kerberos ticket alebo NTLM fallback?
-→ account state/lockout?
-→ DC health a replication?
-→ policy/GPO?
+incident: SEC-PAY-48
+AD subject: AD-PAY-48
+user: martina.kovacova@corp.atlas.example
+user SID: S-1-5-21-2418-6317-9044-1842
+privileged group: GG-PAY-Settlement-Approvers
+originating removal DC: DC-BTS-01
+consumer/KDC DC: DC-FRA-02
+site link: BTS-FRA
+management subnet: 10.48.24.0/24
 ```
 
-Zachovaj `whoami`, `klist`, DNS queries, event IDs, chosen DC a exact timestamp.
+### Competing hypotheses
 
-## 24. Troubleshooting replication
+1. stará Windows logon session prežila membership removal;
+2. LDAP application cache neexpirovala;
+3. removal sa zapísal na nesprávny group object;
+4. replication medzi DCs neconvergovala;
+5. client použil nečakaný DC pre chýbajúci subnet mapping;
+6. `sIDHistory`, nested group alebo alternate account stále udeľuje access;
+7. downstream OAuth/resource policy ignoruje current eligibility.
+
+### Discriminating evidence
 
 ```text
-scope: jeden partner, site alebo forest?
-→ DNS/name resolution?
-→ network/RPC?
-→ authentication/time?
-→ replication metadata a error code?
-→ topology/site link?
-→ database alebo lingering objects?
-→ SYSVOL oddelene?
+DC-BTS-01 group member attribute:
+  removal version 44, originating time 07:40 UTC
+
+DC-FRA-02 group member attribute:
+  version 43, user SID stále prítomný
+
+BTS-FRA site-link schedule:
+  replication blocked 07:00–10:00 UTC po maintenance change-i
+
+10.48.24.0/24:
+  bez matching AD subnet objectu
+
+client DC locator:
+  selected DC-FRA-02
+
+Kerberos logon:
+  nový TGT vydaný 08:11 UTC, teda po removal-e
+  PAC/group state obsahuje privileged group SID
+
+LDAP query na DC-FRA-02:
+  user stále member
+
+LDAP query na DC-BTS-01:
+  user už nie je member
 ```
 
-Nástroje typicky zahŕňajú `repadmin`, PowerShell AD cmdlets, event logs a DNS diagnostics.
+Fresh session diskriminuje hypotézu, že išlo iba o starý pre-removal cache. Root cause je neconverged directory state spôsobený chybnou intersite replication schedule. Chýbajúci subnet mapping je causal amplifier, pretože client a consumers vybrali stale DC.
 
-## 25. Troubleshooting Group Policy
+### Evidence-preserving containment
+
+- zastaviť ďalšie privileged approvals pre affected identity/cohort;
+- zachovať replication metadata, site-link revision, DNS/DC locator, KDC, LDAP a application audit;
+- revoke-nuť downstream application/OAuth sessions a refresh grants;
+- pri podozrení na compromise dočasne disable-nuť account podľa incident policy;
+- neprepisovať membership manuálne na každom DC bez zachovania origin a metadata;
+- nezvyšovať privilege ani neobchádzať policy cez emergency shared admin účet.
+
+### Authoritative recovery
+
+1. obnoviť intended `BTS-FRA` replication schedule a network/RPC path;
+2. vytvoriť správny subnet-to-site mapping pre `10.48.24.0/24`;
+3. spustiť podporovanú replication convergence a overiť object metadata na všetkých required DC/GC replicas;
+4. potvrdiť odstránenie nested, direct aj `sIDHistory` access paths;
+5. vytvoriť novú logon session a overiť, že privileged SID v tokene/PAC chýba;
+6. zneplatniť application/OAuth sessions odvodené zo stale state-u;
+7. zosúladiť high-risk authorization s JIT entitlementom a fresh eligibility checkom;
+8. auditovať actions vykonané počas exposure window-u a obnoviť affected business state.
+
+### Acceptance verdict
+
+Incident možno uzavrieť až keď:
+
+- removal metadata je rovnaká na required writable DCs a GCs;
+- client v každom relevantnom site vyberie intended DC;
+- fresh Kerberos a LDAP reads neobsahujú privileged membership;
+- existing session, refresh grant a downstream access token sú neplatné;
+- oprávnený JIT approver môže schváliť validný settlement;
+- removed principal nedokáže schváliť cez UI, direct API, alternate DC ani nested group;
+- druhá controlled membership removal prejde convergence a second-login testom;
+- directory, KDC, LDAP a resource audit vytvoria kompletný actor-to-outcome chain.
+
+## 16. Troubleshooting flow
+
+### Domain logon
 
 ```text
-object v správnej OU?
-→ link order/inheritance?
-→ security/WMI filtering?
-→ user vs computer scope?
-→ AD/SYSVOL replication?
-→ client processing/event logs?
-→ resultant set of policy?
+client time a DNS
+→ site/subnet mapping
+→ SRV lookup a selected DC/KDC
+→ account/computer trust
+→ AS/TGS/AP alebo NTLM fallback
+→ group/PAC/access-token state
+→ application/resource authorization
 ```
 
-GPO existence v konzole nepreukazuje, že sa aplikovalo na konkrétneho clienta.
+### Replication
 
-## 26. AD DS oproti Entra ID a Entra Domain Services
+```text
+exact object/attribute
+→ originating metadata
+→ partner/topology/site-link eligibility
+→ DNS/RPC/auth/time
+→ inbound apply a error code
+→ partition/SYSVOL distinction
+→ client-selected replica
+→ business/security outcome
+```
 
-### AD DS
+### Group Policy
 
-- domain controllers,
-- LDAP/Kerberos/NTLM,
-- Group Policy,
-- forests/domains/OUs,
-- customer-operated infrastructure.
+```text
+object a OU
+→ link/inheritance/filtering
+→ AD metadata generation
+→ SYSVOL generation
+→ client processing
+→ resultant set
+→ intended a forbidden behavior
+```
 
-### Microsoft Entra ID
+## 17. Earlier controls
 
-- cloud IAM,
-- modern federation/token protocols,
-- cloud apps/resources,
-- tenant model.
+- change-triggered convergence SLO pre privileged membership removal;
+- alert na privileged change, ktorý nie je do limitu prítomný na required DCs;
+- automated subnet coverage a overlap validation;
+- object-level replication canary medzi sites;
+- session/token revocation hook pri mover/leaver a privileged removal events;
+- high-risk application authorization, ktorá sa nespolieha iba na long-lived group snapshot;
+- pravidelný test forest recovery, DSRM a isolated backup restore;
+- explicitný owner site links, trusts, privileged groups, gMSA a schema extensions.
 
-### Microsoft Entra Domain Services
+## 18. Anti-patterny
 
-- managed domain services pre LDAP, Kerberos/NTLM, domain join a Group Policy,
-- integrácia/synchronizácia s Entra ID,
-- bez customer managementu domain controllers,
-- odlišné operational constraints než plné AD DS.
+### Jeden green DC reprezentuje celú doménu
 
-Tieto platformy nie sú interchangeable.
+Local health nepreukazuje partition convergence ani client selection.
 
-## 27. Anti-patterny
+### Group removal = okamžitá revocation
 
-### Jeden domain controller
+Existing logon sessions, PACs, application caches a OAuth tokens môžu prežiť.
 
-Vytvára availability a maintenance risk.
+### OU ako isolation boundary
 
-### Public DNS na domain clients
+Delegated ACL alebo vyššia forest/domain authority ju môže prekročiť.
 
-Rozbíja service discovery.
+### Ručný write na všetky DCs
 
-### Domain Admin na bežný workstation
+Ničí causal metadata a môže vytvoriť conflicts namiesto opravy topology.
 
-Credential exposure má forest-level dopad.
+### Snapshot ako jediný recovery model
 
-### OU ako security isolation boundary
+Neoveruje podporovaný directory/forest recovery a trust state.
 
-Forest admins a delegated ACLs môžu boundary prekročiť.
+### NTLM fallback ako úspech
 
-### Snapshot ako jediný backup
+Maskuje SPN, DNS alebo Kerberos defect a zachováva slabší path.
 
-Nerieši podporovaný forest recovery contract.
+## 19. Kontrolné otázky
 
-### NTLM ignorované
-
-Legacy path zostáva neviditeľná a zvyšuje attack surface.
-
-### Schema extension bez lifecycle plánu
-
-Vytvára trvalý forest-wide záväzok.
-
-## 28. Kontrolné otázky
-
-1. Aký je rozdiel medzi forest, domain a OU?
-2. Prečo forest predstavuje dôležitú security boundary?
-3. Ako AD DS používa DNS?
-4. Ako sites a subnets ovplyvňujú clients a replication?
-5. Ktoré FSMO roles existujú?
-6. Ako funguje multimaster replication?
-7. Ako Kerberos, LDAP a Group Policy súvisia s AD DS?
-8. Ako group scopes a nested groups ovplyvňujú access?
-9. Prečo AD DS nie je Entra ID?
-10. Ako diagnostikuješ domain logon alebo replication incident?
+1. Prečo local write success nie je replication convergence?
+2. Ako sa forest, domain a OU líšia ako security boundaries?
+3. Ako DNS, sites a subnets určujú selected DC?
+4. Čo identifikujú attribute version, originating DC a invocation ID?
+5. Prečo fresh Kerberos session môže obsahovať stale group state?
+6. Ako sa LDAP, Kerberos, Windows token a application policy dopĺňajú?
+7. Prečo membership removal neukončí existujúce sessions?
+8. Ako sa AD a SYSVOL generations podieľajú na Group Policy?
+9. Kedy je FSMO seizure oprávnené recovery rozhodnutie?
+10. Čo musí overiť AD acceptance verdict po security incidente?
 
 ## Glossary impact
 
-Relevantné pojmy: Active Directory Domain Services, forest, domain, domain controller, organizational unit, directory partition, Global Catalog, site, subnet, DC locator, FSMO, PDC Emulator, multimaster replication, SYSVOL, Group Policy, SID, access token, domain local group, global group, universal group, trust, gMSA, DSRM a forest recovery.
+Relevantné pojmy: AD DS subject, directory convergence generation, originating directory change, replication metadata, client-selected replica, site/subnet coverage, DC locator evidence, group-state generation, fresh-but-stale logon, AD/SYSVOL generation pair, privileged-removal convergence a AD acceptance verdict.
 
 ## Primárne zdroje
 
 - [Active Directory Domain Services overview](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview)
-- [Understanding the Active Directory logical model](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/understanding-the-active-directory-logical-model)
-- [DNS and AD DS](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/dns-and-ad-ds)
+- [Active Directory replication concepts](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts)
+- [Active Directory replication troubleshooting](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/troubleshoot-adreplication-guidance)
+- [Active Directory sites and replication](https://learn.microsoft.com/en-us/training/modules/active-directory-site-replication/)
+- [Active Directory security groups](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups)
 - [FSMO roles](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-fsmo-roles)
-- [Troubleshooting AD replication](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/troubleshoot/troubleshooting-active-directory-replication-problems)
-- [Microsoft Entra Domain Services overview](https://learn.microsoft.com/en-us/entra/identity/domain-services/overview)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
