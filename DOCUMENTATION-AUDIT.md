@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10516**
-- Total words: **632,714**
-- Findings: **21592** (critical 6358, high 7130, medium 2754, low 5350)
+- Audited conceptual sections: **10491**
+- Total words: **630,404**
+- Findings: **21559** (critical 6355, high 7134, medium 2746, low 5324)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -218,7 +218,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 434 | 22 | 14 | 12 | 10 | 1931 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | D | 430 | 18 | 16 | 12 | 35 | 2923 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 426 | 17 | 20 | 11 | 18 | 2145 | `docs/04-testing-and-quality/shift-left.md` |
-| D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 420 | 20 | 15 | 4 | 39 | 3549 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | D | 418 | 16 | 21 | 8 | 24 | 2572 | `docs/11-cloud-and-aws/lambda.md` |
 | D | 412 | 22 | 15 | 4 | 11 | 1874 | `docs/09-kubernetes/probes.md` |
@@ -234,6 +233,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 369 | 13 | 22 | 4 | 17 | 1943 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | D | 365 | 14 | 21 | 3 | 18 | 1960 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 361 | 15 | 15 | 7 | 32 | 2828 | `docs/04-testing-and-quality/verification-vs-validation.md` |
+| D | 359 | 12 | 22 | 5 | 21 | 1870 | `docs/13-security-and-identity/openid-connect.md` |
 | D | 353 | 13 | 13 | 10 | 46 | 3589 | `docs/01-linux-and-systems/cgroups.md` |
 | D | 347 | 14 | 17 | 5 | 20 | 1968 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | D | 346 | 12 | 20 | 5 | 19 | 1920 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
@@ -14301,39 +14301,40 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/openid-connect.md`
 
-- **CRITICAL** line 19, `bare-bullet-items` — **1. Problém, ktorý OIDC rieši**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication request pomocou scope openid ;`, `exact validation rules;`, `standard identity claims;`, `UserInfo endpoint;`.
-- **CRITICAL** line 205, `outline-instead-of-explanation` — **14. Complete ID Token validation pipeline**: 13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 310, `bare-bullet-items` — **23. Standard claims a ich authority**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name , given name , family name — display profile;`, `preferred username — mutable display/login hint;`, `email a email verified — provider-specific verification semantics;`, `phone number a verification;`.
-- **CRITICAL** line 310, `outline-instead-of-explanation` — **23. Standard claims a ich authority**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 372, `bare-bullet-items` — **28. prompt**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `login — žiada reauthentication;`, `consent — žiada consent interaction;`, `select account — žiada account selection.`.
-- **CRITICAL** line 385, `bare-bullet-items` — **29. Local application session**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regeneruje session ID po login-e;`, `používa Secure, HttpOnly a appropriate SameSite cookie;`, `chráni state-changing requests pred CSRF;`, `má idle a absolute timeout;`.
-- **CRITICAL** line 420, `bare-bullet-items` — **32. Account linking**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `enterprise authoritative identifier a verified tenant contract;`, `administrator approval s auditom;`, `notification a recovery/unlink process;`, `prevention duplicate privileged account takeover.`.
-- **CRITICAL** line 440, `bare-bullet-items` — **33. Multi-tenant OIDC**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed issuers a discovery bootstrap;`, `client registration ownership;`, `issuer + sub uniqueness;`, `tenant claim authority;`.
-- **CRITICAL** line 473, `bare-bullet-items` — **36. Workload identity federation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact issuer;`, `audience určenú target service-u;`, `workload-specific subject;`, `repository/workflow/branch/environment alebo ServiceAccount/namespace `.
-- **CRITICAL** line 497, `bare-bullet-items` — **38. Logout meanings**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zrušenie local RP session;`, `revocation refresh tokenu;`, `ukončenie OP browser session;`, `notification ďalším RPs;`.
-- **CRITICAL** line 535, `bare-bullet-items` — **42. Privacy**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimal scopes a claims;`, `pairwise subjects;`, `purpose limitation;`, `informed consent/transparency podľa contextu;`.
-- **CRITICAL** line 535, `outline-instead-of-explanation` — **42. Privacy**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 571, `bare-bullet-items` — **44. Observability**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization requests/callbacks;`, `state, nonce a PKCE failures;`, `authorization error codes;`, `token endpoint latency a invalid client / invalid grant ;`.
-- **CRITICAL** line 571, `outline-instead-of-explanation` — **44. Observability**: 11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 648, `outline-instead-of-explanation` — **48. Kompletný production príklad**: 11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **HIGH** line 19, `list-heavy-section` — **1. Problém, ktorý OIDC rieši**: 8 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 103, `bare-bullet-items` — **6. Authorization request**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client id — registered RP identity;`, `redirect uri — exact registered callback;`, `response type=code ;`, `scope obsahujúci openid ;`.
-- **HIGH** line 103, `list-heavy-section` — **6. Authorization request**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 189, `bare-bullet-items` — **13. ID Token**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `iss — exact issuer identifier;`, `exp — expiry;`, `iat — issuance time.`.
-- **HIGH** line 205, `bare-bullet-items` — **14. Complete ID Token validation pipeline**: 9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `bounded-size JWT sa syntakticky parsuje;`, `JOSE algorithm je na allowliste pre daného issuera/clienta;`, `key sa vyberie iba z trusted issuer JWKS;`, `signature sa overí;`.
-- **HIGH** line 205, `single-sentence-concept` — **14. Complete ID Token validation pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 385, `list-heavy-section` — **29. Local application session**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 399, `single-sentence-concept` — **30. ID Token oproti access tokenu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 440, `list-heavy-section` — **33. Multi-tenant OIDC**: 8 odrážok a iba 46 slov súvislého vysvetlenia.
-- **HIGH** line 473, `list-heavy-section` — **36. Workload identity federation**: 7 odrážok a iba 53 slov súvislého vysvetlenia.
-- **HIGH** line 648, `single-sentence-concept` — **48. Kompletný production príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `term-before-explanation` — **6. Authorization request**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `PKCE`, `identity`, `scope`
-- **HIGH** line 205, `term-before-explanation` — **14. Complete ID Token validation pipeline**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWT`, `JOSE`, `JWKS`, `ID`, `identity`
-- **HIGH** line 205, `thin-concept-section` — **14. Complete ID Token validation pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 571, `term-before-explanation` — **44. Observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `JWKS`, `ACR`, `AMR`, `JIT`, `freshness`
-- **HIGH** line 571, `thin-concept-section` — **44. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 648, `term-before-explanation` — **48. Kompletný production príklad**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RP`, `PKCE`, `OP`, `JWKS`, `ID`, `ACR`, `resource`, `policy`
-- **HIGH** line 648, `thin-concept-section` — **48. Kompletný production príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 109, `bare-bullet-items` — **6. ID Token validation**: 9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser prijme iba bounded JWT shape;`, `JOSE algorithm a key type sú na allowliste;`, `key pochádza iba z trusted issuer JWKS;`, `signature je validná;`.
+- **CRITICAL** line 109, `outline-instead-of-explanation` — **6. ID Token validation**: 12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 226, `bare-bullet-items` — **12. Competing hypotheses a discriminating evidence**: 10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization code interception;`, `nonce alebo login-CSRF failure;`, `compromised production OP;`, `account-linking collision;`.
+- **CRITICAL** line 226, `outline-instead-of-explanation` — **12. Competing hypotheses a discriminating evidence**: 13 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 249, `no-prose-concept` — **13. Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 249, `outline-instead-of-explanation` — **13. Evidence-preserving containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 258, `bare-bullet-items` — **14. Authoritative recovery**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť samostatný OIDC signing key pre production OP;`, `odstrániť cross-environment a cross-protocol key reuse;`, `publikovať bounded JWKS overlap a následne odstrániť FED-SIGN-07 ;`, `identitu mapovať výhradne cez issuer + sub ;`.
+- **CRITICAL** line 258, `no-prose-concept` — **14. Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 258, `outline-instead-of-explanation` — **14. Authoritative recovery**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 271, `outline-instead-of-explanation` — **15. Acceptance verdict**: 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `no-prose-concept` — **17. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 303, `outline-instead-of-explanation` — **17. Earlier controls**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 25, `single-sentence-concept` — **2. Exact OIDC subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 189, `bare-bullet-items` — **11. Worked failure — staging issuer accepted v production**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `staging aj production identity provider;`, `OIDC ID Token signatures;`, `SAML XML signatures.`.
+- **HIGH** line 249, `list-first-introduction` — **13. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 258, `list-first-introduction` — **14. Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 271, `single-sentence-concept` — **15. Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 285, `list-first-introduction` — **16. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 303, `bare-bullet-items` — **17. Earlier controls**: 5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `issuer allowlist a exact discovery consistency tests;`, `federation claim-authority registry;`, `no automatic privileged linking podľa emailu;`, `bounded JWKS refresh a rollover rehearsal;`.
+- **HIGH** line 303, `list-first-introduction` — **17. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 317, `single-sentence-concept` — **Signature validná, teda issuer je trusted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 321, `single-sentence-concept` — **Email je identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 325, `single-sentence-concept` — **Group claim je admin role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 329, `single-sentence-concept` — **ID Token je application session**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 333, `single-sentence-concept` — **Logout je global revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 109, `thin-concept-section` — **6. ID Token validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 226, `term-before-explanation` — **12. Competing hypotheses a discriminating evidence**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `OP`, `JWKS`, `PKCE`, `FED-SIGN-07`
+- **HIGH** line 249, `term-before-explanation` — **13. Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `RP`, `JWKS`, `ID`, `identity`
+- **HIGH** line 249, `thin-concept-section` — **13. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 258, `term-before-explanation` — **14. Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `OP`, `JWKS`, `FED-SIGN-07`, `ID`, `JIT`, `RP`
+- **HIGH** line 258, `thin-concept-section` — **14. Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 271, `term-before-explanation` — **15. Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RP`, `FED-SIGN-07`, `JIT`, `scope`
+- **HIGH** line 271, `thin-concept-section` — **15. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 303, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/saml.md`
 
@@ -14547,19 +14548,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2485 | 440 | 0 | 0 | 2925 |
-| `outline-instead-of-explanation` | 2443 | 0 | 0 | 0 | 2443 |
-| `term-before-explanation` | 0 | 548 | 1821 | 0 | 2369 |
-| `single-sentence-concept` | 0 | 2304 | 0 | 0 | 2304 |
-| `example-not-explicit` | 0 | 0 | 0 | 2166 | 2166 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2056 | 2056 |
-| `thin-concept-section` | 0 | 2054 | 0 | 0 | 2054 |
-| `list-first-introduction` | 0 | 1316 | 0 | 0 | 1316 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1128 | 1128 |
-| `short-concept-section` | 0 | 0 | 933 | 0 | 933 |
-| `no-prose-concept` | 760 | 0 | 0 | 0 | 760 |
+| `bare-bullet-items` | 2478 | 439 | 0 | 0 | 2917 |
+| `outline-instead-of-explanation` | 2444 | 0 | 0 | 0 | 2444 |
+| `term-before-explanation` | 0 | 548 | 1819 | 0 | 2367 |
+| `single-sentence-concept` | 0 | 2308 | 0 | 0 | 2308 |
+| `example-not-explicit` | 0 | 0 | 0 | 2147 | 2147 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2058 | 2058 |
+| `thin-concept-section` | 0 | 2056 | 0 | 0 | 2056 |
+| `list-first-introduction` | 0 | 1320 | 0 | 0 | 1320 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1119 | 1119 |
+| `short-concept-section` | 0 | 0 | 927 | 0 | 927 |
+| `no-prose-concept` | 763 | 0 | 0 | 0 | 763 |
 | `empty-section` | 670 | 0 | 0 | 0 | 670 |
-| `list-heavy-section` | 0 | 468 | 0 | 0 | 468 |
+| `list-heavy-section` | 0 | 463 | 0 | 0 | 463 |
 
 ## Required remediation pattern
 
