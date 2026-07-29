@@ -14,6 +14,10 @@ Vopred definovaná podmienka, pri ktorej sa rollout alebo experiment okamžite z
 
 Explicitné rozhodnutie, či chýbajúci signal znamená neprítomnosť udalosti alebo failure emission, collection, transport, ingestion, query či retention boundary. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Absent-evidence verdict — observability
+
+Explicitné rozhodnutie, či chýbajúci signal znamená neprítomnosť system occurrence-u alebo failure emission, delivery, processing, ingestion, retention či query boundary. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Acceptance test
 
 Test overujúci, či systém spĺňa dohodnuté business alebo používateľské acceptance criteria. Môže bežať na API, UI alebo inej vrstve. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -746,9 +750,25 @@ Hierarchický model attacker goalu rozdeleného na alternatívne alebo kombinova
 
 Explicitný opis schopností, prístupov, motivácie a obmedzení uvažovaného threat actora. Pozri [Threat modeling](docs/13-security-and-identity/threat-modeling.md).
 
+## Attempt amplification — RED
+
+Rast počtu technical attempts voči počtu logical operations spôsobený retries, hedgingom, fan-outom alebo redelivery, ktorý môže zvýšiť downstream load aj pri stabilnom business trafficu. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Attempt counter — observability
+
+Metric counter počítajúci technical executions alebo dependency calls oddelene od caller-visible logical operations. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Attempt duration — RED
+
+Trvanie jedného technical attemptu, ktoré nesmie byť zamieňané s end-to-end duration celej logical operation vrátane retries, queue waitu a backoffu. Pozri [RED method](docs/12-observability/red-method.md).
+
 ## Attempt rate
 
 Počet technických pokusov o vykonanie operácie za čas vrátane retries; môže byť vyšší než počet logical operations. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Attempts-per-operation distribution
+
+Rozdelenie počtu technical attempts pripadajúcich na jednu logical operation, používané na detekciu retry amplification a degraded dependencies. Pozri [RED method](docs/12-observability/red-method.md).
 
 ## Attestation — supply chain
 
@@ -1318,6 +1338,10 @@ Telemetry dimension s malým, riadeným a relatívne stabilným počtom možnýc
 
 Jeden obmedzený, rekonštruovateľný krok control loopu, napríklad ensure finalizer, create/adopt external resource, update owned fields alebo verify cleanup, po ktorom sa state znovu pozoruje. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Bounded telemetry failure
+
+Failure contract, pri ktorom telemetry export, buffering alebo backend outage nespôsobí nekontrolované blokovanie business threadu ani vyčerpanie application resources. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Bounding set — capability bounding set
 
 Horná hranica Linux capabilities, ktoré proces a jeho potomkovia môžu získať. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
@@ -1525,6 +1549,10 @@ Proces určujúci kritické business capabilities, dopad výpadku, maximálne to
 ## Business-outcome lens
 
 Custom Well-Architected lens, ktorá pridáva domain-specific failure scenarios, evidence a acceptance criteria viazané na business capability. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Business-outcome observation
+
+Telemetry alebo validation merajúca final caller-visible či business-visible correctness a completion, nie iba interný process, target alebo HTTP acceptance stav. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Business recovery subject
 
@@ -2302,6 +2330,10 @@ Centralizovaná alebo tiered Collector vrstva používaná na routing, policy, t
 
 Durable checkpoint určujúci, po ktorú source file/inode alebo stream pozíciu bol record bezpečne spracovaný a potvrdený backendom. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Collector topology generation
+
+Versionovaná agent, sidecar, gateway alebo tiered Collector architektúra vrátane routing, capacity, affinity, failure a tenant boundaries. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Collision domain
 
 Oblasť zdieľaného Ethernet média, v ktorej môžu transmissions kolidovať. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
@@ -2369,6 +2401,10 @@ Stav, pri ktorom sa vykonali všetky required controls a existujú všetky očak
 ## Complete-path test — CloudOps
 
 Overenie, že candidate answer pokrýva všetky required mechanism boxes od source/authorization cez realization po validation, nie iba jeden component. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
+## Completion gap — RED
+
+Rozdiel medzi accepted alebo started operation rate a final successful completion rate, ktorý môže signalizovať queueing, stuck workflow, dropped state alebo telemetry mismatch. Pozri [RED method](docs/12-observability/red-method.md).
 
 ## Completion index — Job
 
@@ -2961,6 +2997,10 @@ Corefile a plugin generation reálne načítaná konkrétnym CoreDNS processom, 
 ## Corrective control
 
 Control, ktorý po zistení incidentu opravuje alebo obmedzuje jeho následky. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Correlation chain — observability
+
+Prechod od SLO alebo metric symptómu cez bounded cohort, exemplar/trace, spans, structured logs, deployment/config event a audit actor až po causal explanation a recovery validation. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Correlation envelope — Kubernetes telemetry
 
@@ -3673,6 +3713,10 @@ Krátkodobý cloud, Vault alebo iný external credential vydaný na základe wor
 ## Derived signal
 
 Telemetry signal vypočítaný z iného signalu, napríklad metrics zo spans alebo logs; musí mať explicitný source-of-truth a sampling contract. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Derived-signal authority
+
+Verdict určujúci, či signal vypočítaný z logs, spans alebo iného source-u má dostatočnú coverage, sampling a correctness na konkrétne SLO, alert alebo investigation použitie. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
 ## Descriptor — OCI
 
@@ -4782,6 +4826,10 @@ Exploit Prediction Scoring System; pravdepodobnostný signal odhadujúci šancu,
 
 Labels, ktorých hodnoty musia byť zhodné medzi source a target alertom, aby sa aplikovala inhibition. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
+## Error numerator contract — RED
+
+Explicitná definícia failed outcomes, result classes, partial/unknown states a scope-u používaného v čitateli error ratio. Pozri [RED method](docs/12-observability/red-method.md).
+
 ## Error provenance — certification
 
 Klasifikácia mechanizmu chyby, napríklad stale guide assumption, missed constraint, wrong scope, incomplete path, policy error, trade-off error alebo time-budget failure. Pozri [AWS Certified CloudOps Engineer – Associate](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
@@ -5329,6 +5377,10 @@ Build-time zmena stage filesystemu cez `COPY`, `ADD` alebo `RUN`, ktorá vstupuj
 ## Filter plugin — Kubernetes scheduler
 
 Scheduling Framework plugin vyhodnocujúci, či konkrétny Node spĺňa hard constraints Podu. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
+
+## Final-outcome class — RED
+
+Klasifikácia logical operation ako definitive success, definitive failure, partial success, cancellation, timeout, success after retry alebo iný finálny contract verdict. Pozri [RED method](docs/12-observability/red-method.md).
 
 ## Final stage — Dockerfile
 
@@ -6758,6 +6810,14 @@ Množina time series s jednou sample hodnotou pre každý label set v konkrétno
 
 Kód, agent, library alebo platform capability, ktorá generuje telemetry signals o správaní systému. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Instrumentation acceptance verdict
+
+Dôkaz, že target instrumentation generation je skutočne načítaná, vytvára správnu identity/schema, prejde backend read-backom, neporušuje overhead/privacy budget a jej consumers fungujú. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Instrumentation generation
+
+Versionovaný súbor code-based, zero-code a platform observation mechanisms spolu s resource, scope, propagation, sampling a export semantics. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Instrumentation library
 
 Knižnica, ktorá vytvára telemetry pre application, framework alebo dependency a nesie vlastný instrumentation scope. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -6765,6 +6825,10 @@ Knižnica, ktorá vytvára telemetry pre application, framework alebo dependency
 ## Instrumentation scope
 
 Logical software unit a jej version, s ktorou OpenTelemetry spája vytvorené spans, metrics a log records. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Instrumentation subject
+
+Exact combination application release-u, instrumentation generation, semantic-convention selection, Collector configu, backend route a observed business journey. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
 ## Integration decision
 
@@ -7426,6 +7490,14 @@ Kubernetes Service type, ktorý prostredníctvom cloud alebo platform controller
 
 Certificate identity reálne načítaná konkrétnou edge instance, typicky identifikovaná SAN, serialom, expiry a config generation. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
 
+## Loaded instrumentation state
+
+Instrumentation, agent, SDK alebo Collector configuration skutočne používaná bežiacim processom, ktorá sa môže líšiť od deklarovaného environmentu alebo desired configu. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Loaded-state telemetry
+
+Telemetry field alebo inventory preukazujúce effective configuration, secret, feature alebo release generation načítanú runtime cohortou namiesto iba desired-state deklarácie. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Local admission boundary — kubelet
 
 Node-side rozhodnutie, či pridelený Pod môže byť realizovaný vzhľadom na aktuálnu Node capacity, capabilities, RuntimeClass, devices, volumes, pressure a local configuration. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
@@ -7494,9 +7566,17 @@ Identita jednej finite business operation zahŕňajúca run key, schedule alebo 
 
 Application-owned identita persistentného datasetu, oddelená od Pod mena, PVC mena, PV phase a physical volume assetu. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Logical duration — RED
+
+End-to-end trvanie caller-visible logical operation vrátane queue waitu, processingu, dependency attempts, retry backoffu a final completion pathu. Pozri [RED method](docs/12-observability/red-method.md).
+
 ## Logical operation
 
 Jedna business alebo caller-visible operácia bez ohľadu na počet interných retry attempts a fan-out calls. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Logical-operation counter
+
+Metric counter inkrementovaný raz podľa accepted alebo final outcome jednej business/caller-visible operation bez ohľadu na interný retry alebo fan-out počet. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
 ## Logical version
 
@@ -7673,6 +7753,14 @@ LimitRange pravidlo obmedzujúce maximálny pomer resource limitu k requestu pre
 ## `maxSkew` — topology spread
 
 Maximálna povolená nerovnomernosť počtu matching Podov medzi topology domains podľa konkrétneho spread constraintu. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Measurement boundary — telemetry
+
+Presný observation point, napríklad client, edge, handler, consumer, dependency alebo final business completion, na ktorom signal meria occurrence. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Measurement population — RED
+
+Množina valid operations definovaná rovnakou unit, scope, traffic eligibility a time semantics pre RED numerator, denominator a duration. Pozri [RED method](docs/12-observability/red-method.md).
 
 ## Media type — OCI
 
@@ -7870,6 +7958,10 @@ Release a compatibility lifecycle reusable modulu zahŕňajúci version constrai
 
 Systematické sledovanie vopred definovaných signals, states a thresholds s cieľom detegovať známe failure alebo degradation conditions. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Monitoring condition contract
+
+Versionovaná známa otázka, measurement query, threshold/no-data semantics, duration, owner, route, action a recovery condition používaná na monitoring verdict. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Monorepo
 
 Repository obsahujúci viac služieb, knižníc alebo projektov so spoločným object graphom a možnosťou atomických cross-project zmien. Pozri [Monorepo vs. multirepo](docs/03-git-and-automation/monorepo-vs-multirepo.md).
@@ -8065,6 +8157,10 @@ Identita explicitne pomenovaného build contextu, napríklad directory, Git comm
 ## Named-port contract
 
 Cross-revision contract, v ktorom Service `targetPort` name musí byť deklarovaný a reálne obsluhovaný každým accepted Pod backendom. Pozri [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md).
+
+## Named telemetry event
+
+Structured OpenTelemetry log record s neprázdnym event name, ktoré identifikuje event type a jeho schema. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
 ## Named template — Helm
 
@@ -8460,7 +8556,7 @@ End-to-end dôkaz, že expected source je emitovaný, zozbieraný, potvrdený, q
 
 ## Observability acceptance verdict
 
-Closure dôkaz, že approved telemetry a audit sources majú správnu identity, freshness, coverage, retention a actor attribution, alarm rozhoduje nad správnym cohortom a automation obnovuje business outcome bez loopu alebo straty evidence. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+Dôkaz, že original business outcome je obnovený, forbidden outcome nevzniká, expected cross-signal correlation funguje a telemetry pipeline nevytvára false-green stav. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Observability evidence subject
 
@@ -8474,6 +8570,14 @@ Chýbajúci alebo nekvalitný signal, context, correlation, retention alebo quer
 
 Úroveň schopnosti organizácie štandardizovať instrumentation, correlation, alerting, SLO, telemetry governance a incident investigation. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Observability question contract
+
+Exact investigation otázka viazaná na subject, time window, possible cohorts, competing hypotheses, required evidence a operational decision. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Observation-point authority
+
+Rozhodnutie, ktorá client, edge, service, queue, dependency alebo business boundary je autoritatívna pre konkrétny metric, SLI alebo outcome. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Observed generation — Kubernetes
 
 Status hodnota signalizujúca, ktorú verziu object desired state-u controller alebo agent už spracoval. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -8481,6 +8585,14 @@ Status hodnota signalizujúca, ktorú verziu object desired state-u controller a
 ## Observed state — Kubernetes
 
 Stav, ktorý controller alebo agent aktuálne vidí cez API cache, runtime alebo external systém a používa ho pri reconciliation. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Observed subject — observability
+
+Versionovaná kombinácia business capability, logical operation, release, configuration, telemetry generation, environment, Region/cohort a expected outcome, ku ktorej sa evidence viaže. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Occurrence-to-record boundary
+
+Prechod medzi skutočnou system udalosťou a instrumentation rozhodnutím vytvoriť alebo nevytvoriť telemetry record. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
 ## OCI artifact
 
@@ -9578,6 +9690,10 @@ Token instance, ktorú application process reálne používa; môže byť starš
 
 Prechod medzi spusteným processom a schopnosťou bezpečne prijímať traffic alebo vykonávať workload. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
+## Processor-order contract
+
+Semantics určujúca poradie Collector processors, pretože enrichment, overwrite, filtering, redaction, sampling a routing môžu pri inom poradí vytvoriť odlišný effective signal. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Production-derived test data
 
 Testovacie dáta odvodené z produkcie, ktoré vyžadujú data minimization, anonymizáciu, access control a retention policy. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
@@ -9585,6 +9701,10 @@ Testovacie dáta odvodené z produkcie, ktoré vyžadujú data minimization, ano
 ## Production validation
 
 Overenie technického, funkčného a business výsledku zmeny v skutočnom produkčnom kontexte po deploymente alebo počas kontrolovaného rollout-u. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Profile maturity boundary
+
+Explicitný status OpenTelemetry Profiles specification, SDK/agent a backend supportu, ktorý musí byť overený pred production závislosťou na profile signale. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
 ## Profile — observability
 
@@ -9914,6 +10034,10 @@ Model, ktorý povoľuje iba zachovanie alebo zlepšenie predchádzajúceho akcep
 
 Fleet operation rozdelená na bounded canary/waves cez max concurrency, max errors, timeout, stop condition a application assertions tak, aby chybný command alebo selector nezmenil celý fleet naraz. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
+## Rate denominator contract — RED
+
+Definícia unit, accepted/started/completed boundary, deduplication, retries, batches, valid traffic a absent-traffic semantics používaná pre Rate a error-ratio denominator. Pozri [RED method](docs/12-observability/red-method.md).
+
 ## RBAC privilege escalation
 
 Nepriame získanie širšej kontroly cez permissions ako workload creation, Secret read, exec/proxy, RBAC `bind`/`escalate`, impersonation alebo CSR approval. Pozri [RBAC](docs/09-kubernetes/rbac.md).
@@ -10190,9 +10314,17 @@ Deployment strategy boundary, pri ktorej old Pods majú zaniknúť pred vytvoren
 
 Deployment stratégia, ktorá odstráni starú Pod population pred vytvorením novej, čím akceptuje downtime alebo minimalizuje mixed-version overlap. Pozri [Deployment](docs/09-kubernetes/deployment.md).
 
+## RED acceptance verdict
+
+Dôkaz, že Rate, Errors a Duration používajú konzistentné logical-operation semantics, retry amplification je bounded, SLO sa obnovilo a forbidden duplicate alebo hidden-failure outcome nevzniká. Pozri [RED method](docs/12-observability/red-method.md).
+
 ## RED method
 
 Service-oriented monitoring metodika sledujúca Rate, Errors a Duration pre každú relevantnú operation. Pozri [RED method](docs/12-observability/red-method.md).
+
+## RED subject
+
+Exact logical operation, measurement/completion boundaries, release, RED schema, time window a bounded cohort, pre ktorý sa Rate, Errors a Duration vyhodnocujú. Pozri [RED method](docs/12-observability/red-method.md).
 
 ## Redacted effective configuration manifest
 
@@ -10686,6 +10818,10 @@ Súvislý chain od workload demand cez source/admitted resource contract, schedu
 
 Deklarované runtime maximum alebo enforcement boundary resource-u, napríklad CPU quota alebo memory cgroup limit. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Resource merge precedence — telemetry
+
+Pravidlá určujúce, ktorý SDK, detector alebo processor attribute zvíťazí pri spájaní resource identity, najmä pri stable service a ephemeral instance fields. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Resource metric definition
 
 Presný význam resource metricu vrátane subjectu, units, working-set/RSS/cache alebo usage semantics, scrape freshness, aggregation a request/limit denominatora. Pozri [Requests, limits a QoS](../docs/09-kubernetes/requests-limits-qos.md).
@@ -10717,6 +10853,10 @@ Deklarované množstvo resource-u používané schedulerom na placement a platfo
 ## Resource server
 
 API alebo služba validujúca access token a presadzujúca resource-level authorization. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Resource-versus-scope identity
+
+Rozlíšenie observed entity, napríklad service alebo Pod, od instrumentation library/componentu a jeho version, ktorý telemetry record vytvoril. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
 ## `resourceNames` — Kubernetes RBAC
 
@@ -11290,6 +11430,10 @@ Významný rozdiel medzi plánovaným a reálnym pomerom experimentálnych varia
 
 Stav, keď canary krok nazbieral dostatočný počet relevantných requests, sessions alebo business outcomes, potrebné segmentové zastúpenie a observation čas primeraný failure latency. Percento trafficu samo tento stav nedokazuje. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md).
 
+## Sampled coverage
+
+Množina operations alebo records zachovaných sampling policy spolu s keep/drop dôvodmi; nemusí reprezentovať úplný traffic denominator. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
 ## Sampling — telemetry
 
 Výber podmnožiny traces, logs alebo profiles na kontrolu volume a cost pri zachovaní relevantných failures a business operations. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -11742,6 +11886,10 @@ Readiness verdict API server instance založený na schopnosti bezpečne obsluho
 
 Zachovanie rovnakého alebo explicitne transformovaného business významu hodnôt naprieč application a schema verziami. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Semantic-convention generation
+
+Version a stability selection OpenTelemetry semantic conventions spolu s emitted old/new/dual schema a consumer migration contractom. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
 ## Semantic Conventions — OpenTelemetry
 
 Štandardizované názvy a významy telemetry operations, resources, attributes, metrics a events. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
@@ -12082,6 +12230,14 @@ Typ telemetry reprezentujúci určitý pohľad na systém, napríklad metric, lo
 
 Hodnotenie telemetry podľa correctness, completeness, freshness, contextu, correlation, schema stability, security, cost a ownershipu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Signal-quality verdict
+
+Klasifikácia telemetry ako complete/authoritative, partial, stale, sampled, missing pre pipeline failure alebo unknown coverage podľa konkrétneho use case-u. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Signal subject
+
+Exact producer, operation, measurement boundary, release, instrumentation/schema generation, resource identity, coverage, pipeline a retention/query cut-off konkrétneho signalu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
 ## Signature discovery
 
 Proces nájdenia signatures a attestations súvisiacich s artifact digestom cez OCI Referrers alebo ecosystem-specific fallback convention. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
@@ -12353,6 +12509,10 @@ Logical identita StatefulSet repliky odvodená z názvu a ordinalu, napríklad `
 ## Stable selector contract — Helm
 
 Helper a values contract, ktorý zachováva immutable workload selector labels a ich zhodu s Pod a Service labels medzi podporovanými revisions. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Stable service identity
+
+Logical `service.name` alebo ekvivalentná identity zachovaná cez scaling, restart a Pod/host replacement, oddelená od ephemeral process a instance attributes. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
 ## Stage — CI/CD
 
@@ -12978,9 +13138,17 @@ Zoskupovanie viacerých telemetry records pred exportom na zníženie overheadu 
 
 Exact Node, component, source alebo time cohort, pre ktorú evidence chýba pre pipeline failure, nie nevyhnutne pre absenciu incidentu. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Telemetry canary
+
+Kontrolovaný end-to-end metric, log, trace alebo event occurrence používaný na overenie emission, delivery, processing, backend read-back, query a alert pathu. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
 ## Telemetry contract test
 
 Automatizovaný test overujúci names, units, attributes, resources, correlation, cardinality a compatibility telemetry po zmene instrumentation alebo pipeline. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
+## Telemetry coverage contract
+
+Expected evidence inventory pre critical journey a jeho success, failure, no-data, privacy a correlation boundaries. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
 ## Telemetry coverage generation
 
@@ -13001,6 +13169,14 @@ Súvislý identity chain od source emission cez collection, buffer, transport, b
 ## Telemetry pipeline
 
 Reťazec instrumentation sources, agents alebo collectors, processingu, exportu, storage a query vrstiev, ktorými telemetry prechádza. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Telemetry read-back test
+
+Validácia, ktorá po emission a exporte query-ne backend a overí effective identity, schema, value, correlation a freshness namiesto spoliehania sa iba na exporter success. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Telemetry requirement inventory
+
+Zoznam metrics, traces, logs, events, identities, propagation a pipeline evidence odvodený z business journeys, SLIs, failure modes a operational decisions. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
 ## Telemetry retention
 
@@ -13541,6 +13717,10 @@ Stav po timeout-e alebo prerušení write operation, keď nie je známe, či API
 ## Unknown-operation outcome — Kubernetes
 
 Stav, keď request timeoutol alebo response zanikla, ale Kubernetes controller alebo external provider mohol side effect dokončiť; pred retry je potrebný authoritative read-back. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Unknown-outcome class — RED
+
+Operation outcome, pri ktorom side effect mohol nastať, ale acknowledgement alebo authoritative evidence chýba; pred retry potrebuje reconciliation. Pozri [RED method](docs/12-observability/red-method.md).
 
 ## Unknown publication outcome — BuildKit
 
