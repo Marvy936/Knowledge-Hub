@@ -86,6 +86,10 @@ Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Us
 
 Versionovaný contract určujúci user impact, urgency, ownera, safe first action, forbidden action, runbook a resolution validation konkrétneho page-u. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## Action-item SLO
+
+Lokálny časový a quality contract pre prioritizáciu, implementáciu a verification postmortem actions; nie je univerzálnou hodnotou bez organizačného contextu. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
+
 ## Action plugin — Ansible
 
 Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action, napríklad spracuje arguments, transfer files alebo remote module result. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -141,6 +145,14 @@ Log stream, do ktorého sa aktuálne zapisujú log entries a ktorý drží inges
 ## Actor-session chain — CloudTrail
 
 Rozbalená identity od CloudTrail `userIdentity` cez assumed-role ARN, principal/session issuer, source identity, user agent, source IP a upstream automation alebo human approval až po skutočného iniciátora API operácie. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## Actual recovered point
+
+Skutočný timestamp alebo sequence boundary obnoveného validného state-u, ktorý sa porovnáva s RPO targetom. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
+
+## Actual recovery time
+
+Nameraný interval od definovaného business disruption startu po safe recovery end boundary vrátane restore, validation, reconciliation a work recovery podľa contractu. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## Actual state — Kubernetes
 
@@ -498,6 +510,10 @@ Versionovateľný EC2 boot-image a block-device contract používaný pri vytvá
 
 Cost view, ktorý rozkladá upfront a recurring commitment fees cez obdobie ich benefitu, aby zobrazil ekonomický cost používania namiesto iba cash invoice momentu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Amplification cause
+
+Podmienka zväčšujúca blast radius, duration, attempt count, data scope alebo downstream impact pôvodného failure mechanismu. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
 ## Analyzed SBOM
 
 SBOM odvodená analýzou existujúceho binary, package, image alebo filesystemu bez plnej závislosti na source metadata. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
@@ -680,7 +696,7 @@ Readiness verdict odvodený z application role, synchronization, membership, dat
 
 ## Application-consistent backup
 
-Backup vytvorený tak, aby zachoval logicky konzistentný application state, napríklad po flushnutí buffers, filesystem freeze alebo koordinovanom database checkpoint-e. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+Recovery representation vytvorená s application/datastore koordináciou tak, aby internal application invariants boli obnoviteľné. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
 
 ## Application-consistent backup — Kubernetes storage
 
@@ -1334,6 +1350,10 @@ Recovery stratégia, pri ktorej sa náhradné prostredie a state obnovujú zo z�
 
 Policy expression určujúci schedule, windows, vault, lifecycle, retention, copy actions a ďalšie backup semantics pre priradené resources. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Backup/restore acceptance verdict
+
+Dôkaz, že exact protected subject má effective, isolated a readable recovery generations a current responder dokáže vybrať clean point, obnoviť, reconciliovať, fence-núť a validovať business service v objectives. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Backup vault — AWS
 
 Logický container recovery points s vlastnou access policy, encryption, retention, lock a audit boundary. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -1433,6 +1453,10 @@ Pozorovanie systému zvonka z perspektívy používateľa alebo clienta, naprík
 ## Black-box outcome canary
 
 Kontrolovaná external operácia overujúca skutočný caller alebo business contract nezávisle od internal telemetry a dashboard assumptions. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Blameless analysis contract
+
+Princíp, že human actions sa opisujú fakticky v kontexte dostupných informácií, tools a incentives a analysis hľadá opraviteľné system/process conditions namiesto osobného obviňovania. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
 
 ## Blast radius
 
@@ -1730,6 +1754,14 @@ Kubernetes QoS class pre Pod, ktorý nie je Guaranteed a má aspoň niektorý re
 
 Recovery verdict, pri ktorom technical release state, durable data, event/contracts, external integrations a pôvodný business outcome tvoria vzájomne kompatibilný celok. Technicky úspešný manifest rollback bez spracovateľného backlogu nie je business-compatible recovery. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Business-consistent recovery
+
+Obnovený a reconciliovaný state všetkých relevantných stores a external effects, ktorý spĺňa critical business invariants a customer outcome. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
+## Business-consistent RPO
+
+Recovery-point objective vyhodnotený nad celým consistency groupom a business invariants, nie iba timestampom jedného datastore-u. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
+
 ## Business-dirty recovery point
 
 Technicky validný a restore-nuteľný recovery point, ktorý už obsahuje logical corruption, attacker changes alebo business-inconsistent state. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -2010,6 +2042,10 @@ Sekundárny configuration alebo automation factor, ktorý nezaložil primary def
 
 Falsifiable tvrdenie `cause → mechanism → predicted observations`, ktoré vysvetľuje exact incident subject a možno ho odlíšiť od konkurujúcich hypotéz. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
 
+## Causal graph — RCA
+
+Evidence-backed graf spájajúci trigger, state transitions, latent conditions, controls a business impact tak, aby bolo možné rozlíšiť necessary, sufficient a amplifying branches. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
 ## Causal risk statement
 
 Risk description spájajúci cause, failure mechanism a konkrétny business/technical impact namiesto vágneho control alebo checklist findingu. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -2237,6 +2273,10 @@ Contract, ktorým IngressClass alebo GatewayClass vyberá controller implementat
 ## Clean image rebuild
 
 Nový build z trusted source a kontrolovaných inputs po odstránení kompromitovaného source, secret alebo cache pathu; vytvára nový digest a nové evidence. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Clean point
+
+Recovery point klasifikovaný ako nezasiahnutý analyzovanou corruption, compromise alebo invalid state transition a vhodný pre plánovaný recovery flow. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
 
 ## Clean recovery candidate
 
@@ -2914,6 +2954,10 @@ Kernel connection-tracking state používaný firewallom a NAT-om; jeho vyčerpa
 
 User-facing authorization interaction zobrazujúca clienta a požadovaný access; nenahrádza server-side policy. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Consistency group — backup
+
+Versionovaný zoznam datastore, event, evidence, configuration, identity a external-ledger subjects, ktoré musia byť obnovené alebo reconciliované ako jeden business-valid state. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Consistent hashing
 
 Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -3298,6 +3342,10 @@ Bežná Kubernetes cluster DNS implementation a extensible DNS server konfigurov
 
 Corefile a plugin generation reálne načítaná konkrétnym CoreDNS processom, odlišná od samotnej ConfigMap resourceVersion. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
 
+## Corrective-action portfolio
+
+Koordinovaná množina prevent, detect, contain, recover a learning controls mapovaných na konkrétne failure mechanisms. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md) a [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
+
 ## Corrective control
 
 Control, ktorý po zistení incidentu opravuje alebo obmedzuje jeho následky. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
@@ -3362,6 +3410,10 @@ Exact unblended, blended, amortized, net amortized alebo invoice perspective pou
 
 Monotónne rastúca metric hodnota používaná pre počty udalostí alebo práce; pri analýze sa typicky prevádza na rate alebo increase za časové okno. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Counterfactual test — RCA
+
+Otázka, či by odstránenie alebo zmena konkrétnej podmienky zabránila incidentu alebo obmedzila jeho impact; používa sa na disciplinovanie causal claims. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
 ## Coverage recurrence
 
 Opakované vynechanie rovnakého component classu alebo lifecycle stage-u z SBOM/scanning evidence po generator, configuration alebo pipeline zmene. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
@@ -3381,6 +3433,10 @@ Obmedzenie CPU času containeru po vyčerpaní cgroup CPU quota; process nemusí
 ## CPU throttling subject
 
 Konkrétny container cgroup, CPU quota/period a time window, v ktorom process vyčerpal quota a čakal napriek prípadnej voľnej CPU kapacite na Node-e. Pozri [Requests, limits a QoS](../docs/09-kubernetes/requests-limits-qos.md).
+
+## Crash-consistent backup
+
+Recovery representation zodpovedajúca náhlemu zastaveniu systému; engine recovery môže byť možná, ale application alebo cross-system business invariants nemusia byť potvrdené. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
 
 ## Crash-consistent snapshot
 
@@ -3449,6 +3505,10 @@ Vytváranie binary pre target platform odlišnú od build host platformy pomocou
 ## Cross-environment key reuse
 
 Použitie rovnakého private alebo symmetric key materialu v staging, production alebo ďalších environmentoch, ktoré mení compromise menej dôveryhodného environmentu na širší production trust incident. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Cross-incident trend analysis
+
+Agregácia structured postmortem metadata s cieľom nájsť opakované causal classes, detection gaps, recovery delays, stale controls alebo platform-wide investment needs. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
 
 ## Cross-pillar decision — Well-Architected
 
@@ -3862,6 +3922,10 @@ Go template action deklarujúca named template pod globálnym menom bez okamžit
 
 Explicitný obmedzený access model počas outage-u identity, posture, policy alebo enforcement dependency, napríklad bounded existing sessions alebo low-risk read-only operations. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
+## Degraded recovery objective
+
+Časovo a funkčne bounded objective pre bezpečné obnovenie subsetu critical capability pred úplnou recovery, s explicitnými allowed a forbidden operations. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
+
 ## Delegated-actor chain
 
 Auditovateľný chain od original human alebo workload actora cez session/token, impersonation alebo delegated workload identity až po downstream action a target. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -3965,6 +4029,10 @@ Súbor `.terraform.lock.hcl` zachytávajúci vybrané provider versions a packag
 ## Dependency ownership test — Helm
 
 Rozhodnutie, či component zdieľa ownera, cadence, rollback, SLO, privilege a data lifecycle parent release-u, alebo patrí do samostatného release-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Dependency recovery budget
+
+Časová časť end-to-end RTO pridelená konkrétnej detection, access, restore, dependency, validation alebo reconciliation boundary. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## Dependency RED
 
@@ -4137,6 +4205,10 @@ Presná identita daemonu, projektu, volume objectu, logical data ID, ownera, bac
 ## Detached HEAD
 
 Stav, v ktorom `HEAD` ukazuje priamo na commit namiesto symbolického odkazu na branch. Nové commits treba zachytiť branch refom, inak môžu zostať unreachable. Pozri [Commit, branch, tag a HEAD](docs/03-git-and-automation/commit-branch-tag-head.md).
+
+## Detection cause
+
+Dôvod, prečo production evidence alebo monitoring neodhalili failure mechanismus skôr alebo na správnej user/business boundary. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Detective control
 
@@ -4846,6 +4918,10 @@ Výsledný graph direct, group, nested, inherited, delegated a resource-policy p
 
 Podiel in-scope spendu priradený správnemu ownerovi cez dôveryhodné a validné dimensions, nie iba syntakticky vložený do default bucketu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Effective backup assignment
+
+Dôkaz, že deklarovaná backup policy skutočne zahrnula exact resource, vytvorila expected generation, dokončila required copy, uplatnila retention/immutability a je obnoviteľná. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Effective backup coverage
 
 Dôkaz, že authoritative critical-resource inventory je skutočne vybraný current plan/assignmentom, má fresh source recovery point, required isolated copy a restore-test coverage. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -5314,6 +5390,10 @@ Klasifikácia mechanizmu chyby, napríklad stale guide assumption, missed constr
 
 Podiel failed operations voči relevantnému počtu valid operations pri rovnakom scope-e a success contracte. Pozri [RED method](docs/12-observability/red-method.md).
 
+## Escape cause
+
+Dôvod, prečo defect alebo unsafe condition neodhalili testy, review, policy gate, canary alebo rollout controls pred production impactom. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
 ## ETag
 
 HTTP validator reprezentácie používaný na cache revalidation a optimistic concurrency cez conditional requests. Pozri [HTTP](docs/02-networking-and-web/http.md).
@@ -5353,6 +5433,10 @@ Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a k
 ## Event-based availability
 
 Podiel good eligible service events voči všetkým eligible events, vhodný pre partial a traffic-weighted request alebo workflow availability. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
+## Event-based RPO
+
+Data-loss alebo reconstruction objective vyjadrený počtom či invariantom business events, napríklad nulou permanently lost acknowledged intents, namiesto samotného času. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## Event-driven autoscaling
 
@@ -5701,6 +5785,10 @@ Kubernetes Service type poskytujúci DNS alias na external name bez bežného Cl
 ## Fact cache — Ansible
 
 Cache backend uchovávajúci host facts medzi runs podľa definovanej freshness, access a invalidation policy. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
+## Factual timeline — postmortem
+
+Chronológia overených incident state transitions s timestampom, subjectom, evidence source-om a outcome-om bez retrospectívneho osobného hodnotenia. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
 
 ## Fail closed — gate policy
 
@@ -7682,6 +7770,10 @@ Bod API storage, CRD conversion, schema, data alebo external-state transitionu, 
 
 Dôkaz, že required cross-account/Region alebo locked-vault copy job dokončil intended destination recovery point s correct key, retention a restore access. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Isolated restore
+
+Materializácia recovery candidate-u v oddelenom validation alebo recovery environmentu pred production merge/cutoverom, aby sa zachovalo evidence a obmedzil blast radius. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Isolated subnet — AWS
 
 Subnet bez všeobecného inbound internet pathu aj bez general outbound internet pathu; môže používať iba explicitné private connectivity targets. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -7849,6 +7941,10 @@ Konkrétna cryptographic-material generation používaná KMS key-om po creation
 ## Key policy — KMS
 
 Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčasťou autorizácie management a cryptographic operations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Key recoverability
+
+Schopnosť authorized recovery identity nájsť a použiť správny cryptographic key v affected account/Regione a restore generation bez oslabenia separation-of-duties. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
 
 ## Key retirement verdict
 
@@ -8622,6 +8718,10 @@ Guardrail, boundary alebo architecture contract určujúci najvyššiu authority
 
 Limit dočasnej capacity nad desired replica count, ktorú môže rolling update vytvoriť na zachovanie dostupnosti a zrýchlenie rollout-u. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
 
+## Maximum tolerable disruption
+
+Hranica, za ktorou outage alebo degradation vytvára neprijateľný business/mission impact; lokálny framework ju môže označovať MTD, MTPD alebo podobným termínom. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
+
 ## Maximum unavailable
 
 Limit počtu alebo percenta desired instances, ktoré môžu byť počas rolling update nedostupné. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
@@ -8645,6 +8745,10 @@ Versionovaný source, instrumentation/schema, collection, ingestion, classificat
 ## Measurement population — RED
 
 Množina valid operations definovaná rovnakou unit, scope, traffic eligibility a time semantics pre RED numerator, denominator a duration. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Mechanism closure
+
+Dôkaz, že corrective control je nielen implementovaný, ale effective v production-relevant scope-e a pôvodný failure path neprejde recurrence alebo second-operation testom. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Mechanism-fallback verdict — Kerberos
 
@@ -10618,6 +10722,10 @@ Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či
 
 Review prvého planu po importe, ktorý rozhoduje, či sa remote hodnoty adoptujú do configuration, vrátia k desired state-u, rozdelí sa attribute ownership alebo sa chybný binding odstráni. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Post-point divergence
+
+Množina validných, unknown alebo external operations vzniknutých po zvolenom recovery pointe, ktoré treba replaynúť, merge-núť, kompenzovať alebo reconciliovať. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Post-promotion watch
 
 Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené, kumulatívne alebo segmentovo zriedkavé failures pred uzavretím release rozhodnutia. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -10625,6 +10733,18 @@ Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené,
 ## Post-relabel sample set
 
 Exact množina samples a labels, ktorá zostane po target-label application a metric relabelingu a môže byť ingestovaná do local TSDB. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Postmortem acceptance verdict
+
+Dôkaz, že incident impact, timeline, response, causal model, luck, corrective actions, review, publication a effective-state action tracking tvoria complete organizational learning artifact. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
+
+## Postmortem subject
+
+Immutable alebo auditovane versionovaný document subject spájajúci incident generation, impact interval, affected capability, evidence cutoff, ownera, reviewers a publication state. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
+
+## Postmortem trigger
+
+Vopred definovaná condition, napríklad data loss, user-visible impact, severity, recovery-objective miss alebo monitoring failure, ktorá vyžaduje post-incident review. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
 
 ## Posture-triggered revocation
 
@@ -10942,6 +11062,10 @@ Prometheus Query Language na selection, aggregation a výpočty nad time series.
 
 Versionovaný inject/extract a async/message context contract vytvárajúci parent, child a link relationships expected span graphu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Protected backup subject
+
+Versionovaný recovery subject spájajúci business capability, exact data stores, schema/application generations, scope, consistency group, acknowledgement boundary, key dependencies, retention, RPO/RTO a ownera. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Protected branch — GitLab
 
 Branch s policy obmedzujúcou push, merge, force push, deletion a podľa konfigurácie Code Owner alebo approval behavior. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
@@ -11037,6 +11161,10 @@ Explicitná hranica určujúca, ktoré resources a attributes vlastní provision
 ## Provisioning-to-configuration contract
 
 Úzke versionované rozhranie, ktorým Terraform alebo iný resource owner publikuje stable host identities, management addresses, environment a readiness metadata pre Ansible bez sprístupnenia interného alebo citlivého state-u. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Proximate mechanism
+
+Bezprostredný technický state transition, ktorým trigger vytvoril nežiaduci outcome; nie je automaticky dostatočným vysvetlením systémovej root cause. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Proxy
 
@@ -11226,6 +11354,14 @@ Nepriame získanie širšej kontroly cez permissions ako workload creation, Secr
 
 User, Group alebo ServiceAccount identita, ktorej RoleBinding alebo ClusterRoleBinding udeľuje permissions. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
+## RCA acceptance verdict
+
+Rozhodnutie, že incident má evidence-backed timeline, dostatočný causal model, odlíšené root/escape/amplification/recovery causes a overiteľné corrective actions vedúce k recurrence closure. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
+## RCA subject
+
+Versionovaný analysis subject spájajúci incident, affected business capability, exact service/data/operation scope, release/configuration generations, impact interval, evidence cutoff a ownera. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
 ## RDS endpoint
 
 DNS name poskytujúci stable logical connection identity pre RDS database, ktorého resolved address sa môže zmeniť pri failover-e alebo maintenance. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
@@ -11414,6 +11550,14 @@ Closure dôkaz, že selected recovery generation je clean a consistent, applicat
 
 Explicitný owner a state-generation contract určujúci, kto smie deklarovať disaster, vybrať recovery point, povýšiť writer-a, otvoriť traffic a vykonať failback. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Recovery candidate
+
+Konkrétna backup/snapshot/log generation vybraná na restore po vyhodnotení clean pointu, completeness, key/access eligibility, compatibility a business consistency. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
+## Recovery catalog
+
+Dostupný inventory recovery generations, timestamps, classifications, locations, retention, key dependencies, restore tooling a posledného tested statusu. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Recovery closure — etcd
 
 Verdikt po restore, ktorý potvrdzuje etcd/API/controller convergence, external/application consistency, traffic/business outcome, forbidden old-state outcomes a zaznamenané RPO/RTO. Pozri [etcd backup a restore](../docs/09-kubernetes/etcd-backup-restore.md).
@@ -11421,6 +11565,10 @@ Verdikt po restore, ktorý potvrdzuje etcd/API/controller convergence, external/
 ## Recovery control
 
 Control umožňujúci obnoviť službu, dáta alebo dôveryhodný stav po incidente. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Recovery-delay cause
+
+Access, dependency, documentation, capacity, compatibility alebo decision gap, ktorý predĺžil containment, restore, reconciliation alebo business recovery. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Recovery eligibility
 
@@ -11432,7 +11580,7 @@ Pre-change alebo incident-time rozhodnutie, či konkrétny rollback, roll-forwar
 
 ## Recovery fencing
 
-Mechanizmus, ktorý zabráni corrupted alebo old production writers spracúvať nové writes/side effects počas restore, reconciliation a traffic cutoveru. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+Mechanismus zabraňujúci starému a novému writerovi nekontrolovane mutovať rovnaký business subject počas restore, replay, merge alebo cutoveru. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
 
 ## Recovery headroom
 
@@ -11445,6 +11593,10 @@ Quorum material používaný pri vybraných privileged Vault operations v auto-u
 ## Recovery manifest — AWS
 
 Immutable mapping exact database restore time/log markerov, object versions/checksums, filesystem points, artifact/schema, keys/secrets, IaC a reconciliation cursoru do jednej recoverable generation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Recovery-objective subject
+
+Versionovaný subject spájajúci business capability, cohort, consistency group, failure scenario, measurement boundaries, degraded-mode assumptions, dependency objectives a ownera. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## Recovery observation
 
@@ -11469,6 +11621,10 @@ Backup reprezentujúci obsah resource-u v konkrétnom čase spolu s lifecycle, e
 ## Recovery-point generation
 
 Konkrétny service-specific captured state s recovery-point ARN, source identity, timestamps, vault, encryption, retention a restore metadata. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Recovery Point Objective
+
+Bod v čase, ku ktorému musia byť dáta po disruption obnovené; reprezentuje tolerovanú data-change exposure alebo reconstruction window pre exact recovery subject. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## Recovery Point Objective — RPO
 
@@ -11502,6 +11658,10 @@ Versionovaná identita workload data, RPO/RTO, backup plan/assignment, recovery 
 
 Skutočný čas od začiatku recovery procesu po obnovenie validovanej business capability, porovnávaný s cieľovým RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Recovery Time Objective
+
+Celkový prijateľný recovery interval pre exact capability pred prekročením business alebo mission impact tolerance, meraný na explicitnej start/end boundary. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
+
 ## Recovery Time Objective — RTO
 
 Cieľový maximálny čas na obnovenie definovanej business capability po incidente vrátane detekcie, rozhodnutia, data recovery, startupu, validácie a traffic cutoveru. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -11521,6 +11681,10 @@ Deployment stratégia, ktorá odstráni starú Pod population pred vytvorením n
 ## Recurrence gate — error budget
 
 Podmienka vyžadujúca uzavretie root-cause a regression evidence pred obnovením normal release mode-u aj vtedy, keď sa calendar alebo rolling budget formálne obnovil. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
+## Recurrence review
+
+Analýza opakovaného incidentu, ktorá overuje, či ide o rovnaký failure mechanismus, alternate path, neúčinný control alebo príliš lokálne previous actions. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
 
 ## RED acceptance verdict
 
@@ -12202,6 +12366,10 @@ Policy-driven pravidelné obnovenie recovery pointu do test targetu s následnou
 
 Explicitné technical, data, schema, business, performance, isolation a cleanup checks, ktoré musia prejsť po restore-testing alebo incident restore jobe. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Restore validation stack
+
+Postupná validation od infrastructure a engine cez data/application až po business a forbidden outcomes. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Restored etcd cluster identity
 
 Nové member a cluster metadata vytvorené snapshot restore operáciou; starý a obnovený member state sa nesmie nekontrolovane miešať. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
@@ -12450,6 +12618,10 @@ Explicitné stavy produkčnej expozície s povolenými transitions, observation 
 
 Lifecycle operácia vytvárajúca nový write index po splnení age, size, document-count alebo shard-size conditions. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Root-cause depth
+
+Úroveň causal explanation dostatočne konkrétna na actionable a controllable mechanismus, ale nie redukovaná iba na osobu, trigger alebo príliš abstraktné tvrdenie. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
+
 ## Root-demand elimination
 
 Redesign služby alebo procesu, ktorý odstráni príčinu operational workflowu namiesto automatizácie jeho posledného manuálneho kroku. Pozri [Toil](docs/14-sre-and-operations/toil.md).
@@ -12533,6 +12705,10 @@ Recovery operácia, ktorá po neúspešnom blue-green cutover-e presmeruje traff
 ## RPO — Recovery Point Objective
 
 Maximálne prijateľné množstvo dát vyjadrené časovým bodom, ktoré môže byť pri obnove po katastrofe stratené. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## RPO/RTO acceptance verdict
+
+Dôkaz, že objectives sú odvodené z BIA, viazané na exact scenarios a consistency groups, implementované v recovery design-e a splnené current-generation timed exercise-om. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## RSS — Resident Set Size
 
@@ -13646,6 +13822,10 @@ PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené
 
 Interné zobrazenie costu tímom alebo produktom bez priameho finančného preúčtovania. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Side-by-side restore
+
+Restore historického subjectu do paralelného environmentu s následnou extrakciou a bounded merge/reconciliation namiesto broad rewind-u current production state-u. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
 ## Side-effect firewall — shadow
 
 Defense-in-depth boundary kombinujúca least-privilege identity, network/egress policy, isolated output adapters a application shadow mode tak, aby shadow execution nemohla vykonať autoritatívne writes alebo external side effects. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
@@ -13749,6 +13929,10 @@ Failure, ktorý neprodukuje bežný explicitný error status, napríklad `200` s
 ## Silent outcome failure
 
 Operation, ktorá neprodukuje bežný explicitný transport error, ale nesplní final business contract, napríklad accepted command bez completion alebo `200` s nesprávnym resultom. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Similar-system search
+
+Review príbuzných services, workflows alebo control implementations s cieľom nájsť rovnaký failure mechanismus mimo pôvodného incident scope-u. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Simple Bind — LDAP
 
@@ -14486,6 +14670,10 @@ Externý opakovaný test user-facing request pathu cez DNS, load balancer, routi
 
 Umelo generované testovacie dáta bez priameho kopírovania reálnych osobných alebo citlivých záznamov. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## System accountability
+
+Zodpovednosť za ownerstvo dokumentu, corrective actions, priorities, verification a residual-risk decisions bez redukovania incidentu na osobnú vinu. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
+
 ## system call
 
 Kontrolovaný prechod z user space do kernel space. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
@@ -14497,6 +14685,10 @@ Kontrolovaný prechod z user space do kernel space. Pozri [Kernel a user space](
 ## systemd unit
 
 Deklaratívny objekt spravovaný systemd, napríklad `.service`, `.socket` alebo `.timer`. Pozri [systemd, services a daemons](docs/01-linux-and-systems/systemd-services-daemons.md).
+
+## Systemic root cause
+
+Design, control, governance alebo organizačná podmienka, ktorá umožnila technical mechanismu existovať, prejsť kontrolami alebo dosiahnuť impact. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Systems Manager rate controls
 
@@ -14610,6 +14802,10 @@ Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na targe
 
 Exact target-side credential alebo public-key state, ktorý rozhoduje, či secret/key generation zostáva použiteľná, odlíšený od value uloženej v secret store. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Target-versus-actual recovery
+
+Explicitné porovnanie deklarovaných RPO/RTO targets s posledným nameraným recovery pointom, data-loss/reconstruction výsledkom a actual business recovery časom. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
+
 ## Targeted follow-up drill
 
 Nový drill odvodený z konkrétnej chyby, napríklad pomalého scope narrowing, context omylu, nebezpečného repairu alebo slabej validation.
@@ -14661,6 +14857,10 @@ Kubernetes probe overujúca úspešné otvorenie TCP connectionu na Pod IP a por
 ## Technical rollback — Helm
 
 Rollback, pri ktorom Helm úspešne obnoví historický rendered manifest a vytvorí deployed revision, ale ešte nie je preukázaná kompatibilita runtime-u s current durable alebo external state-om. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## Technical root cause
+
+Technický mechanismus, bez ktorého by konkrétny incidentný outcome nevznikol v analyzovanom scope-e. Pozri [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md).
 
 ## Telemetry
 
@@ -15830,6 +16030,10 @@ ALB listener action rozdeľujúca traffic medzi viac target groups podľa relat�
 
 DNS routing policy rozdeľujúca odpovede medzi records podľa relatívnych weights, bez presnej request-level percentuálnej garancie kvôli DNS caching. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Where we got lucky
+
+Postmortem sekcia identifikujúca podmienky, ktoré náhodne obmedzili impact, ale nepredstavovali spoľahlivý control a preto vyžadujú risk decision alebo action. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
+
 ## White-box monitoring
 
 Pozorovanie interných signals systému, napríklad queue depth, connection pool, error counters, garbage collection alebo saturation. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -15861,6 +16065,10 @@ Job model, v ktorom viac worker Podov odoberá položky z external queue a compl
 ## Work queue — Kubernetes controller
 
 Fronta reconciliation keys s deduplication, retry a rate-limiting behavior používaná controller workers na bounded spracovanie zmien. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Work Recovery Time
+
+Čas po technickom restore potrebný na backlog drain, reconciliation, manual case completion, customer communication a návrat capability do normálneho business state-u. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
 ## Worker node — Kubernetes
 
