@@ -4147,16 +4147,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "title": "Golden paths a paved road",
-      "words": 3606,
+      "words": 3765,
       "headings": 38,
       "sections": 38,
-      "findings": 26,
-      "critical": 1,
-      "high": 5,
+      "findings": 21,
+      "critical": 0,
+      "high": 3,
       "medium": 3,
-      "low": 17,
-      "score": 82,
-      "grade": "D"
+      "low": 15,
+      "score": 53,
+      "grade": "C"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/internal-developer-platform.md",
@@ -4227,6 +4227,20 @@
       "low": 19,
       "score": 109,
       "grade": "D"
+    },
+    {
+      "path": "docs/review-trigger-third-gitops-supply-chain.md",
+      "title": "review-trigger-third-gitops-supply-chain",
+      "words": 15,
+      "headings": 0,
+      "sections": 0,
+      "findings": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "score": 0,
+      "grade": "A"
     }
   ],
   "findings": [
@@ -231070,42 +231084,6 @@
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "14. Supply-chain a security boundary",
       "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "14. Supply-chain a security boundary",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "14. Supply-chain a security boundary",
-      "line": 272,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "14. Supply-chain a security boundary",
-      "line": 272,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "14. Supply-chain a security boundary",
-      "line": 272,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -231113,17 +231091,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "14. Supply-chain a security boundary",
-      "line": 272,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `resource`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "16. Connected incident GITOPS-PAY-63",
-      "line": 305,
+      "line": 309,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -231132,7 +231101,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "Redesign",
-      "line": 342,
+      "line": 346,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -231141,7 +231110,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "17. Golden-path acceptance verdict",
-      "line": 362,
+      "line": 366,
       "severity": "high",
       "rule": "list-heavy-section",
       "detail": "12 odrážok a iba 36 slov súvislého vysvetlenia.",
@@ -231150,7 +231119,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "17. Golden-path acceptance verdict",
-      "line": 362,
+      "line": 366,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -231159,7 +231128,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "17. Golden-path acceptance verdict",
-      "line": 362,
+      "line": 366,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -231168,7 +231137,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "17. Golden-path acceptance verdict",
-      "line": 362,
+      "line": 366,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -231177,7 +231146,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "section": "17. Golden-path acceptance verdict",
-      "line": 362,
+      "line": 366,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `policy`",

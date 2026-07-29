@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **302**
+- Audited authoritative articles: **303**
 - Audited conceptual sections: **12272**
-- Total words: **718,805**
-- Findings: **25519** (critical 7592, high 8787, medium 3219, low 5921)
-- File grades: A 0, B 0, C 1, D 301
+- Total words: **718,979**
+- Findings: **25514** (critical 7591, high 8785, medium 3219, low 5919)
+- File grades: A 1, B 0, C 2, D 300
 
 ## Interpretation
 
@@ -322,9 +322,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
-| D | 82 | 1 | 5 | 3 | 17 | 3606 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
+| C | 53 | 0 | 3 | 3 | 15 | 3765 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 15 | `docs/review-trigger-third-gitops-supply-chain.md` |
 
 ## Critical and high findings
 
@@ -17365,15 +17366,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 383, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 405, `thin-concept-section` — **15. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md`
-
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **14. Supply-chain a security boundary**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **HIGH** line 65, `list-heavy-section` — **3. Exact golden-path subject**: 10 odrážok a iba 61 slov súvislého vysvetlenia.
-- **HIGH** line 108, `list-heavy-section` — **5. Opinionated defaults a decision architecture**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 362, `list-heavy-section` — **17. Golden-path acceptance verdict**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 272, `term-before-explanation` — **14. Supply-chain a security boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `resource`, `scope`
-- **HIGH** line 272, `thin-concept-section` — **14. Supply-chain a security boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
 ### `docs/16-gitops-and-platform-engineering/pull-based-deployment.md`
 
 - **CRITICAL** line 24, `empty-section` — **2. Push vs. pull**: Sekcia nemá vysvetľovací obsah.
@@ -17579,6 +17571,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 728, `single-sentence-concept` — **Secret sa zmenil, application ho používa**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 557, `term-before-explanation` — **Encrypted-in-Git**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `RBAC`, `availability`, `identity`
 
+### `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md`
+
+- **HIGH** line 65, `list-heavy-section` — **3. Exact golden-path subject**: 10 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 108, `list-heavy-section` — **5. Opinionated defaults a decision architecture**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 366, `list-heavy-section` — **17. Golden-path acceptance verdict**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
+
 ### `docs/16-gitops-and-platform-engineering/internal-developer-platform.md`
 
 - **HIGH** line 38, `list-heavy-section` — **Internal Developer Platform**: 8 odrážok a iba 65 slov súvislého vysvetlenia.
@@ -17620,11 +17618,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 |---|---:|---:|---:|---:|---:|
 | `bare-bullet-items` | 2993 | 509 | 0 | 0 | 3502 |
 | `single-sentence-concept` | 0 | 3089 | 0 | 0 | 3089 |
-| `outline-instead-of-explanation` | 2937 | 0 | 0 | 0 | 2937 |
-| `term-before-explanation` | 0 | 618 | 2149 | 0 | 2767 |
-| `thin-concept-section` | 0 | 2479 | 0 | 0 | 2479 |
-| `example-not-explicit` | 0 | 0 | 0 | 2365 | 2365 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2349 | 2349 |
+| `outline-instead-of-explanation` | 2936 | 0 | 0 | 0 | 2936 |
+| `term-before-explanation` | 0 | 617 | 2149 | 0 | 2766 |
+| `thin-concept-section` | 0 | 2478 | 0 | 0 | 2478 |
+| `example-not-explicit` | 0 | 0 | 0 | 2364 | 2364 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2348 | 2348 |
 | `list-first-introduction` | 0 | 1529 | 0 | 0 | 1529 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1207 | 1207 |
 | `short-concept-section` | 0 | 0 | 1070 | 0 | 1070 |

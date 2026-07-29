@@ -273,6 +273,10 @@ Happy-path demo s platform engineerom je slabý oracle. Potrebný je second-user
 
 Golden path koncentruje authority. Kompromitovaný template, custom action alebo managed module môže zmeniť stovky services. Preto path artifacts potrebujú rovnakú supply-chain disciplínu ako application artifacts.
 
+Supply-chain boundary začína pri zdroji path definície a končí až pri effective outpute v cieľových systémoch. Review template-u nestačí, ak template počas execution resolve-ne mutable action image, action získa broad cloud credential alebo output policy neoverí skutočne vytvorenú IAM role. Dôveryhodný chain preto viaže source commit, resolved dependency digests, execution identity, input digest, mutation operation IDs a read-back inventory do jednej provenance línie. Každá transition musí odmietnuť subject, ktorý nevie reprodukovateľne identifikovať alebo ktorého scope prekračuje capability contract.
+
+Controls sa presadzujú na odlišných boundaries a navzájom sa nenahrádzajú. Protected review chráni authoring transition, pinning zabraňuje zmene executable bytes po review, least privilege obmedzuje blast radius počas mutation a output read-back odhaľuje confused-deputy alebo provider-defaulting rozdiel. Audit následne umožňuje nájsť všetkých consumers kompromitovanej generation a repair channel vytvorí nový bounded lifecycle namiesto ad-hoc hromadného patchovania. Napríklad podpísaný template stále nie je bezpečný, ak používa `latest` action s cluster-admin credentialom; source authenticity v takom prípade nedokazuje execution integrity ani správny output.
+
 Controls zahŕňajú:
 
 - **Trusted source a protected review** — template, actions a modules majú known owners, branch protections a required evidence.
