@@ -3237,15 +3237,15 @@
     {
       "path": "docs/12-observability/loki.md",
       "title": "Loki",
-      "words": 2203,
-      "headings": 50,
-      "sections": 50,
-      "findings": 143,
-      "critical": 48,
-      "high": 58,
-      "medium": 16,
-      "low": 21,
-      "score": 1119,
+      "words": 1850,
+      "headings": 46,
+      "sections": 46,
+      "findings": 83,
+      "critical": 32,
+      "high": 28,
+      "medium": 8,
+      "low": 15,
+      "score": 657,
       "grade": "D"
     },
     {
@@ -182513,16 +182513,7 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "1. Mentálny model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný model",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -182531,53 +182522,44 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "2. Log stream",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "2. Log stream",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nanosecond timestamp,`, `textovú alebo structured log line,`, `voliteľné structured metadata,`, `stream labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "2. Log stream",
-      "line": 24,
+      "section": "3. Oddelené stavy",
+      "line": 51,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "3. Labels",
-      "line": 44,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "22 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "3. Labels",
-      "line": 44,
+      "section": "3. Oddelené stavy",
+      "line": 51,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "4. Stream identity",
+      "line": 73,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "22 z 22 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service ,`, `environment ,`, `cluster ,`, `namespace ,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "3. Labels",
-      "line": 44,
+      "section": "4. Stream identity",
+      "line": 73,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service;`, `environment;`, `region/cluster;`, `namespace;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "4. Stream identity",
+      "line": 73,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -182585,8 +182567,17 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "3. Labels",
-      "line": 44,
+      "section": "4. Stream identity",
+      "line": 73,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "4. Stream identity",
+      "line": 73,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -182594,8 +182585,8 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "3. Labels",
-      "line": 44,
+      "section": "4. Stream identity",
+      "line": 73,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `workload`",
@@ -182603,1052 +182594,8 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "4. Structured metadata",
-      "line": 81,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "4. Structured metadata",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID,`, `span ID,`, `request ID,`, `Kubernetes Pod identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "4. Structured metadata",
-      "line": 81,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "4. Structured metadata",
-      "line": 81,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "4. Structured metadata",
-      "line": 81,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "4. Structured metadata",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "6. Loki storage model",
-      "line": 115,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 64 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "6. Loki storage model",
-      "line": 115,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Amazon S3,`, `Google Cloud Storage,`, `Azure Blob Storage,`, `kompatibilný object store podľa podporovaného modelu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "6. Loki storage model",
-      "line": 115,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "7. Schema configuration",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `od ktorého dátumu platí storage schema,`, `index store,`, `object store,`, `schema version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "7. Schema configuration",
-      "line": 135,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "7. Schema configuration",
-      "line": 135,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "8. Deployment modes",
-      "line": 156,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Single binary",
-      "line": 160,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Single binary",
-      "line": 160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Single binary",
-      "line": 160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `development,`, `laby,`, `malé prostredia,`, `jednoduchý operational model.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Single binary",
-      "line": 160,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Distributed alebo microservices deployment",
-      "line": 177,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "9. Write path",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "9. Write path",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client alebo collector odošle batch log entries,`, `gateway overí access a smeruje request,`, `distributor validuje tenant, limits, labels a timestamps,`, `hash/ring určí ingestion ownership,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "9. Write path",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "9. Write path",
-      "line": 183,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "9. Write path",
-      "line": 183,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "10. Ingester",
-      "line": 197,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "10. Ingester",
-      "line": 197,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "10. Ingester",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory pressure,`, `príliš veľa active streams,`, `small underutilized chunks,`, `out-of-order entries,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "10. Ingester",
-      "line": 197,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "10. Ingester",
-      "line": 197,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "10. Ingester",
-      "line": 197,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "11. Distributor a limits",
-      "line": 221,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "11. Distributor a limits",
-      "line": 221,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication/tenant resolution,`, `rate limits,`, `line-size limits,`, `label validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "11. Distributor a limits",
-      "line": 221,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "12. Read path",
-      "line": 235,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "12. Read path",
-      "line": 235,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `splitovať dlhý time range,`, `paralelizovať prácu,`, `cachovať výsledky,`, `enforce-nuť limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "12. Read path",
-      "line": 235,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "12. Read path",
-      "line": 235,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "13. LogQL",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Stream selector",
-      "line": 266,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Stream selector",
-      "line": 266,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Line filter",
-      "line": 274,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Line filter",
-      "line": 274,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "JSON parser",
-      "line": 288,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "JSON parser",
-      "line": 288,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Metric query z logs",
-      "line": 307,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Metric query z logs",
-      "line": 307,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "14. unwrap",
-      "line": 317,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "14. unwrap",
-      "line": 317,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parse errors,`, `units,`, `missing fields,`, `outliers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "14. unwrap",
-      "line": 317,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "15. Recording a alerting rules",
-      "line": 342,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "15. Recording a alerting rules",
-      "line": 342,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error pattern alert,`, `audit event detection,`, `log-derived metric recording,`, `absence/freshness signal podľa modelu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "15. Recording a alerting rules",
-      "line": 342,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "15. Recording a alerting rules",
-      "line": 342,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "15. Recording a alerting rules",
-      "line": 342,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "15. Recording a alerting rules",
-      "line": 342,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "16. Multi-tenancy",
-      "line": 364,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "16. Multi-tenancy",
-      "line": 364,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion,`, `query,`, `limits,`, `retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "16. Multi-tenancy",
-      "line": 364,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "17. Retention a deletion",
-      "line": 380,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 58 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "17. Retention a deletion",
-      "line": 380,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retention enablement,`, `global alebo per-tenant/per-stream periods,`, `delete delay,`, `object-store lifecycle compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "17. Retention a deletion",
-      "line": 380,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "17. Retention a deletion",
-      "line": 380,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "18. Compaction",
-      "line": 397,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "18. Compaction",
-      "line": 397,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compaction backlog,`, `failed operations,`, `object-store API errors,`, `working disk,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "18. Compaction",
-      "line": 397,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "18. Compaction",
-      "line": 397,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "19. Caching",
-      "line": 413,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "19. Caching",
-      "line": 413,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "19. Caching",
-      "line": 413,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query results,`, `index/chunk metadata,`, `frontend results,`, `object-store reads podľa deploymentu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "19. Caching",
-      "line": 413,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "20. Log collectors",
-      "line": 434,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "20. Log collectors",
-      "line": 434,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "20. Log collectors",
-      "line": 434,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Fluent Bit,`, `Grafana Alloy,`, `OpenTelemetry Collector,`, `cloud/service integrations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "20. Log collectors",
-      "line": 434,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "21. Kubernetes deployment",
-      "line": 457,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "21. Kubernetes deployment",
-      "line": 457,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "21. Kubernetes deployment",
-      "line": 457,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hostPath access ku container log files,`, `position database,`, `log rotation,`, `multiline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "21. Kubernetes deployment",
-      "line": 457,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "21. Kubernetes deployment",
-      "line": 457,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "21. Kubernetes deployment",
-      "line": 457,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `RBAC`, `resource`, `policy`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "22. Security a privacy",
-      "line": 484,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "22. Security a privacy",
-      "line": 484,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "22. Security a privacy",
-      "line": 484,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials,`, `tokens,`, `personal data,`, `request/response bodies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "22. Security a privacy",
-      "line": 484,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "22. Security a privacy",
-      "line": 484,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "22. Security a privacy",
-      "line": 484,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "23. Self-monitoring",
-      "line": 512,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "23. Self-monitoring",
-      "line": 512,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "23. Self-monitoring",
-      "line": 512,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion request rate/errors,`, `accepted/rejected bytes a lines,`, `active streams,`, `chunk flush latency/errors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "23. Self-monitoring",
-      "line": 512,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "23. Self-monitoring",
-      "line": 512,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "23. Self-monitoring",
-      "line": 512,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `GC`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "24. Troubleshooting: chýbajúce logy",
-      "line": 541,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "24. Troubleshooting: chýbajúce logy",
-      "line": 541,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "25. Troubleshooting: query je pomalý",
-      "line": 560,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "25. Troubleshooting: query je pomalý",
-      "line": 560,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant a time range,`, `stream selector selectivity,`, `regex/line filters,`, `parser a unwrap ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "25. Troubleshooting: query je pomalý",
-      "line": 560,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "25. Troubleshooting: query je pomalý",
-      "line": 560,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "26. Troubleshooting: rejected entries",
-      "line": 579,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "26. Troubleshooting: rejected entries",
-      "line": 579,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion rate limit,`, `stream limit,`, `príliš dlhá line,`, `príliš veľa labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "26. Troubleshooting: rejected entries",
-      "line": 579,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "26. Troubleshooting: rejected entries",
-      "line": 579,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "27. Troubleshooting: vysoká cardinality",
-      "line": 595,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "27. Troubleshooting: vysoká cardinality",
-      "line": 595,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "27. Troubleshooting: vysoká cardinality",
-      "line": 595,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rast active streams,`, `ingester memory,`, `malé chunks,`, `pomalé queries,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "27. Troubleshooting: vysoká cardinality",
-      "line": 595,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "27. Troubleshooting: vysoká cardinality",
-      "line": 595,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "27. Troubleshooting: vysoká cardinality",
-      "line": 595,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "28. Troubleshooting: recent logs existujú, historical nie",
-      "line": 617,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "28. Troubleshooting: recent logs existujú, historical nie",
-      "line": 617,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "28. Troubleshooting: recent logs existujú, historical nie",
-      "line": 617,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chunk flush,`, `object-store writes,`, `schema period,`, `index gateway/cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "28. Troubleshooting: recent logs existujú, historical nie",
-      "line": 617,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "28. Troubleshooting: recent logs existujú, historical nie",
-      "line": 617,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "29. Troubleshooting: historical logs existujú, recent nie",
-      "line": 631,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "29. Troubleshooting: historical logs existujú, recent nie",
-      "line": 631,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "29. Troubleshooting: historical logs existujú, recent nie",
-      "line": 631,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `distributor/ingester health,`, `ring ownership,`, `recent-data query path,`, `collector ingest,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "29. Troubleshooting: historical logs existujú, recent nie",
-      "line": 631,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "30. Loki oproti Elasticsearch/OpenSearch",
-      "line": 642,
+      "section": "5. Labels, structured metadata a body",
+      "line": 100,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -183656,8 +182603,8 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Loki",
-      "line": 644,
+      "section": "Labels",
+      "line": 102,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183665,62 +182612,35 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Loki",
-      "line": 644,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Loki",
-      "line": 644,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `label-based index,`, `object-storage-first model,`, `integrácia s Grafana/Prometheus,`, `efektívny cost pri disciplinovaných labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Loki",
-      "line": 644,
+      "section": "6. Write path",
+      "line": 123,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/loki.md",
-      "section": "Elasticsearch/OpenSearch",
-      "line": 654,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Elasticsearch/OpenSearch",
-      "line": 654,
+      "section": "6. Write path",
+      "line": 123,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Elasticsearch/OpenSearch",
-      "line": 654,
+      "section": "6. Write path",
+      "line": 123,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indexovanie document fields,`, `full-text search,`, `komplexné aggregations,`, `širší search/analytics use case,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retryable throttling alebo temporary backend failure;`, `permanent invalid labels, timestamp alebo line size;`, `tenant/auth failure;`, `stream limit/cardinality failure.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Elasticsearch/OpenSearch",
-      "line": 654,
+      "section": "6. Write path",
+      "line": 123,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -183728,8 +182648,35 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Elasticsearch/OpenSearch",
-      "line": 654,
+      "section": "7. Storage a schema generations",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "7. Storage a schema generations",
+      "line": 146,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "8. Deployment modes",
+      "line": 164,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Distributed/microservices",
+      "line": 170,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -183737,8 +182684,152 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "High-cardinality labels",
-      "line": 679,
+      "section": "9. Read path",
+      "line": 176,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "10. LogQL contract",
+      "line": 192,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Stream selector",
+      "line": 194,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Line filter",
+      "line": 200,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Structured parse",
+      "line": 206,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "11. Multi-tenancy a authorization",
+      "line": 227,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizovať clienta;`, `odvodiť alebo validovať tenant;`, `obmedziť povolené tenant values;`, `auditovať query a ingest identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "11. Multi-tenancy a authorization",
+      "line": 227,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "11. Multi-tenancy a authorization",
+      "line": 227,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "12. Retention, compaction a object-store lifecycle",
+      "line": 241,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "12. Retention, compaction a object-store lifecycle",
+      "line": 241,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compaction a deletion backlog;`, `object-store delete actors a failures;`, `working disk;`, `schema periods;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "12. Retention, compaction a object-store lifecycle",
+      "line": 241,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "12. Retention, compaction a object-store lifecycle",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "12. Retention, compaction a object-store lifecycle",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "13. Collectors a end-to-end canary",
+      "line": 267,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "13. Collectors a end-to-end canary",
+      "line": 267,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source offset/inode;`, `multiline reconstruction;`, `parsing a redaction;`, `tenant a label mapping;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "13. Collectors a end-to-end canary",
+      "line": 267,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "14. Self-observability",
+      "line": 297,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183746,8 +182837,143 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Broad selector {environment=\"production\"} na 30 dní",
-      "line": 683,
+      "section": "14. Self-observability",
+      "line": 297,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "14. Self-observability",
+      "line": 297,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accepted a rejected bytes/lines;`, `rejection reason;`, `active streams a chunk utilization;`, `ingester memory/WAL/flush;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "14. Self-observability",
+      "line": 297,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "14. Self-observability",
+      "line": 297,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "14. Self-observability",
+      "line": 297,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "15. Worked failure: 30-dňová retention, logy zmiznú po siedmich dňoch",
+      "line": 316,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Symptóm",
+      "line": 318,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Exact subject",
+      "line": 322,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `collector vtedy nebežal alebo stratil offsets;`, `query používa nesprávny tenant, timezone alebo labels;`, `timestamp parser uložil entries mimo okna;`, `schema migration vytvorila nečitateľný period;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Competing hypotheses",
+      "line": 336,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Discriminating evidence",
+      "line": 347,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183755,8 +182981,125 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Parser v každom dashboard paneli nad raw JSON",
-      "line": 687,
+      "section": "Discriminating evidence",
+      "line": 347,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Containment",
+      "line": 372,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Containment",
+      "line": 372,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Containment",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Containment",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť alebo opraviť destructive object-store lifecycle rule;`, `označiť affected obdobie ako incomplete evidence;`, `nevymazávať index blocks ani „resetovať“ schema;`, `chrániť audit/security logs samostatnou retention boundary.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Containment",
+      "line": 372,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `obnoviť presné object versions do očakávaných keys/prefixu;`, `overiť index/chunk readability na canary time slices;`, `pridať synthetic aged-log canary a object-existence audit;`, `testovať retention transition aj pri ďalšom schema period-e.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Authoritative recovery",
+      "line": 380,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Loki acceptance verdict",
+      "line": 390,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183764,8 +183107,107 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Object-store lifecycle nezávislý od Loki retention",
-      "line": 691,
+      "section": "Loki acceptance verdict",
+      "line": 390,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Loki acceptance verdict",
+      "line": 390,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recent aj historical path vracajú rovnaký canary event;`, `object lifecycle nemaže allowed chunks ani index;`, `po 30-dňovej hranici expirovaný canary nie je queryovateľný;`, `tenant isolation a KMS permissions zostávajú správne;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Loki acceptance verdict",
+      "line": 390,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Loki acceptance verdict",
+      "line": 390,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Loki acceptance verdict",
+      "line": 390,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Loki acceptance verdict",
+      "line": 390,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "16. Troubleshooting model",
+      "line": 402,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Chýbajúce logy",
+      "line": 404,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Recent áno, historical nie",
+      "line": 417,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Historical áno, recent nie",
+      "line": 429,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Pomalý query",
+      "line": 439,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Request ID ako label",
+      "line": 452,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183773,8 +183215,8 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Collector bez filesystem bufferu pri kritických logs",
-      "line": 695,
+      "section": "Broad 30-dňový selector bez bounded service labels",
+      "line": 456,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183782,8 +183224,8 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Audit logs v rovnakom tenante a access modeli ako application logs",
-      "line": 699,
+      "section": "Object-store lifecycle mimo Loki retention authority",
+      "line": 460,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183791,8 +183233,26 @@
     },
     {
       "path": "docs/12-observability/loki.md",
-      "section": "Single binary s local filesystemom označený ako HA",
-      "line": 703,
+      "section": "Recent query ako retention test",
+      "line": 464,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Collector success ako completeness proof",
+      "line": 468,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/loki.md",
+      "section": "Audit logs v rovnakom tenant/access boundary",
+      "line": 472,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
