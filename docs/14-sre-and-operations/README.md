@@ -1,6 +1,6 @@
 # SRE and Operations
 
-Táto sekcia vysvetľuje, ako prevádzkovať služby podľa explicitných user a business reliability objectives namiesto nejasného cieľa `udržať systém hore`. Začína rozlíšením reliability, availability a durability, pokračuje merateľnými SLI/SLO a error-budget control loopom a následne prechádza cez toil, capacity, incident response, on-call, recovery a operational readiness.
+Táto sekcia vysvetľuje, ako prevádzkovať služby podľa explicitných user a business reliability objectives namiesto nejasného cieľa `udržať systém hore`. Začína rozlíšením reliability, availability a durability, pokračuje merateľnými SLI/SLO a error-budget control loopom a následne prechádza cez toil, capacity, incident response, on-call, causal learning, recovery a operational readiness.
 
 SRE tu nie je názov produktu ani synonymum pre tradičné operations. Je to engineering prístup, ktorý spája software design, production evidence, bounded risk, incident learning, automatizáciu a vlastníctvo služby.
 
@@ -26,17 +26,17 @@ Odporúča sa najprv dokončiť:
 6. [Incident management](incident-management.md)
 7. [On-call a escalation](on-call-and-escalation.md)
 8. [Runbooks a playbooks](runbooks-and-playbooks.md)
+9. [Root cause analysis](root-cause-analysis.md)
+10. [Blameless postmortems](blameless-postmortems.md)
+11. [Backup a restore](backup-and-restore.md)
+12. [RPO a RTO](rpo-and-rto.md)
 
-Aktuálny authoritative stav sekcie je **8/15 · In progress**.
+Aktuálny authoritative stav sekcie je **12/15 · In progress**.
 
 ## Plánované pokračovanie
 
 Authoritative poradie bude pokračovať bez zmeny roadmapy:
 
-9. Root cause analysis
-10. Blameless postmortems
-11. Backup a restore
-12. RPO a RTO
 13. Disaster recovery
 14. Chaos engineering
 15. Operational readiness
@@ -98,9 +98,39 @@ Causal amplifiers:
 
 Recovery použila explicitný IC/Ops/Comms/Planning model, admission `1 700 unique intents/s`, shared retry budget, bounded worker concurrency, provider escalation, queue cohort inventory, controlled drain a business reconciliation.
 
-## Cieľ zvládnutia prvého bloku
+### `SRE-PAY-54` — causal learning, logical-corruption recovery a objective validation
 
-Po prvých štyroch kapitolách má byť možné:
+Release `payments-api 7.25.0` pridal `settlement-ledger-compactor`. Intended destructive operation vyžadovala exact tenant, terminal settlement, provider-finalized state a age nad 90 dní. Production config však vynechala `tenant_scope` a runtime interpretoval missing scope ako wildcard.
+
+```text
+release 7.25.0
+→ missing tenant_scope
+→ wildcard destructive query
+→ 186 420 rows archived
+→ 7 842 active rows poškodených
+→ provider/outbox correlation metadata odstránené
+→ 613 callbacks vyžadovalo secondary correlation
+→ 91 merchant-visible stale/unknown outcomes
+→ logical corruption replikovaná do replicas a nových snapshots
+```
+
+Primary technical root cause bol fail-open wildcard semantics. Systemic root cause bol chýbajúci destructive-operation contract: mandatory scope, affected manifest, max rows/rate, dual authorization a business invariant gate. Escape cause bol zero-row canary a exit-code oracle. Recovery delay vytvorili stale decryption grants, unrehearsed isolated restore a neúplný consistency-group manifest.
+
+```text
+RCA evidence a causal graph
+→ blameless postmortem a action portfolio
+→ clean-point selection
+→ isolated PITR
+→ affected manifest
+→ provider-ledger reconciliation
+→ bounded merge/replay
+→ business recovery
+→ objective-versus-actual verdict
+```
+
+Deklarované objectives boli `RPO 5 min`, `RTO 45 min` a maximum tolerable disruption `2 h`. Database-only clean point bol `02:13:58 UTC`, deväť sekúnd pred corruption, ale posledný pre-built business consistency checkpoint bol `02:03:00 UTC`, teda 11 minút 7 sekúnd pred corruption. Business recovery skončila o `06:03 UTC`, `3 h 48 min 53 s` po first bad mutation. Potvrdená permanentná strata acknowledged settlements bola nakoniec nula, ale initial business-consistent RPO a end-to-end RTO neboli splnené.
+
+## Cieľ zvládnutia prvého bloku
 
 ### Reliability, availability a durability
 
@@ -192,6 +222,52 @@ Po prvých štyroch kapitolách má byť možné:
 - testovať wrong-subject a stale-generation rejection;
 - withdrawnúť a nahradiť nebezpečný dokument bez straty incident evidence.
 
+## Cieľ zvládnutia tretieho bloku
+
+### Root cause analysis
+
+- definovať exact RCA subject a evidence cutoff;
+- odlíšiť trigger, proximate mechanismus a business impact;
+- rozlišovať technical, systemic, escape, detection, amplification a recovery-delay causes;
+- vytvoriť evidence-backed timeline a causal graph;
+- používať competing hypotheses a counterfactual tests;
+- poznať limity lineárneho Five Whys;
+- formulovať blameless, ale konkrétne human/system actions;
+- navrhnúť corrective-action portfolio s mechanism closure verification.
+
+### Blameless postmortems
+
+- definovať objective postmortem triggers a immutable document subject;
+- kvantifikovať user/business impact;
+- zapísať factual timeline bez osobného hodnotenia;
+- vyhodnotiť response, what went well, what went poorly a where we got lucky;
+- odlíšiť blamelessness od absencie accountability;
+- mapovať action items na failure mechanisms;
+- vykonať independent review, publication a privacy/security redaction;
+- sledovať actions až po effective-state a recurrence verification.
+
+### Backup a restore
+
+- definovať protected subject a business consistency group;
+- odlíšiť backup, replication, snapshot, archive, export, restore a recovery;
+- rozlišovať crash-, application-, transaction- a business-consistent point;
+- navrhnúť isolation, immutability, retention a key recoverability;
+- vybrať clean recovery candidate namiesto latest pointu;
+- vykonať isolated restore, fencing a post-point divergence processing;
+- overiť infrastructure, engine, data, application, business a forbidden outcomes;
+- navrhnúť realistický full-stack a second-responder restore drill.
+
+### RPO a RTO
+
+- definovať exact recovery-objective subject a failure scenario;
+- odvodiť RPO/RTO z business impact analysis;
+- odlíšiť RPO, RTO, maximum tolerable disruption a work recovery time;
+- používať time-based aj event/data RPO semantics;
+- viazať RTO na business disruption a safe service boundary;
+- rozdeliť end-to-end RTO na dependency budgets;
+- odlíšiť objective od actual recovered point a actual recovery time;
+- overiť objectives timed current-generation exercise-om.
+
 ## Dominantný model sekcie
 
 ```text
@@ -227,10 +303,10 @@ Každá komplexná kapitola musí rozlišovať:
 | Incident management | Learning | L2 |
 | On-call a escalation | Learning | L2 |
 | Runbooks a playbooks | Learning | L2 |
-| Root cause analysis | Not Started | L0 |
-| Blameless postmortems | Not Started | L0 |
-| Backup a restore | Not Started | L0 |
-| RPO a RTO | Not Started | L0 |
+| Root cause analysis | Learning | L2 |
+| Blameless postmortems | Learning | L2 |
+| Backup a restore | Learning | L2 |
+| RPO a RTO | Learning | L2 |
 | Disaster recovery | Not Started | L0 |
 | Chaos engineering | Not Started | L0 |
 | Operational readiness | Not Started | L0 |
