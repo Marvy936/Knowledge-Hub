@@ -3167,15 +3167,15 @@
     {
       "path": "docs/12-observability/fluent-bit.md",
       "title": "Fluent Bit",
-      "words": 2384,
-      "headings": 55,
-      "sections": 55,
-      "findings": 180,
-      "critical": 71,
-      "high": 64,
-      "medium": 27,
-      "low": 18,
-      "score": 1470,
+      "words": 2037,
+      "headings": 43,
+      "sections": 43,
+      "findings": 85,
+      "critical": 28,
+      "high": 30,
+      "medium": 10,
+      "low": 17,
+      "score": 633,
       "grade": "D"
     },
     {
@@ -175781,7 +175781,7 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný model",
       "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -175790,7 +175790,7 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný model",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -175799,71 +175799,44 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "2. Pipeline komponenty",
-      "line": 23,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "2. Pipeline komponenty",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inputs,`, `parsers,`, `filters,`, `tags a routing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "2. Pipeline komponenty",
-      "line": 23,
+      "section": "3. Oddelené stavy",
+      "line": 50,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "4. Inputs",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "4. Inputs",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Configuration generation",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "4. Inputs",
-      "line": 73,
+      "section": "5. Inputs a source semantics",
+      "line": 90,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Tail,`, `systemd,`, `forward,`, `HTTP,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Tail a systemd/journald;`, `forward, HTTP, TCP alebo syslog;`, `OpenTelemetry a metrics inputs;`, `platform-specific sources.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "4. Inputs",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "5. Inputs a source semantics",
+      "line": 90,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "4. Inputs",
-      "line": 73,
+      "section": "5. Inputs a source semantics",
+      "line": 90,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `TCP`",
@@ -175871,71 +175844,17 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "5. Tail input",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "5. Tail input",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "5. Tail input",
-      "line": 100,
+      "section": "6. Tail input, file identity a position DB",
+      "line": 103,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path a exclude patterns,`, `position database,`, `parser,`, `multiline parser,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reread od začiatku;`, `preskočenie existujúceho obsahu podľa read from head semantics;`, `duplicates;`, `loss starého rotated file-u;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "5. Tail input",
-      "line": 100,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "5. Tail input",
-      "line": 100,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Position database",
-      "line": 118,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Position database",
-      "line": 118,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reread od začiatku,`, `skipnutiu existujúcich dát,`, `duplicates,`, `nejasnému recovery behavioru.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Position database",
-      "line": 118,
+      "section": "6. Tail input, file identity a position DB",
+      "line": 103,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -175943,26 +175862,53 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "6. Log rotation",
-      "line": 131,
+      "section": "6. Tail input, file identity a position DB",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "7. Rotation a multiline",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "7. Rotation a multiline",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "8. Parser a timestamp contract",
+      "line": 144,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "6. Log rotation",
-      "line": 131,
+      "section": "8. Parser a timestamp contract",
+      "line": 144,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rename,`, `truncation,`, `nový inode,`, `starý otvorený file descriptor,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source timestamp a timezone;`, `field names a types;`, `raw-message preservation;`, `parse-failure fallback;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "6. Log rotation",
-      "line": 131,
+      "section": "8. Parser a timestamp contract",
+      "line": 144,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -175970,8 +175916,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "6. Log rotation",
-      "line": 131,
+      "section": "8. Parser a timestamp contract",
+      "line": 144,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -175979,35 +175925,26 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "6. Log rotation",
-      "line": 131,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "7. Multiline",
-      "line": 148,
+      "section": "9. Tags, filters a routing",
+      "line": 159,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "7. Multiline",
-      "line": 148,
+      "section": "9. Tags, filters a routing",
+      "line": 159,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `start-state pattern,`, `continuation rules,`, `flush timeout,`, `language/runtime-specific grammar,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadny output nematchne;`, `broad match pošle logs do forbidden backendu;`, `rewrite-tag loop;`, `dva outputs vytvoria duplicitu;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "7. Multiline",
-      "line": 148,
+      "section": "9. Tags, filters a routing",
+      "line": 159,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -176015,17 +175952,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "7. Multiline",
-      "line": 148,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "7. Multiline",
-      "line": 148,
+      "section": "9. Tags, filters a routing",
+      "line": 159,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -176033,359 +175961,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "8. Parsers",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "8. Parsers",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JSON,`, `regex,`, `logfmt,`, `LTSV,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "8. Parsers",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "8. Parsers",
-      "line": 170,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "8. Parsers",
-      "line": 170,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `LTSV`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "9. Timestamp",
-      "line": 193,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "9. Timestamp",
-      "line": 193,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source timestamp alebo ingestion time,`, `timezone,`, `fractional precision,`, `clock skew,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "9. Timestamp",
-      "line": 193,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "10. Tags a routing",
-      "line": 209,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "10. Tags a routing",
-      "line": 209,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `record nematchne žiadny output,`, `broad match pošle citlivé logs nesprávnemu backendu,`, `rewrite tag loop,`, `dynamic tag explosion.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "10. Tags a routing",
-      "line": 209,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "11. Filters",
-      "line": 231,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "11. Filters",
-      "line": 231,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser,`, `Kubernetes metadata,`, `modify/record modifier,`, `grep,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "11. Filters",
-      "line": 231,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "12. Kubernetes filter",
-      "line": 262,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "12. Kubernetes filter",
-      "line": 262,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace,`, `Pod,`, `container,`, `labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "12. Kubernetes filter",
-      "line": 262,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "12. Kubernetes filter",
-      "line": 262,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "12. Kubernetes filter",
-      "line": 262,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "12. Kubernetes filter",
-      "line": 262,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `RBAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "14. Memory buffering",
-      "line": 306,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Tail môže uložiť file offset a pokračovať neskôr,`, `TCP/UDP/network input môže stratiť prichádzajúce data,`, `upstream môže blokovať alebo dropovať.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "14. Memory buffering",
-      "line": 306,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "14. Memory buffering",
-      "line": 306,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "14. Memory buffering",
-      "line": 306,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "14. Memory buffering",
-      "line": 306,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "15. Filesystem buffering",
-      "line": 320,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "15. Filesystem buffering",
-      "line": 320,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `väčší backlog,`, `lepší restart recovery,`, `menšie riziko memory exhaustion,`, `lepšie pre backend outages.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "15. Filesystem buffering",
-      "line": 320,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "15. Filesystem buffering",
-      "line": 320,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "15. Filesystem buffering",
-      "line": 320,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "15. Filesystem buffering",
-      "line": 320,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `durability`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "16. Backpressure",
-      "line": 343,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "16. Backpressure",
-      "line": 343,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend outage,`, `429 throttling,`, `vysoká network latency,`, `authentication failure s retries,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "16. Backpressure",
-      "line": 343,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "16. Backpressure",
-      "line": 343,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "16. Backpressure",
-      "line": 343,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "17. Storage limits",
-      "line": 368,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "17. Storage limits",
-      "line": 368,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory buffer limit,`, `maximum chunks držané v memory,`, `backlog memory limit,`, `filesystem total limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "17. Storage limits",
-      "line": 368,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "18. Retries",
-      "line": 381,
+      "section": "10. Chunks a buffering",
+      "line": 186,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176393,26 +175970,26 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "18. Retries",
-      "line": 381,
+      "section": "11. Backpressure a retries",
+      "line": 209,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "18. Retries",
-      "line": 381,
+      "section": "11. Backpressure a retries",
+      "line": 209,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `success,`, `retry,`, `error/permanent failure.`, `max attempts alebo unlimited model,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporary network/429/5xx;`, `permanent mapping, label, timestamp alebo auth failure;`, `partial item failure;`, `timeout s unknown outcome;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "18. Retries",
-      "line": 381,
+      "section": "11. Backpressure a retries",
+      "line": 209,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176420,26 +175997,35 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "19. Delivery semantics",
-      "line": 403,
+      "section": "12. Output acknowledgement semantics",
+      "line": 232,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "13. Delivery semantics",
+      "line": 250,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "19. Delivery semantics",
-      "line": 403,
+      "section": "13. Delivery semantics",
+      "line": 250,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout po backend write pred acknowledgementom,`, `restart pred potvrdením offsetu,`, `reread rotated file-u,`, `retry batchu,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend write pred timeout acknowledgementom;`, `restart-e pred durable checkpointom;`, `reread rotated file-u;`, `retry batchu;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "19. Delivery semantics",
-      "line": 403,
+      "section": "13. Delivery semantics",
+      "line": 250,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176447,8 +176033,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "19. Delivery semantics",
-      "line": 403,
+      "section": "13. Delivery semantics",
+      "line": 250,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -176456,287 +176042,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "20. Outputs",
-      "line": 428,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "20. Outputs",
-      "line": 428,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "20. Outputs",
-      "line": 428,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Loki,`, `Elasticsearch/OpenSearch,`, `OpenTelemetry,`, `Kafka,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "20. Outputs",
-      "line": 428,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "20. Outputs",
-      "line": 428,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "21. Loki output",
-      "line": 454,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "21. Loki output",
-      "line": 454,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant identity,`, `bounded labels,`, `structured metadata,`, `line format,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "21. Loki output",
-      "line": 454,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "21. Loki output",
-      "line": 454,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "22. Elasticsearch/OpenSearch output",
-      "line": 471,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "22. Elasticsearch/OpenSearch output",
-      "line": 471,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data stream alebo index target,`, `document ID semantics,`, `timestamp,`, `bulk batch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "22. Elasticsearch/OpenSearch output",
-      "line": 471,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "22. Elasticsearch/OpenSearch output",
-      "line": 471,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "23. OpenTelemetry output",
-      "line": 487,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "23. OpenTelemetry output",
-      "line": 487,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signal type,`, `gRPC/HTTP protocol,`, `endpoint a path,`, `TLS/mTLS,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "23. OpenTelemetry output",
-      "line": 487,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "23. OpenTelemetry output",
-      "line": 487,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "23. OpenTelemetry output",
-      "line": 487,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `TLS`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "24. Multi-output routing",
-      "line": 504,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "24. Multi-output routing",
-      "line": 504,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary log backend + security archive,`, `migration dual-write,`, `local debug + remote backend.`, `dvojnásobný network/storage cost,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "24. Multi-output routing",
-      "line": 504,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "24. Multi-output routing",
-      "line": 504,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "25. Kubernetes DaemonSet",
-      "line": 525,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "25. Kubernetes DaemonSet",
-      "line": 525,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "25. Kubernetes DaemonSet",
-      "line": 525,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ServiceAccount/RBAC,`, `hostPath read/write permissions,`, `Pod Security,`, `CPU/memory requests a limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "25. Kubernetes DaemonSet",
-      "line": 525,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "25. Kubernetes DaemonSet",
-      "line": 525,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "25. Kubernetes DaemonSet",
-      "line": 525,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `CPU`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "26. Graceful shutdown",
-      "line": 552,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "26. Graceful shutdown",
-      "line": 552,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastavenie inputu,`, `flush queued chunks,`, `uloženie offset state-u,`, `uzavretie DB/files,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "26. Graceful shutdown",
-      "line": 552,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "26. Graceful shutdown",
-      "line": 552,
+      "section": "13. Delivery semantics",
+      "line": 250,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
@@ -176744,8 +176051,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "27. Self-monitoring",
-      "line": 564,
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176753,26 +176060,26 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "27. Self-monitoring",
-      "line": 564,
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "27. Self-monitoring",
-      "line": 564,
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input records/bytes,`, `output processed/retried/errors/dropped,`, `storage chunks a bytes,`, `backlog,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mount exact runtime log paths;`, `persistent writable state;`, `tolerations pre všetky relevantné Nodes;`, `Pod Security a hostPath permissions;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "27. Self-monitoring",
-      "line": 564,
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176780,125 +176087,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "27. Self-monitoring",
-      "line": 564,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "28. Health checks",
-      "line": 592,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "28. Health checks",
-      "line": 592,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process/liveness,`, `configuration parse/startup,`, `input active,`, `output connectivity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "28. Health checks",
-      "line": 592,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "29. Security",
-      "line": 607,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "29. Security",
-      "line": 607,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "29. Security",
-      "line": 607,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend credentials,`, `TLS CA/client keys,`, `host log access,`, `position DB a filesystem buffer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "29. Security",
-      "line": 607,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "29. Security",
-      "line": 607,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `CA`, `DB`, `API`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "30. Configuration validation a rollout",
-      "line": 629,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "30. Configuration validation a rollout",
-      "line": 629,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "30. Configuration validation a rollout",
-      "line": 629,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validuj syntax použitou verziou binary,`, `spusti representative input samples,`, `over parse output na stdout/test destination,`, `testuj multiline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "30. Configuration validation a rollout",
-      "line": 629,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "30. Configuration validation a rollout",
-      "line": 629,
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -176906,269 +176096,62 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "30. Configuration validation a rollout",
-      "line": 629,
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "14. Kubernetes DaemonSet boundary",
+      "line": 274,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
       "score": 4
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "31. Troubleshooting: žiadne logs",
-      "line": 646,
+      "section": "15. Health, shutdown a self-observability",
+      "line": 300,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 50 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "31. Troubleshooting: žiadne logs",
-      "line": 646,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "32. Troubleshooting: duplicates",
-      "line": 664,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "32. Troubleshooting: duplicates",
-      "line": 664,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "32. Troubleshooting: duplicates",
-      "line": 664,
+      "section": "15. Health, shutdown a self-observability",
+      "line": 300,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `agent restarts,`, `tail DB persistence/corruption,`, `file rotation/inode reuse,`, `retry po timeout-e,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input records/bytes a active files;`, `parser/filter drops;`, `output processed/retried/errors/dropped;`, `response codes a item failures;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "32. Troubleshooting: duplicates",
-      "line": 664,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "15. Health, shutdown a self-observability",
+      "line": 300,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "32. Troubleshooting: duplicates",
-      "line": 664,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
+      "section": "15. Health, shutdown a self-observability",
+      "line": 300,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "33. Troubleshooting: chýbajú multiline logs",
-      "line": 679,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "33. Troubleshooting: chýbajú multiline logs",
-      "line": 679,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "33. Troubleshooting: chýbajú multiline logs",
-      "line": 679,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser name a assignment,`, `first-line rule,`, `flush timeout,`, `interleaving,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "33. Troubleshooting: chýbajú multiline logs",
-      "line": 679,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "34. Troubleshooting: memory rastie",
-      "line": 693,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "34. Troubleshooting: memory rastie",
-      "line": 693,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "34. Troubleshooting: memory rastie",
-      "line": 693,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory buffering,`, `mem buf limit ,`, `slow output,`, `retry backlog,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "34. Troubleshooting: memory rastie",
-      "line": 693,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "35. Troubleshooting: disk buffer rastie",
-      "line": 710,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "35. Troubleshooting: disk buffer rastie",
-      "line": 710,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend availability/latency,`, `permanent auth/mapping errors,`, `retry policy,`, `per-output total limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "35. Troubleshooting: disk buffer rastie",
-      "line": 710,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "35. Troubleshooting: disk buffer rastie",
-      "line": 710,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "36. Troubleshooting: backend 429",
-      "line": 725,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "36. Troubleshooting: backend 429",
-      "line": 725,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "36. Troubleshooting: backend 429",
-      "line": 725,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď destination a response body,`, `zníž batch concurrency/flush pressure,`, `over backend ingestion capacity a limits,`, `sleduj retry/backlog growth,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "36. Troubleshooting: backend 429",
-      "line": 725,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "37. Troubleshooting: Kubernetes metadata chýbajú",
-      "line": 737,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "37. Troubleshooting: Kubernetes metadata chýbajú",
-      "line": 737,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "37. Troubleshooting: Kubernetes metadata chýbajú",
-      "line": 737,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag/file-name pattern očakávaný filtrom,`, `API connectivity/DNS,`, `ServiceAccount token,`, `RBAC,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "37. Troubleshooting: Kubernetes metadata chýbajú",
-      "line": 737,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "37. Troubleshooting: Kubernetes metadata chýbajú",
-      "line": 737,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `RBAC`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "39. Fluent Bit oproti Fluentd a OpenTelemetry Collectoru",
-      "line": 757,
+      "section": "16. Worked failure: backend outage, liveness restarty, duplicates aj loss",
+      "line": 327,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -177176,8 +176159,17 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluent Bit",
-      "line": 759,
+      "section": "Exact subject",
+      "line": 333,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Competing hypotheses",
+      "line": 349,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -177185,8 +176177,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluent Bit",
-      "line": 759,
+      "section": "Competing hypotheses",
+      "line": 349,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -177194,26 +176186,26 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluent Bit",
-      "line": 759,
+      "section": "Competing hypotheses",
+      "line": 349,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluent Bit",
-      "line": 759,
+      "section": "Competing hypotheses",
+      "line": 349,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ľahký edge/Node agent,`, `silný tail, parsing a buffering model,`, `nízky resource footprint,`, `široké output plugins.`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application počas šiestich minút nelogovala;`, `Loki odmietol entries pre labels/timestamps;`, `parser/filter zahodil iba affected events;`, `agent nematchol output route;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluent Bit",
-      "line": 759,
+      "section": "Competing hypotheses",
+      "line": 349,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -177221,62 +176213,17 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluent Bit",
-      "line": 759,
+      "section": "Competing hypotheses",
+      "line": 349,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
       "score": 4
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluentd",
-      "line": 766,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluentd",
-      "line": 766,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluentd",
-      "line": 766,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `väčší runtime a plugin ecosystem,`, `komplexnejšie processing use cases,`, `vyšší resource footprint podľa pipeline.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluentd",
-      "line": 766,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Fluentd",
-      "line": 766,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "OpenTelemetry Collector",
-      "line": 772,
+      "section": "Discriminating evidence",
+      "line": 360,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177284,8 +176231,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "OpenTelemetry Collector",
-      "line": 772,
+      "section": "Discriminating evidence",
+      "line": 360,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -177293,26 +176240,44 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "OpenTelemetry Collector",
-      "line": 772,
+      "section": "Containment",
+      "line": 390,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Containment",
+      "line": 390,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Containment",
+      "line": 390,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "OpenTelemetry Collector",
-      "line": 772,
-      "severity": "critical",
+      "section": "Containment",
+      "line": 390,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vendor-neutral multi-signal pipelines,`, `OTLP-native,`, `central processors, sampling a routing,`.",
-      "score": 12
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `odstrániť output dependency z liveness rozhodnutia;`, `zastaviť DaemonSet rollout a ďalšie restarty;`, `predĺžiť rotation retention na affected Nodes;`, `označiť affected interval ako incomplete evidence;`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "OpenTelemetry Collector",
-      "line": 772,
+      "section": "Containment",
+      "line": 390,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -177320,17 +176285,224 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "OpenTelemetry Collector",
-      "line": 772,
+      "section": "Containment",
+      "line": 390,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OTLP-`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
       "score": 4
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Memory-only buffer bez loss analýzy",
-      "line": 791,
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť liveness od backend health; backlog riešiť alertom;`, `nastaviť bounded storage limits a loss policy;`, `replaynúť zachované source files s stable event/document identity;`, `deduplikovať known replay duplicates;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `AZ`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `temporary Loki outage nespúšťa liveness restart loop;`, `backlog age rastie a po recovery bezpečne klesne;`, `canary events sú queryovateľné s očakávaným duplicate contractom;`, `susedný Node a druhý DaemonSet rollout zachovajú behavior.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Fluent Bit acceptance verdict",
+      "line": 411,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "17. Troubleshooting model",
+      "line": 424,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Žiadne logs",
+      "line": 426,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Duplicates",
+      "line": 440,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Rastúci disk backlog",
+      "line": 452,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Metadata chýbajú",
+      "line": 464,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Position DB na ephemeral filesysteme",
+      "line": 477,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/fluent-bit.md",
+      "section": "Liveness via remote backend",
+      "line": 481,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177339,7 +176511,7 @@
     {
       "path": "docs/12-observability/fluent-bit.md",
       "section": "Unlimited retry permanentných errors",
-      "line": 795,
+      "line": 485,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177347,8 +176519,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Všetky Kubernetes labels do backendu",
-      "line": 799,
+      "section": "Všetky Kubernetes labels a annotations",
+      "line": 489,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177357,7 +176529,7 @@
     {
       "path": "docs/12-observability/fluent-bit.md",
       "section": "Dva DaemonSets čítajú rovnaké files",
-      "line": 803,
+      "line": 493,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177365,35 +176537,8 @@
     },
     {
       "path": "docs/12-observability/fluent-bit.md",
-      "section": "Position DB na ephemeral Pod filesysteme",
-      "line": 807,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Parsing a redaction až v backend-e",
-      "line": 811,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Liveness restart pri každom output failure",
-      "line": 815,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/fluent-bit.md",
-      "section": "Agent metrics nesledované",
-      "line": 819,
+      "section": "Parse/redaction až v backend-e",
+      "line": 497,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
