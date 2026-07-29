@@ -70,6 +70,10 @@ Versionovaná realizácia identity, logging, security services, network, DNS, KM
 
 Automatizovaný proces vytvorenia a baseline konfigurácie nového AWS accountu vrátane OU placementu, identity, loggingu, networku, budgets, guardrails a ownership metadata. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Acknowledgement boundary — reliability
+
+State transition, po ktorej service callerovi tvrdí, že operation alebo intent bol prijatý, committed alebo dokončený a preto musí mať definované retry, durability a recovery semantics. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## ACL — Access Control List
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
@@ -417,6 +421,10 @@ YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komp
 ## Allocation-rule generation
 
 Versionovaná sada tag, account, Cost Category a shared-cost rules použitá na mapovanie billing line items k owners/products. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Allowed bad events
+
+Maximálny počet alebo podiel eligible events, ktoré môžu porušiť SLO v danom okne bez jeho prekročenia. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
 
 ## Allowed failure
 
@@ -4254,6 +4262,10 @@ Koordinovaný proces obnovy control-plane state-u, PKI, encryption keys, externa
 
 Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime pri strate spojenia s central cloud control plane alebo WAN dependency. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
+## Discretionary change — error budget
+
+Zmena prinášajúca voliteľnú product alebo operational hodnotu, ktorú možno pri vyčerpanom budgete odložiť bez blokovania security, recovery alebo root-cause remediation. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
 ## Discriminating lab observation
 
 Metric, event, API field, log alebo request result, ktorý odlíši minimálne dve plausible hypotheses o vloženom failure mechanizme. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
@@ -4642,9 +4654,17 @@ Dočasný migration model, v ktorom application zapisuje rovnakú logickú zmenu
 
 Hodnota potrebná iba na vyplnenie parametra bez aktívneho použitia v testovanom scenári. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Durability subject
+
+Exact acknowledged data alebo business-state identity, commit boundary, required retention interval, copies/logs, mutation/deletion rules, key dependencies, backup lineage a reconstructability contract. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## Durable function — Lambda
 
 Lambda execution model pre dlhšie workflowy so service-managed durable state a checkpointingom, odlišný od štandardného krátkodobého invocation contractu. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
+## Durable intent
+
+Acknowledged business command alebo state, ktorý zostáva bezpečne vykonateľný, deduplikovateľný a reconstructable počas required lifecycle-u aj po process, dependency alebo storage failure-i. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
 ## Durable operation ledger — Helm
 
@@ -5226,6 +5246,26 @@ Exploit Prediction Scoring System; pravdepodobnostný signal odhadujúci šancu,
 
 Labels, ktorých hodnoty musia byť zhodné medzi source a target alertom, aby sa aplikovala inhibition. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
+## Error-budget acceptance verdict
+
+Dôkaz, že budget je reprodukovateľný, burn-rate a missing-data semantics sú správne, policy consequence sa presadila a reset, stale-query alebo duplicate-event paths neobídu reliability governance. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
+## Error-budget burn rate
+
+Pomer aktuálnej bad-event rate voči rate, ktorá by error budget rovnomerne minula presne na konci compliance window-u. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
+## Error-budget generation
+
+Konkrétny výpočet allowed, observed, remaining a consumed bad events pre versionovaný SLO a compliance window. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
+## Error-budget policy
+
+Schválený governance contract mapujúci budget state a burn rate na release, incident, reliability-work, exception, escalation a návrat-do-normal-mode decisions. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
+## Error-budget subject
+
+Exact SLI/SLO/policy revision, service, cohort, window, eligible population, exclusions, measurement generation a owner, ku ktorým patrí tolerovaný failure budget. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
+
 ## Error numerator contract — RED
 
 Explicitná definícia failed outcomes, result classes, partial/unknown states a scope-u používaného v čitateli error ratio. Pozri [RED method](docs/12-observability/red-method.md).
@@ -5273,6 +5313,10 @@ Point-in-time backup etcd data store-u používaný v testovanom Kubernetes cont
 ## Ethernet frame
 
 Link-layer jednotka obsahujúca source a destination MAC, EtherType, payload a kontrolné metadata. Pozri [Ethernet, MAC a ARP](docs/02-networking-and-web/ethernet-mac-arp.md).
+
+## Event-based availability
+
+Podiel good eligible service events voči všetkým eligible events, vhodný pre partial a traffic-weighted request alebo workflow availability. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
 ## Event-driven autoscaling
 
@@ -5381,6 +5425,10 @@ Stav, keď study material, question explanation alebo service assumption vychád
 ## Exception chaining — Python
 
 Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `raise ... from ...`. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
+
+## Exclusion contract — SLO
+
+Explicitné, bounded a auditovateľné pravidlá určujúce, ktoré events alebo intervals nevstupujú do SLI/SLO alebo SLA population a prečo. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
 
 ## Exclusive runtime slot
 
@@ -5712,7 +5760,7 @@ Rozdelenie jedného vstupu, artifactu alebo test suite do viacerých paralelnýc
 
 ## Fast burn
 
-Prudké spotrebúvanie error budgetu signalizujúce významný krátkodobý user impact a potrebu rýchlej reakcie. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+Krátkodobá vysoká error-budget consumption indikujúca závažný incident a potrebu urgentnej reakcie. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
 
 ## Fast-forward
 
@@ -5849,6 +5897,10 @@ Klasifikácia logical operation ako definitive success, definitive failure, part
 ## Final stage — Dockerfile
 
 Stage, ktorého filesystem a image config tvoria publikovaný runtime image; má obsahovať iba potrebné runtime artifacts a dependencies. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Finalization delay — SLI
+
+Čas vyhradený na late evidence a reconciliation pred uzavretím measurement generation bez spätného vymazania už vzniknutého deadline violation-u. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
 
 ## Finalizer-before-create invariant
 
@@ -6269,6 +6321,10 @@ Exact capability, workflow, valid demand population, cohort, version, measuremen
 ## Golden Signals
 
 Google SRE monitoring model pozostávajúci zo Latency, Traffic, Errors a Saturation pre user-facing workload. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Good event — SLI
+
+Eligible event, ktorý splnil definovaný user alebo business outcome vrátane required correctness, latency, scope a completion semantics. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
 
 ## Governance acceptance verdict — Kubernetes namespace
 
@@ -6909,6 +6965,10 @@ Gateway API Route resource pre HTTP routing cez host, path, header alebo query m
 ## Huge pages — Kubernetes
 
 Predalokované veľké memory pages publikované Node-om ako page-size-specific nekompresibilný resource. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
+
+## Human touch time
+
+Aktívny čas, počas ktorého človek musí workflow pozorovať, rozhodovať alebo vykonávať, oddelený od celkového elapsed wait time-u automation alebo dependency. Pozri [Toil](docs/14-sre-and-operations/toil.md).
 
 ## Hybrid capability subject
 
@@ -8262,6 +8322,10 @@ Application-owned identita persistentného datasetu, oddelená od Pod mena, PVC 
 
 Caller alebo business jednotka trafficu, napríklad logical settlement alebo message, oddelená od retries, fan-out calls a technical attempts. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
+## Logical durability failure
+
+Strata alebo poškodenie acknowledged business state-u spôsobené validnou application, administrative alebo malicious mutation, ktorá sa môže správne replikovať do všetkých online copies. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## Logical duration — RED
 
 End-to-end trvanie caller-visible logical operation vrátane queue waitu, processingu, dependency attempts, retry backoffu a final completion pathu. Pozri [RED method](docs/12-observability/red-method.md).
@@ -8485,6 +8549,10 @@ Maximálna povolená nerovnomernosť počtu matching Podov medzi topology domain
 ## Measurement boundary — telemetry
 
 Presný observation point, napríklad client, edge, handler, consumer, dependency alebo final business completion, na ktorom signal meria occurrence. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## Measurement-generation identity — SLI
+
+Versionovaný source, instrumentation/schema, collection, ingestion, classification, deduplication, query a correction contract vytvárajúci konkrétny SLI verdict. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
 
 ## Measurement population — RED
 
@@ -8825,6 +8893,10 @@ Disaster-recovery stratégia, v ktorej viac geografických lokalít aktívne obs
 ## Multi-stage build
 
 Dockerfile build s viacerými `FROM` stages, ktorý oddeľuje compilation, test, artifact a runtime filesystemy a umožňuje kopírovať do final image-u iba explicitné artifacts. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Multi-window burn-rate alert
+
+Alert kombinujúci krátke citlivé a dlhšie potvrdzujúce evaluation windows na odhalenie rýchleho aj pomalého budget burnu bez nadmerného noise-u. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
 
 ## Multi-writer automation
 
@@ -9526,6 +9598,10 @@ Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/r
 
 Closure dôkaz, že exact approved targets dostali pinned document/configuration cez správnu identity a bounded execution, dosiahli technical aj business postconditions a forbidden tag-expansion, broad-role, stale-compliance a full-fleet mutation paths zostali zablokované. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
+## Operational demand — toil
+
+Incident, request, alert, maintenance alebo process condition vytvárajúca opakovanú human operational prácu. Pozri [Toil](docs/14-sre-and-operations/toil.md).
+
 ## Operational Excellence pillar
 
 Well-Architected pillar zameraný na efektívny development, operations insight, safe change a continuous improvement. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -9757,6 +9833,10 @@ Reference z Route na Gateway, listener alebo iný supported parent, ku ktorému 
 ## Parquet trace block
 
 Columnar Tempo storage block obsahujúci traces a attributes v Apache Parquet formáte pre efektívnejšie selective querying. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Partial availability
+
+Stav, keď service capability funguje iba pre časť cohorts, Regions, tenants, operations, data shapes alebo release generations a aggregate metric môže impact skryť. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
 ## Partial-batch acknowledgement
 
@@ -10806,6 +10886,10 @@ Effective provider configuration address spolu s caller accountom, regionom, end
 
 Incident, pri ktorom provider failure alebo degradation spustí udalosť, ale customer architecture, capacity, configuration alebo recovery weakness zväčší business blast radius. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
+## Provisional outcome — SLI
+
+Dočasná klasifikácia async eventu pred uplynutím completion deadline-u alebo príchodom authoritative final evidence. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
 ## Provisioned concurrency — Lambda
 
 Počet predinicializovaných Lambda execution environments pripravených na invocations pre konkrétnu version alebo alias s cieľom znížiť startup latency. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
@@ -11162,6 +11246,10 @@ Opakovaný proces observe, compare, act a report, ktorý približuje actual stat
 
 Rekonštruovateľná identita jedného control-loop rozhodnutia zahŕňajúca controller/version/leader, cluster, object UID/generation/resourceVersion, queue attempt, dependents, external bindings, credentials a reconcile ID. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Reconstructability
+
+Schopnosť z authoritative production alebo approved recovery lineage znovu vytvoriť complete a business-consistent acknowledged state vrátane dependencies a identity semantics. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## Reconvergence validation — CloudOps
 
 Overenie, že controllers, runtime processes, data state a traffic sa po recovery ustálili na authoritative generation a neoscilujú späť. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
@@ -11285,6 +11373,10 @@ Deployment strategy boundary, pri ktorej old Pods majú zaniknúť pred vytvoren
 ## Recreate strategy — Deployment
 
 Deployment stratégia, ktorá odstráni starú Pod population pred vytvorením novej, čím akceptuje downtime alebo minimalizuje mixed-version overlap. Pozri [Deployment](docs/09-kubernetes/deployment.md).
+
+## Recurrence gate — error budget
+
+Podmienka vyžadujúca uzavretie root-cause a regression evidence pred obnovením normal release mode-u aj vtedy, keď sa calendar alebo rolling budget formálne obnovil. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
 
 ## RED acceptance verdict
 
@@ -11482,9 +11574,17 @@ Complete release identity zahŕňajúca source revision, controls, resolved inpu
 
 Presne definovaná množina artifactov, configov, migrations alebo koordinovaných komponentov, ktoré sa schvaľujú a release-ujú ako jeden celok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Reliability acceptance verdict
+
+Dôkaz, že exact capability spĺňa availability, correctness, latency a durability contract, acknowledgement patrí durable transitionu, recovery obnoví business state a forbidden lost/duplicate/silent-success paths zlyhajú. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## Reliability pillar
 
 Well-Architected pillar zameraný na správne a konzistentné fungovanie workloadu, capacity, change a failure management. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Reliability subject
+
+Exact business capability, user/cohort, required function, stated conditions, environment/release generation, period alebo opportunities, dependencies, acknowledgement boundary, data/recovery scope a evidence authority analyzovanej reliability vlastnosti. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
 ## Relying Party
 
@@ -11654,6 +11754,10 @@ Počet requestov alebo jednotiek práce za čas na presne definovanej measuremen
 
 Runtime configuration field, bez ktorého application nemôže bezpečne začať a má zlyhať s redigovanou validačnou chybou. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
+## Required function — reliability
+
+Konkrétny user alebo business outcome, ktorý má systém vykonať bez failure-u za definovaných conditions a počas definovaného obdobia. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## `required` — Helm
 
 Template function zlyhávajúca render, keď požadovaná hodnota je empty, a vracajúca explicitnú error message. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
@@ -11689,6 +11793,10 @@ Risk zostávajúci po aplikovaní mitigations a controls, ktorý musí mať expl
 ## Residual-risk verdict
 
 Explicitné rozhodnutie o zostávajúcom security risku po containment, recovery a effective-control validation vrátane ownera, duration a acceptance podmienok. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Residual toil
+
+Human operational work, ktorý zostáva po reduction iniciatíve pre novel exceptions, risk judgment alebo zámerne neautomatizované boundaries. Pozri [Toil](docs/14-sre-and-operations/toil.md).
 
 ## Resilience engineering
 
@@ -12197,6 +12305,10 @@ Explicitné stavy produkčnej expozície s povolenými transitions, observation 
 ## Rollover — search
 
 Lifecycle operácia vytvárajúca nový write index po splnení age, size, document-count alebo shard-size conditions. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Root-demand elimination
+
+Redesign služby alebo procesu, ktorý odstráni príčinu operational workflowu namiesto automatizácie jeho posledného manuálneho kroku. Pozri [Toil](docs/14-sre-and-operations/toil.md).
 
 ## Root module — Terraform
 
@@ -12758,6 +12870,10 @@ Subject-bound výsledok druhého complete runu po úspešnom convergence, ktorý
 
 Opakovaný policy test po rollout-e, rollbacku, cache invalidation alebo revocation, ktorý dokazuje, že rovnaký allowed input zostáva správny a old/forbidden input sa nevrátil. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Second-failure validation
+
+Opakovaný controlled dependency alebo component failure po remediation, ktorý overuje, že obnovená reliability nevznikla iba jednorazovým manuálnym zásahom. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## Second-operation validation — Zero Trust
 
 Opakovanie protected business operation s fresh identities a generations spolu s negative testom starej session, posture, policy, artifactu a direct pathu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -13118,6 +13234,10 @@ Provider alebo platformový verdict o stave služby, ktorý musí byť korelovan
 
 Namespaced API contract poskytujúci stabilné meno, virtual address a port model pre dynamickú backend population reprezentovanú EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
 
+## Service-level subject
+
+Versionovaný service, capability, cohort, operation, valid-event population, expected outcome, observation point, threshold, compliance window, exclusions, measurement generation a owner jedného SLI/SLO contractu. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
 ## Service lifecycle subject
 
 Úplný subject spájajúci Service UID/generation, VIP a port contract, EndpointSlice cohort, node dataplane generation, client flow, backend Pod UID a business request. Pozri [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md).
@@ -13474,9 +13594,25 @@ Vopred definovaná podmienka, pri ktorej kandidát zastaví neefektívnu alebo r
 
 IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Advertisement. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
 
+## SLI observation point
+
+Boundary, na ktorej sa service outcome meria, napríklad client, edge, server, business ledger alebo recovery canary, spolu s explicitnými visibility limitations. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
+## SLO acceptance verdict
+
+Dôkaz, že user-centered population, good-event rule, observation point, measurement coverage, target, window, exclusions a consequences vytvárajú reprodukovateľný allowed aj bad-event verdict. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
+## SLO compliance window
+
+Časové alebo eventové okno, nad ktorým sa SLI porovnáva s targetom, napríklad rolling 28 dní alebo calendar month. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
+## SLO safety margin
+
+Rozdiel medzi prísnejším interným reliability objective-om a voľnejším external alebo contractual commitmentom, ktorý poskytuje priestor na remediation pred SLA breachom. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
 ## Slow burn
 
-Dlhšie mierne prekračovanie reliability targetu, ktoré spotrebúva error budget pomalšie, ale systematicky. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+Dlhodobejšia mierne zvýšená error-budget consumption indikujúca chronic degradation alebo systematický reliability debt. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
 
 ## slow start — ELB
 
@@ -13777,6 +13913,10 @@ Konkrétna verzia Terraform state-u obsahujúca resource bindings, known attribu
 ## State surgery — Terraform
 
 Riadená zmena state metadata pomocou príkazov ako `state mv`, `state rm` alebo výnimočne recovery push, vykonaná s lockom, backupom, review a následným planom. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Stated conditions — reliability
+
+Explicitný traffic, data, dependency, environment, failure-assumption a time/opportunity context, v ktorom sa reliability tvrdenie vyhodnocuje. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
 
 ## Stateful acceptance verdict
 
@@ -14594,6 +14734,10 @@ Exact KDC, client/service principal, issue time, validity, flags, KVNO, enctype 
 
 Kerberos ticket používaný clientom na získavanie service tickets bez opakovaného zadávania passwordu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## Time-based availability
+
+Podiel času, počas ktorého je exact service capability usable, voči celému eligible service window-u. Pozri [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md).
+
 ## Time-budget state machine — CloudOps exam
 
 Question workflow `read/classify → solve alebo defer → provisional answer/confidence → second pass → consistency review`, ktorý chráni celý exam queue pred time collapse. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
@@ -14653,6 +14797,22 @@ Memory-backed runtime filesystem mount s ephemeral lifecycle, vhodný pre dočas
 ## Toil
 
 Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková práca. Pozri [Toil and Technical Debt](docs/00-foundations/toil-and-technical-debt.md).
+
+## Toil-reduction acceptance verdict
+
+Dôkaz, že measured workflow demand a human touch sa trvalo znížili, automation je bounded a bezpečná, reliability sa nezhoršila a práca nebola iba skrytá alebo presunutá inde. Pozri [Toil](docs/14-sre-and-operations/toil.md).
+
+## Toil reinforcing loop
+
+Slučka, v ktorej rast incidentov a manuálnej práce znižuje engineering capacity, čím sa odkladajú root-cause fixes a vzniká ešte viac operational demandu. Pozri [Toil](docs/14-sre-and-operations/toil.md).
+
+## Toil shift
+
+Presun manual alebo repetitive práce na iný tím, používateľa alebo support channel bez skutočného zníženia end-to-end operational demandu. Pozri [Toil](docs/14-sre-and-operations/toil.md).
+
+## Toil subject
+
+Exact service, operational workflow, trigger, actor, steps, frequency, touch time, wait time, interruption cost, privilege, error risk, scale driver, owner a measurement window analyzovaného toil-u. Pozri [Toil](docs/14-sre-and-operations/toil.md).
 
 ## Token audience boundary
 
@@ -15121,6 +15281,10 @@ Meranie podielu effective resource capacity používaného v presnom intervale a
 ## Utilization — USE
 
 Miera používania resource-u vyjadrená ako busy time, obsadená kapacita, throughput voči limitu alebo concurrency voči maximu. Pozri [USE method](docs/12-observability/use-method.md).
+
+## Valid-event population — SLI
+
+Exact denominator events oprávnené vstúpiť do SLI vrátane explicitných rules pre invalid requests, retries, duplicates, cancellations, maintenance a missing outcomes. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
 
 ## Validating admission
 
