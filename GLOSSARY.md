@@ -230,6 +230,10 @@ Overenie, že recovery funguje nielen na pôvodnom affected subjecte, ale aj na 
 
 Connection slots, identity a route vyhradené pre incident inspection, fencing, recovery a administratívne operations pri application saturation. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
+## Admission control — distributed systems
+
+Rozhodovací boundary, ktorá podľa exact caller/tenant/operation identity, current demandu, policy a downstream capacity povolí, oneskorí, degraduje alebo odmietne novú prácu. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## Admission control — Kubernetes
 
 Request-time vrstva Kubernetes API, ktorá po authentication a authorization mutuje alebo validuje relevantné create, update a delete requests pred persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
@@ -1430,6 +1434,10 @@ Prenesenie opravy alebo zmeny z novšej vývojovej línie do staršej podporovan
 
 Mechanizmus, ktorým pomalší consumer obmedzí alebo signalizuje producerovi, aby nevytváral neobmedzený buffer a rastúcu latency. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
 
+## Backpressure subject
+
+Exact source, sink, operation/event identity, queue a in-flight inventory, demand/credit signal, overflow policy, deadlines, priority a recovery scope analyzovaného flowu. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Backup and restore — DR
 
 Recovery stratégia, pri ktorej sa náhradné prostredie a state obnovujú zo záloh po incidente; má nízky steady-state cost a typicky vyššie RTO. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -1638,9 +1646,17 @@ Operational command viazaný na exact target manifest, maximálny scope/rate, ti
 
 Telemetry dimension s malým, riadeným a relatívne stabilným počtom možných hodnôt. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Bounded drain
+
+Riadené spracovanie existujúceho backlogu pod hard concurrency, fairness, deadline a downstream-capacity limitmi až po business reconciliation bez nového overloadu. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Bounded incident change
 
 Incident action s exact subjectom, ownerom, hypothesis, scope-om, expected observation, abort criterion, rollback alebo compensation a recorded resultom. Pozri [Incident management](docs/14-sre-and-operations/incident-management.md).
+
+## Bounded queue — distributed flow
+
+Queue s explicitným hard capacity, item costom, age/deadline limitom, overflow policy, priority/fairness a drain/recovery contractom. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Bounded reconcile transition
 
@@ -1873,6 +1889,10 @@ Rozdelenie resources, queues, threads, tenants, cells alebo accounts do samostat
 ## Burn-rate alert
 
 SLO alert sledujúci rýchlosť spotrebúvania error budgetu oproti tempu, ktoré by vyčerpalo budget v definovanom období. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
+## Burst allowance
+
+Krátkodobý počet quota units alebo operations, ktoré limiter môže prijať nad sustained rate a ktoré musí vedieť absorbovať downstream capacity a bounded buffers. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Burstable QoS
 
@@ -2129,6 +2149,10 @@ Dôkaz, že demand, amplification, constrained resources, headroom, provisioning
 ## Capacity cliff
 
 Bod, pri ktorom malé ďalšie zvýšenie demandu spôsobí prudký rast queueing, latency alebo errors, pretože systém vyčerpal effective capacity. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Capacity envelope — admission
+
+Zmeraný bezpečný rate, concurrency, burst, queue a recovery rozsah required end-to-end completion pathu, podľa ktorého sa odvodzuje admission. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Capacity headroom
 
@@ -3082,6 +3106,10 @@ Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť zná
 
 Maximálny bezpečný počet concurrent invocations odvodený nielen od Lambda limitov, ale aj od database connections, provider quotas, network/NAT capacity, queue lease a business deadline-u. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Concurrency limit — admission
+
+Hard alebo dynamic limit počtu súčasne rozpracovaných operations alebo attempts pre exact dependency, tenant, provider, Region či operation class. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## Concurrency policy — CronJob
 
 Pravidlo `Allow`, `Forbid` alebo `Replace`, ktoré určuje, ako CronJob reaguje, keď má začať nový scheduled run a predchádzajúci Job ešte beží. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
@@ -3305,6 +3333,10 @@ Exact secret alebo key version reálne načítaná konkrétnym processom, agento
 ## Consumer-loaded secret state
 
 Secret version a credential generation skutočne načítaná konkrétnym processom, taskom, Lambda environmentom, sidecarom alebo connection poolom. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Consumer pause state
+
+Current per-partition rozhodnutie, že consumer dočasne nemá získavať nové records pre processing; po rebalance sa musí znovu odvodiť z aktuálnych credits a assignment generation. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Consumer refresh gate — secret rotation
 
@@ -4338,6 +4370,10 @@ Pomer interných attempts, fan-out calls alebo redeliveries voči logical demand
 
 Pomer technických attempts, retries, redeliveries alebo fan-out operácií voči unique business demandu, ktorý určuje skutočný pressure na required service boundaries. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
+## Demand propagation
+
+Prenos downstream dostupných credits, queue/in-flight stavu alebo completion capacity smerom upstream, aby source nevytváral nebounded work. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Demand unit
 
 Workload-specific jednotka trafficu, napríklad request, message, transaction, byte, query alebo inference, ktorá reprezentuje reálny demand na systém. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
@@ -4802,6 +4838,10 @@ Kategórie nesprávnych options ako wrong scope, half path, configured-not-effec
 
 CI cache uložená v shared backend-e, typicky object storage, aby ju mohli používať viaceré alebo autoscaled runners. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
 
+## Distributed counter consistency
+
+Pomenovaný consistency a partition contract pre rate/quota counter naprieč processes, shards alebo Regions vrátane povoleného overshootu a acknowledgement semantics. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## Distributed monolith
 
 Systém s viacerými remote deployments, ktorý stále vyžaduje synchronized releases, shared data access alebo tightly coupled runtime availability, a preto nesie distributed cost bez autonomy. Pozri [Monolith, modular monolith a microservices](../docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md).
@@ -5106,6 +5146,10 @@ Metriky software delivery performance sledujúce throughput a instability delive
 
 Maximum connections, concurrency, throughput alebo rate, ktoré dependency bezpečne unesie pri replica scale-up/down bez amplification incidentu. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
 
+## Downstream credit
+
+Explicitná jednotka aktuálnej capacity, ktorá oprávňuje upstream poslať alebo rozpracovať ďalší item, request či provider attempt. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## DR acceptance verdict
 
 Dôkaz, že scenario-specific recovery graph, standby generations, identities, keys, network, external dependencies, fencing, capacity, data recovery, business validation, reconciliation, RPO/RTO a failback prešli current-generation exercise-om. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
@@ -5169,6 +5213,10 @@ Dočasný migration model, v ktorom application zapisuje rovnakú logickú zmenu
 ## Dummy — test double
 
 Hodnota potrebná iba na vyplnenie parametra bez aktívneho použitia v testovanom scenári. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Duplicate join
+
+Behavior, pri ktorom concurrent duplicate request nezaloží novú logical operation, ale dostane rovnaký status resource, bounded wait alebo prior result existujúcej operation. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Durability subject
 
@@ -5982,6 +6030,10 @@ Schválené použitie high-cardinality field-u pre bounded exact log, trace aleb
 
 Query konkrétneho trace ID odlíšená od broad attribute searchu a validovaná voči tenant, recent/historical path a storage generation. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Exactly-once scope
+
+Presne pomenovaná boundary, na ktorej systém tvrdí one-time processing/effect, napríklad broker transaction, database transition alebo provider business effect; tvrdenie sa nesmie automaticky rozšíriť na celý distributed flow. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Exam-guide generation — SOA-C03
 
 Konkrétna revision AWS SOA-C03 exam guide-u s publication date, domain/task obsahom a in-scope/out-of-scope service inventory, ku ktorej musí byť viazaný study a readiness evidence. Pozri [AWS Certified CloudOps Engineer – Associate](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
@@ -6338,6 +6390,10 @@ Kapacita, quota, IP space a compatible resource inventory dostupný po strate de
 
 Pravidlo určujúce, či evaluation error alebo nedostupná admission dependency request zablokuje alebo prepustí. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Fairness verdict — rate limiting
+
+Dôkaz, že global/provider/tenant/operation-class budgets, weights a reserves poskytujú bounded share a neumožňujú jednej cohort-e vyhladovať ostatné required operations. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## Fake — test double
 
 Zjednodušená, ale funkčná implementácia dependency používaná v teste, napríklad in-memory repository alebo fake clock. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
@@ -6425,6 +6481,10 @@ Hierarchický model, v ktorom jeden Prometheus scrape-ne vybrané series z feder
 ## Federation trust-policy generation
 
 Versionovaný external identity-provider contract určujúci akceptovaný issuer, audience, namespace, ServiceAccount subject a odvodenú external rolu. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
+
+## Feedback hysteresis
+
+Oddelené high/low thresholds, hold times alebo gradual credit changes, ktoré zabraňujú opakovanému pause–resume a overload oscillation. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Feedback loop
 
@@ -6597,6 +6657,10 @@ AD DS roles určené pre operácie, ktoré nemajú byť vykonávané súčasne v
 ## Flow control
 
 TCP mechanizmus chrániaci receiver pred odosielaním väčšieho množstva dát, než dokáže prijať. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Flow-control window
+
+Protocol alebo runtime boundary určujúca množstvo bytes, messages alebo operations, ktoré môže sender poslať bez ďalšieho receiver demand/acknowledgement-u. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Flow log — CNI
 
@@ -6897,6 +6961,10 @@ AD DS group scope typicky obsahujúci accounts z rovnakej domény a používaný
 ## Global helper resolution — Helm
 
 Proces výberu effective named-template definition z globálneho namespace-u parent chartu a dependencies. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
+
+## Global limiter
+
+Logical rate/quota admission policy koordinovaná naprieč všetkými relevantnými instances alebo shards pre jeden exact scope. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Global ordinals
 
@@ -7382,6 +7450,10 @@ Build, ktorý získava všetky inputs cez deklarovaný a kontrolovaný mechanism
 
 Test, ktorý kontroluje všetky významné vstupy a nespolieha sa na nepredvídateľný externý stav. Môže používať disposable reálne dependencies. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
 
+## Hidden buffer
+
+Queue alebo pending-work boundary mimo hlavného application queue dashboardu, napríklad SDK, proxy, protocol window, executor, pool waiter, producer buffer alebo consumer fetch buffer. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Hidden job — GitLab CI/CD
 
 Top-level CI configuration block s názvom začínajúcim bodkou, ktorý sa nespúšťa priamo a slúži ako reusable configuration pre `extends` alebo references. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -7718,6 +7790,10 @@ Krátkodobý signed OIDC token vydaný jobu s definovaným audience a claims, po
 
 Vlastnosť operácie, pri ktorej opakovanie s rovnakým vstupom vedie k rovnakému výslednému stavu. Pozri [Idempotency](docs/00-foundations/idempotency.md).
 
+## Idempotency/backpressure acceptance verdict
+
+Dôkaz, že atomic stable operation identity a bounded demand/queue/in-flight flow zabránia duplicate effectu, silent lossu, unbounded memory, starvation a false completion pri retries, rebalances a sustained overload-e. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Idempotency key
 
 Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-idempotentný request a vrátiť konzistentný výsledok. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
@@ -7726,6 +7802,22 @@ Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-i
 
 Stabilná identity jednej business mutation používaná pri retries tak, aby viac network attempts nevytvorilo viac remote side effects. Musí byť kontrolovateľná alebo dohľadateľná cez remote API a audit. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Idempotency key scope
+
+Namespace, typicky tenant + operation type + key, v ktorom key jednoznačne identifikuje jeden business intent a nesmie kolidovať s iným intentom. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
+## Idempotency retention
+
+Minimálny čas a state-dependent lifecycle, počas ktorého musí zostať duplicate verdict dostupný cez client retry, backlog, replay, restore a external reconciliation window. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
+## Idempotency state machine
+
+Authoritative lifecycle `CLAIMED → ACCEPTED_DURABLE → PROCESSING → COMPLETED/FAILED_FINAL/RECONCILIATION_REQUIRED` s owner generation, fingerprintom a recovery rule. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
+## Idempotency subject
+
+Exact tenant, operation type, key, semantic fingerprint, authoritative operation record, state/owner generation, downstream identity, retention a response/reconciliation scope. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Idempotency test — Ansible
 
 Test vykonávajúci po prvom converge ďalší run s rovnakými inputs a overujúci, že nevzniknú neplánované changes ani side effects. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
@@ -7733,6 +7825,10 @@ Test vykonávajúci po prvom converge ďalší run s rovnakými inputs a overuj�
 ## Idempotent batch execution
 
 Batch návrh, pri ktorom opakované alebo duplicitné vykonanie toho istého logical work itemu nevytvorí nekonzistentné dodatočné side effects. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Idempotent consumer
+
+Consumer, ktorý duplicate event identity atomicky mapuje na existujúci local transition/result a pri external effecte používa stable destination key a reconciliation. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Idempotent reconcile
 
@@ -8802,6 +8898,10 @@ Consensus-backed identity leadership generation, ktorú možno použiť na trans
 
 Signal, ktorý upozorňuje na blížiaci sa failure pred viditeľným user impactom, napríklad queue growth, throttling alebo saturation. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
+## Leaky bucket
+
+Admission model, ktorý odvádza work približne konštantnou rýchlosťou cez bounded queue a pri pretečení alebo expirovanom deadline-e musí použiť explicitný overflow outcome. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## Learner member
 
 Non-voting member dobiehajúci replicated state pred safe promotion na voting member. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
@@ -8813,6 +8913,10 @@ Lightweight object v `coordination.k8s.io` používaný napríklad na Node heart
 ## Lease — secrets management
 
 Časovo obmedzený contract pre vydaný secret s TTL, renewal a revocation semantics. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Leased admission budget
+
+Časovo alebo generation-bounded časť global quota pridelená konkrétnej instance/shardu, ktorej reclaim a overshoot semantics musia byť explicitné. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Least privilege
 
@@ -8857,6 +8961,10 @@ Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ak
 ## Lifecycle-stage declaration — SBOM
 
 Explicitné metadata určujúce, či BOM opisuje source dependencies, builder/toolchain inputs, build graph, final artifact alebo deployed/runtime snapshot. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Limiting key
+
+Authenticated identity a dimensions, napríklad tenant, user, provider, Region a operation class, podľa ktorých limiter zdieľa alebo oddeľuje usage counter. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## LimitRange
 
@@ -8985,6 +9093,10 @@ Node-side rozhodnutie, či pridelený Pod môže byť realizovaný vzhľadom na 
 ## Local-endpoint coverage
 
 Intersection Nodes prijímajúcich traffic s ready local endpointmi potrebná pre bezpečné `Local` traffic policies. Pozri [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md).
+
+## Local limiter
+
+Per-process alebo per-Pod admission counter, ktorého aggregate effective limit sa typicky násobí počtom aktívnych instances a preto nie je automaticky global quota. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Local PersistentVolume
 
@@ -10478,6 +10590,10 @@ Explicitné rozdelenie service ownershipu, support hours, on-call/escalation, ch
 
 Usporiadaný záznam invocation a response events reads, writes a transactions používaný na overenie, či execution spĺňa consistency model. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
+## Operation identity chain
+
+Durable mapping client idempotency keyu cez authoritative operation, outbox/event, consumer processing a provider effect až po final result. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Operational acceptance
 
 State transition po bounded launchi a day-2 observation, pri ktorom current service generation spĺňa production objectives, ownership, support, telemetry, recovery a residual-risk contract. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
@@ -10641,6 +10757,10 @@ Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre cal
 ## Over-specification — testing
 
 Test anti-pattern, pri ktorom assertions overujú nepodstatné interné poradie alebo implementačné detaily a blokujú bezpečný refactoring. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
+
+## Overflow policy
+
+Explicitný outcome pri nedostupnej downstream capacity, napríklad reject, bounded delay, durable spill, coalesce, sample, drop rebuildable data alebo degrade, viazaný na business data class. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
 
 ## Overlapping selectors — Kubernetes
 
@@ -11590,6 +11710,10 @@ Security identity používaná pri authentication alebo authorization, napríkla
 
 Versionované pravidlá mapujúce federovaný issuer/subject a claims na local application, cloud alebo Kubernetes principal. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Priority reserve — admission
+
+Oddelená capacity alebo quota zachovaná pre status, cancellation, reconciliation, control-plane alebo inú authenticated critical operation class. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## PriorityClass
 
 Cluster-scoped Kubernetes resource definujúci numerickú Pod priority a preemption policy semantics. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -12118,6 +12242,10 @@ Uzavretie reasoning chyby až po oprave autoritatívneho modelu a úspešnom vyr
 
 Messaging abstraction distribuujúca work deliveries eligible consumers, typicky s odstránením alebo completion po acknowledgement-e. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
+## Queue age
+
+Čas od authoritative acceptance/enqueue po current processing alebo completion boundary; odhaľuje stale work a latency debt, ktoré samotná queue depth neukazuje. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Queue drain rate
 
 Rozdiel medzi completed service rate a new arrival rate pre konkrétnu queue population; kladná hodnota znamená, že backlog sa zmenšuje. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
@@ -12138,9 +12266,9 @@ Partition cohort obsahujúci dostatočný počet voting members na vytvorenie ma
 
 ResourceQuota UID/generation, current `hard`/`used`, exact admitted request delta, scope a allow/reject decision v jednom admission time window. Pozri [ResourceQuota a LimitRange](../docs/09-kubernetes/resourcequota-limitrange.md).
 
-## Quota admission
+## Quota — admission
 
-API admission kontrola odmietajúca create alebo update request, ktorý by prekročil ResourceQuota hard limit alebo nesplnil required quota fields. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
+Limit celkových units alebo operations počas dlhšieho window/lifecycle-u, odlišný od krátkodobého rate a current concurrency. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Quota admission verdict
 
@@ -12169,6 +12297,14 @@ Fleet operation rozdelená na bounded canary/waves cez max concurrency, max erro
 ## Rate denominator contract — RED
 
 Definícia unit, accepted/started/completed boundary, deduplication, retries, batches, valid traffic a absent-traffic semantics používaná pre Rate a error-ratio denominator. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Rate-limiting acceptance verdict
+
+Dôkaz, že exact keys/costs, local-vs-global scope, downstream envelopes, fairness, distributed counters, response/retry contract a burst/autoscale tests vytvárajú bounded admission bez starvationu alebo overshootu. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
+## Rate-limiting subject
+
+Exact business operation, caller/tenant/provider/Region identity, limiting key, units/cost, algorithm, counter generation, window/burst, downstream envelope a admit/delay/reject semantics. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## RBAC privilege escalation
 
@@ -13262,6 +13398,10 @@ Opaque storage version objektu alebo collection snapshotu používaná na optimi
 
 CloudFront policy pridávajúca alebo upravujúca CORS, security alebo custom response headers nezávisle od origin application code. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Response replay — idempotency
+
+Vrátenie prior alebo current truthful status/result representation pre duplicate request bez vytvorenia novej logical operation. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Responsibility boundary
 
 Presná hranica určujúca, ktoré vrstvy, controls a recovery činnosti vlastní provider, zákazník alebo obaja. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -13345,6 +13485,10 @@ Preflight rozhodnutie, či PVC zachovaný po StatefulSet scale-down-e obsahuje s
 ## Retransmission
 
 Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočného potvrdenia. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Retry-after contract
+
+Serverom publikovaná minimálna alebo odporúčaná doba pred ďalším attemptom spolu so scope-om a retryability semantics; nie je garanciou budúceho prijatia. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## Retry amplification
 
@@ -14490,6 +14634,10 @@ Version a stability selection OpenTelemetry semantic conventions spolu s emitted
 
 Policy, ktorá hodnotí issuer, subject, predicate type, builder, source, parameters, lifecycle stage, completeness a ďalšie claim values namiesto kontroly samotnej existencie signature alebo attestation. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
+## Semantic payload fingerprint
+
+Canonical digest business-relevant method/path/payload a critical dimensions použitý na odlíšenie duplicate rovnakého intentu od reuse rovnakého keyu pre iný intent. Pozri [Idempotency a backpressure](../docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md).
+
 ## Semantic-schema generation — OpenTelemetry
 
 Exact semantic-convention stability, attribute names/units, schema URL a compatibility mapping používané producers, processors a consumers. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
@@ -15017,6 +15165,10 @@ IPv6 mechanizmus, ktorým host vytvára adresu z prefixu oznamovaného Router Ad
 ## SLI observation point
 
 Boundary, na ktorej sa service outcome meria, napríklad client, edge, server, business ledger alebo recovery canary, spolu s explicitnými visibility limitations. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
+## Sliding-window counter
+
+Approximate rate algorithm kombinujúci current a previous bucket podľa časového prekryvu, lacnejší než per-request sliding log. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## SLO acceptance verdict
 
@@ -16318,6 +16470,10 @@ Recipient restriction určujúca, pre ktorý verifier alebo service je token ur�
 
 Scopes a claims zachytené v self-contained access tokene pri issuance, ktoré môžu zostať cryptographically validné aj po neskoršej identity alebo entitlement zmene. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Token bucket
+
+Rate algorithm s refill rate, current tokens, request costom a bucket capacity, ktorý povoľuje bounded burst nad sustained rate. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
+
 ## Token endpoint
 
 OAuth endpoint, ktorý vymieňa authorization grant alebo refresh token za access token. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
@@ -17173,6 +17329,10 @@ Request-level dôkaz viazaný na matched rule, target group, target/release iden
 ## weighted forwarding — ALB
 
 ALB listener action rozdeľujúca traffic medzi viac target groups podľa relatívnych weights, často používaná pri canary alebo migration workflowe. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## Weighted request cost
+
+Quota units odvodené z relatívneho CPU, I/O, fan-out, payloadu, lock duration, provider calls alebo risku namiesto uniformného one-request-one-token modelu. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
 
 ## weighted routing — Route 53
 
