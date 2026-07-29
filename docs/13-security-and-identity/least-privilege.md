@@ -1,430 +1,551 @@
 # Least privilege
 
-Least privilege znamená, že principal, process alebo component dostane iba permissions potrebné na konkrétnu úlohu, v najmenšom potrebnom scope-e a na najkratší potrebný čas. Nejde iba o výber menšej role. Je to lifecycle disciplína zahŕňajúca identity, authorization, privilege activation, monitoring, review, removal a incident response.
+Least privilege znamená, že human alebo workload principal dostane iba capabilities potrebné na presne definovanú úlohu, nad najmenším potrebným resource/data scope-om, za požadovaných podmienok a iba na potrebný čas. Nie je to jednorazové zmenšenie role. Je to lifecycle od business tasku cez privilege activation a effective-state verification až po revocation, access review a incident recovery.
 
-## 1. Mentálny model
+Najmenší počet permission statements nie je cieľ. Cieľom je najmenší preukázateľne funkčný a bezpečný capability envelope.
+
+## 1. Dominantný lifecycle
 
 ```text
-business task
-→ required actions
-→ required resources
-→ required conditions
-→ minimal permission set
-→ time-bound activation
-→ audit a monitoring
-→ review a removal
+business task a expected outcome
+→ exact principal a trust boundary
+→ required action/resource/data inventory
+→ environment, tenant, time, delegation a assurance constraints
+→ minimal entitlement a maximum-permission envelope
+→ approval a privilege activation
+→ session/token a loaded effective access
+→ positive, negative a escalation tests
+→ operation audit a usage evidence
+→ expiration, revocation alebo removal
+→ second-session a alternate-path validation
+→ role/task redesign
 ```
 
-Least privilege optimalizuje blast radius bez blokovania legitímnej práce.
+Tento lifecycle oddeľuje:
 
-## 2. Dimensions privilege-u
+```text
+permission bola odstránená zo source policy
+≠ active session ju už nemá
+≠ alternate group/resource/workload path neexistuje
+≠ principal nedokáže získať equivalent authority nepriamo
+```
 
-Privilege má viac dimensions:
+## 2. Exact privilege subject
 
-- **action scope** — čo možno vykonať,
-- **resource scope** — voči čomu,
-- **data scope** — ktoré dáta,
-- **environment scope** — dev/test/prod,
-- **tenant/account scope**,
-- **network/device context**,
-- **time scope**,
-- **delegation scope**,
-- **session assurance**.
+Pre connected incident používame:
 
-Permission `read` nad všetkými production secrets môže byť riskantnejšia než `admin` nad jedným test resource-om.
+```text
+privilege subject: PRIV-PAY-47
+security subject: SEC-PAY-47
+human principal: urn:atlas:human:7421
+business task: requeue one failed settlement after reconciliation
+intended resource scope: payment_id PAY-884219
+intended environment: production/eu-central-1
+intended duration: 30 min
+required assurance: fresh phishing-resistant authentication
+actual role: payments-prod-operator
+policy generation: RBAC-PAY-63
+actual activation: standing group membership
+actual session: SESSION-771
+workload escalation target: settlement-debug ServiceAccount
+```
 
-## 3. Need-to-know a need-to-do
+Bez tasku, principalu, scope-u, duration a effective generation nemožno rozhodnúť, či privilege je minimálny.
 
-- **Need-to-know** obmedzuje prístup k informáciám.
-- **Need-to-do** obmedzuje actions potrebné na pracovnú úlohu.
+## 3. Dimensions privilege-u
 
-Oba princípy sa aplikujú na ľudí aj workloads.
+Privilege má viac nezávislých dimensions:
 
-## 4. Standing oproti just-in-time privilege
+- **action scope** — čo možno vykonať;
+- **resource scope** — nad ktorými objects;
+- **data scope** — ktoré fields, records alebo secrets;
+- **environment scope** — dev, test, production;
+- **tenant/account/namespace scope**;
+- **network a device context**;
+- **time scope** — validity, activation a session lifetime;
+- **delegation scope** — komu možno authority preniesť;
+- **session assurance** — authentication method a freshness;
+- **operation count alebo budget** — koľko actions možno vykonať.
+
+`read` nad všetkými production secrets môže mať väčší blast radius než `admin` nad jedným isolated test objectom. Permission name bez dimensions nevyjadruje risk.
+
+## 4. Need-to-know, need-to-do a capability design
+
+- **Need-to-know** obmedzuje disclosure informácií.
+- **Need-to-do** obmedzuje actions potrebné na business task.
+- **Capability design** poskytuje presnú operáciu bez broad ambient authority.
+
+Pre task „requeue one reconciled settlement“ je intended capability:
+
+```text
+input: payment_id PAY-884219
+precondition: final state = failed/reconciled
+allowed action: create one idempotent requeue command
+forbidden:
+  read provider private key
+  patch route configuration
+  create arbitrary Pod
+  scale worker fleet
+  requeue another tenant/payment
+  disable audit
+```
+
+Mediated operation je bezpečnejšia než shell alebo broad Kubernetes API access, pretože backend môže validovať business state, idempotency a forbidden outcomes.
+
+## 5. Standing, eligible, JIT a just-enough privilege
 
 ### Standing privilege
 
-Permission je stále aktívna.
+Permission je stále active. Exposure window sa rovná lifetime accountu, group membershipu alebo credentialu.
 
-Riziká:
+### Eligible privilege
 
-- credential compromise má veľký blast radius,
-- privilege sa zabudne odstrániť,
-- znižuje sa kvalita auditu,
-- admin môže omylom vykonať production action.
+Principal smie požiadať o activation, ale permission ešte nie je active.
 
 ### Just-in-time privilege
 
-Privilege sa aktivuje na obmedzený čas po splnení podmienok.
+Privilege sa aktivuje na bounded čas po splnení podmienok:
 
-Controls:
-
-- approval,
-- MFA alebo step-up authentication,
-- justification,
-- duration,
-- session recording,
-- automatic expiration,
+- fresh MFA alebo phishing-resistant step-up;
+- justification a ticket/incident ID;
+- approval správneho ownera;
+- duration;
+- device/network posture;
+- automatic expiration;
 - post-use review.
 
-JIT znižuje exposure window, ale potrebuje dostupný activation a emergency model.
+### Just-enough administration
 
-## 5. Just-enough administration
+Principal dostane konkrétnu operation, nie full admin plane. Príklady:
 
-Just-enough administration znamená vytvoriť capability pre konkrétnu úlohu bez poskytnutia plného admin prístupu.
+- restart jednej service bez root shellu;
+- requeue jedného workflowu;
+- rotate jeden secret bez čítania ostatných;
+- deploy one signed artifact do jedného environmentu;
+- run approved diagnostic bez arbitrary Pod creation.
 
-Príklady:
+JIT znižuje exposure time. JEA znižuje capability scope. Potrebné sú obe osi.
 
-- restart konkrétnej služby bez root shellu,
-- deploy do jedného namespace bez cluster-admin,
-- rotate konkrétny secret bez čítania všetkých secrets,
-- spustiť schválený Systems Manager runbook bez SSH,
-- upraviť DNS record iba v jednej hosted zone.
+## 6. Task decomposition
 
-## 6. Human identities
+Least privilege sa nezačína existujúcou role. Začína execution pathom úlohy:
 
-Odporúčania:
+```text
+business request
+→ required observation
+→ precondition validation
+→ exact mutation
+→ convergence/result read-back
+→ audit a closure
+```
 
-- oddeliť bežný a privileged account,
-- nepoužívať shared accounts,
-- MFA a phishing-resistant authentication pre privilegované účty,
-- JIT/PIM aktivácia,
-- minimalizovať local admin,
-- pravidelné access reviews,
-- automatický offboarding,
-- monitorovať role assignment a use.
+Príklad settlement requeue:
 
-Privileged account nemá byť používaný na email, web browsing alebo bežnú prácu.
+| Fáza | Required capability | Nepotrebná authority |
+|---|---|---|
+| Observe | read one payment reconciliation state | list all Secrets |
+| Validate | verify tenant, failure class a duplicate guard | patch ConfigMaps |
+| Execute | invoke one idempotent requeue operation | create arbitrary Pods |
+| Verify | read final settlement/queue state | scale Deployments |
+| Close | append reason, actor a result | delete audit events |
 
-## 7. Workload identities
+## 7. Human identities
 
-Workload identity má používať:
+Privileged human model má typicky používať:
 
-- short-lived credentials,
-- platform-native identity,
-- explicitný audience a scope,
-- samostatnú identity per workload alebo trust boundary,
-- automatickú rotation,
-- minimálne permissions,
-- auditovateľné token issuance.
+- oddelený bežný a privileged context;
+- phishing-resistant authentication;
+- eligible/JIT access;
+- minimal resource scope;
+- managed endpoint alebo controlled admin environment podľa risku;
+- no shared accounts;
+- session timeout a revocation;
+- activity audit;
+- access reviews a mover/leaver removal.
+
+Privileged identity sa nemá používať na email, browsing alebo bežnú engineering prácu. To zväčšuje attack surface sessionu s vysokou authority.
+
+## 8. Workload identities
+
+Workload identity potrebuje:
+
+- platform-native, short-lived credential;
+- stable workload ownera a purpose;
+- explicitný audience a environment binding;
+- samostatnú identity pre každý trust boundary;
+- minimal action/resource scope;
+- automatic rotation;
+- no human credential reuse;
+- complete issuance a usage audit.
 
 Anti-patterny:
 
-- jedna service account pre celý cluster,
-- cloud access keys v image,
-- CI runner s organization admin právami,
-- database superuser pre application,
-- shared Kubernetes ServiceAccount pre nesúvisiace Pods.
+- jedna ServiceAccount pre celý namespace alebo cluster;
+- static cloud key v image;
+- database superuser pre application;
+- CI identity s organization admin;
+- shared debug identity s production Secret read.
 
-## 8. Permission decomposition
+## 9. Maximum-permission envelope
 
-Začni od operations, nie od existujúcej broad role.
+Guardrail, permissions boundary, organization policy alebo session restriction definuje maximum, ktoré principal môže získať.
 
-Príklad deployment automation:
-
-```text
-read artifact
-→ verify signature
-→ update Deployment v namespace X
-→ read rollout status
-→ read Events/Pods
-```
-
-Nepotrebuje automaticky:
-
-- create ClusterRole,
-- read Secrets v iných namespaces,
-- delete Nodes,
-- organization billing access.
-
-## 9. Resource scoping
-
-Preferuj najmenší resource scope:
-
-- konkrétny bucket/prefix,
-- konkrétny namespace,
-- konkrétny secret path,
-- konkrétny project/account,
-- konkrétna database/schema,
-- konkrétna Git repository/environment.
-
-Wildcard môže byť odôvodnený iba s explicitným threat modelom a compensating controls.
-
-## 10. Conditions a context
-
-ABAC alebo policy conditions môžu obmedziť:
-
-- source network,
-- device compliance,
-- MFA presence,
-- resource tags,
-- time,
-- requested Region,
-- encryption requirement,
-- session name alebo principal type.
-
-Conditions nesmú byť jediným controlom, ak ich možno ľahko meniť rovnakým principalom.
-
-## 11. Permission boundaries a maximum envelope
-
-Permission boundary, SCP alebo podobný guardrail definuje maximum, ktoré identita môže získať.
-
-Model:
+Konceptuálne:
 
 ```text
-identity/resource policy allow
-∩ permissions boundary
-∩ organization guardrail
+effective allow
+= granted identity/resource capabilities
+∩ maximum boundary
+∩ organization/environment guardrails
 ∩ session restrictions
-− explicit deny
+− explicit denies podľa platformy
 ```
 
-Boundary sama permission neudeľuje. Znižuje maximum.
+Boundary sama permission neudeľuje. Chráni pred tým, aby delegated administrator alebo compromised automation vytvorili role nad schválený envelope.
 
-## 12. Separation of duties
+V Kubernetes štandardný RBAC explicit deny nemá. Maximum sa preto vytvára kombináciou:
 
-Citlivý workflow rozdeľ medzi viac actors:
+- neudelenia broad RBAC permissions;
+- obmedzenia, kto smie `bind`, `escalate` a `impersonate`;
+- admission/policy controls nad workload spec-om;
+- namespace/tenant architecture;
+- oddelených ServiceAccounts a Secrets;
+- node a runtime security boundaries.
 
-- developer pripraví change,
-- reviewer schváli,
-- pipeline deployne,
-- security policy overí,
-- auditor číta evidence.
+## 10. Separation of duties
 
-Riziko vzniká, ak jedna osoba môže:
-
-- vytvoriť permission,
-- priradiť si ju,
-- vykonať action,
-- zmazať audit.
-
-## 13. Break-glass a emergency privilege
-
-Emergency access je kontrolovaná výnimka, nie trvalý admin účet používaný z pohodlnosti.
-
-Vyžaduje:
-
-- oddelené credentials,
-- test dostupnosti,
-- jasný trigger,
-- okamžité alerting,
-- obmedzený duration/scope,
-- povinný post-incident review,
-- rotation po použití.
-
-## 14. Privilege creep
-
-Privilege creep vzniká, keď sa permissions pridávajú, ale neodstraňujú.
-
-Príčiny:
-
-- zmena role alebo tímu,
-- dočasný project access,
-- manuálne grants,
-- nested groups,
-- stale service accounts,
-- deprecated automation,
-- environment cloning.
-
-Controls:
-
-- expiration,
-- owner,
-- access review,
-- usage analytics,
-- deprovisioning,
-- IaC source of truth.
-
-## 15. Access review
-
-Review má odpovedať:
-
-- Kto má access?
-- Prečo ho potrebuje?
-- Kedy bol naposledy použitý?
-- Je permission stále primeraná?
-- Kto je owner resource-u a identity?
-- Je grant direct, group-based, inherited alebo delegated?
-- Má expiration?
-
-Review bez removal workflowu je iba report.
-
-## 16. Usage-based refinement
-
-Permission usage data pomáha zmenšiť policy, ale má limity:
-
-- krátke observation window nemusí zachytiť disaster recovery action,
-- seasonal operation sa môže javiť nepoužitá,
-- denied action môže indikovať chýbajúci access alebo attack,
-- emergency permissions potrebujú test, nie production use.
-
-Použitie je evidence, nie automatická pravda.
-
-## 17. Least privilege v Linuxe
-
-Mechanizmy:
-
-- users/groups,
-- file permissions a ACLs,
-- `sudo` per command,
-- capabilities namiesto root,
-- systemd sandboxing,
-- SELinux/AppArmor,
-- namespaces/cgroups,
-- read-only filesystem.
-
-`sudo ALL=(ALL) ALL` nie je granular least privilege.
-
-## 18. Least privilege v Kubernetes
-
-- namespace-scoped Roles namiesto ClusterRoles,
-- RoleBinding pre konkrétny ServiceAccount,
-- nebindovať `cluster-admin`,
-- minimalizovať Secret read,
-- projected short-lived tokens,
-- separate ServiceAccounts,
-- admission a Pod Security controls,
-- audit privileged operations.
-
-Permission vytvárať Pods môže viesť k indirect privilege escalation, ak Pod môže mountnúť privileged ServiceAccount, hostPath alebo node credentials.
-
-## 19. Least privilege v cloud-e
-
-- roles namiesto long-lived users/keys,
-- resource-level scoping,
-- condition keys,
-- account separation,
-- SCP/organization guardrails,
-- permissions boundaries,
-- short sessions,
-- cross-account roles,
-- access analyzer a activity review.
-
-Cloud managed policy môže byť vhodný baseline, ale nie automaticky najmenší privilege pre konkrétny workload.
-
-## 20. CI/CD a automation
-
-Pipeline identity má mať:
-
-- access iba k potrebnej repository/environment,
-- short-lived federation/OIDC,
-- oddelené build a deploy identities,
-- protected environment approval,
-- minimal artifact/registry permissions,
-- žiadne broad organization tokeny,
-- audit subject, workflow, commit a environment.
-
-Pull request z nedôveryhodného fork-u nemá automaticky získať production credentials.
-
-## 21. AI agents
-
-Agent potrebuje capability-based least privilege:
-
-- explicitný tool allowlist,
-- read-only default,
-- parameter constraints,
-- approval pre mutating/high-impact actions,
-- tenant a data scoping,
-- time/cost/action budgets,
-- sandbox,
-- complete audit,
-- kill switch.
-
-Prompt instruction nie je authorization boundary. Tool alebo backend musí permission presadiť.
-
-## 22. Validation
-
-Least privilege sa validuje:
-
-- positive tests — required task funguje,
-- negative tests — zakázaná task zlyhá,
-- privilege escalation tests,
-- cross-tenant/resource tests,
-- expired session tests,
-- audit evidence,
-- break-glass rehearsal,
-- removal/offboarding test.
-
-## 23. Troubleshooting denied access
+Citlivý workflow oddeľuje:
 
 ```text
-správna identity a session?
-→ required action/resource?
-→ explicit allow?
-→ resource scope?
-→ conditions?
-→ boundary/SCP/session restriction?
-→ explicit deny?
-→ propagation/cache?
-→ target service policy?
+requester
+→ approver/resource owner
+→ privilege activation system
+→ bounded executor
+→ independent audit/reviewer
 ```
 
-Neopravuj incident okamžitým pridaním admin role bez identifikácie presného missing permission.
+Jedna identity nemá bez compensating controls zároveň:
 
-## 24. Troubleshooting excessive access
+- vytvoriť entitlement;
+- schváliť vlastnú activation;
+- vykonať high-impact action;
+- zmeniť alebo odstrániť audit;
+- potvrdiť vlastnú recovery.
+
+Static SoD zakazuje conflictujúce assignments. Dynamic SoD zakazuje ich použitie v rovnakom workflowe alebo session.
+
+## 11. Indirect privilege escalation
+
+Effective privilege zahŕňa actions, ktoré umožnia získať inú authority.
+
+Kubernetes príklady:
+
+- create Pod s výberom privileged ServiceAccountu;
+- mount Secret alebo hostPath cez workload;
+- `exec` do Podu s vyššou identity;
+- create/patch RoleBinding;
+- `bind`, `escalate` alebo `impersonate`;
+- create CSR a získať certificate;
+- modify admission/webhook configuration;
+- access node proxy alebo privileged runtime.
+
+Permission `create pods` preto nie je automaticky low risk. Musí sa analyzovať spolu s povolenými ServiceAccounts, volumes, security contextom, host accessom a admission policy.
+
+Cloud a CI/CD príklady:
+
+- `iam:PassRole` alebo equivalent delegation;
+- update function/task role;
+- modify pipeline, ktorý má production credential;
+- write artifact pod trusted name/tag;
+- edit policy alebo approver group;
+- read secret použiteľný na silnejšiu identity.
+
+## 12. Configured, activated a effective privilege
 
 ```text
-direct grant?
-→ group/nested group?
-→ inherited role?
-→ resource policy?
-→ wildcard?
-→ condition bypass?
-→ delegated/impersonated access?
-→ stale session/token?
-→ alternate path?
+entitlement source
+→ assignment eligibility
+→ activation approval
+→ session/token claims
+→ platform mapping
+→ loaded policy/binding
+→ effective access graph
+→ actual enforcement
 ```
 
-Po odstránení permission over revocation existujúcich sessions a credentials.
+Pri review alebo incident response zaznamenaj:
 
-## 25. Anti-patterny
+- source generation;
+- direct, group, nested a inherited paths;
+- role/binding revision;
+- session issue/expiration/revocation;
+- resource policy a alternate identity;
+- workload delegation;
+- cache a propagation state.
+
+Role name nie je effective-access dôkaz.
+
+## 13. Access review a removal
+
+Review musí odpovedať:
+
+- Ktorý principal má akú effective capability?
+- Cez ktorú direct, group, nested, delegated alebo resource path?
+- Aký task ju odôvodňuje?
+- Kto je owner entitlementu a resource-u?
+- Kedy bola naposledy aktivovaná a použitá?
+- Je duration a scope primeraný?
+- Existuje conflicting duty alebo indirect escalation?
+- Čo sa stane po removal-e s active sessions a derived credentials?
+
+Review bez deterministic removal a revocation workflowu je iba report.
+
+Usage data pomáha, ale nie je automatická autorita. Rare disaster-recovery capability môže byť legitímne nepoužitá. Musí mať periodic rehearsal a expiry/reapproval, nie slepé permanentné ponechanie ani automatic deletion bez recovery analysis.
+
+## 14. Worked incident: task potreboval jedno requeue, role umožnila control-plane takeover
+
+### Intended task
+
+Operator mal po provider reconciliation vykonať:
+
+```text
+POST /operations/settlements/PAY-884219/requeue
+reason = provider-timeout-reconciled
+idempotency key = IR-884219-2
+```
+
+### Actual standing role
+
+```yaml
+role: payments-prod-operator
+scope: payments-prod namespace
+rules:
+  - resources: [pods]
+    verbs: [create, get, list, delete]
+  - resources: [secrets]
+    verbs: [get, list]
+  - resources: [configmaps]
+    verbs: [get, patch, update]
+  - resources: [deployments, deployments/scale]
+    verbs: [get, patch, update]
+  - resources: [pods/exec]
+    verbs: [create]
+```
+
+Pod admission navyše dovolil zvoliť `serviceAccountName: settlement-debug`, ktorá mala provider Secret read.
+
+### Competing hypotheses
+
+1. incident vyžadoval broad role pre legitimate diagnostics;
+2. Secret read bolo potrebné pre requeue;
+3. create Pod bolo neškodné, lebo role nemala direct `get secrets`;
+4. ServiceAccount nemala vyššie permissions;
+5. stale group bola jediný problém a role scope bol primeraný;
+6. admission zabránila privileged workloadu;
+7. broad role bola temporary a automaticky expirovala;
+8. alternate mediated API neexistovalo.
+
+### Discriminating evidence
+
+```text
+actual business task calls: one requeue endpoint
+required Kubernetes actions: none
+role standing duration: 214 days
+last access review: role name only, no effective graph
+create Pod permission: active
+select settlement-debug ServiceAccount: allowed
+Pod Secret mount/read: allowed
+patch ConfigMap: allowed
+patch deployments/scale: allowed
+admission rule restricting ServiceAccount selection: absent
+JIT activation/expiry: absent
+```
+
+Root cause least-privilege failureu je task-to-capability mismatch. Stale membership sprístupnila role nesprávnemu principalu; broad role zmenila identity defect na confidentiality, integrity a availability incident.
+
+### Evidence-preserving containment
+
+- disable standing role assignment a nové activations;
+- revoke active sessions/tokens, nie iba upraviť source group;
+- preserve exact role, bindings, admission generation a SubjectAccessReview results;
+- block arbitrary Pod creation/ServiceAccount selection pre support path;
+- zachovať legitimate settlement recovery cez controlled break-glass alebo mediated API;
+- neudeliť `cluster-admin` incident responderom ako náhradu.
+
+### Authoritative recovery
+
+1. vytvoriť capability `settlement.requeue.one` v operations API;
+2. viazať ju na payment ID, tenant, reconciled state a idempotency key;
+3. sprístupniť ju iba ako eligible JIT privilege na 30 minút;
+4. vyžadovať fresh phishing-resistant step-up a reason;
+5. oddeliť read-only diagnostics od mutation capability;
+6. odstrániť human `Secret` read, arbitrary Pod create, config patch a scale permissions;
+7. obmedziť debug ServiceAccount a admission rules;
+8. pridať negative escalation tests a second-session revocation test.
+
+### Acceptance verdict
+
+Recovery je prijatá, keď:
+
+- approved operator requeue-ne iba `PAY-884219` po splnení preconditions;
+- druhý payment a iný tenant sú odmietnuté;
+- action po 30 minútach alebo bez step-up-e zlyhá;
+- operator nevie create Pod, vybrať `settlement-debug`, exec, read Secret, patch route ani scale workers;
+- denied attempts aj approved requeue sú auditované;
+- removed entitlement nefunguje v existing ani new session;
+- break-glass cesta funguje nezávisle, je bounded a alertovaná;
+- second identity sync, rollout a policy reconciliation neobnovia broad privilege.
+
+## 15. Platformové aplikácie
+
+### Linux
+
+- per-command `sudo` alebo mediated system action;
+- capabilities namiesto root;
+- file ACLs;
+- systemd sandboxing;
+- SELinux/AppArmor;
+- read-only filesystems a namespace boundaries.
+
+### Kubernetes
+
+- namespace-scoped Role, kde to task umožňuje;
+- dedicated ServiceAccount per workload;
+- minimal Secret access;
+- projected short-lived tokens;
+- restricted workload/admission policy;
+- kontrola `bind`, `escalate`, `impersonate`, workload create a exec paths.
+
+### Cloud
+
+- roles a federation namiesto static keys;
+- resource a condition scope;
+- account/environment separation;
+- permissions boundaries a organization guardrails;
+- short sessions a JIT activation;
+- explicit delegated-role controls.
+
+### CI/CD
+
+- oddelené build a deploy identities;
+- OIDC/short-lived credentials;
+- repository, ref, workflow a environment binding;
+- no production credentials pre untrusted pull requests;
+- signed artifact a protected deployment gate.
+
+### AI agents
+
+- tool allowlist;
+- read-only default;
+- parameter/resource constraints;
+- approval pre mutating/high-impact action;
+- action/time/cost budget;
+- sandbox a kill switch;
+- backend-enforced authorization.
+
+Prompt instruction nie je security boundary.
+
+## 16. Validation a troubleshooting
+
+### Positive validation
+
+Required task funguje na intended resource-e a outcome sa overí na business boundary.
+
+### Negative validation
+
+Forbidden action, resource, tenant, environment, expired session a alternate path zlyhajú.
+
+### Escalation validation
+
+Testuj, či povolená action umožní:
+
+- zmeniť policy;
+- vybrať silnejšiu workload identity;
+- prečítať credential;
+- impersonovať principal;
+- spustiť arbitrary code pri trusted boundary;
+- obísť PEP.
+
+### Denied-access troubleshooting
+
+```text
+exact task a required tuple
+→ principal/session?
+→ direct/group/role assignment?
+→ resource scope a conditions?
+→ boundary/guardrail/session restriction?
+→ policy propagation?
+→ target resource policy?
+→ PEP decision log?
+```
+
+Neopravuj deny pridaním admin role bez identifikácie exact missing capability.
+
+### Excessive-access troubleshooting
+
+```text
+direct grant
+→ nested/inherited group
+→ role hierarchy
+→ resource policy
+→ wildcard/condition bypass
+→ workload/delegation path
+→ policy-modification capability
+→ stale session/token
+→ alternate endpoint
+```
+
+## 17. Anti-patterny
 
 ### Admin pre rýchlosť
 
-Dočasný broad grant sa stane trvalým.
+Temporary broad role sa stane permanentným interface-om.
 
-### Jedna role pre celý tím
+### Read-only = low risk
 
-Nesúvisiace duties majú rovnaký blast radius.
+Secrets, PII, configs a audit evidence môžu mať kritický read impact.
 
-### Read-only považované za bezpečné
+### Role review podľa názvu
 
-Read secrets, personal data alebo configuration môže byť kritické.
+Ignoruje rules, nested paths, delegation a indirect escalation.
 
-### Access review podľa role names
+### JIT broad admin
 
-Custom policies a indirect paths sa prehliadnu.
+Time scope sa zmenšil, action/resource blast radius zostal neprimeraný.
 
-### Least privilege bez availability plánu
+### Least privilege bez availability modelu
 
-Emergency response sa zablokuje, ak JIT alebo identity provider zlyhá.
+Identity-plane outage zablokuje incident response, pretože break-glass nebol testovaný.
 
-### Permission usage automaticky odstráni všetko nepoužité
+### Odstránenie source assignmentu bez session revocation
 
-Zničí rare recovery operations.
+Active token pokračuje do expirácie.
 
-## 26. Kontrolné otázky
+## 18. Kontrolné otázky
 
-1. Aké dimensions má privilege?
-2. Ako sa líši standing, JIT a just-enough privilege?
-3. Prečo workload nemá používať user credential?
-4. Čo je permissions boundary?
-5. Ako separation of duties znižuje risk?
-6. Ako vzniká privilege creep?
-7. Ako navrhnúť access review?
-8. Aké indirect escalation risks existujú v Kubernetes?
-9. Ako aplikovať least privilege na CI/CD a AI agentov?
-10. Ako validovať, že policy je minimálna, ale funkčná?
+1. Čo tvorí exact privilege subject?
+2. Aké dimensions má privilege?
+3. Ako sa líši need-to-know, need-to-do a capability model?
+4. Prečo JIT a just-enough riešia odlišné osi?
+5. Ako sa task rozloží na required capabilities?
+6. Prečo `create pods` môže byť privilege-escalation permission?
+7. Čo je maximum-permission envelope?
+8. Ako sa líši configured, activated a effective privilege?
+9. Prečo usage data nie je automatická removal autorita?
+10. Ako validovať positive, negative a escalation outcomes?
+11. Prečo source removal nestačí bez session revocation?
+12. Aký task-to-capability redesign uzavrel `PRIV-PAY-47`?
 
 ## Glossary impact
 
-Relevantné pojmy: least privilege, need-to-know, need-to-do, standing privilege, just-in-time access, just-enough administration, privilege activation, privilege creep, access review, separation of duties, permissions boundary, effective permissions, capability-based security a break-glass privilege.
+Relevantné pojmy: privilege subject, task-capability contract, privilege-dimension inventory, eligible privilege, activation generation, just-in-time privilege, just-enough capability, maximum-permission envelope, indirect privilege path, effective-privilege graph, privilege-removal closure, second-session revocation test, escalation acceptance test a least-privilege acceptance verdict.
 
 ## Primárne zdroje
 
 - [NIST least privilege glossary](https://csrc.nist.gov/glossary/term/least_privilege)
 - [NIST SP 800-53 Rev. 5 — Access Control](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
 - [Kubernetes RBAC good practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
+- [Kubernetes RBAC authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 - [Microsoft Entra role best practices](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/best-practices)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
