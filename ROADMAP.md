@@ -358,10 +358,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Pull-based deployment](docs/16-gitops-and-platform-engineering/pull-based-deployment.md)
 - [x] [Reconciliation a drift detection](docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md)
 - [x] [Argo CD](docs/16-gitops-and-platform-engineering/argo-cd.md)
-- [ ] Flux
-- [ ] Application promotion
-- [ ] GitOps secrets
-- [ ] Internal Developer Platform
+- [x] [Flux](docs/16-gitops-and-platform-engineering/flux.md)
+- [x] [Application promotion](docs/16-gitops-and-platform-engineering/application-promotion.md)
+- [x] [GitOps secrets](docs/16-gitops-and-platform-engineering/gitops-secrets.md)
+- [x] [Internal Developer Platform](docs/16-gitops-and-platform-engineering/internal-developer-platform.md)
 - [ ] Platform as a Product
 - [ ] Golden paths a paved road
 - [ ] Self-service

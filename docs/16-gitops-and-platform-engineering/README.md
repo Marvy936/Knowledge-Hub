@@ -1,8 +1,8 @@
 # GitOps and Platform Engineering
 
-Táto sekcia vysvetľuje, ako versionovaný platform a application intent prechádza cez Git authority, pull-based agents, continuous reconciliation, GitOps controllers, promotion, secrets a platform product boundaries až k bezpečnému self-service a multi-tenant runtime outcome-u.
+Táto sekcia vysvetľuje, ako versionovaný application a platform intent prechádza cez Git authority, pull-based agents, continuous reconciliation, GitOps controllers, promotion, secret lifecycle a platform-product boundaries až k bezpečnému self-service a multi-tenant runtime outcome-u.
 
-GitOps tu nie je synonymum pre `YAML v Git-e` ani pre konkrétny tool. Platform engineering nie je iba centralizovaný tím, ktorý píše templaty. Obe oblasti sa posudzujú podľa explicitného authority, ownership, reconciliation, safety, usability a business outcome contractu.
+GitOps tu nie je synonymum pre `YAML v Git-e` ani pre konkrétny tool. Platform engineering nie je iba centralizovaný tím, ktorý píše templaty alebo prevádzkuje portal. Obe oblasti sa posudzujú podľa explicitného authority, ownership, reconciliation, safety, usability, operability a business-outcome contractu.
 
 ## Predpoklady
 
@@ -23,17 +23,17 @@ Odporúča sa najprv dokončiť:
 2. [Pull-based deployment](pull-based-deployment.md)
 3. [Reconciliation a drift detection](reconciliation-and-drift-detection.md)
 4. [Argo CD](argo-cd.md)
+5. [Flux](flux.md)
+6. [Application promotion](application-promotion.md)
+7. [GitOps secrets](gitops-secrets.md)
+8. [Internal Developer Platform](internal-developer-platform.md)
 
-Aktuálny authoritative stav sekcie je **4/15 · In progress**.
+Aktuálny authoritative stav sekcie je **8/15 · In progress**.
 
 ## Plánované pokračovanie
 
 Authoritative poradie bude pokračovať bez zmeny roadmapy:
 
-5. Flux
-6. Application promotion
-7. GitOps secrets
-8. Internal Developer Platform
 9. Platform as a Product
 10. Golden paths a paved road
 11. Self-service
@@ -42,7 +42,7 @@ Authoritative poradie bude pokračovať bez zmeny roadmapy:
 14. Guardrails
 15. Multi-tenancy
 
-## Connected learning scenario
+## Connected learning scenarios
 
 ### `GITOPS-PAY-61` — hidden desired state, hybrid deployment a false reconciliation verdict
 
@@ -119,7 +119,7 @@ Timeline:
 20:52:17 → business policy-generation mismatch potvrdený
 ```
 
-Po 38 minútach existovali tri generations:
+Po 38 minútach existovali tri desired/live generations a dva running cohorts:
 
 ```text
 Git declared:        pay900a / route 1842
@@ -178,7 +178,132 @@ fence CI a human writers
 → test direct drift, lost webhook, failed sync, rollback a second promotion
 ```
 
-## Cieľ zvládnutia prvého bloku
+### `GITOPS-PAY-62` — stale promotion, hidden Flux input, broken secret rotation a false platform success
+
+Atlas Payments po `GITOPS-PAY-61` zaviedol Flux a interný portal LaunchPad pre release `payments 9.1`. Cieľom bolo odstrániť direct production writers a spojiť image automation, promotion, secrets a platform self-service do jedného auditovateľného flowu.
+
+Intended transition:
+
+```text
+immutable image sha256:pay910a
+→ staging image-update commit
+→ staging Flux source artifact a reconciliation
+→ provider credential generation pv-42
+→ route policy generation 1850
+→ staging settlement canary
+→ promotion PR kopírujúci exact image/config/secret contract
+→ production Flux reconciliation
+→ runtime generation verification
+→ production settlement canary
+→ LaunchPad operation completion
+```
+
+Skutočný authority graph však obsahoval päť writers a tri mutable boundaries:
+
+```text
+Git environment repository
++ Flux ImageUpdateAutomation nad shared base
++ LaunchPad direct cluster ConfigMap writer
++ shared SOPS age decryption identity
++ human emergency Kubernetes Secret writer
+```
+
+Konkrétne:
+
+- staging aj production source sledovali mutable `main`;
+- image automation zapisovala image update do shared base, ktorý konzumovali oba environmenty;
+- production `Kustomization` používala `postBuild.substituteFrom` ConfigMap `launchpad-runtime`, ktorú portal menil priamo v clusteri;
+- staging evidence bola viazaná na `pay910a`, route generation `1850` a credential contract `pv-42`;
+- kým promotion čakala na approval, image automation zmenila shared base na `pay910b` a LaunchPad zmenil route substitution na `1849`;
+- merge automation proposal rebase-la bez final-render a evidence revalidation;
+- SOPS payloady pre staging aj production boli decryptovateľné jedným shared age private keyom v `flux-system`;
+- provider credential sa neskôr rotoval z `pv-42` na `pv-43`, ale Pods čítali Kubernetes Secret cez environment variables a neprebehla consumer rollout/reload;
+- LaunchPad označil request ako `Completed` po vytvorení alebo merge promotion PR-u, nie po production reconciliation a business canary.
+
+Timeline:
+
+```text
+10:02:11 → image automation commitne pay910a do staging
+10:08:44 → staging canary prejde na route generation 1850
+10:11:03 → promotion request načíta staging evidence
+10:12:17 → image automation prepíše shared base na pay910b
+10:13:04 → LaunchPad zmení cluster ConfigMap route=1849
+10:14:22 → promotion PR merge
+10:15:01 → production Flux source artifact b71f203
+10:15:09 → Flux apply: pay910b + route 1849
+10:16:31 → Kustomization Ready=True
+10:19:18 → provider credential rotovaný na pv-43
+10:23:47 → prvé provider authentication failures
+10:31:02 → incident potvrdený
+```
+
+Výsledný generation graph:
+
+```text
+approved staging evidence: pay910a / route 1850 / credential pv-42
+promotion UI subject:      pay910a / route 1850
+Flux rendered desired:     pay910b / route 1849 / Secret pv-42
+running process state:     pay910b / route 1849 / loaded pv-42
+provider authority:        credential pv-43 active, pv-42 revoked
+```
+
+Potvrdené dôsledky:
+
+- `2 746` settlements bolo routovaných cez stale route generation `1849`;
+- `61` provider calls zlyhalo po revocation credentialu `pv-42`;
+- retry flow vytvoril `14` unknown outcomes vyžadujúcich provider reconciliation;
+- LaunchPad zobrazoval operation ako completed `17` minút pred potvrdením production failure;
+- rovnaký Git source revision mohol pri zmene cluster-local ConfigMap-u vyrenderovať iný effective desired state;
+- manual Secret patch a Flux desired state vytvorili writer oscillation;
+- shared decryption identity zväčšila blast radius kompromitovaného controllera alebo key materialu.
+
+Causal boundaries:
+
+- **Flux root cause:** source artifact neidentifikoval celý effective render graph, pretože critical `substituteFrom` input bol mutable a riadený mimo Git-u; `Ready=True` zároveň neoverovalo runtime route ani loaded secret generation.
+- **Promotion root cause:** approval nebola compare-and-swap decision nad immutable candidate, transitive dependencies a target base revision; final merge neinvalidoval stale evidence.
+- **GitOps secrets root cause:** rotation nemala authoritative desired-state transition, overlap window ani consumer-convergence oracle; shared decryption key a manual target patch porušili environment a writer boundary.
+- **IDP root cause:** portal task completion bol zamenený za usable platform capability; workflow nemal durable end-to-end operation state a portal sa stal direct runtime writerom.
+- **Amplifiers:** shared base, mutable branch, absent final render, environment-variable secret consumption, no version endpoint, no production business canary a retry bez semantic operation identity.
+
+Authoritative redesign:
+
+```text
+immutable release manifest R-910a
+→ pins image/chart/policy/schema/secret-reference contract
+→ staging desired state references R-910a
+→ staging evidence bound to R-910a + exact environment revision
+→ production proposal changes only release-manifest reference
+→ target-base compare-and-swap + final-merge render/policy revalidation
+→ environment-specific immutable Flux source coordinate
+→ no cluster-local critical substitutions
+→ namespace-scoped Flux apply identity
+→ environment-scoped SOPS KMS decryption identity
+→ secret pv-43 overlap rotation
+→ target Secret generation triggers Pod rollout
+→ workload endpoint reports artifact/config/secret generations
+→ provider audit confirms pv-43 consumer convergence
+→ production settlement canary
+→ durable LaunchPad operation becomes Succeeded
+```
+
+Recovery flow:
+
+```text
+freeze promotion, image automation a LaunchPad direct writer
+→ preserve Git/source artifacts/Kustomization/inventory/ConfigMap/Secret/Pod/provider evidence
+→ identify approved, rendered, live, loaded a provider generations
+→ re-establish one immutable release manifest
+→ move route input into authoritative environment source
+→ scope SOPS/KMS identity
+→ rotate credential with overlap
+→ reconcile Secret a roll Pods
+→ verify loaded pv-43 and route 1850
+→ reconcile unknown provider outcomes
+→ complete or fail durable platform operation truthfully
+→ test stale proposal, lost response, controller restart, second rotation a second promotion
+```
+
+## Cieľ zvládnutia aktívnych blokov
 
 ### Git ako source of truth
 
@@ -203,7 +328,7 @@ fence CI a human writers
 ### Reconciliation a drift detection
 
 - rozlíšiť desired, observed a effective runtime state;
-- vytvoriť reconciliation loop s stable source/resource identity;
+- vytvoriť reconciliation loop so stable source/resource identity;
 - klasifikovať unauthorized, controller-owned, defaulting, admission, dependency a runtime drift;
 - vysvetliť semantic diff, normalization a managedFields evidence;
 - navrhovať narrow ignore rules a explicitný field ownership;
@@ -221,19 +346,63 @@ fence CI a human writers
 - oddeliť Argo sync/health status od business release acceptance;
 - overiť source outage, wrong destination, direct drift a second-sync behavior.
 
+### Flux
+
+- vysvetliť source-controller, kustomize-controller, helm-controller, notification a image automation responsibilities;
+- rozlíšiť configured source ref, resolved revision a immutable source artifact;
+- sledovať Kustomization pipeline cez decryption, substitution, build, validation, server-side apply, inventory, prune a health;
+- navrhnúť generation-aware dependencies a scoped service-account impersonation;
+- diagnostikovať hidden `postBuild` input, SSA conflict, accidental prune a stale workload;
+- oddeliť source Ready, Kustomization/HelmRelease Ready, effective workload a business accepted;
+- považovať image automation za governed Git writer;
+- overiť source/KMS outage, controller restart, second reconcile a tenant isolation.
+
+### Application promotion
+
+- rozlíšiť build, deploy, promote, release a expose transitions;
+- definovať immutable release candidate a build-once identity continuity;
+- odlíšiť artifact invariants, environment-owned configuration a runtime-owned state;
+- viazať evidence a approvals na exact candidate, dependencies, target base a policy version;
+- vysvetliť stale promotion race a compare-and-swap preconditions;
+- promotovať compatibility graph vrátane schema, events, secrets a policies;
+- rozlíšiť proposal, authoritative Git transition, reconciliation a business acceptance;
+- overiť concurrent, superseded, unknown-outcome, rollback a second-promotion behavior.
+
+### GitOps secrets
+
+- rozlíšiť secret authority, Git desired, materialized target a loaded workload state;
+- vysvetliť, prečo base64 ani private repository nie sú encryption boundary;
+- porovnať encrypted-in-Git, Sealed Secrets a external-reference models;
+- vysvetliť SOPS envelope encryption, recipients, data-key rotation a decryption identity;
+- navrhnúť workload identity a provider/KMS least privilege;
+- vysvetliť ExternalSecret refresh, target ownership a mutable provider alias semantics;
+- navrhnúť overlap rotation, consumer convergence, revocation a leak response;
+- overiť wrong key, provider outage, stale Secret, Pod non-reload, second rotation a cross-tenant denial.
+
+### Internal Developer Platform
+
+- rozlíšiť platform engineering, IDP a internal developer portal;
+- definovať versionovaný platform capability a exact request subject;
+- vysvetliť experience, control, execution a workload planes;
+- navrhnúť durable distributed operation so semantic idempotency a identity reservation;
+- mapovať Git, IaC, cloud, catalog, secrets a runtime authority bez hidden portal writerov;
+- vysvetliť template lifecycle, catalog projection, policy a bounded self-service;
+- rozlíšiť accepted request, provisioning, partial/unknown state a usable capability;
+- overiť compensation, developer-functional outcome, decommission, second request a tenant isolation.
+
 ## Dominantný model sekcie
 
 ```text
 business alebo platform capability intent
-→ exact desired-state, platform-product alebo tenant subject
+→ exact desired-state, release, secret, platform-product alebo tenant subject
 → declarative versioned authority a ownership boundaries
 → validated change, promotion alebo self-service request
-→ pull agent/controller resolution a policy
-→ desired-vs-observed comparison
-→ bounded reconciliation, orchestration alebo provisioning
+→ source artifact, controller resolution, policy a durable operation
+→ desired-vs-observed comparison alebo bounded orchestration
+→ reconciliation, provisioning, materialization a consumer transition
 → effective runtime, developer a business outcome
-→ drift, feedback, recovery a lifecycle closure
-→ second-change/second-tenant/second-failure validation
+→ drift, feedback, rotation, recovery a lifecycle closure
+→ second-change/second-promotion/second-rotation/second-tenant validation
 ```
 
 Každá komplexná kapitola musí rozlišovať:
@@ -251,14 +420,25 @@ Každá komplexná kapitola musí rozlišovať:
 - field ownera od technical field managera;
 - Synced, Healthy a business accepted verdict;
 - Application od ApplicationSet/template authority;
+- Flux source Ready od downstream reconciliation a workload readiness;
+- source artifact od final renderu s decryption, substitutions a external values;
+- image discovery/update automation od production promotion authority;
+- candidate evidence od fresh target-specific promotion decisionu;
+- promotion proposal od authoritative merge a runtime acceptance;
+- artifact invariant od environment-owned configuration;
+- secret authority generation od Git declaration, Kubernetes Secret a loaded process generation;
+- encrypted payload od decryption/retrieval identity a consumer convergence;
+- portal task status od durable platform operation a effective capability;
 - platform capability od central-ticket service;
+- platform API authority od UI projection;
+- scaffolding output od managed lifecycle contractu;
 - paved path od mandatory lock-in;
 - self-service request od unrestricted privilege;
 - shared platform od tenant isolation boundary;
 - configured object od valid/effective runtime mechanismu;
 - trigger, root cause a causal amplifier;
 - containment, reconciliation a authoritative recovery;
-- first success od second-change, second-tenant a second-failure validation.
+- first success od second-change, second-promotion, second-rotation, second-tenant a second-failure validation.
 
 ## Stav
 
@@ -268,10 +448,10 @@ Každá komplexná kapitola musí rozlišovať:
 | Pull-based deployment | Learning | L2 |
 | Reconciliation a drift detection | Learning | L2 |
 | Argo CD | Learning | L2 |
-| Flux | Not Started | L0 |
-| Application promotion | Not Started | L0 |
-| GitOps secrets | Not Started | L0 |
-| Internal Developer Platform | Not Started | L0 |
+| Flux | Learning | L2 |
+| Application promotion | Learning | L2 |
+| GitOps secrets | Learning | L2 |
+| Internal Developer Platform | Learning | L2 |
 | Platform as a Product | Not Started | L0 |
 | Golden paths a paved road | Not Started | L0 |
 | Self-service | Not Started | L0 |

@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **294**
-- Audited conceptual sections: **11905**
-- Total words: **683,169**
-- Findings: **25238** (critical 7591, high 8710, medium 3192, low 5745)
-- File grades: A 0, B 0, C 0, D 294
+- Audited authoritative articles: **298**
+- Audited conceptual sections: **12110**
+- Total words: **703,952**
+- Findings: **25404** (critical 7591, high 8764, medium 3198, low 5851)
+- File grades: A 0, B 0, C 0, D 298
 
 ## Interpretation
 
@@ -298,11 +298,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 192 | 4 | 11 | 6 | 28 | 2425 | `docs/01-linux-and-systems/linux-networking.md` |
 | D | 192 | 6 | 8 | 5 | 28 | 3160 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 187 | 5 | 7 | 10 | 29 | 2813 | `docs/00-foundations/systems-thinking.md` |
+| D | 184 | 0 | 20 | 1 | 16 | 4566 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | D | 175 | 4 | 8 | 8 | 27 | 2532 | `docs/00-foundations/declarative-vs-imperative.md` |
 | D | 175 | 5 | 6 | 8 | 31 | 2698 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
 | D | 175 | 6 | 9 | 1 | 22 | 1931 | `docs/01-linux-and-systems/journald-and-logging.md` |
 | D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
 | D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
+| D | 165 | 0 | 16 | 0 | 29 | 6180 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
 | D | 158 | 4 | 6 | 9 | 23 | 2750 | `docs/00-foundations/automation-mindset.md` |
 | D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
@@ -311,8 +313,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
+| D | 132 | 0 | 11 | 1 | 35 | 5685 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
+| D | 103 | 0 | 7 | 4 | 26 | 4352 | `docs/16-gitops-and-platform-engineering/flux.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
@@ -17504,23 +17508,89 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 464, `term-before-explanation` — **16. Reconciliation acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`
 - **HIGH** line 464, `thin-concept-section` — **16. Reconciliation acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/16-gitops-and-platform-engineering/application-promotion.md`
+
+- **HIGH** line 24, `single-sentence-concept` — **2. Deploy, promote, release a expose**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 28, `single-sentence-concept` — **Build**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 63, `list-heavy-section` — **3. Exact promotion subject**: 11 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 63, `single-sentence-concept` — **3. Exact promotion subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 141, `single-sentence-concept` — **6. Environment authority model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 145, `list-first-introduction` — **Environment directories na jednej branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 154, `list-first-introduction` — **Environment branches**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 236, `list-heavy-section` — **Invariant release contract**: 6 odrážok a iba 67 slov súvislého vysvetlenia.
+- **HIGH** line 251, `list-heavy-section` — **Environment-owned configuration**: 6 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 331, `single-sentence-concept` — **12. Promotion cez automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 335, `single-sentence-concept` — **Candidate discovery automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 339, `single-sentence-concept` — **Proposal automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 343, `single-sentence-concept` — **Approval automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 347, `single-sentence-concept` — **Merge automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 351, `single-sentence-concept` — **Reconciliation automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 582, `bare-bullet-items` — **20. Promotion acceptance verdict**: 11 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `candidate je immutable a jednoznačne identifikovaný;`, `ten istý artifact prechádza environmentmi bez uncontrolled rebuild-u;`, `artifact invariants a environment-owned configuration sú oddelené;`, `evidence je subject-bound, target-relevant, fresh a policy-versioned;`.
+- **HIGH** line 635, `single-sentence-concept` — **Tag 9.1 je promotion subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 643, `single-sentence-concept` — **Staging bolo zelené, approval zostáva platný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 651, `single-sentence-concept` — **Dve production PR sa nejako merge-nú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 63, `term-before-explanation` — **3. Exact promotion subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `API`, `identity`, `resource`, `scope`, `freshness`, `workload`
+
+### `docs/16-gitops-and-platform-engineering/flux.md`
+
+- **HIGH** line 98, `list-heavy-section` — **4. Source resolution a artifact lifecycle**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 234, `list-heavy-section` — **8. Inventory a garbage collection**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
+- **HIGH** line 279, `list-heavy-section` — **10. Health assessment**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 412, `list-heavy-section` — **15. Multi-tenancy a impersonation**: 8 odrážok a iba 65 slov súvislého vysvetlenia.
+- **HIGH** line 562, `list-heavy-section` — **19. Flux acceptance verdict**: 15 odrážok a iba 69 slov súvislého vysvetlenia.
+- **HIGH** line 611, `single-sentence-concept` — **GitRepository Ready znamená deployment ready**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 98, `term-before-explanation` — **4. Source resolution a artifact lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `API`, `RBAC`, `availability`, `identity`, `workload`, `policy`
+
+### `docs/16-gitops-and-platform-engineering/gitops-secrets.md`
+
+- **HIGH** line 196, `single-sentence-concept` — **7. SOPS key ownership a rotation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 260, `bare-bullet-items` — **9. Sealed Secrets model**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `private key je cluster recovery-critical asset;`, `loss private key-u môže znemožniť decryption existing manifests;`, `certificate renewal neznamená automatickú re-encryption všetkých manif`, `target Secret rotation stále potrebuje workload reload.`.
+- **HIGH** line 260, `list-heavy-section` — **9. Sealed Secrets model**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 427, `single-sentence-concept` — **16. Workload consumption a reload**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 659, `bare-bullet-items` — **23. GitOps secret acceptance verdict**: 8 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `secret authority, scope, schema a lifecycle sú explicitné;`, `Git neobsahuje plaintext ani base64-only sensitive value;`, `SOPS/Sealed Secrets/provider keys a recipients sú environment/tenant s`, `decryption/retrieval používa short-lived workload identity a least pri`.
+- **HIGH** line 659, `list-heavy-section` — **23. GitOps secret acceptance verdict**: 16 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 708, `single-sentence-concept` — **Secret je v private Git-e, takže je bezpečný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 712, `single-sentence-concept` — **Base64 je dostatočné**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 720, `single-sentence-concept` — **Shared decryption key zjednoduší operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 728, `single-sentence-concept` — **Secret sa zmenil, application ho používa**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 557, `term-before-explanation` — **Encrypted-in-Git**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `RBAC`, `availability`, `identity`
+
+### `docs/16-gitops-and-platform-engineering/internal-developer-platform.md`
+
+- **HIGH** line 38, `list-heavy-section` — **Internal Developer Platform**: 8 odrážok a iba 65 slov súvislého vysvetlenia.
+- **HIGH** line 217, `single-sentence-concept` — **Platform control plane**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 221, `single-sentence-concept` — **Execution planes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 321, `list-first-introduction` — **Fire-and-forget template**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 321, `single-sentence-concept` — **Fire-and-forget template**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `single-sentence-concept` — **Retry forward**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `single-sentence-concept` — **Compensate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 501, `single-sentence-concept` — **Provisioning verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 505, `single-sentence-concept` — **Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 509, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 513, `single-sentence-concept` — **Operational verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 648, `single-sentence-concept` — **Software Catalog**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 652, `single-sentence-concept` — **Software Templates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 656, `single-sentence-concept` — **TechDocs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 819, `single-sentence-concept` — **Retry spustí workflow od začiatku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 823, `single-sentence-concept` — **Platform vytvára resources, lifecycle je hotový**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2993 | 506 | 0 | 0 | 3499 |
-| `single-sentence-concept` | 0 | 3052 | 0 | 0 | 3052 |
+| `bare-bullet-items` | 2993 | 509 | 0 | 0 | 3502 |
+| `single-sentence-concept` | 0 | 3086 | 0 | 0 | 3086 |
 | `outline-instead-of-explanation` | 2936 | 0 | 0 | 0 | 2936 |
-| `term-before-explanation` | 0 | 614 | 2131 | 0 | 2745 |
+| `term-before-explanation` | 0 | 617 | 2135 | 0 | 2752 |
 | `thin-concept-section` | 0 | 2478 | 0 | 0 | 2478 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2315 | 2315 |
-| `example-not-explicit` | 0 | 0 | 0 | 2275 | 2275 |
-| `list-first-introduction` | 0 | 1526 | 0 | 0 | 1526 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1155 | 1155 |
-| `short-concept-section` | 0 | 0 | 1061 | 0 | 1061 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2340 | 2340 |
+| `example-not-explicit` | 0 | 0 | 0 | 2329 | 2329 |
+| `list-first-introduction` | 0 | 1529 | 0 | 0 | 1529 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1182 | 1182 |
+| `short-concept-section` | 0 | 0 | 1063 | 0 | 1063 |
 | `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
 | `empty-section` | 785 | 0 | 0 | 0 | 785 |
-| `list-heavy-section` | 0 | 534 | 0 | 0 | 534 |
+| `list-heavy-section` | 0 | 545 | 0 | 0 | 545 |
 
 ## Required remediation pattern
 
