@@ -294,9 +294,17 @@ Množina firing alebo resolved alerts zoskupená podľa `group_by` labels a odos
 
 Stabilná identita alert instance odvodená z label setu a používaná na deduplication, grouping, silences a routing. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## Alert-identity generation
+
+Complete stable label set určujúci Alertmanager fingerprint, deduplication, grouping, routing, silence a inhibition behavior pre konkrétnu alert generation. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Alert label — Prometheus
 
 Stabilný key/value atribút alertu používaný na identity, grouping, routing, silences a inhibition. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alert-notification subject
+
+Versionovaný subject spájajúci Prometheus rule generation, complete alert labels, Alertmanager cluster/config, route, group, receiver a external incident key. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## Alert precision
 
@@ -317,6 +325,10 @@ PromQL expression vyhodnocovaná Prometheus rule engine-om, ktorá po splnení c
 ## Alertmanager
 
 Komponent Prometheus ekosystému, ktorý prijíma alerts, deduplikuje ich, zoskupuje, routuje, mutuje a posiela notifications do receivers. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Alertmanager acceptance verdict
+
+Dôkaz, že expected alert vytvoril správnu receiver notification a resolved outcome, unrelated scope nebol inhibovaný alebo silencovaný a HA/retry nevytvorili neakceptované duplicity. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## Alertmanager HA
 
@@ -1266,6 +1278,10 @@ Exact Pod-to-Node placement transition po reserve, permit a pre-bind krokoch, ty
 
 Pozorovanie systému zvonka z perspektívy používateľa alebo clienta, napríklad cez HTTP, DNS, TLS alebo end-to-end synthetic test. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Black-box outcome canary
+
+Kontrolovaná external operácia overujúca skutočný caller alebo business contract nezávisle od internal telemetry a dashboard assumptions. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## Blast radius
 
 Maximálny rozsah používateľov, trafficu, dát, komponentov alebo failure domains, ktoré môže zmena, incident alebo experiment ovplyvniť. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -1538,6 +1554,10 @@ Recovery verdict, pri ktorom technical release state, durable data, event/contra
 
 Technicky validný a restore-nuteľný recovery point, ktorý už obsahuje logical corruption, attacker changes alebo business-inconsistent state. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
+## Business error population
+
+Množina valid operations klasifikovaných podľa final caller alebo business outcome-u vrátane timeoutov, partial, degraded, silent a unknown výsledkov. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## Business idempotency boundary
 
 Stable operation identity a uniqueness/reconciliation contract pokrývajúci database changes aj external side effects, nie iba jeden local table insert. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
@@ -1725,6 +1745,10 @@ Premena workload desired count-u na skutočne dostupný compute, memory, archite
 ## Capacity Rebalancing — EC2 Auto Scaling
 
 Auto Scaling capability, ktorá môže proaktívne spustiť náhradu Spot Instance pri zvýšenom interruption risku, pričom workload stále potrebuje drain a idempotentný recovery model. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
+## Capacity-risk verdict
+
+Rozhodnutie, či aktuálna saturation, scaling delay a failover headroom predstavujú imminent risk pre caller outcome alebo error budget. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
 ## Capacity test
 
@@ -3538,6 +3562,10 @@ Serverom nastavený čas označujúci, že object bol prijatý na deletion a ča
 
 Exact source resource, event-source mapping alebo asynchronous invocation configuration, filter, batching, retry, retention/visibility, destination a target version/alias, ktoré určujú delivery a acknowledgement semantics konkrétneho eventu. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Demand amplification
+
+Pomer interných attempts, fan-out calls alebo redeliveries voči logical demandu, ktorý môže rásť bez rastu user trafficu a vytvárať downstream overload. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## Demand unit
 
 Workload-specific jednotka trafficu, napríklad request, message, transaction, byte, query alebo inference, ktorá reprezentuje reálny demand na systém. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
@@ -4506,6 +4534,10 @@ Union všetkých RoleBinding/ClusterRoleBinding paths, group memberships, refere
 
 Výsledná values konfigurácia po zlúčení chart defaults, predchádzajúceho release state-u podľa zvolenej stratégie, values files a CLI overrides. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Effective resource capacity
+
+Kapacita skutočne dostupná konkrétnemu workloadu po zohľadnení loaded limits, reservations, unhealthy members, topology, quotas, maintenance a failover constraints. Pozri [USE method](docs/12-observability/use-method.md).
+
 ## Effective resource contract
 
 Admitted requests a limits konkrétneho Podu po defaultingu, LimitRange, policy mutation, init/sidecar calculation a RuntimeClass overhead. Pozri [Requests, limits a QoS](../docs/09-kubernetes/requests-limits-qos.md).
@@ -5065,6 +5097,10 @@ Množina build, test, analysis, target a per-platform verdictov požadovaných p
 ## Expected-state contract — drill
 
 Versionovaný initial a desired state vrátane fault injectionu, misleading evidence, forbidden changes, hard validation a reset procedúry.
+
+## Expected target generation — Prometheus
+
+Versionovaný inventory endpoints, ktoré majú po service discovery a target relabelingu zostať eligible na scrape. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Expected target inventory — Ansible
 
@@ -5770,6 +5806,14 @@ Versionovaný immutable machine image obsahujúci vopred zostavený a otestovan�
 
 Podporovaný a automatizovaný spôsob vývoja a delivery poskytujúci bezpečné defaults, reusable tooling, observability a policy guardrails. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
 
+## Golden-Signal acceptance verdict
+
+Dôkaz, že Latency, Traffic, Errors a Saturation používajú kompatibilné populations, original outcome je obnovený a traffic drop, duplicate effect ani telemetry absence nevytvárajú false-green stav. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Golden-Signal subject
+
+Exact capability, workflow, valid demand population, cohort, version, measurement window a caller outcome, pre ktoré Latency, Traffic, Errors a Saturation tvoria spoločný service-health contract. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## Golden Signals
 
 Google SRE monitoring model pozostávajúci zo Latency, Traffic, Errors a Saturation pre user-facing workload. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
@@ -5857,6 +5901,10 @@ Regex quantifier, ktorý najprv spotrebuje najväčší možný rozsah a podľa 
 ## Group-derived permission
 
 Authorization path udelená členstvom subjectu v identity group-e, nie explicitným bindingom na jeho user alebo ServiceAccount meno. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
+
+## Group-identity contract — Alertmanager
+
+Množina labels reprezentujúca spoločný incident boundary a určujúca, ktoré alerts sa spoja do jednej notification group. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## Group interval
 
@@ -6189,6 +6237,10 @@ Top-level CI configuration block s názvom začínajúcim bodkou, ktorý sa nesp
 ## Hidden queue
 
 Čakacia vrstva, ktorá nie je viditeľná v hlavnom service dashboarde, napríklad connection pool, thread pool, kernel queue alebo downstream scheduler. Pozri [USE method](docs/12-observability/use-method.md).
+
+## Hidden-queue inventory
+
+Versionovaný zoznam všetkých čakacích vrstiev v operation path-e, napríklad client backoff, worker queue, connection pool, lock wait, device queue alebo provider scheduler. Pozri [USE method](docs/12-observability/use-method.md).
 
 ## Hidden variable — GitLab
 
@@ -6762,6 +6814,10 @@ Access získaný cez membership v parent group alebo inom hierarchicky relevantn
 
 Automatické muting pravidlo, ktoré potlačí target alert notifications, keď firing source alert matchuje definovaný scope. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
+## Inhibition-scope contract
+
+Source, target a `equal` label policy určujúca, v ktorých environment, Region, cluster alebo service boundaries môže firing parent alert mutovať child notifications. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Init container
 
 Container, ktorý musí úspešne dokončiť prípravnú úlohu pred spustením bežných application containers v Pode. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -7286,6 +7342,10 @@ Presne identifikovaný artifact, configuration a compatibility stav s overenou p
 
 Čas potrebný na dokončenie operácie alebo requestu. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Latency-boundary contract
+
+Explicitný start a end measurement point pre latency vrátane queue, dependency alebo final workflow completion semantics a oddelenia successful, failed a degraded populations. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## latency routing — Route 53
 
 DNS routing policy vyberajúca resource v AWS lokalite, ktorá má podľa Route 53 latency measurements najnižšiu očakávanú latency pre query source. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
@@ -7494,6 +7554,10 @@ Certificate identity reálne načítaná konkrétnou edge instance, typicky iden
 
 Instrumentation, agent, SDK alebo Collector configuration skutočne používaná bežiacim processom, ktorá sa môže líšiť od deklarovaného environmentu alebo desired configu. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
+## Loaded resource limit
+
+Runtime limit, ktorý component skutočne používa, napríklad per-process connection-pool maximum; môže sa líšiť od desired alebo deklarovanej konfigurácie. Pozri [USE method](docs/12-observability/use-method.md).
+
 ## Loaded-state telemetry
 
 Telemetry field alebo inventory preukazujúce effective configuration, secret, feature alebo release generation načítanú runtime cohortou namiesto iba desired-state deklarácie. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -7510,6 +7574,10 @@ Intersection Nodes prijímajúcich traffic s ready local endpointmi potrebná pr
 
 PV reprezentujúci storage fyzicky viazaný na konkrétny Node alebo topology domain, s vysokým výkonom, ale bez automatickej multi-node dostupnosti. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Local TSDB generation — Prometheus
+
+Queryovateľný local state konkrétnej Prometheus replica vytvorený z WAL, head blocku, immutable blocks, compaction a retention lifecycle-u. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Local TSDB — Prometheus
 
 Lokálny time-series storage Prometheus servera založený na head blocku, WAL, immutable blocks, compaction a retention. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -7517,6 +7585,10 @@ Lokálny time-series storage Prometheus servera založený na head blocku, WAL, 
 ## Local value — Terraform
 
 Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú caller nemôže priamo nastaviť. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
+## Local-versus-remote metrics state
+
+Explicitné porovnanie local Prometheus samples/rule state-u s remote-write queue a downstream backend read-back stavom. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Local Zone — AWS
 
@@ -7565,6 +7637,10 @@ Identita jednej finite business operation zahŕňajúca run key, schedule alebo 
 ## Logical data identity — Kubernetes
 
 Application-owned identita persistentného datasetu, oddelená od Pod mena, PVC mena, PV phase a physical volume assetu. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## Logical demand unit — Golden Signals
+
+Caller alebo business jednotka trafficu, napríklad logical settlement alebo message, oddelená od retries, fan-out calls a technical attempts. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
 ## Logical duration — RED
 
@@ -7829,6 +7905,10 @@ Monitoring celého monitoring a notification reťazca vrátane source signalov, 
 ## Metric
 
 Agregovateľný číselný signal v čase používaný napríklad na rate, latency distribution, utilization, saturation alebo SLO measurement. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Metric-contract generation — Prometheus
+
+Versionovaná definícia metric name, type, base unit, observation/reset boundary, labels, resource identity, expected freshness a consumers. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Metric identity contract — CloudWatch
 
@@ -8234,6 +8314,10 @@ Prechodový model, v ktorom DNS64 syntetizuje IPv6 odpoveď a NAT64 prekladá tr
 
 Builder node vykonávajúci build priamo na rovnakej architecture ako target bez user-mode emulation. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Native-histogram compatibility generation
+
+Versionovaný adoption contract spájajúci client library, exposition, scrape, local storage/PromQL, rules, remote backend, dashboards a rollback pre Prometheus native histograms. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Native histogram — Prometheus
 
 Histogram sample reprezentácia s dynamickejším rozlíšením a kompaktnejším prenosom než samostatné classic histogram bucket series, pri kompatibilnej pipeline. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -8485,6 +8569,14 @@ Node taint effect zabraňujúci scheduleru umiestniť nový Pod bez matching tol
 ## Notification — Alertmanager
 
 Receiver-specific správa vytvorená z jednej alert group podľa routing, timing, muting a template pravidiel. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Notification-decision path
+
+Alertmanager lifecycle od prijatého alertu cez route, grouping, timing, silence/mute/inhibition verdict, template a receiver attempt po external incident outcome. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Notification-path canary
+
+Kontrolovaný alert prechádzajúci rule, všetky Alertmanager replicas, route/group/muting policy, test receiver, external acknowledgement a resolved closure. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
 ## Notification template — Alertmanager
 
@@ -9530,6 +9622,10 @@ Review prvého planu po importe, ktorý rozhoduje, či sa remote hodnoty adoptuj
 
 Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené, kumulatívne alebo segmentovo zriedkavé failures pred uzavretím release rozhodnutia. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Post-relabel sample set
+
+Exact množina samples a labels, ktorá zostane po target-label application a metric relabelingu a môže byť ingestovaná do local TSDB. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## PowerShell provider
 
 Abstraction layer sprístupňujúca datasources ako filesystem, registry, certificates alebo environment cez jednotné cmdlets a drives. Pozri [PowerShell fundamentals](docs/03-git-and-automation/powershell-fundamentals.md).
@@ -9758,9 +9854,17 @@ Konkrétna ConfigMap/Secret content generation materializovaná kubeletom v proj
 
 Metrics monitoring a alerting systém založený na multidimenzionálnych time series, pull-based scrapingu, local TSDB a PromQL. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Prometheus acceptance verdict
+
+Dôkaz, že expected targets a post-relabel series existujú, TSDB/rules používajú správnu population, controlled signal vytvorí alert a local/remote/no-data states sú rozlíšené. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
 ## Prometheus HA
 
 Model viacerých nezávislých Prometheus replicas, ktoré samostatne scrape-ujú, ukladajú a vyhodnocujú rules; downstream vrstva musí riešiť deduplication. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Prometheus subject
+
+Versionovaný metrics evidence subject zahŕňajúci producer/release, discovery a scrape config, target, post-relabel labels, Prometheus replica, TSDB, rule generation, remote-write generation a query window. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Promotable artifact
 
@@ -10158,6 +10262,10 @@ Operácia, ktorá replayuje commits na nový base a vytvára nové commit object
 
 Pomenovaná kolekcia notification integrations, napríklad webhook, email, chat alebo on-call služba. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
+## Receiver-delivery subject
+
+Exact receiver integration, template generation, authentication, external incident key, attempt a acknowledgement/unknown-outcome state pre jednu notification group. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Receiver — telemetry
 
 Komponent telemetry pipeline, ktorý prijíma signals cez OTLP, scrape, logs alebo iný podporovaný protocol. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -10201,6 +10309,10 @@ Overenie, že controllers, runtime processes, data state a traffic sa po recover
 ## Reconvergence verdict
 
 Dôkaz, že controller, kubelet/runtime, dataplane alebo external system po repair-e dosiahli požadovanú current generation.
+
+## Recording-rule generation
+
+Versionovaný PromQL expression, input-series inventory, evaluation interval a output metric/label contract materializujúci derived time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Recording rule — Prometheus
 
@@ -10778,6 +10890,10 @@ Verdikt, že admitted requests/limits, scheduler reservation, cgroup realization
 
 Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resource type/name a prípadného `count` indexu alebo `for_each` key. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Resource-analysis subject — USE
+
+Versionovaný subject spájajúci affected service operation a cohort s exact bounded resource-om, jeho enforcement boundary, configured a loaded capacity generation, observation windowom a ownerom. Pozri [USE method](docs/12-observability/use-method.md).
+
 ## Resource-based policy — AWS
 
 Policy uložená pri resource-e, ktorá môže priamo určovať allowed alebo denied principals, actions a conditions, vrátane cross-account accessu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
@@ -10797,6 +10913,10 @@ Komponent automaticky získavajúci OpenTelemetry resource attributes z environm
 ## Resource enforcement coverage — Zero Trust
 
 Podiel a kvalita access paths ku critical resources, ktoré skutočne prechádzajú identity-aware policy evaluation a neobíditeľným PEP. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Resource error observation — USE
+
+Časovo a subjectovo viazaný dôkaz explicitného resource failure-u, napríklad OOM, acquire timeout, I/O error, quota rejection alebo allocation failure. Pozri [USE method](docs/12-observability/use-method.md).
 
 ## Resource group — GitLab CI/CD
 
@@ -11218,6 +11338,10 @@ Pôvod route, napríklad local, static alebo propagated, ktorý ovplyvňuje owne
 
 Presná parent Gateway/listener generation, ku ktorej patria Route conditions a effective attachment. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
 
+## Route-policy generation — Alertmanager
+
+Versionovaný route tree, matcher order, inherited grouping/timing, `continue` behavior a receiver mapping načítané konkrétnym Alertmanager runtime-om. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Route propagation — AWS
 
 Automatické pridávanie routes z podporovaného gateway alebo dynamic routing source-u do route table podľa nakonfigurovaného connectivity modelu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -11249,6 +11373,10 @@ Množstvo pages procesu aktuálne resident v RAM. Pozri [Memory a CPU fundamenta
 ## RTO — Recovery Time Objective
 
 Maximálny prijateľný čas na obnovenie služby alebo business capability po katastrofickom zlyhaní. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Rule-input closure
+
+Dôkaz, že všetky expected source series a labels pre recording alebo alerting rule existujú, sú fresh a pokrývajú správnu population. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Run Command — Systems Manager
 
@@ -11458,6 +11586,14 @@ Statická bezpečnostná analýza source, bytecode alebo intermediate representa
 
 Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká queueing alebo throttling. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
 
+## Saturation observation — USE
+
+Dôkaz práce, ktorú resource nevie okamžite obslúžiť, napríklad queue length, wait time, throttling, blocked tasks, drops alebo rejection. Pozri [USE method](docs/12-observability/use-method.md).
+
+## Saturation-resource contract
+
+Výber exact critical resource-u alebo queue, jeho effective capacity denominatora, wait/rejection signalu a leading thresholdu pre konkrétny Golden-Signal subject. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## Saturation — USE
 
 Množstvo práce, ktoré resource nedokáže okamžite obslúžiť a prejavuje sa queueingom, wait time, throttlingom alebo rejection. Pozri [USE method](docs/12-observability/use-method.md).
@@ -11633,6 +11769,10 @@ Uzavretie tasku po hard validation, forbidden-outcome checku a zaznamenaní part
 ## Score plugin — Kubernetes scheduler
 
 Scheduling Framework plugin prideľujúci feasible Nodes relatívne skóre podľa soft preferencií a placement stratégie. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
+
+## Scrape attempt — Prometheus
+
+Jedna HTTP retrieval, exposition parsing a sample-validation operácia pre exact target a evaluation time; úspech vytvára `up=1`, nie business-health verdict. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Scrape — Prometheus
 
@@ -12278,6 +12418,10 @@ Dočasné potlačenie notifications pre alerts matchujúce definovaný label set
 
 Failure, ktorý neprodukuje bežný explicitný error status, napríklad `200` s chybným obsahom, nespracovaná async message alebo neobnoviteľný backup. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
+## Silent outcome failure
+
+Operation, ktorá neprodukuje bežný explicitný transport error, ale nesplní final business contract, napríklad accepted command bez completion alebo `200` s nesprávnym resultom. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
 ## Simple Bind — LDAP
 
 LDAP Bind mechanism používajúci identity a password; musí byť chránený TLS, pretože sám neposkytuje transport encryption. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -12541,6 +12685,10 @@ Approval, ktorý bol udelený pre starší source SHA, target context, candidate
 ## Staleness — Prometheus
 
 Semantics, ktorou Prometheus prestane považovať starú sample za aktuálnu po zmiznutí targetu alebo series. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Staleness verdict — Prometheus
+
+Rozhodnutie, či series predstavuje current measurement, zmizla pre target/label/producer zmenu alebo je už stale a nesmie byť interpretovaná ako aktuálna hodnota. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
 ## Standing privilege
 
@@ -13710,6 +13858,10 @@ Stav, keď klient nevie, či Engine mutation neprebehla, zanechala partial objec
 
 Stav, keď hook side effect mohol commitnúť, ale Helm/Job completion alebo response evidence chýba; ďalší attempt musí najprv pozorovať durable operation state. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
+## Unknown notification outcome
+
+Stav, keď Alertmanager nevie, či receiver vytvoril incident, pretože request mohol uspieť, ale acknowledgement sa stratilo; retry potom môže vytvoriť duplicate external outcome. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
 ## Unknown operation outcome — CKA
 
 Stav po timeout-e alebo prerušení write operation, keď nie je známe, či API alebo external side effect prebehol; pred retry sa vyžaduje read-back.
@@ -13814,6 +13966,10 @@ External alebo split-horizon DNS path identifikovaný CoreDNS forward rule, upst
 
 Identifikátor resource; URL je typ URI, ktorý zároveň opisuje spôsob alebo miesto prístupu. Pozri [HTTP](docs/02-networking-and-web/http.md).
 
+## USE acceptance verdict
+
+Rozhodnutie, že exact resource bottleneck bol odstránený, original user outcome obnovený, saturation a errors sa vrátili do guardrailov a capacity change nevytvorila forbidden downstream amplification. Pozri [USE method](docs/12-observability/use-method.md).
+
 ## USE method
 
 Resource-oriented performance metodika, ktorá pre každý resource preveruje Utilization, Saturation a Errors. Pozri [USE method](docs/12-observability/use-method.md).
@@ -13837,6 +13993,10 @@ OIDC protected endpoint vracajúci štandardizované claims o subjecte po predlo
 ## Utilization
 
 Miera použitia dostupnej kapacity resource. Pozri [Performance a troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md).
+
+## Utilization observation — USE
+
+Meranie podielu effective resource capacity používaného v presnom intervale a scope-e, vrátane explicitného time-, capacity-, throughput- alebo concurrency-based denominatora. Pozri [USE method](docs/12-observability/use-method.md).
 
 ## Utilization — USE
 
