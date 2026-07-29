@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **294**
 - Audited conceptual sections: **11905**
-- Total words: **683,114**
+- Total words: **683,169**
 - Findings: **25238** (critical 7591, high 8710, medium 3192, low 5745)
 - File grades: A 0, B 0, C 0, D 294
 
@@ -55,7 +55,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 888 | 35 | 47 | 16 | 33 | 3254 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
-| D | 873 | 36 | 42 | 19 | 27 | 3002 | `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md` |
+| D | 873 | 36 | 42 | 19 | 27 | 3006 | `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md` |
 | D | 870 | 34 | 52 | 9 | 15 | 2194 | `docs/14-sre-and-operations/backup-and-restore.md` |
 | D | 868 | 41 | 41 | 11 | 13 | 2134 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
@@ -67,7 +67,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 37 | 38 | 17 | 22 | 2511 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
-| D | 829 | 33 | 44 | 16 | 21 | 2115 | `docs/16-gitops-and-platform-engineering/argo-cd.md` |
+| D | 829 | 33 | 44 | 16 | 21 | 2127 | `docs/16-gitops-and-platform-engineering/argo-cd.md` |
 | D | 824 | 39 | 38 | 11 | 17 | 2217 | `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md` |
 | D | 823 | 39 | 37 | 11 | 19 | 2114 | `docs/12-observability/alertmanager.md` |
 | D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
@@ -79,7 +79,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 802 | 37 | 42 | 7 | 5 | 2208 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 795 | 35 | 38 | 13 | 25 | 2399 | `docs/09-kubernetes/daemonset.md` |
-| D | 791 | 27 | 53 | 9 | 14 | 1808 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
+| D | 791 | 27 | 53 | 9 | 14 | 1819 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | D | 787 | 32 | 46 | 8 | 10 | 1672 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
@@ -118,7 +118,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 695 | 34 | 29 | 14 | 10 | 1929 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | D | 694 | 30 | 35 | 10 | 20 | 2171 | `docs/04-testing-and-quality/shift-right.md` |
 | D | 693 | 30 | 33 | 12 | 22 | 2412 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
-| D | 691 | 31 | 30 | 15 | 22 | 1937 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
+| D | 691 | 31 | 30 | 15 | 22 | 1953 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | D | 688 | 32 | 29 | 15 | 15 | 2130 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
 | D | 688 | 22 | 47 | 12 | 8 | 1919 | `docs/12-observability/use-method.md` |
 | D | 687 | 32 | 28 | 17 | 18 | 2845 | `docs/03-git-and-automation/python-for-automation.md` |
@@ -244,7 +244,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 470 | 21 | 24 | 6 | 9 | 1468 | `docs/11-cloud-and-aws/iam.md` |
 | D | 469 | 19 | 24 | 8 | 16 | 2046 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 469 | 21 | 26 | 2 | 8 | 1277 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
-| D | 469 | 18 | 23 | 12 | 20 | 2008 | `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md` |
+| D | 469 | 18 | 23 | 12 | 20 | 2020 | `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md` |
 | D | 468 | 16 | 30 | 5 | 16 | 1975 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | D | 468 | 21 | 22 | 7 | 12 | 2093 | `docs/09-kubernetes/rbac.md` |
 | D | 467 | 18 | 22 | 14 | 15 | 1966 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |

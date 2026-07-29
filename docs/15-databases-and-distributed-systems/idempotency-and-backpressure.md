@@ -846,5 +846,5 @@ Relevantné pojmy: idempotency subject, business idempotency, idempotency key sc
 
 **Navigácia**
 
-[← Predchádzajúca: Rate limiting](rate-limiting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Rate limiting](rate-limiting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Git ako source of truth →](../16-gitops-and-platform-engineering/git-as-source-of-truth.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -548,3 +548,11 @@ Relevantné pojmy: reconciliation subject, desired state, observed state, effect
 - [Argo CD — Diff Customization](https://argo-cd.readthedocs.io/en/latest/user-guide/diffing/)
 - [Argo CD — Automated Sync Policy](https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/)
 - [Argo CD — Resource Tracking](https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Pull-based deployment](pull-based-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Argo CD →](argo-cd.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

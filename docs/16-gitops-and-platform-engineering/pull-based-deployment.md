@@ -513,3 +513,11 @@ Relevantné pojmy: pull-based deployment subject, target-side agent, source obse
 - [Argo CD — Automated Sync Policy](https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/)
 - [Argo CD — Architectural Overview](https://argo-cd.readthedocs.io/en/stable/operator-manual/architecture/)
 - [Argo CD — Tracking and Deployment Strategies](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Git ako source of truth](git-as-source-of-truth.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Reconciliation a drift detection →](reconciliation-and-drift-detection.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

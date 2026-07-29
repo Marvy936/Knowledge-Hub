@@ -612,3 +612,11 @@ Relevantné pojmy: Argo CD Application subject, AppProject boundary, repository 
 - [Argo CD — Resource Tracking](https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/)
 - [Argo CD — Diff Customization](https://argo-cd.readthedocs.io/en/latest/user-guide/diffing/)
 - [Argo CD — Sync Phases and Waves](https://argo-cd.readthedocs.io/en/release-3.2/user-guide/sync-waves/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Reconciliation a drift detection](reconciliation-and-drift-detection.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -3881,7 +3881,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
       "title": "Idempotency a backpressure",
-      "words": 3002,
+      "words": 3006,
       "headings": 55,
       "sections": 55,
       "findings": 124,
@@ -4063,7 +4063,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
       "title": "Argo CD",
-      "words": 2115,
+      "words": 2127,
       "headings": 46,
       "sections": 46,
       "findings": 114,
@@ -4077,7 +4077,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
       "title": "Git ako source of truth",
-      "words": 2008,
+      "words": 2020,
       "headings": 31,
       "sections": 31,
       "findings": 73,
@@ -4091,7 +4091,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
       "title": "Pull-based deployment",
-      "words": 1937,
+      "words": 1953,
       "headings": 33,
       "sections": 33,
       "findings": 98,
@@ -4105,7 +4105,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
       "title": "Reconciliation a drift detection",
-      "words": 1808,
+      "words": 1819,
       "headings": 52,
       "sections": 52,
       "findings": 103,

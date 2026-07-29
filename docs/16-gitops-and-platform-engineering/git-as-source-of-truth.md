@@ -487,3 +487,11 @@ Relevantné pojmy: desired-state subject, source-of-truth boundary, authoritativ
 - [Git — gitrevisions](https://git-scm.com/docs/gitrevisions)
 - [Argo CD — Tracking and Deployment Strategies](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/)
 - [Argo CD — Parameter Overrides](https://argo-cd.readthedocs.io/en/release-3.2/user-guide/parameters/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Idempotency a backpressure](../15-databases-and-distributed-systems/idempotency-and-backpressure.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Pull-based deployment →](pull-based-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

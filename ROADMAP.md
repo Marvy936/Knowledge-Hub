@@ -354,10 +354,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### GitOps and Platform Engineering
 
-- [ ] Git ako source of truth
-- [ ] Pull-based deployment
-- [ ] Reconciliation a drift detection
-- [ ] Argo CD
+- [x] [Git ako source of truth](docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md)
+- [x] [Pull-based deployment](docs/16-gitops-and-platform-engineering/pull-based-deployment.md)
+- [x] [Reconciliation a drift detection](docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md)
+- [x] [Argo CD](docs/16-gitops-and-platform-engineering/argo-cd.md)
 - [ ] Flux
 - [ ] Application promotion
 - [ ] GitOps secrets
