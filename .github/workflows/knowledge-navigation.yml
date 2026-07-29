@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - agent/gitops-platform-block-3
     paths:
       - "docs/**/*.md"
       - "ROADMAP.md"
@@ -14,6 +15,8 @@ on:
       - "scripts/update_navigation.py"
       - "scripts/update_glossary.py"
       - "scripts/audit_learning_depth.py"
+      - "scripts/integrate_gitops_block3.py"
+      - "scripts/.gitops_block3_payload_*.txt"
       - ".github/workflows/knowledge-navigation.yml"
   pull_request:
     paths:
@@ -74,6 +77,12 @@ jobs:
           set -euo pipefail
 
           synchronize_documentation() {
+            if [ -f scripts/integrate_gitops_block3.py ]; then
+              "$PYTHON_BIN" scripts/integrate_gitops_block3.py
+              rm -f scripts/integrate_gitops_block3.py scripts/.gitops_block3_payload_*.txt
+              git show origin/main:.github/workflows/knowledge-navigation.yml > .github/workflows/knowledge-navigation.yml
+            fi
+
             "$PYTHON_BIN" scripts/update_glossary.py --write
             "$PYTHON_BIN" scripts/update_navigation.py --write
 
@@ -113,14 +122,14 @@ jobs:
             fi
 
             synchronize_documentation
-            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json
+            git add -A
 
             if git diff --cached --quiet; then
               echo "Documentation is already synchronized at ${remote_sha}."
               exit 0
             fi
 
-            git commit -m "docs: synchronize generated documentation"
+            git commit -m "docs(gitops): integrate third platform product block"
 
             if git push origin "HEAD:${branch}"; then
               echo "Synchronized documentation pushed successfully."
