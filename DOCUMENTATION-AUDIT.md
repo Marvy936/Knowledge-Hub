@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10364**
-- Total words: **615,185**
-- Findings: **21489** (critical 6384, high 7239, medium 2723, low 5143)
+- Audited conceptual sections: **10363**
+- Total words: **613,930**
+- Findings: **21537** (critical 6397, high 7259, medium 2734, low 5147)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -182,6 +182,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 523 | 23 | 24 | 11 | 14 | 1961 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 520 | 20 | 32 | 4 | 14 | 2434 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
 | D | 514 | 22 | 26 | 7 | 12 | 1687 | `docs/12-observability/jaeger-tempo.md` |
+| D | 513 | 20 | 24 | 12 | 29 | 1972 | `docs/13-security-and-identity/image-signing.md` |
 | D | 510 | 20 | 28 | 5 | 26 | 2111 | `docs/13-security-and-identity/active-directory.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 506 | 26 | 19 | 8 | 14 | 1855 | `docs/09-kubernetes/securitycontext-pod-security.md` |
@@ -267,7 +268,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 153 | 5 | 6 | 5 | 19 | 2652 | `docs/00-foundations/devops-lifecycle.md` |
-| D | 148 | 7 | 4 | 1 | 25 | 3227 | `docs/13-security-and-identity/image-signing.md` |
 | D | 145 | 6 | 6 | 3 | 15 | 2392 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
@@ -14005,17 +14005,50 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/image-signing.md`
 
-- **CRITICAL** line 16, `bare-bullet-items` — **1. Čo signature dokazuje a čo nedokazuje**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že source code bol reviewovaný;`, `že builder bol izolovaný alebo dôveryhodný;`, `že image neobsahuje vulnerabilities alebo malware;`, `že signer mal oprávnenie podpisovať daný product;`.
-- **CRITICAL** line 64, `bare-bullet-items` — **4. Subject pri multi-architecture image**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či každá platform potrebuje vlastnú provenance a SBOM;`, `či sú povolené všetky platforms v indexe;`, `ako sa spracuje nová platform pridaná do release-u.`.
-- **CRITICAL** line 131, `bare-bullet-items` — **9. OIDC identity pri signing-u**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected OIDC issuer;`, `certificate subject alebo SAN identity;`, `organization a repository;`, `workflow definition alebo reusable workflow identity;`.
-- **CRITICAL** line 217, `bare-bullet-items` — **15. Build a signing authority**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `builder identity podpisuje provenance;`, `security scanner vydá scan attestation;`, `protected release workflow podpisuje release approval;`, `environment-specific authority schváli promotion.`.
-- **CRITICAL** line 242, `bare-bullet-items` — **17. Provenance a SBOM attestations**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provenance od approved builder identity;`, `source repository a revision z trusted namespace;`, `build parameters bez unsafe external inputs;`, `SBOM od approved generatora;`.
-- **CRITICAL** line 307, `bare-bullet-items` — **22. Failure semantics a availability**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject digest;`, `signer/trust policy revision;`, `required attestation set;`, `verification result time;`.
-- **CRITICAL** line 361, `outline-instead-of-explanation` — **26. Kompletný production flow**: 11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **HIGH** line 16, `list-heavy-section` — **1. Čo signature dokazuje a čo nedokazuje**: 6 odrážok a iba 47 slov súvislého vysvetlenia.
-- **HIGH** line 131, `list-heavy-section` — **9. OIDC identity pri signing-u**: 6 odrážok a iba 67 slov súvislého vysvetlenia.
-- **HIGH** line 361, `term-before-explanation` — **26. Kompletný production flow**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `OIDC`, `OCI`, `identity`, `policy`
-- **HIGH** line 361, `thin-concept-section` — **26. Kompletný production flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 22, `bare-bullet-items` — **1. Exact signing subject**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a release unit;`, `OCI image index alebo platform manifest digest;`, `architecture a OS variant;`, `source revision a builder generation;`.
+- **CRITICAL** line 22, `outline-instead-of-explanation` — **1. Exact signing subject**: 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 46, `outline-instead-of-explanation` — **2. OCI graph a multi-platform contract**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 64, `bare-bullet-items` — **3. Čo signature dokazuje**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed payload nebol po podpise zmenený;`, `payload obsahuje deklarovaný subject.`, `correctness alebo review source-u;`, `isolation buildera;`.
+- **CRITICAL** line 64, `outline-instead-of-explanation` — **3. Čo signature dokazuje**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 89, `bare-bullet-items` — **4. Signing authority**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `long-lived private keyom;`, `KMS alebo HSM Sign permission;`, `short-lived keyless OIDC identity;`, `release approval workflowom;`.
+- **CRITICAL** line 120, `bare-bullet-items` — **6. Keyless Sigstore model**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OIDC issuer a presné claims;`, `Fulcio trust chain;`, `Rekor alebo bundle evidence;`, `trusted-root distribution;`.
+- **CRITICAL** line 187, `bare-bullet-items` — **10. Signer authorization generation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `certificate issuer;`, `subject/SAN identity;`, `organization a repository;`, `workflow path a reusable workflow;`.
+- **CRITICAL** line 217, `bare-bullet-items` — **12. Admission a runtime enforcement**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachytiť všetky relevantné API paths;`, `získať alebo uložiť final resolved digest;`, `overiť signature a exact subject;`, `vyhodnotiť signer a attestation policy;`.
+- **CRITICAL** line 231, `bare-bullet-items` — **13. Worked incident SEC-PAY-51**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolve-nul tag na index sha256:pay7240 ;`, `našiel platnú signature v rovnakom registry repository;`, `cache-oval allow podľa repository:tag ;`, `povolil rollout na arm64 nodes.`.
+- **CRITICAL** line 261, `bare-bullet-items` — **14. Discriminating evidence**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production Pods bežali na arm64 nodes;`, `kubelet resolved digest bol sha256:pay7240-arm ;`, `bundle payload uvádzal sha256:pay7240-amd ;`, `certificate chain, OIDC issuer a signature boli validné;`.
+- **CRITICAL** line 261, `outline-instead-of-explanation` — **14. Discriminating evidence**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 276, `bare-bullet-items` — **15. Containment a recovery**: 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `freeze signing a promotion workflow;`, `quarantine index aj obe platform manifests;`, `zablokovať nové deployments bez mazania forensic artifacts;`, `identifikovať všetky runtime a rollback references.`.
+- **CRITICAL** line 276, `outline-instead-of-explanation` — **15. Containment a recovery**: 14 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 316, `bare-bullet-items` — **17. Failure semantics**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré dependencies sú potrebné request-time;`, `čo možno bezpečne cache-ovať;`, `kedy sa deployment fail-closed;`, `ako funguje oddelený break-glass pre known-good digest;`.
+- **CRITICAL** line 316, `outline-instead-of-explanation` — **17. Failure semantics**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 328, `outline-instead-of-explanation` — **18. Signature acceptance verdict**: 11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 363, `bare-bullet-items` — **20. Earlier controls**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build-once-promote-many s digest read-backom;`, `explicitný index/platform signing contract;`, `keyless identity scoped na exact workflow a environment;`, `non-exportable key custody pre key-based signing;`.
+- **CRITICAL** line 363, `no-prose-concept` — **20. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 363, `outline-instead-of-explanation` — **20. Earlier controls**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 46, `bare-bullet-items` — **2. OCI graph a multi-platform contract**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ktoré platforms sú povolené;`, `či každá platform potrebuje vlastnú provenance a SBOM;`, `čo sa stane pri pridaní novej platformy.`.
+- **HIGH** line 64, `single-sentence-concept` — **3. Čo signature dokazuje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 120, `list-heavy-section` — **6. Keyless Sigstore model**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 187, `list-heavy-section` — **10. Signer authorization generation**: 9 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 217, `list-heavy-section` — **12. Admission a runtime enforcement**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 276, `single-sentence-concept` — **15. Containment a recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 328, `bare-bullet-items` — **18. Signature acceptance verdict**: 8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `deployment používa exact digest;`, `issuer a signer identity sú exact a authorized;`, `bundle/trust-root/time evidence sú validné;`, `required provenance a SBOM patria rovnakému subjectu;`.
+- **HIGH** line 328, `single-sentence-concept` — **18. Signature acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 344, `list-first-introduction` — **19. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 363, `list-first-introduction` — **20. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 380, `single-sentence-concept` — **Podpisujeme tag**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 384, `single-sentence-concept` — **Ľubovoľná validná signature stačí**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 388, `single-sentence-concept` — **Podpis jednej platformy schvaľuje index**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 392, `single-sentence-concept` — **Transparency log je preventive control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 396, `single-sentence-concept` — **Re-signing bez rebuild-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 400, `single-sentence-concept` — **Admission bez runtime inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 22, `term-before-explanation` — **1. Exact signing subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `OS`, `SBOM`, `policy`, `enforcement`, `scope`
+- **HIGH** line 22, `thin-concept-section` — **1. Exact signing subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 64, `thin-concept-section` — **3. Čo signature dokazuje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 261, `thin-concept-section` — **14. Discriminating evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 276, `thin-concept-section` — **15. Containment a recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 316, `thin-concept-section` — **17. Failure semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 328, `thin-concept-section` — **18. Signature acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 363, `thin-concept-section` — **20. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/kerberos.md`
 
@@ -14682,19 +14715,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2456 | 455 | 0 | 0 | 2911 |
-| `outline-instead-of-explanation` | 2466 | 0 | 0 | 0 | 2466 |
-| `term-before-explanation` | 0 | 554 | 1820 | 0 | 2374 |
-| `single-sentence-concept` | 0 | 2358 | 0 | 0 | 2358 |
-| `thin-concept-section` | 0 | 2084 | 0 | 0 | 2084 |
-| `example-not-explicit` | 0 | 0 | 0 | 2056 | 2056 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2016 | 2016 |
-| `list-first-introduction` | 0 | 1351 | 0 | 0 | 1351 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1071 | 1071 |
-| `short-concept-section` | 0 | 0 | 903 | 0 | 903 |
-| `no-prose-concept` | 784 | 0 | 0 | 0 | 784 |
+| `bare-bullet-items` | 2461 | 457 | 0 | 0 | 2918 |
+| `outline-instead-of-explanation` | 2473 | 0 | 0 | 0 | 2473 |
+| `term-before-explanation` | 0 | 554 | 1827 | 0 | 2381 |
+| `single-sentence-concept` | 0 | 2367 | 0 | 0 | 2367 |
+| `thin-concept-section` | 0 | 2090 | 0 | 0 | 2090 |
+| `example-not-explicit` | 0 | 0 | 0 | 2062 | 2062 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2023 | 2023 |
+| `list-first-introduction` | 0 | 1353 | 0 | 0 | 1353 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1062 | 1062 |
+| `short-concept-section` | 0 | 0 | 907 | 0 | 907 |
+| `no-prose-concept` | 785 | 0 | 0 | 0 | 785 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
-| `list-heavy-section` | 0 | 437 | 0 | 0 | 437 |
+| `list-heavy-section` | 0 | 438 | 0 | 0 | 438 |
 
 ## Required remediation pattern
 

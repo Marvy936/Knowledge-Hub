@@ -3405,15 +3405,15 @@
     {
       "path": "docs/13-security-and-identity/image-signing.md",
       "title": "Image signing",
-      "words": 3227,
-      "headings": 31,
-      "sections": 31,
-      "findings": 37,
-      "critical": 7,
-      "high": 4,
-      "medium": 1,
-      "low": 25,
-      "score": 148,
+      "words": 1972,
+      "headings": 30,
+      "sections": 30,
+      "findings": 85,
+      "critical": 20,
+      "high": 24,
+      "medium": 12,
+      "low": 29,
+      "score": 513,
       "grade": "D"
     },
     {
@@ -186986,305 +186986,26 @@
     },
     {
       "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "1. Čo signature dokazuje a čo nedokazuje",
-      "line": 16,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "1. Čo signature dokazuje a čo nedokazuje",
-      "line": 16,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že source code bol reviewovaný;`, `že builder bol izolovaný alebo dôveryhodný;`, `že image neobsahuje vulnerabilities alebo malware;`, `že signer mal oprávnenie podpisovať daný product;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "1. Čo signature dokazuje a čo nedokazuje",
-      "line": 16,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "1. Čo signature dokazuje a čo nedokazuje",
-      "line": 16,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "1. Čo signature dokazuje a čo nedokazuje",
-      "line": 16,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "2. OCI content-addressable identity",
-      "line": 38,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "3. Tag nie je immutable subject",
-      "line": 56,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "3. Tag nie je immutable subject",
-      "line": 56,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "4. Subject pri multi-architecture image",
-      "line": 64,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či každá platform potrebuje vlastnú provenance a SBOM;`, `či sú povolené všetky platforms v indexe;`, `ako sa spracuje nová platform pridaná do release-u.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "4. Subject pri multi-architecture image",
-      "line": 64,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "5. Základný signing flow",
-      "line": 79,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "9. OIDC identity pri signing-u",
-      "line": 131,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 67 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "9. OIDC identity pri signing-u",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected OIDC issuer;`, `certificate subject alebo SAN identity;`, `organization a repository;`, `workflow definition alebo reusable workflow identity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "9. OIDC identity pri signing-u",
-      "line": 131,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "11. Verification bundle a offline verification",
-      "line": 158,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "12. Trust roots a TUF",
-      "line": 166,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "13. Cryptographic verification oproti authorization policy",
-      "line": 176,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "14. Signing v CI/CD",
-      "line": 196,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "15. Build a signing authority",
-      "line": 217,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `builder identity podpisuje provenance;`, `security scanner vydá scan attestation;`, `protected release workflow podpisuje release approval;`, `environment-specific authority schváli promotion.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "15. Build a signing authority",
-      "line": 217,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "16. Signature oproti attestation",
-      "line": 232,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "17. Provenance a SBOM attestations",
-      "line": 242,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provenance od approved builder identity;`, `source repository a revision z trusted namespace;`, `build parameters bez unsafe external inputs;`, `SBOM od approved generatora;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "17. Provenance a SBOM attestations",
-      "line": 242,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "17. Provenance a SBOM attestations",
-      "line": 242,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "18. OCI artifacts, subject a Referrers API",
-      "line": 258,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "18. OCI artifacts, subject a Referrers API",
-      "line": 258,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "19. Registry promotion, replication a garbage collection",
-      "line": 275,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "19. Registry promotion, replication a garbage collection",
-      "line": 275,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "21. Admission verification",
-      "line": 297,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "22. Failure semantics a availability",
-      "line": 307,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject digest;`, `signer/trust policy revision;`, `required attestation set;`, `verification result time;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "22. Failure semantics a availability",
-      "line": 307,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "23. Key a identity rotation",
-      "line": 323,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "26. Kompletný production flow",
-      "line": 361,
+      "section": "1. Exact signing subject",
+      "line": 22,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "26. Kompletný production flow",
-      "line": 361,
+      "section": "1. Exact signing subject",
+      "line": 22,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a release unit;`, `OCI image index alebo platform manifest digest;`, `architecture a OS variant;`, `source revision a builder generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "1. Exact signing subject",
+      "line": 22,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187292,17 +187013,8 @@
     },
     {
       "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "26. Kompletný production flow",
-      "line": 361,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `OIDC`, `OCI`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "28. Časté anti-patterny",
-      "line": 402,
+      "section": "1. Exact signing subject",
+      "line": 22,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -187310,12 +187022,732 @@
     },
     {
       "path": "docs/13-security-and-identity/image-signing.md",
-      "section": "28. Časté anti-patterny",
-      "line": 402,
+      "section": "1. Exact signing subject",
+      "line": 22,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "1. Exact signing subject",
+      "line": 22,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `OS`, `SBOM`, `policy`, `enforcement`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ktoré platforms sú povolené;`, `či každá platform potrebuje vlastnú provenance a SBOM;`, `čo sa stane pri pridaní novej platformy.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "2. OCI graph a multi-platform contract",
+      "line": 46,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed payload nebol po podpise zmenený;`, `payload obsahuje deklarovaný subject.`, `correctness alebo review source-u;`, `isolation buildera;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "3. Čo signature dokazuje",
+      "line": 64,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "4. Signing authority",
+      "line": 89,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `long-lived private keyom;`, `KMS alebo HSM Sign permission;`, `short-lived keyless OIDC identity;`, `release approval workflowom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "4. Signing authority",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "4. Signing authority",
+      "line": 89,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "6. Keyless Sigstore model",
+      "line": 120,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "6. Keyless Sigstore model",
+      "line": 120,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OIDC issuer a presné claims;`, `Fulcio trust chain;`, `Rekor alebo bundle evidence;`, `trusted-root distribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "6. Keyless Sigstore model",
+      "line": 120,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "7. Fulcio, Rekor, bundle a TUF",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "7. Fulcio, Rekor, bundle a TUF",
+      "line": 144,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "9. OCI subject a Referrers",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "10. Signer authorization generation",
+      "line": 187,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "10. Signer authorization generation",
+      "line": 187,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `certificate issuer;`, `subject/SAN identity;`, `organization a repository;`, `workflow path a reusable workflow;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "10. Signer authorization generation",
+      "line": 187,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "10. Signer authorization generation",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "10. Signer authorization generation",
+      "line": 187,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachytiť všetky relevantné API paths;`, `získať alebo uložiť final resolved digest;`, `overiť signature a exact subject;`, `vyhodnotiť signer a attestation policy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "12. Admission a runtime enforcement",
+      "line": 217,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "13. Worked incident SEC-PAY-51",
+      "line": 231,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolve-nul tag na index sha256:pay7240 ;`, `našiel platnú signature v rovnakom registry repository;`, `cache-oval allow podľa repository:tag ;`, `povolil rollout na arm64 nodes.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "13. Worked incident SEC-PAY-51",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "13. Worked incident SEC-PAY-51",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "14. Discriminating evidence",
+      "line": 261,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "14. Discriminating evidence",
+      "line": 261,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production Pods bežali na arm64 nodes;`, `kubelet resolved digest bol sha256:pay7240-arm ;`, `bundle payload uvádzal sha256:pay7240-amd ;`, `certificate chain, OIDC issuer a signature boli validné;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "14. Discriminating evidence",
+      "line": 261,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "14. Discriminating evidence",
+      "line": 261,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "14. Discriminating evidence",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "14. Discriminating evidence",
+      "line": 261,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `freeze signing a promotion workflow;`, `quarantine index aj obe platform manifests;`, `zablokovať nové deployments bez mazania forensic artifacts;`, `identifikovať všetky runtime a rollback references.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "15. Containment a recovery",
+      "line": 276,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SBOM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "16. Rotation, revocation a quarantine",
+      "line": 300,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "17. Failure semantics",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "17. Failure semantics",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré dependencies sú potrebné request-time;`, `čo možno bezpečne cache-ovať;`, `kedy sa deployment fail-closed;`, `ako funguje oddelený break-glass pre known-good digest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "17. Failure semantics",
+      "line": 316,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "17. Failure semantics",
+      "line": 316,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "17. Failure semantics",
+      "line": 316,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `deployment používa exact digest;`, `issuer a signer identity sú exact a authorized;`, `bundle/trust-root/time evidence sú validné;`, `required provenance a SBOM patria rovnakému subjectu;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "18. Signature acceptance verdict",
+      "line": 328,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "19. Troubleshooting flow",
+      "line": 344,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build-once-promote-many s digest read-backom;`, `explicitný index/platform signing contract;`, `keyless identity scoped na exact workflow a environment;`, `non-exportable key custody pre key-based signing;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "20. Earlier controls",
+      "line": 363,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "Podpisujeme tag",
+      "line": 380,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "Ľubovoľná validná signature stačí",
+      "line": 384,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "Podpis jednej platformy schvaľuje index",
+      "line": 388,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "Transparency log je preventive control",
+      "line": 392,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "Re-signing bez rebuild-u",
+      "line": 396,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/image-signing.md",
+      "section": "Admission bez runtime inventory",
+      "line": 400,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
