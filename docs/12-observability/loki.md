@@ -1,736 +1,505 @@
 # Loki
 
-Grafana Loki je log aggregation systém navrhnutý okolo streamov identifikovaných bounded label setom. Na rozdiel od plnotextových search engine-ov typicky neindexuje celý obsah každej log line. Indexuje najmä metadata streamu a samotné log lines ukladá komprimované do chunks. Tento model môže výrazne znížiť index cost, ale vyžaduje disciplinovaný label contract a query workflow.
+Grafana Loki je log aggregation systém založený na streamoch identifikovaných tenant ID a bounded label setom. Indexuje najmä stream metadata; log content ukladá komprimovaný v chunks. Tento model môže znížiť index cost, ale presúva veľkú časť correctness do label contractu, timestampu, collector delivery, schema periods, object-store lifecycle a query scope-u.
 
-Loki nie je univerzálna databáza dokumentov, SIEM, message broker ani náhrada structured loggingu. Je to backend na ingest, retention a query log telemetry, ktorý dobre zapadá do Grafana, Prometheus a OpenTelemetry ekosystému.
+Loki nemôže nájsť log, ktorý nevznikol, collector ho neprečítal, distributor ho odmietol, ingester ho neflushol, object store ho predčasne zmazal alebo query vybrala nesprávny tenant či stream.
 
-## 1. Mentálny model
-
-```text
-application/container/system logs
-→ collector alebo agent
-→ parsing, enrichment a redaction
-→ tenant + bounded labels + timestamp + log line
-→ distributor
-→ ingestion path
-→ compressed chunks + TSDB index v object storage
-→ LogQL query
-→ query frontend/scheduler/querier
-→ Grafana Explore, dashboard alebo alert rule
-```
-
-Loki query model najprv zúži streamy podľa labels a až potom filtruje alebo parsuje obsah log lines.
-
-## 2. Log stream
-
-Log stream je množina log entries s rovnakým tenant ID a rovnakým úplným label setom.
-
-Príklad:
+## 1. Dominantný model
 
 ```text
-{service="orders-api", environment="production", cluster="eu1"}
+system alebo business occurrence
+→ collector read a record generation
+→ tenant, timestamp, bounded labels, metadata a body
+→ distributor validation a limits
+→ stream ownership a ingester acceptance
+→ WAL/chunk generation a flush
+→ TSDB index + chunk publication v object storage
+→ recent alebo historical read path
+→ LogQL selection, filtering a parsing
+→ query/rule result
+→ evidence-quality a retention verdict
+→ operational decision a recovery validation
 ```
 
-Každá zmena label value vytvára iný stream.
+Loki availability nestačí. Potrebujeme preukázať celý occurrence-to-query path pre exact tenant, stream, schema a retention generation.
 
-Log entry typicky obsahuje:
+## 2. Exact Loki subject
 
-- nanosecond timestamp,
-- textovú alebo structured log line,
-- voliteľné structured metadata,
-- stream labels,
-- tenant context.
-
-## 3. Labels
-
-Labels sú indexované metadata používané na výber streamov.
-
-Vhodné labels:
-
-- `service`,
-- `environment`,
-- `cluster`,
-- `namespace`,
-- bounded `level`,
-- `region`,
-- stabilný workload alebo component name.
-
-Rizikové labels:
-
-- request ID,
-- trace ID,
-- user ID,
-- order ID,
-- full URL,
-- exception message,
-- container ID pri nekontrolovanom churn-e,
-- filename s neobmedzeným počtom hodnôt.
-
-Label cardinality ovplyvňuje:
-
-- počet streamov,
-- index size,
-- ingester memory,
-- chunk utilization,
-- query fan-out,
-- compaction,
-- object-store operations.
-
-V Loki je zvyčajne lepšie ponechať high-cardinality field v structured log body alebo structured metadata a queryovať ho až po výbere bounded streamov.
-
-## 4. Structured metadata
-
-Structured metadata umožňuje pripojiť ku log entry key/value fields bez toho, aby sa stali stream labels.
-
-Vhodné použitie:
-
-- trace ID,
-- span ID,
-- request ID,
-- user alebo business identifier v súlade s privacy policy,
-- Kubernetes Pod identity,
-- dynamically changing attributes.
-
-Structured metadata nie je zadarmo. Stále zvyšuje payload, storage a query cost, ale nevytvára nový stream pri každej hodnote.
-
-## 5. Log body
-
-Log body má byť ideálne structured, napríklad JSON:
-
-```json
-{
-  "timestamp": "2026-07-21T20:00:00Z",
-  "level": "error",
-  "event": "payment.authorization.failed",
-  "message": "Payment provider timed out",
-  "trace_id": "...",
-  "provider": "payments-a",
-  "duration_ms": 2500,
-  "error_code": "UPSTREAM_TIMEOUT"
-}
-```
-
-Collector môže body parsovať a vybrané stabilné fields povýšiť na labels. Neindexuj automaticky každý JSON field.
-
-## 6. Loki storage model
-
-Loki ukladá dva hlavné typy dát:
-
-- **index** — mapuje label sets a časové rozsahy na chunks,
-- **chunks** — komprimované log entries konkrétneho streamu za časový interval.
-
-Moderný production model používa object storage pre index aj chunks.
-
-Aktuálna dokumentácia odporúča TSDB index store. Staršie BoltDB-based index paths sú legacy alebo deprecated a nové storage features sa sústreďujú na TSDB model.
-
-Object storage môže byť napríklad:
-
-- Amazon S3,
-- Google Cloud Storage,
-- Azure Blob Storage,
-- kompatibilný object store podľa podporovaného modelu.
-
-Filesystem backend je vhodný najmä pre lokálny development alebo jednoduché single-instance prostredie; sám neposkytuje production durability a independent recovery boundary.
-
-## 7. Schema configuration
-
-Loki schema určuje:
-
-- od ktorého dátumu platí storage schema,
-- index store,
-- object store,
-- schema version,
-- index prefix a period.
-
-Schema migration musí byť dopredne kompatibilná s existujúcimi dátami.
-
-Typický model:
+Pre Atlas Payments používame `LOKI-PAY-45`:
 
 ```text
-staršie obdobie → stará schema zostáva čitateľná
-novší dátum     → nová schema sa používa pre nové writes
+business capability: final payment settlement
+service: provider-adapter
+environment: production
+region: eu-central-1
+tenant: atlas-payments-prod
+collector generation: FB-PAY-318
+label-contract generation: LBL-PAY-27
+schema period: TSDB/v13 generation
+Loki deployment generation: LOKI-GEN-44
+object-store bucket a prefixes
+KMS/identity generation
+retention generation: 30 days
+object-store lifecycle generation
+stream label set
+structured metadata/body schema
+time window a exact LogQL query
 ```
 
-Nemeň historický `from` dátum bez migration plánu. Chybná schema configuration môže spôsobiť, že nové alebo staré logy sa javia ako chýbajúce.
+Názov služby a timestamp nestačia. Rovnaký log môže byť v inom tenantovi, stream generation, schema period alebo object-store prefixe.
+
+## 3. Oddelené stavy
+
+```text
+application zapísala line
+≠ collector ju prečítal
+≠ Loki request ju prijal
+≠ entry je durable v chunku
+≠ index ju vie lokalizovať
+≠ query ju vybrala
+```
+
+A rovnako:
+
+```text
+recent logs sú queryovateľné
+≠ historical chunks existujú
+≠ retention funguje
+≠ object-store lifecycle je kompatibilný
+```
+
+Absencia query výsledku je evidence gap, kým sa neurčí konkrétna failure boundary.
+
+## 4. Stream identity
+
+Log stream je definovaný:
+
+```text
+tenant ID + úplný label set
+```
+
+Vhodné labels sú bounded a stabilné:
+
+- service;
+- environment;
+- region/cluster;
+- namespace;
+- component;
+- bounded severity alebo workload class.
+
+Nevhodné labels:
+
+- trace/request/user/order ID;
+- full URL;
+- exception message;
+- timestamp;
+- ephemeral container ID bez controlled lifecycle-u.
+
+Každá nová label-value kombinácia vytvára nový stream. Stream explosion zvyšuje active streams, ingester memory, malé chunks, query fan-out a object-store operations.
+
+## 5. Labels, structured metadata a body
+
+### Labels
+
+Indexované, používajú sa na prvotný stream selection.
+
+### Structured metadata
+
+Per-entry fields ako trace ID, request ID alebo Pod identity, ktoré nemajú vytvoriť nový stream. Stále zvyšujú payload a query cost, ale nemenia stream identity.
+
+### Body
+
+Structured JSON alebo stabilný text/logfmt record. Parser sa aplikuje až po stream selection.
+
+```text
+bounded labels zúžia dataset
+→ line filter odstráni nezaujímavé entries
+→ parser vytvorí query fields
+→ field predicate vyberie outcome
+```
+
+Nesnaž sa emulovať document-search engine tým, že každý JSON field zmeníš na Loki label.
+
+## 6. Write path
+
+```text
+collector batch
+→ authenticated tenant gateway
+→ distributor validation
+→ rate/label/timestamp/line-size limits
+→ ring ownership a replication
+→ ingester recent state
+→ chunk build
+→ WAL/recovery state podľa konfigurácie
+→ chunk a index flush do object storage
+```
+
+HTTP success pre batch nepreukazuje, že collector nikdy nedropoval staršie records. Naopak rejection musí byť klasifikovaná:
+
+- retryable throttling alebo temporary backend failure;
+- permanent invalid labels, timestamp alebo line size;
+- tenant/auth failure;
+- stream limit/cardinality failure.
+
+Nekonečný retry permanentne invalidného batchu blokuje ďalšie logy.
+
+## 7. Storage a schema generations
+
+Loki ukladá:
+
+- **index** — label sets, time ranges a odkazy na chunks;
+- **chunks** — komprimované log entries streamu.
+
+Pre nové deploymenty je TSDB index s aktuálnou odporúčanou schema generation dominantný model. Aktuálna dokumentácia odporúča `store: tsdb` a schema `v13`; staršie BoltDB-based a multi-store paths sú legacy alebo deprecated.
+
+Schema config je časovo versionovaná:
+
+```text
+entries pred dátumom X → stará schema generation
+entries od dátumu X    → nová schema generation
+```
+
+Historické period configs sa nemenia spätne bez explicitného migration a readability testu. Chybný `from` dátum alebo object-store mapping môže vytvoriť zdanlivo chýbajúce časové obdobie.
 
 ## 8. Deployment modes
 
-Loki je zostavený z komponentov, ktoré možno spustiť v jednom procese alebo oddelene.
-
 ### Single binary
 
-Všetky hlavné roles bežia v jednom procese.
+Vhodný pre lokálny development, laby a malé prostredia. Všetky roles zdieľajú process failure domain.
 
-Vhodné pre:
+### Distributed/microservices
 
-- development,
-- laby,
-- malé prostredia,
-- jednoduchý operational model.
+Write, read a backend roles možno škálovať samostatne podľa konkrétnej verzie a architektúry.
 
-Limity:
+Simple Scalable Deployment je v aktuálnej dokumentácii deprecated a má byť odstránený pred alebo s Loki 4.0. Nový production návrh preto musí overiť aktuálne odporúčaný deployment mode, Helm chart a component targets namiesto slepého kopírovania starého `read/write/backend` layoutu.
 
-- spoločný failure domain,
-- obmedzené nezávislé scaling,
-- menšia isolation read/write paths.
-
-### Distributed alebo microservices deployment
-
-Komponenty bežia oddelene a škálujú sa podľa write, read a backend potreby.
-
-Aktuálne Loki dokumenty treba pri návrhu kontrolovať, pretože deployment modes sa vyvíjajú. Simple Scalable Deployment je v aktuálnej dokumentácii označený ako deprecated a plánovaný na odstránenie v Loki 4.0. Nový production návrh preto nemá slepo kopírovať starší `read/write/backend` chart bez overenia aktuálne odporúčaného modelu.
-
-## 9. Write path
-
-Typický write path zahŕňa:
-
-1. client alebo collector odošle batch log entries,
-2. gateway overí access a smeruje request,
-3. distributor validuje tenant, limits, labels a timestamps,
-4. hash/ring určí ingestion ownership,
-5. ingesters prijmú entries,
-6. entries sa agregujú do chunks,
-7. chunks a index blocks sa flushnú do object storage.
-
-Podľa deploymentu a verzie môžu byť medzi komponentmi ďalšie durable alebo coordination vrstvy. Pri prevádzke sa riaď aktuálnou architektúrou použitej Loki verzie.
-
-## 10. Ingester
-
-Ingester drží recent log data a vytvára chunks.
-
-Prevádzkové riziká:
-
-- memory pressure,
-- príliš veľa active streams,
-- small underutilized chunks,
-- out-of-order entries,
-- WAL alebo local-disk pressure podľa konfigurácie,
-- object-store flush failures,
-- ring membership problémy.
-
-Sleduj:
-
-- active streams,
-- ingested bytes/lines,
-- rejected entries,
-- chunk utilization,
-- flush duration/failures,
-- WAL recovery,
-- ring health.
-
-## 11. Distributor a limits
-
-Distributor môže aplikovať:
-
-- authentication/tenant resolution,
-- rate limits,
-- line-size limits,
-- label validation,
-- stream count limits,
-- timestamp age/future checks,
-- per-tenant overrides.
-
-HTTP success collectora nepreukazuje, že všetky log entries boli prijaté. Agent musí monitorovať response codes a retry/drop counters.
-
-## 12. Read path
-
-Typický read path:
+## 9. Read path
 
 ```text
 LogQL query
-→ query frontend
-→ query splitting a caching
-→ query scheduler
+→ tenant a time range
+→ query frontend split/cache/limits
+→ scheduler
 → queriers
-→ recent data z ingesters/live path
-→ historical chunks/index z object storage
-→ merge a deduplication
-→ client/Grafana
+→ recent data z ingesters
+→ historical TSDB index a chunks z object storage
+→ merge/deduplication
+→ Grafana alebo API client
 ```
 
-Query frontend môže:
+Recent a historical queries môžu zlyhať na odlišných boundaries. Recent logs závisia od live ingesters; historical logs od flushed chunks, index blocks, schema period, object-store permissions, compaction a retention.
 
-- splitovať dlhý time range,
-- paralelizovať prácu,
-- cachovať výsledky,
-- enforce-nuť limits,
-- retryovať subqueries,
-- zlučovať výsledky.
-
-Pomalý query nemusí byť problém Grafany. Môže ísť o broad stream selector, príliš dlhý časový rozsah, parser nad veľkým objemom lines, object-store latency alebo nedostatočný query parallelism.
-
-## 13. LogQL
-
-LogQL kombinuje stream selection, line filtering, parsing a metric queries nad logs.
+## 10. LogQL contract
 
 ### Stream selector
 
 ```logql
-{service="orders-api", environment="production"}
+{service="provider-adapter", environment="production", region="eu-central-1"}
 ```
-
-Selector má čo najskôr zúžiť tenant, service a environment.
 
 ### Line filter
 
 ```logql
-{service="orders-api"} |= "timeout"
+{service="provider-adapter"} |= "settlement.failed"
 ```
 
-Negatívny filter:
+### Structured parse
 
 ```logql
-{service="orders-api"} != "healthcheck"
-```
-
-Regex používaj opatrne; broad regex nad veľkým časovým rozsahom môže byť drahý.
-
-### JSON parser
-
-```logql
-{service="orders-api"} | json
-```
-
-Následný field filter:
-
-```logql
-{service="orders-api"}
+{service="provider-adapter", environment="production"}
 | json
-| level="error"
-| duration_ms > 1000
+| event="payment.settlement.completed"
+| outcome!="success"
 ```
 
-### Pattern alebo logfmt parser
-
-Použiteľný pre stabilné textové/logfmt schemas. Parser failure musí byť viditeľný; inak sa query môže ticho opierať o neexistujúce fields.
-
-### Metric query z logs
+### Log-derived metric
 
 ```logql
 sum by (service) (
-  rate({environment="production"} |= "ERROR" [5m])
+  rate({environment="production"} | json | outcome="failure" [5m])
 )
 ```
 
-Log-derived metric má odlišné completeness a cost properties než native application metric.
+Log-derived metric má source completeness, delay, sampling a parsing contract. Pre SLO denominator je native metric často autoritatívnejšia než log query.
 
-## 14. `unwrap`
+`unwrap` a parser-based quantiles vyžadujú unit, missing-field a parse-error kontrolu. Sampled alebo dropped logs nesmú byť prezentované ako kompletná latency distribution.
 
-`unwrap` umožňuje extrahovať numerickú hodnotu z parsed log field a vytvoriť range aggregation.
+## 11. Multi-tenancy a authorization
 
-Príklad:
+Tenant ID ovplyvňuje ingest, query, limits, retention, cache a storage scope. Header ako `X-Scope-OrgID` nie je security boundary, ak ho môže nedôveryhodný client ľubovoľne nastaviť.
 
-```logql
-quantile_over_time(
-  0.95,
-  {service="orders-api"}
-  | json
-  | unwrap duration_ms [5m]
-)
+Dôveryhodná gateway musí:
+
+- autentizovať clienta;
+- odvodiť alebo validovať tenant;
+- obmedziť povolené tenant values;
+- auditovať query a ingest identity;
+- izolovať cache a storage scope.
+
+Grafana folder permission sama osebe tenant isolation nevynucuje.
+
+## 12. Retention, compaction a object-store lifecycle
+
+Retention je coordinated lifecycle:
+
+```text
+retention policy
+→ compactor/delete processing
+→ index update
+→ delayed chunk deletion
+→ query behavior po retention boundary
 ```
 
-Over:
-
-- parse errors,
-- units,
-- missing fields,
-- outliers,
-- whether log sampling mení distribution.
-
-Pre SLO latency je často vhodnejší native histogram než výpočet z sampled logs.
-
-## 15. Recording a alerting rules
-
-Loki ruler môže vyhodnocovať LogQL rules.
-
-Použitie:
-
-- error pattern alert,
-- audit event detection,
-- log-derived metric recording,
-- absence/freshness signal podľa modelu.
-
-Rules majú mať:
-
-- bounded query,
-- stabilné labels,
-- ownership,
-- explicitný time window,
-- no-data semantics,
-- links na log query a runbook.
-
-Nevytváraj page alert na každú jednotlivú error log line. Alertuj na user impact, security event alebo sustained failure pattern.
-
-## 16. Multi-tenancy
-
-Loki môže oddeliť dáta podľa tenant ID.
-
-Tenant boundary ovplyvňuje:
-
-- ingestion,
-- query,
-- limits,
-- retention,
-- cache keys,
-- storage prefix,
-- authorization.
-
-Samotný `X-Scope-OrgID` header nie je security boundary, ak ho môže nedôveryhodný client voľne nastavovať. Gateway musí tenant identity odvodiť z autentizovanej identity alebo dôveryhodnej routing vrstvy.
-
-## 17. Retention a deletion
-
-Retention pri object-storage modeli typicky vykonáva Compactor alebo aktuálna maintenance vrstva.
-
-Potrebné je nakonfigurovať:
-
-- retention enablement,
-- global alebo per-tenant/per-stream periods,
-- delete delay,
-- object-store lifecycle compatibility,
-- compactor working state,
-- delete request storage podľa modelu.
-
-Object-store lifecycle policy nesmie mazať chunks alebo index skôr, než Loki retention model očakáva. Inak vzniknú index references na neexistujúce objekty alebo nečitateľné historické obdobia.
-
-Log deletion môže byť nákladná a version-specific. Pri compliance use case-e over aktuálnu podporu, scaling status a audit evidence.
-
-## 18. Compaction
-
-Compaction zlučuje index blocks a podporuje retention/deletion lifecycle.
+Object-store lifecycle musí byť dlhší a kompatibilný s Loki retention modelom. Nemá nezávisle mazať index alebo chunks skôr, než Loki ukončí ich query lifecycle.
 
 Sleduj:
 
-- compaction backlog,
-- failed operations,
-- object-store API errors,
-- working disk,
-- tenant distribution,
-- delete processing,
-- singleton alebo horizontal-scaling status podľa používanej verzie.
+- compaction a deletion backlog;
+- object-store delete actors a failures;
+- working disk;
+- schema periods;
+- per-tenant retention;
+- versioning/backup/recovery;
+- audit evidence pre compliance deletion.
 
-Experimentálne horizontálne škálovanie Compactoru nepovažuj automaticky za stabilný production default bez overenia verzie.
+Retention success nie je iba „bucket je menší“. Musí sa overiť, že allowed časové okno zostáva čitateľné a zakázané expirované obdobie už nie.
 
-## 19. Caching
+## 13. Collectors a end-to-end canary
 
-Loki môže používať caches pre:
+Loki môže prijímať logs z Fluent Bit, Grafana Alloy, OpenTelemetry Collectora alebo ďalších clients.
 
-- query results,
-- index/chunk metadata,
-- frontend results,
-- object-store reads podľa deploymentu.
+Collector vlastní:
 
-Cache ovplyvňuje latency a object-store cost, ale môže skryť backend degradation.
+- source offset/inode;
+- multiline reconstruction;
+- parsing a redaction;
+- tenant a label mapping;
+- buffering a retry;
+- timestamp;
+- permanent-failure handling.
+
+Loki nevie obnoviť line, ktorú collector nikdy neprečítal alebo zahodil.
+
+Critical canary:
+
+```text
+emit bounded canary event
+→ collector input counter
+→ collector output acknowledgement
+→ Loki accepted line
+→ recent query
+→ flushed historical query po definovanom čase
+→ retention expiry podľa policy
+```
+
+Canary identifier patrí do body/metadata, nie do unbounded labelu.
+
+## 14. Self-observability
 
 Sleduj:
 
-- hit ratio,
-- evictions,
-- memory,
-- request latency,
-- cache consistency boundaries,
-- tenant isolation,
-- stampede behavior.
+- accepted a rejected bytes/lines;
+- rejection reason;
+- active streams a chunk utilization;
+- ingester memory/WAL/flush;
+- ring health;
+- object-store operations a errors;
+- query queue, latency a bytes scanned;
+- cache hit/eviction;
+- compactor/retention backlog;
+- ruler evaluation;
+- tenant limit violations;
+- end-to-end canary latency.
 
-## 20. Log collectors
+Process readiness nepreukazuje funkčnú storage ani query path.
 
-Loki môže prijímať logs z rôznych collectors, napríklad:
+## 15. Worked failure: 30-dňová retention, logy zmiznú po siedmich dňoch
 
-- Fluent Bit,
-- Grafana Alloy,
-- OpenTelemetry Collector,
-- cloud/service integrations,
-- custom clients.
+### Symptóm
 
-Collector zodpovedá za:
+Po bezpečnostnom incidente potrebuje tím settlement logs staré 12 dní. Grafana a LogQL vracajú recent logs do siedmich dní, ale staršie obdobie je prázdne alebo obsahuje chunk-fetch errors. Loki configuration deklaruje 30-dňovú retention a Compactor je healthy, preto prvý verdict znie „logy nikdy neboli ingestované“.
 
-- source read position,
-- multiline reconstruction,
-- parsing,
-- Kubernetes metadata,
-- redaction,
-- buffering,
-- retries,
-- tenant a label mapping.
-
-Loki backend nevie obnoviť log lines, ktoré collector nikdy neprečítal alebo dropol.
-
-## 21. Kubernetes deployment
-
-Typický model:
+### Exact subject
 
 ```text
-container stdout/stderr
-→ CRI log files na Node
-→ DaemonSet collector
-→ Loki gateway/distributor
-→ object storage
-→ Grafana
+subject: LOKI-PAY-45
+tenant: atlas-payments-prod
+stream: service=provider-adapter, environment=production
+schema: TSDB/v13 period
+retention generation: RET-30D-18
+object-store lifecycle generation: S3-LC-7D-04
+chunk prefix: loki/chunks/
+index prefix: loki/index/
+query window: incident -12d až -11d
 ```
 
-Dôležité boundaries:
+### Competing hypotheses
 
-- hostPath access ku container log files,
-- position database,
-- log rotation,
-- multiline,
-- Kubernetes metadata API/RBAC,
-- namespace/tenant mapping,
-- collector resource limits,
-- network policy,
-- object-store identity.
+1. collector vtedy nebežal alebo stratil offsets;
+2. query používa nesprávny tenant, timezone alebo labels;
+3. timestamp parser uložil entries mimo okna;
+4. schema migration vytvorila nečitateľný period;
+5. Compactor zmazal dáta podľa Loki retention;
+6. object-store lifecycle zmazal chunks predčasne;
+7. KMS alebo bucket permissions blokujú historical read;
+8. query cache vracia stale empty result.
 
-Pod logs v `kubectl logs` môžu existovať, zatiaľ čo Loki ich nemá, ak collector tail path, permissions alebo position state zlyhali.
-
-## 22. Security a privacy
-
-Logs môžu obsahovať:
-
-- credentials,
-- tokens,
-- personal data,
-- request/response bodies,
-- SQL queries,
-- internal topology,
-- source code paths,
-- prompt/model inputs.
-
-Controls:
-
-- producer-side minimization,
-- collector redaction,
-- TLS,
-- authenticated tenant gateway,
-- object-store encryption,
-- least privilege,
-- query audit,
-- retention a deletion,
-- data residency,
-- separate audit-log boundary.
-
-Redaction iba v Grafana UI je neskoro.
-
-## 23. Self-monitoring
-
-Monitoruj Loki ako kritickú platformu:
-
-- ingestion request rate/errors,
-- accepted/rejected bytes a lines,
-- active streams,
-- chunk flush latency/errors,
-- object-store requests/errors,
-- query rate/latency/errors,
-- scheduler queues,
-- cache hit ratio,
-- compaction/retention backlog,
-- ruler evaluation,
-- ring health,
-- process CPU/memory/GC,
-- tenant limit violations.
-
-Doplň synthetic log:
+### Discriminating evidence
 
 ```text
-periodicky emitni unikátny bounded canary event
-→ over collector ingest
-→ over Loki query availability
-→ over end-to-end latency
+recent ingest a query: healthy
+historický TSDB index period: existuje
+index references: obsahujú očakávané stream/chunk ranges
+chunk GET: object-not-found pre >7d objects
+Compactor retention: 30d, bez delete action pre affected range
+object-store audit: lifecycle expiration actor
+bucket rule: chunks prefix expire after 7d
+index prefix: 30d
 ```
 
-Canary ID nesmie byť label s neobmedzenou cardinality.
-
-## 24. Troubleshooting: chýbajúce logy
+Mechanizmus:
 
 ```text
-source log reálne vznikol?
-→ správny Node/container/file?
-→ collector tail path a permissions?
-→ position database?
-→ rotation/inode behavior?
-→ multiline/parser/filter drop?
-→ tag/route/output match?
-→ Loki response code a retry?
-→ tenant ID?
-→ labels a timestamp validity?
+Loki publikuje index a chunks
+→ queryable retention očakáva 30 dní
+→ nezávislá bucket lifecycle rule maže chunks po 7 dňoch
+→ index ešte odkazuje na neexistujúce objects
+→ recent path zostáva healthy
+→ historical query zlyhá alebo vráti incomplete evidence
+→ declared retention je false
+```
+
+### Containment
+
+- zastaviť alebo opraviť destructive object-store lifecycle rule;
+- zachovať bucket configuration, audit logs, index blocks a missing-object manifest;
+- označiť affected obdobie ako incomplete evidence;
+- nevymazávať index blocks ani „resetovať“ schema;
+- chrániť audit/security logs samostatnou retention boundary.
+
+### Authoritative recovery
+
+1. zistiť, či object versioning, replication alebo backup zachoval deleted chunks;
+2. obnoviť presné object versions do očakávaných keys/prefixu;
+3. ak obnova nie je možná, explicitne uzavrieť obdobie ako unrecoverable evidence loss — nie predstierať, že query fix dáta vráti;
+4. zosúladiť bucket lifecycle s Loki Compactor retention a delete delay;
+5. overiť index/chunk readability na canary time slices;
+6. pridať synthetic aged-log canary a object-existence audit;
+7. testovať retention transition aj pri ďalšom schema period-e.
+
+### Loki acceptance verdict
+
+Recovery alebo corrected control je prijatý, keď:
+
+- log starý 8, 15 a 29 dní je queryovateľný podľa policy;
+- recent aj historical path vracajú rovnaký canary event;
+- object lifecycle nemaže allowed chunks ani index;
+- po 30-dňovej hranici expirovaný canary nie je queryovateľný;
+- tenant isolation a KMS permissions zostávajú správne;
+- object-store audit neukazuje forbidden early deletes;
+- druhý Compactor cycle a schema lookup zachovajú výsledok.
+
+## 16. Troubleshooting model
+
+### Chýbajúce logy
+
+```text
+occurrence vznikol?
+→ source file/socket?
+→ collector offset/parser/filter?
+→ tenant/labels/timestamp?
+→ distributor response a limits?
+→ ingester/WAL/chunk flush?
 → schema/object store?
-→ správny LogQL selector/timezone?
+→ query tenant/selector/timezone?
 ```
 
-Zachovaj sample line, timestamp, source file inode, collector metrics/logs, batch response a exact query.
+### Recent áno, historical nie
 
-## 25. Troubleshooting: query je pomalý
+```text
+chunk flush
+→ TSDB index period
+→ object existence a KMS
+→ compactor
+→ retention
+→ object-store lifecycle
+→ historical query path/cache
+```
 
-Over:
+### Historical áno, recent nie
 
-- tenant a time range,
-- stream selector selectivity,
-- regex/line filters,
-- parser a `unwrap`,
-- bytes scanned,
-- query splitting,
-- querier concurrency,
-- scheduler queue,
-- cache,
-- object-store latency,
-- active streams/cardinality,
-- Grafana query interval.
+```text
+collector current ingest
+→ distributor/limits
+→ ring/ingester ownership
+→ recent-data query path
+→ clock skew
+```
 
-Najprv zúž selector a time range. Nepridávaj queriers bez pochopenia, či bottleneckom nie je object store alebo extrémny stream fan-out.
+### Pomalý query
 
-## 26. Troubleshooting: rejected entries
+```text
+tenant/time range
+→ stream-selector cardinality
+→ parser/regex/unwrap
+→ bytes scanned a splitting
+→ scheduler/queriers
+→ object-store/cache
+```
 
-Bežné príčiny:
+## 17. Anti-patterny
 
-- ingestion rate limit,
-- stream limit,
-- príliš dlhá line,
-- príliš veľa labels,
-- invalid label name/value,
-- timestamp príliš starý alebo v budúcnosti,
-- out-of-order policy,
-- tenant authentication,
-- request size.
+### Request ID ako label
 
-Collector musí rozlišovať retryable a permanent errors. Nekonečný retry permanentne invalidného batchu blokuje queue.
+Vytvorí prakticky stream per request.
 
-## 27. Troubleshooting: vysoká cardinality
+### Broad 30-dňový selector bez bounded service labels
 
-Symptómy:
+Zvyšuje stream a chunk fan-out.
 
-- rast active streams,
-- ingester memory,
-- malé chunks,
-- pomalé queries,
-- index/object-store cost,
-- stream-limit rejections.
+### Object-store lifecycle mimo Loki retention authority
 
-Postup:
+Môže zničiť allowed evidence.
 
-1. identifikuj label names s najväčším počtom values,
-2. nájdi producer alebo collector mapping,
-3. presuň dynamic field do structured metadata/body,
-4. rollout-ni zmenu,
-5. počkaj na lifecycle starých streamov,
-6. over chunk utilization a query latency.
+### Recent query ako retention test
 
-Odstránenie labelu z nových logs okamžite neodstráni historické streamy.
+Neoverí flush, historical index ani object-store path.
 
-## 28. Troubleshooting: recent logs existujú, historical nie
+### Collector success ako completeness proof
 
-Over:
+Collector mohol pred exportom dropovať alebo parsovať nesprávne.
 
-- chunk flush,
-- object-store writes,
-- schema period,
-- index gateway/cache,
-- compactor,
-- object-store lifecycle,
-- retention,
-- permissions/KMS,
-- query time range.
+### Audit logs v rovnakom tenant/access boundary
 
-## 29. Troubleshooting: historical logs existujú, recent nie
+Compromise application observability môže poškodiť aj security evidence.
 
-Over:
+## 18. Kontrolné otázky
 
-- distributor/ingester health,
-- ring ownership,
-- recent-data query path,
-- collector ingest,
-- current tenant limits,
-- clock skew.
-
-## 30. Loki oproti Elasticsearch/OpenSearch
-
-### Loki
-
-Silné stránky:
-
-- label-based index,
-- object-storage-first model,
-- integrácia s Grafana/Prometheus,
-- efektívny cost pri disciplinovaných labels,
-- LogQL a log-derived metrics.
-
-### Elasticsearch/OpenSearch
-
-Silné stránky:
-
-- indexovanie document fields,
-- full-text search,
-- komplexné aggregations,
-- širší search/analytics use case,
-- mature document mapping a search semantics.
-
-Voľba závisí od:
-
-- query patterns,
-- field search požiadaviek,
-- ingestion volume,
-- retention,
-- operational skillset,
-- compliance,
-- cost,
-- ecosystem integrations.
-
-Nesnaž sa emulovať Elasticsearch tým, že každý field spravíš Loki labelom.
-
-## 31. Anti-patterny
-
-### High-cardinality labels
-
-Request alebo user identity vytvára stream explosion.
-
-### Broad selector `{environment="production"}` na 30 dní
-
-Query skenuje veľký počet streams a chunks.
-
-### Parser v každom dashboard paneli nad raw JSON
-
-Opakované drahé parsing; zváž stabilnejšiu schema, derived metric alebo recording rule.
-
-### Object-store lifecycle nezávislý od Loki retention
-
-Môže mazať dáta pred indexom alebo opačne.
-
-### Collector bez filesystem bufferu pri kritických logs
-
-Backend outage môže viesť k strate podľa input semantics.
-
-### Audit logs v rovnakom tenante a access modeli ako application logs
-
-Compromise workloadu alebo broad user access poškodí evidence boundary.
-
-### Single binary s local filesystemom označený ako HA
-
-Nemá independent replicas ani durable object-store recovery.
-
-## 32. Kontrolné otázky
-
-1. Čo Loki indexuje a čo ukladá do chunks?
-2. Ako label set vytvára log stream?
-3. Prečo trace ID nepatrí medzi bežné Loki labels?
-4. Na čo slúži structured metadata?
-5. Ako funguje write a read path?
-6. Prečo je TSDB index store aktuálne preferovaný?
-7. Ako schema periods ovplyvňujú upgrade?
-8. Ako sa líši LogQL stream selector, line filter a parser?
-9. Čo rieši Compactor?
-10. Ako multi-tenancy súvisí s autentizáciou?
-11. Ako diagnostikuješ chýbajúce logs?
-12. Kedy je vhodnejší Elasticsearch alebo OpenSearch?
+1. Čo tvorí exact Loki subject?
+2. Ako tenant a label set definujú stream?
+3. Prečo trace ID patrí skôr do structured metadata než labels?
+4. Aký je rozdiel medzi indexom a chunkom?
+5. Ako sa líši recent a historical read path?
+6. Prečo je TSDB/v13 aktuálny odporúčaný storage model?
+7. Ako schema periods umožňujú doprednú migration?
+8. Prečo Simple Scalable Deployment nemožno považovať za nový default?
+9. Ako object-store lifecycle môže porušiť Loki retention?
+10. Prečo log-derived metric nemusí byť SLO autorita?
+11. Ako diagnostikuješ missing logs bez zamieňania no-data za neprítomnosť occurrence-u?
+12. Ako overíš retention end-to-end?
 
 ## Glossary impact
 
-Relevantné pojmy: Loki, log stream, stream selector, Loki labels, structured metadata, chunk, TSDB index store, schema period, distributor, ingester, query frontend, query scheduler, querier, LogQL, line filter, parser, `unwrap`, Loki ruler, tenant ID, Compactor, Loki retention, active stream, chunk utilization a log canary.
+Relevantné pojmy: Loki subject, log-stream identity, label-contract generation, structured-metadata boundary, Loki entry acceptance, chunk generation, TSDB schema period, recent-log path, historical-log path, Loki retention generation, object-store lifecycle mismatch, aged-log canary, Loki evidence-completeness verdict a Loki acceptance verdict.
 
 ## Primárne zdroje
 
 - [Loki architecture](https://grafana.com/docs/loki/latest/get-started/architecture/)
-- [Loki storage](https://grafana.com/docs/loki/latest/operations/storage/)
-- [Configure Loki storage](https://grafana.com/docs/loki/latest/configure/storage/)
-- [LogQL](https://grafana.com/docs/loki/latest/query/)
-- [Loki components](https://grafana.com/docs/loki/latest/get-started/components/)
 - [Loki deployment modes](https://grafana.com/docs/loki/latest/get-started/deployment-modes/)
+- [Loki storage](https://grafana.com/docs/loki/latest/configure/storage/)
+- [Loki storage schema](https://grafana.com/docs/loki/latest/operations/storage/schema/)
+- [Loki TSDB](https://grafana.com/docs/loki/latest/operations/storage/tsdb/)
+- [LogQL](https://grafana.com/docs/loki/latest/query/)
 - [Loki retention](https://grafana.com/docs/loki/latest/operations/storage/retention/)
 - [Loki limits](https://grafana.com/docs/loki/latest/operations/request-validation-rate-limits/)
 
