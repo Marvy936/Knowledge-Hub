@@ -3391,15 +3391,15 @@
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
       "title": "IAM a RBAC",
-      "words": 1181,
-      "headings": 39,
-      "sections": 39,
-      "findings": 115,
-      "critical": 44,
-      "high": 54,
-      "medium": 14,
-      "low": 3,
-      "score": 1001,
+      "words": 2259,
+      "headings": 46,
+      "sections": 46,
+      "findings": 101,
+      "critical": 27,
+      "high": 46,
+      "medium": 9,
+      "low": 19,
+      "score": 747,
       "grade": "D"
     },
     {
@@ -186320,8 +186320,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186329,8 +186329,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -186338,8 +186338,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "2. IAM capabilities",
-      "line": 24,
+      "section": "2. Exact IAM/RBAC subject",
+      "line": 32,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186347,35 +186347,35 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "2. IAM capabilities",
-      "line": 24,
+      "section": "3. IAM capability map",
+      "line": 58,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "2. IAM capabilities",
-      "line": 24,
+      "section": "3. IAM capability map",
+      "line": 58,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity repository alebo integráciu na authoritative source,`, `account provisioning a deprovisioning,`, `credential a authenticator lifecycle,`, `authentication a MFA,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative identity source a identity proofing;`, `account provisioning/deprovisioning;`, `authenticator a credential lifecycle;`, `authentication a session management;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "2. IAM capabilities",
-      "line": 24,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "3. IAM capability map",
+      "line": 58,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "2. IAM capabilities",
-      "line": 24,
+      "section": "3. IAM capability map",
+      "line": 58,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -186383,53 +186383,44 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "2. IAM capabilities",
-      "line": 24,
-      "severity": "medium",
+      "section": "3. IAM capability map",
+      "line": 58,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "3. IAM capability map",
+      "line": 58,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `identity`, `workload`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `identity`, `workload`, `policy`, `enforcement`",
+      "score": 7
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "3. Authoritative source",
-      "line": 42,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "3. Authoritative source",
-      "line": 42,
-      "severity": "critical",
+      "section": "4. Authoritative source a desired state",
+      "line": 76,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HR systém pre zamestnancov,`, `customer identity store,`, `cloud account inventory,`, `Kubernetes API pre ServiceAccounts,`.",
-      "score": 12
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `contractor registry — sponsor a expiration;`, `customer identity store — customer account state;`, `cloud inventory — account/resource ownership;`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "3. Authoritative source",
-      "line": 42,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "4. Authoritative source a desired state",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "3. Authoritative source",
-      "line": 42,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `API`, `CMDB`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "4. Joiner, mover, leaver",
-      "line": 56,
+      "section": "5. Joiner, mover a leaver",
+      "line": 101,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -186438,205 +186429,25 @@
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
       "section": "Joiner",
-      "line": 58,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Joiner",
-      "line": 58,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Joiner",
-      "line": 58,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Joiner",
-      "line": 58,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity proofing,`, `account creation,`, `baseline access,`, `authenticator enrollment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Joiner",
-      "line": 58,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Joiner",
-      "line": 58,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Mover",
-      "line": 66,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Mover",
-      "line": 66,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Mover",
-      "line": 66,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Mover",
-      "line": 66,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena tímu alebo pozície,`, `odstránenie starých roles,`, `pridanie nových permissions,`, `conflict/separation-of-duties check.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Mover",
-      "line": 66,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Leaver",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Leaver",
-      "line": 73,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Leaver",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Leaver",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disable account,`, `revoke sessions/tokens,`, `remove role/group membership,`, `rotate shared dependencies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Leaver",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Leaver",
-      "line": 73,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "5. RBAC model",
-      "line": 84,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "5. RBAC model",
-      "line": 84,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "5. RBAC model",
-      "line": 84,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `users alebo principals,`, `roles,`, `permissions,`, `role assignments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "5. RBAC model",
-      "line": 84,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "6. Flat a hierarchical RBAC",
       "line": 103,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Flat RBAC",
-      "line": 105,
+      "section": "Mover",
+      "line": 116,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Leaver",
+      "line": 130,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186644,53 +186455,35 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Flat RBAC",
-      "line": 105,
+      "section": "Leaver",
+      "line": 130,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `jednoduchšia interpretácia,`, `menšie riziko transitive privilege.`, `duplicita permissions.`.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Flat RBAC",
-      "line": 105,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Hierarchical RBAC",
-      "line": 118,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Hierarchical RBAC",
-      "line": 118,
+      "section": "6. Entitlement catalog",
+      "line": 144,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Hierarchical RBAC",
-      "line": 118,
+      "section": "6. Entitlement catalog",
+      "line": 144,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reuse,`, `model organizačnej hierarchie.`, `neviditeľné effective permissions,`, `role explosion alebo príliš broad parent role,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable ID a purpose;`, `required business task;`, `actions a resource scope;`, `environment/data classification;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Hierarchical RBAC",
-      "line": 118,
+      "section": "6. Entitlement catalog",
+      "line": 144,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -186698,80 +186491,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "7. Static a dynamic separation of duties",
-      "line": 133,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Static SoD",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Static SoD",
-      "line": 135,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvoriť vendor účet,`, `schváliť platbu tomu istému vendorovi.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Static SoD",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "8. Role engineering",
-      "line": 150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "8. Role engineering",
-      "line": 150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "8. Role engineering",
-      "line": 150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory operations,`, `mapovanie na resource scopes,`, `zoskupenie podľa job function,`, `oddelenie common a privileged capabilities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "8. Role engineering",
-      "line": 150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "8. Role engineering",
-      "line": 150,
+      "section": "6. Entitlement catalog",
+      "line": 144,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -186779,17 +186500,71 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "6. Entitlement catalog",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "6. Entitlement catalog",
+      "line": 144,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `JIT`, `resource`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
       "section": "8. Role engineering",
-      "line": 150,
+      "line": 185,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "8. Role engineering",
+      "line": 185,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "8. Role engineering",
+      "line": 185,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose;`, `permissions a scope;`, `ownera;`, `eligible principals;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "8. Role engineering",
+      "line": 185,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "8. Role engineering",
+      "line": 185,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "9. Role explosion",
-      "line": 176,
+      "section": "9. Role explosion a composability",
+      "line": 213,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186797,26 +186572,26 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "9. Role explosion",
-      "line": 176,
+      "section": "9. Role explosion a composability",
+      "line": 213,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "9. Role explosion",
-      "line": 176,
+      "section": "9. Role explosion a composability",
+      "line": 213,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `composable roles,`, `resource scope v assignment-e,`, `ABAC conditions,`, `group-based assignment,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base capability roles plus resource-scoped assignments;`, `JIT activation;`, `trusted ABAC conditions;`, `standardized entitlement catalog;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "9. Role explosion",
-      "line": 176,
+      "section": "9. Role explosion a composability",
+      "line": 213,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -186824,143 +186599,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "9. Role explosion",
-      "line": 176,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ABAC`, `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "10. RBAC a ABAC",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `principal attributes,`, `resource tags,`, `environment,`, `tenant,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "10. RBAC a ABAC",
-      "line": 195,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "10. RBAC a ABAC",
-      "line": 195,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "11. Group-based access",
-      "line": 216,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "11. Group-based access",
-      "line": 216,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "11. Group-based access",
-      "line": 216,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nested membership,`, `propagation delay,`, `circular alebo transitive access,`, `stale memberships,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "11. Group-based access",
-      "line": 216,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "12. Resource roles oproti directory roles",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "12. Resource roles oproti directory roles",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity/directory administration,`, `cloud/resource administration,`, `application role,`, `data-plane permission.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "12. Resource roles oproti directory roles",
-      "line": 232,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "12. Resource roles oproti directory roles",
-      "line": 232,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "13. Kubernetes RBAC",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "13. Kubernetes RBAC",
-      "line": 243,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Role — namespaced permissions,`, `RoleBinding — bind v namespace,`, `ClusterRoleBinding — bind cluster-wide.`, `API groups,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "13. Kubernetes RBAC",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "13. Kubernetes RBAC",
-      "line": 243,
+      "section": "9. Role explosion a composability",
+      "line": 213,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -186968,17 +186608,17 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "13. Kubernetes RBAC",
-      "line": 243,
+      "section": "9. Role explosion a composability",
+      "line": 213,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `resource`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "14. Kubernetes privilege escalation",
-      "line": 262,
+      "section": "11. Groups a nested effective access",
+      "line": 248,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -186986,26 +186626,26 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "14. Kubernetes privilege escalation",
-      "line": 262,
+      "section": "11. Groups a nested effective access",
+      "line": 248,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "14. Kubernetes privilege escalation",
-      "line": 262,
+      "section": "11. Groups a nested effective access",
+      "line": 248,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `create/update Roles alebo RoleBindings,`, `bind alebo escalate verbs,`, `impersonate,`, `create Pods s privileged settings,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale membership;`, `circular alebo veľmi hlboké nesting;`, `propagation delay;`, `cross-domain group mapping;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "14. Kubernetes privilege escalation",
-      "line": 262,
+      "section": "11. Groups a nested effective access",
+      "line": 248,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187013,8 +186653,17 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "15. Cloud IAM policy model",
-      "line": 278,
+      "section": "12. Separation of duties",
+      "line": 273,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Static SoD",
+      "line": 275,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187022,26 +186671,98 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "15. Cloud IAM policy model",
-      "line": 278,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "13. Kubernetes RBAC semantics",
+      "line": 285,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 64 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "15. Cloud IAM policy model",
-      "line": 278,
+      "section": "13. Kubernetes RBAC semantics",
+      "line": 285,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Role — namespaced rules;`, `ClusterRoleBinding — cluster-wide assignment.`, `create/patch RBAC objects;`, `create workloads, exec/attach a select ServiceAccounts;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "13. Kubernetes RBAC semantics",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "13. Kubernetes RBAC semantics",
+      "line": 285,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "14. Cloud a application policy planes",
+      "line": 311,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "14. Cloud a application policy planes",
+      "line": 311,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity policies,`, `resource policies,`, `role trust policy,`, `organization guardrails,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity policy;`, `resource policy;`, `role trust policy;`, `organization guardrail;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "15. Cloud IAM policy model",
-      "line": 278,
+      "section": "14. Cloud a application policy planes",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "14. Cloud a application policy planes",
+      "line": 311,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "16. Policy as code a reconciliation",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "16. Policy as code a reconciliation",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version-controlled;`, `reviewed ownerom a security policy;`, `schema/lint validované;`, `analyzované na wildcard a escalation paths;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "16. Policy as code a reconciliation",
+      "line": 345,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187049,44 +186770,152 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "15. Cloud IAM policy model",
-      "line": 278,
+      "section": "16. Policy as code a reconciliation",
+      "line": 345,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "18. Worked incident: add-only mover sync ponechal production access",
+      "line": 391,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Desired organizational state",
+      "line": 393,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Effective graph po sync-e",
+      "line": 404,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HR source neobsahoval mover zmenu;`, `entitlement catalog zámerne povoľoval Finance Analytics production acc`, `direct Kubernetes binding bol vytvorený ručne;`, `nested group path prežil add-only sync;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Competing hypotheses",
+      "line": 419,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `resource`, `policy`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "16. Policy as code",
-      "line": 293,
+      "section": "Discriminating evidence",
+      "line": 430,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "16. Policy as code",
-      "line": 293,
+      "section": "Evidence-preserving containment",
+      "line": 450,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Evidence-preserving containment",
+      "line": 450,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Evidence-preserving containment",
+      "line": 450,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "16. Policy as code",
-      "line": 293,
-      "severity": "critical",
+      "section": "Evidence-preserving containment",
+      "line": 450,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version-controlled,`, `reviewovaná,`, `staticky analyzovaná,`, `testovaná positive/negative cases,`.",
-      "score": 12
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `suspend principal a revoke-nuť sessions/tokens;`, `freeze manual IAM/RBAC edits počas reconstruction;`, `vyhodnotiť ďalších principals používajúcich rovnaký nested path;`, `neodstrániť celý group graph bez impact analýzy;`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "16. Policy as code",
-      "line": 293,
+      "section": "Evidence-preserving containment",
+      "line": 450,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187094,35 +186923,62 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "17. Access request a approval",
-      "line": 313,
+      "section": "Evidence-preserving containment",
+      "line": 450,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Evidence-preserving containment",
+      "line": 450,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `RBAC`, `HR`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Authoritative recovery",
+      "line": 460,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Authoritative recovery",
+      "line": 460,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "17. Access request a approval",
-      "line": 313,
+      "section": "Authoritative recovery",
+      "line": 460,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "17. Access request a approval",
-      "line": 313,
-      "severity": "critical",
+      "section": "Authoritative recovery",
+      "line": 460,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requester a beneficiary,`, `resource a role,`, `business reason,`, `duration,`.",
-      "score": 12
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `definovať ownera každého nested group edge-u;`, `revoke-nuť privileged sessions po entitlement removal-e;`, `splitnúť payments-prod-operator na mediated JIT task capabilities;`, `odstrániť human Secret a arbitrary workload access;`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "17. Access request a approval",
-      "line": 313,
+      "section": "Authoritative recovery",
+      "line": 460,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187130,8 +186986,143 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "17. Access request a approval",
-      "line": 313,
+      "section": "Authoritative recovery",
+      "line": 460,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Authoritative recovery",
+      "line": 460,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Authoritative recovery",
+      "line": 460,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `workload`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `required Finance Analytics access funguje;`, `approved JIT Payments operator dostane iba intended capability;`, `second reconciliation neznovu-vytvorí stale edge;`, `affected peer identities z legacy-shared-operations boli vyhodnotené;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Acceptance verdict",
+      "line": 471,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `JIT`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "19. Access request, approval a PAM",
+      "line": 486,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "19. Access request, approval a PAM",
+      "line": 486,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requester a beneficiary;`, `exact entitlement/resource;`, `business task a reason;`, `environment/tenant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "19. Access request, approval a PAM",
+      "line": 486,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "19. Access request, approval a PAM",
+      "line": 486,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "19. Access request, approval a PAM",
+      "line": 486,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
@@ -187139,8 +187130,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "18. Privileged Access Management",
-      "line": 328,
+      "section": "20. Troubleshooting IAM/RBAC deny",
+      "line": 502,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187148,98 +187139,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "18. Privileged Access Management",
-      "line": 328,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "18. Privileged Access Management",
-      "line": 328,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eligible role,`, `JIT activation,`, `MFA,`, `approval,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "18. Privileged Access Management",
-      "line": 328,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "18. Privileged Access Management",
-      "line": 328,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `MFA`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "19. Workload IAM",
-      "line": 344,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "19. Workload IAM",
-      "line": 344,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "19. Workload IAM",
-      "line": 344,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `purpose,`, `environment,`, `credential type,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "19. Workload IAM",
-      "line": 344,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "20. Audit a explainability",
-      "line": 360,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "21. Troubleshooting RBAC deny",
-      "line": 376,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "21. Troubleshooting RBAC deny",
-      "line": 376,
+      "section": "20. Troubleshooting IAM/RBAC deny",
+      "line": 502,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -187247,8 +187148,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "22. Troubleshooting excessive permission",
-      "line": 399,
+      "section": "21. Troubleshooting excessive access",
+      "line": 527,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187256,53 +187157,17 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "22. Troubleshooting excessive permission",
-      "line": 399,
+      "section": "21. Troubleshooting excessive access",
+      "line": 527,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "22. Troubleshooting excessive permission",
-      "line": 399,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "22. Troubleshooting excessive permission",
-      "line": 399,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct assignments,`, `nested groups,`, `inherited roles,`, `wildcard actions/resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "22. Troubleshooting excessive permission",
-      "line": 399,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "22. Troubleshooting excessive permission",
-      "line": 399,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`, `identity`",
-      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
       "section": "IAM = login page",
-      "line": 415,
+      "line": 546,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187310,8 +187175,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Role podľa mena človeka",
-      "line": 419,
+      "section": "Mover = add new role",
+      "line": 550,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187319,8 +187184,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Jedna admin role pre automation",
-      "line": 423,
+      "section": "Role podľa človeka",
+      "line": 554,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187328,8 +187193,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Group nesting bez limitu",
-      "line": 427,
+      "section": "Nested groups bez explainability",
+      "line": 558,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187337,8 +187202,8 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Kubernetes cluster-admin ako troubleshooting fix",
-      "line": 431,
+      "section": "cluster-admin ako fix",
+      "line": 562,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187346,8 +187211,17 @@
     },
     {
       "path": "docs/13-security-and-identity/iam-rbac.md",
-      "section": "Role count ako maturity metric",
-      "line": 435,
+      "section": "ABAC s user-writable attributes",
+      "line": 566,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/iam-rbac.md",
+      "section": "Source policy update bez runtime testu",
+      "line": 570,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
