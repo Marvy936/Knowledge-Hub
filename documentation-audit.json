@@ -3517,15 +3517,15 @@
     {
       "path": "docs/13-security-and-identity/sbom.md",
       "title": "SBOM",
-      "words": 4648,
-      "headings": 47,
-      "sections": 47,
-      "findings": 85,
-      "critical": 10,
-      "high": 9,
-      "medium": 8,
-      "low": 58,
-      "score": 293,
+      "words": 2458,
+      "headings": 37,
+      "sections": 37,
+      "findings": 114,
+      "critical": 27,
+      "high": 31,
+      "medium": 17,
+      "low": 39,
+      "score": 680,
       "grade": "D"
     },
     {
@@ -192512,521 +192512,26 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "1. Problém, ktorý SBOM rieši",
-      "line": 18,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "1. Problém, ktorý SBOM rieši",
-      "line": 18,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "2. Subject identity je základ celého modelu",
-      "line": 26,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "2. Subject identity je základ celého modelu",
-      "line": 26,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "3. SBOM nie je jeden univerzálny inventory snapshot",
-      "line": 42,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "3. SBOM nie je jeden univerzálny inventory snapshot",
-      "line": 42,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "4. Producer, distributor a consumer",
-      "line": 56,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "5. Minimálny dátový contract",
-      "line": 66,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "5. Minimálny dátový contract",
-      "line": 66,
+      "section": "1. Exact SBOM subject",
+      "line": 20,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity SBOM dokumentu a jeho specification version;`, `creator alebo tool identity a creation timestamp;`, `jednoznačná identity primary subjectu;`, `ecosystem-specific identifiers, napríklad Package URL;`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "5. Minimálny dátový contract",
-      "line": 66,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "5. Minimálny dátový contract",
-      "line": 66,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "5. Minimálny dátový contract",
-      "line": 66,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "5. Minimálny dátový contract",
-      "line": 66,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "6. SPDX 3.0.1 mentálny model",
-      "line": 85,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "8. CycloneDX 1.7 mentálny model",
-      "line": 108,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "8. CycloneDX 1.7 mentálny model",
-      "line": 108,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "9. Výber medzi SPDX a CycloneDX",
-      "line": 118,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "9. Výber medzi SPDX a CycloneDX",
-      "line": 118,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aký format a version vyžaduje consumer alebo contract;`, `ktoré generators vytvárajú kvalitné outputy pre daný ecosystem;`, `či registry, procurement a vulnerability tools zachovajú relationships`, `ako sa dokument signuje, distribuuje a dlhodobo archivuje;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "9. Výber medzi SPDX a CycloneDX",
-      "line": 118,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "10. Component identity nie je iba name a version",
-      "line": 133,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "12. CPE a product matching",
-      "line": 169,
+      "section": "1. Exact SBOM subject",
+      "line": 20,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepresné vendor alebo product names;`, `rozdielne naming conventions medzi supplierom a NVD;`, `distributions s backported patches;`, `version ranges, ktoré nezodpovedajú package-manager semantics;`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OCI image index alebo platform manifest digest;`, `package archive hash;`, `firmware alebo VM image digest;`, `source repository a exact revision pre source SBOM;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "12. CPE a product matching",
-      "line": 169,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "12. CPE a product matching",
-      "line": 169,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "12. CPE a product matching",
-      "line": 169,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NVD`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "13. Cryptographic hashes",
-      "line": 183,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "13. Cryptographic hashes",
-      "line": 183,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "14. Dependency a containment relationships",
-      "line": 193,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 50 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "14. Dependency a containment relationships",
-      "line": 193,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "14. Dependency a containment relationships",
-      "line": 193,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "14. Dependency a containment relationships",
-      "line": 193,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "15. Direct, transitive a optional dependencies",
-      "line": 208,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "16. Vendored, copied a bundled code",
-      "line": 224,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "17. Static linking a compiled languages",
-      "line": 234,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "19. Container images a base-image relationships",
-      "line": 250,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "19. Container images a base-image relationships",
-      "line": 250,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "20. Multi-architecture OCI images",
-      "line": 258,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release-level SBOM alebo metadata na index digest;`, `platform-specific SBOM na každý manifest digest;`, `relationships medzi indexom a variants;`, `architecture a OS qualifiers pri component identities.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "20. Multi-architecture OCI images",
-      "line": 258,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "20. Multi-architecture OCI images",
-      "line": 258,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "21. Completeness",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či analyzoval source, build graph alebo final binary;`, `či zahŕňa transitive dependencies;`, `ktoré paths alebo ecosystems tool nepodporuje;`, `či relationships sú complete alebo iba partial.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "21. Completeness",
-      "line": 271,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "21. Completeness",
-      "line": 271,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "22. Accuracy a false identity",
-      "line": 287,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lockfile poskytuje silnú declared a resolved package identity;`, `package database poskytuje installed package identity;`, `filename alebo string heuristic má nižšiu confidence.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "23. Freshness a immutable artifact",
-      "line": 300,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "23. Freshness a immutable artifact",
-      "line": 300,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "24. Deterministic generation a semantic stability",
-      "line": 308,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "25. License information",
-      "line": 316,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "26. Vulnerability matching je samostatný dynamický proces",
-      "line": 324,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "26. Vulnerability matching je samostatný dynamický proces",
-      "line": 324,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `matched component record a identifier;`, `advisory source a version range;`, `confidence a matching method;`, `affected artifact digests;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "26. Vulnerability matching je samostatný dynamický proces",
-      "line": 324,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "26. Vulnerability matching je samostatný dynamický proces",
-      "line": 324,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "26. Vulnerability matching je samostatný dynamický proces",
-      "line": 324,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VEX`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "27. Reachability a exploitability",
-      "line": 340,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "27. Reachability a exploitability",
-      "line": 340,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "27. Reachability a exploitability",
-      "line": 340,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "29. VEX status a justification",
-      "line": 367,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "31. Signing a attestation SBOM",
-      "line": 397,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "31. Signing a attestation SBOM",
-      "line": 397,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed subject alebo attestation subject digest;`, `signer identity a issuer;`, `supported SBOM format a version;`, `document integrity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "31. Signing a attestation SBOM",
-      "line": 397,
+      "section": "1. Exact SBOM subject",
+      "line": 20,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -193034,8 +192539,8 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "31. Signing a attestation SBOM",
-      "line": 397,
+      "section": "1. Exact SBOM subject",
+      "line": 20,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -193043,26 +192548,26 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "31. Signing a attestation SBOM",
-      "line": 397,
+      "section": "1. Exact SBOM subject",
+      "line": 20,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "31. Signing a attestation SBOM",
-      "line": 397,
+      "section": "1. Exact SBOM subject",
+      "line": 20,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `VM`, `URL`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "32. Distribution cez OCI artifacts",
-      "line": 412,
+      "section": "2. Lifecycle stage",
+      "line": 44,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -193070,8 +192575,8 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "32. Distribution cez OCI artifacts",
-      "line": 412,
+      "section": "2. Lifecycle stage",
+      "line": 44,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -193079,26 +192584,17 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "34. Semantic diff",
-      "line": 445,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
+      "section": "2. Lifecycle stage",
+      "line": 44,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "34. Semantic diff",
-      "line": 445,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component added alebo removed;`, `version alebo digest changed;`, `dependency path changed;`, `scope changed z build-only na runtime;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "34. Semantic diff",
-      "line": 445,
+      "section": "3. Producer, distributor a consumer",
+      "line": 69,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -193106,152 +192602,26 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "34. Semantic diff",
-      "line": 445,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "35. Deployment a runtime mapping",
-      "line": 461,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "36. CI/CD gates",
-      "line": 478,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 56 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "36. CI/CD gates",
-      "line": 478,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary subject digest sa zhoduje s release artifactom;`, `generator úspešne pokryl podporované package managers;`, `required direct dependencies majú identifiers a versions;`, `completeness nie je unknown pre critical release;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "36. CI/CD gates",
-      "line": 478,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "36. CI/CD gates",
-      "line": 478,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "36. CI/CD gates",
-      "line": 478,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "37. Procurement a supplier exchange",
-      "line": 493,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "38. SaaS a continuously changing systems",
-      "line": 501,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "39. xBOM, CBOM a AI BOM",
-      "line": 509,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "39. xBOM, CBOM a AI BOM",
-      "line": 509,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "40. Security a privacy SBOM platformy",
-      "line": 519,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "42. Troubleshooting SBOM pipeline",
-      "line": 546,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "43. Časté anti-patterny",
-      "line": 569,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "43. Časté anti-patterny",
-      "line": 569,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/sbom.md",
-      "section": "44. Kompletný production príklad",
-      "line": 589,
+      "section": "4. Minimum production contract",
+      "line": 79,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "44. Kompletný production príklad",
-      "line": 589,
+      "section": "4. Minimum production contract",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SBOM document identity a specification version;`, `primary subject a immutable digest;`, `creator, tool version, configuration a timestamp;`, `lifecycle stage a generation method;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "4. Minimum production contract",
+      "line": 79,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -193259,8 +192629,26 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "44. Kompletný production príklad",
-      "line": 589,
+      "section": "4. Minimum production contract",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "4. Minimum production contract",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "4. Minimum production contract",
+      "line": 79,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -193268,12 +192656,885 @@
     },
     {
       "path": "docs/13-security-and-identity/sbom.md",
-      "section": "44. Kompletný production príklad",
-      "line": 589,
+      "section": "4. Minimum production contract",
+      "line": 79,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `OCI`, `VEX`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `attestation`",
       "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "5. SPDX 3.0.1",
+      "line": 96,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "5. SPDX 3.0.1",
+      "line": 96,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package alebo file obsiahnutý v artifacte;`, `dependency potrebnú za runtime;`, `build input alebo tool;`, `output konkrétnej build instance;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "5. SPDX 3.0.1",
+      "line": 96,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "6. CycloneDX 1.7",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "6. CycloneDX 1.7",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "7. Component identity",
+      "line": 121,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "8. Relationships a scope",
+      "line": 141,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 58 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "8. Relationships a scope",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "8. Relationships a scope",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "8. Relationships a scope",
+      "line": 141,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "9. Vendored, static a generated content",
+      "line": 158,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "9. Vendored, static a generated content",
+      "line": 158,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source skopírovaný do repository;`, `manually downloaded JAR alebo binary;`, `statically linked library;`, `generated bundle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "9. Vendored, static a generated content",
+      "line": 158,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "9. Vendored, static a generated content",
+      "line": 158,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "9. Vendored, static a generated content",
+      "line": 158,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JAR`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "10. Containers a multi-platform artifacts",
+      "line": 173,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release-level record viazaný na index digest;`, `platform-specific final-artifact SBOM pre každý manifest digest;`, `architecture a OS qualifiers;`, `relationship index → platform variants;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "10. Containers a multi-platform artifacts",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "10. Containers a multi-platform artifacts",
+      "line": 173,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "10. Containers a multi-platform artifacts",
+      "line": 173,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `OS`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "11. Completeness, accuracy a freshness",
+      "line": 189,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "12. Determinism a semantic diff",
+      "line": 201,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "12. Determinism a semantic diff",
+      "line": 201,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component added/removed;`, `version alebo digest change;`, `dependency path a scope change;`, `supplier/origin correction;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "12. Determinism a semantic diff",
+      "line": 201,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "12. Determinism a semantic diff",
+      "line": 201,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "12. Determinism a semantic diff",
+      "line": 201,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "13. Vulnerability matching a VEX",
+      "line": 216,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 64 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "13. Vulnerability matching a VEX",
+      "line": 216,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `matched identifier a record;`, `advisory source a affected range;`, `matching method a confidence;`, `affected subject digests;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "13. Vulnerability matching a VEX",
+      "line": 216,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "14. Signing a attestation",
+      "line": 234,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "14. Signing a attestation",
+      "line": 234,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact subject digest;`, `signer identity a issuer;`, `signer authorization pre product;`, `predicate alebo document format/version;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "14. Signing a attestation",
+      "line": 234,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "14. Signing a attestation",
+      "line": 234,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "15. OCI distribution a promotion",
+      "line": 250,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "15. OCI distribution a promotion",
+      "line": 250,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "16. Ingestion a normalization",
+      "line": 266,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "16. Ingestion a normalization",
+      "line": 266,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payload, depth a graph-size limits;`, `schema a version validation;`, `safe XML/JSON processing;`, `signature a subject verification;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "16. Ingestion a normalization",
+      "line": 266,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "16. Ingestion a normalization",
+      "line": 266,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "16. Ingestion a normalization",
+      "line": 266,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `XML`, `JSON`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "18. Worked incident SEC-PAY-50",
+      "line": 298,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Competing hypotheses",
+      "line": 306,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Competing hypotheses",
+      "line": 306,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Competing hypotheses",
+      "line": 306,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Competing hypotheses",
+      "line": 306,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Competing hypotheses",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Competing hypotheses",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `JAR`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OCI referrer existoval a subject bol sha256:pay7240 ;`, `signature a schema boli validné;`, `raw document aj normalized graph injected JAR neobsahovali;`, `final filesystem a independent binary scanner JAR našli;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Discriminating evidence",
+      "line": 314,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `JAR`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `quarantine-nuť sha256:pay7240 a affected builder outputs;`, `zablokovať existence-only SBOM gate;`, `mapovať digest na running a rollback deployments;`, `spustiť independent final-binary/image analysis bez prepísania pôvodné`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 327,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvoriť builder/toolchain BOM pre pinned builder digest;`, `vytvoriť release-level relationship k image index digestu;`, `pridať binary/JAR coverage a seeded detection fixture;`, `vydať signed attestations z approved evidence authority;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "20. Authoritative recovery",
+      "line": 337,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `BOM`, `OCI`, `JAR`, `CI`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source, builder a final-artifact inventories sú explicitne oddelené;`, `completeness a unsupported paths sú explicitné;`, `promotion zachová SBOM, provenance a signature referrers;`, `normalization zachová purl, architecture, scope a original relationshi`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "21. Acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JAR`, `SBOM-`, `policy`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "22. CI/CD a quality gates",
+      "line": 367,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "22. CI/CD a quality gates",
+      "line": 367,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary subject digest;`, `required format/version/profile;`, `lifecycle stage a generator method;`, `supported ecosystem coverage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "22. CI/CD a quality gates",
+      "line": 367,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "22. CI/CD a quality gates",
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "22. CI/CD a quality gates",
+      "line": 367,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required immutable digest subject;`, `explicit source/build/final/runtime stage;`, `separate builder/toolchain BOM;`, `platform-specific final image analysis;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "24. Earlier controls",
+      "line": 393,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BOM`, `JSON`, `VEX`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Checkbox SBOM",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Subject bez digestu",
+      "line": 415,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Source inventory vydávaný za final artifact",
+      "line": 419,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Flat list bez relationships",
+      "line": 423,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Unknown interpretované ako absent",
+      "line": 427,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Validná signature znamená complete SBOM",
+      "line": 431,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/sbom.md",
+      "section": "Inventory bez runtime mappingu",
+      "line": 435,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/secrets-management.md",

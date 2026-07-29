@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10374**
-- Total words: **617,375**
-- Findings: **21460** (critical 6367, high 7217, medium 2714, low 5162)
+- Audited conceptual sections: **10364**
+- Total words: **615,185**
+- Findings: **21489** (critical 6384, high 7239, medium 2723, low 5143)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -105,6 +105,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 687 | 32 | 28 | 17 | 18 | 2845 | `docs/03-git-and-automation/python-for-automation.md` |
 | D | 683 | 30 | 29 | 19 | 18 | 2344 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | D | 682 | 32 | 31 | 12 | 13 | 2121 | `docs/09-kubernetes/upgrades.md` |
+| D | 680 | 27 | 31 | 17 | 39 | 2458 | `docs/13-security-and-identity/sbom.md` |
 | D | 678 | 33 | 28 | 14 | 9 | 2416 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
 | D | 677 | 30 | 35 | 8 | 12 | 1934 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | D | 676 | 32 | 30 | 12 | 11 | 2203 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
@@ -242,7 +243,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 328 | 15 | 15 | 4 | 11 | 1835 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
-| D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 283 | 13 | 12 | 4 | 13 | 1700 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
@@ -14407,25 +14407,64 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/sbom.md`
 
-- **CRITICAL** line 66, `bare-bullet-items` — **5. Minimálny dátový contract**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity SBOM dokumentu a jeho specification version;`, `creator alebo tool identity a creation timestamp;`, `jednoznačná identity primary subjectu;`, `ecosystem-specific identifiers, napríklad Package URL;`.
-- **CRITICAL** line 169, `bare-bullet-items` — **12. CPE a product matching**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepresné vendor alebo product names;`, `rozdielne naming conventions medzi supplierom a NVD;`, `distributions s backported patches;`, `version ranges, ktoré nezodpovedajú package-manager semantics;`.
-- **CRITICAL** line 258, `bare-bullet-items` — **20. Multi-architecture OCI images**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release-level SBOM alebo metadata na index digest;`, `platform-specific SBOM na každý manifest digest;`, `relationships medzi indexom a variants;`, `architecture a OS qualifiers pri component identities.`.
-- **CRITICAL** line 271, `bare-bullet-items` — **21. Completeness**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či analyzoval source, build graph alebo final binary;`, `či zahŕňa transitive dependencies;`, `ktoré paths alebo ecosystems tool nepodporuje;`, `či relationships sú complete alebo iba partial.`.
-- **CRITICAL** line 287, `bare-bullet-items` — **22. Accuracy a false identity**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lockfile poskytuje silnú declared a resolved package identity;`, `package database poskytuje installed package identity;`, `filename alebo string heuristic má nižšiu confidence.`.
-- **CRITICAL** line 324, `bare-bullet-items` — **26. Vulnerability matching je samostatný dynamický proces**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `matched component record a identifier;`, `advisory source a version range;`, `confidence a matching method;`, `affected artifact digests;`.
-- **CRITICAL** line 397, `bare-bullet-items` — **31. Signing a attestation SBOM**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed subject alebo attestation subject digest;`, `signer identity a issuer;`, `supported SBOM format a version;`, `document integrity;`.
-- **CRITICAL** line 445, `bare-bullet-items` — **34. Semantic diff**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component added alebo removed;`, `version alebo digest changed;`, `dependency path changed;`, `scope changed z build-only na runtime;`.
-- **CRITICAL** line 478, `bare-bullet-items` — **36. CI/CD gates**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary subject digest sa zhoduje s release artifactom;`, `generator úspešne pokryl podporované package managers;`, `required direct dependencies majú identifiers a versions;`, `completeness nie je unknown pre critical release;`.
-- **CRITICAL** line 589, `outline-instead-of-explanation` — **44. Kompletný production príklad**: 12 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **HIGH** line 66, `list-heavy-section` — **5. Minimálny dátový contract**: 10 odrážok a iba 46 slov súvislého vysvetlenia.
-- **HIGH** line 118, `bare-bullet-items` — **9. Výber medzi SPDX a CycloneDX**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aký format a version vyžaduje consumer alebo contract;`, `ktoré generators vytvárajú kvalitné outputy pre daný ecosystem;`, `či registry, procurement a vulnerability tools zachovajú relationships`, `ako sa dokument signuje, distribuuje a dlhodobo archivuje;`.
-- **HIGH** line 118, `list-heavy-section` — **9. Výber medzi SPDX a CycloneDX**: 6 odrážok a iba 52 slov súvislého vysvetlenia.
-- **HIGH** line 193, `list-heavy-section` — **14. Dependency a containment relationships**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 324, `list-heavy-section` — **26. Vulnerability matching je samostatný dynamický proces**: 7 odrážok a iba 54 slov súvislého vysvetlenia.
-- **HIGH** line 397, `list-heavy-section` — **31. Signing a attestation SBOM**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 445, `list-heavy-section` — **34. Semantic diff**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 478, `list-heavy-section` — **36. CI/CD gates**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
-- **HIGH** line 589, `thin-concept-section` — **44. Kompletný production príklad**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 20, `bare-bullet-items` — **1. Exact SBOM subject**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OCI image index alebo platform manifest digest;`, `package archive hash;`, `firmware alebo VM image digest;`, `source repository a exact revision pre source SBOM;`.
+- **CRITICAL** line 20, `outline-instead-of-explanation` — **1. Exact SBOM subject**: 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 79, `bare-bullet-items` — **4. Minimum production contract**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SBOM document identity a specification version;`, `primary subject a immutable digest;`, `creator, tool version, configuration a timestamp;`, `lifecycle stage a generation method;`.
+- **CRITICAL** line 79, `outline-instead-of-explanation` — **4. Minimum production contract**: 10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 96, `bare-bullet-items` — **5. SPDX 3.0.1**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package alebo file obsiahnutý v artifacte;`, `dependency potrebnú za runtime;`, `build input alebo tool;`, `output konkrétnej build instance;`.
+- **CRITICAL** line 158, `bare-bullet-items` — **9. Vendored, static a generated content**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source skopírovaný do repository;`, `manually downloaded JAR alebo binary;`, `statically linked library;`, `generated bundle;`.
+- **CRITICAL** line 173, `bare-bullet-items` — **10. Containers a multi-platform artifacts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release-level record viazaný na index digest;`, `platform-specific final-artifact SBOM pre každý manifest digest;`, `architecture a OS qualifiers;`, `relationship index → platform variants;`.
+- **CRITICAL** line 201, `bare-bullet-items` — **12. Determinism a semantic diff**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component added/removed;`, `version alebo digest change;`, `dependency path a scope change;`, `supplier/origin correction;`.
+- **CRITICAL** line 216, `bare-bullet-items` — **13. Vulnerability matching a VEX**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `matched identifier a record;`, `advisory source a affected range;`, `matching method a confidence;`, `affected subject digests;`.
+- **CRITICAL** line 234, `bare-bullet-items` — **14. Signing a attestation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact subject digest;`, `signer identity a issuer;`, `signer authorization pre product;`, `predicate alebo document format/version;`.
+- **CRITICAL** line 234, `outline-instead-of-explanation` — **14. Signing a attestation**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 266, `bare-bullet-items` — **16. Ingestion a normalization**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payload, depth a graph-size limits;`, `schema a version validation;`, `safe XML/JSON processing;`, `signature a subject verification;`.
+- **CRITICAL** line 266, `outline-instead-of-explanation` — **16. Ingestion a normalization**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 306, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 306, `outline-instead-of-explanation` — **Competing hypotheses**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 314, `bare-bullet-items` — **Discriminating evidence**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OCI referrer existoval a subject bol sha256:pay7240 ;`, `signature a schema boli validné;`, `raw document aj normalized graph injected JAR neobsahovali;`, `final filesystem a independent binary scanner JAR našli;`.
+- **CRITICAL** line 314, `outline-instead-of-explanation` — **Discriminating evidence**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 327, `no-prose-concept` — **19. Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 327, `outline-instead-of-explanation` — **19. Evidence-preserving containment**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 337, `no-prose-concept` — **20. Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 337, `outline-instead-of-explanation` — **20. Authoritative recovery**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 351, `outline-instead-of-explanation` — **21. Acceptance verdict**: 11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 367, `bare-bullet-items` — **22. CI/CD a quality gates**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary subject digest;`, `required format/version/profile;`, `lifecycle stage a generator method;`, `supported ecosystem coverage;`.
+- **CRITICAL** line 367, `outline-instead-of-explanation` — **22. CI/CD a quality gates**: 9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 393, `bare-bullet-items` — **24. Earlier controls**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required immutable digest subject;`, `explicit source/build/final/runtime stage;`, `separate builder/toolchain BOM;`, `platform-specific final image analysis;`.
+- **CRITICAL** line 393, `no-prose-concept` — **24. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 393, `outline-instead-of-explanation` — **24. Earlier controls**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 96, `list-heavy-section` — **5. SPDX 3.0.1**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 141, `list-heavy-section` — **8. Relationships a scope**: 6 odrážok a iba 58 slov súvislého vysvetlenia.
+- **HIGH** line 158, `list-heavy-section` — **9. Vendored, static a generated content**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 201, `list-heavy-section` — **12. Determinism a semantic diff**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 216, `list-heavy-section` — **13. Vulnerability matching a VEX**: 7 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 306, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 314, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 327, `bare-bullet-items` — **19. Evidence-preserving containment**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `quarantine-nuť sha256:pay7240 a affected builder outputs;`, `zablokovať existence-only SBOM gate;`, `mapovať digest na running a rollback deployments;`, `spustiť independent final-binary/image analysis bez prepísania pôvodné`.
+- **HIGH** line 327, `list-first-introduction` — **19. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 337, `bare-bullet-items` — **20. Authoritative recovery**: 7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvoriť builder/toolchain BOM pre pinned builder digest;`, `vytvoriť release-level relationship k image index digestu;`, `pridať binary/JAR coverage a seeded detection fixture;`, `vydať signed attestations z approved evidence authority;`.
+- **HIGH** line 337, `list-first-introduction` — **20. Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 351, `bare-bullet-items` — **21. Acceptance verdict**: 6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source, builder a final-artifact inventories sú explicitne oddelené;`, `completeness a unsupported paths sú explicitné;`, `promotion zachová SBOM, provenance a signature referrers;`, `normalization zachová purl, architecture, scope a original relationshi`.
+- **HIGH** line 351, `single-sentence-concept` — **21. Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 393, `list-first-introduction` — **24. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 411, `single-sentence-concept` — **Checkbox SBOM**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 415, `single-sentence-concept` — **Subject bez digestu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 419, `single-sentence-concept` — **Source inventory vydávaný za final artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 423, `single-sentence-concept` — **Flat list bez relationships**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 427, `single-sentence-concept` — **Unknown interpretované ako absent**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 431, `single-sentence-concept` — **Validná signature znamená complete SBOM**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 435, `single-sentence-concept` — **Inventory bez runtime mappingu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 79, `thin-concept-section` — **4. Minimum production contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 306, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 314, `thin-concept-section` — **Discriminating evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 327, `thin-concept-section` — **19. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 337, `term-before-explanation` — **20. Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `BOM`, `OCI`, `JAR`, `CI`
+- **HIGH** line 337, `thin-concept-section` — **20. Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 351, `term-before-explanation` — **21. Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JAR`, `SBOM-`, `policy`, `scope`
+- **HIGH** line 351, `thin-concept-section` — **21. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 393, `term-before-explanation` — **24. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BOM`, `JSON`, `VEX`, `policy`
+- **HIGH** line 393, `thin-concept-section` — **24. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/secrets-management.md`
 
@@ -14643,19 +14682,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2453 | 453 | 0 | 0 | 2906 |
-| `outline-instead-of-explanation` | 2456 | 0 | 0 | 0 | 2456 |
-| `term-before-explanation` | 0 | 551 | 1816 | 0 | 2367 |
-| `single-sentence-concept` | 0 | 2350 | 0 | 0 | 2350 |
-| `thin-concept-section` | 0 | 2078 | 0 | 0 | 2078 |
-| `example-not-explicit` | 0 | 0 | 0 | 2061 | 2061 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2017 | 2017 |
-| `list-first-introduction` | 0 | 1346 | 0 | 0 | 1346 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1084 | 1084 |
-| `short-concept-section` | 0 | 0 | 898 | 0 | 898 |
-| `no-prose-concept` | 780 | 0 | 0 | 0 | 780 |
+| `bare-bullet-items` | 2456 | 455 | 0 | 0 | 2911 |
+| `outline-instead-of-explanation` | 2466 | 0 | 0 | 0 | 2466 |
+| `term-before-explanation` | 0 | 554 | 1820 | 0 | 2374 |
+| `single-sentence-concept` | 0 | 2358 | 0 | 0 | 2358 |
+| `thin-concept-section` | 0 | 2084 | 0 | 0 | 2084 |
+| `example-not-explicit` | 0 | 0 | 0 | 2056 | 2056 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2016 | 2016 |
+| `list-first-introduction` | 0 | 1351 | 0 | 0 | 1351 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1071 | 1071 |
+| `short-concept-section` | 0 | 0 | 903 | 0 | 903 |
+| `no-prose-concept` | 784 | 0 | 0 | 0 | 784 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
-| `list-heavy-section` | 0 | 439 | 0 | 0 | 439 |
+| `list-heavy-section` | 0 | 437 | 0 | 0 | 437 |
 
 ## Required remediation pattern
 
