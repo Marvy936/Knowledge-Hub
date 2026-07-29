@@ -60,10 +60,10 @@ Aktívne sekcie:
 12. [Cloud and AWS](docs/11-cloud-and-aws/README.md)
 13. [Observability](docs/12-observability/README.md)
 14. [Security and Identity](docs/13-security-and-identity/README.md)
+15. [SRE and Operations](docs/14-sre-and-operations/README.md)
 
 Plánované hlavné domény:
 
-- SRE and Operations,
 - Databases and Distributed Systems,
 - GitOps and Platform Engineering.
 
