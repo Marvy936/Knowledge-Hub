@@ -62,12 +62,9 @@ Aktívne sekcie:
 14. [Security and Identity](docs/13-security-and-identity/README.md)
 15. [SRE and Operations](docs/14-sre-and-operations/README.md)
 16. [Databases and Distributed Systems](docs/15-databases-and-distributed-systems/README.md)
+17. [GitOps and Platform Engineering](docs/16-gitops-and-platform-engineering/README.md)
 
-Plánované hlavné domény:
-
-- GitOps and Platform Engineering.
-
-Budúce identity, ML, LLM a agentické oblasti sú predbežne rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
+Všetky hlavné domény aktuálnej roadmapy sú aktívne. Budúce identity, ML, LLM a agentické oblasti sú predbežne rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 
@@ -117,41 +114,3 @@ Audit všetkých Markdown súborov pod `docs/`:
 ```bash
 python scripts/audit_learning_depth.py --all-docs
 ```
-
-Výsledkom je prioritizovaný report a machine-readable JSON. Audit je zámerne heuristický: hľadá najmä sekcie, ktoré začínajú zoznamom, majú priveľa odrážok oproti súvislému textu, zavádzajú pojmy prevažne v odrážkach alebo neukazujú mechanizmus, príklad či failure boundary. Nález znamená potrebu ľudskej kontroly, nie automatický dôkaz technickej chyby.
-
-## Úrovne zvládnutia
-
-| Úroveň | Význam |
-|---|---|
-| L0 | Tému nepoznám. |
-| L1 | Viem ju presne definovať. |
-| L2 | Rozumiem mechanizmu a závislostiam. |
-| L3 | Viem ju prakticky použiť. |
-| L4 | Viem diagnostikovať zlyhania. |
-| L5 | Viem navrhnúť a technicky obhájiť riešenie. |
-
-Pre hlavné DevOps oblasti je cieľom minimálne L4. Pri témach, ktoré priamo navrhujem alebo prevádzkujem, je cieľom L5.
-
-## Stav témy
-
-Stav dokumentu a úroveň zvládnutia sú oddelené:
-
-- `Not Started`
-- `Learning`
-- `Practicing`
-- `Understood`
-- `Needs Review`
-
-Príklad:
-
-```text
-Status: Needs Review
-Level: L4
-```
-
-To znamená, že téma bola prakticky zvládnutá, ale potrebuje zopakovanie.
-
-## Pravidlá pre citlivé údaje
-
-Do repozitára nepatria reálne heslá, tokeny, privátne kľúče, interné hostname, zákaznícke dáta ani proprietárne firemné konfigurácie. Ani private repository nie je secret manager.
