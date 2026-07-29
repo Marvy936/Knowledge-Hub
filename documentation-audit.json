@@ -3195,15 +3195,15 @@
     {
       "path": "docs/12-observability/grafana.md",
       "title": "Grafana",
-      "words": 2896,
-      "headings": 74,
-      "sections": 74,
-      "findings": 227,
-      "critical": 85,
-      "high": 87,
-      "medium": 33,
-      "low": 22,
-      "score": 1852,
+      "words": 1862,
+      "headings": 37,
+      "sections": 37,
+      "findings": 67,
+      "critical": 25,
+      "high": 27,
+      "medium": 6,
+      "low": 9,
+      "score": 546,
       "grade": "D"
     },
     {
@@ -179327,7 +179327,16 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "1. Dominantný model",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -179336,8 +179345,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
+      "section": "3. Štyri oddelené stavy",
+      "line": 51,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179345,134 +179354,26 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Grafana server,`, `configuration,`, `internal database,`, `data-source plugins,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
+      "section": "3. Štyri oddelené stavy",
+      "line": 51,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "2. Základné komponenty",
-      "line": 23,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "3. Data sources",
-      "line": 48,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "3. Data sources",
-      "line": 48,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "3. Data sources",
-      "line": 48,
+      "section": "4. Data-source boundary",
+      "line": 72,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus pre metrics,`, `Loki pre logs,`, `Tempo alebo Jaeger pre traces,`, `Elasticsearch/OpenSearch,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable UID a plugin type;`, `backend endpoint;`, `tenant, organization alebo project header;`, `authentication a TLS;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "3. Data sources",
-      "line": 48,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "3. Data sources",
-      "line": 48,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "3. Data sources",
-      "line": 48,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "4. Proxy a credentials",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "4. Proxy a credentials",
-      "line": 81,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "4. Proxy a credentials",
-      "line": 81,
+      "section": "4. Data-source boundary",
+      "line": 72,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -179480,8 +179381,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "4. Proxy a credentials",
-      "line": 81,
+      "section": "4. Data-source boundary",
+      "line": 72,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -179489,17 +179390,17 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "4. Proxy a credentials",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `identity`",
-      "score": 4
+      "section": "5. Query-to-frame lifecycle",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "5. Dashboard",
-      "line": 95,
+      "section": "6. Variables a population identity",
+      "line": 104,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
@@ -179507,17 +179408,17 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "5. Dashboard",
-      "line": 95,
+      "section": "6. Variables a population identity",
+      "line": 104,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je služba zdravá?`, `Ktorý user journey degraduje?`, `Ktorá dependency je problematická?`, `Ako sa správa capacity?`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale hidden default;`, `URL parameter prepíše očakávanú hodnotu;`, `All expanduje broad regex;`, `chained variables spustia query storm;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "5. Dashboard",
-      "line": 95,
+      "section": "6. Variables a population identity",
+      "line": 104,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -179525,8 +179426,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "5. Dashboard",
-      "line": 95,
+      "section": "6. Variables a population identity",
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -179534,278 +179435,62 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "6. Panel",
-      "line": 110,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "6. Variables a population identity",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "6. Panel",
-      "line": 110,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednu alebo viac queries,`, `data-source selection,`, `optional expressions,`, `transformations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "6. Panel",
-      "line": 110,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Panel inspector",
-      "line": 124,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Panel inspector",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Panel inspector",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw data,`, `query request a response,`, `query statistics,`, `transformed data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Panel inspector",
-      "line": 124,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Panel inspector",
-      "line": 124,
+      "section": "6. Variables a population identity",
+      "line": 104,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `SQL`, `AZ`",
       "score": 4
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "7. Data frames a fields",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "7. Data frames a fields",
-      "line": 136,
+      "section": "7. Expressions, transformations a field semantics",
+      "line": 127,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `values,`, `type,`, `name,`, `labels,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source queries;`, `expression order;`, `transformation order;`, `join keys a missing-data behavior;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "7. Data frames a fields",
-      "line": 136,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "7. Expressions, transformations a field semantics",
+      "line": 127,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "8. Vizualizácie",
-      "line": 153,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Time series",
-      "line": 157,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Stat",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Table",
+      "section": "9. Provisioning a ownership",
       "line": 169,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Heatmap",
-      "line": 173,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "State timeline/status history",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Logs a traces panels",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "9. Query options",
-      "line": 185,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "9. Query options",
-      "line": 185,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time range,`, `max data points,`, `interval,`, `relative time,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file provisioning;`, `Terraform;`, `Grafana Operator alebo iný controller;`, `HTTP/API workflow;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "9. Query options",
-      "line": 185,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "9. Query options",
-      "line": 185,
+      "section": "9. Provisioning a ownership",
+      "line": 169,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "10. Transformations",
-      "line": 208,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "10. Transformations",
-      "line": 208,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rename/organize fields,`, `join alebo merge frames,`, `filter fields,`, `calculate field,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "10. Transformations",
-      "line": 208,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "10. Transformations",
-      "line": 208,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "11. Expressions",
-      "line": 235,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "11. Expressions",
-      "line": 235,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normalizácia rôznych source queries,`, `alert condition,`, `jednoduchý derived signal,`, `resampling časových radov.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "11. Expressions",
-      "line": 235,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "11. Expressions",
-      "line": 235,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "12. Variables",
-      "line": 248,
+      "section": "10. Grafana Alerting boundary",
+      "line": 195,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179813,80 +179498,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "12. Variables",
-      "line": 248,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "12. Variables",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query variable,`, `custom variable,`, `text box,`, `constant,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "12. Variables",
-      "line": 248,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Výhody",
-      "line": 272,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Výhody",
-      "line": 272,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Výhody",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Výhody",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden dashboard pre viac environments/services,`, `menej duplicitných dashboardov,`, `reusable links,`, `interactive drilldown.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Výhody",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Riziká",
-      "line": 279,
+      "section": "Grafana-managed",
+      "line": 199,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179894,134 +179507,17 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Riziká",
-      "line": 279,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Riziká",
-      "line": 279,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Riziká",
-      "line": 279,
+      "section": "11. Security, HA a recovery",
+      "line": 220,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variable query vytvára veľkú cardinality,`, `„All“ expanduje na tisíce values,`, `regex alebo interpolation mení query semantics,`, `text-box variable umožní broad alebo drahú query,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data-source credentials;`, `internal database;`, `service accounts a API tokens;`, `dashboards, alerting resources a provisioning sources;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Riziká",
-      "line": 279,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Riziká",
-      "line": 279,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "14. Repeating panels a rows",
-      "line": 307,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "14. Repeating panels a rows",
-      "line": 307,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký panel per Region,`, `per service,`, `per cluster.`, `dashboard sa stane nečitateľný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "14. Repeating panels a rows",
-      "line": 307,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "14. Repeating panels a rows",
-      "line": 307,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "15. Annotations",
-      "line": 325,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "15. Annotations",
-      "line": 325,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment,`, `configuration change,`, `incident start/end,`, `failover,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "15. Annotations",
-      "line": 325,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "15. Annotations",
-      "line": 325,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "15. Annotations",
-      "line": 325,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "16. Dashboard a panel links",
-      "line": 355,
+      "section": "12. Query budget a self-observability",
+      "line": 238,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180029,26 +179525,26 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "16. Dashboard a panel links",
-      "line": 355,
+      "section": "12. Query budget a self-observability",
+      "line": 238,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "16. Dashboard a panel links",
-      "line": 355,
+      "section": "12. Query budget a self-observability",
+      "line": 238,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time range,`, `environment,`, `service,`, `region/cluster,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Grafana HTTP rate/errors/latency;`, `data-source query duration a failures;`, `internal DB pool a latency;`, `dashboard load time;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "16. Dashboard a panel links",
-      "line": 355,
+      "section": "12. Query budget a self-observability",
+      "line": 238,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180056,719 +179552,17 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "16. Dashboard a panel links",
-      "line": 355,
+      "section": "12. Query budget a self-observability",
+      "line": 238,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `DB`",
       "score": 4
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "17. Data links a correlations",
-      "line": 379,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID → Tempo/Jaeger trace,`, `Pod → Kubernetes dashboard,`, `error code → runbook,`, `deployment revision → Git commit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "17. Data links a correlations",
-      "line": 379,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "17. Data links a correlations",
-      "line": 379,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "18. Explore",
-      "line": 404,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "18. Explore",
-      "line": 404,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iteratívne PromQL/LogQL/query building,`, `split view a porovnanie,`, `logs context,`, `trace analysis,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "18. Explore",
-      "line": 404,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "18. Explore",
-      "line": 404,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "19. Dashboard hierarchy",
-      "line": 420,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Executive alebo service health",
-      "line": 424,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Executive alebo service health",
-      "line": 424,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Executive alebo service health",
-      "line": 424,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Executive alebo service health",
-      "line": 424,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO a user outcomes,`, `Golden Signals,`, `active incidents,`, `critical business volume.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Executive alebo service health",
-      "line": 424,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Executive alebo service health",
-      "line": 424,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Service overview",
-      "line": 431,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Service overview",
-      "line": 431,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Service overview",
-      "line": 431,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Service overview",
-      "line": 431,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `RED,`, `dependencies,`, `deployment markers,`, `saturation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Service overview",
-      "line": 431,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Service overview",
-      "line": 431,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RED`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Component/resource dashboard",
-      "line": 438,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Component/resource dashboard",
-      "line": 438,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Component/resource dashboard",
-      "line": 438,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Component/resource dashboard",
-      "line": 438,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `USE,`, `queues/pools,`, `runtime,`, `database/network/storage.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Component/resource dashboard",
-      "line": 438,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Component/resource dashboard",
-      "line": 438,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `USE`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Troubleshooting dashboard",
-      "line": 445,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Troubleshooting dashboard",
-      "line": 445,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Troubleshooting dashboard",
-      "line": 445,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `high-resolution details,`, `per-instance/shard breakdown,`, `links na logs/traces/profiles.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Troubleshooting dashboard",
-      "line": 445,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "20. Dashboard design principles",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "20. Dashboard design principles",
-      "line": 453,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "20. Dashboard design principles",
-      "line": 453,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný title a purpose,`, `ownera,`, `audience,`, `default time range,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "20. Dashboard design principles",
-      "line": 453,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "20. Dashboard design principles",
-      "line": 453,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "20. Dashboard design principles",
-      "line": 453,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "21. Units a value mappings",
-      "line": 475,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "21. Units a value mappings",
-      "line": 475,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bytes zobrazené ako bits,`, `seconds zobrazené ako milliseconds bez konverzie,`, `counter value zobrazený ako rate,`, `timezone mismatch.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "21. Units a value mappings",
-      "line": 475,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "21. Units a value mappings",
-      "line": 475,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "22. Thresholds",
-      "line": 489,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "22. Thresholds",
-      "line": 489,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business/operational dôvod,`, `správnu unit,`, `time-window semantics,`, `ownera,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "22. Thresholds",
-      "line": 489,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "23. Dashboard provisioning",
-      "line": 505,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "23. Dashboard provisioning",
-      "line": 505,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version control,`, `review,`, `repeatable environments,`, `disaster recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "23. Dashboard provisioning",
-      "line": 505,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "23. Dashboard provisioning",
-      "line": 505,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "24. Dashboards as code",
-      "line": 528,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "24. Dashboards as code",
-      "line": 528,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "24. Dashboards as code",
-      "line": 528,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw dashboard JSON,`, `provisioning files,`, `HTTP APIs,`, `Terraform provider,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "24. Dashboards as code",
-      "line": 528,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "24. Dashboards as code",
-      "line": 528,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "24. Dashboards as code",
-      "line": 528,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `HTTP`, `UI-`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "25. Provisioning data sources",
-      "line": 547,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "25. Provisioning data sources",
-      "line": 547,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name a UID,`, `plugin type,`, `URL,`, `default status,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "25. Provisioning data sources",
-      "line": 547,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "25. Provisioning data sources",
-      "line": 547,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "26. Folders a permissions",
-      "line": 563,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "26. Folders a permissions",
-      "line": 563,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `team ownership,`, `environment alebo domain separation,`, `admin/editor/viewer access,`, `provisioning scope.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "26. Folders a permissions",
-      "line": 563,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "26. Folders a permissions",
-      "line": 563,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "27. Authentication",
-      "line": 578,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "27. Authentication",
-      "line": 578,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "27. Authentication",
-      "line": 578,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local users,`, `OAuth/OIDC,`, `SAML alebo LDAP podľa edície/integrácie,`, `auth proxy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "27. Authentication",
-      "line": 578,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "27. Authentication",
-      "line": 578,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SAML`, `LDAP`, `API`, `MFA`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "28. Sharing a snapshots",
-      "line": 599,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "28. Sharing a snapshots",
-      "line": 599,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `snapshot môže obsahovať citlivé query výsledky,`, `externally shared dashboard môže sprístupniť širší scope,`, `embedded dashboard môže obísť očakávaný UI context,`, `panel link môže obsahovať tenant alebo identifier,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "28. Sharing a snapshots",
-      "line": 599,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "28. Sharing a snapshots",
-      "line": 599,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "28. Sharing a snapshots",
-      "line": 599,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `JSON`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "29. Plugins",
-      "line": 613,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "29. Plugins",
-      "line": 613,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a trust,`, `signature,`, `version compatibility,`, `permissions a network access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "29. Plugins",
-      "line": 613,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "30. Grafana Alerting",
-      "line": 629,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "30. Grafana Alerting",
-      "line": 629,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Grafana-managed alert rules,`, `data-source-managed rules,`, `rule groups a evaluation interval,`, `alert instances podľa labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "30. Grafana Alerting",
-      "line": 629,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "30. Grafana Alerting",
-      "line": 629,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "31. Grafana-managed oproti data-source-managed alerts",
-      "line": 646,
+      "section": "13. Worked failure: backend ukazuje 7.4 %, dashboard 0.074 %",
+      "line": 274,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -180776,8 +179570,17 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Grafana-managed",
-      "line": 648,
+      "section": "Exact subject",
+      "line": 280,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Competing hypotheses",
+      "line": 295,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -180785,8 +179588,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Grafana-managed",
-      "line": 648,
+      "section": "Competing hypotheses",
+      "line": 295,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -180794,17 +179597,26 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Grafana-managed",
-      "line": 648,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `evaluation vykonáva Grafana alerting engine,`, `môže kombinovať podporované data sources a expressions,`, `routing/contact points sú spravované Grafanou.`.",
-      "score": 8
+      "section": "Competing hypotheses",
+      "line": 295,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Grafana-managed",
-      "line": 648,
+      "section": "Competing hypotheses",
+      "line": 295,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus query používa nesprávny numerator alebo denominator;`, `Grafana variable vybrala standard cohort;`, `panel time range alebo step vynechal incident;`, `transformation zmenila hodnotu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Competing hypotheses",
+      "line": 295,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180812,8 +179624,17 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Data-source-managed",
-      "line": 654,
+      "section": "Competing hypotheses",
+      "line": 295,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Discriminating evidence",
+      "line": 305,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180821,8 +179642,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Data-source-managed",
-      "line": 654,
+      "section": "Discriminating evidence",
+      "line": 305,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -180830,26 +179651,44 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Data-source-managed",
-      "line": 654,
+      "section": "Containment",
+      "line": 331,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Containment",
+      "line": 331,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Containment",
+      "line": 331,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Data-source-managed",
-      "line": 654,
+      "section": "Containment",
+      "line": 331,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `evaluation a storage semantics vlastní data source,`, `Grafana poskytuje UI a management integráciu podľa capability.`, `availability,`, `GitOps/provisioning,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prestať používať panel ako severity autoritu;`, `pripojiť on-call priamo na Prometheus SLO/error-budget query;`, `zastaviť ďalší dashboard provisioning rollout;`, `neprepínať data source ani nevytvárať nový duplicate dashboard.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Data-source-managed",
-      "line": 654,
+      "section": "Containment",
+      "line": 331,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180857,26 +179696,107 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Data-source-managed",
-      "line": 654,
+      "section": "Containment",
+      "line": 331,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `JSON`",
       "score": 4
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "32. Grafana Alerting provisioning",
-      "line": 670,
+      "section": "Authoritative recovery",
+      "line": 339,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `files,`, `Terraform,`, `provisioning APIs,`, `supported app-platform APIs.`.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "32. Grafana Alerting provisioning",
-      "line": 670,
+      "section": "Authoritative recovery",
+      "line": 339,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Authoritative recovery",
+      "line": 339,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Authoritative recovery",
+      "line": 339,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť unit a threshold v source generatori;`, `pridať fixture 0.074 → 7.4 % ;`, `vygenerovať immutable dashboard artifact DASH-GEN-213 ;`, `validovať UID, data-source UID, variables a panel JSON;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Authoritative recovery",
+      "line": 339,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Authoritative recovery",
+      "line": 339,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DASH-GEN-213`, `UID`, `JSON`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Acceptance verdict",
+      "line": 350,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Acceptance verdict",
+      "line": 350,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Acceptance verdict",
+      "line": 350,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `0.074 sa zobrazuje ako 7.4 % ;`, `threshold a legend používajú správnu unit;`, `enterprise aj standard cohort fixtures fungujú;`, `dashboard link prenesie správny time range a cohort;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Acceptance verdict",
+      "line": 350,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/grafana.md",
+      "section": "Acceptance verdict",
+      "line": 350,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -180884,8 +179804,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "32. Grafana Alerting provisioning",
-      "line": 670,
+      "section": "Acceptance verdict",
+      "line": 350,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -180893,125 +179813,26 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "33. Grafana HA",
-      "line": 683,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "33. Grafana HA",
-      "line": 683,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac stateless Grafana instances,`, `spoločnú podporovanú SQL database,`, `load balancer,`, `konzistentnú configuration a plugins,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "33. Grafana HA",
-      "line": 683,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "33. Grafana HA",
-      "line": 683,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "34. Internal database",
-      "line": 700,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "34. Internal database",
-      "line": 700,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "34. Internal database",
-      "line": 700,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dashboards a folders,`, `users/teams/organizations,`, `data-source metadata a encrypted secure fields,`, `alerting resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "34. Internal database",
-      "line": 700,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "34. Internal database",
-      "line": 700,
+      "section": "Acceptance verdict",
+      "line": 350,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
       "score": 4
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "35. Upgrade model",
-      "line": 721,
+      "section": "14. Troubleshooting model",
+      "line": 363,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "35. Upgrade model",
-      "line": 721,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítaj release notes a breaking changes,`, `over plugin compatibility,`, `zálohuj database a configuration,`, `exportuj critical dashboards/alerting resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "35. Upgrade model",
-      "line": 721,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "35. Upgrade model",
-      "line": 721,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "36. Performance a query cost",
-      "line": 735,
+      "section": "No data",
+      "line": 365,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -181019,80 +179840,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "36. Performance a query cost",
-      "line": 735,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "36. Performance a query cost",
-      "line": 735,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátky auto-refresh,`, `veľa panels,`, `repeated panels,`, `broad variables,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "36. Performance a query cost",
-      "line": 735,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "37. Self-monitoring",
-      "line": 769,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "37. Self-monitoring",
-      "line": 769,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "37. Self-monitoring",
-      "line": 769,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP request rate/errors/latency,`, `active users a sessions,`, `database connections a latency,`, `data-source query duration/errors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "37. Self-monitoring",
-      "line": 769,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "37. Self-monitoring",
-      "line": 769,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "38. Troubleshooting „No data“",
-      "line": 796,
+      "section": "No data",
+      "line": 365,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -181100,206 +179849,35 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "39. Troubleshooting panel ukazuje zlú hodnotu",
-      "line": 814,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "39. Troubleshooting panel ukazuje zlú hodnotu",
-      "line": 814,
+      "section": "Zlá hodnota",
+      "line": 380,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "39. Troubleshooting panel ukazuje zlú hodnotu",
-      "line": 814,
+      "section": "Provisioning drift",
+      "line": 393,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw data-source query,`, `query time range a step,`, `aggregation a label scope,`, `transformations,`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "39. Troubleshooting panel ukazuje zlú hodnotu",
-      "line": 814,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "39. Troubleshooting panel ukazuje zlú hodnotu",
-      "line": 814,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "40. Troubleshooting pomalý dashboard",
-      "line": 831,
+      "section": "Pomalý dashboard",
+      "line": 405,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "40. Troubleshooting pomalý dashboard",
-      "line": 831,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `panel query durations,`, `počet queries,`, `variable queries,`, `repeated panels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "40. Troubleshooting pomalý dashboard",
-      "line": 831,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "41. Troubleshooting data source",
-      "line": 849,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "41. Troubleshooting data source",
-      "line": 849,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "42. Troubleshooting variables",
-      "line": 866,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "42. Troubleshooting variables",
-      "line": 866,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "42. Troubleshooting variables",
-      "line": 866,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variable vracia príliš veľa values,`, `dependent variable sa neobnoví,`, `„All“ regex je nesprávny,`, `value obsahuje special characters,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "42. Troubleshooting variables",
-      "line": 866,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "42. Troubleshooting variables",
-      "line": 866,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "43. Troubleshooting provisioning drift",
-      "line": 880,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "43. Troubleshooting provisioning drift",
-      "line": 880,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "44. Troubleshooting Grafana alert",
-      "line": 896,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "44. Troubleshooting Grafana alert",
-      "line": 896,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule type a owner,`, `data-source query,`, `evaluation interval,`, `pending/for semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "44. Troubleshooting Grafana alert",
-      "line": 896,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "44. Troubleshooting Grafana alert",
-      "line": 896,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
     },
     {
       "path": "docs/12-observability/grafana.md",
       "section": "Dashboard ako source of truth",
-      "line": 916,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Panel pre každú metric",
-      "line": 920,
+      "line": 418,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -181308,7 +179886,7 @@
     {
       "path": "docs/12-observability/grafana.md",
       "section": "Variables ako authorization",
-      "line": 924,
+      "line": 422,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -181316,8 +179894,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Transformations namiesto správnej backend query",
-      "line": 928,
+      "section": "UI hotfix provisionovaného dashboardu",
+      "line": 426,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -181325,8 +179903,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Červený threshold ako alerting stratégia",
-      "line": 932,
+      "section": "Transformations ako skrytý business model",
+      "line": 430,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -181334,8 +179912,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "UI edit provisionovaného dashboardu bez exportu",
-      "line": 936,
+      "section": "Alerting v dvoch control planes bez ownershipu",
+      "line": 434,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -181343,26 +179921,8 @@
     },
     {
       "path": "docs/12-observability/grafana.md",
-      "section": "Jedna broad data-source identity pre všetkých tenantov",
-      "line": 940,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Auto-refresh 5 sekúnd na dlhom time range",
-      "line": 944,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/grafana.md",
-      "section": "Alerting v Prometheus aj Grafane bez ownershipu",
-      "line": 948,
+      "section": "Broad data-source credential",
+      "line": 438,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

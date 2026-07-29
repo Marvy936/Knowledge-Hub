@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10691**
-- Total words: **637,780**
-- Findings: **22619** (critical 6788, high 7499, medium 2942, low 5390)
+- Audited conceptual sections: **10654**
+- Total words: **636,746**
+- Findings: **22459** (critical 6728, high 7439, medium 2915, low 5377)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -26,7 +26,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 2063 | 100 | 97 | 28 | 13 | 2366 | `docs/12-observability/opentelemetry.md` |
 | D | 1986 | 86 | 109 | 26 | 10 | 1922 | `docs/13-security-and-identity/cia-triad.md` |
-| D | 1852 | 85 | 87 | 33 | 22 | 2896 | `docs/12-observability/grafana.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | D | 1644 | 78 | 73 | 32 | 18 | 2595 | `docs/12-observability/jaeger-tempo.md` |
 | D | 1470 | 71 | 64 | 27 | 18 | 2384 | `docs/12-observability/fluent-bit.md` |
@@ -164,6 +163,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
+| D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 544 | 21 | 32 | 5 | 20 | 2189 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | D | 542 | 26 | 21 | 2 | 47 | 4101 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
@@ -13413,178 +13413,58 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/12-observability/grafana.md`
 
-- **CRITICAL** line 23, `bare-bullet-items` — **2. Základné komponenty**: 16 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Grafana server,`, `configuration,`, `internal database,`, `data-source plugins,`.
-- **CRITICAL** line 23, `outline-instead-of-explanation` — **2. Základné komponenty**: 17 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 48, `bare-bullet-items` — **3. Data sources**: 17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus pre metrics,`, `Loki pre logs,`, `Tempo alebo Jaeger pre traces,`, `Elasticsearch/OpenSearch,`.
-- **CRITICAL** line 48, `outline-instead-of-explanation` — **3. Data sources**: 17 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 81, `outline-instead-of-explanation` — **4. Proxy a credentials**: 5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 95, `bare-bullet-items` — **5. Dashboard**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je služba zdravá?`, `Ktorý user journey degraduje?`, `Ktorá dependency je problematická?`, `Ako sa správa capacity?`.
-- **CRITICAL** line 95, `outline-instead-of-explanation` — **5. Dashboard**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 110, `bare-bullet-items` — **6. Panel**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednu alebo viac queries,`, `data-source selection,`, `optional expressions,`, `transformations,`.
-- **CRITICAL** line 110, `outline-instead-of-explanation` — **6. Panel**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 124, `bare-bullet-items` — **Panel inspector**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw data,`, `query request a response,`, `query statistics,`, `transformed data,`.
-- **CRITICAL** line 124, `outline-instead-of-explanation` — **Panel inspector**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 136, `bare-bullet-items` — **7. Data frames a fields**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `values,`, `type,`, `name,`, `labels,`.
-- **CRITICAL** line 136, `outline-instead-of-explanation` — **7. Data frames a fields**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 185, `bare-bullet-items` — **9. Query options**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time range,`, `max data points,`, `interval,`, `relative time,`.
-- **CRITICAL** line 208, `bare-bullet-items` — **10. Transformations**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rename/organize fields,`, `join alebo merge frames,`, `filter fields,`, `calculate field,`.
-- **CRITICAL** line 235, `bare-bullet-items` — **11. Expressions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normalizácia rôznych source queries,`, `alert condition,`, `jednoduchý derived signal,`, `resampling časových radov.`.
-- **CRITICAL** line 235, `outline-instead-of-explanation` — **11. Expressions**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 248, `bare-bullet-items` — **12. Variables**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query variable,`, `custom variable,`, `text box,`, `constant,`.
-- **CRITICAL** line 248, `outline-instead-of-explanation` — **12. Variables**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `bare-bullet-items` — **Výhody**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden dashboard pre viac environments/services,`, `menej duplicitných dashboardov,`, `reusable links,`, `interactive drilldown.`.
-- **CRITICAL** line 272, `no-prose-concept` — **Výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **Výhody**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 279, `bare-bullet-items` — **Riziká**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variable query vytvára veľkú cardinality,`, `„All“ expanduje na tisíce values,`, `regex alebo interpolation mení query semantics,`, `text-box variable umožní broad alebo drahú query,`.
-- **CRITICAL** line 279, `outline-instead-of-explanation` — **Riziká**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 307, `bare-bullet-items` — **14. Repeating panels a rows**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký panel per Region,`, `per service,`, `per cluster.`, `dashboard sa stane nečitateľný,`.
-- **CRITICAL** line 307, `outline-instead-of-explanation` — **14. Repeating panels a rows**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 325, `bare-bullet-items` — **15. Annotations**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment,`, `configuration change,`, `incident start/end,`, `failover,`.
-- **CRITICAL** line 325, `outline-instead-of-explanation` — **15. Annotations**: 15 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 355, `bare-bullet-items` — **16. Dashboard a panel links**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `time range,`, `environment,`, `service,`, `region/cluster,`.
-- **CRITICAL** line 355, `outline-instead-of-explanation` — **16. Dashboard a panel links**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 379, `bare-bullet-items` — **17. Data links a correlations**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID → Tempo/Jaeger trace,`, `Pod → Kubernetes dashboard,`, `error code → runbook,`, `deployment revision → Git commit,`.
-- **CRITICAL** line 404, `bare-bullet-items` — **18. Explore**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iteratívne PromQL/LogQL/query building,`, `split view a porovnanie,`, `logs context,`, `trace analysis,`.
-- **CRITICAL** line 404, `outline-instead-of-explanation` — **18. Explore**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 424, `bare-bullet-items` — **Executive alebo service health**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO a user outcomes,`, `Golden Signals,`, `active incidents,`, `critical business volume.`.
-- **CRITICAL** line 424, `no-prose-concept` — **Executive alebo service health**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 424, `outline-instead-of-explanation` — **Executive alebo service health**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 431, `bare-bullet-items` — **Service overview**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `RED,`, `dependencies,`, `deployment markers,`, `saturation.`.
-- **CRITICAL** line 431, `no-prose-concept` — **Service overview**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 431, `outline-instead-of-explanation` — **Service overview**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 438, `bare-bullet-items` — **Component/resource dashboard**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `USE,`, `queues/pools,`, `runtime,`, `database/network/storage.`.
-- **CRITICAL** line 438, `no-prose-concept` — **Component/resource dashboard**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 438, `outline-instead-of-explanation` — **Component/resource dashboard**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 453, `bare-bullet-items` — **20. Dashboard design principles**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný title a purpose,`, `ownera,`, `audience,`, `default time range,`.
-- **CRITICAL** line 453, `outline-instead-of-explanation` — **20. Dashboard design principles**: 14 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 475, `bare-bullet-items` — **21. Units a value mappings**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bytes zobrazené ako bits,`, `seconds zobrazené ako milliseconds bez konverzie,`, `counter value zobrazený ako rate,`, `timezone mismatch.`.
-- **CRITICAL** line 475, `outline-instead-of-explanation` — **21. Units a value mappings**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 489, `bare-bullet-items` — **22. Thresholds**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business/operational dôvod,`, `správnu unit,`, `time-window semantics,`, `ownera,`.
-- **CRITICAL** line 489, `outline-instead-of-explanation` — **22. Thresholds**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 505, `bare-bullet-items` — **23. Dashboard provisioning**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version control,`, `review,`, `repeatable environments,`, `disaster recovery,`.
-- **CRITICAL** line 528, `bare-bullet-items` — **24. Dashboards as code**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw dashboard JSON,`, `provisioning files,`, `HTTP APIs,`, `Terraform provider,`.
-- **CRITICAL** line 528, `outline-instead-of-explanation` — **24. Dashboards as code**: 9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 547, `bare-bullet-items` — **25. Provisioning data sources**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name a UID,`, `plugin type,`, `URL,`, `default status,`.
-- **CRITICAL** line 547, `outline-instead-of-explanation` — **25. Provisioning data sources**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 563, `bare-bullet-items` — **26. Folders a permissions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `team ownership,`, `environment alebo domain separation,`, `admin/editor/viewer access,`, `provisioning scope.`.
-- **CRITICAL** line 563, `outline-instead-of-explanation` — **26. Folders a permissions**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 578, `bare-bullet-items` — **27. Authentication**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local users,`, `OAuth/OIDC,`, `SAML alebo LDAP podľa edície/integrácie,`, `auth proxy,`.
-- **CRITICAL** line 578, `outline-instead-of-explanation` — **27. Authentication**: 13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 599, `bare-bullet-items` — **28. Sharing a snapshots**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `snapshot môže obsahovať citlivé query výsledky,`, `externally shared dashboard môže sprístupniť širší scope,`, `embedded dashboard môže obísť očakávaný UI context,`, `panel link môže obsahovať tenant alebo identifier,`.
-- **CRITICAL** line 599, `outline-instead-of-explanation` — **28. Sharing a snapshots**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 613, `bare-bullet-items` — **29. Plugins**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a trust,`, `signature,`, `version compatibility,`, `permissions a network access,`.
-- **CRITICAL** line 613, `outline-instead-of-explanation` — **29. Plugins**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 629, `bare-bullet-items` — **30. Grafana Alerting**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Grafana-managed alert rules,`, `data-source-managed rules,`, `rule groups a evaluation interval,`, `alert instances podľa labels,`.
-- **CRITICAL** line 646, `empty-section` — **31. Grafana-managed oproti data-source-managed alerts**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 648, `no-prose-concept` — **Grafana-managed**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 654, `bare-bullet-items` — **Data-source-managed**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `evaluation a storage semantics vlastní data source,`, `Grafana poskytuje UI a management integráciu podľa capability.`, `availability,`, `GitOps/provisioning,`.
-- **CRITICAL** line 654, `outline-instead-of-explanation` — **Data-source-managed**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 670, `bare-bullet-items` — **32. Grafana Alerting provisioning**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `files,`, `Terraform,`, `provisioning APIs,`, `supported app-platform APIs.`.
-- **CRITICAL** line 683, `bare-bullet-items` — **33. Grafana HA**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac stateless Grafana instances,`, `spoločnú podporovanú SQL database,`, `load balancer,`, `konzistentnú configuration a plugins,`.
-- **CRITICAL** line 683, `outline-instead-of-explanation` — **33. Grafana HA**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 700, `bare-bullet-items` — **34. Internal database**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dashboards a folders,`, `users/teams/organizations,`, `data-source metadata a encrypted secure fields,`, `alerting resources,`.
-- **CRITICAL** line 700, `outline-instead-of-explanation` — **34. Internal database**: 11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 721, `bare-bullet-items` — **35. Upgrade model**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítaj release notes a breaking changes,`, `over plugin compatibility,`, `zálohuj database a configuration,`, `exportuj critical dashboards/alerting resources,`.
-- **CRITICAL** line 721, `outline-instead-of-explanation` — **35. Upgrade model**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 735, `bare-bullet-items` — **36. Performance a query cost**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátky auto-refresh,`, `veľa panels,`, `repeated panels,`, `broad variables,`.
-- **CRITICAL** line 735, `outline-instead-of-explanation` — **36. Performance a query cost**: 16 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 769, `bare-bullet-items` — **37. Self-monitoring**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP request rate/errors/latency,`, `active users a sessions,`, `database connections a latency,`, `data-source query duration/errors,`.
-- **CRITICAL** line 769, `outline-instead-of-explanation` — **37. Self-monitoring**: 12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 814, `bare-bullet-items` — **39. Troubleshooting panel ukazuje zlú hodnotu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw data-source query,`, `query time range a step,`, `aggregation a label scope,`, `transformations,`.
-- **CRITICAL** line 814, `outline-instead-of-explanation` — **39. Troubleshooting panel ukazuje zlú hodnotu**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 831, `bare-bullet-items` — **40. Troubleshooting pomalý dashboard**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `panel query durations,`, `počet queries,`, `variable queries,`, `repeated panels,`.
-- **CRITICAL** line 831, `outline-instead-of-explanation` — **40. Troubleshooting pomalý dashboard**: 11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 866, `bare-bullet-items` — **42. Troubleshooting variables**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variable vracia príliš veľa values,`, `dependent variable sa neobnoví,`, `„All“ regex je nesprávny,`, `value obsahuje special characters,`.
-- **CRITICAL** line 866, `outline-instead-of-explanation` — **42. Troubleshooting variables**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 896, `bare-bullet-items` — **44. Troubleshooting Grafana alert**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule type a owner,`, `data-source query,`, `evaluation interval,`, `pending/for semantics,`.
-- **CRITICAL** line 896, `outline-instead-of-explanation` — **44. Troubleshooting Grafana alert**: 11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 23, `single-sentence-concept` — **2. Základné komponenty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 48, `single-sentence-concept` — **3. Data sources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 124, `single-sentence-concept` — **Panel inspector**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 153, `single-sentence-concept` — **8. Vizualizácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 157, `single-sentence-concept` — **Time series**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 161, `single-sentence-concept` — **Stat**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 169, `single-sentence-concept` — **Table**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 173, `single-sentence-concept` — **Heatmap**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 177, `single-sentence-concept` — **State timeline/status history**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 181, `single-sentence-concept` — **Logs a traces panels**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 185, `list-heavy-section` — **9. Query options**: 11 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 208, `list-heavy-section` — **10. Transformations**: 13 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 248, `single-sentence-concept` — **12. Variables**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 272, `list-first-introduction` — **Výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 279, `list-first-introduction` — **Riziká**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 279, `single-sentence-concept` — **Riziká**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 355, `single-sentence-concept` — **16. Dashboard a panel links**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 420, `single-sentence-concept` — **19. Dashboard hierarchy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 424, `list-first-introduction` — **Executive alebo service health**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 431, `list-first-introduction` — **Service overview**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 438, `list-first-introduction` — **Component/resource dashboard**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 445, `bare-bullet-items` — **Troubleshooting dashboard**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `high-resolution details,`, `per-instance/shard breakdown,`, `links na logs/traces/profiles.`.
-- **HIGH** line 445, `list-first-introduction` — **Troubleshooting dashboard**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 445, `single-sentence-concept` — **Troubleshooting dashboard**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 453, `single-sentence-concept` — **20. Dashboard design principles**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 505, `list-heavy-section` — **23. Dashboard provisioning**: 11 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 528, `single-sentence-concept` — **24. Dashboards as code**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 578, `single-sentence-concept` — **27. Authentication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 629, `list-heavy-section` — **30. Grafana Alerting**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 648, `bare-bullet-items` — **Grafana-managed**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `evaluation vykonáva Grafana alerting engine,`, `môže kombinovať podporované data sources a expressions,`, `routing/contact points sú spravované Grafanou.`.
-- **HIGH** line 648, `list-first-introduction` — **Grafana-managed**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 654, `list-first-introduction` — **Data-source-managed**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 654, `single-sentence-concept` — **Data-source-managed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 700, `single-sentence-concept` — **34. Internal database**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 735, `single-sentence-concept` — **36. Performance a query cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 769, `single-sentence-concept` — **37. Self-monitoring**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 796, `list-first-introduction` — **38. Troubleshooting „No data“**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 814, `single-sentence-concept` — **39. Troubleshooting panel ukazuje zlú hodnotu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 849, `list-first-introduction` — **41. Troubleshooting data source**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 849, `single-sentence-concept` — **41. Troubleshooting data source**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 866, `single-sentence-concept` — **42. Troubleshooting variables**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 880, `list-first-introduction` — **43. Troubleshooting provisioning drift**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 880, `single-sentence-concept` — **43. Troubleshooting provisioning drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 916, `single-sentence-concept` — **Dashboard ako source of truth**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 920, `single-sentence-concept` — **Panel pre každú metric**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 924, `single-sentence-concept` — **Variables ako authorization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 928, `single-sentence-concept` — **Transformations namiesto správnej backend query**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 932, `single-sentence-concept` — **Červený threshold ako alerting stratégia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 936, `single-sentence-concept` — **UI edit provisionovaného dashboardu bez exportu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 940, `single-sentence-concept` — **Jedna broad data-source identity pre všetkých tenantov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 944, `single-sentence-concept` — **Auto-refresh 5 sekúnd na dlhom time range**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 948, `single-sentence-concept` — **Alerting v Prometheus aj Grafane bez ownershipu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 23, `thin-concept-section` — **2. Základné komponenty**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 48, `thin-concept-section` — **3. Data sources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 95, `thin-concept-section` — **5. Dashboard**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 110, `thin-concept-section` — **6. Panel**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 124, `thin-concept-section` — **Panel inspector**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 248, `thin-concept-section` — **12. Variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 272, `thin-concept-section` — **Výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 279, `thin-concept-section` — **Riziká**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 307, `thin-concept-section` — **14. Repeating panels a rows**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 325, `thin-concept-section` — **15. Annotations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 355, `thin-concept-section` — **16. Dashboard a panel links**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 404, `thin-concept-section` — **18. Explore**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 424, `thin-concept-section` — **Executive alebo service health**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 431, `thin-concept-section` — **Service overview**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 438, `thin-concept-section` — **Component/resource dashboard**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 445, `thin-concept-section` — **Troubleshooting dashboard**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 453, `thin-concept-section` — **20. Dashboard design principles**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 475, `thin-concept-section` — **21. Units a value mappings**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 489, `thin-concept-section` — **22. Thresholds**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 528, `thin-concept-section` — **24. Dashboards as code**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 547, `thin-concept-section` — **25. Provisioning data sources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 578, `term-before-explanation` — **27. Authentication**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SAML`, `LDAP`, `API`, `MFA`, `identity`
-- **HIGH** line 578, `thin-concept-section` — **27. Authentication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 599, `thin-concept-section` — **28. Sharing a snapshots**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 648, `thin-concept-section` — **Grafana-managed**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 654, `thin-concept-section` — **Data-source-managed**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 700, `thin-concept-section` — **34. Internal database**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 721, `thin-concept-section` — **35. Upgrade model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 735, `thin-concept-section` — **36. Performance a query cost**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 769, `thin-concept-section` — **37. Self-monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 814, `thin-concept-section` — **39. Troubleshooting panel ukazuje zlú hodnotu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 831, `thin-concept-section` — **40. Troubleshooting pomalý dashboard**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 866, `thin-concept-section` — **42. Troubleshooting variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 896, `thin-concept-section` — **44. Troubleshooting Grafana alert**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 72, `bare-bullet-items` — **4. Data-source boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable UID a plugin type;`, `backend endpoint;`, `tenant, organization alebo project header;`, `authentication a TLS;`.
+- **CRITICAL** line 104, `bare-bullet-items` — **6. Variables a population identity**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale hidden default;`, `URL parameter prepíše očakávanú hodnotu;`, `All expanduje broad regex;`, `chained variables spustia query storm;`.
+- **CRITICAL** line 104, `outline-instead-of-explanation` — **6. Variables a population identity**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 127, `bare-bullet-items` — **7. Expressions, transformations a field semantics**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source queries;`, `expression order;`, `transformation order;`, `join keys a missing-data behavior;`.
+- **CRITICAL** line 169, `bare-bullet-items` — **9. Provisioning a ownership**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file provisioning;`, `Terraform;`, `Grafana Operator alebo iný controller;`, `HTTP/API workflow;`.
+- **CRITICAL** line 220, `bare-bullet-items` — **11. Security, HA a recovery**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data-source credentials;`, `internal database;`, `service accounts a API tokens;`, `dashboards, alerting resources a provisioning sources;`.
+- **CRITICAL** line 238, `bare-bullet-items` — **12. Query budget a self-observability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Grafana HTTP rate/errors/latency;`, `data-source query duration a failures;`, `internal DB pool a latency;`, `dashboard load time;`.
+- **CRITICAL** line 238, `outline-instead-of-explanation` — **12. Query budget a self-observability**: 8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 274, `empty-section` — **13. Worked failure: backend ukazuje 7.4 %, dashboard 0.074 %**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 280, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 295, `bare-bullet-items` — **Competing hypotheses**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus query používa nesprávny numerator alebo denominator;`, `Grafana variable vybrala standard cohort;`, `panel time range alebo step vynechal incident;`, `transformation zmenila hodnotu;`.
+- **CRITICAL** line 295, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 295, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 331, `bare-bullet-items` — **Containment**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prestať používať panel ako severity autoritu;`, `pripojiť on-call priamo na Prometheus SLO/error-budget query;`, `zastaviť ďalší dashboard provisioning rollout;`, `neprepínať data source ani nevytvárať nový duplicate dashboard.`.
+- **CRITICAL** line 331, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 331, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 339, `bare-bullet-items` — **Authoritative recovery**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť unit a threshold v source generatori;`, `pridať fixture 0.074 → 7.4 % ;`, `vygenerovať immutable dashboard artifact DASH-GEN-213 ;`, `validovať UID, data-source UID, variables a panel JSON;`.
+- **CRITICAL** line 339, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 339, `outline-instead-of-explanation` — **Authoritative recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 350, `bare-bullet-items` — **Acceptance verdict**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `0.074 sa zobrazuje ako 7.4 % ;`, `threshold a legend používajú správnu unit;`, `enterprise aj standard cohort fixtures fungujú;`, `dashboard link prenesie správny time range a cohort;`.
+- **CRITICAL** line 350, `outline-instead-of-explanation` — **Acceptance verdict**: 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 363, `empty-section` — **14. Troubleshooting model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 380, `empty-section` — **Zlá hodnota**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 393, `empty-section` — **Provisioning drift**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 405, `empty-section` — **Pomalý dashboard**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 51, `list-first-introduction` — **3. Štyri oddelené stavy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 51, `single-sentence-concept` — **3. Štyri oddelené stavy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 195, `single-sentence-concept` — **10. Grafana Alerting boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 199, `single-sentence-concept` — **Grafana-managed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 238, `single-sentence-concept` — **12. Query budget a self-observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 295, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 305, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 305, `single-sentence-concept` — **Discriminating evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 331, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 339, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 350, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 365, `list-first-introduction` — **No data**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 365, `single-sentence-concept` — **No data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 418, `single-sentence-concept` — **Dashboard ako source of truth**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 422, `single-sentence-concept` — **Variables ako authorization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 426, `single-sentence-concept` — **UI hotfix provisionovaného dashboardu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 430, `single-sentence-concept` — **Transformations ako skrytý business model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 434, `single-sentence-concept` — **Alerting v dvoch control planes bez ownershipu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 438, `single-sentence-concept` — **Broad data-source credential**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 104, `thin-concept-section` — **6. Variables a population identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 238, `thin-concept-section` — **12. Query budget a self-observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 295, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 331, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 339, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 350, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/12-observability/instrumentation-telemetry.md`
 
@@ -15346,19 +15226,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2767 | 442 | 0 | 0 | 3209 |
-| `outline-instead-of-explanation` | 2690 | 0 | 0 | 0 | 2690 |
-| `term-before-explanation` | 0 | 546 | 1953 | 0 | 2499 |
-| `single-sentence-concept` | 0 | 2478 | 0 | 0 | 2478 |
-| `thin-concept-section` | 0 | 2285 | 0 | 0 | 2285 |
-| `example-not-explicit` | 0 | 0 | 0 | 2178 | 2178 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2075 | 2075 |
-| `list-first-introduction` | 0 | 1278 | 0 | 0 | 1278 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1137 | 1137 |
-| `short-concept-section` | 0 | 0 | 989 | 0 | 989 |
-| `no-prose-concept` | 734 | 0 | 0 | 0 | 734 |
-| `empty-section` | 597 | 0 | 0 | 0 | 597 |
-| `list-heavy-section` | 0 | 470 | 0 | 0 | 470 |
+| `bare-bullet-items` | 2735 | 440 | 0 | 0 | 3175 |
+| `outline-instead-of-explanation` | 2659 | 0 | 0 | 0 | 2659 |
+| `term-before-explanation` | 0 | 545 | 1937 | 0 | 2482 |
+| `single-sentence-concept` | 0 | 2457 | 0 | 0 | 2457 |
+| `thin-concept-section` | 0 | 2258 | 0 | 0 | 2258 |
+| `example-not-explicit` | 0 | 0 | 0 | 2177 | 2177 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2062 | 2062 |
+| `list-first-introduction` | 0 | 1273 | 0 | 0 | 1273 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
+| `short-concept-section` | 0 | 0 | 978 | 0 | 978 |
+| `no-prose-concept` | 732 | 0 | 0 | 0 | 732 |
+| `empty-section` | 602 | 0 | 0 | 0 | 602 |
+| `list-heavy-section` | 0 | 466 | 0 | 0 | 466 |
 
 ## Required remediation pattern
 
