@@ -3489,16 +3489,16 @@
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
       "title": "Policy as Code",
-      "words": 4514,
-      "headings": 39,
-      "sections": 39,
-      "findings": 35,
-      "critical": 0,
-      "high": 3,
-      "medium": 1,
-      "low": 31,
-      "score": 66,
-      "grade": "C"
+      "words": 2205,
+      "headings": 31,
+      "sections": 31,
+      "findings": 84,
+      "critical": 18,
+      "high": 29,
+      "medium": 10,
+      "low": 27,
+      "score": 516,
+      "grade": "D"
     },
     {
       "path": "docs/13-security-and-identity/saml.md",
@@ -192008,278 +192008,152 @@
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "6. Structured decision ako operational contract",
-      "line": 94,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "1. Policy intent",
+      "line": 22,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "7. Input, supporting data a schema",
-      "line": 118,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "8. Declarative policy a jej limity",
-      "line": 128,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "8. Declarative policy a jej limity",
-      "line": 128,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "10. Policy composition a conflicts",
-      "line": 148,
-      "severity": "high",
+      "section": "1. Policy intent",
+      "line": 22,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Deny overrides znamená, že jediný deny zablokuje operation.`, `Priority-based rieši conflicts podľa explicitnej priority.`, `Advisory plus enforcing oddeľuje warnings od blocking decisions.`.",
-      "score": 8
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production scope;`, `exact principal, action a resource;`, `immutable image subject;`, `signer, issuer, workflow a builder identities;`.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "10. Policy composition a conflicts",
-      "line": 148,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "11. Policy identity, revision a artifact",
-      "line": 162,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "12. Repository governance a separation of duties",
-      "line": 172,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "12. Repository governance a separation of duties",
-      "line": 172,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "14. Revision skew, caching a consistency",
-      "line": 192,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "16. Partial evaluation a WebAssembly",
-      "line": 219,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "17. Policy testing",
-      "line": 227,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "18. Shift-left, runtime enforcement a background audit",
-      "line": 237,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "18. Shift-left, runtime enforcement a background audit",
-      "line": 237,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "19. Infrastructure as Code policy",
-      "line": 256,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "20. Kubernetes admission flow",
-      "line": 266,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "20. Kubernetes admission flow",
-      "line": 266,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "21. ValidatingAdmissionPolicy a CEL",
-      "line": 284,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "22. MutatingAdmissionPolicy",
-      "line": 294,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "23. Admission webhooks oproti in-process policy",
-      "line": 304,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "24. Gatekeeper: ConstraintTemplate a Constraint",
-      "line": 314,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "26. Kyverno policy model",
-      "line": 332,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "26. Kyverno policy model",
-      "line": 332,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "27. Image verification policy",
-      "line": 342,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "29. Audit-only, canary a enforcement rollout",
-      "line": 362,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "29. Audit-only, canary a enforcement rollout",
-      "line": 362,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "30. Decision logs a observability",
-      "line": 372,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "32. Security policy plane-u",
-      "line": 392,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "32. Security policy plane-u",
-      "line": 392,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "34. Kompletný príklad: production image admission",
-      "line": 422,
+      "section": "1. Policy intent",
+      "line": 22,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "1. Policy intent",
+      "line": 22,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "1. Policy intent",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "1. Policy intent",
+      "line": 22,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`, `enforcement`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "34. Kompletný príklad: production image admission",
-      "line": 422,
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request alebo object generation;`, `caller identity a delegation;`, `requested action a resource;`, `environment, tenant a classification;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "2. Exact policy decision subject",
+      "line": 48,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `PDP`, `PEP`, `delegation`, `resource`, `freshness`, `scope`, `enforcement`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "4. PAP, PDP, PEP a PIP",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "5. Input a supporting-data contract",
+      "line": 108,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "5. Input a supporting-data contract",
+      "line": 108,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a version;`, `source identity a integrity;`, `freshness a loaded revision;`, `missing, empty a unknown semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "5. Input a supporting-data contract",
+      "line": 108,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -192287,8 +192161,44 @@
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "34. Kompletný príklad: production image admission",
-      "line": 422,
+      "section": "5. Input a supporting-data contract",
+      "line": 108,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "7. Defaults a combining semantics",
+      "line": 156,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "7. Defaults a combining semantics",
+      "line": 156,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `default deny odmietne neexplicitne povolený high-risk request;`, `deny overrides zablokuje operation pri jednom mandatory deny;`, `all must pass vyžaduje úspech všetkých applicable controls;`, `advisory + enforcing oddeľuje warning od blocking resultu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "7. Defaults a combining semantics",
+      "line": 156,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "7. Defaults a combining semantics",
+      "line": 156,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -192296,17 +192206,17 @@
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "34. Kompletný príklad: production image admission",
-      "line": 422,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `PDP`, `PIP`, `identity`, `attestation`, `policy`",
-      "score": 7
+      "section": "7. Defaults a combining semantics",
+      "line": 156,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "35. Troubleshooting workflow",
-      "line": 437,
+      "section": "8. Policy artifact a loaded generation",
+      "line": 168,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -192314,12 +192224,543 @@
     },
     {
       "path": "docs/13-security-and-identity/policy-as-code.md",
-      "section": "36. Časté anti-patterny",
-      "line": 457,
+      "section": "8. Policy artifact a loaded generation",
+      "line": 168,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "9. Revision skew a cache",
+      "line": 185,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "10. OPA a Rego",
+      "line": 198,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "10. OPA a Rego",
+      "line": 198,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed examples;`, `forbidden examples;`, `missing a malformed inputs;`, `boundary a normalization cases;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "11. Policy testing",
+      "line": 215,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `PDP`, `enforcement`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "12. Shift-left, request-time enforcement a background audit",
+      "line": 244,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "13. Kubernetes admission model",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "14. Gatekeeper a Kyverno",
+      "line": 279,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "15. Exceptions a break-glass",
+      "line": 287,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "15. Exceptions a break-glass",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy ID a exact subject/resource;`, `owner, approver a dôvod;`, `start a expiration;`, `compensating controls;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "15. Exceptions a break-glass",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "15. Exceptions a break-glass",
+      "line": 287,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "16. Worked incident SEC-PAY-51",
+      "line": 302,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "16. Worked incident SEC-PAY-51",
+      "line": 302,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `old revision kontrolovala iba broad OIDC issuer/repository regex;`, `verification cache bola keyed podľa repository:tag:namespace ;`, `webhook používal failurePolicy: Ignore počas 23-sekundového timeout wi`, `arm64 Pods vznikli bez exact subject verdictu.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "16. Worked incident SEC-PAY-51",
+      "line": 302,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "16. Worked incident SEC-PAY-51",
+      "line": 302,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "16. Worked incident SEC-PAY-51",
+      "line": 302,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDP`, `POL-IMG-17`, `POL-IMG-16`, `OIDC`, `CRD`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `input neobsahoval sha256:pay7240-arm ;`, `cache hit pre tag vznikol pred quarantine generation;`, `controller ServiceAccount bol exempted z webhook match condition;`, `počas timeout-u vznikol admission allow bez decision ID.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "17. Discriminating evidence",
+      "line": 331,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDP`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `freeze policy publication aj release deployments;`, `odstrániť not-ready PDPs z trafficu;`, `quarantine affected digests;`, `zablokovať custom-controller reconciliation bez mazania evidence.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "18. Containment a authoritative recovery",
+      "line": 343,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POL-IMG-18`, `policy`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `intent má ownera a testovateľný contract;`, `exact request/resource/digest vstupuje do decisionu;`, `structured result sa presadí bez straty obligations;`, `cache a exceptions rešpektujú revocation;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "19. Policy acceptance verdict",
+      "line": 368,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `policy`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "20. Troubleshooting flow",
+      "line": 385,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy intent s explicitným enforcement contractom;`, `immutable signed bundles;`, `active-generation readiness telemetry;`, `schemas pre input, data a structured decisions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "21. Earlier controls",
+      "line": 404,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `enforcement`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "Policy file equals control",
+      "line": 422,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "Green unit tests",
+      "line": 426,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "Mutable branch distribution",
+      "line": 430,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "Cache bez revision a digestu",
+      "line": 434,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "Permanent audit mode",
+      "line": 438,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/policy-as-code.md",
+      "section": "Global exception alebo fail-open",
+      "line": 442,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/saml.md",

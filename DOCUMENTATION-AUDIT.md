@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10363**
-- Total words: **613,930**
-- Findings: **21537** (critical 6397, high 7259, medium 2734, low 5147)
-- File grades: A 0, B 0, C 1, D 256
+- Audited conceptual sections: **10355**
+- Total words: **611,621**
+- Findings: **21586** (critical 6415, high 7285, medium 2743, low 5143)
+- File grades: A 0, B 0, C 0, D 257
 
 ## Interpretation
 
@@ -181,6 +181,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 524 | 21 | 30 | 6 | 10 | 1755 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 523 | 23 | 24 | 11 | 14 | 1961 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 520 | 20 | 32 | 4 | 14 | 2434 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
+| D | 516 | 18 | 29 | 10 | 27 | 2205 | `docs/13-security-and-identity/policy-as-code.md` |
 | D | 514 | 22 | 26 | 7 | 12 | 1687 | `docs/12-observability/jaeger-tempo.md` |
 | D | 513 | 20 | 24 | 12 | 29 | 1972 | `docs/13-security-and-identity/image-signing.md` |
 | D | 510 | 20 | 28 | 5 | 26 | 2111 | `docs/13-security-and-identity/active-directory.md` |
@@ -279,7 +280,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 
 ## Critical and high findings
 
@@ -14396,6 +14396,56 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 271, `thin-concept-section` — **15. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 303, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/13-security-and-identity/policy-as-code.md`
+
+- **CRITICAL** line 22, `bare-bullet-items` — **1. Policy intent**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production scope;`, `exact principal, action a resource;`, `immutable image subject;`, `signer, issuer, workflow a builder identities;`.
+- **CRITICAL** line 22, `outline-instead-of-explanation` — **1. Policy intent**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 48, `bare-bullet-items` — **2. Exact policy decision subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request alebo object generation;`, `caller identity a delegation;`, `requested action a resource;`, `environment, tenant a classification;`.
+- **CRITICAL** line 48, `outline-instead-of-explanation` — **2. Exact policy decision subject**: 11 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 108, `bare-bullet-items` — **5. Input a supporting-data contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a version;`, `source identity a integrity;`, `freshness a loaded revision;`, `missing, empty a unknown semantics;`.
+- **CRITICAL** line 108, `outline-instead-of-explanation` — **5. Input a supporting-data contract**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 156, `bare-bullet-items` — **7. Defaults a combining semantics**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `default deny odmietne neexplicitne povolený high-risk request;`, `deny overrides zablokuje operation pri jednom mandatory deny;`, `all must pass vyžaduje úspech všetkých applicable controls;`, `advisory + enforcing oddeľuje warning od blocking resultu.`.
+- **CRITICAL** line 156, `outline-instead-of-explanation` — **7. Defaults a combining semantics**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 215, `bare-bullet-items` — **11. Policy testing**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed examples;`, `forbidden examples;`, `missing a malformed inputs;`, `boundary a normalization cases;`.
+- **CRITICAL** line 215, `outline-instead-of-explanation` — **11. Policy testing**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 287, `bare-bullet-items` — **15. Exceptions a break-glass**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy ID a exact subject/resource;`, `owner, approver a dôvod;`, `start a expiration;`, `compensating controls;`.
+- **CRITICAL** line 331, `outline-instead-of-explanation` — **17. Discriminating evidence**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 343, `bare-bullet-items` — **18. Containment a authoritative recovery**: 12 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `freeze policy publication aj release deployments;`, `odstrániť not-ready PDPs z trafficu;`, `quarantine affected digests;`, `zablokovať custom-controller reconciliation bez mazania evidence.`.
+- **CRITICAL** line 343, `outline-instead-of-explanation` — **18. Containment a authoritative recovery**: 15 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 368, `outline-instead-of-explanation` — **19. Policy acceptance verdict**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 404, `bare-bullet-items` — **21. Earlier controls**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy intent s explicitným enforcement contractom;`, `immutable signed bundles;`, `active-generation readiness telemetry;`, `schemas pre input, data a structured decisions;`.
+- **CRITICAL** line 404, `no-prose-concept` — **21. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 404, `outline-instead-of-explanation` — **21. Earlier controls**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 48, `single-sentence-concept` — **2. Exact policy decision subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 215, `single-sentence-concept` — **11. Policy testing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 244, `list-first-introduction` — **12. Shift-left, request-time enforcement a background audit**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 287, `list-heavy-section` — **15. Exceptions a break-glass**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 302, `bare-bullet-items` — **16. Worked incident SEC-PAY-51**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `old revision kontrolovala iba broad OIDC issuer/repository regex;`, `verification cache bola keyed podľa repository:tag:namespace ;`, `webhook používal failurePolicy: Ignore počas 23-sekundového timeout wi`, `arm64 Pods vznikli bez exact subject verdictu.`.
+- **HIGH** line 302, `list-heavy-section` — **16. Worked incident SEC-PAY-51**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 331, `bare-bullet-items` — **17. Discriminating evidence**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `input neobsahoval sha256:pay7240-arm ;`, `cache hit pre tag vznikol pred quarantine generation;`, `controller ServiceAccount bol exempted z webhook match condition;`, `počas timeout-u vznikol admission allow bez decision ID.`.
+- **HIGH** line 331, `list-first-introduction` — **17. Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 331, `single-sentence-concept` — **17. Discriminating evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 343, `single-sentence-concept` — **18. Containment a authoritative recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 368, `bare-bullet-items` — **19. Policy acceptance verdict**: 6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `intent má ownera a testovateľný contract;`, `exact request/resource/digest vstupuje do decisionu;`, `structured result sa presadí bez straty obligations;`, `cache a exceptions rešpektujú revocation;`.
+- **HIGH** line 368, `single-sentence-concept` — **19. Policy acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 385, `list-first-introduction` — **20. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 404, `list-first-introduction` — **21. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 422, `single-sentence-concept` — **Policy file equals control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 426, `single-sentence-concept` — **Green unit tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 430, `single-sentence-concept` — **Mutable branch distribution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 434, `single-sentence-concept` — **Cache bez revision a digestu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 438, `single-sentence-concept` — **Permanent audit mode**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 442, `single-sentence-concept` — **Global exception alebo fail-open**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 22, `thin-concept-section` — **1. Policy intent**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 48, `term-before-explanation` — **2. Exact policy decision subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `PDP`, `PEP`, `delegation`, `resource`, `freshness`, `scope`, `enforcement`
+- **HIGH** line 48, `thin-concept-section` — **2. Exact policy decision subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 215, `thin-concept-section` — **11. Policy testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 302, `term-before-explanation` — **16. Worked incident SEC-PAY-51**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDP`, `POL-IMG-17`, `POL-IMG-16`, `OIDC`, `CRD`, `scope`
+- **HIGH** line 331, `thin-concept-section` — **17. Discriminating evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 343, `thin-concept-section` — **18. Containment a authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 368, `thin-concept-section` — **19. Policy acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 404, `thin-concept-section` — **21. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/13-security-and-identity/saml.md`
 
 - **CRITICAL** line 56, `bare-bullet-items` — **3. Metadata je trust bootstrap**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entity ID;`, `SSO/SLO a ACS endpoints;`, `bindings;`, `signing a encryption keys;`.
@@ -14705,29 +14755,23 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 407, `term-before-explanation` — **34. Ako merať reálny pokrok**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `Resource`, `enforcement`, `Identity`, `workload`, `Policy`, `freshness`
 - **HIGH** line 421, `term-before-explanation` — **35. Kompletný príklad access decisionu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `ID`, `EDR`, `CI`, `PEP`, `Identity`, `Posture`
 
-### `docs/13-security-and-identity/policy-as-code.md`
-
-- **HIGH** line 148, `bare-bullet-items` — **10. Policy composition a conflicts**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Deny overrides znamená, že jediný deny zablokuje operation.`, `Priority-based rieši conflicts podľa explicitnej priority.`, `Advisory plus enforcing oddeľuje warnings od blocking decisions.`.
-- **HIGH** line 422, `list-heavy-section` — **34. Kompletný príklad: production image admission**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 422, `term-before-explanation` — **34. Kompletný príklad: production image admission**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `PDP`, `PIP`, `identity`, `attestation`, `policy`
-
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2461 | 457 | 0 | 0 | 2918 |
-| `outline-instead-of-explanation` | 2473 | 0 | 0 | 0 | 2473 |
-| `term-before-explanation` | 0 | 554 | 1827 | 0 | 2381 |
-| `single-sentence-concept` | 0 | 2367 | 0 | 0 | 2367 |
-| `thin-concept-section` | 0 | 2090 | 0 | 0 | 2090 |
-| `example-not-explicit` | 0 | 0 | 0 | 2062 | 2062 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2023 | 2023 |
-| `list-first-introduction` | 0 | 1353 | 0 | 0 | 1353 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1062 | 1062 |
-| `short-concept-section` | 0 | 0 | 907 | 0 | 907 |
-| `no-prose-concept` | 785 | 0 | 0 | 0 | 785 |
+| `bare-bullet-items` | 2469 | 459 | 0 | 0 | 2928 |
+| `outline-instead-of-explanation` | 2482 | 0 | 0 | 0 | 2482 |
+| `term-before-explanation` | 0 | 555 | 1835 | 0 | 2390 |
+| `single-sentence-concept` | 0 | 2378 | 0 | 0 | 2378 |
+| `thin-concept-section` | 0 | 2097 | 0 | 0 | 2097 |
+| `example-not-explicit` | 0 | 0 | 0 | 2064 | 2064 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2025 | 2025 |
+| `list-first-introduction` | 0 | 1357 | 0 | 0 | 1357 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1054 | 1054 |
+| `short-concept-section` | 0 | 0 | 908 | 0 | 908 |
+| `no-prose-concept` | 786 | 0 | 0 | 0 | 786 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
-| `list-heavy-section` | 0 | 438 | 0 | 0 | 438 |
+| `list-heavy-section` | 0 | 439 | 0 | 0 | 439 |
 
 ## Required remediation pattern
 
