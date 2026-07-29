@@ -3307,15 +3307,15 @@
     {
       "path": "docs/12-observability/red-method.md",
       "title": "RED method",
-      "words": 1354,
-      "headings": 38,
-      "sections": 38,
-      "findings": 101,
-      "critical": 42,
-      "high": 40,
-      "medium": 10,
-      "low": 9,
-      "score": 862,
+      "words": 2296,
+      "headings": 50,
+      "sections": 50,
+      "findings": 70,
+      "critical": 24,
+      "high": 26,
+      "medium": 7,
+      "low": 13,
+      "score": 537,
       "grade": "D"
     },
     {
@@ -190973,7 +190973,7 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -190982,7 +190982,7 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -190991,359 +190991,26 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "2. Rate",
-      "line": 17,
+      "section": "Denominator contract",
+      "line": 68,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "2. Rate",
-      "line": 17,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP requests za sekundu,`, `gRPC calls za sekundu,`, `messages spracované za minútu,`, `jobs dokončené za hodinu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "2. Rate",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "2. Rate",
-      "line": 17,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "2. Rate",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Denominator contract",
-      "line": 37,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Denominator contract",
-      "line": 37,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
       "section": "Denominator contract",
-      "line": 37,
+      "line": 68,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijaté requesty,`, `dokončené requesty,`, `attempts,`, `logical operations,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo vytvorí jednu unit;`, `kde sa počíta;`, `či ide o accepted, started alebo completed operations;`, `ako sa deduplikuje retry alebo redelivery;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
       "section": "Denominator contract",
-      "line": 37,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "3. Errors",
-      "line": 51,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "3. Errors",
-      "line": 51,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný application failure,`, `timeout,`, `cancellation,`, `invalid response,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "3. Errors",
-      "line": 51,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "3. Errors",
-      "line": 51,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "3. Errors",
-      "line": 51,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Error rate",
-      "line": 70,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Expected oproti unexpected errors",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Expected oproti unexpected errors",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `401 po expired session môže byť expected,`, `200 s chybným business resultom môže byť failure,`, `202 prijaté do queue nemusí znamenať dokončenú operáciu,`, `fallback response môže byť technically successful, ale degraded.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Expected oproti unexpected errors",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Expected oproti unexpected errors",
-      "line": 87,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Expected oproti unexpected errors",
-      "line": 87,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "4. Duration",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "4. Duration",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `na clientovi,`, `na edge/load balanceri,`, `v service handleri,`, `na dependency call-e,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "4. Duration",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Distribution namiesto average",
-      "line": 116,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Distribution namiesto average",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `histogram distribution,`, `p50,`, `p90,`, `p95,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Distribution namiesto average",
-      "line": 116,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Queue time",
-      "line": 132,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "5. Operation scope",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "5. Operation scope",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service,`, `operation alebo normalized route,`, `method/protocol,`, `result class,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "5. Operation scope",
-      "line": 146,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "5. Operation scope",
-      "line": 146,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "5. Operation scope",
-      "line": 146,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `ID`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "6. RED pre HTTP service",
-      "line": 169,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "6. RED pre HTTP service",
-      "line": 169,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "6. RED pre HTTP service",
-      "line": 169,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-flight requests,`, `request/response size,`, `timeout/cancellation reason,`, `retry count,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "6. RED pre HTTP service",
-      "line": 169,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "6. RED pre HTTP service",
-      "line": 169,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RED`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "7. RED pre gRPC",
-      "line": 200,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "7. RED pre gRPC",
-      "line": 200,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `method/service,`, `unary oproti streaming,`, `status code,`, `messages sent/received,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "7. RED pre gRPC",
-      "line": 200,
+      "line": 68,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -191351,8 +191018,8 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "7. RED pre gRPC",
-      "line": 200,
+      "section": "Denominator contract",
+      "line": 68,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -191360,278 +191027,8 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "8. RED pre queues a consumers",
-      "line": 215,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "8. RED pre queues a consumers",
-      "line": 215,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `message received rate,`, `message successfully processed rate,`, `processing error rate,`, `processing duration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "8. RED pre queues a consumers",
-      "line": 215,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "8. RED pre queues a consumers",
-      "line": 215,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "9. RED pre batch jobs",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "9. RED pre batch jobs",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Errors — failed items/jobs,`, `last successful completion,`, `freshness,`, `expected schedule,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "9. RED pre batch jobs",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "9. RED pre batch jobs",
-      "line": 238,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "10. RED a retries",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "10. RED a retries",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "10. RED a retries",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Rate rastie,`, `Errors na attempt vrstve rastú,`, `Duration logical operation rastie,`, `dependency saturation sa zhoršuje.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "10. RED a retries",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "11. RED a caching",
-      "line": 279,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "11. RED a caching",
-      "line": 279,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cache hit rate,`, `miss rate,`, `hit latency,`, `miss latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "11. RED a caching",
-      "line": 279,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "12. RED a SLO",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Availability SLI",
-      "line": 301,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Latency SLI",
-      "line": 307,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Latency SLI",
-      "line": 307,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Latency SLI",
-      "line": 307,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid traffic,`, `excluded synthetic/admin operations,`, `success semantics,`, `latency threshold,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Latency SLI",
-      "line": 307,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "13. Dashboard design",
-      "line": 325,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "13. Dashboard design",
-      "line": 325,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "13. Dashboard design",
-      "line": 325,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `total rate,`, `success/error ratio,`, `latency distribution a percentiles,`, `breakdown podľa operation/result,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "13. Dashboard design",
-      "line": 325,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "13. Dashboard design",
-      "line": 325,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RED`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "14. Alerting",
-      "line": 350,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "14. Alerting",
-      "line": 350,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `high error-rate burn,`, `latency SLO burn,`, `complete traffic loss pri očakávanom demand-e,`, `abnormal traffic spike s downstream riskom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "14. Alerting",
-      "line": 350,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "14. Alerting",
-      "line": 350,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "14. Alerting",
-      "line": 350,
+      "section": "Denominator contract",
+      "line": 68,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -191639,26 +191036,35 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "15. RED a Golden Signals",
-      "line": 365,
+      "section": "Numerator a denominator",
+      "line": 94,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Final, partial a unknown outcomes",
+      "line": 104,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "15. RED a Golden Signals",
-      "line": 365,
+      "section": "Final, partial a unknown outcomes",
+      "line": 104,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Rate,`, `Errors,`, `Duration.`, `Traffic,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definitive success;`, `definitive failure;`, `partial success;`, `cancellation;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "15. RED a Golden Signals",
-      "line": 365,
+      "section": "Final, partial a unknown outcomes",
+      "line": 104,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -191666,35 +191072,71 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "16. RED a USE",
-      "line": 391,
+      "section": "6. Bounded operation dimensions",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "6. Bounded operation dimensions",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "7. Retries a attempt amplification",
+      "line": 160,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "16. RED a USE",
-      "line": 391,
-      "severity": "high",
+      "section": "7. Retries a attempt amplification",
+      "line": 160,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Utilization,`, `Saturation,`, `Errors.`.",
-      "score": 8
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical operations;`, `attempts;`, `retry reason;`, `attempts per operation distribution;`.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "16. RED a USE",
-      "line": 391,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "7. Retries a attempt amplification",
+      "line": 160,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "17. Troubleshooting podľa RED",
-      "line": 410,
+      "section": "7. Retries a attempt amplification",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "8. Fan-out, batching a caching",
+      "line": 185,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "9. HTTP a gRPC adaptation",
+      "line": 193,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -191702,53 +191144,71 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Rate klesla, errors nerastú",
-      "line": 412,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Queues a asynchronous consumers",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Rate klesla, errors nerastú",
-      "line": 412,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Rate klesla, errors nerastú",
-      "line": 412,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream traffic,`, `DNS/load balancer routing,`, `deployment registration,`, `instrumentation/scrape,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Rate klesla, errors nerastú",
-      "line": 412,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Rate klesla, errors nerastú",
-      "line": 412,
+      "section": "11. Batch jobs",
+      "line": 226,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Errors rastú, duration klesá",
-      "line": 423,
+      "section": "11. Batch jobs",
+      "line": 226,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "13. RED, Golden Signals a USE",
+      "line": 258,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "14. Dashboard a alert contract",
+      "line": 279,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "15. Worked failure: retry layer rozbije RED semantics",
+      "line": 297,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Exact subject",
+      "line": 299,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Observed counts",
+      "line": 316,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -191756,62 +191216,53 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Errors rastú, duration klesá",
-      "line": 423,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Errors rastú, duration klesá",
-      "line": 423,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast rejection,`, `circuit breaker open,`, `authentication failure,`, `validation error,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Errors rastú, duration klesá",
-      "line": 423,
+      "section": "Observed counts",
+      "line": 316,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/red-method.md",
-      "section": "Duration rastie, utilization je nízka",
-      "line": 433,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Duration rastie, utilization je nízka",
-      "line": 433,
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Competing hypotheses",
+      "line": 355,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Duration rastie, utilization je nízka",
-      "line": 433,
+      "section": "Competing hypotheses",
+      "line": 355,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downstream latency,`, `lock contention,`, `queueing mimo sledovaného resource-u,`, `connection pool exhaustion,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny client traffic vzrástol o 18 %;`, `client posiela duplicate logical requests;`, `metrics pipeline duplikuje samples;`, `internal retry amplification zvyšuje provider attempts;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Duration rastie, utilization je nízka",
-      "line": 433,
+      "section": "Competing hypotheses",
+      "line": 355,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -191819,16 +191270,277 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Duration rastie, utilization je nízka",
-      "line": 433,
+      "section": "Discriminating evidence",
+      "line": 365,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Evidence-preserving containment",
+      "line": 382,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Evidence-preserving containment",
+      "line": 382,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Evidence-preserving containment",
+      "line": 382,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Evidence-preserving containment",
+      "line": 382,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vrátiť retry policy na bounded previous generation;`, `obmedziť provider concurrency a chrániť connection pool;`, `zachovať attempt/logical counters, traces a pool metrics;`, `nepovažovať broad timeout increase za root-cause fix;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Evidence-preserving containment",
+      "line": 382,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Evidence-preserving containment",
+      "line": 382,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť logical-operation a attempt metrics;`, `pridať attempts-per-operation histogram;`, `merať end-to-end logical duration vrátane queue/backoff;`, `sledovať successful a failed duration oddelene;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RED`, `SLO`, `RED-PAY-9`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical error ratio používa konzistentný numerator/denominator;`, `attempt amplification zostáva v retry budgete;`, `logical p95/p99 a completion SLI sa obnovia;`, `provider pool a throttle saturation majú headroom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Acceptance verdict",
+      "line": 402,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Earlier controls",
+      "line": 413,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Earlier controls",
+      "line": 413,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Earlier controls",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Earlier controls",
+      "line": 413,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema test zakazujúci mix logical a attempt units;`, `retry-policy load test s dependency throttlingom;`, `dashboard panel pre attempts/logical ratio;`, `explicit successful/failed logical duration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Earlier controls",
+      "line": 413,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Earlier controls",
+      "line": 413,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "16. Troubleshooting podľa RED",
+      "line": 422,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Errors rastú a duration klesá",
+      "line": 428,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/red-method.md",
       "section": "RED iba na service total",
+      "line": 446,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "Status code ako celý error contract",
       "line": 450,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -191837,7 +191549,7 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Status code ako jediná error definícia",
+      "section": "Failed attempts nad logical denominatorom",
       "line": 454,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -191846,7 +191558,7 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Average duration",
+      "section": "Average alebo mixed successful/failed duration",
       "line": 458,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -191855,7 +191567,7 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Retry attempts zmiešané s logical operations",
+      "section": "Raw route alebo business ID ako label",
       "line": 462,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -191864,7 +191576,7 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "Raw path ako label",
+      "section": "Final success bez attempt a saturation visibility",
       "line": 466,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -191873,8 +191585,17 @@
     },
     {
       "path": "docs/12-observability/red-method.md",
-      "section": "RED bez saturation",
+      "section": "Handler duration ako async end-to-end latency",
       "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/red-method.md",
+      "section": "RED ako náhrada za traces, USE a business reconciliation",
+      "line": 474,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
