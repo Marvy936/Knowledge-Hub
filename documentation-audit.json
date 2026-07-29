@@ -3669,6 +3669,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "title": "Runbooks a playbooks",
+      "words": 1670,
+      "headings": 46,
+      "sections": 46,
+      "findings": 96,
+      "critical": 32,
+      "high": 46,
+      "medium": 8,
+      "low": 10,
+      "score": 787,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/sli-slo-sla.md",
       "title": "SLI, SLO a SLA",
       "words": 1813,
@@ -201963,6 +201977,870 @@
       "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
       "section": "Acknowledged means queued somewhere",
       "line": 365,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "1. Runbook a playbook",
+      "line": 7,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook",
+      "line": 9,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook",
+      "line": 9,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook",
+      "line": 9,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded replay exact message IDs;`, `failover na pretested standby generation;`, `rotácia credentialu cez coordinated lifecycle;`, `odobratie node-u z trafficu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook",
+      "line": 9,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Playbook",
+      "line": 30,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Playbook",
+      "line": 30,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database saturation;`, `provider outage;`, `regional degradation;`, `credential compromise;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Playbook",
+      "line": 30,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "2. Dominantný lifecycle",
+      "line": 54,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "2. Dominantný lifecycle",
+      "line": 54,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "3. Exact runbook subject",
+      "line": 73,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "4. Povinná štruktúra runbooku",
+      "line": 102,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Purpose",
+      "line": 104,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Trigger a eligibility",
+      "line": 108,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Preconditions",
+      "line": 112,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Preconditions",
+      "line": 112,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Preconditions",
+      "line": 112,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Preconditions",
+      "line": 112,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current environment a resource identity;`, `required access;`, `maintenance alebo incident state;`, `backup/recovery availability;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Preconditions",
+      "line": 112,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Preconditions",
+      "line": 112,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IC`, `resource`, `identity`, `availability`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Safety boundary",
+      "line": 122,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Safety boundary",
+      "line": 122,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Safety boundary",
+      "line": 122,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Safety boundary",
+      "line": 122,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálny scope;`, `rate/concurrency limit;`, `dry-run;`, `idempotency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Safety boundary",
+      "line": 122,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Safety boundary",
+      "line": 122,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Diagnostic observations",
+      "line": 133,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Actions",
+      "line": 144,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Verification",
+      "line": 148,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Escalation",
+      "line": 152,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Metadata",
+      "line": 156,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "6. Commands ako controlled operations",
+      "line": 191,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "6. Commands ako controlled operations",
+      "line": 191,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "6. Commands ako controlled operations",
+      "line": 191,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `copy-safe, nie iba syntakticky validný;`, `parameterizovaný exact identity;`, `read-before-write;`, `scoped a bounded;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "6. Commands ako controlled operations",
+      "line": 191,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "6. Commands ako controlled operations",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "6. Commands ako controlled operations",
+      "line": 191,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "7. Verification",
+      "line": 226,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Source/config verification",
+      "line": 230,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Effective-state verification",
+      "line": 234,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Service verification",
+      "line": 238,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Business verification",
+      "line": 242,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Forbidden-outcome verification",
+      "line": 246,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Second-operation verification",
+      "line": 250,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "8. Rollback, compensation a unknown outcome",
+      "line": 254,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "8. Rollback, compensation a unknown outcome",
+      "line": 254,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reversible config change môže mať rollback;`, `external provider call môže vyžadovať reconciliation a compensation;`, `delete môže vyžadovať restore;`, `failover môže vyžadovať fencing, nie jednoduchý failback;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "8. Rollback, compensation a unknown outcome",
+      "line": 254,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "8. Rollback, compensation a unknown outcome",
+      "line": 254,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "9. Automation boundary",
+      "line": 275,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "9. Automation boundary",
+      "line": 275,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typed inputs a schema;`, `subject identity validation;`, `current-state read;`, `plan/dry-run;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "9. Automation boundary",
+      "line": 275,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "9. Automation boundary",
+      "line": 275,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "9. Automation boundary",
+      "line": 275,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "10. Freshness a compatibility",
+      "line": 296,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "10. Freshness a compatibility",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architecture alebo topology change;`, `schema/state-machine change;`, `nový release alebo API;`, `identity/permission model change;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "10. Freshness a compatibility",
+      "line": 296,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "10. Freshness a compatibility",
+      "line": 296,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "10. Freshness a compatibility",
+      "line": 296,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "11. Rehearsal",
+      "line": 315,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "11. Rehearsal",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "11. Rehearsal",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sandbox/lab;`, `read-only production validation;`, `game day;`, `shadow execution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "11. Rehearsal",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatible architecture generation;`, `distinction never-sent , in-flight , sent-unknown a completed ;`, `dry-run candidate count;`, `max scope a rate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 330,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "12. Worked incident SRE-PAY-53",
+      "line": 330,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preservation executed SQL, actor, timestamp a affected IDs;`, `označenie runbooku ako withdrawn;`, `zastavenie new lease resets a unbounded replays;`, `classification affected IDs podľa broker/provider evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 367,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "14. Replacement playbook a runbook",
+      "line": 382,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Playbook PB-PAY-24 — Settlement backlog",
+      "line": 384,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook RB-PAY-24 — Bounded never-sent replay",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook RB-PAY-24 — Bounded never-sent replay",
+      "line": 394,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a exact subject sú explicitné;`, `trigger a eligibility sú testovateľné;`, `compatible architecture/tool generations sú uvedené;`, `prerequisites, access a safety boundaries sú overené;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "15. Runbook acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "16. Troubleshooting runbook failure",
+      "line": 429,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "17. Earlier controls",
+      "line": 448,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "17. Earlier controls",
+      "line": 448,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "17. Earlier controls",
+      "line": 448,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "17. Earlier controls",
+      "line": 448,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `standard runbook template;`, `owner a reviewer;`, `architecture/version compatibility;`, `exact subject a manifest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "17. Earlier controls",
+      "line": 448,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "17. Earlier controls",
+      "line": 448,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Zoznam príkazov",
+      "line": 466,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Copy-paste ako usability",
+      "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Queue klesla, problém je vyriešený",
+      "line": 474,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Runbook nemá verziu",
+      "line": 478,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Automatizuj všetko",
+      "line": 482,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
+      "section": "Last updated = current",
+      "line": 486,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

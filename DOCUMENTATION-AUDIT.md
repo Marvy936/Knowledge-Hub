@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **264**
-- Audited conceptual sections: **10593**
-- Total words: **621,271**
-- Findings: **22187** (critical 6602, high 7528, medium 2820, low 5237)
-- File grades: A 0, B 0, C 0, D 264
+- Audited authoritative articles: **265**
+- Audited conceptual sections: **10639**
+- Total words: **622,941**
+- Findings: **22283** (critical 6634, high 7574, medium 2828, low 5247)
+- File grades: A 0, B 0, C 0, D 265
 
 ## Interpretation
 
@@ -69,6 +69,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 795 | 35 | 38 | 13 | 25 | 2399 | `docs/09-kubernetes/daemonset.md` |
 | D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
+| D | 787 | 32 | 46 | 8 | 10 | 1670 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 784 | 37 | 37 | 10 | 16 | 2402 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 784 | 35 | 33 | 20 | 18 | 2675 | `docs/11-cloud-and-aws/well-architected-framework.md` |
@@ -15095,6 +15096,87 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 328, `term-before-explanation` — **14. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `availability`, `policy`, `identity`
 - **HIGH** line 328, `thin-concept-section` — **14. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/14-sre-and-operations/runbooks-and-playbooks.md`
+
+- **CRITICAL** line 7, `empty-section` — **1. Runbook a playbook**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 9, `bare-bullet-items` — **Runbook**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded replay exact message IDs;`, `failover na pretested standby generation;`, `rotácia credentialu cez coordinated lifecycle;`, `odobratie node-u z trafficu.`.
+- **CRITICAL** line 9, `outline-instead-of-explanation` — **Runbook**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 30, `bare-bullet-items` — **Playbook**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database saturation;`, `provider outage;`, `regional degradation;`, `credential compromise;`.
+- **CRITICAL** line 30, `outline-instead-of-explanation` — **Playbook**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 102, `empty-section` — **4. Povinná štruktúra runbooku**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 112, `bare-bullet-items` — **Preconditions**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current environment a resource identity;`, `required access;`, `maintenance alebo incident state;`, `backup/recovery availability;`.
+- **CRITICAL** line 112, `no-prose-concept` — **Preconditions**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 112, `outline-instead-of-explanation` — **Preconditions**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 122, `bare-bullet-items` — **Safety boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálny scope;`, `rate/concurrency limit;`, `dry-run;`, `idempotency;`.
+- **CRITICAL** line 122, `no-prose-concept` — **Safety boundary**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 122, `outline-instead-of-explanation` — **Safety boundary**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 191, `bare-bullet-items` — **6. Commands ako controlled operations**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `copy-safe, nie iba syntakticky validný;`, `parameterizovaný exact identity;`, `read-before-write;`, `scoped a bounded;`.
+- **CRITICAL** line 191, `outline-instead-of-explanation` — **6. Commands ako controlled operations**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 254, `bare-bullet-items` — **8. Rollback, compensation a unknown outcome**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reversible config change môže mať rollback;`, `external provider call môže vyžadovať reconciliation a compensation;`, `delete môže vyžadovať restore;`, `failover môže vyžadovať fencing, nie jednoduchý failback;`.
+- **CRITICAL** line 254, `outline-instead-of-explanation` — **8. Rollback, compensation a unknown outcome**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 275, `bare-bullet-items` — **9. Automation boundary**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typed inputs a schema;`, `subject identity validation;`, `current-state read;`, `plan/dry-run;`.
+- **CRITICAL** line 275, `outline-instead-of-explanation` — **9. Automation boundary**: 12 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 296, `bare-bullet-items` — **10. Freshness a compatibility**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architecture alebo topology change;`, `schema/state-machine change;`, `nový release alebo API;`, `identity/permission model change;`.
+- **CRITICAL** line 296, `outline-instead-of-explanation` — **10. Freshness a compatibility**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 315, `bare-bullet-items` — **11. Rehearsal**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sandbox/lab;`, `read-only production validation;`, `game day;`, `shadow execution;`.
+- **CRITICAL** line 315, `outline-instead-of-explanation` — **11. Rehearsal**: 8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 330, `bare-bullet-items` — **12. Worked incident SRE-PAY-53**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatible architecture generation;`, `distinction never-sent , in-flight , sent-unknown a completed ;`, `dry-run candidate count;`, `max scope a rate;`.
+- **CRITICAL** line 367, `bare-bullet-items` — **13. Evidence-preserving containment**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preservation executed SQL, actor, timestamp a affected IDs;`, `označenie runbooku ako withdrawn;`, `zastavenie new lease resets a unbounded replays;`, `classification affected IDs podľa broker/provider evidence;`.
+- **CRITICAL** line 367, `outline-instead-of-explanation` — **13. Evidence-preserving containment**: 8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 382, `empty-section` — **14. Replacement playbook a runbook**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 384, `empty-section` — **Playbook PB-PAY-24 — Settlement backlog**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 411, `bare-bullet-items` — **15. Runbook acceptance verdict**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a exact subject sú explicitné;`, `trigger a eligibility sú testovateľné;`, `compatible architecture/tool generations sú uvedené;`, `prerequisites, access a safety boundaries sú overené;`.
+- **CRITICAL** line 411, `outline-instead-of-explanation` — **15. Runbook acceptance verdict**: 13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 448, `bare-bullet-items` — **17. Earlier controls**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `standard runbook template;`, `owner a reviewer;`, `architecture/version compatibility;`, `exact subject a manifest;`.
+- **CRITICAL** line 448, `no-prose-concept` — **17. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 448, `outline-instead-of-explanation` — **17. Earlier controls**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 9, `single-sentence-concept` — **Runbook**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 54, `list-first-introduction` — **2. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 54, `single-sentence-concept` — **2. Dominantný lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 73, `single-sentence-concept` — **3. Exact runbook subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 104, `single-sentence-concept` — **Purpose**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 108, `single-sentence-concept` — **Trigger a eligibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 112, `list-first-introduction` — **Preconditions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 122, `list-first-introduction` — **Safety boundary**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 133, `single-sentence-concept` — **Diagnostic observations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 144, `single-sentence-concept` — **Actions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 148, `single-sentence-concept` — **Verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 152, `single-sentence-concept` — **Escalation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 156, `single-sentence-concept` — **Metadata**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 191, `single-sentence-concept` — **6. Commands ako controlled operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 226, `single-sentence-concept` — **7. Verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 230, `single-sentence-concept` — **Source/config verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 234, `single-sentence-concept` — **Effective-state verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 238, `single-sentence-concept` — **Service verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 242, `single-sentence-concept` — **Business verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 246, `single-sentence-concept` — **Forbidden-outcome verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 250, `single-sentence-concept` — **Second-operation verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 315, `single-sentence-concept` — **11. Rehearsal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 367, `single-sentence-concept` — **13. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 394, `list-first-introduction` — **Runbook RB-PAY-24 — Bounded never-sent replay**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 394, `single-sentence-concept` — **Runbook RB-PAY-24 — Bounded never-sent replay**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 411, `single-sentence-concept` — **15. Runbook acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 429, `list-first-introduction` — **16. Troubleshooting runbook failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 448, `list-first-introduction` — **17. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 466, `single-sentence-concept` — **Zoznam príkazov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 470, `single-sentence-concept` — **Copy-paste ako usability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 474, `single-sentence-concept` — **Queue klesla, problém je vyriešený**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 478, `single-sentence-concept` — **Runbook nemá verziu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 482, `single-sentence-concept` — **Automatizuj všetko**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 486, `single-sentence-concept` — **Last updated = current**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 9, `thin-concept-section` — **Runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 30, `thin-concept-section` — **Playbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 112, `term-before-explanation` — **Preconditions**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IC`, `resource`, `identity`, `availability`
+- **HIGH** line 112, `thin-concept-section` — **Preconditions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 122, `thin-concept-section` — **Safety boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 191, `thin-concept-section` — **6. Commands ako controlled operations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 254, `thin-concept-section` — **8. Rollback, compensation a unknown outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 296, `thin-concept-section` — **10. Freshness a compatibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 315, `thin-concept-section` — **11. Rehearsal**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 367, `thin-concept-section` — **13. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 411, `thin-concept-section` — **15. Runbook acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 448, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/14-sre-and-operations/sli-slo-sla.md`
 
 - **CRITICAL** line 19, `bare-bullet-items` — **1. Service-level subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service alebo business capability;`, `user alebo workload cohort;`, `operation a request type;`, `exact valid-event population;`.
@@ -15217,18 +15299,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2555 | 469 | 0 | 0 | 3024 |
-| `outline-instead-of-explanation` | 2558 | 0 | 0 | 0 | 2558 |
-| `single-sentence-concept` | 0 | 2490 | 0 | 0 | 2490 |
-| `term-before-explanation` | 0 | 566 | 1886 | 0 | 2452 |
-| `thin-concept-section` | 0 | 2158 | 0 | 0 | 2158 |
-| `example-not-explicit` | 0 | 0 | 0 | 2094 | 2094 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2077 | 2077 |
-| `list-first-introduction` | 0 | 1389 | 0 | 0 | 1389 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1066 | 1066 |
-| `short-concept-section` | 0 | 0 | 934 | 0 | 934 |
-| `no-prose-concept` | 802 | 0 | 0 | 0 | 802 |
-| `empty-section` | 687 | 0 | 0 | 0 | 687 |
+| `bare-bullet-items` | 2568 | 469 | 0 | 0 | 3037 |
+| `outline-instead-of-explanation` | 2570 | 0 | 0 | 0 | 2570 |
+| `single-sentence-concept` | 0 | 2518 | 0 | 0 | 2518 |
+| `term-before-explanation` | 0 | 567 | 1893 | 0 | 2460 |
+| `thin-concept-section` | 0 | 2169 | 0 | 0 | 2169 |
+| `example-not-explicit` | 0 | 0 | 0 | 2098 | 2098 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2082 | 2082 |
+| `list-first-introduction` | 0 | 1395 | 0 | 0 | 1395 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1067 | 1067 |
+| `short-concept-section` | 0 | 0 | 935 | 0 | 935 |
+| `no-prose-concept` | 805 | 0 | 0 | 0 | 805 |
+| `empty-section` | 691 | 0 | 0 | 0 | 691 |
 | `list-heavy-section` | 0 | 456 | 0 | 0 | 456 |
 
 ## Required remediation pattern
