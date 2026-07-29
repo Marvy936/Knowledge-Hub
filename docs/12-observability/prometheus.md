@@ -1,261 +1,133 @@
 # Prometheus
 
-Prometheus je metrics monitoring a alerting systém založený na multidimenzionálnych time series, pull-based scrapingu a jazyku PromQL. Jeho hlavnou silou je lokálne a transparentné vyhodnocovanie numerickej telemetry podľa labels. Nie je to univerzálny log store, distributed trace backend, durable event bus ani automaticky neobmedzený long-term metrics warehouse.
+Prometheus je metrics monitoring a alerting systém založený na multidimenzionálnych time series, pravidelnom scrapingu a PromQL. Jeho operational contract nie je „target je green“. Prometheus vytvára reťaz od expected targetu cez exact post-relabel sample set, local TSDB state a rule evaluation až po alert state. Každá boundary môže zmeniť alebo stratiť evidence.
 
-## 1. Mentálny model
+Prometheus nie je log store, trace backend, durable event bus ani automaticky globálny long-term metrics cluster. Jeho lokálny model je zámerne transparentný: targets sa scrape-ujú, samples sa ukladajú do lokálnej TSDB a rules sa vyhodnocujú nad queryovateľným lokálnym stavom.
 
-```text
-instrumented application alebo exporter
-→ service discovery
-→ target relabeling
-→ HTTP scrape
-→ sample validation a metric relabeling
-→ local TSDB/WAL
-→ PromQL
-→ recording a alerting rules
-→ Alertmanager alebo query consumers
-→ voliteľný remote write / federation
-```
-
-Prometheus pravidelne zisťuje targets, scrape-ne ich metrics endpointy a ukladá prijaté samples ako time series. Alerting rules vznikajú nad uloženými alebo aktuálne queryovateľnými series; notification routing patrí Alertmanageru.
-
-## 2. Architektúra
-
-Typický deployment obsahuje:
-
-- Prometheus server,
-- instrumented applications,
-- exporters pre systémy bez native metrics endpointu,
-- service-discovery integrácie,
-- Pushgateway iba pre špecifické short-lived batch use cases,
-- Alertmanager,
-- Grafana alebo iný query client,
-- voliteľný remote-storage alebo global-query layer.
-
-Prometheus server zahŕňa:
-
-- retrieval engine,
-- service discovery,
-- relabeling pipeline,
-- local TSDB,
-- PromQL query engine,
-- rule evaluator,
-- HTTP API a UI,
-- remote-write queue pri konfigurácii.
-
-## 3. Pull model
-
-Prometheus štandardne sťahuje metrics z targets cez HTTP.
-
-Výhody:
-
-- centrálne riadený scrape interval a timeout,
-- jednoznačný zoznam expected targets,
-- jednoduchá detekcia nedostupného endpointu cez `up`,
-- service discovery a target metadata,
-- target nemusí poznať monitoring backend,
-- lokálna diagnostika cez `/targets`.
-
-Pull neznamená, že každá telemetry musí byť pull-based. Logs, traces a udalosti prirodzene často používajú push/export model.
-
-### Čo signal `up` znamená
-
-Prometheus generuje pre scrape target time series:
-
-```promql
-up{job="api"}
-```
-
-- `1` znamená, že scrape prebehol úspešne,
-- `0` znamená, že scrape zlyhal.
-
-`up == 1` nepreukazuje správnosť business služby. Preukazuje iba úspešný metrics scrape podľa konfigurácie.
-
-## 4. Exporters
-
-Exporter prekladá stav externého systému do Prometheus exposition formátu.
-
-Príklady:
-
-- Node Exporter,
-- database exporter,
-- blackbox exporter,
-- SNMP exporter,
-- cloud-service exporter.
-
-Exporter vytvára ďalšiu prevádzkovú vrstvu. Treba monitorovať:
-
-- jeho vlastnú dostupnosť,
-- scrape duration,
-- počet a veľkosť series,
-- timeouty voči zdroju,
-- credential a permission failures,
-- stale alebo partial data,
-- kompatibilitu so zdrojovým systémom.
-
-Exporter success nemusí znamenať, že úspešne získal všetky source metrics.
-
-## 5. Pushgateway
-
-Pushgateway je určený najmä pre service-level metrics short-lived batch jobov, ktoré zaniknú skôr, než ich Prometheus stihne scrape-nuť.
-
-Nie je všeobecná náhrada pull modelu.
-
-Riziká:
-
-- series zostávajú uložené aj po skončení jobu, kým sa explicitne neodstránia,
-- target health semantics sa presúvajú na Pushgateway,
-- machine alebo instance metrics strácajú prirodzený lifecycle,
-- grouping key môže vytvoriť cardinality alebo stale data.
-
-Pre batch job monitoruj aj:
-
-- timestamp posledného úspechu,
-- duration,
-- business output,
-- schedule freshness,
-- explicitný cleanup series.
-
-## 6. Time-series data model
-
-Prometheus ukladá všetky dáta ako time series.
-
-Jedna series je určená:
+## 1. Dominantný lifecycle
 
 ```text
-metric name
-+ úplná množina label names a values
+business/operational measurement intent
+→ versionovaný metric a label contract
+→ expected target/discovery generation
+→ target relabeling a scrape eligibility
+→ HTTP scrape attempt
+→ exposition parsing a sample validation
+→ metric relabeling
+→ exact post-relabel sample set
+→ WAL a TSDB head/block state
+→ staleness a query-time selection
+→ PromQL expression
+→ recording-rule generation
+→ alerting-rule inactive/pending/firing/resolved state
+→ Alertmanager delivery subject
+→ local/remote/read-back validation a lifecycle closure
 ```
+
+Prometheus troubleshooting musí určiť, na ktorej boundary sa očakávaná measurement stratila alebo zmenila.
+
+## 2. Exact Prometheus subject
+
+Pre Atlas Payments používame:
+
+```text
+Prometheus subject: PROM-PAY-44
+observability subject: OBS-PAY-44
+service/release: provider-adapter 7.20.0
+cluster/namespace: prod-eu-1 / payments
+Prometheus replica: prometheus-prod-eu-1-a
+configuration generation: PROM-CFG-118
+scrape job: payments-provider-adapter
+scrape interval/timeout: 30 s / 10 s
+metric contract: provider_pool_connections{state}
+critical series:
+  state="active"
+  state="idle"
+  state="waiters"
+capacity series: provider_pool_limit
+recording-rule generation: PAY-RULES-44
+alert rule: SettlementProviderPoolSaturated
+remote-write generation: RW-PROD-9
+analysis window: 2026-07-29T08:10Z–08:35Z
+```
+
+Subject zahŕňa producer, config, target, post-relabel labels, TSDB replica, rule generation a query window. Rovnaký metric name v inom clusteri, po inom relabelingu alebo na inej replica nie je automaticky ten istý evidence subject.
+
+## 3. Measurement contract pred scrape konfiguráciou
+
+Metric contract musí určiť:
+
+- čo je measurement a v akej base unit;
+- counter, gauge alebo histogram semantics;
+- observation a reset boundary;
+- bounded labels a ich meanings;
+- producer/resource identity;
+- expected scrape interval a freshness;
+- dashboards, recording rules, alerts a SLO consumers;
+- compatibility a migration policy.
 
 Príklad:
 
 ```text
-http_requests_total{
-  service="orders",
-  method="GET",
-  route="/orders/{id}",
-  status_code="200"
-}
+provider_pool_connections{state="waiters"}
 ```
 
-Každá odlišná kombinácia labels vytvára samostatnú series.
+musí znamenať aktuálny počet settlement workers čakajúcich na connection v konkrétnom process-local provider poole. Ak sa zmení na cumulative počet wait events bez rename-u, queries zostanú syntakticky validné a semanticky nesprávne.
 
-### Cardinality
+## 4. Expected targets a discovery generation
 
-Ak pridáš label `user_id` s miliónom hodnôt, môže vzniknúť milión alebo viac series.
+Service discovery odpovedá:
 
-Cardinality cost ovplyvňuje:
+```text
+ktoré potential endpoints existujú a aké metadata o nich platforma pozná?
+```
 
-- ingestion,
-- active head memory,
-- WAL,
-- disk blocks,
-- query fan-out,
-- remote-write traffic,
-- rule evaluation,
-- dashboard latency.
+Target relabeling následne rozhoduje:
 
-Labels majú reprezentovať bounded dimensions vhodné na agregáciu, nie unikátnu identitu udalosti.
+```text
+ktoré endpoints sú eligible na scrape
+→ aká address/scheme/path sa použije
+→ ktoré stabilné target labels zostanú
+```
 
-## 7. Metric naming
+Target identity preto vzniká až po relabelingu. Discovery object, Kubernetes Pod a final Prometheus target nie sú rovnaký state.
 
-Dobrý metric contract obsahuje:
+### Target relabeling
 
-- stabilný názov,
-- jednu presnú vec,
-- správnu base unit,
-- suffix podľa semantics,
-- bounded labels,
-- jasnú help text definíciu,
-- konzistentnosť medzi services.
+`relabel_configs` sa vykonáva pred scrape. Používa sa na:
 
-Bežné suffixy:
+- keep/drop targetov;
+- address, scheme alebo metrics path;
+- mapovanie discovery metadata na stabilné labels;
+- environment/service/cluster identity;
+- sharding.
 
-- `_total` pre counters,
-- `_seconds` pre duration,
-- `_bytes` pre veľkosť,
-- `_info` pre statické informačné labels,
-- `_created` podľa client-library správania.
+Broad mapping všetkých Kubernetes labels alebo annotations môže preniesť ephemeral a unbounded values do každej series.
 
-Nepoužívaj label na odlíšenie konceptov, ktoré majú odlišné units alebo meanings.
+## 5. Scrape attempt a `up`
 
-## 8. Metric types
-
-### Counter
-
-Monotónne rastie a resetne sa pri reštarte.
-
-Query:
+Prometheus vykoná HTTP request na metrics endpoint, parsuje exposition, validuje samples a labels a až potom ingestuje prijaté dáta.
 
 ```promql
-rate(http_requests_total[5m])
+up{job="payments-provider-adapter"}
 ```
 
-Nepočítaj counter ako gauge a nealertuj na jeho absolútnu hodnotu bez lifecycle kontextu.
+- `1` znamená, že konkrétny scrape attempt prebehol úspešne;
+- `0` znamená scrape failure.
 
-### Gauge
+`up == 1` nepreukazuje:
 
-Môže rásť aj klesať.
+- business health;
+- prítomnosť každej očakávanej metric;
+- správne label semantics;
+- zachovanie metric po relabelingu;
+- úspech recording/alerting rule;
+- remote-write ingestion;
+- receiver notification.
 
-Príklady:
+Scrape môže byť green, hoci kritická series je producerom vynechaná alebo metric relabelingom zahodená.
 
-- queue depth,
-- active connections,
-- temperature,
-- current replicas.
-
-### Histogram
-
-Klasický histogram exportuje:
-
-- cumulative bucket counters `_bucket{le="..."}`,
-- `_count`,
-- `_sum`.
-
-Umožňuje server-side agregáciu a výpočet quantiles cez `histogram_quantile()` pri správnej query.
-
-### Native histogram
-
-Native histograms používajú kompaktnejšiu histogram sample reprezentáciu s dynamickejším rozlíšením a lepšou atomicitou pri prenose než skupina samostatných classic-histogram series.
-
-Pred použitím over:
-
-- verziu Prometheus a client library,
-- feature a storage compatibility,
-- remote-write/backend podporu,
-- query a dashboard kompatibilitu,
-- migration contract.
-
-### Summary
-
-Summary môže počítať client-side quantiles a exportuje count/sum.
-
-Client-side quantiles typicky nemožno bezpečne agregovať naprieč instances. Pre service-wide latency býva histogram vhodnejší.
-
-## 9. Exposition a scrape lifecycle
-
-Scrape obsahuje:
-
-1. target selection,
-2. HTTP request,
-3. exposition parsing,
-4. sample a label validation,
-5. target labels,
-6. metric relabeling,
-7. ingestion do TSDB.
-
-Scrape môže zlyhať pre:
-
-- DNS alebo route,
-- TLS/authentication,
-- timeout,
-- neplatný exposition formát,
-- duplicate labels alebo samples,
-- label/sample limits,
-- response príliš veľkú,
-- target process failure.
-
-Sleduj:
+Relevantné scrape evidence:
 
 ```promql
 up
@@ -265,349 +137,178 @@ scrape_samples_post_metric_relabeling
 scrape_series_added
 ```
 
-## 10. Scrape configuration
+Rozdiel medzi scraped a post-relabel samples je diagnostická boundary, nie iba cost údaj.
 
-Prometheus configuration používa `scrape_configs`.
+## 6. Metric relabeling a post-relabel sample set
 
-Príklad:
+`metric_relabel_configs` sa aplikuje po úspešnom scrape a pred ingestion do local TSDB.
 
-```yaml
-global:
-  scrape_interval: 30s
-  scrape_timeout: 10s
-  evaluation_interval: 30s
+Môže:
 
-scrape_configs:
-  - job_name: orders-api
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets:
-          - orders-1.example.internal:9443
-          - orders-2.example.internal:9443
-```
+- dropnúť metrics alebo series;
+- odstrániť rizikový label;
+- normalizovať values;
+- znížiť stored a remote-written cardinality.
 
-Scrape timeout nemôže byť väčší než scrape interval.
+Metric relabeling už nezníži network a parse cost endpointu. Mení však authoritative local sample set, z ktorého vychádzajú PromQL, rules a remote write.
 
-Kratší interval:
-
-- zachytí kratšie udalosti,
-- znižuje detection latency,
-- zvyšuje requests, samples, storage a query cost.
-
-Interval vyber podľa signal dynamics a operational potreby, nie univerzálne pre všetky jobs.
-
-## 11. Service discovery
-
-Service discovery vytvára dynamický zoznam target groups a dočasné metadata labels.
-
-Prometheus podporuje viacero discovery mechanizmov vrátane cloudových platforiem, Kubernetes, Consul, DNS a file-based discovery.
-
-Discovery odpovedá na otázku:
+Pre kritickú zmenu treba poznať:
 
 ```text
-ktoré endpoints potenciálne existujú?
+raw exposition set
+→ post-target-label set
+→ post-metric-relabel set
+→ ingested TSDB set
 ```
 
-Relabeling následne rozhoduje:
+Cost rule bez dependency auditu môže ticho odstrániť SLI numerator, saturation signal alebo alert input.
+
+## 7. Time-series identity a cardinality
+
+Jedna Prometheus series je identifikovaná:
 
 ```text
-ktoré z nich scrape-nuť a aké target labels priradiť?
+metric name
++ úplná množina label names a values
 ```
 
-## 12. Target relabeling
+Každá odlišná kombinácia vytvára samostatnú series. Labels preto reprezentujú bounded aggregation dimensions, nie unikátne events.
 
-`relabel_configs` sa vykonáva pred scrape-nutím.
+Nevhodné labels:
 
-Použitie:
+- request, trace alebo user ID;
+- raw URL s dynamickým segmentom;
+- exception message;
+- timestamp;
+- Pod UID, ak consumer potrebuje logical service a retention nemá churn model.
 
-- keep/drop targetov,
-- výber address, scheme alebo metrics path,
-- mapovanie discovery metadata na stabilné labels,
-- normalizácia environment/service/namespace,
-- hash-based sharding,
-- odstránenie dočasných labels.
+Cardinality ovplyvňuje head memory, WAL, blocks, queries, rule evaluation aj remote write. Zmena label contractu je production schema migration.
 
-Interné labels začínajú `__`, napríklad:
+## 8. Metric types a distributions
 
-- `__address__`,
-- `__scheme__`,
-- `__metrics_path__`,
-- service-discovery `__meta_*` labels.
+### Counter
 
-Po target relabelingu sa väčšina interných labels odstráni.
+Monotónny počet, ktorý môže resetnúť s process lifecycle-om. Analyzuje sa cez `rate()` alebo `increase()`.
 
-### Anti-pattern
+```promql
+rate(settlement_operations_total[5m])
+```
 
-Bezhlavé `labelmap` všetkých Kubernetes annotations alebo labels môže preniesť nestabilné a vysokokardinalitné metadata do každej series.
+### Gauge
 
-## 13. Metric relabeling
+Aktuálna hodnota, ktorá môže rásť aj klesať, napríklad pool waiters alebo queue depth.
 
-`metric_relabel_configs` sa aplikuje po scrape-nutí a pred ingestion.
+### Classic histogram
 
-Použitie:
+Exportuje cumulative `_bucket{le}`, `_count` a `_sum`. Umožňuje server-side agregáciu a threshold/quantile queries.
 
-- drop nepotrebných metrics,
-- odstránenie rizikových labels,
-- normalizácia label values,
-- obmedzenie ingestion costu.
+### Native histogram
 
-Metric relabeling už nezníži network a parse cost scrape response. Zníži však stored/remote-written series.
+Prometheus podporuje native histograms ako stable feature od verzie `3.8.0`. Sú first-class histogram samples, ale adoption stále potrebuje compatible client library, scrape/storage, PromQL, remote backend, dashboards a migration contract.
 
-Nedropuj kritické series bez evidencie o dashboardoch, rules a SLO dependencies.
+### Summary
 
-## 14. External labels
+Client-side quantiles sa vo všeobecnosti nedajú správne agregovať naprieč instances. Pre service-wide latency býva histogram vhodnejší.
 
-External labels identifikujú Prometheus repliku alebo environment v externých systémoch.
+Histogram buckets alebo native schema musia zodpovedať SLO thresholdom a reálnej distribution. Samotné p95 bez population a volume contractu nie je kompletný SLI.
 
-Príklady:
+## 9. Local TSDB state
 
-- cluster,
-- region,
-- prometheus replica,
-- tenant.
+Local storage obsahuje:
 
-Sú relevantné pre:
-
-- remote storage,
-- federation,
-- HA deduplication v global-query vrstve.
-
-External labels nevyriešia automaticky conflicts medzi application labels a monitoring topology.
-
-## 15. Local TSDB
-
-Prometheus local storage používa:
-
-- in-memory head block,
-- Write-Ahead Log — WAL,
-- pravidelne vytvárané immutable blocks,
-- index a chunk files,
-- compaction,
-- retention podľa time alebo size konfigurácie.
+```text
+incoming samples
+→ WAL
+→ in-memory head
+→ immutable blocks
+→ compaction
+→ retention deletion
+```
 
 ### WAL
 
-WAL chráni nedávne samples pred stratou pri reštarte a podporuje recovery head state-u.
+WAL podporuje recovery nedávneho head state-u po reštarte. Nie je business backup ani multi-site DR.
 
 Riziká:
 
-- pomalý alebo poškodený disk,
-- príliš veľký replay čas,
-- nedostatok disk space,
-- filesystem corruption,
-- vysoká churn/cardinality.
+- disk full alebo corruption;
+- dlhý WAL replay;
+- cardinality/churn explosion;
+- compaction failure;
+- retention väčšia než capacity.
 
-### Retention
+### Head a blocks
 
-Local retention nie je backup ani DR plán.
+Recent active series žijú v head blocku. Staršie dáta sú v immutable blocks. Query môže prechádzať oboma vrstvami. Disk a memory pressure preto závisia od active series, churn, samples aj query patternu.
 
-Prometheus local TSDB je navrhnutá primárne ako lokálny operational store. Pri požiadavkách na dlhú retention, global query alebo multi-cluster durability sa zvažuje remote storage alebo kompatibilná metrics platforma.
+### Staleness
 
-## 16. Staleness
+Keď target alebo series zmizne, Prometheus musí zabrániť tomu, aby posledná stará hodnota vyzerala ako current.
 
-Keď target prestane exportovať series alebo zmizne, Prometheus musí zabrániť tomu, aby stará hodnota vyzerala ako aktuálna.
+Missing series môže znamenať:
 
-Staleness semantics ovplyvňujú:
+- producer už metric neemituje;
+- target zmizol alebo scrape zlyhal;
+- label set sa zmenil;
+- metric bola relabelingom dropnutá;
+- series je stale;
+- selector alebo time range nesedí;
+- retention/compaction odstránila data.
 
-- instant-vector queries,
-- target disappearance,
-- scrape failures,
-- label-set changes,
-- recording a alerting rules.
+`absent()` alebo no-data alert musí mať expected-series contract. Inak nevie odlíšiť zdravú neprítomnosť od evidence failure.
 
-Pri „missing metric“ incidente rozlišuj:
+## 10. PromQL a population correctness
 
-- target down,
-- series už nie je exportovaná,
-- label set sa zmenil,
-- query selector už nesedí,
-- series je stale,
-- rule alebo dashboard filtruje výsledok.
+PromQL selector vyberá series. Functions a aggregations z nich vytvoria nový query result. Query correctness preto závisí od identity oboch populations.
 
-## 17. PromQL data types
-
-PromQL pracuje najmä s:
-
-- instant vectors,
-- range vectors,
-- scalars,
-- strings v obmedzenom kontexte.
-
-### Instant vector
-
-Series s jednou sample hodnotou v evaluation čase.
-
-```promql
-up{job="orders-api"}
-```
-
-### Range vector
-
-Series s množinou samples za časové okno.
-
-```promql
-http_requests_total[5m]
-```
-
-Range vector sa typicky používa ako vstup funkcie ako `rate()`.
-
-## 18. Selectors a matchers
-
-```promql
-http_requests_total{
-  service="orders",
-  status_code=~"5.."
-}
-```
-
-Matcher types:
-
-- `=` equality,
-- `!=` inequality,
-- `=~` regex,
-- `!~` negative regex.
-
-Broad selector môže načítať veľké množstvo series. Query najprv over v tabular pohľade a sleduj výslednú cardinality.
-
-## 19. Rate a increase
-
-Pre counter používaj:
-
-```promql
-rate(metric_total[5m])
-increase(metric_total[1h])
-```
-
-`rate()` zohľadňuje counter resets.
-
-Window musí obsahovať dostatok samples. Pri scrape intervale 60 sekúnd je príliš krátke range window nestabilné alebo prázdne.
-
-Pravidlo:
-
-```text
-rate window > niekoľkonásobok scrape intervalu
-```
-
-## 20. Aggregation
-
-Príklad service error ratio:
+Error ratio:
 
 ```promql
 sum by (service) (
-  rate(http_requests_total{status_code=~"5.."}[5m])
+  rate(settlement_operations_total{outcome="failed"}[5m])
 )
 /
 sum by (service) (
-  rate(http_requests_total[5m])
+  rate(settlement_operations_total[5m])
 )
 ```
 
-Pri aggregation explicitne určuj labels, ktoré majú zostať.
+Numerator a denominator musia používať rovnakú operation, cohort a logical-versus-attempt semantics.
 
-Chyby:
+### Vector matching
 
-- numerator a denominator majú odlišný scope,
-- zabudnutý `by` alebo `without`,
-- mix rôznych units,
-- duplicate series z HA replicas,
-- division by zero alebo missing denominator.
+Binary operations potrebujú jednoznačný label relation. `on`, `ignoring`, `group_left` a `group_right` nemenia nesprávny data model na správny. Many-to-many ambiguity často znamená chýbajúcu agregáciu alebo nejasnú identity.
 
-## 21. Vector matching
+### Rate window
 
-Binary operations medzi vectors potrebujú zhodu label sets.
+Range window musí obsahovať dostatok samples a byť dlhší než krátky scrape jitter. Príliš krátke window pri dlhom scrape intervale vytvára unstable alebo absent result.
 
-Mechanizmy:
+## 11. Recording-rule generation
 
-- default one-to-one matching,
-- `on(...)`,
-- `ignoring(...)`,
-- `group_left`,
-- `group_right`.
-
-Many-to-many ambiguity je často signál nesprávneho data modelu alebo nedostatočnej agregácie.
-
-Pred joinom si zobraz obe strany a over uniqueness matching labels.
-
-## 22. Histograms a latency
-
-Classic histogram quantile:
-
-```promql
-histogram_quantile(
-  0.95,
-  sum by (le, service) (
-    rate(http_request_duration_seconds_bucket[5m])
-  )
-)
-```
-
-Pre threshold-based SLI je často presnejšie použiť priamo cumulative bucket:
-
-```promql
-sum(rate(http_request_duration_seconds_bucket{le="0.5"}[5m]))
-/
-sum(rate(http_request_duration_seconds_count[5m]))
-```
-
-Bucket boundaries musia zodpovedať SLO thresholds a reálnej distribution.
-
-## 23. Recording rules
-
-Recording rule predpočíta PromQL expression a uloží výsledok ako novú series.
+Recording rule materializuje PromQL result ako novú series.
 
 Použitie:
 
-- drahé alebo opakované dashboards,
-- štandardné service-level rates,
-- SLI numerators a denominators,
-- hierarchické agregácie,
-- zjednotenie query contractu.
+- štandardné RED/Golden-Signal rates;
+- SLI numerators a denominators;
+- drahé stabilné queries;
+- hierarchické aggregations.
 
-Príklad:
+Recording rule je derived signal. Potrebuje:
 
-```yaml
-groups:
-  - name: service-red
-    rules:
-      - record: service:http_requests:rate5m
-        expr: |
-          sum by (service) (
-            rate(http_requests_total[5m])
-          )
-```
+- versionovaný expression;
+- input series inventory;
+- output metric/label contract;
+- evaluation interval;
+- fixture tests;
+- migration/dual-read window;
+- ownera.
 
-Naming má vyjadriť level, metric semantics a operation.
+Ak input label zmizne, rule môže produkovať empty vector bez syntax erroru. `promtool check rules` overí syntax a vybrané tests, nie automaticky production population completeness.
 
-Recording rule môže maskovať source-label zmenu. Testuj rules proti fixture alebo representative data.
+## 12. Alerting-rule state
 
-## 24. Alerting rules
-
-Alerting rule vyhodnocuje PromQL condition.
-
-```yaml
-groups:
-  - name: service-alerts
-    rules:
-      - alert: ServiceHighErrorRate
-        expr: |
-          (
-            sum by (service) (
-              rate(http_requests_total{status_code=~"5.."}[5m])
-            )
-            /
-            sum by (service) (
-              rate(http_requests_total[5m])
-            )
-          ) > 0.05
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: "High error rate for {{ $labels.service }}"
-```
-
-Prometheus alert lifecycle:
+Alerting rule vytvára monitoring condition state:
 
 ```text
 inactive
@@ -616,341 +317,301 @@ inactive
 → resolved po zániku condition
 ```
 
-`for` filtruje krátke transient conditions. Nesmie však odkladať detekciu kritického rýchleho outage bez analýzy.
+Labels tvoria alert identity a routing context. Dynamic values, error text a current metric value patria do annotations.
 
-Labels určujú identity a routing alertu. Annotations nesú dynamický ľudský context a links.
+Rule acceptance vyžaduje:
 
-## 25. Rule evaluation
+- expression vracia expected series;
+- evaluation je fresh a úspešná;
+- `for` zodpovedá failure dynamics;
+- no-data policy je explicitná;
+- labels sú stable a bounded;
+- Alertmanager discovery/delivery funguje;
+- resolved path je overený.
 
-Sleduj:
+## 13. Remote write, local truth a global views
 
-- evaluation duration,
-- missed iterations,
-- rule failures,
-- query sample limits,
-- number of active series,
-- evaluation interval,
-- dependency na recording rules.
+Remote write číta samples z local WAL-derived pipeline a odosiela ich do kompatibilného receivera cez queues, shards, batching a retries.
 
-Drahá rule môže spomaliť celý group evaluation.
+Môže vzniknúť:
 
-Rozdeľ rule groups podľa:
-
-- požadovaného evaluation intervalu,
-- dependency poradia,
-- ownershipu,
-- failure blast radiusu.
-
-## 26. Configuration validation a reload
-
-Konfiguráciu a rules validuj cez `promtool`.
-
-Príklady:
-
-```bash
-promtool check config prometheus.yml
-promtool check rules rules/*.yml
+```text
+local Prometheus má current samples a firing rule
+→ remote write má backlog
+→ central dashboard je stale
 ```
 
-Prometheus môže reload-nuť validnú konfiguráciu cez `SIGHUP` alebo `POST /-/reload`, ak je lifecycle endpoint povolený.
+alebo:
 
-Pri neplatnej konfigurácii sa nová konfigurácia neaplikuje. Monitoruj reload success a logs.
+```text
+local metric relabeling series dropne
+→ local TSDB ju nikdy nemá
+→ remote write ju tiež nemôže odoslať
+```
 
-## 27. Remote write
+Sleduj pending samples, failed/retried/dropped samples, oldest unsent timestamp a receiver throttling. Remote-write success nepreukazuje correctness metric contractu. Remote backend nie je automaticky authority pre local rule state.
 
-Remote write streamuje samples do kompatibilného receivera.
+Federation a global query layers môžu poskytovať cross-cluster views, deduplication a long-term storage. Prometheus replicas však zostávajú nezávislé local TSDB a rule evaluators.
 
-Použitie:
+## 14. High availability
 
-- long-term storage,
-- centralizovaná metrics platforma,
-- multi-cluster aggregation,
-- managed monitoring backend.
-
-Pipeline obsahuje lokálne queues, batching, sharding a retries.
-
-Sleduj:
-
-- pending samples,
-- queue capacity,
-- failed/retried samples,
-- oldest unsent timestamp,
-- dropped samples,
-- WAL retention voči outage duration,
-- network a receiver throttling.
-
-Remote-write outage nesmie nekontrolovane vyčerpať disk alebo memory Prometheus servera.
-
-## 28. Remote read a global query
-
-Remote read umožňuje query engine-u načítať dáta z externého systému, ale presný contract a performance závisia od backendu.
-
-Global query vrstvy alebo compatible ecosystems môžu poskytovať:
-
-- query naprieč viacerými Prometheus servers,
-- HA replica deduplication,
-- long-term object storage,
-- tenant isolation,
-- global recording/alerting.
-
-Prometheus samotný nevytvára automaticky jeden globally consistent metrics cluster.
-
-## 29. Federation
-
-Federation scrape-ne vybrané aggregated alebo raw series z iného Prometheus servera cez federation endpoint.
-
-Použitie:
-
-- hierarchické aggregation,
-- global overview metrics,
-- vybrané cross-cluster signals.
-
-Riziká:
-
-- duplicate series,
-- nejasné external labels,
-- prenesenie vysokej cardinality,
-- failure dependency medzi tiers,
-- oneskorenie a staleness.
-
-Federation nie je univerzálna náhrada scalable long-term storage.
-
-## 30. High availability
-
-Bežný HA model spúšťa dve alebo viac nezávislých Prometheus replicas s rovnakou konfiguráciou.
+Bežný HA model spúšťa viac nezávislých Prometheus replicas s rovnakým scrape a rule intentom.
 
 Každá replika:
 
-- scrape-ne targets samostatne,
-- má vlastný local TSDB,
-- vyhodnocuje rules,
-- posiela alerts Alertmanagerom.
+- samostatne objavuje a scrape-uje targets;
+- má vlastnú local TSDB;
+- samostatne vyhodnocuje rules;
+- posiela alerts všetkým Alertmanager replicas.
 
-Dôsledky:
+HA replicas môžu mať mierne odlišné scrape timestamps a samples. Downstream global layer potrebuje replica identity a deduplication. Load balancer pred jednou local TSDB nevytvára shared-state Prometheus cluster.
 
-- local queries môžu mať mierne odlišné samples,
-- obe repliky vytvárajú duplicate metrics v centrálnej vrstve bez deduplication,
-- alert labels musia umožniť Alertmanager deduplication,
-- external replica label sa typicky odstráni pri alert identity alebo deduplikuje downstream.
+## 15. Worked failure: `up=1`, ale pool saturation signal zmizol
 
-Nedávaj iba jednu repliku za load balancer a nepovažuj to za shared-state cluster.
+### Symptóm
 
-## 31. Kubernetes deployment
+Enterprise settlement latency a pool wait rastú, ale Prometheus dashboard neukazuje žiadne `provider_pool_*` series. Všetkých 24 targets má `up == 1`. Alert `SettlementProviderPoolSaturated` je inactive a central remote dashboard ukazuje no-data.
 
-Prometheus v Kubernetes typicky používa:
+### Competing hypotheses
 
-- StatefulSet,
-- persistent volume,
-- ServiceAccounts a RBAC pre discovery,
-- ServiceMonitor/PodMonitor pri Prometheus Operator modeli,
-- ConfigMap/Secret alebo generated configuration,
-- resource requests/limits,
-- anti-affinity/topology spread,
-- PodDisruptionBudget podľa dostupnosti,
-- local alebo remote storage strategy.
+1. application metric nikdy neemituje;
+2. iba release `7.20.0` používa iný metric name;
+3. target discovery alebo scrape path je nesprávny;
+4. exposition parser metric odmieta;
+5. metric relabeling ju dropuje;
+6. local TSDB alebo query selector používa iné labels;
+7. recording rule zlyháva;
+8. remote-write backlog skryl current local data.
 
-Riziká:
-
-- TSDB disk saturation,
-- memory rast pre cardinality,
-- duplicate discovery,
-- scrape cez nesprávny Service port,
-- RBAC discovery failure,
-- Operator reconciliation override,
-- retention väčšia než volume capacity.
-
-## 32. Security
-
-Chráň:
-
-- Prometheus UI a HTTP API,
-- scrape credentials,
-- remote-write credentials,
-- service-discovery permissions,
-- rule/configuration repository,
-- admin/lifecycle endpoints,
-- network access k metrics endpointom.
-
-Metrics môžu odhaliť:
-
-- interné hostname,
-- topology,
-- customer identifiers,
-- software versions,
-- business volume,
-- security state.
-
-Do labels alebo metric values nepatria secrets ani unbounded personal identifiers.
-
-## 33. Self-monitoring
-
-Prometheus musí monitorovať sám seba.
-
-Sleduj:
-
-- process CPU/memory,
-- TSDB head series,
-- samples ingested,
-- series churn,
-- WAL a compaction failures,
-- disk space,
-- scrape failures a duration,
-- query duration a concurrency,
-- rule evaluation failures,
-- remote-write backlog,
-- config reload success,
-- target count a discovery errors.
-
-Samostatný Prometheus alebo external check môže monitorovať kritickú monitoring platformu, aby úplný výpadok nebol neviditeľný.
-
-## 34. Troubleshooting target down
-
-Postup:
+### Discriminating observations
 
 ```text
-je target objavený?
-→ `/service-discovery` metadata
-→ target relabeling result
-→ `/targets` error
-→ DNS a address
-→ route/firewall/NetworkPolicy
-→ TLS/auth
-→ metrics path a port
-→ response time a size
-→ valid exposition
-→ scrape timeout/limits
+raw /metrics na affected task:
+  provider_pool_connections{state="waiters"} 317
+  provider_pool_limit 8
+
+Prometheus target:
+  up = 1
+  scrape_samples_scraped = 1 842
+  scrape_samples_post_metric_relabeling = 1 506
+
+local expression browser:
+  provider_pool_connections = empty
+
+recording-rule output:
+  payment:provider_pool_wait_ratio = empty
+
+remote backend:
+  rovnaká series chýba
 ```
 
-Príkazy:
+Config generation `PROM-CFG-118` obsahovala cost rule:
 
-```bash
-curl -vk https://target.example.internal:9443/metrics
-promtool check config prometheus.yml
+```yaml
+metric_relabel_configs:
+  - source_labels: [__name__]
+    regex: 'provider_.*'
+    action: drop
+```
+
+Rule mala odstrániť debug metrics starého provider SDK. Broad regex však odstránil aj authoritative pool saturation metrics.
+
+Mechanizmus:
+
+```text
+producer emituje správne samples
+→ scrape a exposition parsing uspejú
+→ `up` zostane 1
+→ metric relabeling samples zahodí
+→ local TSDB ich nikdy neuloží
+→ recording a alerting rules majú empty input
+→ remote write ich nemôže odoslať
+→ dashboard a alert sú false no-data
+```
+
+### Containment
+
+- zastaviť rollout `PROM-CFG-118`;
+- zachovať raw exposition, scrape counters, effective config, rule state a remote-write evidence;
+- nesprávne neinterpretovať empty series ako zero waiters;
+- použiť business SLI a black-box settlement evidence na incident response;
+- nezvyšovať scrape interval ani retention, pretože problém je pre-ingestion drop.
+
+### Authoritative recovery
+
+1. nahradiť broad regex explicitným allow/drop contractom;
+2. canary-nuť Prometheus config na jednej replica;
+3. porovnať raw a post-relabel sample inventory;
+4. overiť local query a recording-rule output;
+5. vynútiť controlled pool saturation fixture;
+6. overiť alert pending/firing a Alertmanager receive path;
+7. rozšíriť config na druhú repliku;
+8. overiť remote backend read-back a cardinality budget.
+
+### Prometheus acceptance verdict
+
+Recovery je prijatá, keď:
+
+- expected target a exact series existujú na oboch replicas;
+- post-relabel sample set obsahuje pool metrics;
+- rule output používa správny task/service denominator;
+- controlled saturation vytvorí firing alert;
+- zero waiters a absent series sú rozlíšiteľné;
+- remote dashboard dobehne bez duplicate/label conflictu;
+- unbounded debug metrics zostanú zakázané;
+- druhý config reload a task replacement zachovajú measurement.
+
+## 16. Native-histogram compatibility gate
+
+Native histograms sú stable v Prometheus od `3.8.0`, ale migration nie je iba zapnutie producer feature.
+
+```text
+client-library generation
+→ exposition format
+→ scrape acceptance
+→ local storage/query
+→ recording/alerting rules
+→ remote write/backend
+→ dashboard/SLO comparison
+```
+
+Pred cutoverom over:
+
+- classic/native dual exposure alebo migration mode;
+- bucket/quantile query equivalence;
+- remote receiver support;
+- rule a dashboard functions;
+- cardinality/storage zmenu;
+- rollback po ingestovaní nového sample type-u.
+
+## 17. Self-monitoring a canaries
+
+Prometheus musí monitorovať:
+
+- target discovery a `up`;
+- scrape duration/sample counts/failures;
+- active head series a churn;
+- WAL, compaction a disk;
+- query latency/concurrency;
+- rule evaluation failures a missed iterations;
+- config reload success;
+- remote-write queue age a drops;
+- replica divergence.
+
+Kritický pipeline potrebuje canary:
+
+```text
+known producer metric
+→ expected target
+→ post-relabel series
+→ recording rule
+→ controlled alert
+→ Alertmanager receive
+```
+
+External black-box check má zistiť aj úplný výpadok samotného Prometheus systému.
+
+## 18. Troubleshooting paths
+
+### Target down
+
+```text
+discovery object
+→ target relabel result
+→ /targets error
+→ DNS/address/route
+→ TLS/auth
+→ path/port
+→ exposition validity
+→ timeout/sample limits
 ```
 
 Test vykonaj z rovnakej network boundary ako Prometheus.
 
-## 35. Troubleshooting missing series
+### Missing series
 
 ```text
-target `up`?
-→ metric je v raw `/metrics`?
-→ target relabeling zachovalo target?
-→ metric relabeling nedropuje series?
-→ labels sa nezmenili?
-→ query time range a selector?
-→ staleness?
-→ recording rule failure?
-→ remote-write/backend ingestion?
+raw endpoint
+→ scrape counters
+→ metric relabel result
+→ local TSDB selector
+→ labels/staleness
+→ recording rule
+→ remote-write/backend
 ```
 
-Porovnaj:
+### High memory alebo disk
 
-- raw endpoint,
-- Prometheus expression browser,
-- rule output,
-- remote backend.
+```text
+active series
+→ new-series rate a churn
+→ high-cardinality labels
+→ duplicate targets/histograms
+→ WAL/compaction
+→ retention
+→ remote-write backlog
+→ expensive queries/rules
+```
 
-## 36. Troubleshooting high memory alebo disk
+### Slow PromQL
 
-Over:
+Najprv zmenši selector a zmeraj series fan-out. Over regex, range, vector matching, histogram buckets, subqueries a dashboard concurrency. Recording rule má materializovať stabilný správny model, nie maskovať nesprávnu cardinality.
 
-- active head series,
-- new series rate,
-- label-value explosion,
-- scrape sample counts,
-- target churn,
-- histogram bucket count,
-- duplicate targets,
-- retention,
-- compaction/WAL stav,
-- remote-write backlog,
-- dashboard/rule query pressure.
+## 19. Anti-patterny
 
-Cardinality incident workflow:
+### `up == 1` ako service verdict
 
-1. identifikuj metric a label s rastom,
-2. zastav alebo metric-relabel-ni unbounded source,
-3. zachovaj evidence a ownera,
-4. oprav instrumentation contract,
-5. over pokles active series,
-6. zhodnoť disk/memory recovery lifecycle.
+Preukazuje scrape attempt, nie business outcome ani completeness metric setu.
 
-## 37. Troubleshooting slow PromQL
+### Metric relabeling bez dependency inventory
 
-Over:
+Cost optimization môže ticho odstrániť SLI a alert inputs.
 
-- broad selectors,
-- príliš dlhý range,
-- vysokú cardinality,
-- regex matchers,
-- many-to-many joins,
-- subqueries,
-- histogram buckets,
-- chýbajúce recording rules,
-- dashboard refresh a variable fan-out,
-- concurrent users/rules.
+### Dynamic identifiers v labels
 
-Najprv zmenši scope a zobraz počet výsledných series. Recording rule používaj na stabilný opakovaný výpočet, nie ako maskovanie nesprávneho data modelu.
-
-## 38. Anti-patterny
-
-### Prometheus ako event alebo log store
-
-Time-series model nie je vhodný na unikátne payloady a per-event vysokú cardinality.
-
-### User ID, request ID alebo trace ID v labels
-
-Vytvára neobmedzený počet series.
-
-### `up == 1` ako jediný service health signal
-
-Metrics endpoint môže fungovať, zatiaľ čo business path zlyháva.
+Request/user/trace identity destabilizuje TSDB a queries.
 
 ### Summary quantiles agregované naprieč instances
 
-Client-side quantiles nie sú všeobecne agregovateľné.
+Client-side quantiles nemajú všeobecne správnu service-wide agregáciu.
 
-### Scrape interval 5 sekúnd pre všetko
+### Remote dashboard ako jediná truth
 
-Zvyšuje load a storage bez jasnej detection potreby.
+Backlog alebo deduplication môže vytvoriť rozdiel oproti local rule state-u.
 
-### Metric relabeling bez dependency auditu
+### Jedna replika s lokálnym diskom ako HA/DR
 
-Dashboardy, rules a SLO môžu ticho stratiť vstupy.
+Nemá independent scrape, rule ani recovery boundary.
 
-### Jedna Prometheus replika s lokálnym diskom ako enterprise DR
+### Config syntax check ako runtime acceptance
 
-Nemá nezávislú availability ani long-term recovery model.
+Nevie preukázať expected targets, post-relabel series, rule population ani notification path.
 
-### Alert labels s dynamickým textom
+## 20. Kontrolné otázky
 
-Každá hodnota vytvorí novú alert identity a poškodí deduplication/routing.
-
-## 39. Kontrolné otázky
-
-1. Ako funguje pull-based scrape model?
-2. Čo presne znamená `up`?
-3. Ako metric name a labels vytvárajú time series?
-4. Aký je rozdiel medzi target a metric relabelingom?
-5. Prečo je cardinality hlavný operational risk?
-6. Kedy použiť histogram a prečo summary quantiles nemožno bežne agregovať?
-7. Ako fungujú WAL, head block, compaction a retention?
-8. Čo je staleness a ako ovplyvňuje missing metrics?
-9. Ako sa líši recording a alerting rule?
-10. Aké sú hranice Prometheus HA modelu?
-11. Ako diagnostikuješ remote-write backlog?
-12. Kedy federation nestačí?
+1. Čo tvorí exact Prometheus subject?
+2. Aký je rozdiel medzi discovery objectom a final targetom?
+3. Čo `up == 1` preukazuje a čo nie?
+4. Kde sa líši target a metric relabeling?
+5. Čo je post-relabel sample set?
+6. Ako metric name a labels definujú series identity?
+7. Ako WAL, head, blocks a staleness menia queryovateľný state?
+8. Prečo recording rule potrebuje input inventory a fixture tests?
+9. Ako local rule truth môže divergrovať od remote dashboardu?
+10. Aké compatibility gates potrebuje native-histogram migration?
+11. Prečo Prometheus HA nie je shared-state cluster?
+12. Ako overíš celý metric-to-alert path po config reload-e?
 
 ## Glossary impact
 
-Relevantné pojmy: Prometheus, scrape, target, exporter, Pushgateway, time series, sample, label set, service discovery, target relabeling, metric relabeling, external labels, local TSDB, WAL, head block, compaction, staleness, PromQL, instant vector, range vector, vector matching, recording rule, alerting rule, remote write, remote read, federation, Prometheus HA, native histogram a series churn.
+Relevantné pojmy: Prometheus subject, metric-contract generation, expected target generation, target eligibility, scrape attempt, post-relabel sample set, local TSDB generation, staleness verdict, recording-rule generation, rule-input closure, local-versus-remote metrics state, native-histogram compatibility generation, Prometheus canary a Prometheus acceptance verdict.
 
 ## Primárne zdroje
 
 - [Prometheus overview](https://prometheus.io/docs/introduction/overview/)
 - [Prometheus data model](https://prometheus.io/docs/concepts/data_model/)
 - [Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/)
+- [Native histograms](https://prometheus.io/docs/specs/native_histograms/)
 - [Prometheus configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
 - [PromQL basics](https://prometheus.io/docs/prometheus/latest/querying/basics/)
 - [Prometheus storage](https://prometheus.io/docs/prometheus/latest/storage/)
