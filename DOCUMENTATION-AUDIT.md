@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **258**
-- Audited conceptual sections: **10381**
-- Total words: **610,624**
-- Findings: **21716** (critical 6456, high 7340, medium 2763, low 5157)
-- File grades: A 0, B 0, C 0, D 258
+- Audited authoritative articles: **259**
+- Audited conceptual sections: **10416**
+- Total words: **612,424**
+- Findings: **21801** (critical 6485, high 7370, medium 2776, low 5170)
+- File grades: A 0, B 0, C 0, D 259
 
 ## Interpretation
 
@@ -121,6 +121,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
 | D | 653 | 26 | 34 | 13 | 23 | 2588 | `docs/13-security-and-identity/zero-trust.md` |
+| D | 651 | 29 | 30 | 13 | 13 | 1800 | `docs/14-sre-and-operations/sli-slo-sla.md` |
 | D | 648 | 29 | 23 | 23 | 18 | 2325 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 648 | 25 | 38 | 8 | 15 | 2006 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | D | 647 | 28 | 34 | 6 | 22 | 2316 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
@@ -14855,23 +14856,85 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 328, `term-before-explanation` — **14. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `availability`, `policy`, `identity`
 - **HIGH** line 328, `thin-concept-section` — **14. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/14-sre-and-operations/sli-slo-sla.md`
+
+- **CRITICAL** line 19, `bare-bullet-items` — **1. Service-level subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service alebo business capability;`, `user alebo workload cohort;`, `operation a request type;`, `exact valid-event population;`.
+- **CRITICAL** line 19, `outline-instead-of-explanation` — **1. Service-level subject**: 11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 49, `bare-bullet-items` — **2. Service Level Indicator — SLI**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podiel successful requests;`, `podiel requests pod latency thresholdom;`, `podiel records spracovaných do deadline-u;`, `podiel správnych answers;`.
+- **CRITICAL** line 69, `bare-bullet-items` — **3. Valid events a denominator**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntactically invalid client requests;`, `unauthorized requests;`, `rate-limited traffic;`, `client cancellations;`.
+- **CRITICAL** line 94, `bare-bullet-items` — **4. Good event nie je iba status code**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `front-door acceptance;`, `end-to-end completion;`, `correctness;`, `durability alebo reconstructability;`.
+- **CRITICAL** line 127, `bare-bullet-items` — **Server-side observation**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká coverage;`, `jednotná schema;`, `jednoduchšia korelácia s release a dependency state-om.`, `môže merať response write, nie client receive;`.
+- **CRITICAL** line 127, `outline-instead-of-explanation` — **Server-side observation**: 6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 141, `bare-bullet-items` — **Client-side alebo edge observation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bližšie k reálnemu user journey;`, `zahŕňa viac network a rendering boundary.`, `sampling a privacy;`, `ad blockers alebo telemetry loss;`.
+- **CRITICAL** line 141, `outline-instead-of-explanation` — **Client-side alebo edge observation**: 6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 155, `bare-bullet-items` — **Business-ledger observation**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoritatívny final outcome;`, `vhodné pre settlement, order, export alebo workflow completion.`, `väčšia latency;`, `potreba reconciliation;`.
+- **CRITICAL** line 155, `outline-instead-of-explanation` — **Business-ledger observation**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 170, `bare-bullet-items` — **6. Measurement pipeline je súčasť SLI**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source generation;`, `schema a semantic version;`, `collection coverage;`, `delay a lateness;`.
+- **CRITICAL** line 170, `outline-instead-of-explanation` — **6. Measurement pipeline je súčasť SLI**: 9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 197, `bare-bullet-items` — **7. Service Level Objective — SLO**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLI definition alebo stabilný odkaz na ňu;`, `target;`, `window;`, `cohort a scope;`.
+- **CRITICAL** line 197, `outline-instead-of-explanation` — **7. Service Level Objective — SLO**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 225, `empty-section` — **8. Rolling a calendar windows**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 231, `bare-bullet-items` — **Calendar window**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `citlivosť na krátke incidenty;`, `seasonality;`, `traffic volume;`, `alerting a burn-rate model;`.
+- **CRITICAL** line 244, `bare-bullet-items` — **9. Target nie je aktuálny priemer**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user potreby a alternatives;`, `business impactu;`, `dependency contracts;`, `achievable architecture;`.
+- **CRITICAL** line 259, `bare-bullet-items` — **10. Service Level Agreement — SLA**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definovaný service a scope;`, `commitment metric a threshold;`, `measurement source;`, `reporting period;`.
+- **CRITICAL** line 283, `outline-instead-of-explanation` — **11. Exclusions a maintenance**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 309, `empty-section` — **Acceptance SLI**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 319, `empty-section` — **Completion SLI**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 343, `bare-bullet-items` — **13. SLI correction a late data**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provisional outcome;`, `finalization delay;`, `late provider acknowledgement;`, `corrected classification;`.
+- **CRITICAL** line 358, `bare-bullet-items` — **14. SLO acceptance verdict**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `začína od user journey a požadovaného outcome-u;`, `exact population, good event a exclusions sú testovateľné;`, `measurement pipeline má coverage a missing-data verdict;`, `retries a duplicates majú explicitnú identity semantics;`.
+- **CRITICAL** line 358, `outline-instead-of-explanation` — **14. SLO acceptance verdict**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 375, `empty-section` — **15. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 392, `bare-bullet-items` — **16. Earlier controls**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný SLO document;`, `stable SLI IDs a owners;`, `client/business-ledger evidence pre critical journeys;`, `valid-event fixtures;`.
+- **CRITICAL** line 392, `no-prose-concept` — **16. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 392, `outline-instead-of-explanation` — **16. Earlier controls**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 19, `single-sentence-concept` — **1. Service-level subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 49, `list-heavy-section` — **2. Service Level Indicator — SLI**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 69, `list-heavy-section` — **3. Valid events a denominator**: 10 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 123, `single-sentence-concept` — **5. Observation point**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 127, `single-sentence-concept` — **Server-side observation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 141, `single-sentence-concept` — **Client-side alebo edge observation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 155, `single-sentence-concept` — **Business-ledger observation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 170, `list-first-introduction` — **6. Measurement pipeline je súčasť SLI**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 197, `single-sentence-concept` — **7. Service Level Objective — SLO**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 231, `list-heavy-section` — **Calendar window**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 244, `list-heavy-section` — **9. Target nie je aktuálny priemer**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 283, `bare-bullet-items` — **11. Exclusions a maintenance**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `invalid requests sa klasifikujú príliš široko;`, `rate limiting skryje capacity failure;`, `missing telemetry sa považuje za success;`, `incidents sa spätne preklasifikujú po spotrebovaní budgetu.`.
+- **HIGH** line 343, `list-heavy-section` — **13. SLI correction a late data**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 358, `single-sentence-concept` — **14. SLO acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 392, `list-first-introduction` — **16. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 409, `single-sentence-concept` — **Metric first**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 413, `single-sentence-concept` — **Average latency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 417, `single-sentence-concept` — **2xx equals success**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 421, `single-sentence-concept` — **Missing equals good**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 425, `single-sentence-concept` — **SLA equals reliability strategy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 429, `single-sentence-concept` — **Jeden composite score**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 433, `single-sentence-concept` — **SLO bez consequence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 19, `thin-concept-section` — **1. Service-level subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 127, `thin-concept-section` — **Server-side observation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 141, `thin-concept-section` — **Client-side alebo edge observation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 155, `thin-concept-section` — **Business-ledger observation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 170, `thin-concept-section` — **6. Measurement pipeline je súčasť SLI**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 197, `thin-concept-section` — **7. Service Level Objective — SLO**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 358, `thin-concept-section` — **14. SLO acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 392, `thin-concept-section` — **16. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2487 | 462 | 0 | 0 | 2949 |
-| `outline-instead-of-explanation` | 2501 | 0 | 0 | 0 | 2501 |
-| `term-before-explanation` | 0 | 564 | 1845 | 0 | 2409 |
-| `single-sentence-concept` | 0 | 2398 | 0 | 0 | 2398 |
-| `thin-concept-section` | 0 | 2109 | 0 | 0 | 2109 |
-| `example-not-explicit` | 0 | 0 | 0 | 2071 | 2071 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2036 | 2036 |
-| `list-first-introduction` | 0 | 1364 | 0 | 0 | 1364 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1050 | 1050 |
-| `short-concept-section` | 0 | 0 | 918 | 0 | 918 |
-| `no-prose-concept` | 789 | 0 | 0 | 0 | 789 |
-| `empty-section` | 679 | 0 | 0 | 0 | 679 |
-| `list-heavy-section` | 0 | 443 | 0 | 0 | 443 |
+| `bare-bullet-items` | 2502 | 463 | 0 | 0 | 2965 |
+| `outline-instead-of-explanation` | 2510 | 0 | 0 | 0 | 2510 |
+| `term-before-explanation` | 0 | 564 | 1854 | 0 | 2418 |
+| `single-sentence-concept` | 0 | 2412 | 0 | 0 | 2412 |
+| `thin-concept-section` | 0 | 2117 | 0 | 0 | 2117 |
+| `example-not-explicit` | 0 | 0 | 0 | 2074 | 2074 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2042 | 2042 |
+| `list-first-introduction` | 0 | 1366 | 0 | 0 | 1366 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1054 | 1054 |
+| `short-concept-section` | 0 | 0 | 922 | 0 | 922 |
+| `no-prose-concept` | 790 | 0 | 0 | 0 | 790 |
+| `empty-section` | 683 | 0 | 0 | 0 | 683 |
+| `list-heavy-section` | 0 | 448 | 0 | 0 | 448 |
 
 ## Required remediation pattern
 
