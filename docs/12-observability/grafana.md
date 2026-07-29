@@ -1,752 +1,243 @@
 # Grafana
 
-Grafana je platforma na queryovanie, vizualizáciu, alerting a interaktívne skúmanie telemetry z externých data sources. Grafana typicky nie je primárnym source-of-truth metrics, logs alebo traces; pristupuje k systémom ako Prometheus, Loki, Elasticsearch/OpenSearch, Tempo, Jaeger, CloudWatch, SQL databázy a ďalšie plugins.
+Grafana je query, visualization, investigation a alerting vrstva nad externými telemetry backends. Typicky nevlastní autoritatívne metrics, logs ani traces. Vlastní však dôležitú časť operational contractu: ktorý backend a tenant sa queryujú, aký exact query result vznikol, ako sa výsledok transformoval a zobrazil, kto ho smie vidieť a či z neho vznikol správny operational decision.
 
-Dobrý Grafana deployment nie je zbierka farebných dashboardov. Je to riadená investigation vrstva, ktorá prepája user impact, SLO, deployment events, metrics, logs, traces, ownership a runbooks.
+Preto zelený panel nie je dôkazom zdravého systému. Je to výsledok konkrétnej data-source identity, query, time range-u, transformation chainu, field configuration, dashboard revision a viewer contextu.
 
-## 1. Mentálny model
+## 1. Dominantný model
 
 ```text
-telemetry backends
-→ Grafana data-source plugins
-→ queries a expressions
-→ transformations
-→ fields a data frames
-→ panels a visualizations
-→ dashboards, Explore a correlations
-→ Grafana-managed alerting alebo externý alerting path
-→ users, teams a permissions
+business alebo operational otázka
+→ exact Grafana subject
+→ data-source, tenant a authorization boundary
+→ raw backend query
+→ query response a data frame
+→ expressions a transformations
+→ reducer, field unit, mappings a overrides
+→ panel/dashboard/Explore representation
+→ viewer alebo alerting consumer
+→ operational decision
+→ backend, user-outcome a forbidden-path validation
 ```
 
-Grafana zobrazuje a spracúva výsledky queries. Ak source data, query alebo time range nie sú správne, vizualizácia nemôže vytvoriť správny záver.
-
-## 2. Základné komponenty
-
-Grafana deployment typicky obsahuje:
-
-- Grafana server,
-- configuration,
-- internal database,
-- data-source plugins,
-- visualization a application plugins,
-- dashboards a folders,
-- users, teams a authentication,
-- alerting resources,
-- provisioning alebo API/IaC workflow,
-- optional image renderer a reporting components podľa edície/use case-u.
-
-Grafana server:
-
-- autentizuje používateľov,
-- autorizuje prístup ku Grafana resources,
-- proxyuje alebo vykonáva data-source queries podľa plugin modelu,
-- ukladá dashboards a metadata,
-- renderuje UI,
-- vyhodnocuje Grafana-managed alert rules,
-- odosiela notifications podľa Grafana Alerting konfigurácie.
-
-## 3. Data sources
-
-Data source je plugin a configuration, ktorá Grafane umožňuje komunikovať s externým systémom.
-
-Príklady:
-
-- Prometheus pre metrics,
-- Loki pre logs,
-- Tempo alebo Jaeger pre traces,
-- Elasticsearch/OpenSearch,
-- CloudWatch,
-- PostgreSQL/MySQL,
-- TestData pre simulované dáta.
-
-Data source configuration môže obsahovať:
-
-- endpoint,
-- access/proxy model,
-- authentication,
-- TLS,
-- organization/tenant headers,
-- default query settings,
-- timeout,
-- custom HTTP headers,
-- derived fields alebo correlations,
-- caching podľa edície a plugin capability.
-
-### Data source nie je dashboard permission
-
-Dashboard access a data-source access sú odlišné boundaries.
-
-V Grafana OSS je potrebné dôkladne overiť organization a data-source security model; niektoré jemnejšie data-source permissions a RBAC capabilities sú dostupné iba v Enterprise alebo Cloud edíciách. Skrytie dashboardu samo osebe nemusí zabrániť používateľovi queryovať dostupný data source cez Explore.
-
-## 4. Proxy a credentials
-
-Grafana často vykonáva backend query server-side a používa data-source credentials uložené v konfigurácii.
-
-Dôsledky:
-
-- user nemusí mať priamy network access k backendu,
-- Grafana service identity môže mať širší access než user,
-- permissions musia byť presadzované v Grafane aj v backend/tenant modeli,
-- query audit potrebuje rozlíšiť Grafana server od koncového používateľa,
-- credentials musia byť šifrované, rotované a oddelené od dashboard JSON.
-
-Nepoužívaj jeden broad admin token pre všetky data sources bez tenant a least-privilege modelu.
-
-## 5. Dashboard
-
-Dashboard je organizovaná množina panels, variables, annotations, links a time settings.
-
-Mal by odpovedať na konkrétny operational účel:
-
-- Je služba zdravá?
-- Ktorý user journey degraduje?
-- Ktorá dependency je problematická?
-- Ako sa správa capacity?
-- Čo sa zmenilo?
-- Kam pokračovať pri vyšetrovaní?
-
-Dashboard nemá byť inventory všetkých dostupných metrics.
-
-## 6. Panel
-
-Panel kombinuje:
-
-- jednu alebo viac queries,
-- data-source selection,
-- optional expressions,
-- transformations,
-- field configuration,
-- visualization,
-- thresholds, links a descriptions.
-
-Panel je prezentačná vrstva nad query výsledkom. Pri nesprávnom grafe najprv over raw query result.
-
-### Panel inspector
-
-Panel inspector pomáha zobraziť:
-
-- raw data,
-- query request a response,
-- query statistics,
-- transformed data,
-- panel JSON.
-
-Je základným nástrojom pri diagnostike „Grafana ukazuje inú hodnotu než backend“.
-
-## 7. Data frames a fields
-
-Grafana normalizuje query výsledky do data frames a fields.
-
-Field môže obsahovať:
-
-- values,
-- type,
-- name,
-- labels,
-- unit a display configuration,
-- thresholds,
-- mappings,
-- links.
-
-Rovnaká query môže byť vizualizovaná rôzne podľa field configu. Zmena unit alebo reduceru môže zmeniť interpretáciu bez zmeny source dát.
-
-## 8. Vizualizácie
-
-Výber vizualizácie musí zodpovedať otázke a data shape-u.
-
-### Time series
-
-Pre trends, rates, latency percentiles, utilization a SLO burn.
-
-### Stat
-
-Pre jednu aktuálnu alebo redukovanú hodnotu, napríklad current availability alebo queue depth.
-
-### Gauge a bar gauge
-
-Pre hodnotu voči explicitnému range-u. Nevhodné, ak maximum nie je zmysluplné alebo stabilné.
-
-### Table
-
-Pre multi-dimensional data, inventory, top-N, states a drilldown links.
-
-### Heatmap
-
-Pre distributions, histogram buckets a latency shape v čase.
-
-### State timeline/status history
-
-Pre categorical states, rollout alebo availability transitions.
-
-### Logs a traces panels
-
-Pre contextual drilldown, nie ako náhrada plného Explore workflowu.
-
-## 9. Query options
-
-Panel query options ovplyvňujú:
-
-- time range,
-- max data points,
-- interval,
-- relative time,
-- time shift,
-- query timeout podľa data source,
-- instant oproti range query.
-
-Grafana automaticky vypočítava intervaly podľa time range a panel resolution.
-
-Pri Prometheus query sa často používa:
-
-- `$__interval`,
-- `$__rate_interval`,
-- `$__range`,
-- `$__range_s`.
-
-Hard-coded príliš krátke `rate()` window môže zlyhať pri inom scrape intervale alebo dashboard time range-u.
-
-## 10. Transformations
-
-Transformations upravujú query výsledok po jeho získaní z data source.
-
-Príklady:
-
-- rename/organize fields,
-- join alebo merge frames,
-- filter fields,
-- calculate field,
-- reduce,
-- group,
-- labels-to-fields,
-- rows-to-fields.
-
-Transformations sú vhodné na presentation shaping, ale nie vždy na heavy data processing.
-
-Riziká:
-
-- veľký dataset sa najprv prenesie do Grafany,
-- browser/server memory a latency,
-- výsledok sa líši od source query semantics,
-- alert rule nemusí používať totožnú frontend transformation,
-- zložitý chain je ťažko testovateľný.
-
-Preferuj agregáciu v data source alebo recording rules, ak ide o stabilný opakovaný výpočet.
-
-## 11. Expressions
-
-Grafana expressions môžu kombinovať query results a vykonávať math, reduce, resample alebo threshold operácie podľa podporovaného alerting/query modelu.
-
-Použitie:
-
-- normalizácia rôznych source queries,
-- alert condition,
-- jednoduchý derived signal,
-- resampling časových radov.
-
-Expression nenahrádza konzistentný data model. Pri kombinácii series over label matching, timestamps a missing-data behavior.
-
-## 12. Variables
-
-Variables parametrizujú dashboards.
-
-Typy zahŕňajú:
-
-- query variable,
-- custom variable,
-- text box,
-- constant,
-- data source,
-- interval,
-- ad hoc filters podľa data source.
-
-Príklad hierarchy:
+Grafana je užitočná iba vtedy, keď sa dá spätne prejsť od rozhodnutia až k autoritatívnemu backend recordu a exact loaded dashboard generation.
+
+## 2. Exact Grafana subject
+
+Pre Atlas Payments používame subject `GRAF-PAY-45`:
+
+```text
+business capability: final payment settlement
+service: provider-adapter
+environment: production
+region: eu-central-1
+cohort: enterprise merchants
+Grafana organization: atlas-prod
+folder UID: payments-prod
+dashboard UID: settlement-overview
+panel UID: final-error-ratio
+data-source UID: prometheus-prod-eu1
+dashboard source generation: Git commit / generated artifact
+loaded dashboard version: Grafana database revision
+query generation: PromQL + variables + time range + step
+transformation generation: expressions/transformations/reducer
+field generation: unit, thresholds, mappings, overrides
+alert ownership: Prometheus/Alertmanager alebo Grafana-managed
+viewer identity a permission scope
+```
+
+Názov dashboardu nestačí. Rovnaký title môže existovať v inom folderi, organization alebo environment-e. Pri incidente treba poznať UID, source generation aj runtime-loaded revision.
+
+## 3. Štyri oddelené stavy
+
+```text
+backend obsahuje správne dáta
+≠ Grafana poslala správny query
+≠ panel interpretuje výsledok správne
+≠ používateľ urobil správny decision
+```
+
+Podobne:
+
+```text
+query v paneli vyzerá správne
+≠ variables boli interpolované správne
+≠ transformation zachovala population
+≠ field unit zodpovedá value semantics
+≠ provisioned source a loaded dashboard sú rovnaké
+```
+
+Táto separácia je základ troubleshootingu.
+
+## 4. Data-source boundary
+
+Data source pozostáva z pluginu a runtime konfigurácie:
+
+- stable UID a plugin type;
+- backend endpoint;
+- tenant, organization alebo project header;
+- authentication a TLS;
+- timeout, query limits a default settings;
+- server-side proxy alebo browser access model;
+- service identity a audit model.
+
+Dashboard permission nechráni automaticky backend data. Používateľ s accessom k data source-u môže podľa permissions použiť Explore alebo iný dashboard a vytvoriť vlastný query. Tenant isolation preto musí byť presadená aj v backend-e alebo v dôveryhodnej Grafana authorization vrstve, nie iba skrytím panelu.
+
+Test z používateľského browsera môže byť irelevantný, keď Grafana vykonáva query server-side. Diagnostický test sa musí vykonať z rovnakej network, identity a tenant boundary ako Grafana server.
+
+## 5. Query-to-frame lifecycle
+
+Panel môže obsahovať jednu alebo viac backend queries. Výsledky Grafana normalizuje do data frames a fields.
+
+```text
+query text + variables + time range + step
+→ request cez data-source plugin
+→ backend response
+→ Grafana data frame
+→ expression alebo transformation
+→ field configuration
+→ visualization
+```
+
+Panel Inspector je kľúčový observation point. Umožňuje porovnať request, raw response, transformed frame, statistics a panel JSON. Pri rozdiele medzi backendom a panelom sa nezačína farbou, ale raw query resultom.
+
+## 6. Variables a population identity
+
+Variables umožňujú reusable dashboards, ale menia exact query population.
 
 ```text
 environment
-→ cluster
-→ namespace
+→ region
 → service
-→ instance
+→ operation
+→ cohort
 ```
-
-### Výhody
-
-- jeden dashboard pre viac environments/services,
-- menej duplicitných dashboardov,
-- reusable links,
-- interactive drilldown.
-
-### Riziká
-
-- variable query vytvára veľkú cardinality,
-- „All“ expanduje na tisíce values,
-- regex alebo interpolation mení query semantics,
-- text-box variable umožní broad alebo drahú query,
-- chained variables spúšťajú mnoho queries,
-- URL variable môže preniesť nečakanú hodnotu.
-
-Variables nie sú authorization mechanism.
-
-## 13. Variable interpolation
-
-Grafana interpoluje variable pred odoslaním query data source-u.
-
-Syntax môže zahŕňať:
-
-```text
-$service
-${service}
-${service:regex}
-${service:raw}
-```
-
-Formatting závisí od data source-u.
-
-`raw` alebo nesprávne escaping môže vytvoriť chybnú query alebo injection risk pri SQL a iných languages. Používaj data-source-aware formatting a bounded values.
-
-## 14. Repeating panels a rows
-
-Panel alebo row možno opakovať podľa variable values.
-
-Použitie:
-
-- rovnaký panel per Region,
-- per service,
-- per cluster.
 
 Riziká:
 
-- N variables × M panels × refresh rate vytvorí query storm,
-- dashboard sa stane nečitateľný,
-- panel count rastie podľa dynamického prostredia.
+- stale hidden default;
+- URL parameter prepíše očakávanú hodnotu;
+- `All` expanduje broad regex;
+- chained variables spustia query storm;
+- nesprávne escaping zmení PromQL, LogQL alebo SQL semantics;
+- variable vyberie inú release, AZ alebo tenant population.
 
-Pre veľké fleet použite aggregate overview a drilldown namiesto panelu pre každú instance.
+Variables nie sú authorization mechanism. Každý critical dashboard potrebuje fixtures pre intended aj forbidden values.
 
-## 15. Annotations
+## 7. Expressions, transformations a field semantics
 
-Annotations zobrazujú významné events v časových grafoch.
+Transformations sa aplikujú po získaní dát. Môžu joinovať, filtrovať, redukovať, premenovávať alebo vypočítať fields. Sú vhodné na presentation shaping, ale môžu vytvoriť nový derived signal, ktorý už nemá rovnakú autoritu ako backend query.
 
-Príklady:
+Pre každý critical panel eviduj:
 
-- deployment,
-- configuration change,
-- incident start/end,
-- failover,
-- feature-flag change,
-- scaling event,
-- maintenance.
+- source queries;
+- expression order;
+- transformation order;
+- join keys a missing-data behavior;
+- reducer, napríklad `last`, `lastNotNull`, `mean` alebo `max`;
+- unit semantics;
+- threshold a value mappings;
+- panel overrides.
 
-Annotations môžu byť:
-
-- uložené v Grafane,
-- načítané query z externého data source-u.
-
-Kvalitná annotation obsahuje:
-
-- timestamp alebo interval,
-- event type,
-- service/environment,
-- revision/change ID,
-- owner,
-- link na deployment alebo incident.
-
-Annotations znižujú potrebu manuálne korelovať telemetry a change timeline.
-
-## 16. Dashboard a panel links
-
-Links vytvárajú investigation path:
+Príklad ratio:
 
 ```text
-service overview
-→ operation dashboard
-→ Explore query
-→ logs podľa service/trace ID
-→ trace
-→ infrastructure dashboard
-→ runbook alebo incident
+backend value = 0.074
 ```
 
-Prenášaj:
+Ak ide o fraction `0–1`, unit musí interpretovať `0.074` ako `7.4 %`. Unit určená pre už škálovaný rozsah `0–100` zobrazí `0.074 %`. Source data sa nezmenili, ale operational meaning áno.
 
-- time range,
-- environment,
-- service,
-- region/cluster,
-- trace alebo correlation ID podľa use case-u.
+Červený alebo zelený threshold nie je alert rule ani SLO. Je to presentation state, kým nemá ownera, time-window semantics, action a samostatne testovaný notification path.
 
-Link musí byť testovaný s URL encodingom a permissions.
+## 8. Dashboard a investigation hierarchy
 
-## 17. Data links a correlations
+Dashboard má odpovedať na preddefinovanú otázku. Explore slúži na ad hoc investigation.
 
-Data link viaže konkrétnu field hodnotu na ďalší dashboard alebo external URL.
-
-Príklady:
-
-- trace ID → Tempo/Jaeger trace,
-- Pod → Kubernetes dashboard,
-- error code → runbook,
-- deployment revision → Git commit,
-- instance → host dashboard.
-
-Correlations umožňujú prechádzať medzi data sources a signals podľa fields alebo query contextu.
-
-Cieľ:
+Odporúčaná hierarchy:
 
 ```text
-metric exemplar alebo label
-→ trace
-→ logs
-→ profile alebo deployment event
+service health a SLO
+→ Golden Signals a business outcomes
+→ operation/cohort/version breakdown
+→ dependency RED
+→ USE resource evidence
+→ logs, traces, profiles a change events
 ```
 
-Correlation musí používať stabilné identifiers a bezpečné field handling.
+Links a correlations majú preniesť exact time range, environment, region, service a podľa potreby trace alebo correlation ID. Link bez zachovania scope-u môže respondera poslať do iného incident population.
 
-## 18. Explore
+## 9. Provisioning a ownership
 
-Explore je ad hoc query a investigation workspace bez potreby najprv uložiť dashboard.
+Dashboard môže byť spravovaný cez:
 
-Použitie:
+- file provisioning;
+- Terraform;
+- Grafana Operator alebo iný controller;
+- HTTP/API workflow;
+- generated JSON/Jsonnet;
+- UI.
 
-- iteratívne PromQL/LogQL/query building,
-- split view a porovnanie,
-- logs context,
-- trace analysis,
-- query inspector,
-- prechod medzi metrics, logs a traces,
-- incident investigation.
+Pre jeden dashboard musí existovať jeden authoritative writer.
 
-Dashboard odpovedá na preddefinované otázky. Explore je vhodnejší na nové alebo detailné otázky.
+```text
+source artifact
+→ validation a rendering
+→ provisioning provider/controller
+→ Grafana database revision
+→ loaded dashboard read-back
+→ known-query render test
+```
 
-## 19. Dashboard hierarchy
+UI edit provisionovaného dashboardu nie je durable oprava, ak reconciliation neskôr znovu načíta chybný source artifact. Acceptance vyžaduje opravu autority a runtime read-back.
 
-Odporúčaná štruktúra:
+Pri alerting automatizácii treba používať API contract podporovaný konkrétnou Grafana verziou. Legacy Alerting Provisioning HTTP API je v aktuálnej dokumentácii deprecated; nové implementácie majú overiť Grafana App Platform alerting APIs, ich version a provenance semantics.
 
-### Executive alebo service health
+## 10. Grafana Alerting boundary
 
-- SLO a user outcomes,
-- Golden Signals,
-- active incidents,
-- critical business volume.
-
-### Service overview
-
-- RED,
-- dependencies,
-- deployment markers,
-- saturation.
-
-### Component/resource dashboard
-
-- USE,
-- queues/pools,
-- runtime,
-- database/network/storage.
-
-### Troubleshooting dashboard
-
-- high-resolution details,
-- per-instance/shard breakdown,
-- links na logs/traces/profiles.
-
-Jeden dashboard nemá obsahovať všetky vrstvy naraz.
-
-## 20. Dashboard design principles
-
-Každý dashboard má mať:
-
-- jasný title a purpose,
-- ownera,
-- audience,
-- default time range,
-- template variables s bounded scope-om,
-- units a legends,
-- SLO alebo operational thresholds,
-- annotations,
-- drilldown links,
-- version a lifecycle.
-
-Panel description má vysvetliť:
-
-- čo metric znamená,
-- query scope,
-- threshold semantics,
-- čo urobiť pri abnormalite.
-
-## 21. Units a value mappings
-
-Grafana unit formatting nemení source hodnotu.
-
-Chyby:
-
-- bytes zobrazené ako bits,
-- seconds zobrazené ako milliseconds bez konverzie,
-- ratio `0–1` zobrazené ako percento `0–100` nesprávnym unitom,
-- counter value zobrazený ako rate,
-- timezone mismatch.
-
-Value mappings sú vhodné pre categorical states, ale nemajú maskovať raw hodnotu pri diagnostike.
-
-## 22. Thresholds
-
-Thresholdy menia vizuálny stav panelu.
-
-Nie sú automaticky alert rules ani SLO.
-
-Threshold musí mať:
-
-- business/operational dôvod,
-- správnu unit,
-- time-window semantics,
-- ownera,
-- action.
-
-Červená farba bez alert alebo runbook contractu je iba vizuálna dekorácia.
-
-## 23. Dashboard provisioning
-
-Grafana môže provisionovať data sources a dashboards z files.
-
-Výhody:
-
-- version control,
-- review,
-- repeatable environments,
-- disaster recovery,
-- menší UI drift.
-
-Pri provisionovaných dashboardoch je source file autorita. Ak sa dashboard upraví v UI a neskôr sa provisioning source aktualizuje, source môže databázovú verziu prepísať.
-
-Preto definuj:
-
-- či je UI editing povolený,
-- export/import workflow,
-- Git ownership,
-- folder/provider mapping,
-- deletion behavior,
-- reconciliation interval.
-
-## 24. Dashboards as code
-
-Možnosti:
-
-- raw dashboard JSON,
-- provisioning files,
-- HTTP APIs,
-- Terraform provider,
-- Kubernetes/Grafana Operator,
-- Jsonnet/grafonnet alebo iné generation tools.
-
-Trade-off:
-
-- raw JSON je presný, ale hlučný,
-- higher-level abstraction znižuje duplication, ale pridáva generator dependency,
-- UI-first workflow je rýchly, ale potrebuje export a review discipline.
-
-Generated dashboard artifact musí byť reprodukovateľný a testovateľný.
-
-## 25. Provisioning data sources
-
-Data-source provisioning môže definovať:
-
-- name a UID,
-- plugin type,
-- URL,
-- default status,
-- JSON settings,
-- secure JSON data,
-- deletion/pruning behavior.
-
-Používaj stabilné UIDs, aby dashboardy neboli viazané na environment-specific numeric IDs.
-
-Secure credentials nevkladaj do dashboard JSON ani plain Git files.
-
-## 26. Folders a permissions
-
-Folders organizujú dashboards a môžu byť authorization boundary podľa Grafana modelu.
-
-Použitie:
-
-- team ownership,
-- environment alebo domain separation,
-- admin/editor/viewer access,
-- provisioning scope.
-
-Over inheritance a edition-specific RBAC capabilities.
-
-Folder permission nechráni automaticky source data pred query cez iný dashboard alebo Explore.
-
-## 27. Authentication
-
-Grafana môže používať:
-
-- local users,
-- OAuth/OIDC,
-- SAML alebo LDAP podľa edície/integrácie,
-- auth proxy,
-- service accounts a API tokens.
-
-Production požiadavky:
-
-- federovaná identity,
-- MFA v identity providerovi,
-- group/team mapping,
-- least privilege,
-- service-account rotation,
-- audit,
-- break-glass model,
-- anonymous access explicitne vypnutý alebo striktne obmedzený.
-
-## 28. Sharing a snapshots
-
-Grafana podporuje viacero sharing modelov podľa edície a konfigurácie.
-
-Riziká:
-
-- snapshot môže obsahovať citlivé query výsledky,
-- externally shared dashboard môže sprístupniť širší scope,
-- embedded dashboard môže obísť očakávaný UI context,
-- panel link môže obsahovať tenant alebo identifier,
-- exportovaný JSON môže obsahovať data-source metadata.
-
-Sharing musí prejsť data-classification a access review.
-
-## 29. Plugins
-
-Grafana používa plugins pre data sources, panels a applications.
-
-Plugin lifecycle:
-
-- source a trust,
-- signature,
-- version compatibility,
-- permissions a network access,
-- upgrade testing,
-- deprecation,
-- vulnerability management.
-
-Neoverený plugin beží v citlivej observability/control vrstve a môže mať access k query data alebo credentials podľa architektúry.
-
-## 30. Grafana Alerting
-
-Grafana Alerting môže vytvárať alert rules nad jedným alebo viacerými data sources a používať expressions.
-
-Hlavné concepts:
-
-- Grafana-managed alert rules,
-- data-source-managed rules,
-- rule groups a evaluation interval,
-- alert instances podľa labels,
-- contact points,
-- notification policies,
-- mute timings a silences,
-- templates.
-
-Grafana-managed alerting a Prometheus + Alertmanager sú dva možné alerting control planes. Môžu koexistovať, ale ownership musí byť jasný.
-
-## 31. Grafana-managed oproti data-source-managed alerts
+Grafana-managed alerts a data-source-managed alerts sú samostatné control planes.
 
 ### Grafana-managed
 
-- evaluation vykonáva Grafana alerting engine,
-- môže kombinovať podporované data sources a expressions,
-- routing/contact points sú spravované Grafanou.
+Grafana vykonáva query, expressions, evaluation, alert-instance generation a notification policy.
 
 ### Data-source-managed
 
-- rules žijú v Prometheus/Mimir/Loki alebo inom podporovanom ruler systéme,
-- evaluation a storage semantics vlastní data source,
-- Grafana poskytuje UI a management integráciu podľa capability.
+Rule žije a vyhodnocuje sa v Prometheus, Loki alebo inom ruler systéme; Grafana poskytuje management a visualization integration.
 
-Rozhodnutie ovplyvňuje:
+Pre každý alert definuj jediného ownera:
 
-- availability,
-- GitOps/provisioning,
-- tenant model,
-- query compatibility,
-- rule location,
-- notification ownership,
-- migration.
+```text
+rule source
+→ evaluation engine
+→ alert identity
+→ notification policy
+→ receiver
+→ incident closure
+```
 
-## 32. Grafana Alerting provisioning
+Panel a alert nemusia používať rovnaký time range, transformation ani execution engine. Vizuálne podobný panel preto nie je dôkazom totožnej alert condition.
 
-Alerting resources možno podľa deploymentu spravovať cez:
+## 11. Security, HA a recovery
 
-- files,
-- Terraform,
-- provisioning APIs,
-- supported app-platform APIs.
+Grafana HA typicky potrebuje viac stateless instances, podporovanú shared SQL database, rovnaké encryption secrets, plugins, configuration, auth a alerting HA model. SQLite nie je shared multi-instance database.
 
-Provisioned resources môžu byť v UI read-only alebo musia byť upravené v pôvodnom source podľa spôsobu provisioningu.
+Grafana HA nerieši HA data sources. Prometheus, Loki, Tempo, Elasticsearch/OpenSearch a ďalšie backends majú vlastné failure a recovery boundaries.
 
-Aktuálna dokumentácia označuje niektoré staršie provisioning HTTP API endpoints pre contact points, notification policies, templates a mute timings ako deprecated v prospech novších Grafana App Platform alerting APIs. Pri automatizácii preto over aktuálny API contract a verziu Grafany.
+Chráň:
 
-## 33. Grafana HA
+- data-source credentials;
+- internal database;
+- service accounts a API tokens;
+- dashboards, alerting resources a provisioning sources;
+- plugins;
+- externally shared dashboards a snapshots;
+- query audit a tenant context.
 
-Grafana HA typicky vyžaduje:
+Provisioning z Git pomáha rekonštruovať dashboards a časť configu, ale nenahrádza backup internal database, users, teams, permissions, annotations, silences a ďalší runtime state.
 
-- viac stateless Grafana instances,
-- spoločnú podporovanú SQL database,
-- load balancer,
-- konzistentnú configuration a plugins,
-- shared secret/encryption settings,
-- session a auth consistency,
-- alerting HA configuration podľa použitého modelu,
-- externalized dashboards/provisioning.
+## 12. Query budget a self-observability
 
-SQLite nie je vhodný shared database model pre multi-instance HA.
-
-Grafana HA nezabezpečuje HA data sources. Prometheus, Loki, Tempo a ďalšie backends potrebujú vlastnú availability.
-
-## 34. Internal database
-
-Grafana internal database uchováva napríklad:
-
-- dashboards a folders,
-- users/teams/organizations,
-- data-source metadata a encrypted secure fields,
-- alerting resources,
-- annotations,
-- preferences a permissions.
-
-Potrebný je:
-
-- backup a restore,
-- schema migration plán,
-- upgrade testing,
-- connection pool monitoring,
-- database HA podľa požadovanej dostupnosti.
-
-Provisioning z Git pomáha rekonštruovať časť state-u, ale nenahrádza všetky database data.
-
-## 35. Upgrade model
-
-Pred upgrade-om:
-
-- prečítaj release notes a breaking changes,
-- over plugin compatibility,
-- zálohuj database a configuration,
-- exportuj critical dashboards/alerting resources,
-- testuj v staging,
-- over auth, data sources, dashboards, alerting a provisioning,
-- priprav rollback boundary.
-
-Database migration môže obmedziť jednoduchý binary rollback. Rollback plán musí zohľadniť schema compatibility.
-
-## 36. Performance a query cost
-
-Grafana môže vytvoriť vysoký load na backends cez:
-
-- krátky auto-refresh,
-- veľa panels,
-- repeated panels,
-- broad variables,
-- long time ranges,
-- high-resolution queries,
-- many users,
-- alert evaluations,
-- transformations veľkých datasets.
-
-Query budget dashboardu:
+Dashboard load približne rastie ako:
 
 ```text
 panels
@@ -754,234 +245,230 @@ panels
 × repeated variable values
 × viewers
 × refresh frequency
+× backend series/document fan-out
 ```
-
-Optimalizácia:
-
-- recording rules,
-- bounded variables,
-- rozumný refresh,
-- aggregate overview,
-- query caching podľa capability,
-- max data points a intervals,
-- drilldown namiesto všetkého naraz.
-
-## 37. Self-monitoring
 
 Sleduj:
 
-- HTTP request rate/errors/latency,
-- active users a sessions,
-- database connections a latency,
-- data-source query duration/errors,
-- alert evaluation a notification failures,
-- provisioning errors,
-- plugin failures,
-- authentication failures,
-- cache behavior,
-- process CPU/memory,
-- frontend/backend logs,
-- dashboard load time.
+- Grafana HTTP rate/errors/latency;
+- data-source query duration a failures;
+- internal DB pool a latency;
+- dashboard load time;
+- alert evaluation a notification failures;
+- provisioning a plugin errors;
+- authentication failures;
+- backend query concurrency.
 
-Critical synthetic path:
+Critical canary:
 
 ```text
 login
-→ open service dashboard
-→ execute known query
-→ render panel
-→ open Explore/drilldown
+→ open exact dashboard UID
+→ load known variables a time range
+→ execute known backend query
+→ verify expected raw value
+→ verify rendered value/unit
+→ open drilldown/Explore
 ```
 
-## 38. Troubleshooting „No data“
+## 13. Worked failure: backend ukazuje 7.4 %, dashboard 0.074 %
+
+### Symptóm
+
+Po release `7.21.0` rastú enterprise final-settlement failures. Prometheus a incident query ukazujú error ratio `0.074`, teda `7.4 %`. Grafana service overview však zobrazuje `0.074 %`, panel zostáva zelený a page nevznikne, pretože alert je stále vlastnený Prometheusom, ale on-call používa panel ako manuálny severity gate.
+
+### Exact subject
 
 ```text
-správny dashboard time range?
-→ variable values?
-→ data source selected a healthy?
-→ raw query v Explore?
-→ query inspector request/response?
-→ labels/tenant/environment?
-→ instant vs range query?
-→ interval/rate window?
-→ transformations/filtering?
-→ field mapping/visualization?
-→ source backend ingestion?
+subject: GRAF-PAY-45
+dashboard UID: settlement-overview
+panel UID: final-error-ratio
+data source UID: prometheus-prod-eu1
+source revision: DASH-GEN-212
+loaded Grafana revision: 481
+variable cohort: enterprise
+raw PromQL result: 0.074
+configured unit: percent 0–100
+required unit: percent fraction 0–1
 ```
 
-„No data“ sa líši od nuly. Nula je sample hodnota; no data znamená, že query nevrátila očakávanú series/frame.
+### Competing hypotheses
 
-## 39. Troubleshooting panel ukazuje zlú hodnotu
+1. Prometheus query používa nesprávny numerator alebo denominator;
+2. Grafana variable vybrala standard cohort;
+3. panel time range alebo step vynechal incident;
+4. transformation zmenila hodnotu;
+5. field unit nesprávne interpretuje ratio;
+6. cache alebo stale dashboard revision zobrazuje starý stav;
+7. UI a provisioned source sa rozchádzajú.
 
-Over v poradí:
-
-1. raw data-source query,
-2. query time range a step,
-3. aggregation a label scope,
-4. transformations,
-5. reducer/calculation,
-6. field unit,
-7. value mapping,
-8. panel overrides,
-9. timezone,
-10. cache.
-
-Porovnaj Grafana query s query vykonanou priamo v data source expression browseri/API.
-
-## 40. Troubleshooting pomalý dashboard
-
-Over:
-
-- panel query durations,
-- počet queries,
-- variable queries,
-- repeated panels,
-- time range,
-- data-source latency,
-- browser rendering,
-- transformations,
-- backend cardinality,
-- concurrent refresh,
-- network proxy.
-
-Použi panel inspector a server/data-source metrics. Neoptimalizuj iba browser, ak backend spracúva milióny series.
-
-## 41. Troubleshooting data source
+### Discriminating evidence
 
 ```text
-Grafana server network path
-→ DNS
-→ TLS/CA/SNI
-→ authentication/token
-→ tenant/header
-→ data-source URL
-→ health check
-→ plugin logs
-→ backend API permissions
-→ proxy/firewall
+Prometheus expression browser: 0.074
+Grafana Query Inspector request: rovnaký PromQL a cohort
+Grafana raw data frame: 0.074
+transformations: bez numerickej zmeny
+field unit: percent 0–100
+panel display: 0.074 %
+Git source DASH-GEN-212: chybná unit
+UI hotfix: správna unit, ale provisioning ju o 60 s prepíše
 ```
 
-Test z browsera môže byť irelevantný, ak query vykonáva Grafana server zo server-side boundary.
-
-## 42. Troubleshooting variables
-
-Problémy:
-
-- variable vracia príliš veľa values,
-- dependent variable sa neobnoví,
-- „All“ regex je nesprávny,
-- value obsahuje special characters,
-- data source interpolation format nesedí,
-- URL parameter prepisuje očakávanú hodnotu,
-- hidden variable drží stale default.
-
-Zobraz final interpolated query v inspector/Explore.
-
-## 43. Troubleshooting provisioning drift
+Mechanizmus:
 
 ```text
-ktorý source je autorita?
-→ file/Terraform/API/Operator/UI?
-→ stabilný UID a folder?
-→ provider scan/reload?
-→ file permissions/path?
-→ provisioning logs?
-→ UI edit prepísaný source-om?
-→ duplicate dashboard UID?
-→ prune/delete semantics?
+autoritatívny ratio 0.074
+→ query a frame zostanú správne
+→ field unit očakáva už škálovanú hodnotu 0–100
+→ Grafana neprenásobí fraction stokrát
+→ panel zobrazí 0.074 %
+→ threshold zostane green
+→ responder podhodnotí incident
+→ UI oprava sa stratí pri reconciliation
 ```
 
-Nemiešaj viac writers pre ten istý dashboard bez ownership pravidla.
+### Containment
 
-## 44. Troubleshooting Grafana alert
+- prestať používať panel ako severity autoritu;
+- pripojiť on-call priamo na Prometheus SLO/error-budget query;
+- zastaviť ďalší dashboard provisioning rollout;
+- zachovať panel JSON, Query Inspector output, source artifact a provisioning logs;
+- neprepínať data source ani nevytvárať nový duplicate dashboard.
 
-Over:
+### Authoritative recovery
 
-- rule type a owner,
-- data-source query,
-- evaluation interval,
-- pending/for semantics,
-- no-data/error handling,
-- labels a alert instances,
-- notification policy,
-- silence/mute timing,
-- contact point,
-- template,
-- receiver response.
+1. opraviť unit a threshold v source generatori;
+2. pridať fixture `0.074 → 7.4 %`;
+3. vygenerovať immutable dashboard artifact `DASH-GEN-213`;
+4. validovať UID, data-source UID, variables a panel JSON;
+5. provisionovať canary organization/folder;
+6. read-backnúť loaded dashboard revision;
+7. vykonať known-query render canary;
+8. rozšíriť rollout a odstrániť dočasný manual gate.
 
-Dashboard panel a alert rule môžu používať odlišný query time range, transformations alebo evaluation engine. Vizuálne podobný panel nie je dôkaz totožnej alert condition.
+### Acceptance verdict
 
-## 45. Anti-patterny
+Recovery je prijatá, keď:
+
+- backend, raw frame a rendered value sú semanticky zhodné;
+- `0.074` sa zobrazuje ako `7.4 %`;
+- threshold a legend používajú správnu unit;
+- enterprise aj standard cohort fixtures fungujú;
+- UI edit už nie je potrebný a druhý reconciliation zachová opravu;
+- dashboard link prenesie správny time range a cohort;
+- forbidden cross-tenant query zlyhá;
+- Prometheus alerting path zostane jediným ownerom page condition.
+
+## 14. Troubleshooting model
+
+### No data
+
+```text
+backend occurrence existuje?
+→ data source/tenant/auth?
+→ variables a time range?
+→ exact query request?
+→ raw backend response?
+→ frame/expression/transformation?
+→ field filtering?
+→ source ingestion/staleness/retention?
+```
+
+No data nie je nula.
+
+### Zlá hodnota
+
+```text
+backend direct query
+→ Grafana request
+→ raw frame
+→ transformation chain
+→ reducer
+→ unit a mapping
+→ overrides
+→ timezone/cache
+```
+
+### Provisioning drift
+
+```text
+authoritative writer
+→ source generation
+→ stable UID/folder
+→ provider/controller logs
+→ loaded revision
+→ UI mutation
+→ prune/delete semantics
+```
+
+### Pomalý dashboard
+
+```text
+panel a variable query count
+→ query fan-out a time range
+→ backend latency/cardinality
+→ transformations/browser render
+→ concurrent refresh
+→ recording/caching/drilldown opportunity
+```
+
+## 15. Anti-patterny
 
 ### Dashboard ako source of truth
 
-Source telemetry a query contract musia existovať nezávisle od konkrétnej vizualizácie.
-
-### Panel pre každú metric
-
-Vzniká inventory bez investigation hierarchy.
+Autoritatívny je telemetry a query contract, nie pixel alebo farba.
 
 ### Variables ako authorization
 
-Používateľ môže query zmeniť alebo použiť Explore podľa permissions.
+Query možno zmeniť cez Explore alebo iný client.
 
-### Transformations namiesto správnej backend query
+### UI hotfix provisionovaného dashboardu
 
-Prenáša veľké datasety a komplikuje alerting/testovanie.
+Reconciliation ho prepíše a incident sa vráti.
 
-### Červený threshold ako alerting stratégia
+### Transformations ako skrytý business model
 
-Panel color nemá notification ani ownership lifecycle.
+Complex client-side calculation sa ťažko testuje a nemusí byť dostupný alert engine-u.
 
-### UI edit provisionovaného dashboardu bez exportu
+### Alerting v dvoch control planes bez ownershipu
 
-Nasledujúci reconciliation ho prepíše.
+Vzniknú odlišné conditions, duplicates a nejasný receiver.
 
-### Jedna broad data-source identity pre všetkých tenantov
+### Broad data-source credential
 
-Dashboard permissions nemusia zabrániť cross-tenant query.
+Grafana service identity môže prekročiť user alebo tenant boundary.
 
-### Auto-refresh 5 sekúnd na dlhom time range
+## 16. Kontrolné otázky
 
-Vytvára zbytočný backend a browser load.
-
-### Alerting v Prometheus aj Grafane bez ownershipu
-
-Vznikajú duplicity, odlišné conditions a nejasný routing.
-
-## 46. Kontrolné otázky
-
-1. Aký je rozdiel medzi Grafanou a telemetry backendom?
-2. Čo tvorí panel a kde sa aplikujú transformations?
-3. Prečo treba najprv overiť raw query result?
-4. Ako variables menia query cost a security?
-5. Na čo slúžia annotations, links a correlations?
-6. Ako sa líši dashboard od Explore?
-7. Aké sú výhody a riziká dashboard provisioningu?
-8. Čo je rozdiel medzi Grafana-managed a data-source-managed alerts?
-9. Čo Grafana HA vyžaduje a čo nerieši?
-10. Ako diagnostikuješ „No data“?
-11. Ako vzniká dashboard query storm?
-12. Prečo folder permission nemusí chrániť data source?
+1. Čo tvorí exact Grafana subject?
+2. Prečo dashboard nie je source of truth?
+3. Aký je rozdiel medzi raw query resultom, data frame-om a rendered value?
+4. Ako variables menia population a query cost?
+5. Prečo unit configuration môže zmeniť operational meaning bez zmeny dát?
+6. Kedy patrí calculation do backendu alebo recording rule namiesto transformation?
+7. Ako sa líši dashboard a Explore?
+8. Čo znamená authoritative writer pri provisioningu?
+9. Ako sa líši Grafana-managed a data-source-managed alerting?
+10. Čo Grafana HA rieši a čo nerieši?
+11. Ako diagnostikuješ no-data oproti zero?
+12. Ako overíš dashboard end-to-end po reconciliation?
 
 ## Glossary impact
 
-Relevantné pojmy: Grafana, data source, data-source plugin, dashboard, panel, data frame, field, visualization, transformation, expression, variable, variable interpolation, repeating panel, annotation, dashboard link, data link, correlation, Explore, panel inspector, dashboard provisioning, dashboard as code, folder permission, Grafana-managed alert, data-source-managed alert, contact point, notification policy, Grafana HA a query storm.
+Relevantné pojmy: Grafana subject, data-source identity, query generation, data frame, transformation generation, field-semantics contract, rendered-value verdict, dashboard source generation, loaded dashboard revision, authoritative dashboard writer, Grafana investigation path, alerting control-plane ownership, dashboard query budget, dashboard render canary a Grafana acceptance verdict.
 
 ## Primárne zdroje
 
 - [Grafana introduction](https://grafana.com/docs/grafana/latest/introduction/)
 - [Grafana data sources](https://grafana.com/docs/grafana/latest/datasources/concepts/)
-- [Grafana dashboards](https://grafana.com/docs/grafana/latest/visualizations/dashboards/)
 - [Panels and visualizations](https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/)
-- [Query and transform data](https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/)
-- [Dashboard variables](https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/)
-- [Annotations](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/annotate-visualizations/)
+- [Panel Inspector](https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/panel-inspector/)
 - [Explore](https://grafana.com/docs/grafana/latest/visualizations/explore/)
 - [Provision Grafana](https://grafana.com/docs/grafana/latest/administration/provisioning/)
 - [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/)
-- [Provision alerting resources](https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/)
-- [Roles and permissions](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/)
+- [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/)
+- [Grafana API structure](https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/apis/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
