@@ -3587,7 +3587,7 @@
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
       "title": "Zero Trust",
-      "words": 2588,
+      "words": 2591,
       "headings": 39,
       "sections": 39,
       "findings": 96,
@@ -3601,7 +3601,7 @@
     {
       "path": "docs/14-sre-and-operations/error-budgets.md",
       "title": "Error budgets",
-      "words": 1792,
+      "words": 1804,
       "headings": 30,
       "sections": 30,
       "findings": 70,
@@ -3615,7 +3615,7 @@
     {
       "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
       "title": "Reliability, availability a durability",
-      "words": 1867,
+      "words": 1880,
       "headings": 27,
       "sections": 27,
       "findings": 77,
@@ -3629,7 +3629,7 @@
     {
       "path": "docs/14-sre-and-operations/sli-slo-sla.md",
       "title": "SLI, SLO a SLA",
-      "words": 1800,
+      "words": 1813,
       "headings": 35,
       "sections": 35,
       "findings": 85,
@@ -3643,7 +3643,7 @@
     {
       "path": "docs/14-sre-and-operations/toil.md",
       "title": "Toil",
-      "words": 1823,
+      "words": 1833,
       "headings": 46,
       "sections": 46,
       "findings": 72,

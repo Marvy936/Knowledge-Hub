@@ -416,3 +416,11 @@ Relevantné pojmy: error-budget subject, error-budget generation, allowed bad ev
 - [Google SRE — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
 - [Google SRE Workbook — Example Error Budget Policy](https://sre.google/workbook/error-budget-policy/)
 - [Google SRE — Production Services Best Practices](https://sre.google/sre-book/service-best-practices/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: SLI, SLO a SLA](sli-slo-sla.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Toil →](toil.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -391,3 +391,11 @@ Relevantné pojmy: reliability subject, required function, stated conditions, ev
 - [Google SRE — Embracing Risk](https://sre.google/sre-book/embracing-risk/)
 - [Google SRE — Availability Table](https://sre.google/sre-book/availability-table/)
 - [Google SRE — Introduction](https://sre.google/sre-book/introduction/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Zero Trust](../13-security-and-identity/zero-trust.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SLI, SLO a SLA →](sli-slo-sla.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

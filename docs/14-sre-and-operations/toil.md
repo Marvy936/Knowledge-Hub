@@ -458,3 +458,11 @@ Relevantné pojmy: toil subject, toil characteristic, operational demand, human 
 - [Google SRE Workbook — Eliminating Toil](https://sre.google/workbook/eliminating-toil/)
 - [Google SRE — Introduction](https://sre.google/sre-book/introduction/)
 - [Google SRE Workbook — How SRE Relates to DevOps](https://sre.google/workbook/how-sre-relates/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Error budgets](error-budgets.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

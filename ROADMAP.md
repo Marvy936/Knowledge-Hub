@@ -313,10 +313,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### SRE and Operations
 
-- [ ] Reliability, availability a durability
-- [ ] SLI, SLO a SLA
-- [ ] Error budgets
-- [ ] Toil
+- [x] [Reliability, availability a durability](docs/14-sre-and-operations/reliability-availability-durability.md)
+- [x] [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md)
+- [x] [Error budgets](docs/14-sre-and-operations/error-budgets.md)
+- [x] [Toil](docs/14-sre-and-operations/toil.md)
 - [ ] Capacity planning
 - [ ] Incident management
 - [ ] On-call a escalation

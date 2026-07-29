@@ -459,3 +459,11 @@ Relevantné pojmy: service-level subject, Service Level Indicator, valid-event p
 - [Google SRE Workbook — Implementing SLOs](https://sre.google/workbook/implementing-slos/)
 - [Google SRE Workbook — Example SLO Document](https://sre.google/workbook/slo-document/)
 - [Google SRE — Availability Table](https://sre.google/sre-book/availability-table/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Reliability, availability a durability](reliability-availability-durability.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Error budgets →](error-budgets.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

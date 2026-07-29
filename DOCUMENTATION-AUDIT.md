@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **261**
 - Audited conceptual sections: **10492**
-- Total words: **616,039**
+- Total words: **616,090**
 - Findings: **21943** (critical 6529, high 7421, medium 2795, low 5198)
 - File grades: A 0, B 0, C 0, D 261
 
@@ -120,8 +120,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 657 | 32 | 28 | 8 | 15 | 1850 | `docs/12-observability/loki.md` |
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
-| D | 653 | 26 | 34 | 13 | 23 | 2588 | `docs/13-security-and-identity/zero-trust.md` |
-| D | 651 | 29 | 30 | 13 | 13 | 1800 | `docs/14-sre-and-operations/sli-slo-sla.md` |
+| D | 653 | 26 | 34 | 13 | 23 | 2591 | `docs/13-security-and-identity/zero-trust.md` |
+| D | 651 | 29 | 30 | 13 | 13 | 1813 | `docs/14-sre-and-operations/sli-slo-sla.md` |
 | D | 648 | 29 | 23 | 23 | 18 | 2325 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 648 | 25 | 38 | 8 | 15 | 2006 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | D | 647 | 28 | 34 | 6 | 22 | 2316 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
@@ -164,7 +164,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 567 | 20 | 32 | 9 | 34 | 2310 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
-| D | 557 | 23 | 30 | 8 | 11 | 1823 | `docs/14-sre-and-operations/toil.md` |
+| D | 557 | 23 | 30 | 8 | 11 | 1833 | `docs/14-sre-and-operations/toil.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
@@ -195,13 +195,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 501 | 22 | 26 | 6 | 12 | 2173 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 501 | 21 | 20 | 13 | 31 | 3158 | `docs/11-cloud-and-aws/systems-manager.md` |
 | D | 499 | 21 | 23 | 12 | 16 | 2288 | `docs/09-kubernetes/scheduling.md` |
-| D | 499 | 18 | 28 | 9 | 22 | 1867 | `docs/14-sre-and-operations/reliability-availability-durability.md` |
+| D | 499 | 18 | 28 | 9 | 22 | 1880 | `docs/14-sre-and-operations/reliability-availability-durability.md` |
 | D | 498 | 20 | 26 | 8 | 17 | 1840 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 497 | 21 | 24 | 10 | 13 | 1995 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | D | 496 | 18 | 28 | 6 | 33 | 2323 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 490 | 21 | 25 | 6 | 17 | 1993 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 487 | 22 | 25 | 5 | 10 | 1297 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
-| D | 484 | 21 | 21 | 11 | 17 | 1792 | `docs/14-sre-and-operations/error-budgets.md` |
+| D | 484 | 21 | 21 | 11 | 17 | 1804 | `docs/14-sre-and-operations/error-budgets.md` |
 | D | 483 | 19 | 26 | 9 | 12 | 2131 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 481 | 14 | 35 | 5 | 18 | 2406 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | D | 476 | 22 | 23 | 6 | 10 | 1925 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
