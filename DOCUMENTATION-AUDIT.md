@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10724**
-- Total words: **638,163**
-- Findings: **22805** (critical 6857, high 7592, medium 2967, low 5389)
+- Audited conceptual sections: **10709**
+- Total words: **638,459**
+- Findings: **22769** (critical 6843, high 7569, medium 2962, low 5395)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -35,7 +35,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1348 | 66 | 61 | 16 | 21 | 2097 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | D | 1336 | 64 | 63 | 21 | 7 | 2104 | `docs/12-observability/cardinality.md` |
 | D | 1318 | 61 | 62 | 22 | 20 | 2668 | `docs/12-observability/prometheus.md` |
-| D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1119 | 48 | 58 | 16 | 21 | 2203 | `docs/12-observability/loki.md` |
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
@@ -57,6 +56,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 932 | 43 | 40 | 26 | 4 | 1525 | `docs/13-security-and-identity/active-directory.md` |
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 903 | 35 | 52 | 13 | 17 | 2888 | `docs/11-cloud-and-aws/cost-management-finops.md` |
+| D | 903 | 44 | 39 | 15 | 10 | 1813 | `docs/12-observability/golden-signals.md` |
 | D | 898 | 39 | 43 | 18 | 20 | 2345 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | D | 894 | 42 | 43 | 13 | 8 | 2504 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
@@ -13395,126 +13395,89 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/12-observability/golden-signals.md`
 
-- **CRITICAL** line 18, `bare-bullet-items` — **2. Latency**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-observed latency,`, `edge/load-balancer latency,`, `server-handler latency,`, `dependency latency,`.
-- **CRITICAL** line 18, `outline-instead-of-explanation` — **2. Latency**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 33, `bare-bullet-items` — **Successful a failed latency**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `healthy request trvá 300 ms,`, `database failure vráti HTTP 500 za 10 ms.`, `successful latency distribution,`, `failed latency distribution,`.
-- **CRITICAL** line 33, `outline-instead-of-explanation` — **Successful a failed latency**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 51, `bare-bullet-items` — **Tail latency**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `histogram,`, `p50 pre typický request,`, `p95/p99 pre tail,`, `podiel requestov pod SLO thresholdom,`.
-- **CRITICAL** line 51, `outline-instead-of-explanation` — **Tail latency**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 69, `bare-bullet-items` — **3. Traffic**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP requests za sekundu,`, `concurrent sessions,`, `messages za sekundu,`, `bytes za sekundu,`.
-- **CRITICAL** line 69, `outline-instead-of-explanation` — **3. Traffic**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 86, `bare-bullet-items` — **Traffic dimensions**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation/route,`, `client class,`, `Region alebo zone,`, `read/write,`.
-- **CRITICAL** line 86, `outline-instead-of-explanation` — **Traffic dimensions**: 7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 100, `bare-bullet-items` — **Traffic drop**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream outage,`, `DNS/routing failure,`, `load balancer deregistration,`, `broken client release,`.
-- **CRITICAL** line 100, `outline-instead-of-explanation` — **Traffic drop**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 113, `bare-bullet-items` — **Retry amplification**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external logical requests,`, `internal attempts,`, `retry rate,`, `downstream amplification factor.`.
-- **CRITICAL** line 113, `outline-instead-of-explanation` — **Retry amplification**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `bare-bullet-items` — **4. Errors**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicit failure response,`, `timeout,`, `cancellation,`, `invalid alebo incomplete result,`.
-- **CRITICAL** line 126, `outline-instead-of-explanation` — **4. Errors**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 144, `bare-bullet-items` — **Error ratio**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré requesty sú valid,`, `či client errors patria do SLI,`, `ako sa počítajú retries,`, `ako sa klasifikuje partial success,`.
-- **CRITICAL** line 144, `outline-instead-of-explanation` — **Error ratio**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 159, `bare-bullet-items` — **Silent errors**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s chybným obsahom,`, `async message prijatá, ale nikdy spracovaná,`, `stale cache response,`, `data loss,`.
-- **CRITICAL** line 159, `outline-instead-of-explanation` — **Silent errors**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 172, `bare-bullet-items` — **5. Saturation**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU run queue alebo throttling,`, `memory pressure a reclaim,`, `thread-pool queue,`, `connection-pool waiters,`.
-- **CRITICAL** line 192, `bare-bullet-items` — **Priama a odvodená saturation**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length,`, `wait time,`, `throttled requests,`, `resource pressure.`.
-- **CRITICAL** line 192, `outline-instead-of-explanation` — **Priama a odvodená saturation**: 4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 209, `bare-bullet-items` — **Saturation nie je iba utilization**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden core je saturovaný,`, `container je throttled,`, `critical thread je blocked,`, `traffic je nerovnomerne rozdelený.`.
-- **CRITICAL** line 209, `outline-instead-of-explanation` — **Saturation nie je iba utilization**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 222, `empty-section` — **6. Golden Signals podľa workloadu**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 224, `bare-bullet-items` — **HTTP API**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency — request duration distribution,`, `Traffic — requests/s,`, `Errors — failed request ratio,`.
-- **CRITICAL** line 224, `no-prose-concept` — **HTTP API**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **HTTP API**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 231, `no-prose-concept` — **Queue consumer**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 231, `outline-instead-of-explanation` — **Queue consumer**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 238, `no-prose-concept` — **Batch pipeline**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 238, `outline-instead-of-explanation` — **Batch pipeline**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 245, `bare-bullet-items` — **Database**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency — query/transaction latency,`, `Traffic — queries/transactions/s,`, `Errors — failed/aborted transactions,`.
-- **CRITICAL** line 245, `no-prose-concept` — **Database**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 245, `outline-instead-of-explanation` — **Database**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 252, `bare-bullet-items` — **Storage**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency — read/write operation latency,`, `Traffic — IOPS alebo throughput,`, `Errors — failed operations,`.
-- **CRITICAL** line 252, `no-prose-concept` — **Storage**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 252, `outline-instead-of-explanation` — **Storage**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `no-prose-concept` — **LLM inference service**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **LLM inference service**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 311, `bare-bullet-items` — **9. Multi-window alerting**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast burn alert pri prudkom outage,`, `slow burn alert pri dlhšej miernej degradácii,`, `saturation warning pred user impactom,`, `traffic absence alert pri očakávanom demand-e.`.
-- **CRITICAL** line 311, `outline-instead-of-explanation` — **9. Multi-window alerting**: 10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 329, `empty-section` — **10. Dashboard hierarchy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 331, `bare-bullet-items` — **Service overview**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic,`, `error ratio,`, `latency distribution,`, `saturation,`.
-- **CRITICAL** line 331, `no-prose-concept` — **Service overview**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 331, `outline-instead-of-explanation` — **Service overview**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 340, `bare-bullet-items` — **Operation breakdown**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint/method,`, `dependency,`, `Region/AZ,`, `version,`.
-- **CRITICAL** line 340, `no-prose-concept` — **Operation breakdown**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 340, `outline-instead-of-explanation` — **Operation breakdown**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 348, `bare-bullet-items` — **Resource drilldown**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `USE metrics,`, `queues/pools,`, `infrastructure failures,`, `profiles.`.
-- **CRITICAL** line 348, `outline-instead-of-explanation` — **Resource drilldown**: 4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `bare-bullet-items` — **13. Golden Signals a black-box monitoring**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS success/latency,`, `TCP/TLS connection,`, `HTTP status/content,`, `end-to-end transaction,`.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **13. Golden Signals a black-box monitoring**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 400, `bare-bullet-items` — **14. Capacity a failure scenarios**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic burst,`, `loss jednej AZ,`, `dependency slowdown,`, `retry storm,`.
-- **CRITICAL** line 400, `outline-instead-of-explanation` — **14. Capacity a failure scenarios**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 417, `empty-section` — **15. Troubleshooting patterns**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 465, `empty-section` — **17. Implementačný template**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 7, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 7, `single-sentence-concept` — **1. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 86, `single-sentence-concept` — **Traffic dimensions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 100, `single-sentence-concept` — **Traffic drop**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 144, `list-first-introduction` — **Error ratio**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 144, `single-sentence-concept` — **Error ratio**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 159, `single-sentence-concept` — **Silent errors**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 172, `list-heavy-section` — **5. Saturation**: 11 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 192, `single-sentence-concept` — **Priama a odvodená saturation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 224, `list-first-introduction` — **HTTP API**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 231, `list-first-introduction` — **Queue consumer**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 238, `bare-bullet-items` — **Batch pipeline**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Traffic — items/jobs za obdobie,`, `Errors — failed/partial jobs,`.
-- **HIGH** line 238, `list-first-introduction` — **Batch pipeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 245, `list-first-introduction` — **Database**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 252, `list-first-introduction` — **Storage**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 259, `list-first-introduction` — **LLM inference service**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 266, `bare-bullet-items` — **7. Measurement layers**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client latency vysoká,`, `edge latency vysoká,`, `application latency nízka.`.
-- **HIGH** line 289, `single-sentence-concept` — **8. Golden Signals a SLI/SLO**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 293, `single-sentence-concept` — **Availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 297, `single-sentence-concept` — **Latency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `single-sentence-concept` — **Throughput alebo freshness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 311, `single-sentence-concept` — **9. Multi-window alerting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 331, `list-first-introduction` — **Service overview**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 340, `list-first-introduction` — **Operation breakdown**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 348, `list-first-introduction` — **Resource drilldown**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 348, `single-sentence-concept` — **Resource drilldown**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 400, `single-sentence-concept` — **14. Capacity a failure scenarios**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 419, `single-sentence-concept` — **Latency a saturation rastú, traffic stabilný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 423, `single-sentence-concept` — **Errors rastú, latency klesá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 427, `single-sentence-concept` — **Traffic rastie, saturation rastie, latency zatiaľ stabilná**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 435, `single-sentence-concept` — **Saturation nízka, latency vysoká**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 441, `single-sentence-concept` — **Štyri panely bez definovaného contractu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 445, `single-sentence-concept` — **Infrastructure traffic namiesto business demandu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 449, `single-sentence-concept` — **Error metric iba z exceptions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 453, `single-sentence-concept` — **Saturation ako CPU percento**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 457, `single-sentence-concept` — **Latency iba na serveri**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `single-sentence-concept` — **Traffic drop považovaný za zlepšenie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 18, `thin-concept-section` — **2. Latency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 33, `thin-concept-section` — **Successful a failed latency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 51, `thin-concept-section` — **Tail latency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 69, `thin-concept-section` — **3. Traffic**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 86, `thin-concept-section` — **Traffic dimensions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 100, `thin-concept-section` — **Traffic drop**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 113, `thin-concept-section` — **Retry amplification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 126, `thin-concept-section` — **4. Errors**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 144, `thin-concept-section` — **Error ratio**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 159, `thin-concept-section` — **Silent errors**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 192, `thin-concept-section` — **Priama a odvodená saturation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 209, `thin-concept-section` — **Saturation nie je iba utilization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **HTTP API**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 231, `thin-concept-section` — **Queue consumer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 238, `thin-concept-section` — **Batch pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 245, `thin-concept-section` — **Database**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 252, `thin-concept-section` — **Storage**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **LLM inference service**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 311, `thin-concept-section` — **9. Multi-window alerting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 331, `thin-concept-section` — **Service overview**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 340, `thin-concept-section` — **Operation breakdown**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 348, `thin-concept-section` — **Resource drilldown**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 385, `term-before-explanation` — **13. Golden Signals a black-box monitoring**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `HTTP`
-- **HIGH** line 385, `thin-concept-section` — **13. Golden Signals a black-box monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 400, `thin-concept-section` — **14. Capacity a failure scenarios**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 55, `bare-bullet-items` — **3. Latency**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-observed request;`, `edge alebo load-balancer request;`, `server handler;`, `queue wait;`.
+- **CRITICAL** line 55, `outline-instead-of-explanation` — **3. Latency**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 80, `bare-bullet-items` — **Distribution a successful/failed separation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `histogram alebo distribution;`, `p50 pre typický priebeh;`, `p95/p99 alebo threshold compliance pre tail;`, `successful latency;`.
+- **CRITICAL** line 80, `outline-instead-of-explanation` — **Distribution a successful/failed separation**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 97, `bare-bullet-items` — **4. Traffic**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical requests;`, `transactions;`, `messages;`, `queries;`.
+- **CRITICAL** line 97, `outline-instead-of-explanation` — **4. Traffic**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 114, `bare-bullet-items` — **Logical demand a amplification**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external logical operations;`, `internal attempts;`, `attempts per logical operation;`, `fan-out factor;`.
+- **CRITICAL** line 114, `outline-instead-of-explanation` — **Logical demand a amplification**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 137, `bare-bullet-items` — **5. Errors**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnú failure response;`, `timeout alebo cancellation;`, `invalid alebo incomplete result;`, `dropped message;`.
+- **CRITICAL** line 137, `outline-instead-of-explanation` — **5. Errors**: 10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 164, `bare-bullet-items` — **Silent errors**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s nesprávnym obsahom;`, `accepted async command bez completion;`, `stale tenant data;`, `backup bez usable restore;`.
+- **CRITICAL** line 164, `outline-instead-of-explanation` — **Silent errors**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 177, `bare-bullet-items` — **6. Saturation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length, lag alebo oldest age;`, `connection-pool waiters a acquire latency;`, `worker/thread queue;`, `CPU run queue alebo throttling;`.
+- **CRITICAL** line 205, `outline-instead-of-explanation` — **7. Measurement layers**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 228, `empty-section` — **8. Golden Signals pre rôzne workloads**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 230, `bare-bullet-items` — **HTTP alebo gRPC API**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: valid request duration distribution;`, `Traffic: logical calls/s;`, `Errors: caller-visible failure ratio;`, `Saturation: in-flight requests, worker/pool waits, throttling.`.
+- **CRITICAL** line 230, `no-prose-concept` — **HTTP alebo gRPC API**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 230, `outline-instead-of-explanation` — **HTTP alebo gRPC API**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 237, `bare-bullet-items` — **Queue consumer**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: message age + processing + final completion;`, `Traffic: logical messages produced/settled;`, `Errors: failed, expired alebo dead-letter outcomes;`.
+- **CRITICAL** line 237, `no-prose-concept` — **Queue consumer**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 237, `outline-instead-of-explanation` — **Queue consumer**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 244, `bare-bullet-items` — **Batch pipeline**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: job duration a output freshness;`, `Traffic: jobs/items per schedule window;`, `Errors: failed alebo partial output;`, `Saturation: backlog, parallel slots a missed completion window.`.
+- **CRITICAL** line 244, `no-prose-concept` — **Batch pipeline**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 244, `outline-instead-of-explanation` — **Batch pipeline**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 251, `bare-bullet-items` — **Database**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: transaction/query distribution;`, `Traffic: logical transactions/s;`, `Errors: abort, timeout, conflict alebo wrong-result semantics;`, `Saturation: connections, locks, CPU/I/O queues a replica lag.`.
+- **CRITICAL** line 251, `no-prose-concept` — **Database**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 251, `outline-instead-of-explanation` — **Database**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 258, `bare-bullet-items` — **9. Golden Signals, RED, USE a SLO**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid population;`, `success a degraded semantics;`, `latency threshold a measurement point;`, `time window;`.
+- **CRITICAL** line 258, `outline-instead-of-explanation` — **9. Golden Signals, RED, USE a SLO**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 286, `empty-section` — **10. Worked failure: štyri green panely, chybný service verdict**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 301, `bare-bullet-items` — **Business evidence**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency končila pri HTTP acceptance, nie final outcome;`, `traffic meral attempts, nie logical demand;`, `errors počítali transport 5xx , nie business completion;`.
+- **CRITICAL** line 301, `outline-instead-of-explanation` — **Business evidence**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 320, `bare-bullet-items` — **Competing hypotheses**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny user traffic vzrástol;`, `provider je pomalší pre všetky cohorts;`, `HTTP handler alebo task CPU je bottleneck;`, `final workflow čaká v queue;`.
+- **CRITICAL** line 320, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 320, `outline-instead-of-explanation` — **Competing hypotheses**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 344, `bare-bullet-items` — **Containment a recovery**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout a immediate retry amplification;`, `obmedziť worker concurrency;`, `zachovať logical/attempt, queue, pool, trace a loaded-config evidence;`, `opraviť effective pool configuration;`.
+- **CRITICAL** line 344, `no-prose-concept` — **Containment a recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 344, `outline-instead-of-explanation` — **Containment a recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 354, `bare-bullet-items` — **Golden-Signal acceptance verdict**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadne duplicate authorization;`, `žiadne skrytie traffic dropu ako zlepšenie;`, `žiadna regresia standard cohortu alebo susednej AZ;`, `žiadna telemetry no-data interpretovaná ako zero error.`.
+- **CRITICAL** line 354, `outline-instead-of-explanation` — **Golden-Signal acceptance verdict**: 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 374, `bare-bullet-items` — **11. Alerting a dashboard hierarchy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast a slow error-budget burn;`, `final-completion latency burn;`, `sustained zero completions pri očakávanom demand-e;`, `queue age alebo pool wait prekračujúci business deadline;`.
+- **CRITICAL** line 374, `outline-instead-of-explanation` — **11. Alerting a dashboard hierarchy**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 397, `outline-instead-of-explanation` — **12. Black-box a telemetry validation**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `empty-section` — **13. Implementačný template**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 13, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 13, `single-sentence-concept` — **1. Dominantný lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 114, `list-first-introduction` — **Logical demand a amplification**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 177, `list-heavy-section` — **6. Saturation**: 9 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 205, `bare-bullet-items` — **7. Measurement layers**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `acceptance success vysoký, final completion nízky → async/downstream f`, `dependency attempts rastú, logical traffic stabilný → retry amplificat`.
+- **HIGH** line 205, `single-sentence-concept` — **7. Measurement layers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 230, `list-first-introduction` — **HTTP alebo gRPC API**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 237, `list-first-introduction` — **Queue consumer**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 244, `list-first-introduction` — **Batch pipeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 251, `list-first-introduction` — **Database**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 258, `list-first-introduction` — **9. Golden Signals, RED, USE a SLO**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 288, `single-sentence-concept` — **Pôvodný dashboard**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 301, `list-first-introduction` — **Business evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 301, `single-sentence-concept` — **Business evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 320, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 344, `list-first-introduction` — **Containment a recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 354, `list-first-introduction` — **Golden-Signal acceptance verdict**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 354, `single-sentence-concept` — **Golden-Signal acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 397, `bare-bullet-items` — **12. Black-box a telemetry validation**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `regional synthetic transaction;`, `DNS/TLS/HTTP validation;`, `async completion canary;`.
+- **HIGH** line 447, `single-sentence-concept` — **Štyri panely bez spoločného subjectu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 451, `single-sentence-concept` — **Handler latency ako end-to-end latency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 455, `single-sentence-concept` — **Attempts ako business traffic**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 459, `single-sentence-concept` — **Errors iba z transport statusu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 463, `single-sentence-concept` — **CPU ako univerzálna saturation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 467, `single-sentence-concept` — **Traffic drop ako zlepšenie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 80, `thin-concept-section` — **Distribution a successful/failed separation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 114, `thin-concept-section` — **Logical demand a amplification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 137, `thin-concept-section` — **5. Errors**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 164, `thin-concept-section` — **Silent errors**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 205, `thin-concept-section` — **7. Measurement layers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 230, `thin-concept-section` — **HTTP alebo gRPC API**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 237, `thin-concept-section` — **Queue consumer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 244, `thin-concept-section` — **Batch pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 251, `thin-concept-section` — **Database**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 301, `thin-concept-section` — **Business evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 320, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 344, `thin-concept-section` — **Containment a recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 354, `thin-concept-section` — **Golden-Signal acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 397, `thin-concept-section` — **12. Black-box a telemetry validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/12-observability/grafana.md`
 
@@ -15508,18 +15471,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2806 | 449 | 0 | 0 | 3255 |
-| `outline-instead-of-explanation` | 2733 | 0 | 0 | 0 | 2733 |
-| `term-before-explanation` | 0 | 549 | 1975 | 0 | 2524 |
-| `single-sentence-concept` | 0 | 2522 | 0 | 0 | 2522 |
-| `thin-concept-section` | 0 | 2332 | 0 | 0 | 2332 |
-| `example-not-explicit` | 0 | 0 | 0 | 2176 | 2176 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2080 | 2080 |
+| `bare-bullet-items` | 2801 | 449 | 0 | 0 | 3250 |
+| `outline-instead-of-explanation` | 2727 | 0 | 0 | 0 | 2727 |
+| `term-before-explanation` | 0 | 548 | 1967 | 0 | 2515 |
+| `single-sentence-concept` | 0 | 2510 | 0 | 0 | 2510 |
+| `thin-concept-section` | 0 | 2322 | 0 | 0 | 2322 |
+| `example-not-explicit` | 0 | 0 | 0 | 2179 | 2179 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2083 | 2083 |
 | `list-first-introduction` | 0 | 1274 | 0 | 0 | 1274 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1133 | 1133 |
-| `short-concept-section` | 0 | 0 | 992 | 0 | 992 |
-| `no-prose-concept` | 731 | 0 | 0 | 0 | 731 |
-| `empty-section` | 587 | 0 | 0 | 0 | 587 |
+| `short-concept-section` | 0 | 0 | 995 | 0 | 995 |
+| `no-prose-concept` | 729 | 0 | 0 | 0 | 729 |
+| `empty-section` | 586 | 0 | 0 | 0 | 586 |
 | `list-heavy-section` | 0 | 466 | 0 | 0 | 466 |
 
 ## Required remediation pattern

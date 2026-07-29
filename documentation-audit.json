@@ -3181,15 +3181,15 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "title": "Golden Signals",
-      "words": 1517,
-      "headings": 54,
-      "sections": 54,
-      "findings": 144,
-      "critical": 58,
-      "high": 62,
-      "medium": 20,
-      "low": 4,
-      "score": 1255,
+      "words": 1813,
+      "headings": 39,
+      "sections": 39,
+      "findings": 108,
+      "critical": 44,
+      "high": 39,
+      "medium": 15,
+      "low": 10,
+      "score": 903,
       "grade": "D"
     },
     {
@@ -179075,8 +179075,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "1. Mentálny model",
-      "line": 7,
+      "section": "1. Dominantný lifecycle",
+      "line": 13,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179084,8 +179084,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "1. Mentálny model",
-      "line": 7,
+      "section": "1. Dominantný lifecycle",
+      "line": 13,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -179093,404 +179093,26 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "2. Latency",
-      "line": 18,
+      "section": "3. Latency",
+      "line": 55,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "2. Latency",
-      "line": 18,
+      "section": "3. Latency",
+      "line": 55,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-observed latency,`, `edge/load-balancer latency,`, `server-handler latency,`, `dependency latency,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-observed request;`, `edge alebo load-balancer request;`, `server handler;`, `queue wait;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "2. Latency",
-      "line": 18,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Successful a failed latency",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Successful a failed latency",
-      "line": 33,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `healthy request trvá 300 ms,`, `database failure vráti HTTP 500 za 10 ms.`, `successful latency distribution,`, `failed latency distribution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Successful a failed latency",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Successful a failed latency",
-      "line": 33,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Successful a failed latency",
-      "line": 33,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Tail latency",
-      "line": 51,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Tail latency",
-      "line": 51,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `histogram,`, `p50 pre typický request,`, `p95/p99 pre tail,`, `podiel requestov pod SLO thresholdom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Tail latency",
-      "line": 51,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Tail latency",
-      "line": 51,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "3. Traffic",
-      "line": 69,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "3. Traffic",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP requests za sekundu,`, `concurrent sessions,`, `messages za sekundu,`, `bytes za sekundu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "3. Traffic",
-      "line": 69,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "3. Traffic",
-      "line": 69,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic dimensions",
-      "line": 86,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic dimensions",
-      "line": 86,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic dimensions",
-      "line": 86,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation/route,`, `client class,`, `Region alebo zone,`, `read/write,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic dimensions",
-      "line": 86,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic drop",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic drop",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic drop",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream outage,`, `DNS/routing failure,`, `load balancer deregistration,`, `broken client release,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic drop",
-      "line": 100,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic drop",
-      "line": 100,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Retry amplification",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Retry amplification",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external logical requests,`, `internal attempts,`, `retry rate,`, `downstream amplification factor.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Retry amplification",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "4. Errors",
-      "line": 126,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "4. Errors",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicit failure response,`, `timeout,`, `cancellation,`, `invalid alebo incomplete result,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "4. Errors",
-      "line": 126,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "4. Errors",
-      "line": 126,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error ratio",
-      "line": 144,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error ratio",
-      "line": 144,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error ratio",
-      "line": 144,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error ratio",
-      "line": 144,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré requesty sú valid,`, `či client errors patria do SLI,`, `ako sa počítajú retries,`, `ako sa klasifikuje partial success,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error ratio",
-      "line": 144,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error ratio",
-      "line": 144,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Silent errors",
-      "line": 159,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Silent errors",
-      "line": 159,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Silent errors",
-      "line": 159,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s chybným obsahom,`, `async message prijatá, ale nikdy spracovaná,`, `stale cache response,`, `data loss,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Silent errors",
-      "line": 159,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "5. Saturation",
-      "line": 172,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "5. Saturation",
-      "line": 172,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU run queue alebo throttling,`, `memory pressure a reclaim,`, `thread-pool queue,`, `connection-pool waiters,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "5. Saturation",
-      "line": 172,
+      "section": "3. Latency",
+      "line": 55,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -179498,8 +179120,35 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "5. Saturation",
-      "line": 172,
+      "section": "Distribution a successful/failed separation",
+      "line": 80,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Distribution a successful/failed separation",
+      "line": 80,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `histogram alebo distribution;`, `p50 pre typický priebeh;`, `p95/p99 alebo threshold compliance pre tail;`, `successful latency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Distribution a successful/failed separation",
+      "line": 80,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Distribution a successful/failed separation",
+      "line": 80,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -179507,8 +179156,206 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "5. Saturation",
-      "line": 172,
+      "section": "4. Traffic",
+      "line": 97,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "4. Traffic",
+      "line": 97,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical requests;`, `transactions;`, `messages;`, `queries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "4. Traffic",
+      "line": 97,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Logical demand a amplification",
+      "line": 114,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Logical demand a amplification",
+      "line": 114,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Logical demand a amplification",
+      "line": 114,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external logical operations;`, `internal attempts;`, `attempts per logical operation;`, `fan-out factor;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Logical demand a amplification",
+      "line": 114,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "5. Errors",
+      "line": 137,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "5. Errors",
+      "line": 137,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnú failure response;`, `timeout alebo cancellation;`, `invalid alebo incomplete result;`, `dropped message;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "5. Errors",
+      "line": 137,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "5. Errors",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "5. Errors",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "5. Errors",
+      "line": 137,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Silent errors",
+      "line": 164,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Silent errors",
+      "line": 164,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s nesprávnym obsahom;`, `accepted async command bez completion;`, `stale tenant data;`, `backup bez usable restore;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Silent errors",
+      "line": 164,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Silent errors",
+      "line": 164,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "6. Saturation",
+      "line": 177,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "6. Saturation",
+      "line": 177,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length, lag alebo oldest age;`, `connection-pool waiters a acquire latency;`, `worker/thread queue;`, `CPU run queue alebo throttling;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "6. Saturation",
+      "line": 177,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "6. Saturation",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "6. Saturation",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "6. Saturation",
+      "line": 177,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `IP`",
@@ -179516,8 +179363,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Priama a odvodená saturation",
-      "line": 192,
+      "section": "7. Measurement layers",
+      "line": 205,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179525,26 +179372,26 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Priama a odvodená saturation",
-      "line": 192,
+      "section": "7. Measurement layers",
+      "line": 205,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Priama a odvodená saturation",
-      "line": 192,
-      "severity": "critical",
+      "section": "7. Measurement layers",
+      "line": 205,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length,`, `wait time,`, `throttled requests,`, `resource pressure.`.",
-      "score": 12
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `acceptance success vysoký, final completion nízky → async/downstream f`, `dependency attempts rastú, logical traffic stabilný → retry amplificat`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Priama a odvodená saturation",
-      "line": 192,
+      "section": "7. Measurement layers",
+      "line": 205,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -179552,44 +179399,35 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Priama a odvodená saturation",
-      "line": 192,
+      "section": "7. Measurement layers",
+      "line": 205,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "7. Measurement layers",
+      "line": 205,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "7. Measurement layers",
+      "line": 205,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `resource`",
       "score": 4
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Saturation nie je iba utilization",
-      "line": 209,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Saturation nie je iba utilization",
-      "line": 209,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden core je saturovaný,`, `container je throttled,`, `critical thread je blocked,`, `traffic je nerovnomerne rozdelený.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Saturation nie je iba utilization",
-      "line": 209,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "6. Golden Signals podľa workloadu",
-      "line": 222,
+      "section": "8. Golden Signals pre rôzne workloads",
+      "line": 228,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -179597,8 +179435,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "HTTP API",
-      "line": 224,
+      "section": "HTTP alebo gRPC API",
+      "line": 230,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -179606,8 +179444,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "HTTP API",
-      "line": 224,
+      "section": "HTTP alebo gRPC API",
+      "line": 230,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -179615,8 +179453,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "HTTP API",
-      "line": 224,
+      "section": "HTTP alebo gRPC API",
+      "line": 230,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -179624,17 +179462,17 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "HTTP API",
-      "line": 224,
+      "section": "HTTP alebo gRPC API",
+      "line": 230,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency — request duration distribution,`, `Traffic — requests/s,`, `Errors — failed request ratio,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: valid request duration distribution;`, `Traffic: logical calls/s;`, `Errors: caller-visible failure ratio;`, `Saturation: in-flight requests, worker/pool waits, throttling.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "HTTP API",
-      "line": 224,
+      "section": "HTTP alebo gRPC API",
+      "line": 230,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -179642,17 +179480,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "HTTP API",
-      "line": 224,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
       "section": "Queue consumer",
-      "line": 231,
+      "line": 237,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -179661,7 +179490,7 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Queue consumer",
-      "line": 231,
+      "line": 237,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -179670,7 +179499,7 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Queue consumer",
-      "line": 231,
+      "line": 237,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -179679,52 +179508,16 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Queue consumer",
-      "line": 231,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Batch pipeline",
-      "line": 238,
+      "line": 237,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Batch pipeline",
-      "line": 238,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Batch pipeline",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Batch pipeline",
-      "line": 238,
-      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Traffic — items/jobs za obdobie,`, `Errors — failed/partial jobs,`.",
-      "score": 8
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: message age + processing + final completion;`, `Traffic: logical messages produced/settled;`, `Errors: failed, expired alebo dead-letter outcomes;`.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Batch pipeline",
-      "line": 238,
+      "section": "Queue consumer",
+      "line": 237,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -179733,7 +179526,52 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Batch pipeline",
-      "line": 238,
+      "line": 244,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Batch pipeline",
+      "line": 244,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Batch pipeline",
+      "line": 244,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Batch pipeline",
+      "line": 244,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: job duration a output freshness;`, `Traffic: jobs/items per schedule window;`, `Errors: failed alebo partial output;`, `Saturation: backlog, parallel slots a missed completion window.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Batch pipeline",
+      "line": 244,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Batch pipeline",
+      "line": 244,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
@@ -179742,7 +179580,7 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Database",
-      "line": 245,
+      "line": 251,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -179751,7 +179589,7 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Database",
-      "line": 245,
+      "line": 251,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -179760,7 +179598,7 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Database",
-      "line": 245,
+      "line": 251,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -179769,16 +179607,16 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Database",
-      "line": 245,
+      "line": 251,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency — query/transaction latency,`, `Traffic — queries/transactions/s,`, `Errors — failed/aborted transactions,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: transaction/query distribution;`, `Traffic: logical transactions/s;`, `Errors: abort, timeout, conflict alebo wrong-result semantics;`, `Saturation: connections, locks, CPU/I/O queues a replica lag.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Database",
-      "line": 245,
+      "line": 251,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -179787,7 +179625,7 @@
     {
       "path": "docs/12-observability/golden-signals.md",
       "section": "Database",
-      "line": 245,
+      "line": 251,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
@@ -179795,17 +179633,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Storage",
-      "line": 252,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Storage",
-      "line": 252,
+      "section": "9. Golden Signals, RED, USE a SLO",
+      "line": 258,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -179813,98 +179642,26 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Storage",
-      "line": 252,
+      "section": "9. Golden Signals, RED, USE a SLO",
+      "line": 258,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Storage",
-      "line": 252,
+      "section": "9. Golden Signals, RED, USE a SLO",
+      "line": 258,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency — read/write operation latency,`, `Traffic — IOPS alebo throughput,`, `Errors — failed operations,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid population;`, `success a degraded semantics;`, `latency threshold a measurement point;`, `time window;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Storage",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Storage",
-      "line": 252,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IOPS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "LLM inference service",
-      "line": 259,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "LLM inference service",
-      "line": 259,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "LLM inference service",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "LLM inference service",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "LLM inference service",
-      "line": 259,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "7. Measurement layers",
-      "line": 266,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client latency vysoká,`, `edge latency vysoká,`, `application latency nízka.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "7. Measurement layers",
-      "line": 266,
+      "section": "9. Golden Signals, RED, USE a SLO",
+      "line": 258,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -179912,8 +179669,26 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "8. Golden Signals a SLI/SLO",
-      "line": 289,
+      "section": "9. Golden Signals, RED, USE a SLO",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "10. Worked failure: štyri green panely, chybný service verdict",
+      "line": 286,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Pôvodný dashboard",
+      "line": 288,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179921,25 +179696,7 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Availability",
-      "line": 293,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Latency",
-      "line": 297,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Throughput alebo freshness",
+      "section": "Business evidence",
       "line": 301,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -179948,80 +179705,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "9. Multi-window alerting",
-      "line": 311,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "9. Multi-window alerting",
-      "line": 311,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "9. Multi-window alerting",
-      "line": 311,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast burn alert pri prudkom outage,`, `slow burn alert pri dlhšej miernej degradácii,`, `saturation warning pred user impactom,`, `traffic absence alert pri očakávanom demand-e.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "9. Multi-window alerting",
-      "line": 311,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "9. Multi-window alerting",
-      "line": 311,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "9. Multi-window alerting",
-      "line": 311,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "10. Dashboard hierarchy",
-      "line": 329,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Service overview",
-      "line": 331,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Service overview",
-      "line": 331,
+      "section": "Business evidence",
+      "line": 301,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -180029,8 +179714,62 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Service overview",
-      "line": 331,
+      "section": "Business evidence",
+      "line": 301,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Business evidence",
+      "line": 301,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency končila pri HTTP acceptance, nie final outcome;`, `traffic meral attempts, nie logical demand;`, `errors počítali transport 5xx , nie business completion;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Business evidence",
+      "line": 301,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Business evidence",
+      "line": 301,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CPU`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Competing hypotheses",
+      "line": 320,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Competing hypotheses",
+      "line": 320,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "Competing hypotheses",
+      "line": 320,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -180038,17 +179777,17 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Service overview",
-      "line": 331,
+      "section": "Competing hypotheses",
+      "line": 320,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic,`, `error ratio,`, `latency distribution,`, `saturation,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny user traffic vzrástol;`, `provider je pomalší pre všetky cohorts;`, `HTTP handler alebo task CPU je bottleneck;`, `final workflow čaká v queue;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Service overview",
-      "line": 331,
+      "section": "Competing hypotheses",
+      "line": 320,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180056,17 +179795,17 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Service overview",
-      "line": 331,
+      "section": "Competing hypotheses",
+      "line": 320,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CPU`, `AZ`",
       "score": 4
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Operation breakdown",
-      "line": 340,
+      "section": "Containment a recovery",
+      "line": 344,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -180074,8 +179813,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Operation breakdown",
-      "line": 340,
+      "section": "Containment a recovery",
+      "line": 344,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -180083,26 +179822,26 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Operation breakdown",
-      "line": 340,
+      "section": "Containment a recovery",
+      "line": 344,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Operation breakdown",
-      "line": 340,
+      "section": "Containment a recovery",
+      "line": 344,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint/method,`, `dependency,`, `Region/AZ,`, `version,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout a immediate retry amplification;`, `obmedziť worker concurrency;`, `zachovať logical/attempt, queue, pool, trace a loaded-config evidence;`, `opraviť effective pool configuration;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Operation breakdown",
-      "line": 340,
+      "section": "Containment a recovery",
+      "line": 344,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180110,8 +179849,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Operation breakdown",
-      "line": 340,
+      "section": "Containment a recovery",
+      "line": 344,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
@@ -180119,8 +179858,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Resource drilldown",
-      "line": 348,
+      "section": "Golden-Signal acceptance verdict",
+      "line": 354,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180128,8 +179867,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Resource drilldown",
-      "line": 348,
+      "section": "Golden-Signal acceptance verdict",
+      "line": 354,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -180137,26 +179876,26 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Resource drilldown",
-      "line": 348,
+      "section": "Golden-Signal acceptance verdict",
+      "line": 354,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Resource drilldown",
-      "line": 348,
+      "section": "Golden-Signal acceptance verdict",
+      "line": 354,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `USE metrics,`, `queues/pools,`, `infrastructure failures,`, `profiles.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadne duplicate authorization;`, `žiadne skrytie traffic dropu ako zlepšenie;`, `žiadna regresia standard cohortu alebo susednej AZ;`, `žiadna telemetry no-data interpretovaná ako zero error.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Resource drilldown",
-      "line": 348,
+      "section": "Golden-Signal acceptance verdict",
+      "line": 354,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -180164,89 +179903,44 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Resource drilldown",
-      "line": 348,
+      "section": "Golden-Signal acceptance verdict",
+      "line": 354,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `USE`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
       "score": 4
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "13. Golden Signals a black-box monitoring",
-      "line": 385,
+      "section": "11. Alerting a dashboard hierarchy",
+      "line": 374,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "13. Golden Signals a black-box monitoring",
-      "line": 385,
+      "section": "11. Alerting a dashboard hierarchy",
+      "line": 374,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS success/latency,`, `TCP/TLS connection,`, `HTTP status/content,`, `end-to-end transaction,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast a slow error-budget burn;`, `final-completion latency burn;`, `sustained zero completions pri očakávanom demand-e;`, `queue age alebo pool wait prekračujúci business deadline;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "13. Golden Signals a black-box monitoring",
-      "line": 385,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "11. Alerting a dashboard hierarchy",
+      "line": 374,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "13. Golden Signals a black-box monitoring",
-      "line": 385,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `TLS`, `HTTP`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "14. Capacity a failure scenarios",
-      "line": 400,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "14. Capacity a failure scenarios",
-      "line": 400,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "14. Capacity a failure scenarios",
-      "line": 400,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic burst,`, `loss jednej AZ,`, `dependency slowdown,`, `retry storm,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "14. Capacity a failure scenarios",
-      "line": 400,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "14. Capacity a failure scenarios",
-      "line": 400,
+      "section": "11. Alerting a dashboard hierarchy",
+      "line": 374,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -180254,17 +179948,44 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "14. Capacity a failure scenarios",
-      "line": 400,
+      "section": "12. Black-box a telemetry validation",
+      "line": 397,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "12. Black-box a telemetry validation",
+      "line": 397,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `regional synthetic transaction;`, `DNS/TLS/HTTP validation;`, `async completion canary;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "12. Black-box a telemetry validation",
+      "line": 397,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/golden-signals.md",
+      "section": "12. Black-box a telemetry validation",
+      "line": 397,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `HTTP`",
       "score": 4
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "15. Troubleshooting patterns",
-      "line": 417,
+      "section": "13. Implementačný template",
+      "line": 409,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -180272,8 +179993,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Latency a saturation rastú, traffic stabilný",
-      "line": 419,
+      "section": "Štyri panely bez spoločného subjectu",
+      "line": 447,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180281,8 +180002,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Errors rastú, latency klesá",
-      "line": 423,
+      "section": "Handler latency ako end-to-end latency",
+      "line": 451,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180290,8 +180011,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic rastie, saturation rastie, latency zatiaľ stabilná",
-      "line": 427,
+      "section": "Attempts ako business traffic",
+      "line": 455,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180299,8 +180020,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Saturation nízka, latency vysoká",
-      "line": 435,
+      "section": "Errors iba z transport statusu",
+      "line": 459,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180308,8 +180029,8 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Štyri panely bez definovaného contractu",
-      "line": 441,
+      "section": "CPU ako univerzálna saturation",
+      "line": 463,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -180317,57 +180038,12 @@
     },
     {
       "path": "docs/12-observability/golden-signals.md",
-      "section": "Infrastructure traffic namiesto business demandu",
-      "line": 445,
+      "section": "Traffic drop ako zlepšenie",
+      "line": 467,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Error metric iba z exceptions",
-      "line": 449,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Saturation ako CPU percento",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Latency iba na serveri",
-      "line": 457,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "Traffic drop považovaný za zlepšenie",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/golden-signals.md",
-      "section": "17. Implementačný template",
-      "line": 465,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
     },
     {
       "path": "docs/12-observability/grafana.md",
