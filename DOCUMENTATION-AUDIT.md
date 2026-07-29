@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **259**
-- Audited conceptual sections: **10416**
-- Total words: **612,424**
-- Findings: **21801** (critical 6485, high 7370, medium 2776, low 5170)
-- File grades: A 0, B 0, C 0, D 259
+- Audited authoritative articles: **260**
+- Audited conceptual sections: **10446**
+- Total words: **614,216**
+- Findings: **21871** (critical 6506, high 7391, medium 2787, low 5187)
+- File grades: A 0, B 0, C 0, D 260
 
 ## Interpretation
 
@@ -200,6 +200,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 496 | 18 | 28 | 6 | 33 | 2323 | `docs/13-security-and-identity/encryption-at-rest-and-in-transit.md` |
 | D | 490 | 21 | 25 | 6 | 17 | 1993 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 487 | 22 | 25 | 5 | 10 | 1297 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
+| D | 484 | 21 | 21 | 11 | 17 | 1792 | `docs/14-sre-and-operations/error-budgets.md` |
 | D | 483 | 19 | 26 | 9 | 12 | 2131 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 481 | 14 | 35 | 5 | 18 | 2406 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | D | 476 | 22 | 23 | 6 | 10 | 1925 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
@@ -14807,6 +14808,51 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 469, `term-before-explanation` — **28. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JML`, `PEP`, `resource`, `step-up`, `posture`, `workload`, `identity`, `delegation`
 - **HIGH** line 469, `thin-concept-section` — **28. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/14-sre-and-operations/error-budgets.md`
+
+- **CRITICAL** line 29, `bare-bullet-items` — **1. Exact error-budget subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLI ID a revision;`, `SLO targetu;`, `service a user journey;`, `cohort a environmentu;`.
+- **CRITICAL** line 29, `outline-instead-of-explanation` — **1. Exact error-budget subject**: 11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 47, `bare-bullet-items` — **2. Budget nie je iba downtime**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bad requests;`, `slow requests nad thresholdom;`, `nedokončené workflows;`, `incorrect results;`.
+- **CRITICAL** line 116, `bare-bullet-items` — **6. Error-budget policy**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownerov SLO a budgetu;`, `evaluation cadence;`, `thresholds a actions;`, `pravidlá pre releases a experiments;`.
+- **CRITICAL** line 164, `bare-bullet-items` — **8. Čo budget nemá riadiť automaticky**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bezpečnostný incident bez okamžitého SLI impactu;`, `data corruption s malým počtom, ale vysokým impactom;`, `compliance breach;`, `safety-critical failure;`.
+- **CRITICAL** line 164, `outline-instead-of-explanation` — **8. Čo budget nemá riadiť automaticky**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 178, `bare-bullet-items` — **9. Multiple SLOs a budgets**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `availability;`, `latency;`, `correctness;`, `completion deadline;`.
+- **CRITICAL** line 208, `bare-bullet-items` — **11. Budget a launch decisions**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remaining budget;`, `current fast a slow burn;`, `recent incident concentration;`, `confidence v SLI evidence;`.
+- **CRITICAL** line 208, `outline-instead-of-explanation` — **11. Budget a launch decisions**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 234, `bare-bullet-items` — **12. Budget forecast**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic forecast;`, `seasonality;`, `planned launches;`, `known dependency maintenance;`.
+- **CRITICAL** line 234, `outline-instead-of-explanation` — **12. Budget forecast**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 270, `no-prose-concept` — **Policy outcome**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 270, `outline-instead-of-explanation` — **Policy outcome**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 288, `bare-bullet-items` — **14. Competing interpretations**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny user incident;`, `zmenu denominatoru;`, `duplicate events;`, `telemetry backfill;`.
+- **CRITICAL** line 288, `outline-instead-of-explanation` — **14. Competing interpretations**: 9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 316, `bare-bullet-items` — **15. Error-budget acceptance verdict**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patrí versionovanému SLI, SLO a window-u;`, `allowed a observed bad events možno reprodukovať;`, `rolling/calendar semantics sú explicitné;`, `burn rate rozlišuje fast a slow failure;`.
+- **CRITICAL** line 316, `outline-instead-of-explanation` — **15. Error-budget acceptance verdict**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 333, `empty-section` — **16. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 349, `bare-bullet-items` — **17. Earlier controls**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný error-budget policy document;`, `budget owner a escalation path;`, `multi-window burn-rate alerts;`, `top-consumer attribution;`.
+- **CRITICAL** line 349, `no-prose-concept` — **17. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 349, `outline-instead-of-explanation` — **17. Earlier controls**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 47, `list-heavy-section` — **2. Budget nie je iba downtime**: 7 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 178, `list-heavy-section` — **9. Multiple SLOs a budgets**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 197, `bare-bullet-items` — **10. Shared dependencies a attribution**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktorí users a services utrpeli impact?`, `Ktorý technical owner má odstrániť príčinu?`.
+- **HIGH** line 270, `bare-bullet-items` — **Policy outcome**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `okamžite zastaviť cleanup a discretionary production releases;`, `povoliť iba recovery, security a risk-reduction changes;`, `zaviesť multi-window completion burn-rate alerting;`.
+- **HIGH** line 270, `list-first-introduction` — **Policy outcome**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 316, `single-sentence-concept` — **15. Error-budget acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 349, `list-first-introduction` — **17. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 366, `single-sentence-concept` — **Budget ako outage allowance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 370, `single-sentence-concept` — **Freeze všetkého**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 374, `single-sentence-concept` — **Calendar amnesty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 378, `single-sentence-concept` — **Aggregate budget kompenzuje correctness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 382, `single-sentence-concept` — **Budget bez policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 386, `single-sentence-concept` — **Query tuning po incidente**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 390, `single-sentence-concept` — **Remaining budget bez burn rate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 29, `term-before-explanation` — **1. Exact error-budget subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `ID`, `SLO`, `policy`
+- **HIGH** line 208, `thin-concept-section` — **11. Budget a launch decisions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 270, `thin-concept-section` — **Policy outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 288, `thin-concept-section` — **14. Competing interpretations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 316, `term-before-explanation` — **15. Error-budget acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `burn rate`, `policy`
+- **HIGH** line 316, `thin-concept-section` — **15. Error-budget acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 349, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/14-sre-and-operations/reliability-availability-durability.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact reliability subject**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétnu business operation alebo journey;`, `actor alebo traffic cohort;`, `vstupné a výstupné conditions;`, `environment, Region a release generation;`.
@@ -14922,19 +14968,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2502 | 463 | 0 | 0 | 2965 |
-| `outline-instead-of-explanation` | 2510 | 0 | 0 | 0 | 2510 |
-| `term-before-explanation` | 0 | 564 | 1854 | 0 | 2418 |
-| `single-sentence-concept` | 0 | 2412 | 0 | 0 | 2412 |
-| `thin-concept-section` | 0 | 2117 | 0 | 0 | 2117 |
-| `example-not-explicit` | 0 | 0 | 0 | 2074 | 2074 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2042 | 2042 |
-| `list-first-introduction` | 0 | 1366 | 0 | 0 | 1366 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1054 | 1054 |
-| `short-concept-section` | 0 | 0 | 922 | 0 | 922 |
-| `no-prose-concept` | 790 | 0 | 0 | 0 | 790 |
-| `empty-section` | 683 | 0 | 0 | 0 | 683 |
-| `list-heavy-section` | 0 | 448 | 0 | 0 | 448 |
+| `bare-bullet-items` | 2512 | 465 | 0 | 0 | 2977 |
+| `outline-instead-of-explanation` | 2518 | 0 | 0 | 0 | 2518 |
+| `term-before-explanation` | 0 | 566 | 1859 | 0 | 2425 |
+| `single-sentence-concept` | 0 | 2420 | 0 | 0 | 2420 |
+| `thin-concept-section` | 0 | 2122 | 0 | 0 | 2122 |
+| `example-not-explicit` | 0 | 0 | 0 | 2079 | 2079 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2052 | 2052 |
+| `list-first-introduction` | 0 | 1368 | 0 | 0 | 1368 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1056 | 1056 |
+| `short-concept-section` | 0 | 0 | 928 | 0 | 928 |
+| `no-prose-concept` | 792 | 0 | 0 | 0 | 792 |
+| `empty-section` | 684 | 0 | 0 | 0 | 684 |
+| `list-heavy-section` | 0 | 450 | 0 | 0 | 450 |
 
 ## Required remediation pattern
 

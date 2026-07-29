@@ -3599,6 +3599,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "title": "Error budgets",
+      "words": 1792,
+      "headings": 30,
+      "sections": 30,
+      "findings": 70,
+      "critical": 21,
+      "high": 21,
+      "medium": 11,
+      "low": 17,
+      "score": 484,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
       "title": "Reliability, availability a durability",
       "words": 1867,
@@ -198374,6 +198388,636 @@
       "path": "docs/13-security-and-identity/zero-trust.md",
       "section": "Marketing maturity score",
       "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "1. Exact error-budget subject",
+      "line": 29,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "1. Exact error-budget subject",
+      "line": 29,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLI ID a revision;`, `SLO targetu;`, `service a user journey;`, `cohort a environmentu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "1. Exact error-budget subject",
+      "line": 29,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "1. Exact error-budget subject",
+      "line": 29,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "1. Exact error-budget subject",
+      "line": 29,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `ID`, `SLO`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "2. Budget nie je iba downtime",
+      "line": 47,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "2. Budget nie je iba downtime",
+      "line": 47,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bad requests;`, `slow requests nad thresholdom;`, `nedokončené workflows;`, `incorrect results;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "2. Budget nie je iba downtime",
+      "line": 47,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "2. Budget nie je iba downtime",
+      "line": 47,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "3. Budget generation",
+      "line": 61,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "4. Burn rate",
+      "line": 79,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "4. Burn rate",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "4. Burn rate",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "4. Burn rate",
+      "line": 79,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "5. Multi-window burn-rate signals",
+      "line": 97,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "5. Multi-window burn-rate signals",
+      "line": 97,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "6. Error-budget policy",
+      "line": 116,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownerov SLO a budgetu;`, `evaluation cadence;`, `thresholds a actions;`, `pravidlá pre releases a experiments;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "6. Error-budget policy",
+      "line": 116,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "8. Čo budget nemá riadiť automaticky",
+      "line": 164,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "8. Čo budget nemá riadiť automaticky",
+      "line": 164,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bezpečnostný incident bez okamžitého SLI impactu;`, `data corruption s malým počtom, ale vysokým impactom;`, `compliance breach;`, `safety-critical failure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "8. Čo budget nemá riadiť automaticky",
+      "line": 164,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "8. Čo budget nemá riadiť automaticky",
+      "line": 164,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "8. Čo budget nemá riadiť automaticky",
+      "line": 164,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "8. Čo budget nemá riadiť automaticky",
+      "line": 164,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "9. Multiple SLOs a budgets",
+      "line": 178,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "9. Multiple SLOs a budgets",
+      "line": 178,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `availability;`, `latency;`, `correctness;`, `completion deadline;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "9. Multiple SLOs a budgets",
+      "line": 178,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "9. Multiple SLOs a budgets",
+      "line": 178,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "10. Shared dependencies a attribution",
+      "line": 197,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktorí users a services utrpeli impact?`, `Ktorý technical owner má odstrániť príčinu?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "11. Budget a launch decisions",
+      "line": 208,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "11. Budget a launch decisions",
+      "line": 208,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remaining budget;`, `current fast a slow burn;`, `recent incident concentration;`, `confidence v SLI evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "11. Budget a launch decisions",
+      "line": 208,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "11. Budget a launch decisions",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "11. Budget a launch decisions",
+      "line": 208,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `blast radius`, `reliability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "12. Budget forecast",
+      "line": 234,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "12. Budget forecast",
+      "line": 234,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic forecast;`, `seasonality;`, `planned launches;`, `known dependency maintenance;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "12. Budget forecast",
+      "line": 234,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `okamžite zastaviť cleanup a discretionary production releases;`, `povoliť iba recovery, security a risk-reduction changes;`, `zaviesť multi-window completion burn-rate alerting;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Policy outcome",
+      "line": 270,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P0`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "14. Competing interpretations",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "14. Competing interpretations",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny user incident;`, `zmenu denominatoru;`, `duplicate events;`, `telemetry backfill;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "14. Competing interpretations",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "14. Competing interpretations",
+      "line": 288,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patrí versionovanému SLI, SLO a window-u;`, `allowed a observed bad events možno reprodukovať;`, `rolling/calendar semantics sú explicitné;`, `burn rate rozlišuje fast a slow failure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "15. Error-budget acceptance verdict",
+      "line": 316,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`, `burn rate`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "16. Troubleshooting flow",
+      "line": 333,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "17. Earlier controls",
+      "line": 349,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "17. Earlier controls",
+      "line": 349,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "17. Earlier controls",
+      "line": 349,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "17. Earlier controls",
+      "line": 349,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný error-budget policy document;`, `budget owner a escalation path;`, `multi-window burn-rate alerts;`, `top-consumer attribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "17. Earlier controls",
+      "line": 349,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "17. Earlier controls",
+      "line": 349,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Budget ako outage allowance",
+      "line": 366,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Freeze všetkého",
+      "line": 370,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Calendar amnesty",
+      "line": 374,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Aggregate budget kompenzuje correctness",
+      "line": 378,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Budget bez policy",
+      "line": 382,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Query tuning po incidente",
+      "line": 386,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/error-budgets.md",
+      "section": "Remaining budget bez burn rate",
+      "line": 390,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
