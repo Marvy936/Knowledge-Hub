@@ -66,6 +66,10 @@ Automatizovaný proces vytvorenia a baseline konfigurácie nového AWS accountu 
 
 Rozšírený model oprávnení nad rámec owner/group/other mode bits. Pozri [Users, groups, permissions, sudo a PAM](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md).
 
+## Action contract — alerting
+
+Versionovaný contract určujúci user impact, urgency, ownera, safe first action, forbidden action, runbook a resolution validation konkrétneho page-u. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Action plugin — Ansible
 
 Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action, napríklad spracuje arguments, transfer files alebo remote module result. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -74,9 +78,17 @@ Control-node plugin, ktorý pripravuje alebo koordinuje vykonanie Ansible action
 
 Alert, ktorý má jasného ownera, definovaný impact, konkrétnu okamžitú akciu, runbook a spôsob overenia resolution. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## Actionable-rate verdict
+
+Pomer pages alebo notifications, ktoré viedli k potrebnej ľudskej či automatickej akcii, vyhodnotený spolu s false positives, duplicates a auto-resolutions. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Active-active architecture
 
 Architektúra, v ktorej viac lokalít alebo replicas súčasne spracúva production traffic; poskytuje vysokú využiteľnosť redundantnej kapacity, ale vyžaduje consistency, conflict-resolution a split-brain model. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
+## Active-cardinality verdict
+
+Rozhodnutie, či počet súčasne aktívnych series, streams, terms, alert instances alebo promoted trace dimensions zostáva v budgete pre konkrétny tenant a signal. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
 ## Active deadline — Job
 
@@ -266,6 +278,10 @@ Versionovaná kombinácia metric/query identity, periodu, statistic, threshold-u
 
 Prioritizované Layer 7 pravidlo Application Load Balancera, ktoré vyhodnocuje host, path, header, method, query alebo source-IP conditions a vykoná forward, redirect, fixed-response alebo podporovanú authentication action. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Alert-action subject
+
+Exact user outcome, signal population, rule generation, evaluation windows, alert identity, severity, owner, notification policy a external incident identity analyzovaného alertu. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Alert annotation — Prometheus
 
 Dynamický ľudský context alerting rule, napríklad summary, description, current value alebo runbook URL, ktorý nie je súčasťou alert identity. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
@@ -278,9 +294,17 @@ Version-controlled model alerting rules, routing, templates, tests, ownership a 
 
 Query alebo expression spolu s thresholdom a time semantics, ktoré určujú, kedy alert prejde do active, pending alebo firing stavu. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## Alert-control-plane authority
+
+Jediný systém oprávnený vlastniť rule evaluation a paging policy konkrétneho symptom alertu, napríklad Prometheus/Alertmanager alebo Grafana-managed alerting. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Alert fatigue
 
 Pokles pozornosti a dôvery spôsobený nadmerným počtom neakčných, duplicitných, flapping alebo nesprávne routovaných notifications. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
+## Alert-fatigue feedback loop
+
+Reinforcing loop, v ktorom noisy a neakčné pages znižujú dôveru a response speed, čo zhoršuje incident outcome a vedie k ďalším broad alerts alebo silences. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
 ## Alert fingerprint
 
@@ -313,6 +337,14 @@ Versionovaný subject spájajúci Prometheus rule generation, complete alert lab
 ## Alert precision
 
 Podiel alerts, ktoré správne identifikujú relevantný a actionable stav oproti false positives a neakčným notifications. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
+## Alert retirement verdict
+
+Rozhodnutie odstrániť, demote-nuť, zlúčiť alebo automatizovať alert, ktorý nemá ownera, action, precision alebo jedinečný detection benefit. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
+## Alert-rule generation
+
+Versionovaná query, population, threshold/burn-rate, windows, `for`, no-data a output-label konfigurácia vytvárajúca alert state. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
 ## Alert severity
 
@@ -1326,6 +1358,10 @@ Kernelové zariadenie poskytujúce blokovo adresovaný storage. Pozri [Storage, 
 
 Go template action, ktorá definuje default named template content a zároveň ho vykreslí; globálna override semantics môže byť menej explicitná než values alebo library-chart contract. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
 
+## Block-publication generation — tracing
+
+Exact Kafka offsets, block-builder version, Parquet block objects, object-store paths a commit state, ktoré preukazujú prechod trace records do historical storage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Blocking gate
 
 Quality gate, ktorého neúspech zastaví merge, promotion alebo deployment. Má sa používať pre spoľahlivý signál spojený s neprijateľným rizikom. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
@@ -1714,6 +1750,10 @@ Presný výsledný source tree, ktorý by po integrácii vznikol, typicky reprez
 
 Posúdenie answer option podľa mechanizmu, scope-u, completeness, constraint fidelity, failure modelu, trade-offu a forbidden outcomes. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
 
+## Canonical symptom page
+
+Jediný authoritative page pre konkrétny user-facing symptom, ku ktorému cause signals slúžia ako investigation evidence namiesto duplicate paging paths. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Capability-based security
 
 Model, v ktorom držanie konkrétnej obmedzenej capability alebo reference oprávňuje principal vykonať presne definovanú operáciu bez broad ambient authority. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
@@ -1782,13 +1822,33 @@ MITRE Common Attack Pattern Enumeration and Classification; katalóg opakovateľ
 
 Počet unikátnych hodnôt alebo kombinácií dimensions, ktoré vytvárajú time series, log streams, indexed terms alebo ďalšie telemetry identities. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Cardinality acceptance verdict
+
+Dôkaz, že active identities, churn, backlog, query cost a alerts zostávajú pod budgetom, critical signals sú kompletné a forbidden dimensions sa nevrátili po rollout-e alebo restart-e. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
 ## Cardinality budget
 
 Explicitný limit a očakávaný growth model pre series, streams, indexed values alebo attributes per service, metric, tenant alebo backend. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Cardinality-budget generation
+
+Versionovaný allowed-dimension, expected-value, active-count, churn, tenant quota, retention, cost a exception contract konkrétneho telemetry signal-u. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Cardinality containment
+
+Minimálny auditovaný runtime zásah, ktorý zastaví tvorbu nových problematických identities a chráni platformu bez neanalyzovaného odstránenia critical evidence. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
 ## Cardinality incident
 
 Prevádzkový incident, pri ktorom nekontrolovaný rast telemetry identities alebo indexed values ohrozuje ingestion, memory, storage, query výkon alebo cost. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Cardinality recovery generation
+
+Authoritative producer, schema, allowlist, aggregation a runtime-limit zmena, ktorá nahradí emergency containment a prejde dependency, cost a restart validation. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Cardinality subject
+
+Exact producer, release, tenant, signal/backend, identity model, dimensions, active count, churn, budget, dependencies a observation window analyzovanej cardinality. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
 ## Cardinality — telemetry
 
@@ -2370,6 +2430,10 @@ Telemetry Collector nasadený blízko workloadu alebo Node-u na lokálny príjem
 
 Konkrétny build OpenTelemetry Collectora s definovanou množinou receivers, processors, exporters a extensions, napríklad core, contrib, vendor alebo custom distribution. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
+## Collector distribution generation
+
+Pinned OpenTelemetry Collector artifact a jeho exact receiver, processor, exporter a extension inventory vrátane component stability. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Collector gateway
 
 Centralizovaná alebo tiered Collector vrstva používaná na routing, policy, tail sampling, tenant isolation a fan-out do backendov. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -2389,6 +2453,10 @@ Oblasť zdieľaného Ethernet média, v ktorej môžu transmissions kolidovať. 
 ## Color-specific telemetry
 
 Metrics, logs a traces označené blue/green environmentom a artifact verziou tak, aby bolo možné analyzovať cutover a porovnať správanie oboch farieb. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## Combination-space estimate
+
+Odhad potenciálnych a expected reálnych combinations dimensions pred zavedením telemetry schema change-u. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
 ## Combinatorial cardinality
 
@@ -2469,6 +2537,10 @@ Prometheus-style metrics publikované API serverom, schedulerom, controller-mana
 ## Component relationship — SBOM
 
 Machine-readable väzba medzi SBOM elements, napríklad `dependsOn`, `contains`, `generatedFrom` alebo `distributedAs`. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Component-stability inventory — OpenTelemetry
+
+Zoznam použitých Collector components a signals s ich signal-specific stability, distribution availability a compatibility statusom. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
 ## Component template — search
 
@@ -3197,6 +3269,10 @@ SLO, security, recovery, performance alebo capacity condition, ktorá musí zost
 ## Cross-Region backup copy
 
 Kópia recovery pointu do iného AWS Regionu pre regionálnu isolation a disaster-recovery model. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Cross-signal cardinality amplification
+
+Násobenie jednej dynamic dimension naprieč metrics, log streams, trace-derived metrics, indexed fields, dashboard variables a alert identities. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
 ## Cross-state contract
 
@@ -3933,6 +4009,10 @@ Vyhodnotenie rovnakého corpus-u inputs cez starú a novú policy revision s kon
 ## Digest pinning
 
 Viazanie dependency, action, image alebo artifact reference na immutable cryptographic content digest namiesto mutable tagu alebo version range. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
+
+## Dimension inventory — observability
+
+Úplný zoznam labels, attributes, fields a promoted dimensions spolu s ich source, boundedness, purpose, backend use a retention. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
 ## Direct access bypass — Zero Trust
 
@@ -4750,6 +4830,10 @@ Cryptographic ochrana dát počas prenosu medzi endpoints, typicky spolu s peer 
 
 Cryptographic algorithm a associated key semantics používané pre Kerberos long-term keys, tickets alebo session keys. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## End-to-end alert acceptance
+
+Dôkaz, že controlled signal vytvorí intended alert state, jednu správne routovanú external notification, acknowledgement a resolved closure bez forbidden muting alebo duplicate incidentu. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## End-to-end test
 
 Test workflow prechádzajúci cez viac produkčne relevantných vrstiev alebo procesných hraníc od vstupu po observable výsledok. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -5030,6 +5114,14 @@ Zachovanie object statusu, Events, logs, metrics, timestamps a configuration pre
 
 Dočasná bounded action zastavujúca rast dopadu pri zachovaní forensic, rollback a recovery options. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
 
+## Exact-search exception — cardinality
+
+Schválené použitie high-cardinality field-u pre bounded exact log, trace alebo document search bez jeho promotion do metrics, Loki streams, alerts alebo unrestricted aggregations. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Exact trace lookup
+
+Query konkrétneho trace ID odlíšená od broad attribute searchu a validovaná voči tenant, recent/historical path a storage generation. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Exam-guide generation — SOA-C03
 
 Konkrétna revision AWS SOA-C03 exam guide-u s publication date, domain/task obsahom a in-scope/out-of-scope service inventory, ku ktorej musí byť viazaný study a readiness evidence. Pozri [AWS Certified CloudOps Engineer – Associate](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
@@ -5194,6 +5286,10 @@ Machine-readable tvrdenie o tom, či a prečo je konkrétna vulnerability releva
 
 Contract určujúci, ktorý graph result sa musí exportovať, do akého destinationu a formátu, pod akou immutable identity, s akou retention a read-back verification. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Exporter-delivery subject — OpenTelemetry
+
+Exact signal, queue, exporter component/version, endpoint, credential, tenant, acknowledgement, retry a backend read-back identity. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Exporter — Prometheus
 
 Komponent, ktorý číta stav systému bez native Prometheus instrumentation a vystavuje ho v Prometheus metrics formáte. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -5225,6 +5321,10 @@ Build cache exportovaná mimo lokálneho buildera, napríklad do registry alebo 
 ## External cache trust domain
 
 Boundary určujúca identities oprávnené čítať/zapisovať build cache a release classes, pre ktoré je reuse prípustný. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## External incident identity
+
+Stable receiver/on-call key, ktorý viaže duplicate HA notifications a firing/resolved updates k jednému operational incidentu. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
 ## External labels — Prometheus
 
@@ -5597,6 +5697,10 @@ Prístupové pravidlo pre dashboardy a folders; samo osebe nemusí obmedziť mo�
 ## Forbidden-authority verification
 
 Negatívny recovery test dokazujúci, že workload po remediation nevie použiť host namespaces, runtime sockets, devices, forbidden capabilities, privileged Pod creation alebo staré credentials. Pozri [SecurityContext a Pod Security](../docs/09-kubernetes/securitycontext-pod-security.md).
+
+## Forbidden-dimension contract
+
+Explicitný zákaz unbounded alebo citlivej dimension v konkrétnom backend identity modeli, napríklad `merchant_id` v metric labels alebo Loki stream labels. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
 ## Forbidden feedback outcome
 
@@ -6350,9 +6454,17 @@ Významná odchýlka od Well-Architected best practices s relevantným security,
 
 Metric aggregation zaznamenávajúca počet observations v definovaných buckets spolu s count a typicky sum, vhodná na latency distributions a threshold SLIs. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Historical-identity retirement
+
+Časovo viazaný lifecycle, počas ktorého staré series, streams, terms alebo blocks po schema fix-e zaniknú cez staleness, retention, rollover alebo reindex. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
 ## Historical-log path — Loki
 
 Query path závislý od TSDB index blocks, flushed chunks, schema periods, object-store access, compaction a retention. Pozri [Loki](docs/12-observability/loki.md).
+
+## Historical-trace path
+
+Trace query path cez published blocks alebo external storage, index/block metadata, object permissions, compaction a retention. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## History rewrite
 
@@ -6650,6 +6762,10 @@ Proxy acting as PEP, ktorá autentizuje subject, vyhodnotí policy a sprostredku
 
 IAM policy pripojená k userovi, group alebo role, ktorá povoľuje alebo denyuje actions nad resources podľa request contextu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
+## Identity-churn rate
+
+Rýchlosť tvorby a zániku telemetry identities, ktorá môže destabilizovať WAL, index, compaction a recovery aj pri miernom active count-e. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
 ## Identity operation outcome
 
 Auditovaný výsledok konkrétnej API alebo external operácie vykonanej workload identity, nie iba dôkaz, že credential existoval. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
@@ -6870,6 +6986,10 @@ Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného pl
 
 Policy vyhodnocujúca infrastructure source, plan, configuration alebo runtime state podľa security, compliance, cost a operational guardrails. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Ingest acknowledgement — tracing
+
+Potvrdenie, že tracing backend alebo durable queue prijala trace records; samo nepreukazuje complete trace ani historical block publication. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Ingest pipeline — search
 
 Server-side pipeline, ktorá pred indexingom parsuje, normalizuje, enrichuje, rediguje alebo routuje documents. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -6973,6 +7093,10 @@ Knižnica, ktorá vytvára telemetry pre application, framework alebo dependency
 ## Instrumentation scope
 
 Logical software unit a jej version, s ktorou OpenTelemetry spája vytvorené spans, metrics a log records. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## Instrumentation-scope generation
+
+OpenTelemetry scope name, version a schema URL identifikujúce library alebo component, ktorý telemetry vytvoril. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
 ## Instrumentation subject
 
@@ -7185,6 +7309,10 @@ JSON Web Key Set publikujúci public cryptographic keys používané napríklad 
 ## Kafka-buffered tracing
 
 Tracing architecture, v ktorej durable Kafka-compatible queue oddeľuje trace ingestion od storage consumers. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Kafka trace replay window
+
+Časový interval určený Kafka retention a consumer progressom, počas ktorého Tempo block-builder/live-store alebo Jaeger ingester dokáže znovu spracovať trace records. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## KDC
 
@@ -8282,6 +8410,10 @@ OCI index a graph poskytujúci manifests pre viac OS/architecture/variant kombin
 
 Súvisiace KMS key resources v rôznych Regions zdieľajúce key material a key ID properties, ale s oddelenými policies, grants a lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
+## Multi-signal canary — OpenTelemetry
+
+Synthetic trace, metric a log overený cez agent, gateway, processing policies, každý intended backend, query correlation a forbidden-field check. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Multi-site active-active — DR
 
 Disaster-recovery stratégia, v ktorej viac geografických lokalít aktívne obsluhuje production traffic a potrebuje cross-site routing, capacity a data consistency model. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -8718,6 +8850,10 @@ Alertmanager lifecycle od prijatého alertu cez route, grouping, timing, silence
 
 Kontrolovaný alert prechádzajúci rule, všetky Alertmanager replicas, route/group/muting policy, test receiver, external acknowledgement a resolved closure. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
 
+## Notification-policy generation
+
+Versionovaný routing, grouping, timing, inhibition, silence, receiver a template contract aplikovaný na alert identity. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Notification template — Alertmanager
 
 Go template používaný na renderovanie notification title, body, links a receiver-specific payloadu. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
@@ -8930,6 +9066,10 @@ Automatizovaný nástroj hodnotiaci vybrané open-source project security heuris
 
 Vendor-neutral observability framework a specification pre instrumentation, generation, collection a export traces, metrics a logs. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
+## OpenTelemetry acceptance verdict
+
+Dôkaz, že exact signal generations prešli per-hop accountingom, backend read-backom, correlation, cost a privacy checks a zostali správne po topology change alebo restart-e. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## OpenTelemetry API
 
 Vendor-neutral programming contract používaný application a libraries na vytváranie telemetry bez vynútenia konkrétneho backendu alebo SDK konfigurácie. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -8937,6 +9077,10 @@ Vendor-neutral programming contract používaný application a libraries na vytv
 ## OpenTelemetry SDK
 
 Runtime implementácia OpenTelemetry API, ktorá zabezpečuje sampling, processing, aggregation, resource configuration a export telemetry. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
+
+## OpenTelemetry subject
+
+Exact application/release, SDK/agent, semantic schema, resource precedence, propagation, sampling, Collector distribution/config/topology, exporter, backend a evidence cut-off. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
 ## Operational acceptance testing
 
@@ -9122,9 +9266,17 @@ Kompaktný Git storage formát ukladajúci viac objektov s možnou delta kompres
 
 RAM používaná kernelom na cache file-backed dát. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
+## Page eligibility contract
+
+Kritériá urgentnosti, importance, actionability a reality, ktoré musí signal splniť pred preradením na human page. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
 ## Page fault
 
 Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupné. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Pages-per-incident
+
+Alert-quality metric počítajúca počet human pages vytvorených jedným operational incidentom. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
 ## Paired shadow evidence
 
@@ -9249,6 +9401,10 @@ Release status signalizujúci nedokončenú upgrade operáciu; pred recovery vy�
 ## Per-AZ endpoint cohort
 
 Skupina application, load-balancer alebo service endpoints klasifikovaná podľa AZ ID a generation na rozlíšenie regionálneho od zonálneho failure-u. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Per-hop telemetry accounting
+
+Porovnanie received, accepted, refused, dropped, queued a acknowledged records na každom SDK, agent, gateway, exporter a backend hop-e. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
 ## Per-host task transition — Ansible
 
@@ -9946,6 +10102,14 @@ Prechod medzi spusteným processom a schopnosťou bezpečne prijímať traffic a
 
 Semantics určujúca poradie Collector processors, pretože enrichment, overwrite, filtering, redaction, sampling a routing môžu pri inom poradí vytvoriť odlišný effective signal. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
+## Processor-order contract — OpenTelemetry
+
+Versionované poradie identity normalization, redaction, cardinality control, sampling/filtering, batching a exportu určujúce final telemetry outcome. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
+## Producer cost attribution — observability
+
+Priradenie ingestion, active-identity, storage, query a retention costu konkrétnemu service, teamu, tenantovi a instrumentation generation. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
 ## Product-generation identity — document search
 
 Explicitná Elasticsearch alebo OpenSearch product/version a deployment generation, ktorá určuje podporované API, mapping, lifecycle, security a recovery semantics. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -10049,6 +10213,10 @@ Kompletný deployment tuple hodnotený pred promotion, typicky release manifest,
 ## PromQL
 
 Prometheus Query Language na selection, aggregation a výpočty nad time series. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Propagation generation — tracing
+
+Versionovaný inject/extract a async/message context contract vytvárajúci parent, child a link relationships expected span graphu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Protected branch — GitLab
 
@@ -10441,6 +10609,10 @@ Versionované prepojenie symptómu s deploymentom, policy, route, rotation, fail
 ## Recent-log path — Loki
 
 Query path k neflushnutým alebo recentným entries cez live ingesters a current ring ownership. Pozri [Loki](docs/12-observability/loki.md).
+
+## Recent-trace path
+
+Trace query path cez Tempo live-store alebo ekvivalentný current Jaeger/storage visibility model pred alebo nezávisle od historical publication. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Reclaim policy — Kubernetes storage
 
@@ -11142,6 +11314,10 @@ Stav, keď aggregate runtime potential alebo limits presahujú fyzickú kapacitu
 
 OAuth entita schopná autorizovať access ku protected resource. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Resource-precedence generation — OpenTelemetry
+
+Explicitné poradie environment, cloud/Kubernetes detectorov, processorov a application configu pri určovaní effective resource attributes. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Resource request — Kubernetes
 
 Deklarované množstvo resource-u používané schedulerom na placement a platformou ako reservation alebo relative-share signal. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
@@ -11738,6 +11914,10 @@ Stav, keď canary krok nazbieral dostatočný počet relevantných requests, ses
 
 Množina operations alebo records zachovaných sampling policy spolu s keep/drop dôvodmi; nemusí reprezentovať úplný traffic denominator. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Sampling-policy generation
+
+Versionovaný head/tail/remote policy contract s keep/drop rules, expected rates, trace duration, late-span a incomplete-trace behaviorom. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md) a [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Sampling — telemetry
 
 Výber podmnožiny traces, logs alebo profiles na kontrolu volume a cost pri zachovaní relevantných failures a business operations. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -12222,6 +12402,10 @@ Version a stability selection OpenTelemetry semantic conventions spolu s emitted
 
 Štandardizované názvy a významy operations, resources a attributes umožňujúce interoperabilitu instrumentation a backendov. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
+## Semantic-schema generation — OpenTelemetry
+
+Exact semantic-convention stability, attribute names/units, schema URL a compatibility mapping používané producers, processors a consumers. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Semantic status transition
 
 Status alebo condition update vykonaný iba pri významnej zmene observed state-u, nie pri každom retry attempt-e; chráni API/etcd pred self-trigger loops. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -12546,6 +12730,10 @@ Definovaný startup, readiness, resource, failure, completion a shutdown behavio
 
 Versionovaný význam telemetry signálu vrátane source, units/schema, labels, freshness, missing-data semantics, retention a očakávanej causal interpretácie. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Signal-contract generation — OpenTelemetry
+
+Versionovaný expected signal, population, identity, schema, coverage, overhead, privacy a backend-consumer contract. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Signal latency
 
 Čas medzi vznikom zmeny alebo failure a dostupnosťou dostatočne úplného signálu pre rollout či experiment decision. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -12553,6 +12741,10 @@ Versionovaný význam telemetry signálu vrátane source, units/schema, labels, 
 ## Signal — observability
 
 Typ telemetry reprezentujúci určitý pohľad na systém, napríklad metric, log, trace, event alebo profile. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Signal-population contract — alerting
+
+Exact valid numerator, denominator, cohort, traffic guard, data authority a no-data semantics alert condition-u. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
 ## Signal quality
 
@@ -13522,6 +13714,10 @@ Dôkaz, že expected signal source publikuje a delivery/query path prijíma dát
 
 Súvislý identity chain od source emission cez collection, buffer, transport, backend acknowledgement, indexing, query a retention po operational verdict. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Telemetry-loss window — OpenTelemetry
+
+Time/signal-specific interval neobnoviteľnej alebo nepreukázateľnej straty pre queue overflow, processor drop, crash, expiry alebo backend failure. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Telemetry pipeline
 
 Reťazec instrumentation sources, agents alebo collectors, processingu, exportu, storage a query vrstiev, ktorými telemetry prechádza. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -13866,6 +14062,10 @@ Function vyhodnocujúca string ako Helm template v odovzdanom scope-e; rozširuj
 
 Routing vlastnosť zabezpečujúca, že spans rovnakého trace-u dorazia na rovnakú stateful processing identity, napríklad tail sampler. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
+## Trace-affinity contract
+
+Pravidlo zabezpečujúce, že všetky spans jedného trace-u dorazia k rovnakej stateful tail-sampling alebo processing identity. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md) a [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
 ## Trace attribute governance
 
 Policy určujúca povolené, bounded, sensitive a searchable span attributes spolu s retention a sampling použitím. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
@@ -13874,6 +14074,18 @@ Policy určujúca povolené, bounded, sensitive a searchable span attributes spo
 
 Miera, do akej backend obsahuje všetky relevantné spans a relationships konkrétneho trace-u; ovplyvňuje ju propagation, sampling, export a storage loss. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Trace-evidence loss window
+
+Časový a tenant/partition-specific interval, pre ktorý historical traces nemožno obnoviť pre sampling, propagation, queue retention, block publication alebo storage loss. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Trace-evidence subject
+
+Exact operation, trace/population, service/release, instrumentation, propagation, sampling, Collector, backend, tenant, recent/historical storage a query generation. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Trace-search generation
+
+Exact backend product/version, tenant, query language/expression, attribute/index contract, time range a scanned storage generation broad trace searchu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
 ## Trace-to-logs
 
 Correlation workflow, ktorý z trace ID, span ID, service a času vytvorí query do log backendu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
@@ -13881,6 +14093,10 @@ Correlation workflow, ktorý z trace ID, span ID, service a času vytvorí query
 ## TraceQL
 
 Tempo query language na trace a span search podľa attributes, duration, status a structural conditions. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Tracing-backend acceptance verdict
+
+Dôkaz, že synthetic a incident-representative traces prešli samplingom, ingestom, recent/historical publication, lookup/search, retention a tenant-isolation checks. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
 ## Tracked connection subject — Security Group
 
