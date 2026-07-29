@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **277**
-- Audited conceptual sections: **11183**
-- Total words: **648,190**
-- Findings: **23582** (critical 7062, high 8098, medium 2965, low 5457)
-- File grades: A 0, B 0, C 0, D 277
+- Audited authoritative articles: **278**
+- Audited conceptual sections: **11219**
+- Total words: **650,399**
+- Findings: **23672** (critical 7086, high 8129, medium 2979, low 5478)
+- File grades: A 0, B 0, C 0, D 278
 
 ## Interpretation
 
@@ -151,6 +151,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 623 | 30 | 25 | 14 | 9 | 1816 | `docs/12-observability/opentelemetry.md` |
 | D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
 | D | 622 | 26 | 35 | 6 | 11 | 1711 | `docs/14-sre-and-operations/incident-management.md` |
+| D | 618 | 24 | 31 | 14 | 21 | 2209 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
 | D | 617 | 30 | 24 | 11 | 19 | 2130 | `docs/09-kubernetes/logging-metrics-events.md` |
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
 | D | 612 | 25 | 33 | 7 | 25 | 2141 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
@@ -16035,6 +16036,64 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 327, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 370, `thin-concept-section` — **14. Backup/PITR acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/connection-pooling.md`
+
+- **CRITICAL** line 19, `bare-bullet-items` — **1. Exact pooling subject**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/service a release generation;`, `replica/Pod/process count;`, `client library a pool generation;`, `database endpoint, role a workload class;`.
+- **CRITICAL** line 19, `outline-instead-of-explanation` — **1. Exact pooling subject**: 14 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 77, `outline-instead-of-explanation` — **3. Pooling layers**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 95, `empty-section` — **4. Session, transaction a statement pooling**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 97, `bare-bullet-items` — **Session pooling**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session-local state funguje prirodzene;`, `protocol behavior je najbližšie priamemu connection modelu.`, `slabšie multiplexing;`, `veľa idle clients môže držať veľa server connections;`.
+- **CRITICAL** line 97, `outline-instead-of-explanation` — **Session pooling**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 113, `bare-bullet-items` — **Transaction pooling**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session-level SET mimo každej transaction;`, `temporary tables;`, `session advisory locks;`, `LISTEN/NOTIFY session assumptions;`.
+- **CRITICAL** line 151, `bare-bullet-items` — **5. Sizing connection poolu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database safe execution concurrency;`, `počet workload classes;`, `replica/failover topology;`, `query/service-time distribution;`.
+- **CRITICAL** line 184, `empty-section` — **6. Min, max a warmup**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 200, `bare-bullet-items` — **Warmup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rate-limited;`, `jittered;`, `readiness-aware;`, `dependency-capacity-aware;`.
+- **CRITICAL** line 200, `outline-instead-of-explanation` — **Warmup**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 213, `bare-bullet-items` — **7. Checkout a queue contract**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pool queue depth;`, `checkout wait distribution;`, `connect attempts/failures;`, `active/idle connections;`.
+- **CRITICAL** line 244, `bare-bullet-items` — **8. Pool reset a state hygiene**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `open transaction alebo failed transaction state;`, `session variables;`, `role/search path;`, `temporary objects;`.
+- **CRITICAL** line 270, `bare-bullet-items` — **9. Transactions a pool release**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `committed;`, `rolled back;`, `connection discarded pre unknown/broken state.`, `try/finally alebo framework-managed cleanup;`.
+- **CRITICAL** line 270, `outline-instead-of-explanation` — **9. Transactions a pool release**: 10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 290, `bare-bullet-items` — **10. Prepared statements a protocol features**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-side emulation;`, `unnamed protocol statement;`, `named server-side statement via session;`, `pooler-managed mapping.`.
+- **CRITICAL** line 310, `bare-bullet-items` — **11. Failover a reconnect storm**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `safe pre-execution connection failure;`, `transaction aborted;`, `unknown commit outcome;`, `stale read endpoint;`.
+- **CRITICAL** line 339, `bare-bullet-items` — **12. Reserved a administrative access**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident inspection;`, `terminating root blockers;`, `fencing;`, `backup/recovery;`.
+- **CRITICAL** line 354, `bare-bullet-items` — **13. Connected incident DB-PAY-57**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing temporary table errors;`, `absent alebo stale tenant context;`, `retries s novým connection/session state-om;`, `214 operations vyžadujúcich tenant-policy verification;`.
+- **CRITICAL** line 413, `no-prose-concept` — **Causal boundaries**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 413, `outline-instead-of-explanation` — **Causal boundaries**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 436, `outline-instead-of-explanation` — **15. Authoritative redesign**: 7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 461, `outline-instead-of-explanation` — **16. Pooling acceptance verdict**: 14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 480, `empty-section` — **17. Troubleshooting pooling incidentu**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 77, `bare-bullet-items` — **3. Pooling layers**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Shared external pooler — napríklad PgBouncer.`, `Managed database proxy — provider-managed connection multiplexing.`, `Database thread/execution pool — server-side concurrency management.`.
+- **HIGH** line 97, `single-sentence-concept` — **Session pooling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 113, `list-heavy-section` — **Transaction pooling**: 8 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 186, `single-sentence-concept` — **Minimum/idle connections**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 200, `single-sentence-concept` — **Warmup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 213, `list-heavy-section` — **7. Checkout a queue contract**: 10 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 244, `list-heavy-section` — **8. Pool reset a state hygiene**: 9 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 290, `list-heavy-section` — **10. Prepared statements a protocol features**: 10 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 310, `list-heavy-section` — **11. Failover a reconnect storm**: 6 odrážok a iba 52 slov súvislého vysvetlenia.
+- **HIGH** line 339, `list-heavy-section` — **12. Reserved a administrative access**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 354, `list-heavy-section` — **13. Connected incident DB-PAY-57**: 7 odrážok a iba 57 slov súvislého vysvetlenia.
+- **HIGH** line 413, `list-first-introduction` — **Causal boundaries**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 421, `list-first-introduction` — **14. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 436, `bare-bullet-items` — **15. Authoritative redesign**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `temporary-table batch workflow bol nahradený durable batch manifestom;`, `session advisory locks boli nahradené invariantom/fencing tokenom;`, `failed/unknown connections sa discardujú;`, `idempotency a provider reconciliation riešia unknown outcomes;`.
+- **HIGH** line 436, `single-sentence-concept` — **15. Authoritative redesign**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 461, `bare-bullet-items` — **16. Pooling acceptance verdict**: 10 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `exact fleet/pool/database subject je explicitný;`, `total theoretical aj effective connection demand je zmeraný;`, `session/transaction/statement mode zodpovedá application semantics;`, `session-state features sú zakázané alebo správne scoped/resetované;`.
+- **HIGH** line 461, `single-sentence-concept` — **16. Pooling acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 500, `single-sentence-concept` — **Pool max podľa thread countu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 504, `single-sentence-concept` — **Zvýš max connections**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 508, `single-sentence-concept` — **Pooler je transparentný proxy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 512, `single-sentence-concept` — **Vysoký minimumIdle znižuje latency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 516, `single-sentence-concept` — **Query je 30 ms, databáza je rýchla**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 520, `single-sentence-concept` — **Timeout a retry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 524, `single-sentence-concept` — **Connection sa vždy vráti do poolu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 528, `single-sentence-concept` — **Readiness otvorí celý pool**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 97, `thin-concept-section` — **Session pooling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 113, `term-before-explanation` — **Transaction pooling**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SET`, `LISTEN`, `NOTIFY`, `identity`
+- **HIGH** line 200, `thin-concept-section` — **Warmup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 413, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 436, `thin-concept-section` — **15. Authoritative redesign**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 461, `thin-concept-section` — **16. Pooling acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact index/lock/migration subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database, cluster, schema a table identity;`, `engine/version a topology generation;`, `row count, table/index size a growth;`, `query predicates, joins, ordering a limit;`.
@@ -16299,19 +16358,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2757 | 481 | 0 | 0 | 3238 |
-| `single-sentence-concept` | 0 | 2751 | 0 | 0 | 2751 |
-| `outline-instead-of-explanation` | 2735 | 0 | 0 | 0 | 2735 |
-| `term-before-explanation` | 0 | 594 | 1989 | 0 | 2583 |
-| `thin-concept-section` | 0 | 2316 | 0 | 0 | 2316 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2185 | 2185 |
-| `example-not-explicit` | 0 | 0 | 0 | 2169 | 2169 |
-| `list-first-introduction` | 0 | 1469 | 0 | 0 | 1469 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1103 | 1103 |
-| `short-concept-section` | 0 | 0 | 976 | 0 | 976 |
-| `no-prose-concept` | 853 | 0 | 0 | 0 | 853 |
-| `empty-section` | 717 | 0 | 0 | 0 | 717 |
-| `list-heavy-section` | 0 | 487 | 0 | 0 | 487 |
+| `bare-bullet-items` | 2769 | 484 | 0 | 0 | 3253 |
+| `single-sentence-concept` | 0 | 2764 | 0 | 0 | 2764 |
+| `outline-instead-of-explanation` | 2743 | 0 | 0 | 0 | 2743 |
+| `term-before-explanation` | 0 | 595 | 1996 | 0 | 2591 |
+| `thin-concept-section` | 0 | 2321 | 0 | 0 | 2321 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2196 | 2196 |
+| `example-not-explicit` | 0 | 0 | 0 | 2178 | 2178 |
+| `list-first-introduction` | 0 | 1471 | 0 | 0 | 1471 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1104 | 1104 |
+| `short-concept-section` | 0 | 0 | 983 | 0 | 983 |
+| `no-prose-concept` | 854 | 0 | 0 | 0 | 854 |
+| `empty-section` | 720 | 0 | 0 | 0 | 720 |
+| `list-heavy-section` | 0 | 494 | 0 | 0 | 494 |
 
 ## Required remediation pattern
 

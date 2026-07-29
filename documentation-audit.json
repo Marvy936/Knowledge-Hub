@@ -3823,6 +3823,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "title": "Connection pooling",
+      "words": 2209,
+      "headings": 36,
+      "sections": 36,
+      "findings": 90,
+      "critical": 24,
+      "high": 31,
+      "medium": 14,
+      "low": 21,
+      "score": 618,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "title": "Indexy, locks a migrations",
       "words": 2104,
@@ -212756,6 +212770,816 @@
       "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
       "section": "Kľúč obnovíme počas incidentu",
       "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "1. Exact pooling subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "1. Exact pooling subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/service a release generation;`, `replica/Pod/process count;`, `client library a pool generation;`, `database endpoint, role a workload class;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "1. Exact pooling subject",
+      "line": 19,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "1. Exact pooling subject",
+      "line": 19,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "1. Exact pooling subject",
+      "line": 19,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "2. Prečo connections stoja resources",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "3. Pooling layers",
+      "line": 77,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "3. Pooling layers",
+      "line": 77,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Shared external pooler — napríklad PgBouncer.`, `Managed database proxy — provider-managed connection multiplexing.`, `Database thread/execution pool — server-side concurrency management.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "3. Pooling layers",
+      "line": 77,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "3. Pooling layers",
+      "line": 77,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JDBC`, `NET`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "4. Session, transaction a statement pooling",
+      "line": 95,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Session pooling",
+      "line": 97,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Session pooling",
+      "line": 97,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Session pooling",
+      "line": 97,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session-local state funguje prirodzene;`, `protocol behavior je najbližšie priamemu connection modelu.`, `slabšie multiplexing;`, `veľa idle clients môže držať veľa server connections;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Session pooling",
+      "line": 97,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Session pooling",
+      "line": 97,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Transaction pooling",
+      "line": 113,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Transaction pooling",
+      "line": 113,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `session-level SET mimo každej transaction;`, `temporary tables;`, `session advisory locks;`, `LISTEN/NOTIFY session assumptions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Transaction pooling",
+      "line": 113,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Transaction pooling",
+      "line": 113,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Transaction pooling",
+      "line": 113,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Transaction pooling",
+      "line": 113,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SET`, `LISTEN`, `NOTIFY`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "5. Sizing connection poolu",
+      "line": 151,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database safe execution concurrency;`, `počet workload classes;`, `replica/failover topology;`, `query/service-time distribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "5. Sizing connection poolu",
+      "line": 151,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "6. Min, max a warmup",
+      "line": 184,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Minimum/idle connections",
+      "line": 186,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Warmup",
+      "line": 200,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Warmup",
+      "line": 200,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Warmup",
+      "line": 200,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rate-limited;`, `jittered;`, `readiness-aware;`, `dependency-capacity-aware;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Warmup",
+      "line": 200,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "7. Checkout a queue contract",
+      "line": 213,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "7. Checkout a queue contract",
+      "line": 213,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pool queue depth;`, `checkout wait distribution;`, `connect attempts/failures;`, `active/idle connections;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "7. Checkout a queue contract",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "8. Pool reset a state hygiene",
+      "line": 244,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "8. Pool reset a state hygiene",
+      "line": 244,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `open transaction alebo failed transaction state;`, `session variables;`, `role/search path;`, `temporary objects;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "8. Pool reset a state hygiene",
+      "line": 244,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "8. Pool reset a state hygiene",
+      "line": 244,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "8. Pool reset a state hygiene",
+      "line": 244,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "8. Pool reset a state hygiene",
+      "line": 244,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LISTEN`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "9. Transactions a pool release",
+      "line": 270,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "9. Transactions a pool release",
+      "line": 270,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `committed;`, `rolled back;`, `connection discarded pre unknown/broken state.`, `try/finally alebo framework-managed cleanup;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "9. Transactions a pool release",
+      "line": 270,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "9. Transactions a pool release",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "9. Transactions a pool release",
+      "line": 270,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "10. Prepared statements a protocol features",
+      "line": 290,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "10. Prepared statements a protocol features",
+      "line": 290,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-side emulation;`, `unnamed protocol statement;`, `named server-side statement via session;`, `pooler-managed mapping.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "10. Prepared statements a protocol features",
+      "line": 290,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "10. Prepared statements a protocol features",
+      "line": 290,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "11. Failover a reconnect storm",
+      "line": 310,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "11. Failover a reconnect storm",
+      "line": 310,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `safe pre-execution connection failure;`, `transaction aborted;`, `unknown commit outcome;`, `stale read endpoint;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "11. Failover a reconnect storm",
+      "line": 310,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "11. Failover a reconnect storm",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "12. Reserved a administrative access",
+      "line": 339,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "12. Reserved a administrative access",
+      "line": 339,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident inspection;`, `terminating root blockers;`, `fencing;`, `backup/recovery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "12. Reserved a administrative access",
+      "line": 339,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "12. Reserved a administrative access",
+      "line": 339,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "13. Connected incident DB-PAY-57",
+      "line": 354,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 57 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "13. Connected incident DB-PAY-57",
+      "line": 354,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing temporary table errors;`, `absent alebo stale tenant context;`, `retries s novým connection/session state-om;`, `214 operations vyžadujúcich tenant-policy verification;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "13. Connected incident DB-PAY-57",
+      "line": 354,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "13. Connected incident DB-PAY-57",
+      "line": 354,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Causal boundaries",
+      "line": 413,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Causal boundaries",
+      "line": 413,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Causal boundaries",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Causal boundaries",
+      "line": 413,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Causal boundaries",
+      "line": 413,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "14. Evidence-preserving containment",
+      "line": 421,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `temporary-table batch workflow bol nahradený durable batch manifestom;`, `session advisory locks boli nahradené invariantom/fencing tokenom;`, `failed/unknown connections sa discardujú;`, `idempotency a provider reconciliation riešia unknown outcomes;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "15. Authoritative redesign",
+      "line": 436,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SET`, `LOCAL`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `exact fleet/pool/database subject je explicitný;`, `total theoretical aj effective connection demand je zmeraný;`, `session/transaction/statement mode zodpovedá application semantics;`, `session-state features sú zakázané alebo správne scoped/resetované;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "16. Pooling acceptance verdict",
+      "line": 461,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "17. Troubleshooting pooling incidentu",
+      "line": 480,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Pool max podľa thread countu",
+      "line": 500,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Zvýš max connections",
+      "line": 504,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Pooler je transparentný proxy",
+      "line": 508,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Vysoký minimumIdle znižuje latency",
+      "line": 512,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Query je 30 ms, databáza je rýchla",
+      "line": 516,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Timeout a retry",
+      "line": 520,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Connection sa vždy vráti do poolu",
+      "line": 524,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
+      "section": "Readiness otvorí celý pool",
+      "line": 528,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
