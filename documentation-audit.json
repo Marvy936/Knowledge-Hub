@@ -3907,6 +3907,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "title": "Synchronous vs. asynchronous communication",
+      "words": 1923,
+      "headings": 33,
+      "sections": 33,
+      "findings": 78,
+      "critical": 22,
+      "high": 20,
+      "medium": 14,
+      "low": 22,
+      "score": 507,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
       "title": "Transactions a ACID",
       "words": 1923,
@@ -218720,6 +218734,708 @@
       "path": "docs/15-databases-and-distributed-systems/replication-and-high-availability.md",
       "section": "Failback je reverse failover",
       "line": 513,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "1. Exact communication subject",
+      "line": 20,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "1. Exact communication subject",
+      "line": 20,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical business operation;`, `caller a callee identity/generation;`, `request, command alebo event type a schema generation;`, `immediate response contract;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "1. Exact communication subject",
+      "line": 20,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "1. Exact communication subject",
+      "line": 20,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "1. Exact communication subject",
+      "line": 20,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "1. Exact communication subject",
+      "line": 20,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "2. Synchronous communication",
+      "line": 52,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "2. Synchronous communication",
+      "line": 52,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý lokálny control flow;`, `okamžitý success/failure result;`, `prirodzené request-scoped authentication a tracing;`, `caller a callee musia byť súčasne dostupné;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "2. Synchronous communication",
+      "line": 52,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "2. Synchronous communication",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "2. Synchronous communication",
+      "line": 52,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "3. Deadline budget a propagation",
+      "line": 86,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť product expectation;`, `vrátiť durable acceptance a final result doručiť neskôr;`, `použiť bounded degraded path;`, `znížiť dependency work;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "4. Timeout, cancellation a unknown outcome",
+      "line": 120,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 61 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "4. Timeout, cancellation a unknown outcome",
+      "line": 120,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `callee request neprijal;`, `transaction rollbackla;`, `provider operation sa nevykonala;`, `server prestal pracovať;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "4. Timeout, cancellation a unknown outcome",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "4. Timeout, cancellation a unknown outcome",
+      "line": 120,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "4. Timeout, cancellation a unknown outcome",
+      "line": 120,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "5. Asynchronous communication",
+      "line": 148,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "5. Asynchronous communication",
+      "line": 148,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelenie caller latency od dlhého downstream processingu;`, `buffering a controlled concurrency;`, `lepšia absorpcia transient spikes;`, `nezávislé scaling a failure recovery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "5. Asynchronous communication",
+      "line": 148,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "5. Asynchronous communication",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "5. Asynchronous communication",
+      "line": 148,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "5. Asynchronous communication",
+      "line": 148,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "6. Commands, events a queries",
+      "line": 182,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "7. Acknowledgement levels",
+      "line": 208,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "7. Acknowledgement levels",
+      "line": 208,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bytes boli prijaté socketom;`, `request bol parsed;`, `command prešiel admission;`, `intent bol durable commitnutý;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "7. Acknowledgement levels",
+      "line": 208,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "7. Acknowledgement levels",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "7. Acknowledgement levels",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "14 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `polling stable status resource-u;`, `long polling;`, `webhook/callback;`, `server-sent events;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "8. Result delivery patterns",
+      "line": 235,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "9. Backlog a business latency",
+      "line": 259,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "9. Backlog a business latency",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `acceptance rate a latency;`, `queue age, nie iba queue depth;`, `time-to-first-attempt;`, `final completion latency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "9. Backlog a business latency",
+      "line": 259,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "9. Backlog a business latency",
+      "line": 259,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "10. Sync-over-async a async-over-sync",
+      "line": 283,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "11. Worked incident DB-PAY-58",
+      "line": 295,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "11. Worked incident DB-PAY-58",
+      "line": 295,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `18 420 settlement requests prišlo do gatewaya;`, `31 % trafficu skončilo na legacy synchronous cohort-e;`, `2 906 legacy calls prekročilo client deadline;`, `clients vytvorili 4 118 retry attempts;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "11. Worked incident DB-PAY-58",
+      "line": 295,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Communication root cause",
+      "line": 336,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v8.1 timeout mohol nastať po provider effecte;`, `v8.2 202 znamenalo iba durable acceptance;`, `gateway neexponovala contract generation;`, `status resource nebol povinnou súčasťou SDK retry flowu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Communication root cause",
+      "line": 336,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Communication root cause",
+      "line": 336,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Communication root cause",
+      "line": 336,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Communication root cause",
+      "line": 336,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 348,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 348,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 348,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 348,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rejected-before-commit;`, `accepted-durable;`, `provider-never-sent;`, `provider-sent-unknown;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 348,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používa stable idempotency key;`, `nerozlišuje success iba podľa HTTP response delivery;`, `interpretuje accepted , processing , completed , failed-final a reconc`, `má bounded polling/backoff budget.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "13. Authoritative redesign",
+      "line": 371,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact logical operation a actors/generations sú explicitné;`, `immediate a final outcome sú oddelené;`, `deadline propagation a cancellation semantics sú definované;`, `timeout sa neinterpretuje automaticky ako failure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "14. Communication acceptance verdict",
+      "line": 398,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "15. Troubleshooting flow",
+      "line": 416,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "HTTP je synchronous, broker je asynchronous",
+      "line": 434,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Timeout = operation zlyhala",
+      "line": 438,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Zvýšime timeout",
+      "line": 442,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "202 znamená hotovo",
+      "line": 446,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Fire-and-forget",
+      "line": 450,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Async vyrieši availability",
+      "line": 454,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Retry patrí každej vrstve",
+      "line": 458,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md",
+      "section": "Cancellation rollbackne všetko",
+      "line": 462,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

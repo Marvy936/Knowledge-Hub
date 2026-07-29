@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **280**
-- Audited conceptual sections: **11317**
-- Total words: **655,063**
-- Findings: **23940** (critical 7190, high 8231, medium 3005, low 5514)
-- File grades: A 0, B 0, C 0, D 280
+- Audited authoritative articles: **281**
+- Audited conceptual sections: **11350**
+- Total words: **656,986**
+- Findings: **24018** (critical 7212, high 8251, medium 3019, low 5536)
+- File grades: A 0, B 0, C 0, D 281
 
 ## Interpretation
 
@@ -207,6 +207,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 513 | 20 | 24 | 12 | 29 | 1972 | `docs/13-security-and-identity/image-signing.md` |
 | D | 510 | 20 | 28 | 5 | 26 | 2111 | `docs/13-security-and-identity/active-directory.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
+| D | 507 | 22 | 20 | 14 | 22 | 1923 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | D | 506 | 26 | 19 | 8 | 14 | 1855 | `docs/09-kubernetes/securitycontext-pod-security.md` |
 | D | 505 | 17 | 31 | 9 | 17 | 1818 | `docs/14-sre-and-operations/capacity-planning.md` |
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -16514,6 +16515,51 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 452, `term-before-explanation` — **20. Replication/HA acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DNS`, `PITR`
 - **HIGH** line 452, `thin-concept-section` — **20. Replication/HA acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md`
+
+- **CRITICAL** line 20, `bare-bullet-items` — **1. Exact communication subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical business operation;`, `caller a callee identity/generation;`, `request, command alebo event type a schema generation;`, `immediate response contract;`.
+- **CRITICAL** line 20, `outline-instead-of-explanation` — **1. Exact communication subject**: 11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 52, `bare-bullet-items` — **2. Synchronous communication**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý lokálny control flow;`, `okamžitý success/failure result;`, `prirodzené request-scoped authentication a tracing;`, `caller a callee musia byť súčasne dostupné;`.
+- **CRITICAL** line 86, `bare-bullet-items` — **3. Deadline budget a propagation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť product expectation;`, `vrátiť durable acceptance a final result doručiť neskôr;`, `použiť bounded degraded path;`, `znížiť dependency work;`.
+- **CRITICAL** line 120, `bare-bullet-items` — **4. Timeout, cancellation a unknown outcome**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `callee request neprijal;`, `transaction rollbackla;`, `provider operation sa nevykonala;`, `server prestal pracovať;`.
+- **CRITICAL** line 148, `bare-bullet-items` — **5. Asynchronous communication**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelenie caller latency od dlhého downstream processingu;`, `buffering a controlled concurrency;`, `lepšia absorpcia transient spikes;`, `nezávislé scaling a failure recovery;`.
+- **CRITICAL** line 148, `outline-instead-of-explanation` — **5. Asynchronous communication**: 12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 182, `empty-section` — **6. Commands, events a queries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 208, `bare-bullet-items` — **7. Acknowledgement levels**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bytes boli prijaté socketom;`, `request bol parsed;`, `command prešiel admission;`, `intent bol durable commitnutý;`.
+- **CRITICAL** line 208, `outline-instead-of-explanation` — **7. Acknowledgement levels**: 9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 235, `bare-bullet-items` — **8. Result delivery patterns**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `polling stable status resource-u;`, `long polling;`, `webhook/callback;`, `server-sent events;`.
+- **CRITICAL** line 259, `bare-bullet-items` — **9. Backlog a business latency**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `acceptance rate a latency;`, `queue age, nie iba queue depth;`, `time-to-first-attempt;`, `final completion latency;`.
+- **CRITICAL** line 259, `outline-instead-of-explanation` — **9. Backlog a business latency**: 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 283, `empty-section` — **10. Sync-over-async a async-over-sync**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 336, `bare-bullet-items` — **Communication root cause**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v8.1 timeout mohol nastať po provider effecte;`, `v8.2 202 znamenalo iba durable acceptance;`, `gateway neexponovala contract generation;`, `status resource nebol povinnou súčasťou SDK retry flowu.`.
+- **CRITICAL** line 348, `bare-bullet-items` — **12. Evidence-preserving containment**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rejected-before-commit;`, `accepted-durable;`, `provider-never-sent;`, `provider-sent-unknown;`.
+- **CRITICAL** line 348, `outline-instead-of-explanation` — **12. Evidence-preserving containment**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 371, `bare-bullet-items` — **13. Authoritative redesign**: 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používa stable idempotency key;`, `nerozlišuje success iba podľa HTTP response delivery;`, `interpretuje accepted , processing , completed , failed-final a reconc`, `má bounded polling/backoff budget.`.
+- **CRITICAL** line 371, `outline-instead-of-explanation` — **13. Authoritative redesign**: 9 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 398, `bare-bullet-items` — **14. Communication acceptance verdict**: 10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact logical operation a actors/generations sú explicitné;`, `immediate a final outcome sú oddelené;`, `deadline propagation a cancellation semantics sú definované;`, `timeout sa neinterpretuje automaticky ako failure;`.
+- **CRITICAL** line 398, `outline-instead-of-explanation` — **14. Communication acceptance verdict**: 13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 416, `empty-section` — **15. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 52, `list-heavy-section` — **2. Synchronous communication**: 11 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 120, `list-heavy-section` — **4. Timeout, cancellation a unknown outcome**: 9 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 235, `list-heavy-section` — **8. Result delivery patterns**: 14 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 295, `bare-bullet-items` — **11. Worked incident DB-PAY-58**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `18 420 settlement requests prišlo do gatewaya;`, `31 % trafficu skončilo na legacy synchronous cohort-e;`, `2 906 legacy calls prekročilo client deadline;`, `clients vytvorili 4 118 retry attempts;`.
+- **HIGH** line 295, `list-heavy-section` — **11. Worked incident DB-PAY-58**: 7 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 348, `list-first-introduction` — **12. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 348, `single-sentence-concept` — **12. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 371, `single-sentence-concept` — **13. Authoritative redesign**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 398, `single-sentence-concept` — **14. Communication acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 434, `single-sentence-concept` — **HTTP je synchronous, broker je asynchronous**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 438, `single-sentence-concept` — **Timeout = operation zlyhala**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 442, `single-sentence-concept` — **Zvýšime timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 446, `single-sentence-concept` — **202 znamená hotovo**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 450, `single-sentence-concept` — **Fire-and-forget**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 454, `single-sentence-concept` — **Async vyrieši availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 458, `single-sentence-concept` — **Retry patrí každej vrstve**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 462, `single-sentence-concept` — **Cancellation rollbackne všetko**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 348, `thin-concept-section` — **12. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 371, `thin-concept-section` — **13. Authoritative redesign**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 398, `thin-concept-section` — **14. Communication acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/transactions-and-acid.md`
 
 - **CRITICAL** line 20, `bare-bullet-items` — **1. Exact transaction subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business operation a actor;`, `transaction ID alebo correlation identity;`, `database, schema a topology generation;`, `read set, write set a dependent records;`.
@@ -16572,19 +16618,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2809 | 487 | 0 | 0 | 3296 |
-| `single-sentence-concept` | 0 | 2800 | 0 | 0 | 2800 |
-| `outline-instead-of-explanation` | 2779 | 0 | 0 | 0 | 2779 |
-| `term-before-explanation` | 0 | 601 | 2016 | 0 | 2617 |
-| `thin-concept-section` | 0 | 2355 | 0 | 0 | 2355 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2211 | 2211 |
-| `example-not-explicit` | 0 | 0 | 0 | 2190 | 2190 |
-| `list-first-introduction` | 0 | 1489 | 0 | 0 | 1489 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1113 | 1113 |
-| `short-concept-section` | 0 | 0 | 989 | 0 | 989 |
+| `bare-bullet-items` | 2821 | 488 | 0 | 0 | 3309 |
+| `single-sentence-concept` | 0 | 2811 | 0 | 0 | 2811 |
+| `outline-instead-of-explanation` | 2786 | 0 | 0 | 0 | 2786 |
+| `term-before-explanation` | 0 | 601 | 2023 | 0 | 2624 |
+| `thin-concept-section` | 0 | 2358 | 0 | 0 | 2358 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2219 | 2219 |
+| `example-not-explicit` | 0 | 0 | 0 | 2199 | 2199 |
+| `list-first-introduction` | 0 | 1490 | 0 | 0 | 1490 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1118 | 1118 |
+| `short-concept-section` | 0 | 0 | 996 | 0 | 996 |
 | `no-prose-concept` | 866 | 0 | 0 | 0 | 866 |
-| `empty-section` | 736 | 0 | 0 | 0 | 736 |
-| `list-heavy-section` | 0 | 499 | 0 | 0 | 499 |
+| `empty-section` | 739 | 0 | 0 | 0 | 739 |
+| `list-heavy-section` | 0 | 503 | 0 | 0 | 503 |
 
 ## Required remediation pattern
 
