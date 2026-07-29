@@ -1,961 +1,436 @@
 # Jaeger a Tempo
 
-Jaeger a Grafana Tempo sú distributed tracing backends. Prijímajú spans, ukladajú trace data a poskytujú query a visualization vrstvu na rekonštrukciu request paths naprieč services. Oba systémy podporujú OpenTelemetry-based ingestion, ale používajú odlišný storage, deployment a query model.
+Jaeger a Grafana Tempo sú distributed tracing backends. Prijímajú spans, ukladajú trace data a poskytujú lookup, search a visualization nad distributed operations. Backend však vidí iba telemetry, ktorá bola vytvorená, správne propagovaná, zachovaná sampling policy, prijatá ingest pathom a ešte existuje v queryovateľnej storage generation.
 
-Tracing backend nevytvára kvalitné traces automaticky. Potrebuje správnu application instrumentation, context propagation, sampling, stable resource identity, bounded attributes a koreláciu s metrics a logs.
-
-## 1. Mentálny model
+## 1. Dominantný mentálny model
 
 ```text
-application instrumentation
-→ trace context propagation
-→ spans
-→ OpenTelemetry Collector alebo agent
-→ sampling, enrichment a redaction
-→ Jaeger alebo Tempo ingest path
-→ trace storage
-→ query service
-→ Jaeger UI alebo Grafana
-→ trace-to-logs, trace-to-metrics a service graph investigation
+business alebo operational operation
+→ exact trace subject a expected span graph
+→ context propagation
+→ span generation a resource identity
+→ sampling decision
+→ Collector processing a export
+→ backend ingest acknowledgement
+→ recent-data state
+→ durable historical storage generation
+→ exact trace lookup alebo attribute search
+→ evidence-completeness verdict
+→ operational decision a recovery validation
 ```
 
-Backend vidí iba spans, ktoré boli vytvorené, sampled, exportované a úspešne uložené.
-
-## 2. Trace a span identity
-
-Trace identifikuje end-to-end operation pomocou trace ID.
-
-Span reprezentuje jednu operation a typicky obsahuje:
-
-- trace ID,
-- span ID,
-- parent span ID alebo links,
-- operation name,
-- start/end time,
-- status,
-- resource attributes,
-- span attributes,
-- span events,
-- links,
-- instrumentation scope.
-
-Backend skladá graph podľa IDs a relationships. Nevie spoľahlivo opraviť chýbajúci alebo nesprávny parent context.
-
-## 3. Context propagation
-
-Trace continuity závisí od propagation cez:
-
-- HTTP headers,
-- gRPC metadata,
-- message headers,
-- queue attributes,
-- async callbacks,
-- batch boundaries,
-- scheduled jobs.
-
-Chyby:
-
-- client nevloží context,
-- proxy odstráni headers,
-- consumer nevytiahne context,
-- thread/coroutine context sa stratí,
-- nový trace sa vytvorí namiesto child span-u,
-- propaguje sa sampled flag nekonzistentne.
-
-Broken trace je často instrumentation problém, nie storage problém.
-
-## 4. OTLP
-
-OpenTelemetry Protocol je preferovaný vendor-neutral transport pre traces medzi SDKs, Collectors a backends.
-
-Varianty:
-
-- OTLP/gRPC,
-- OTLP/HTTP.
-
-Over:
-
-- endpoint a port,
-- TLS/mTLS,
-- authentication,
-- compression,
-- max message size,
-- retries,
-- queue,
-- tenant headers,
-- protocol compatibility.
-
-Jaeger aj Tempo môžu prijímať OTLP podľa použitej konfigurácie a verzie.
-
-## 5. OpenTelemetry Collector pred tracing backendom
-
-Collector môže vykonávať:
-
-- receiver termination,
-- batching,
-- memory limiting,
-- resource detection,
-- attribute normalization,
-- redaction,
-- filtering,
-- tail sampling,
-- multi-tenant routing,
-- fan-out,
-- retries a queues.
-
-Častý production model:
+Kritické rozlíšenie:
 
 ```text
-SDK alebo auto-instrumentation
-→ local/agent Collector
-→ gateway Collector
-→ tracing backend
+operation prebehla
+≠ spans vznikli
+≠ trace je kompletný
+≠ backend ingest prijal data
+≠ trace je durable v historical storage
+≠ search ho dokáže nájsť
 ```
 
-Každá ďalšia vrstva pridáva buffering, latency, configuration a failure boundaries. Potrebuje vlastnú self-observability.
+Tracing je detailný diagnostický evidence systém, nie autoritatívny request counter. Sampling, broken propagation a storage loss menia jeho coverage.
 
-## 6. Jaeger v2 architektúra
+## 2. Exact tracing subject
 
-Aktuálna Jaeger v2 architektúra je postavená ako distribúcia nad OpenTelemetry Collector frameworkom a jeden binary môže vykonávať rôzne roles.
-
-Hlavné roles:
-
-- `collector` — prijíma traces a zapisuje ich do storage,
-- `query` — poskytuje query APIs a UI,
-- `ingester` — číta spans z Kafka a zapisuje do storage,
-- `all-in-one` — collector a query v jednom procese,
-- agent role je možná, ale dokumentácia odporúča štandardný OpenTelemetry Collector pre bežný multi-signal edge model.
-
-Jaeger collector a query sú pri external storage stateless a možno ich škálovať horizontálne.
-
-## 7. Jaeger all-in-one
-
-All-in-one spája ingestion, query a UI.
-
-Vhodné pre:
-
-- development,
-- lokálne testy,
-- demo,
-- malé laby.
-
-In-memory storage stráca data pri reštarte a nie je production retention model.
-
-Single-node persistent backend môže byť vhodný iba pre bounded volume a bez očakávania horizontal scalingu.
-
-## 8. Jaeger direct-to-storage
-
-Model:
+Pre incident alebo migration zaznamenaj:
 
 ```text
-applications/collectors
+Trace subject ID:
+Business operation a caller:
+Trace ID alebo expected trace population:
+Service/release/cohort:
+Instrumentation a semantic-convention generation:
+Propagation format:
+Sampling policy generation:
+Collector topology/config generation:
+Backend product/version/deployment mode:
+Tenant:
+Recent-data generation:
+Historical storage/index/block generation:
+Retention generation:
+Query type, time range a cut-off:
+```
+
+Trace ID bez service, tenant, sampling, Collector a storage generation nestačí. Rovnaký business operation môže byť v rôznych generations reprezentovaný odlišným alebo neúplným span graphom.
+
+## 3. Trace continuity a span graph
+
+Span typicky obsahuje:
+
+- trace ID a span ID;
+- parent span ID alebo links;
+- stable operation name a kind;
+- start/end time a status;
+- resource a instrumentation-scope identity;
+- bounded attributes a events.
+
+Context sa musí preniesť cez HTTP, gRPC, message headers, queues, async callbacks, batches a scheduled jobs. Backend nevie spätne opraviť parent ID, ktorý producer nevytvoril.
+
+Broken graph môže vzniknúť takto:
+
+```text
+caller injectne trace context
+→ proxy header zachová alebo odstráni
+→ consumer context extrahuje alebo vytvorí nový root
+→ async worker current context zachová alebo stratí
+→ child spans sa pripoja, linknú alebo osirejú
+```
+
+Viac roots alebo missing child span je najprv propagation/instrumentation hypotéza, nie automaticky storage defect.
+
+## 4. Jaeger v2
+
+Jaeger v2 je postavený nad OpenTelemetry Collector frameworkom a jeden binary môže vykonávať rôzne roles:
+
+- `collector` prijíma traces a zapisuje ich do storage;
+- `query` poskytuje query APIs a UI;
+- `ingester` číta spans z Kafka a zapisuje ich do storage;
+- `all-in-one` kombinuje collector a query;
+- pre bežný multi-signal edge model je preferovaný štandardný OpenTelemetry Collector namiesto samostatnej Jaeger agent role.
+
+Dve hlavné production topológie:
+
+```text
+Direct-to-storage
+applications/OTel Collectors
 → Jaeger collector
 → external storage
 → Jaeger query
 ```
 
-Výhody:
-
-- jednoduchšia architektúra,
-- nižšia latency a menej komponentov,
-- collector/query možno škálovať samostatne.
-
-Riziká:
-
-- storage musí absorbovať peak writes,
-- krátka in-memory queue nepokryje dlhý storage outage,
-- backpressure môže viesť k dropped spans,
-- storage write latency ovplyvňuje ingestion.
-
-## 9. Jaeger cez Kafka
-
-Model:
-
 ```text
-collector
+Kafka-buffered
+Jaeger collector
 → Kafka
 → Jaeger ingester
-→ storage
+→ external storage
+→ Jaeger query
 ```
 
-Výhody:
+Direct model má menej components, ale storage musí absorbovať peak writes. Kafka model pridáva durable buffer a replay, ale aj partitioning, lag, retention a duplicate-processing boundaries.
 
-- durable buffer,
-- oddelenie ingestion burstu od storage throughputu,
-- replay,
-- nezávislé scaling consumers.
+Jaeger `all-in-one` s in-memory storage je development/test model. Process health alebo funkčný UI nepreukazuje production retention ani independent failure domain.
 
-Riziká:
+## 5. Tempo 3.0
 
-- Kafka operations,
-- partitioning a ordering,
-- consumer lag,
-- retention window,
-- duplicate processing,
-- ďalší security a cost boundary.
+Tempo 3.0 rozlišuje monolithic a microservices deployment.
 
-Kafka nie je automaticky potrebná pri každom deployment-e. Použi ju, keď durability a burst decoupling ospravedlňujú complexity.
-
-## 10. Jaeger storage
-
-Jaeger podporuje viacero storage backends podľa verzie a deploymentu, napríklad distributed document stores alebo databases.
-
-Pri výbere over:
-
-- supported version,
-- index/schema lifecycle,
-- write throughput,
-- search latency,
-- retention,
-- backup/restore,
-- multi-tenancy,
-- encryption,
-- storage cost,
-- migration path.
-
-Collector a query musia používať konzistentný storage configuration a schema contract.
-
-## 11. Jaeger Query a UI
-
-Query role poskytuje:
-
-- trace lookup,
-- service/operation search,
-- UI,
-- dependency/service performance views podľa konfigurácie,
-- query APIs.
-
-Search completeness závisí od storage indexing, sampling a time range.
-
-Trace lookup podľa exact trace ID je iný workload než broad search podľa service, operation a attributes.
-
-## 12. Jaeger Service Performance Monitoring
-
-Jaeger môže odvodiť service metrics zo spans pomocou span metrics pipeline a Prometheus-compatible metrics storage.
-
-Typické derived metrics:
-
-- request rate,
-- error rate,
-- duration distributions,
-- service dependencies.
-
-Trace-derived metrics sú ovplyvnené samplingom. Ak sampled traces nereprezentujú všetok traffic, nemusia byť vhodné ako autoritatívne SLI denominator data.
-
-## 13. Jaeger remote sampling
-
-Jaeger podporuje centralizované remote sampling strategies pre SDKs podľa service a operation.
-
-Modely môžu zahŕňať:
-
-- probabilistic sampling,
-- rate-limiting sampling,
-- service/operation-specific policies,
-- adaptive sampling podľa podporovaného storage a verzie.
-
-Remote sampling je head-based: rozhodnutie sa robí pred poznaním finálneho outcome-u trace-u.
-
-## 14. Tempo architektúra
-
-Grafana Tempo je tracing backend orientovaný na object storage a integráciu s Grafanou.
-
-Aktuálna Tempo 3.0 architektúra rozlišuje:
-
-- monolithic mode,
-- microservices mode.
-
-V microservices mode používa Kafka-compatible queue ako durable intermediary medzi distributorom a downstream consumers. V monolithic mode Kafka nie je potrebná a komponenty komunikujú in-process.
-
-Version-specific architektúru treba pri implementácii vždy overiť podľa používanej Tempo verzie; staršie Tempo návrhy používali odlišný ingestion lifecycle.
-
-## 15. Tempo microservices write path
-
-Aktuálny model:
+### Microservices write path
 
 ```text
-OTLP traces
-→ distributor
-→ validation a sharding podľa trace ID
-→ Kafka-compatible queue
-→ block builders
+OTLP spans
+→ distributor validation
+→ trace-ID partitioning
+→ Kafka-compatible durable queue
+→ acknowledgement producerovi
+→ live-store pre recent queries
+→ block-builder
 → Parquet blocks
 → object storage
 ```
 
-Write je acknowledged po durable Kafka acknowledgement podľa aktuálnej microservices architektúry.
+Distributor potvrdí write po Kafka acknowledgement-e. To preukazuje durable prijatie do queue generation, nie vytvorenie historical blocku.
 
-Block builders:
+Block-builder:
 
-- konzumujú partitions,
-- skladajú spans do blocks,
-- zapisujú Parquet/object-store formát,
-- commitujú consumer progress.
+1. číta pridelené Kafka partitions;
+2. skladá spans do blocks;
+3. zapisuje Parquet blocks do object storage;
+4. až po úspešnom flushi commitne consumer progress.
 
-Kafka retention musí preklenúť čas potrebný na bezpečné spracovanie a flush do object storage.
+Live-store má samostatný consumer progress a obsluhuje recent data. Preto môže recent lookup fungovať, zatiaľ čo historical publication zaostáva.
 
-## 16. Tempo monolithic write path
-
-Monolithic mode:
+### Monolithic write path
 
 ```text
 distributor
-→ live store in-process
+→ in-process live-store
 → local WAL/temporary blocks
 → object storage
 ```
 
-Vhodné pre:
+Monolithic mode nepotrebuje Kafka, ale nemá rovnaké independent scaling a durable-queue boundaries ako microservices model.
 
-- development,
-- menší deployment,
-- jednoduchšiu prevádzku.
-
-Nemá rovnaké independent scaling a durable queue boundaries ako microservices model.
-
-## 17. Tempo recent a historical data
-
-Tempo read path kombinuje:
-
-- live stores pre recent traces,
-- object storage pre historical blocks.
-
-Query frontend:
-
-- prijme trace ID alebo TraceQL query,
-- rozdelí search na jobs,
-- použije per-tenant queue,
-- distribuuje prácu queriers,
-- merge-ne a deduplikuje results.
-
-Querier číta:
-
-- recent traces z live stores,
-- historical blocks z object storage.
-
-Preto môže existovať failure mode, keď historical traces fungujú, ale recent nie, alebo naopak.
-
-## 18. Tempo object storage
-
-Object storage je long-term storage pre trace blocks.
-
-Podporované hlavné APIs zahŕňajú:
-
-- S3/S3-compatible,
-- GCS,
-- Azure Blob Storage,
-- local filesystem pre development/test.
-
-Trace data je organizované podľa tenantov a blocks.
-
-Object-store cost zahŕňa:
-
-- retained bytes,
-- PUT/GET/LIST operations,
-- query scans,
-- compaction,
-- cache,
-- cross-zone/Region transfer.
-
-Object-store lifecycle nesmie mazať blocks skôr než Tempo retention/maintenance model.
-
-## 19. Parquet blocks
-
-Tempo používa columnar Parquet block format pre trace data.
-
-Výhody:
-
-- column pruning,
-- efektívnejší attribute search,
-- compression,
-- query parallelism.
-
-Query performance stále závisí od:
-
-- time range,
-- attributes,
-- dedicated columns,
-- block count/size,
-- bloom/index structures,
-- object-store latency,
-- cache,
-- query sharding.
-
-## 20. Backend scheduler a workers
-
-Aktuálna Tempo maintenance architektúra používa backend scheduler a workers pre jobs ako:
-
-- compaction,
-- retention,
-- redaction podľa podpory.
-
-Workers možno horizontálne škálovať, zatiaľ čo scheduler koordinuje job assignment.
-
-Pri migration zo staršieho Compactor modelu treba zabrániť súbežnému conflict processingu a riadiť sa version-specific upgrade dokumentáciou.
-
-## 21. Tempo metrics-generator
-
-Metrics-generator odvodzuje metrics zo spans.
-
-Use cases:
-
-- span metrics,
-- service graphs,
-- exemplars,
-- RED metrics.
-
-Output typicky smeruje do Prometheus-compatible metrics storage.
-
-Riziká:
-
-- sampled traces menia counts,
-- high-cardinality span attributes vytvoria metric series explosion,
-- generated metrics potrebujú retention a alert ownership,
-- extra compute a queue load.
-
-## 22. TraceQL
-
-TraceQL je query language pre Tempo trace search.
-
-Môže filtrovať podľa:
-
-- resource attributes,
-- span attributes,
-- span duration,
-- status,
-- structural relationships podľa capability,
-- trace-level properties.
-
-Príklad konceptuálne:
+### Read a maintenance path
 
 ```text
-nájdi traces služby orders-api
-kde downstream payment span skončil errorom
-a trace trvala viac než 2 sekundy
+query frontend
+→ recent jobs do live-stores
+→ historical jobs do object storage
+→ queriers
+→ merge results
 ```
 
-Broad TraceQL search cez dlhý time range môže skenovať veľký počet blocks. Začni service, environment a časovým rozsahom.
+Backend scheduler a workers vykonávajú compaction, retention a blocklist maintenance. Scheduler je coordination identity; workers sú škálovateľní executors. Pri migration nesmú starý compactor a nový scheduler/worker súčasne meniť tie isté blocks.
 
-## 23. Jaeger search oproti Tempo TraceQL
-
-Jaeger typicky poskytuje trace lookup a search podľa service, operation, tags/attributes a time/duration filters podľa storage modelu.
-
-Tempo poskytuje exact trace lookup a TraceQL-oriented search nad object-storage blocks.
-
-Voľba závisí od:
-
-- query patterns,
-- storage preference,
-- Grafana integration,
-- existing Elasticsearch/OpenSearch/Cassandra footprint,
-- multi-tenancy,
-- operational skillset,
-- cost,
-- migration a support model.
-
-## 24. Sampling
-
-Sampling kontroluje volume, overhead a cost.
+## 6. Sampling a trace completeness
 
 ### Head sampling
 
-Rozhodnutie na začiatku trace-u.
-
-Výhody:
-
-- nízky backend a network cost,
-- jednoduché,
-- SDK-level.
-
-Limity:
-
-- nepozná outcome,
-- rare errors môžu byť zahodené,
-- high-latency trace sa nedá identifikovať vopred.
+Rozhodnutie vzniká na začiatku trace-u. Je lacné a predvídateľné, ale nepozná budúci error ani tail latency.
 
 ### Tail sampling
 
-Rozhodnutie po zhromaždení spans.
+Rozhodnutie vzniká po zhromaždení spans a môže zachovať errors, high-latency traces alebo vybrané cohorts. Vyžaduje:
 
-Môže zachovať:
+- trace-ID-aware routing;
+- state a memory;
+- decision wait;
+- late-span policy;
+- incomplete-trace classification;
+- per-policy keep/drop evidence.
 
-- errors,
-- high latency,
-- specific tenants/routes,
-- rare attribute combinations.
+Random round-robin pred stateful samplerom môže rozdeliť spans jedného trace-u medzi replicas. Každý sampler potom urobí rozhodnutie nad neúplným subjectom.
 
-Náklady:
+Sampling policy musí byť versionovaná. `1 % sampled` nie je iba cost knob; mení incident coverage, service graph, span metrics a apparent error rate.
 
-- všetky spans musia prísť do sampling vrstvy,
-- memory/state,
-- trace completeness wait,
-- routing všetkých spans trace-u na konzistentný sampler,
-- late spans.
+## 7. Lookup, search a derived views
 
-### Remote/adaptive sampling
-
-Centralizuje head-based strategies a môže meniť probabilities podľa service trafficu.
-
-Sampling policy musí byť versionovaná, monitorovaná a testovaná.
-
-## 25. Sampling a completeness
-
-Sampling affects:
-
-- trace search coverage,
-- incident forensics,
-- service graph,
-- span metrics,
-- apparent error rate,
-- tenant fairness.
-
-Sleduj:
-
-- received spans,
-- accepted spans,
-- sampled/dropped traces,
-- reason/policy,
-- effective sampling rate per service,
-- late spans,
-- incomplete traces.
-
-Nikdy nevydávaj sampled trace count za exact request count bez korekcie a reprezentatívneho sampling modelu.
-
-## 26. Tail sampling architecture
-
-Tail sampler potrebuje všetky spans konkrétneho trace-u smerovať na rovnakú stateful processing jednotku.
-
-Riziká:
-
-- load balancer bez trace-ID affinity,
-- trace dlhší než decision wait,
-- late spans po rozhodnutí,
-- memory pressure,
-- collector restart,
-- policy overlap,
-- dropped spans pred samplerom.
-
-Pri horizontal scale over consistent hashing alebo gateway architecture odporúčanú Collectorom.
-
-## 27. Trace retention
-
-Retention musí vychádzať z:
-
-- incident investigation window,
-- sampling rate,
-- compliance/privacy,
-- object/index storage cost,
-- search latency,
-- deletion requirements,
-- audit/forensic value.
-
-Trace môže obsahovať citlivejšie údaje než metrics, pretože spans nesú detailed attributes a events.
-
-## 28. Multi-tenancy
-
-Tenant boundary môže ovplyvniť:
-
-- ingest authentication,
-- storage prefix/index,
-- query,
-- limits,
-- retention,
-- cache,
-- sampling,
-- cost allocation.
-
-Tenant header musí vzniknúť z dôveryhodnej identity boundary. Nesmie ho voľne určovať application client bez gateway authorization.
-
-Jaeger multi-tenancy capability závisí od deploymentu, query/storage a surrounding access layer. Tempo má explicitný tenant-oriented storage a query model podľa konfigurácie.
-
-## 29. Security a privacy
-
-Span attributes môžu obsahovať:
-
-- HTTP headers,
-- URLs a query parameters,
-- database statements,
-- RPC payload metadata,
-- customer IDs,
-- file paths,
-- prompt/model content,
-- exception stack traces,
-- internal topology.
-
-Controls:
-
-- semantic attribute allowlist,
-- redaction v SDK/Collector,
-- TLS/mTLS,
-- authenticated OTLP,
-- tenant isolation,
-- encryption at rest,
-- query RBAC,
-- retention/deletion,
-- audit,
-- data residency.
-
-`db.statement`, HTTP bodies alebo messaging payloady sa nemajú automaticky zachytávať bez privacy a volume analýzy.
-
-## 30. Trace-to-logs
-
-Trace UI môže odkazovať na logs podľa:
-
-- trace ID,
-- span ID,
-- service,
-- timestamp window,
-- resource metadata.
-
-Potrebné je:
-
-- vložiť trace/span ID do structured logs,
-- zachovať rovnaký service/environment naming,
-- query template v Grafane alebo UI,
-- tenant mapping,
-- timezone a clock sync.
-
-Trace ID nemusí byť Loki label; môže byť structured metadata alebo parsed log field.
-
-## 31. Trace-to-metrics a exemplars
-
-Metric exemplar spája histogram sample/bucket s konkrétnym trace ID.
-
-Workflow:
+Exact trace-ID lookup a broad attribute search sú rozdielne workloads.
 
 ```text
-latency p99 alebo SLO burn
-→ exemplar
-→ konkrétny trace
-→ slow span/dependency
-→ logs/profile
+exact trace ID
+→ bounded object/index lookup
 ```
-
-Exemplars potrebujú:
-
-- compatible instrumentation,
-- metrics backend support,
-- trace retention,
-- sampling coverage,
-- UI correlation.
-
-## 32. Service graph
-
-Service graph možno odvodiť zo spans.
-
-Zobrazuje napríklad:
-
-- caller/callee edges,
-- request rate,
-- error rate,
-- latency.
-
-Limity:
-
-- sampling bias,
-- broken propagation,
-- missing client/server spans,
-- async semantics,
-- duplicate spans,
-- uninstrumented dependencies.
-
-Service graph je derived view, nie autoritatívny architecture inventory.
-
-## 33. Span naming
-
-Operation names musia byť stabilné a bounded.
-
-Vhodné:
-
-- `GET /orders/{id}`,
-- `payments.authorize`,
-- `orders.consume`.
-
-Nevhodné:
-
-- raw URL s ID,
-- SQL statement ako span name,
-- user-controlled text,
-- exception message.
-
-Unbounded span names zvyšujú search index/cardinality, UI noise a metrics-generator series.
-
-## 34. Attribute governance
-
-Attributes klasifikuj:
-
-- required semantic conventions,
-- bounded operational dimensions,
-- high-cardinality correlation fields,
-- sensitive fields,
-- debug-only fields.
-
-Urči:
-
-- kde sa field vytvára,
-- či je indexed/searchable,
-- retention,
-- redaction,
-- sampling use,
-- metric promotion zákaz/povolenie.
-
-## 35. Self-monitoring
-
-Monitoruj tracing pipeline:
-
-- SDK export errors,
-- Collector accepted/refused/dropped spans,
-- queue size/capacity,
-- tail-sampling state/drops,
-- backend ingestion rate/errors,
-- Kafka lag/retention pri použití,
-- storage writes/errors,
-- live-store/recent-data health,
-- block builder throughput,
-- query rate/latency/errors,
-- object-store requests,
-- compaction/retention backlog,
-- trace search scanned bytes,
-- process CPU/memory/GC,
-- tenant limits.
-
-Doplň synthetic trace cez viac services a over exact trace ID lookup.
-
-## 36. Troubleshooting: trace sa nenájde
 
 ```text
-trace bol sampled?
-→ SDK vytvoril spans?
-→ export error?
-→ context/trace ID?
-→ Collector receiver?
-→ filter/tail sampler drop?
-→ exporter queue/retry?
-→ backend tenant?
-→ ingestion acknowledgement?
-→ recent alebo historical path?
-→ správny time range?
-→ exact trace ID format?
+service + operation + attributes + time range
+→ index/Parquet scan
+→ query sharding a merge
 ```
 
-Zachovaj trace ID, service/version, timestamp, SDK/Collector metrics a backend ingest evidence.
+Tempo používa TraceQL pre attribute a structural search. Jaeger search semantics závisia od použitej storage generation.
 
-## 37. Troubleshooting: broken trace
+Derived views:
 
-Symptómy:
+- span metrics;
+- service graph;
+- trace-to-logs links;
+- exemplars z metrics na trace;
+- dependency performance views.
 
-- viac roots,
-- missing child spans,
-- orphan spans,
-- nesprávne duration overlap,
-- oddelené traces pre jednu operation.
+Sú ovplyvnené samplingom, propagation a missing spans. Service graph nie je autoritatívny architecture inventory a sampled span count nie je exact request count.
 
-Over:
+## 8. Worked failure: acknowledged traces bez historical evidence
 
-- propagation inject/extract,
-- async context,
-- message headers,
-- parent span lifecycle,
-- client/server instrumentation duplication,
-- sampling consistency,
-- clock skew,
-- late spans.
+### Subject
 
-Backend visualization nie je primárna príčina chýbajúceho parent ID.
+```text
+Incident: TRACE-PAY-46
+Operation: enterprise final settlement
+Release: 7.23.0
+Region: eu-central-1
+Tempo: 3.0 microservices
+Tenant: payments-prod
+Kafka topic generation: TEMPO-KAFKA-31
+Partitions: 12
+Block-builder generation: BB-GEN-18
+Kafka retention: 2 h
+Tempo trace retention: 14 d
+Affected window: 01:10–04:05 UTC
+```
 
-## 38. Troubleshooting: recent traces nefungujú, historical áno
+### Symptóm
 
-Tempo:
+On-call otvorí trace počas incidentu a exact lookup funguje. O štyri hodiny neskôr už trace ani susedné traces z affected window nie sú v historical search. Distributor, OTLP clients aj Tempo API hlásili úspešné requests.
 
-- live stores,
-- Kafka consumer offsets,
-- partition ring,
-- recent-data query path,
-- distributor ingestion.
+### Competing hypotheses
 
-Jaeger:
+1. application trace nebola sampled;
+2. propagation vytvorila nový trace ID;
+3. Collector filter trace dropol;
+4. tenant header pri query je nesprávny;
+5. live-store mal trace, ale block-builder ju nepublikoval;
+6. object-store lifecycle ju predčasne zmazal;
+7. TraceQL selector alebo time range je chybný;
+8. block-builder lag prekročil Kafka replay window.
 
-- collector/storage visibility,
-- refresh/indexing latency,
-- query time range,
-- direct vs buffered ingestion.
+### Discriminating evidence
 
-## 39. Troubleshooting: historical traces nefungujú, recent áno
+```text
+SDK sampled flag: true
+Collector accepted/exported spans: present
+Tempo distributor acknowledgement: present
+live-store lookup počas incidentu: present
+block-builder consumer lag: 3 h 11 min
+Kafka retention: 2 h
+block-builder replica 7 unavailable: 2 h 46 min
+historical Parquet blocks pre partition 7/window: absent
+object-store delete events: none
+other partitions v rovnakom čase: historical traces present
+```
 
-Over:
+Pri rollout-e sa Kafka rozšírila na 12 partitions, ale block-builder StatefulSet zostal na 11 replicas. Partition 7 po reschedule nemala dostatočnú processing capacity, lag prekročil retention a Kafka odstránila ešte nespracované records.
 
-- block flush/build,
-- object storage alebo external storage,
-- index/schema,
-- compaction/blocklist,
-- lifecycle/retention,
-- KMS/permissions,
-- query tier/cache.
+Mechanizmus:
 
-## 40. Troubleshooting: slow trace search
+```text
+distributor zapíše spans do Kafka
+→ Kafka potvrdí durable queue write
+→ live-store ich spotrebuje a recent lookup funguje
+→ block-builder zaostáva
+→ lag prekročí Kafka retention
+→ records zmiznú pred block publication
+→ historical object storage nemá trace
+→ neskorší lookup je permanentne neúplný
+```
 
-Over:
+### Containment
 
-- exact trace lookup alebo attribute search,
-- time range,
-- tenant,
-- service/operation filters,
-- indexed/promoted attributes,
-- block/shard count,
-- object-store latency,
-- search parallelism,
-- query queue,
-- storage heap/CPU,
-- result limit,
-- UI timeout.
+- zastaviť ďalšie partition/topology changes;
+- zachovať Kafka offsets, lag metrics, partition ownership, Tempo config a object inventory;
+- zvýšiť Kafka retention skôr než sa stratí ďalší backlog, ak disk/capacity dovolí;
+- obnoviť block-builder consumer capacity pre všetky partitions;
+- neoznačiť missing historical query za „trace sa nestala“;
+- použiť logs, metrics a surviving traces na incident reconstruction.
 
-Exact trace ID lookup by mal byť diagnostikovaný oddelene od broad search.
+### Authoritative recovery
 
-## 41. Troubleshooting: dropped spans
+1. zosúladiť Kafka partitions, block-builder a live-store ownership;
+2. nastaviť retention headroom nad maximum recovery/replay window;
+3. alertovať na lag age, nie iba record count;
+4. canary-nuť jednu partition a preukázať recent aj historical transition;
+5. overiť object-store block publication a offset commit;
+6. vykonať controlled consumer restart a replay;
+7. označiť neobnoviteľné obdobie ako explicitný trace-evidence loss window.
 
-Možné vrstvy:
+### Acceptance verdict
 
-- SDK queue full,
-- exporter timeout,
-- Collector memory limiter,
-- batch queue,
-- tail-sampling capacity,
-- rate limit,
-- Kafka/backlog,
-- storage rejection,
-- invalid span,
-- max message size.
+Recovery je prijatá, keď:
 
-Sleduj counters na každom hop-e. Bez per-hop accepted/dropped metrics sa strata nedá lokalizovať.
+- synthetic multi-service trace je dostupná recent aj po historical cutover-e;
+- všetky partitions majú consumer ownera a bounded lag;
+- Kafka retention pokrýva failure a restart objective;
+- block, object a committed offset patria k rovnakej generation;
+- neighboring tenant a partition neregresujú;
+- forbidden cross-tenant lookup zlyhá;
+- sampled trace count sa nepoužíva ako exact settlement denominator;
+- druhý controlled restart zachová trace availability.
 
-## 42. Troubleshooting: Kafka lag v trace pipeline
+## 9. Jaeger alebo Tempo
 
-Over:
+Jaeger je vhodný, keď je dôležitý Jaeger UI/ecosystem, remote sampling alebo existujúca supported external-storage expertíza. Tempo je vhodný pri object-storage-first modeli, Grafana integrácii, TraceQL a oddelenom recent/historical query path-e.
 
-- producer rate,
-- partitions,
-- consumer group,
-- block builder/ingester throughput,
-- storage latency,
-- rebalance,
-- retention headroom,
-- disk/network,
-- poison/oversized messages.
+Výber musí porovnať:
 
-Lag väčší než retention window môže viesť k strate nespracovaných trace records.
+- exact lookup a search patterns;
+- ingest durability a outage window;
+- sampling control;
+- storage/index cost;
+- tenant a authorization model;
+- retention/deletion;
+- upgrade a migration path;
+- backup/recovery evidence.
 
-## 43. Troubleshooting: object-store cost rastie
+Názov backendu nenahrádza end-to-end trace contract.
 
-Over:
+## 10. Troubleshooting model
 
-- ingestion bytes,
-- sampling rate,
-- retention,
-- block size/compaction,
-- query scans,
-- cache hit ratio,
-- promoted attributes,
-- tenant abuse,
-- cross-zone/Region transfer,
-- LIST/GET request rate.
+### Trace sa nenájde
 
-Zníženie sampling rate bez investigation requirements analýzy môže odstrániť rare failures.
+```text
+operation a expected trace ID
+→ sampled flag a span generation
+→ propagation a resource identity
+→ SDK/Collector accepted/dropped counters
+→ sampling/filter policy
+→ exporter acknowledgement
+→ backend tenant
+→ recent path
+→ historical storage/index/block
+→ query time range a selector
+```
 
-## 44. Jaeger oproti Tempo
+### Broken trace
 
-### Jaeger
+```text
+expected span graph
+→ inject/extract boundaries
+→ async/message propagation
+→ parent/link semantics
+→ duplicate instrumentation
+→ sampling consistency
+→ late spans a clock skew
+```
 
-Vhodný, keď:
+### Recent áno, historical nie
 
-- chceš Jaeger UI a ecosystem,
-- používaš supported external storage,
-- potrebuješ direct-to-storage alebo Kafka-ingester model,
-- máš existujúci Elasticsearch/OpenSearch/Cassandra skillset,
-- potrebuješ Jaeger remote sampling.
+```text
+live-store visibility
+→ Kafka/block-builder alebo Jaeger storage ingest
+→ consumer lag a replay window
+→ block/index publication
+→ object/external storage
+→ compaction/retention
+```
 
-### Tempo
+### Historical áno, recent nie
 
-Vhodný, keď:
+```text
+current distributor/collector
+→ live-store alebo storage refresh path
+→ partition/ring ownership
+→ current tenant/limits
+→ recent-query routing
+```
 
-- preferuješ object-storage-first tracing,
-- používaš Grafana stack,
-- chceš TraceQL,
-- potrebuješ nezávislé read/write scaling,
-- chceš span metrics/service graph integráciu s Prometheus-compatible backendom.
+## 11. Anti-patterny
 
-Výber testuj na reálnom:
+### Backend acknowledgement ako retention proof
 
-- ingest volume,
-- attribute search,
-- retention,
-- tail sampling,
-- query latency,
-- failure recovery,
-- operational cost.
+Queue alebo collector acknowledgement nemusí znamenať historical publication.
 
-## 45. Anti-patterny
+### Tail sampling bez trace affinity
 
-### Trace všetkého bez sampling a attribute governance
+Rozdelí trace subject medzi stateful samplery.
 
-Backend, network a storage cost rastie nekontrolovane.
+### Trace-derived metrics ako exact SLI
 
-### Head sampling 1 % a očakávanie všetkých errors
+Sampling a missing spans menia numerator aj denominator.
 
-Rare failures môžu byť zahodené.
+### Raw URL, SQL alebo customer ID ako span name
 
-### Tail sampling bez trace-ID-aware routing
+Vytvára cardinality a privacy risk.
 
-Spans jedného trace-u sa rozdelia a rozhodnutia budú neúplné.
+### In-memory all-in-one ako production HA
 
-### Raw URL alebo SQL ako span name
+Nemá independent data ani recovery boundary.
 
-Vytvára high cardinality a sensitive data exposure.
+### Recent lookup ako historical canary
 
-### Trace-derived metrics ako exact SLI bez sampling analýzy
+Neoverí block/index publication, object storage ani retention.
 
-Counts a ratios môžu byť biased.
+## 12. Kontrolné otázky
 
-### All-in-one in-memory deployment označený ako production HA
-
-Data sa stratia pri reštarte a nie je independent failure domain.
-
-### Object-store lifecycle mimo Tempo retention
-
-Môže zmazať blocks nekonzistentne.
-
-### Collector bez self-monitoringu
-
-Dropped spans sa prejavia iba ako chýbajúce traces.
-
-## 46. Kontrolné otázky
-
-1. Čo musí obsahovať span a ako sa skladá trace?
-2. Prečo context propagation určuje trace continuity?
-3. Aké roles používa Jaeger v2?
-4. Kedy použiť direct-to-storage a kedy Kafka?
-5. Ako sa líši Tempo monolithic a microservices write path?
-6. Na čo slúžia live stores a object storage?
-7. Ako sa líši head a tail sampling?
+1. Čo tvorí exact trace subject?
+2. Prečo operation, spans, complete trace a searchable trace nie sú totožné stavy?
+3. Ako context propagation vytvára span graph?
+4. Ako sa líši Jaeger direct-to-storage a Kafka-buffered model?
+5. Kedy Tempo 3.0 potvrdzuje ingest write?
+6. Ako sa líši recent a historical Tempo path?
+7. Prečo block-builder lag musí byť porovnaný s Kafka retention?
 8. Prečo tail sampling potrebuje trace-ID-aware routing?
-9. Ako sampling ovplyvňuje span metrics a service graph?
-10. Ako funguje trace-to-logs a exemplar workflow?
-11. Ako diagnostikuješ missing trace?
+9. Ako sampling mení service graph a span metrics?
+10. Prečo exact lookup a broad search potrebujú rozdielne dôkazy?
+11. Ako overíš trace retention end-to-end?
 12. Kedy zvoliť Jaeger a kedy Tempo?
 
 ## Glossary impact
 
-Relevantné pojmy: Jaeger, Jaeger collector, Jaeger query, Jaeger ingester, Jaeger all-in-one, Jaeger remote sampling, direct-to-storage tracing, Kafka-buffered tracing, Tempo, Tempo distributor, Kafka-compatible trace WAL, block builder, live store, Parquet trace block, query frontend, TraceQL, backend scheduler, backend worker, metrics-generator, span metrics, service graph, head sampling, tail sampling, adaptive sampling, trace completeness, trace-to-logs, exemplar a trace attribute governance.
+Relevantné pojmy: trace-evidence subject, expected span graph, propagation generation, sampling-policy generation, trace-affinity contract, ingest acknowledgement, recent-trace path, historical-trace path, Kafka trace replay window, block-publication generation, trace-evidence loss window, exact trace lookup, trace-search generation a tracing-backend acceptance verdict.
 
 ## Primárne zdroje
 
 - [Jaeger v2 architecture](https://www.jaegertracing.io/docs/2.20/architecture/)
 - [Jaeger deployment](https://www.jaegertracing.io/docs/2.20/deployment/)
 - [Jaeger sampling](https://www.jaegertracing.io/docs/2.20/architecture/sampling/)
-- [Jaeger storage](https://www.jaegertracing.io/docs/2.20/storage/)
-- [Jaeger Service Performance Monitoring](https://www.jaegertracing.io/docs/2.20/architecture/spm/)
-- [Tempo architecture](https://grafana.com/docs/tempo/latest/reference-tempo-architecture/about-tempo-architecture/)
-- [Tempo object storage](https://grafana.com/docs/tempo/latest/reference-tempo-architecture/object-storage/)
-- [Tempo query frontend](https://grafana.com/docs/tempo/latest/reference-tempo-architecture/components/query-frontend/)
-- [Tempo TraceQL](https://grafana.com/docs/tempo/latest/traceql/)
+- [Tempo architecture](https://grafana.com/docs/tempo/latest/introduction/architecture/)
+- [Tempo 3.0 migration](https://grafana.com/docs/tempo/latest/set-up-for-tracing/setup-tempo/migrate-to-3/)
+- [Tempo Kafka component](https://grafana.com/docs/tempo/latest/reference-tempo-architecture/components/kafka/)
+- [Tempo compaction](https://grafana.com/docs/tempo/latest/reference-tempo-architecture/components/compaction/)
+- [TraceQL](https://grafana.com/docs/tempo/latest/traceql/)
 - [OpenTelemetry sampling](https://opentelemetry.io/docs/concepts/sampling/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
