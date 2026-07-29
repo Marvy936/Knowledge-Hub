@@ -1,708 +1,460 @@
 # CIA triáda
 
-CIA triáda — **Confidentiality, Integrity a Availability** — je základný model bezpečnostných cieľov informačných systémov. Nepredstavuje konkrétnu technológiu ani kompletný security framework. Poskytuje systematický spôsob, ako pomenovať, čo musí byť chránené, aký typ straty hrozí a aké controls majú dané riziko znižovať.
+CIA triáda — **Confidentiality, Integrity a Availability** — je model bezpečnostných cieľov nad konkrétnym assetom a business procesom. Nie je to zoznam troch produktových vlastností ani univerzálna priorita `C > I > A`. Použiteľný security návrh musí určiť, čo presne sa chráni, aká strata je neprijateľná, ktorý threat a vulnerability ju môžu spôsobiť, kde sa control presadzuje a aký dôkaz preukáže jeho účinnosť.
 
-## 1. Mentálny model
+## 1. Dominantný lifecycle
 
 ```text
-asset a business process
-→ threats a failure modes
-→ strata confidentiality, integrity alebo availability
-→ dopad na používateľov, organizáciu a prevádzku
-→ preventívne, detekčné a recovery controls
-→ residual risk a validation
+business capability a chránený asset
+→ exact security subject a trust boundaries
+→ confidentiality, integrity a availability objectives
+→ threat, vulnerability, exposure a impact
+→ risk a required assurance
+→ preventive, detective, response a recovery controls
+→ configured, loaded a effective control state
+→ security event alebo control test
+→ containment a authoritative recovery
+→ allowed, forbidden a residual-risk validation
+→ skorší control alebo architecture change
 ```
 
-Bezpečnostný návrh nemá začínať zoznamom produktov. Má začínať assets, data flows, trust boundaries a očakávaným dopadom straty jednotlivých vlastností.
+Tento lifecycle oddeľuje tri výroky, ktoré sa často zamieňajú:
 
-## 2. Confidentiality
+```text
+control je nakonfigurovaný
+≠ control sa presadil na skutočnej boundary
+≠ business asset je preukázateľne chránený
+```
 
-Confidentiality znamená zachovanie autorizovaných obmedzení prístupu a disclosure.
+Encryption enabled, role assignment, backup success alebo healthy identity provider sú iba čiastkové technické stavy. Security acceptance vzniká až vtedy, keď sa povolený outcome zachová, zakázaný outcome zlyhá a recovery obnoví dôveryhodný business stav.
+
+## 2. Exact security subject
+
+CIA sa nikdy nehodnotí iba pre názov služby. Pre connected Atlas Payments incident používame:
+
+```text
+security subject: SEC-PAY-47
+business capability: enterprise final settlement
+release generation: 7.24.0
+environment: production
+Region: eu-central-1
+Kubernetes cluster: atlas-prod-euc1
+namespace: payments-prod
+human principal: urn:atlas:human:7421
+IdP issuer: https://id.atlas.example
+active IdP group claim: prod-payment-operators
+Kubernetes binding: payments-prod-operators
+workload identity: system:serviceaccount:payments-prod:settlement-debug
+provider secret: provider-a-mtls generation 34
+routing config: SETTLEMENT-ROUTE-91
+audit generation: AUDIT-SEC-28
+```
+
+Chránené assets nie sú iba dáta. Subject zahŕňa:
+
+- provider client certificate a private key;
+- settlement routing policy;
+- worker capacity a queue progress;
+- final settlement correctness;
+- human a workload identity graph;
+- audit evidence potrebnú na reconstruction a recovery.
+
+## 3. Confidentiality
+
+Confidentiality znamená, že informácie a capabilities sú sprístupnené iba autorizovaným principals za určených podmienok.
 
 Otázka:
 
 ```text
-Kto smie tieto dáta alebo capability vidieť a za akých podmienok?
+Kto smie asset čítať, odvodiť, exportovať alebo použiť
+v ktorom environment-e, tenant-e, čase a trust boundary?
 ```
 
-### Príklady straty confidentiality
+Confidentiality loss zahŕňa napríklad:
 
-- uniknuté credentials alebo API tokeny,
-- verejný object-storage bucket,
-- broad database read access,
-- logovanie secrets alebo osobných údajov,
-- cross-tenant data exposure,
-- nešifrovaný network traffic,
-- backup dostupný neoprávnenému účtu,
-- prompt alebo agent tool output obsahujúci interné dáta.
+- prečítanie secretu alebo private key-u;
+- cross-tenant disclosure;
+- broad database alebo object-store read;
+- logovanie tokenu, PII alebo interného payloadu;
+- export dát do menej chráneného lifecycle-u;
+- použitie capability bez priameho zobrazenia jej hodnoty.
 
-### Typické controls
+Posledný bod je dôležitý. Principal nemusí prečítať private key, aby ju zneužil. Ak môže vyvolať neobmedzenú signing alebo decryption operáciu, získal citlivú capability.
 
-- authentication,
-- authorization a least privilege,
-- encryption at rest a in transit,
-- secrets management,
-- network segmentation,
-- data classification,
-- masking, tokenization a redaction,
-- tenant isolation,
-- secure disposal,
-- audit accessu,
-- key management.
+Typické controls:
 
-### Confidentiality nie je iba šifrovanie
+- identity proofing, authentication a session assurance;
+- authorization, least privilege a tenant isolation;
+- encryption a key separation;
+- secret minimization a redaction;
+- network a workload boundaries;
+- data classification, retention a secure deletion;
+- immutable alebo oddelený audit prístupu.
 
-Encryption chráni dáta pred určitými threat scenármi, ale nerieši napríklad:
+Encryption sama nestačí. Po dešifrovaní v application memory môže broad principal, chybný object-level authorization alebo kompromitovaný workload stále získať plaintext.
 
-- oprávneného používateľa s príliš širokými právami,
-- application bug vracajúci cudzie dáta,
-- compromise po dešifrovaní v memory,
-- logovanie plaintextu,
-- zlé IAM policy,
-- secret uložený v Git-e.
+## 4. Integrity
 
-## 3. Integrity
-
-Integrity znamená ochranu pred neautorizovanou alebo nesprávnou zmenou a zachovanie accuracy, completeness, authenticity a správneho processingu.
+Integrity znamená zachovanie správnosti, úplnosti, authenticity a povoleného poradia zmien dát, konfigurácie a operácií.
 
 Otázka:
 
 ```text
-Ako vieme, že dáta, konfigurácia a vykonaná operácia sú správne a neboli neautorizovane zmenené?
+Ako preukážeme, že asset alebo state transition
+vytvoril oprávnený actor, správnym mechanizmom,
+nad správnou generáciou a bez neautorizovanej zmeny?
 ```
 
-### Príklady straty integrity
+Integrity loss zahŕňa:
 
-- útočník upraví artifact alebo container image,
-- chybný deployment prepíše production konfiguráciu,
-- SQL injection zmení dáta,
-- message sa spracuje dvakrát,
-- backup je poškodený,
-- DNS record bol neautorizovane zmenený,
-- CI pipeline použije neoverenú dependency,
-- telemetry bola sfalšovaná alebo odstránená,
-- agent vykoná nesprávnu alebo neautorizovanú tool action.
+- zmenu routing policy alebo deployment konfigurácie;
+- modified artifact alebo dependency;
+- duplicate payment či message processing;
+- neautorizovaný policy alebo role assignment;
+- corrupted backup;
+- falšovanie alebo odstránenie audit evidence;
+- nesprávnu automatizovanú alebo agentickú action.
 
-### Typické controls
-
-- hashes a cryptographic signatures,
-- code review a protected branches,
-- artifact signing a provenance,
-- database constraints a transactions,
-- immutability,
-- input validation,
-- separation of duties,
-- audit trail,
-- versioning,
-- idempotency,
-- integrity checks a reconciliation,
-- backup validation.
-
-### Integrity a authenticity
-
-Hash môže odhaliť zmenu, ale bez dôveryhodného source-u nemusí dokazovať, kto artifact vytvoril.
-
-Preto sa často kombinuje:
+Hash preukazuje zhodu s konkrétnym obsahom, nie automaticky jeho dôveryhodný pôvod. Silnejší chain je:
 
 ```text
-hash
-+ digital signature
-+ trusted identity
+content digest
++ trusted signer identity
 + provenance
-+ policy verification
++ authorization policy
++ runtime read-back
++ business reconciliation
 ```
 
-## 4. Availability
+Typické controls:
 
-Availability znamená včasný a spoľahlivý prístup k informáciám a službám pre autorizovaných používateľov.
+- immutable a versionované sources;
+- signatures a provenance;
+- transactions, constraints a idempotency;
+- separation of duties;
+- policy review a admission;
+- reconciliation na authoritative state;
+- audit trail s actorom a policy revision;
+- restore a tamper validation.
+
+## 5. Availability
+
+Availability znamená, že autorizovaný používateľ alebo business proces môže capability použiť v požadovanom čase, kvalite a failure scope-e.
 
 Otázka:
 
 ```text
-Je systém použiteľný vtedy, keď ho oprávnený používateľ alebo business process potrebuje?
+Je správny asset alebo business journey dostupný
+pre oprávnený cohort v rámci latency, freshness, RTO a RPO contractu?
 ```
 
-### Príklady straty availability
+Availability nie je iba process uptime. Služba môže vracať `200`, ale byť nepoužiteľná pre vysokú latency, stale data, nefunkčnú authentication cestu, vyčerpanú quota alebo chýbajúcu kritickú operation.
 
-- výpadok služby,
-- DDoS,
-- vyčerpanie quota alebo disk capacity,
-- expired certificate,
-- dependency outage,
-- ransomware,
-- DNS failure,
-- deadlock alebo resource saturation,
-- neobnoviteľný backup,
-- administratívne zablokovaný account,
-- chybná security policy blokujúca legitímny traffic.
+Typické controls:
 
-### Typické controls
+- fault isolation a redundancy;
+- capacity, quotas a rate limits;
+- failover a graceful degradation;
+- credential, key a DNS availability;
+- tested backup/restore;
+- incident response a break-glass access;
+- dependency a queue recovery;
+- observability dostupná počas incidentu.
 
-- redundancy a fault isolation,
-- autoscaling a capacity planning,
-- backups a tested restore,
-- disaster recovery,
-- load balancing,
-- rate limiting a DDoS protection,
-- failover,
-- monitoring a incident response,
-- patching a lifecycle management,
-- graceful degradation,
-- quotas a resource protection.
+Availability control nesmie automaticky fail-open-nuť confidentiality alebo integrity boundary. Núdzový bypass musí mať explicitný threat model, scope, expiration a audit.
 
-### Availability nie je iba uptime
+## 6. Security objectives a impact thresholds
 
-Systém môže byť technicky dostupný, ale prakticky nepoužiteľný pre:
+CIA objective musí byť merateľný a viazaný na asset. Príklad pre `SEC-PAY-47`:
 
-- extrémnu latency,
-- stale alebo neúplné dáta,
-- chýbajúcu kritickú funkciu,
-- nefunkčnú authentication cestu,
-- nedostupnosť iba v jednej lokalite alebo pre jednu tenant skupinu.
+| Asset alebo process | Confidentiality objective | Integrity objective | Availability objective |
+|---|---|---|---|
+| Provider private key | nikdy exportovateľný mimo approved workload boundary | iba approved generation a rotation actor | signing/auth capability dostupná pre healthy settlement workers |
+| Settlement route config | čitateľná iba payment/platform owners | zmena iba cez signed GitOps release a approved policy | last-known-good generation obnoviteľná do 15 minút |
+| Final settlement | tenant data bez cross-tenant disclosure | exactly-once business outcome a reconciled provider state | 99.9 % valid settlements do 2.5 s |
+| Security audit | need-to-know query access | append-oriented, actor a policy revision zachované | critical events queryovateľné počas incidentu |
 
-Availability contract musí odrážať user journey a business potrebu.
+Impact sa klasifikuje samostatne pre každú os. Public artifact môže mať low confidentiality, ale high integrity. Audit môže mať moderate confidentiality a high integrity aj availability.
 
-## 5. Vzťah medzi C, I a A
+## 7. Threat, vulnerability, exposure, impact a risk
 
-Bezpečnostné rozhodnutia často zlepšujú jednu vlastnosť a zhoršujú inú.
+Tieto pojmy netvoria synonymá:
 
-Príklady:
+- **threat** — actor, event alebo failure schopný spôsobiť škodu;
+- **vulnerability** — slabina, ktorú možno využiť;
+- **exposure** — konkrétna reachable alebo usable cesta k slabine;
+- **impact** — následok straty CIA vlastnosti;
+- **risk** — kombinácia pravdepodobnosti, podmienok, blast radiusu a impactu;
+- **control** — safeguard znižujúci pravdepodobnosť alebo následok;
+- **residual risk** — risk po zohľadnení effective controls.
 
-### Encryption
-
-- zvyšuje confidentiality,
-- môže podporiť integrity,
-- pri strate keys môže zničiť availability.
-
-### Strict access policy
-
-- zvyšuje confidentiality,
-- môže znížiť availability legitímnym používateľom.
-
-### Replication
-
-- zvyšuje availability,
-- zväčšuje počet kópií a confidentiality exposure,
-- môže šíriť logical corruption a poškodiť integrity.
-
-### Caching
-
-- zvyšuje availability a performance,
-- môže servovať stale data a poškodiť integrity,
-- môže rozšíriť exposure citlivých dát.
-
-### Immutable backups
-
-- zvyšujú integrity a recoverability,
-- môžu komplikovať deletion a privacy requirements,
-- potrebujú správnu key a access availability.
-
-Security architecture je riadenie trade-offov, nie maximalizácia jednej osi bez kontextu.
-
-## 6. Assets
-
-CIA sa vždy hodnotí voči konkrétnemu assetu.
-
-Assets:
-
-- business data,
-- credentials a keys,
-- source code,
-- artifacts,
-- infrastructure configuration,
-- identities a permissions,
-- telemetry a audit evidence,
-- backups,
-- availability kritickej služby,
-- reputation a regulatory records.
-
-Rovnaký asset môže mať odlišnú prioritu jednotlivých vlastností.
-
-Príklady:
-
-- public marketing web: availability a integrity môžu dominovať nad confidentiality,
-- password database: confidentiality a integrity sú kritické,
-- audit trail: integrity a availability dôkazu sú kľúčové,
-- public package repository: integrity je kritická aj pri verejnom obsahu.
-
-## 7. Data lifecycle
-
-CIA analyzuj počas celého lifecycle-u:
+Pre worked incident:
 
 ```text
-create
-→ process
-→ store
-→ transmit
-→ copy/backup
-→ archive
-→ restore
-→ delete
+threat: ukradnutá existujúca browser session
+vulnerability: mover workflow ponechal starú nested-group membership
+exposure: group claim mapovaný na broad Kubernetes operator binding
+amplifier: create Pod + výber privileged ServiceAccountu
+impact: secret disclosure + config mutation + settlement outage
 ```
 
-Príklad confidentiality failure:
+## 8. Control system
 
-- production database je správne šifrovaná,
-- ale export CSV zostáva v otvorenom shared storage.
-
-Príklad integrity failure:
-
-- source data je správne,
-- ale ETL pipeline nesprávne transformuje hodnoty.
-
-Príklad availability failure:
-
-- backup existuje,
-- ale restore procedure nie je funkčná.
-
-## 8. Data states
-
-### Data at rest
-
-- database,
-- filesystem,
-- object storage,
-- backup,
-- snapshot,
-- artifact registry.
-
-### Data in transit
-
-- client-server traffic,
-- service-to-service traffic,
-- replication,
-- telemetry export,
-- message queues.
-
-### Data in use
-
-- process memory,
-- CPU/GPU processing,
-- temporary files,
-- decrypted payload,
-- model context alebo prompt.
-
-Controls sa líšia podľa state-u. Encryption at rest nechráni plaintext po načítaní aplikáciou.
-
-## 9. Threat, vulnerability, risk a impact
-
-### Threat
-
-Potenciálna príčina neželaného incidentu.
-
-Príklady:
-
-- attacker,
-- insider,
-- human error,
-- hardware failure,
-- natural disaster,
-- software bug.
-
-### Vulnerability
-
-Slabina, ktorú môže threat využiť.
-
-Príklady:
-
-- public access,
-- chýbajúci patch,
-- broad IAM role,
-- single point of failure,
-- nevalidovaný input.
-
-### Impact
-
-Následok straty confidentiality, integrity alebo availability.
-
-### Risk
-
-Kombinácia pravdepodobnosti, exploitability, impactu a kontextu organizácie.
-
-CIA pomáha klasifikovať dopad, ale sama nevypočíta celý risk.
-
-## 10. Security controls
-
-Security control je safeguard alebo countermeasure navrhnutá na zníženie risku.
-
-### Podľa funkcie
-
-- preventive,
-- detective,
-- corrective,
-- recovery,
-- deterrent,
-- compensating.
-
-### Podľa typu
-
-- management,
-- operational,
-- technical,
-- physical.
-
-Jeden control môže chrániť viac CIA vlastností.
-
-Príklad audit logu:
-
-- podporuje integrity vyšetrovania,
-- pomáha detegovať confidentiality breach,
-- musí byť dostupný počas incidentu.
-
-## 11. Prevent, detect, respond a recover
-
-Robustný návrh nepredpokladá, že prevention nikdy nezlyhá.
+Robustná security architektúra nepoužíva iba prevention:
 
 ```text
 prevent
-→ znížiť pravdepodobnosť
+→ obmedziť vznik alebo využitie failure pathu
 
 detect
-→ rýchlo odhaliť stratu vlastnosti
+→ zachytiť zmenu, pokus alebo stratu evidence
 
 respond
-→ obmedziť blast radius
+→ zastaviť pokračujúci impact a zachovať dôkaz
 
 recover
-→ obnoviť dôveryhodný stav
+→ obnoviť dôveryhodnú generation a reconciled business state
 
 learn
-→ odstrániť systematickú príčinu
+→ odstrániť systémovú príčinu a skrátiť budúce exposure window
 ```
 
-Príklad ransomware:
+Controls možno klasifikovať ako management, operational, technical alebo physical a podľa funkcie ako preventive, detective, corrective, recovery, deterrent či compensating. Kategória však nenahrádza exact boundary a ownera.
 
-- prevent: least privilege, patching, segmentation,
-- detect: anomaly a audit alerts,
-- respond: isolation a credential revocation,
-- recover: immutable tested backups,
-- learn: post-incident control improvements.
+## 9. Assurance a effective control state
 
-## 12. Assurance
-
-Control existuje ≠ control je účinný.
-
-Assurance vzniká cez dôkazy:
-
-- testy,
-- configuration review,
-- audit,
-- penetration testing,
-- restore rehearsal,
-- access review,
-- monitoring,
-- formal verification podľa potreby,
-- incident history.
-
-Príklad:
+Assurance sú grounds for confidence, že security objectives sú v konkrétnej implementácii splnené.
 
 ```text
-„Backups are enabled“
+policy source existuje
+→ validná generation bola publikovaná
+→ controller alebo verifier ju načítal
+→ PEP ju presadzuje na každej relevantnej ceste
+→ allowed test funguje
+→ forbidden test zlyhá
+→ audit zachytí oba verdicts
+→ recovery test obnoví business outcome
 ```
 
-nie je rovnaké ako:
+Dôkazy môžu zahŕňať:
+
+- configuration a runtime read-back;
+- positive a negative authorization tests;
+- signature/provenance verification;
+- tenant-isolation test;
+- restore rehearsal;
+- session revocation test;
+- audit canary;
+- incident history a recurrence controls.
+
+`Backups enabled` nie je restore assurance. `MFA required` nie je dôkaz, že stale privileged session bola revoke-nutá. `Role removed` nie je dôkaz, že nested group, token cache a workload credential už neumožňujú alternate path.
+
+## 10. Worked incident: jedna stale access cesta narušila C, I aj A
+
+### Symptom
+
+Dňa `2026-07-29` o `12:14 UTC` settlement-completion SLO začne prudko páliť. Súčasne security alert hlási čítanie `provider-a-mtls` secretu nezvyčajným Podom.
 
 ```text
-„Aplikácia bola obnovená v izolovanom prostredí do RTO a validovaná voči RPO.“
+final settlement failures: 8.2 %
+settlement workers desired/available: 12/0
+routing config loaded: SETTLEMENT-ROUTE-92
+approved source generation: SETTLEMENT-ROUTE-91
+new Pod: settlement-debug-7f91
 ```
 
-## 13. Authentication, authorization a auditing
+### Recent identity change
 
-CIA súvisí s AAA:
-
-- Authentication určuje, kto alebo čo sa prihlasuje.
-- Authorization určuje, čo smie vykonať.
-- Auditing zaznamenáva, čo sa vykonalo.
-
-Confidentiality a integrity často zlyhajú cez zlú authorization, nie cez slabú encryption.
-
-Audit podporuje accountability a investigation, ale musí mať vlastnú integrity a availability ochranu.
-
-## 14. Privacy oproti confidentiality
-
-Privacy a confidentiality sa prekrývajú, ale nie sú totožné.
-
-Confidentiality rieši neautorizované disclosure.
-
-Privacy rieši širšie otázky:
-
-- či sa dáta vôbec majú zbierať,
-- na aký účel,
-- ako dlho,
-- s akým právnym základom,
-- aké práva má dotknutá osoba,
-- ako sa dáta zdieľajú a mažú.
-
-Dáta môžu byť confidential, ale stále spracúvané neprimerane alebo bez oprávneného účelu.
-
-## 15. Safety a reliability
-
-Availability sa prekrýva s reliability, ale security model zahŕňa aj malicious disruption.
-
-Integrity sa môže prekrývať so safety:
-
-- nesprávne dáta môžu fyzicky alebo finančne poškodiť používateľa,
-- automatizácia môže vykonať nebezpečnú akciu,
-- AI agent môže zmeniť production state bez dostatočného approvalu.
-
-Pri high-impact systémoch nestačí tradičná IT availability; treba analyzovať safety constraints a fail-safe behavior.
-
-## 16. Cloud shared responsibility
-
-V cloude sa CIA zodpovednosť delí medzi provider-a a zákazníka podľa service modelu.
-
-Príklad managed database:
-
-Provider typicky chráni:
-
-- physical infrastructure,
-- hypervisor/platform,
-- časť service availability.
-
-Zákazník stále riadi:
-
-- identities a permissions,
-- network exposure,
-- data classification,
-- encryption configuration,
-- backup/restore policy,
-- application integrity,
-- monitoring.
-
-Managed service neodstraňuje customer CIA responsibility.
-
-## 17. Kubernetes príklad
-
-### Confidentiality
-
-- Secrets access,
-- RBAC,
-- etcd encryption,
-- network policies,
-- workload identity.
-
-### Integrity
-
-- signed images,
-- admission policy,
-- immutable tags/digests,
-- GitOps reconciliation,
-- audit logs.
-
-### Availability
-
-- replicas,
-- topology spread,
-- PDB,
-- resource requests,
-- backup/restore,
-- control-plane a data-plane resilience.
-
-Control môže vytvoriť trade-off: príliš strict NetworkPolicy môže zablokovať legitímny traffic a znížiť availability.
-
-## 18. CI/CD a supply chain príklad
-
-### Confidentiality
-
-- pipeline secrets,
-- private source code,
-- protected logs a artifacts.
-
-### Integrity
-
-- protected branches,
-- review,
-- pinned dependencies,
-- signed artifacts,
-- provenance,
-- isolated runners.
-
-### Availability
-
-- redundant runners,
-- registry availability,
-- dependency mirrors,
-- rollback artifacts,
-- recovery runbooks.
-
-Supply-chain incident často kombinuje confidentiality breach a integrity compromise.
-
-## 19. Observability príklad
-
-Telemetry sama je security asset.
-
-### Confidentiality
-
-- logs a traces môžu obsahovať PII, tokens a internú topology.
-
-### Integrity
-
-- útočník môže falšovať alebo mazať evidence.
-
-### Availability
-
-- telemetry musí byť dostupná počas incidentu, aj keď production platforma zlyháva.
-
-Preto audit a security telemetry často potrebuje oddelený tenant, account alebo failure domain.
-
-## 20. AI a agentické systémy
-
-### Confidentiality
-
-- prompt leakage,
-- retrieval cez neoprávnené dáta,
-- tool output exposure,
-- model provider data handling.
-
-### Integrity
-
-- prompt injection,
-- poisoned knowledge source,
-- malicious tool result,
-- neautorizovaná agent action.
-
-### Availability
-
-- provider outage,
-- rate limits,
-- token exhaustion,
-- runaway agent loop,
-- dependency failure.
-
-Agent identity, tool permissions, approval a audit musia byť navrhnuté podľa rovnakých bezpečnostných cieľov.
-
-## 21. Security categorization
-
-Pre každý asset alebo system urči impact straty:
-
-- low,
-- moderate,
-- high,
-
-samostatne pre confidentiality, integrity a availability.
-
-Príklad:
+Principal `urn:atlas:human:7421` bol o 08:00 presunutý z Payments Operations do Finance Analytics. HR source zmenu zaznamenal správne, ale identity synchronizácia bola add-only:
 
 ```text
-System: public package registry
-Confidentiality impact: low
-Integrity impact: high
-Availability impact: moderate/high
+removed direct group: payments-oncall
+remaining nested path:
+finance-emea
+→ legacy-shared-operations
+→ prod-payment-operators
 ```
 
-Výsledok ovplyvňuje výber controls, assurance a recovery requirements.
+Existujúca browser session navyše ostala platná.
 
-## 22. CIA matrix
+### Competing hypotheses
 
-Praktická šablóna:
+1. provider outage spôsobil settlement failure;
+2. GitOps rollout načítal chybnú route generation;
+3. external attacker zneužil application API;
+4. compromised workload prečítal secret nezávisle od human identity;
+5. ukradnutá human session využila stale effective access;
+6. audit event patrí legitimate incident drillu;
+7. controller omylom scale-nul workers pri autoscaling-u.
 
-| Asset/process | Confidentiality loss | Integrity loss | Availability loss | Controls | Evidence | Owner |
-|---|---|---|---|---|---|---|
-| Production DB | data breach | wrong transactions | service outage | IAM, TLS, constraints, backups | access review, restore test | Data team |
-| CI artifacts | source leakage | supply-chain compromise | blocked releases | signed artifacts, registry HA | signature verification | Platform |
-| Audit logs | sensitive metadata exposure | attacker hides actions | no incident evidence | separate account, immutability | audit test | Security |
-
-Matrix musí byť konkrétna pre systém, nie generic checklist.
-
-## 23. Validation
-
-Confidentiality testy:
-
-- access-control tests,
-- secret scanning,
-- data-exposure review,
-- tenant-isolation tests,
-- encryption verification.
-
-Integrity testy:
-
-- signature verification,
-- tamper test,
-- transaction/constraint tests,
-- reconciliation,
-- provenance validation.
-
-Availability testy:
-
-- load a stress test,
-- failure injection,
-- failover,
-- backup restore,
-- quota exhaustion,
-- dependency outage.
-
-## 24. Troubleshooting security incident cez CIA
+### Discriminating evidence
 
 ```text
-čo sa stalo?
-→ ktorý asset?
-→ ktorá CIA vlastnosť je narušená?
-→ je narušených viac vlastností?
-→ aký je blast radius?
-→ stále prebieha compromise?
-→ aké containment je bezpečné?
-→ aké evidence treba zachovať?
-→ ako obnoviť dôveryhodný stav?
+IdP authentication: WebAuthn success, session SESSION-771
+session actor: urn:atlas:human:7421
+HR mover state: Finance Analytics
+IdP token claim: prod-payment-operators stále present
+Kubernetes access path:
+  subject
+  → nested IdP group
+  → payments-prod-operators ClusterRoleBinding
+  → payments-prod-operator ClusterRole
+allowed actions:
+  create pods
+  select serviceAccountName settlement-debug
+  patch configmaps
+  patch deployments/scale
+Pod audit actor: urn:atlas:human:7421
+Pod workload principal: system:serviceaccount:payments-prod:settlement-debug
+secret read audit: workload principal
+config patch audit: human principal
+GitOps source: stále SETTLEMENT-ROUTE-91
 ```
 
-Príklad compromised credential:
+Root cause je incomplete mover reconciliation. Broad operator role je causal amplifier. Authentication protocol fungoval; authorization a identity lifecycle už nereprezentovali aktuálnu pracovnú funkciu.
 
-- confidentiality: attacker mohol čítať dáta,
-- integrity: mohol ich meniť,
-- availability: revocation alebo destructive action môže spôsobiť outage.
+### CIA impact
 
-Nehodnoť incident iba podľa prvého viditeľného symptómu.
+**Confidentiality:** Pod získal provider client certificate a private-key capability.
 
-## 25. Anti-patterny
+**Integrity:** actor patchol settlement route na neapproved generation `92`.
+
+**Availability:** actor znížil settlement workers na nulu a zastavil final completion.
+
+Audit platforma zostala dostupná a append-oriented, preto bolo možné prepojiť human actor, vytvorený workload a následné secret use.
+
+### Evidence-preserving containment
+
+1. zablokovať session `SESSION-771` a všetky odvodené tokens;
+2. suspendovať principal a odstrániť stale group path;
+3. zastaviť nové Pod creates a config mutations pre affected binding;
+4. izolovať malicious Pod bez mazania jeho metadata a runtime evidence;
+5. zachovať IdP events, group graph, Kubernetes audit, Secret access, GitOps diff a settlement timeline;
+6. nevymazať audit, nerestartovať všetky control planes a neudeliť broad emergency admin;
+7. zastaviť provider-side použitie compromised certificate podľa dohodnutého incident contractu.
+
+### Authoritative recovery
+
+```text
+revoke human sessions a stale entitlements
+→ rotate provider credential generation 34 → 35
+→ restore route config z signed source SETTLEMENT-ROUTE-91
+→ reconcile Deployment na 12 workers
+→ drain/reconcile pending settlement outcomes
+→ overiť provider a ledger state
+→ odstrániť broad operator role
+→ zaviesť JIT mediated capability
+```
+
+Recovery musí rozlíšiť payments, ktoré zlyhali pred provider callom, payments s known failure a unknown acknowledgement outcomes. Blind retry môže vytvoriť duplicate authorization a integrity incident.
+
+### Acceptance verdict
+
+Incident možno uzavrieť, keď:
+
+- valid enterprise settlement opäť prejde do 2.5 s;
+- unknown outcomes sú reconciled bez duplicate provider authorization;
+- generation `35` je jediná prijímaná provider credential;
+- loaded route je zhodná so signed source generation `91`;
+- principal `7421` nedokáže create Pod, read Secret, patch config ani scale Deployment;
+- stará session, nový login a alternate nested-group path sú odmietnuté;
+- legitimate JIT operator dokáže vykonať iba approved requeue/diagnostic task;
+- audit chain zachová human actora, delegated workload, actions a policy revisions;
+- druhý identity sync a druhý Kubernetes authorization test neobnovia stale access.
+
+## 11. Earlier controls odvodené z incidentu
+
+- mover reconciliation musí byť remove-before-add alebo transactional podľa entitlement graphu;
+- entitlement source potrebuje complete desired state, nie add-only sync;
+- privileged group change musí revoke-nuť sessions a short-lived claims;
+- Kubernetes role engineering musí považovať workload creation za indirect escalation boundary;
+- production support má používať mediated JIT capability, nie standing Pod/Secret access;
+- policy CI musí testovať forbidden nested-group paths;
+- session a entitlement canary má overiť leaver/mover revocation;
+- audit musí korelovať human actor → delegated workload → downstream use;
+- provider credentials musia byť rotation-ready a scoped na workload identity.
+
+## 12. Trade-offy medzi C, I a A
+
+Security decision často posilní jednu os a oslabí inú:
+
+- strict deny môže chrániť confidentiality, ale znížiť availability bez break-glass modelu;
+- replication zvyšuje availability, ale rozmnožuje confidentiality exposure a replikuje logical corruption;
+- immutable retention chráni audit integrity, ale komplikuje privacy deletion;
+- encryption chráni data at rest, ale strata key-u môže zničiť availability;
+- broad emergency access môže obnoviť službu, ale poškodiť confidentiality, integrity a accountability.
+
+Trade-off musí byť explicitný, bounded a validovaný. „Security first“ nie je ospravedlnenie pre nefunkčný systém; „availability first“ nie je ospravedlnenie pre fail-open nad citlivým assetom.
+
+## 13. Security incident troubleshooting cez CIA
+
+```text
+business symptom a timeline
+→ exact asset/process/security subject
+→ narušená C, I a A vlastnosť
+→ affected a unaffected cohorts
+→ active threat a remaining exposure
+→ volatile evidence
+→ competing hypotheses
+→ containment bez zničenia dôkazu
+→ authoritative identity/data/config recovery
+→ allowed, forbidden a adjacent validation
+→ residual risk a closure
+```
+
+Neuzatváraj incident po obnovení availability. Compromised credential môže po scale-up-e stále čítať dáta alebo meniť state.
+
+## 14. Anti-patterny
 
 ### CIA ako checkbox
 
-Model sa uvedie v dokumente, ale neaplikuje sa na konkrétne assets a controls.
+Tri písmená sa uvedú v dokumente bez assets, impactu, controls a evidence.
 
-### Encryption = security
+### Encryption = confidentiality solved
 
-Ignoruje authorization, integrity, availability a operational failure modes.
+Ignoruje plaintext use, authorization, exporty a key-use capabilities.
 
-### Availability bez security constraints
+### Uptime = availability
 
-Fail-open môže zlepšiť dostupnosť, ale odhaliť alebo poškodiť dáta.
+Ignoruje latency, correctness, identity path, freshness a cohort-specific failure.
 
-### Security control bez validation
+### Control existence = assurance
 
-Existencia policy nepreukazuje jej účinnosť.
+Configured policy alebo backup nie je effective-state ani recovery dôkaz.
 
-### Backup iba ako availability control
+### Restore availability bez integrity reconciliation
 
-Backup musí mať confidentiality, integrity a recoverability ochranu.
+Služba sa spustí, ale spracuje unknown alebo stale business state nesprávne.
 
-### Absolútna maximalizácia jednej osi
+### Maximalizácia jednej osi
 
-Môže zničiť použiteľnosť alebo ďalšie bezpečnostné ciele.
+Broad fail-open, permanent lockout alebo nekonečná retention môžu poškodiť ostatné security a business objectives.
 
-## 26. Kontrolné otázky
+## 15. Kontrolné otázky
 
-1. Čo znamenajú Confidentiality, Integrity a Availability?
-2. Prečo šifrovanie samo nestačí na confidentiality?
-3. Ako sa líši integrity od authenticity?
-4. Prečo replication môže poškodiť confidentiality alebo integrity?
-5. Ako sa CIA aplikuje na data lifecycle?
-6. Aký je rozdiel medzi threat, vulnerability, impact a risk?
-7. Čo je security control a assurance?
-8. Ako CIA súvisí s authentication, authorization a auditing?
-9. Ako sa líši confidentiality a privacy?
-10. Ako by vyzerala CIA matrix pre tvoju službu?
-11. Ako validovať controls pre každú os?
-12. Ako CIA pomáha počas incident response?
+1. Čo tvorí exact CIA security subject?
+2. Prečo je CIA vlastnosť vždy viazaná na asset a outcome?
+3. Ako sa líši threat, vulnerability, exposure, impact a risk?
+4. Prečo configured control nie je assurance?
+5. Ako confidentiality zahŕňa aj použitie capability bez exportu secretu?
+6. Ako integrity súvisí s identity, provenance a reconciliation?
+7. Prečo availability nie je iba uptime?
+8. Ako môže jeden stale entitlement narušiť všetky tri osi?
+9. Čo musí zachovať evidence-preserving containment?
+10. Prečo sa credential incident neuzatvára po obnovení služby?
+11. Aké forbidden outcomes musí recovery testovať?
+12. Ktoré earlier controls vyplývajú z incidentu `SEC-PAY-47`?
 
 ## Glossary impact
 
-Relevantné pojmy: CIA triad, confidentiality, integrity, availability, asset, threat, vulnerability, impact, security risk, security control, preventive control, detective control, corrective control, recovery control, compensating control, assurance, authenticity, accountability, non-repudiation, data at rest, data in transit, data in use a security categorization.
+Relevantné pojmy: CIA security subject, confidentiality objective, integrity objective, availability objective, asset-impact matrix, capability confidentiality, control generation, effective security control, security assurance verdict, residual-risk verdict, evidence-preserving security containment, authoritative security recovery, identity-to-workload audit chain a CIA acceptance verdict.
 
 ## Primárne zdroje
 
 - [NIST — Confidentiality, Integrity and Availability](https://csrc.nist.gov/glossary/term/confidentiality_integrity_availability)
 - [NIST — Information Security](https://csrc.nist.gov/glossary/term/information_security)
 - [NIST — Security Control](https://csrc.nist.gov/glossary/term/security_control)
+- [NIST — Security Assurance](https://csrc.nist.gov/glossary/term/security_assurance)
 - [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
