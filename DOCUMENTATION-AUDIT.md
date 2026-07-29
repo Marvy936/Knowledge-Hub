@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **272**
-- Audited conceptual sections: **10999**
-- Total words: **637,841**
-- Findings: **23121** (critical 6922, high 7944, medium 2904, low 5351)
-- File grades: A 0, B 0, C 0, D 272
+- Audited authoritative articles: **273**
+- Audited conceptual sections: **11032**
+- Total words: **639,876**
+- Findings: **23198** (critical 6943, high 7975, medium 2909, low 5371)
+- File grades: A 0, B 0, C 0, D 273
 
 ## Interpretation
 
@@ -183,6 +183,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 541 | 19 | 28 | 9 | 46 | 3195 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 538 | 21 | 30 | 10 | 11 | 1867 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
 | D | 538 | 23 | 28 | 6 | 15 | 2121 | `docs/06-gitlab/variables-and-secrets.md` |
+| D | 538 | 21 | 31 | 5 | 20 | 2035 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | D | 537 | 23 | 31 | 3 | 13 | 1905 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | D | 537 | 24 | 26 | 7 | 13 | 2296 | `docs/12-observability/red-method.md` |
 | D | 534 | 25 | 23 | 10 | 13 | 2307 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
@@ -15981,23 +15982,78 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 356, `thin-concept-section` — **15. Toil reduction acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 391, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md`
+
+- **CRITICAL** line 20, `bare-bullet-items` — **1. Exact database-selection subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a critical user journeys;`, `authoritative facts a ich ownera;`, `invarianty, ktoré nesmú byť porušené;`, `entity, aggregate a relationship boundaries;`.
+- **CRITICAL** line 20, `outline-instead-of-explanation` — **1. Exact database-selection subject**: 12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 61, `bare-bullet-items` — **2. Relational model**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity cez primary a candidate keys;`, `referential integrity cez foreign keys;`, `uniqueness a domain constraints;`, `multi-row transactions;`.
+- **CRITICAL** line 126, `bare-bullet-items` — **4. Aggregate a invariant boundary**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authority je explicitná;`, `propagation má identity a checkpoint;`, `stale semantics sú prijateľné;`, `missing/duplicate/reordered updates sú riešené;`.
+- **CRITICAL** line 152, `bare-bullet-items` — **5. Normalization a denormalization**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source-of-truth identity;`, `projection generation;`, `ordering a idempotency semantics;`, `backfill/rebuild path;`.
+- **CRITICAL** line 180, `bare-bullet-items` — **Query-first**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré exact queries dominujú;`, `ktoré predicates, ordering a pagination sa používajú;`, `koľko rows/documents/partitions sa dotkne jedna operation;`, `aký je fan-out;`.
+- **CRITICAL** line 180, `no-prose-concept` — **Query-first**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 180, `outline-instead-of-explanation` — **Query-first**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 188, `bare-bullet-items` — **Invariant-first**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré writes musia byť atomic;`, `ktoré uniqueness a relationship constraints sú required;`, `aké concurrent transitions sú možné;`, `kto rozhoduje o final state;`.
+- **CRITICAL** line 188, `outline-instead-of-explanation` — **Invariant-first**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 199, `bare-bullet-items` — **7. Consistency a transaction semantics**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `atomicity jednej row alebo document operation;`, `multi-record alebo multi-document transactions;`, `isolation level;`, `read a write concern;`.
+- **CRITICAL** line 214, `bare-bullet-items` — **8. Scale a partitioning**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je traffic rovnomerne rozdelený;`, `existujú hot tenants alebo hot keys;`, `vyžadujú queries scatter-gather;`, `prechádzajú transactions cez partitions;`.
+- **CRITICAL** line 284, `outline-instead-of-explanation` — **Trigger, root cause a amplifiers**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 295, `bare-bullet-items` — **11. Competing hypotheses a discriminating evidence**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request nevstúpil do systému;`, `PostgreSQL intent necommitol;`, `commitol, ale response sa stratila;`, `document projection chýba alebo je stale;`.
+- **CRITICAL** line 295, `outline-instead-of-explanation` — **11. Competing hypotheses a discriminating evidence**: 9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 338, `bare-bullet-items` — **13. Authoritative recovery**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obnoviť PostgreSQL ako jedinú authority pre settlement transition;`, `overiť provider ledger pred každým replayom;`, `rebuildnúť document projection z authoritative committed streamu;`, `zaviesť atomic settlement + outbox transaction;`.
+- **CRITICAL** line 338, `no-prose-concept` — **13. Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 338, `outline-instead-of-explanation` — **13. Authoritative recovery**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 351, `bare-bullet-items` — **14. Database-model acceptance verdict**: 10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative facts a owners sú explicitné;`, `entity, aggregate a relationship boundaries zodpovedajú invariants;`, `critical transition má enforceable transaction/consistency contract;`, `read a write patterns majú podporovaný access path;`.
+- **CRITICAL** line 351, `outline-instead-of-explanation` — **14. Database-model acceptance verdict**: 11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 367, `empty-section` — **15. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 61, `list-heavy-section` — **2. Relational model**: 7 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 86, `single-sentence-concept` — **3. Non-relational model nie je jedna kategória**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 90, `list-first-introduction` — **Key-value**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 106, `list-first-introduction` — **Wide-column**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 114, `list-first-introduction` — **Graph**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 152, `list-heavy-section` — **5. Normalization a denormalization**: 7 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 176, `single-sentence-concept` — **6. Query-first a invariant-first návrh**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 180, `list-first-introduction` — **Query-first**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 188, `list-first-introduction` — **Invariant-first**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 214, `list-heavy-section` — **8. Scale a partitioning**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 284, `list-first-introduction` — **Trigger, root cause a amplifiers**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 295, `single-sentence-concept` — **11. Competing hypotheses a discriminating evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 323, `list-first-introduction` — **12. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 323, `single-sentence-concept` — **12. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 338, `list-first-introduction` — **13. Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 351, `single-sentence-concept` — **14. Database-model acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 385, `single-sentence-concept` — **SQL vs. NoSQL podľa popularity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 389, `single-sentence-concept` — **Schema-less znamená bez schema governance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 393, `single-sentence-concept` — **Jeden aggregate document obsahuje všetko**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 397, `single-sentence-concept` — **Každá microservice musí mať inú technológiu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 401, `single-sentence-concept` — **Eventual consistency opraví dual write**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 405, `single-sentence-concept` — **Read replica alebo cache je source of truth**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 20, `term-before-explanation` — **1. Exact database-selection subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `scope`, `availability`, `durability`
+- **HIGH** line 20, `thin-concept-section` — **1. Exact database-selection subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 180, `thin-concept-section` — **Query-first**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 188, `thin-concept-section` — **Invariant-first**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 284, `term-before-explanation` — **Trigger, root cause a amplifiers**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `HA`, `RPO`, `freshness`
+- **HIGH** line 284, `thin-concept-section` — **Trigger, root cause a amplifiers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 295, `thin-concept-section` — **11. Competing hypotheses a discriminating evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 338, `thin-concept-section` — **13. Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 351, `thin-concept-section` — **14. Database-model acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2690 | 476 | 0 | 0 | 3166 |
-| `single-sentence-concept` | 0 | 2688 | 0 | 0 | 2688 |
-| `outline-instead-of-explanation` | 2686 | 0 | 0 | 0 | 2686 |
-| `term-before-explanation` | 0 | 589 | 1953 | 0 | 2542 |
-| `thin-concept-section` | 0 | 2278 | 0 | 0 | 2278 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2139 | 2139 |
-| `example-not-explicit` | 0 | 0 | 0 | 2131 | 2131 |
-| `list-first-introduction` | 0 | 1447 | 0 | 0 | 1447 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1081 | 1081 |
-| `short-concept-section` | 0 | 0 | 951 | 0 | 951 |
-| `no-prose-concept` | 841 | 0 | 0 | 0 | 841 |
-| `empty-section` | 705 | 0 | 0 | 0 | 705 |
-| `list-heavy-section` | 0 | 466 | 0 | 0 | 466 |
+| `bare-bullet-items` | 2701 | 476 | 0 | 0 | 3177 |
+| `single-sentence-concept` | 0 | 2699 | 0 | 0 | 2699 |
+| `outline-instead-of-explanation` | 2693 | 0 | 0 | 0 | 2693 |
+| `term-before-explanation` | 0 | 591 | 1956 | 0 | 2547 |
+| `thin-concept-section` | 0 | 2285 | 0 | 0 | 2285 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2146 | 2146 |
+| `example-not-explicit` | 0 | 0 | 0 | 2138 | 2138 |
+| `list-first-introduction` | 0 | 1455 | 0 | 0 | 1455 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1087 | 1087 |
+| `short-concept-section` | 0 | 0 | 953 | 0 | 953 |
+| `no-prose-concept` | 843 | 0 | 0 | 0 | 843 |
+| `empty-section` | 706 | 0 | 0 | 0 | 706 |
+| `list-heavy-section` | 0 | 469 | 0 | 0 | 469 |
 
 ## Required remediation pattern
 

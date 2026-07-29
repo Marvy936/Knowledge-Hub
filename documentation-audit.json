@@ -3807,6 +3807,20 @@
       "low": 11,
       "score": 557,
       "grade": "D"
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "title": "Relational vs. non-relational databases",
+      "words": 2035,
+      "headings": 33,
+      "sections": 33,
+      "findings": 77,
+      "critical": 21,
+      "high": 31,
+      "medium": 5,
+      "low": 20,
+      "score": 538,
+      "grade": "D"
     }
   ],
   "findings": [
@@ -211894,6 +211908,699 @@
       "path": "docs/14-sre-and-operations/toil.md",
       "section": "Automation bez ownera",
       "line": 432,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "1. Exact database-selection subject",
+      "line": 20,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "1. Exact database-selection subject",
+      "line": 20,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a critical user journeys;`, `authoritative facts a ich ownera;`, `invarianty, ktoré nesmú byť porušené;`, `entity, aggregate a relationship boundaries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "1. Exact database-selection subject",
+      "line": 20,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "1. Exact database-selection subject",
+      "line": 20,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "1. Exact database-selection subject",
+      "line": 20,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "1. Exact database-selection subject",
+      "line": 20,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `scope`, `availability`, `durability`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "2. Relational model",
+      "line": 61,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 63 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "2. Relational model",
+      "line": 61,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity cez primary a candidate keys;`, `referential integrity cez foreign keys;`, `uniqueness a domain constraints;`, `multi-row transactions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "2. Relational model",
+      "line": 61,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "2. Relational model",
+      "line": 61,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "3. Non-relational model nie je jedna kategória",
+      "line": 86,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Key-value",
+      "line": 90,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Wide-column",
+      "line": 106,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Graph",
+      "line": 114,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "4. Aggregate a invariant boundary",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authority je explicitná;`, `propagation má identity a checkpoint;`, `stale semantics sú prijateľné;`, `missing/duplicate/reordered updates sú riešené;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "4. Aggregate a invariant boundary",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "5. Normalization a denormalization",
+      "line": 152,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "5. Normalization a denormalization",
+      "line": 152,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source-of-truth identity;`, `projection generation;`, `ordering a idempotency semantics;`, `backfill/rebuild path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "5. Normalization a denormalization",
+      "line": 152,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "5. Normalization a denormalization",
+      "line": 152,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "6. Query-first a invariant-first návrh",
+      "line": 176,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Query-first",
+      "line": 180,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Query-first",
+      "line": 180,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Query-first",
+      "line": 180,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Query-first",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré exact queries dominujú;`, `ktoré predicates, ordering a pagination sa používajú;`, `koľko rows/documents/partitions sa dotkne jedna operation;`, `aký je fan-out;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Query-first",
+      "line": 180,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Query-first",
+      "line": 180,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Invariant-first",
+      "line": 188,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Invariant-first",
+      "line": 188,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Invariant-first",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré writes musia byť atomic;`, `ktoré uniqueness a relationship constraints sú required;`, `aké concurrent transitions sú možné;`, `kto rozhoduje o final state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Invariant-first",
+      "line": 188,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Invariant-first",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "7. Consistency a transaction semantics",
+      "line": 199,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `atomicity jednej row alebo document operation;`, `multi-record alebo multi-document transactions;`, `isolation level;`, `read a write concern;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "7. Consistency a transaction semantics",
+      "line": 199,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "8. Scale a partitioning",
+      "line": 214,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "8. Scale a partitioning",
+      "line": 214,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je traffic rovnomerne rozdelený;`, `existujú hot tenants alebo hot keys;`, `vyžadujú queries scatter-gather;`, `prechádzajú transactions cez partitions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "8. Scale a partitioning",
+      "line": 214,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "8. Scale a partitioning",
+      "line": 214,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "8. Scale a partitioning",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "8. Scale a partitioning",
+      "line": 214,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "9. Polyglot persistence",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "10. Worked incident DB-PAY-56",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Trigger, root cause a amplifiers",
+      "line": 284,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Trigger, root cause a amplifiers",
+      "line": 284,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Trigger, root cause a amplifiers",
+      "line": 284,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Trigger, root cause a amplifiers",
+      "line": 284,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Trigger, root cause a amplifiers",
+      "line": 284,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Trigger, root cause a amplifiers",
+      "line": 284,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `HA`, `RPO`, `freshness`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "11. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "11. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "11. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request nevstúpil do systému;`, `PostgreSQL intent necommitol;`, `commitol, ale response sa stratila;`, `document projection chýba alebo je stale;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "11. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "11. Competing hypotheses a discriminating evidence",
+      "line": 295,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 323,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 323,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obnoviť PostgreSQL ako jedinú authority pre settlement transition;`, `overiť provider ledger pred každým replayom;`, `rebuildnúť document projection z authoritative committed streamu;`, `zaviesť atomic settlement + outbox transaction;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "13. Authoritative recovery",
+      "line": 338,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative facts a owners sú explicitné;`, `entity, aggregate a relationship boundaries zodpovedajú invariants;`, `critical transition má enforceable transaction/consistency contract;`, `read a write patterns majú podporovaný access path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "14. Database-model acceptance verdict",
+      "line": 351,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "15. Troubleshooting flow",
+      "line": 367,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "SQL vs. NoSQL podľa popularity",
+      "line": 385,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Schema-less znamená bez schema governance",
+      "line": 389,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Jeden aggregate document obsahuje všetko",
+      "line": 393,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Každá microservice musí mať inú technológiu",
+      "line": 397,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Eventual consistency opraví dual write",
+      "line": 401,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
+      "section": "Read replica alebo cache je source of truth",
+      "line": 405,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
