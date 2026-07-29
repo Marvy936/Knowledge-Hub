@@ -3599,6 +3599,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "title": "Capacity planning",
+      "words": 1818,
+      "headings": 32,
+      "sections": 32,
+      "findings": 74,
+      "critical": 17,
+      "high": 31,
+      "medium": 9,
+      "low": 17,
+      "score": 505,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/error-budgets.md",
       "title": "Error budgets",
       "words": 1804,
@@ -198402,6 +198416,672 @@
       "path": "docs/13-security-and-identity/zero-trust.md",
       "section": "Marketing maturity score",
       "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "1. Dominantný lifecycle",
+      "line": 13,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "1. Dominantný lifecycle",
+      "line": 13,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "3. Demand model",
+      "line": 65,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "16 odrážok a iba 54 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "3. Demand model",
+      "line": 65,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique settlement intents;`, `HTTP attempts a client retries;`, `outbox publish attempts;`, `broker deliveries a redeliveries;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "3. Demand model",
+      "line": 65,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "3. Demand model",
+      "line": 65,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "5. Effective capacity",
+      "line": 126,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "5. Effective capacity",
+      "line": 126,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "5. Effective capacity",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "5. Effective capacity",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "5. Effective capacity",
+      "line": 126,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `CPU`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "6. Headroom",
+      "line": 152,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "6. Headroom",
+      "line": 152,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "6. Headroom",
+      "line": 152,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "6. Headroom",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "7. Capacity, latency a queueing",
+      "line": 180,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "7. Capacity, latency a queueing",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `arrival rate;`, `service rate;`, `concurrency;`, `queue depth a age;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "7. Capacity, latency a queueing",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "8. Scaling time a acquisition lead time",
+      "line": 197,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "8. Scaling time a acquisition lead time",
+      "line": 197,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider quota, ktorú nemožno dynamicky navýšiť;`, `DB schema alebo index bottleneck;`, `partition count s rizikovou online migráciou;`, `regional capacity shortage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "8. Scaling time a acquisition lead time",
+      "line": 197,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "8. Scaling time a acquisition lead time",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "8. Scaling time a acquisition lead time",
+      "line": 197,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "9. Load, soak a failover experiments",
+      "line": 225,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Load test",
+      "line": 229,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Stress test",
+      "line": 233,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Soak test",
+      "line": 237,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Failover capacity test",
+      "line": 241,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "10. Overload control",
+      "line": 251,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "10. Overload control",
+      "line": 251,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `admission control;`, `per-tenant alebo per-operation rate limit;`, `priority queue;`, `load shedding;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "10. Overload control",
+      "line": 251,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "10. Overload control",
+      "line": 251,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "11. Worked incident SRE-PAY-53",
+      "line": 271,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 59 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "11. Worked incident SRE-PAY-53",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priemerný HTTP request rate;`, `API CPU ako dominantný capacity signal;`, `všetky tri AZ ako súčasne dostupné;`, `provider latency 180 ms ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "11. Worked incident SRE-PAY-53",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `API`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "12. Causal evidence",
+      "line": 307,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CPU`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 320,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "13. Evidence-preserving containment",
+      "line": 320,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `rozdeliť critical settlement traffic od reporting/reconciliation batch`, `obnoviť DB pool pod safe saturation threshold;`, `drainovať backlog bounded concurrency podľa provider acceptance;`, `reconciliovať payment, outbox, broker a provider ledger;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "14. Authoritative recovery",
+      "line": 335,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `CAP-PAY-53-B`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact business operation a SLO sú definované;`, `demand používa logical units a explicitný amplification model;`, `všetky required boundaries majú effective capacity a ownera;`, `bottleneck je experimentálne potvrdený;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "15. Capacity acceptance verdict",
+      "line": 348,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "16. Troubleshooting flow",
+      "line": 365,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "17. Earlier controls",
+      "line": 384,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "17. Earlier controls",
+      "line": 384,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "17. Earlier controls",
+      "line": 384,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "17. Earlier controls",
+      "line": 384,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `demand taxonomy a unique-operation IDs;`, `forecast s uncertainty bands;`, `per-boundary capacity owner;`, `failover a recovery headroom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "17. Earlier controls",
+      "line": 384,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "17. Earlier controls",
+      "line": 384,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Priemerné CPU je capacity plan",
+      "line": 401,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Autoscaling vyrieši každý peak",
+      "line": 405,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Maximum benchmark throughput je safe capacity",
+      "line": 409,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Headroom je vždy 30 %",
+      "line": 413,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Queue znamená, že nič nestratíme",
+      "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/capacity-planning.md",
+      "section": "Viac retries zvyšuje reliability",
+      "line": 421,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
