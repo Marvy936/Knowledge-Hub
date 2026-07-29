@@ -117,14 +117,14 @@ jobs:
 
             if git diff --cached --quiet; then
               echo "Documentation is already synchronized at ${remote_sha}."
-              exit 0
+              break
             fi
 
             git commit -m "docs: synchronize generated documentation"
 
             if git push origin "HEAD:${branch}"; then
               echo "Synchronized documentation pushed successfully."
-              exit 0
+              break
             fi
 
             echo "::warning::Remote ${branch} changed during synchronization attempt ${attempt}; retrying from the latest remote state."
@@ -134,6 +134,65 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Record third Databases and Distributed Systems block
+        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="${GITHUB_REF_NAME}"
+
+          for attempt in 1 2 3; do
+            git fetch origin "$branch"
+            git reset --hard "origin/$branch"
+
+            "$PYTHON_BIN" - <<'PY'
+          from pathlib import Path
+
+          ledger = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = ledger.read_text(encoding="utf-8")
+          prefix = "| `15-databases-and-distributed-systems` — Databases and Distributed Systems |"
+          row = (
+              "| `15-databases-and-distributed-systems` — Databases and Distributed Systems | 12/18 authoritative drafting | In progress | 2026-07-29 | "
+              "Sekcia je net-new authoritative doména podľa roadmapy a prvých dvanásť kapitol používa tri connected incidenty. `DB-PAY-56` pokrýva data-model fit, transaction/ACID boundary, index-lock-migration lifecycle a replication/HA: dual authority, ORM autocommit split settlement/outbox, unindexed backfill nad približne 780 miliónmi rows, WAL amplification, async promotion bez acknowledged-position gate-u a old-writer fencing failure vytvorili divergentné histories a 37 acknowledged intents mimo promoted history. `DB-PAY-57` pokrýva recovery, pooling, product roles a architecture boundaries: requested PITR target `11:46:11 UTC` nebol reachable pre WAL gap `11:41:00–11:56:59`, 96 Podov s poolom 40 vytváralo 3 840 possible sessions, emergency transaction pooling porušilo session tenant context a premature service extraction rozdelila settlement invariant/recovery ownership. `DB-PAY-58` pokrýva communication, messaging, routing a cache coherence. Mixed synchronous v8.1 a asynchronous v8.2 contract pod jedným gateway/Service pathom pri provider p95 `2.4 s` vytvoril 2 906 timeoutov, 4 118 retries a 43 duplicate physical provider attempts. Durable outbox/Kafka publication bola správna, ale consumer auto-commit posunul offsets pred provider resultom; 611 records malo committed offsets bez durable resultu a 84 operations nemalo provider attempt ani final state. Service discovery nebola stale: správne publikovala v8.1 aj v8.2 Pody podľa príliš širokého selectoru a gateway route precedence vybrala broad incompatible contract. Unversioned Redis policy entry závislá iba od unsafe invalidation consumeru zostala stale 17 minút; 1 206 settlements použilo starú policy a hit ratio ostal 97.8 %. Redesign používa exact async-v2 route/Service eligibility, atomic settlement+outbox `202` contract a status resource, manual consumer acknowledgement po durable provider outcome-e, stable operation partition/idempotency identity, versioned immutable policy keys a authority lookup pri cache miss/error. Section README je `12/18 · In progress`, roadmap má prvých dvanásť topics prelinkovaných, navigation vedie `Monolith/modular monolith/microservices → Synchronous/asynchronous communication → Message queues/event-driven architecture → Service discovery/API gateway → Caching → ROADMAP`, glossary fragments `15a`–`15c` a generated `GLOSSARY.md` sú synchronizované a audit-failure artifacts sú prázdne. Current primary facts boli overené proti Apache Kafka 4.1 design/configuration, RabbitMQ 4.2/current reliability and acknowledgement documentation, Kubernetes current Service/EndpointSlice/DNS documentation a RFC 9111 HTTP Caching. Zostáva 6 kapitol a finálny section-level pass. |"
+          )
+
+          lines = text.splitlines()
+          replaced = False
+          for index, line in enumerate(lines):
+              if line.startswith(prefix):
+                  lines[index] = row
+                  replaced = True
+                  break
+          if not replaced:
+              marker = "## Section-level completion criteria"
+              try:
+                  index = lines.index(marker)
+              except ValueError as exc:
+                  raise SystemExit("ledger insertion marker not found") from exc
+              lines[index:index] = [row, ""]
+
+          ledger.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8", newline="\n")
+          PY
+
+            git cat-file blob cd8e02587c80eb58bc579a5403959cf7dc126071 > .github/workflows/knowledge-navigation.yml
+            git add DOCUMENTATION-REVIEW-STATUS.md .github/workflows/knowledge-navigation.yml
+
+            if git diff --cached --quiet; then
+              exit 0
+            fi
+
+            git commit -m "docs(review): record third Databases and Distributed Systems block"
+            if git push origin "HEAD:$branch"; then
+              exit 0
+            fi
+          done
+
+          echo "Failed to publish third database block ledger after retries." >&2
+          exit 1
 
       - name: Validate synchronized documentation
         if: github.event_name == 'pull_request' || github.actor == 'github-actions[bot]'
