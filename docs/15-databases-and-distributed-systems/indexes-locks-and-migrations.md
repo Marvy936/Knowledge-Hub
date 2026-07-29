@@ -557,5 +557,5 @@ Relevantné pojmy: index subject, access path, query selectivity, multicolumn in
 
 **Navigácia**
 
-[↑ Obsah sekcie](README.md)
+[← Predchádzajúca: Transactions a ACID](transactions-and-acid.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Replikácia a high availability →](replication-and-high-availability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

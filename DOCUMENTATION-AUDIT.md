@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **276**
 - Audited conceptual sections: **11153**
-- Total words: **646,012**
+- Total words: **646,048**
 - Findings: **23494** (critical 7041, high 8073, medium 2949, low 5431)
 - File grades: A 0, B 0, C 0, D 276
 
@@ -25,7 +25,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
-| D | 1303 | 56 | 73 | 11 | 20 | 2055 | `docs/14-sre-and-operations/operational-readiness.md` |
+| D | 1303 | 56 | 73 | 11 | 20 | 2058 | `docs/14-sre-and-operations/operational-readiness.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1141 | 46 | 66 | 14 | 19 | 2062 | `docs/13-security-and-identity/least-privilege.md` |
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
@@ -58,7 +58,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 866 | 43 | 38 | 13 | 8 | 1872 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | D | 863 | 38 | 45 | 10 | 16 | 1882 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
-| D | 857 | 40 | 38 | 14 | 19 | 2095 | `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md` |
+| D | 857 | 40 | 38 | 14 | 19 | 2104 | `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md` |
 | D | 854 | 37 | 41 | 15 | 28 | 2950 | `docs/09-kubernetes/deployment.md` |
 | D | 851 | 36 | 36 | 25 | 33 | 3084 | `docs/09-kubernetes/pod.md` |
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
@@ -79,7 +79,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 784 | 37 | 37 | 10 | 16 | 2402 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 784 | 35 | 33 | 20 | 18 | 2675 | `docs/11-cloud-and-aws/well-architected-framework.md` |
-| D | 782 | 37 | 30 | 17 | 28 | 2128 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
+| D | 782 | 37 | 30 | 17 | 28 | 2135 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | D | 774 | 35 | 33 | 17 | 27 | 2700 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
@@ -182,11 +182,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 544 | 21 | 32 | 5 | 20 | 2189 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | D | 542 | 26 | 21 | 2 | 47 | 4101 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
-| D | 542 | 21 | 30 | 9 | 13 | 1913 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
+| D | 542 | 21 | 30 | 9 | 13 | 1923 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
 | D | 541 | 19 | 28 | 9 | 46 | 3195 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 538 | 21 | 30 | 10 | 11 | 1867 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
 | D | 538 | 23 | 28 | 6 | 15 | 2121 | `docs/06-gitlab/variables-and-secrets.md` |
-| D | 538 | 21 | 31 | 5 | 20 | 2035 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
+| D | 538 | 21 | 31 | 5 | 20 | 2042 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | D | 537 | 23 | 31 | 3 | 13 | 1905 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | D | 537 | 24 | 26 | 7 | 13 | 2296 | `docs/12-observability/red-method.md` |
 | D | 534 | 25 | 23 | 10 | 13 | 2307 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |

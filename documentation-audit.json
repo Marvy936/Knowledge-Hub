@@ -3713,7 +3713,7 @@
     {
       "path": "docs/14-sre-and-operations/operational-readiness.md",
       "title": "Operational readiness",
-      "words": 2055,
+      "words": 2058,
       "headings": 58,
       "sections": 58,
       "findings": 160,
@@ -3811,7 +3811,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "title": "Indexy, locks a migrácie",
-      "words": 2095,
+      "words": 2104,
       "headings": 42,
       "sections": 42,
       "findings": 111,
@@ -3825,7 +3825,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
       "title": "Relational vs. non-relational databases",
-      "words": 2035,
+      "words": 2042,
       "headings": 33,
       "sections": 33,
       "findings": 77,
@@ -3839,7 +3839,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/replication-and-high-availability.md",
       "title": "Replikácia a high availability",
-      "words": 2128,
+      "words": 2135,
       "headings": 37,
       "sections": 37,
       "findings": 112,
@@ -3853,7 +3853,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/transactions-and-acid.md",
       "title": "Transactions a ACID",
-      "words": 1913,
+      "words": 1923,
       "headings": 42,
       "sections": 42,
       "findings": 73,

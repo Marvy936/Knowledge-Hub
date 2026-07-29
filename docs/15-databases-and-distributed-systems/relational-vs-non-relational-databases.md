@@ -437,5 +437,5 @@ Relevantné pojmy: database-selection subject, authoritative fact, relational mo
 
 **Navigácia**
 
-[↑ Obsah sekcie](README.md)
+[← Predchádzajúca: Operational readiness](../14-sre-and-operations/operational-readiness.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Transactions a ACID →](transactions-and-acid.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

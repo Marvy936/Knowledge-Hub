@@ -646,5 +646,5 @@ Relevantné pojmy: operational-readiness subject, Production Readiness Review, r
 
 **Navigácia**
 
-[← Predchádzajúca: Chaos engineering](chaos-engineering.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Chaos engineering](chaos-engineering.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Relational vs. non-relational databases →](../15-databases-and-distributed-systems/relational-vs-non-relational-databases.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

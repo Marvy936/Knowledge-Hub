@@ -534,5 +534,5 @@ Relevantné pojmy: transaction subject, atomicity, consistency, isolation, durab
 
 **Navigácia**
 
-[↑ Obsah sekcie](README.md)
+[← Predchádzajúca: Relational vs. non-relational databases](relational-vs-non-relational-databases.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Indexy, locks a migrácie →](indexes-locks-and-migrations.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

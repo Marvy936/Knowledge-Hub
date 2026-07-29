@@ -333,8 +333,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Databases and Distributed Systems
 
-- [ ] Relational vs. non-relational databases
-- [ ] Transactions a ACID
+- [x] [Relational vs. non-relational databases](docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md)
+- [x] [Transactions a ACID](docs/15-databases-and-distributed-systems/transactions-and-acid.md)
 - [ ] Indexy, locks a migrations
 - [ ] Replication a high availability
 - [ ] Backups a point-in-time recovery
