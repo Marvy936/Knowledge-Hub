@@ -134,6 +134,18 @@ Rozbalená identity od CloudTrail `userIdentity` cez assumed-role ARN, principal
 
 Reálny stav clusteru alebo external systému v konkrétnom okamihu, napríklad existujúce Pods, bežiace processes, attached volumes alebo cloud resources; controller ho nemusí okamžite celý pozorovať. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## AD acceptance verdict
+
+Dôkaz, že security-relevant directory change convergoval na všetkých required DC/GC replicas, clients vyberajú intended DC, fresh sessions používajú správny group state a staré application/token paths už forbidden operation nepovoľujú. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## AD DS subject
+
+Exact forest, domain, partition, object GUID/SID/DN, changed attribute alebo group edge, origin DC, replication metadata, selected client DC/KDC/LDAP replica, session generation a downstream authorization scope analyzovaného AD state-u. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## AD/SYSVOL generation pair
+
+Matching directory metadata a SYSVOL content generation jedného Group Policy Objectu, ktoré musia byť dostupné a spracované spolu, aby client dostal intended policy. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Adaptive sampling — tracing
 
 Sampling model, ktorý priebežne upravuje head-sampling probabilities podľa pozorovaného trafficu a target volume-u. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
@@ -742,6 +754,10 @@ Logical identifier artifactu používaný na komunikáciu release identity alebo
 
 OCI manifest field opisujúci semantic media type artifactu, najmä keď config descriptor neposkytuje dostatočnú type informáciu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
+## AS/TGS/AP verdict
+
+Stage-specific rozhodnutie, či Kerberos zlyhal pri initial TGT issuance, service-ticket issuance alebo application exchange a ticket presentation. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## ASG reconciliation subject
 
 Auto Scaling Group desired state, current instance/lifecycle inventory, health sources, scaling activities, suspended processes a launch/termination decisions pre jednu fleet generation. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
@@ -845,6 +861,10 @@ Mapping identity, ownership a authorization attributes na ich authoritative sour
 ## Attribute-Based Access Control — ABAC
 
 Authorization model používajúci attributes principalu, resource-u, action a environmentu na vytvorenie access decisionu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Attribute-projection contract — LDAP
+
+Allowlist LDAP attributes, ktoré smie konkrétny Bind principal čítať pre definovaný application use case bez zbytočného confidentiality exposure. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Attributed unit cost
 
@@ -981,6 +1001,10 @@ OAuth server, ktorý vyhodnocuje grant, autentizuje relevantných principals a v
 ## Authorization Server Metadata
 
 Štandardizovaný dokument publikujúci issuer, endpoints a supported OAuth capabilities pre bezpečnejšiu client konfiguráciu. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Authorization-transaction generation — OAuth
+
+Jednorazový client-side a Authorization-Server-side state viažuci expected issuer, redirect URI, `state`, PKCE challenge/verifier, requested resource/scope a callback na jednu authorization operáciu. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Auto Scaling Group — ASG
 
@@ -1353,6 +1377,10 @@ Sprístupnenie existujúceho daemon-host filesystem pathu do container mount nam
 ## Bind-source resolution boundary
 
 Rozhranie medzi client pathom, Docker daemon alebo Desktop VM pathom a container destination, na ktorom sa bind source môže vyhodnotiť na inom hoste alebo directory, než operator očakáva. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Bind-state generation
+
+Authentication state konkrétnej LDAP connection po anonymous, simple alebo SASL Bind-e, ktorý nesmie byť neúmyselne zdieľaný medzi unrelated requests alebo users. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Binding — Kubernetes scheduling
 
@@ -2197,6 +2225,10 @@ OAuth machine-to-machine grant, pri ktorom client získava token vo vlastnom ide
 ## Client — OAuth
 
 Aplikácia požadujúca token a používajúca ho voči resource serveru. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Client-selected replica — AD DS
+
+Domain controller, KDC alebo Global Catalog vybraný konkrétnym clientom cez DNS, site/subnet mapping a DC locator pre daný request alebo logon. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Client-Service flow subject
 
@@ -3930,6 +3962,10 @@ Telemetry signal vypočítaný z iného signalu, napríklad metrics zo spans ale
 
 Verdict určujúci, či signal vypočítaný z logs, spans alebo iného source-u má dostatočnú coverage, sampling a correctness na konkrétne SLO, alert alebo investigation použitie. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Derived-token graph
+
+Lineage local session, refresh family, access tokens a token-exchange descendants odvodených z jedného OAuth grant alebo authentication contextu. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Descriptor — OCI
 
 Štruktúra identifikujúca OCI content cez media type, digest, size a prípadné platform metadata. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -4093,6 +4129,14 @@ Failure boundary Podu vytvoreného bez higher-level workload controlleru, pri kt
 ## Direct-to-storage tracing
 
 Jaeger deployment model, v ktorom collectors zapisujú traces priamo do external storage bez durable Kafka bufferu. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Directory convergence generation
+
+Security-relevant directory state po aplikovaní exact originating change-u a jeho replication metadata na všetkých replicas required daným authentication, LDAP, Global Catalog alebo policy pathom. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Directory freshness verdict — LDAP
+
+Rozhodnutie, či selected LDAP replica obsahuje required object/attribute generation pre current query a security decision, nie iba či server odpovedal. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Directory Information Tree — DIT
 
@@ -5862,6 +5906,14 @@ Vlastnosť key-establishment modelu, pri ktorej neskorší compromise dlhodobéh
 
 Fully Qualified Collection Name explicitne identifikujúci module, plugin alebo iný content cez namespace, collection a object name, napríklad `ansible.builtin.template`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
 
+## Fresh-but-stale Kerberos ticket
+
+TGT alebo service ticket vydaný po security change-i, ale KDC ho vytvoril z neconverged directory state-u a authorization data preto nesie starú membership alebo eligibility generation. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Fresh-but-stale logon
+
+Nová logon session vytvorená po identity change-i, ktorá napriek tomu používa starý group alebo policy state, pretože selected DC neobsahoval converged generation. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Fresh-connection verdict
 
 Dôkaz, že nový lookup a nová connection použili accepted address a dosiahli správny Service alebo external backend; samotný lookup nestačí. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
@@ -6162,6 +6214,10 @@ Dashboard placeholder získaný z query, custom listu alebo iného source-u a in
 
 Nahradenie variable jej aktuálnou hodnotou pred odoslaním query data source-u, vrátane data-source-specific escaping a formatting. Pozri [Grafana](docs/12-observability/grafana.md).
 
+## Grant-input generation — OAuth
+
+Exact identity, authentication assurance, directory/group/JIT entitlement, consent a policy state použitý Authorization Serverom pri rozhodnutí vydať token. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Graph execution subject — BuildKit
 
 Identita vykonaného build graphu zahŕňajúca frontend translation, reachable nodes, selected target, platform branches, cache hit/miss outcomes, node scheduling, execution results a exporter roots. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -6197,6 +6253,10 @@ AD DS managed service identity s automatizovanou password lifecycle správou pre
 ## Group sharing — GitLab
 
 Udelenie accessu projektu alebo group členom inej group s definovaným maximum role scope-om. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Group-state generation — AD DS
+
+Versionovaná direct a nested group-membership graph generation na konkrétnom DC/GC, z ktorej vzniká LDAP result, PAC alebo Windows access token. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
 ## Group wait
 
@@ -7370,6 +7430,10 @@ Centralizovaný head-sampling model, v ktorom SDKs získavajú sampling strategi
 
 Textový template renderovaný typicky na control node v host-specific variable context-e a následne použitý ako configuration alebo iný artifact. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
+## JIT-bound scope
+
+OAuth scope vydaný iba spolu s aktuálnou, časovo obmedzenou approval alebo privilege-activation generation a overovaný Resource Serverom voči exact resource a workflow state-u. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Jitter
 
 Náhodná odchýlka pridaná k retry delay, ktorá znižuje synchronizované opakovanie veľkého množstva klientov. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
@@ -7438,9 +7502,21 @@ Tracing architecture, v ktorej durable Kafka-compatible queue oddeľuje trace in
 
 Kerberos Key Distribution Center obsahujúce Authentication Service, Ticket-Granting Service a principal/key database. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## KDC-selected directory generation
+
+Directory object, group a policy state lokálne dostupný KDC/domain controlleru pri vytváraní TGT, service ticketu alebo PAC. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Kerberos
 
 Ticket-based network authentication protocol používajúci KDC, TGT a service tickets na vzájomnú authentication clientov a services. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Kerberos acceptance verdict
+
+Dôkaz, že intended AS/TGS/AP flow, SPN-to-key ownership, KVNO/enctype, replay/freshness a application authorization fungujú, zatiaľ čo old ticket, wrong SPN, fallback a forbidden resource paths zlyhávajú. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Kerberos subject
+
+Exact realm, KDC/DC, client principal, requested service principal, ticket stage, validity/flags, KVNO/enctype, cache/keytab, PAC generation, negotiated mechanism a application authorization scope. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## Kernel enforcement generation — Kubernetes
 
@@ -7622,6 +7698,10 @@ Maximálny podporovaný rozdiel verzií medzi API servers, kubelets, controller-
 
 Pod-level mount alebo device source deklarovaný v `spec.volumes`, ktorého backing môže byť ephemeral, projected alebo persistent. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## KVNO overlap generation
+
+Bounded interval, počas ktorého service cohorta dokáže decryptovať tickets vydané old aj new Kerberos key versionou počas koordinovanej rotation. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Kyverno
 
 Kubernetes-native policy engine poskytujúci policy types pre validation, mutation, generation, cleanup a image verification. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -7714,6 +7794,10 @@ Incident, pri ktorom secret môže byť v layeri, image metadata, context/cache,
 
 Aplikačný protocol na prístup k hierarchickým directory službám cez operations ako Bind, Search, Add, Modify a Delete. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
+## LDAP acceptance verdict
+
+Dôkaz, že exact Bind a Search contract vracia converged result cez všetky required replicas/failover paths, minimal ACL zostáva účinná a TLS, injection, referral, stale-cache a forbidden-membership tests zlyhávajú správne. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## LDAP control
 
 Rozšírenie LDAP operation behavior, napríklad paged results alebo server-side sorting, označené ako critical alebo non-critical. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -7729,6 +7813,10 @@ Injection attack vznikajúci vložením neescaped alebo nevalidovaného inputu d
 ## LDAP referral
 
 LDAP response odkazujúci clienta na iný directory server alebo naming context. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAP subject
+
+Exact directory implementation, selected replica, naming context/schema, Bind identity/mechanism, TLS identity, base/scope/filter/projection, controls/referrals, result a client cache/mapping analyzovaného LDAP requestu. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## LDAPS
 
@@ -7921,6 +8009,10 @@ Intersection Nodes prijímajúcich traffic s ready local endpointmi potrebná pr
 ## Local PersistentVolume
 
 PV reprezentujúci storage fyzicky viazaný na konkrétny Node alebo topology domain, s vysokým výkonom, ale bez automatickej multi-node dostupnosti. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## Local resource verdict — OAuth
+
+Resource-Server decision nad validným tokenom, exact action/resource/tenant, current business state, JIT approval, separation-of-duties a ďalšími local authorization podmienkami. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Local TSDB generation — Prometheus
 
@@ -8229,6 +8321,10 @@ Presný observation point, napríklad client, edge, handler, consumer, dependenc
 ## Measurement population — RED
 
 Množina valid operations definovaná rovnakou unit, scope, traffic eligibility a time semantics pre RED numerator, denominator a duration. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Mechanism-fallback verdict — Kerberos
+
+Explicitný výsledok, či GSS/SPNEGO použilo intended Kerberos mechanismus alebo fallback ako NTLM či spoofable header path. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## Media type — OCI
 
@@ -9010,6 +9106,14 @@ CloudFront-to-S3 REST origin contract, v ktorom Origin Access Control podpisuje 
 
 Authorization framework na delegovaný alebo workload access k protected APIs pomocou obmedzených tokens. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## OAuth acceptance verdict
+
+Dôkaz, že correct client/issuer transaction vydá resource-specific minimal token, Resource Server vykoná local authorization a removed/old/wrong-audience/refresh/exchanged paths sú po revocation forbidden. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## OAuth subject
+
+Exact issuer, client registration, grant transaction, subject/actor, redirect/state/PKCE, audience/scope, access/refresh generation, sender binding, Resource Server operation a revocation scope. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Object-bound credential
 
 Credential, ktorého validity alebo trust je viazaná na lifecycle konkrétneho Kubernetes objektu, napríklad Podu alebo ServiceAccountu. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
@@ -9290,6 +9394,10 @@ Explicitný client-to-business journey a jeho latency, correctness, data, identi
 
 Opätovné overenie pôvodného používateľského alebo business cieľa po remediation, nie iba technického stavu komponentu. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Originating directory change
+
+Object alebo attribute mutation identifikovaná origin DC, originating timestamp, version, USN a invocation ID, z ktorej sa odvodzuje replication a convergence. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Orphan container — Compose
 
 Container patriaci Compose projektu, ktorého service už nie je prítomná v aktuálnom resolved modeli. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
@@ -9382,6 +9490,10 @@ Explicitné rozdelenie zodpovednosti medzi provider, platform team a application
 
 Platform as a Service: cloud model poskytujúci managed runtime alebo data/application platformu, kde provider spravuje viac infraštruktúrnych a operačných vrstiev než pri IaaS. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## PAC group generation
+
+Group a authorization-data snapshot vložený AD KDC infraštruktúrou do Kerberos PAC podľa directory state-u dostupného pri ticket issuance. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## PAC — Kerberos
 
 Microsoft Privilege Attribute Certificate prenášajúci authorization-related identity a group information v Kerberos ticketoch pre Windows authorization scenarios. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
@@ -9461,6 +9573,10 @@ Predvýpočet policy nad známymi data s vytvorením residual query pre runtime 
 ## Partial failure — controller
 
 Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad vytvorí external resource, ale nestihne uložiť jeho identity do statusu, a musí sa bezpečne zotaviť pri retry. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Partial-result verdict — LDAP
+
+Rozhodnutie, či Search result reprezentuje complete intended population alebo bol obmedzený ACL, limitom, referralom, controlom, timeoutom či stale replica state-om. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Partitioned-node execution
 
@@ -10189,6 +10305,10 @@ Exact namespace/workload/image/owner/capability/Node/RBAC/expiry contract povoľ
 ## Privileged namespace exception
 
 Auditovaná namespace výnimka povoľujúca systémovým workloadom širšie Pod privileges, s obmedzeným RBAC, ownerom, scope-om a expiry. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
+
+## Privileged negative-change lookup
+
+LDAP read contract pre disable, removal alebo revocation event, ktorý vyžaduje prísny convergence a freshness dôkaz pred ďalším privileged token/session issuance. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Privileged-policy collapse
 
@@ -11226,6 +11346,10 @@ Explicitná identita operátorského alebo recovery replay-u viazaná na pôvodn
 
 Schválený súbor source event identity, pôvodnej delivery/function generation, attempt history, failure class, idempotency key, current business state, replay version, rate limitu a post-replay validation. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Replica-bound query
+
+LDAP request a jeho result viazaný na exact server/replica a lokálnu object generation, nie na abstraktnú predstavu globálne konzistentného directory endpointu. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
 ## Replica-set acceptance verdict
 
 Dôkaz, že ReplicaSet vlastní presný desired Pod inventory, všetky Pods sú template-equivalentné a Ready/Available, Service vyberá správne UIDs a next reconcile je no-op. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
@@ -11486,6 +11610,10 @@ Deklarované množstvo resource-u používané schedulerom na placement a platfo
 
 API alebo služba validujúca access token a presadzujúca resource-level authorization. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Resource-specific token
+
+OAuth access token vydaný pre jeden explicitný Resource Server alebo úzku audience namiesto broad tokenu akceptovaného množstvom unrelated APIs. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
 ## Resource-versus-scope identity
 
 Rozlíšenie observed entity, napríklad service alebo Pod, od instrumentation library/componentu a jeho version, ktorý telemetry record vytvoril. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
@@ -11637,6 +11765,10 @@ Stav rotation, v ktorom všetci oprávnení consumers používajú novú secret 
 ## Revocation latency — Zero Trust
 
 Čas od identity, posture alebo policy revocation eventu po propagáciu a ukončenie relevantných active sessions vo všetkých enforcement points. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Revocation-propagation verdict — OAuth
+
+Dôkaz, že local session, grant, refresh family, access-token validation state, caches a exchanged descendants po revocation už forbidden operation nepovoľujú. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Rewrap
 
@@ -12313,6 +12445,10 @@ Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Dev
 ## Search base — LDAP
 
 Distinguished Name určujúci východiskový entry pre LDAP Search operation. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## Search-contract generation — LDAP
+
+Exact base DN, scope, escaped filter, requested attributes, controls, limits a referral policy jednej versionovanej LDAP query. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
 ## Search scope — LDAP
 
@@ -13006,6 +13142,10 @@ Spoločný install, upgrade, rollback, hook a revision blast radius parent chart
 
 Storage contract povoľujúci v danom čase iba jedného active writer-a a vyžadujúci scheduling/fencing. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## Site/subnet coverage — AD DS
+
+Verdikt, či všetky relevantné client network prefixes majú jednoznačné AD subnet-to-site mapovanie a preto používajú intended DC/KDC/GC affinity. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
 ## Skip-and-return strategy — CKA
 
 Time-management postup, pri ktorom kandidát preskočí úlohu bez jasnej rýchlej cesty, označí ju a vráti sa po získaní jednoduchších bodov. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -13173,6 +13313,10 @@ DNS model, v ktorom rovnaké meno vracia rozdielne odpovede podľa resolvera, si
 ## Split-writer incident
 
 Failure, pri ktorom viac processov alebo nodes verí, že má write authority nad rovnakou persistent data identity. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## SPN-to-key ownership
+
+Versionovaný vzťah requested Kerberos service principalu k directory accountu, long-term key generation, KVNO a deployed service keytab/managed identity. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
 ## Spot Instance
 
@@ -13521,6 +13665,10 @@ Group vnorená v parent group, používaná na delegovanie ownershipu, členstva
 ## Subject
 
 Entita, ktorá iniciuje operation alebo pristupuje k resource-u a je reprezentovaná principalom v security context-e. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Subject-actor chain — OAuth
+
+Auditovateľný rozdiel medzi initiating subjectom a clientom alebo downstream service actorom, ktorý vykonáva delegated alebo exchanged-token operation. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Subject-bound authorization verification
 
@@ -14106,6 +14254,10 @@ Množstvo práce dokončenej za jednotku času. Pozri [Performance a troubleshoo
 
 EFS configuration určujúca, ako filesystem získava a účtuje dostupný aggregate throughput, napríklad Bursting, Provisioned alebo Elastic. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
+## Ticket-generation identity
+
+Exact KDC, client/service principal, issue time, validity, flags, KVNO, enctype a authorization-data generation jedného Kerberos ticketu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
 ## Ticket-Granting Service — Kerberos TGS
 
 Časť KDC, ktorá na základe validného TGT vydáva service tickets pre požadované service principals. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
@@ -14177,6 +14329,10 @@ Manuálna, opakujúca sa, automatizovateľná a nízko hodnotná prevádzková p
 ## Token audience boundary
 
 Recipient restriction určujúca, pre ktorý verifier alebo service je token určený; platný token s nesprávnou audience musí byť odmietnutý. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
+
+## Token authorization snapshot
+
+Scopes a claims zachytené v self-contained access tokene pri issuance, ktoré môžu zostať cryptographically validné aj po neskoršej identity alebo entitlement zmene. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
 ## Token endpoint
 
