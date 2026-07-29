@@ -3587,15 +3587,15 @@
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
       "title": "Zero Trust",
-      "words": 5452,
-      "headings": 40,
-      "sections": 40,
-      "findings": 43,
-      "critical": 3,
-      "high": 7,
-      "medium": 2,
-      "low": 31,
-      "score": 136,
+      "words": 2588,
+      "headings": 39,
+      "sections": 39,
+      "findings": 96,
+      "critical": 26,
+      "high": 34,
+      "medium": 13,
+      "low": 23,
+      "score": 653,
       "grade": "D"
     }
   ],
@@ -197489,278 +197489,647 @@
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "1. Prečo Zero Trust vznikol",
-      "line": 16,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "2. Čo Zero Trust nie je",
-      "line": 24,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 64 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "2. Čo Zero Trust nie je",
-      "line": 24,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "2. Čo Zero Trust nie je",
-      "line": 24,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "2. Čo Zero Trust nie je",
-      "line": 24,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "4. Access request ako explicitný decision",
-      "line": 48,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "5. Least privilege per resource",
-      "line": 60,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "7. Authentication a authorization sú samostatné",
-      "line": 95,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "10. Control plane a data plane",
-      "line": 139,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "11. Human identity lifecycle",
-      "line": 147,
+      "section": "2. Explicit access subject",
+      "line": 37,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie vytvoriť alebo meniť account;`, `ako sa overí väzba accountu na reálnu osobu;`, `ako sa vydáva phishing-resistant authenticator;`, `ako sa mení role pri zmene pracovnej pozície;`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "11. Human identity lifecycle",
-      "line": 147,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "12. Authentication strength a step-up authentication",
-      "line": 164,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "12. Authentication strength a step-up authentication",
-      "line": 164,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "13. Device identity a device posture",
-      "line": 172,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "14. Managed a unmanaged devices",
-      "line": 182,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "15. Workload identity",
-      "line": 190,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "17. SPIFFE, SVID a SPIRE",
-      "line": 218,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "19. mTLS autentizuje endpoints, nie business intent",
-      "line": 238,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "19. mTLS autentizuje endpoints, nie business intent",
-      "line": 238,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "21. Resource inventory a data classification",
-      "line": 258,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "21. Resource inventory a data classification",
-      "line": 258,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "26. Cloud a Kubernetes kontext",
-      "line": 300,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "27. Privileged administration",
-      "line": 308,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "27. Privileged administration",
-      "line": 308,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "29. Telemetry, risk a vysvetliteľné decisions",
-      "line": 324,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "31. Incident response a recovery dôvery",
-      "line": 352,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "32. Migračný model",
-      "line": 373,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "32. Migračný model",
-      "line": 373,
-      "severity": "high",
+      "section": "2. Explicit access subject",
+      "line": 37,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikovať kritické resources, owners a users;`, `zmapovať všetky priame aj nepriame access paths;`, `odstrániť stale identities a broad standing privilege;`, `zaviesť silnú human a workload identity;`.",
-      "score": 8
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `human, workload a device identity;`, `issuer, authenticator a session generation;`, `delegation chain;`, `requested action a exact resource;`.",
+      "score": 12
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "32. Migračný model",
-      "line": 373,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "32. Migračný model",
-      "line": 373,
+      "section": "2. Explicit access subject",
+      "line": 37,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `workload`, `enforcement`, `resource`",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "33. CISA Zero Trust Maturity Model",
-      "line": 391,
+      "section": "2. Explicit access subject",
+      "line": 37,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "2. Explicit access subject",
+      "line": 37,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `delegation`, `resource`, `scope`, `posture`, `policy`, `Enforcement`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "3. Čo Zero Trust nie je",
+      "line": 58,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "3. Čo Zero Trust nie je",
+      "line": 58,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MFA;`, `VPN alebo ZTNA proxy;`, `service mesh a mTLS;`, `microsegmentation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "3. Čo Zero Trust nie je",
+      "line": 58,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "3. Čo Zero Trust nie je",
+      "line": 58,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `ZTNA`, `SIEM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "4. Assume breach bez permanentnej nedôvery",
+      "line": 73,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "4. Assume breach bez permanentnej nedôvery",
+      "line": 73,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimalizuje standing privilege;`, `viaže credentials na audience, purpose a short lifetime;`, `segmentuje blast radius;`, `zachováva attribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "4. Assume breach bez permanentnej nedôvery",
+      "line": 73,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "4. Assume breach bez permanentnej nedôvery",
+      "line": 73,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "5. NIST Policy Engine, Policy Administrator a PEP",
+      "line": 87,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "6. Control plane a data plane",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "8. Device identity a posture",
+      "line": 140,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 60 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "8. Device identity a posture",
+      "line": 140,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `managed certificate alebo hardware-backed key;`, `OS a patch generation;`, `disk encryption a secure boot;`, `EDR health;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "8. Device identity a posture",
+      "line": 140,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "8. Device identity a posture",
+      "line": 140,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "10. SPIFFE, SVID a SPIRE",
+      "line": 173,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "10. SPIFFE, SVID a SPIRE",
+      "line": 173,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "10. SPIFFE, SVID a SPIRE",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "10. SPIFFE, SVID a SPIRE",
+      "line": 173,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SVID`, `JWT`, `API`, `SPIRE`, `attestation`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "12. Least privilege a JIT",
+      "line": 201,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "12. Least privilege a JIT",
+      "line": 201,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject;`, `action;`, `exact resource;`, `tenant a data scope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "12. Least privilege a JIT",
+      "line": 201,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "12. Least privilege a JIT",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "12. Least privilege a JIT",
+      "line": 201,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`, `workload`, `posture`, `delegation`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "13. Resource inventory, classification a paths",
+      "line": 219,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "13. Resource inventory, classification a paths",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource identity a ownera;`, `sensitivity a business impact;`, `users a workloads;`, `direct, delegated, recovery a automation paths;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "13. Resource inventory, classification a paths",
+      "line": 219,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "13. Resource inventory, classification a paths",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "13. Resource inventory, classification a paths",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "13. Resource inventory, classification a paths",
+      "line": 219,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "15. ZTNA, gateways a service mesh",
+      "line": 251,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "16. Dynamic policy a signal contract",
+      "line": 259,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "16. Dynamic policy a signal contract",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication method a age;`, `device/workload posture;`, `resource sensitivity;`, `vulnerability alebo quarantine state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "16. Dynamic policy a signal contract",
+      "line": 259,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "16. Dynamic policy a signal contract",
+      "line": 259,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `posture`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "17. Continuous verification",
+      "line": 274,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "17. Continuous verification",
+      "line": 274,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded session/token lifetime;`, `re-evaluation pri high-impact operation;`, `event-driven reaction na disable, posture alebo incident change;`, `telemetry počas session;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "17. Continuous verification",
+      "line": 274,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "17. Continuous verification",
+      "line": 274,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "17. Continuous verification",
+      "line": 274,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `posture`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "18. Worked incident SEC-PAY-51",
+      "line": 287,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "18. Worked incident SEC-PAY-51",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "18. Worked incident SEC-PAY-51",
+      "line": 287,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `API`, `EDR`, `PAW-OPS-17`, `SEC-PAY-50`, `PEP`, `POL-IMG-16`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "19. Causal evidence",
+      "line": 313,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "19. Causal evidence",
+      "line": 313,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "19. Causal evidence",
+      "line": 313,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "19. Causal evidence",
+      "line": 313,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "19. Causal evidence",
+      "line": 313,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "19. Causal evidence",
+      "line": 313,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `ID`, `posture`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zablokovať new deployment issuance a controller writes;`, `quarantine index a platform digests;`, `revoke human session, bearer token a workflow credentials;`, `remove controller ServiceAccount broad bindings;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "20. Evidence-preserving containment",
+      "line": 327,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EDR`, `OIDC`, `SPIFFE`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `obnoviť human entitlement a fresh WebAuthn/JIT flow;`, `policy vyhodnotí exact action/resource/artifact/cluster generation;`, `odstrániť network-location trust a broad bearer token;`, `pridať event-driven posture, signer, policy a quarantine revocation;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "21. Authoritative recovery",
+      "line": 339,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `CRD`, `API`, `PEP`, `workload`, `attestation`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "23. Revocation a trust recovery",
+      "line": 370,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "24. CISA maturity model a migration",
+      "line": 388,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identity;`, `Devices;`, `Networks;`, `Applications and Workloads;`.",
@@ -197768,80 +198137,62 @@
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "33. CISA Zero Trust Maturity Model",
-      "line": 391,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "24. CISA maturity model a migration",
+      "line": 388,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "33. CISA Zero Trust Maturity Model",
-      "line": 391,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "24. CISA maturity model a migration",
+      "line": 388,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Identity`",
+      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "34. Ako merať reálny pokrok",
-      "line": 407,
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "34. Ako merať reálny pokrok",
-      "line": 407,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "34. Ako merať reálny pokrok",
-      "line": 407,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "34. Ako merať reálny pokrok",
-      "line": 407,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `Resource`, `enforcement`, `Identity`, `workload`, `Policy`, `freshness`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "35. Kompletný príklad access decisionu",
-      "line": 421,
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "35. Kompletný príklad access decisionu",
-      "line": 421,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `human, workload a device identities majú authoritative lifecycle;`, `authentication, posture, delegation a authorization sú oddelené;`, `exact resource/action/data/environment vstupujú do decisionu;`, `PE, PA a všetky PEPs používajú intended generations;`.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "35. Kompletný príklad access decisionu",
-      "line": 421,
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -197849,8 +198200,17 @@
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "35. Kompletný príklad access decisionu",
-      "line": 421,
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -197858,21 +198218,138 @@
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "35. Kompletný príklad access decisionu",
-      "line": 421,
+      "section": "26. Zero Trust acceptance verdict",
+      "line": 433,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `ID`, `EDR`, `CI`, `PEP`, `Identity`, `Posture`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PE`, `PA`, `workload`, `posture`, `delegation`, `resource`, `policy`, `identity`",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
-      "section": "37. Časté anti-patterny",
-      "line": 456,
+      "section": "28. Earlier controls",
+      "line": 469,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "28. Earlier controls",
+      "line": 469,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "28. Earlier controls",
+      "line": 469,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "28. Earlier controls",
+      "line": 469,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource/action/data inventory;`, `authoritative JML a session lifecycle;`, `phishing-resistant step-up pre privileged actions;`, `managed admin devices a fresh posture;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "28. Earlier controls",
+      "line": 469,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "28. Earlier controls",
+      "line": 469,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "28. Earlier controls",
+      "line": 469,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JML`, `PEP`, `resource`, `step-up`, `posture`, `workload`, `identity`, `delegation`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "Interná sieť je trusted",
+      "line": 487,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "MFA equals access",
+      "line": 491,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "Service mesh equals Zero Trust",
+      "line": 495,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "Dynamic policy zo stale data",
+      "line": 499,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "PEP pred hostname, backend otvorený",
+      "line": 503,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "Short-lived token bez revocation graphu",
+      "line": 507,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/zero-trust.md",
+      "section": "Marketing maturity score",
+      "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     }
   ]
 }

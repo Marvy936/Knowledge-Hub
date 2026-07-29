@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10355**
-- Total words: **611,621**
-- Findings: **21586** (critical 6415, high 7285, medium 2743, low 5143)
+- Audited conceptual sections: **10354**
+- Total words: **608,757**
+- Findings: **21639** (critical 6438, high 7312, medium 2754, low 5135)
 - File grades: A 0, B 0, C 0, D 257
 
 ## Interpretation
@@ -120,6 +120,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 657 | 32 | 28 | 8 | 15 | 1850 | `docs/12-observability/loki.md` |
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
+| D | 653 | 26 | 34 | 13 | 23 | 2588 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 648 | 29 | 23 | 23 | 18 | 2325 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 648 | 25 | 38 | 8 | 15 | 2006 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | D | 647 | 28 | 34 | 6 | 22 | 2316 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
@@ -272,7 +273,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 145 | 6 | 6 | 3 | 15 | 2392 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
-| D | 136 | 3 | 7 | 2 | 31 | 5452 | `docs/13-security-and-identity/zero-trust.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
@@ -14744,34 +14744,84 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/zero-trust.md`
 
-- **CRITICAL** line 147, `bare-bullet-items` — **11. Human identity lifecycle**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie vytvoriť alebo meniť account;`, `ako sa overí väzba accountu na reálnu osobu;`, `ako sa vydáva phishing-resistant authenticator;`, `ako sa mení role pri zmene pracovnej pozície;`.
-- **CRITICAL** line 391, `bare-bullet-items` — **33. CISA Zero Trust Maturity Model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identity;`, `Devices;`, `Networks;`, `Applications and Workloads;`.
-- **CRITICAL** line 421, `outline-instead-of-explanation` — **35. Kompletný príklad access decisionu**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **HIGH** line 24, `list-heavy-section` — **2. Čo Zero Trust nie je**: 7 odrážok a iba 64 slov súvislého vysvetlenia.
-- **HIGH** line 373, `bare-bullet-items` — **32. Migračný model**: 6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikovať kritické resources, owners a users;`, `zmapovať všetky priame aj nepriame access paths;`, `odstrániť stale identities a broad standing privilege;`, `zaviesť silnú human a workload identity;`.
-- **HIGH** line 373, `list-heavy-section` — **32. Migračný model**: 9 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 407, `list-heavy-section` — **34. Ako merať reálny pokrok**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 373, `term-before-explanation` — **32. Migračný model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `workload`, `enforcement`, `resource`
-- **HIGH** line 407, `term-before-explanation` — **34. Ako merať reálny pokrok**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `Resource`, `enforcement`, `Identity`, `workload`, `Policy`, `freshness`
-- **HIGH** line 421, `term-before-explanation` — **35. Kompletný príklad access decisionu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `ID`, `EDR`, `CI`, `PEP`, `Identity`, `Posture`
+- **CRITICAL** line 37, `bare-bullet-items` — **2. Explicit access subject**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `human, workload a device identity;`, `issuer, authenticator a session generation;`, `delegation chain;`, `requested action a exact resource;`.
+- **CRITICAL** line 37, `outline-instead-of-explanation` — **2. Explicit access subject**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 58, `bare-bullet-items` — **3. Čo Zero Trust nie je**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MFA;`, `VPN alebo ZTNA proxy;`, `service mesh a mTLS;`, `microsegmentation;`.
+- **CRITICAL** line 58, `outline-instead-of-explanation` — **3. Čo Zero Trust nie je**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 73, `bare-bullet-items` — **4. Assume breach bez permanentnej nedôvery**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimalizuje standing privilege;`, `viaže credentials na audience, purpose a short lifetime;`, `segmentuje blast radius;`, `zachováva attribution;`.
+- **CRITICAL** line 73, `outline-instead-of-explanation` — **4. Assume breach bez permanentnej nedôvery**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 140, `bare-bullet-items` — **8. Device identity a posture**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `managed certificate alebo hardware-backed key;`, `OS a patch generation;`, `disk encryption a secure boot;`, `EDR health;`.
+- **CRITICAL** line 173, `outline-instead-of-explanation` — **10. SPIFFE, SVID a SPIRE**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 201, `bare-bullet-items` — **12. Least privilege a JIT**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject;`, `action;`, `exact resource;`, `tenant a data scope;`.
+- **CRITICAL** line 201, `outline-instead-of-explanation` — **12. Least privilege a JIT**: 11 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 219, `bare-bullet-items` — **13. Resource inventory, classification a paths**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource identity a ownera;`, `sensitivity a business impact;`, `users a workloads;`, `direct, delegated, recovery a automation paths;`.
+- **CRITICAL** line 219, `outline-instead-of-explanation` — **13. Resource inventory, classification a paths**: 8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 259, `bare-bullet-items` — **16. Dynamic policy a signal contract**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication method a age;`, `device/workload posture;`, `resource sensitivity;`, `vulnerability alebo quarantine state;`.
+- **CRITICAL** line 259, `outline-instead-of-explanation` — **16. Dynamic policy a signal contract**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 274, `bare-bullet-items` — **17. Continuous verification**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded session/token lifetime;`, `re-evaluation pri high-impact operation;`, `event-driven reaction na disable, posture alebo incident change;`, `telemetry počas session;`.
+- **CRITICAL** line 274, `outline-instead-of-explanation` — **17. Continuous verification**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 313, `outline-instead-of-explanation` — **19. Causal evidence**: 9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 327, `bare-bullet-items` — **20. Evidence-preserving containment**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zablokovať new deployment issuance a controller writes;`, `quarantine index a platform digests;`, `revoke human session, bearer token a workflow credentials;`, `remove controller ServiceAccount broad bindings;`.
+- **CRITICAL** line 327, `outline-instead-of-explanation` — **20. Evidence-preserving containment**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 339, `no-prose-concept` — **21. Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 339, `outline-instead-of-explanation` — **21. Authoritative recovery**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 388, `bare-bullet-items` — **24. CISA maturity model a migration**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identity;`, `Devices;`, `Networks;`, `Applications and Workloads;`.
+- **CRITICAL** line 433, `outline-instead-of-explanation` — **26. Zero Trust acceptance verdict**: 13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 469, `bare-bullet-items` — **28. Earlier controls**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource/action/data inventory;`, `authoritative JML a session lifecycle;`, `phishing-resistant step-up pre privileged actions;`, `managed admin devices a fresh posture;`.
+- **CRITICAL** line 469, `no-prose-concept` — **28. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 469, `outline-instead-of-explanation` — **28. Earlier controls**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 140, `list-heavy-section` — **8. Device identity a posture**: 6 odrážok a iba 60 slov súvislého vysvetlenia.
+- **HIGH** line 287, `list-heavy-section` — **18. Worked incident SEC-PAY-51**: 7 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 313, `list-first-introduction` — **19. Causal evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 327, `list-first-introduction` — **20. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 327, `single-sentence-concept` — **20. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 339, `bare-bullet-items` — **21. Authoritative recovery**: 6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `obnoviť human entitlement a fresh WebAuthn/JIT flow;`, `policy vyhodnotí exact action/resource/artifact/cluster generation;`, `odstrániť network-location trust a broad bearer token;`, `pridať event-driven posture, signer, policy a quarantine revocation;`.
+- **HIGH** line 339, `list-first-introduction` — **21. Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 370, `single-sentence-concept` — **23. Revocation a trust recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 433, `bare-bullet-items` — **26. Zero Trust acceptance verdict**: 9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `human, workload a device identities majú authoritative lifecycle;`, `authentication, posture, delegation a authorization sú oddelené;`, `exact resource/action/data/environment vstupujú do decisionu;`, `PE, PA a všetky PEPs používajú intended generations;`.
+- **HIGH** line 433, `single-sentence-concept` — **26. Zero Trust acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 469, `list-first-introduction` — **28. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 487, `single-sentence-concept` — **Interná sieť je trusted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 491, `single-sentence-concept` — **MFA equals access**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 495, `single-sentence-concept` — **Service mesh equals Zero Trust**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 499, `single-sentence-concept` — **Dynamic policy zo stale data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 503, `single-sentence-concept` — **PEP pred hostname, backend otvorený**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 507, `single-sentence-concept` — **Short-lived token bez revocation graphu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 511, `single-sentence-concept` — **Marketing maturity score**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 37, `term-before-explanation` — **2. Explicit access subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `delegation`, `resource`, `scope`, `posture`, `policy`, `Enforcement`
+- **HIGH** line 37, `thin-concept-section` — **2. Explicit access subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 73, `thin-concept-section` — **4. Assume breach bez permanentnej nedôvery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 173, `term-before-explanation` — **10. SPIFFE, SVID a SPIRE**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SVID`, `JWT`, `API`, `SPIRE`, `attestation`
+- **HIGH** line 201, `term-before-explanation` — **12. Least privilege a JIT**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`, `workload`, `posture`, `delegation`
+- **HIGH** line 287, `term-before-explanation` — **18. Worked incident SEC-PAY-51**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `API`, `EDR`, `PAW-OPS-17`, `SEC-PAY-50`, `PEP`, `POL-IMG-16`
+- **HIGH** line 313, `term-before-explanation` — **19. Causal evidence**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`, `ID`, `posture`, `workload`
+- **HIGH** line 313, `thin-concept-section` — **19. Causal evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 327, `term-before-explanation` — **20. Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EDR`, `OIDC`, `SPIFFE`, `policy`
+- **HIGH** line 327, `thin-concept-section` — **20. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 339, `term-before-explanation` — **21. Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `CRD`, `API`, `PEP`, `workload`, `attestation`, `policy`, `resource`
+- **HIGH** line 339, `thin-concept-section` — **21. Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 433, `term-before-explanation` — **26. Zero Trust acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PE`, `PA`, `workload`, `posture`, `delegation`, `resource`, `policy`, `identity`
+- **HIGH** line 433, `thin-concept-section` — **26. Zero Trust acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 469, `term-before-explanation` — **28. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JML`, `PEP`, `resource`, `step-up`, `posture`, `workload`, `identity`, `delegation`
+- **HIGH** line 469, `thin-concept-section` — **28. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2469 | 459 | 0 | 0 | 2928 |
-| `outline-instead-of-explanation` | 2482 | 0 | 0 | 0 | 2482 |
-| `term-before-explanation` | 0 | 555 | 1835 | 0 | 2390 |
-| `single-sentence-concept` | 0 | 2378 | 0 | 0 | 2378 |
-| `thin-concept-section` | 0 | 2097 | 0 | 0 | 2097 |
-| `example-not-explicit` | 0 | 0 | 0 | 2064 | 2064 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2025 | 2025 |
-| `list-first-introduction` | 0 | 1357 | 0 | 0 | 1357 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1054 | 1054 |
-| `short-concept-section` | 0 | 0 | 908 | 0 | 908 |
-| `no-prose-concept` | 786 | 0 | 0 | 0 | 786 |
+| `bare-bullet-items` | 2478 | 460 | 0 | 0 | 2938 |
+| `outline-instead-of-explanation` | 2494 | 0 | 0 | 0 | 2494 |
+| `term-before-explanation` | 0 | 561 | 1841 | 0 | 2402 |
+| `single-sentence-concept` | 0 | 2388 | 0 | 0 | 2388 |
+| `thin-concept-section` | 0 | 2104 | 0 | 0 | 2104 |
+| `example-not-explicit` | 0 | 0 | 0 | 2062 | 2062 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2027 | 2027 |
+| `list-first-introduction` | 0 | 1361 | 0 | 0 | 1361 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1046 | 1046 |
+| `short-concept-section` | 0 | 0 | 913 | 0 | 913 |
+| `no-prose-concept` | 788 | 0 | 0 | 0 | 788 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
-| `list-heavy-section` | 0 | 439 | 0 | 0 | 439 |
+| `list-heavy-section` | 0 | 438 | 0 | 0 | 438 |
 
 ## Required remediation pattern
 
