@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **283**
-- Audited conceptual sections: **11427**
-- Total words: **660,659**
-- Findings: **24200** (critical 7273, high 8312, medium 3052, low 5563)
-- File grades: A 0, B 0, C 0, D 283
+- Audited authoritative articles: **284**
+- Audited conceptual sections: **11469**
+- Total words: **662,613**
+- Findings: **24281** (critical 7295, high 8338, medium 3068, low 5580)
+- File grades: A 0, B 0, C 0, D 284
 
 ## Interpretation
 
@@ -182,6 +182,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 557 | 23 | 30 | 8 | 11 | 1834 | `docs/14-sre-and-operations/toil.md` |
+| D | 554 | 22 | 26 | 16 | 17 | 1954 | `docs/15-databases-and-distributed-systems/caching.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
 | D | 546 | 21 | 25 | 16 | 26 | 2155 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
@@ -16041,6 +16042,57 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 327, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 370, `thin-concept-section` — **14. Backup/PITR acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/caching.md`
+
+- **CRITICAL** line 18, `bare-bullet-items` — **1. Exact cache subject**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business value alebo representation;`, `authoritative owner a version/generation;`, `cache layer a topology;`, `cache key a všetky variant dimensions;`.
+- **CRITICAL** line 18, `outline-instead-of-explanation` — **1. Exact cache subject**: 13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 48, `bare-bullet-items` — **2. Cache authority boundary**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `derived projection;`, `immutable artifact;`, `computed query result;`, `session/token metadata;`.
+- **CRITICAL** line 74, `bare-bullet-items` — **3. Cache key**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource/business ID;`, `tenant/merchant/account;`, `authorization scope;`, `locale/currency;`.
+- **CRITICAL** line 100, `empty-section` — **4. Freshness, expiry a validation**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 116, `empty-section` — **5. Cache patterns**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 146, `bare-bullet-items` — **6. Invalidation**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `delete exact key po commit-e;`, `update exact generation;`, `publish invalidation event;`, `short TTL;`.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **6. Invalidation**: 14 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 186, `bare-bullet-items` — **7. Cache consistency models**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `best-effort eventual freshness;`, `bounded staleness;`, `read-your-write pre session/user;`, `monotonic reads;`.
+- **CRITICAL** line 186, `outline-instead-of-explanation` — **7. Cache consistency models**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 200, `bare-bullet-items` — **8. Stampede, herd a hot keys**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-flight/request coalescing;`, `distributed lock s fencing/timeout semantics;`, `probabilistic early refresh;`, `jittered TTL;`.
+- **CRITICAL** line 200, `outline-instead-of-explanation` — **8. Stampede, herd a hot keys**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 216, `bare-bullet-items` — **9. Negative caching**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novo vytvorený resource ostane neviditeľný;`, `transient authorization failure sa zmení na dlhé deny;`, `missing cache key sa zamieňa s authoritative absence;`, `broad key neobsahuje tenant alebo generation;`.
+- **CRITICAL** line 216, `outline-instead-of-explanation` — **9. Negative caching**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 230, `bare-bullet-items` — **10. Eviction a capacity**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory used a fragmentation;`, `hit/miss ratio po workload cohortoch;`, `eviction rate;`, `expired versus evicted keys;`.
+- **CRITICAL** line 230, `outline-instead-of-explanation` — **10. Eviction a capacity**: 9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 277, `bare-bullet-items` — **13. Cache a transactions**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database commit;`, `outbox/CDC change event;`, `idempotent version-aware cache update/invalidation;`, `read fallback na authority;`.
+- **CRITICAL** line 277, `outline-instead-of-explanation` — **13. Cache a transactions**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 379, `bare-bullet-items` — **17. Authoritative redesign**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jittered TTL a single-flight fill;`, `per-key hotness metrics;`, `invalidation lag a generation mismatch metrics;`, `bounded authority fallback load;`.
+- **CRITICAL** line 422, `bare-bullet-items` — **18. Cache acceptance verdict**: 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cache key obsahuje všetky result-changing dimensions;`, `schema a authority generation sú verifiable;`, `TTL/freshness/validation zodpovedajú use case-u;`, `fill a invalidation races sú version-aware;`.
+- **CRITICAL** line 422, `outline-instead-of-explanation` — **18. Cache acceptance verdict**: 14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 441, `empty-section` — **19. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 18, `single-sentence-concept` — **1. Exact cache subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 48, `list-heavy-section` — **2. Cache authority boundary**: 16 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 74, `list-heavy-section` — **3. Cache key**: 10 odrážok a iba 68 slov súvislého vysvetlenia.
+- **HIGH** line 106, `single-sentence-concept` — **Freshness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 118, `list-first-introduction` — **Cache-aside**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 146, `single-sentence-concept` — **6. Invalidation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 264, `bare-bullet-items` — **12. HTTP caching**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `max-age a s-maxage ;`, `must-revalidate ;`, `validators ETag a Last-Modified .`.
+- **HIGH** line 264, `list-heavy-section` — **12. HTTP caching**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 277, `single-sentence-concept` — **13. Cache a transactions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 303, `single-sentence-concept` — **14. Cache fail-open a fail-closed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 364, `list-first-introduction` — **16. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 364, `single-sentence-concept` — **16. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 379, `list-heavy-section` — **17. Authoritative redesign**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 422, `single-sentence-concept` — **18. Cache acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 459, `single-sentence-concept` — **Cache je source of truth, lebo je rýchla**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 463, `single-sentence-concept` — **TTL vyrieši invalidation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 467, `single-sentence-concept` — **Cache miss = neexistuje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 471, `single-sentence-concept` — **Hit ratio je health metric**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 475, `single-sentence-concept` — **Delete po update je atomic**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `single-sentence-concept` — **FLUSHALL opraví cache**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `single-sentence-concept` — **Redis failover nemení correctness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 487, `single-sentence-concept` — **no-cache znamená neukladať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 18, `thin-concept-section` — **1. Exact cache subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 146, `thin-concept-section` — **6. Invalidation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 277, `thin-concept-section` — **13. Cache a transactions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 422, `thin-concept-section` — **18. Cache acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/connection-pooling.md`
 
 - **CRITICAL** line 19, `bare-bullet-items` — **1. Exact pooling subject**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/service a release generation;`, `replica/Pod/process count;`, `client library a pool generation;`, `database endpoint, role a workload class;`.
@@ -16748,19 +16800,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2850 | 490 | 0 | 0 | 3340 |
-| `single-sentence-concept` | 0 | 2842 | 0 | 0 | 2842 |
-| `outline-instead-of-explanation` | 2811 | 0 | 0 | 0 | 2811 |
-| `term-before-explanation` | 0 | 602 | 2043 | 0 | 2645 |
-| `thin-concept-section` | 0 | 2375 | 0 | 0 | 2375 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2233 | 2233 |
-| `example-not-explicit` | 0 | 0 | 0 | 2210 | 2210 |
-| `list-first-introduction` | 0 | 1494 | 0 | 0 | 1494 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1120 | 1120 |
-| `short-concept-section` | 0 | 0 | 1009 | 0 | 1009 |
+| `bare-bullet-items` | 2861 | 491 | 0 | 0 | 3352 |
+| `single-sentence-concept` | 0 | 2857 | 0 | 0 | 2857 |
+| `outline-instead-of-explanation` | 2819 | 0 | 0 | 0 | 2819 |
+| `term-before-explanation` | 0 | 602 | 2053 | 0 | 2655 |
+| `thin-concept-section` | 0 | 2379 | 0 | 0 | 2379 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2238 | 2238 |
+| `example-not-explicit` | 0 | 0 | 0 | 2218 | 2218 |
+| `list-first-introduction` | 0 | 1496 | 0 | 0 | 1496 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1124 | 1124 |
+| `short-concept-section` | 0 | 0 | 1015 | 0 | 1015 |
 | `no-prose-concept` | 866 | 0 | 0 | 0 | 866 |
-| `empty-section` | 746 | 0 | 0 | 0 | 746 |
-| `list-heavy-section` | 0 | 509 | 0 | 0 | 509 |
+| `empty-section` | 749 | 0 | 0 | 0 | 749 |
+| `list-heavy-section` | 0 | 513 | 0 | 0 | 513 |
 
 ## Required remediation pattern
 
