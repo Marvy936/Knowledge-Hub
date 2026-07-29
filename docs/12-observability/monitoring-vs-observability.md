@@ -1,503 +1,407 @@
 # Monitoring vs. observability
 
-Monitoring a observability súvisia, ale nie sú synonymá. Monitoring sleduje známe stavy a podmienky pomocou vopred definovaných signals, queries a thresholds. Observability je schopnosť porozumieť internému stavu systému z jeho externých výstupov a skúmať aj neočakávané otázky bez nasadenia novej diagnostickej verzie.
+Monitoring a observability nie sú dve konkurenčné platformové funkcie. Sú to dve časti jedného operational evidence systému. Monitoring priebežne vyhodnocuje vopred definované podmienky nad známym subjectom. Observability určuje, či má responder po detekcii dostatočný, korelovateľný a dôveryhodný dôkaz na položenie nových otázok, lokalizovanie mechanizmu a overenie nápravy.
 
-## 1. Mentálny model
+Observability preto nemožno odvodiť z počtu dashboardov, uložených terabajtov ani z nákupu konkrétneho backendu. Vzniká až vtedy, keď system behavior, instrumentation, telemetry pipeline, query model, ownership a decision workflow tvoria jeden testovaný contract.
+
+## 1. Dominantný lifecycle
 
 ```text
-systém
-→ instrumentation
-→ telemetry signals
-→ collection a processing
-→ storage a query
-→ dashboards, alerts a investigation
-→ diagnosis, decision a improvement
+business alebo operational otázka
+→ exact observed subject a expected outcome
+→ známa monitorovacia podmienka alebo nová investigation otázka
+→ signal-generation a coverage contract
+→ collection, delivery, processing a storage
+→ monitoring verdict alebo investigation evidence
+→ cross-signal correlation a causal explanation
+→ bounded operational decision
+→ recovery alebo improvement
+→ original, forbidden a telemetry-outcome validation
+→ skoršia detection/instrumentation/control zmena
 ```
 
-Observability nie je produkt ani počet dashboardov. Je to vlastnosť systému a jeho operating modelu, ktorú umožňuje kvalitná instrumentation, korelovateľná telemetry, vhodné tools a ľudia schopní tieto dáta interpretovať.
-
-## 2. Monitoring
-
-Monitoring typicky odpovedá na známe otázky:
-
-- Je služba dostupná?
-- Prekročila error rate limit?
-- Je disk takmer plný?
-- Zlyhal backup job?
-- Je latency nad SLO thresholdom?
-- Je Node alebo target unhealthy?
-
-Monitoring používa:
-
-- metriky,
-- health checks,
-- log patterns,
-- synthetics,
-- alarms,
-- dashboards,
-- scheduled checks.
-
-Je nevyhnutný pre detection a alerting. Sám však nemusí vysvetliť, prečo neznámy failure vznikol.
-
-## 3. Observability
-
-Observability umožňuje skúmať otázky, ktoré neboli presne známe pri návrhu dashboardu:
-
-- Prečo zlyhávajú iba requests konkrétneho tenanta po novej verzii?
-- Ktorá downstream dependency spôsobuje p99 latency?
-- Prečo sa problém prejavuje iba v jednej AZ a iba pri určitom payload type?
-- Ktorý deployment, feature flag alebo configuration change zmenil správanie?
-- Kde sa stráca trace context alebo correlation ID?
-
-Vyžaduje dostatočne bohaté a korelovateľné signals, nie neobmedzené množstvo dát.
-
-## 4. Monitoring a observability sa dopĺňajú
+Tento lifecycle oddeľuje tri výsledky, ktoré sa často zamieňajú:
 
 ```text
-monitoring
-→ detekuje známy zlý stav
-
-observability
-→ pomáha vysvetliť stav, scope, príčinu a súvislosti
+monitoring condition je green
+≠ používateľský outcome je správny
+≠ systém je dostatočne observable na vysvetlenie neznámeho failure
 ```
 
-Dobrá observability bez actionable monitoring-u môže viesť k tomu, že systém je detailne analyzovateľný až po tom, čo používateľ nahlási incident. Monitoring bez observability môže vytvárať alarmy bez dostatočného kontextu na rýchlu diagnostiku.
+Green dashboard môže byť správny pre svoju úzku otázku a zároveň zavádzajúci pre širší business outcome. Rovnako môže byť služba zdravá, ale telemetry pipeline nefunkčná. Neprítomnosť erroru v backende preto nie je automaticky dôkazom neprítomnosti erroru v produkcii.
 
-## 5. Telemetry
+## 2. Exact observed subject
 
-Telemetry sú dáta generované systémom o jeho správaní a stave.
+Pred každým alertom, dashboardom alebo investigation urč, čo je skutočne pozorovaný subject. Názov služby nestačí. Subject musí viazať business outcome na konkrétnu release, operation a evidence generation.
 
-Typické signals:
-
-- metrics,
-- logs,
-- traces,
-- events,
-- profiles,
-- audit records,
-- synthetics,
-- continuous profiling alebo eBPF-derived signals podľa platformy.
-
-OpenTelemetry štandardizuje instrumentation, generation, collection a export telemetry, najmä traces, metrics a logs. Telemetry sama osebe nevytvára observability; musí byť správne modelovaná, korelovaná a použiteľná.
-
-## 6. Metrics
-
-Metric je agregovateľný číselný signal v čase.
-
-Vhodná na:
-
-- rates,
-- latency distributions,
-- utilization,
-- saturation,
-- error ratios,
-- capacity a SLO.
-
-Výhody:
-
-- efektívne agregácie,
-- dlhšia retention,
-- vhodné alerting,
-- trend a forecasting.
-
-Limity:
-
-- agregácia môže skryť jednotlivý request,
-- high cardinality môže výrazne zvýšiť memory a storage cost,
-- nesprávne labels vytvoria neobmedzený počet time series.
-
-## 7. Logs
-
-Log je časovo označený record udalosti alebo stavu.
-
-Vhodný na:
-
-- detailné error context,
-- audit,
-- application events,
-- stack traces,
-- state transitions.
-
-Production logs majú byť structured a obsahovať stabilné fields. Free-text logs sa horšie parsujú, korelujú a validujú.
-
-Citlivé údaje, secrets a personal data do logs nepatria bez explicitného protection modelu.
-
-## 8. Traces
-
-Distributed trace zachytáva cestu requestu alebo operácie cez services a dependencies.
-
-Trace pozostáva zo spans, ktoré nesú:
-
-- operation name,
-- start a duration,
-- parent/child relation,
-- attributes,
-- status,
-- events,
-- resource/service identity.
-
-Trace pomáha lokalizovať latency a failure v distributed path-e. Sampling však znamená, že nie každý request musí byť zachovaný.
-
-## 9. Events a audit
-
-Events zachytávajú významné state changes:
-
-- deployment,
-- scaling,
-- failover,
-- configuration change,
-- scheduler decision,
-- backup failure,
-- security finding.
-
-Audit records odpovedajú hlavne na:
-
-- kto,
-- čo,
-- kedy,
-- odkiaľ,
-- voči akému resource-u,
-- s akým výsledkom.
-
-Audit a observability sa prekrývajú, ale majú odlišné retention, integrity a access požiadavky.
-
-## 10. Profiles
-
-Profile ukazuje, kde application trávi CPU time, alokuje memory alebo čaká.
-
-Použitie:
-
-- CPU hotspots,
-- memory allocation,
-- lock contention,
-- inefficient code paths,
-- performance regression.
-
-Profiles sú doplnkový signal. Aktuálny OpenTelemetry ekosystém ich považuje za emerging signal a feature maturity treba overovať podľa konkrétneho SDK/backendu.
-
-## 11. Instrumentation
-
-Systém musí emitovať relevantné signals.
-
-Modely:
-
-- manual instrumentation,
-- library/framework instrumentation,
-- automatic instrumentation,
-- agent/exporter,
-- sidecar/collector,
-- service mesh alebo eBPF-derived telemetry.
-
-Auto-instrumentation poskytne rýchly baseline, ale nemusí poznať business semantics. Manual instrumentation dopĺňa kritické operations, attributes a outcomes.
-
-## 12. Correlation
-
-Silná observability prepája:
+Pre Atlas Payments používame:
 
 ```text
-metric spike
-→ exemplar alebo timestamp
-→ trace
-→ service/span
-→ correlated logs
-→ deployment/configuration event
+observability subject: OBS-PAY-43
+business capability: CAP-PAY-42
+journey: enterprise payment settlement
+logical operation: settle(payment_id)
+entry operation: POST /payments/{id}/settle
+release generation: 7.19.0
+provider-adapter config generation: PROVIDER-CFG-34
+telemetry generation: OTEL-PAY-12
+environment: production
+Region: eu-central-1
+AZ cohorts: eu-central-1a, eu-central-1b
+SLO: 99.9 % valid settlements completed do 2.5 s za 28 dní
+```
+
+Tento subject umožňuje rozlíšiť, či sa dôkaz týka HTTP acceptance, provider authorization, durable ledger commit, async completion, konkrétnej release alebo iba všeobecného process healthu.
+
+## 3. Monitoring ako vopred definovaný decision contract
+
+Monitoring začína známou otázkou a dopredu určeným verdictom. Napríklad:
+
+```text
+settlement completion SLI za 5 minút
+→ burn-rate expression
+→ threshold + duration
+→ firing alebo healthy verdict
+→ page route
 → owner a runbook
 ```
 
-Užitočné correlation fields:
+Monitoring je silný vtedy, keď podmienka reprezentuje stav vyžadujúci action. Je vhodný pre dostupnosť, SLO burn, missed completion, queue age, capacity headroom, failed backup, expiring certificate alebo stratu telemetry canary.
 
-- trace ID,
-- span ID,
-- request/correlation ID,
-- service name,
-- environment,
-- version/revision,
-- region/AZ/node,
-- tenant alebo customer segment s privacy kontrolou,
-- deployment ID.
+Threshold sám osebe nie je monitorovací contract. Potrebuje measurement boundary, validný numerator a denominator, no-data semantics, expected traffic, ownera, severity, recovery condition a spôsob overenia, že alert skutočne dorazí.
 
-## 13. Context propagation
+CPU nad 90 % môže byť normálny efektívny stav, leading capacity signal alebo príčina degradácie. Bez väzby na workload a outcome je to iba observation, nie automaticky page-worthy incident.
 
-Distributed tracing potrebuje propagovať context cez:
+## 4. Observability ako schopnosť odpovedať na nové otázky
 
-- HTTP headers,
-- gRPC metadata,
-- message headers,
-- async jobs,
-- queues a streams,
-- background workers.
+Po detekcii často nie je vopred známe, ktorá kombinácia release, AZ, dependency, tenant class, queue path alebo configuration generation vytvorila failure. Observability je schopnosť vytvoriť diskriminačné queries nad už existujúcim dôkazom bez nasadenia novej diagnostickej verzie počas incidentu.
 
-Prerušený context vytvorí oddelené traces a zníži schopnosť rekonštruovať end-to-end path.
-
-Context propagation nesmie nekontrolovane prenášať sensitive data alebo nedôveryhodné baggage.
-
-## 14. White-box a black-box monitoring
-
-### White-box
-
-Pozoruje interné signals systému:
-
-- request rate,
-- queue depth,
-- database connections,
-- GC,
-- saturation.
-
-### Black-box
-
-Pozoruje systém ako používateľ alebo externý client:
-
-- HTTP availability,
-- DNS,
-- TLS,
-- login/checkout synthetic,
-- end-to-end latency.
-
-Interné metriky môžu byť zdravé, kým používateľský path zlyháva. Potrebné sú obe perspektívy.
-
-## 15. Known-knowns a unknown-unknowns
-
-Monitoring je silný pri known-knowns a known-unknowns, ktoré sa dajú modelovať vopred.
-
-Observability znižuje čas potrebný na skúmanie unknown-unknowns tým, že systém zachováva relevantný context a umožňuje flexibilné queries.
-
-To neznamená ukladať všetko navždy. Telemetry design potrebuje sampling, cardinality, retention a cost boundaries.
-
-## 16. Symptoms, causes a outcomes
-
-Rozlišuj:
-
-- **symptom** — používateľ alebo systém pozoruje problém,
-- **cause** — technický mechanizmus, ktorý ho vytvoril,
-- **outcome** — business alebo SLO dopad.
-
-CPU 95 % môže byť cause, symptom alebo normálny stav podľa workloadu. Alarmovať iba na infrastructure signal bez user-impact contextu často vytvára noise.
-
-## 17. Observability a SLO
-
-SLO poskytuje prioritizáciu telemetry.
-
-Najprv definuj:
-
-- čo používateľ považuje za úspech,
-- ktoré requests alebo jobs sú validné,
-- latency/error/availability objective,
-- measurement window,
-- exclusions.
-
-Potom navrhni metrics, logs a traces, ktoré vysvetlia odchýlku od objective.
-
-Observability bez service objectives môže produkovať veľa dát bez jasnej priority.
-
-## 18. Alerting
-
-Alert má signalizovať stav, ktorý potrebuje action.
-
-Kvalitný alert obsahuje:
-
-- symptom a impact,
-- scope,
-- severity,
-- current value a threshold,
-- relevantný dashboard/query,
-- runbook,
-- ownera,
-- deduplication a routing,
-- recovery condition.
-
-Alert na každú internú anomáliu vytvára fatigue. Troubleshooting signals nemusia byť paging signals.
-
-## 19. Telemetry pipeline
+Užitočná observability umožní prejsť:
 
 ```text
-instrumented sources
-→ agents/exporters/SDKs
-→ collectors
-→ processing, enrichment a sampling
-→ backend storage
-→ query, visualization a alerting
+business alebo SLO symptom
+→ presný time window a affected cohort
+→ release/configuration correlation
+→ request alebo workflow path
+→ failing dependency alebo state transition
+→ mechanizmus
+→ owner a bezpečná remediation
 ```
 
-Pipeline potrebuje vlastnú observability:
+Neznamená to uložiť každý payload a každý request navždy. Potrebný je dostatočný context pri bounded cardinality, sampling, retention, privacy a cost modeli.
 
-- dropped data,
-- queue/backpressure,
-- exporter failures,
-- ingestion latency,
-- cardinality,
-- sampling rate,
-- storage/query errors,
-- cost.
+## 5. Monitoring a observability sa navzájom podmieňujú
 
-„Backend neukazuje chyby“ nemusí znamenať, že application je zdravá; telemetry pipeline môže byť nefunkčná.
+Monitoring bez observability vytvorí page, ale responder nevie odlíšiť root cause od náhodnej korelácie. Observability bez monitoringu môže umožniť detailnú post-hoc analýzu, no incident zostane neodhalený, kým ho nenahlási používateľ.
 
-## 20. Cardinality
-
-Cardinality je počet unikátnych kombinácií dimensions/attributes.
-
-Rizikové values:
-
-- user ID,
-- request ID,
-- raw URL,
-- unbounded error message,
-- timestamp,
-- container/Pod identity s krátkym lifecycle-om bez aggregation modelu.
-
-Metrics potrebujú bounded labels. High-cardinality detail patrí často do logs alebo traces s samplingom a retention kontrolou.
-
-## 21. Sampling
-
-Sampling znižuje volume a cost traces/logs/profiles.
-
-Modely:
-
-- head sampling,
-- tail sampling,
-- probabilistic,
-- rate limiting,
-- error/latency-aware,
-- tenant/service priority.
-
-Sampling policy musí zachovať rare failures a high-value transactions. Sto percent success traces a nula percent chýb je zlá optimalizácia.
-
-## 22. Retention a tiers
-
-Rozličné signals potrebujú rozdielnu retention:
-
-- high-resolution recent metrics,
-- downsampled long-term metrics,
-- hot searchable logs,
-- archived audit logs,
-- sampled traces,
-- incident evidence s legal hold.
-
-Retention má vychádzať z SLO, incident detection time, compliance a cost.
-
-## 23. Observability cost
-
-Cost drivers:
-
-- ingestion,
-- high cardinality,
-- retention,
-- indexing,
-- queries,
-- cross-Region/account transfer,
-- custom metrics,
-- trace volume,
-- real-time logs,
-- duplicate pipelines.
-
-Cost optimalizácia musí zachovať kritické SLO, audit a incident evidence.
-
-## 24. Security a privacy
-
-Telemetry môže obsahovať:
-
-- personal data,
-- credentials,
-- tokens,
-- request payloads,
-- database queries,
-- internal topology,
-- customer identifiers.
-
-Potrebné controls:
-
-- minimization a redaction,
-- encryption,
-- access control,
-- tenant isolation,
-- retention/deletion,
-- audit,
-- secure collectors/exporters,
-- field allow/deny policy.
-
-## 25. Observability maturity
-
-Príklad progresie:
-
-1. resource health a basic logs,
-2. centralized metrics/logs,
-3. actionable alerts a dashboards,
-4. distributed tracing a correlation,
-5. SLO/error-budget integration,
-6. standardized instrumentation a platform,
-7. continuous cost/quality governance,
-8. automated bounded diagnosis/remediation.
-
-Viac tools neznamená vyššiu maturity, ak signals nie sú korelované alebo owned.
-
-## 26. Troubleshooting observability gapu
+Správny operating model je:
 
 ```text
-chýba signal alebo je systém zdravý?
-→ instrumentation aktívna?
-→ context propagation?
-→ agent/collector pipeline?
-→ filtering/sampling?
-→ backend ingestion/indexing?
-→ query scope/time range?
-→ cardinality/retention?
-→ dashboard/alert correctness?
+monitoring deteguje a prioritizuje
+→ observability lokalizuje a vysvetľuje
+→ recovery obnoví outcome
+→ monitoring aj observability overia closure
 ```
 
-Zachovaj source configuration, collector metrics/logs, timestamps, sample trace IDs a backend ingestion evidence.
+Po incidente sa observability finding môže zmeniť na nový monitorovací contract. Nie každá investigation dimension však patrí do permanentného alertu alebo metric labelu. Detail s vysokou cardinality môže zostať v traces alebo logs a alert používať bounded agregáciu.
 
-## 27. Anti-patterny
+## 6. Telemetry coverage contract
 
-### Observability = kúpa platformy
+Telemetry sú records o správaní systému. Coverage contract určuje, ktoré časti critical journey musia byť pozorovateľné a aký dôkaz očakávame pri success, failure a neprítomnosti signalu.
 
-Bez instrumentation, context a ownershipu platforma nevytvorí insight.
+Pre settlement journey potrebujeme aspoň:
 
-### Logovanie všetkého
+```text
+client alebo black-box outcome
+→ edge/service acceptance
+→ logical-operation identity
+→ provider attempt a response
+→ ledger commit alebo rollback
+→ queue acknowledgement/redelivery
+→ final business completion
+```
 
-Zvyšuje cost, noise a security risk.
+Ak telemetry existuje iba pri HTTP acceptance, nedokáže vysvetliť failure po odpovedi `202`. Ak existuje iba na workerovi, nemusí preukázať, že client dostal správny výsledok. Coverage musí kopírovať business transaction a failure boundaries, nie organizačný zoznam služieb.
 
-### Dashboard pre každú metriku
+Coverage má tiež negatívny contract. Napríklad žiadny raw token, card data alebo nekontrolovaný customer identifier nesmie prejsť do logs, baggage ani indexed attributes.
 
-Dashboard bez decision/action modelu vytvára vizuálny inventory.
+## 7. White-box, black-box a business-outcome observation
 
-### Alerts na infrastructure thresholds bez user impactu
+White-box signals opisujú interné správanie: request rate, pool wait, GC, queue depth, exporter drops alebo database connections. Black-box signals pozorujú službu zvonka cez DNS, TLS, HTTP a user-like synthetics.
 
-Vedie k fatigue a nízkej priorite.
+Ani jedna perspektíva automaticky nepreukazuje business completion. Atlas môže mať healthy ALB targety a úspešný `202`, hoci provider authorization alebo ledger reconciliation zlyháva o niekoľko sekúnd neskôr.
 
-### Unbounded labels
+Pre kritický journey preto spájaj:
 
-Môžu destabilizovať telemetry pipeline.
+```text
+black-box reachability a latency
++ white-box service/dependency state
++ business completion a correctness
+```
 
-### Tri oddelené stacks bez correlation
+Platform health je dôležitý mechanistický dôkaz. Business outcome je acceptance oracle.
 
-Incident responder manuálne spája čas, identity a deployments.
+## 8. Signal nie je automaticky evidence
 
-### Telemetry pipeline bez vlastného monitoringu
+Metric, log alebo trace sa stane evidence až po určení identity, významu, coverage a integrity. Pri každom významnom signale over:
 
-Strata dát vyzerá ako zdravý systém.
+- kto ho produkuje a pri akej state transition;
+- či reprezentuje logical operation, technical attempt alebo sampled subset;
+- ktorú release, resource a instrumentation generation nesie;
+- ako sa doručuje, filtruje, agreguje a uchováva;
+- aké no-data a stale-data stavy sú možné;
+- kto ho používa na aké rozhodnutie.
 
-## 28. Kontrolné otázky
+Signal bez týchto vlastností môže byť užitočný hint, ale nie autoritatívny verdict.
 
-1. Aký je rozdiel medzi monitoringom a observability?
-2. Čo je telemetry a ktoré hlavné signals poznáš?
-3. Prečo metrics, logs a traces nie sú navzájom zameniteľné?
-4. Ako funguje correlation a context propagation?
-5. Čo je cardinality a prečo je riziková?
-6. Ako sa líši white-box a black-box monitoring?
-7. Prečo observability potrebuje SLO?
-8. Kedy použiť sampling?
-9. Ako zistíš, že zlyhala telemetry pipeline?
-10. Prečo viac dát automaticky neznamená viac insightu?
+## 9. Correlation chain
+
+Korelácia nemá byť iba ručné porovnanie timestampov. Queue delay, clock skew, retry a async fan-out môžu vytvoriť nesprávny príbeh. Stabilný correlation contract používa trace/span context, logical-operation ID a versionované resource metadata.
+
+Typický investigation chain:
+
+```text
+SLO burn alebo business-completion alert
+→ affected operation a bounded cohort
+→ exemplar alebo trace ID
+→ service a dependency spans
+→ structured logs s rovnakým trace/logical-operation contextom
+→ deployment/configuration event
+→ audit actor alebo controller action
+→ recovery validation
+```
+
+Request ID, trace ID ani payment ID nepatria automaticky do metric labels. Môžu byť vhodné v sampled traces alebo protected logs. Metrics používajú bounded dimensions ako operation, result class, release channel, Region alebo AZ.
+
+## 10. Telemetry pipeline je production systém
+
+Observed application a observability platforma sú dva rozdielne systémy. Pipeline môže zlyhať v ktorejkoľvek vrstve:
+
+```text
+operation
+→ instrumentation
+→ local SDK/agent buffer
+→ collector receiver
+→ processors, sampling a redaction
+→ exporter/network/auth
+→ backend ingestion/index
+→ query/time range/tenant
+→ dashboard alebo rule
+```
+
+Preto monitoruj accepted, refused, queued, retried a dropped records, exporter failures, ingestion lag, scrape health, config generation a end-to-end telemetry canaries.
+
+Dôležitý absent-evidence verdict znie:
+
+```text
+signal chýba, pretože udalosť nenastala
+alebo
+signal chýba, pretože zlyhala emission/delivery/query boundary?
+```
+
+Bez tejto otázky môže telemetry outage vyzerať ako zázračné uzdravenie produkcie.
+
+## 11. SLO, ownership a operational decisions
+
+SLO určuje, ktoré outcomes majú prioritu a akú presnosť telemetry potrebuje. Instrumentation by mala vzniknúť z user journey a failure modelu, nie z dostupných widgetov.
+
+Každý critical signal potrebuje ownera. Owner zodpovedá za semantics, schema migration, alert/query consumers, cost, privacy a retirement. Neowned telemetry sa časom mení na drahý a nedôveryhodný tok.
+
+Decision-oriented observability odpovedá nielen „čo sa zmenilo“, ale aj:
+
+- ktorého subjectu sa zmena týka;
+- či je impact user-visible;
+- ktorá hypotéza je evidence-backed;
+- aká action je bezpečná;
+- ako sa preukáže recovery a forbidden outcome.
+
+## 12. Cost, retention a security
+
+Observability cost vzniká pri emission, CPU/memory overheade, network transfere, ingestion, cardinality, indexovaní, query a retention. Cost control je súčasť signal designu, nie neskoršie slepé vypínanie logs.
+
+Retention vychádza z detection latency, SLO windows, incident recurrence, audit/compliance a recovery potrieb. Security a audit evidence môže potrebovať odlišný account, access model a immutable retention než application diagnostics.
+
+Telemetry môže obsahovať credentials, authorization headers, query text, customer identifiers, topology alebo payload fragments. Minimalizácia a redaction musia prebehnúť čo najbližšie k producerovi; odstránenie field-u až v dashboard UI nezabráni jeho exportu a uloženiu.
+
+## 13. Worked incident: monitoring green na nesprávnej boundary
+
+### Symptom
+
+Dňa `2026-07-29` o `09:18 UTC` Atlas settlement-completion SLO spustí fast-burn page. Celkový HTTP dashboard je green:
+
+```text
+POST /payments/{id}/settle
+HTTP 202 success: 99.98 %
+handler p95: 84 ms
+CPU: 46 %
+healthy targets: 24/24
+```
+
+Používatelia enterprise merchantov však dostávajú settlement confirmation oneskorene alebo vôbec.
+
+### Exact incident subject
+
+```text
+OBS-PAY-43
+release 7.19.0
+logical operation settle(payment_id)
+merchant.class = enterprise
+provider route = provider-a/high-value
+AZ cohort = eu-central-1b
+provider config = PROVIDER-CFG-34
+telemetry generation = OTEL-PAY-12
+incident window = 09:12–09:31 UTC
+```
+
+### Prečo monitoring nebol v rozpore
+
+HTTP monitor meral acceptance boundary. Request bol prijatý do async workflowu a korektne vrátil `202`. Business SLI meral final settlement completion. Oba signals boli správne, ale odpovedali na rozdielne otázky.
+
+### Competing hypotheses
+
+1. settlement completion metric alebo pipeline je nefunkčná;
+2. provider-a má globálny outage;
+3. release 7.19.0 zlyháva pre všetky requests;
+4. problém je iba v jednom AZ alebo config cohort-e;
+5. queue consumer laguje alebo neacknowledguje messages;
+6. enterprise route používa neplatný mTLS trust bundle;
+7. ledger commit je úspešný, ale completion event sa stráca.
+
+### Discriminating evidence
+
+```text
+black-box enterprise synthetic
+→ completion metric podľa merchant.class/AZ/version
+→ trace exemplar logical operation
+→ provider-adapter span events
+→ correlated structured log
+→ deployment/config generation event
+→ task loaded-state inventory
+```
+
+Evidence ukáže:
+
+- standard merchant class je zdravá;
+- enterprise failures sú iba na release `7.19.0` v `eu-central-1b`;
+- queue age je nízka a messages sa spracúvajú;
+- trace končí na provider-adapter mTLS handshake;
+- logs nesú `tls.alert=unknown_ca` a `config.generation=PROVIDER-CFG-34`;
+- tasks v `eu-central-1a` načítali `PROVIDER-CFG-35`, cohort v `1b` zostal na starej generation;
+- provider health a ledger path pre úspešný cohort sú zdravé.
+
+Root cause je stale loaded trust-bundle generation na jednej release/AZ cohort-e. Aggregate HTTP monitoring ho skryl, pretože acceptance prebehla pred downstream settlementom a enterprise traffic tvoril malý podiel celkového volume-u.
+
+### Evidence-preserving containment
+
+- zastaviť rollout a ďalšiu automatickú replacement slučku;
+- odobrať affected `1b/7.19.0/CFG-34` cohort z enterprise routing-u;
+- zachovať trace IDs, config inventory, task-definition generation a provider logs;
+- nezvýšiť plošne timeouts ani retries, ktoré by zosilnili provider load;
+- ponechať standard cohort a healthy AZ v prevádzke.
+
+### Authoritative recovery
+
+1. vytvoriť immutable config generation `PROVIDER-CFG-35` s kompletným CA bundle;
+2. canary task musí preukázať loaded generation, nie iba desired configuration;
+3. vykonať enterprise settlement synthetic cez provider-a;
+4. rozšíriť rollout po AZ-bounded waves;
+5. znovu povoliť enterprise routing až po business completion evidence;
+6. doplniť config-loaded generation do resource metadata a release acceptance.
+
+### Acceptance verdict
+
+Incident je uzavretý až keď:
+
+- enterprise settlement completion SLI sa obnoví;
+- `202` acceptance aj final settlement majú správny pomer a latency;
+- všetky production cohorts reportujú `PROVIDER-CFG-35` ako loaded state;
+- provider authorization a ledger obsahujú exactly one business outcome;
+- forbidden stale-config cohort nevstupuje do routing-u;
+- telemetry canary pre metric, trace a log correlation prejde;
+- rovnaká query neodhalí susedný AZ alebo version cohort s driftom.
+
+### Earlier controls
+
+Postmortem vytvorí:
+
+- business-completion monitoring oddelený od HTTP acceptance;
+- bounded dimensions `merchant.class`, AZ a release channel;
+- release gate nad loaded configuration generation;
+- enterprise synthetic po každej provider trust-bundle zmene;
+- correlation link z SLO alertu na trace a config inventory;
+- no-data alert pre settlement-completion signal a telemetry canary.
+
+## 14. Troubleshooting observability gapu
+
+Keď signal alebo vysvetlenie chýba, začni exact subjectom a dvoma konkurenčnými vetvami: systém je zdravý alebo evidence path zlyhala.
+
+```text
+producer vykonal očakávanú operation?
+→ instrumentation vytvorila record?
+→ resource/operation identity je správna?
+→ context sa preniesol cez všetky boundaries?
+→ sampling/filtering/redaction record zachovali?
+→ agent/collector record prijal a odoslal?
+→ backend ho ingestoval a indexoval?
+→ správny tenant, Region, schema, time range a time zone?
+→ dashboard/rule používa current generation?
+```
+
+Zachovaj sample operation ID, timestamps, source config, collector self-telemetry, exporter errors, backend ingestion evidence a exact query. Reštart collectora bez dôkazu môže odstrániť queue/drop state a znemožniť root-cause analýzu.
+
+## 15. Anti-patterny
+
+### Observability je kúpený produkt
+
+Backend bez správnej instrumentation, contextu, coverage a ownershipu iba ukladá dáta.
+
+### Green dashboard znamená healthy business
+
+Dashboard môže merať inú boundary, stale generation alebo neúplný cohort.
+
+### Chýbajúce errors znamenajú žiadne errors
+
+Emission, delivery, sampling, retention alebo query failure môže odstrániť evidence.
+
+### Logovať všetko
+
+Zvyšuje noise, cost a privacy riziko bez garantovanej diagnostickej hodnoty.
+
+### Alertovať každú internú anomáliu
+
+Troubleshooting signal bez user impactu alebo action contractu vytvára fatigue.
+
+### Korelácia iba timestampom
+
+Retry, async queue a clock skew vytvárajú falošnú causalitu.
+
+### Observability dependency blokuje business request
+
+Telemetry outage sa zmení na production outage, ak export nemá bounded failure behavior.
+
+## 16. Kontrolné otázky
+
+1. Aký je rozdiel medzi monitorovacím verdictom a observability capability?
+2. Čo musí obsahovať exact observed subject?
+3. Prečo green HTTP dashboard nepreukazuje business completion?
+4. Ako rozlíšiš neprítomnosť udalosti od telemetry gapu?
+5. Akú úlohu má SLO pri návrhu telemetry?
+6. Prečo nestačí korelácia iba podľa timestampu?
+7. Ako sa líši white-box, black-box a business-outcome evidence?
+8. Kedy je signal iba hint a kedy autoritatívny dôkaz?
+9. Ako monitoruješ observability pipeline ako production systém?
+10. Aký acceptance verdict uzavrel incident `OBS-PAY-43`?
 
 ## Glossary impact
 
-Relevantné pojmy: monitoring, observability, telemetry, signal, instrumentation, metric, log, distributed trace, span, event, audit record, profile, context propagation, correlation ID, white-box monitoring, black-box monitoring, cardinality, sampling, telemetry pipeline, observability maturity a observability gap.
+Relevantné pojmy: observed subject, monitoring condition contract, observability question contract, telemetry coverage contract, business-outcome observation, absent-evidence verdict, correlation chain, loaded-state telemetry, observability acceptance verdict, instrumentation gap, telemetry canary a decision-oriented observability.
 
 ## Primárne zdroje
 
 - [OpenTelemetry observability primer](https://opentelemetry.io/docs/concepts/observability-primer/)
 - [OpenTelemetry signals](https://opentelemetry.io/docs/concepts/signals/)
 - [OpenTelemetry instrumentation](https://opentelemetry.io/docs/concepts/instrumentation/)
-- [Prometheus overview](https://prometheus.io/docs/introduction/overview/)
+- [Google SRE — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
