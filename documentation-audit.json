@@ -3977,6 +3977,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "title": "Retry, timeout a circuit breaker",
+      "words": 1997,
+      "headings": 55,
+      "sections": 55,
+      "findings": 115,
+      "critical": 45,
+      "high": 47,
+      "medium": 13,
+      "low": 10,
+      "score": 970,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
       "title": "Service discovery a API gateway",
       "words": 1705,
@@ -222481,6 +222495,1041 @@
       "path": "docs/15-databases-and-distributed-systems/replication-and-high-availability.md",
       "section": "Failback je reverse failover",
       "line": 513,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "2. Timeout nie je failure proof",
+      "line": 24,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "2. Timeout nie je failure proof",
+      "line": 24,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request nedorazil;`, `server nezačal pracovať;`, `transaction rollbackla;`, `external effect nenastal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "2. Timeout nie je failure proof",
+      "line": 24,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "3. Deadline vs. timeout",
+      "line": 48,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Timeout",
+      "line": 50,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "4. Deadline propagation",
+      "line": 68,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "4. Deadline propagation",
+      "line": 68,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threads;`, `connections;`, `queue slots;`, `provider quota;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "4. Deadline propagation",
+      "line": 68,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "5. Timeout layers",
+      "line": 91,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "5. Timeout layers",
+      "line": 91,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/connect timeout;`, `TLS handshake timeout;`, `connection-pool checkout timeout;`, `request/response timeout;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "5. Timeout layers",
+      "line": 91,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "5. Timeout layers",
+      "line": 91,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "6. Failure classification",
+      "line": 107,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky retryable",
+      "line": 111,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky retryable",
+      "line": 111,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky retryable",
+      "line": 111,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky retryable",
+      "line": 111,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient connection reset pred potvrdeným sendom;`, `rate limit s Retry-After a available budgetom;`, `temporary leader election;`, `explicit retriable serialization failure celej transaction;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky retryable",
+      "line": 111,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky non-retryable",
+      "line": 120,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky non-retryable",
+      "line": 120,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky non-retryable",
+      "line": 120,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky non-retryable",
+      "line": 120,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation error;`, `authentication/authorization denial;`, `invariant conflict;`, `unsupported schema/version;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Typicky non-retryable",
+      "line": 120,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Unknown outcome",
+      "line": 131,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Unknown outcome",
+      "line": 131,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Unknown outcome",
+      "line": 131,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Unknown outcome",
+      "line": 131,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout po možnom send-e;`, `connection loss po request body;`, `lost commit acknowledgement;`, `provider call bez response;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Unknown outcome",
+      "line": 131,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "7. Stable operation a attempt identity",
+      "line": 141,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "7. Stable operation a attempt identity",
+      "line": 141,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "7. Stable operation a attempt identity",
+      "line": 141,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "7. Stable operation a attempt identity",
+      "line": 141,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation/idempotency key;`, `payload identity alebo hash;`, `tenant/resource scope;`, `provider idempotency key;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "7. Stable operation a attempt identity",
+      "line": 141,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "7. Stable operation a attempt identity",
+      "line": 141,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "8. Retry owner",
+      "line": 160,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "8. Retry owner",
+      "line": 160,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client SDK;`, `gateway/proxy;`, `service;`, `database driver;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "8. Retry owner",
+      "line": 160,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "8. Retry owner",
+      "line": 160,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "9. Retry limit a retry budget",
+      "line": 184,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Per-request limit",
+      "line": 186,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "10. Backoff a jitter",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "11. Hedging",
+      "line": 223,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "11. Hedging",
+      "line": 223,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotent reads;`, `deduplicated requests;`, `resources s capacity budgetom;`, `explicitne zrušiteľný losing attempt;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "11. Hedging",
+      "line": 223,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "12. Circuit breaker",
+      "line": 237,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Closed",
+      "line": 253,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Open",
+      "line": 257,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "13. Breaker scope",
+      "line": 265,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "13. Breaker scope",
+      "line": 265,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency service;`, `Region;`, `provider;`, `tenant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "13. Breaker scope",
+      "line": 265,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "13. Breaker scope",
+      "line": 265,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "14. Breaker signal",
+      "line": 281,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "14. Breaker signal",
+      "line": 281,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout/deadline exceeded;`, `connection failure;`, `high latency;`, `rate limiting;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "14. Breaker signal",
+      "line": 281,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "15. Circuit breaker vs. retry",
+      "line": 300,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "15. Circuit breaker vs. retry",
+      "line": 300,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "16. Circuit breaker vs. rate limit a bulkhead",
+      "line": 314,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Rate limit",
+      "line": 316,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Bulkhead",
+      "line": 320,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "17. Graceful degradation",
+      "line": 330,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "17. Graceful degradation",
+      "line": 330,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "17. Graceful degradation",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný 503 /deferred response;`, `stale cache s jasným freshness markerom;`, `reduced capability;`, `manual/reconciliation-required state.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "17. Graceful degradation",
+      "line": 330,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "17. Graceful degradation",
+      "line": 330,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "18. Recovery a half-open probes",
+      "line": 342,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "18. Recovery a half-open probes",
+      "line": 342,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "18. Recovery a half-open probes",
+      "line": 342,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cooldown;`, `probe count a concurrency;`, `representative operation;`, `dependency capacity warmup;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "18. Recovery a half-open probes",
+      "line": 342,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "19. Connected incident DB-PAY-59",
+      "line": 357,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bol local v každom zo 72 provider-worker Podov;`, `timeouts sa nepočítali ako failures;`, `každý Pod mal vlastný half-open probe;`, `breaker key nerozlišoval provider route generation ani Region.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "19. Connected incident DB-PAY-59",
+      "line": 357,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "19. Connected incident DB-PAY-59",
+      "line": 357,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "19. Connected incident DB-PAY-59",
+      "line": 357,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `24 600 logical settlement operations;`, `68 240 physical provider attempts;`, `attempt amplification 2.77× ;`, `1 384 operations v sent-unknown cohort-e;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "20. Retry-storm dôsledky",
+      "line": 390,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "22. Evidence-preserving containment",
+      "line": 421,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "23. Authoritative redesign",
+      "line": 435,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Deadline contract",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Deadline contract",
+      "line": 437,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Retry ownership",
+      "line": 448,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Backoff/budget",
+      "line": 464,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Backoff/budget",
+      "line": 464,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Backoff/budget",
+      "line": 464,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Backoff/budget",
+      "line": 464,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `max 2 provider attempts pred reconciliation state;`, `exponential backoff s full jitter;`, `shared provider+Region retry budget;`, `honor Retry-After ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Backoff/budget",
+      "line": 464,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Circuit breaker",
+      "line": 473,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Capacity isolation",
+      "line": 483,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Capacity isolation",
+      "line": 483,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Capacity isolation",
+      "line": 483,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Capacity isolation",
+      "line": 483,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider attempts majú vlastný bulkhead;`, `status lookup má reserved capacity;`, `reconciliation má dedicated rate limit;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Capacity isolation",
+      "line": 483,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Capacity isolation",
+      "line": 483,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `end-to-end deadline a per-stage remaining budgets sú definované;`, `timeout sa neinterpretuje automaticky ako failure;`, `failure/retry/unknown classifications sú explicitné;`, `stable operation a provider idempotency identity prežijú retries;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
+      "line": 490,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "25. Troubleshooting flow",
+      "line": 510,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Timeout znamená retry",
+      "line": 529,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Každá vrstva má tri retries",
+      "line": 533,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Exponential backoff stačí",
+      "line": 537,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Circuit breaker počíta iba 5xx",
+      "line": 541,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Breaker per Pod je úplná izolácia",
+      "line": 545,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Zvýšime timeout",
+      "line": 549,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Open circuit vráti cached success",
+      "line": 553,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
+      "section": "Idempotency key podľa attemptu",
+      "line": 557,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

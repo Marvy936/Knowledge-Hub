@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **287**
-- Audited conceptual sections: **11587**
-- Total words: **667,849**
-- Findings: **24522** (critical 7376, high 8436, medium 3094, low 5616)
-- File grades: A 0, B 0, C 0, D 287
+- Audited authoritative articles: **288**
+- Audited conceptual sections: **11642**
+- Total words: **669,846**
+- Findings: **24637** (critical 7421, high 8483, medium 3107, low 5626)
+- File grades: A 0, B 0, C 0, D 288
 
 ## Interpretation
 
@@ -42,6 +42,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 973 | 47 | 44 | 16 | 10 | 2239 | `docs/09-kubernetes/api-object-model.md` |
 | D | 970 | 43 | 38 | 32 | 24 | 3838 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
+| D | 970 | 45 | 47 | 13 | 10 | 1997 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
 | D | 969 | 46 | 45 | 16 | 9 | 1916 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
 | D | 960 | 44 | 42 | 20 | 19 | 2638 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | D | 945 | 37 | 46 | 25 | 39 | 3521 | `docs/02-networking-and-web/http.md` |
@@ -16817,6 +16818,101 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 452, `term-before-explanation` — **20. Replication/HA acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DNS`, `PITR`
 - **HIGH** line 452, `thin-concept-section` — **20. Replication/HA acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md`
+
+- **CRITICAL** line 24, `bare-bullet-items` — **2. Timeout nie je failure proof**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request nedorazil;`, `server nezačal pracovať;`, `transaction rollbackla;`, `external effect nenastal;`.
+- **CRITICAL** line 24, `outline-instead-of-explanation` — **2. Timeout nie je failure proof**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 48, `empty-section` — **3. Deadline vs. timeout**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 68, `bare-bullet-items` — **4. Deadline propagation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threads;`, `connections;`, `queue slots;`, `provider quota;`.
+- **CRITICAL** line 68, `outline-instead-of-explanation` — **4. Deadline propagation**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 91, `bare-bullet-items` — **5. Timeout layers**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/connect timeout;`, `TLS handshake timeout;`, `connection-pool checkout timeout;`, `request/response timeout;`.
+- **CRITICAL** line 91, `outline-instead-of-explanation` — **5. Timeout layers**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 111, `bare-bullet-items` — **Typicky retryable**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient connection reset pred potvrdeným sendom;`, `rate limit s Retry-After a available budgetom;`, `temporary leader election;`, `explicit retriable serialization failure celej transaction;`.
+- **CRITICAL** line 111, `no-prose-concept` — **Typicky retryable**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 111, `outline-instead-of-explanation` — **Typicky retryable**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 120, `bare-bullet-items` — **Typicky non-retryable**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation error;`, `authentication/authorization denial;`, `invariant conflict;`, `unsupported schema/version;`.
+- **CRITICAL** line 120, `no-prose-concept` — **Typicky non-retryable**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 120, `outline-instead-of-explanation` — **Typicky non-retryable**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 131, `bare-bullet-items` — **Unknown outcome**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout po možnom send-e;`, `connection loss po request body;`, `lost commit acknowledgement;`, `provider call bez response;`.
+- **CRITICAL** line 131, `outline-instead-of-explanation` — **Unknown outcome**: 5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 141, `bare-bullet-items` — **7. Stable operation a attempt identity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation/idempotency key;`, `payload identity alebo hash;`, `tenant/resource scope;`, `provider idempotency key;`.
+- **CRITICAL** line 141, `outline-instead-of-explanation` — **7. Stable operation a attempt identity**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 160, `bare-bullet-items` — **8. Retry owner**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client SDK;`, `gateway/proxy;`, `service;`, `database driver;`.
+- **CRITICAL** line 160, `outline-instead-of-explanation` — **8. Retry owner**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 184, `empty-section` — **9. Retry limit a retry budget**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 223, `bare-bullet-items` — **11. Hedging**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotent reads;`, `deduplicated requests;`, `resources s capacity budgetom;`, `explicitne zrušiteľný losing attempt;`.
+- **CRITICAL** line 223, `outline-instead-of-explanation` — **11. Hedging**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 265, `bare-bullet-items` — **13. Breaker scope**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency service;`, `Region;`, `provider;`, `tenant;`.
+- **CRITICAL** line 281, `bare-bullet-items` — **14. Breaker signal**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout/deadline exceeded;`, `connection failure;`, `high latency;`, `rate limiting;`.
+- **CRITICAL** line 281, `outline-instead-of-explanation` — **14. Breaker signal**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 314, `empty-section` — **16. Circuit breaker vs. rate limit a bulkhead**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 330, `bare-bullet-items` — **17. Graceful degradation**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný 503 /deferred response;`, `stale cache s jasným freshness markerom;`, `reduced capability;`, `manual/reconciliation-required state.`.
+- **CRITICAL** line 330, `outline-instead-of-explanation` — **17. Graceful degradation**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 342, `bare-bullet-items` — **18. Recovery a half-open probes**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cooldown;`, `probe count a concurrency;`, `representative operation;`, `dependency capacity warmup;`.
+- **CRITICAL** line 342, `outline-instead-of-explanation` — **18. Recovery a half-open probes**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 357, `bare-bullet-items` — **19. Connected incident DB-PAY-59**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bol local v každom zo 72 provider-worker Podov;`, `timeouts sa nepočítali ako failures;`, `každý Pod mal vlastný half-open probe;`, `breaker key nerozlišoval provider route generation ani Region.`.
+- **CRITICAL** line 390, `bare-bullet-items` — **20. Retry-storm dôsledky**: 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `24 600 logical settlement operations;`, `68 240 physical provider attempts;`, `attempt amplification 2.77× ;`, `1 384 operations v sent-unknown cohort-e;`.
+- **CRITICAL** line 390, `outline-instead-of-explanation` — **20. Retry-storm dôsledky**: 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 421, `empty-section` — **22. Evidence-preserving containment**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 435, `empty-section` — **23. Authoritative redesign**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 448, `empty-section` — **Retry ownership**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 464, `bare-bullet-items` — **Backoff/budget**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `max 2 provider attempts pred reconciliation state;`, `exponential backoff s full jitter;`, `shared provider+Region retry budget;`, `honor Retry-After ;`.
+- **CRITICAL** line 464, `no-prose-concept` — **Backoff/budget**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 464, `outline-instead-of-explanation` — **Backoff/budget**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 473, `empty-section` — **Circuit breaker**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 483, `bare-bullet-items` — **Capacity isolation**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider attempts majú vlastný bulkhead;`, `status lookup má reserved capacity;`, `reconciliation má dedicated rate limit;`.
+- **CRITICAL** line 483, `no-prose-concept` — **Capacity isolation**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 483, `outline-instead-of-explanation` — **Capacity isolation**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 490, `outline-instead-of-explanation` — **24. Retry/timeout/circuit-breaker acceptance verdict**: 15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 510, `empty-section` — **25. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 50, `single-sentence-concept` — **Timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 107, `single-sentence-concept` — **6. Failure classification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 111, `list-first-introduction` — **Typicky retryable**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 120, `list-first-introduction` — **Typicky non-retryable**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 131, `list-first-introduction` — **Unknown outcome**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 131, `single-sentence-concept` — **Unknown outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 141, `list-first-introduction` — **7. Stable operation a attempt identity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 141, `single-sentence-concept` — **7. Stable operation a attempt identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 186, `single-sentence-concept` — **Per-request limit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 237, `single-sentence-concept` — **12. Circuit breaker**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 253, `single-sentence-concept` — **Closed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 257, `single-sentence-concept` — **Open**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 265, `list-heavy-section` — **13. Breaker scope**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 300, `list-first-introduction` — **15. Circuit breaker vs. retry**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 316, `single-sentence-concept` — **Rate limit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 320, `single-sentence-concept` — **Bulkhead**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 330, `single-sentence-concept` — **17. Graceful degradation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 342, `single-sentence-concept` — **18. Recovery a half-open probes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 437, `list-first-introduction` — **Deadline contract**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 437, `single-sentence-concept` — **Deadline contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 464, `list-first-introduction` — **Backoff/budget**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 483, `list-first-introduction` — **Capacity isolation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 490, `bare-bullet-items` — **24. Retry/timeout/circuit-breaker acceptance verdict**: 11 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `end-to-end deadline a per-stage remaining budgets sú definované;`, `timeout sa neinterpretuje automaticky ako failure;`, `failure/retry/unknown classifications sú explicitné;`, `stable operation a provider idempotency identity prežijú retries;`.
+- **HIGH** line 490, `single-sentence-concept` — **24. Retry/timeout/circuit-breaker acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 529, `single-sentence-concept` — **Timeout znamená retry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 533, `single-sentence-concept` — **Každá vrstva má tri retries**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 537, `single-sentence-concept` — **Exponential backoff stačí**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 541, `single-sentence-concept` — **Circuit breaker počíta iba 5xx**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 545, `single-sentence-concept` — **Breaker per Pod je úplná izolácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 549, `single-sentence-concept` — **Zvýšime timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 553, `single-sentence-concept` — **Open circuit vráti cached success**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 557, `single-sentence-concept` — **Idempotency key podľa attemptu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 24, `thin-concept-section` — **2. Timeout nie je failure proof**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 91, `thin-concept-section` — **5. Timeout layers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 111, `thin-concept-section` — **Typicky retryable**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 120, `thin-concept-section` — **Typicky non-retryable**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 131, `thin-concept-section` — **Unknown outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 141, `thin-concept-section` — **7. Stable operation a attempt identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 223, `thin-concept-section` — **11. Hedging**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 300, `thin-concept-section` — **15. Circuit breaker vs. retry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 330, `thin-concept-section` — **17. Graceful degradation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 342, `thin-concept-section` — **18. Recovery a half-open probes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 464, `thin-concept-section` — **Backoff/budget**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 483, `thin-concept-section` — **Capacity isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 490, `thin-concept-section` — **24. Retry/timeout/circuit-breaker acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact route a discovery subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client operation a API version;`, `hostname, port, protocol a TLS identity;`, `gateway/listener/route generation;`, `path, method, headers a priority match;`.
@@ -16991,19 +17087,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2896 | 495 | 0 | 0 | 3391 |
-| `single-sentence-concept` | 0 | 2911 | 0 | 0 | 2911 |
-| `outline-instead-of-explanation` | 2852 | 0 | 0 | 0 | 2852 |
-| `term-before-explanation` | 0 | 603 | 2070 | 0 | 2673 |
-| `thin-concept-section` | 0 | 2407 | 0 | 0 | 2407 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2255 | 2255 |
-| `example-not-explicit` | 0 | 0 | 0 | 2229 | 2229 |
-| `list-first-introduction` | 0 | 1502 | 0 | 0 | 1502 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1132 | 1132 |
-| `short-concept-section` | 0 | 0 | 1024 | 0 | 1024 |
-| `no-prose-concept` | 868 | 0 | 0 | 0 | 868 |
-| `empty-section` | 760 | 0 | 0 | 0 | 760 |
-| `list-heavy-section` | 0 | 518 | 0 | 0 | 518 |
+| `bare-bullet-items` | 2913 | 496 | 0 | 0 | 3409 |
+| `single-sentence-concept` | 0 | 2934 | 0 | 0 | 2934 |
+| `outline-instead-of-explanation` | 2868 | 0 | 0 | 0 | 2868 |
+| `term-before-explanation` | 0 | 603 | 2078 | 0 | 2681 |
+| `thin-concept-section` | 0 | 2420 | 0 | 0 | 2420 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2260 | 2260 |
+| `example-not-explicit` | 0 | 0 | 0 | 2231 | 2231 |
+| `list-first-introduction` | 0 | 1511 | 0 | 0 | 1511 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1135 | 1135 |
+| `short-concept-section` | 0 | 0 | 1029 | 0 | 1029 |
+| `no-prose-concept` | 872 | 0 | 0 | 0 | 872 |
+| `empty-section` | 768 | 0 | 0 | 0 | 768 |
+| `list-heavy-section` | 0 | 519 | 0 | 0 | 519 |
 
 ## Required remediation pattern
 
