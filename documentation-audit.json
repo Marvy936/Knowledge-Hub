@@ -4087,6 +4087,20 @@
       "low": 22,
       "score": 691,
       "grade": "D"
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "title": "Reconciliation a drift detection",
+      "words": 1808,
+      "headings": 52,
+      "sections": 52,
+      "findings": 103,
+      "critical": 27,
+      "high": 53,
+      "medium": 9,
+      "low": 14,
+      "score": 791,
+      "grade": "D"
     }
   ],
   "findings": [
@@ -229274,6 +229288,933 @@
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
       "section": "Vypneme Argo počas incidentu",
       "line": 487,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "2. Desired, observed a effective state",
+      "line": 24,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Desired state",
+      "line": 26,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Observed state",
+      "line": 35,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Effective runtime state",
+      "line": 39,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Application alebo controller identity;`, `source revision a render inputs;`, `target cluster, namespace a API discovery generation;`, `desired resource set;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "3. Reconciliation subject",
+      "line": 54,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UID`, `resource`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "4. Reconciliation loop",
+      "line": 74,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "4. Reconciliation loop",
+      "line": 74,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "4. Reconciliation loop",
+      "line": 74,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentný voči už converged state-u;`, `bounded počtom mutations a retries;`, `resilientný voči source/target timeoutom;`, `schopný pokračovať po controller restarte;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "4. Reconciliation loop",
+      "line": 74,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "5. Drift taxonomy",
+      "line": 100,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Unauthorized manual drift",
+      "line": 104,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Legitímny controller drift",
+      "line": 108,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Defaulting drift",
+      "line": 112,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Admission mutation",
+      "line": 116,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Serialization alebo ordering drift",
+      "line": 120,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Generated-resource drift",
+      "line": 124,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Dependency drift",
+      "line": 128,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Orphan drift",
+      "line": 132,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Missing drift",
+      "line": 136,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Runtime drift",
+      "line": 140,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "6. Diff pipeline",
+      "line": 144,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "6. Diff pipeline",
+      "line": 144,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absent vs. explicit default;`, `unordered vs. ordered lists;`, `quantity formáty, napríklad 1000m a 1 ;`, `controller-generated fields;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "6. Diff pipeline",
+      "line": 144,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "6. Diff pipeline",
+      "line": 144,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "7. Ignore rules",
+      "line": 171,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "7. Ignore rules",
+      "line": 171,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact group/kind/name/namespace alebo úzky selector;`, `exact JSON pointer/JQ path alebo manager;`, `ownera a dôvod;`, `expected writer;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "7. Ignore rules",
+      "line": 171,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "7. Ignore rules",
+      "line": 171,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "7. Ignore rules",
+      "line": 171,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `JQ`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "8. Field ownership a managedFields",
+      "line": 198,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "8. Field ownership a managedFields",
+      "line": 198,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "8. Field ownership a managedFields",
+      "line": 198,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `apply conflict;`, `oscillation;`, `repeated OutOfSync;`, `hidden overwrite;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "8. Field ownership a managedFields",
+      "line": 198,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "8. Field ownership a managedFields",
+      "line": 198,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deleted resources;`, `unauthorized image patch;`, `zmenenú security policy;`, `missing labels alebo routes.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "9. Drift detection vs. self-heal",
+      "line": 232,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "10. Sync status, health a business outcome",
+      "line": 261,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Synced",
+      "line": 263,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Healthy",
+      "line": 267,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Business accepted",
+      "line": 271,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Business accepted",
+      "line": 271,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Business accepted",
+      "line": 271,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Business accepted",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "11. Apply a unknown outcome",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "11. Apply a unknown outcome",
+      "line": 288,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znovu spustiť hook;`, `vytvoriť ďalší generated name resource;`, `konfliktovať s novším writerom;`, `nesprávne označiť operation ako failed.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "11. Apply a unknown outcome",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "11. Apply a unknown outcome",
+      "line": 288,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "12. Prune a orphan handling",
+      "line": 308,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "12. Prune a orphan handling",
+      "line": 308,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "12. Prune a orphan handling",
+      "line": 308,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed render vyprodukuje empty set;`, `path alebo ref sa zmení nesprávne;`, `tracking metadata sa poškodí;`, `resource bol adoptovaný iným ownerom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "12. Prune a orphan handling",
+      "line": 308,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "12. Prune a orphan handling",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "13. Controller retry, backoff a hot loop",
+      "line": 333,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "13. Controller retry, backoff a hot loop",
+      "line": 333,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "16 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "13. Controller retry, backoff a hot loop",
+      "line": 333,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes API QPS;`, `repository render capacity;`, `controller CPU/memory;`, `audit/log volume;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "13. Controller retry, backoff a hot loop",
+      "line": 333,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "13. Controller retry, backoff a hot loop",
+      "line": 333,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "13. Controller retry, backoff a hot loop",
+      "line": 333,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `QPS`, `CPU`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "14. Drift response choices",
+      "line": 367,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Report",
+      "line": 371,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Reconcile",
+      "line": 375,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Ignore",
+      "line": 379,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Adopt",
+      "line": 383,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Refuse",
+      "line": 387,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "15. Connected incident GITOPS-PAY-61",
+      "line": 397,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selfHeal bolo false ;`, `CI a on-call menili Deployment priamo;`, `parameter override menil desired image mimo Git-u;`, `HPA vlastnil replicas, ale writer contract nebol dokumentovaný;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "15. Connected incident GITOPS-PAY-61",
+      "line": 397,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "15. Connected incident GITOPS-PAY-61",
+      "line": 397,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "15. Connected incident GITOPS-PAY-61",
+      "line": 397,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "15. Connected incident GITOPS-PAY-61",
+      "line": 397,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `HPA`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Evidence",
+      "line": 440,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Evidence",
+      "line": 440,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Evidence",
+      "line": 440,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Evidence",
+      "line": 440,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Evidence",
+      "line": 440,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Evidence",
+      "line": 440,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Recovery",
+      "line": 449,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `desired, observed a effective runtime state sú rozlíšené;`, `diff normalization je schema-aware a testovaná;`, `field ownership a tracking identity sú explicitné;`, `Synced, Healthy a business accepted verdicts sú oddelené;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "16. Reconciliation acceptance verdict",
+      "line": 464,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "17. Troubleshooting flow",
+      "line": 483,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Každý drift treba automaticky revertovať",
+      "line": 501,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Healthy = správna verzia",
+      "line": 513,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Prune opraví orphaned resources",
+      "line": 517,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
+      "section": "Reconciliation sa môže opakovať donekonečna",
+      "line": 521,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

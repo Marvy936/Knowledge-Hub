@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **292**
-- Audited conceptual sections: **11807**
-- Total words: **679,191**
-- Findings: **25021** (critical 7531, high 8613, medium 3167, low 5710)
-- File grades: A 0, B 0, C 0, D 292
+- Audited authoritative articles: **293**
+- Audited conceptual sections: **11859**
+- Total words: **680,999**
+- Findings: **25124** (critical 7558, high 8666, medium 3176, low 5724)
+- File grades: A 0, B 0, C 0, D 293
 
 ## Interpretation
 
@@ -78,6 +78,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 802 | 37 | 42 | 7 | 5 | 2208 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 795 | 35 | 38 | 13 | 25 | 2399 | `docs/09-kubernetes/daemonset.md` |
+| D | 791 | 27 | 53 | 9 | 14 | 1808 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | D | 787 | 32 | 46 | 8 | 10 | 1672 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
@@ -17339,22 +17340,105 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 430, `term-before-explanation` — **18. Pull-based acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `resource`, `policy`
 - **HIGH** line 430, `thin-concept-section` — **18. Pull-based acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md`
+
+- **CRITICAL** line 24, `empty-section` — **2. Desired, observed a effective state**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 54, `bare-bullet-items` — **3. Reconciliation subject**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Application alebo controller identity;`, `source revision a render inputs;`, `target cluster, namespace a API discovery generation;`, `desired resource set;`.
+- **CRITICAL** line 54, `outline-instead-of-explanation` — **3. Reconciliation subject**: 13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 74, `bare-bullet-items` — **4. Reconciliation loop**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentný voči už converged state-u;`, `bounded počtom mutations a retries;`, `resilientný voči source/target timeoutom;`, `schopný pokračovať po controller restarte;`.
+- **CRITICAL** line 74, `outline-instead-of-explanation` — **4. Reconciliation loop**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 144, `bare-bullet-items` — **6. Diff pipeline**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absent vs. explicit default;`, `unordered vs. ordered lists;`, `quantity formáty, napríklad 1000m a 1 ;`, `controller-generated fields;`.
+- **CRITICAL** line 144, `outline-instead-of-explanation` — **6. Diff pipeline**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 171, `bare-bullet-items` — **7. Ignore rules**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact group/kind/name/namespace alebo úzky selector;`, `exact JSON pointer/JQ path alebo manager;`, `ownera a dôvod;`, `expected writer;`.
+- **CRITICAL** line 171, `outline-instead-of-explanation` — **7. Ignore rules**: 8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 198, `bare-bullet-items` — **8. Field ownership a managedFields**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `apply conflict;`, `oscillation;`, `repeated OutOfSync;`, `hidden overwrite;`.
+- **CRITICAL** line 198, `outline-instead-of-explanation` — **8. Field ownership a managedFields**: 10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 232, `bare-bullet-items` — **9. Drift detection vs. self-heal**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deleted resources;`, `unauthorized image patch;`, `zmenenú security policy;`, `missing labels alebo routes.`.
+- **CRITICAL** line 232, `outline-instead-of-explanation` — **9. Drift detection vs. self-heal**: 11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 261, `empty-section` — **10. Sync status, health a business outcome**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 271, `outline-instead-of-explanation` — **Business accepted**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 288, `bare-bullet-items` — **11. Apply a unknown outcome**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znovu spustiť hook;`, `vytvoriť ďalší generated name resource;`, `konfliktovať s novším writerom;`, `nesprávne označiť operation ako failed.`.
+- **CRITICAL** line 288, `outline-instead-of-explanation` — **11. Apply a unknown outcome**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 308, `bare-bullet-items` — **12. Prune a orphan handling**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed render vyprodukuje empty set;`, `path alebo ref sa zmení nesprávne;`, `tracking metadata sa poškodí;`, `resource bol adoptovaný iným ownerom;`.
+- **CRITICAL** line 308, `outline-instead-of-explanation` — **12. Prune a orphan handling**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 333, `bare-bullet-items` — **13. Controller retry, backoff a hot loop**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes API QPS;`, `repository render capacity;`, `controller CPU/memory;`, `audit/log volume;`.
+- **CRITICAL** line 333, `outline-instead-of-explanation` — **13. Controller retry, backoff a hot loop**: 16 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 397, `bare-bullet-items` — **15. Connected incident GITOPS-PAY-61**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selfHeal bolo false ;`, `CI a on-call menili Deployment priamo;`, `parameter override menil desired image mimo Git-u;`, `HPA vlastnil replicas, ale writer contract nebol dokumentovaný;`.
+- **CRITICAL** line 440, `no-prose-concept` — **Evidence**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 440, `outline-instead-of-explanation` — **Evidence**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 449, `empty-section` — **Recovery**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 464, `outline-instead-of-explanation` — **16. Reconciliation acceptance verdict**: 14 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 483, `empty-section` — **17. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 26, `single-sentence-concept` — **Desired state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 35, `single-sentence-concept` — **Observed state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 39, `single-sentence-concept` — **Effective runtime state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 54, `single-sentence-concept` — **3. Reconciliation subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 74, `single-sentence-concept` — **4. Reconciliation loop**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 100, `single-sentence-concept` — **5. Drift taxonomy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 104, `single-sentence-concept` — **Unauthorized manual drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 108, `single-sentence-concept` — **Legitímny controller drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 112, `single-sentence-concept` — **Defaulting drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 116, `single-sentence-concept` — **Admission mutation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 120, `single-sentence-concept` — **Serialization alebo ordering drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 124, `single-sentence-concept` — **Generated-resource drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 128, `single-sentence-concept` — **Dependency drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 132, `single-sentence-concept` — **Orphan drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 136, `single-sentence-concept` — **Missing drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 140, `single-sentence-concept` — **Runtime drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 198, `single-sentence-concept` — **8. Field ownership a managedFields**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 232, `list-first-introduction` — **9. Drift detection vs. self-heal**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 232, `single-sentence-concept` — **9. Drift detection vs. self-heal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 263, `single-sentence-concept` — **Synced**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 267, `single-sentence-concept` — **Healthy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 271, `single-sentence-concept` — **Business accepted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 308, `single-sentence-concept` — **12. Prune a orphan handling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 333, `single-sentence-concept` — **13. Controller retry, backoff a hot loop**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 367, `single-sentence-concept` — **14. Drift response choices**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 371, `single-sentence-concept` — **Report**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 375, `single-sentence-concept` — **Reconcile**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 379, `single-sentence-concept` — **Ignore**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 383, `single-sentence-concept` — **Adopt**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 387, `single-sentence-concept` — **Refuse**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 440, `list-first-introduction` — **Evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 464, `bare-bullet-items` — **16. Reconciliation acceptance verdict**: 7 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `desired, observed a effective runtime state sú rozlíšené;`, `diff normalization je schema-aware a testovaná;`, `field ownership a tracking identity sú explicitné;`, `Synced, Healthy a business accepted verdicts sú oddelené;`.
+- **HIGH** line 464, `single-sentence-concept` — **16. Reconciliation acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 501, `single-sentence-concept` — **Každý drift treba automaticky revertovať**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 513, `single-sentence-concept` — **Healthy = správna verzia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 517, `single-sentence-concept` — **Prune opraví orphaned resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 521, `single-sentence-concept` — **Reconciliation sa môže opakovať donekonečna**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 54, `term-before-explanation` — **3. Reconciliation subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UID`, `resource`, `policy`
+- **HIGH** line 54, `thin-concept-section` — **3. Reconciliation subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 74, `thin-concept-section` — **4. Reconciliation loop**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 144, `thin-concept-section` — **6. Diff pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 198, `thin-concept-section` — **8. Field ownership a managedFields**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 232, `thin-concept-section` — **9. Drift detection vs. self-heal**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 271, `thin-concept-section` — **Business accepted**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 288, `thin-concept-section` — **11. Apply a unknown outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 308, `thin-concept-section` — **12. Prune a orphan handling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 333, `term-before-explanation` — **13. Controller retry, backoff a hot loop**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `QPS`, `CPU`, `resource`
+- **HIGH** line 333, `thin-concept-section` — **13. Controller retry, backoff a hot loop**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 440, `thin-concept-section` — **Evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 464, `term-before-explanation` — **16. Reconciliation acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`
+- **HIGH** line 464, `thin-concept-section` — **16. Reconciliation acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2967 | 503 | 0 | 0 | 3470 |
-| `single-sentence-concept` | 0 | 2993 | 0 | 0 | 2993 |
-| `outline-instead-of-explanation` | 2909 | 0 | 0 | 0 | 2909 |
-| `term-before-explanation` | 0 | 609 | 2113 | 0 | 2722 |
-| `thin-concept-section` | 0 | 2455 | 0 | 0 | 2455 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2298 | 2298 |
-| `example-not-explicit` | 0 | 0 | 0 | 2263 | 2263 |
-| `list-first-introduction` | 0 | 1520 | 0 | 0 | 1520 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1149 | 1149 |
-| `short-concept-section` | 0 | 0 | 1054 | 0 | 1054 |
-| `no-prose-concept` | 876 | 0 | 0 | 0 | 876 |
-| `empty-section` | 779 | 0 | 0 | 0 | 779 |
+| `bare-bullet-items` | 2977 | 504 | 0 | 0 | 3481 |
+| `single-sentence-concept` | 0 | 3028 | 0 | 0 | 3028 |
+| `outline-instead-of-explanation` | 2921 | 0 | 0 | 0 | 2921 |
+| `term-before-explanation` | 0 | 612 | 2120 | 0 | 2732 |
+| `thin-concept-section` | 0 | 2466 | 0 | 0 | 2466 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2305 | 2305 |
+| `example-not-explicit` | 0 | 0 | 0 | 2267 | 2267 |
+| `list-first-introduction` | 0 | 1523 | 0 | 0 | 1523 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1152 | 1152 |
+| `short-concept-section` | 0 | 0 | 1056 | 0 | 1056 |
+| `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
+| `empty-section` | 783 | 0 | 0 | 0 | 783 |
 | `list-heavy-section` | 0 | 533 | 0 | 0 | 533 |
 
 ## Required remediation pattern
