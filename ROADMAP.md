@@ -325,9 +325,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md)
 - [x] [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md)
 - [x] [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md)
-- [ ] Disaster recovery
-- [ ] Chaos engineering
-- [ ] Operational readiness
+- [x] [Disaster recovery](docs/14-sre-and-operations/disaster-recovery.md)
+- [x] [Chaos engineering](docs/14-sre-and-operations/chaos-engineering.md)
+- [x] [Operational readiness](docs/14-sre-and-operations/operational-readiness.md)
 
 ## Fáza 5 — Architecture a pokročilé oblasti
 

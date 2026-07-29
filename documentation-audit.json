@@ -3643,7 +3643,7 @@
     {
       "path": "docs/14-sre-and-operations/chaos-engineering.md",
       "title": "Chaos engineering",
-      "words": 1956,
+      "words": 1957,
       "headings": 48,
       "sections": 48,
       "findings": 126,
@@ -3657,7 +3657,7 @@
     {
       "path": "docs/14-sre-and-operations/disaster-recovery.md",
       "title": "Disaster recovery",
-      "words": 2263,
+      "words": 2264,
       "headings": 51,
       "sections": 51,
       "findings": 131,
@@ -3755,7 +3755,7 @@
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
       "title": "RPO a RTO",
-      "words": 2309,
+      "words": 2310,
       "headings": 44,
       "sections": 44,
       "findings": 95,

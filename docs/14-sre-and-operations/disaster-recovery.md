@@ -591,5 +591,5 @@ Relevantné pojmy: disaster-recovery subject, recovery graph, recovery strategy 
 
 **Navigácia**
 
-[← Predchádzajúca: RPO a RTO](rpo-and-rto.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: RPO a RTO](rpo-and-rto.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Chaos engineering →](chaos-engineering.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

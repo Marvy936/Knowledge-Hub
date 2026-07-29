@@ -612,5 +612,5 @@ Relevantné pojmy: chaos experiment subject, steady-state hypothesis, chaos vari
 
 **Navigácia**
 
-[← Predchádzajúca: Disaster recovery](disaster-recovery.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Disaster recovery](disaster-recovery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Operational readiness →](operational-readiness.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

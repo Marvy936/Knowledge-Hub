@@ -634,5 +634,5 @@ Relevantné pojmy: recovery-objective subject, Recovery Point Objective, Recover
 
 **Navigácia**
 
-[← Predchádzajúca: Backup a restore](backup-and-restore.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Backup a restore](backup-and-restore.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Disaster recovery →](disaster-recovery.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

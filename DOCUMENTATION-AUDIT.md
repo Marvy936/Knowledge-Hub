@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **272**
 - Audited conceptual sections: **10999**
-- Total words: **637,838**
+- Total words: **637,841**
 - Findings: **23121** (critical 6922, high 7944, medium 2904, low 5351)
 - File grades: A 0, B 0, C 0, D 272
 
@@ -32,11 +32,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1106 | 52 | 49 | 20 | 20 | 2492 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 1089 | 48 | 45 | 29 | 43 | 3495 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | D | 1082 | 49 | 54 | 15 | 15 | 2048 | `docs/14-sre-and-operations/blameless-postmortems.md` |
-| D | 1075 | 48 | 56 | 12 | 15 | 2263 | `docs/14-sre-and-operations/disaster-recovery.md` |
+| D | 1075 | 48 | 56 | 12 | 15 | 2264 | `docs/14-sre-and-operations/disaster-recovery.md` |
 | D | 1068 | 46 | 55 | 17 | 21 | 2455 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | D | 1065 | 50 | 53 | 13 | 5 | 2116 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | D | 1063 | 48 | 54 | 12 | 22 | 2499 | `docs/09-kubernetes/control-plane-components.md` |
-| D | 1060 | 48 | 56 | 11 | 11 | 1956 | `docs/14-sre-and-operations/chaos-engineering.md` |
+| D | 1060 | 48 | 56 | 11 | 11 | 1957 | `docs/14-sre-and-operations/chaos-engineering.md` |
 | D | 982 | 43 | 45 | 21 | 26 | 2919 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 973 | 47 | 44 | 16 | 10 | 2239 | `docs/09-kubernetes/api-object-model.md` |
@@ -81,7 +81,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 774 | 35 | 33 | 17 | 27 | 2700 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
-| D | 760 | 31 | 44 | 8 | 12 | 2309 | `docs/14-sre-and-operations/rpo-and-rto.md` |
+| D | 760 | 31 | 44 | 8 | 12 | 2310 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | D | 757 | 31 | 36 | 20 | 23 | 2552 | `docs/09-kubernetes/replicaset.md` |
 | D | 756 | 31 | 43 | 9 | 10 | 2339 | `docs/02-networking-and-web/load-balancing.md` |
 | D | 754 | 30 | 39 | 16 | 27 | 2895 | `docs/02-networking-and-web/dns.md` |
