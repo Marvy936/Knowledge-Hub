@@ -45,7 +45,7 @@ Ak sa zmení `202` contract, provider, Region, release, retention policy alebo S
 
 ## 3. Reliability ako súbor nekompenzovateľných vlastností
 
-Reliability je širšia než availability. Pre Atlas settlement journey obsahuje najmenej päť samostatných vlastností:
+Reliability je širšia než availability. Availability opisuje použiteľnosť capability, correctness pravdivosť výsledku, latency časovú hranicu a durability schopnosť zachovať alebo reprodukovať už potvrdený business state. Pre Atlas settlement journey sa tieto vlastnosti vyhodnocujú samostatne, pretože každá má inú failure boundary a iný authoritative dôkaz.
 
 - **availability** — validný merchant môže operation začať a dostať pravdivý výsledok alebo bezpečný explicitný failure;
 - **correctness** — výsledný amount, currency, tenant, provider a workflow transition zodpovedajú business contractu;
@@ -200,25 +200,13 @@ Ak front-door SLI vyzerá zdravo, neuzatváraj incident. Môže iba dokazovať, 
 
 ## 12. Anti-patterny
 
-### Uptime equals reliability
+Nasledujúce skratky zamieňajú čiastkový technický signal za celý reliability outcome. Každá z nich odstráni dôležitú boundary z merania alebo recovery, a preto môže vytvoriť zelený verdict počas reálneho user impactu.
 
-Running proces alebo úspešný health check nepreukazuje correctness, durability ani final business completion.
-
-### Replication equals backup
-
-Replication zvyšuje availability a odolnosť voči physical failure-u, ale replikuje aj chybnú mutation. Recovery potrebuje oddelenú lineage a restore test.
-
-### `202` znamená, že sa o to systém postará
-
-`202` je sľub iba v rozsahu server-side contractu. Bez durable intentu, status identity a bounded completion/failure semantics je nepravdivý.
-
-### Globálny priemer
-
-Aggregate availability môže skryť úplný failure kritického tenant-a, Regionu alebo release cohorty.
-
-### Recovery overená počtom rows
-
-Technický row count nepreukazuje referential, workflow ani provider consistency. Validácia musí skončiť business outcome-om.
+- **Uptime equals reliability —** Running proces alebo úspešný health check nepreukazuje correctness, durability ani final business completion. Zelený process signal musí byť korelovaný s operation-level outcome-om.
+- **Replication equals backup —** Replication zvyšuje availability a odolnosť voči physical failure-u, ale replikuje aj chybnú mutation. Recovery potrebuje oddelenú lineage, restore test a business reconciliation.
+- **`202` znamená, že sa o to systém postará —** `202` je sľub iba v rozsahu server-side contractu. Bez durable intentu, status identity a bounded completion/failure semantics je acknowledgement nepravdivý.
+- **Globálny priemer —** Aggregate availability môže skryť úplný failure kritického tenant-a, Regionu alebo release cohorty. Critical cohorts preto potrebujú vlastný denominator a verdict.
+- **Recovery overená počtom rows —** Technický row count nepreukazuje referential, workflow ani provider consistency. Validácia musí skončiť pôvodným business outcome-om a forbidden duplicate/lost paths.
 
 ## 13. Kontrolné otázky
 
