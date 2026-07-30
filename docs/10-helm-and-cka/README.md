@@ -30,7 +30,7 @@ Aktuálny authoritative stav sekcie je **9/9 · Ready for user review**.
 
 Všetkých deväť kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných podľa prose-first strict štandardu sekcií 14–17. Každá kapitola má explicitný subject/generation/evidence model, connected failure alebo training scenario, vysvetlený recovery lifecycle a positive aj forbidden acceptance paths. Per-file gate vykazuje nulové critical, high a medium learning-depth findings.
 
-Authoritative ordering, navigation, technické identity a incidentové fakty zostali zachované. Sekcia je pripravená na používateľskú kontrolu; tento stav ju automaticky neoznačuje ako používateľsky schválenú, Accepted, Verified ani Stable.
+Finálny comparative pass bol dokončený **30. júla 2026**. Authoritative ordering, navigation, technické identity a incidentové fakty zostali zachované. Sekcia je pripravená na používateľskú kontrolu; tento stav ju automaticky neoznačuje ako používateľsky schválenú, Accepted, Verified ani Stable.
 
 ## Connected learning scenarios
 
