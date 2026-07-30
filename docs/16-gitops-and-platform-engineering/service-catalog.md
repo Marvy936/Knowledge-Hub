@@ -2,7 +2,7 @@
 
 Service catalog je riadený model software a platform ecosystemu, ktorý spája stable entity identity, vlastníctvo, lifecycle, rozhrania, dependencies, runtime koreláciu a operational context. Nie je to iba vyhľadávacia stránka nad repositories. Ak catalog metadata riadia self-service, incident routing, tenant profile, policy alebo decommission, consumer musí rozlíšiť authoritative source, spracovanú projection a effective runtime state.
 
-Najnebezpečnejší catalog nie je prázdny. Je to presvedčivá last-good projection so stale ownerom, tenant boundary alebo data classification, ktorú automatizácia považuje za fresh authority.
+Najnebezpečnejší catalog nie je prázdny. Je to presvedčivá last-good projection so stale ownerom, tenant boundary alebo data classification, ktorú automatizácia považuje za fresh authority. Privileged consumer preto potrebuje explicitný freshness verdict a source-generation precondition, nie iba úspešný catalog lookup.
 
 ```text
 real software/platform/organizational object
