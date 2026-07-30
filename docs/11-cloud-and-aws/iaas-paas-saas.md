@@ -247,5 +247,5 @@ provider resource alebo service je healthy
 
 **Navigácia**
 
-[← Predchádzajúca: Helm and CKA](../10-helm-and-cka/README.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Public, private a hybrid cloud →](public-private-hybrid-cloud.md)
+[← Predchádzajúca: CKA troubleshooting drills](../10-helm-and-cka/cka-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Public, private a hybrid cloud →](public-private-hybrid-cloud.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
