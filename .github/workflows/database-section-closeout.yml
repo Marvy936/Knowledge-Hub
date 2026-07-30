@@ -1,11 +1,11 @@
 name: Database section closeout
 
 on:
-  push:
-    branches:
-      - agent/databases-style-revalidation-block-1
+  pull_request:
     paths:
-      - '.database-section-closeout-trigger'
+      - '.github/workflows/database-section-closeout.yml'
+      - 'docs/15-databases-and-distributed-systems/rate-limiting.md'
+      - 'docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md'
 
 permissions:
   contents: write
