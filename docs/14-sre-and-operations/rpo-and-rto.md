@@ -1,490 +1,172 @@
 # RPO a RTO
 
-Recovery Point Objective (RPO) vyjadruje **bod v čase, ku ktorému musia byť dáta po disruption obnovené**, teda tolerovanú stratu alebo potrebu rekonštrukcie dát. Recovery Time Objective (RTO) vyjadruje **čas, počas ktorého môže recovery trvať, kým disruption negatívne prekročí prijateľný business alebo mission impact**.
+Recovery Point Objective — RPO — vyjadruje, ku ktorému business-valid pointu musí byť state po disruption obnovený, teda koľko acknowledged change-u možno stratiť alebo musí byť rekonštruované. Recovery Time Objective — RTO — vyjadruje, dokedy musí byť capability bezpečne obnovená, kým disruption prekročí prijateľný business alebo mission impact. Nie sú to vlastnosti backup produktu ani čísla, ktoré si infra tím vyberie podľa aktuálnej technológie.
 
-RPO a RTO nie sú hodnoty backup produktu. Sú to business recovery objectives pre presne definovanú capability, data state, scope a failure scenario. Musia byť odvodené z business impact analysis, premietnuté do architecture a následne overené reálnym recovery testom.
+RPO a RTO patria presnej capability, cohortu, consistency groupu a failure scenáru. Musia vychádzať z business impact analysis, premietnuť sa do architecture, staffing, dependencies a degraded mode-u a následne byť overené timed exercise-om na current generation.
+
+## 1. Dominantný impact-to-measured-recovery lifecycle
+
+Recovery objectives prekladajú business toleranciu na technický a operational contract. Target zostáva iba želaním, kým full recovery test nezmeria actual point, actual time, reconstructed/lost state a forbidden outcomes.
 
 ```text
 business capability a impact tolerance
 → exact recovery-objective subject
-→ dependency a data-consistency inventory
-→ disruption/corruption scenarios
+→ data/dependency/acknowledgement inventory
+→ failure a corruption scenarios
 → RPO, RTO a maximum-tolerance boundaries
-→ recovery strategy a per-boundary budgets
+→ recovery strategy a dependency budgets
 → backup/failover/restore/reconciliation design
-→ timed exercise a measured actuals
+→ timed exercise na current generation
+→ actual recovered point a actual recovery time
 → objective gap a corrective action
-→ second-scenario acceptance
+→ alternate-scenario a second-responder validation
 ```
 
-## 1. Exact recovery-objective subject
+RPO rieši data-history os; RTO time-to-capability os. Nízke RPO neznamená automaticky nízke RTO a rýchly failover nemusí zachovať business-consistent state.
 
-Tvrdenie `RPO je päť minút` je neúplné. Subject musí uviesť:
+## 2. Exact recovery-objective subject
 
-- business capability a operation;
-- customer alebo internal cohort;
-- data stores a consistency group;
-- failure scenario;
-- start/end measurement boundaries;
-- timezone a clock authority;
-- recovery mode;
-- degraded-mode assumptions;
-- dependency objectives;
-- ownera;
-- review generation.
-
-Príklad:
+`RPO päť minút, RTO 45 minút` je bez scope-u neauditovateľné. Exact subject obsahuje capability a operation, cohort, data stores a consistency group, failure scenario, measurement start/end, clock authority, recovery/degraded mode, dependency objectives, ownera a review generation.
 
 ```text
 capability: merchant settlement reconciliation
 scope: production EU merchant settlements
 consistency group: CG-PAY-04
-scenario: logical corruption of primary settlement ledger
-RPO: 5 min business-consistent point
-RTO: 45 min to safe merchant-facing processing
+scenario: logical corruption primary settlement ledgeru
+RPO: ≤ 5 min business-consistent replay/reconciliation window
+RTO: ≤ 45 min safe merchant-facing completion
 maximum tolerable disruption: 2 h
-measurement start: first invalid committed mutation
-measurement end: new + historical affected operations safely processable
+start: first invalid committed mutation
+end: new + affected historical operations safely processable
 owner: Payments Resilience
 ```
 
-RPO/RTO pre read-only reporting môžu byť výrazne voľnejšie než pre financial settlement.
+Reporting, audit retrieval a settlement completion môžu mať odlišné objectives. Rovnaké číslo pre celú aplikáciu skryje rozdielnu criticality a data semantics.
 
-## 2. Recovery Point Objective
+## 3. RPO: time, events a acknowledgement semantics
 
-NIST definuje RPO ako bod v čase, ku ktorému musia byť dáta po outage obnovené.
+RPO sa meria medzi disruption/corruption boundary a selected valid recovery pointom. Pri corruption o `02:14:07` a RPO päť minút musí byť dostupný business-valid point `02:09:07` alebo novší, prípadne musí existovať reprodukovateľná reconstruction všetkých acknowledged changes po staršom point-e.
 
-Prakticky:
+Time-based objective treba doplniť event alebo invariant semantics. Päť minút počas low trafficu a campaign peaku predstavuje iný počet operations. Financial capability môže vyžadovať:
 
 ```text
-incident/corruption boundary
-- oldest acceptable recovery point
-= tolerované data-change exposure window
+RPO-time: ≤ 5 min initial business-consistent window
+RPO-event: 0 permanently lost acknowledged settlements
 ```
 
-Ak corruption nastala o `02:14` a RPO je `5 min`, recovery design musí umožniť návrat aspoň k business-valid state-u okolo `02:09` alebo novšiemu, prípadne preukázať ekvivalentnú rekonštrukciu všetkých neskorších operations.
+`RPO=0` znamená, že žiadny acknowledged required state nesmie byť nenávratne stratený v definovanom scenári. Nevyplýva iba zo synchronous replication. Potrebuje end-to-end acknowledgement, durable authority, external side-effect identity, idempotency a reconstructability. Sent-unknown provider outcome sa rieši ledger reconciliation, nie tvrdením, že local DB replica všetko obsahuje.
 
-RPO nehovorí, ako dlho restore potrvá. To rieši RTO.
+Backup interval nie je RPO. Job môže meškať, capture trvať, log chain mať gap, latest point byť corrupted, consistency group rozídený alebo artifact unreadable. RPO dokazuje až selected clean point a business reconciliation.
 
-## 3. Recovery Time Objective
+## 4. RTO: business boundary a work recovery
 
-RTO je celkový prijateľný recovery interval pred neprijateľným business impactom.
+RTO zahŕňa celý interval od dohodnutého business disruption startu po safe capability:
 
 ```text
-business disruption start
-→ detection/declaration
-→ containment
-→ environment provisioning
-→ data restore
-→ dependency recovery
-→ application startup
+first business disruption
+→ detection a declaration
+→ containment/fencing
+→ target provisioning a access
+→ data restore alebo failover
+→ dependency/application startup
 → validation
-→ reconciliation/work recovery
+→ reconciliation a work recovery
 → safe business service
 ```
 
-Ak tím meria RTO iba od kliknutia `Start restore` po stav `database available`, skracuje denominator a vynecháva významnú časť user impactu.
+Ak sa stopky spustia až kliknutím `Start restore`, organizácia vynechá detection a decision delay. Ak sa zastavia pri `database available`, vynechá application, dependencies, validation, backlog a user outcome.
 
-## 4. RPO a RTO riešia iné osi
+Po technical restore môže nasledovať Work Recovery Time: backlog drain, reconciliation, manual cases, communication, cache/index rebuild, override removal a audit closure. Názvoslovie sa líši, preto objective musí explicitne definovať, či RTO končí safe new operations alebo až historical reconciliation. Maximum tolerable disruption je hranica neprijateľného impactu; RTO musí byť kratší a ponechať rezervu na uncertainty a work recovery.
 
-| Objective | Hlavná otázka | Typický trade-off |
-|---|---|---|
-| RPO | Koľko data change-u alebo ktorú časovú históriu smieme stratiť/rekonštruovať? | capture frequency, logging, consistency, cost |
-| RTO | Ako rýchlo musí byť capability bezpečne obnovená? | warm capacity, automation, staffing, complexity, cost |
+## 5. Business impact, scenarios a degraded modes
 
-Príklady:
-
-```text
-RPO 24 h, RTO 15 min
-→ rýchlo obnovíme staršie dáta
-
-RPO 0, RTO 8 h
-→ nestratíme acknowledged data, ale obnova môže trvať dlho
-
-RPO 5 min, RTO 45 min
-→ potrebujeme jemný recovery point aj rýchly end-to-end restore
-```
-
-Nízke RPO automaticky neznamená nízke RTO.
-
-## 5. Business impact analysis
-
-Business impact analysis (BIA) identifikuje:
-
-- critical capabilities;
-- dependency chain;
-- impact rastúci s časom;
-- data-loss tolerance;
-- legal/regulatory commitments;
-- financial a customer impact;
-- manual/degraded alternatives;
-- restoration priority;
-- maximum tolerable disruption;
-- seasonal alebo event-specific constraints.
-
-Príklad impact curve:
+Business impact analysis určuje critical capabilities, dependency chain, impact curve, data-loss tolerance, legal/financial/customer commitments, manual alternatives, restoration priority a seasonal constraints.
 
 | Disruption | Settlement impact |
 |---|---|
-| 0–15 min | queueing, bez customer breach |
-| 15–45 min | merchant delay, error-budget burn |
-| 45–120 min | contractual/support escalation, liquidity risk |
-| >120 min | unacceptable business disruption |
+| 0–15 min | queueing bez customer breachu |
+| 15–45 min | merchant delay a error-budget burn |
+| 45–120 min | contractual/support escalation a liquidity risk |
+| >120 min | neprijateľný business disruption |
 
-RTO `45 min` má potom konkrétny business dôvod. Nie je to okrúhle číslo vybrané infra tímom.
+Objectives sú scenario-specific. Instance alebo AZ loss, Region loss, logical corruption, ransomware/account compromise, provider outage, operator deletion, schema incompatibility a identity outage majú iné clean-point, isolation a lead-time constraints. Multi-AZ failover contract nemožno použiť ako ransomware recovery dôkaz.
 
-## 6. Maximum tolerable disruption
-
-Organizácie používajú termíny ako Maximum Tolerable Downtime (MTD), Maximum Tolerable Period of Disruption (MTPD) alebo Maximum Acceptable Outage podľa vlastného frameworku.
-
-Spoločný význam:
+RTO môže obsahovať staged degraded modes:
 
 ```text
-hranica, za ktorou disruption vytvára neprijateľný business/mission impact
+≤ 15 min: durable settlement admission
+≤ 45 min: safe automatic completion
+≤ 120 min: historical reconciliation a reporting
 ```
 
-RTO má byť kratší než táto hranica a ponechať priestor na uncertainty, work recovery a escalation.
+Každý mode definuje allowed/denied operations, data guarantees, capacity, duration, communication, exit criteria a forbidden side effects. Manual spreadsheet bez identity, audit a idempotency nie je automaticky bezpečný degraded mode.
 
-```text
-RTO < maximum tolerable disruption
-```
+## 6. Architecture a dependency budgets
 
-Ak sa obe hodnoty rovnajú, recovery plán nemá rezervu na validation alebo komplikácie.
-
-## 7. Work Recovery Time
-
-Po technickom restore môže nasledovať Work Recovery Time (WRT):
-
-- backlog drain;
-- data reconciliation;
-- manual case processing;
-- customer communication;
-- index/cache rebuild;
-- temporary override removal;
-- audit closure.
-
-Približný model:
-
-```text
-technical recovery time
-+ work recovery time
-≤ maximum tolerable disruption
-```
-
-Definície a názvoslovie sa medzi organizáciami líšia, preto musia byť measurement boundaries explicitné.
-
-## 8. Actual recovery metrics
-
-Objective oddeľ od nameraného výsledku:
-
-- **RPO** — požadovaný recovery point;
-- **actual recovered point** — zvolený a obnovený point;
-- **data-loss/reconstruction result** — čo zostalo nenávratne stratené alebo muselo byť replaynuté;
-- **RTO** — požadovaný recovery čas;
-- **actual recovery time** — nameraný čas do safe business service-u.
-
-Nepoužívaj rovnaké pole `RTO` pre target aj výsledok.
-
-## 9. Measurement boundaries
-
-### RPO boundary
-
-Definuj:
-
-- incident alebo corruption reference time;
-- recovery point timestamp/sequence;
-- clock authority;
-- included consistency-group members;
-- acknowledgement semantics;
-- reconstructable vs permanently lost operations.
-
-### RTO boundary
-
-Definuj:
-
-- start: first business disruption, detection alebo formal declaration?
-- end: infra ready, app ready, new operations safe alebo full historical reconciliation?
-
-Pre SRE learning používaj user/business boundary. Môžeš zároveň publikovať sub-metrics pre detection, restore a work recovery.
-
-## 10. Time-based a event-based RPO
-
-Time-based RPO:
-
-```text
-maximálne 5 minút acknowledged changes
-```
-
-Event-based RPO:
-
-```text
-maximálne 1 000 reconstructable settlement intents
-alebo 0 permanently lost acknowledged settlements
-```
-
-Pri bursty trafficu môže päť minút znamenať výrazne rozdielny počet operations. Critical financial capability preto často potrebuje time aj event/data invariant.
-
-## 11. Zero RPO
-
-`RPO = 0` znamená, že žiadny acknowledged required state nesmie byť nenávratne stratený v definovanom scenári.
-
-Nevyplýva z toho automaticky synchronous replication. Potrebný je end-to-end acknowledgement contract:
-
-```text
-user acknowledgement
-→ durable authority
-→ replicated/logged state
-→ external side-effect identity
-→ reconstructability
-```
-
-V distributed workflowe s external providerom môže byť stav `sent-unknown`. Zero permanent data loss vyžaduje idempotency, evidence a reconciliation, nie iba lokálnu database repliku.
-
-Zero RPO má vysoké latency, availability, complexity a cost trade-offy. Nemá sa deklarovať bez testu.
-
-## 12. Zero RTO
-
-Skutočné `RTO = 0` by znamenalo žiadny disruption na definovanej business boundary. To je skôr continuous-availability objective než klasický restore objective.
-
-HA/failover môže znížiť disruption, ale stále existujú:
-
-- detection a routing convergence;
-- in-flight operations;
-- stale sessions/caches;
-- data consistency;
-- dependency failure;
-- validation;
-- partial cohort impact.
-
-Marketingové `zero downtime` tvrdenie musí mať exact measurement a failure model.
-
-## 13. Objectives podľa capability a cohortu
-
-Jedna aplikácia môže mať viac objectives:
-
-| Capability | RPO | RTO |
-|---|---:|---:|
-| accept settlement intent | 0 acknowledged intents | 15 min |
-| complete settlement | 5 min reconstructable state | 45 min |
-| merchant reporting | 4 h | 8 h |
-| audit archive | 24 h capture, no deletion | 24 h retrieval |
-
-Globálny priemer môže skryť critical tenant alebo Region.
-
-## 14. Dependency budgeting
-
-End-to-end RTO potrebuje per-boundary budgets:
+End-to-end objective sa rozkladá na boundaries, aby bolo viditeľné, kde je technický alebo organizačný lead time dlhší než celý target.
 
 ```text
 RTO 45 min
-├── detection/declaration: 5 min
-├── containment/fencing: 5 min
-├── target provisioning/access: 8 min
+├── detect/declare: 5 min
+├── contain/fence: 5 min
+├── target/access: 8 min
 ├── data restore: 12 min
-├── application/dependency startup: 5 min
+├── app/dependencies: 5 min
 ├── validation: 5 min
-└── initial reconciliation/cutover: 5 min
+└── initial reconcile/cutover: 5 min
 ```
 
-Súčet bez parallelism a uncertainty nie je guarantee. Budget pomáha odhaliť, že jedna dependency má provisioning lead time dlhší než celý objective.
+Súčet nie je garancia; niektoré kroky bežia paralelne a uncertainty potrebuje rezervu. Parent capability s RTO 15 min nemôže závisieť od key alebo identity recovery trvajúcej štyri hodiny.
 
-Dependency musí mať objective kompatibilný s parent capability. Service s RTO `15 min` nemôže reálne závisieť od identity alebo key restore trvajúceho štyri hodiny.
+Strategy sa mapuje podľa scenario: continuous logs a durable events pre nízke RPO, warm/preprovisioned target pre nízke RTO, retained PITR a clean-point analysis pre logical corruption, isolated cross-domain copy pre account loss a provider idempotency ledger pre external effects.
 
-## 15. Recovery strategy mapping
+## 7. Target verzus actual measurement
 
-| Objective need | Candidate mechanism |
-|---|---|
-| very low RPO | synchronous/continuous logging, durable event log, reconciliation |
-| low RTO | warm standby, preprovisioned recovery environment, automated restore |
-| logical corruption | retained PITR, immutable history, clean-point analysis |
-| Region/account loss | isolated cross-domain copy, alternate identity/network |
-| external side effects | idempotency ledger, provider reconciliation |
-| long discovery window | dlhšia retention, historical validation |
+Recovery objective je plánovaný limit; actual measurement je evidence z konkrétneho incidentu alebo exercise-u. RPO target určuje najstarší prijateľný business-valid point, zatiaľ čo actual recovered point identifikuje timestamp alebo sequence, ktorý bol skutočne obnovený. RTO target určuje maximálny prijateľný interval a actual recovery time meria celý definovaný start-to-end path. Tieto hodnoty sa nesmú zapisovať do jedného poľa, lebo by želaný contract prepisoval nameranú realitu.
 
-Mechanizmus musí riešiť konkrétny scenario. Multi-AZ failover nepomôže pri broad logical corruption.
+Výsledok zároveň potrebuje vysvetliť, čo bolo permanentne stratené, čo sa rekonštruovalo a koľko času spotrebovali technical restore a work recovery. Až táto kombinácia ukáže, či target prešiel a kde vznikol gap.
 
-## 16. RPO nie je backup interval
+Objective a nameraný výsledok majú samostatné fields:
 
-Backup každých päť minút nemusí dať RPO päť minút:
+- **RPO target —** požadovaný recovery point;
+- **actual recovered point —** point skutočne zvolený a obnovený;
+- **loss/reconstruction result —** permanently lost alebo dodatočne reconstructed state;
+- **RTO target —** požadovaný business recovery interval;
+- **actual recovery time —** čas od start boundary po end boundary;
+- **technical a work-recovery submetrics —** vysvetľujú gap bez skracovania end-to-end measure.
 
-- job môže meškať;
-- capture môže trvať;
-- latest backup môže byť corrupted;
-- log chain môže mať gap;
-- copy nemusí dokončiť;
-- consistency group môže byť rozídený;
-- restore point nemusí byť readable;
-- external state nemusí byť reconstructable.
+Service catalog má ukazovať target aj posledný measured actual, scenario a test generation. Target bez actual exercise je plán, nie recoverability evidence.
 
-RPO preukáže až selected valid recovery point a business reconciliation.
+## 8. Connected incident `SRE-PAY-54`
 
-## 17. RTO nie je restore duration z konzoly
+Catalog uvádzal RPO `5 min`, RTO `45 min` a maximum disruption `2 h`, no posledný full drill bol 14 mesiacov starý, na schema v15 a pred account/key migration.
 
-Control-plane restore môže skončiť, ale:
+Corruption vznikla `02:14:07`. DB-only clean point `02:13:58` bol iba deväť sekúnd starý, takže datastore-level RPO vyzeralo splnené. Posledný pre-built coordinated DB/provider checkpoint však bol `02:03:00`, teda `11 min 7 s` pred mutation. Business-consistent RPO päť minút preto nebolo okamžite splnené.
 
-- storage je cold;
-- schema migration chýba;
-- application nevie načítať dáta;
-- identities/secrets nie sú dostupné;
-- DNS/traffic nie je prepnutý;
-- backlog rastie;
-- post-point operations nie sú reconciled;
-- forbidden duplicate outcome nie je vylúčený.
+Tím obnovil DB point `02:13:58` a neskôr použil provider idempotency ledger na reconciliation. Final permanent loss acknowledged settlements bol nula, ale to neznamená, že initial RPO bolo splnené; dodatočná reconstruction zachránila data po prekročení intended recovery window.
 
-RTO končí na dohodnutej business boundary.
-
-## 18. Scenario-specific objectives
-
-RPO/RTO sa môžu líšiť podľa failure-u:
-
-- instance loss;
-- zonal failure;
-- regional failure;
-- logical corruption;
-- ransomware/account compromise;
-- provider outage;
-- operator deletion;
-- schema incompatibility;
-- widespread identity outage.
-
-`RTO 45 min` bez scenario inventory môže byť splniteľný pre failover, ale nemožný pre clean-room ransomware recovery.
-
-## 19. Degraded mode
-
-RTO môže povoľovať bounded degraded capability:
+Namerané časy boli:
 
 ```text
-15 min: prijímať durable settlement intents
-45 min: obnoviť automatic completion
-2 h: dokončiť historical reconciliation a reporting
+first bad mutation:        02:14:07
+incident declaration:      02:41:00
+isolated DB queryable:      04:31:00
+business recovery:          06:03:00
+
+actual business recovery:  3 h 48 min 53 s
+RTO target:                 45 min
+maximum disruption:         2 h
 ```
 
-Degraded mode musí definovať:
+RTO aj maximum tolerable disruption boli prekročené. Dashboard pritom začínal timer až restore jobom, restore access/key path bol stale, target nebol preprovisioned, provider reconciliation nebola v model-e a drill nepokrýval schema v17 ani logical corruption.
 
-- allowed operations;
-- denied operations;
-- data guarantees;
-- capacity;
-- duration;
-- communication;
-- exit criteria;
-- forbidden side effects.
+## 9. Corrective objective generation `REC-PAY-55`
 
-Manual spreadsheet bez audit/idempotency nemusí byť prijateľný degraded mode.
+Pôvodný objective miešal data-loss invariant, initial recovery point, safe new traffic a historical work recovery do jedného RPO/RTO páru. Nová generation tieto boundaries oddeľuje, aby architecture a exercise mohli každú zmerať samostatne. Permanent loss je hard invariant, business-consistent replay window je point objective a staged RTOs určujú, kedy sa vracia durable admission, automatic completion a nakoniec historical reconciliation.
 
-## 20. Test design
+Toto rozdelenie neoslabuje business commitment. Naopak odhaľuje, či služba iba prijíma nové intents, či ich vie bezpečne dokončiť a či už uzavrela affected historical cohort. Každý target má vlastný observation point a nesmie byť splnený green stavom inej boundary.
 
-Recovery objective sa testuje cez timed scenario:
-
-```text
-known baseline
-→ fault/corruption injection
-→ detection a declaration
-→ candidate selection
-→ access/provisioning
-→ restore/failover
-→ validation
-→ reconciliation/cutover
-→ business canary
-→ measured point/time
-→ cleanup a second run
-```
-
-Test report musí uviesť:
-
-- exact generation;
-- scenario;
-- start/end timestamps;
-- recovered point;
-- permanently lost a reconstructed data;
-- objective vs actual;
-- manual steps;
-- blockers;
-- temporary assumptions;
-- residual risk.
-
-## 21. Worked incident `SRE-PAY-54`
-
-### Deklarované objectives
-
-```text
-business capability: settlement reconciliation
-RPO: 5 min business-consistent recovery point
-RTO: 45 min safe merchant-facing recovery
-maximum tolerable disruption: 2 h
-```
-
-Tieto hodnoty boli zapísané v service catalogu, ale posledný full drill prebehol pred 14 mesiacmi na schema v15 a pred account/key migration.
-
-### Namerané recovery points
-
-Corruption boundary:
-
-```text
-02:14:07 UTC
-```
-
-Database-only clean point:
-
-```text
-02:13:58 UTC
-→ 9 sekúnd pred corruption
-→ DB-level RPO by vyzeralo splnené
-```
-
-Posledný pre-built coordinated DB/provider checkpoint:
-
-```text
-02:03:00 UTC
-→ 11 min 7 s pred corruption
-→ business consistency RPO 5 min nebolo splnené
-```
-
-Tím použil DB restore `02:13:58` a provider idempotency ledger na neskoršiu reconciliation. Potvrdená permanentná strata acknowledged settlements bola nakoniec `0`, ale okamžite dostupný business-consistent recovery point prekročil objective a vyžadoval dodatočný reconstruction workflow.
-
-To ukazuje rozdiel:
-
-```text
-final permanent data loss = 0
-≠ RPO bol počas initial recovery splnený
-```
-
-### Nameraný recovery čas
-
-```text
-first bad mutation:       02:14:07
-incident declaration:     02:41:00
-isolated DB queryable:     04:31:00
-business recovery:         06:03:00
-```
-
-Výsledky:
-
-```text
-detection/declaration delay: 26 min 53 s
-technical restore boundary:  2 h 16 min 53 s
-work recovery/reconciliation: 1 h 32 min
-actual business recovery:    3 h 48 min 53 s
-RTO objective:               45 min
-maximum tolerable disruption: 2 h
-```
-
-RTO aj maximum tolerable disruption boli prekročené.
-
-### Prečo objective zlyhal
-
-- objective nemal versionovaný scenario/consistency-group subject;
-- RTO začínal v dashboarde až restore jobom, nie first business impactom;
-- restore key/access path nebol current;
-- recovery environment nebola preprovisioned;
-- provider reconciliation nebola zahrnutá do timing modelu;
-- drill nepokrýval schema v17 ani logical corruption;
-- action owners po account migration neaktualizovali recovery plan;
-- service catalog zobrazoval target, nie posledný measured actual.
-
-## 22. Corrective objective generation `REC-PAY-55`
-
-Nový contract:
+Nový contract oddelil permanent loss, initial reconstructability a staged service recovery:
 
 ```text
 RPO-1: 0 permanently lost acknowledged settlement intents
@@ -494,139 +176,89 @@ RTO-2: ≤ 45 min safe new settlement completion
 RTO-3: ≤ 120 min historical affected-cohort reconciliation
 ```
 
-Supporting changes:
+Podporuje ho päťminútový provider checkpoint, continuous idempotency-ledger query, preprovisioned isolated control plane, key/access canary, schema compatibility automation, bounded affected-manifest extraction, quarterly logical-corruption drill a dashboard target-versus-actual.
 
-- 5-min provider consistency checkpoints;
-- continuous idempotency-ledger query path;
-- preprovisioned isolated recovery control plane;
-- restore key/access canary;
-- schema/application compatibility automation;
-- bounded affected-manifest extraction;
-- quarterly logical-corruption drill;
-- objective dashboard s target aj last measured actual;
-- dependency budgets a escalation pri miss-e.
+## 10. Timed exercise a acceptance contract
 
-## 23. RPO/RTO acceptance verdict
+Exercise začína known baseline-om, injectuje fault/corruption a meria detection, declaration, candidate selection, access/provisioning, restore/failover, validation, reconciliation/cutover, business canary a cleanup. Report zachová generation, scenario, timestamps, recovered point, permanent loss/reconstruction, actual time, manual steps, blockers, assumptions a residual risk.
 
-Objectives sú prijaté, keď:
-
-- exact business capability, scope a owner sú definované;
-- BIA a impact curve podporujú hodnoty;
-- failure scenarios a consistency groups sú explicitné;
-- acknowledgement a data authority sú známe;
-- RPO má time aj critical event/data semantics;
-- RTO start/end boundaries sú user/business-centered;
-- maximum tolerable disruption a degraded modes sú definované;
-- dependency objectives a lead times sú kompatibilné;
-- architecture a recovery strategy mapujú na objectives;
-- full timed exercise používa current generations;
-- actual recovery point, permanent loss/reconstruction a actual time sú zmerané;
-- technical restore aj work recovery sú zahrnuté;
-- wrong/corrupted candidate a alternate failure scenario sú testované;
-- gaps majú corrective actions a residual-risk ownera;
-- second exercise vykoná iný responder alebo target;
-- service catalog ukazuje target aj posledný measured result.
-
-## 24. Troubleshooting objective miss-u
+Positive path preukáže target point/time. Logical-corruption path odmietne latest bad point. Alternate account/Region path overí key, network a identity. Degraded path overí allowed a forbidden operations. Second-responder test preukáže, že objective nezávisí od jedného človeka.
 
 ```text
-missed RPO alebo RTO
-→ exact objective generation a scenario
-→ measurement start/end a clock authority
-→ protected subject/consistency group
-→ selected recovery point a clean verdict
-→ capture/log chain a reconstructability
-→ detection/declaration delay
-→ access/key/provisioning lead time
-→ restore throughput a capacity
-→ dependency/application startup
-→ validation/reconciliation/work recovery
-→ objective-vs-actual gap
-→ redesign, priority alebo explicit risk acceptance
+positive:
+current scenario → point/time within targets
+
+corruption:
+latest bad point denied → clean candidate + reconstruction
+
+degraded:
+bounded capability → explicit guarantees → exit criteria
+
+forbidden:
+stop timer at DB ready
+backup interval reported as RPO
+permanent loss zero used to hide late reconstruction
+objective changed without BIA
 ```
 
-Neznižuj objective iba preto, aby dashboard zozelenel. Zmena objective potrebuje nový BIA/risk decision.
+## 11. Troubleshooting objective miss-u
 
-## 25. Earlier controls
+Pri miss-e najprv zachovaj exact objective generation, scenario a measurement boundaries. Potom sleduj protected subject, selected point, log/capture chain, reconstructability, detection delay, access/key/provisioning lead time, restore throughput, dependency startup, validation a work recovery.
 
-- business impact analysis;
-- capability/dependency inventory;
-- consistency-group definitions;
-- acknowledgement a data-authority contract;
-- scenario-specific objectives;
-- RTO dependency budgets;
-- preprovisioned recovery path;
-- continuous logs/checkpoints podľa RPO;
-- tested key/access recovery;
-- timed full-stack drills;
-- target-versus-actual dashboard;
-- degraded-mode contract;
-- post-point reconciliation tooling;
-- second-responder a alternate-scenario exercise;
-- objective review pri architecture/change incidentoch.
+```text
+objective miss
+→ target/scenario/start/end
+→ consistency group a authority
+→ selected clean point
+→ capture/log/reconstructability
+→ detection/decision delay
+→ access/target/restore capacity
+→ application/dependencies
+→ validation/reconciliation
+→ objective-vs-actual gap
+→ redesign alebo explicit risk decision
+```
 
-## 26. Anti-patterny
+Objective sa nesmie znížiť iba kvôli zelenému dashboardu. Zmena potrebuje novú BIA, business ownera a residual-risk decision.
 
-### RPO = backup schedule
+## 12. Anti-patterny
 
-Ignoruje job delay, clean point, consistency group a restore validity.
+Recovery-objective anti-patterny zamieňajú technical submetric alebo desired target za business recovery proof.
 
-### RTO = database available
+- **RPO je backup schedule —** ignoruje delay, clean point, consistency group, readability a external state.
+- **RTO je database available —** ignoruje application, dependencies, validation, reconciliation a user outcome.
+- **Jedno číslo pre celú firmu —** criticality, cohorts a data semantics sa líšia.
+- **RPO/RTO bez scenario —** failover target sa nesprávne použije na corruption alebo ransomware.
+- **Zero RPO/RTO ako marketing —** chýba acknowledgement, measurement a failure-model evidence.
+- **Objective bez actual metric —** catalog ukazuje želanie, nie recoverability.
+- **Timer od declaration alebo restore jobu —** vynechá detection a user impact.
+- **Permanent loss nula znamená RPO splnené —** late reconstruction môže zachrániť data po prekročení window-u.
+- **Po incidente znížime target —** bez BIA ide o metric gaming.
 
-Ignoruje application, dependencies, validation, reconciliation a user outcome.
-
-### Jedno číslo pre celú firmu
-
-Criticality a data semantics sa medzi capabilities líšia.
-
-### RPO/RTO bez scenára
-
-Failover objective sa nesprávne použije na ransomware alebo logical corruption.
-
-### Zero RPO/RTO ako marketing
-
-Chýba acknowledgement, measurement a failure-model dôkaz.
-
-### Objective bez actual metric
-
-Service catalog ukazuje želanie, nie recoverability.
-
-### Stopky sa spustia pri declaration
-
-Vynechá detection delay a časť user impactu.
-
-### Permanent loss nula, teda RPO splnené
-
-Late reconstruction môže zachrániť dáta, hoci initial recovery point prekročil tolerované window.
-
-### Znížime target po incidente
-
-Bez BIA je to metric gaming, nie risk management.
-
-## 27. Kontrolné otázky
+## 13. Kontrolné otázky
 
 1. Ako sa RPO a RTO líšia?
 2. Čo tvorí exact recovery-objective subject?
-3. Prečo musia byť objectives odvodené z BIA?
-4. Ako maximum tolerable disruption a WRT súvisia s RTO?
+3. Prečo objectives vychádzajú z BIA?
+4. Ako maximum tolerable disruption a work recovery súvisia s RTO?
 5. Prečo RPO nie je backup interval?
-6. Prečo RTO nekončí stavom `database available`?
-7. Ako time-based a event-based RPO dopĺňajú jeden druhý?
-8. Čo znamená zero RPO pre acknowledged external operation?
-9. Ako dependency budgets odhalia nesplniteľný RTO?
-10. Prečo `SRE-PAY-54` splnilo DB-level point, ale nie business-consistent RPO?
-11. Ako sa actual recovery time správne meria?
-12. Čo musí overiť RPO/RTO acceptance verdict?
+6. Prečo RTO nekončí pri `database available`?
+7. Ako time a event RPO dopĺňajú jeden druhý?
+8. Čo znamená zero RPO pri external operation?
+9. Ako dependency budgets odhalia nesplniteľný target?
+10. Prečo `SRE-PAY-54` splnilo DB point, ale nie business-consistent RPO?
+11. Ako sa objective a actual result oddeľujú?
+12. Ktoré positive, corruption, degraded a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: recovery-objective subject, Recovery Point Objective, Recovery Time Objective, business-consistent RPO, actual recovered point, actual recovery time, maximum tolerable disruption, Work Recovery Time, event-based RPO, dependency recovery budget, degraded recovery objective, objective measurement boundary, target-versus-actual recovery a RPO/RTO acceptance verdict.
+Relevantné pojmy: recovery-objective subject, RPO, RTO, business-consistent RPO, actual recovered point, actual recovery time, maximum tolerable disruption, work recovery, event-based RPO, dependency budget, degraded recovery objective a RPO/RTO acceptance contract.
 
 ## Primárne zdroje
 
-- [NIST CSRC Glossary — Recovery Point Objective](https://csrc.nist.gov/glossary/term/recovery_point_objective)
-- [NIST CSRC Glossary — Recovery Time Objective](https://csrc.nist.gov/glossary/term/Recovery_Time_Objective)
-- [NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final)
+- [NIST CSRC — Recovery Point Objective](https://csrc.nist.gov/glossary/term/recovery_point_objective)
+- [NIST CSRC — Recovery Time Objective](https://csrc.nist.gov/glossary/term/Recovery_Time_Objective)
+- [NIST SP 800-34 Rev. 1](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final)
 - [Google SRE — Emergency Response](https://sre.google/sre-book/emergency-response/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
