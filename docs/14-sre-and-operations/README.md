@@ -34,7 +34,7 @@ Odporúča sa najprv dokončiť:
 14. [Chaos engineering](chaos-engineering.md)
 15. [Operational readiness](operational-readiness.md)
 
-Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**. Všetky authoritative kapitoly, navigation väzby, glossary, audit artifacts a section-level consistency gate prešli.
+Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**. Všetkých 15 kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch; každá kapitola má nulové critical, high a medium learning-depth findings. Authoritative ordering, connected incidents, navigation, glossary a section-level consistency zostávajú zachované.
 
 ## Connected learning scenarios
 
