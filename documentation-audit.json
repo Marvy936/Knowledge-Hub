@@ -4299,6 +4299,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "title": "Public, confidential a bearer-only client model",
+      "words": 1717,
+      "headings": 13,
+      "sections": 13,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 13,
+      "grade": "A"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
       "title": "Realm, client, user, group, role a session",
       "words": 2375,
@@ -4325,6 +4339,20 @@
       "low": 17,
       "score": 21,
       "grade": "B"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "title": "Tokens, claims, protocol mappers a client scopes",
+      "words": 1841,
+      "headings": 13,
+      "sections": 13,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 10,
+      "grade": "A"
     }
   ],
   "findings": [
@@ -204147,6 +204175,123 @@
       "score": 1
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "1. Current Keycloak configuration a historické názvy",
+      "line": 19,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "4. Confidential clients",
+      "line": 74,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "4. Confidential clients",
+      "line": 74,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "6. Grant capability matrix",
+      "line": 90,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "6. Grant capability matrix",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "7. Redirect, browser, backchannel a credential surfaces",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "8. Client separation a stable identities",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "8. Client separation a stable identities",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "9. Connected incident KC-PAY-66",
+      "line": 145,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "9. Connected incident KC-PAY-66",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 163,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 163,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
       "section": "3. Client identity a registration lifecycle",
       "line": 48,
@@ -204379,6 +204524,96 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "3. Claim authority a semantics",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "4. Protocol mapper ako transformation boundary",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "5. Client scopes: default, optional a dedicated",
+      "line": 65,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "6. Role scope mappings a Full Scope Allowed",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "7. Audience, authorized party a resource server",
+      "line": 83,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "8. Token lifetime, refresh a revocation evidence",
+      "line": 91,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "9. Connected incident KC-PAY-66",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     }
   ]
 }

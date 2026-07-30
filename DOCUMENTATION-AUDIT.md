@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **309**
-- Audited conceptual sections: **11123**
-- Total words: **700,347**
-- Findings: **22228** (critical 6438, high 7312, medium 2754, low 5724)
-- File grades: A 32, B 20, C 0, D 257
+- Audited authoritative articles: **311**
+- Audited conceptual sections: **11149**
+- Total words: **703,905**
+- Findings: **22251** (critical 6438, high 7312, medium 2754, low 5747)
+- File grades: A 34, B 20, C 0, D 257
 
 ## Interpretation
 
@@ -312,6 +312,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
+| A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1707 | `docs/14-sre-and-operations/toil.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1818 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1795 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
@@ -321,6 +322,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 10 | 0 | 0 | 0 | 7 | 1702 | `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 1379 | `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 2375 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
+| A | 10 | 0 | 0 | 0 | 10 | 1841 | `docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 2033 | `docs/14-sre-and-operations/capacity-planning.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1972 | `docs/14-sre-and-operations/reliability-availability-durability.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1289 | `docs/15-databases-and-distributed-systems/consistency-models.md` |
@@ -14864,12 +14866,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `bare-bullet-items` | 2478 | 460 | 0 | 0 | 2938 |
 | `outline-instead-of-explanation` | 2494 | 0 | 0 | 0 | 2494 |
 | `term-before-explanation` | 0 | 561 | 1841 | 0 | 2402 |
+| `example-not-explicit` | 0 | 0 | 0 | 2389 | 2389 |
 | `single-sentence-concept` | 0 | 2388 | 0 | 0 | 2388 |
-| `example-not-explicit` | 0 | 0 | 0 | 2377 | 2377 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 2151 | 2151 |
 | `thin-concept-section` | 0 | 2104 | 0 | 0 | 2104 |
 | `list-first-introduction` | 0 | 1361 | 0 | 0 | 1361 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1196 | 1196 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1207 | 1207 |
 | `short-concept-section` | 0 | 0 | 913 | 0 | 913 |
 | `no-prose-concept` | 788 | 0 | 0 | 0 | 788 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
