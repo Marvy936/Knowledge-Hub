@@ -1,436 +1,131 @@
 # CKA timed labs
 
-CKA timed lab nie je zoznam príkazov vykonaný proti náhodnému clusteru. Je to meraný execution lifecycle, v ktorom kandidát musí správne identifikovať task subject, zvoliť minimálnu zmenu, zachovať už fungujúci stav a preukázať exact outcome v časovom limite.
+CKA timed lab nie je zoznam príkazov vykonaný proti náhodnému clusteru. Je to meraný execution lifecycle, v ktorom kandidát musí správne identifikovať task subject, pozorovať current state, zvoliť minimálnu bezpečnú zmenu, zachovať explicitné constraints a preukázať exact outcome v časovom limite.
 
-> Tento materiál obsahuje originálne tréningové úlohy. Neobsahuje ani nereprodukuje dôverné otázky zo skutočnej skúšky.
+Tento materiál obsahuje originálne tréningové úlohy. Neobsahuje ani nereprodukuje dôverné otázky zo skutočnej skúšky. Cieľom je trénovať prenositeľný diagnosis a execution model, nie zapamätať si konkrétne názvy resource-ov alebo root causes.
 
-## 1. Dominantný model: od zadania po bodovo uzavretý výsledok
+## 1. Dominantný timed-task lifecycle
 
-Každú úlohu rieš rovnakým protokolom:
+Každá úloha prechádza rovnakou state machine. Najprv sa fixne exam/lab generation, context, namespace a resource alebo host identity. Potom sa zistí current state a rozdiel voči zadaniu. Až následne sa zvolí najkratšia bezpečná execution path, vykoná bounded mutation a overí controller, runtime aj forbidden outcomes.
 
 ```text
 exam/lab generation a časový budget
-→ task intake a exact subject identity
-→ context, namespace a constraint confirmation
+→ task intake a exact context/resource subject
 → current-state observation
+→ hypothesis alebo desired-state delta
 → najkratšia bezpečná execution path
-→ client/server validation pred mutáciou
-→ bounded change
+→ client/server validation
+→ bounded mutation
 → controller/runtime convergence
 → hard validation požadovaného outcome-u
-→ forbidden-outcome check
-→ task evidence a score closure
-→ skip/return alebo ďalšia úloha
+→ forbidden-change check
+→ task closure, skip alebo návrat
 ```
 
-Timed lab je úspešný iba vtedy, keď meria všetky tri vrstvy:
-
-```text
-correctness
-+ execution efficiency
-+ verification discipline
-```
-
-Rýchla neoverená zmena nie je hotová úloha. Správna zmena v nesprávnom context-e je chybná úloha. Technicky funkčný resource, ktorý poruší explicitný constraint, je iba partial result.
+Correctness, execution efficiency a verification discipline sa hodnotia spolu. Rýchla zmena bez dôkazu nie je uzavretá úloha. Správny manifest v nesprávnom context-e je chybný výsledok. Resource, ktorý funguje iba po odstránení požadovanej affinity, security alebo availability constraint, je partial alebo nesprávne riešenie.
 
 ## 2. Aktuálny exam subject
 
-Pred každou prípravnou sériou zaznamenaj aktuálny exam subject:
-
-```text
-certification: CKA
-exam delivery: online, proctored, performance-based
-exam duration: 2 hours
-Kubernetes version: v1.35 v čase tohto reviewu
-domain weights:
-  Troubleshooting: 30 %
-  Cluster Architecture, Installation and Configuration: 25 %
-  Services and Networking: 20 %
-  Workloads and Scheduling: 15 %
-  Storage: 10 %
-source verification date: 2026-07-28
-```
-
-Linux Foundation uvádza, že exam environment sa zosúlaďuje s novou Kubernetes minor verziou približne štyri až osem týždňov po release. Pred reálnou skúškou preto znovu over certification page, Curriculum Overview, Candidate Handbook a Exam Tips. Timed lab blueprint musí byť versionovaný; stará doménová alebo API assumption nesmie potichu prežiť do novej tréningovej generácie.
-
-## 3. Lab generation a acceptance contract
-
-Jeden lab subject obsahuje:
-
-```text
-lab ID a generation
-environment/cluster generation
-Kubernetes minor version
-počet úloh a bodov
-domain distribution
-fault-injection manifest
-initial-state checksum alebo validation
-časový limit
-povolené referencie
-per-task validation commands
-partial-credit rules
-destructive-change penalties
-expected cleanup alebo reset
-```
-
-Bez exact initial state-u sa nedá odlíšiť chyba kandidáta od chybného lab prostredia. Bez hard validation sa self-grading zmení na dojem.
-
-### Bodovanie
-
-Pre každú úlohu oddeľ:
-
-- subject/context správnosť,
-- desired-state správnosť,
-- constraint preservation,
-- convergence,
-- hard validation,
-- bezpečnosť a čas.
-
-Príklad osem-bodovej úlohy:
-
-```text
-2 body — správny context, namespace a Deployment identity
-2 body — exact image digest/tag
-2 body — rollout strategy zachováva dostupnosť
-1 bod  — rollout skonvergoval
-1 bod  — image a availability boli explicitne overené
-```
+K 30. júlu 2026 je CKA online proctored performance-based skúška s trvaním dve hodiny a environmentom Kubernetes v1.35. Oficiálny blueprint uvádza domény Troubleshooting 30 %, Cluster Architecture, Installation and Configuration 25 %, Services and Networking 20 %, Workloads and Scheduling 15 % a Storage 10 %.
 
-## 4. Task intake protocol
-
-Pred prvým príkazom extrahuj:
-
-```text
-context/cluster:
-namespace:
-resource alebo host subject:
-požadovaná zmena:
-hard constraints:
-forbidden changes:
-validation criterion:
-časový budget:
-```
+Exam generation je temporálne premenlivý subject. Linux Foundation aktualizuje environment a policies; pred reálnou skúškou sa preto znovu overujú certification page, curriculum, Candidate Handbook a Exam Tips. Tréningový blueprint má uvádzať dátum overenia a Kubernetes minor, aby staré API alebo domain assumptions neprežili potichu.
 
-Príklad:
+Timed labs nesmú kopírovať iba doménové percentá. Reálny incident často prechádza workloadom, schedulingom, networkingom, storage a Node execution naraz. Váhy riadia rozdelenie bodov a tréningového času, nie poradie diagnosis krokov.
 
-```text
-context: workload-a
-namespace: payments
-subject: Deployment/api UID/generation
-change: image I58.1 a maxUnavailable=1
-constraint: najmenej tri available replicas
-forbidden: delete/recreate Service alebo selector
-validation: rollout complete, exact image, availability >= 3
-budget: 6 minút
-```
+## 3. Lab generation a scoring contract
 
-Task intake zabraňuje najdrahšej exam chybe: správne vyriešenému problému v nesprávnom clustri, namespace alebo na nesprávnom resource-e.
+Reprodukovateľný lab subject obsahuje lab ID/generation, cluster image a Kubernetes minor, initial-state checksum, fault-injection manifest, tasks a body, časový limit, povolené references, per-task validation, partial-credit pravidlá a destructive-change penalties.
 
-## 5. Context discipline
+Bez exact initial state-u nie je možné odlíšiť chybu kandidáta od broken lab prostredia. Bez hard validation sa self-grading zmení na subjektívny pocit, že „resource vyzerá dobre“.
 
-Na začiatku úlohy over:
+Bodovanie oddeľuje context/subject correctness, desired-state correctness, preservation constraints, convergence, hard validation a bezpečnosť/čas. Napríklad rollout task môže udeliť body za correct context a Deployment identity, exact image, strategy zachovávajúcu availability, converged rollout a explicitné overenie image aj available replicas. Kandidát tak vidí, či stratil body pre knowledge, execution alebo closure gap.
 
-```bash
-kubectl config use-context <context>
-kubectl config current-context
-kubectl config set-context --current --namespace=<namespace>
-kubectl config view --minify
-```
+## 4. Task intake a context discipline
 
-Pri host-level úlohe navyše potvrď hostname, Node identity a to, či pracuješ na control-plane alebo worker hoste.
+Pred prvým write príkazom sa z textu úlohy extrahuje cluster/context, namespace, exact resource alebo host, požadovaná zmena, hard constraints, forbidden changes, validation criterion a časový budget.
 
-Nespoliehaj sa na stav terminálu z predchádzajúcej úlohy. Context je súčasť task subjectu, nie UI detail.
+Context je súčasť task subjectu, nie stav UI. Na začiatku úlohy sa potvrdí current context a minified cluster/namespace. Pri host-level úlohe sa overí hostname a Node role. Stav terminálu z predchádzajúceho tasku sa nepovažuje za dôveryhodný.
 
-## 6. Observation pred mutáciou
+Tento krátky intake zabraňuje jednej z najdrahších chýb: korektnej zmene vykonanej na rovnomennom resource-e v inom clustri alebo namespace. Shell prompt s contextom pomáha, ale nenahrádza explicitný read-back pred prvou mutáciou.
 
-Pred zmenou potrebuješ minimum evidence, ktoré odlišuje current state od zadania:
+## 5. Observation pred mutation
 
-```bash
-kubectl get <resource> -n <ns> -o yaml
-kubectl describe <resource> -n <ns>
-kubectl get events -n <ns> --sort-by=.metadata.creationTimestamp
-```
+Minimum evidence závisí od failure layeru. Pri existujúcom Kubernetes resource sa číta live YAML, describe a relevantné Events. Pri workloade sa zachová UID/generation, selector, owner graph, current image, strategy, Service relation, storage a security constraints.
 
-Pri existujúcom workloade zachovaj jeho identity, selector, owner graph, current image, strategy, storage a Service contract. Pri troubleshooting úlohe najprv pomenuj root-cause hypothesis; nemanipuluj viacerými vrstvami naraz.
+Pri troubleshooting tasku sa pred editom pomenuje hypothesis alebo aspoň prvá divergentná boundary. Ak Pod nebeží, kandidát najprv odlíši scheduling, image pull, config, mount, runtime alebo probe failure. Zmena viacerých vrstiev naraz síce môže Pod rozbehnúť, ale zničí root-cause evidence a často poruší zadanie.
 
-## 7. Execution path: imperative skeleton, declarative finish
+Observation má byť bounded. Timed exam nevyžaduje kompletný incident report; vyžaduje najmenší evidence set, ktorý diskriminuje pravdepodobné príčiny a chráni fungujúci state.
 
-Imperative generator je vhodný na rýchle vytvorenie validného skeletonu:
+## 6. Execution path: imperative skeleton a declarative finish
 
-```bash
-kubectl create deployment web \
-  --image=nginx:1.27 \
-  --replicas=3 \
-  --dry-run=client -o yaml > /tmp/web.yaml
-```
+Imperative príkazy sú efektívne, keď presne mapujú požadovanú zmenu: `set image`, `scale`, `label`, `taint`, `expose` alebo dry-run generátory. Pri multi-field resource-e je často rýchlejšie vytvoriť validný YAML skeleton, doplniť ho a použiť client a server dry-run pred apply.
 
-Potom manifest doplň a pred apply over:
+Voľba nástroja sa odvodzuje od risku a complexity. Jednoduchý patch je vhodný pre exact field. Declarative file je vhodný, keď treba kontrolovať viac fields, zachovať evidence alebo opravu zopakovať. Pri Node/control-plane úlohe môže byť správna cesta systemd, static Pod manifest, certificate alebo etcd command namiesto Kubernetes object mutation.
 
-```bash
-kubectl apply --dry-run=client -f /tmp/web.yaml
-kubectl apply --dry-run=server -f /tmp/web.yaml
-kubectl apply -f /tmp/web.yaml
-```
+Najkratšia cesta nie je tá s najmenším počtom znakov. Je to cesta s najnižším očakávaným časom vrátane opravy chýb a hard validation. Nečitateľný JSON patch, ktorý kandidát nevie okamžite skontrolovať, môže byť pomalší než krátky YAML edit.
 
-Pri jednoduchej presne známej zmene môže byť rýchlejší `kubectl set image`, `scale`, `label`, `taint` alebo `patch`. Voľba príkazu však nesmie skryť požadovaný field contract alebo vytvoriť neauditovateľnú sériu pokusov.
+## 7. Hard validation podľa vrstvy
 
-## 8. Hard validation podľa failure layeru
+Workload task sa uzatvára rollout statusom, live template image, ReplicaSet/Pod cohortou a required availability. Service task kontroluje selector, EndpointSlices a actual request; existencia ClusterIP nestačí. Storage task overuje PV/PVC relation, mount a podľa zadania read/write behavior; `Bound` nie je dôkaz funkčného volume v Pode.
 
-### Workload/controller
+RBAC validation používa positive aj negative `kubectl auth can-i`. Ak subject môže čítať Pody, forbidden check overí, že nemôže zapisovať alebo čítať Secrets, ak to zadanie nepovoľuje. NetworkPolicy testuje allowed aj denied source population. Scheduling test kontroluje assigned Node a zachovanie labels, taints, affinity/tolerations.
 
-```bash
-kubectl rollout status deployment/<name> -n <ns>
-kubectl get deployment/<name> -n <ns> -o jsonpath='{.spec.template.spec.containers[*].image}'
-kubectl get rs,pod -n <ns> -l <selector> -o wide
-```
+Node/control-plane task kombinuje cluster observation s host evidence ako kubelet status/logs, runtime containers, static Pod manifests alebo `/readyz`. Node `Ready` nepreukazuje, že konkrétna capability alebo fixed component funguje podľa zadania.
 
-### Service a networking
+Hard validation číta live a effective state, nie iba local file alebo successful command exit code. API timeout po write-e vyžaduje read-back generation pred retry.
 
-```bash
-kubectl get service,endpointslice -n <ns>
-kubectl run curl-test --rm -i --restart=Never --image=curlimages/curl -- <url>
-```
+## 8. Časový control loop
 
-Over Service contract, ready endpoint cohort a actual request. Samotný ClusterIP alebo DNS record nestačí.
+Pre 120-minútový lab je vhodný krátky environment/context scan, prvý priechod cez high-confidence/high-value tasks, návrat k označeným úlohám a záverečné hard validations. Časové hranice nie sú dogma; ich účelom je zabrániť tomu, aby jedna nejasná úloha spotrebovala body dostupné inde.
 
-### Storage
+Skip-and-return trigger nastáva, keď do približne 60–90 sekúnd nie je jasný execution path, environment sa odlišuje od contractu, operation outcome je unknown, ďalší pokus by bol deštruktívny alebo chýba prerequisite, ku ktorému sa dá vrátiť. Pred odchodom sa zaznamená subject, posledná evidence a ďalší diskriminačný command.
 
-```bash
-kubectl get pv,pvc -A
-kubectl describe pvc <name> -n <ns>
-kubectl exec <pod> -n <ns> -- sh -c 'mount; test -w /data'
-```
+Návrat tak nezačína od nuly. Task sa dokončí alebo vedome nechá s partial creditom; chaotické opakované pokusy sú najhorší časový model.
 
-`Bound` nepreukazuje mount ani write outcome.
+## 9. Connected walkthrough: correct command v nesprávnom contexte
 
-### RBAC
+Úloha v lab-e `CKA-MIXED-42` generation `L42` požaduje v contexte `workload-a`, namespace `payments`, aktualizovať Deployment `api` generation 17 na image `I58`, nastaviť `maxUnavailable=1` a zachovať aspoň tri available replicas zo štyroch. Selector ani Service identity sa nesmú zmeniť.
 
-```bash
-kubectl auth can-i <verb> <resource> --as=<subject> -n <ns>
-kubectl auth can-i <forbidden-verb> <sensitive-resource> --as=<subject> -n <ns>
-```
+Po rollout commande sa očakávaný resource nemení. Hypotézy sú wrong context, wrong namespace, GitOps/field writer reverting, blocked rollout alebo iný `api` workload. Prvý diskriminačný krok kontroluje current context a exact Deployment UID/generation/image.
 
-Over povolený aj zakázaný outcome.
+Finding je, že terminál zostal v contexte `storage-b`, kde existoval Deployment rovnakého mena. Rollout diagnosis v `workload-a` preto zatiaľ nebol relevantný. Containment zastaví ďalšie changes v storage-b, zaznamená a bezpečne vráti neúmyselnú mutáciu podľa initial-state evidence a prepne na correct context.
 
-### Node a control plane
+V `workload-a` sa read-backne subject, pripraví exact image/strategy patch, vykoná server dry-run, apply a rollout observation. Closure potvrdí I58, `maxUnavailable=1`, rollout complete a available replicas aspoň tri. Forbidden check potvrdí, že storage-b resource, production selector a Service identity nezostali zmenené.
 
-```bash
-kubectl get nodes
-kubectl get --raw='/readyz?verbose'
-systemctl status kubelet
-journalctl -u kubelet --since '-10 min'
-crictl ps -a
-```
+Earlier control je povinný context/task-intake read-back pred prvou mutation a context v shell prompt-e. Drill teda netrénuje iba `set image`, ale ochranu subject identity pod časovým tlakom.
 
-Node `Ready` nie je náhrada za overenie konkrétnej capability po oprave.
+## 10. Failure boundaries pri timed labs
 
-## 9. Časový control loop
+Correct object môže mať wrong effective generation po admission alebo controller rewrite-e. Service môže existovať bez endpoints; PVC môže byť Bound bez mountu; RoleBinding môže splniť positive access a zároveň povoliť forbidden Secrets access. Minimálna oprava môže odstrániť affinity, toleration, request alebo policy, ktoré zadanie vyžaduje zachovať.
 
-Pre plný 120-minútový lab:
+Unknown API outcome sa nereaguje blind retryom. Resource sa read-backne podľa UID/generation a až potom sa rozhodne o ďalšom write-e. Destructive shortcuts ako delete/recreate sú prípustné iba ak task explicitne umožňuje identity replacement a kandidát pozná následky.
 
-```text
-0–5 min      contexts, lab health a task scan
-5–85 min     prvý priechod: vysoká istota/vysoká hodnota
-85–105 min   návrat k označeným úlohám
-105–115 min  hard validation a forbidden checks
-115–120 min  posledné bounded opravy a context audit
-```
+Lab nesmie byť zapamätateľný podľa names/root causes. Generátor rotuje contexts, namespaces, resource identities, images, policies, symptoms a competing causes. Inak sa netrénuje diagnosis, ale pattern matching.
 
-### Skip-and-return trigger
+## 11. Domain-weighted blueprint a progresia
 
-Úlohu označ a preskoč, keď:
+Full 100-point blueprint používa current domain weights, ale tasks sú kombinované. Originálne sety zahŕňajú rollout, ConfigMap projection, Service discovery, NetworkPolicy, PVC, RBAC, Node placement, zero-endpoint troubleshooting, control-plane inspection, previous logs, CronJob, HPA, StatefulSet/headless Service, ImagePullBackOff, hostNetwork DNS, drain, Gateway/Ingress a etcd snapshot.
 
-- do 60–90 sekúnd nevieš identifikovať execution path,
-- current state je iný než lab contract a potrebuješ oddeliť environment defect,
-- zmena sa dostala do unknown outcome-u,
-- ďalší pokus by bol deštruktívny alebo by spotreboval neprimeraný čas,
-- chýba prerequisite, ku ktorému sa môžeš vrátiť po získaní bodov inde.
+Každá úloha má initial-state validation a hard-validation script. Laby postupujú od command fluency bez timeru cez krátke single-domain sprinty a mixed labs až po full 120-minute simulation. Posledná fáza minimalizuje nápovedu a reprodukuje exam time pressure bez kopírovania exam questions.
 
-Pred odchodom si zapíš subject, posledné evidence a ďalší discriminating command. Návrat potom nezačína od nuly.
+## 12. Self-grading a learning loop
 
-## 10. Worked lab walkthrough: rollout s nesprávnym contextom ako competing hypothesis
+Po lab-e sa každá strata bodov klasifikuje: knowledge gap, syntax, context/namespace, YAML/type, subject misidentification, unverified assumption, diagnosis delay, repair delay, missing validation, destructive attempt alebo time-management failure.
 
-### Zadanie
+Action item je konkrétny drill. Context mistake vedie k sérii tasks s rovnakými resource names v rôznych clustroch. Missing validation vedie k positive/forbidden closure drillom. Slow diagnosis vedie k symptom-to-observation sprints. „Viac sa učiť“ nie je merateľná náprava.
 
-V context-e `workload-a`, namespace `payments`, aktualizuj Deployment `api` na `registry.example.com/payments@sha256:I58` a nastav `maxUnavailable: 1`. Počas rollout-u musia zostať aspoň tri available replicas.
+Sledujú sa score percent, body za minútu, median task time, diagnosis/repair/verification time, skip-and-return success, context mistakes, invalid writes, tasks bez hard validation, forbidden violations a documentation lookup time. Cieľom je stabilná correctness pod časom, nie jeden výnimočný run.
 
-### Task subject
+## Kontrolné otázky
 
-```text
-lab: CKA-MIXED-42 generation L42
-context: workload-a
-namespace: payments
-Deployment: api
-source generation: 17
-target image: I58
-replicas: 4
-strategy constraint: maxUnavailable=1
-forbidden: selector alebo Service identity change
-```
-
-### Competing hypotheses po tom, čo rollout command nič nemení
-
-1. príkaz bol vykonaný v nesprávnom context-e;
-2. Deployment je v inom namespace;
-3. field manager/GitOps vracia image späť;
-4. image change bola aplikovaná, ale rollout je blocked;
-5. zadanie odkazuje na iný `api` workload.
-
-### Discriminating observations
-
-```bash
-kubectl config current-context
-kubectl get deployment api -n payments -o jsonpath='{.metadata.uid}{"\n"}{.metadata.generation}{"\n"}{.spec.template.spec.containers[*].image}{"\n"}'
-kubectl get events -n payments --sort-by=.metadata.creationTimestamp
-```
-
-Finding: terminál ostal v `storage-b`; existoval tam Deployment rovnakého mena. Žiadny rollout troubleshooting v `workload-a` zatiaľ nebol relevantný.
-
-### Containment a recovery
-
-- ďalej nemeniť `storage-b`;
-- zaznamenať neúmyselnú zmenu a bezpečne ju vrátiť podľa initial-state evidence;
-- prepnúť na `workload-a`;
-- overiť exact subject;
-- vygenerovať patch/manifests;
-- použiť server dry-run;
-- aplikovať a sledovať rollout.
-
-### Closure
-
-```bash
-kubectl rollout status deployment/api -n payments
-kubectl get deployment/api -n payments -o jsonpath='{.spec.strategy.rollingUpdate.maxUnavailable}{"\n"}{.spec.template.spec.containers[*].image}{"\n"}{.status.availableReplicas}{"\n"}'
-```
-
-Original outcome: exact image I58, rollout complete, najmenej tri available replicas.
-
-Forbidden outcome: Deployment `api` v `storage-b` nezostal zmenený; production selector a Service identity sa nezmenili.
-
-Earlier control: context v shell prompt-e a povinný task-intake check pred prvou mutáciou.
-
-## 11. Failure boundaries pri timed labs
-
-### Correct object, wrong generation
-
-Po apply môže controller alebo admission zmeniť effective spec. Over live generation, nie iba local YAML.
-
-### Resource exists, contract neplatí
-
-Service môže existovať bez ready endpointov; PVC môže byť Bound bez funkčného mountu; RoleBinding môže povoliť požadovanú operáciu aj nežiadaný Secrets access.
-
-### Unknown operation outcome
-
-API timeout po write neznamená, že write neprebehol. Pred retry read-back-ni exact object generation.
-
-### Minimálna oprava poruší skrytý constraint
-
-Odstránenie affinity, toleration, policy alebo resource request môže rozbehnúť Pod, ale znehodnotiť úlohu.
-
-### Overfitting na jeden lab
-
-Ak poznáš názvy a root causes naspamäť, netrénuješ diagnosis. Rotuj identities, namespaces, images, policy combinations a failure causes.
-
-## 12. Domain-weighted lab blueprint
-
-Pre 100 bodov používaj aktuálne váhy:
-
-```text
-30 — troubleshooting
-25 — cluster architecture, installation a configuration
-20 — services a networking
-15 — workloads a scheduling
-10 — storage
-```
-
-Váhy nie sú dôvodom ignorovať cross-domain úlohy. Typický incident prechádza workloadom, schedulingom, networkingom a Node execution naraz.
-
-### Odporúčaná progresia
-
-```text
-command fluency bez timeru
-→ 15–30 min single-domain sprinty
-→ 45–90 min mixed labs
-→ plný 120 min lab
-→ čistá exam simulation
-→ error classification a targeted drills
-```
-
-## 13. Originálny timed lab set A
-
-Každá úloha musí mať samostatný hard-validation script.
-
-1. **Deployment rollout** — aktualizuj image a zachovaj availability budget.
-2. **ConfigMap projection** — oprav key/reference a over process-visible hodnotu.
-3. **Service discovery** — vytvor ClusterIP Service a ready EndpointSlice.
-4. **NetworkPolicy** — povoľ TCP/8080 iba z požadovanej source population.
-5. **PVC** — vytvor 1 Gi PVC, pripoj ho na `/data` a over mount/write.
-6. **RBAC** — `reporter` môže iba `get/list/watch` Pods; over aj forbidden write.
-7. **Node placement** — required label a toleration bez úniku na general Nodes.
-8. **Service troubleshooting** — oprav zero endpoints bez zmeny Service identity.
-9. **Control plane inspection** — identifikuj static Pod a etcd endpoint/cert paths bez mutácie.
-10. **Previous logs** — nájdi restart reason a zachovaj previous logs do určeného file-u.
-
-## 14. Originálny timed lab set B
-
-1. CronJob s presnou schedule, `Forbid` a history limits.
-2. HPA bez vypočítateľnej CPU utilization pre chýbajúce requests.
-3. Headless Service + StatefulSet + per-ordinal PVC template.
-4. `ImagePullBackOff` s chybnou immutable image reference.
-5. DNS v `hostNetwork` Pode cez vhodnú DNS policy.
-6. Cordon/drain/uncordon bez zmazania DaemonSet Podov.
-7. Gateway API HTTPRoute alebo Ingress podľa dostupných APIs.
-8. etcd snapshot na secure path s explicitným status validation.
-
-## 15. Self-grading a learning loop
-
-Po lab-e klasifikuj každú stratu bodov:
-
-- knowledge gap,
-- command syntax,
-- context/namespace,
-- YAML/type,
-- subject misidentification,
-- neoverený predpoklad,
-- diagnosis delay,
-- repair delay,
-- chýbajúca validation,
-- destructive attempt,
-- time-management failure.
-
-Pre každú chybu vytvor konkrétny drill. „Viac sa učiť“ nie je action item.
-
-### Metrics
-
-Sleduj:
-
-```text
-score percent
-body za minútu
-median task time
-diagnosis/repair/verification time
-skip-and-return success
-context mistakes
-invalid write attempts
-tasks bez hard validation
-forbidden-outcome violations
-documentation lookup time
-```
-
-Cieľom je stabilná correctness pod časom, nie jeden výnimočný run.
-
-## 16. Kontrolné otázky
-
-1. Čo tvorí exact timed-lab subject?
-2. Prečo correct resource nestačí bez context a generation identity?
-3. Čo musí obsahovať task intake protocol?
-4. Kedy je vhodný imperative skeleton?
-5. Ako sa líši client validation, server validation a outcome validation?
-6. Kedy úlohu preskočíš a aké evidence si ponecháš?
-7. Ako overíš original aj forbidden outcome?
-8. Prečo `kubectl get` často nestačí ako hard validation?
-9. Ako domain weights ovplyvnia blueprint, ale nie diagnosis flow?
-10. Ako z výsledkov vytvoríš targeted troubleshooting drill?
+1. Čo tvorí exact timed-lab a task subject?
+2. Prečo correct resource name nestačí bez context, UID a generation identity?
+3. Ktoré facts sa extrahujú pred prvým write command-om?
+4. Kedy je imperative command bezpečnejší než YAML a naopak?
+5. Ako sa client/server validation líši od outcome validation?
+6. Kedy task preskočiť a akú evidence zachovať?
+7. Ako overiť positive aj forbidden outcome pre workload, network, storage a RBAC?
+8. Ako sa výsledok labu premení na targeted drill?
 
 ## Praktické laby
 
@@ -438,14 +133,14 @@ Rozšírený vykonávací protokol a tréningové sety patria do [CKA labs](../.
 
 ## Glossary impact
 
-Relevantné pojmy: CKA exam subject, timed-lab generation, task subject, task intake protocol, current-state observation, execution path, hard validation, forbidden outcome, score closure, skip-and-return trigger, unknown operation outcome, domain-weighted blueprint, diagnosis time, repair time, verification time a targeted drill.
+Relevantné pojmy: CKA exam subject, timed-lab generation, task subject, intake protocol, current-state observation, execution path, hard validation, forbidden outcome, score closure, skip-and-return trigger, unknown operation outcome, domain-weighted blueprint a targeted drill.
 
-## Oficiálne zdroje
+## Primárne zdroje
 
-- [Certified Kubernetes Administrator](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/)
-- [CKA Program Changes and Domains](https://training.linuxfoundation.org/certified-kubernetes-administrator-cka-program-changes/)
-- [Kubernetes Tasks](https://kubernetes.io/docs/tasks/)
-- [kubectl reference](https://kubernetes.io/docs/reference/kubectl/)
+- [Linux Foundation — Certified Kubernetes Administrator](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/)
+- [Linux Foundation — CKA Program Changes and Domains](https://training.linuxfoundation.org/certified-kubernetes-administrator-cka-program-changes/)
+- [Kubernetes — Tasks](https://kubernetes.io/docs/tasks/)
+- [Kubernetes — kubectl reference](https://kubernetes.io/docs/reference/kubectl/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
