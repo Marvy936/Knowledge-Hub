@@ -3601,30 +3601,30 @@
     {
       "path": "docs/14-sre-and-operations/backup-and-restore.md",
       "title": "Backup a restore",
-      "words": 2194,
-      "headings": 68,
-      "sections": 68,
-      "findings": 110,
-      "critical": 34,
-      "high": 52,
-      "medium": 9,
-      "low": 15,
-      "score": 870,
-      "grade": "D"
+      "words": 1815,
+      "headings": 16,
+      "sections": 16,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
       "title": "Blameless postmortems",
-      "words": 2048,
-      "headings": 47,
-      "sections": 47,
-      "findings": 133,
-      "critical": 49,
-      "high": 54,
-      "medium": 15,
-      "low": 15,
-      "score": 1082,
-      "grade": "D"
+      "words": 1658,
+      "headings": 16,
+      "sections": 16,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 21,
+      "grade": "B"
     },
     {
       "path": "docs/14-sre-and-operations/capacity-planning.md",
@@ -3741,30 +3741,30 @@
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
       "title": "Root cause analysis",
-      "words": 2069,
-      "headings": 44,
-      "sections": 44,
-      "findings": 83,
-      "critical": 22,
-      "high": 35,
-      "medium": 10,
-      "low": 16,
-      "score": 600,
-      "grade": "D"
+      "words": 1877,
+      "headings": 15,
+      "sections": 15,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 17,
+      "grade": "B"
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
       "title": "RPO a RTO",
-      "words": 2310,
-      "headings": 44,
-      "sections": 44,
-      "findings": 95,
-      "critical": 31,
-      "high": 44,
-      "medium": 8,
-      "low": 12,
-      "score": 760,
-      "grade": "D"
+      "words": 1885,
+      "headings": 15,
+      "sections": 15,
+      "findings": 14,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 14,
+      "score": 19,
+      "grade": "B"
     },
     {
       "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
@@ -199081,116 +199081,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "1. Exact protected subject",
-      "line": 22,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "1. Exact protected subject",
-      "line": 22,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability;`, `exact data stores a datasets;`, `schema a application generation;`, `account, Region, cluster alebo tenant scope;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "1. Exact protected subject",
-      "line": 22,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "1. Exact protected subject",
-      "line": 22,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "1. Exact protected subject",
-      "line": 22,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `scope`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "2. Backup, replication, snapshot, archive a export",
-      "line": 55,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Backup",
-      "line": 57,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore",
-      "line": 77,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "3. Failure model pred backup designom",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "3. Failure model pred backup designom",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accidental deletion;`, `application bug a logical corruption;`, `storage/media failure;`, `Region alebo datacenter loss;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "3. Failure model pred backup designom",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "3. Failure model pred backup designom",
-      "line": 87,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "3. Failure model pred backup designom",
-      "line": 87,
+      "section": "2. Exact protected subject a consistency group",
+      "line": 28,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -199198,719 +199090,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "4. Consistency levels",
-      "line": 106,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Application-consistent",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Transaction-consistent",
-      "line": 116,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "5. Consistency group",
-      "line": 136,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "5. Consistency group",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "5. Consistency group",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authority;`, `capture method;`, `timestamp/sequence boundary;`, `retention;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "5. Consistency group",
-      "line": 136,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "6. Clean point",
-      "line": 163,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "6. Clean point",
-      "line": 163,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pred destructive mutation;`, `po validnom schema migration checkpoint-e;`, `pred credential compromise;`, `posledný malware-free point;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "6. Clean point",
-      "line": 163,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "7. Backup typy a chain",
-      "line": 183,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Differential backup",
-      "line": 193,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Transaction/WAL/log backup",
-      "line": 197,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Continuous data protection",
-      "line": 201,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "8. Backup lifecycle a effective assignment",
-      "line": 211,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "8. Backup lifecycle a effective assignment",
-      "line": 211,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "8. Backup lifecycle a effective assignment",
-      "line": 211,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "8. Backup lifecycle a effective assignment",
-      "line": 211,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource bol objavený;`, `správny scope/tag selector ho zahrnul;`, `job vytvoril expected artifact;`, `artifact má správnu generation a timestamp;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "8. Backup lifecycle a effective assignment",
-      "line": 211,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "8. Backup lifecycle a effective assignment",
-      "line": 211,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "9. Isolation a trust boundary",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "9. Isolation a trust boundary",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený account alebo administrative domain;`, `offline alebo logically isolated copy;`, `immutable/WORM retention podľa potreby;`, `deletion protection;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "9. Isolation a trust boundary",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "9. Isolation a trust boundary",
-      "line": 236,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "9. Isolation a trust boundary",
-      "line": 236,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "9. Isolation a trust boundary",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WORM`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "10. Encryption a key recoverability",
-      "line": 253,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "10. Encryption a key recoverability",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúceho key materialu;`, `current key state-u;`, `správnej key policy/grantu;`, `restore identity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "10. Encryption a key recoverability",
-      "line": 253,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "10. Encryption a key recoverability",
-      "line": 253,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "10. Encryption a key recoverability",
-      "line": 253,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "11. Retention a deletion",
-      "line": 269,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "11. Retention a deletion",
-      "line": 269,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátke operational recovery points;`, `dlhšie logical-corruption discovery window;`, `compliance/legal retention;`, `ransomware dwell time;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "11. Retention a deletion",
-      "line": 269,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "11. Retention a deletion",
-      "line": 269,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "12. Backup integrity",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "12. Backup integrity",
-      "line": 285,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected size/count;`, `checksums a object completeness;`, `log-chain continuity;`, `catalog readability;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "12. Backup integrity",
-      "line": 285,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "12. Backup integrity",
-      "line": 285,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "14. Restore target",
-      "line": 322,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "14. Restore target",
-      "line": 322,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "14. Restore target",
-      "line": 322,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `isolated forensic environment;`, `clean recovery environment;`, `temporary validation cluster;`, `alternate Region/account;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "14. Restore target",
-      "line": 322,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "14. Restore target",
-      "line": 322,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "15. Restore lifecycle",
-      "line": 342,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "15. Restore lifecycle",
-      "line": 342,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Side-by-side restore a merge",
-      "line": 370,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Replay",
-      "line": 374,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Compensation",
-      "line": 378,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "17. Fencing",
-      "line": 388,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "17. Fencing",
-      "line": 388,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `write freeze;`, `generation token alebo epoch;`, `lease/fencing token;`, `route cutover;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "17. Fencing",
-      "line": 388,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "18. Validation layers",
-      "line": 406,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Infrastructure",
-      "line": 408,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Engine",
-      "line": 412,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Data",
-      "line": 416,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Application",
-      "line": 420,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Business",
-      "line": 424,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "19. Restore drills",
-      "line": 434,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "19. Restore drills",
-      "line": 434,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "21 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "19. Restore drills",
-      "line": 434,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "21 z 21 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `responder a access;`, `catalog discovery;`, `key/decryption;`, `candidate selection;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "19. Restore drills",
-      "line": 434,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "19. Restore drills",
-      "line": 434,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "19. Restore drills",
-      "line": 434,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "20. Worked incident SRE-PAY-54",
-      "line": 465,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Backup state",
-      "line": 467,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore failures",
-      "line": 501,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore failures",
-      "line": 501,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore failures",
-      "line": 501,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `recovery subnet nemala route k artifact catalogu;`, `provider reconciliation export mal 15-min granularity;`, `estimated restore duration neobsahovala data validation ani merge.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore failures",
-      "line": 501,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore failures",
-      "line": 501,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore failures",
-      "line": 501,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Authoritative recovery",
-      "line": 511,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact protected subject a consistency group sú inventoried;`, `effective backup assignment je potvrdený read-backom;`, `expected recovery generations existujú a sú catalogued;`, `isolation, immutability, retention a deletion controls sú effective;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
+      "section": "2. Exact protected subject a consistency group",
+      "line": 28,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -199918,1277 +199099,89 @@
     },
     {
       "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "21. Backup/restore acceptance verdict",
-      "line": 530,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "22. Troubleshooting restore failure-u",
-      "line": 550,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business impact analysis;`, `protected-subject inventory;`, `consistency-group manifest;`, `backup coverage read-back;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "23. Earlier controls",
-      "line": 569,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Backup job je zelený",
-      "line": 589,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Replication je backup",
-      "line": 593,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Latest snapshot",
-      "line": 597,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Restore priamo do production",
-      "line": 601,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Kľúč existuje",
-      "line": 605,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Testovali sme jednu table",
-      "line": 609,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "RTO = čas restore API",
-      "line": 613,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/backup-and-restore.md",
-      "section": "Immutable všetko vyrieši",
-      "line": 617,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "1. Prečo postmortem existuje",
-      "line": 19,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reprodukovateľné porozumenie incidentu;`, `konkrétne zníženie pravdepodobnosti alebo impactu recurrence;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "1. Prečo postmortem existuje",
-      "line": 19,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "2. Exact postmortem subject",
-      "line": 40,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "2. Exact postmortem subject",
-      "line": 40,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "2. Exact postmortem subject",
-      "line": 40,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident ID;`, `service a business capability;`, `impact start/end;`, `affected users, tenants, Regions alebo operations;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "2. Exact postmortem subject",
-      "line": 40,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "2. Exact postmortem subject",
-      "line": 40,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "3. Kedy postmortem vytvoriť",
-      "line": 69,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "3. Kedy postmortem vytvoriť",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-visible outage alebo degradation nad threshold;`, `data loss, corruption alebo confidentiality impact;`, `error-budget consumption nad policy hranicu;`, `SEV-1/SEV-2 declaration;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "3. Kedy postmortem vytvoriť",
-      "line": 69,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "3. Kedy postmortem vytvoriť",
-      "line": 69,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SEV-1`, `SEV-2`, `policy`, `recovery time`",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "4. Blamelessness ako analysis contract",
-      "line": 86,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "5. Blameless neznamená anonymný",
-      "line": 114,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "5. Blameless neznamená anonymný",
-      "line": 114,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident handoff;`, `audit;`, `action ownership;`, `timeline reconstruction;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "5. Blameless neznamená anonymný",
-      "line": 114,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "6. Accountability bez blame",
-      "line": 126,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "6. Accountability bez blame",
-      "line": 126,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "6. Accountability bez blame",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident owner zabezpečí completion dokumentu;`, `action owners doručia alebo explicitne eskalujú blockers;`, `leadership poskytne priority a capacity;`, `reviewers odmietnu plytké causal claims;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "6. Accountability bez blame",
-      "line": 126,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "6. Accountability bez blame",
-      "line": 126,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "6. Accountability bez blame",
-      "line": 126,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metadata a status;`, `executive summary;`, `user/business impact;`, `detection a response summary;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
+      "section": "3. Backup, replication, snapshot, archive a export",
+      "line": 47,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "7. Povinná štruktúra",
-      "line": 139,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "8. Executive summary",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "9. Impact",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "9. Impact",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet affected users/operations;`, `duration;`, `failed, degraded, delayed a unknown outcomes;`, `financial, legal, security alebo support impact;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "9. Impact",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "9. Impact",
-      "line": 188,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "9. Impact",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "11. Factual timeline",
-      "line": 219,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "11. Factual timeline",
-      "line": 219,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "11. Factual timeline",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp a timezone;`, `actor alebo system subject;`, `action/transition;`, `evidence source;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "11. Factual timeline",
-      "line": 219,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "12. What went well",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "12. What went well",
-      "line": 243,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business correctness SLI odhalila silent failure;`, `incident commander zastavil ďalšie destructive jobs;`, `WAL a audit zachovali exact affected IDs;`, `provider podporoval idempotency key lookup;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "12. What went well",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "12. What went well",
-      "line": 243,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "12. What went well",
-      "line": 243,
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "4. Failure model, consistency a clean point",
+      "line": 63,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "12. What went well",
-      "line": 243,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "13. What went poorly",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "13. What went poorly",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "13. What went poorly",
-      "line": 257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destructive config bola fail-open;`, `canary nemala positive eligible population;`, `job success oracle bol exit code;`, `restore decryption grant nebol current;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "13. What went poorly",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "13. What went poorly",
-      "line": 257,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "13. What went poorly",
-      "line": 257,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `RTO`, `scope`, `blast radius`",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "14. Where we got lucky",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "14. Where we got lucky",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency keys zabránili potvrdeným duplicate provider settlements;`, `compactor neodstránil immutable provider reference pre všetky rows;`, `WAL retention ešte obsahovala clean point;`, `incident nastal mimo najvyššieho traffic peak-u;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "14. Where we got lucky",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "14. Where we got lucky",
-      "line": 271,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "14. Where we got lucky",
-      "line": 271,
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "5. Capture lifecycle a effective coverage",
+      "line": 79,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "14. Where we got lucky",
-      "line": 271,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "15. Causal section",
-      "line": 284,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "15. Causal section",
-      "line": 284,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger;`, `technical root cause;`, `systemic root cause;`, `escape/detection causes;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "15. Causal section",
-      "line": 284,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "16. Action items",
-      "line": 300,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "16. Action items",
-      "line": 300,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "16. Action items",
-      "line": 300,
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "6. Isolation, encryption a retention",
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "17. Action classes",
-      "line": 314,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Prevent",
-      "line": 318,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Detect",
-      "line": 322,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Contain",
-      "line": 326,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Recover",
-      "line": 330,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "18. Priority a action-item SLO",
-      "line": 340,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "18. Priority a action-item SLO",
-      "line": 340,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potential impact;`, `recurrence likelihood;`, `current exposure;`, `control effectiveness;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "18. Priority a action-item SLO",
-      "line": 340,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "18. Priority a action-item SLO",
-      "line": 340,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "19. Review gate",
-      "line": 355,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "19. Review gate",
-      "line": 355,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "19. Review gate",
-      "line": 355,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `impact completeness;`, `timeline evidence;`, `causal depth;`, `blameless factual language;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "19. Review gate",
-      "line": 355,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "19. Review gate",
-      "line": 355,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "20. Publication a sharing",
-      "line": 372,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "20. Publication a sharing",
-      "line": 372,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "20. Publication a sharing",
-      "line": 372,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owning team;`, `dependent teams;`, `platform/security/data owners;`, `leadership podľa impactu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "20. Publication a sharing",
-      "line": 372,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "21. Action tracking",
-      "line": 385,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "21. Action tracking",
-      "line": 385,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "21. Action tracking",
-      "line": 385,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `negative test;`, `canary;`, `restore drill;`, `wrong-subject rejection;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "21. Action tracking",
-      "line": 385,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "22. Recurrence review",
-      "line": 408,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "22. Recurrence review",
-      "line": 408,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "22. Recurrence review",
-      "line": 408,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bol to rovnaký mechanismus alebo iba podobný symptom?`, `boli previous actions dokončené?`, `boli effective v správnom scope-e?`, `vznikol alternate path?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "22. Recurrence review",
-      "line": 408,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "22. Recurrence review",
-      "line": 408,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "23. Cross-incident trend analysis",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "23. Cross-incident trend analysis",
-      "line": 422,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "23. Cross-incident trend analysis",
-      "line": 422,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované trigger classes;`, `common root/escape causes;`, `detection gaps;`, `affected dependencies;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "23. Cross-incident trend analysis",
-      "line": 422,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "24. Worked postmortem PM-SRE-PAY-54-v1",
-      "line": 438,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Impact",
-      "line": 440,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Impact",
-      "line": 440,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Impact",
-      "line": 440,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Impact",
-      "line": 440,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `186 420 rows broad-archived;`, `7 842 rows nebolo terminal;`, `613 provider callbacks potrebovalo secondary correlation;`, `91 merchant-visible settlements bolo stale/unknown;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Impact",
-      "line": 440,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Impact",
-      "line": 440,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went well",
-      "line": 450,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went well",
-      "line": 450,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went well",
-      "line": 450,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went well",
-      "line": 450,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business correctness SLI detegovala silent failure;`, `incident command zastavil destructive jobs;`, `WAL/audit poskytli affected manifest;`, `isolated restore prebehol bez production rewind;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went well",
-      "line": 450,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went well",
-      "line": 450,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went poorly",
-      "line": 459,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went poorly",
-      "line": 459,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went poorly",
-      "line": 459,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went poorly",
-      "line": 459,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing scope bol wildcard;`, `zero-row canary vytvorila false confidence;`, `broad role a unbounded batch zväčšili impact;`, `restore identity nemala current decryption grant;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went poorly",
-      "line": 459,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "What went poorly",
-      "line": 459,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `scope`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Where we got lucky",
-      "line": 468,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Where we got lucky",
-      "line": 468,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Where we got lucky",
-      "line": 468,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Where we got lucky",
-      "line": 468,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `WAL clean point bol stále retained;`, `provider ledger bol dostupný;`, `immutable external reference zostala pre väčšinu rows;`, `traffic bol pod campaign peakom;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Where we got lucky",
-      "line": 468,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Where we got lucky",
-      "line": 468,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `spĺňa pre-defined trigger criteria;`, `exact incident/document generation je identifikovaná;`, `impact je user/business-centered a kvantifikovaný;`, `timeline je evidence-backed;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "7. Artifact integrity a recovery catalog",
+      "line": 107,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "25. Postmortem acceptance verdict",
-      "line": 480,
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "9. Fencing a validation stack",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "10. Connected incident SRE-PAY-54",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "11. Restore drills a acceptance contract",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "11. Restore drills a acceptance contract",
+      "line": 153,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/backup-and-restore.md",
+      "section": "11. Restore drills a acceptance contract",
+      "line": 153,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -201196,75 +199189,147 @@
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Postmortem ako trest",
-      "line": 502,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Dominantný incident-to-learning lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Blameless = bez konkrétnosti",
-      "line": 506,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Exact postmortem subject a trigger",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Šablóna vyplnená po pamäti",
-      "line": 510,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "2. Exact postmortem subject a trigger",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Root cause: human error",
-      "line": 514,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Blameless analysis a accountability",
+      "line": 42,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Action: buďte opatrnejší",
-      "line": 518,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "4. Impact, detection a factual timeline",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Všetko P0",
-      "line": 522,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Controls: went well, poorly a luck",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Dokument publikovaný, actions zabudnuté",
-      "line": 526,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "5. Controls: went well, poorly a luck",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
-      "section": "Luck ignorovaná",
-      "line": 530,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "6. Causal section a response evaluation",
+      "line": 87,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "6. Causal section a response evaluation",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "7. Action portfolio a prioritization",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "8. Review, publication a knowledge distribution",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "9. Connected postmortem PM-SRE-PAY-54-v1",
+      "line": 115,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "10. Action lifecycle a mechanism closure",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "10. Action lifecycle a mechanism closure",
+      "line": 123,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "11. Postmortem acceptance contract",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/blameless-postmortems.md",
+      "section": "11. Postmortem acceptance contract",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/capacity-planning.md",
@@ -205507,35 +203572,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "1. Exact RCA subject",
-      "line": 20,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "1. Exact RCA subject",
-      "line": 20,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident ID;`, `affected business capability;`, `presný service, data a operation scope;`, `release, configuration a policy generations;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "1. Exact RCA subject",
-      "line": 20,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "1. Exact RCA subject",
-      "line": 20,
+      "section": "1. Dominantný outcome-to-mechanism lifecycle",
+      "line": 7,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -205543,26 +203581,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "1. Exact RCA subject",
-      "line": 20,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "3. Timeline ako model state transitions",
-      "line": 76,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "3. Timeline ako model state transitions",
-      "line": 76,
+      "section": "2. Exact RCA subject a outcome",
+      "line": 26,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -205570,35 +203590,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "4. Trigger, mechanismus a impact",
-      "line": 94,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Proximate mechanismus",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "5. Viac druhov príčin",
-      "line": 125,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "7. Competing hypotheses",
-      "line": 183,
+      "section": "3. Timeline ako state-transition evidence",
+      "line": 44,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -205606,8 +203599,17 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "7. Competing hypotheses",
-      "line": 183,
+      "section": "5. Causal graph, hypotheses a counterfactuals",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
+      "section": "5. Causal graph, hypotheses a counterfactuals",
+      "line": 88,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -205615,53 +203617,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "8. Counterfactual reasoning",
-      "line": 196,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "9. Five Whys a jeho hranice",
-      "line": 220,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "9. Five Whys a jeho hranice",
-      "line": 220,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet päť nie je technický zákon;`, `otázky môžu byť vedené k preferovanému záveru;`, `distributed incident má viac paralelných vetiev;`, `môže skončiť abstraktným human error ;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "9. Five Whys a jeho hranice",
-      "line": 220,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "9. Five Whys a jeho hranice",
-      "line": 220,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "9. Five Whys a jeho hranice",
-      "line": 220,
+      "section": "6. Hranice Five Whys a actionable depth",
+      "line": 118,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -205669,53 +203626,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "12. Evidence quality",
-      "line": 280,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "12. Evidence quality",
-      "line": 280,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source;`, `subject;`, `timestamp a clock authority;`, `generation/version;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "12. Evidence quality",
-      "line": 280,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "13. Worked incident SRE-PAY-54",
-      "line": 304,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "13. Worked incident SRE-PAY-54",
-      "line": 304,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vybral 186 420 rows;`, `z toho 7 842 nebolo terminal;`, `odstránil provider/outbox correlation metadata;`, `91 merchant-visible settlements zostalo dočasne stale alebo unknown;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "13. Worked incident SRE-PAY-54",
-      "line": 304,
+      "section": "7. Evidence quality a confidence",
+      "line": 126,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -205723,8 +203635,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "13. Worked incident SRE-PAY-54",
-      "line": 304,
+      "section": "7. Evidence quality a confidence",
+      "line": 126,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -205732,53 +203644,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "13. Worked incident SRE-PAY-54",
-      "line": 304,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Causal verdict",
-      "line": 333,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Causal verdict",
-      "line": 333,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Causal verdict",
-      "line": 333,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad production role;`, `unbounded multi-tenant batch;`, `detection až cez downstream correlation failures;`, `replicas a backups kopírujúce logical corruption;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Causal verdict",
-      "line": 333,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Causal verdict",
-      "line": 333,
+      "section": "8. Connected incident SRE-PAY-54",
+      "line": 146,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -205786,53 +203653,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Causal verdict",
-      "line": 333,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "14. Containment pred analýzou",
-      "line": 376,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "14. Containment pred analýzou",
-      "line": 376,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disable compactor generation 54;`, `revoke jeho write capability;`, `block ďalšie archive/delete jobs;`, `snapshot current corrupted state pre forensic comparison;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "14. Containment pred analýzou",
-      "line": 376,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "14. Containment pred analýzou",
-      "line": 376,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "14. Containment pred analýzou",
-      "line": 376,
+      "section": "8. Connected incident SRE-PAY-54",
+      "line": 146,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -205840,323 +203662,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "14. Containment pred analýzou",
-      "line": 376,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "15. Corrective-action portfolio",
-      "line": 391,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Eliminate mechanism",
-      "line": 395,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Eliminate mechanism",
-      "line": 395,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Eliminate mechanism",
-      "line": 395,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `tenant scope mandatory v schema;`, `missing/empty scope fail-closed;`, `typed destructive-operation API bez wildcard defaultu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Eliminate mechanism",
-      "line": 395,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Eliminate mechanism",
-      "line": 395,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Limit blast radius",
-      "line": 401,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Limit blast radius",
-      "line": 401,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Limit blast radius",
-      "line": 401,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Limit blast radius",
-      "line": 401,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact affected manifest;`, `max rows a rate;`, `per-tenant batches;`, `automatic abort pri invariant breach.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Limit blast radius",
-      "line": 401,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve detection",
-      "line": 408,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve detection",
-      "line": 408,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve detection",
-      "line": 408,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve detection",
-      "line": 408,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active-to-archived transition SLI;`, `callback-correlation correctness;`, `unexpected multi-tenant mutation alert;`, `business canary s positive eligible population.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve detection",
-      "line": 408,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve detection",
-      "line": 408,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve recovery",
-      "line": 415,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve recovery",
-      "line": 415,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve recovery",
-      "line": 415,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve recovery",
-      "line": 415,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný consistency-group inventory;`, `tested isolated PITR;`, `current decryption/access canary;`, `provider-ledger reconciliation tooling.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve recovery",
-      "line": 415,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve recovery",
-      "line": 415,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PITR`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve organization",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve organization",
-      "line": 422,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve organization",
-      "line": 422,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `destructive-change review owner;`, `postmortem action SLO;`, `cross-service review podobných wildcard semantics.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve organization",
-      "line": 422,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Improve organization",
-      "line": 422,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "16. Action-item quality",
-      "line": 430,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact incident a impact subject sú definované;`, `timeline používa overené state transitions a clock limitations;`, `trigger, proximate mechanismus a business impact sú oddelené;`, `relevantné competing hypotheses majú evidence verdict;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
+      "section": "9. Containment a corrective-action portfolio",
+      "line": 174,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -206164,125 +203671,17 @@
     },
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "17. RCA acceptance verdict",
-      "line": 459,
+      "section": "10. RCA acceptance a mechanism closure",
+      "line": 193,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "18. Troubleshooting slabej RCA",
-      "line": 476,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "18. Troubleshooting slabej RCA",
-      "line": 476,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Posledná zmena je root cause",
-      "line": 495,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Human error",
-      "line": 499,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Jedna root cause za každú cenu",
-      "line": 503,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Five Whys ako rituál",
-      "line": 507,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Timeline z incident chatu",
-      "line": 511,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "Action item = training",
-      "line": 515,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/root-cause-analysis.md",
-      "section": "RCA bez follow-up verification",
-      "line": 519,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "1. Exact recovery-objective subject",
-      "line": 20,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "1. Exact recovery-objective subject",
-      "line": 20,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a operation;`, `customer alebo internal cohort;`, `data stores a consistency group;`, `failure scenario;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "1. Exact recovery-objective subject",
-      "line": 20,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "1. Exact recovery-objective subject",
-      "line": 20,
+      "section": "1. Dominantný impact-to-measured-recovery lifecycle",
+      "line": 7,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -206290,35 +203689,17 @@
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "2. Recovery Point Objective",
-      "line": 53,
+      "section": "2. Exact recovery-objective subject",
+      "line": 27,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "5. Business impact analysis",
-      "line": 110,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "5. Business impact analysis",
-      "line": 110,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `critical capabilities;`, `dependency chain;`, `impact rastúci s časom;`, `data-loss tolerance;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "5. Business impact analysis",
-      "line": 110,
+      "section": "3. RPO: time, events a acknowledgement semantics",
+      "line": 46,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -206326,179 +203707,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "7. Work Recovery Time",
-      "line": 154,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "7. Work Recovery Time",
-      "line": 154,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "7. Work Recovery Time",
-      "line": 154,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backlog drain;`, `data reconciliation;`, `manual case processing;`, `customer communication;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "7. Work Recovery Time",
-      "line": 154,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "8. Actual recovery metrics",
-      "line": 176,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "8. Actual recovery metrics",
-      "line": 176,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "8. Actual recovery metrics",
-      "line": 176,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "8. Actual recovery metrics",
-      "line": 176,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `recovery point`, `recovery time`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "9. Measurement boundaries",
-      "line": 188,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO boundary",
-      "line": 190,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO boundary",
-      "line": 190,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO boundary",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident alebo corruption reference time;`, `recovery point timestamp/sequence;`, `clock authority;`, `included consistency-group members;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO boundary",
-      "line": 190,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO boundary",
-      "line": 190,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery point`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RTO boundary",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "12. Zero RTO",
-      "line": 245,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "12. Zero RTO",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `detection a routing convergence;`, `in-flight operations;`, `stale sessions/caches;`, `data consistency;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "12. Zero RTO",
-      "line": 245,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "13. Objectives podľa capability a cohortu",
-      "line": 261,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "13. Objectives podľa capability a cohortu",
-      "line": 261,
+      "section": "4. RTO: business boundary a work recovery",
+      "line": 61,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -206506,440 +203716,8 @@
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "15. Recovery strategy mapping",
-      "line": 293,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "16. RPO nie je backup interval",
-      "line": 306,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "16. RPO nie je backup interval",
-      "line": 306,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "16. RPO nie je backup interval",
-      "line": 306,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `job môže meškať;`, `capture môže trvať;`, `latest backup môže byť corrupted;`, `log chain môže mať gap;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "16. RPO nie je backup interval",
-      "line": 306,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "16. RPO nie je backup interval",
-      "line": 306,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "17. RTO nie je restore duration z konzoly",
-      "line": 321,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "17. RTO nie je restore duration z konzoly",
-      "line": 321,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "17. RTO nie je restore duration z konzoly",
-      "line": 321,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `storage je cold;`, `schema migration chýba;`, `application nevie načítať dáta;`, `identities/secrets nie sú dostupné;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "17. RTO nie je restore duration z konzoly",
-      "line": 321,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "17. RTO nie je restore duration z konzoly",
-      "line": 321,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "18. Scenario-specific objectives",
-      "line": 336,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "18. Scenario-specific objectives",
-      "line": 336,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "18. Scenario-specific objectives",
-      "line": 336,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance loss;`, `zonal failure;`, `regional failure;`, `logical corruption;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "18. Scenario-specific objectives",
-      "line": 336,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "18. Scenario-specific objectives",
-      "line": 336,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "19. Degraded mode",
-      "line": 352,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "19. Degraded mode",
-      "line": 352,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "19. Degraded mode",
-      "line": 352,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed operations;`, `denied operations;`, `data guarantees;`, `capacity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "19. Degraded mode",
-      "line": 352,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "20. Test design",
-      "line": 375,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "20. Test design",
-      "line": 375,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "20. Test design",
-      "line": 375,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact generation;`, `scenario;`, `start/end timestamps;`, `recovered point;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "20. Test design",
-      "line": 375,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "21. Worked incident SRE-PAY-54",
-      "line": 406,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Deklarované objectives",
-      "line": 408,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Deklarované objectives",
-      "line": 408,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Nameraný recovery čas",
-      "line": 452,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Nameraný recovery čas",
-      "line": 452,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objective nemal versionovaný scenario/consistency-group subject;`, `restore key/access path nebol current;`, `recovery environment nebola preprovisioned;`, `provider reconciliation nebola zahrnutá do timing modelu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Prečo objective zlyhal",
-      "line": 474,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "22. Corrective objective generation REC-PAY-55",
-      "line": 485,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "22. Corrective objective generation REC-PAY-55",
-      "line": 485,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "22. Corrective objective generation REC-PAY-55",
-      "line": 485,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `5-min provider consistency checkpoints;`, `continuous idempotency-ledger query path;`, `preprovisioned isolated recovery control plane;`, `restore key/access canary;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "22. Corrective objective generation REC-PAY-55",
-      "line": 485,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "22. Corrective objective generation REC-PAY-55",
-      "line": 485,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact business capability, scope a owner sú definované;`, `BIA a impact curve podporujú hodnoty;`, `failure scenarios a consistency groups sú explicitné;`, `acknowledgement a data authority sú známe;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
+      "section": "4. RTO: business boundary a work recovery",
+      "line": 61,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -206947,71 +203725,35 @@
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "23. RPO/RTO acceptance verdict",
-      "line": 509,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BIA`, `RPO`, `RTO`, `scope`, `recovery point`",
-      "score": 7
+      "section": "5. Business impact, scenarios a degraded modes",
+      "line": 81,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "24. Troubleshooting objective miss-u",
-      "line": 530,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "6. Architecture a dependency budgets",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "6. Architecture a dependency budgets",
+      "line": 104,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business impact analysis;`, `capability/dependency inventory;`, `consistency-group definitions;`, `acknowledgement a data-authority contract;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
+      "section": "7. Target verzus actual measurement",
+      "line": 123,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -207019,93 +203761,48 @@
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "25. Earlier controls",
-      "line": 550,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`, `RPO`",
-      "score": 4
+      "section": "8. Connected incident SRE-PAY-54",
+      "line": 140,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO = backup schedule",
-      "line": 570,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "9. Corrective objective generation REC-PAY-55",
+      "line": 163,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RTO = database available",
-      "line": 574,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Timed exercise a acceptance contract",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Jedno číslo pre celú firmu",
-      "line": 578,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Timed exercise a acceptance contract",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "RPO/RTO bez scenára",
-      "line": 582,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Zero RPO/RTO ako marketing",
-      "line": 586,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Objective bez actual metric",
-      "line": 590,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Stopky sa spustia pri declaration",
-      "line": 594,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Permanent loss nula, teda RPO splnené",
-      "line": 598,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/14-sre-and-operations/rpo-and-rto.md",
-      "section": "Znížime target po incidente",
-      "line": 602,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Timed exercise a acceptance contract",
+      "line": 181,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
