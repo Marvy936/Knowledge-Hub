@@ -1,443 +1,286 @@
 # Public, private a hybrid cloud
 
-Cloud deployment model opisuje, kde capability beží, kto ovláda infraštruktúrny a platformový boundary a ktoré failure, identity, data a connectivity domains musia spolupracovať. Nie je to synonymum service modelu. Public cloud môže poskytovať IaaS, PaaS aj SaaS; private cloud môže poskytovať interné IaaS alebo PaaS capabilities.
+Deployment model odpovedá na inú otázku než service model. IaaS, PaaS a SaaS určujú, ktoré technologické vrstvy prevádzkuje provider a ktoré zákazník. Public, private a hybrid cloud určujú, v akých administratívnych a fyzických doménach capability beží a ako sa medzi nimi prenášajú identity, DNS, sieťový traffic, dáta a prevádzkový dôkaz.
 
-Užitočný mentálny model:
+Public cloud preto neznamená „server dostupný z internetu“. Workload v AWS môže mať iba private addresses, komunikovať cez private endpoints a neprijímať žiadny unsolicited internet traffic. Private cloud zase nie je automaticky bezpečný iba preto, že hardware patrí organizácii. A hybrid cloud nie je jeden VPN tunnel; je to dlhodobý distribuovaný systém spájajúci najmenej dva odlišné operating a failure domains.
 
-```text
-business capability a locality constraints
-→ placement a control requirements
-→ deployment-domain inventory
-→ identity/network/DNS/data integration
-→ workload a management-plane realization
-→ failure isolation a autonomous behavior
-→ end-to-end verification
-→ failover, reconciliation alebo exit
-```
+## 1. Exact deployment subject
 
-## 1. Deployment-model subject
+Atlas Payments capability `CAP-PAY-42` používa AWS account `A42` v `eu-central-1`, VPC `V42` a on-premises lokalitu `DC17`. Customer-facing API beží v AWS, ale settlement ledger `L17` zostáva v privátnej lokalite. Medzi prostrediami existuje Direct Connect generation `DX7` a backup VPN `VPN4`. Federácia má generation `IDF8`, hybrid DNS `DNS12` a application release identifikujú image `I42`, configuration `C42` a credential epoch `SE10`.
 
-Deployment model posudzuj cez exact subject:
+Tvrdenie „je to hybrid“ nepreukazuje, že tieto generácie tvoria funkčný systém. Reálny request musí prejsť presnou cestou:
 
 ```text
-capability: CAP-PAY-42
-public-cloud environment: AWS account A42, eu-central-1
-private environment: on-premises site DC17
-cloud VPC: V42
-on-premises network domain: NET17
-hybrid identity generation: IDF8
-hybrid DNS generation: DNS12
-connectivity generation: DX7 + VPN4 backup
-application release: I42/C42/SE10
-cloud database: DB42
-on-premises ledger: L17
+cloud workload identity a source IP
+→ VPC route-table verdict
+→ Direct Connect alebo VPN attachment
+→ BGP prefix selection
+→ on-premises firewall
+→ ledger listener a TLS identity
+→ settlement transaction
+→ symetrický return path
 ```
 
-Označenie „hybrid“ samo nepreukazuje, že tieto subjects majú kompatibilný routing, identity, data consistency, observability a recovery contract.
+Ak je jedna boundary nejasná, green stav ostatných komponentov môže vytvoriť false confidence.
 
-## 2. Service model a deployment model sú dve osi
+## 2. Public cloud ako API-riadená izolovaná doména
+
+Public cloud používa provider-owned fyzickú infraštruktúru a zákazníkom poskytuje logicky izolované accounts, identities, virtual networks a managed services. Hlavnou vlastnosťou nie je internet exposure, ale programovateľný control plane a pool zdieľanej provider capacity.
+
+Lifecycle Atlas workloadu v AWS vyzerá približne takto:
 
 ```text
-service model
-→ ktorú technologickú vrstvu spravuje provider alebo zákazník
-→ IaaS / PaaS / SaaS
-
-deployment model
-→ kde capability beží, komu je infraštruktúra určená a ako sa prepája
-→ public / private / hybrid / multi-cloud / edge
+Organization/account a Region
+→ IAM a guardrails
+→ VPC, subnets, routes a endpoints
+→ compute/data service provisioning
+→ workload identity a configuration
+→ application data plane
+→ telemetry, scaling a recovery
 ```
 
-Príklady:
+Provider môže mať zdravý Region, zatiaľ čo Atlas používa nesprávny account, vyčerpaný subnet, zablokovaný endpoint policy alebo neplatnú quota. Pri každom príkaze preto explicitne uvádzame account a Region context.
 
-- EC2 v AWS je public-cloud IaaS;
-- RDS je public-cloud managed data platform;
-- interný OpenStack môže byť private-cloud IaaS;
-- SaaS môže používať public-cloud infraštruktúru a private connectivity k zákazníkovi;
-- AWS Outposts môže rozšíriť AWS operating model do zákazníckej lokality, ale lokálny hardware a service-link failure zostávajú samostatné boundaries.
+```bash
+aws sts get-caller-identity
+aws configure get region
+aws ec2 describe-vpcs \
+  --region eu-central-1 \
+  --query 'Vpcs[].{VpcId:VpcId,Cidr:CidrBlock,State:State,Default:IsDefault}'
+```
 
-## 3. Public-cloud lifecycle
+`get-caller-identity` ukáže skutočný AWS principal/account použitý CLI credential chainom. Názov shell profilu nie je dôkaz identity. `configure get region` ukáže lokálny default, ale environment variable alebo command flag ho môže prebiť. `describe-vpcs` potom číta resources v explicitnom Regione. Táto trojica zabraňuje častej chybe, keď operator diagnostikuje správne pomenovaný resource v nesprávnom account-e alebo Regione.
+
+Public cloud umožňuje elastické provisionovanie, no elasticita nie je nekonečná. Subnet IPs, quotas, service capacity, NAT ports alebo database connections sú stále bounded. Public deployment preto potrebuje rovnakú disciplínu capacity a recovery ako private platforma, iba s iným control plane-om.
+
+## 3. Private cloud ako interný cloud operating model
+
+Private cloud je vyhradená platforma pre jednu organizáciu, ktorá poskytuje cloud-like API, self-service, policy enforcement, pooled capacity, metering a štandardizované lifecycle-y. Samotný VMware alebo OpenStack cluster ešte nepreukazuje cloud operating model, ak každý VM provisioning potrebuje manuálny ticket a platforma nemá jednotný image, network, identity a recovery contract.
+
+V zrelom private cloude sa fyzická capacity transformuje na tenant capability:
 
 ```text
-account/organization a Region selection
-→ identity a guardrails
-→ VPC/subnet/endpoint placement
-→ service a workload provisioning cez API
-→ provider physical/platform realization
-→ customer configuration a data
-→ operational/business verification
-→ scale, recovery a decommission
+hardware a facility capacity
+→ compute/network/storage platform
+→ API a identity
+→ images, quotas a policy
+→ tenant workload
+→ metering a operations
+→ platform upgrade a hardware retirement
 ```
 
-Public cloud používa provider-owned fyzickú infraštruktúru a logicky izolované accounts, identities a virtual networks. „Public“ neznamená, že workload musí byť verejne dostupný. Private subnets, private endpoints, resource policies, encryption a workload identity môžu vytvoriť neverejný data path v public-cloud infraštruktúre.
+Organizácia tým preberá zodpovednosť, ktorú v public cloude nesie provider: dátové centrum, power, spares, hardware replacement, virtualization security, platform control plane a capacity refresh. Vlastníctvo hardware-u samo osebe negarantuje redundantnú power, moderný patch level, immutable backup alebo 24/7 incident response.
 
-### Public-cloud failure boundary
+Private deployment je opodstatnený, keď existuje silný locality requirement: veľmi nízka latency k výrobnému zariadeniu, disconnected operation, špecifický hardware alebo regulačná podmienka. Ak jediným dôvodom je všeobecný pocit kontroly, treba porovnať skutočnú platformovú zrelosť a total cost, nie iba cenu serverov.
 
-Healthy provider Region nepreukazuje:
+## 4. Hybrid cloud ako prepojenie dvoch authority domains
 
-- správny account a Region;
-- správnu VPC route a endpoint policy;
-- správne IAM/session context;
-- dostupnú customer quota alebo IP capacity;
-- správny application release;
-- obnoviteľné dáta;
-- funkčný hybrid dependency path.
+Hybrid architecture musí explicitne určiť autoritu nad piatimi oblasťami: identity, DNS, routing, dáta a management. Každá môže mať iného ownera a iný failover model.
 
-## 4. Private-cloud lifecycle
+Identity flow môže používať workforce federation, workload certificates alebo STS sessions. DNS môže mať public a private hosted zones, on-premises authoritative servers a conditional forwarding. Routing môže kombinovať VPC route tables, Transit Gateway, Direct Connect gateway, BGP a firewall policy. Dáta môžu byť synchrónne, asynchrónne alebo single-writer s replay queue. Management môže zostať centralizovaný, ale workload musí mať definované správanie pri strate central control plane-u.
 
-Private cloud je dedicated cloud operating model pre jednu organizáciu, nie iba skupina hypervisorov.
+Hybrid capability preto vznikne až cez celý chain:
 
 ```text
-capacity pool a platform ownership
-→ API/self-service catalog
-→ identity/policy/quotas
-→ standardized image a network/storage contracts
-→ tenant provisioning
-→ platform a workload lifecycle
-→ metering, reliability a recovery
-→ hardware refresh a decommission
+authoritative identity a naming
+→ redundant network paths
+→ deterministic route selection
+→ security policy na oboch stranách
+→ data consistency a acknowledgement model
+→ telemetry correlation
+→ disconnected/failover behavior
+→ reconciliation a failback
 ```
 
-Cloud-like characteristics zahŕňajú:
+## 5. Praktický network inventory
 
-- API a automation;
-- self-service provisioning;
-- štandardizované templates;
-- policy enforcement;
-- metering, showback alebo chargeback;
-- pool-based capacity management;
-- platform service ownera;
-- upgrade a hardware replacement lifecycle.
+Pri hybride je užitočné vytvoriť machine-readable contract pre každý prefix a flow. Napríklad:
 
-Bez nich ide skôr o tradičnú virtualizačnú platformu.
+```yaml
+flowId: PAY-LEDGER-17
+source:
+  environment: aws
+  account: "100000000042"
+  region: eu-central-1
+  vpc: vpc-0a42
+  subnets:
+    - name: payments-a
+      cidr: 10.42.16.0/20
+      azId: euc1-az1
+    - name: payments-b
+      cidr: 10.42.32.0/20
+      azId: euc1-az2
+  securityGroup: sg-payments
 
-### Private-cloud failure boundary
+destination:
+  environment: on-prem
+  name: ledger.internal
+  address: 10.44.17.20
+  port: 5443
+  protocol: tcp
 
-Vlastná fyzická kontrola neposkytuje automaticky:
+paths:
+  preferred: direct-connect-dx7
+  backup: vpn4
 
-- aktuálny patch level;
-- redundantnú power/network/storage architektúru;
-- elastickú spare capacity;
-- kvalitnú identity governance;
-- immutable backup;
-- 24/7 incident response;
-- testovaný site recovery.
+requirements:
+  tlsServerName: ledger.internal
+  maximumRoundTripMs: 20
+  forbiddenSources:
+    - 10.42.0.0/24
+```
 
-Private cloud môže byť vhodný pre specialized hardware, disconnected operation, veľmi nízku local latency, regulačné constraints alebo stabilný veľký workload. Výhoda existuje iba pri dostatočnej platformovej a prevádzkovej zrelosti.
+Tento manifest umožní pre-deployment testovať, že nový subnet má forward route, on-premises return route a firewall rule. Bez presného prefix inventory sa „pridali sme subnet do VPC“ môže skončiť one-way connectivity.
 
-## 5. Hybrid-cloud lifecycle
+## 6. Praktická diagnostika hybrid flowu
 
-Hybrid cloud spája najmenej dva odlišné operating a failure domains.
+Najprv z affected workloadu získaj DNS a connection evidence:
+
+```bash
+getent ahostsv4 ledger.internal
+nc -vz -w 3 ledger.internal 5443
+openssl s_client \
+  -connect ledger.internal:5443 \
+  -servername ledger.internal \
+  -brief </dev/null
+```
+
+`getent` ukazuje resolver-visible addresses z rovnakého runtime contextu ako aplikácia. `nc` testuje TCP establishment, nie TLS alebo application authorization. `openssl s_client` pridá TLS handshake a server-name validation evidence. Úspešný TLS ešte nepreukazuje settlement request.
+
+Na AWS strane identifikuj exact ENI, subnet a route table:
+
+```bash
+aws ec2 describe-network-interfaces \
+  --network-interface-ids eni-0pay42 \
+  --region eu-central-1 \
+  --query 'NetworkInterfaces[0].{PrivateIp:PrivateIpAddress,Subnet:SubnetId,Vpc:VpcId,Groups:Groups[].GroupId}'
+
+aws ec2 describe-route-tables \
+  --region eu-central-1 \
+  --filters Name=association.subnet-id,Values=subnet-0payb \
+  --query 'RouteTables[0].Routes'
+```
+
+Ak subnet nemá explicitnú association, treba skontrolovať main route table. Route do `10.44.0.0/16` musí smerovať na intended Transit/virtual gateway alebo attachment. Samotná route `active` nepreukazuje, že BGP a on-premises return path poznajú source prefix.
+
+Direct Connect evidence:
+
+```bash
+aws directconnect describe-virtual-interfaces \
+  --region eu-central-1 \
+  --query 'virtualInterfaces[].{Id:virtualInterfaceId,State:virtualInterfaceState,Bgp:bgpPeers[].bgpStatus,Vlan:vlan}'
+```
+
+Green virtual interface a established BGP dokazujú session state. Nehovoria, že konkrétny prefix je importovaný a preferovaný na oboch stranách. Preto treba porovnať advertised/received routes na routers a firewall connection logs.
+
+VPC Flow Logs môžu pomôcť rozlíšiť SG/NACL reject od trafficu, ktorý VPC opustil. Flow Log `ACCEPT` však nepreukazuje remote firewall ani application response. Každý observation point musí byť spojený s rovnakým source/destination tuple a časom.
+
+## 7. Hybrid identity a credential lifecycle
+
+Dlhodobý access key uložený v on-premises configuration je slabý hybrid identity model. Preferovaný flow používa federáciu alebo workload certificate, z ktorých vznikne krátkodobá cloud session:
 
 ```text
-cloud a private capability inventory
-→ authoritative identity, DNS a data ownership
-→ redundant connectivity a routing
-→ security/policy translation
-→ workload a data placement
-→ management/telemetry correlation
-→ connected aj disconnected behavior
-→ failover/failback/reconciliation
-→ business acceptance
+on-prem workload identity
+→ trusted issuer alebo certificate authority
+→ STS alebo service-specific exchange
+→ short-lived role session
+→ exact API request
+→ CloudTrail actor evidence
 ```
 
-Hybrid cloud nie je jeden VPN tunnel. Je to dlhodobý contract pre:
+Runtime má logovať bezpečnú session identity a expiry, nie secret value. Pri strate identity linky musí byť definované, ktoré lokálne operácie môžu pokračovať a ktoré musia fail-closed. Ak settlement vyžaduje online autorizáciu, cache starého credentialu nesmie nekonečne predlžovať authority po revocation.
 
-- network connectivity a return path;
-- identity federation a machine credentials;
-- DNS authority a forwarding;
-- data replication, consistency a conflict resolution;
-- deployment a configuration ownership;
-- observability a audit correlation;
-- behavior pri strate WAN alebo cloud control plane;
-- capacity a recovery v každom prostredí.
+## 8. Hybrid DNS bez implicitnej mágie
 
-AWS Prescriptive Guidance organizuje hybrid best practices okolo networking, security, resiliency, capacity planning a infrastructure management. Tieto oblasti tvoria jeden systém, nie päť nezávislých checklistov.
-
-## 6. Connectivity subject
-
-Pre CAP-PAY-42:
+DNS flow má vlastný control path:
 
 ```text
-source workload Pod/instance UID
-→ source IP/port a security identity
-→ VPC route table generation
-→ Transit/DX/VPN attachment generation
-→ BGP route a tunnel/circuit state
-→ on-premises firewall generation
-→ destination IP/port
-→ return route
+application resolver
+→ local cache a search rules
+→ conditional forwarding decision
+→ Route 53 Resolver alebo on-prem DNS
+→ authoritative zone
+→ response a TTL
+→ selected connection address
 ```
 
-Dedicated connectivity môže stabilizovať capacity a routing, ale sama nezaručuje encryption ani redundancy. VPN cez internet môže byť rýchlejšia na provisioning, ale má variabilnejší path a throughput. Production hybrid design často potrebuje viac circuits, lokalít, gateways a dynamické routing controls.
+AWS private hosted zone môže byť authoritative iba pre associated VPCs. On-premises clients typicky potrebujú Route 53 Resolver inbound endpoint a forwarding rule. AWS clients querying on-prem namespace potrebujú outbound endpoint alebo iný resolver design.
 
-### Unknown network outcome
+Diagnostika musí bežať z affected networku:
 
-TCP timeout nepreukazuje, že link je down. Hypotézy zahŕňajú:
+```bash
+dig ledger.internal A
 
-- DNS vrátil chybnú alebo stale adresu;
-- source route chýba;
-- BGP propaguje nesprávny prefix;
-- firewall/NACL/SG blokuje flow;
-- destination process nepočúva;
-- return path je asymetrický;
-- MTU alebo fragmentation zlyháva;
-- identity/TLS zlyhá po vytvorení TCP session.
+dig @10.42.8.10 ledger.internal A +noall +answer +authority
+```
 
-## 7. Hybrid identity
+Prvý príkaz testuje bežný resolver path. Druhý testuje konkrétny resolver endpoint. Ak druhý funguje a prvý nie, problém môže byť local resolver alebo forwarding policy. Ak lookup funguje, stále treba overiť route, TLS a application.
 
-Preferovaný model používa federáciu a krátkodobé credentials:
+## 9. Hybrid data a acknowledgement contract
+
+Najťažšia časť hybridu často nie je sieť, ale data authority. Synchronous write cez WAN zjednodušuje niektoré consistency vlastnosti, ale pridáva latency a spraví WAN súčasťou availability pathu. Asynchronous event alebo replication model oddeľuje availability, ale vytvára lag, replay a conflict requirements.
+
+Pre settlement flow musí byť jasné, kedy cloud API môže klientovi potvrdiť úspech. Ak potvrdí payment pred durable zápisom v on-prem ledgeri, výpadok linky vytvorí accepted-but-not-settled cohort. Bez durable outboxu, idempotency key a reconciliation cursoru je recovery nejasná.
+
+Bezpečnejší model môže vyzerať takto:
 
 ```text
-workforce/workload identity source
-→ federation/trust policy
-→ short-lived cloud session alebo certificate
-→ service authorization
-→ audit request identity
+payment accepted
+→ cloud database transaction + outbox commit
+→ durable acknowledgement klientovi
+→ asynchronous ledger delivery
+→ idempotent ledger apply
+→ settlement confirmation
+→ reconciliation of overdue outbox records
 ```
 
-Dlhodobé access keys synchronizované do on-premises systémov vytvárajú rotation, revocation a exfiltration risk. Identity availability musí mať jasné disconnected behavior: ktoré lokálne operations pokračujú pri strate cloud IdP a ktoré musia fail-closed.
+Takýto model mení business semantics: „accepted“ a „settled“ sú dva stavy. Je však explicitnejší a odolnejší voči WAN incidentu než skrytý synchronous dependency bez timeout/retry contractu.
 
-## 8. Hybrid DNS
+## 10. Worked incident: circuits sú green, 35 % platieb timeoutuje
 
-Exact DNS path:
+Po network maintenance začalo približne 35 % payment requests timeoutovať. Direct Connect `DX7` aj backup VPN `VPN4` boli podľa dashboardov green. Failures však pochádzali iba z workloadov v AZ ID `euc1-az2`. Ledger VIP bol `10.44.17.20:5443`, cloud route generation `RT42-g19`, on-prem BGP generation `BGP17-g31` a firewall generation `FW17-g22`.
 
-```text
-application query
-→ local resolver a cache
-→ authoritative/conditional-forwarding decision
-→ inbound/outbound resolver endpoint
-→ cloud alebo private authoritative zone
-→ TTL/negative cache
-→ selected address
-→ connection
-```
+Hypotézy zahŕňali preťažený ledger, stale DNS, chýbajúcu route, asymetrický backup path, firewall rule, MTU a stale connection pool. Rozdelenie podľa source subnetu bolo prvé diskriminačné pozorovanie. DNS vracalo rovnakú VIP a TCP SYN opúšťal AWS. On-prem router však neakceptoval nový source prefix `10.42.32.0/20` cez preferred Direct Connect route. Return traffic vybral backup VPN, kde stateful firewall nemal zodpovedajúci connection state a flow odmietol.
 
-Navrhni:
+Green circuit dokazoval fyzickú a BGP session availability, nie správny round trip pre každý application prefix.
 
-- authoritative zone ownera;
-- split-horizon behavior;
-- conditional forwarding;
-- overlapping namespace policy;
-- resolver endpoint HA;
-- TTL a failover timing;
-- behavior pri strate linky;
-- DNSSEC alebo validation podľa scope-u.
+Containment zastavil rollout do affected subnetu a zachoval capacity v ostatných AZs. Tím neotvoril broad CIDR a nepresmeroval celý hybrid traffic cez jeden link. Recovery doplnila prefix do authoritative inventory, publikovala a prijala ho cez oba paths, zosúladila firewall objects a obnovila iba affected connections.
 
-Funkčná route nepreukazuje funkčné DNS. Úspešný lookup nepreukazuje funkčný endpoint.
+Closure vyžadovala TCP, TLS a payment settlement z každej production AZ. Následný test odpojil Direct Connect a potvrdil VPN failover so symetrickým return pathom. Zakázané source CIDRs zostali blokované a druhá configuration reconciliation bola no-op.
 
-## 9. Hybrid data
+## 11. Disconnected operation a recovery
 
-Data contract musí určiť:
+Hybrid systém musí mať explicitný behavior pri strate spojenia. Niektoré workloads môžu queue-ovať operations lokálne, iné musia odmietnuť nové writes. Najhorší model je, keď každá aplikácia improvizuje vlastný timeout a retry.
 
-```text
-authoritative source
-→ replication/transfer mechanism
-→ ordering a consistency
-→ lag a checkpoint
-→ conflict resolution
-→ consumer compatibility
-→ failover/failback
-→ reconciliation a recovery
-```
+Runbook musí vedieť odpovedať, či je cloud alebo private side authoritative writer, aký je posledný spoločný checkpoint, ako sa zastaví second writer, ako sa replayujú queued operations a čo sa stane s credentials vydanými pred incidentom. Failback je data-authority transfer, nie iba obnovenie BGP preferencie.
 
-Synchronous cross-environment writes znižujú niektoré consistency gaps, ale pridávajú WAN latency a spoločný failure domain. Asynchronous replikácia zlepšuje decoupling, ale vyžaduje explicitný RPO, lag telemetry, idempotenciu a conflict/replay model.
+## 12. Rozhodovací model
 
-## 10. Management-plane boundary
+Public cloud je vhodný, keď organizácia chce provider scale, service portfolio a API automation bez vlastníctva dátového centra. Private cloud je vhodný, keď locality alebo hardware requirement prevyšuje platformový a capacity cost. Hybrid je vhodný, keď capability reálne potrebuje obe domény a tím dokáže prevádzkovať identity, DNS, routing, data a recovery contract medzi nimi.
 
-Jednotný dashboard neznamená jednotný control plane. Urči:
+Hybrid nemá byť default kompromis medzi dvoma názormi. Je to najnáročnejší deployment model, pretože kombinuje failure surfaces oboch prostredí a pridáva linku medzi nimi.
 
-- authoritative inventory;
-- source of truth pre configuration;
-- ownership každého mutable fieldu;
-- policy distribution;
-- agent/update behavior;
-- log a metric transport pri WAN outage;
-- lokálnu autonomy;
-- emergency access;
-- kto môže vykonať recovery pri nedostupnom central control plane.
+## Kontrolné otázky
 
-Hybrid management musí odlíšiť management-plane outage od pokračujúceho workload data plane-u.
-
-## 11. Worked incident: healthy circuits, payment timeouty
-
-Atlas presunie customer-facing API do AWS, ale settlement ledger L17 zostane on-premises. Po network maintenance približne 35 % payments timeoutuje. DX dashboard aj backup VPN sú green.
-
-### Exact incident subject
-
-```text
-capability CAP-PAY-42
-release I42/C42/SE10
-cloud client cohort: instances v AZ ID euc1-az2
-on-premises ledger VIP: 10.44.17.20:5443
-DNS name: ledger.internal
-DX connection: DX7
-backup VPN: VPN4
-cloud route generation: RT42-g19
-on-premises route generation: BGP17-g31
-firewall generation: FW17-g22
-```
-
-### Competing hypotheses
-
-1. ledger process je preťažený;
-2. DNS vracia starú VIP;
-3. DX path nepropaguje cloud subnet prefix pre jednu AZ;
-4. backup VPN má preferovanejšiu asymetrickú route;
-5. firewall generation nepovoľuje nový source CIDR;
-6. MTU zlyháva iba pri väčších TLS records;
-7. application connection pool drží stale sessions.
-
-### Discriminating observations
-
-```text
-scope podľa source AZ/subnet
-→ exact DNS answer
-→ source/destination IP a port
-→ cloud route a propagated prefixes
-→ DX/VPN/BGP path
-→ firewall allow/deny log
-→ SYN/SYN-ACK a TLS handshake
-→ application request/correlation ID
-```
-
-Finding: nový subnet v euc1-az2 bol pridaný do AWS route table, ale on-premises route policy neprijala jeho prefix. Return traffic preto išiel cez backup VPN a bol odmietnutý stateful firewallom. Green circuits nepreukazovali správny per-prefix round trip.
-
-### Containment
-
-- zastaviť rollout do affected subnet cohorty;
-- ponechať healthy AZ capacity;
-- zachovať BGP, firewall a flow-log evidence;
-- nesmerovať všetok traffic naslepo cez jeden link;
-- nepovoľovať broad CIDR iba kvôli rýchlej oprave.
-
-### Recovery
-
-1. opraviť authoritative prefix inventory;
-2. publikovať a akceptovať nový prefix cez redundantné paths;
-3. zosúladiť firewall object s exact source CIDR;
-4. vyčistiť iba affected stale sessions;
-5. overiť TCP, TLS a payment settlement z každej AZ;
-6. simulovať loss DX7 a overiť VPN4 failover/return path;
-7. pridať pre-deployment route-contract test pre nový subnet.
-
-### Closure verdict
-
-```text
-povolený payment flow funguje z každej production AZ
-zakázané source CIDRs zostávajú blokované
-DX aj VPN path majú symetrický return contract
-second reconciliation BGP/firewall configuration je no-op
-payment authorization a settlement sú presne raz
-```
-
-## 12. Edge a disconnected operation
-
-Edge placement dáva compute alebo storage bližšie k users, devices alebo production processu. Potrebuje:
-
-- secure bootstrap a hardware identity;
-- fleet inventory;
-- offline queueing a local decisions;
-- bounded local data retention;
-- update/rollback;
-- local telemetry buffer;
-- conflict resolution po reconnecte;
-- hardware replacement a decommission.
-
-Local Zone, Wavelength alebo Outposts nie sú automaticky samostatný Region alebo DR boundary. Ich parent-Region a service-link dependencies sa musia overiť podľa konkrétnej služby.
-
-## 13. Multi-cloud
-
-Multi-cloud používa viac cloud providers. Môže znížiť concentration risk alebo splniť business/regulatory požiadavku, ale pridáva:
-
-- viac IAM a policy modelov;
-- odlišné network/DNS semantics;
-- duplicate platform tooling;
-- data transfer a consistency complexity;
-- skills fragmentation;
-- slabšiu observability correlation;
-- viac recovery a support boundaries.
-
-Druhý provider nie je DR, kým tam nie je testovaný artifact, data generation, identity, capacity, traffic switch a operating runbook.
-
-## 14. Portability subject
-
-Portability zahŕňa:
-
-```text
-source a artifact
-infrastructure a platform contract
-data format a export
-identity a key model
-network/DNS assumptions
-observability a audit
-deployment/recovery runbooks
-capacity a commercial constraints
-```
-
-Lowest-common-denominator architecture môže odstrániť hodnotu managed služieb bez toho, aby zabezpečila reálnu portable recovery.
-
-## 15. Deployment-model decision
-
-Vyhodnoť:
-
-1. latency a locality;
-2. data residency a regulation;
-3. connected/disconnected behavior;
-4. hardware a licensing constraints;
-5. workload variability a capacity;
-6. team operations maturity;
-7. identity a data integration;
-8. failure domains a RPO/RTO;
-9. TCO a data transfer;
-10. exit, failback a decommission.
-
-Rozhodnutie rob per capability alebo component, nie iba raz pre celú organizáciu.
-
-## 16. Anti-patterny
-
-### Private cloud rovná sa virtualizácia
-
-Bez API, self-service, policy, metering a lifecycle ownershipu chýba cloud operating model.
-
-### Hybrid cloud rovná sa VPN
-
-VPN rieši iba časť packet pathu. Identity, DNS, data, management, observability a recovery zostávajú nevyriešené.
-
-### Public endpoint znamená verejné dáta
-
-Exposure závisí od routing, resource policy, identity, TLS a application authorization.
-
-### Multi-cloud je automatický DR
-
-Bez deployable artifacts, data, identity, capacity a testovaného failoveru je druhý provider iba potenciálna lokalita.
-
-### Central dashboard znamená central control
-
-Dashboard môže byť stale alebo nedostupný; lokálna authority a disconnected behavior musia byť explicitné.
-
-## 17. Kontrolné otázky
-
-1. Aký je rozdiel medzi service a deployment modelom?
-2. Čo tvorí exact hybrid-flow subject?
-3. Prečo green circuit nepreukazuje funkčný application round trip?
-4. Ktoré layers musí hybrid operating model zosúladiť?
-5. Ako sa líši synchronous a asynchronous hybrid data contract?
-6. Čo musí fungovať pri disconnected operation?
-7. Prečo private cloud nie je automaticky bezpečnejší?
-8. Kedy je multi-cloud skutočný recovery mechanism?
-9. Čo tvorí portability subject?
-10. Ako uzavrieš hybrid incident bez broad security bypassu?
-
-## Glossary impact
-
-Relevantné pojmy: cloud deployment subject, public-cloud control boundary, private-cloud operating model, hybrid capability subject, hybrid flow subject, connected/disconnected behavior, authoritative hybrid identity, hybrid DNS authority, hybrid data generation, per-prefix route contract, multi-cloud recovery subject, edge autonomy a deployment-model acceptance verdict.
+1. Prečo public cloud neznamená public IP alebo internet exposure?
+2. Ktoré vlastnosti odlišujú private cloud od tradičnej virtualizačnej platformy?
+3. Akých päť authority domains musí hybrid design explicitne vlastniť?
+4. Čo dokazuje green Direct Connect virtual interface a čo nepreukazuje?
+5. Ako rozlíšiš DNS, route, firewall, TLS a application failure?
+6. Prečo musí route contract obsahovať return path a exact source prefix?
+7. Ako sa zmení business semantics pri asynchronous cloud-to-ledger delivery?
+8. Čo musí preukázať failover test z Direct Connect na VPN?
+9. Ako sa zabráni split-brain writerom pri hybrid failbacku?
+10. Ktorý deployment model je najjednoduchší pre CAP-PAY-42 a prečo?
 
 ## Oficiálna dokumentácia
 
-- [Types of cloud computing](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/types-of-cloud-computing.html)
-- [Cloud deployment strategies](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-education-hybrid-multicloud/cloud-deployment-strategies.html)
-- [Hybrid cloud best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/hybrid-cloud-best-practices/overview.html)
-- [Hybrid Cloud with AWS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-with-aws/hybrid-cloud-with-aws.html)
+- [AWS Regions and Availability Zones](https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions-availability-zones.html)
+- [AWS Direct Connect User Guide](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html)
+- [AWS Site-to-Site VPN User Guide](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html)
+- [Route 53 Resolver](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html)
+- [Hybrid networking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/hybrid-networking/welcome.html)
+- [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/reference/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
