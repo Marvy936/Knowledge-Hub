@@ -37,6 +37,10 @@ Odporúča sa najprv dokončiť:
 
 Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**.
 
+## Completion state
+
+Všetkých 15 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch. Každá kapitola má explicitný authority/subject/generation/evidence model, connected incident a vysvetlené positive, recovery, failure alebo forbidden acceptance paths; per-file gates vykazujú nulové critical, high a medium learning-depth findings. Authoritative ordering, celý navigation chain, glossary fragments a incidenty `GITOPS-PAY-61` až `GITOPS-PAY-64` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
+
 ## Connected learning scenarios
 
 ### `GITOPS-PAY-61` — hidden desired state, hybrid deployment a false reconciliation verdict
