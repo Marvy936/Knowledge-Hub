@@ -4077,16 +4077,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
       "title": "Argo CD",
-      "words": 2127,
-      "headings": 46,
-      "sections": 46,
-      "findings": 114,
-      "critical": 33,
-      "high": 44,
-      "medium": 16,
-      "low": 21,
-      "score": 829,
-      "grade": "D"
+      "words": 1406,
+      "headings": 12,
+      "sections": 12,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 14,
+      "grade": "A"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
@@ -4119,16 +4119,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
       "title": "Git ako source of truth",
-      "words": 2020,
-      "headings": 31,
-      "sections": 31,
-      "findings": 73,
-      "critical": 18,
-      "high": 23,
-      "medium": 12,
-      "low": 20,
-      "score": 469,
-      "grade": "D"
+      "words": 1379,
+      "headings": 11,
+      "sections": 11,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 10,
+      "grade": "A"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/gitops-secrets.md",
@@ -4217,30 +4217,30 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
       "title": "Pull-based deployment",
-      "words": 1953,
-      "headings": 33,
-      "sections": 33,
-      "findings": 98,
-      "critical": 31,
-      "high": 30,
-      "medium": 15,
-      "low": 22,
-      "score": 691,
-      "grade": "D"
+      "words": 1136,
+      "headings": 11,
+      "sections": 11,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 8,
+      "grade": "A"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
       "title": "Reconciliation a drift detection",
-      "words": 1819,
-      "headings": 52,
-      "sections": 52,
-      "findings": 103,
-      "critical": 27,
-      "high": 53,
-      "medium": 9,
-      "low": 14,
-      "score": 791,
-      "grade": "D"
+      "words": 1281,
+      "headings": 12,
+      "sections": 12,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 8,
+      "grade": "A"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
@@ -202627,197 +202627,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "2. Hlavné komponenty",
-      "line": 24,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "API server",
-      "line": 26,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "API server",
-      "line": 26,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "API server",
-      "line": 26,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Application management a status;`, `sync/rollback operations;`, `authentication a authorization;`, `repository a cluster credential management;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "API server",
-      "line": 26,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "API server",
-      "line": 26,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `enforcement`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Repository server",
-      "line": 37,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Repository server",
-      "line": 37,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository URL;`, `branch, tag alebo commit;`, `path/chart;`, `Helm/Kustomize/plugin settings;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Repository server",
-      "line": 37,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Repository server",
-      "line": 37,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Application controller",
-      "line": 50,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Application controller",
-      "line": 50,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Application controller",
-      "line": 50,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pozoruje Applications;`, `získava desired manifests;`, `číta live resources;`, `vyhodnocuje sync a health;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Application controller",
-      "line": 50,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Application controller",
-      "line": 50,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Application name, namespace, UID a generation;`, `AppProject;`, `source alebo sources repository identities;`, `target revisions a resolved commit/chart versions;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
+      "section": "1. Application a control-plane subject",
+      "line": 20,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -202825,8 +202636,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
+      "section": "1. Application a control-plane subject",
+      "line": 20,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202834,8 +202645,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
+      "section": "2. AppProject a end-to-end trust boundary",
+      "line": 28,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -202843,170 +202654,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "3. Exact Argo CD Application subject",
-      "line": 65,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `ID`, `policy`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "4. Application CRD",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "4. Application CRD",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "4. Application CRD",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolved commit SHA;`, `rendered manifest inventory;`, `whether overrides exist;`, `source authenticity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "4. Application CRD",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "4. Application CRD",
-      "line": 87,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "5. AppProject ako trust boundary",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené source repositories;`, `povolené destination clusters a namespaces;`, `cluster-scoped a namespaced resource kinds;`, `project roles a RBAC;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "6. Source tracking strategies",
-      "line": 149,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Branch alebo symbolic ref",
-      "line": 153,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Branch alebo symbolic ref",
-      "line": 153,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Branch alebo symbolic ref",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prirodzený continuous delivery flow;`, `jednoduchá promotion cez PR/merge.`, `force push;`, `nejasný cut-off počas incidentu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Branch alebo symbolic ref",
-      "line": 153,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Branch alebo symbolic ref",
-      "line": 153,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Tag",
-      "line": 170,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "7. Parameter overrides",
-      "line": 189,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "7. Parameter overrides",
-      "line": 189,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventarizovať current overrides;`, `ukázať ich v diff/review evidence;`, `priradiť ownera a expiry;`, `overiť rollback a controller restart;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "7. Parameter overrides",
-      "line": 189,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "7. Parameter overrides",
-      "line": 189,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "7. Parameter overrides",
-      "line": 189,
+      "section": "4. Comparison, tracking a ignore rules",
+      "line": 61,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203014,125 +202663,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "8. Multi-source Applications",
-      "line": 210,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "8. Multi-source Applications",
-      "line": 210,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partial source availability;`, `independent revision movement;`, `resource collision;`, `unclear ownership;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "8. Multi-source Applications",
-      "line": 210,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "8. Multi-source Applications",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "9. Automated sync",
-      "line": 233,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "enabled",
-      "line": 239,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "prune",
-      "line": 243,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "selfHeal",
-      "line": 247,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "allowEmpty",
-      "line": 251,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "10. Sync operation a options",
-      "line": 268,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "10. Sync operation a options",
-      "line": 268,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace creation;`, `prune ordering a propagation;`, `selective apply iba OutOfSync resources;`, `client-side alebo server-side apply;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "10. Sync operation a options",
-      "line": 268,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "10. Sync operation a options",
-      "line": 268,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "10. Sync operation a options",
-      "line": 268,
+      "section": "4. Comparison, tracking a ignore rules",
+      "line": 61,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203140,35 +202672,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "11. Resource tracking",
-      "line": 292,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "11. Resource tracking",
-      "line": 292,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `annotation;`, `annotation + informational label;`, `label.`, `copied non-self-referencing annotations;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "11. Resource tracking",
-      "line": 292,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "11. Resource tracking",
-      "line": 292,
+      "section": "6. Phases, waves, hooks a health",
+      "line": 95,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203176,404 +202681,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "11. Resource tracking",
-      "line": 292,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "12. Diff a ignoreDifferences",
-      "line": 313,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group/kind/name/namespace;`, `JSON pointers;`, `JQ path expressions;`, `managed field managers;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "12. Diff a ignoreDifferences",
-      "line": 313,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "12. Diff a ignoreDifferences",
-      "line": 313,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "12. Diff a ignoreDifferences",
-      "line": 313,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `JQ`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "13. Health assessment",
-      "line": 336,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "13. Health assessment",
-      "line": 336,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Healthy;`, `Progressing;`, `Degraded;`, `Suspended;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "13. Health assessment",
-      "line": 336,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "13. Health assessment",
-      "line": 336,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "13. Health assessment",
-      "line": 336,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "14. Sync phases, hooks a waves",
-      "line": 358,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "14. Sync phases, hooks a waves",
-      "line": 358,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "14. Sync phases, hooks a waves",
-      "line": 358,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `PreSync ;`, `Sync ;`, `PostSync ;`, `failure/delete-related hook behavior podľa supported generation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "14. Sync phases, hooks a waves",
-      "line": 358,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "14. Sync phases, hooks a waves",
-      "line": 358,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "16. Argo CD control-plane security",
-      "line": 404,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "16. Argo CD control-plane security",
-      "line": 404,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API auth a RBAC;`, `AppProject boundaries;`, `repository credentials;`, `cluster credentials;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "16. Argo CD control-plane security",
-      "line": 404,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "16. Argo CD control-plane security",
-      "line": 404,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "16. Argo CD control-plane security",
-      "line": 404,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "16. Argo CD control-plane security",
-      "line": 404,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `RBAC`, `SSO`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Application desired/resolved revision;`, `sync status a OutOfSync age;`, `health status a transition age;`, `reconciliation queue/duration;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "17. Observability",
-      "line": 423,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `parameter override image.digest=sha256:pay899hf7 ;`, `system-wide ignore containers subtree;`, `production branch s povoleným force pushom;`, `CI aj humans mali direct write access;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "18. Connected incident GITOPS-PAY-61",
-      "line": 444,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Incident timeline",
-      "line": 474,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Redesign",
-      "line": 489,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Redesign",
-      "line": 489,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `production refs/artifacts sú non-ambiguous a reproducible;`, `AppProjects obmedzujú trusted repositories, destinations, resources a `, `Kubernetes RBAC zodpovedá project policy a tenant modelu;`, `sync options majú field-ownership, disruption a rollback assessment;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
+      "section": "6. Phases, waves, hooks a health",
+      "line": 95,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203581,75 +202690,48 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "19. Argo CD acceptance verdict",
-      "line": 518,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `policy`, `identity`, `resource`",
-      "score": 7
+      "section": "7. Connected incident GITOPS-PAY-61",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "20. Troubleshooting flow",
-      "line": 539,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "7. Connected incident GITOPS-PAY-61",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Default project je dostatočný",
-      "line": 558,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Recovery a acceptance paths",
+      "line": 132,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Override je iba dočasný",
-      "line": 566,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Recovery a acceptance paths",
+      "line": 132,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Self-heal zapneme všade",
-      "line": 570,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Ignore differences opraví OutOfSync noise",
-      "line": 574,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Healthy Application znamená úspešný release",
-      "line": 578,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/argo-cd.md",
-      "section": "Sync wave vyrieši všetky dependencies",
-      "line": 582,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "9. Troubleshooting a anti-patterny",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
@@ -204283,53 +203365,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "2. Exact desired-state subject",
-      "line": 23,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "2. Exact desired-state subject",
-      "line": 23,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "2. Exact desired-state subject",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a trust boundary;`, `path, branch/tag/ref a resolved commit SHA;`, `environment, cluster, namespace a application identity;`, `manifest, Helm chart, Kustomize overlay alebo generator generation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "2. Exact desired-state subject",
-      "line": 23,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "2. Exact desired-state subject",
-      "line": 23,
+      "section": "2. Immutable objects, mutable refs a promotion authority",
+      "line": 39,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204337,44 +203374,26 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "2. Exact desired-state subject",
-      "line": 23,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `identity`, `policy`",
-      "score": 4
+      "section": "3. Source graph a deterministic render",
+      "line": 71,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "3. Git authority a runtime truth",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Overrides, writers a field ownership",
+      "line": 89,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "3. Git authority a runtime truth",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed alebo partial reconciliation;`, `stale controller cache;`, `direct runtime mutation;`, `mutating admission webhook;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "3. Git authority a runtime truth",
-      "line": 41,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "3. Git authority a runtime truth",
-      "line": 41,
+      "section": "5. Governance, trust a break-glass",
+      "line": 114,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -204382,26 +203401,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "4. Declarative desired state",
-      "line": 70,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolve-ne exact source generation;`, `porovná ju s live state-om;`, `vykoná bounded mutation;`, `overí convergenciu a health;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "4. Declarative desired state",
-      "line": 70,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "4. Declarative desired state",
-      "line": 70,
+      "section": "7. Recovery a acceptance paths",
+      "line": 165,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -204409,26 +203410,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "5. Versioned a immutable neznamená iba Git repository",
-      "line": 98,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 50 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "5. Versioned a immutable neznamená iba Git repository",
-      "line": 98,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable commit identity;`, `pinned artifacts a dependencies;`, `retained history;`, `chránené authoritative refs;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "5. Versioned a immutable neznamená iba Git repository",
-      "line": 98,
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 179,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -204436,133 +203419,7 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "5. Versioned a immutable neznamená iba Git repository",
-      "line": 98,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "5. Versioned a immutable neznamená iba Git repository",
-      "line": 98,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "6. Authoritative ref a promotion",
-      "line": 126,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "6. Authoritative ref a promotion",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment branch;`, `environment directory na jednej branch;`, `immutable release manifest odkazujúci na commit/digests;`, `promotion PR medzi overlays;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "6. Authoritative ref a promotion",
-      "line": 126,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "6. Authoritative ref a promotion",
-      "line": 126,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "6. Authoritative ref a promotion",
-      "line": 126,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "6. Authoritative ref a promotion",
-      "line": 126,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `SHA`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "7. Application source, environment source a generated source",
-      "line": 150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Application repository",
-      "line": 154,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Configuration alebo environment repository",
-      "line": 158,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "8. Render boundary",
-      "line": 179,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "8. Render boundary",
-      "line": 179,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinned chart/plugin/tool versions;`, `deterministic inputs;`, `no hidden environment variables;`, `no uncontrolled network fetch;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "8. Render boundary",
-      "line": 179,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "8. Render boundary",
+      "section": "8. Troubleshooting a anti-patterny",
       "line": 179,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -204571,372 +203428,12 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "8. Render boundary",
+      "section": "8. Troubleshooting a anti-patterny",
       "line": 179,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "9. Overrides mimo Git-u",
-      "line": 206,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "9. Overrides mimo Git-u",
-      "line": 206,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Argo CD parameter overrides;`, `Helm release values uložené v clusteri;`, `CLI flags;`, `environment variables v controlleri alebo plugin-e;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "9. Overrides mimo Git-u",
-      "line": 206,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "9. Overrides mimo Git-u",
-      "line": 206,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "9. Overrides mimo Git-u",
-      "line": 206,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "9. Overrides mimo Git-u",
-      "line": 206,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CD`, `CLI`, `HPA`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branches alebo equivalent rule;`, `required review a status checks;`, `CODEOWNERS alebo explicitný owner graph;`, `signed commits/tags tam, kde je to required assurance;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "12. Change governance",
-      "line": 288,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CODEOWNERS`, `policy`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "13. Source of truth nie je source of every fact",
-      "line": 305,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "13. Source of truth nie je source of every fact",
-      "line": 305,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "13. Source of truth nie je source of every fact",
-      "line": 305,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `customer transactions;`, `current database leader;`, `ephemeral leases;`, `queue offsets;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "13. Source of truth nie je source of every fact",
-      "line": 305,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "14. Connected incident GITOPS-PAY-61",
-      "line": 321,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 52 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "14. Connected incident GITOPS-PAY-61",
-      "line": 321,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "14. Connected incident GITOPS-PAY-61",
-      "line": 321,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `ROUTE`, `POLICY`, `GENERATION`, `CLI`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Causal boundaries",
-      "line": 383,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Recovery",
-      "line": 390,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "15. Acceptance verdict",
-      "line": 405,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "16. Troubleshooting flow",
-      "line": 423,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Všetko je v Git-e",
-      "line": 441,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Controller píše status späť do Git-u",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Break-glass patch opravíme neskôr",
-      "line": 457,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md",
-      "section": "Synced znamená zhodu s Git-om",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/gitops-secrets.md",
@@ -206560,89 +205057,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "2. Push vs. pull",
-      "line": 24,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Push-based deployment",
-      "line": 26,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto drží production write credential;`, `kto rozhoduje, ktorá source generation je aktuálna;`, `či deployment pokračuje po výpadku CI;`, `či target agent vynucuje destination a resource boundaries;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
+      "section": "1. Deployment subject a credential boundary",
+      "line": 20,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -206650,179 +205066,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Pull-based deployment",
-      "line": 37,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "3. Pull model podľa OpenGitOps",
-      "line": 60,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "3. Pull model podľa OpenGitOps",
-      "line": 60,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `desired state je declarative;`, `desired state je versioned a immutable;`, `software agents ho pullujú automaticky;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "3. Pull model podľa OpenGitOps",
-      "line": 60,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "3. Pull model podľa OpenGitOps",
-      "line": 60,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment a application identity;`, `desired repository, path a resolved revisions;`, `source credential a trust roots;`, `destination cluster/namespace a agent identity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "4. Deployment subject",
-      "line": 71,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`, `policy`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "5. Credential boundary",
-      "line": 89,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "5. Credential boundary",
-      "line": 89,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chrániť repository write path;`, `overovať source authenticity;`, `obmedziť agent RBAC;`, `chrániť repository a cluster credentials;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "5. Credential boundary",
-      "line": 89,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "5. Credential boundary",
-      "line": 89,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "5. Credential boundary",
-      "line": 89,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "6. Source polling a webhook",
-      "line": 115,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "6. Source polling a webhook",
-      "line": 115,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `periodickým pollingom;`, `Git webhookom;`, `cache invalidation eventom;`, `explicitným refresh requestom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "6. Source polling a webhook",
-      "line": 115,
+      "section": "3. Render, policy a sync authority",
+      "line": 63,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -206830,89 +205075,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "6. Source polling a webhook",
-      "line": 115,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "7. Pull neznamená automatický sync",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "7. Pull neznamená automatický sync",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatická;`, `manuálne schválená v Argo CD;`, `viazaná na change window;`, `pozastavená pre freeze;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "7. Pull neznamená automatický sync",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "7. Pull neznamená automatický sync",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CD`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "8. Deployment trigger vs. deployment authority",
-      "line": 163,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "8. Deployment trigger vs. deployment authority",
-      "line": 163,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `agent sám číta source;`, `CI neposiela rendered manifests ako hidden desired state;`, `agent používa vlastnú scoped target identity;`, `requested revision je authoritative a policy-valid;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "8. Deployment trigger vs. deployment authority",
-      "line": 163,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "8. Deployment trigger vs. deployment authority",
-      "line": 163,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "8. Deployment trigger vs. deployment authority",
-      "line": 163,
+      "section": "4. Continuous reconciliation a disconnected states",
+      "line": 71,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -206920,98 +205084,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "8. Deployment trigger vs. deployment authority",
-      "line": 163,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "9. Source authentication a revision resolution",
-      "line": 184,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "9. Source authentication a revision resolution",
-      "line": 184,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository endpoint;`, `SSH host key alebo TLS trust;`, `authentication credential scope;`, `commit/tag signature, ak je required;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "9. Source authentication a revision resolution",
-      "line": 184,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "9. Source authentication a revision resolution",
-      "line": 184,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "9. Source authentication a revision resolution",
-      "line": 184,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `TLS`, `OCI`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "10. Render a policy pred mutation",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "10. Render a policy pred mutation",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted source a artifact;`, `namespace/destination;`, `prohibited cluster-scoped resources;`, `image digest a provenance;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "10. Render a policy pred mutation",
-      "line": 201,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "10. Render a policy pred mutation",
-      "line": 201,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "10. Render a policy pred mutation",
-      "line": 201,
+      "section": "5. Hybrid writers, break-glass a rollback",
+      "line": 87,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -207019,143 +205093,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "10. Render a policy pred mutation",
-      "line": 201,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "11. Sync operation",
-      "line": 230,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "11. Sync operation",
-      "line": 230,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory desired resources;`, `inventory tracked live resources;`, `normalizáciu a diff;`, `ordering;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "11. Sync operation",
-      "line": 230,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "11. Sync operation",
-      "line": 230,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "12. Continuous pull a convergence",
-      "line": 245,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "12. Continuous pull a convergence",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manual mutation;`, `failed alebo partial previous apply;`, `controller/defaulting changes;`, `deleted resource;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "12. Continuous pull a convergence",
-      "line": 245,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "12. Continuous pull a convergence",
-      "line": 245,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "12. Continuous pull a convergence",
-      "line": 245,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `live workloads zvyčajne pokračujú;`, `agent nemôže potvrdiť newest desired generation;`, `cached source môže byť stale;`, `manual drift môže zostať neopravený;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
+      "section": "6. Connected incident GITOPS-PAY-61",
+      "line": 103,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -207163,170 +205102,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "13. Offline a disconnected behavior",
-      "line": 271,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "14. Push/pull hybrid a multi-writer race",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "16. Rollback v pull modeli",
-      "line": 333,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "16. Rollback v pull modeli",
-      "line": 333,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "16. Rollback v pull modeli",
-      "line": 333,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manifests a image digests;`, `database compatibility;`, `config/secrets generation;`, `hooks a external effects;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "16. Rollback v pull modeli",
-      "line": 333,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "17. Connected incident GITOPS-PAY-61",
-      "line": 366,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "17. Connected incident GITOPS-PAY-61",
-      "line": 366,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git webhook dorazil do Argo CD o 20:14:03 ;`, `CI direct apply začal o 20:14:04 ;`, `Argo sync začal o 20:14:07 ;`, `on-call patch prišiel o 20:18:26 ;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "17. Connected incident GITOPS-PAY-61",
-      "line": 366,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "17. Connected incident GITOPS-PAY-61",
-      "line": 366,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "17. Connected incident GITOPS-PAY-61",
-      "line": 366,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "17. Connected incident GITOPS-PAY-61",
-      "line": 366,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CD`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke production kubeconfig z CI;`, `zaviesť project-scoped Argo destination/resource permissions;`, `odstrániť hidden rendered workspace apply;`, `obnoviť one-writer field contract;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
+      "section": "7. Acceptance paths",
+      "line": 122,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -207334,224 +205111,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Recovery",
-      "line": 419,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
+      "section": "7. Acceptance paths",
+      "line": 122,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "18. Pull-based acceptance verdict",
-      "line": 430,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "19. Troubleshooting flow",
-      "line": 449,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Agent má cluster-admin, lebo je to jednoduchšie",
-      "line": 479,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Rollback spravíme kubectl rollout undo",
-      "line": 483,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
-      "section": "Vypneme Argo počas incidentu",
-      "line": 487,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "2. Desired, observed a effective state",
-      "line": 24,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Desired state",
-      "line": 26,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Observed state",
-      "line": 35,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Effective runtime state",
+      "section": "2. Loop, semantic diff a unknown mutation",
       "line": 39,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Application alebo controller identity;`, `source revision a render inputs;`, `target cluster, namespace a API discovery generation;`, `desired resource set;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -207559,521 +205129,26 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "3. Reconciliation subject",
-      "line": 54,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UID`, `resource`, `policy`",
-      "score": 7
+      "section": "4. Ignore rules a false negatives",
+      "line": 78,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "4. Reconciliation loop",
-      "line": 74,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "6. Sync, health a business evidence",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "4. Reconciliation loop",
-      "line": 74,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "4. Reconciliation loop",
-      "line": 74,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentný voči už converged state-u;`, `bounded počtom mutations a retries;`, `resilientný voči source/target timeoutom;`, `schopný pokračovať po controller restarte;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "4. Reconciliation loop",
-      "line": 74,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "5. Drift taxonomy",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Unauthorized manual drift",
-      "line": 104,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Legitímny controller drift",
-      "line": 108,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Defaulting drift",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Admission mutation",
-      "line": 116,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Serialization alebo ordering drift",
-      "line": 120,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Generated-resource drift",
-      "line": 124,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Dependency drift",
+      "section": "7. Connected incident GITOPS-PAY-61",
       "line": 128,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Orphan drift",
-      "line": 132,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Missing drift",
-      "line": 136,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Runtime drift",
-      "line": 140,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "6. Diff pipeline",
-      "line": 144,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "6. Diff pipeline",
-      "line": 144,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `absent vs. explicit default;`, `unordered vs. ordered lists;`, `quantity formáty, napríklad 1000m a 1 ;`, `controller-generated fields;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "6. Diff pipeline",
-      "line": 144,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "6. Diff pipeline",
-      "line": 144,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "7. Ignore rules",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "7. Ignore rules",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact group/kind/name/namespace alebo úzky selector;`, `exact JSON pointer/JQ path alebo manager;`, `ownera a dôvod;`, `expected writer;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "7. Ignore rules",
-      "line": 171,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "7. Ignore rules",
-      "line": 171,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "7. Ignore rules",
-      "line": 171,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `JQ`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "8. Field ownership a managedFields",
-      "line": 198,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "8. Field ownership a managedFields",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "8. Field ownership a managedFields",
-      "line": 198,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `apply conflict;`, `oscillation;`, `repeated OutOfSync;`, `hidden overwrite;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "8. Field ownership a managedFields",
-      "line": 198,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "8. Field ownership a managedFields",
-      "line": 198,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deleted resources;`, `unauthorized image patch;`, `zmenenú security policy;`, `missing labels alebo routes.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "9. Drift detection vs. self-heal",
-      "line": 232,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "10. Sync status, health a business outcome",
-      "line": 261,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Synced",
-      "line": 263,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Healthy",
-      "line": 267,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Business accepted",
-      "line": 271,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Business accepted",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Business accepted",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Business accepted",
-      "line": 271,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "11. Apply a unknown outcome",
-      "line": 288,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "11. Apply a unknown outcome",
-      "line": 288,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znovu spustiť hook;`, `vytvoriť ďalší generated name resource;`, `konfliktovať s novším writerom;`, `nesprávne označiť operation ako failed.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "11. Apply a unknown outcome",
-      "line": 288,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "11. Apply a unknown outcome",
-      "line": 288,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "12. Prune a orphan handling",
-      "line": 308,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "12. Prune a orphan handling",
-      "line": 308,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "12. Prune a orphan handling",
-      "line": 308,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failed render vyprodukuje empty set;`, `path alebo ref sa zmení nesprávne;`, `tracking metadata sa poškodí;`, `resource bol adoptovaný iným ownerom;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "12. Prune a orphan handling",
-      "line": 308,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "12. Prune a orphan handling",
-      "line": 308,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "13. Controller retry, backoff a hot loop",
-      "line": 333,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "13. Controller retry, backoff a hot loop",
-      "line": 333,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "13. Controller retry, backoff a hot loop",
-      "line": 333,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes API QPS;`, `repository render capacity;`, `controller CPU/memory;`, `audit/log volume;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "13. Controller retry, backoff a hot loop",
-      "line": 333,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "13. Controller retry, backoff a hot loop",
-      "line": 333,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -208081,98 +205156,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "13. Controller retry, backoff a hot loop",
-      "line": 333,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `QPS`, `CPU`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "14. Drift response choices",
-      "line": 367,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Report",
-      "line": 371,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Reconcile",
-      "line": 375,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Ignore",
-      "line": 379,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Adopt",
-      "line": 383,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Refuse",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "15. Connected incident GITOPS-PAY-61",
-      "line": 397,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selfHeal bolo false ;`, `CI a on-call menili Deployment priamo;`, `parameter override menil desired image mimo Git-u;`, `HPA vlastnil replicas, ale writer contract nebol dokumentovaný;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "15. Connected incident GITOPS-PAY-61",
-      "line": 397,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "15. Connected incident GITOPS-PAY-61",
-      "line": 397,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "15. Connected incident GITOPS-PAY-61",
-      "line": 397,
+      "section": "7. Connected incident GITOPS-PAY-61",
+      "line": 128,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -208180,53 +205165,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "15. Connected incident GITOPS-PAY-61",
-      "line": 397,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `HPA`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Evidence",
-      "line": 440,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Evidence",
-      "line": 440,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Evidence",
-      "line": 440,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Evidence",
-      "line": 440,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Evidence",
-      "line": 440,
+      "section": "8. Acceptance paths",
+      "line": 143,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -208234,138 +205174,12 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Evidence",
-      "line": 440,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Recovery",
-      "line": 449,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `desired, observed a effective runtime state sú rozlíšené;`, `diff normalization je schema-aware a testovaná;`, `field ownership a tracking identity sú explicitné;`, `Synced, Healthy a business accepted verdicts sú oddelené;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
+      "section": "8. Acceptance paths",
+      "line": 143,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "16. Reconciliation acceptance verdict",
-      "line": 464,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "17. Troubleshooting flow",
-      "line": 483,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Každý drift treba automaticky revertovať",
-      "line": 501,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Healthy = správna verzia",
-      "line": 513,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Prune opraví orphaned resources",
-      "line": 517,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md",
-      "section": "Reconciliation sa môže opakovať donekonečna",
-      "line": 521,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
