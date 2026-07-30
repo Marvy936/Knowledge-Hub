@@ -44,7 +44,7 @@ Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
 
 ## Completion state
 
-Všetkých 18 authoritative kapitol je vytvorených. Sekcia prešla finálnym section-level consistency gate-om a je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
+Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v piatich prose-first strict blokoch. Každá kapitola má explicitný subject/generation/evidence model, connected failure a vysvetlené positive, recovery, overload alebo forbidden acceptance paths; per-file gate vykazuje nulové critical, high a medium learning-depth findings. Authoritative ordering, navigation, glossary a päť incidentov `DB-PAY-56` až `DB-PAY-60` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
 
 ## Connected learning scenarios
 
