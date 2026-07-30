@@ -1,492 +1,211 @@
 # Git ako source of truth
 
-Git ako source of truth neznamená iba to, že v repozitári existujú YAML súbory. Znamená to, že presne definovaný, versionovaný a auditovateľný desired-state subject je jedinou autoritou pre zmenu riadených vlastností systému.
-
-Git pritom nie je autoritou nad všetkým runtime state-om. Databázové records, controller status, ephemeral leases, metrics alebo skutočný provider outcome sú observed alebo operational state. Git má byť autoritou nad tým, čo má byť deklaratívne riadené a reprodukovateľné.
-
-## 1. Dominantný model
+Git je source of truth iba vtedy, keď jedna presne definovaná Git generation autoritatívne opisuje všetky riadené desired fields a neexistuje skrytý writer s vyššou alebo nejasnou precedence. Samotná prítomnosť YAML súborov v repozitári nestačí. Git commit môže byť immutable, no branch, tag, parameter override, mutable artifact, render plugin alebo live patch môžu zmeniť effective desired state bez novej reviewed transition.
 
 ```text
 business alebo platform intent
-→ exact desired-state subject a ownership boundary
-→ declarative source + pinned inputs
-→ validation, review a policy evidence
-→ authoritative ref/commit transition
-→ agent resolution a deterministic render
-→ apply/reconcile do target environmentu
-→ effective-state a business verification
+→ exact environment/application/field subject
+→ protected authoritative ref a promotion decision
+→ immutable commit + pinned input graph
+→ deterministic controller render
+→ policy, ownership a target resolution
+→ bounded reconciliation
+→ live a loaded effective state
+→ workload health a business acceptance
 → drift, rollback a second-change closure
 ```
 
-Source-of-truth verdict sa nerobí podľa existencie repozitára. Musí byť možné preukázať, ktorá immutable generation opisovala intended state, kto ju mohol zmeniť, ako ju controller vyrenderoval a ktoré runtime fields skutočne vlastnila.
+Git nepatrí byť autoritou nad každým runtime factom. Queue offset, current database leader, Pod status, metrics, ephemeral lease alebo provider outcome sú observed alebo operational state. Git vlastní deklaratívny intent; controllers a runtime produkujú evidence, či sa intent skutočne realizoval.
 
-## 2. Exact desired-state subject
+## 1. Desired-state subject a tri vrstvy pravdy
 
-GitOps desired-state subject obsahuje minimálne:
+Exact subject musí pomenovať repository a trust boundary, path, ref a resolved commit, environment/cluster/namespace/application, manifests alebo chart/overlay, image a dependency digests, values a parameters, secret references, render toolchain, field ownership, controller/destination, promotion evidence, rollback a break-glass contract.
 
-- repository identity a trust boundary;
-- path, branch/tag/ref a resolved commit SHA;
-- environment, cluster, namespace a application identity;
-- manifest, Helm chart, Kustomize overlay alebo generator generation;
-- image, chart, module a policy digests;
-- values, parameters, overlays a external inputs;
-- secret references a key/secret generation contract;
-- field ownership a allowed runtime writers;
-- validation, approval, signature a provenance evidence;
-- controller, destination a reconciliation policy;
-- rollback, retention a decommissioning contract.
-
-Tvrdenie `production je v Git-e` je neúplné, ak nie je jasné, či production controller sleduje branch, tag alebo commit; či existujú parameter overrides; či image používa mutable tag; alebo či iný writer môže meniť rovnaké fields mimo Git-u.
-
-## 3. Git authority a runtime truth
-
-Treba rozlíšiť tri vrstvy:
+Pri každom release treba oddeliť:
 
 ```text
-Git desired state
-→ čo má byť podľa schválenej deklarácie
+Git-declared desired state
+→ čo opisuje reviewed commit
 
 controller-resolved desired state
-→ exact commit + render inputs + overrides + generated manifests
+→ commit + overrides + dependencies + render generation
 
-live/observed state
-→ čo target API a runtime skutočne držia a vykonávajú
+live/effective state
+→ API objects + generated children + loaded config/secrets + runtime behavior
 ```
 
-Git môže byť korektný a live state nesprávny pre:
+Tieto vrstvy sa môžu rozísť. Git môže deklarovať správny image, controller môže použiť override a live Deployment môže byť neskôr patchnutý humanom. Naopak live system môže fungovať, hoci jeho state nemožno reprodukovať z Git-u. To je unmanaged operational debt, nie úspešný GitOps verdict.
 
-- failed alebo partial reconciliation;
-- stale controller cache;
-- direct runtime mutation;
-- mutating admission webhook;
-- operator/controller-owned fields;
-- missing secret alebo external dependency;
-- wrong target cluster;
-- health failure po úspešnom apply;
-- business incompatibility.
+## 2. Immutable objects, mutable refs a promotion authority
 
-Naopak live system môže dočasne fungovať, hoci Git neobsahuje reprodukovateľný desired state. To je operational debt, nie dôkaz správneho GitOps modelu.
-
-## 4. Declarative desired state
-
-Declarative source opisuje intended outcome, nie iba sekvenciu príkazov.
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: settlement-api
-spec:
-  replicas: 24
-  template:
-    spec:
-      containers:
-        - name: settlement-api
-          image: registry.example/settlement-api@sha256:pay900a
-```
-
-Deklarácia stále potrebuje mechanizmus, ktorý:
-
-1. resolve-ne exact source generation;
-2. porovná ju s live state-om;
-3. vykoná bounded mutation;
-4. overí convergenciu a health;
-5. proces zopakuje po drift-e alebo ďalšej zmene.
-
-Imperatívny skript môže byť súčasťou implementácie controllera alebo hooku, ale jeho intended effect musí byť reprezentovaný, identifikovaný a recoverable v desired-state contracte.
-
-## 5. Versioned a immutable neznamená iba Git repository
-
-Git commit object má immutable content identity, ale bežné refs sú mutable pointers:
+Git commit object je content-addressed a immutable. Ref je mutable pointer:
 
 ```text
-refs/heads/prod
+refs/heads/production
 → commit A
-→ neskôr commit B
+→ neskôr commit B alebo force-reset C
 ```
 
-Podobne tag možno retagovať, branch force-pushnúť a release manifest môže obsahovať mutable dependencies:
+Tag možno retagovať a branch force-pushnúť. Preto release evidence musí zachytiť resolved commit SHA a ref-protection generation, nie iba názov `production`. Fully qualified ref odstraňuje branch/tag ambiguity, no stále potrebuje protection a audit.
+
+Commit tiež nemusí identifikovať celý release, ak manifest používa mutable input:
 
 ```yaml
 image: registry.example/payments:latest
 ```
 
-Aj keď manifest commit zostáva rovnaký, `latest` môže neskôr resolve-nuť na iný digest. Effective desired state preto nie je reprodukovateľný.
+Rovnaký Git commit môže zajtra renderovať iný digest. Reprodukovateľná generation preto zahŕňa commit, image/chart/plugin/module digests, dependency locks, external values generation, policy bundle a secret-reference generation.
 
-Versioned desired state vyžaduje:
-
-- immutable commit identity;
-- pinned artifacts a dependencies;
-- retained history;
-- chránené authoritative refs;
-- zákaz alebo kontrolu force pushu a retaggingu;
-- identifikáciu generator/toolchain generation;
-- read-back toho, čo controller skutočne resolve-ol.
-
-## 6. Authoritative ref a promotion
-
-Commit môže existovať bez toho, aby bol schválený pre production. Autorita vzniká až explicitným promotion decisionom:
+Source commit sa stáva production authority až promotion decisionom:
 
 ```text
-candidate commit
-→ tests a policy evidence
-→ approval
-→ production environment ref/manifest update
-→ controller observation
-→ rollout a verification
+candidate commit a immutable artifacts
+→ target-specific tests a policy evidence
+→ reviewed promotion transition
+→ protected environment ref/manifest update
+→ controller observation a reconciliation
 ```
 
-Možné modely:
+Environment branch, directory, promotion PR alebo commit-pinned Application môžu byť správne. Podstatné je, aby bolo zrejmé, ktorá transition oprávnila konkrétny input graph pre konkrétny target.
 
-- environment branch;
-- environment directory na jednej branch;
-- immutable release manifest odkazujúci na commit/digests;
-- promotion PR medzi overlays;
-- controller pinned na commit SHA;
-- signed tag alebo release object, ak tag mutation policy je kontrolovaná.
+## 3. Source graph a deterministic render
 
-Neexistuje univerzálne správny layout. Musí však byť zrejmé, ktorá transition je authoritative promotion a ako sa odlíši od obyčajného source commit-u.
-
-## 7. Application source, environment source a generated source
-
-Bežné repository boundaries:
-
-### Application repository
-
-Obsahuje source code, build definition a často base deployment metadata.
-
-### Configuration alebo environment repository
-
-Obsahuje environment-specific desired state, napríklad image digest, replicas, routes a policy references.
-
-### Platform repository
-
-Obsahuje shared controllers, cluster baseline, policies a platform capabilities.
-
-Rozdelenie môže zlepšiť ownership, ale vytvára cross-repository generation graph:
+Application repository, environment repository a platform repository môžu mať odlišných ownerov. Effective desired state je potom graph:
 
 ```text
-application digest
-+ chart commit
+application image digest
++ chart commit/digest
 + environment values commit
-+ policy bundle digest
++ platform/policy generation
 + secret reference generation
-→ effective production manifests
++ renderer/plugin version
+→ final object inventory
 ```
 
-Ak controller číta viac sources, acceptance evidence musí obsahovať všetky resolved revisions. Jeden Git SHA už nemusí identifikovať celý desired state.
+Controller musí evidovať všetky resolved inputs. Jeden commit label nestačí pri multi-source renderi. Helm, Kustomize alebo plugin output je ďalšia authority boundary; reproducibility vyžaduje pinned toolchain, deterministic inputs, kontrolovaný network access, explicitné environment variables a comparison CI renderu s controller renderom.
 
-## 8. Render boundary
+Acceptance evidence obsahuje final rendered object identities, image digests, critical config generations a target scope. `CI template check passed` nie je production evidence, ak controller používa inú Helm version, hidden plugin input alebo cache staršej dependency.
 
-Git často neobsahuje final Kubernetes objects. Obsahuje inputs pre Helm, Kustomize alebo plugin:
+## 4. Overrides, writers a field ownership
+
+Parameter override je druhý desired-state writer:
 
 ```text
-repo URL
-+ commit
-+ path
-+ values
-+ chart dependencies
-+ plugin image/config
-→ rendered manifest set
+Git values: image.digest=pay900a
+Argo override: image.digest=pay899hf7
+→ controller desired state=pay899hf7
 ```
 
-Reproducibility vyžaduje:
+External input nie je automaticky zakázaný. HPA môže vlastniť replicas, External Secrets Secret data a operator generated children. Každý critical field však potrebuje jedného authoritative writer-a, explicitnú merge/precedence semantics a observable generation.
 
-- pinned chart/plugin/tool versions;
-- deterministic inputs;
-- no hidden environment variables;
-- no uncontrolled network fetch;
-- captured render errors;
-- manifest count a object identity inventory;
-- sensitive output handling;
-- comparison controller renderu s CI validation renderom.
+Writer inventory má zahŕňať GitOps controller, CI credentials, human kubectl, autoscalers, operators, admission webhooks, image automation, secret controllers, feature-flag systems a Application overrides. Dvaja reconcilers môžu byť lokálne idempotentní a spolu oscillovať. Broad ignore rule taký konflikt iba skryje.
 
-CI green nad inou Helm alebo Kustomize generation než používa controller nie je production render evidence.
-
-## 9. Overrides mimo Git-u
-
-Parameter override je druhý desired-state writer.
+Observed status sa nemá automaticky zapisovať späť ako intent:
 
 ```text
-Git values: image.digest = pay900a
-Argo override: image.digest = pay899hf7
-resolved desired state = pay899hf7
-```
-
-Ak override nie je uložený a reviewovaný rovnakým authority processom, Git už nie je úplný source of truth.
-
-Inventory musí pokrývať:
-
-- Argo CD parameter overrides;
-- Helm release values uložené v clusteri;
-- CLI flags;
-- environment variables v controlleri alebo plugin-e;
-- admission mutation;
-- external secret injection;
-- image policy automation;
-- runtime feature flags;
-- HPA alebo operator-owned fields.
-
-Nie každý external input je zakázaný. Musí však mať explicitnú authority, version identity a merge/precedence contract.
-
-## 10. Desired spec a observed status
-
-Git typicky vlastní desired `spec`. Runtime controllers produkujú `status` a ďalšie observed fields.
-
-```text
-Git: desired replicas = 24
-Deployment controller: availableReplicas = 22
-```
-
-Commitovať volatile status späť do desired source vytvára feedback loop a merge noise. Status patrí do telemetry alebo controller API, pokiaľ nie je zámerne transformovaný na nový schválený intent.
-
-Princíp:
-
-```text
-observed state
+runtime observation
 → evidence alebo proposal
 → explicitný decision
-→ nový desired-state commit
+→ nový reviewed desired-state commit
 ```
 
-Nie:
+Bez decision boundary vzniká feedback loop, v ktorom transient runtime state prepisuje authoritative intent.
+
+## 5. Governance, trust a break-glass
+
+Repository s production authority potrebuje chránené refs, required review/checks, explicitných owners, scoped automation identity, secret scanning, artifact provenance a retained history. Review musí vidieť target-specific rendered delta a destructive consequences, nie iba source YAML diff.
+
+CI, ktoré má production kubeconfig a po merge vykoná `kubectl apply`, je production writer. Git môže zostať evidence source, ale nie jediná mutation authority. Silný pull model oddeľuje CI permission na build/promotion od controller identity pri targete.
+
+Break-glass direct mutation môže byť legitímna, ak je bounded:
 
 ```text
-observed field
-→ automaticky prepíše authoritative intent bez policy
+incident + approval
+→ short-lived scoped credential
+→ exact mutation a evidence
+→ owner + expiry
+→ immediate Git proposal/reconciliation
+→ controller policy restore
+→ credential revoke
+→ injected second-drift test
 ```
 
-## 11. Writer a field ownership
+Temporary patch bez expiry a mandatory reconciliation sa stáva permanentným druhým source of truth. Rollback je nový desired-state transition, ktorý obnoví celý input graph. Zmena branch pointera sama neodstráni Application override, live-only field, incompatible database generation ani external effect.
 
-GitOps systém musí inventarizovať writers nad každým critical fieldom:
+## 6. Connected incident `GITOPS-PAY-61`
 
-```text
-Deployment image
-→ GitOps controller only
-
-Deployment replicas
-→ HPA podľa explicitného ownership contractu
-
-Secret data
-→ External Secrets controller
-
-status
-→ Kubernetes controller
-```
-
-Dvaja reconcilers môžu byť každý lokálne idempotentní a spolu vytvárať oscillation:
-
-```text
-GitOps nastaví replicas=24
-→ HPA nastaví replicas=40
-→ GitOps nastaví replicas=24
-→ ...
-```
-
-Riešením nie je broad ignore všetkého. Riešením je presný field ownership, úzky diff policy a acceptance test oboch writerov.
-
-## 12. Change governance
-
-Source-of-truth repository potrebuje controls primerané jeho authority:
-
-- protected branches alebo equivalent rule;
-- required review a status checks;
-- CODEOWNERS alebo explicitný owner graph;
-- signed commits/tags tam, kde je to required assurance;
-- policy-as-code nad manifests a resolved dependencies;
-- secret scanning;
-- provenance a immutable artifacts;
-- auditable automation identity;
-- break-glass path s expiry a reconciliation;
-- retention a restore test repository history.
-
-PR approval sám o sebe negarantuje bezpečný desired state. Review musí vidieť rendered/effective delta, target scope a risk.
-
-## 13. Source of truth nie je source of every fact
-
-Do Git-u typicky nepatrí:
-
-- customer transactions;
-- current database leader;
-- ephemeral leases;
-- queue offsets;
-- controller status;
-- runtime metrics;
-- unencrypted plaintext secrets;
-- provider operation outcome;
-- rapidly changing autoscaling observation.
-
-Git môže obsahovať policy a configuration pre tieto mechanizmy, nie ich aktuálny operational state.
-
-## 14. Connected incident `GITOPS-PAY-61`
-
-Atlas Payments zaviedol production GitOps pre release `payments 9.0`.
-
-Intended transition:
+Atlas Payments release `payments 9.0` mal prejsť:
 
 ```text
 release manifest commit 9f31c2a
-→ reviewed production ref update
-→ Argo CD resolves exact inputs
-→ deterministic render
-→ sync 63 resources
+→ reviewed production ref
+→ Argo resolves exact inputs
+→ render 63 resources
+→ sync
 → workload health
-→ settlement canary a business acceptance
+→ settlement canary
 ```
 
-Git commit deklaroval:
+Git deklaroval image `sha256:pay900a`, route policy `1842`, replicas `24` a termination grace `45 s`. Effective writers však boli Git environment repository, stale Argo CLI override, CI direct apply, human patch, HPA a admission mutation.
+
+Override držal image `sha256:pay899hf7`; CI aplikovala route generation `1841`; on-call patchla live image na `sha256:pay900b`; system-wide ignore rule skryl celý containers subtree; automated sync bol zapnutý, `selfHeal` nie; production branch povoľovala force push a sedem minút ukazovala na starší commit.
+
+Po 38 minútach existovali tri generations:
 
 ```text
-image digest:                 sha256:pay900a
-route policy generation:     1842
-replicas:                     24
-termination grace:           45 s
+Git declared:     pay900a / route 1842
+Argo resolved:    pay899hf7 / route 1842
+live Deployment:  pay900b / route 1841
 ```
 
-Effective writers však boli:
+Argo ukazovalo `Synced`, pretože critical fields boli ignorované. `Healthy` potvrdzovalo ready Pods, nie intended image alebo policy. Osemnásť Podov bežalo na `pay900b`, šesť na `pay899hf7`; `3 214` settlements použilo policy `1841` a `96` operations potrebovalo provider-ledger reconciliation.
 
-```text
-Git environment repository
-+ Argo CLI parameter override z predchádzajúceho hotfixu
-+ CI kubectl apply po merge
-+ on-call kubectl patch
-+ HPA a admission mutation
-```
+Root cause bol multi-writer desired state a controller override mimo Git-u. Force-mutable ref, broad ignore, disabled self-heal a acceptance podľa `Synced/Healthy` boli amplifiers.
 
-Konkrétne:
+## 7. Recovery a acceptance paths
 
-- Argo parameter override držal image digest `sha256:pay899hf7` a mal precedence nad Git values;
-- CI použila production kubeconfig a po merge aplikovala render s `ROUTE_POLICY_GENERATION=1841`;
-- on-call patchla live Deployment na `sha256:pay900b` bez Git commit-u;
-- system-wide `ignoreDifferences` ignorovalo celý `/spec/template/spec/containers` subtree;
-- automated sync bol zapnutý, ale `selfHeal` nie;
-- production branch povoľovala force push a bola na 7 minút presunutá späť na starší commit.
+Recovery fence-nula CI a human writers, exportovala Git/Application/override/cache/live managedFields evidence, odstránila override, zúžila ignore rule, commitla jednu intended generation a overila rendered, live aj loaded digests. Affected settlements sa reconciliovali podľa operation a provider identity.
 
-Po 38 minútach existovali tri odlišné generations:
+**Positive path** promotion jednej pinned generation vedie cez controller render k exact live/runtime generation a business canary.
 
-```text
-Git declared:        pay900a / route 1842
-Argo resolved:       pay899hf7 / route 1842
-live Deployment:     pay900b / route 1841
-```
+**Recovery path** po direct drift-e alebo controller restarte obnoví Git-owned fields bez straty legitimate HPA/operator ownershipu.
 
-Argo UI zobrazovalo Application ako `Synced`, pretože critical container differences boli ignorované. `Healthy` Deployment iba dokazoval required ready Pods, nie intended image alebo route-policy generation.
+**Rollback path** obnoví celý resolved graph a potvrdí compatibility i business outcome, nie iba ref.
 
-Dôsledky:
+**Forbidden path** odmietne hidden override, mutable dependency bez recorded resolution, force-push bez gate-u, CI/human writer nad Git-owned fields, broad ignore a false-Synced outcome.
 
-- `18` Podov bežalo na `pay900b`, `6` na `pay899hf7` počas stalled rollout-u;
-- `3 214` settlements použilo route policy generation `1841` namiesto `1842`;
-- `96` operations vyžadovalo provider-ledger reconciliation;
-- Git diff ani Argo sync status nevedeli samostatne vysvetliť effective production state;
-- rollback branch-e neodstránil CLI override ani live-only fields.
+Acceptance zahŕňa second promotion, force-reset attempt, mutable-dependency test, controller cache/restart, direct drift a break-glass expiry/reconciliation.
 
-### Causal boundaries
+## 8. Troubleshooting a anti-patterny
 
-- **Source-of-truth root cause:** critical desired fields mali viac authoritative writers a controller-resolved desired state obsahoval override mimo Git-u.
-- **Immutability failure:** production ref a dependency/override graph neidentifikovali jednu reprodukovateľnú generation.
-- **Governance failure:** CI a break-glass identities mali direct write access bez mandatory Git reconciliation.
-- **Amplifiers:** broad ignore rule, self-heal disabled, floating branch, incomplete writer inventory a acceptance založená na `Synced/Healthy` labels.
+Pri stave `Git tvrdí A, runtime vykonáva B` sa ide od exact application/environment subjectu cez repo/path/ref/commit, artifact a renderer generations, Application parameters/overrides, rendered inventory, live objects/managedFields, writer precedence, diff rules, loaded runtime generation a business outcome.
 
-### Recovery
+Najčastejšie anti-patterny sú `všetko je v Git-e`, hoci existujú mutable inputs; branch name považovaný za production authority; Git history považovaná za immutable ref; status auto-commitovaný do desired source; permanentný break-glass patch; a `Synced` interpretované ako zhoda s tým, čo človek vidí v repository.
 
-```text
-fence CI a human direct writers
-→ export Git, Application spec, overrides, controller cache a live managedFields
-→ identify exact operation/resource cohorts
-→ establish one authoritative production generation
-→ remove parameter override
-→ narrow ignore rules
-→ commit intended image/policy generation
-→ sync a verify rendered/live digests
-→ reconcile affected settlements
-→ test direct drift, failed sync, rollback a second promotion
-```
-
-## 15. Acceptance verdict
-
-Git source-of-truth design je prijatý, keď:
-
-- exact repository/path/ref/commit a target subject sú explicitné;
-- desired state je declarative, versioned a reproducible;
-- artifacts, charts, plugins a external dependencies sú pinned alebo majú explicitný resolution contract;
-- authoritative promotion transition je identifikovaná;
-- branch/tag mutation policy zodpovedá assurance requirements;
-- controller-resolved inputs a final rendered object inventory sú evidované;
-- parameter overrides a external writers sú odstránené alebo explicitne governed;
-- field ownership medzi GitOps, autoscalers, operators a secret controllers je definovaný;
-- direct mutation má bounded break-glass lifecycle a povinné reconciliation;
-- Git desired, controller desired a live state sú pozorovateľné oddelene;
-- rollback obnoví celý effective desired-state graph, nie iba jeden ref;
-- second-change, force-push, mutable dependency, direct-drift a controller-restart tests prejdú;
-- forbidden hidden override, multi-writer oscillation, stale artifact a false-synced outcomes sú odmietnuté.
-
-## 16. Troubleshooting flow
-
-```text
-Git tvrdí A, controller alebo runtime vykonáva B
-→ exact application/environment subject
-→ repository, path, ref a resolved commit
-→ artifact/dependency/plugin generations
-→ Application/controller parameters a overrides
-→ rendered desired manifest set
-→ live objects, managedFields a tracking identity
-→ writer/precedence inventory
-→ diff/ignore/normalization policy
-→ health a business outcome
-→ authoritative repair a second reconciliation
-```
-
-## 17. Anti-patterny
-
-### Všetko je v Git-e
-
-Nie, ak image tag, parameter override, secret input alebo plugin output môže zmeniť effective desired state bez nového commit-u.
-
-### Main branch je production
-
-Branch názov neurčuje authority. Potrebný je explicitný promotion, protection a target contract.
-
-### Git history je immutable
-
-Commit content je immutable, ale refs možno meniť. Force push a retagging menia authoritative pointer.
-
-### Controller píše status späť do Git-u
-
-Observed state sa nemá bez decision boundary automaticky meniť na nový intent.
-
-### Break-glass patch opravíme neskôr
-
-Bez expiry, ownera a reconciliation gate-u sa temporary writer stáva permanentným druhým source of truth.
-
-### Synced znamená zhodu s Git-om
-
-Môže ísť o zhodu s controller-resolved desired state po overrides a ignore rules, nie s tým, čo reader vidí v repository.
-
-## 18. Kontrolné otázky
+## 9. Kontrolné otázky
 
 1. Čo tvorí exact desired-state subject?
-2. Ako sa Git desired state líši od controller-resolved desired state?
-3. Prečo branch alebo tag nie sú immutable identity?
-4. Ako mutable image tag porušuje reproducibility?
-5. Čo je authoritative promotion transition?
-6. Ktoré external inputs môžu meniť render?
-7. Ako sa desired spec líši od observed statusu?
-8. Prečo field ownership patrí do GitOps contractu?
-9. Kedy je parameter override druhý source of truth?
-10. Prečo `GITOPS-PAY-61` ostal `Synced`?
-11. Čo musí obnoviť úplný rollback?
-12. Čo overuje source-of-truth acceptance verdict?
+2. Ako sa Git, controller-resolved a effective state líšia?
+3. Prečo commit je immutable, ale branch alebo tag nie?
+4. Čo tvorí úplnú release input generation?
+5. Ktorá transition robí candidate authoritative pre production?
+6. Prečo parameter override predstavuje druhého writera?
+7. Ako field ownership oddeľuje GitOps, HPA, operatora a secret controller?
+8. Kedy CI prestáva byť iba build systémom a stáva sa deployment writerom?
+9. Prečo `GITOPS-PAY-61` ostal `Synced`?
+10. Ktoré positive, recovery, rollback a forbidden paths musia prejsť?
 
 ## Glossary impact
 
-Relevantné pojmy: desired-state subject, source-of-truth boundary, authoritative ref, resolved desired state, immutable desired generation, promotion transition, environment repository, render boundary, pinned dependency, parameter override, writer inventory, field ownership, break-glass writer, Git desired state, controller desired state, live state a source-of-truth acceptance verdict.
+Relevantné pojmy: desired-state subject, source-of-truth boundary, authoritative ref, promotion transition, immutable desired generation, resolved input graph, controller-resolved desired state, render boundary, parameter override, writer inventory, field authority, break-glass writer, effective runtime generation, source-of-truth rollback a source-of-truth acceptance verdict.
 
 ## Primárne zdroje
 
 - [OpenGitOps Principles](https://opengitops.dev/)
+- [Git — Data model](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)
 - [Git — gitrevisions](https://git-scm.com/docs/gitrevisions)
 - [Argo CD — Tracking and Deployment Strategies](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/)
-- [Argo CD — Parameter Overrides](https://argo-cd.readthedocs.io/en/release-3.2/user-guide/parameters/)
+- [Argo CD — Parameter Overrides](https://argo-cd.readthedocs.io/en/stable/user-guide/parameters/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
