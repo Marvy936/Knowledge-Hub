@@ -1,492 +1,160 @@
 # Consistency models
 
-Consistency model je contract nad tým, ktoré histories operations systém povoľuje. Nehovorí iba, či sa replicas „nakoniec zosúladia“. Určuje, čo môže konkrétny client pozorovať po writes, pri concurrency, počas partition-u, po failover-e a medzi viacerými objects alebo services.
-
-Správny návrh začína operation history a business invariantom, nie názvom databázy alebo marketingovým slovom `strong`.
-
-## 1. Dominantný model
+Consistency model je contract nad tým, ktoré histories operations systém povoľuje. Nehovorí iba, či sa replicas „nakoniec zosúladia“. Určuje, čo môže client pozorovať po completed write-e, pri concurrency, medzi sessions, počas failover-u, cez cache/projection a pred external side effectom.
 
 ```text
 business invariant a user expectation
-→ exact objects/operations/clients
+→ exact objects, operations a clients
 → real-time, program a causal order
-→ required visibility a transaction scope
-→ consistency model
-→ implementation/read-write mechanism
-→ observed history
-→ allowed/forbidden outcome verdict
-→ reconciliation alebo stronger-control decision
-→ second-client/failover validation
+→ transaction a visibility scope
+→ named consistency model
+→ database/replica/cache mechanism
+→ observed history + revision evidence
+→ allowed alebo forbidden outcome
+→ conflict/reconciliation decision
+→ second-client, failover a partition validation
 ```
 
-Consistency sa overuje na histories, nie na jednom úspešnom requeste.
+`Strong`, `eventual` alebo `read replica` bez formálnej properties, scope-u a failure behavioru nie sú testovateľné architecture contracts.
 
-## 2. Consistency model vs. database isolation
+## 1. Consistency subject a history
 
-Tieto oblasti sa prekrývajú, ale nie sú totožné.
+Exact subject musí pomenovať objects alebo key range, operation a transaction scope, clients/sessions, primary/replica/cache path, required real-time order, causal dependencies, acknowledgement boundary, partition/failover scenario a external effects.
 
-### Transaction isolation
-
-Rieši concurrent transactions nad datastore-om:
-
-- read committed;
-- repeatable read;
-- snapshot isolation;
-- serializable;
-- strict serializable.
-
-### Distributed consistency
-
-Rieši pozorovanie operations medzi replicas, clients a časom:
-
-- linearizable;
-- sequential;
-- causal;
-- eventual;
-- bounded staleness;
-- session guarantees;
-- consistent prefix.
-
-Database môže napríklad poskytovať serializable local transactions, ale stale replicated reads. Alebo linearizable single-key operations bez multi-key serializable transaction.
-
-## 3. Exact consistency subject
-
-Pred výberom modelu treba pomenovať:
-
-- objects alebo key range;
-- single operation vs. transaction;
-- participating clients/sessions;
-- primary/replica/cache path;
-- real-time requirement;
-- causal dependencies;
-- conflict model;
-- failure a partition scenario;
-- acknowledgement boundary;
-- external side effects.
+Príklad current route contractu:
 
 ```text
-„route config je strongly consistent“
+write generation 912 completes
+→ provider-selection read starts neskôr
+→ read musí vrátiť 912 alebo novšiu
+→ response nesie observed revision/term
+→ settlement persistuje used generation
+→ až potom provider effect
 ```
 
-je slabé tvrdenie.
+Consistency sa overuje cez invocation, response a observed values viacerých operations. Jeden successful request alebo converged final snapshot nedokazuje, že forbidden intermediate history nenastala.
 
-Presnejšie:
+Transaction isolation a distributed consistency sa prekrývajú, ale nie sú totožné. Database môže mať serializable local transactions a stale replica reads. Iný store môže poskytovať linearizable single-key operations bez multi-key transaction. End-to-end contract musí pokryť obe vrstvy.
+
+## 2. Silné models a real-time order
+
+**Linearizability** vyžaduje, aby každá operation vyzerala ako atomic point medzi invocation a response a rešpektovala real-time order non-overlapping operations. Completed write `912` nesmie byť pri neskoršom current read-e nasledovaný `911`.
+
+Je vhodná pre leader/lease ownership, create-if-absent idempotency, current revocation, provider route a ďalšie reads, ktoré autorizujú non-mergeable mutation alebo external effect. Cena môže byť quorum latency a refusal počas partition-u.
+
+**Sequential consistency** poskytuje jedno global order zachovávajúce program order každého clienta, ale nemusí rešpektovať real time medzi clients. User expectation `po dokončení zmeny ju nový request vidí` preto môže vyžadovať linearizability, nie iba sequential consistency.
+
+**Serializability** usporiada transactions ako nejakú serial execution, no nemusí rešpektovať wall-clock completion. **Strict serializability** kombinuje serializability s real-time orderom. Ani strict serializable database transaction automaticky nezahŕňa provider call mimo transaction boundary.
+
+Model musí byť naviazaný na exact scope: single key, range, transaction, replicated log alebo celý workflow. `Store is linearizable` neznamená, že cache a gateway nad ním sú linearizable.
+
+## 3. Causal, eventual a bounded-stale models
+
+**Causal consistency** zachováva happens-before dependencies. Ak settlement referencuje policy generation `912`, observer musí byť schopný vidieť tú policy pred dependent state-om. Potrebuje causal/version context; timestamp sám osebe nemusí zachytiť dependency ani trustworthy order.
+
+**Eventual consistency** zvyčajne znamená, že bez nových updates a pri obnovenej komunikácii replicas nakoniec konvergujú. Neurčuje maximálnu staleness, monotonic reads, read-your-writes, conflict winnera, ordering ani správnosť external effects vykonaných pred convergence.
+
+**Bounded staleness** pridáva explicitnú hranicu: time age, revision lag, event offset, count versions alebo business generation gap. Generation bound je často silnejší než `age < 30 s`:
 
 ```text
-completed route-generation write
-→ všetky neskoršie provider-selection reads
-→ musia vidieť rovnakú alebo novšiu generation
-→ pred vykonaním external effectu
+required_generation = 912
+observed_generation = 911
+→ read nesmie autorizovať provider effect
 ```
 
-## 4. Linearizability
+**Consistent prefix** dovoľuje clientovi vidieť starší prefix ordered streamu, ale nie event `102` bez `101`. Je dôležitý pre projections a dependent schema/state transitions.
 
-Linearizability vyžaduje, aby každá operation vyzerala, že nastala atomicky v jednom bode medzi invocation a response, a rešpektovala real-time order non-overlapping operations.
+Conflict resolution musí byť domain-specific: last-write-wins s akceptovanou stratou, application merge, reject/manual resolution alebo CRDT. Replica convergence nevráti external call vykonaný zo stale state-u.
+
+## 4. Session guarantees a version tokens
+
+Slabší global model môže poskytovať useful per-session properties:
+
+- read-your-writes: session vidí vlastný completed write alebo novší state;
+- monotonic reads: po pozorovaní `912` už neuvidí `911`;
+- monotonic writes: writes jedného clienta sa aplikujú v program order;
+- writes-follow-reads: write je usporiadaný po state-e, ktorý client predtým čítal.
+
+Sticky connection sama osebe nie je guarantee. Failover, process restart, cache alebo endpoint change ju môžu porušiť. Client/SDK potrebuje session identity a minimum observed revision/generation token.
 
 ```text
-write 912 completes
-→ read starts later
-→ read nesmie vrátiť 911
+response observed_revision=18420
+→ client carries minimum_revision=18420
+→ later read returns >=18420
+   alebo explicitne odmietne/degraduje
 ```
 
-Je vhodná pre:
+Response evidence môže obsahovať datastore revision, commit sequence, event offset, policy generation, ETag, leader term, observed timestamp a stale marker. Bez týchto tokenov sa freshness iba predpokladá.
 
-- current leader/ownership;
-- lock a lease state;
-- idempotency create-if-absent;
-- account balance invariant;
-- current security/revocation state;
-- provider route autorizujúci side effect.
+## 5. End-to-end visible consistency
 
-Cena môže zahŕňať quorum latency a refusal počas partition-u.
-
-## 5. Sequential consistency
-
-Sequential consistency povoľuje jedno globálne usporiadanie operations, ktoré rešpektuje program order každého clienta, ale nemusí rešpektovať real-time order medzi clients.
-
-Client A môže dokončiť write skôr, než Client B začne read, no history môže stále umiestniť B read pred A write, ak zachová per-client order.
-
-Pre user-facing „po dokončení zmeny ju každý nový request vidí“ je sequential consistency často príliš slabá.
-
-## 6. Serializability a strict serializability
-
-### Serializability
-
-Multi-operation transactions sa správajú ako nejaké serial order. Nemusí rešpektovať wall-clock real-time order.
-
-### Strict serializability
-
-Spája serializability s real-time order podobným linearizability.
-
-```text
-transaction T1 dokončí route + policy change
-→ T2 začne neskôr
-→ T2 musí byť usporiadaná po T1
-```
-
-Strict serializability je silný end-to-end database contract, ale stále nepokrýva arbitrary external provider call mimo transaction-u.
-
-## 7. Causal consistency
-
-Ak operation B kauzálne závisí od A, každý observer musí vidieť A pred B.
-
-Príklad:
-
-```text
-policy generation 912 published
-→ settlement created using generation 912
-```
-
-Observer nesmie vidieť settlement referencing generation `912` bez možnosti vidieť príslušnú policy.
-
-Causal consistency nemusí globálne usporiadať concurrent unrelated operations.
-
-Potrebuje causal metadata alebo session/context propagation. Timestamp bez causal modelu nestačí.
-
-## 8. Eventual consistency
-
-Eventual consistency zvyčajne znamená, že ak neprichádzajú nové updates a komunikácia funguje, replicas sa nakoniec zblížia.
-
-Neurčuje automaticky:
-
-- maximálnu staleness;
-- monotonic reads;
-- read-your-writes;
-- conflict winnera;
-- ordering;
-- converged value correctness;
-- správanie počas continuous writes;
-- external effects vykonané zo stale state-u.
-
-„Eventual“ bez convergence, conflict a allowed-use contractu je nedostatočné.
-
-## 9. Bounded staleness
-
-Bounded staleness povoľuje stale reads, ale s explicitnou hranicou:
-
-- časová age;
-- revision/sequence lag;
-- počet versions;
-- event backlog age;
-- business generation gap.
-
-```text
-observed_generation >= required_generation
-```
-
-je často bezpečnejšie než samotné `age < 30 s`, pretože wall-clock vek nemusí korešpondovať s business updates.
-
-## 10. Session guarantees
-
-Slabšie globally consistent systémy môžu poskytovať užitočné per-session properties.
-
-### Read-your-writes
-
-Po vlastnom úspešnom write client uvidí tento write alebo novší state.
-
-### Monotonic reads
-
-Session neuvidí staršiu version po tom, čo už videla novšiu.
-
-### Monotonic writes
-
-Writes jedného clienta sa aplikujú v jeho program order.
-
-### Writes-follow-reads
-
-Write je usporiadaný po state-e, ktorý client predtým čítal.
-
-Session guarantee vyžaduje session identity, version token alebo sticky/causal context. Load balancer affinity sama osebe nie je formálny proof.
-
-## 11. Consistent prefix
-
-Reads pozorujú prefix committed orderu, nie arbitrary reorder alebo holes.
-
-```text
-event 100
-→ event 101
-→ event 102
-```
-
-Client môže vidieť iba po `101`, ale nemá vidieť `102` bez `101`, ak model garantuje consistent prefix pre daný stream.
-
-To je dôležité pre event projections, schema changes a dependent state transitions.
-
-## 12. Stale reads a side effects
-
-Read model sa musí hodnotiť podľa toho, čo read autorizuje.
-
-| Read | Možný slabší model |
-|---|---|
-| historical report | eventual alebo bounded stale |
-| merchant dashboard | bounded stale + marker |
-| current provider selection | linearizable alebo minimum generation |
-| permission revocation | current authority/short-bound session |
-| dedupe existence pred external call | linearizable create-if-absent alebo authority lookup |
-
-Read-only API môže byť correctness-critical, ak jeho result riadi write alebo external effect.
-
-## 13. Replica, cache a projection consistency
-
-End-to-end visible consistency je minimum cez všetky layers:
+User observation prechádza viacerými layers:
 
 ```text
 authoritative database
 → replication
 → CDC/event delivery
 → projection apply
-→ cache fill/invalidation
+→ distributed/local cache
 → gateway/client cache
-→ user observation
+→ user alebo side-effecting service
 ```
 
-Silná primary database consistency sa môže stratiť cez:
+Silná primary consistency sa môže stratiť na async replica, skipped consumer offset, out-of-order projection, stale cache, mixed deployment alebo client reuse. End-to-end property je najslabší effective link pre danú operation.
 
-- async replica;
-- out-of-order events;
-- skipped consumer offset;
-- stale cache;
-- mixed deployment generation;
-- client-side reuse;
-- retry na inom endpoint-e.
+Read-only endpoint môže byť correctness-critical. Dashboard môže tolerovať bounded stale marker. Current provider selection, revocation alebo dedupe decision pred external callom potrebuje current authority alebo minimum generation. Klasifikácia sa robí podľa toho, čo read autorizuje, nie podľa HTTP methodu.
 
-## 14. Version a evidence tokens
+Projection musí trackovať source offset/generation a vedieť rozlíšiť complete prefix od hole. Cache key musí niesť immutable generation. `Projection healthy` bez source position a affected key scope nie je consistency evidence.
 
-Consistency contract sa lepšie overuje, keď response obsahuje:
+## 6. Connected incident `DB-PAY-59`
 
-- datastore revision;
-- commit sequence;
-- event offset;
-- policy generation;
-- ETag/version;
-- leader term/epoch;
-- observed-at timestamp;
-- stale/fresh verdict.
-
-Client potom môže definovať:
-
-```text
-minimum_revision = 18420
-→ read with observed_revision 18418 rejected
-```
-
-Bez tokenov sa „fresh“ často iba predpokladá.
-
-## 15. Read repair a anti-entropy
-
-Availability-oriented systems môžu convergence dosahovať cez:
-
-- read repair;
-- hinted handoff;
-- anti-entropy/Merkle comparison;
-- background reconciliation;
-- last-write-wins;
-- vector/causal clocks;
-- CRDT merge.
-
-Tieto mechanisms riešia replica convergence, nie automaticky external side effects vykonané z nesprávnej version.
-
-## 16. Conflict resolution
-
-Conflict policy musí byť domain-specific.
-
-### Last-write-wins
-
-Jednoduché, ale clock/order policy môže zahodiť legitimate concurrent update.
-
-### Application merge
-
-Business pravidlá rozhodnú, či operations možno spojiť.
-
-### Reject/manual resolution
-
-Bezpečné pre non-mergeable high-value invariants.
-
-### CRDT
-
-Data type a operations sú navrhnuté tak, aby replicas deterministicky konvergovali bez central coordination. Nie každá business operation má vhodnú CRDT reprezentáciu.
-
-## 17. Connected incident `DB-PAY-59`
-
-Control store commitol route generation `912` na quorum side. Region B počas partition-u používal member-local serializable read a cache generation `911`.
-
-etcd response model umožňoval rozlíšiť:
-
-```text
-cluster_id
-member_id
-revision
-raft_term
-```
-
-Application však:
-
-- neukladala observed revision pri route decision-e;
-- nepřenášala minimum acceptable generation;
-- označovala local read ako `strong` v internom wrapperi;
-- po failover-e dovolila jednej session vidieť `912` a neskôr `911` cez iný Pod;
-- používala stale route na provider side effect.
+Control store commitol route generation `912` na quorum side. Region B počas partition-u používal member-local serializable read a cache `911`. etcd response obsahovala cluster ID, member ID, revision a Raft term, ale application tieto evidence nezapisovala a interný wrapper local read označoval ako `strong`.
 
 Observed history pre merchant `M-8842`:
 
 ```text
-18:02:11 route write generation 912 completed v quorum Regione A
-18:02:14 settlement S1 v Region A použil 912 / P2
-18:02:17 merchant status read ukázal current route 912
+18:02:11 write generation 912 completed v Region A
+18:02:14 settlement S1 použil 912 / P2
+18:02:17 status read ukázal 912
 18:02:22 settlement S2 v Region B použil 911 / P1
 ```
 
-Táto history porušila:
+History porušila linearizable current-route read, monotonic-read expectation session a business invariant, že po activation `912` nové settlements nesmú smerovať na `P1`.
 
-- linearizable current-route read;
-- monotonic-read expectation pre merchant session;
-- business rule „po activation generation 912 sa nové settlements nesmú poslať na P1“.
+Root cause bol neformálny `strong` label bez operation scope-u, named modelu a revision evidence. Route generation sa nepersistovala pri každom decision-e, session neniesla minimum revision, cache freshness nebola business signal a failover zmenil read source.
 
-## 18. Consistency root cause
+## 7. Redesign a acceptance paths
 
-Primary root cause bol:
+Provider route používa linearizable read s `required_generation`, response revision/term a persisted used generation. Dashboard môže používať bounded stale projection s `observed_generation`, `projected_at` a stale markerom, ale nemá authority nad external retryom. SDK prenáša minimum observed route revision. Projections trackujú source offset a missing prefix blokuje `current` verdict.
 
-> Interný `strong` contract nebol mapovaný na konkrétny consistency model, operation scope ani revision evidence; member-local stale read a cache boli preto použité ako current authority.
+**Positive path** preukáže completed write nasledovaný current readom `>=` write revision a external effectom s persisted generation.
 
-Amplifiers:
+**Session path** prepne endpoint alebo Pod a stále zachová read-your-writes/monotonic minimum token, prípadne explicitne odmietne slabší result.
 
-- route generation nebola persisted na všetkých decisions;
-- client session neniesla minimum observed revision;
-- projection/cache freshness nebola business signal;
-- endpoint failover zmenil read source;
-- retries vytvárali ďalšie reads bez session contextu.
+**Recovery path** počas replica lag/cache lossu použije authority alebo bounded stale result iba pre povolenú operation class; po convergence reconciliuje affected decisions.
 
-## 19. Evidence-preserving containment
+**Forbidden path** odmietne non-monotonic `912 → 911`, stale authority pre side effect, lost event prefix, `strong` label bez evidence a conflict resolution, ktorá silentne zahodí non-mergeable update.
 
-```text
-freeze routing mutations
-→ preserve etcd terms/revisions a response headers
-→ preserve per-request observed generation/read source
-→ stop side effects bez current minimum generation
-→ route authority reads na linearizable path
-→ classify stale-read-generated provider attempts
-→ reconcile provider outcomes
-→ invalidate/retire stale loaded generations
-```
+Acceptance zahŕňa concurrent clients, failover, replica read, cache loss, projection gap, retry bez/so session tokenom a partition heal.
 
-## 20. Authoritative redesign
+## 8. Troubleshooting a anti-patterny
 
-### Provider route
+Diagnostika začína exact operation history, client/session identities a invocation/response times. Potom mapuje transaction/isolation scope, replica read mode, revision/term/offset/generation evidence, projections/caches, causal dependencies, conflict policy a external effect.
 
-```text
-linearizable read
-+ required_generation
-+ response revision/term
-+ settlement persists used generation
-```
+Najčastejšie anti-patterny sú nešpecifikované `strong`, eventual consistency považovaná za časový bound, serializability zamieňaná s linearizability, replica read označený iba za performance optimization, sticky session vydávaná za read-your-writes, timestamp vydávaný za causality a convergence považovaná za opravu side effects.
 
-### Merchant status/dashboard
+## 9. Kontrolné otázky
 
-```text
-bounded stale projection allowed
-+ observed_generation
-+ projected_at
-+ stale marker
-+ no authority over external retry
-```
-
-### Session guarantees
-
-Client/SDK prenáša:
-
-```text
-minimum_observed_route_revision
-```
-
-Subsequent reads musia vrátiť rovnakú alebo novšiu revision, alebo explicitne zlyhať/degradovať.
-
-### Event projections
-
-- partition key drží per-operation order;
-- projection tracks source offset;
-- missing prefix blokuje `current` verdict;
-- cache key obsahuje immutable generation;
-- reconciliation porovná authority, projection a external provider state.
-
-## 21. Consistency acceptance verdict
-
-Consistency design je prijatý, keď:
-
-- exact objects, operations, clients a transaction scope sú explicitné;
-- model je pomenovaný formálne, nie ako `strong` alebo `eventual` bez definície;
-- real-time, program a causal order requirements sú uvedené;
-- database isolation a distributed consistency sú rozlíšené;
-- read/write paths vrátane replicas, projections a caches sú v scope;
-- acknowledgement a visibility boundary sú explicitné;
-- stale reads majú age/revision/generation bound a allowed-use contract;
-- session guarantees majú identity a token propagation;
-- conflicts majú deterministic merge/reject/manual policy;
-- external side effects nepoužívajú slabší state než povoľuje invariant;
-- response nesie evidence potrebné na overenie freshness/orderu;
-- failover, retry, cache loss, concurrent clients a partition tests prejdú;
-- forbidden non-monotonic, stale-authority, lost-prefix a divergent outcomes sú odmietnuté.
-
-## 22. Troubleshooting flow
-
-```text
-stale/non-monotonic/divergent observation
-→ exact operation history
-→ client/session identities
-→ invocation/response a real-time order
-→ datastore transaction/isolation scope
-→ replica/read consistency mode
-→ revision/term/offset/generation evidence
-→ projection/cache/client layers
-→ causal/program dependencies
-→ conflict/merge behavior
-→ business/external effect
-→ second-client/failover validation
-```
-
-## 23. Anti-patterny
-
-### Strong consistency
-
-Bez pomenovania modelu, scope-u a failure behavioru je tvrdenie neoveriteľné.
-
-### Eventual consistency znamená niekoľko sekúnd
-
-Eventual model sám o sebe neurčuje časový bound.
-
-### Serializable = linearizable
-
-Serializable transaction history nemusí rešpektovať real-time order; strict serializability ho zahŕňa.
-
-### Replica read je iba performance optimization
-
-Môže zmeniť authorization, routing, dedupe alebo user-visible monotonicity.
-
-### Sticky session garantuje read-your-writes
-
-Failover, replica lag, cache a process restart môžu guarantee porušiť bez version contextu.
-
-### Timestamp vyrieši causality
-
-Clock timestamp nemusí zachytiť causal dependency ani byť spoľahlivo usporiadaný.
-
-### Convergence opraví external effects
-
-Replica state môže konvergovať, no nesprávne provider calls zostávajú.
-
-## 24. Kontrolné otázky
-
-1. Čo je consistency model?
+1. Čo je consistency model a ako sa testuje na history?
 2. Ako sa líši od transaction isolation?
 3. Čo garantuje linearizability?
-4. Ako sa sequential consistency líši od linearizability?
+4. Ako sa sequential consistency líši od real-time orderu?
 5. Ako serializability a strict serializability súvisia?
 6. Čo vyžaduje causal consistency?
 7. Čo eventual consistency negarantuje?
-8. Aké session guarantees poznáme?
-9. Kedy je bounded staleness bezpečná?
-10. Ktoré models porušilo `DB-PAY-59`?
-11. Ako revision token pomáha klientovi?
-12. Čo overuje consistency acceptance verdict?
+8. Ako session token poskytuje monotonic reads?
+9. Prečo end-to-end property môže byť slabšia než primary database?
+10. Ktoré positive, session, recovery a forbidden paths musia prejsť?
 
 ## Glossary impact
 
