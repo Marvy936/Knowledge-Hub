@@ -1,510 +1,277 @@
 # Runbooks a playbooks
 
-Runbook je versionovaný operatívny postup pre rozpoznateľný stav a bounded action. Playbook je širší decision framework pre triedu incidentov alebo operational scenárov, v ktorých sa konkrétna cesta vyberá podľa evidence, risku a scope-u.
+Runbook je versionovaný operational procedure pre rozpoznateľný stav a bounded action. Playbook je širší decision framework pre triedu incidentov alebo operational scenárov, v ktorých sa konkrétna cesta volí podľa evidence, risku a scope-u. Ani jeden nie je iba zoznam príkazov. Dokument prenáša medzi authorom a responderom exact subject, state classification, authority, safety, expected outcome, recovery a verification contract.
 
-Ani jeden dokument nie je zoznam príkazov bez kontextu. Musí prenášať safety, identity, decision a verification contract medzi authorom a responderom.
+Runbook je vhodný tam, kde trigger, preconditions a decision branches možno opakovane reprodukovať. Playbook je vhodný tam, kde najprv treba rozlíšiť viac hypotheses alebo zvoliť medzi viacerými recovery stratégiami. Dobrý playbook môže odkázať na viac runbooks; runbook nesmie predstierať, že každý podobne vyzerajúci symptom má rovnaký state a bezpečnú action.
 
-## 1. Runbook a playbook
+## 1. Dominantný observation-to-safe-action lifecycle
 
-### Runbook
-
-Vhodný pre repeatable a dobre ohraničený workflow:
-
-```text
-konkrétny trigger
-→ presná klasifikácia
-→ preconditions
-→ bounded kroky
-→ očakávaný outcome
-→ verify/rollback/escalate
-```
-
-Príklady:
-
-- reštart jednej unhealthy replica po overení, že controller ju bezpečne nahradí;
-- bounded replay exact message IDs;
-- failover na pretested standby generation;
-- rotácia credentialu cez coordinated lifecycle;
-- odobratie node-u z trafficu.
-
-### Playbook
-
-Vhodný pre širší scenario space:
-
-```text
-incident alebo risk class
-→ scope a severity
-→ competing branches
-→ rozhodovacie kritériá
-→ zvolené runbooks/controls
-→ communication a recovery strategy
-```
-
-Príklady:
-
-- database saturation;
-- provider outage;
-- regional degradation;
-- credential compromise;
-- suspected data loss;
-- traffic overload.
-
-Playbook môže odkazovať na viac runbooks. Runbook nesmie predstierať, že každá situácia má identický mechanický krok.
-
-## 2. Dominantný lifecycle
+Operational dokument musí viesť respondera od presnej identity problému k overenému outcome-u. Commands sú iba jedna časť. Najprv sa overí generation a eligibility, potom sa state klasifikuje, vyberie bounded branch a po apply sa číta effective aj business state.
 
 ```text
 operational intent a exact subject
-→ trigger a eligibility
-→ document/version/tool generation
+→ trigger, document a architecture generation
 → prerequisites, access a safety boundary
-→ observation a state classification
-→ decision gate
-→ bounded action
-→ expected a forbidden outcomes
-→ technical a business verification
-→ rollback, compensation alebo escalation
+→ authoritative observation
+→ state classification a decision branch
+→ bounded action alebo explicitná escalation
+→ technical, business a forbidden verification
+→ rollback, compensation alebo unknown-outcome handling
 → evidence a follow-up ownership
-→ rehearsal, freshness review a retirement
+→ rehearsal, freshness review a withdrawal
 ```
 
-Runbook je prijatý až keď správny responder dokáže na current architecture bezpečne dosiahnuť intended outcome a odmietnuť nesprávny subject, stale generation alebo unsafe precondition.
+Runbook je prijateľný iba vtedy, keď správny responder dosiahne intended outcome na current architecture a dokument bezpečne odmietne wrong subject, stale generation alebo nesplnenú precondition.
 
-## 3. Exact runbook subject
+## 2. Exact runbook subject a generation
 
-Runbook subject musí obsahovať:
-
-```text
-service a business capability
-+ operation/failure state
-+ environment/Region/cohort
-+ architecture/release/config generation
-+ resource alebo data identity
-+ permissions a actor
-+ trigger/observation window
-+ allowed action scope
-+ expected a forbidden outcomes
-+ rollback/escalation boundary
-```
-
-Názov `Fix stuck settlements` je nepresný. Lepšie:
+Názov `Fix stuck settlements` neposkytuje bezpečný scope. Exact subject obsahuje service a capability, operation alebo failure state, environment/Region/cohort, architecture a release generation, resource/data identity, actor permissions, observation window, allowed maximum action, expected a forbidden outcomes a rollback/escalation boundary.
 
 ```text
 runbook: RB-PAY-24
 subject: unpublished settlement outbox commands
 Region: prod-eu1
-architecture: lease generation v3
+architecture: lease/state generation v3
 eligibility: publisher healthy, command never sent, age > 10 min
-allowed action: dry-run classification a bounded replay max 500 IDs
-forbidden: delete, broad lease reset, replay sent-unknown cohort
+actor: incident responder via JIT role
+allowed: classify max 500 IDs, replay max 50/s
+forbidden: delete, broad lease reset, sent-unknown replay
+last tested: release 8.1.0 / 2026-07-29
 ```
 
-## 4. Povinná štruktúra runbooku
+Document version a compatible system generation sú dve odlišné identities. Editovať Markdown dnes nepreukazuje, že procedure bola rehearse-nutá proti current DB schema, state machine, CLI alebo permission modelu. Historical incident musí vedieť reprodukovať presnú document generation, ktorú responder čítal.
 
-### Purpose
+## 3. Trigger, eligibility a preconditions
 
-Aký user/business outcome obnovuje a čo zámerne nerieši.
-
-### Trigger a eligibility
-
-Ktorý page, symptom alebo operator request ho aktivuje a ktoré observations musia byť pravdivé.
-
-### Preconditions
-
-- current environment a resource identity;
-- required access;
-- maintenance alebo incident state;
-- backup/recovery availability;
-- dependency health;
-- peer/IC approval pre riskantné kroky;
-- known incompatible generations.
-
-### Safety boundary
-
-- maximálny scope;
-- rate/concurrency limit;
-- dry-run;
-- idempotency;
-- abort criteria;
-- forbidden commands alebo cohorts;
-- evidence preservation;
-- rollback/compensation.
-
-### Diagnostic observations
-
-Príkazy a queries s vysvetlením:
+Trigger opisuje signal alebo operator request, ktorý procedure otvára. Eligibility opisuje observations, pri ktorých sa smie použiť. Preconditions chránia execution boundary: správny environment a subject, required access, dependency health, incident alebo maintenance state, backup/recovery availability, compatible generations a approval pri high-risk action.
 
 ```text
-čo pozorujú
-→ na ktorom boundary
-→ aký expected result
-→ ako zmeniť decision podľa výsledku
-```
-
-### Actions
-
-Každý krok potrebuje exact target, expected effect a validation.
-
-### Verification
-
-Technický aj business outcome vrátane forbidden a second-operation testu.
-
-### Escalation
-
-Kedy postup zastaviť, komu a s akým evidence bundle-om eskalovať.
-
-### Metadata
-
-Owner, reviewers, last tested date, compatible versions, dependencies a retirement trigger.
-
-## 5. Decision points
-
-Runbook nemá zakrývať nebezpečné judgment calls vetou „podľa potreby“.
-
-Decision point:
-
-```text
-observation
-→ classification
-→ allowed branch
-→ risk/approval
-→ next expected evidence
-```
-
-Príklad:
-
-```text
-command provider_attempt_id is null
+page: unpublished queue age > 10 min
+AND publisher health = ready
+AND provider_attempt_id absent
 AND broker publish audit absent
-→ never-sent
-→ bounded replay allowed
-
-provider_attempt_id exists
-OR acknowledgement outcome unknown
-→ sent-unknown
-→ automatic replay forbidden
-→ provider-ledger reconciliation a human approval
+AND lease generation = v3
+→ never-sent cohort eligible na bounded replay
 ```
 
-Ak branch nemožno bezpečne automatizovať, runbook musí explicitne eskalovať.
+Samotný vek row nie je state classification. Ak chýba provider alebo broker evidence, outcome môže byť unknown. Runbook musí radšej zastaviť a eskalovať než vybrať najslabšiu interpretáciu iba preto, aby pokračoval.
 
-## 6. Commands ako controlled operations
+## 4. Observation a state classification
 
-Príkaz musí byť:
+Každý diagnostic command musí vysvetliť, čo pozoruje, na ktorej boundary, aký result sa očakáva a ako výsledok mení decision. Raw query bez semantics prenáša syntax, nie knowledge.
 
-- copy-safe, nie iba syntakticky validný;
-- parameterizovaný exact identity;
-- read-before-write;
-- scoped a bounded;
-- auditovateľný;
-- idempotentný alebo chránený idempotency keyom;
-- vybavený timeoutom;
-- sprevádzaný expected outputom;
-- s explicitnou reakciou na partial alebo unknown outcome.
+Pre settlement backlog je potrebné odlíšiť aspoň:
 
-Nebezpečný príklad:
+```text
+never-sent
+→ durable outbox existuje
+→ broker publish evidence absent
+→ provider attempt absent
+→ bounded replay môže byť povolený
+
+in-flight
+→ active lease/heartbeat alebo broker delivery
+→ ďalší consumer forbidden
+
+sent-unknown
+→ publish/provider attempt možný
+→ final acknowledgement chýba
+→ automatic replay forbidden
+→ ledger reconciliation
+
+completed
+→ authoritative provider outcome existuje
+→ replay forbidden
+```
+
+Classification má byť reprodukovateľná nad exact manifestom IDs. Ak procedure používa neurčité „staré rows“ alebo „stuck messages“, skrýva rozdiel medzi stavmi s úplne iným duplicate a data-loss riskom.
+
+## 5. Playbook ako decision framework
+
+Playbook rieši scenario space širší než jeden bounded procedure. Pri settlement backloge najprv rozlišuje capacity saturation, broker failure, DB contention, provider slowdown, consumer defect alebo data-integrity risk. Každá branch má vlastný containment a môže aktivovať iný runbook.
+
+```text
+impact a SLO burn
+→ exact incident subject
+→ preserve durable state a evidence
+→ capacity/broker/DB/provider/consumer classification
+→ admission, failover, drain, vendor alebo degraded branch
+→ selected runbook s own eligibility
+→ business completion a integrity verification
+```
+
+Playbook neobsahuje neurčité „skús všetky možnosti“. Určuje observations, decision authority, incompatible simultaneous actions a moment, keď treba incident deklarovať alebo privolať specialistu.
+
+## 6. Bounded commands a execution contract
+
+Command musí byť parameterizovaný exact identity, read-before-write, scoped, count/rate bounded, auditovateľný, idempotentný alebo chránený idempotency keyom, vybavený timeoutom a expected outputom. Potrebuje aj behavior pri partial alebo unknown outcome-u.
+
+Nebezpečný command:
 
 ```sql
 DELETE FROM settlement_outbox
 WHERE created_at < now() - interval '15 minutes';
 ```
 
-Chýba state, publish evidence, terminal status, tenant, count limit, dry-run, transaction plan, backup a recovery contract.
+Nevie rozlíšiť never-sent, in-flight a sent-unknown state. Nemá tenant, manifest, count limit, dry-run, transaction plan, backup ani business recovery contract.
 
-Bezpečnejší pattern:
+Bezpečnejší execution pattern:
 
 ```text
 select exact candidate IDs
-→ classify by authoritative state/evidence
+→ classify authoritative state per ID
 → produce immutable manifest
-→ review count a risk
-→ execute bounded idempotent operation
-→ read back per-ID outcome
-→ reconcile downstream state
+→ review count, tenant a risk
+→ acquire approval/fence
+→ execute bounded idempotent action
+→ read back per-ID result
+→ reconcile broker/provider/business state
 ```
 
-## 7. Verification
+Copy-paste usability nesmie znamenať copy-paste blast radius. Ak action nie je bezpečná pre unreviewed input, interface má vyžadovať typed manifest alebo generated plan.
 
-Každý runbook musí overiť viac než exit code `0`.
+## 7. Verification a acceptance boundaries
 
-### Source/config verification
+Exit code `0` dokazuje iba, že tool neoznámil failure podľa vlastnej semantics. Runbook musí overiť source/config generation, effective runtime state, service behavior, pôvodný business outcome, forbidden side effects a ďalšiu nezávislú operation.
 
-Správna version a parameters boli použité.
+```text
+source/config
+→ správna version a parameters
 
-### Effective-state verification
+effective state
+→ authoritative runtime prijal zmenu
 
-Runtime alebo authoritative system skutočne prijal zmenu.
+service
+→ queue/latency/errors/dependencies sa správajú podľa hypothesis
 
-### Service verification
+business
+→ pôvodná user operation sa dokončila správne
 
-Latency, errors, queue a dependencies sa správajú podľa hypothesis.
+forbidden
+→ žiadny duplicate, data loss, cross-tenant alebo broader scope
 
-### Business verification
+second operation
+→ nový nezávislý subject prejde bez manual correction
+```
 
-Pôvodný user outcome funguje.
-
-### Forbidden-outcome verification
-
-Nevznikli duplicate effects, data loss, cross-tenant impact alebo broader access.
-
-### Second-operation verification
-
-Ďalšia nezávislá operation prejde bez manual correction.
+Verification musí uviesť observation window. Krátky pokles queue length môže znamenať delete alebo presun bottlenecku, nie recovery.
 
 ## 8. Rollback, compensation a unknown outcome
 
-Nie každá operácia sa dá rollbacknúť.
+Nie každá operation je reverzibilná. Config change môže mať rollback, external provider effect potrebuje reconciliation alebo compensation, delete môže vyžadovať restore a failover fencing pred failbackom. Procedure musí odlíšiť failure pred side effectom, confirmed success, partial success a unknown outcome.
 
-- reversible config change môže mať rollback;
-- external provider call môže vyžadovať reconciliation a compensation;
-- delete môže vyžadovať restore;
-- failover môže vyžadovať fencing, nie jednoduchý failback;
-- partial replay môže vyžadovať per-ID outcome classification.
-
-Runbook musí odlišovať:
-
-```text
-operation failed before side effect
-operation succeeded
-operation partially succeeded
-operation outcome unknown
-```
-
-Retry po unknown outcome bez idempotency môže vytvoriť duplicate business effect.
+Retry po unknown outcome bez idempotency môže vytvoriť duplicate business effect. Runbook preto nesmie všeobecne hovoriť „zopakuj krok“. Musí určiť evidence, podľa ktorej sa retry povolí, alebo explicitne odovzdať cohort na ledger reconciliation a human authority.
 
 ## 9. Automation boundary
 
-Dobrý runbook je kandidát na automation, ale automatizuje sa decision contract, nie iba shell commands.
-
-Automation potrebuje:
-
-- typed inputs a schema;
-- subject identity validation;
-- current-state read;
-- plan/dry-run;
-- policy/approval;
-- bounded apply;
-- idempotency;
-- per-step evidence;
-- compensation;
-- final business validation;
-- emergency stop;
-- owner a lifecycle.
-
-Automatizovaný broad cleanup je nebezpečnejší než manuálny broad cleanup, pretože zväčšuje speed a scope failure-u.
-
-## 10. Freshness a compatibility
-
-Runbook driftuje spolu so systémom.
-
-Review triggers:
-
-- architecture alebo topology change;
-- schema/state-machine change;
-- nový release alebo API;
-- identity/permission model change;
-- incident alebo near miss;
-- tool deprecation;
-- owner/team change;
-- runbook nepoužitý alebo netestovaný definovaný interval;
-- zmena provider contractu;
-- zmena recovery mechanismu.
-
-Metadata `last updated` nestačí. Potrebný je `last tested against generation`.
-
-## 11. Rehearsal
-
-Runbook testuj cez:
-
-- sandbox/lab;
-- read-only production validation;
-- game day;
-- shadow execution;
-- fault injection;
-- table-top walkthrough;
-- new-responder exercise;
-- scheduled canary.
-
-Test musí obsahovať aj nesprávny subject alebo nesplnenú precondition a potvrdiť, že postup odmietne unsafe branch.
-
-## 12. Worked incident `SRE-PAY-53`
-
-Primary responder otvoril runbook `RB-PAY-17 — Clear stuck settlement leases`. Dokument vznikol pre starú architecture generation, v ktorej lease nemal heartbeat extension a jeden command spracúval iba jeden consumer.
-
-Runbook obsahoval:
+Dobrý runbook je kandidát na automation, ale automatizuje sa decision contract, nie iba shell text. Automation potrebuje typed inputs, subject/generation validation, current-state read, plan, policy/approval, bounded apply, idempotency, per-step evidence, compensation, business validation a emergency stop.
 
 ```text
-1. scale workers to 240
-2. reset leases older than 15 min
-3. restart publisher
-4. monitor queue length
+runbook observation/decision contract
+→ executable typed workflow
+→ policy-bound subject
+→ dry-run plan
+→ bounded mutation
+→ effective/business read-back
+→ stop, compensate alebo escalate
 ```
 
-Chýbalo:
+Nejasný judgment point sa nesmie skryť default branchom. Ak `sent-unknown` cohort potrebuje business decision, automation ho má fenced odložiť a pripraviť evidence, nie automaticky replayovať.
 
-- compatible architecture generation;
-- distinction `never-sent`, `in-flight`, `sent-unknown` a `completed`;
-- dry-run candidate count;
-- max scope a rate;
-- DB/provider saturation guardrail;
-- incident declaration trigger;
-- expected queue drain rate;
-- duplicate/unknown-outcome verification;
-- rollback alebo reconciliation path.
+## 10. Freshness, rehearsal a withdrawal
 
-V current lease v3 architecture heartbeat timestamp mohol byť starší než 15 minút počas provider slowdown-u, hoci command bol stále in-flight. Reset preto sprístupnil `62 418` commands druhému consumer cohortu.
+Runbook driftuje spolu so schema, state machine, topology, identity modelom, CLI, provider contractom a recovery mechanismom. Metadata preto obsahuje ownera, reviewers, compatible versions, dependencies, last tested generation a retirement trigger.
 
-Dôsledky:
+Rehearsal môže byť sandbox, read-only production validation, game day, shadow execution, fault injection, tabletop, new-responder exercise alebo scheduled canary. Musí obsahovať aj wrong subject alebo nesplnenú precondition a preukázať, že procedure unsafe branch odmietne.
 
-- broker redeliveries prudko vzrástli;
-- provider attempts a DB writes sa ďalej zosilnili;
-- `143` operations prešli do `sent-unknown` classification;
-- idempotency keys zabránili potvrdenému duplicate settlementu, ale cohort vyžadoval provider-ledger reconciliation;
-- queue length krátko klesla, čo vytvorilo false-green dojem, kým completion latency ďalej rástla.
+Stale alebo nebezpečný runbook sa withdraw-ne ako immutable historical generation a nahradí novým dokumentom. Tiché editovanie po incidente môže zničiť evidence o tom, čo responder skutočne vykonal a prečo.
 
-Runbook failure bol **stale procedural document bez generation, state-classification a safety contractu, ktorý aplikoval broad lease reset na semanticky odlišnú current architecture**.
+## 11. Connected incident `SRE-PAY-53`
 
-## 13. Evidence-preserving containment
+Primary responder otvoril `RB-PAY-17 — Clear stuck settlement leases`, vytvorený pre starú architecture, kde lease nemal heartbeat extension a command spracúval jediný consumer. Runbook prikazoval scale workers na 240, reset leases staršie než 15 minút, restart publisher a sledovanie queue length.
 
-IC zastavil ďalšie použitie `RB-PAY-17` a vykonal:
+Chýbala compatible generation, state classification, dry-run count, maximum scope/rate, DB/provider guardrail, incident trigger, expected drain rate, duplicate/unknown verification a reconciliation path. V lease v3 mohol byť heartbeat timestamp starší než 15 minút počas provider slowdown-u, hoci command zostával in-flight.
 
-1. preservation executed SQL, actor, timestamp a affected IDs;
-2. označenie runbooku ako withdrawn;
-3. zastavenie new lease resets a unbounded replays;
-4. classification affected IDs podľa broker/provider evidence;
-5. bounded concurrency a admission reduction;
-6. provider-ledger reconciliation pre `sent-unknown` cohort;
-7. temporary playbook s explicitnými decision branches;
-8. communication všetkým rotations a support teams.
+Broad reset sprístupnil `62 418` commands druhému consumer cohortu. Broker redeliveries a DB/provider writes vzrástli; `143` operations prešlo do `sent-unknown`. Idempotency keys zabránili potvrdenému duplicate settlementu, ale vyžadovala sa provider-ledger reconciliation. Queue krátko klesla, hoci completion latency rástla.
 
-Runbook bol stiahnutý, nie potichu editovaný, aby historical incident evidence zostala reprodukovateľná.
+Root failure bol stale procedural document bez generation, state classification a safety contractu, ktorý aplikoval broad lease reset na semanticky odlišnú architecture.
 
-## 14. Replacement playbook a runbook
+## 12. Containment a replacement contract
 
-### Playbook `PB-PAY-24 — Settlement backlog`
+IC zachoval executed SQL, actor, timestamp a affected IDs, označil `RB-PAY-17` ako withdrawn, zastavil ďalšie resets a unbounded replays, klasifikoval affected IDs, znížil admission/concurrency a reconcilioval `sent-unknown` cohort. Všetky rotations dostali explicitný notice; dokument nebol potichu prepísaný.
+
+Replacement playbook `PB-PAY-24 — Settlement backlog` najprv deklaruje impact, chráni durable state a rozlišuje capacity, broker, DB, provider a consumer branch. Runbook `RB-PAY-24 — Bounded never-sent replay` vyžaduje current lease generation, dry-run max 500 IDs, absent provider attempt aj broker evidence, IC/policy approval, replay max 50/s, per-ID read-back a completion reconciliation. `sent-unknown` a `completed` cohorts explicitne odmieta.
+
+## 13. Runbook acceptance contract
+
+Positive path musí preukázať, že eligible exact subject prejde observation, classification, bounded action a business verification. Wrong-subject path musí odmietnuť iný tenant, Region alebo state. Stale-generation path musí zastaviť procedure pred mutation. Unknown-outcome path musí fenced odovzdať cohort na reconciliation.
 
 ```text
-confirm impact a declare incident podľa SLO burn
-→ classify capacity, broker, DB, provider alebo consumer fault
-→ protect admission a durable state
-→ choose drain, failover, provider escalation alebo degraded mode
-→ verify completion a data integrity
+positive:
+never-sent manifest → bounded replay → provider completion
+
+wrong subject:
+foreign tenant alebo in-flight state → deny
+
+stale generation:
+incompatible lease/schema/tool → stop + replacement
+
+unknown:
+possible external effect → no retry + reconcile
+
+continuity:
+new responder → rehearsal → rovnaký safe verdict
 ```
 
-### Runbook `RB-PAY-24 — Bounded never-sent replay`
+Acceptance zahŕňa ownera, reviewers, current last-tested generation, withdrawal trigger a new-responder rehearsal. Druhý batch sa spúšťa až po guardrailoch a prvom business read-backu.
+
+## 14. Troubleshooting runbook failure-u
+
+Ak procedure bola vykonaná, ale outcome je zlý, najprv zachovaj presnú document version a affected manifest. Potom porovnaj intended a actual subject/generation, preconditions, observations, classification, commands, partial/unknown outcomes, effective state a business side effects.
 
 ```text
-exact incident a command manifest
-→ current lease/state-machine generation
-→ dry-run classify max 500 IDs
-→ require provider_attempt_id absent
-→ require broker publish evidence absent
-→ policy/IC approval
-→ idempotent replay max 50/s
-→ per-ID read-back
-→ completion/provider reconciliation
-→ second batch only after guardrails
+bad outcome po runbooku
+→ document generation a actor
+→ actual subject/system generation
+→ trigger a eligibility
+→ observation/classification branch
+→ manifest/parameters/action log
+→ partial alebo unknown effects
+→ business/forbidden read-back
+→ withdraw, recover, repair a rehearse
 ```
 
-Runbook explicitne odmieta `sent-unknown` a `completed` cohorts.
+Editovanie dokumentu pred preservation môže zničiť causal evidence.
 
-## 15. Runbook acceptance verdict
+## 15. Anti-patterny
 
-Dokument je prijatý, keď:
+Tieto anti-patterny prenášajú responderovi syntax alebo optimistic assumption namiesto decision a safety contractu.
 
-- purpose a exact subject sú explicitné;
-- trigger a eligibility sú testovateľné;
-- compatible architecture/tool generations sú uvedené;
-- prerequisites, access a safety boundaries sú overené;
-- observations vedú k explicitným decision branches;
-- commands sú scoped, bounded a auditovateľné;
-- partial a unknown outcomes majú recovery;
-- technical aj business verification sú definované;
-- forbidden a second-operation tests prejdú;
-- stale alebo wrong subject je odmietnutý;
-- owner, reviewers a last-tested generation existujú;
-- new responder ho úspešne vykoná v rehearsal-e;
-- retirement alebo replacement trigger je definovaný.
+- **Zoznam príkazov —** neobsahuje trigger, state classification, authority, risk ani business outcome.
+- **Copy-paste ako usability —** rýchlo spustiteľný destructive command iba zrýchli a rozšíri failure.
+- **Queue klesla, problém je vyriešený —** work mohol byť zahodený, duplikovaný alebo presunutý do downstream bottlenecku.
+- **Runbook nemá generation —** nemožno určiť, ktoré architecture assumptions a tools responder použil.
+- **Automatizuj všetko —** nejasný decision point sa zmení na rýchly broad side effect; uncertainty potrebuje fenced escalation.
+- **Last updated znamená current —** text mohol byť editovaný bez rehearsal-u na current release a permissions.
 
-## 16. Troubleshooting runbook failure
-
-```text
-runbook bol vykonaný, outcome je zlý
-→ exact document version a actor
-→ intended vs actual subject/generation
-→ trigger a preconditions
-→ observations a classification
-→ commands/parameters a affected manifest
-→ partial/unknown outcomes
-→ effective-state read-back
-→ business a forbidden outcomes
-→ rollback/compensation availability
-→ stale assumption alebo missing decision branch
-→ withdraw, repair a rehearse
-```
-
-Najprv zachovaj použitú document generation. Editovanie in-place môže zničiť dôkaz, čo responder skutočne čítal.
-
-## 17. Earlier controls
-
-- standard runbook template;
-- owner a reviewer;
-- architecture/version compatibility;
-- exact subject a manifest;
-- read-before-write a dry-run;
-- bounded scope/rate;
-- approval a policy gates;
-- abort criteria;
-- business/forbidden verification;
-- last-tested generation;
-- new-responder rehearsal;
-- automatic stale-doc reminders;
-- withdrawal a replacement workflow.
-
-## 18. Anti-patterny
-
-### Zoznam príkazov
-
-Neobsahuje trigger, state classification, risk ani outcome.
-
-### Copy-paste ako usability
-
-Rýchlo spustiteľný destructive command iba zrýchli failure.
-
-### Queue klesla, problém je vyriešený
-
-Work mohol byť zahodený, duplikovaný alebo presunutý do downstream bottlenecku.
-
-### Runbook nemá verziu
-
-Nie je možné určiť, ktoré assumptions responder použil.
-
-### Automatizuj všetko
-
-Nejasný decision point sa zmení na rýchly broad side effect.
-
-### Last updated = current
-
-Dokument mohol byť editovaný bez rehearsal-u na current architecture.
-
-## 19. Kontrolné otázky
+## 16. Kontrolné otázky
 
 1. Ako sa runbook a playbook líšia?
-2. Čo tvorí exact runbook subject?
-3. Aké sekcie musí mať bezpečný runbook?
-4. Ako sa observation mení na decision branch?
-5. Prečo command potrebuje expected output?
-6. Ako sa rollback, compensation a unknown outcome líšia?
-7. Čo znamená generation compatibility?
-8. Ktoré verification vrstvy má runbook pokryť?
+2. Čo tvorí exact runbook subject a generation?
+3. Ako trigger, eligibility a preconditions chránia execution?
+4. Prečo vek row nie je state classification?
+5. Ako observation vedie k decision branchu?
+6. Čo robí command bounded a copy-safe?
+7. Aké verification boundaries má procedure pokryť?
+8. Ako sa rollback, compensation a unknown outcome líšia?
 9. Kedy je runbook vhodný na automation?
 10. Prečo `RB-PAY-17` vytvoril redelivery amplification?
 11. Ako sa dokument bezpečne withdraw-ne?
-12. Čo musí overiť runbook acceptance verdict?
+12. Ktoré positive, wrong-subject, stale, unknown a continuity paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: runbook, playbook, runbook subject, trigger eligibility, safety boundary, operational decision point, bounded command, affected manifest, unknown operational outcome, runbook generation, last-tested generation, runbook withdrawal, runbook acceptance verdict a new-responder rehearsal.
+Relevantné pojmy: runbook, playbook, runbook subject, document/system generation, trigger eligibility, operational state classification, bounded command, affected manifest, unknown operational outcome, last-tested generation, withdrawal a runbook acceptance contract.
 
 ## Primárne zdroje
 
