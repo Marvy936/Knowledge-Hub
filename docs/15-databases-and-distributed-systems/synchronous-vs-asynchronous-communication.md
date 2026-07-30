@@ -1,61 +1,51 @@
 # Synchronous vs. asynchronous communication
 
-Synchronous a asynchronous communication nie sú dva názvy pre `HTTP` a `queue`. Opisujú, **kedy caller očakáva výsledok, ako dlho drží execution dependency, kde sa nachádza acknowledgement boundary a čo sa stane pri timeout-e, retry, partial failure alebo oneskorenom dokončení**.
-
-Synchronous call môže používať HTTP, gRPC, database protocol alebo lokálne function call. Asynchronous workflow môže používať broker, durable outbox, polling, callback, webhook alebo workflow engine. Rovnaký transport môže niesť odlišné semantics: HTTP `202 Accepted` môže spustiť asynchronous processing, zatiaľ čo request/reply nad message brokerom môže byť stále synchronný z pohľadu callerovho deadline-u.
+Synchronous a asynchronous communication neopisujú konkrétny transport. Opisujú, kedy caller očakáva výsledok, ako dlho drží runtime dependency, kde sa nachádza acknowledgement boundary a čo sa stane pri timeout-e, cancellation, retry alebo oneskorenom dokončení. HTTP môže niesť asynchronous contract cez `202 Accepted`; request/reply nad brokerom môže byť z pohľadu callerovho deadline-u stále synchronous.
 
 ```text
 business operation a user expectation
-→ exact communication subject
-→ required immediate a deferred outcomes
+→ exact caller/callee a contract generation
+→ immediate vs. final outcome
 → dependency a deadline graph
-→ request/command/event contract
-→ acknowledgement boundary
-→ execution, cancellation a retry semantics
-→ result delivery a status visibility
-→ business reconciliation
-→ second-attempt a dependency-failure validation
+→ request, command alebo event boundary
+→ durable acceptance alebo immediate completion
+→ execution, cancellation a unknown outcome
+→ status/result delivery a backlog
+→ reconciliation a final business verdict
+→ mixed-generation, lost-response a second-attempt test
 ```
 
-## 1. Exact communication subject
+Najdôležitejšie rozlíšenie je medzi tým, čo caller vie po pôvodnom requeste, a tým, čo sa skutočne stalo v authoritative systéme alebo u external providera.
 
-Tvrdenie `služby komunikujú asynchrónne` je neúplné. Subject musí uvádzať:
+## 1. Communication subject a outcome contract
 
-- logical business operation;
-- caller a callee identity/generation;
-- request, command alebo event type a schema generation;
-- immediate response contract;
-- final business outcome;
-- deadline a cancellation boundary;
-- acknowledgement semantics;
-- retry owner a idempotency identity;
-- ordering a freshness požiadavky;
-- failure a recovery model;
-- observation point a authoritative evidence.
+Exact communication subject musí pomenovať logical business operation, caller a callee generation, request/command/event schema, immediate response, final business outcome, deadline a cancellation boundary, acknowledgement semantics, retry owner, stable identity, ordering a freshness požiadavky a observation point, z ktorého sa outcome dokazuje.
 
-Príklad:
+Pre Atlas Payments je public contract:
 
 ```text
 operation: submit merchant settlement
-caller: public settlement API 8.2
-callee: settlement command core 8.2
-immediate result: 202 + stable operation_id after settlement/outbox commit
-final result: completed, rejected alebo failed-final
-caller deadline: 900 ms
-provider execution deadline: 20 s per bounded attempt
-status visibility: GET /settlements/{operation_id} + event stream
+caller: public API v8.2
+callee: settlement command core v8.2
+immediate outcome:
+  202 + stable operation_id
+  až po settlement + outbox commit-e
+final outcome:
+  completed | rejected | failed-final | reconciliation-required
+public deadline: 900 ms
+provider attempt deadline: bounded independently
 retry identity: merchant_id + idempotency_key
+status authority: GET /settlements/{operation_id}
 ```
 
-Ak sa immediate a final outcome nerozlíšia, `request succeeded` môže znamenať iba prijatie bytes, durable command, začatie práce alebo dokončený business effect.
+`Request succeeded` bez pomenovania boundary môže znamenať iba prijaté bytes, successful validation, durable command, broker publication, consumer processing alebo final provider effect. Jedno HTTP status code nesmie reprezentovať všetky tieto states.
 
-## 2. Synchronous communication
+## 2. Synchronous dependency a deadline graph
 
-Pri synchronous interaction caller čaká na response v rámci jedného request lifetime-u.
+Pri synchronous interaction caller drží request otvorený, kým očakáva response:
 
 ```text
 caller intent
-→ connection/request creation
 → routing a admission
 → callee execution
 → downstream dependencies
@@ -64,419 +54,132 @@ caller intent
 → caller decision
 ```
 
-Výhody:
+Tento model je vhodný pre queries a krátke commands, pri ktorých user alebo ďalší krok potrebuje immediate result. Výhodou je jednoduchý control flow a request-scoped identity/tracing. Cena je runtime coupling: caller, callee a critical downstream dependencies musia dokončiť prácu v jednom deadline budgete.
 
-- jednoduchý lokálny control flow;
-- okamžitý success/failure result;
-- prirodzené request-scoped authentication a tracing;
-- vhodné pre queries a krátke commands s bounded latency;
-- jednoduchšia user interaction, keď výsledok musí byť okamžite známy.
-
-Náklady:
-
-- caller a callee musia byť súčasne dostupné;
-- downstream latency sa skladá do jednej critical path;
-- timeout môže nastať po vykonaní side effectu;
-- cancellation nemusí zastaviť už commitnutú alebo external operation;
-- retries môžu zosilniť overload;
-- dlhé dependency chains znižujú availability celého workflowu.
-
-Synchronous nie je automaticky silne konzistentné. Caller môže dostať odpoveď zo stale replica, callee môže commitnúť iba lokálnu časť workflowu alebo response môže byť stratená po úspešnom side effecte.
-
-## 3. Deadline budget a propagation
-
-Caller timeout nie je iba UI nastavenie. Je to budget rozdelený cez celý dependency graph.
+Deadline nie je lokálny timeout každej vrstvy. Je to end-to-end budget:
 
 ```text
-end-to-end deadline
-= gateway/routing
-+ queueing/admission
-+ application execution
-+ downstream calls
-+ response transport
-+ safety reserve
+900 ms public deadline
+- gateway, auth a routing
+- queue/admission wait
+- database transaction
+- response transport
+- safety reserve
+= maximum remaining child dependency budget
 ```
 
-Príklad:
+Ak provider p95 trvá `2.4 s`, provider call sa do truthful `900 ms` contractu nezmestí. Zvýšenie timeoutu môže iba zvýšiť open connections, worker concurrency, queueing a retry amplification. Správnym riešením môže byť oddelenie immediate validation a durable acceptance od deferred provider execution.
 
-```text
-client deadline:            900 ms
-gateway + auth:             90 ms
-command admission:          80 ms
-PostgreSQL transaction:    180 ms
-provider p95:            2 400 ms
-```
+Deadline sa propaguje ako remaining absolute budget alebo explicitný child budget. Každá vrstva nesmie začať nový plný timeout. Inak trojsekundový request môže cez niekoľko dependencies trvať desiatky sekúnd.
 
-Takýto provider call sa do 900 ms contractu nezmestí. Zvýšenie timeoutu môže iba presunúť problém do connection pools, thread pools a user latency. Správne možnosti môžu byť:
+## 3. Timeout, cancellation a unknown outcome
 
-- zmeniť product expectation;
-- vrátiť durable acceptance a final result doručiť neskôr;
-- použiť bounded degraded path;
-- znížiť dependency work;
-- rozdeliť operation na immediate validation a deferred execution.
-
-Deadline sa má propagovať ako absolútny remaining budget alebo explicitný child budget. Každá vrstva nemá začínať nový plný timeout, pretože tak vzniká unbounded tail latency.
-
-## 4. Timeout, cancellation a unknown outcome
-
-Timeout znamená iba, že caller nedostal výsledok včas. Neznamená automaticky:
-
-- callee request neprijal;
-- transaction rollbackla;
-- provider operation sa nevykonala;
-- server prestal pracovať;
-- retry je bezpečný.
+Timeout znamená, že caller nedostal odpoveď včas. Nehovorí, či callee request prijal, či database commitla alebo či provider vykonal side effect.
 
 ```text
 caller odošle command
-→ callee commitne operation
-→ callee zavolá provider
-→ provider vykoná side effect
-→ response sa stratí alebo príde po deadline-e
+→ callee commitne durable intent
+→ provider prijme operation
+→ response sa stratí
 → caller vidí timeout
 ```
 
-Výsledok je `unknown`, nie `failed`. Retry musí použiť stable idempotency identity a pred novým side effectom overiť authoritative operation/provider evidence.
+Correct classification je `unknown`, nie `failed`. Blind retry môže vytvoriť duplicate physical attempt. Bezpečný retry používa stable operation identity a najprv queryuje authoritative status alebo provider idempotency ledger.
 
-Cancellation je samostatný contract. TCP disconnect alebo gRPC cancellation môže prerušiť lokálnu prácu, no nemusí odvolať už odoslaný provider request, database commit alebo broker publication. Callee potrebuje vedieť, ktoré kroky sú:
+Cancellation je samostatný mechanizmus. Client disconnect môže zastaviť prácu ešte pred admission alebo pred local commitom. Nemôže automaticky rollbacknúť už commitnutú transaction, broker record ani external effect. Každý krok musí byť označený ako cancellable, committed-and-noncancellable, compensatable alebo reconcile-only.
 
-- bezpečne cancellable;
-- commitnuté a necancellable;
-- compensatable;
-- reconcile-only.
+Retry ownership musí byť jednoznačné. Gateway, SDK, service a worker nesmú nezávisle retryovať tú istú operation. Shared attempt budget, stable identity, backoff a outcome lookup chránia capacity aj correctness.
 
-## 5. Asynchronous communication
+## 4. Asynchronous acceptance a final-state visibility
 
-Pri asynchronous workflow caller nečaká na final execution v pôvodnom requeste.
+Pri asynchronous workflow caller nečaká na final execution v pôvodnom requeste:
 
 ```text
 caller command
-→ validation a durable acceptance
+→ validation
+→ durable acceptance
 → stable operation identity
 → deferred execution
 → intermediate states
 → final outcome
-→ status query, callback alebo event
+→ query, callback alebo event delivery
 ```
 
-Výhody:
+Výhodou je oddelenie public latency od dlhého processingu, buffering, controlled concurrency a replay/recovery. Cena sú duplicate delivery, backlog, ordering, schema evolution, delayed failure visibility a potreba explicitného status modelu.
 
-- oddelenie caller latency od dlhého downstream processingu;
-- buffering a controlled concurrency;
-- lepšia absorpcia transient spikes;
-- nezávislé scaling a failure recovery;
-- replay a audit trail pri durable logu.
+Asynchronous neznamená fire-and-forget. `202 Accepted` je správne iba vtedy, keď durable authority prevzala zodpovednosť a operation je queryable. Ak process po `202` môže stratiť in-memory task, acceptance je nepravdivé.
 
-Náklady:
+Final result možno sprístupniť cez status resource, webhook, event alebo subscription. Každý model potrebuje authorization, retry, duplicate handling, ordering, retention a freshness contract. Webhook delivery success nie je final business outcome; status cache nesmie skryť authoritative transition.
 
-- accepted nie je completed;
-- treba status model a result delivery;
-- duplicate delivery a retry sú normálne failure modes;
-- ordering a freshness sú explicitné, nie implicitné;
-- backlog predlžuje business latency;
-- schema evolution, retention a replay menia operational surface;
-- debugging vyžaduje end-to-end identity a evidence chain.
+Business latency sa meria ako acceptance latency plus queue age, consumer wait, execution, retry a reconciliation. API p95 `171 ms` môže byť zelené, zatiaľ čo settlement final completion trvá minúty alebo vôbec nenastane. Preto treba sledovať accepted-to-first-attempt, accepted-to-final, oldest backlog age a sent-unknown cohort.
 
-Asynchronous neznamená fire-and-forget. Bez durable acceptance, ownershipu, retry policy, final-state visibility a reconciliation je to iba strata kontroly nad outcome-om.
+## 5. Query, command a event semantics
 
-## 6. Commands, events a queries
-
-### Query
-
-Žiada current representation alebo odvodené dáta. Typicky nemá meniť authoritative state.
-
-### Command
-
-Žiada konkrétnemu ownerovi vykonať business transition.
+Query žiada representation a typicky nemení authoritative state. Command žiada konkrétneho ownera vykonať transition a môže byť rejected, accepted alebo completed. Event oznamuje fact, ktorý už nastal.
 
 ```text
-SubmitSettlement(operation_id, merchant_id, amount, policy_generation)
+SubmitSettlement(operation_id, policy_generation)
+SettlementAccepted(operation_id, committed_at)
+SettlementCompleted(operation_id, provider_reference)
 ```
 
-Command môže byť odmietnutý, accepted alebo completed. Má explicitného recipienta a očakávaný outcome.
+Názov eventu je súčasť correctness contractu. `SettlementCompleted` je nepravdivý, ak vznikol iba durable intent. Command transportovaný brokerom zostáva command; HTTP response nesie event semantics iba vtedy, keď oznamuje už committed fact.
 
-### Event
+Acknowledgement levels sa musia oddeľovať: socket prijal bytes, server request parsed, admission succeeded, database commitla intent, broker record durably prijal, consumer spracoval local transaction, provider effect bol potvrdený a final business outcome bol reconciled. Každý level má inú recovery zodpovednosť.
 
-Oznamuje fact, ktorý už nastal.
+## 6. Connected incident `DB-PAY-58`
 
-```text
-SettlementAccepted(operation_id, committed_at, schema_version)
-```
-
-Event nemá predstierať future intent. Názov `SettlementCompleted` je nesprávny, ak provider side effect ešte neprebehol.
-
-## 7. Acknowledgement levels
-
-Komunikačný contract musí pomenovať, čo acknowledgement dokazuje:
-
-1. bytes boli prijaté socketom;
-2. request bol parsed;
-3. command prešiel admission;
-4. intent bol durable commitnutý;
-5. message broker prevzal zodpovednosť;
-6. consumer message prijal;
-7. consumer local transaction commitla;
-8. external side effect bol potvrdený;
-9. final business outcome bol reconciled.
-
-Jedno `200`, `202` alebo broker acknowledgement nemá reprezentovať všetky úrovne.
-
-Pre Atlas settlement API je immediate acceptance:
-
-```text
-HTTP 202
-→ settlement row + outbox row committed v jednej PostgreSQL transaction
-→ stable operation_id možno queryovať
-→ final status príde neskôr
-```
-
-Nie je to tvrdenie, že provider už settlement dokončil.
-
-## 8. Result delivery patterns
-
-Asynchronous result možno sprístupniť cez:
-
-- polling stable status resource-u;
-- long polling;
-- webhook/callback;
-- server-sent events;
-- WebSocket subscription;
-- downstream event topic;
-- notification service.
-
-Každý model potrebuje:
-
-- identity a authorization;
-- delivery retry semantics;
-- duplicate handling;
-- current versus historical generation;
-- retention;
-- ordering;
-- final-state authority.
-
-Webhook delivery success neznamená, že receiver business result spracoval. Polling cache nesmie skryť final transition. Event consumer môže byť oneskorený, preto status resource má uvádzať authoritative alebo explicitne derived freshness.
-
-## 9. Backlog a business latency
-
-Asynchronous architecture presúva časť čakania z request threadu do backlogu.
-
-```text
-business completion latency
-= acceptance latency
-+ queue age
-+ consumer wait
-+ execution latency
-+ retry delay
-+ reconciliation delay
-```
-
-API p95 môže klesnúť zo sekúnd na 150 ms, zatiaľ čo final completion p95 narastie na 20 minút. Preto treba samostatne merať:
-
-- acceptance rate a latency;
-- queue age, nie iba queue depth;
-- time-to-first-attempt;
-- final completion latency;
-- final failure rate;
-- sent-unknown cohort;
-- backlog drain capacity.
-
-## 10. Sync-over-async a async-over-sync
-
-### Sync-over-async
-
-Caller publikuje command a blokuje, kým nepríde reply event. Z pohľadu calleru je workflow stále synchronous a zdedí deadline/correlation/reply-loss problémy.
-
-### Async-over-sync
-
-Background worker vykonáva synchronous provider call. Top-level workflow je asynchronous, ale worker stále potrebuje timeout, cancellation, concurrency a unknown-outcome contract.
-
-Architektúru treba analyzovať na každej hranici, nie jedným labelom pre celý systém.
-
-## 11. Worked incident `DB-PAY-58`
-
-Atlas Payments release `8.2` migroval provider execution z legacy synchronous request pathu na durable asynchronous flow.
-
-Intended path:
-
-```text
-merchant request
-→ API gateway
-→ settlement command core
-→ PostgreSQL transaction: settlement + outbox
-→ HTTP 202 + operation_id
-→ broker
-→ provider worker
-→ provider
-→ final settlement event/state
-```
-
-Legacy `8.1` path stále vykonával provider call pred response:
+Release `8.2` migroval provider execution na durable asynchronous flow:
 
 ```text
 merchant request
 → gateway
-→ legacy settlement service
-→ provider call
-→ PostgreSQL update
-→ HTTP 200
+→ PostgreSQL settlement + outbox transaction
+→ 202 + operation_id
+→ broker
+→ provider worker
+→ provider
+→ final state
 ```
 
-Gateway a Service selectors počas rollout-u miešali oba contracts. Provider p95 latency súčasne stúpla z `420 ms` na `2.4 s`, kým public deadline zostal `900 ms`.
+Legacy `8.1` stále vykonával provider call pred response a vracal `200`. Gateway a Kubernetes Service počas rollout-u miešali obe generations pod jedným endpointom. Provider p95 sa zvýšilo z `420 ms` na `2.4 s`, public deadline zostal `900 ms`.
 
-Počas 31 minút:
+Za 31 minút prišlo `18 420` requests; `31 %` skončilo na legacy cohort-e; `2 906` calls prekročilo deadline a clients vytvorili `4 118` retry attempts. `43` operations dosiahlo provider ako duplicate physical attempts. Provider idempotency zabránila confirmed duplicate settlementu, ale outcome zostal do reconciliation unknown. Async cohort vracal `202` za p95 `171 ms`, čo zakrylo final completion problém.
 
-- `18 420` settlement requests prišlo do gatewaya;
-- `31 %` trafficu skončilo na legacy synchronous cohort-e;
-- `2 906` legacy calls prekročilo client deadline;
-- clients vytvorili `4 118` retry attempts;
-- `43` operations dosiahlo provider ako duplicate physical attempts;
-- provider idempotency zabránila confirmed duplicate settlementu, ale outcome bol do reconciliation neznámy;
-- async cohort vracal `202` za p95 `171 ms`, no dashboard sledoval iba acceptance latency.
+Root cause bol mixed immediate-result contract pod jedným route a retry modelom. V8.1 timeout mohol nastať po provider effecte; v8.2 `202` znamenalo iba durable acceptance. Route neexponovala generation a SDK po timeout-e nebola povinná najprv queryovať status.
 
-### Communication root cause
+## 7. Redesign a acceptance paths
 
-Primary communication root cause bol **mixed immediate-result contract pod jedným endpointom a jedným client retry modelom**:
+Public API teraz vracia `202`, `operation_id`, `status_url` a `accepted_at` až po atomic settlement + outbox commit-e. SDK používa stable idempotency key, po lost response-e queryuje status a rozlišuje `accepted`, `processing`, `completed`, `failed-final` a `reconciliation-required`. Provider worker má vlastný bounded attempt deadline, stable provider idempotency key a pri unknown outcome-e vykoná lookup namiesto blind retryu.
 
-- v8.1 timeout mohol nastať po provider effecte;
-- v8.2 `202` znamenalo iba durable acceptance;
-- gateway neexponovala contract generation;
-- clients nevedeli rozlíšiť unknown synchronous outcome od accepted asynchronous operation;
-- status resource nebol povinnou súčasťou SDK retry flowu.
+**Positive path** preukáže durable acceptance v public deadline-e a neskorší final outcome dostupný cez authoritative status.
 
-Provider slowdown bol trigger. Discovery/routing mix bol causal amplifier. Queue a cache failures v ďalších kapitolách vysvetľujú, prečo ani správne accepted async operations nemuseli dokončiť správne.
+**Recovery path** stratí public response po commite alebo oneskorí provider. SDK nájde existujúcu operation, worker klasifikuje unknown outcome a nevytvorí nový business effect.
 
-## 12. Evidence-preserving containment
+**Failure path** odmietne request pred commitom alebo označí final failure explicitne. Accepted operation nesmie zmiznúť bez final alebo reconciliation state-u.
 
-```text
-freeze gateway a Service selector changes
-→ preserve route/discovery/backend generation per request
-→ disable blind client retries
-→ expose one stable operation lookup
-→ classify v8.1 timed-out a v8.2 accepted cohorts
-→ query PostgreSQL/outbox/broker/provider evidence
-→ fence ambiguous legacy writes
-→ continue iba bounded async acceptance
-```
+**Forbidden path** odmietne mixed sync/async generations, `202` bez durable operation, timeout interpretovaný ako rollback, viacvrstvové retries a false `completed` pred provider evidence.
 
-Každá operation bola klasifikovaná ako:
+Acceptance zahŕňa second attempt, lost response, slow dependency, delayed completion, cancellation pred a po commit-e a old-client/new-contract compatibility test.
 
-- rejected-before-commit;
-- accepted-durable;
-- provider-never-sent;
-- provider-sent-unknown;
-- provider-completed;
-- final-failed;
-- duplicate-attempt-with-single-effect.
+## 8. Troubleshooting a anti-patterny
 
-## 13. Authoritative redesign
+Diagnostika začína exact operation a caller/callee generations, potom immediate/final contractom, deadline graphom, commit/ack evidence, cancellation state, retry ownerom, downstream outcome-om, backlogom a result visibility. Až business reconciliation uzatvára verdict.
 
-Nový public contract:
+Najčastejšie anti-patterny sú `HTTP = sync`, `broker = async`, timeout označený za failure, plošné zvýšenie timeoutu, `202 = hotovo`, fire-and-forget bez durability, async považované za automatickú availability a retry povolený každej vrstve.
 
-```text
-POST /settlements
-→ validate request a policy generation
-→ atomic settlement + outbox commit
-→ 202 Accepted
-→ operation_id + status URL + accepted_at
-```
-
-Client SDK:
-
-- používa stable idempotency key;
-- po timeout-e queryuje operation status pred novým create attemptom;
-- nerozlišuje success iba podľa HTTP response delivery;
-- interpretuje `accepted`, `processing`, `completed`, `failed-final` a `reconciliation-required`;
-- má bounded polling/backoff budget.
-
-Provider worker:
-
-- používa vlastný attempt deadline;
-- prenáša stable provider idempotency key;
-- po unknown outcome-e nerepeatne side effect bez provider lookupu;
-- zapisuje durable attempt/result evidence.
-
-## 14. Communication acceptance verdict
-
-Communication design je prijatý, keď:
-
-- exact logical operation a actors/generations sú explicitné;
-- immediate a final outcome sú oddelené;
-- synchronous dependency chain sa zmestí do truthful deadline budgetu;
-- deadline propagation a cancellation semantics sú definované;
-- timeout sa neinterpretuje automaticky ako failure;
-- acknowledgement level je explicitný;
-- asynchronous acceptance je durable a queryable;
-- status/result delivery má authorization, retry a freshness contract;
-- backlog age a final completion sú merané;
-- retry owner, stable identity a unknown-outcome reconciliation sú overené;
-- mixed contract generations sú odmietnuté;
-- second attempt, slow dependency, lost response a delayed completion tests prejdú;
-- forbidden duplicate external effect a false-completed outcome zlyhajú.
-
-## 15. Troubleshooting flow
-
-```text
-request timeout, accepted-never-completed alebo duplicate attempt
-→ exact operation/caller/callee generations
-→ immediate vs final outcome contract
-→ end-to-end deadline a queueing budget
-→ commit/acknowledgement evidence
-→ cancellation a in-flight work
-→ retry identity a owner
-→ downstream/provider outcome
-→ async backlog a result visibility
-→ business reconciliation
-→ second-attempt/dependency-failure validation
-```
-
-## 16. Anti-patterny
-
-### HTTP je synchronous, broker je asynchronous
-
-Transport neurčuje caller wait a outcome semantics.
-
-### Timeout = operation zlyhala
-
-Operation mohla commitnúť alebo vykonať external effect.
-
-### Zvýšime timeout
-
-Môže iba zvýšiť concurrency, pool pressure a user latency.
-
-### `202` znamená hotovo
-
-Znamená iba to, čo explicitne definuje acceptance contract.
-
-### Fire-and-forget
-
-Bez durability, ownershipu a final-state visibility je to uncontrolled loss.
-
-### Async vyrieši availability
-
-Pridáva broker, backlog, duplicates, schema a recovery failure modes.
-
-### Retry patrí každej vrstve
-
-Nezávislé retries násobia attempts a ničia deadline/capacity budget.
-
-### Cancellation rollbackne všetko
-
-Commitnuté a external operations môžu pokračovať.
-
-## 17. Kontrolné otázky
+## 9. Kontrolné otázky
 
 1. Čo tvorí exact communication subject?
-2. Ako sa synchronous a asynchronous communication líšia od transportu?
-3. Ako sa immediate a final outcome odlišujú?
-4. Čo je deadline budget a ako sa propaguje?
+2. Ako sa immediate outcome líši od final outcome-u?
+3. Prečo transport neurčuje sync alebo async semantics?
+4. Ako sa propaguje deadline budget?
 5. Prečo timeout vytvára unknown outcome?
-6. Kedy je cancellation účinná?
-7. Ako command, event a query líšia intent?
-8. Ktoré acknowledgement levels treba rozlíšiť?
-9. Ako sa meria business latency asynchronous flowu?
-10. Prečo mixed v8.1/v8.2 contract spôsobil `DB-PAY-58`?
-11. Ako má client retryovať po stratenom response?
-12. Čo musí overiť communication acceptance verdict?
+6. Ktoré kroky cancellation už nedokáže vrátiť?
+7. Čo dokazujú jednotlivé acknowledgement levels?
+8. Ako sa meria accepted-to-final business latency?
+9. Prečo mixed v8.1/v8.2 contract spôsobil `DB-PAY-58`?
+10. Ktoré positive, recovery, failure a forbidden paths musia prejsť?
 
 ## Glossary impact
 
@@ -486,7 +189,7 @@ Relevantné pojmy: communication subject, synchronous communication, asynchronou
 
 - [gRPC — Deadlines](https://grpc.io/docs/guides/deadlines/)
 - [gRPC — Cancellation](https://grpc.io/docs/guides/cancellation/)
-- [HTTP Semantics — RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html)
 - [Microsoft Azure Architecture Center — Asynchronous Request-Reply pattern](https://learn.microsoft.com/azure/architecture/patterns/async-request-reply)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
