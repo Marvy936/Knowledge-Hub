@@ -1,38 +1,31 @@
 # Root cause analysis
 
-Root cause analysis (RCA) je systematické vysvetlenie, **prečo konkrétny nežiaduci outcome vznikol, prečo ho existujúce kontroly nezastavili, prečo dosiahol daný impact a čo musí byť zmenené, aby sa rovnaký failure mechanismus neopakoval**.
+Root cause analysis — RCA — je systematické vysvetlenie, prečo konkrétny nežiaduci outcome vznikol, prečo ho existujúce kontroly nezastavili, prečo dosiahol daný impact a ktoré mechanizmy treba zmeniť, aby sa rovnaký failure path neopakoval. Nie je to hľadanie jednej osoby, posledného commitu ani prvého chybového logu. V komplexnom systéme incident typicky vzniká kombináciou triggera, technického mechanismu, latentných podmienok, escape a detection gaps, amplification controls a recovery constraints.
 
-RCA nie je hľadanie jednej osoby, posledného commitu ani prvého chybného log riadku. V komplexnom systéme incident zvyčajne vzniká z kombinácie triggera, technického mechanismu, latentných podmienok, neúplných kontrol a recovery constraints.
+RCA musí zostať viazaná na evidence a presný incident subject. Presvedčivý príbeh bez reprodukovateľnej timeline, competing hypotheses a counterfactual reasoning môže byť rovnako nebezpečný ako žiadna analýza, pretože vedie k actions, ktoré zatvoria ticket, ale nie failure mechanismus.
+
+## 1. Dominantný outcome-to-mechanism lifecycle
+
+Analýza začína nežiaducim business outcome-om a postupne rekonštruuje state transitions, causal paths a zlyhané barriers. Action portfolio sa odvodzuje až z overeného mechanismu a uzatvára sa production evidence, nie statusom `Done`.
 
 ```text
-incident alebo reliability failure
-→ exact analysis subject a evidence cutoff
-→ overená timeline a state transitions
-→ trigger a proximate mechanism
-→ contributing conditions a latent controls
-→ competing causal hypotheses
-→ causal graph a counterfactual tests
-→ root, escape, amplification a recovery causes
+incident a exact nežiaduci outcome
+→ RCA subject, evidence cutoff a known-good/bad boundaries
+→ overená timeline state transitions
+→ trigger, proximate a impact mechanismus
+→ technical/systemic/escape/detection/amplification/recovery causes
+→ competing hypotheses a causal graph
+→ counterfactual a barrier tests
 → corrective-action portfolio
+→ deployed/effective control verification
 → recurrence a second-operation validation
 ```
 
-## 1. Exact RCA subject
+Trigger vysvetľuje, čo failure path aktivovalo. Root cause vysvetľuje, ktorý controllable mechanismus umožnil nežiaduci outcome. Escape cause vysvetľuje, prečo ho delivery controls pustili; amplification cause, prečo bol impact taký veľký; recovery cause, prečo obnova trvala tak dlho.
 
-Tvrdenie `analyzujeme incident` je príliš široké. RCA subject musí uviesť:
+## 2. Exact RCA subject a outcome
 
-- incident ID;
-- affected business capability;
-- presný service, data a operation scope;
-- release, configuration a policy generations;
-- affected tenant, Region, cluster alebo cohort;
-- impact interval;
-- evidence cutoff;
-- known-good a first-known-bad state;
-- ownera analýzy;
-- explicitne vylúčený scope.
-
-Príklad:
+Tvrdenie `analyzujeme payments incident` je príliš široké. Exact subject obsahuje incident ID, affected capability, service/data/operation scope, release a policy generations, tenant/Region/cohort, impact interval, evidence cutoff, known-good a first-known-bad state, ownera a explicitne vylúčený scope.
 
 ```text
 incident: SRE-PAY-54
@@ -46,60 +39,29 @@ analysis cutoff: 2026-07-29 12:00 UTC
 excluded: provider-side settlement calculation
 ```
 
-Bez subject identity sa môžu zmiešať dve nezávislé poruchy alebo sa neskoršia recovery action nesprávne označí za pôvodnú príčinu.
+Outcome sa zapisuje cez intended a observed transition. V tomto incidente nemala „database problém“. Aktívne settlement rows mali zostať queryable a correlatable, no compactor ich označil ako archived, odstránil provider/outbox correlation metadata, callbacks sa nedali bezpečne priradiť a merchant-visible state zostal stale alebo unknown.
 
-## 2. Outcome pred príčinou
+## 3. Timeline ako state-transition evidence
 
-Analýza začína presným nežiaducim outcome-om:
-
-```text
-actor alebo user
-+ intended operation
-+ expected state transition
-+ observed state transition
-+ business impact
-```
-
-V `SRE-PAY-54` nebol outcome `database mala problém`. Presný outcome bol:
-
-```text
-aktívne settlement rows
-→ mali zostať queryable a correlatable
-→ compactor ich označil ako archived
-→ odstránil provider/outbox correlation metadata
-→ provider callbacks sa nedali bezpečne priradiť
-→ merchant stav zostal stale alebo unknown
-```
-
-System health bez správneho business state-u nie je úspech.
-
-## 3. Timeline ako model state transitions
-
-Timeline nie je chronologický dump všetkých logs. Zachytáva kauzálne významné transitions:
+Timeline nie je dump incident chatu. Zachytáva iba kauzálne významné transitions s exact subjectom, timestampom, clock authority a dôkazom.
 
 | Čas UTC | Subject | Transition | Dôkaz |
 |---|---|---|---|
-| 02:02 | release 7.25.0 | deployed → ready | deployment a readiness evidence |
-| 02:10 | compactor config 54 | loaded s missing `tenant_scope` | config read-back |
+| 02:02 | release 7.25.0 | deployed → ready | deployment/readiness evidence |
+| 02:10 | compactor config 54 | loaded bez `tenant_scope` | config read-back |
 | 02:14:07 | batch 54-1 | eligible query → wildcard scope | query plan a job log |
-| 02:14:12 | settlement ledger | 186 420 rows → archived | WAL/audit |
-| 02:15–02:31 | replicas/backups | current corruption → replicated/captured | replication a snapshot evidence |
+| 02:14:12 | settlement ledger | 186 420 rows → archived | WAL a audit |
+| 02:15–02:31 | replicas/backups | current corruption → replicated/captured | replication/snapshot evidence |
 | 02:33 | provider callbacks | normal → correlation failures | callback logs |
-| 02:37 | business SLI | completion correctness fast burn | SLI evaluation |
+| 02:37 | business SLI | correctness fast burn | SLI evaluation |
 | 02:41 | incident | detected → declared | incident log |
 | 02:48 | compactor | active → disabled | controller audit |
 
-Každý bod potrebuje time authority a subject. Application timestamp, database commit time, provider time a incident-chat time nemusia byť identické.
+Application, DB commit, provider a incident-chat clocks nemusia byť identické. Timeline preto uvádza time authority a uncertainty; inak sa môže recovery action omylom zaradiť pred causal mutation.
 
-## 4. Trigger, mechanismus a impact
+## 4. Trigger, mechanisms a causal taxonomy
 
-### Trigger
-
-Udalosť, ktorá aktivovala failure path. V incidente to bol prvý production run compactoru po release `7.25.0`.
-
-### Proximate mechanismus
-
-Bezprostredný technický mechanismus:
+Prvý production run compactoru generation 54 bol trigger. Proximate technical mechanismus bol:
 
 ```text
 missing tenant_scope
@@ -108,443 +70,200 @@ missing tenant_scope
 → active rows prešli do archived state-u
 ```
 
-### Impact mechanismus
+Impact mechanismus pokračoval odstránením correlation metadata, nemožnosťou priradiť provider callback a stale/unknown merchant outcome-om. Trigger však nebol root cause; rovnaký run by incident nevytvoril, keby destructive operation chýbajúci scope fail-closed odmietla.
 
-Ako sa lokálna chyba zmenila na user impact:
+Užitočná RCA rozlišuje viac príčinných vrstiev:
 
-```text
-archived state
-→ correlation metadata odstránené
-→ callback nemožno priradiť
-→ final settlement state nemožno bezpečne potvrdiť
-→ stale/unknown merchant outcome
-```
+- **technical root cause —** missing scope sa pri destructive query interpretoval ako wildcard;
+- **systemic root cause —** destructive-operation contract nemal mandatory scope, affected manifest, max rows/rate ani invariant gate;
+- **escape cause —** zero-row canary a exit-code oracle neobsahovali positive eligible population ani forbidden-state assertion;
+- **detection cause —** monitoring sledoval job errors, nie active-to-archived transitions a callback correctness;
+- **amplification cause —** broad DB role a unbounded multi-tenant batch umožnili 186 420 mutations;
+- **recovery-delay cause —** restore identity nemala current decrypt grant a consistency-group/post-point manifest nebol pripravený.
 
-Trigger nie je automaticky root cause. Rovnaký release by nevyvolal incident, keby destructive operation fail-closed odmietla missing scope.
+Jedna veta `root cause bol bug` tieto rozhodovacie boundaries odstráni.
 
-## 5. Viac druhov príčin
+## 5. Causal graph, hypotheses a counterfactuals
 
-Užitočná RCA rozlišuje:
-
-### Technical root cause
-
-Mechanismus, bez ktorého by incident nevznikol. Tu: missing scope sa v destructive query interpretoval ako wildcard.
-
-### Systemic root cause
-
-Design alebo governance podmienka umožňujúca mechanismu existovať. Tu: destructive batch contract nemal mandatory exact scope, affected manifest, maximum row count ani invariant gate.
-
-### Escape cause
-
-Prečo defect neodhalili testy, review alebo rollout. Canary dataset nemal žiadne eligible rows a test overoval iba successful job exit.
-
-### Detection cause
-
-Prečo incident nebol zistený skôr. Monitoring sledoval DB errors a job success, nie active-to-archived transition rate ani callback-correlation correctness.
-
-### Amplification cause
-
-Čo zväčšilo blast radius. Unbounded batch, broad DB role a multi-tenant scope umožnili 186 420 mutations v jednom run-e.
-
-### Recovery-delay cause
-
-Čo predĺžilo obnovu. Restore plan nebol rehearsed po zmene encryption/account grants a neexistoval manifest consistency groupu medzi database, outbox, broker a provider ledgerom.
-
-Jedna veta `root cause bol bug` je preto neúplná.
-
-## 6. Causal graph
-
-Causal graph spája podmienky a transitions:
+Causal graph ukazuje paralelné podmienky a ich úlohu:
 
 ```text
 release 7.25.0
-        |
-        v
+       |
+       v
 missing tenant_scope ----> wildcard default
-                               |
-missing fail-closed schema ----+
-                               v
-                      broad destructive query
-                       /       |         \
-              no max rows   broad role   zero-row canary
-                       \       |         /
-                               v
-                     186 420 rows archived
-                               |
-              correlation metadata removed
-                               |
-                   callback mapping failure
-                               |
-                stale/unknown merchant state
+       |                         |
+missing fail-closed schema -----+
+                                 v
+                        broad destructive query
+                       /        |         \
+                  no max rows  broad role  zero-row canary
+                       \        |         /
+                                 v
+                       186 420 rows archived
+                                 |
+                    correlation metadata removed
+                                 |
+                       callback mapping failure
+                                 |
+                    stale/unknown merchant state
 ```
 
-Graph ukazuje, ktoré podmienky sú necessary, sufficient alebo iba amplifying. Zároveň bráni tomu, aby sa posledný človek v chain-e stal falošným vysvetlením celého systému.
+Competing hypotheses sa zapisujú spolu s očakávaným a observed evidence. Provider poškodené callbacks, replica lag alebo manual query boli relevantné možnosti, ale provider payloady boli validné, failures nastali aj na primary a audit actor bol workload identity. WAL, query plan a batch IDs potvrdili compactor hypothesis.
 
-## 7. Competing hypotheses
+Counterfactual otázky disciplinujú causal tvrdenia. Keby `tenant_scope` bol mandatory a fail-closed, broad batch by nevznikol. Keby canary obsahovala eligible rows a invariant check, release gate by zlyhal. Keby existoval `max_rows=500`, impact by mal menší blast radius. Counterfactual nie je úplný matematický dôkaz, ale oddeľuje causal control od korelácie.
 
-RCA nesmie spätne predstierať, že správna odpoveď bola od začiatku zrejmá. Zaznamenaj relevantné hypotézy:
+## 6. Hranice Five Whys a actionable depth
 
-| Hypotéza | Očakávaný dôkaz | Pozorovanie | Verdict |
-|---|---|---|---|
-| provider poslal poškodené callbacks | invalid provider payload pred DB mutation | payloads boli validné | zamietnutá |
-| replica lag vrátil stale row | failures iba na replica reads | failures aj na primary | zamietnutá |
-| compactor broad-archived rows | batch IDs korelujú s mutations | WAL a audit sa zhodujú | potvrdená |
-| manual operator query | interactive actor v audit logu | actor bol workload identity | zamietnutá |
+Five Whys môže pomôcť rozvinúť jednoduchý lineárny chain, no distributed incident má paralelné branches a počet päť nie je zákon. Metóda ľahko skončí pri `human error`, ignoruje escape/detection/recovery causes alebo je vedená k preferovanému záveru.
 
-Rejected hypotheses sú hodnotné. Ukazujú, ktoré evidence paths boli použité a zabraňujú opakovaniu slepých diagnostických ciest.
+Analýza má ísť do controllable a testovateľnej hĺbky. `Engineer zabudol parameter` je plytké; `komplexné systémy zlyhávajú` je príliš abstraktné. Actionable verdict znie: destructive production API akceptovala optional scope, runtime použil wildcard default, policy nekontrolovala affected manifest a canary neobsahovala positive mutation population.
 
-## 8. Counterfactual reasoning
+Human action sa zapisuje fakticky a v context-e. Responder spustil current označený runbook, pretože alert naň odkazoval a queue panel krátko ukazoval zlepšenie. To je presnejšie než hodnotenie `bezhlavo spustil zlý príkaz`. Úmyselné policy violation sa môže riešiť separátnym people/compliance procesom; technická RCA stále analyzuje detekciu a obmedzenie.
 
-Counterfactual otázka skúma, či by odstránenie podmienky zmenilo outcome:
+## 7. Evidence quality a confidence
+
+Každé významné tvrdenie potrebuje source, subject, timestamp, generation, completeness, retention status, confidence a limitation. DB WAL môže autoritatívne potvrdiť mutation, ale nie user-visible semantics; provider ledger a merchant projection sú potrebné pre business outcome.
 
 ```text
-Keby tenant_scope bol mandatory a fail-closed,
-spustil by sa broad batch?
-→ nie
+WAL/transaction audit
+→ mutation truth
 
-Keby canary obsahovala eligible active rows a invariant check,
-prešiel by release gate?
-→ nie
+config/query plan
+→ execution intent a generation
 
-Keby existoval max_rows=500,
-dosiahol by incident rovnaký blast radius?
-→ nie
+provider ledger
+→ external side-effect truth
 
-Keby snapshot fungoval bez business reconciliation,
-bol by user outcome bezpečne obnovený?
-→ nie
+application projection/support evidence
+→ user-visible interpretation
 ```
 
-Counterfactual nie je matematický dôkaz kauzality, ale disciplinuje tvrdenia a oddeľuje príčinu od korelácie.
+Dashboard aggregation a recollection sú useful leads, nie automatická causal authority. Evidence cutoff tiež zabraňuje tomu, aby sa neskoršia informácia retrospektívne tvárila ako dostupná responderom počas incidentu.
 
-## 9. Five Whys a jeho hranice
+## 8. Connected incident `SRE-PAY-54`
 
-`Five Whys` môže pomôcť rozvinúť jednoduchý lineárny chain, ale má limity:
+Release `payments-api 7.25.0` pridal `settlement-ledger-compactor`. Intended eligibility bola exact tenant, terminal settlement, finalized provider a age nad 90 dní. Production config vynechala `tenant_scope`; schema to dovolila a query generator interpretoval missing scope ako all tenants.
 
-- počet päť nie je technický zákon;
-- otázky môžu byť vedené k preferovanému záveru;
-- distributed incident má viac paralelných vetiev;
-- môže skončiť abstraktným `human error`;
-- nemusí zachytiť escape, detection a recovery causes;
-- môže ignorovať organizáciu a incentives.
+Canary dataset nemal žiadne eligible rows, preto test dostal `0 rows affected`, job skončil exit code `0` a rollout gate ho označil successful. Prvý production batch vybral `186 420` rows, z toho `7 842` neterminálnych, odstránil correlation metadata, `613` callbacks potrebovalo secondary evidence a `91` merchant-visible settlements zostalo stale alebo unknown. Replication a snapshots faithfully zachytili poškodenú business semantics.
 
-Použi ho ako prompt, nie ako jedinú RCA metódu. Pre komplexný incident kombinuj timeline, causal graph, change analysis, barrier analysis, fault tree alebo STPA-style control reasoning podľa potreby.
-
-## 10. Root-cause depth
-
-Analýza má ísť dostatočne hlboko na actionable a controllable mechanismus.
-
-Príliš plytké:
+Causal verdict bol:
 
 ```text
-engineer zabudol tenant parameter
-```
+trigger:
+first production run compactor generation 54
 
-Príliš abstraktné:
+technical root:
+missing scope → wildcard destructive query
 
-```text
-komplexné systémy zlyhávajú
-```
+systemic root:
+no fail-closed destructive-operation contract
 
-Actionable depth:
-
-```text
-destructive production operation prijala missing scope,
-pretože schema povoľovala optional field,
-runtime použil wildcard default,
-policy nekontrolovala affected manifest
-a canary neobsahovala positive eligible population
-```
-
-Osobné rozhodnutie môže byť súčasťou timeline, ale RCA sa pýta, prečo systém považoval dané rozhodnutie za bezpečné a povolené.
-
-## 11. Human action bez human blame
-
-Blameless neznamená, že ľudské actions sa vynechajú. Znamená, že sa opisujú fakticky:
-
-```text
-responder spustil RB-PAY-17
-pretože alert odkazoval na tento runbook,
-dokument bol označený current
-a queue-length panel krátkodobo ukazoval zlepšenie
-```
-
-Namiesto:
-
-```text
-responder bezhlavo spustil zlý príkaz
-```
-
-Ak existuje úmyselné porušenie policy, podvod alebo hrubé zanedbanie, patrí do príslušného people/compliance procesu. Technická RCA stále analyzuje, ako systém takú akciu detegoval, obmedzil alebo neobmedzil.
-
-## 12. Evidence quality
-
-Každé závažné tvrdenie má mať:
-
-- source;
-- subject;
-- timestamp a clock authority;
-- generation/version;
-- completeness;
-- retention status;
-- confidence;
-- known limitations.
-
-Preferuj authoritative evidence:
-
-```text
-DB WAL/transaction audit
-> parsed application log
-> dashboard aggregation
-> incident-chat recollection
-```
-
-Hierarchia nie je absolútna. WAL potvrdí mutation, ale nie user-visible interpretáciu. Business outcome môže vyžadovať provider ledger a customer-facing state.
-
-## 13. Worked incident `SRE-PAY-54`
-
-Release `payments-api 7.25.0` pridal `settlement-ledger-compactor`. Intended operation bola:
-
-```text
-exact tenant
-+ terminal settlement
-+ provider finalized
-+ age > 90 dní
-→ archive correlation metadata
-```
-
-Production config vynechala `tenant_scope`. Config schema pole povoľovala a query generator použil:
-
-```text
-missing scope → all tenants
-```
-
-Canary dataset neobsahoval žiadne eligible rows. Test preto dostal `0 rows affected`, job skončil s exit code `0` a rollout gate ho označil za successful.
-
-Prvý production batch o `02:14:07 UTC`:
-
-- vybral `186 420` rows;
-- z toho `7 842` nebolo terminal;
-- odstránil provider/outbox correlation metadata;
-- `613` neskorších provider callbacks sa nedalo priradiť bez secondary evidence;
-- `91` merchant-visible settlements zostalo dočasne stale alebo unknown;
-- database replication a nové snapshots faithfully zachytili poškodený logical state.
-
-### Causal verdict
-
-Trigger:
-
-```text
-prvý production run compactor generation 54
-```
-
-Technical root cause:
-
-```text
-missing tenant scope sa pre destructive operation interpretoval ako wildcard
-```
-
-Systemic root cause:
-
-```text
-chýbal fail-closed destructive-operation contract:
-mandatory scope, affected manifest, max rows/rate,
-dual authorization a business invariant gate
-```
-
-Escape cause:
-
-```text
+escape:
 zero-row canary + exit-code oracle
-bez positive mutation population a forbidden-state assertion
+
+amplification:
+broad role + unbounded multi-tenant batch
+
+recovery delay:
+stale decrypt/access path + missing consistency-group manifest
 ```
 
-Amplifiers:
+## 9. Containment a corrective-action portfolio
 
-- broad production role;
-- unbounded multi-tenant batch;
-- detection až cez downstream correlation failures;
-- replicas a backups kopírujúce logical corruption;
-- neúplný consistency-group inventory.
+RCA nesmie spomaľovať urgentné containment. Compactor generation 54 bol disabled, jeho write capability revoked, config/query/plan/actor/WAL/affected IDs preserved, ďalšie destructive jobs blocked a current corrupted state snapshotnutý na forensic comparison. Broad production rewind sa nezačal bez clean-point a divergence analýzy.
 
-Recovery delay:
+Action portfolio pokrýva viac control layers. Mechanismus odstráni mandatory `tenant_scope`, fail-closed runtime a typed destructive API bez wildcard defaultu. Blast radius obmedzí immutable affected manifest, per-tenant max rows/rate a invariant abort. Detection zlepší transition/correlation SLI a positive business canary. Recovery zlepší consistency-group inventory, isolated PITR, decrypt/access canary a provider reconciliation tooling. Organizácia pridelí destructive-change ownera a similar-system audit.
 
-- restore identity nemala current decryption grant;
-- isolated restore nebol rehearsed po account migration;
-- post-clean-point provider operations vyžadovali manuálne zostavený manifest.
-
-## 14. Containment pred analýzou
-
-RCA nesmie blokovať urgentné containment. Zároveň containment zachová evidence:
-
-1. disable compactor generation 54;
-2. revoke jeho write capability;
-3. preserve config, query text, plan, actor, WAL a affected IDs;
-4. block ďalšie archive/delete jobs;
-5. snapshot current corrupted state pre forensic comparison;
-6. preserve provider callbacks a broker/outbox evidence;
-7. classify merchant impact;
-8. nezačať broad production rollback bez clean-point a divergence analýzy.
-
-Editovanie jobu alebo runbooku in-place pred preservation môže zničiť generation evidence.
-
-## 15. Corrective-action portfolio
-
-Silné corrective actions pokrývajú viac control layers:
-
-### Eliminate mechanism
-
-- `tenant_scope` mandatory v schema;
-- missing/empty scope fail-closed;
-- typed destructive-operation API bez wildcard defaultu.
-
-### Limit blast radius
-
-- exact affected manifest;
-- max rows a rate;
-- per-tenant batches;
-- automatic abort pri invariant breach.
-
-### Improve detection
-
-- active-to-archived transition SLI;
-- callback-correlation correctness;
-- unexpected multi-tenant mutation alert;
-- business canary s positive eligible population.
-
-### Improve recovery
-
-- versionovaný consistency-group inventory;
-- tested isolated PITR;
-- current decryption/access canary;
-- provider-ledger reconciliation tooling.
-
-### Improve organization
-
-- destructive-change review owner;
-- postmortem action SLO;
-- cross-service review podobných wildcard semantics.
-
-`Buďte opatrnejší` nie je dostatočná corrective action.
-
-## 16. Action-item quality
-
-Každý action item potrebuje:
+Action item mapuje mechanismus na control, ownera, priority, due date, dependency a verification evidence:
 
 ```text
-failure mechanism
-→ concrete control
-→ owner
-→ priority
-→ due date
-→ dependency
-→ verification evidence
-→ retirement alebo residual-risk verdict
+ARCH-219
+mechanism: missing scope → wildcard destructive query
+control: required tenant_scope + runtime fail-closed
+owner: Settlement Platform
+due: 2026-08-05
+verification: missing, empty a wrong tenant rejected
 ```
 
-Príklad:
+`Buďte opatrnejší` ani `napísať dokumentáciu` samostatne executable failure path neodstraňujú.
+
+## 10. RCA acceptance a mechanism closure
+
+Positive acceptance musí preukázať exact subject, evidence-backed timeline, oddelený trigger/proximate/business mechanismus, causal taxonomy, competing-hypothesis verdicts a counterfactuals. Actions musia mapovať na mechanisms a mať production verification.
+
+Forbidden paths zahŕňajú `human error` ako koncový verdict, jedinú root cause za každú cenu, causal claim bez source, action closed po merge-i, recurrence test iba na pôvodnom fixture a residual risk bez ownera.
 
 ```text
-Action: ARCH-219
-Mechanism: missing scope → wildcard destructive query
-Control: schema-required tenant_scope + runtime fail-closed
-Owner: Settlement Platform
-Due: 2026-08-05
-Verification: unit, integration a production shadow test;
-              missing, empty a wrong tenant sú odmietnuté
+analysis:
+outcome → evidence → causal graph → control portfolio
+
+closure:
+implemented → deployed → effective → recurrence test
+
+forbidden:
+trigger označený za root cause
+blame namiesto mechanismu
+ticket closure bez effective state
+similar-system path ignorovaný
 ```
 
-Action `napísať dokumentáciu` môže byť užitočná, ale sama neodstráni executable failure path.
+Mechanism closure nastane až keď negative a second-operation tests preukážu, že missing/empty/wrong scope je odmietnutý aj na podobných destructive workflows. Closed ticket nie je closed failure mechanismus.
 
-## 17. RCA acceptance verdict
+## 11. Troubleshooting slabej RCA
 
-Analýza je prijatá, keď:
-
-- exact incident a impact subject sú definované;
-- timeline používa overené state transitions a clock limitations;
-- trigger, proximate mechanismus a business impact sú oddelené;
-- technical, systemic, escape, detection, amplification a recovery causes sú vyhodnotené;
-- relevantné competing hypotheses majú evidence verdict;
-- causal claims prežijú counterfactual otázky;
-- human actions sú faktické a zasadené do system contextu;
-- corrective actions mapujú na konkrétne mechanisms;
-- každý action má ownera, priority, termín a verification;
-- similar-system search bol vykonaný;
-- recurrence a second-operation test potvrdia odstránenie pathu;
-- residual risk má explicitného ownera.
-
-## 18. Troubleshooting slabej RCA
+Ak incident recurs alebo actions nefungujú, porovnaj exact prior RCA generation, pôvodný causal graph, action closure evidence a effective scope. Urči, či recurrence použila rovnaký mechanismus, alternate path alebo podobný symptom.
 
 ```text
-incident sa opakuje alebo action items nefungujú
-→ exact prior RCA generation
-→ pôvodný causal graph
-→ ktoré actions boli closed a akým dôkazom
-→ či control bol iba configured alebo effective
-→ či recurrence použila rovnaký mechanismus
-→ či analysis skončila pri triggeri/osobe
-→ missing escape/detection/recovery branches
-→ organizational incentive alebo ownership gap
-→ re-open RCA a prepracuj action portfolio
+recurrence
+→ prior subject a causal graph
+→ actions a verification evidence
+→ configured vs effective control
+→ same vs alternate mechanism
+→ missing escape/detection/recovery branch
+→ organizational ownership/incentive gap
+→ re-open analysis a portfolio
 ```
 
-Closed ticket nie je dôkaz closed failure mechanismu.
+RCA sa nemá „obhájiť“ tým, že bola už publikovaná. Nová evidence môže vytvoriť revision s auditovaným correction recordom.
 
-## 19. Anti-patterny
+## 12. Anti-patterny
 
-### Posledná zmena je root cause
+RCA anti-patterny vytvárajú jednoduchý príbeh na úkor causal completeness a testovateľnej nápravy.
 
-Change môže byť trigger, ale systémové kontroly mali obmedziť jeho nesprávny outcome.
+- **Posledná zmena je root cause —** change môže byť trigger; barriers mali zamedziť unsafe outcome alebo blast radiusu.
+- **Human error —** opisuje action bez vysvetlenia, prečo bola možná, rozumná alebo neobmedzená.
+- **Jedna root cause za každú cenu —** skryje escape, detection, amplification a recovery paths.
+- **Five Whys ako rituál —** lineárny chain nahradí distributed causal graph a môže skončiť pri abstraktnej osobe.
+- **Timeline iba z chatu —** chat je neúplný a časovo skreslený; potrebuje system evidence a clock authority.
+- **Action item je training —** training môže pomôcť, ale bez executable guardrailu sa mechanismus vráti.
+- **RCA bez follow-up verification —** dokument vysvetlí minulosť, no production behavior zostane rovnaký.
 
-### Human error
+## 13. Kontrolné otázky
 
-Opisuje actor action bez vysvetlenia, prečo bola možná, rozumná alebo neobmedzená.
-
-### Jedna root cause za každú cenu
-
-Skryje paralelné escape, amplification a recovery paths.
-
-### Five Whys ako rituál
-
-Lineárny chain nahradí skutočný distributed causal graph.
-
-### Timeline z incident chatu
-
-Chat je neúplný a časovo skreslený; musí sa korelovať s authoritative system evidence.
-
-### Action item = training
-
-Training môže pomôcť, ale bez executable guardrailu sa rovnaký mechanismus vráti.
-
-### RCA bez follow-up verification
-
-Dokument vysvetlí minulosť, ale nezmení production behavior.
-
-## 20. Kontrolné otázky
-
-1. Čo tvorí exact RCA subject?
+1. Čo tvorí exact RCA subject a outcome?
 2. Ako sa trigger, proximate mechanismus a root cause líšia?
-3. Prečo treba odlíšiť technical, systemic a escape cause?
-4. Ako causal graph zlepšuje analýzu oproti lineárnemu príbehu?
-5. Čo testuje counterfactual otázka?
+3. Prečo treba rozlišovať technical, systemic, escape a amplification causes?
+4. Ako causal graph zlepšuje lineárny príbeh?
+5. Čo testuje counterfactual reasoning?
 6. Aké sú limity Five Whys?
-7. Kedy je root-cause depth príliš plytká alebo príliš abstraktná?
+7. Kedy je causal depth príliš plytká alebo abstraktná?
 8. Ako zapísať human action blameless, ale presne?
-9. Prečo replication a backup nezabránili `SRE-PAY-54`?
+9. Prečo replication a backup incident nezastavili?
 10. Čo robí corrective action overiteľnou?
-11. Ako similar-system search znižuje recurrence risk?
-12. Čo musí overiť RCA acceptance verdict?
+11. Ako sa mechanism closure líši od ticket closure?
+12. Ktoré analysis, closure a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: RCA subject, proximate mechanismus, technical root cause, systemic root cause, escape cause, detection cause, amplification cause, recovery-delay cause, causal graph, counterfactual test, root-cause depth, corrective-action portfolio, mechanism closure, similar-system search a RCA acceptance verdict.
+Relevantné pojmy: RCA subject, proximate mechanismus, technical/systemic root cause, escape/detection/amplification/recovery cause, causal graph, counterfactual test, actionable root-cause depth, corrective-action portfolio, mechanism closure a RCA acceptance contract.
 
 ## Primárne zdroje
 
 - [Google SRE — Postmortem Culture: Learning from Failure](https://sre.google/sre-book/postmortem-culture/)
-- [Google SRE Workbook — Postmortem Culture: Learning from Failure](https://sre.google/workbook/postmortem-culture/)
+- [Google SRE Workbook — Postmortem Culture](https://sre.google/workbook/postmortem-culture/)
 - [Google SRE — Effective Troubleshooting](https://sre.google/sre-book/effective-troubleshooting/)
-- [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
+- [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
