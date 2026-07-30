@@ -1,435 +1,150 @@
 # CAP theorem
 
-CAP theorem nie je pravidlo „vyber si dve vlastnosti“ pre celý systém za každých okolností. Je to scoped impossibility result o správaní replikovanej služby počas network partition-u pri konkrétnych definíciách consistency a availability.
-
-Praktická otázka preto nie je:
-
-> Je systém CP alebo AP?
-
-Presnejšia otázka je:
-
-> Čo urobí konkrétna read alebo write operation, keď required replicas nemôžu navzájom komunikovať, a aký business outcome tým systém dovolí alebo odmietne?
-
-## 1. Dominantný model
+CAP theorem nie je pravidlo „vyber si dve vlastnosti“ pre celý systém. Je to scoped impossibility result: počas network partition-u nemôže replikovaná služba pri presných formálnych definíciách súčasne garantovať single-copy consistency a response od každého non-failed node-u. Praktický návrh preto rozhoduje per operation, čo sa smie stať, keď required participants nevedia koordinovať.
 
 ```text
 business operation a invariant
 → exact replicated subject a client cohort
-→ normal topology a authority
-→ partition/failure scenario
-→ dostupné observations a quorum
-→ per-operation consistency/availability decision
-→ acknowledgement alebo explicit refusal
-→ stale/divergent/unknown outcome
-→ reconciliation a partition-heal behavior
-→ second-partition validation
+→ normal authority a topology
+→ partition/reachability scenario
+→ quorum a dostupné observations
+→ consistency alebo availability decision
+→ acknowledgement, refusal alebo bounded stale result
+→ external effect a unknown outcome
+→ heal, convergence a reconciliation
+→ asymmetric a second-partition validation
 ```
 
-CAP je užitočný iba vtedy, keď sa mapuje na exact operation, exact failure a exact response semantics.
+Otázka `Je databáza CP alebo AP?` je príliš hrubá. Správna otázka je, či konkrétny route read, settlement write, dashboard read alebo telemetry append počas konkrétneho partition-u pokračuje, odmietne sa alebo použije slabší explicitný contract.
 
-## 2. Formálna intuition
+## 1. Exact CAP subject a formálny scope
 
-Gilbert–Lynch formalizácia pracuje v asynchronous network model-e, kde správy môžu byť arbitrárne oneskorené alebo stratené. Pri partition-e nemôže replikovaná služba súčasne garantovať:
+CAP subject musí pomenovať replicated object alebo key range, operation a invariant, client/read/write cohort, topology a failure domains, partition scenár, consistency model, availability response contract, quorum, acknowledgement boundary, stale/conflict semantics a external side effects.
 
-- **atomic consistency** — operation sa správa ako jediná aktuálna kópia;
-- **availability** — každý request prijatý non-failed node-om nakoniec dostane response;
-- **partition tolerance** — systém musí fungovať napriek strate komunikácie medzi časťami siete.
+Vo formálnom asynchronous network modeli môžu správy arbitrárne meškať alebo sa stratiť. CAP consistency sa typicky interpretuje ako linearizability: completed write musí byť viditeľný všetkým neskorším current reads, akoby existovala jedna aktuálna kópia. Nie je to ACID consistency, schema constraint ani všeobecná business správnosť.
 
-V modernej terminológii sa CAP „C“ typicky interpretuje ako linearizability alebo veľmi podobná single-copy consistency vlastnosť, nie ako ľubovoľná databázová consistency alebo ACID `C`.
+CAP availability znamená, že každý request prijatý non-failed node-om nakoniec dostane response. Nie je to percentuálne SLO. Response môže obsahovať stale alebo conflict-producing state, ak systém zachováva availability na úkor single-copy consistency.
 
-## 3. Čo znamená consistency v CAP
+Partition tolerance nie je voliteľný feature flag. Packet loss, asymmetric reachability, overloaded link, routing blackhole, process pause alebo disk stall môžu byť z pohľadu peerov nerozlíšiteľné. Timeout je observation, nie proof crashu ani partition-u.
 
-CAP consistency znamená, že reads a writes možno usporiadať tak, akoby existovala jedna aktuálna kópia a operations nastali atomicky medzi invocation a response.
+## 2. Partition decision je per operation
 
-Príklad:
+Mimo partition-u môže systém poskytovať silnú consistency aj vysokú praktickú availability. Konflikt vzniká až vtedy, keď required participants nevedia koordinovať.
 
-```text
-write route_generation = 912 dokončený
-→ neskorší linearizable read
-→ nesmie vrátiť 911
-```
+Pri päťčlennom clusteri s quorum `3` partition `3 + 2` umožní majority side pokračovať v consensus writes. Minority nemôže bezpečne commitovať nový log entry. Môže odmietnuť, čakať alebo poskytovať explicitne local/stale reads podľa operation contractu.
 
-Neznamená to automaticky:
-
-- schema constraints;
-- referential integrity;
-- serializable multi-row transaction;
-- causal consistency;
-- eventual convergence;
-- application business correctness.
-
-Tieto properties musia byť definované samostatne.
-
-## 4. Čo znamená availability v CAP
-
-Availability v proof modeli nie je percentuálne SLO ani „väčšina requestov funguje“.
-
-Je to silný liveness contract:
+Jedna platforma môže mať túto matrix:
 
 ```text
-request na non-failed node
-→ finite processing
-→ response
-```
-
-Response môže byť stale alebo conflict-producing, ak sa systém rozhodol zachovať availability namiesto single-copy consistency.
-
-Systém, ktorý počas partition-u odmietne write alebo čaká na quorum bez garantovaného response, zachováva consistency za cenu CAP availability pre danú operation.
-
-## 5. Partition tolerance nie je voliteľný checkbox
-
-V distributed systéme môže dôjsť k:
-
-- packet loss;
-- asymmetric reachability;
-- routing blackhole;
-- overloaded linku;
-- DNS alebo load-balancer divergence;
-- firewall/policy skew;
-- process pause;
-- disk stall vyzerajúcemu ako network failure;
-- arbitrárne dlhému message delay-u.
-
-Aplikácia nevie spoľahlivo odlíšiť vzdialený crash od partition-u alebo extrémne pomalého peer-u. Timeout je observation, nie proof konkrétnej príčiny.
-
-## 6. CAP decision vzniká počas partition-u
-
-Mimo partition-u systém môže poskytovať silnú consistency aj availability v bežnom zmysle. Konflikt sa aktivuje, keď required participants nemôžu koordinovať.
-
-```text
-normal operation
-→ quorum reachable
-→ linearizable write/read
-
-partition
-→ quorum side môže pokračovať konzistentne
-→ minority side musí odmietnuť, čakať alebo obslúžiť slabší contract
-```
-
-Preto „CA databáza“ v reálnej sieti často znamená iba to, že partition behavior nie je explicitne navrhnutý.
-
-## 7. Decision je per operation, nie iba per product
-
-Jeden systém môže počas rovnakého partition-u používať rôzne policies:
-
-| Operation | Požadovaný outcome počas partition-u |
-|---|---|
-| Create settlement intent | odmietnuť bez authoritative quorum |
-| Read immutable product catalog | dovoliť bounded stale read |
-| Read current provider route | vyžadovať minimum generation alebo linearizable read |
-| Append telemetry | lokálne bufferovať a neskôr merge-núť |
-| Merchant dashboard projection | zobraziť stale marker a known revision |
-| Provider side effect | nevykonať bez stable idempotency a current authority |
-
-Nálepka `CP` alebo `AP` bez operation matrixu je príliš hrubá.
-
-## 8. Quorum a majority side
-
-Pri päťčlennom consensus clusteri je quorum `3`.
-
-Partition `3 + 2` vytvára:
-
-```text
-majority side 3
-→ môže zvoliť alebo zachovať leadera
-→ môže commitovať nové decisions
-
-minority side 2
-→ nemôže bezpečne commitovať nový log entry
-→ môže odmietnuť alebo poskytovať explicitne stale/local reads
-```
-
-Quorum neznamená, že každý client automaticky dostane current result. Client môže stále:
-
-- čítať z local cache;
-- použiť serializable/member-local read;
-- držať staré connection;
-- ignorovať revision;
-- pokračovať s previously loaded generation.
-
-## 9. Consistency-preserving partition behavior
-
-Pre critical authoritative write môže byť správny outcome:
-
-```text
-quorum unavailable
-→ write rejected alebo deadline exceeded
-→ no success acknowledgement
-→ stable operation identity retained
-→ client neskôr queryuje authoritative state
-```
-
-Výhoda:
-
-- žiadne divergentné committed histories pre daný invariant.
-
-Cena:
-
-- operation nie je CAP-available na minority alebo quorum-less side;
-- caller potrebuje truthful degraded behavior;
-- timeout môže stále vytvoriť unknown outcome, ak request dosiahol quorum tesne pred stratou response.
-
-## 10. Availability-preserving partition behavior
-
-Pre mergeable alebo derived data môže systém akceptovať local progress:
-
-```text
-partitioned replica
-→ local write/read accepted
-→ operation označená origin/causal/version identity
-→ po heal-e merge alebo conflict resolution
-```
-
-To je bezpečné iba ak domain podporuje:
-
-- commutative operations;
-- last-writer policy s akceptovanou stratou;
-- CRDT alebo explicitný merge;
-- append-only local log;
-- bounded stale semantics;
-- post-heal reconciliation.
-
-Availability bez conflict modelu je iba deferred corruption.
-
-## 11. Stale reads sú contract, nie náhoda
-
-Slabší read musí deklarovať:
-
-- maximálnu age alebo revision gap;
-- source replica/generation;
-- session guarantees;
-- whether read môže autorizovať write alebo external effect;
-- fallback pri prekročení freshness boundu;
-- UI/API stale marker;
-- recovery po heal-e.
-
-```text
-read route generation 911
-current required generation 912
-→ stale read možno použiť na dashboard
-→ nesmie autorizovať nový provider side effect
-```
-
-## 12. Partition-heal nie je automatická correctness
-
-Po obnovení connectivity treba rozlíšiť:
-
-- committed majority history;
-- uncommitted minority attempts;
-- local accepted writes;
-- external effects vykonané mimo consensus;
-- cache/session-loaded generations;
-- client retries a duplicate attempts;
-- stale decisions, ktoré už ovplyvnili business.
-
-```text
-network healed
-→ replicas converge na committed log
-→ application side effects sa nemusia samy vrátiť
-→ potrebná je business reconciliation
-```
-
-## 13. PACELC ako doplnková otázka
-
-CAP sa sústreďuje na partition. V normálnom stave stále existuje trade-off medzi latency a consistency.
-
-Praktický návrh preto hodnotí:
-
-```text
-if partition:
-  consistency vs availability
-else:
-  latency vs consistency
-```
-
-Nie je to náhrada CAP theorem-u, ale pripomienka, že quorum/read semantics majú cenu aj bez incidentu.
-
-## 14. Connected incident `DB-PAY-59`
-
-Atlas Payments release `payments 8.3` presunul provider-route control do päťčlenného consensus clusteru:
-
-```text
-Region A: 3 voting members
-Region B: 2 voting members
-quorum:   3
-```
-
-Provider `P1` začal vracať vysoký timeout rate. Control plane v Region A úspešne commitol:
-
-```text
-provider_route_generation: 911 → 912
-route: P1 → P2
-```
-
-Následne deväťminútový network partition oddelil Region B.
-
-Majority Region A:
-
-- zachoval quorum;
-- commitol generation `912`;
-- linearizable reads vracali current route `P2`.
-
-Minority Region B:
-
-- nemohla commitovať nový route state;
-- control client používal member-local serializable read;
-- application cache držala generation `911` s desaťminútovým TTL;
-- request path nerozlišoval stale route od current authority.
-
-Počas partition-u Region B naďalej posielal časť settlements na `P1`.
-
-## 15. CAP boundary incidentu
-
-CAP theorem nevysvetľuje celý incident jedinou vetou. Exact decision bol:
-
-```text
-partitioned Region B
-→ current linearizable route unavailable bez quorum
-→ application zvolila local stale availability
-→ stale route bola dovolená pre side-effecting operation
-→ business correctness sa porušila
-```
-
-Primary CAP/design root cause bol:
-
-> Provider-route read nemal per-operation partition contract; member-local availability bola implicitne použitá tam, kde side-effecting settlement vyžadoval current authority alebo explicitné refusal.
-
-Consensus cluster sa nesprával split-brain. Majority history bola správna. Application nad minority readom vytvorila nesprávny business decision.
-
-## 16. Dôsledky `DB-PAY-59`
-
-Počas 9 minút:
-
-- `24 600` logical settlement operations vstúpilo do affected flowu;
-- `3 842` operations v Region B načítalo stale route generation `911`;
-- `1 126` provider attempts smerovalo na degraded `P1` po commitnutí generation `912`;
-- `1 384` operations skončilo ako `sent-unknown` pre timeout;
-- `27` duplicate physical provider attempts vyžadovalo reconciliation;
-- provider idempotency zabránila duplicate financial settlement effectom.
-
-Nulové duplicate financial effects neznamenajú, že CAP/read contract prešiel. Systém porušil required current-route decision a vytvoril vysoký unknown-outcome load.
-
-## 17. Evidence-preserving containment
-
-```text
-freeze route/config changes
-→ preserve cluster term, revision a member topology
-→ map partitioned client cohorts a loaded generations
-→ stop stale-route side effects v Region B
-→ require quorum/current-generation read pre new settlement
-→ preserve provider attempts, idempotency a timeout evidence
-→ classify committed, never-sent, sent-unknown a completed operations
-→ reconcile provider ledger
-```
-
-Unsafe response by bol globálny cache flush bez zachovania loaded-generation a request evidence.
-
-## 18. Authoritative redesign
-
-Per-operation matrix:
-
-```text
-create settlement / choose provider route
-→ linearizable current-generation read
-→ fail closed pri quorum/current-generation uncertainty
+create settlement intent
+→ current authority/quorum required
+→ bez quorum fail closed
+
+choose provider route for external effect
+→ linearizable minimum generation required
+→ stale route forbidden
 
 merchant dashboard
 → bounded stale read allowed
-→ response includes observed_generation a stale=true
+→ observed generation + stale marker
 
 telemetry append
 → local durable buffer allowed
-→ later merge
+→ deterministic later merge
 ```
 
-Application contract:
+Toto nie je nekonzistentná architecture; je to operation-specific partition policy. Nebezpečné je implicitne použiť rovnaký local read pre dashboard aj side-effecting provider decision.
 
-- route decision obsahuje exact generation;
-- settlement row persistuje used route generation;
-- minimum acceptable generation sa prenáša requestom;
-- local cache key je versionovaný;
-- stale read nemôže autorizovať external effect;
-- degraded mode je explicitný, observable a rate-limited;
-- partition-heal spúšťa cohort reconciliation.
+## 3. Consistency-preserving a availability-preserving paths
 
-## 19. CAP acceptance verdict
-
-CAP design je prijatý, keď:
-
-- exact replicated subject a invariant sú explicitné;
-- partition scenarios a observation limits sú pomenované;
-- consistency znamená konkrétny model, nie všeobecnú „správnosť“;
-- availability znamená konkrétny response/liveness contract;
-- decision je definovaný per operation a cohort;
-- quorum/minority behavior je explicitné;
-- stale/local reads majú freshness, generation a allowed-use contract;
-- writes počas partition-u majú conflict/merge alebo refusal model;
-- acknowledgement neklame o current authority;
-- timeout/unknown outcomes majú stable identity a reconciliation;
-- partition heal rieši external effects a loaded/cached state;
-- second partition, asymmetric partition a delayed-message tests prejdú;
-- forbidden stale-authority a divergent-unmergeable outcomes sú odmietnuté.
-
-## 20. Troubleshooting flow
+Consistency-preserving write počas quorum loss-u odmietne alebo prekročí deadline bez success acknowledgement-u. Stable operation identity zostane zachovaná a client neskôr queryuje authority, pretože lost response môže stále vytvoriť unknown outcome.
 
 ```text
-stale/divergent/unavailable distributed outcome
-→ exact operation a replicated subject
-→ normal authority/topology
-→ partition a reachable-set evidence
-→ quorum, term, revision a leader state
-→ client read/write consistency mode
-→ cache/session-loaded generation
-→ acknowledgement a timeout evidence
-→ local/external side effects
-→ heal/convergence behavior
-→ reconciliation a second-partition validation
+quorum unavailable
+→ no authoritative success
+→ explicit unavailable/deferred response
+→ status lookup po recovery
 ```
 
-## 21. Anti-patterny
+Availability-preserving local progress je bezpečný iba pre mergeable domain. Operation potrebuje origin/version identity, conflict policy a post-heal reconciliation. Append-only local logs, commutative counters, CRDT alebo bounded stale representation môžu byť vhodné. Non-mergeable payment intent alebo current provider route zvyčajne nie.
 
-### CAP znamená vyber si dve
+Last-write-wins bez domain semantics môže zahodiť legitimate concurrent update. `Replicas sa nakoniec zhodnú` nie je business correctness, ak každá strana už vykonala odlišný external effect.
 
-Trade-off je scoped na partition a konkrétne definície properties.
+Stale read je contract, nie náhoda. Musí niesť observed revision/generation, maximálny gap alebo age, allowed-use a fallback. Generation `911` môže byť prijateľná pre historical dashboard; nesmie po activation `912` autorizovať nový provider call na old route.
 
-### Partition tolerance vypneme
+## 4. Quorum, clients a end-to-end authority
 
-V sieti neviete garantovať, že komunikácia nikdy nezlyhá alebo sa arbitrárne neoneskorí.
+Quorum chráni consensus history, nie automaticky celý application path. Client môže používať member-local read, stale cache, old connection alebo process-loaded configuration. Consensus cluster môže byť safe a application aj tak vykonať nesprávne rozhodnutie.
 
-### CP systém je vždy unavailable
+```text
+quorum commits generation 912
+→ local member/cache stále vracia 911
+→ application nepýta minimum generation
+→ provider effect používa 911
+```
 
-Môže byť dostupný mimo partition-u a na quorum side; konkrétne minority operations môžu byť odmietnuté.
+Acknowledgement preto musí obsahovať alebo odkazovať na evidence: cluster/revision/term, used business generation a operation identity. Application rozhoduje, či evidence spĺňa minimum required pre danú operation.
 
-### AP systém je nekonzistentný navždy
+PACELC dopĺňa praktickú otázku: počas partition-u consistency vs. availability; mimo partition-u latency vs. consistency. Member-local read môže byť rýchlejší aj bez incidentu, ale jeho použitie pre authority decision musí zostať zakázané alebo generation-bound.
 
-Môže konvergovať alebo poskytovať domain-specific merge semantics. Musí to však dokazovať.
+## 5. Heal, convergence a business reconciliation
 
-### Quorum vyriešilo application correctness
+Network heal neuzatvára incident. Replicas môžu konvergovať na majority log, no zostávajú local accepted attempts, client retries, caches, loaded generations a external effects.
 
-Client môže použiť stale cache, weak read alebo external side effect mimo consensus.
+```text
+connectivity restored
+→ consensus members converge
+→ retire stale local/cache generations
+→ classify operations podľa used generation
+→ reconcile provider attempts a outcomes
+→ replay iba safe manifest
+→ validate second partition
+```
 
-### Stale read je bezpečný, lebo ide iba o read
+Ak minority iba odmietala authoritative writes, recovery je jednoduchší. Ak prijímala mergeable writes, treba merge a conflict evidence. Ak používala stale state na external effects, každý affected operation cohort potrebuje provider/idempotency lookup.
 
-Read môže autorizovať write, route, access alebo external effect.
+## 6. Connected incident `DB-PAY-59`
 
-### Po heal-e je incident ukončený
+Atlas Payments presunul provider-route control do päťčlenného consensus clusteru: Region A mala troch voting members, Region B dvoch a quorum bolo `3`. Control plane v Region A commitol route generation `911 → 912`, teda `P1 → P2`. Potom deväťminútový partition oddelil Region B.
 
-Replicas môžu konvergovať, ale external effects a client retries zostanú.
+Region A zachovala quorum a linearizable reads vracali `912/P2`. Region B nemohla commitovať, ale control client používal member-local serializable read a application cache držala `911` s desaťminútovým TTL. Request path nerozlišoval current authority od local availability.
 
-## 22. Kontrolné otázky
+Počas deviatich minút vstúpilo do affected flowu `24 600` logical operations. `3 842` načítalo stale generation `911`; `1 126` attempts smerovalo na degraded `P1`; `1 384` skončilo `sent-unknown` a `27` vytvorilo duplicate physical attempts. Provider idempotency zabránila duplicate financial effectu, no CAP/read contract aj tak zlyhal.
 
-1. Aké presné definície C, A a P používa CAP theorem?
-2. Prečo „pick two“ skresľuje partition decision?
-3. Ako sa CAP consistency líši od ACID consistency?
-4. Čo znamená availability vo formálnom modeli?
-5. Prečo je timeout iba observation?
-6. Prečo treba rozhodovať per operation?
-7. Kedy je stale read bezpečný?
-8. Čo musí obsahovať availability-preserving conflict model?
-9. Prečo quorum cluster nezabránil `DB-PAY-59`?
-10. Ktorá operation mala failnúť closed počas partition-u?
-11. Čo treba reconciliovať po heal-e?
-12. Čo overuje CAP acceptance verdict?
+Root cause nebol consensus split brain. Majority history bola správna. Provider-route read nemal per-operation partition contract, takže stale local availability bola dovolená pre side-effecting operation, ktorá mala vyžadovať current generation alebo explicitne odmietnuť.
+
+## 7. Redesign a acceptance paths
+
+Settlement/provider selection teraz vyžaduje linearizable read s minimum acceptable generation; settlement persistuje exact route generation. Pri uncertainty failne closed. Dashboard používa bounded stale projection s `observed_generation` a `stale=true`. Telemetry smie bufferovať lokálne a neskôr merge-nuť.
+
+**Positive path** počas normal topology vráti current generation a vykoná side effect s persisted evidence.
+
+**Recovery path** pri minority partition-e odmietne side-effecting operation, zachová stable identity a po heal-e obnoví status bez duplicate effectu.
+
+**Availability path** dovolí iba explicitne mergeable alebo bounded-stale operations a po heal-e preukáže convergence.
+
+**Forbidden path** odmietne stale authority read, unmergeable dual write, success acknowledgement bez quorum evidence a external effect z minority-local state-u.
+
+Acceptance zahŕňa asymmetric partition, delayed messages, cache s old generation, lost response na quorum side, second partition a reconciliation external effects.
+
+## 8. Troubleshooting a anti-patterny
+
+Diagnostika ide od exact operation a replicated subjectu cez topology/reachability, quorum/term/revision, client consistency mode, cache generation, acknowledgement a external effects až po heal/convergence. `Cluster healthy` nie je end-to-end verdict.
+
+Najčastejšie anti-patterny sú `pick two`, predstava, že partition možno vypnúť, CP označené za vždy unavailable, AP označené za permanentne nesprávne, quorum považované za application correctness, stale read označený za neškodný a heal považovaný za koniec incidentu.
+
+## 9. Kontrolné otázky
+
+1. Aké presné properties používa CAP theorem?
+2. Ako sa CAP consistency líši od ACID consistency?
+3. Čo znamená availability vo formálnom modeli?
+4. Prečo je partition decision per operation?
+5. Kedy môže minority side bezpečne pokračovať?
+6. Aké evidence musí niesť bounded stale read?
+7. Prečo quorum nechráni stale application cache?
+8. Čo treba reconciliovať po network heal-e?
+9. Prečo consensus cluster v `DB-PAY-59` nebol split-brain?
+10. Ktoré positive, recovery, availability a forbidden paths musia prejsť?
 
 ## Glossary impact
 
