@@ -1,88 +1,58 @@
 # On-call a escalation
 
-On-call je časovo ohraničená zodpovednosť reagovať na urgentné production udalosti s primeranou rýchlosťou, kompetenciou a authority. Nie je to neobmedzená dostupnosť každého engineera ani mechanizmus na absorbovanie všetkej neplánovanej práce.
+On-call je časovo ohraničená zodpovednosť prevziať urgentný production signal, posúdiť jeho impact a bezpečne konať alebo eskalovať. Nie je to neobmedzená dostupnosť každého engineera ani mechanizmus, ktorým služba absorbuje všetku neplánovanú prácu. Escalation je riadený prechod k ďalšej osobe, role, tímu alebo authority, keď current responder nemá čas, skill, access, kapacitu alebo rozhodovacie oprávnenie potrebné na ochranu služby.
 
-Escalation je riadený prechod k ďalšej osobe, role, tímu alebo authority, keď current responder nemá čas, informácie, access, kapacitu alebo rozhodovacie oprávnenie potrebné na ochranu služby.
+Základným omylom je zameniť doručenie alebo acknowledgement page-u za effective response. Kliknutie v notification systéme dokazuje iba interaction s alertom. Nedokazuje, že responder pochopil subject, má správny access, prevzal ownership, začal vhodnú mitigation alebo vie incident včas deklarovať.
 
-## 1. Dominantný lifecycle
+## 1. Dominantný support-to-qualified-response lifecycle
+
+On-call systém začína service support objective-om a končí sustainable rotation, ktorá dokáže opakovane vytvoriť qualified response. Routing, schedule, delivery, acknowledgement, ownership, escalation a incident declaration sú samostatné boundaries a každá potrebuje vlastný dôkaz.
 
 ```text
 service support objective
 → exact on-call support contract
 → page eligibility a routing
-→ rotation, coverage a competency
-→ schedule generation a handoff
-→ notification delivery a acknowledgement
-→ first response a impact assessment
-→ technical/organizational escalation
+→ rotation, schedule a competency generation
+→ notification delivery
+→ human acknowledgement
+→ qualified ownership a impact assessment
+→ time, skill, authority, load alebo severity escalation
 → incident declaration a coordinated response
-→ recovery a follow-up ownership
-→ load, fatigue a page-quality review
-→ sustainable rotation validation
+→ recovery, handoff a follow-up
+→ page-quality, fatigue a sustainability review
 ```
 
-On-call systém je prijateľný až keď správny urgentný signal dostane pripravený responder, ktorý vie bezpečne konať alebo rýchlo eskalovať, a keď dlhodobý load nepoškodzuje ľudí ani reliability.
+On-call je prijateľný iba vtedy, keď urgentný user-impact signal dostane pripravený responder, ktorý vie bezpečne konať alebo rýchlo eskalovať, a keď dlhodobý load nepoškodzuje ľudí ani reliability.
 
 ## 2. Exact on-call support contract
 
-Support contract musí pomenovať:
+„Payments majú 24/7 on-call“ nehovorí, čo sa podporuje ani aký response je sľúbený. Exact contract obsahuje supported capability, hours a time zones, page eligibility, primary/secondary roles, acknowledgement a qualified-response targets, required skills a access, incident-declaration authority, vendor/dependency paths, handoff rules a sustainability limits.
 
 ```text
-supported service a business capability
-+ hours/time zones a coverage model
-+ page eligibility a urgency
-+ primary/secondary/escalation roles
-+ response a acknowledgement targets
-+ required skills, tools a access
-+ incident-declaration authority
-+ vendor a cross-team dependencies
-+ handoff a follow-up rules
-+ load a sustainability limits
-```
-
-Príklad:
-
-```text
+contract: OC-PAY-54
 service: Atlas settlement completion
 coverage: 24/7
-primary: immediate triage a containment
-secondary: parallel diagnosis, handoff alebo primary replacement
-service owner: architecture a risk authority
-provider escalation: P1 channel do 10 min pri provider-wide impacte
-security escalation: okamžite pri integrity/credential suspicion
+primary: triage, containment alebo incident declaration
+secondary: backup, parallel diagnosis a overload protection
+service owner: architecture a high-risk authority
+provider P1: activation do 10 min pri provider-wide impacte
+security/data escalation: immediate
+qualified-response target: 5 min po page-i
 ```
 
-Bez support contractu sa „zavolaj niekomu“ stane implicitnou sociálnou závislosťou.
+Bez explicitného contractu sa support opiera o sociálnu pamäť a hidden key people. Zmena schedule, service ownershipu, provider kontaktu alebo declaration policy vytvára novú support generation, ktorú treba otestovať.
 
-## 3. Page eligibility
+## 3. Page eligibility a actionable signal
 
-Page má prerušiť človeka iba keď je signal:
+Page má prerušiť človeka iba vtedy, keď je urgentný, relevantný pre podporovanú službu, dostatočne spoľahlivý, actionable pre receiving role a časovo citlivý. Capacity trend, known low-impact defect alebo report bez potreby okamžitej action patrí do ticketu či review, nie do nočného page-u.
 
-- urgentný;
-- relevantný pre podporovanú službu;
-- dostatočne spoľahlivý;
-- actionable pre receiving role;
-- viazaný na user/business impact alebo imminent risk;
-- časovo citlivý tak, že čakanie na normal queue zvyšuje škodu.
+Dobrý page prenáša impact alebo imminent risk, exact service/cohort/Region, threshold, dôvod urgency, safe first observation, forbidden action, runbook alebo playbook a escalation path. Page bez contextu núti respondera najprv rekonštruovať subject, čím predlžuje qualified response.
 
-Dobrý page contract obsahuje:
+Page quality sa nehodnotí iba false-positive rate-om. Dôležité sú actionable, duplicate a grouping rates, pages per shift, after-hours interruption, runbook coverage, time to qualified response, repeated families a podiel pages, ktoré mali byť ticketom.
 
-```text
-čo je impact alebo risk
-→ exact service/cohort/Region
-→ current signal a threshold
-→ prečo je urgentný
-→ safe first observation alebo action
-→ čo nerobiť
-→ runbook/playbook
-→ escalation path
-```
+## 4. Delivery, acknowledgement a qualified ownership
 
-Informational alert, dlhodobý capacity trend alebo známy low-impact defect typicky patrí do ticketu, nie do nočného page-u.
-
-## 4. Notification delivery nie je response
-
-Treba oddeliť:
+Notification chain má viac krokov:
 
 ```text
 alert fired
@@ -90,352 +60,161 @@ alert fired
 → provider delivery attempt
 → device/channel delivery
 → human acknowledgement
-→ responder prevzal ownership
-→ impact assessed
-→ action alebo escalation začala
+→ responder prevzal exact subject
+→ impact a urgency assessed
+→ safe action alebo escalation začala
 ```
 
-`Acknowledged` môže znamenať iba kliknutie. Nepotvrdzuje správny scope, competency, access ani začiatok mitigation.
+Každý krok má inú failure semantics. Page môže byť nesprávne routed, delivery provider môže zlyhať, device môže byť nedostupné alebo človek môže kliknúť bez reálnej kapacity konať. Preto sa samostatne meria routing latency, delivery success, acknowledgement time, time to qualified ownership, declaration latency, effective mitigation time a escalation latency.
 
-Meraj samostatne:
+Acknowledgement nesmie automaticky zastaviť všetky escalation paths. No-ack escalation rieši nedostupnosť človeka; progress alebo severity escalation rieši situáciu, keď človek odpovedal, ale impact rastie alebo nevznikla qualified action.
 
-- time to page creation;
-- routing latency;
-- delivery success;
-- acknowledgement time;
-- time to qualified response;
-- time to incident declaration;
-- time to effective mitigation;
-- escalation latency.
+## 5. Rotation, competency a readiness
 
-## 5. Rotation design
+Rotation musí vytvoriť coverage bez chronickej únavy a key-person dependency. Zohľadňuje počet ľudí a time zones, primary/secondary model, shift length, nočné a víkendové zaťaženie, holidays, skill distribution, shadowing, overlap, planned leave, post-incident recovery a lokálne pracovné pravidlá.
 
-Rotation má zabezpečiť coverage bez vytvorenia chronickej únavy alebo key-person dependency.
+Primary preberá prvý signal, potvrdí subject a impact, vykoná safe first response a drží ownership do explicitného handoffu. Secondary chráni primary pred multitaskingom, preberá ďalšie alerts, poskytuje parallel diagnosis alebo replacement a môže prevziať command rolu. Specialist alebo service owner poskytuje deep knowledge a high-risk authority, ale nemá byť jedinou osobou schopnou obnoviť službu.
 
-Zohľadni:
+Pred shiftom sa testuje identity/MFA, JIT alebo break-glass path, telemetry a audit access, bounded remediation permissions, communication channels, vendor contacts, current docs, workstation/network a declaration authority. Access sa prvýkrát netestuje počas SEV-1.
 
-- počet ľudí a časových pásiem;
-- primary/secondary model;
-- shift length a frequency;
-- nočné a víkendové zaťaženie;
-- holiday coverage;
-- skill distribution;
-- new-hire shadowing;
-- handoff overlap;
-- planned leave a illness;
-- recovery time po náročnom incidente;
-- lokálne pracovné a compensation pravidlá.
+## 6. Escalation dimensions
 
-Konkrétny počet ľudí alebo maximálny počet pages je organizačný design parameter, nie univerzálny zákon. Malá rotation však nemôže dlhodobo poskytovať kvalitné 24/7 coverage bez trade-offu v health, project work alebo response quality.
+Escalation nie je iba timer po neacknowledged page-i. **Time escalation** reaguje na absent acknowledgement alebo qualified response. **Skill escalation** aktivuje deep expertise pri nízkej diagnostic confidence. **Authority escalation** rieši destructive, financial, security alebo customer decision mimo current role. **Load escalation** pridáva respondera pri simultánnych incidents. **Severity escalation** aktivuje incident command pri rastúcom impacte. **Dependency escalation** privádza iný tím alebo vendora a **safety escalation** chráni data integrity, security, legal alebo human safety.
 
-## 6. Primary, secondary a specialist roles
+Tieto dimensions sa môžu aktivovať súčasne. Acknowledged page nezruší progress escalation, ak completion burn pokračuje. Primary tiež nemusí čakať na timeout, ak vie, že potrebuje specialistu alebo nemá required authority. Escalation je správne používanie support systému, nie osobné zlyhanie.
 
-### Primary on-call
+## 7. Handoff a continuity
 
-- prijíma prvý page;
-- potvrdí subject a impact;
-- vykoná safe first response;
-- deklaruje incident alebo eskaluje;
-- udržiava ownership, kým ho explicitne neodovzdá.
-
-### Secondary on-call
-
-- prevezme ďalšie alerts alebo tickets;
-- poskytne paralelnú diagnostiku;
-- nahradí primary pri nedostupnosti alebo overload-e;
-- môže prevziať IC alebo Operations rolu;
-- chráni primary pred multitaskingom.
-
-### Specialist alebo service owner
-
-- poskytuje deep component knowledge;
-- schvaľuje high-risk domain decisions;
-- rieši architecture, vendor alebo data-recovery hranice;
-- nemá byť neformálne jedinou osobou, ktorá systém dokáže obnoviť.
-
-## 7. Handoff
-
-Shift handoff má byť explicitný state transition.
-
-Obsah:
+Shift handoff je explicitný transfer operational state-u a ownershipu. Obsahuje active incidents a severity, open pages/tickets, current service health, temporary overrides, recent changes, capacity/provider constraints, pending commitments, expected events a ownera každého follow-upu.
 
 ```text
-active incidents a severity
-open pages/tickets a deadlines
-current service health a risk
-temporary overrides
-recent changes a rollouts
-capacity alebo provider constraints
-pending customer/vendor commitments
-next expected events
-who owns each follow-up
+outgoing responder state
+→ shared handoff artifact
+→ incoming responder read-back
+→ explicit ownership acceptance
+→ previous responder released
 ```
 
-Handoff `nič zvláštne` bez prečítania active incidents a change calendaru nie je dôkazom continuity.
+Handoff „nič zvláštne“ bez kontroly incidents, overrides a change calendaru nie je continuity proof. Pri aktívnom incidente sa command role prenáša samostatne od bežnej on-call shift responsibility.
 
-## 8. Escalation dimensions
+## 8. Sustainability a human reliability
 
-Escalation nie je iba časovač po neacknowledged page-i.
-
-### Time escalation
-
-Responder sa neozval alebo nezačal qualified response v contract time.
-
-### Skill escalation
-
-Incident prekračuje responderove knowledge alebo diagnostic confidence.
-
-### Authority escalation
-
-Potrebné rozhodnutie má business, security, financial alebo destructive impact mimo current role.
-
-### Capacity escalation
-
-Responder má priveľa simultánnych incidents alebo tasks.
-
-### Severity escalation
-
-Impact alebo uncertainty sa zväčšili a vyžadujú incident command, communication alebo leadership support.
-
-### Dependency escalation
-
-Root alebo mitigation boundary leží v inom tíme, vendorovi alebo providerovi.
-
-### Safety escalation
-
-Existuje data integrity, security, legal alebo human safety risk.
-
-Page acknowledgement nesmie zrušiť escalation, keď sa impact neznižuje.
-
-## 9. Access a readiness
-
-On-call responder musí mať pred shiftom overené:
-
-- identity a MFA;
-- JIT alebo break-glass process;
-- read access k production telemetry a auditom;
-- bounded remediation permissions;
-- incident communication channels;
-- vendor support contacts;
-- current runbooks a dashboards;
-- workstation a network readiness;
-- ability deklarovať incident.
-
-Access sa nemá prvýkrát testovať počas SEV-1.
-
-## 10. Page quality
-
-Page quality metrics:
-
-- actionable rate;
-- false-positive rate;
-- duplicate rate;
-- pages per shift a per incident;
-- pages mimo pracovných hodín;
-- percentage pages s relevantným runbookom;
-- percentage pages vedúcich k incident declaration;
-- time to qualified response;
-- repeated page families;
-- pages spôsobené monitoring failure-om;
-- page-to-ticket downgrade rate.
-
-Page count bez severity, duration a cognitive complexity je neúplný.
-
-## 11. On-call health a sustainability
-
-Chronický on-call overload vedie k:
+Chronický on-call overload vytvára reinforcing loop:
 
 ```text
 sleep disruption a context switching
-→ pomalšia diagnóza
-→ risky shortcuts
-→ viac incidentov a pages
+→ pomalšia diagnosis a risky shortcuts
+→ viac incidents a pages
 → menej engineering času
 → menej reliability improvement
 → ďalší overload
 ```
 
-Sleduj:
+Sustainability sa sleduje cez nočné prerušenia, simultaneous incidents, shift swaps, recovery time, self-reported fatigue, project-work displacement, attrition, knowledge concentration a psychological safety pri escalation. Jedno jednoduché maximum pages nie je univerzálny zákon; page severity, duration a cognitive load sa líšia.
 
-- nočné prerušenia a recovery time;
-- simultánne incidents;
-- shift swap a absence patterns;
-- self-reported fatigue;
-- post-incident rest;
-- project-work displacement;
-- attrition a rotation participation;
-- knowledge concentration;
-- psychological safety pri escalation.
+Responder nemá byť penalizovaný za skorú escalation alebo declaration. Po náročnom incidente potrebuje replacement coverage a recovery interval, inak organizácia prenáša reliability risk do ďalšieho shiftu.
 
-Responder nemá byť penalizovaný za skorú pomoc alebo incident declaration.
+## 9. Connected incident `SRE-PAY-53`
 
-## 12. Worked incident `SRE-PAY-53`
+Settlement rotation mala štyroch engineers a poskytovala 24/7 coverage. Počas šiestich hodín pred campaign peakom primary dostal 11 pages: šesť duplicate alebo symptom alerts, tri nonurgent capacity warnings, jeden provider heartbeat false positive a jeden `SettlementCompletionFastBurn` page.
 
-Settlement rotation mala štyroch engineers a poskytovala 24/7 coverage. Počas šiestich hodín pred campaign peakom primary prijal 11 pages:
+Critical page dorazila o `10:07 UTC` a responder ju acknowledged o dve minúty. Notification platforma preto zastavila no-ack escalation. Responder však súčasne riešil dva support requests a starší broker alert. Secondary schedule override skončil o hodinu skôr pre timezone drift, current runbook nemal provider P1 kontakt a escalation policy nereagovala na absent mitigation progress ani rast severity.
 
-```text
-6 duplicate alebo symptom alerts
-3 nonurgent capacity warnings
-1 provider heartbeat false positive
-1 SettlementCompletionFastBurn page
-```
+On-call root failure bol support contract, ktorý zamieňal acknowledgement za qualified ownership a nemal load-, severity- ani progress-based escalation. Malá rotation, duplicate page load, stale secondary schedule, chýbajúci readiness check a kultúra „najprv vyrieš, potom deklaruj“ predĺžili detection-to-command interval.
 
-O `10:07 UTC` critical burn-rate page dorazila primary responderovi. Ten ju acknowledged o dve minúty, preto notification platforma zastavila no-ack escalation.
+## 10. Containment a authoritative redesign
 
-Skutočný stav:
+Po declaration IC aktivoval backup secondary mimo stale schedule, presunul support tickets na nonincident ownera, grouped duplicate alerts pod incident ID, explicitne eskaloval DB/provider specialists, pridelil primary bounded technical task a zabezpečil replacement pre nasledujúci shift. Alert silence bolo scoped na exact incident, service a čas; nezablokovalo independent failure signals.
 
-- primary riešil súčasne dva support requests a predchádzajúci broker alert;
-- capacity warning pages nemali jasný distinction ticket vs page;
-- secondary schedule override skončil o hodinu skôr pre timezone configuration drift;
-- provider P1 contact nebol v current runbooku;
-- escalation policy reagovala iba na absence acknowledgementu, nie na absence mitigation alebo rast severity;
-- responder predpokladal transient a nevyhlásil incident.
-
-On-call root failure bol **support contract, ktorý zamieňal acknowledgement za qualified ownership a nemal load-, severity- ani progress-based escalation**.
-
-Causal amplifiers:
-
-- malá rotation a vysoký duplicate page load;
-- stale secondary schedule;
-- chýbajúci pre-shift access/contact check;
-- kultúrny pressure „najprv vyrieš, potom deklaruj“;
-- runbook bez explicitného incident triggeru.
-
-Capacity defect bol technický root incidentu; on-call design predĺžil detection-to-command interval.
-
-## 13. Containment on-call failure-u
-
-Po declaration IC vykonal:
-
-1. aktiváciu backup secondary mimo stale schedule;
-2. presun support tickets na nonincident ownera;
-3. grouping/silence duplicate symptom alerts pod incident ID;
-4. explicitné provider a DB specialist escalation;
-5. handoff primary z IC/coordination práce na bounded technical task;
-6. pravidelný welfare a fatigue check;
-7. zabezpečenie replacement coverage pre nasledujúci shift.
-
-Silence bola scoped podľa incidentu, service a time windowu. Nebola globálnym vypnutím monitoringu.
-
-## 14. Authoritative redesign
-
-Nový on-call contract `OC-PAY-54` zaviedol:
+Nový contract `OC-PAY-54` používa:
 
 ```text
 user-impact page eligibility
-→ primary + active secondary coverage
-→ acknowledgement + qualified-response timers
-→ severity/progress escalation
+→ active primary + secondary
+→ delivery a acknowledgement evidence
+→ qualified-response timer
+→ severity/progress/load escalation
 → direct incident-declaration authority
 → verified provider/security/data paths
-→ shift handoff artifact
-→ page-quality review a follow-up ownership
+→ explicit handoff
+→ page-quality a sustainability review
 ```
 
-Konkrétne:
+Capacity trends prešli na tickets, duplicate symptoms sa groupujú, critical burn page eskaluje aj po ACK pri absent progress, schedule/timezone sa testujú canary notificationou a pre-shift checklist overuje access a contacts. Repeated page family automaticky vytvára reliability/toil work item.
 
-- capacity trend alerts prešli na ticket/report;
-- duplicate symptom alerts sa groupujú podľa incident subjectu;
-- critical burn-rate page eskaluje pri absent mitigation progress aj po acknowledgement;
-- schedule a timezone sa validujú canary notificationou;
-- pre-shift checklist testuje access a contacts;
-- po náročnom SEV-1 nasleduje replacement a recovery interval;
-- repeated pages automaticky vytvoria reliability/toil review item.
+## 11. On-call acceptance contract
 
-## 15. On-call acceptance verdict
+Positive path musí preukázať, že user-impact page je správne routed, doručený, acknowledged a prejde do qualified ownershipu v target time. No-ack path musí aktivovať secondary. Ack-without-progress path musí napriek kliknutiu eskalovať podľa severity alebo burn rate. Schedule-failure path musí odhaliť timezone/override drift a nájsť backup respondera.
 
-On-call model je prijatý, keď:
-
-- support scope, hours a severity sú explicitné;
-- page eligibility je user-impacting, urgentná a actionable;
-- schedule má primary, secondary a tested escalation;
-- notification delivery a qualified response sú oddelené;
-- responder má skills, access a current documentation;
-- acknowledgement nezastaví severity/progress escalation;
-- handoff zachová active state a commitments;
-- duplicate a nonurgent alerts nezahlcujú rotation;
-- incident declaration je psychologicky a procedurálne bezpečná;
-- load a fatigue sú merané a vedú k redesignu;
-- second shift a schedule-failure canary prejdú;
-- original page vytvorí správny response bez hidden key person dependency.
-
-## 16. Troubleshooting on-call failure
+Recovery path musí potvrdiť incident declaration, safe response, handoff a replacement po fatigue. Forbidden paths zahŕňajú nonurgent nočný page, ACK ako jediný success signal, unavailable specialist ako hidden single point, global silence a pokračovanie primary respondera bez replacementu po severe incident-e.
 
 ```text
-page existoval, response bol pomalý
-→ alert fired a routing decision
-→ schedule generation/timezone/override
-→ delivery channel/device
-→ acknowledgement vs qualified response
-→ responder load a concurrent work
-→ access a documentation readiness
-→ escalation timer a conditions
-→ incident-declaration authority/culture
-→ handoff a secondary availability
+positive:
+urgent page → qualified owner → safe action
+
+escalation:
+no ACK alebo no progress → secondary/specialist/IC
+
+continuity:
+shift handoff → read-back → explicit ownership
+
+forbidden:
+nonactionable page
+ACK bez ownershipu
+stale schedule bez canary
+escalation culture penalty
+fatigue bez replacementu
+```
+
+Verdict musí prejsť na druhom shift-e a pri simulovanom primary/secondary failure-i, nie iba počas office hours s dostupným service ownerom.
+
+## 12. Troubleshooting on-call failure-u
+
+Ak page existoval, ale response bol pomalý, sleduj celý chain: alert generation, routing, schedule generation, delivery, ACK, qualified ownership, responder load, access, escalation conditions, declaration authority a handoff.
+
+```text
+slow response
+→ page eligibility a alert subject
+→ route/schedule/timezone/override
+→ delivery a device
+→ ACK vs qualified response
+→ concurrent load a readiness
+→ time/skill/authority/severity escalation
+→ incident declaration
 → effective mitigation time
 ```
 
 `Ack in 2 min` nie je dobrý outcome, ak incident command vznikne o 24 minút neskôr.
 
-## 17. Earlier controls
+## 13. Anti-patterny
 
-- service support contract;
-- page eligibility review;
-- primary/secondary coverage;
-- schedule a timezone canary;
-- pre-shift access checklist;
-- severity/progress escalation;
-- runbook freshness;
-- incident declaration training;
-- page grouping a deduplication;
-- shift handoff template;
-- on-call load dashboard;
-- post-incident recovery policy.
+Tieto anti-patterny optimalizujú notification alebo heroickú dostupnosť, ale nezaručujú qualified a sustainable response.
 
-## 18. Anti-patterny
+- **Každý alert je page —** nonurgent alebo nonactionable signals spotrebujú attention potrebnú pre critical incidents. Routing musí rozlišovať page, ticket a report.
+- **Acknowledged znamená handled —** kliknutie nepotvrdzuje subject understanding, authority ani mitigation progress.
+- **Primary musí všetko vyriešiť sám —** odďaľuje escalation, zvyšuje multitasking a vytvára key-person risk.
+- **Heroická rotation —** malý tím absorbuje 24/7 load za cenu zdravia a engineering capacity, čo zvyšuje budúci page demand.
+- **Escalation je zlyhanie jednotlivca —** responders skrývajú uncertainty a impact rastie. Escalation má byť štandardný control transition.
+- **Globálne silence počas incidentu —** odstráni independent failure signals; silence musí byť scoped a expirovateľné.
 
-### Každý alert je page
-
-Nonurgent alebo nonactionable signals poškodzujú attention pre critical incidents.
-
-### Acknowledged znamená handled
-
-Human kliknutie nepotvrdzuje diagnosis, authority ani mitigation.
-
-### Primary musí všetko vyriešiť sám
-
-Oddiali escalation a vytvára key-person risk.
-
-### Heroická rotation
-
-Malý tím dlhodobo absorbuje 24/7 load bez engineering capacity a health controls.
-
-### Escalation je zlyhanie jednotlivca
-
-Responder sa bojí požiadať o pomoc a impact rastie.
-
-### Globálne silence počas incidentu
-
-Odstráni aj nové independent failure signals.
-
-## 19. Kontrolné otázky
+## 14. Kontrolné otázky
 
 1. Čo tvorí exact on-call support contract?
-2. Ktoré vlastnosti musí mať page?
-3. Ako sa delivery, acknowledgement a qualified response líšia?
-4. Aké responsibilities majú primary a secondary?
-5. Čo má obsahovať shift handoff?
-6. Aké dimensions môže mať escalation?
-7. Prečo ack nemá vždy zastaviť escalation?
-8. Ako sa testuje schedule a access readiness?
-9. Ktoré metrics opisujú page quality?
-10. Ako on-call overload vytvára reliability feedback loop?
-11. Prečo `SRE-PAY-53` neeskaloval napriek rýchlemu acku?
-12. Čo musí overiť on-call acceptance verdict?
+2. Ktoré signals patria do page-u a ktoré do ticketu?
+3. Ako sa delivery, acknowledgement a qualified ownership líšia?
+4. Aké responsibilities majú primary, secondary a specialist?
+5. Čo testuje pre-shift readiness?
+6. Aké dimensions má escalation?
+7. Prečo ACK nemá vždy zastaviť escalation?
+8. Čo musí obsahovať handoff?
+9. Ako overload rotation vytvára reliability loop?
+10. Prečo `SRE-PAY-53` neeskaloval napriek rýchlemu ACK?
+11. Ktoré positive, escalation, continuity a forbidden paths patria do acceptance?
+12. Prečo sa testuje druhý shift a schedule failure?
 
 ## Glossary impact
 
-Relevantné pojmy: on-call support contract, page eligibility, notification-delivery chain, qualified response, primary on-call, secondary on-call, shift handoff, time/skill/authority/capacity/severity escalation, schedule canary, page quality, on-call sustainability a on-call acceptance verdict.
+Relevantné pojmy: on-call support contract, page eligibility, delivery chain, acknowledgement, qualified ownership, primary/secondary on-call, multi-dimensional escalation, schedule canary, handoff continuity, page quality, on-call sustainability a on-call acceptance contract.
 
 ## Primárne zdroje
 
