@@ -36,13 +36,7 @@ Timeout layers zahŕňajú DNS/connect/TLS, pool checkout, request response, sta
 
 ## 2. Outcome classification a stable identity
 
-Retry policy musí rozlíšiť:
-
-- definitely not executed alebo explicitne transient retryable;
-- permanent validation/auth/business rejection;
-- dependency overload s `Retry-After` alebo deferred contractom;
-- exhausted deadline/open circuit;
-- unknown outcome po možnom commite alebo send-e.
+Retry policy najprv rozhoduje, aký outcome je evidence-backed. Attempt, ktorý sa určite nedostal za pre-send boundary, alebo explicitný transient error môže byť retryable. Validation, authorization, invariant conflict a permanent business rejection sú final non-retryable outcomes. Dependency overload môže povoliť deferred retry iba s `Retry-After`, remaining deadline-om a aggregate capacity budgetom. Exhausted deadline alebo Open circuit znamenajú, že nový attempt teraz nesmie vzniknúť. Najkritickejší je unknown outcome po možnom commite alebo send-e: ten neautorizuje blind retry, ale status lookup, idempotency read-back alebo reconciliation.
 
 ```text
 provider effect succeeds
