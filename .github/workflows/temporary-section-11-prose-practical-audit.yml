@@ -47,6 +47,9 @@ jobs:
               "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
               "docs/11-cloud-and-aws/aws-organizations-accounts.md",
               "docs/11-cloud-and-aws/iam.md",
+              "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+              "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+              "docs/11-cloud-and-aws/security-groups-network-acls.md",
           ]
 
           data = json.loads(Path("/tmp/documentation-audit.json").read_text())
@@ -66,7 +69,7 @@ jobs:
               text = Path(target).read_text(encoding="utf-8")
               fenced = len(re.findall(r"^```(?:bash|shell|sh|json|yaml|hcl|sql|text)?\s*$", text, re.M))
               executable = len(re.findall(
-                  r"\b(?:aws|kubectl|helm|psql|terraform|dig|nc|openssl)\b",
+                  r"\b(?:aws|kubectl|helm|psql|terraform|dig|nc|openssl|ss)\b",
                   text,
               ))
               explanations = len(re.findall(
