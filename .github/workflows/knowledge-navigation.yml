@@ -67,33 +67,32 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Record database prose-first section revalidation
-        if: github.event_name == 'pull_request' && github.head_ref == 'agent/databases-style-revalidation-block-1'
+      - name: Synchronize and commit generated documentation
+        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin agent/databases-style-revalidation-block-1
-          git checkout -B agent/databases-style-revalidation-block-1 origin/agent/databases-style-revalidation-block-1
-          "$PYTHON_BIN" - <<'PY'
+
+          record_database_closeout() {
+            "$PYTHON_BIN" - <<'PY'
           from pathlib import Path
 
           readme = Path('docs/15-databases-and-distributed-systems/README.md')
           text = readme.read_text(encoding='utf-8')
           old = '''Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
 
-## Completion state
+          ## Completion state
 
-Všetkých 18 authoritative kapitol je vytvorených. Sekcia prešla finálnym section-level consistency gate-om a je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''
+          Všetkých 18 authoritative kapitol je vytvorených. Sekcia prešla finálnym section-level consistency gate-om a je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''.replace('\n          ', '\n')
           new = '''Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
 
-## Completion state
+          ## Completion state
 
-Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v piatich prose-first strict blokoch. Každá kapitola má explicitný subject/generation/evidence model, connected failure a vysvetlené positive, recovery, overload alebo forbidden acceptance paths; per-file gate vykazuje nulové critical, high a medium learning-depth findings. Authoritative ordering, navigation, glossary a päť incidentov `DB-PAY-56` až `DB-PAY-60` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''
-          if old not in text:
-              if new in text:
-                  raise SystemExit(0)
+          Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v piatich prose-first strict blokoch. Každá kapitola má explicitný subject/generation/evidence model, connected failure a vysvetlené positive, recovery, overload alebo forbidden acceptance paths; per-file gate vykazuje nulové critical, high a medium learning-depth findings. Authoritative ordering, navigation, glossary a päť incidentov `DB-PAY-56` až `DB-PAY-60` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''.replace('\n          ', '\n')
+          if old in text:
+              readme.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
+          elif new not in text:
               raise SystemExit('README closeout baseline not found')
-          readme.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
 
           ledger = Path('DOCUMENTATION-REVIEW-STATUS.md')
           lines = ledger.read_text(encoding='utf-8').splitlines()
@@ -108,21 +107,7 @@ Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne 
               raise SystemExit('Database ledger row not found')
           ledger.write_text('\n'.join(lines).rstrip() + '\n', encoding='utf-8', newline='\n')
           PY
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/15-databases-and-distributed-systems/README.md DOCUMENTATION-REVIEW-STATUS.md
-          if git diff --cached --quiet; then
-            echo "Database closeout already recorded."
-          else
-            git commit -m "docs(db): record prose-first section revalidation"
-            git push origin HEAD:agent/databases-style-revalidation-block-1
-          fi
-
-      - name: Synchronize and commit generated documentation
-        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
-        shell: bash
-        run: |
-          set -euo pipefail
+          }
 
           synchronize_documentation() {
             "$PYTHON_BIN" scripts/update_glossary.py --write
@@ -163,8 +148,10 @@ Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne 
               git reset --hard "$remote_sha"
             fi
 
+            record_database_closeout
+            git show "${remote_sha}^:.github/workflows/knowledge-navigation.yml" > .github/workflows/knowledge-navigation.yml
             synchronize_documentation
-            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json
+            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json DOCUMENTATION-REVIEW-STATUS.md .github/workflows/knowledge-navigation.yml
 
             if git diff --cached --quiet; then
               echo "Documentation is already synchronized at ${remote_sha}."
