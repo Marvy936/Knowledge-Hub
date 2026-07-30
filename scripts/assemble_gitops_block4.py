@@ -14,7 +14,7 @@ for n,e in P:
  C.append(b.decode("ascii"))
 x="".join(C); d=hashlib.sha256(x.encode()).hexdigest()
 if len(x)!=59808 or d!="581389fd3c1d8dfe320e76242d122eae9795840749ebe42eaa284769e92601aa": raise SystemExit(f"Assembled integrity failure: length={len(x)} sha256={d}")
-try: raw=zlib.decompress(base64.b64decode(x,validate=True)); data=json.loads(raw.decode())
+try: raw=zlib.decompress(base64.b64decode(x,validate=True)); payload=json.loads(raw.decode()); data=payload["files"]
 except Exception as e: raise SystemExit(f"Decode failure: {e}") from e
 E={"docs/16-gitops-and-platform-engineering/service-catalog.md","docs/16-gitops-and-platform-engineering/guardrails.md","docs/16-gitops-and-platform-engineering/multi-tenancy.md","glossary/16d-service-catalog-guardrails-multitenancy-lifecycles.md","scripts/integrate_gitops_block4.py"}
 if not isinstance(data,dict) or set(data)!=E: raise SystemExit(f"Unexpected output inventory: {sorted(data) if isinstance(data,dict) else type(data).__name__}")
