@@ -1,0 +1,70 @@
+name: GitOps section closeout
+
+on:
+  push:
+    branches:
+      - agent/databases-style-revalidation-block-1
+    paths:
+      - '.gitops-section-closeout-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  closeout:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Record section closeout and remove temporary files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          readme = Path('docs/16-gitops-and-platform-engineering/README.md')
+          text = readme.read_text(encoding='utf-8')
+          status = 'Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**.'
+          closeout = '''Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**.
+
+          ## Completion state
+
+          Všetkých 15 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch. Každá kapitola má explicitný authority/subject/generation/evidence model, connected incident a vysvetlené positive, recovery, failure alebo forbidden acceptance paths; per-file gates vykazujú nulové critical, high a medium learning-depth findings. Authoritative ordering, celý navigation chain, glossary fragments a incidenty `GITOPS-PAY-61` až `GITOPS-PAY-64` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''.replace('\n          ', '\n')
+          if closeout not in text:
+              if status not in text:
+                  raise SystemExit('GitOps README status baseline not found')
+              text = text.replace(status, closeout, 1)
+              readme.write_text(text, encoding='utf-8', newline='\n')
+
+          ledger = Path('DOCUMENTATION-REVIEW-STATUS.md')
+          lines = ledger.read_text(encoding='utf-8').splitlines()
+          replacement = "| `16-gitops-and-platform-engineering` — GitOps and Platform Engineering | 15/15 prose-first strict revalidation | Ready for user review | 2026-07-30 | Všetkých 15 authoritative kapitol bolo kompletne znovu spracovaných v štyroch strict blokoch podľa Keycloak-style prose-first gate-u. `GITOPS-PAY-61` spája Git authority, pull execution, reconciliation a Argo CD cez hidden override, multi-writer drift a false `Synced/Healthy`; `GITOPS-PAY-62` spája Flux artifact/render identity, immutable promotion, secret consumer convergence a durable IDP operation; `GITOPS-PAY-63` oddeľuje platform product usable outcome od technical outputu, managed golden-path lifecycle od copied template, self-service od portal tasku a complete DevEx evidence od survivorship biasu; `GITOPS-PAY-64` spája catalog source/processor/stitched freshness, expected-inventory guardrail coverage a complete multi-tenant boundary vrátane privileged operators a external provider identity. Záverečný incident zachováva stale `catalog-g118`, no-match restricted binding, warn/audit cross-namespace policy, non-expiring migration exception, cluster-admin Flux/controller path a confused-deputy operator, cez ktoré bolo dostupných `2 184` Orion settlement records a `312` exportovaných do Vega workspace; stale owner predĺžil triage o 26 minút. Redesign používa stable `tenant-vega-71`, freshness-qualified `catalog-g119`, namespace-UID tenant binding, versionovaný policy/binding/parameter subject, expected match inventory, Deny cross-tenant references, expiring exceptions, Flux no-cross-namespace lockdown a tenant service accounts, explicitné Argo allowlists, operator same-tenant authorization, scoped provider/KMS identities, default-deny network a positive/negative tenant canaries. Všetky kapitoly používajú explicitné authority, subject, generation a evidence boundaries, positive/recovery/failure/forbidden paths a second-change, second-reconcile, second-rotation, second-cohort alebo cross-tenant negative validation s nulovými critical/high/medium findings. Ordering 15/15, navigation od Databases po Keycloak, glossary fragments `16a`–`16d`, generated artifacts a current primary-source semantics zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená, Accepted, Verified ani Stable. |"
+          found = False
+          for index, line in enumerate(lines):
+              if line.startswith('| `16-gitops-and-platform-engineering`'):
+                  lines[index] = replacement
+                  found = True
+                  break
+          if not found:
+              raise SystemExit('GitOps ledger row not found')
+          ledger.write_text('\n'.join(lines).rstrip() + '\n', encoding='utf-8', newline='\n')
+          PY
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+
+          rm -f .gitops-section-closeout-trigger
+          rm -f .github/workflows/gitops-section-closeout.yml
+          rm -f .github/workflows/gitops-block-4-strict-audit.yml
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json DOCUMENTATION-REVIEW-STATUS.md .github/workflows .gitops-section-closeout-trigger
+          git commit -m 'docs: close GitOps prose-first revalidation'
+          git push origin HEAD:agent/databases-style-revalidation-block-1
