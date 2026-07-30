@@ -1,463 +1,232 @@
 # Toil
 
-Toil je operational work priamo súvisiaci s prevádzkou služby, ktorý má tendenciu byť manuálny, opakovaný, automatizovateľný, reaktívny, bez trvalej hodnoty a rastie aspoň lineárne so scale alebo complexity systému. Nie každá nepríjemná úloha je toil a nie každá manuálna úloha má byť okamžite automatizovaná.
+Toil je operational work priamo viazaný na udržiavanie služby, ktorý je prevažne manuálny, opakovaný, automatizovateľný, reaktívny, bez trvalej hodnoty a rastie so scale alebo complexity. Nie každá manuálna alebo nepríjemná úloha je toil. Novel incident diagnosis môže vytvoriť nové engineering knowledge a jednorazová náročná migrácia môže odstrániť budúci demand. Rozhodujúci je workflow, jeho opakovanie a to, či po vykonaní zostáva production mechanismus nezmenený.
 
-SRE cieľom nie je odstrániť ľudí zo všetkých rozhodnutí. Cieľom je odstrániť opakovanú ľudskú prácu tam, kde software, redesign, self-service alebo zmena procesu dokáže vytvoriť bezpečnejší a škálovateľnejší outcome.
+Cieľom nie je automatizovať každé ľudské rozhodnutie. Cieľom je odstrániť operational demand alebo ho previesť na bezpečný, škálovateľný a auditovateľný mechanismus. Automatizácia unsafe workflowu môže zrýchliť incident rovnako ako jeho opravu.
 
-```text
-demand source a operational trigger
-→ exact human workflow a touch points
-→ frequency, duration, queueing a risk evidence
-→ toil classification
-→ root demand alebo failure mechanism
-→ eliminate, redesign, automate, delegate alebo accept
-→ guarded implementation
-→ residual human work a exception path
-→ recurrence, load a reliability validation
-```
+## 1. Dominantný demand-to-elimination model
 
-## 1. Exact toil subject
-
-Tvrdenie `máme veľa toil-u` je neakčné. Toil subject musí uviesť:
-
-- service a operational capability;
-- trigger alebo demand source;
-- actor a skill level;
-- exact workflow steps;
-- frequency a arrival pattern;
-- human touch time;
-- elapsed wait time;
-- interruption a context-switch cost;
-- error a incident risk;
-- scale driver;
-- current automation;
-- ownera;
-- measurement window.
-
-Príklad:
+Toil treba analyzovať ako feedback loop. Production alebo process condition vytvorí demand, demand vstúpi do queue alebo preruší on-call, človek dočasne obnoví state a pôvodná condition zostane. Bez zásahu sa loop opakuje a spotrebúva engineering capacity.
 
 ```text
-service: atlas-settlement-api
-workflow: manual outbox backlog recovery
-trigger: backlog age > 20 min
-actors: primary on-call + database operator
-frequency: 11× za 28 dní
-median touch time: 38 min
-p95 elapsed time: 94 min
-scale driver: broker partitions a settlement volume
-risk: unsafe SQL, duplicate replay, lost intent
-```
-
-Bez workflow identity sa čas z rôznych činností zleje do jedného percenta a tím nevie rozhodnúť, čo treba odstrániť.
-
-## 2. Charakteristiky toil-u
-
-Toil sa nachádza na spektre. Čím viac vlastností práca spĺňa, tým silnejší je kandidát na redukciu.
-
-### Manuálna
-
-Človek musí vykonať konkrétne kroky. Aj manuálne spustenie existujúceho scriptu je stále human touch time.
-
-### Opakovaná
-
-Rovnaký alebo veľmi podobný workflow sa vracia. Prvý novel incident zvyčajne nie je toil; jedenásty incident s rovnakým runbookom pravdepodobne áno.
-
-### Automatizovateľná
-
-Machine môže vykonať rozhodnutie a kroky s rovnakou alebo vyššou bezpečnosťou, prípadne možno potrebu workflowu navrhnúť preč.
-
-### Taktická a reaktívna
-
-Práca vzniká ako interrupt alebo odpoveď na aktuálny stav, nie ako plánované trvalé zlepšenie.
-
-### Bez enduring value
-
-Po dokončení je služba približne v rovnakom structural state-e a rovnaká práca sa pravdepodobne vráti.
-
-### Rastúca so scale
-
-Počet zásahov rastie s trafficom, tenantmi, clusters, releases, resources alebo complexity.
-
-Nie je potrebné, aby workflow spĺňal všetkých šesť vlastností. Classification má byť evidence-based, nie binárny label použitý na odmietnutie práce.
-
-## 3. Toil, engineering, overhead a grungy work
-
-### Toil
-
-Opakované operational udržiavanie current service state-u bez trvalého zlepšenia.
-
-### Engineering work
-
-Vytvára durable capability, znižuje budúci demand, zlepšuje reliability alebo umožňuje sublinear scale. Môže byť technicky nepríjemné a manuálne, ale má enduring value.
-
-### Overhead
-
-Práca nesúvisiaca priamo s prevádzkou konkrétnej služby, napríklad organizačné meetings, hiring administration alebo všeobecný reporting. Overhead môže byť nadmerný, ale nie je automaticky toil.
-
-### Grungy work
-
-Neatraktívna alebo namáhavá práca. Ak jednorazovo odstráni root cause alebo vytvorí trvalé zlepšenie, nie je toil.
-
-Príklad:
-
-```text
-každý týždeň ručne opravovať 200 alert routes
-→ toil
-
-jednorazovo migrovať alert ownership do versionovaného service catalogu
-→ grungy engineering s enduring value
-```
-
-## 4. On-call nie je celé toil
-
-On-call shift obsahuje viac typov práce:
-
-- novel incident diagnosis;
-- opakované known-issue response;
-- urgent decision s neautomatizovateľným judgmentom;
-- routine execution runbooku;
-- communication a coordination;
-- post-incident evidence collection.
-
-Novel diagnosis môže byť engineering learning. Opakované spúšťanie rovnakého recovery scriptu je toil. Samotný label `on-call` preto nestačí; treba klasifikovať konkrétne workflows a touch time.
-
-## 5. Toil demand model
-
-Toil má source. Môže vzniknúť z:
-
-- unreliable service behavior;
-- chýbajúcej self-service capability;
-- unsafe alebo príliš častej release procedúry;
-- manuálnej access approval;
-- configuration driftu;
-- alert noise;
-- neúplného inventory;
-- capacity shortage;
-- legacy interface;
-- policy alebo compliance workflowu;
-- nejasného ownershipu;
-- product behavioru, ktorý presúva prácu na operations.
-
-```text
-system alebo process condition
-→ operational demand
-→ queue alebo interrupt
-→ human decision/action
+production/process condition
+→ operational demand a trigger
+→ exact human workflow a privileges
+→ queue, interruption a touch time
 → temporary state restoration
 → condition zostáva
-→ ďalší demand
+→ recurrence a scale growth
+→ eliminate/redesign/automate/self-service/accept decision
+→ guarded implementation
+→ residual human path
+→ recurrence, risk a capacity validation
 ```
 
-Automatizácia posledného human kroku nemusí odstrániť demand. Môže iba zrýchliť nebezpečný loop.
+Najlepšie riešenie často neleží v poslednom manuálnom kroku. Ak broker outage stále vytvára unbounded backlog, automatické spustenie cleanup SQL neodstráni demand; iba odstráni človeka z nebezpečného loopu.
 
-## 6. Meranie toil-u
+## 2. Exact toil subject
 
-Užitočný inventory kombinuje viac dimensions:
-
-- počet occurrences;
-- human touch time;
-- elapsed lead time;
-- počet interruptions;
-- number of actors;
-- required privilege;
-- error rate;
-- incident contribution;
-- after-hours podiel;
-- growth rate;
-- opportunity cost;
-- customer wait time.
-
-Príklad:
-
-| Workflow | Occurrences / 28 dní | Touch time | Total human time | Risk |
-|---|---:|---:|---:|---|
-| Outbox backlog recovery | 11 | 38 min | 418 min | lost/duplicate settlement |
-| Merchant certificate renewal | 7 | 22 min | 154 min | authentication outage |
-| False-positive queue alert triage | 64 | 6 min | 384 min | alert fatigue |
-
-Samotné percento času môže skryť critical workflow s nízkou frekvenciou a vysokým blast radiusom. Toil prioritization preto potrebuje volume aj risk.
-
-## 7. Toil budget
-
-Niektoré tímy používajú upper bound na podiel času venovaného operational worku alebo toil-u. Google SRE opisuje 50 % limit operational práce ako vlastný organizačný model; nie je to univerzálna norma pre každý tím.
-
-Lokálny toil budget má definovať:
-
-- čo sa meria;
-- za aké obdobie;
-- či zahŕňa on-call, tickets a releases;
-- team-level a individual distribution;
-- výnimky počas major incidentov;
-- action pri prekročení;
-- ochranu engineering capacity.
-
-Cieľ nie je optimalizovať timesheet. Cieľ je zabrániť reinforcing loopu:
+„Máme veľa toil-u“ neposkytuje action. Exact subject zachováva service, capability, trigger, actor, workflow steps, frequency, human touch time, elapsed wait, interruptions, required privilege, error risk, scale driver, current automation, ownera a measurement window.
 
 ```text
-viac incidents a manual work
-→ menej engineering času
-→ menej root-cause fixes
-→ ešte viac incidents a manual work
+subject: TOIL-PAY-52-outbox-recovery
+service: atlas-settlement-api
+trigger: unpublished outbox age > 20 min
+actors: primary on-call + database operator
+frequency: 11× / 28 dní
+median touch: 38 min
+p95 elapsed: 94 min
+privilege: production SQL write + deployment scale
+scale driver: broker failures × settlement volume
+risk: lost intent, duplicate replay, support delay
 ```
 
-## 8. Prioritization
+Workflow identity je dôležitejšia než všeobecné timesheet percento. Dve aktivity môžu mať rovnaký touch time, ale jedna je low-risk certificate inventory a druhá privileged data mutation s customer impactom.
 
-Najvyššiu prioritu nemá vždy workflow s najväčším počtom hodín. Praktický model hodnotí:
+## 3. Classification: toil, engineering a overhead
+
+Práca je silným toil kandidátom, keď kombinuje viac vlastností: opakuje sa, vyžaduje rovnaké manuálne kroky, reaguje na aktuálny stav, môže byť mechanizovaná, po dokončení nevytvára enduring improvement a jej množstvo rastie s trafficom, tenants alebo fleet size.
+
+Engineering work vytvára durable capability alebo znižuje budúci demand. Môže byť manuálne a neatraktívne. Jednorazová migrácia alert ownershipu do versionovaného catalogu je grungy engineering; ručná oprava rovnakých routes každý týždeň je toil.
+
+Overhead je administratívna práca, ktorá nie je priamo viazaná na prevádzku konkrétnej služby. Môže byť nadmerná, ale potrebuje iný improvement mechanismus. On-call ako celok tiež nie je toil: novel diagnosis, risk judgment a incident command sa odlišujú od opakovaného runbook executionu.
+
+## 4. Demand source a reinforcing loop
+
+Toil má upstream source. Môže ho vytvárať unreliable service, alert noise, chýbajúci self-service, unsafe release, manual access approval, configuration drift, capacity shortage, neúplný inventory alebo product behavior presúvajúci prácu na operations.
 
 ```text
-annualized human cost
-+ interruption cost
-+ reliability/security risk
-+ customer wait
-+ growth rate
-+ tractability
-- implementation a maintenance cost
+viac incidents a manual interventions
+→ menej času na engineering
+→ menej root-cause a platform improvements
+→ viac latentných defects
+→ ešte viac incidents a interventions
 ```
 
-Silní kandidáti:
+Toil budget má chrániť engineering capacity pred týmto reinforcing loopom. Google SRE používa vlastný organizačný cieľ, aby operational work dlhodobo neprekročil približne polovicu času; nie je to univerzálna norma, ktorú treba kopírovať bez local staffing a service contextu.
 
-- vysoká frekvencia a jasný deterministic workflow;
-- vysoký privilege alebo destructive risk;
-- lineárny rast s trafficom;
-- častý after-hours interrupt;
-- workflow, ktorý spotrebúva error budget;
-- runbook pripomínajúci pseudocode;
-- opakovaná customer request vhodná pre self-service.
+## 5. Measurement: volume, time a risk
 
-## 9. Elimination strategies
-
-### Engineer demand preč
-
-Oprav root cause tak, aby workflow nevznikal. Toto je často najlepšie riešenie.
-
-### Redesign service contract
-
-Zaveď backpressure, idempotency, bounded queue, safer state machine alebo immutable operation.
-
-### Full automation
-
-Software detectuje condition, rozhodne a vykoná action bez human touch, s guardrails a evidence.
-
-### Partial automation
-
-Software pripraví evidence, plan alebo candidate action; človek schváli iba risk-relevantný krok.
-
-### Self-service
-
-Consumer vykoná bezpečne scoped operation bez ticketu a privileged operatora.
-
-### Standardization
-
-Zníženie heterogenity umožní jeden tooling path namiesto množstva special cases.
-
-### Delegation alebo process change
-
-Niektoré work nie je technicky potrebné vykonávať centralizovaným SRE tímom. Presun musí zachovať capability, safety a ownership.
-
-### Explicit acceptance
-
-Ak reduction cost prevyšuje benefit, toil možno časovo prijať s ownerom, budgetom a review triggerom.
-
-## 10. Automation risk
-
-Automation zväčšuje execution speed aj blast radius. Pred automatizáciou treba modelovať:
-
-- input authority a freshness;
-- preconditions;
-- idempotency;
-- maximum scope;
-- rate limits;
-- concurrency;
-- dry-run alebo plan;
-- approval boundary;
-- partial failure;
-- unknown outcome;
-- rollback alebo compensation;
-- audit;
-- kill switch;
-- forbidden actions.
+Toil inventory kombinuje occurrences, human touch time, elapsed lead time, interruptions, počet actors, privilege, error rate, after-hours share, customer wait, growth rate a opportunity cost.
 
 ```text
-manual unsafe workflow
-→ fully automatic unsafe workflow
+Workflow                    Occ/28d   Touch   Total   Primary risk
+Outbox backlog recovery     11        38m     418m    lost/duplicate intent
+Certificate renewal         7         22m     154m    auth outage
+False queue alert triage    64        6m      384m    alert fatigue
 ```
 
-nie je toil elimination. Je to rýchlejší incident mechanismus.
+Najväčší počet hodín nemusí mať najvyššiu prioritu. Low-frequency workflow s production write accessom a možnosťou zmazať potvrdené operations môže byť kritickejší než stovky bezpečných read-only tickets. Prioritization preto kombinuje annualized cost, interruption, user/reliability risk, growth a tractability.
 
-## 11. Runbook ako automation candidate
+Measurement nesmie byť surveillance nad jednotlivcami. Cieľom je identifikovať system demand, nerovnomernú distribúciu a investment opportunity, nie odmeňovať človeka, ktorý vykazuje viac incident hodín.
 
-Detailný runbook môže byť executable design input:
+## 6. Elimination strategy order
+
+Riešenie sa vyberá podľa toho, kde možno bezpečne prerušiť demand loop. Najvyššiu hodnotu má odstránenie upstream condition; automatizácia posledného kroku je vhodná až vtedy, keď demand zostáva legitímny a decision možno formalizovať bez skrytia uncertainty.
+
+Poradie zároveň vyjadruje trade-off medzi trvalým znížením práce a nákladom na redesign. Tím môže zvoliť partial automation alebo bounded acceptance, ale musí explicitne uviesť, prečo root-demand elimination zatiaľ nie je primerané a aký residual toil zostáva.
+
+1. **Eliminate root demand** — oprav failure mechanismus, aby trigger nevznikal.
+2. **Redesign service contract** — pridaj backpressure, idempotency, bounded state machine alebo safer ownership.
+3. **Full automation** — software bezpečne pozoruje, rozhodne, vykoná a overí outcome.
+4. **Partial automation** — software pripraví evidence a plan, človek schváli iba risk-relevantný transition.
+5. **Self-service** — consumer vykoná scoped operation bez central ticketu.
+6. **Standardize alebo delegate** — odstráň special cases a presuň authority k správnemu ownerovi.
+7. **Bounded acceptance** — ak cost prevyšuje benefit, zachovaj ownera, budget a review trigger.
+
+Automatizovať treba až po vysvetlení authority, preconditions a failure semantics. Runbook s vetami „vyber staré rows“ alebo „reštartuj podľa potreby“ nemá dostatočný contract na bezpečnú automatizáciu.
+
+## 7. Automation safety contract
+
+Automation zväčšuje execution speed a blast radius. Potrebuje authoritative input, freshness, exact subject, maximum scope, idempotency, concurrency limit, dry-run alebo plan, approval boundary, unknown-outcome behavior, compensation, audit a kill switch.
 
 ```text
-trigger
-→ required evidence
-→ branch conditions
-→ actions
-→ validation
-→ escalation
+observe exact subject
+→ validate generation a preconditions
+→ calculate bounded plan
+→ optional risk approval
+→ idempotent apply
+→ read-back effective state
+→ business outcome validation
+→ stop/compensate/escalate
 ```
 
-Pred prepisom do code treba odstrániť nejasné pokyny ako:
+Automatický cleanup, ktorý zmaže všetky rows staršie než threshold, nie je toil reduction. Je to unsupervised destructive control bez business oracle. Bezpečná automation má radšej zastaviť a eskalovať ambiguous cohort než optimalizovať throughput za cenu data lossu.
 
-- `ak to vyzerá zle`;
-- `vyber staré rows`;
-- `reštartuj podľa potreby`;
-- `skontroluj, či je všetko OK`.
+## 8. Connected incident `SRE-PAY-52`
 
-Tieto vety skrývajú chýbajúci contract. Automatizácia potrebuje explicitné thresholds, identities a outcome oracles.
+Outbox backlog recovery sa za 28 dní vykonala `11×`. On-call otvoril dashboard a SQL console, vybral rows staršie než 30 minút, zvýšil workers, spustil cleanup a reštartoval publisher. Median touch time bol `38 minút`, spolu `418 minút` privileged worku.
 
-## 12. Connected failure `SRE-PAY-52`
+Runbook neodstraňoval broker partition, unbounded backlog ani unsafe retention contract. Každé vykonanie dočasne znížilo queue a pripravilo ďalšie opakovanie. Dňa 29. júla cleanup query zmazala `4 182` unpublished commands a vytvorila data-loss incident.
 
-Outbox backlog recovery bola opakovaná toil cesta:
+Toil nebol iba staffing problém. Bol causal amplifier:
 
 ```text
-page
-→ on-call otvorí dashboard a SQL console
-→ identifikuje rows staršie než 30 minút
-→ manuálne scale-ne workers
-→ spustí cleanup SQL
-→ reštartuje publisher
-→ sleduje queue
-→ ručne odpovedá merchant supportu
+opakovaný incident demand
+→ normalizovaný privileged runbook
+→ pressure na rýchle queue reduction
+→ ambiguous age-based cleanup
+→ chýbajúca plan a business oracle
+→ destructive execution
 ```
 
-Za predchádzajúcich 28 dní sa workflow vykonal `11×`. Median touch time bol `38 minút`, spolu `418 minút` privileged human worku. Runbook neodstraňoval broker partition, backlog contract ani unsafe retention. Každé vykonanie vrátilo systém do dočasne použiteľného stavu a pripravilo podmienky na ďalšie opakovanie.
+Automatizovať pôvodnú query by incident urýchlilo. Správny redesign musel zmeniť service a recovery contract.
 
-Dňa 29. júla cleanup odstránil `4 182` nepublikovaných commands. Toil teda nebol iba productivity cost. Bol causal amplifier reliability a durability incidentu.
+## 9. Redesign outbox recovery
 
-## 13. Root demand a redesign
-
-Nový design odstránil manual cleanup ako normal operation:
+Nový model zaviedol bounded backlog admission, immutable retention invariant a reconciler:
 
 ```text
-broker publish latency rastie
-→ publisher backlog-age SLI a queue watermark
-→ API postupne znižuje admission alebo vracia explicitný retryable response
-→ unpublished rows nikdy nepodliehajú time-only deletion
-→ retention vyžaduje published/terminal state
-→ autoscaling používa bounded queue signal
-→ reconciler porovnáva payment, outbox, broker a provider ledger
-→ operator zasahuje iba pri novel alebo forbidden state
+broker slowdown
+→ backlog-age a provider-capacity signal
+→ automatic bounded backpressure
+→ unpublished rows nikdy nemaže retention
+→ publisher používa leases a idempotent attempts
+→ reconciler porovná payment/outbox/broker/provider
+→ classified recovery plan
+→ human approval iba pre unknown high-risk cohort
+→ execution s operation-level audit
 ```
 
-Self-service recovery tool umožňuje vybrať exact intent IDs, vytvoriť dry-run classification a vykonať idempotentný replay iba po policy decisione. Neumožňuje broad age-based delete.
+Routine healthy cohorts sa obnovujú automaticky. Unknown provider outcomes ostávajú fenced, kým reconciliation neurčí, či replay vytvorí duplicate. On-call už nemusí písať SQL; dostáva exact incident subject, plan, estimated impact a safe action choices.
 
-## 14. Human-in-the-loop boundary
+Residual human work zostáva pre novel failure, business exception a authority decision. To nie je zlyhanie automation. Cieľom je odstrániť deterministic repeat work a zachovať ľudský judgment tam, kde uncertainty skutočne mení risk.
 
-Niektoré rozhodnutia zostali ľudské:
+## 10. Toil-reduction acceptance contract
 
-- schválenie replayu `sent-unknown` cohortu s finančným impactom;
-- výber business compensation pre poškodeného merchanta;
-- rozhodnutie o degraded mode počas provider incidentu;
-- incident command a external communication.
+Positive acceptance musí preukázať, že pôvodný trigger buď nevzniká, alebo sa spracuje bez opakovaného privileged touchu. Automation musí vytvoriť rovnaký alebo lepší business outcome, nie iba nižší ticket count. Meranie po nasadení porovná recurrence, touch time, customer wait, error budget a incident risk.
 
-Automation pripraví evidence a bounded options. Človek zostáva pri neautomatizovateľnom risk judgment-e, nie pri kopírovaní IDs a spúšťaní rovnakých SQL commands.
-
-## 15. Toil reduction acceptance verdict
-
-Reduction je prijatá, keď:
-
-- pôvodný workflow, trigger, volume a touch time sú zmerané;
-- root demand je pomenovaný;
-- nový mechanismus znižuje occurrences alebo human touch;
-- allowed operation zostáva dostupná;
-- automation má bounded scope, idempotency a audit;
-- partial failure a unknown outcome majú recovery;
-- privileged destructive path bol odstránený alebo výrazne zúžený;
-- residual exceptions majú runbook a ownera;
-- reliability, security a customer wait sa nezhoršili;
-- toil sa nepresunul na iný tím alebo usera bez merania;
-- druhý broker incident nevyžaduje pôvodný manual workflow;
-- 28-day follow-up potvrdí trvalé zníženie demandu.
-
-## 16. Troubleshooting reduction failure
+Forbidden paths musia zlyhať. Automation nesmie konať nad stale subjectom, prekročiť cohort limit, zmazať unpublished command, replayovať unknown provider operation ani skryť failure odstránením alertu. Kill switch a manual fallback musia fungovať bez návratu k ad-hoc SQL.
 
 ```text
-očakávaný toil reduction sa neprejavil
-→ exact workflow a measurement window
-→ demand arrival rate
-→ automation adoption a eligibility
-→ manual fallback reasons
-→ exception cohorts
-→ automation errors/unknown outcomes
-→ hidden downstream work
-→ shifted toil na iný tím
-→ reliability a user impact
-→ redesign alebo policy correction
+positive:
+known safe backlog → bounded plan → recovery → zero privileged touch
+
+human judgment:
+unknown provider state → fenced cohort → evidence + approval
+
+forbidden:
+stale plan apply
+unbounded delete
+duplicate external effect
+alert suppression as toil reduction
+manual fallback without audit
 ```
 
-Ak počet tickets klesol, ale consumers teraz opakovane skúšajú broken self-service flow, toil sa iba skryl z team queue.
+Druhý broker-failure test musí potvrdiť, že reduction pretrváva aj mimo pôvodného incidentu.
 
-## 17. Earlier controls
+## 11. Troubleshooting toil programu
 
-- toil taxonomy a workflow IDs;
-- periodic time sampling;
-- on-call interrupt classification;
-- runbook occurrence counters;
-- privileged-operation audit;
-- error-budget consumer mapping;
-- quarterly toil review;
-- protected engineering capacity;
-- self-service product ownership;
-- automation threat model;
-- toil-reduction success metrics;
-- deprecation date manuálneho pathu.
+Ak toil neklesá po automation projekte, odlíš tri hypotézy: demand zostal, ale execution je rýchlejší; automation pokrýva iba časť cohortov; alebo measurement presunulo work do iného tímu či queue.
 
-## 18. Anti-patterny
+```text
+expected reduction
+→ exact workflow a demand source
+→ before/after occurrence inventory
+→ human touch a elapsed time
+→ exception/fallback cohort
+→ downstream alebo shifted work
+→ reliability/business outcome
+→ root mechanism verdict
+```
 
-### Všetko manuálne je toil
+Pokles on-call času pri raste customer wait alebo support tickets nie je úspech. Rovnako odstránený alert pri nezmenenom failure-u iba skryl demand.
 
-Novel investigation a risk judgment môžu mať enduring value.
+## 12. Anti-patterny
 
-### Automatizuj existujúce kroky bez redesignu
+Toil anti-patterny optimalizujú viditeľnosť alebo ownership práce bez odstránenia demandu a risku. Program preto hodnotí end-to-end occurrence, human touch, customer wait a reliability outcome, nie iba počet tickets jedného tímu.
 
-Chybný workflow sa vykoná rýchlejšie a vo väčšom scope-e.
+- **Automatizuj každý manuálny krok —** Manual work môže obsahovať risk judgment. Najprv oddel deterministic execution od ambiguous decisionu a zachovaj fenced human path pre uncertainty.
+- **Toil equals celé on-call —** Novel diagnosis a incident command nie sú rovnaké ako opakovaný runbook. Inventory musí klasifikovať konkrétne workflows, nie celú službu v rotačnom kalendári.
+- **Počítaj iba hodiny —** Nízkoobjemový destructive workflow môže mať vyššiu prioritu než častá low-risk práca. Prioritization kombinuje volume, privilege, blast radius a growth.
+- **Presuň ticket inému tímu —** Organizačný transfer nemení system demand ani customer wait. Úspech vyžaduje pokles end-to-end worku alebo jasný transfer authority a capability.
+- **Odstráň alert —** Ak failure pokračuje, zníženie page countu nie je toil reduction. Alert možno zmeniť až spolu s detection contractom a dôkazom, že user risk neklesol iba z observability.
 
-### Počet tickets je jediná metric
+## 13. Kontrolné otázky
 
-Skryje interrupts, chat requests, user retries a prácu presunutú inde.
-
-### SRE tím absorbuje všetky operations
-
-Chýbajúci product ownership a self-service sa normalizujú ako permanentná queue.
-
-### Toil hero
-
-Jedna osoba je odmeňovaná za rýchle opakované zásahy namiesto odstránenia demandu a zdieľania knowledge.
-
-### 50 % ako univerzálny zákon
-
-Organizačný model sa kopíruje bez definície, čo sa meria a aké sú lokálne constraints.
-
-### Automation bez ownera
-
-Script sa stane novým legacy service-om, ktorý vytvára ďalší toil.
-
-## 19. Kontrolné otázky
-
-1. Čo je toil a ktoré vlastnosti ho charakterizujú?
-2. Ako sa toil líši od overheadu a grungy engineering worku?
-3. Prečo celý on-call shift nie je automaticky toil?
-4. Čo tvorí exact toil subject?
-5. Ako merať volume, touch time a risk?
-6. Čo je toil reinforcing loop?
-7. Kedy je lepší redesign než automation?
-8. Aké guardrails potrebuje toil automation?
-9. Prečo runbook obsahuje skrytý decision contract?
-10. Ako odhaliť toil presunutý na iný tím alebo usera?
-11. Ako manual cleanup amplifikoval `SRE-PAY-52`?
-12. Čo musí overiť toil-reduction acceptance verdict?
+1. Čo tvorí exact toil subject?
+2. Ktoré vlastnosti odlišujú toil od engineering worku?
+3. Prečo on-call nie je automaticky celý toil?
+4. Ako vzniká reinforcing loop medzi toilom a menším engineering časom?
+5. Prečo prioritization potrebuje risk aj touch time?
+6. Aké je poradie elimination strategies?
+7. Kedy partial automation dáva väčší zmysel než full automation?
+8. Čo musí obsahovať automation safety contract?
+9. Prečo pôvodný runbook v `SRE-PAY-52` bol causal amplifier?
+10. Ako overiť, že work nebol iba presunutý?
+11. Ktoré forbidden paths musí toil-reduction test odmietnuť?
+12. Prečo je potrebný second-trigger test?
 
 ## Glossary impact
 
-Relevantné pojmy: toil subject, toil characteristic, operational demand, human touch time, interruption cost, toil budget, toil reinforcing loop, root-demand elimination, toil automation, self-service reduction, residual toil, toil shift, engineering capacity a toil-reduction acceptance verdict.
+Relevantné pojmy: toil subject, operational demand, human touch time, interruption cost, toil reinforcing loop, toil budget, elimination strategy, partial automation, automation safety contract, residual human path, shifted toil a toil-reduction acceptance contract.
 
 ## Primárne zdroje
 
 - [Google SRE — Eliminating Toil](https://sre.google/sre-book/eliminating-toil/)
 - [Google SRE Workbook — Eliminating Toil](https://sre.google/workbook/eliminating-toil/)
-- [Google SRE — Introduction](https://sre.google/sre-book/introduction/)
-- [Google SRE Workbook — How SRE Relates to DevOps](https://sre.google/workbook/how-sre-relates/)
+- [Google SRE — The Evolution of Automation at Google](https://sre.google/sre-book/automation-at-google/)
+- [Google SRE — Dealing with Interrupts](https://sre.google/sre-book/dealing-with-interrupts/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

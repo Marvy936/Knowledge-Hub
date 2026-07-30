@@ -1,421 +1,248 @@
 # Error budgets
 
-Error budget prevádza SLO na explicitnú toleranciu failure-u. Nie je to povolenie ignorovať incidenty ani účtovná tabuľka downtime-u. Je to riadiaci mechanizmus, ktorý spája user impact, release risk, reliability investment a business priority.
+Error budget prevádza SLO na explicitnú toleranciu failure-u a následne na riadené engineering rozhodnutie. Nie je to povolenie ignorovať chyby, bankový účet downtime-u ani automatický trest za incident. Je to shared control loop medzi product velocity a reliability: keď služba poskytuje dohodnutú user experience, tím môže prijímať bounded change risk; keď failure spotrebúva budget príliš rýchlo, prioritu dostane containment a odstránenie recurrence mechanizmu.
 
-Pre event-based SLO platí základný model:
+Pre event-based SLO je základná aritmetika jednoduchá:
 
 ```text
-error budget fraction = 1 - SLO target
-allowed bad events = eligible events × error budget fraction
+budget fraction = 1 - SLO target
+allowed bad events = eligible events × budget fraction
 remaining budget = allowed bad events - observed bad events
 ```
 
-Pre `99.9 %` SLO je budget `0.1 %`. Ak je v okne `5 000 000` eligible events, budget povoľuje `5 000` bad events.
+Pri `99.9 %` objective a `5 000 000` eligible operations je povolených približne `5 000` bad operations. Výpočet sám však nič neriadi. Potrebuje exact SLO generation, trustworthy evidence, policy thresholds, decision authority a closure criteria.
 
-Samotný výpočet nestačí. Error budget funguje až vtedy, keď je naviazaný na ownera, policy, burn-rate signals, release decisions, incident response a overenie, že prijaté opatrenia skutočne znižujú user risk.
+## 1. Dominantný SLO-to-governance model
+
+Budget vzniká z versionovaného SLO a konkrétneho compliance window-u. Bad events ho spotrebúvajú, burn-rate signal ukazuje tempo a policy prekladá stav na bounded action. Návrat do normal mode-u vyžaduje nielen lepšie percento, ale aj dôkaz, že root cause alebo exposure je pod kontrolou.
 
 ```text
-versionovaný SLO a valid population
-→ budget generation pre konkrétne okno
+versionovaný SLO a eligible population
+→ budget generation pre exact window
 → bad-event consumption
-→ burn rate a forecast
+→ remaining budget, burn rate a forecast
 → policy threshold
-→ release, incident alebo reliability decision
-→ bounded action
-→ SLI recovery a recurrence evidence
-→ next-window governance
+→ release/incident/reliability decision
+→ containment alebo risk-reduction action
+→ SLI recovery + recurrence evidence
+→ controlled return to normal mode
 ```
 
-## 1. Exact error-budget subject
+Budget bez policy je iba report. Policy bez trustworthy SLI je automatizované rozhodovanie nad chybným inputom.
 
-Budget musí patriť konkrétnemu:
+## 2. Exact error-budget subject
 
-- SLI ID a revision;
-- SLO targetu;
-- service a user journey;
-- cohort a environmentu;
-- compliance window-u;
-- eligible-event population;
-- good/bad classification;
-- exclusions;
-- measurement generation;
-- policy revision;
-- ownerovi.
-
-`Máme 40 % budgetu` bez týchto údajov je neauditovateľné tvrdenie. Dve služby s rovnakým percentom môžu mať odlišný počet events, business impact a zostávajúci čas v okne.
-
-## 2. Budget nie je iba downtime
-
-Error budget môže byť vyjadrený cez:
-
-- bad requests;
-- slow requests nad thresholdom;
-- nedokončené workflows;
-- incorrect results;
-- stale data;
-- lost alebo unreconstructable acknowledged state;
-- unavailable minutes.
-
-Time-based downtime je vhodný iba vtedy, keď service opportunity približne korešponduje s časom. Pri premenlivom trafficu môže päť minút počas peak-u poškodiť viac používateľov než hodina počas nulového trafficu. Event-based budget preto často lepšie reprezentuje user impact.
-
-## 3. Budget generation
-
-Budget nie je nekonečný counter. Vzniká pre konkrétne okno a population:
+Tvrdenie „zostáva nám 40 %“ je neúplné. Exact subject obsahuje SLI a SLO revision, service journey, cohort, environment, eligible population, good/bad/missing semantics, compliance window, source/query generation, policy revision a ownera.
 
 ```text
-SLO target: 99.9 %
-window: rolling 28 days
+budget: EB-SET-COMPLETE-03-2026-07
+SLI: SLI-SET-COMPLETE-03 / q-set-complete-17
+SLO: 99.9 %
+window: rolling 28 dní
+cohort: all production merchants
 eligible events: 5 000 000
 allowed bad: 5 000
-observed bad: 4 182
-remaining: 818
-consumed: 83.64 %
+policy: EBP-PAY-08
+decision authority: Payments Product + SRE
 ```
 
-Pri rolling window-e sa staré events postupne vyraďujú a nové vstupujú. Budget sa teda môže obnovovať aj bez calendar resetu. Pri calendar window-e sa resetne na hranici mesiaca alebo kvartálu, ale root cause a residual risk sa tým automaticky nestratia.
+Dve budgets s rovnakým remaining percentage môžu mať iný počet operations, business impact a čas do konca window-u. Zmena SLI query alebo exclusions vytvára novú generation a musí zachovať comparison s pôvodnou.
 
-Budget generation musí byť reprodukovateľná z raw alebo retained aggregate evidence. Ak sa po incident-e zmení SLI query, treba zachovať pôvodný verdict aj corrected generation.
+## 3. Consumption a burn rate
 
-## 4. Burn rate
-
-**Burn rate** vyjadruje, ako rýchlo sa budget spotrebúva vzhľadom na tempo, ktoré by ho rovnomerne minulo presne na konci okna.
+Remaining budget opisuje kumulovaný stav. Burn rate opisuje rýchlosť spotreby voči tempu, ktoré by budget minulo presne na konci okna.
 
 ```text
 burn rate = observed bad-event rate / allowed bad-event rate
 ```
 
-Interpretácia:
+`1×` znamená spotrebu presne plánovaným tempom. Vysoký short-window burn signalizuje akútny incident; mierne zvýšený long-window burn odhaľuje chronic degradation. Remaining percentage samotné môže reagovať neskoro, pretože na začiatku okna vyzerá veľké aj počas rýchleho failure-u.
 
-- `1×` — budget sa míňa presne plánovaným tempom;
-- `<1×` — spotreba je pomalšia;
-- `>1×` — pri pokračovaní sa budget minie pred koncom okna;
-- veľmi vysoký burn rate — krátky, závažný incident;
-- mierne zvýšený burn rate — chronic degradation alebo slow burn.
-
-Samotný remaining percentage môže reagovať neskoro. Burn rate dokáže upozorniť na rýchle vyčerpanie ešte vtedy, keď veľká časť budgetu formálne zostáva.
-
-## 5. Multi-window burn-rate signals
-
-Jedno krátke okno je citlivé, ale hlučné. Jedno dlhé okno je stabilné, ale pomalé. Praktický model kombinuje viac okien:
+Multiwindow, multi-burn-rate model kombinuje citlivé krátke okno so stabilnejším potvrdením:
 
 ```text
 fast burn:
-short window vysoký burn rate
-+ longer confirmation window zvýšený burn rate
-→ urgent page
+vysoký burn v short window
++ zvýšený burn v confirmation window
+→ page
 
 slow burn:
-longer windows mierne zvýšený burn rate
-→ ticket alebo planned reliability action
+mierne zvýšený burn vo viacerých dlhších windows
+→ ticket a reliability action
 ```
 
-Presné thresholds závisia od SLO window-u, trafficu a incident modelu. Dôležité je, aby alert odpovedal na otázku: **hrozí významné minutie budgetu v čase, keď ešte možno konať?**
+Thresholds sa odvodzujú od SLO window-u, trafficu a požadovaného response time-u. CPU alebo queue depth nie sú budget consumption; môžu byť causes, kým burn rate musí vychádzať z user-impact SLI.
 
-Burn-rate alert nemá byť odvodený od CPU alebo queue depth bez preukázanej väzby na SLI. Resource signal môže byť diagnostická príčina, nie user-impact budget consumption.
+## 4. Error-budget policy
 
-## 6. Error-budget policy
+Policy určuje actions, nie iba farbu dashboardu. Spoločne ju vlastnia stakeholders, ktorí rozhodujú o product velocity, operational risk a customer impact.
 
-Policy určuje, čo sa stane pri určitom stave budgetu. Musí byť schválená stakeholders, ktorí rozhodujú o product velocity aj reliability.
-
-Obsahuje napríklad:
-
-- ownerov SLO a budgetu;
-- evaluation cadence;
-- thresholds a actions;
-- pravidlá pre releases a experiments;
-- security a emergency exceptions;
-- incident/postmortem triggers;
-- prioritization reliability worku;
-- escalation pri spore;
-- návrat do normal mode-u;
-- review a retirement policy.
-
-Príklad:
-
-| Stav | Decision |
-|---|---|
-| Budget healthy a burn rate pod limitom | bežné releases a experiments |
-| Predikcia vyčerpania pred koncom okna | obmedziť high-risk changes, analyzovať top consumers |
-| Viac než 50 % budgetu spotreboval jeden incident | povinný postmortem a P0/P1 recurrence item podľa impactu |
-| Budget exhausted | zastaviť discretionary risky changes, prioritizovať reliability |
-| Security fix alebo oprava príčiny incidentu | povolená cez explicitný emergency path |
-| SLI recovery bez odstránenia root cause | normal mode sa automaticky neobnoví |
-
-`Freeze all changes` nie je univerzálny cieľ. Niektoré zmeny znižujú risk. Policy má blokovať najmä discretionary risk a zároveň umožniť bezpečné remediation.
-
-## 7. Error budget ako spoločný incentive
-
-Bez error budgetu vzniká štrukturálny konflikt:
+Praktický state model:
 
 ```text
-product: rýchlejšie releases
-operations: menej zmien a incidentov
+Healthy
+→ Watch
+→ AtRisk
+→ Exhausted
+→ RecoveryOnly
+→ RecurrenceValidated
+→ Normal
 ```
 
-SLO a budget vytvoria spoločný cieľ:
+`Healthy` povoľuje bežné bounded releases. `Watch` vyžaduje analýzu top consumers a risk pri najbližších changes. `AtRisk` obmedzuje discretionary high-risk rollouty. `Exhausted` zastaví risk-increasing changes, ale musí povoliť security fixes, containment a reliability remediation. `RecoveryOnly` trvá, kým sa SLI stabilizuje. `RecurrenceValidated` vyžaduje regression alebo second-failure evidence pred návratom do normal mode-u.
+
+Freeze všetkých zmien je zlý univerzálny mechanizmus. Niektoré zmeny budget zachránia. Policy preto klasifikuje change intent a vyžaduje risk-reduction path, nie úplnú nečinnosť.
+
+## 5. Multiple objectives a hard invariants
+
+Service môže mať oddelené budgets pre availability, latency, correctness, completion, durability a critical cohorts. Tieto budgets sa nesmú spriemerovať. Zelená latency nekompenzuje duplicate payment a zdravý aggregate cohort nekompenzuje data loss top-tier merchant-a.
+
+Error budget tiež nie je jediný risk control. Jeden corrupt high-value settlement, security breach, compliance incident alebo systemic near miss môže vyžadovať incident a release block aj pri zdravom aggregate budgete. Hard invariants existujú mimo percentuálnej tolerancie.
 
 ```text
-maximalizovať hodnotné zmeny
-pri zachovaní dohodnutej user reliability
+critical correctness/durability invariant violated
+→ incident a containment
+bez ohľadu na remaining aggregate budget
 ```
 
-Ak je budget zdravý, tím môže vedome prijímať bounded release risk. Ak sa míňa príliš rýchlo, reliability work dostane objektívnu prioritu. Rozhodnutie už nestojí iba na hlasnejšom stakeholderovi.
+Budget reguluje prijateľnú frekvenciu bežných failures, nie povolenie porušovať nekompenzovateľný business alebo safety contract.
 
-## 8. Čo budget nemá riadiť automaticky
+## 6. Shared dependencies a attribution
 
-Budget je silný input, nie jediný decision factor. Samostatne nevyrieši:
+Dependency failure môže spotrebovať budgets viacerých consumer services. User-impact attribution a remediation ownership sú dve samostatné otázky. Consumer SLO má zachytiť end-to-end failure, pretože user používa capability, nie organizačný diagram. Technical action item však môže patriť broker alebo provider tímu.
 
-- bezpečnostný incident bez okamžitého SLI impactu;
-- data corruption s malým počtom, ale vysokým impactom;
-- compliance breach;
-- safety-critical failure;
-- systemic near miss;
-- dependency risk, ktorý zatiaľ nevyprodukoval bad events;
-- extrémne nerovnomerný impact medzi cohorts.
+Retries môžu vytvoriť correlated budget consumption na viacerých vrstvách. Pri portfolio rozhodnutí treba zachovať causal graph, aby jedna dependency udalosť nebola nesprávne interpretovaná ako desať nezávislých incidentov. Zároveň sa failure nesmie odstrániť z consumer SLO len preto, že root cause leží inde.
 
-Jeden lost high-value settlement môže vyžadovať incident aj vtedy, keď aggregate budget je zdravý. Policy preto môže mať hard guardrails mimo budget arithmetic.
+## 7. Launch eligibility a forecast
 
-## 9. Multiple SLOs a budgets
-
-Service môže mať osobitné budgets pre:
-
-- availability;
-- latency;
-- correctness;
-- completion deadline;
-- durability;
-- critical cohorts.
-
-Tieto budgets sa nemajú spriemerovať. Ak correctness budget zlyhá, dobrá latency ho nekompenzuje. Policy môže používať:
-
-```text
-all critical objectives must remain within policy
-```
-
-alebo explicitnú risk matrix. Composite score bez semantics umožňuje jednu silnú vlastnosť použiť na zakrytie inej zlyhanej vlastnosti.
-
-## 10. Shared dependencies a attribution
-
-Jeden dependency incident môže spotrebovať budgets viacerých services. Attribution má odpovedať na dve odlišné otázky:
-
-1. Ktorí users a services utrpeli impact?
-2. Ktorý technical owner má odstrániť príčinu?
-
-Consumer SLO nemá ignorovať failure iba preto, že ho spôsobil provider. User používa end-to-end capability. Interné chargeback alebo ownership modely môžu následne rozlíšiť provider a consumer action items.
-
-Pri retries môže rovnaký dependency failure spotrebovať budget vo viacerých vrstvách. To nie je automaticky double counting chyba; každá vrstva môže merať vlastnú user alebo service opportunity. Pri portfolio rozhodnutí však treba rozumieť causal overlapu.
-
-## 11. Budget a launch decisions
-
-Pred launchom alebo rolloutom sa hodnotí:
-
-- remaining budget;
-- current fast a slow burn;
-- recent incident concentration;
-- confidence v SLI evidence;
-- expected change risk;
-- rollback a containment;
-- cohort blast radius;
-- dependency health;
-- active reliability work.
-
-Príklad decision contractu:
+Pred rolloutom sa kombinuje remaining budget, fast/slow burn, recent incident concentration, evidence confidence, change risk, cohort blast radius, dependency health a rollback capability.
 
 ```text
 remaining completion budget ≥ 50 %
-+ 6h a 24h burn rate < 1×
++ 6h a 24h burn < 1×
 + žiadny unresolved P0 recurrence risk
-+ canary rollback tested
-→ release eligible
++ canary rollback overený
+→ change je budget-eligible
 ```
 
-Eligibility neznamená automatický launch. Je to jeden gate v širšom release decisione.
+Eligibility nie je automatický deploy approval; je to jeden input do širšieho release decisionu. Forecast má zohľadniť traffic seasonality, planned launch, backlog, provider slowdown a measurement delay. Jedno presné projected date bez assumptions a uncertainty vytvára falošnú autoritu.
 
-## 12. Budget forecast
+## 8. Connected failure `SRE-PAY-52`
 
-Forecast odhaduje, či sa budget minie do konca okna. Nemá používať iba jednoduchú lineárnu extrapoláciu bez kontextu. Zohľadniť možno:
-
-- traffic forecast;
-- seasonality;
-- planned launches;
-- known dependency maintenance;
-- current backlog;
-- recovery trend;
-- cohort expansion;
-- measurement delay.
-
-Forecast má uvádzať confidence a assumptions. Presné číslo bez uncertainty môže vytvoriť falošnú autoritu.
-
-## 13. Connected failure `SRE-PAY-52`
-
-Completion objective:
+Completion objective bolo:
 
 ```text
 SLI: provider-confirmed exactly-once settlement do 10 minút
 SLO: 99.9 %
-window: rolling 28 days
-eligible events: 5 000 000
-budget: 5 000 bad settlements
+window: rolling 28 dní
+eligible operations: 5 000 000
+allowed bad: 5 000
 ```
 
-Broker partition a unsafe cleanup spôsobili `4 182` lost intents:
+Broker partition a unsafe cleanup spôsobili `4 182` lost intents. Incident teda spotreboval `83.64 %` completion budgetu a zostalo iba `818` bad-event opportunities.
+
+Pôvodný release dashboard sledoval front-door HTTP budget, ktorý zostal zdravý. Nový completion budget zmenil policy outcome:
 
 ```text
-consumed = 4 182 / 5 000 = 83.64 %
-remaining = 818 events
+stop unsafe cleanup
+→ zastaviť discretionary risky releases
+→ povoliť recovery/security/risk-reduction changes
+→ povinný postmortem
+→ P0 safe-retention a reconciliation remediation
+→ multiwindow completion burn alerts
+→ normal mode až po recurrence testoch
 ```
 
-Pred incidentom tím sledoval iba `SLI-HTTP-01`, takže release dashboard ukazoval healthy budget. Nový completion budget odhalil, že jedna udalosť spotrebovala väčšinu tolerovaného failure-u.
-
-### Policy outcome
-
-1. okamžite zastaviť cleanup a discretionary production releases;
-2. povoliť iba recovery, security a risk-reduction changes;
-3. vykonať postmortem, pretože incident spotreboval viac než polovicu budgetu;
-4. vytvoriť P0 item pre safe outbox retention a reconciliation;
-5. zaviesť multi-window completion burn-rate alerting;
-6. obnoviť normálny release mode až po recovery a regression evidence.
-
-### Prečo calendar reset nestačí
-
-Ak by sa budget resetol 1. augusta, unsafe cleanup by zostal schopný incident zopakovať. Policy preto vyžaduje dve podmienky:
+Calendar reset by 1. augusta numericky obnovil budget, ale unsafe query by zostala schopná incident zopakovať. Policy preto vyžaduje dve oddelené podmienky:
 
 ```text
-budget state je znovu prijateľný
-+ root-cause a recurrence gates sú uzavreté
+budget state je prijateľný
++ root-cause exposure a recurrence gates sú uzavreté
 ```
 
-## 14. Competing interpretations
+## 9. Competing interpretations a evidence integrity
 
-Pri rýchlej spotrebe budgetu treba odlíšiť:
+Rýchly burn môže znamenať reálny service failure, chybnú denominator query, delayed provider events, duplicate retry classification, cohort mix change alebo monitoring outage. Decision preto potrebuje raw operation samples, expected population, query/schema generation, source lag a nezávislý business ledger.
 
-- reálny user incident;
-- zmenu denominatoru;
-- duplicate events;
-- telemetry backfill;
-- nesprávnu good/bad klasifikáciu;
-- cohort migration;
-- query revision drift;
-- legitimate traffic shift;
-- missing data spätne klasifikované ako bad.
+Historical budget sa nesmie potichu prepočítať po query fix-e. Zachovaj decision-time generation, corrected generation a delta explanation. Ak chýba evidence coverage, policy môže prejsť do `UnknownEvidence` a obmedziť risk, namiesto predstierania zdravého budgetu.
 
-Discriminating evidence:
+## 10. Budget acceptance contract
+
+Positive acceptance vytvorí known population s kontrolovaným počtom good a bad operations a overí presný allowed, consumed a remaining budget. Synthetic fast burn musí vyvolať intended page a slow burn intended ticket. Policy transition musí povoliť remediation a zablokovať iba risk-increasing change class.
+
+Forbidden paths musia zlyhať. Query change nesmie spätne vymazať incident, missing telemetry nesmie obnoviť budget, calendar reset nesmie automaticky uzavrieť recurrence risk, healthy availability budget nesmie prekryť exhausted durability budget a broad „emergency“ label nesmie obísť decision authority.
 
 ```text
-SLI/policy revision
-→ raw event IDs a population
-→ incident timeline
-→ source a ingestion completeness
-→ independent recomputation
-→ cohort a release breakdown
-→ business ledger reconciliation
+positive:
+known bad events → exact consumption → intended policy action
+
+recovery:
+SLI stabilizácia + remediation + second-failure test → Normal
+
+forbidden:
+missing data as healthy
+automatic reset closes root cause
+aggregate budget hides critical cohort
+all changes blocked including remediation
+unapproved query revision
 ```
 
-Containment nemá spočívať v rýchlej zmene query tak, aby budget vyzeral lepšie. Pôvodná generation musí zostať auditovateľná.
+Verdict patrí exact SLO, query, window a policy generation.
 
-## 15. Error-budget acceptance verdict
+## 11. Troubleshooting flow
 
-Budget control je prijatý, keď:
-
-- patrí versionovanému SLI, SLO a window-u;
-- allowed a observed bad events možno reprodukovať;
-- rolling/calendar semantics sú explicitné;
-- burn rate rozlišuje fast a slow failure;
-- missing a late data majú definovaný verdict;
-- policy má schválených owners a consequences;
-- release gate rozlišuje discretionary risk a remediation;
-- critical correctness/security guardrails nemožno prehlasovať aggregate budgetom;
-- reset neobchádza unresolved recurrence risk;
-- synthetic incident aktivuje očakávaný alert a policy action;
-- changed query, stale data a duplicate-event fixtures zlyhajú;
-- second-window decision je reprodukovateľný.
-
-## 16. Troubleshooting flow
+Pri nečakanom budget stave najprv over exact subject a aritmetiku. Potom population, event classification, source lag a query revision. Až následne vyhodnoť service causes a policy action.
 
 ```text
-unexpected budget state
-→ exact SLI/SLO/policy revision
-→ window boundaries a current time
-→ eligible-event denominator
-→ bad-event classification
-→ raw incident/cohort contribution
-→ ingestion, lateness a correction
-→ burn-rate calculation
-→ forecast assumptions
-→ triggered policy action
-→ independent decision replay
+budget alert alebo release block
+→ SLO/query/window identity
+→ expected vs observed population
+→ good/bad/missing event samples
+→ burn calculation
+→ service vs evidence hypothesis
+→ discriminating source
+→ corrected budget verdict
+→ policy action
+→ recurrence closure
 ```
 
-## 17. Earlier controls
+Ručný override bez preserved reason, expiry a approvera vytvára druhú neauditovateľnú policy.
 
-- versionovaný error-budget policy document;
-- budget owner a escalation path;
-- multi-window burn-rate alerts;
-- top-consumer attribution;
-- SLI completeness guard;
-- immutable query/revision record;
-- critical-cohort budgets;
-- release eligibility API alebo dashboard;
-- expiring policy exceptions;
-- postmortem trigger podľa budget impactu;
-- reset + recurrence dual gate;
-- quarterly policy game day.
+## 12. Anti-patterny
 
-## 18. Anti-patterny
+Error-budget anti-patterny oddeľujú aritmetiku od user risku alebo policy consequence. Taký budget môže vyzerať presne, ale nevedie k bezpečnému change rozhodnutiu ani k uzavretiu recurrence mechanizmu.
 
-### Budget ako outage allowance
+- **Budget ako povolenie míňať chyby —** Budget umožňuje bounded risk, nie vedomé poškodzovanie users alebo ignorovanie known defectu. Known high-impact mechanismus potrebuje remediation aj pri formálne zdravom budgete.
+- **Percento bez operation countu a času —** `40 % zostáva` nehovorí, či ide o štyri alebo štyri milióny events ani ako rýchlo sa budget míňa. Decision potrebuje remaining count, burn rate a zostávajúci window.
+- **Automatický freeze všetkého —** Globálny freeze blokuje aj changes, ktoré risk znižujú. Policy musí rozlišovať discretionary, emergency, security a remediation work.
+- **Calendar reset ako recovery —** Window reset mení číslo, nie production mechanismus. Normal mode sa obnoví až po SLI recovery a recurrence evidence.
+- **Priemer budgets —** Availability, correctness, durability a critical cohorts majú nekompenzovateľné verdicts. Composite average nesmie zelenou osou prekryť exhausted critical objective.
 
-Tím úmyselne spotrebúva budget bez bounded hypothesis alebo user value.
+## 13. Kontrolné otázky
 
-### Freeze všetkého
-
-Risk-reducing a security changes sú blokované spolu s discretionary launches.
-
-### Calendar amnesty
-
-Nové okno vymaže governance consequence bez odstránenia príčiny.
-
-### Aggregate budget kompenzuje correctness
-
-Rýchla služba môže vracať nesprávne alebo stratené výsledky.
-
-### Budget bez policy
-
-Percento sa zobrazuje, ale nič nemení.
-
-### Query tuning po incidente
-
-Measurement sa spätne upraví s cieľom znížiť consumption namiesto opravy klasifikácie transparentnou new generation.
-
-### Remaining budget bez burn rate
-
-Tím reaguje až vtedy, keď už je neskoro.
-
-## 19. Kontrolné otázky
-
-1. Ako sa error budget odvodí zo SLO?
-2. Prečo event-based budget môže byť lepší než downtime?
-3. Čo je budget generation?
-4. Ako sa interpretuje burn rate `1×`?
-5. Prečo kombinovať krátke a dlhé windows?
-6. Čo má obsahovať error-budget policy?
-7. Prečo budget nie je jediný security alebo safety gate?
-8. Ako riešiť viac critical SLOs?
-9. Prečo consumer budget zahŕňa provider failure?
-10. Ako budget vstupuje do launch decisionu?
-11. Prečo calendar reset neuzatvára `SRE-PAY-52`?
-12. Čo musí overiť error-budget acceptance verdict?
+1. Čo tvorí exact error-budget subject?
+2. Ako sa vypočíta allowed a remaining budget?
+3. Čo burn rate vyjadruje navyše oproti remaining percentage?
+4. Prečo kombinovať short a long windows?
+5. Čo musí obsahovať error-budget policy?
+6. Prečo exhausted budget nemá blokovať remediation?
+7. Kedy hard invariant prevažuje nad budgetom?
+8. Ako shared dependency ovplyvní user attribution a owner action?
+9. Prečo forecast potrebuje assumptions a confidence?
+10. Prečo calendar reset neuzavrie `SRE-PAY-52`?
+11. Ktoré evidence odlíši real burn od query defectu?
+12. Čo musí forbidden acceptance test odmietnuť?
 
 ## Glossary impact
 
-Relevantné pojmy: error-budget subject, error-budget generation, allowed bad events, remaining budget, consumed budget, burn rate, fast burn, slow burn, multi-window burn-rate alert, error-budget policy, reliability mode, discretionary change, recurrence gate, budget forecast a error-budget acceptance verdict.
+Relevantné pojmy: error-budget subject, budget generation, bad-event consumption, remaining budget, burn rate, multiwindow burn signal, error-budget policy, budget state machine, budget-eligible change, hard reliability invariant, `UnknownEvidence` a recurrence gate.
 
 ## Primárne zdroje
 
 - [Google SRE — Embracing Risk](https://sre.google/sre-book/embracing-risk/)
 - [Google SRE — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
+- [Google SRE Workbook — Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/)
 - [Google SRE Workbook — Example Error Budget Policy](https://sre.google/workbook/error-budget-policy/)
-- [Google SRE — Production Services Best Practices](https://sre.google/sre-book/service-best-practices/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

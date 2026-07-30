@@ -1,463 +1,238 @@
 # SLI, SLO a SLA
 
-SLI, SLO a SLA tvoria tri rozdielne contracts. **SLI** je presne definované meranie poskytovanej service level. **SLO** je cieľ alebo povolený rozsah nad týmto meraním počas konkrétneho okna. **SLA** je dohoda s používateľom alebo zákazníkom, ktorá môže obsahovať záväzok, exclusions, reporting a následky pri nesplnení.
+SLI, SLO a SLA nie sú tri názvy pre rovnaké percento. **Service Level Indicator** je versionovaný measurement contract nad presnou population. **Service Level Objective** je interný alebo shared target nad týmto indicatorom počas definovaného okna a s explicitnou response policy. **Service Level Agreement** je dohoda s consumerom, ktorá môže pridať reporting, exclusions, support záväzky a remedy. Platný SLA report preto nemusí dokazovať dobrú user experience a zelený component metric nemusí byť platný SLI.
+
+Návrh sa má začať user journey, nie metricou, ktorú už exportuje load balancer. Atlas Payments potrebuje vedieť, či potvrdený settlement skončil u providera exactly once do desiatich minút. HTTP status na acceptance boundary je užitočný, ale nedokáže tento outcome reprezentovať sám.
+
+## 1. Dominantný journey-to-decision model
+
+Service-level control loop prekladá používateľskú potrebu na meranie a následné rozhodnutie. Measurement pipeline je súčasťou contractu; ak stráca udalosti alebo oneskoruje final outcomes, neistota sa musí objaviť vo verdicte.
 
 ```text
-user journey a požadovaný outcome
-→ exact measurement subject
-→ valid event population
-→ good/bad classification a observation point
-→ SLI calculation
-→ target a compliance window
-→ SLO verdict
-→ operational action a error budget
-→ external commitment a remedy, ak existuje
+user journey a required outcome
+→ exact SLI subject a eligible population
+→ authoritative observation point
+→ good/bad/missing classification
+→ versioned measurement pipeline
+→ SLI result a confidence
+→ SLO target a compliance window
+→ error-budget a operational action
+→ optional SLA commitment/report/remedy
+→ original a forbidden outcome validation
 ```
 
-Najčastejšia chyba je začať od metric, ktorú už systém ľahko exportuje. Správny návrh začína od toho, čo používateľ potrebuje, a až potom hľadá najbližší dostatočne autoritatívny signal.
+SLI odpovedá „čo sa stalo“. SLO odpovedá „koľko failure-u je ešte prijateľné a čo urobíme“. SLA odpovedá „čo sme s consumerom dohodli a aké sú následky“. Zámena týchto vrstiev vytvára falošné green statusy a zlé incentives.
 
-## 1. Service-level subject
+## 2. Exact service-level subject
 
-Pred výpočtom treba pomenovať:
-
-- service alebo business capability;
-- user alebo workload cohort;
-- operation a request type;
-- exact valid-event population;
-- expected outcome;
-- threshold alebo deadline;
-- observation point;
-- source a schema generation;
-- compliance window;
-- exclusions a missing-data semantics;
-- ownera a response policy.
-
-Príklad:
+SLO statement bez population, success criteria a window-u nie je reprodukovateľný. Exact subject zachováva capability, cohort, operation identity, event eligibility, required outcome, observation point, source/schema/query generation, time window, exclusions, missing-data semantics, ownera a response policy.
 
 ```text
+SLI ID: SLI-SET-COMPLETE-03
 capability: settlement completion
-population: valid production settlements acknowledged HTTP 202
-cohort: all merchants, separately tracked for top-tier merchants
-success: provider-confirmed exactly-once completion do 10 minút
-observation: reconciled payment + provider ledger
+population: acknowledged unique production settlement intents
+cohorts: all merchants + separate top-tier merchant view
+good: provider-confirmed exactly once do 10 minút
+bad: late, duplicate, terminally failed alebo lost intent
+missing: unresolved po evidence-lateness budgete
+observation: reconciled payment/broker/provider ledger
+query generation: q-set-complete-17
 window: rolling 28 days
-objective: 99.9 %
+SLO: 99.9 %
+owner: Payments Product + SRE
 ```
 
-SLO bez population, success criteria a window-u nie je reprodukovateľný decision contract.
+Zmena query, source schema, idempotency semantics alebo provider ledgeru vytvára novú measurement generation. Historical verdict sa nemá spätne prepísať bez preserved old resultu a vysvetlenej correction lineage.
 
-## 2. Service Level Indicator — SLI
+## 3. Population, denominator a operation identity
 
-SLI je kvantitatívne meranie jedného aspektu poskytovanej služby. Bežný event-based tvar je:
+Event-based SLI má typicky tvar:
 
 ```text
 SLI = good eligible events / total eligible events
 ```
 
-SLI však môže merať aj distribution alebo stav:
+Najťažšia časť nie je delenie, ale denominator. Tím musí rozhodnúť, či population obsahuje invalid authentication, malformed payloads, rate-limited valid traffic, client cancellations, synthetic checks, retries, duplicate idempotency attempts a operations bez final outcome-u.
 
-- podiel successful requests;
-- podiel requests pod latency thresholdom;
-- podiel records spracovaných do deadline-u;
-- podiel správnych answers;
-- podiel acknowledged writes, ktoré zostali reconstructable;
-- freshness data projection;
-- podiel času, keď bola capability usable.
+Transport-attempt SLI a business-operation SLI odpovedajú na inú otázku. Prvý ukazuje load a request experience; druhý ukazuje, či jeden merchant intent skončil správne. Ak sa tri retries započítajú ako tri samostatné failures, budget meria transport attempts. Ak sa zoskupia podľa idempotency keyu, meria unique business operations. Obe môžu byť potrebné, ale nesmú používať rovnaké meno a target bez vysvetlenia.
 
-SLI definition musí určiť nielen numerator, ale aj denominator. Chybný denominator dokáže vytvoriť zelený výsledok bez ohľadu na kvalitu numeratoru.
+Exclusions musia byť bounded a auditable. Validný request odmietnutý pre interný capacity limit nie je automaticky „client error“. Planned maintenance nezmizne z user experience iba tým, že bola naplánovaná. Dependency outage nie je automaticky mimo end-to-end service contractu.
 
-## 3. Valid events a denominator
+## 4. Good, bad a missing outcome
 
-Nie každý observed event patrí do SLI population. Treba explicitne rozhodnúť o:
-
-- syntactically invalid client requests;
-- unauthorized requests;
-- rate-limited traffic;
-- client cancellations;
-- health checks a synthetic traffic;
-- retries a hedged requests;
-- duplicate idempotency attempts;
-- requests počas planned maintenance;
-- requests, ktoré zlyhali pred observation pointom;
-- asynchronous operations bez final outcome-u.
-
-Príklad request SLI:
+Good event musí reprezentovať user-relevant výsledok. Pre synchronous read môže znamenať correct authorized response pod latency thresholdom. Pre asynchronous settlement potrebuje celý chain:
 
 ```text
-eligible = valid merchant POST /settlements attempts
-exclude = malformed request a invalid authentication
-bad = 5xx, timeout, connection failure alebo incorrect 2xx
+durably acknowledged intent
++ provider-confirmed final operation
++ exactly-once business effect
++ completion do 10 minút
 ```
 
-Ak sa retries rátajú ako samostatné opportunities, jedna user operation môže spotrebovať budget viackrát. Niekedy je to správne, pretože retry load je reálny service impact. Inokedy treba merať unique business operation podľa idempotency keyu. Obe metriky odpovedajú na inú otázku.
+HTTP `202` je iba acceptance evidence. Môže byť good pre acceptance SLI a súčasne insuficientný pre completion SLI. Jedna journey preto často potrebuje oddelené objectives pre acceptance, completion, correctness a durability. Tieto objectives sa nekompenzujú priemerom.
 
-## 4. Good event nie je iba status code
+Missing evidence nie je success. Ak provider ledger mešká alebo telemetry pipeline stratí events, SLI potrebuje explicitný evidence-lateness budget. Po jeho prekročení môže outcome prejsť do `unknown`, ktoré policy považuje za bad alebo za samostatný blocking evidence state. „Nula bad events“ bez coverage proofu nie je pozitívny verdict.
 
-Good event má vyjadrovať user-relevant outcome. Pre synchronous read môže byť:
+## 5. Observation point a measurement pipeline
 
-```text
-correct response
-+ authorized data scope
-+ latency ≤ 300 ms
-```
+Observation point má byť čo najbližšie k authoritative user outcome-u. Server-side request logs poskytujú vysokú coverage, ale nevidia failure pred serverom a často nepoznajú downstream completion. Client alebo edge telemetry je bližšie user experience, ale trpí samplingom a privacy constraints. Business ledger poskytuje authoritative completion, no prichádza neskôr a potrebuje reconciliation.
 
-Pre asynchronous settlement:
-
-```text
-acknowledged intent
-+ final provider confirmation
-+ exactly-once business result
-+ completion ≤ 10 minút
-```
-
-HTTP `202` meria iba acceptance boundary. Ak final outcome zlyhá, acceptance SLI môže byť dobré a completion SLI zlé. Preto jedna journey často potrebuje viac SLIs:
-
-- front-door acceptance;
-- end-to-end completion;
-- correctness;
-- durability alebo reconstructability;
-- freshness.
-
-Tieto SLIs sa nemajú neuvážene spriemerovať do jedného score. Critical objective môže zlyhať aj pri dobrom aggregate score.
-
-## 5. Observation point
-
-Signal má byť čo najbližšie k user experience alebo authoritative business outcome-u.
-
-### Server-side observation
-
-Výhody:
-
-- vysoká coverage;
-- jednotná schema;
-- jednoduchšia korelácia s release a dependency state-om.
-
-Hranice:
-
-- nevidí DNS, client network alebo edge failure pred serverom;
-- môže merať response write, nie client receive;
-- nemusí poznať downstream business completion.
-
-### Client-side alebo edge observation
-
-Výhody:
-
-- bližšie k reálnemu user journey;
-- zahŕňa viac network a rendering boundary.
-
-Hranice:
-
-- sampling a privacy;
-- ad blockers alebo telemetry loss;
-- heterogénne clients;
-- zložitejšia identity a deduplication.
-
-### Business-ledger observation
-
-Výhody:
-
-- autoritatívny final outcome;
-- vhodné pre settlement, order, export alebo workflow completion.
-
-Hranice:
-
-- väčšia latency;
-- potreba reconciliation;
-- missing outcome môže znamenať failure služby alebo failure evidence pipeline-u.
-
-Silný SLI contract dokumentuje, čo observation point vidí aj čo nevidí.
-
-## 6. Measurement pipeline je súčasť SLI
+Kompletný measurement subject obsahuje aj pipeline:
 
 ```text
 business event
 → instrumentation alebo ledger record
-→ collection
-→ transport a buffering
+→ collection a transport
 → ingestion
-→ deduplication a classification
-→ query
+→ deduplication a correlation
+→ good/bad/missing classification
+→ query generation
 → SLI result
 ```
 
-Chyba v ktorejkoľvek vrstve môže zmeniť SLO verdict. Preto treba evidovať:
+Každá vrstva potrebuje coverage, lateness, duplicate, schema a retention semantics. Monitoring outage počas service outage-u nesmie automaticky vytvoriť 100 % success. Backfill môže opraviť report, ale incident response musí zachovať aj verdict dostupný v čase rozhodnutia.
 
-- source generation;
-- schema a semantic version;
-- collection coverage;
-- delay a lateness;
-- duplicate handling;
-- missing-data semantics;
-- correction a backfill behavior;
-- query revision;
-- retention.
+## 6. SLO ako target a action contract
 
-`No bad events` nie je to isté ako `complete evidence shows no bad events`.
-
-## 7. Service Level Objective — SLO
-
-SLO je target value alebo range nad konkrétnym SLI počas definovaného compliance window-u.
-
-Príklady:
+SLO určuje cieľ alebo range nad konkrétnym SLI počas compliance window-u. Dobrý statement je napríklad:
 
 ```text
-99.95 % validných settlement-acceptance attempts bude úspešných
-počas rolling 28-day window.
-
-99.9 % acknowledged settlements bude provider-confirmed exactly once
-najneskôr do 10 minút počas rolling 28-day window.
-
-99 % status reads sa dokončí do 300 ms
-pre top-tier merchant cohort počas rolling 7-day window.
+99.9 % acknowledged unique settlement intents
+bude provider-confirmed exactly once do 10 minút
+počas rolling 28-day window-u.
 ```
 
-SLO musí uviesť:
+SLO obsahuje target, window, cohort, ownera, error-budget policy, review triggers a known limitations. Target sa nemá mechanicky odvodiť z aktuálneho priemeru. Vychádza z user potreby, business impactu, dependency capabilities, architecture costu a risk tolerance. Príliš voľný target legalizuje zlú službu; nereálne prísny target vytvára heroics alebo metric gaming.
 
-- SLI definition alebo stabilný odkaz na ňu;
-- target;
-- window;
-- cohort a scope;
-- ownera;
-- error-budget policy;
-- review trigger;
-- known limitations.
+Rolling window priebežne pridáva nové a odstraňuje staré events. Calendar window sa resetuje na pevnej hranici a je praktická pre reporting alebo contracts, ale reset neodstraňuje root cause. Výber ovplyvňuje burn-rate alerting, seasonality, low-volume cohorts a release decisions.
 
-## 8. Rolling a calendar windows
+## 7. SLA ako externý commitment
 
-### Rolling window
-
-Napríklad posledných 28 dní sa prepočítava pri každom evaluation time. Poskytuje priebežný obraz a nemá ostrý reset na začiatku mesiaca.
-
-### Calendar window
-
-Napríklad júl 2026 alebo Q3 2026. Je jednoduchšia pre reporting a contract settlement, ale reset môže vytvoriť neželané incentives. Incident na konci mesiaca môže byť pri novom mesiaci okamžite „odpustený“, hoci risk pretrváva.
-
-Výber okna ovplyvňuje:
-
-- citlivosť na krátke incidenty;
-- seasonality;
-- traffic volume;
-- alerting a burn-rate model;
-- release decisions;
-- SLA reporting.
-
-## 9. Target nie je aktuálny priemer
-
-SLO sa nemá automaticky nastaviť podľa dnešného výkonu. Target má vychádzať z:
-
-- user potreby a alternatives;
-- business impactu;
-- dependency contracts;
-- achievable architecture;
-- costu a staffing;
-- change velocity;
-- risk tolerance;
-- safety marginu medzi interným a externým commitmentom.
-
-Príliš prísny SLO môže vytvárať heroics, zablokovať zmeny a viesť k metric manipulation. Príliš voľný SLO dovolí zlý user experience bez operational consequence.
-
-## 10. Service Level Agreement — SLA
-
-SLA je dohoda medzi providerom a consumerom. Môže byť právna, obchodná alebo interná a typicky obsahuje:
-
-- definovaný service a scope;
-- commitment metric a threshold;
-- measurement source;
-- reporting period;
-- exclusions;
-- claim process;
-- service credits alebo inú remedy;
-- liability a support boundaries.
-
-SLA nie je synonymum SLO. Praktický model môže byť:
+SLA môže používať podobný indicator, ale pridáva consumer-facing scope, measurement source, reporting period, exclusions, claim process a remedy. Interný SLO býva prísnejší než external commitment, aby vytvoril engineering margin.
 
 ```text
-internal SLO: 99.95 % monthly availability
-external SLA commitment: 99.9 % monthly availability
+internal completion SLO: 99.9 % / rolling 28 dní
+external SLA commitment: 99.5 % / calendar month
 ```
 
-Rozdiel vytvára safety margin. Nie je však povinné mať SLA pre každú internú službu. Interný SLO môže riadiť engineering decisions bez finančnej alebo právnej remedy.
+Rozdiel nie je povinný a nesmie byť zámienkou na ignorovanie users pod contractual thresholdom. SLA success môže stále zakryť critical cohort failure, príliš široké exclusions alebo user journey, ktorú agreement vôbec nemeria.
 
-SLA success tiež nemusí znamenať spokojného používateľa. Exclusions a credit thresholds môžu byť splnené, hoci kritický cohort utrpel významný impact.
+## 8. Connected failure `SRE-PAY-52`
 
-## 11. Exclusions a maintenance
-
-Exclusion má byť explicitná, obmedzená a auditovateľná. Bežné riziká:
-
-- planned maintenance sa odpočíta aj vtedy, keď používateľ nemá alternatívu;
-- provider dependency failure sa vylúči, hoci user kupuje end-to-end service;
-- invalid requests sa klasifikujú príliš široko;
-- rate limiting skryje capacity failure;
-- missing telemetry sa považuje za success;
-- incidents sa spätne preklasifikujú po spotrebovaní budgetu.
-
-SLO môže mať odlišné exclusions než SLA, ale rozdiel musí byť vedomý. Interný SLO má chrániť user experience, nie iba optimalizovať contractual report.
-
-## 12. Connected failure `SRE-PAY-52`
-
-Pôvodný Atlas dashboard používal jediný indicator:
+Pôvodný dashboard používal:
 
 ```text
 SLI-HTTP-01 = HTTP 2xx a 3xx / všetky ALB requests
-SLO = 99.95 % za rolling 28 dní
+SLO = 99.95 % / rolling 28 dní
 ```
 
-Počas broker partition API naďalej commitovalo payment a outbox rows a vracalo `202`. Cleanup následne odstránil `4 182` nepublikovaných commands. `SLI-HTTP-01` zostalo zelené, pretože meralo acceptance response, nie settlement completion.
+Počas broker partition API stále commitovalo payment/outbox transaction a vracalo `202`. Cleanup následne zmazal `4 182` unpublished commands. `SLI-HTTP-01` ostalo zelené, pretože meralo front-door response, nie final settlement completion.
 
-Nový SLO document zaviedol tri samostatné subjects.
-
-### Acceptance SLI
+Redesign vytvoril tri samostatné subjects:
 
 ```text
 SLI-SET-ACCEPT-02
-population: valid unique merchant settlement attempts
-success: durable payment + outbox commit a correct acknowledgement
-observation: edge request + PostgreSQL commit correlation
-objective: 99.95 % / rolling 28 days
-```
+population: valid unique settlement attempts
+good: durable payment + outbox commit a truthful ack
+objective: 99.95 % / rolling 28 dní
 
-### Completion SLI
-
-```text
 SLI-SET-COMPLETE-03
 population: acknowledged unique settlement intents
-success: provider-confirmed exactly once do 10 minút
-observation: reconciled payment, broker a provider ledger
-objective: 99.9 % / rolling 28 days
-```
+good: provider-confirmed exactly once do 10 minút
+objective: 99.9 % / rolling 28 dní
 
-### Durability SLI
-
-```text
 SLI-SET-DURABLE-01
-population: acknowledged settlement intents retained 90 dní
-success: intent je reconstructable z production alebo approved recovery lineage
-observation: scheduled restore + reconciliation canary
+population: acknowledged intents retained 90 dní
+good: reconstructable z production alebo approved recovery lineage
 objective: 99.9999 % / rolling annual window
 ```
 
-Pri `5 000 000` eligible completion events umožňuje `99.9 %` SLO najviac `5 000` bad outcomes. Incident s `4 182` lost intents spotreboval `83.64 %` completion error budgetu, hoci request availability budget takmer neovplyvnil.
+Acceptance objective ukazuje, či front door správne prijíma intent. Completion objective odhalí async failure. Durability objective sa neopiera iba o production rows, ale o pravidelný restore a reconciliation canary.
 
-Tento rozdiel nie je metric detail. Mení release, incident a prioritization decision.
+## 9. Confidence, cohorts a competing interpretations
 
-## 13. SLI correction a late data
+Pri zhoršení SLI treba odlíšiť reálny user impact od measurement defectu. Možné hypotézy sú: service failure, jeden affected tenant, stale provider ledger, duplicate classification po retry, schema rollout, query regression alebo telemetry loss.
 
-Async business outcome môže doraziť po prvom evaluation-e. SLI pipeline preto potrebuje rules pre:
+Discriminating evidence zahŕňa raw event counts, expected inventory, source lag, schema generation, query diff, cohort decomposition a nezávislý business ledger. Ak server-side success zostáva zelený a provider-confirmed completion klesne iba pre jednu Region, problém nie je možné uzavrieť ako „monitoring noise“ bez operation-level correlation.
 
-- provisional outcome;
-- finalization delay;
-- late provider acknowledgement;
-- corrected classification;
-- duplicate event;
-- replay;
-- query backfill;
-- audit trail zmeneného verdictu.
+SLO report má uvádzať confidence a limitations. Low-volume cohort potrebuje dlhšie okno, synthetic probe alebo binomial uncertainty interpretation; nemá sa skrývať v high-volume aggregate.
 
-Napríklad settlement bez outcome-u po 10 minútach je bad pre latency objective aj vtedy, keď sa dokončí po 30 minútach. Neskoršie dokončenie môže zmeniť completion-state metric, ale nemá spätne vymazať porušenie deadline SLO.
+## 10. Service-level acceptance contract
 
-## 14. SLO acceptance verdict
+Positive acceptance musí preukázať, že validná operation vstúpi do správnej population, good outcome sa zachytí na authoritative observation point-e a SLO query vráti očakávaný verdict. Jeden intentional bad event musí spotrebovať správny denominator a error budget.
 
-SLO je operationally použiteľné, keď:
-
-- začína od user journey a požadovaného outcome-u;
-- exact population, good event a exclusions sú testovateľné;
-- observation point je dostatočne blízko user alebo business outcome-u;
-- measurement pipeline má coverage a missing-data verdict;
-- retries a duplicates majú explicitnú identity semantics;
-- target a window majú business aj technical rationale;
-- SLA je od interného SLO oddelená;
-- error-budget policy určuje consequences;
-- critical cohorts sa nestratia v aggregate;
-- synthetic incident spotrebuje očakávaný budget;
-- silent-success, missing-telemetry a wrong-denominator fixtures zlyhajú;
-- druhá measurement generation vytvorí reprodukovateľný verdict.
-
-## 15. Troubleshooting flow
+Forbidden paths musia byť viditeľné. Late completion, duplicate provider effect, missing telemetry, stale query generation, invalid exclusion a úplný failure jedného tenant cohortu nesmú zostať zelené. SLA report nesmie spätne preklasifikovať incident iba preto, aby sa zmestil do commitmentu.
 
 ```text
-sporný SLO verdict
-→ exact SLI ID, revision, window a cohort
-→ raw eligible event identity
-→ good/bad classification rule
-→ observation point
-→ source/schema generation
-→ collection a ingestion coverage
-→ duplicate, retry a late-data handling
-→ query revision
-→ SLO target a exclusions
-→ independent recomputation
-→ operational consequence
+positive:
+known good operation → good event → SLI/SLO success
+
+controlled bad:
+known bad operation → bad event → budget consumption
+
+forbidden:
+missing evidence as success
+retry amplification hidden
+critical cohort averaged away
+old query used after schema change
+SLA exclusion without approved contract
 ```
 
-## 16. Earlier controls
+Acceptance verdict patrí exact source, schema, query a window generation. Druhá Region alebo nový provider potrebuje vlastný correlation test.
 
-- versionovaný SLO document;
-- stable SLI IDs a owners;
-- client/business-ledger evidence pre critical journeys;
-- valid-event fixtures;
-- synthetic bad-event canary;
-- completeness a lateness metrics;
-- semantic query tests;
-- separate critical cohorts;
-- independent SLO recomputation;
-- internal SLO safety margin pred SLA;
-- scheduled review po architecture alebo user-behavior change;
-- explicit provisional/final outcome semantics.
+## 11. Troubleshooting flow
 
-## 17. Anti-patterny
+Pri spore o SLO najprv zachovaj exact subject a query generation. Potom porovnaj expected population s observed denominatorom, good/bad/missing classification a raw source lag. Až následne analyzuj technical cause user failure-u.
 
-### Metric first
+```text
+user symptom
+→ SLI subject a cohort
+→ expected vs observed population
+→ source/schema/query generation
+→ observation lateness a coverage
+→ good/bad/missing classification
+→ service alebo evidence hypothesis
+→ discriminating operation samples
+→ corrected verdict
+→ operational action
+```
 
-Tím vyberie ľahko dostupný CPU alebo HTTP signal a až potom mu vymyslí user význam.
+Dashboard screenshot bez query, window a source generation nie je dostatočné incident evidence.
 
-### Average latency
+## 12. Anti-patterny
 
-Priemer skryje tail latency a kritické cohorts.
+Tieto anti-patterny vznikajú, keď dostupný signal alebo contractual minimum nahradí user-centered measurement contract. Výsledkom je reprodukovateľné číslo, ktoré však odpovedá na inú otázku než používateľská spoľahlivosť.
 
-### `2xx` equals success
+- **Začať metricou, ktorú už máme —** Easy-to-export CPU alebo HTTP status môže byť diagnostický signal, ale nie user-relevant SLI. Najprv sa definuje required outcome a až potom najbližší authoritative observation point.
+- **`2xx` equals success —** Status code môže potvrdiť iba jednu protocol boundary. Async a business completion potrebuje samostatný oracle a operation-level correlation.
+- **Missing telemetry equals zero errors —** Evidence outage znižuje confidence a môže vytvoriť blocking unknown state; nesmie zlepšiť SLI. Coverage a lateness sú preto súčasťou measurement generation.
+- **Jeden global objective —** Aggregate SLO skryje tenant, Region, operation alebo release cohort failure. Critical cohorts potrebujú samostatné views alebo hard non-aggregate gates.
+- **SLA diktuje interné meranie —** External agreement je minimum commitmentu, nie horná hranica interného user-centric observability. Interný SLO má odhaliť risk ešte pred contractual breachom.
 
-Transport acceptance sa zamieňa za business completion alebo correctness.
+## 13. Kontrolné otázky
 
-### Missing equals good
-
-Výpadok telemetry zlepší SLI.
-
-### SLA equals reliability strategy
-
-Contractual minimum nahrádza interný user-centered objective.
-
-### Jeden composite score
-
-Výborná availability prekryje zlú durability alebo correctness.
-
-### SLO bez consequence
-
-Metric sa reportuje, ale neovplyvní release, staffing ani reliability work.
-
-## 18. Kontrolné otázky
-
-1. Čo je SLI, SLO a SLA?
-2. Prečo denominator určuje význam SLI?
-3. Kedy rátať request attempts a kedy unique business operations?
-4. Prečo server-side SLI nemusí vidieť user failure?
-5. Ako sa rolling a calendar window líšia?
-6. Prečo target nemá byť iba current performance?
-7. Čo tvorí SLA safety margin?
-8. Ako planned maintenance mení user a contractual pohľad?
-9. Prečo neskoré dokončenie nevymaže latency violation?
-10. Ako missing telemetry ovplyvní verdict?
-11. Prečo Atlas HTTP SLI nevidelo lost settlements?
-12. Čo musí overiť SLO acceptance verdict?
+1. Čo tvorí exact SLI subject?
+2. Prečo denominator patrí do contractu?
+3. Ako sa líši transport attempt od unique business operation?
+4. Prečo `202` môže byť good pre acceptance a bad pre completion?
+5. Čo znamená missing evidence?
+6. Ako sa líši SLI, SLO a SLA?
+7. Prečo target nevychádza automaticky z aktuálneho priemeru?
+8. Kedy použiť rolling a kedy calendar window?
+9. Ako partial cohort failure zostane skrytý?
+10. Ktoré evidence odlíši service failure od query regression?
+11. Čo musí positive a forbidden acceptance test overiť?
+12. Prečo SLA success nemusí znamenať dobrú user experience?
 
 ## Glossary impact
 
-Relevantné pojmy: service-level subject, Service Level Indicator, valid-event population, good event, observation point, measurement-generation identity, Service Level Objective, compliance window, rolling window, calendar window, Service Level Agreement, SLO safety margin, exclusion contract, provisional outcome, finalization delay a SLO acceptance verdict.
+Relevantné pojmy: service-level subject, eligible population, operation-level SLI, good event, bad event, missing outcome, observation point, measurement generation, SLO action contract, compliance window, cohort SLO, SLA commitment a service-level acceptance contract.
 
 ## Primárne zdroje
 
 - [Google SRE — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
 - [Google SRE Workbook — Implementing SLOs](https://sre.google/workbook/implementing-slos/)
-- [Google SRE Workbook — Example SLO Document](https://sre.google/workbook/slo-document/)
+- [Google SRE Workbook — Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/)
 - [Google SRE — Availability Table](https://sre.google/sre-book/availability-table/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
