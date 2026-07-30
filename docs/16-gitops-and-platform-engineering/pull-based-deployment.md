@@ -1,511 +1,156 @@
 # Pull-based deployment
 
-Pull-based deployment nie je iba to, že controller pravidelne číta Git. Je to trust a execution model, v ktorom deployment agent pri target environment-e získava approved desired state, porovnáva ho s live state-om a vykonáva mutation podľa vlastnej scoped identity.
-
-Hlavný bezpečnostný a operational benefit vzniká vtedy, keď CI alebo developer nemusí držať production cluster credentials a nemôže obísť reconciler priamym pushom do target API.
-
-## 1. Dominantný model
+Pull-based deployment je trust a execution model, v ktorom target-side agent s vlastnou scoped identity resolve-ne approved desired state, porovná ho s targetom a vykoná mutation. Nie je to iba smer sieťového spojenia ani webhook po merge-i. Jeho hlavná hodnota vzniká vtedy, keď CI a developers nemajú všeobecný production write credential a agent zostáva jediným authoritative executorom riadených fields.
 
 ```text
 approved environment intent
-→ authoritative desired-state ref
-→ agent observation/pull
-→ source authentication a revision resolution
-→ deterministic render a policy gate
-→ desired-vs-live comparison
-→ bounded sync/prune operation
-→ health a business verification
-→ continuous re-observation
-→ failure, rollback a second-pull closure
+→ exact source/agent/target subject
+→ periodic source observation + webhook hint
+→ authenticated revision a input resolution
+→ deterministic render a target-aware policy
+→ desired/live comparison
+→ manual alebo automated sync decision
+→ bounded apply, prune a health observation
+→ effective runtime a business acceptance
+→ continuous re-observation, rollback a second pull
 ```
 
-Pull model musí zachovať identity a evidence od approved source generation až po effective target mutation.
+Pull model zachováva identity a evidence od authoritative Git generation po exact target mutation. Auto-sync, self-heal a prune sú samostatné policies; nie sú definíciou pull modelu.
 
-## 2. Push vs. pull
+## 1. Deployment subject a credential boundary
 
-### Push-based deployment
+Exact subject obsahuje environment a application, repository/path/ref/resolved revisions, source trust a credentials, render inputs/toolchain, destination cluster/namespace, agent identity a Kubernetes permissions, allowed resource kinds, sync/prune/self-heal policy, tracking identity, hooks, health/business oracle a rollback/break-glass contract.
 
-External pipeline alebo operator sa pripojí k target environment-u a vykoná mutation:
+Push model:
 
 ```text
 CI runner
 → production credential
-→ kubectl/helm/cloud API
+→ rendered payload alebo commands
 → target mutation
 ```
 
-### Pull-based deployment
-
-Agent s target-scoped identity pozoruje desired state a vykonáva reconciliation:
+Pull model:
 
 ```text
 CI
-→ commit/promotion do Git-u
+→ artifact + reviewed Git promotion
 
-in-cluster alebo target-side agent
-→ pull approved desired state
-→ compare
-→ apply/reconcile
+agent pri targete
+→ read trusted source
+→ resolve/render/compare
+→ mutate scoped target
 ```
 
-Rozdiel nie je iba network direction. Rozdiel je:
+Rozdiel určuje, kto drží production credentials, kto rozhoduje o source generation, či deployment pokračuje bez CI a či neskorší drift možno detegovať a opraviť. Controller s cluster-admin prístupom ku všetkým clusters môže byť rovnako nebezpečnou trust concentration; pull neodstraňuje potrebu AppProject/RBAC, repository isolation a auditovania agent identity.
 
-- kto drží production write credential;
-- kto rozhoduje, ktorá source generation je aktuálna;
-- či deployment pokračuje po výpadku CI;
-- či live drift vzniknutý neskôr možno detegovať a opraviť;
-- či target agent vynucuje destination a resource boundaries;
-- či deployment mutation je opakovateľná a reconciled.
+## 2. Source observation a revision resolution
 
-## 3. Pull model podľa OpenGitOps
-
-OpenGitOps oddeľuje štyri vlastnosti:
-
-1. desired state je declarative;
-2. desired state je versioned a immutable;
-3. software agents ho pullujú automaticky;
-4. software agents kontinuálne pozorujú actual state a pokúšajú sa ho reconcile-nuť.
-
-Webhook môže zrýchliť observation, ale nesmie byť jediným spôsobom, ako agent zistí zmenu. Agent musí vedieť periodicky znovu overiť source aj target state.
-
-## 4. Deployment subject
-
-Pull-based deployment subject obsahuje:
-
-- environment a application identity;
-- desired repository, path a resolved revisions;
-- source credential a trust roots;
-- destination cluster/namespace a agent identity;
-- allowed Kubernetes API groups/kinds/namespaces;
-- render toolchain a inputs;
-- sync policy, prune, self-heal a retry policy;
-- dependency ordering a hooks;
-- live resource tracking identity;
-- deployment, health a business acceptance boundaries;
-- rollback a emergency mutation contract.
-
-Bez exact subjectu sa tvrdenie `agent pulluje Git` nedá overiť.
-
-## 5. Credential boundary
-
-Silný pull model minimalizuje production credentials mimo target control plane-u.
+OpenGitOps model vyžaduje declarative, versioned/immutable desired state, software agentov, ktorí ho automaticky pullujú, a continuous reconciliation actual state-u. Webhook je iba latency hint:
 
 ```text
-CI identity
-→ write approved Git refs
-→ no direct production API permission
-
-GitOps agent identity
-→ read trusted repositories
-→ mutate iba povolené destinations/resources
-```
-
-To znižuje blast radius compromised CI runnera. Neodstraňuje však potrebu:
-
-- chrániť repository write path;
-- overovať source authenticity;
-- obmedziť agent RBAC;
-- chrániť repository a cluster credentials;
-- oddeliť tenants a projects;
-- auditovať agent actions;
-- riadiť break-glass access.
-
-Controller s cluster-admin prístupom ku všetkým clusters a repositories môže byť väčší trust concentration než pôvodný pipeline.
-
-## 6. Source polling a webhook
-
-Agent môže zistiť zmenu:
-
-- periodickým pollingom;
-- Git webhookom;
-- cache invalidation eventom;
-- explicitným refresh requestom.
-
-Webhook je hint:
-
-```text
-push event
-→ webhook
-→ agent refresh
-```
-
-Ak webhook vypadne, periodic reconciliation musí zmenu nakoniec zachytiť. Ak source branch force-pushne alebo dependency zmení význam bez eventu, agent musí aj tak znovu resolve-nuť effective source.
-
-Observation interval ovplyvňuje:
-
-- deployment latency;
-- drift detection latency;
-- source load;
-- rate-limit exposure;
-- simultaneous fleet refresh;
-- incident recovery time.
-
-Jitter a bounded concurrency bránia thundering herd-u pri veľkom počte applications.
-
-## 7. Pull neznamená automatický sync
-
-Agent môže desired state pullovať a porovnávať, ale mutation môže byť:
-
-- automatická;
-- manuálne schválená v Argo CD;
-- viazaná na change window;
-- pozastavená pre freeze;
-- postupná podľa waves alebo external rollout controlleru.
-
-```text
-pull + compare
-→ OutOfSync evidence
-→ manual alebo automated sync decision
-```
-
-Pull model teda opisuje authority a execution direction. Auto-sync je samostatná policy.
-
-## 8. Deployment trigger vs. deployment authority
-
-CI job môže po merge zavolať refresh alebo sync endpoint. To ešte nemusí porušiť pull model, ak:
-
-- agent sám číta source;
-- CI neposiela rendered manifests ako hidden desired state;
-- agent používa vlastnú scoped target identity;
-- requested revision je authoritative a policy-valid;
-- controller urobí vlastný compare a apply;
-- continuous reconciliation pokračuje aj bez CI.
-
-Rizikový model:
-
-```text
-CI render
-→ CI kubectl apply
-→ Argo CD iba monitoruje
-```
-
-Tu je CI deployment writer a pull agent nie je authoritative executor.
-
-## 9. Source authentication a revision resolution
-
-Agent musí overiť:
-
-- repository endpoint;
-- SSH host key alebo TLS trust;
-- authentication credential scope;
-- commit/tag signature, ak je required;
-- branch/tag/commit resolution;
-- path a generator inputs;
-- submodules a dependencies;
-- chart alebo OCI artifact digest;
-- ambiguous ref names;
-- revoked repository access.
-
-`targetRevision: release-1.0` môže byť nejednoznačný, ak rovnaké meno má branch aj tag. Fully qualified ref alebo commit pin znižuje ambiguity.
-
-## 10. Render a policy pred mutation
-
-Target agent nesmie slepo aplikovať source files. Potrebuje:
-
-```text
-source revision
-→ render
-→ parse/schema validation
-→ target-aware policy
-→ diff
-→ dry-run alebo server-side validation
-→ mutation
-```
-
-Policy môže overiť:
-
-- trusted source a artifact;
-- namespace/destination;
-- prohibited cluster-scoped resources;
-- image digest a provenance;
-- security context;
-- resource requests/limits;
-- destructive prune;
-- required labels/ownership;
-- secret reference policy;
-- change-window alebo approval evidence.
-
-CI policy a agent-side policy majú rozdielne observation points. Agent-side gate vidí final rendered state a destination context.
-
-## 11. Sync operation
-
-Pull agent typicky vykonáva:
-
-1. inventory desired resources;
-2. inventory tracked live resources;
-3. normalizáciu a diff;
-4. ordering;
-5. apply/create/replace podľa policy;
-6. prune removed resources, ak je povolený;
-7. čakanie na health alebo hooks;
-8. status a evidence publication.
-
-Sync success neznamená automaticky business success. Apply môže prejsť, ale workload môže používať nesprávnu database generation, provider credential alebo feature flag.
-
-## 12. Continuous pull a convergence
-
-Jednorazový pull po merge nie je GitOps closure.
-
-```text
-source changes
-→ agent reconciles
-→ live drift occurs later
-→ agent observes again
-→ reports alebo repairs
-```
-
-Continuous observation zachytáva:
-
-- manual mutation;
-- failed alebo partial previous apply;
-- controller/defaulting changes;
-- deleted resource;
-- new source revision;
-- target recovery po outage-i;
-- source credential recovery;
-- cluster reconnect;
-- resource ownership change.
-
-Agent musí po restarte vedieť reconstruct-nuť desired a live inventory bez skrytého in-memory deployment state-u.
-
-## 13. Offline a disconnected behavior
-
-Keď agent stratí Git:
-
-- live workloads zvyčajne pokračujú;
-- agent nemôže potvrdiť newest desired generation;
-- cached source môže byť stale;
-- manual drift môže zostať neopravený;
-- prune alebo destructive action nemá používať neúplný empty render ako truth;
-- status musí rozlíšiť source-unreachable od Synced.
-
-Keď agent stratí target API:
-
-- source môže ďalej postupovať;
-- desired revisions sa queue-ujú alebo preskakujú podľa policy;
-- po reconnecte treba rozhodnúť, či aplikovať najnovšiu generation alebo postupné required transitions;
-- hooks a migrations môžu mať unknown outcome.
-
-## 14. Push/pull hybrid a multi-writer race
-
-Najčastejší anti-pattern:
-
-```text
-merge do Git-u
-→ Argo auto-sync
+Git push
+→ webhook refresh
 
 súčasne
-→ CI kubectl apply
-
-súčasne
-→ on-call patch
+→ periodic poll a re-resolution
 ```
 
-Writers môžu aplikovať odlišné renders a field-manager ownership:
+Ak webhook vypadne, agent musí zmenu nakoniec objaviť. Ak branch force-pushne, dependency sa zmení alebo cache zostarne, agent musí znovu resolve-nuť effective source. Observation interval, jitter a bounded concurrency určujú delivery aj drift-detection latency a zabraňujú fleet thundering herd-u.
+
+Agent overuje repository endpoint, SSH/TLS trust, credential scope, fully qualified ref, resolved commit/chart digest, path, submodules/dependencies, plugin generation a revoked access. `release-9.0` môže byť branch aj tag; fully qualified ref alebo commit pin znižuje ambiguity.
+
+## 3. Render, policy a sync authority
+
+Agent-side render vidí final source inputs a destination context. Pred mutation má prebehnúť schema/parse validation, target-aware policy, semantic diff a server-side/dry-run kontrola. CI validation je useful, ale nemôže nahradiť agent gate, ak používa inú toolchain generation alebo nevidí target policies.
+
+Pull neznamená automatický sync. Agent môže iba reportovať `OutOfSync`, čakať na approval/change window alebo vykonať automated sync. CI môže zavolať refresh alebo sync API a model zostáva pull-based, ak CI neposiela hidden manifests, agent sám resolve-ne authority a používa vlastnú target identity.
+
+Sync operation inventarizuje desired/tracked resources, porovnáva state, aplikuje v poradí, prípadne prune-ne, čaká na resource health a publikuje evidence. Apply success nie je business success. Settlement canary, loaded config generation a provider path zostávajú samostatnou acceptance boundary.
+
+## 4. Continuous reconciliation a disconnected states
+
+Jednorazový pull po merge-i nestačí:
 
 ```text
-Argo apply generation A
-→ CI apply generation B
-→ Argo compare s ignore rules
-→ on-call patch generation C
-```
-
-Každý krok môže technicky prejsť, ale final state nemá jednu authority ani deterministic rollback.
-
-## 15. Emergency a break-glass path
-
-Production incident môže vyžadovať rýchlu direct mutation. Pull model ju nemusí absolútne zakázať, ale musí ju ohraničiť:
-
-```text
-explicit incident/break-glass approval
-→ short-lived scoped credential
-→ evidence-preserving mutation
-→ immediate Git proposal alebo temporary exception record
-→ owner a expiry
-→ controller diff visible
-→ authoritative reconciliation
-→ credential revoke
-→ second-drift test
-```
-
-Self-heal môže emergency patch okamžite revertovať. Preto break-glass procedure musí koordinovať controller policy, nie agent jednoducho vypnúť bez návratového gate-u.
-
-## 16. Rollback v pull modeli
-
-Rollback je nový desired-state transition:
-
-```text
-current generation B
-→ approved rollback commit/ref na generation A alebo compatible C
-→ agent pull
-→ compare
+source generation A
 → reconcile
-→ validate
+→ live drift alebo target recovery
+→ new observation
+→ report alebo repair
 ```
 
-Nie je to:
+Agent po restarte musí rekonštruovať desired a live inventory bez hidden in-memory deployment state-u. Source outage sa nesmie označiť ako `Synced`; cached source môže byť stale a failed render nesmie vytvoriť empty desired set pre destructive prune. Target outage vytvára pending/unknown apply states; po reconnecte treba vedieť, či aplikovať newest generation alebo zachovať required transitional migrations.
+
+API timeout po PATCH-i je unknown outcome. Agent musí vykonať read-back so stable object identity, nie slepo opakovať non-idempotent hook. Prune vyžaduje validný non-ambiguous desired inventory, tracking/ownership proof a bounded delete.
+
+## 5. Hybrid writers, break-glass a rollback
+
+Najčastejšie zlyhanie je hybrid:
 
 ```text
-kubectl rollout undo
-→ Git stále B
+Git merge → Argo auto-sync
+CI súčasne → kubectl apply
+human → live patch
 ```
 
-Taký rollback vytvorí drift a pull controller ho môže znovu prepísať.
+Writers používajú odlišné renders a field managers. Každý call môže technicky uspieť, no final state nemá jednu mutation authority ani deterministic rollback.
 
-Kompletný rollback musí zahŕňať:
+Break-glass musí koordinovať reconciler: incident approval, short-lived scoped credential, exact mutation, owner/expiry, immediate Git reconciliation, obnovenie sync/self-heal policy, revoke credential a second-drift test. Jednoduché vypnutie Argo bez návratového gate-u vytvára unmanaged environment.
 
-- manifests a image digests;
-- database compatibility;
-- config/secrets generation;
-- hooks a external effects;
-- traffic/feature state;
-- controller overrides;
-- pruned resources;
-- business reconciliation.
+Rollback je nový desired-state transition. `kubectl rollout undo` pri Git-e na broken generation vytvára drift a controller ho môže zrušiť. Kompletný rollback zahŕňa manifests/artifacts, database/config/secret compatibility, hooks, traffic/feature state a external reconciliation.
 
-## 17. Connected incident `GITOPS-PAY-61`
+## 6. Connected incident `GITOPS-PAY-61`
 
-Intended pull path pre `payments 9.0`:
+Intended path bol build/test → environment PR → commit `9f31c2a` → Argo observation/render/sync → health/canary. Skutočný path bol commit → CI direct apply → Argo sync inej resolved generation → human patch, pričom self-heal bol vypnutý a critical differences ignorované.
+
+Timeline:
 
 ```text
-CI build/test
-→ image digest + environment PR
-→ merge commit 9f31c2a
-→ Argo repository observation
-→ Argo render/compare
-→ Argo sync
-→ health + settlement canary
+20:14:03 webhook refresh
+20:14:04 CI direct apply
+20:14:07 Argo sync
+20:18:26 human patch
+20:21:11 production ref force-reset
+20:28:09 ref restored
 ```
 
-Skutočný path:
+CI render používal `pay900a + route 1841`, Argo `pay899hf7 + route 1842` a manual patch `pay900b`. CI malo production kubeconfig. Agent preto nebol jediný executor a rollback ref-u nemohol odstrániť override ani live-only fields.
 
-```text
-merge commit 9f31c2a
-→ CI kubectl apply rendered workspace
-→ Argo auto-sync inej resolved generation
-→ on-call kubectl patch
-→ self-heal disabled
-→ broad ignoreDifferences
-```
+Root cause bol hybrid push/pull ownership bez mandatory handoff a reconciliation. Recovery odobrala CI kubeconfig, oddelila Git promotion od target identity, scoped-nula Argo project permissions, odstránila hidden apply a zaviedla expiring break-glass lifecycle.
 
-CI runner mal production kubeconfig s oprávnením meniť Deployments a ConfigMaps. Po merge:
+## 7. Acceptance paths
 
-- Git webhook dorazil do Argo CD o `20:14:03`;
-- CI direct apply začal o `20:14:04`;
-- Argo sync začal o `20:14:07`;
-- on-call patch prišiel o `20:18:26`;
-- production branch bola force-pushnutá na starší commit o `20:21:11` a vrátená o `20:28:09`.
+**Positive path** agent nezávisle pozoruje approved revision, resolve-ne celý input graph, prejde target policy, syncne a preukáže runtime/business outcome.
 
-Writers používali odlišné inputs:
+**Source/target recovery path** rozlíši source-unreachable, target-unreachable a unknown apply; po recovery bezpečne pokračuje bez empty prune alebo duplicitného hook effectu.
 
-```text
-CI render:       pay900a + route 1841
-Argo resolved:   pay899hf7 + route 1842
-manual patch:    pay900b, ostatné fields ponechané live
-```
+**Drift path** druhý pull odhalí a opraví Git-owned manual drift, pričom legitimate controller-owned fields zostanú nedotknuté.
 
-Argo agent nebol jediný deployment executor. Pull model preto nedokázal garantovať:
+**Forbidden path** odmietne hidden CI push, broad target credential, stale cached apply, ambiguous ref, direct rollback a agent, ktorý potrebuje webhook ako jediný observation mechanismus.
 
-- že target mutation pochádza z approved Git generation;
-- že controller apply je posledný writer;
-- že rollback ref-u obnoví live state;
-- že drift bude detegovaný alebo opravený;
-- že CI compromise nemá direct cluster blast radius.
+Acceptance zahŕňa webhook loss, source/target outage, agent restart, direct drift, partial sync, break-glass expiry, rollback a second pull.
 
-### Pull-based root cause
+## 8. Troubleshooting a anti-patterny
 
-Production deployment mal hybrid push/pull ownership. CI a humans držali direct write credentials nad rovnakými fields ako Argo controller a neexistoval mandatory handoff alebo reconciliation gate.
+Pri nesúlade sa mapuje authoritative ref/resolved commit, webhook/poll evidence, source auth/cache/render, policy/diff/sync decision, target API response, field managers/concurrent writers, health a business outcome. `Pipeline zavolá kubectl, ale Git je source of truth`, `webhook=pull`, `auto-sync je povinný`, cluster-admin agent a live-only rollback sú typické anti-patterny.
 
-### Recovery
+## 9. Kontrolné otázky
 
-- revoke production kubeconfig z CI;
-- oddeliť CI permission na Git promotion od Argo target identity;
-- zaviesť project-scoped Argo destination/resource permissions;
-- odstrániť hidden rendered workspace apply;
-- obnoviť one-writer field contract;
-- zaviesť short-lived break-glass credential;
-- overiť agent behavior pri webhook loss, source outage, target outage a restart-e;
-- testovať second pull po manual drift-e.
-
-## 18. Pull-based acceptance verdict
-
-Pull-based deployment je prijatý, keď:
-
-- exact source, target, agent a credential subjects sú explicitné;
-- desired state je automatically observed nezávisle od jedného webhooku;
-- agent resolve-uje authoritative revision a final render inputs;
-- CI nemá direct target write access alebo má explicitne oddelený, bounded contract;
-- agent identity je scoped podľa destination, namespace a resource type;
-- repository credentials a trust roots sú scoped a rotovateľné;
-- agent-side validation/policy vidí final render a destination context;
-- sync, prune, hooks a health boundaries sú explicitné;
-- source/target outage a agent restart behavior sú definované;
-- manual sync, auto-sync a self-heal semantics sú rozlíšené;
-- break-glass path má expiry, audit, Git reconciliation a credential revoke;
-- rollback je desired-state transition a neostáva iba live patchom;
-- webhook loss, CI compromise, direct drift, partial sync a second-pull tests prejdú;
-- forbidden hidden push, cluster-wide credential, stale cache apply a false-deployment outcomes sú odmietnuté.
-
-## 19. Troubleshooting flow
-
-```text
-declared Git change sa neaplikoval alebo runtime obsahuje inú generation
-→ exact application/environment subject
-→ authoritative ref a resolved commit
-→ webhook/poll observation evidence
-→ agent source auth/cache/render
-→ policy/diff/sync decision
-→ target credential a API response
-→ field managers a concurrent writers
-→ health/business outcome
-→ source/target outage alebo retry history
-→ authoritative reconcile a second pull
-```
-
-## 20. Anti-patterny
-
-### Pipeline zavolá `kubectl`, ale Git je stále source of truth
-
-Pipeline je vtedy production writer. Git môže byť evidence source, nie jediná mutation authority.
-
-### Webhook = pull
-
-Webhook je trigger/hint. Pull agent musí source pozorovať aj bez neho.
-
-### Auto-sync je povinný pre GitOps
-
-Nie. Pull a continuous compare môžu existovať aj s manual sync gate-om.
-
-### Agent má cluster-admin, lebo je to jednoduchšie
-
-Centralizuje blast radius a oslabuje tenant/project boundary.
-
-### Rollback spravíme `kubectl rollout undo`
-
-Ak Git zostáva na broken generation, reconciler rollback zruší alebo drift zostane permanentný.
-
-### Vypneme Argo počas incidentu
-
-Bez evidence, expiry a re-enable gate-u sa dočasný postup zmení na unmanaged environment.
-
-## 21. Kontrolné otázky
-
-1. Ako sa push-based a pull-based deployment líšia v credential boundary?
-2. Prečo webhook nie je jediný pull mechanismus?
-3. Ako pull súvisí s continuous reconciliation?
-4. Prečo pull neznamená automatický sync?
+1. Ako sa push a pull líšia v credential a executor boundary?
+2. Prečo webhook nie je pull authority?
+3. Čo musí agent resolve-nuť a overiť?
+4. Prečo pull neznamená auto-sync?
 5. Kedy CI-triggered sync zostáva pull modelom?
-6. Čo musí agent overiť pri revision resolution?
-7. Ako source outage mení deployment verdict?
-8. Ako target outage mení pending desired generations?
-9. Prečo direct CI apply porušil `GITOPS-PAY-61`?
-10. Ako má vyzerať break-glass lifecycle?
-11. Prečo live rollback musí byť zaznamenaný v desired state?
-12. Čo overuje pull-based acceptance verdict?
+6. Ako source a target outage menia verdict?
+7. Ako sa rieši unknown apply outcome?
+8. Prečo hybrid writers porušili `GITOPS-PAY-61`?
+9. Ako vyzerá bounded break-glass a rollback?
+10. Ktoré positive, recovery, drift a forbidden paths musia prejsť?
 
 ## Glossary impact
 
-Relevantné pojmy: pull-based deployment subject, target-side agent, source observation, reconciliation polling, webhook hint, target credential boundary, agent identity, agent-side policy, sync decision, continuous pull, source-unreachable state, target-unreachable state, push/pull hybrid, break-glass handoff, desired-state rollback a pull-based acceptance verdict.
+Relevantné pojmy: pull-based deployment subject, target-side agent, target credential boundary, source observation, webhook hint, revision resolution, agent-side policy, sync decision, continuous pull, source-unreachable state, target-unreachable state, hybrid writer, break-glass handoff, desired-state rollback a pull acceptance verdict.
 
 ## Primárne zdroje
 
