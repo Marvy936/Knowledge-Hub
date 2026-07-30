@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **307**
+- Audited authoritative articles: **305**
 - Audited conceptual sections: **12370**
-- Total words: **730,630**
+- Total words: **730,606**
 - Findings: **25580** (critical 7591, high 8785, medium 3219, low 5985)
-- File grades: A 2, B 3, C 2, D 300
+- File grades: A 0, B 3, C 2, D 300
 
 ## Interpretation
 
@@ -328,8 +328,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 29 | 0 | 0 | 0 | 25 | 3827 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | B | 25 | 0 | 0 | 0 | 21 | 4209 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 3605 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
-| A | 0 | 0 | 0 | 0 | 0 | 12 | `docs/review-trigger-gitops-block4-2.md` |
-| A | 0 | 0 | 0 | 0 | 0 | 12 | `docs/review-trigger-gitops-block4.md` |
 
 ## Critical and high findings
 

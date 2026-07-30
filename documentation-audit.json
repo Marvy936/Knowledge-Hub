@@ -4269,34 +4269,6 @@
       "low": 21,
       "score": 25,
       "grade": "B"
-    },
-    {
-      "path": "docs/review-trigger-gitops-block4-2.md",
-      "title": "review-trigger-gitops-block4-2",
-      "words": 12,
-      "headings": 0,
-      "sections": 0,
-      "findings": 0,
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "low": 0,
-      "score": 0,
-      "grade": "A"
-    },
-    {
-      "path": "docs/review-trigger-gitops-block4.md",
-      "title": "review-trigger-gitops-block4",
-      "words": 12,
-      "headings": 0,
-      "sections": 0,
-      "findings": 0,
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "low": 0,
-      "score": 0,
-      "grade": "A"
     }
   ],
   "findings": [
