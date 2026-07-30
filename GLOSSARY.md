@@ -226,6 +226,10 @@ Overenie, že oprava funguje aj na relevantných Nodes, Pods, endpoints alebo fa
 
 Overenie, že recovery funguje nielen na pôvodnom affected subjecte, ale aj na susedných Node, zone, release, tenant alebo endpoint cohortách. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Administration endpoint
+
+Keycloak endpoint group pre Admin Console a Admin REST API, cez ktoré sa mení realm configuration. Potrebuje samostatnú network a authorization boundary; skrytie UI alebo odlišný hostname nenahrádza server-side admin permission.
+
 ## Administrative connection reserve
 
 Connection slots, identity a route vyhradené pre incident inspection, fencing, recovery a administratívne operations pri application saturation. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
@@ -1086,6 +1090,10 @@ Versionovaný výsledok verifiera viažuci principal, authenticator, method, ass
 
 Časť KDC, ktorá po počiatočnej authentication vydáva clientovi Ticket-Granting Ticket. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## Authentication session
+
+Dočasný Keycloak state rozpracovaného login alebo action transaction-u pred vznikom user session. Viaže browser, client, flow, tab a protocol parameters a má odlišný lifecycle od už autentizovanej user session.
+
 ## Authenticator
 
 Prostriedok kontrolovaný claimantom a používaný na preukázanie identity, napríklad password, passkey, smart card, certificate alebo cryptographic device. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -1425,6 +1433,10 @@ Account-visible názov Availability Zone, napríklad `eu-central-1a`, ktorého h
 ## Back-channel logout
 
 OIDC logout model, pri ktorom OpenID Provider posiela signed logout token priamo backendu Relying Party. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
+## Backchannel endpoint
+
+Server-to-server endpoint Keycloaku používaný napríklad pre token exchange, introspection, UserInfo, JWKS alebo logout. Môže mať inú routovaciu cestu než browser frontend, ale musí zostať viazaný na trusted realm issuer a client configuration.
 
 ## Backend acknowledgement — log delivery
 
@@ -2702,9 +2714,21 @@ Mechanizmus, ktorým confidential OAuth client preukazuje svoju identitu token e
 
 OAuth machine-to-machine grant, pri ktorom client získava token vo vlastnom identity kontexte bez používateľskej delegation. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
 
+## Client internal UUID
+
+Keycloak interný identifier client objectu používaný v administračných API paths a relations. Nie je totožný s protocolovým `clientId`; delete/recreate môže zachovať `clientId`, ale vytvoriť nový internal object.
+
 ## Client — OAuth
 
 Aplikácia požadujúca token a používajúca ho voči resource serveru. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Client role
+
+Role definovaná v namespace konkrétneho Keycloak clienta. Je vhodná pre application-specific permissions a znižuje riziko, že unrelated clients dostanú realm-wide entitlement.
+
+## Client scope
+
+Realm-level reusable Keycloak configuration pre protocol mappers a role scope mappings, ktorú možno linkovať k clients ako default alebo optional. Nie je totožná s OAuth scope ani Authorization Services scope.
 
 ## Client-selected replica — AD DS
 
@@ -2713,6 +2737,10 @@ Domain controller, KDC alebo Global Catalog vybraný konkrétnym clientom cez DN
 ## Client-Service flow subject
 
 Presný request/connection path od client Podu a Node-u cez Service VIP a node dataplane ku konkrétnemu endpointu a reverse pathu. Pozri [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md).
+
+## Client session
+
+Väzba Keycloak user session na konkrétny client, jeho protocol state a logout/session descendants. Jeden user session môže obsahovať viac client sessions.
 
 ## Client-side discovery
 
@@ -3217,6 +3245,10 @@ CloudWatch alarm kombinujúci boolean stav viacerých underlying alarmov na kore
 ## Composite CloudOps lab
 
 Časovo ohraničený experiment pokrývajúci viac SOA-C03 domains, unknown failure diagnosis, bounded recovery, negative validation a full cleanup bez krokového návodu. Pozri [CloudOps hands-on labs](docs/11-cloud-and-aws/cloudops-hands-on-labs.md).
+
+## Composite role
+
+Keycloak role obsahujúca ďalšie realm alebo client roles. User s composite role získava transitive effective roles, preto access review musí počítať celý expansion graph.
 
 ## Compromise assessment — vulnerability
 
@@ -4429,6 +4461,10 @@ Controller alebo workload principal oprávnený použiť KMS key, age private ke
 ## Decryption identity — Ansible Vault
 
 Workload alebo používateľská identita oprávnená získať konkrétny vault password alebo secret domain a dešifrovať ho iba v definovanom protected runtime scope. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Dedicated client scope
+
+Client-specific scope a mapper configuration vytvorená pre jeden Keycloak client. Oddeľuje jeho claims a role projection od reusable realm-level client scopes.
 
 ## Dedicated Node pool
 
@@ -5726,6 +5762,10 @@ Admitted requests a limits konkrétneho Podu po defaultingu, LimitRange, policy 
 
 Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct, inherited a shared memberships na danom resource. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Effective role graph
+
+Transitive výsledok direct user roles, group a parent-group roles, composite roles a default mappings pred client-scope obmedzením. Screenshot direct mappings nepreukazuje celý effective access.
+
 ## Effective route-table association
 
 Route table, ktorú subnet skutočne používa po explicitnej asociácii alebo inheritance z main route table; subnet tag alebo diagram ju nenahrádza. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -6005,6 +6045,10 @@ Governed inventory assignable roles, groups a capabilities s purpose, actions, s
 ## Entitlement desired generation
 
 Complete desired identity-to-entitlement graph vypočítaný z authoritative identity, job-function, ownership a policy state-u pre konkrétny reconciliation cycle. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Entitlement generation
+
+Versionovaný stav group, role, composite a scope mappings, z ktorého vznikol token alebo assertion. Umožňuje odlíšiť current membership od privilege snapshotu v staršej session.
 
 ## Entity-bound signing key — SAML
 
@@ -7126,6 +7170,10 @@ Business verdict, či cached value možno použiť pre konkrétnu operation bez 
 
 OIDC logout model využívajúci browser na komunikáciu s logout endpoints jednotlivých clients. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## Frontend endpoint
+
+Browser-visible Keycloak endpoint group pre login, redirects, account actions, email action links a discovery. Jeho public URL a hostname sú súčasťou issuer a credential-delivery trust contractu.
+
 ## `fsGroup`
 
 Pod security context group identity používaná pri ownership a access nastavení podporovaných mounted volumes. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
@@ -7133,6 +7181,10 @@ Pod security context group identity používaná pri ownership a access nastaven
 ## Fulcio
 
 Sigstore certificate authority vydávajúca short-lived code-signing certificates pre overené OIDC identities. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Full Scope Allowed
+
+Keycloak client setting, pri ktorom je role scope clienta broad a môže sprístupniť všetky effective user roles podľa mapper configuration. Pre least privilege sa vypína a nahrádza explicitnými role scope mappings.
 
 ## Functional readiness
 
@@ -7481,6 +7533,10 @@ Authorization path udelená členstvom subjectu v identity group-e, nie explicit
 ## Group-identity contract — Alertmanager
 
 Množina labels reprezentujúca spoločný incident boundary a určujúca, ktoré alerts sa spoja do jednej notification group. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Group inheritance
+
+Keycloak behavior, pri ktorom člen child groupy dedí attributes a role mappings parent groups. Organizačná hierarchy preto môže neúmyselne vytvoriť transitive application privilege.
 
 ## Group interval
 
@@ -8002,6 +8058,10 @@ Exact mapping address family, host bind address/port/protocol, endpoint generati
 
 Container authoritative DNS records pre konkrétny public alebo private DNS namespace. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
+## Hostname authority
+
+Explicitná public URL configuration, z ktorej Keycloak odvodzuje issuer, discovery endpoints, redirects a action links. Dynamické prijatie untrusted Host alebo forwarded headeru môže zmeniť identity-provider trust boundary.
+
 ## `hostvars` — Ansible
 
 Magic mapping poskytujúci prístup k host-scoped variables iných inventory hosts; jeho použitie vytvára cross-host coupling a závisí od dostupnosti dát. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
@@ -8249,6 +8309,10 @@ Versionovaný stav určujúci, či identity stále spĺňa organizational a risk
 ## Identity operation outcome
 
 Auditovaný výsledok konkrétnej API alebo external operácie vykonanej workload identity, nie iba dôkaz, že credential existoval. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
+
+## Identity-platform acceptance verdict
+
+End-to-end rozhodnutie, že exact Keycloak deployment, realm, client, identity source, session, protocol artifact a downstream authorization vytvárajú intended outcome a odmietajú wrong realm, client, redirect, role a stale-session paths.
 
 ## Identity-posture generation
 
@@ -9025,6 +9089,18 @@ Rozhodnutie, že nový encrypt path je active, všetky retained ciphertext/backu
 ## Key version number — KVNO
 
 Číslo verzie Kerberos long-term key-u používané na zosúladenie ticketu s aktuálnym alebo starším keytab entry. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
+
+## Keycloak deployment subject
+
+Exact operational identity Keycloak servera vrátane version/image, feature profile, node, server configuration, public/admin URLs, providers, realm a relevantnej loaded generation. Všeobecný názov „production Keycloak“ nie je dostatočný incident subject.
+
+## Keycloak SAML client generation
+
+Versionovaný effective SP registration v Keycloak realm-e vrátane entity ID, ACS/SLO endpoints, bindings, keys, NameID, mappers, scopes a session settings.
+
+## Keycloak user identity
+
+Realm-scoped user record identifikovaný internal ID-om a prípadnou väzbou na external authority. Username a email sú mutable attributes, nie bezpečný universal identity key.
 
 ## Keyless signing
 
@@ -9830,6 +9906,10 @@ Hranica medzi provider-managed platform health a zákazníckym application, data
 
 Najvyšší organization account s billing a Organizations administrative capabilities; SCPs neobmedzujú jeho principals a preto má byť bez bežných workloadov a s minimálnym accessom. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
+## Management interface
+
+Oddelený Keycloak interface pre health a metrics, typicky na management porte. Nemá byť automaticky publikovaný rovnakým internetovým proxy pathom ako OIDC, SAML a Admin API.
+
 ## Management-plane/workload-plane split — Docker
 
 Rozlíšenie medzi Docker client/Engine API a daemon object managementom na jednej strane a container taskom, processom, application health a business request pathom na druhej strane. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
@@ -9853,6 +9933,10 @@ Schema určujúca field names, types, analyzers a object structure dokumentov v 
 ## Masked variable — GitLab
 
 CI/CD variable, ktorej hodnota spĺňajúca GitLab constraints sa pri výpise do job logu nahrádza maskovaným textom; masking nezabraňuje úmyselnej exfiltration jobom. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## Master SAML Processing URL
+
+Keycloak SAML client setting určujúci spoločný processing endpoint pre SAML messages podľa client configuration. Musí byť zosúladený s exact ACS/SLO a external proxy URL contractom.
 
 ## Match coverage
 
@@ -9985,6 +10069,10 @@ Dôkaz, že publication, routing, durability, ordering, consumer acknowledgement
 ## Messaging subject
 
 Exact business message/event identity, producer, schema, broker route/partition, durability, consumer group, delivery, acknowledgement, retry, replay a external-effect scope. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## Metadata generation
+
+Immutable alebo reprodukovateľná verzia SAML metadata s entity ID, endpoints, bindings a keys. Import metadata bez zachovania source/hash a effective diffu nie je auditovateľný trust change.
 
 ## Metadata trust generation — SAML
 
@@ -10954,9 +11042,21 @@ Low-level runtime implementujúci OCI Runtime Specification a vytvárajúci cont
 
 Protokol na zisťovanie revocation statusu certificate; server môže status poskytovať cez OCSP stapling. Pozri [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md).
 
+## Offline session
+
+Dlhodobejší Keycloak session state pre offline access a refresh descendants. Má vlastný timeout a revocation lifecycle a nemusí zaniknúť s browser SSO session.
+
 ## Offset commit
 
 Zápis consumer position-u označujúci records, ku ktorým sa group po recovery štandardne nevráti; timing musí zodpovedať durable processing boundary. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## OIDC client acceptance matrix
+
+Sada positive a negative tests pre exact redirect, PKCE, role/scope/audience projection, wrong client/realm/verifier a logout/revocation behavior. Successful login samotný nie je client acceptance.
+
+## OIDC client generation
+
+Versionovaný effective Keycloak OIDC registration vrátane realm issueru, client UUID/ID, authentication method, grants, redirects, web origins, PKCE, scopes, mappers, roles a logout/session settings.
 
 ## OIDC discovery
 
@@ -11121,6 +11221,10 @@ Engine-specific RDS configuration object povoľujúci vybrané database features
 ## Option injection
 
 Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako option namiesto dátového argumentu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Optional client scope
+
+Client scope, ktorý sa nepoužije automaticky a môže sa aktivovať requested `scope` hodnotou podľa Keycloak client linku, consentu a policy. Requested name sám osebe nezaručuje udelenie claims.
 
 ## Orchestration acceptance verdict
 
@@ -11713,6 +11817,10 @@ Vlastnosť pipeline verdictu dokazujúca, že všetky required jobs, shards, chi
 ## PKCE
 
 Proof Key for Code Exchange, ktorý viaže authorization-code exchange na client instance cez code challenge a verifier. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## PKCE enforcement
+
+Server-side požiadavka, aby authorization request niesol code challenge a token exchange správny verifier, typicky metódou `S256`. Optional PKCE ponecháva downgrade path pre request bez challenge.
 
 ## PKI — Public Key Infrastructure
 
@@ -12666,6 +12774,10 @@ CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa Gi
 
 Rozhodnutie, či konkrétna data copy je at rest, in transit alebo in use a ktorý attacker/control model sa na túto boundary reálne vzťahuje. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Protocol mapper
+
+Keycloak komponent, ktorý prekladá user, group, role, session alebo custom data do OIDC claims alebo SAML attributes. Je authority boundary, pretože rozhoduje, ktoré interné údaje sa stanú externým assertionom.
+
 ## Provenance attestation
 
 Signed statement viažuci artifact na builder, source revision, build type a inputs podľa definovaného provenance predicate-u. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
@@ -12745,6 +12857,10 @@ Bezprostredný technický state transition, ktorým trigger vytvoril nežiaduci 
 ## Proxy
 
 Sprostredkovateľ ukončujúci jednu komunikáciu a vytvárajúci samostatnú komunikáciu k ďalšiemu endpointu. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
+
+## Proxy-header trust
+
+Kontrakt, podľa ktorého Keycloak prijíma `Forwarded` alebo `X-Forwarded-*` údaje iba od trusted reverse proxy, ktorá client-supplied hodnoty prepíše. Chyba môže ovplyvniť issuer, redirects, origin a audit client IP.
 
 ## Prune eligibility — GitOps
 
@@ -13133,6 +13249,14 @@ End-to-end interval od detection/decision cez access, restore, initialization, d
 ## Realized savings
 
 Úspora reálne overená po implementácii optimization change-u, nie iba estimated recommendation. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Realm issuer
+
+Externá OIDC trust identity konkrétneho Keycloak realm-u, typicky URL obsahujúca realm path. Dva realms s rovnakými keys alebo client IDs zostávajú odlišnými issuer namespaces.
+
+## Realm role
+
+Role definovaná v realm-wide namespace a potenciálne použiteľná viacerými clients. Application-specific privilege ako broad realm role zvyšuje riziko neúmyselnej projection.
 
 ## Rebase
 
@@ -14366,6 +14490,10 @@ Namespaced Kubernetes RBAC objekt obsahujúci additive allow rules pre resources
 
 Namespaced RBAC ruleset definujúci povolené verbs nad resources a subresources v konkrétnom namespace scope-e. Pozri [RBAC](docs/09-kubernetes/rbac.md).
 
+## Role scope mapping
+
+Keycloak mapping určujúci, ktoré effective user roles smie konkrétny client alebo client scope dostať do token/assertion projection. Je samostatný od samotného user-role assignmentu.
+
 ## Role vars — Ansible
 
 Role variables s vyššou precedence uložené typicky vo `vars/main.yml`, vhodné najmä pre interné constants namiesto bežných environment overrides. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
@@ -14773,6 +14901,14 @@ Signed alebo encrypted XML security artifact obsahujúci statements o subjecte, 
 ## SAML binding
 
 Definícia transportu SAML messages, napríklad HTTP Redirect, HTTP POST alebo Artifact binding. Pozri [SAML](docs/13-security-and-identity/saml.md).
+
+## SAML client acceptance matrix
+
+Positive a negative tests pre SP entity ID, ACS, binding, signature, audience, destination, recipient, replay, mapper a logout behavior konkrétnej Keycloak SAML client generation.
+
+## SAML local session
+
+Application session vytvorená Service Providerom po prijatí assertion. Je mimo Keycloak session store-u a môže prežiť IdP sign-out alebo SLO failure, pokiaľ ju SP samostatne nezruší.
 
 ## SAML metadata
 
@@ -15681,6 +15817,10 @@ Current authentication method, assurance level, authentication age, device/risk 
 ## Session binding — Zero Trust
 
 Cryptographic alebo policy väzba session/token contextu na konkrétny device, key, client alebo communication channel s cieľom obmedziť replay ukradnutého credentialu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Session descendant graph
+
+Väzby od authentication/user/client session cez refresh, offline a access-token artifacts po downstream application sessions a business workflows. Incident revocation musí určiť, ktoré descendants sa rušia samostatne.
 
 ## Session Manager
 
@@ -17862,6 +18002,10 @@ Explicitne vytvorená single-host bridge network poskytujúca vlastnú lifecycle
 
 Namespace izolujúci UID/GID mapping a capability scope. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
 
+## User session
+
+Realm-level Keycloak state autentizovaného usera, ku ktorému sa pripájajú client sessions. Nie je totožný s browser cookie, access tokenom ani downstream application session.
+
 ## User space
 
 Menej privilegované prostredie, v ktorom bežia aplikácie a systémové procesy. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
@@ -17885,6 +18029,10 @@ Miera používania resource-u vyjadrená ako busy time, obsadená kapacita, thro
 ## Valid-event population — SLI
 
 Exact denominator events oprávnené vstúpiť do SLI vrátane explicitných rules pre invalid requests, retries, duplicates, cancellations, maintenance a missing outcomes. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
+
+## Valid redirect URI
+
+Server-side allowlist destination, na ktorú Keycloak smie doručiť OIDC authorization response. Broad wildcard rozširuje credential-delivery trust na každý matching host a path.
 
 ## Validating admission
 
@@ -18233,6 +18381,10 @@ Invocation v už existujúcom Lambda execution environment, ktorý môže reuse-
 ## Wavelength Zone — AWS
 
 Špecializovaná AWS edge zóna integrovaná do telekomunikačnej 5G siete pre veľmi nízkolatenčné workloady a obmedzený service katalóg. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Web origin
+
+Browser origin povolený pre CORS komunikáciu s Keycloak endpoints. Nie je totožný s redirect URI; oba controls chránia odlišné browser paths.
 
 ## Webhook hint — GitOps
 

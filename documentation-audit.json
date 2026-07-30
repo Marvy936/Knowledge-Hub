@@ -4189,7 +4189,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
       "title": "Multi-tenancy",
-      "words": 3827,
+      "words": 3831,
       "headings": 34,
       "sections": 34,
       "findings": 25,
@@ -4268,6 +4268,62 @@
       "medium": 0,
       "low": 21,
       "score": 25,
+      "grade": "B"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "title": "Keycloak architecture a responsibility boundary",
+      "words": 2513,
+      "headings": 23,
+      "sections": 23,
+      "findings": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 6,
+      "score": 6,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "title": "OIDC clients, redirect URIs, scopes a PKCE",
+      "words": 2786,
+      "headings": 27,
+      "sections": 27,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 13,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "title": "Realm, client, user, group, role a session",
+      "words": 2375,
+      "headings": 25,
+      "sections": 25,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 10,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "title": "SAML clients, metadata, assertions a bindings",
+      "words": 3225,
+      "headings": 29,
+      "sections": 29,
+      "findings": 17,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 17,
+      "score": 21,
       "grade": "B"
     }
   ],
@@ -234491,6 +234547,402 @@
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "section": "2. Keycloak responsibility a non-responsibility",
+      "line": 30,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "section": "3. Deployment subject a configuration generations",
+      "line": 45,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "section": "4. Endpoint groups a exposure boundary",
+      "line": 71,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "section": "6. Realm runtime a administration plane",
+      "line": 109,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "section": "8. Keys a cryptographic boundary",
+      "line": 152,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
+      "section": "10. High availability nie je iba viac replík",
+      "line": 176,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "1. Dominantný registration-to-session model",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "3. Public a confidential execution boundary",
+      "line": 55,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "3. Public a confidential execution boundary",
+      "line": 55,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "6. Web Origins a CORS nie sú redirect allowlist",
+      "line": 101,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "7. Authorization Code + PKCE v Keycloak clientovi",
+      "line": 115,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "9. Client scopes: default, optional a dedicated",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "10. Protocol mappers a claim authority",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "11. Full Scope Allowed a role scope mappings",
+      "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "12. OAuth scope parameter a Keycloak client scope",
+      "line": 214,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "13. Audience a token consumer",
+      "line": 234,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "14. Session a logout configuration",
+      "line": 240,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
+      "section": "18. Troubleshooting flow",
+      "line": 323,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "3. Client identity a registration lifecycle",
+      "line": 48,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "4. User identity, attributes a lifecycle",
+      "line": 68,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "5. Group ako organizačný a inheritance model",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "5. Group ako organizačný a inheritance model",
+      "line": 84,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "6. Realm roles, client roles a composite roles",
+      "line": 115,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "7. Direct, inherited a effective role",
+      "line": 134,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "9. Client scopes a role-scope boundary",
+      "line": 171,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "10. Session taxonomy",
+      "line": 193,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
+      "section": "11. Session timeout, idle, max a remember-me",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "3. Client ID ako SP entity ID",
+      "line": 53,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "4. Metadata ako versionovaný trust a interoperability contract",
+      "line": 68,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "5. ACS a Master SAML Processing URL",
+      "line": 87,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "6. HTTP Redirect a HTTP POST bindings",
+      "line": 104,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "6. HTTP Redirect a HTTP POST bindings",
+      "line": 104,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "8. IdP-initiated flow a unsolicited Response",
+      "line": 140,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "9. Signing direction a signature requirements",
+      "line": 156,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "10. Encryption a confidentiality boundary",
+      "line": 175,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "11. NameID a local identity mapping",
+      "line": 183,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "11. NameID a local identity mapping",
+      "line": 183,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "12. Attribute a role mappers",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "13. Audience, Destination, Recipient a time",
+      "line": 210,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "16. Connected incident KC-PAY-65 — SAML path",
+      "line": 244,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "17. SAML redesign",
+      "line": 261,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "18. Metadata a key rollover test",
+      "line": 283,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "19. Acceptance matrix",
+      "line": 297,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
+      "section": "20. Troubleshooting flow",
+      "line": 321,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     }
   ]
 }

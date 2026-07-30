@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **305**
-- Audited conceptual sections: **12370**
-- Total words: **730,606**
-- Findings: **25580** (critical 7591, high 8785, medium 3219, low 5985)
-- File grades: A 0, B 3, C 2, D 300
+- Audited authoritative articles: **309**
+- Audited conceptual sections: **12474**
+- Total words: **741,509**
+- Findings: **25624** (critical 7591, high 8785, medium 3219, low 6029)
+- File grades: A 3, B 4, C 2, D 300
 
 ## Interpretation
 
@@ -325,9 +325,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 53 | 0 | 3 | 3 | 15 | 3765 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
-| B | 29 | 0 | 0 | 0 | 25 | 3827 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
+| B | 29 | 0 | 0 | 0 | 25 | 3831 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | B | 25 | 0 | 0 | 0 | 21 | 4209 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 3605 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
+| B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
+| A | 10 | 0 | 0 | 0 | 9 | 2375 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
+| A | 6 | 0 | 0 | 0 | 6 | 2513 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
 
 ## Critical and high findings
 
@@ -17623,10 +17627,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `outline-instead-of-explanation` | 2936 | 0 | 0 | 0 | 2936 |
 | `term-before-explanation` | 0 | 617 | 2149 | 0 | 2766 |
 | `thin-concept-section` | 0 | 2478 | 0 | 0 | 2478 |
-| `example-not-explicit` | 0 | 0 | 0 | 2397 | 2397 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2359 | 2359 |
+| `example-not-explicit` | 0 | 0 | 0 | 2402 | 2402 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2365 | 2365 |
 | `list-first-introduction` | 0 | 1529 | 0 | 0 | 1529 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1229 | 1229 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1262 | 1262 |
 | `short-concept-section` | 0 | 0 | 1070 | 0 | 1070 |
 | `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
 | `empty-section` | 785 | 0 | 0 | 0 | 785 |

@@ -1,12 +1,12 @@
 # Future Identity, ML, LLM and Intelligent Automation Roadmap
 
-Tento dokument plánuje budúce sekcie Knowledge Hubu, ktoré sa začnú spracúvať až po dokončení aktuálnej hlavnej roadmapy. Neaktivuje nové dokumentačné sekcie a nemení súčasné učebné poradie.
+Tento dokument pôvodne plánoval identity, ML, LLM a agentické sekcie po dokončení základnej roadmapy. Sekcia Keycloak and Identity Platform je od 30. júla 2026 aktivovaná v hlavnom poradí; dokument naďalej plánuje jej zostávajúce bloky a budúce ML, MLOps, LLM a agentické sekcie.
 
 Navrhované poradie:
 
 ```text
 existujúca roadmapa
-→ Keycloak and Identity Platform
+→ Keycloak and Identity Platform — aktívna sekcia 17
 → Machine Learning Fundamentals
 → MLOps and ML Platforms
 → LLM and GenAI Engineering
@@ -29,7 +29,9 @@ existujúca roadmapa
 
 ## Keycloak and Identity Platform
 
-Predbežný priečinok:
+> Stav: aktívna sekcia [`docs/17-keycloak-and-identity-platform/`](docs/17-keycloak-and-identity-platform/README.md), prvý authoritative blok 4/30 je spracovaný.
+
+Aktívny priečinok:
 
 ```text
 docs/17-keycloak-and-identity-platform/
