@@ -1,366 +1,132 @@
 # Replication a high availability
 
-Replikácia vytvára ďalšie copies alebo odvodené logické state-y. High availability používa tieto copies, failure detection, promotion, routing a fencing na obnovenie služby. Samotná existencia replica preto nie je HA verdict a počet copies nie je durability guarantee.
+Replikácia vytvára ďalšie copies alebo odvodené state-y. High availability používa tieto copies spolu s failure detection, promotion authority, writer fencing, routing a client convergence na obnovenie jednej authoritative služby. Samotná existencia replica preto nie je HA verdict a počet copies nie je automaticky durability guarantee.
 
 ```text
 business availability a durability objective
 → exact replicated-data subject
-→ replication topology a log/change stream
+→ replication topology a position semantics
 → commit acknowledgement policy
-→ transfer, flush, apply a visibility
-→ lag a read-routing semantics
-→ failure detection a promotion authority
-→ writer fencing a client convergence
-→ data/business reconciliation
-→ failback a second-failure validation
+→ receive, flush, apply a visibility
+→ read-routing a staleness contract
+→ failure detection a promotion eligibility
+→ old-writer fencing a new-writer authority
+→ client convergence
+→ business reconciliation a failback
+→ second-failure validation
 ```
 
-## 1. Exact replication/HA subject
+Kapitola sleduje jednu business operation od commit boundary cez replica positions až po failover a reconciliation. Tým oddeľuje process health od promotion eligibility, network connectivity od applied state-u a `COMMIT succeeded` od toho, čo môže prežiť stratu konkrétneho failure domain-u.
 
-Subject má uvádzať:
+## 1. Exact replication a HA subject
 
-- business capability a write/read operation;
-- authoritative database, cluster a timeline generation;
-- replicated tables/databases/partitions;
-- physical alebo logical replication mechanismus;
-- primary/leader a replica/follower identities;
-- synchronous alebo asynchronous acknowledgement policy;
-- transfer, durable-flush, apply a visibility positions;
-- read routing a staleness tolerance;
-- failure detector a promotion authority;
-- fencing a split-brain prevention;
-- client DNS/proxy/pool convergence;
-- RPO, RTO a degraded-mode contract;
-- backup/PITR a corruption-recovery path;
-- failback a reconciliation plan.
+Tvrdenie `máme primary a standby` je príliš slabé. Exact subject musí pomenovať business operation a acknowledged write set, cluster a timeline generation, primary a replica identities, physical alebo logical mechanismus, commit acknowledgement stage, receive/flush/apply positions, read-routing semantics, RPO/RTO, promotion authority, fencing, client convergence a corruption-recovery path.
 
-Príklad:
+Príklad pre `DB-PAY-56`:
 
 ```text
 capability: create settlement intent
+acknowledged write set: settlement + outbox transaction
 primary: postgres-prod-euc1 generation 56
 standby: postgres-prod-euw1 generation 56
-commit policy: local durable commit, asynchronous standby
-acknowledged subject: settlement + outbox transaction
-read routing: authoritative writes and read-after-write from primary
-RPO target for regional failure: 0 acknowledged intents
-RTO target: 45 min
-fencing: one writer epoch managed by failover controller
+replication: physical streaming, asynchronous
+commit: local durable WAL flush
+read-after-write: primary
+regional RPO claim: zero acknowledged intents lost
+promotion: failover controller
+fencing: writer epoch + credential revocation + network isolation
 ```
 
-Tento príklad obsahuje konflikt: local-only asynchronous acknowledgement nemusí vedieť garantovať zero-loss RPO pri permanentnej strate primary. Design musí objective alebo commit policy zmeniť.
+Tento subject odhaľuje rozpor. Local-only asynchronous acknowledgement nemôže samo garantovať zero-loss regional RPO pri permanentnej strate primary pred prenosom WAL. Design musí zmeniť commit policy, failure-domain topology, reconstructability contract alebo samotný RPO claim.
 
-## 2. Prečo replikovať
+## 2. Replica positions a visibility
 
-Replikácia môže slúžiť na:
-
-- fast failover;
-- read scaling;
-- locality a lower read latency;
-- rolling maintenance;
-- migration alebo upgrade;
-- analytical/change-data pipeline;
-- disaster-recovery copy;
-- backup/PITR input.
-
-Jedna topology nemusí spĺňať všetky ciele. Read replica optimalizovaná na analytical queries môže mať veľký apply lag a nie je automaticky failover candidate. Synchronous local standby môže chrániť zonal failure, ale nemusí chrániť regional alebo account compromise.
-
-## 3. Physical a logical replication
-
-### Physical replication
-
-Prenáša storage alebo write-ahead log changes na block/engine úrovni. Typicky zachováva celý cluster alebo database state a podporuje high-fidelity standby.
-
-Výhody:
-
-- rýchla a kompletná engine-level replica;
-- vhodná pre failover;
-- constraints, indexes a physical changes sa reprodukujú podľa engine mechanizmu.
-
-Limity:
-
-- často tesnejšia version/engine compatibility;
-- menšia selektivita;
-- logical corruption sa replikuje;
-- target nie je nezávislý data model.
-
-### Logical replication
-
-Prenáša logické row/change operations alebo events.
-
-Výhody:
-
-- selective tables alebo schemas;
-- migration medzi generations;
-- odvodené consumers;
-- transformations podľa product contractu.
-
-Limity:
-
-- nemusí prenášať všetky DDL, sequences alebo side state automaticky;
-- ordering a transaction boundaries treba overiť;
-- conflicts a unsupported changes môžu zastaviť apply;
-- subscriber môže diverge-nuť.
-
-Physical a logical replication nie sú vyššia a nižšia kvalita. Riešia odlišné subjects.
-
-## 4. Replication positions
-
-Replication treba pozorovať cez explicitné positions, nie iba status `healthy`.
+Replication health sa má pozorovať cez explicitné positions, nie cez jedno zelené `connected` alebo `streaming`.
 
 ```text
-primary generates log position P
-→ replica receives P
-→ replica durably flushes P
-→ replica applies P
-→ replica exposes state from P
+primary vytvorí log position P
+→ odošle P
+→ replica prijme P
+→ replica P durably flushne
+→ replica P aplikuje
+→ reader môže state z P vidieť
 ```
 
-Dôležité rozdiely:
+Receive, flush, replay a query visibility nie sú synonymá. Replica môže bytes prijať, ale nemať ich durable. Môže ich flushnúť, ale ešte neaplikovať. Môže ich aplikovať, ale konkrétny long-running snapshot ich ešte nevidí. Pri logical replication môže byť navyše jedna table alebo subscription zablokovaná, zatiaľ čo iné pokračujú.
 
-- **sent position** — primary odoslal log;
-- **received/write position** — replica prijala bytes;
-- **flush position** — replica ich durably uložila;
-- **replay/apply position** — zmena bola aplikovaná;
-- **query-visible position** — reader ju môže vidieť podľa snapshot/routing semantics.
+Byte lag, time lag a business-operation lag tiež merajú odlišné veci. Malý byte gap môže obsahovať kritický acknowledged settlement. Veľký byte gap môže byť prevažne rebuildable index alebo batch data. Promotion gate preto potrebuje business-position mapping, nie iba počet megabajtov.
 
-Replica môže byť network-connected a stále výrazne zaostávať v apply. Byte lag, time lag a business-operation lag môžu ukazovať odlišný obraz.
+## 3. Commit acknowledgement a business RPO
 
-## 5. Synchronous a asynchronous replication
-
-### Asynchronous
-
-Primary môže potvrdiť commit bez čakania na replica acknowledgement.
+Asynchronous replication umožní primary potvrdiť commit bez čakania na standby. Znižuje write latency a coupling, ale acknowledged writes môžu chýbať na promoted history. Synchronous replication čaká na definovaný počet replicas a stage, napríklad receive alebo durable flush. Zvyšuje acknowledged-write durability, no môže znížiť write availability a zvýšiť latency.
 
 ```text
-local commit/flush
-→ client acknowledgement
-→ replica transfer neskôr
-```
-
-Výhody sú nižšia write latency a menšia dependency na standby. Rizikom je strata acknowledged writes pri permanentnej strate primary pred replikáciou.
-
-### Synchronous
-
-Commit čaká na definovaný standby/quorum stage, napríklad receive, durable flush alebo apply.
-
-```text
-local commit intent
-→ replica acknowledgement podľa policy
+business RPO
+→ acknowledged business write set
+→ required failure domains
+→ required replica count
+→ required acknowledgement stage
 → commit success
 → client acknowledgement
 ```
 
-Výhoda je silnejší acknowledged-write durability contract. Nevýhody sú vyššia latency a availability coupling. Ak required synchronous standby nie je dostupná, writes môžu čakať alebo zlyhať podľa policy.
+Slovo `synchronous` nestačí bez počtu replicas, failure domains a stage-u. Receive acknowledgement nie je to isté ako durable flush. Flush nie je to isté ako apply. Apply nie je automaticky business completion, ak operation pokračuje cez outbox, broker alebo providera.
 
-`Synchronous` bez uvedenia počtu replicas a acknowledgement stage je neúplné tvrdenie.
+Unknown commit outcome zostáva možný aj pri silnej replication policy. Databáza môže transaction commitnúť a response sa stratí. Application potrebuje stable operation identity, unique constraint, queryable outcome a safe retry/reconciliation. HA nerieši idempotency za klienta.
 
-## 6. Commit policy a business RPO
+## 4. Read replicas a staleness contract
 
-Business RPO sa musí mapovať na commit policy.
+Read replica môže znížiť primary load alebo zlepšiť locality, ale mení semantics čítania. `SELECT` nie je automaticky bezpečný na ľubovoľnej replica. Authorization rozhodnutie, inventory decrement, workflow transition alebo status po práve potvrdenom write môže vyžadovať current authority.
+
+Bezpečný read-routing contract určuje, ktoré operations tolerujú staleness, aký je maximum age alebo position gap a čo sa stane po write. Mechanizmy môžu používať primary reads pre authoritative decisions, session stickiness, minimum required LSN, monotonic-read token alebo explicitný `pending replication` user state.
 
 ```text
-RPO: zero lost acknowledged settlement intents
-→ settlement + outbox atomic commit
-→ acknowledgement waits for required durable failure-domain copies
-→ failover selects replica containing acknowledged position
-→ provider/reconciliation validates unknown edge cases
+client write acknowledged at position P
+→ následný read nesmie ísť na replica pod P
+→ router/pool overí minimum position
+→ current alebo explicitne stale outcome
 ```
 
-Ak primary potvrdzuje lokálne a standby je async, truthful contract môže byť:
+Global `writes to primary, reads to replicas` je príliš hrubé pravidlo. Routing sa má viazať na operation class a consistency need.
 
-- non-zero RPO pre catastrophic primary loss;
-- durable admission iba po synchronous boundary;
-- degraded write pause pri unavailable required replica;
-- external reconstructability cez idempotency/provider ledger.
+## 5. Failure detection, promotion a fencing
 
-Marketingové `Multi-AZ` alebo `replicated` nenahrádza meraný acknowledgement contract.
+Failover začína uncertainty, nie automaticky istotou, že primary je mŕtva. Missing heartbeat môže znamenať process failure, network partition, AZ isolation, control-plane outage alebo iba zlyhaný monitoring path. Network partition je nebezpečný, pretože old primary môže zostať alive a dostupná pre časť writers.
 
-## 7. Replication lag
+Promotion eligibility preto potrebuje compatible engine/schema/config generation, known data position, acceptable RPO gap, zdravé storage, current keys a network, dostatočnú capacity a schopnosť prevziať authoritative writer role. Najbližšia alebo najrýchlejšia replica nemusí byť najbezpečnejšia.
 
-Lag vzniká, keď generation rate prevyšuje transfer/apply capacity alebo replica nemôže aplikovať changes.
-
-Príčiny:
-
-- write spike alebo migration/backfill;
-- slow network;
-- replica CPU/storage saturation;
-- long-running read conflicts;
-- missing indexes na logical subscriber-i;
-- large transactions;
-- DDL alebo apply error;
-- retention/slot pressure;
-- paused replication;
-- version/config mismatch.
-
-Sleduj:
+Pred prvým new write musí byť old writer effective fence-nutý. Request na stop instance nie je fencing verdict. Mechanizmus môže používať consensus term, lease alebo writer epoch, storage attachment authority, credential generation, proxy routing alebo network isolation. Dôležité je, aby old writer po promotion nemohol úspešne commitnúť ďalší authoritative write.
 
 ```text
-primary generation rate
-vs.
-network receive rate
-vs.
-replica flush rate
-vs.
-replica apply rate
-```
-
-Jedna `replica lag seconds` metric môže používať heartbeat a nezachytiť absent traffic alebo stalled business cohort.
-
-## 8. Read replicas a stale reads
-
-Read replica môže znížiť primary load, ale mení read semantics.
-
-Riziká:
-
-- read-after-write vráti starý state;
-- session preskočí medzi replicas s odlišným position;
-- projection alebo UI ukáže predchádzajúci status;
-- lag nie je rovnaký pre všetky tables/partitions;
-- failover mení writer aj freshness boundary.
-
-Patterns:
-
-- authoritative reads z primary;
-- session stickiness;
-- minimum required LSN/position;
-- bounded-staleness contract;
-- monotonic-read token;
-- explicit `pending replication` user state;
-- route podľa operation, nie global read/write split.
-
-`SELECT` nie je automaticky safe na stale replica. Authorization, inventory decrement alebo operation-status rozhodnutie môže vyžadovať current authority.
-
-## 9. Failure detection
-
-Failover začína detection verdictom:
-
-```text
-missing heartbeat alebo failed health
-→ distinguish process/network/zone/control-plane failure
-→ quorum/witness evidence
-→ declare primary ineligible
+failure suspicion
 → acquire recovery authority
-→ fence old writer
-→ promote eligible replica
+→ prove candidate eligibility
+→ increment writer term/epoch
+→ revoke alebo isolate old writer
+→ read back effective fence
+→ promote candidate
+→ admit new writes
 ```
 
-Príliš citlivý detector vytvára false failovers. Príliš pomalý predlžuje outage. Network partition je najťažší scenár, pretože old primary môže byť stále alive, ale unreachable pre časť systému.
+Ak new writer prijíma writes pred effective fence, vzniká split brain a divergentné histories. Neskorší merge nie je bežný replication repair; je to business reconciliation medzi konkurenčnými authorities.
 
-## 10. Promotion eligibility
+## 6. Client convergence a application RTO
 
-Nie každá replica je bezpečný promotion candidate. Eligibility potrebuje:
+Databáza môže byť promoted za sekundy, ale service môže zostať nedostupná, ak clients držia staré DNS records, dead pooled connections, stale service-discovery endpoints, incompatible prepared statements alebo credentials viazané na old role.
 
-- compatible engine/schema/config generation;
-- complete required data subject;
-- known flush/apply position;
-- acceptable RPO gap;
-- healthy storage a recovery state;
-- current credentials/keys/network;
-- sufficient capacity;
-- no unresolved apply error;
-- ability stať sa authoritative writer;
-- reconciliation plan pre missing/unknown writes.
+Client convergence contract zahŕňa DNS TTL a resolver behavior, proxy/LB update, pool lifetime a validation, transaction retry, TLS hostname, credentials a read-only session reset. RTO sa meria po obnovenie business operation, nie po log message `promotion complete`.
 
-Automatická voľba najbližšej alebo najrýchlejšej replica bez data-position verdictu môže zhoršiť incident.
+Po failover-e treba klasifikovať in-flight operations ako definitely aborted, committed and present, committed only on old history, unknown, retried alebo externally realized. Connection reset nie je business verdict. Stable idempotency key a provider/outbox evidence umožnia odlíšiť safe replay od duplicate side effectu.
 
-## 11. Fencing a split brain
+## 7. Replikácia nie je backup ani corruption recovery
 
-Promotion bez fencing môže vytvoriť viac writers.
+Replica verne kopíruje správne writes aj accidental deletes, malicious changes, schema mistakes a logical corruption. Replikácia poskytuje current alebo near-current availability copy. Backup a PITR poskytujú historical recovery points, retention a často oddelenú immutability boundary.
 
-```text
-network partition
-→ controller promotes standby
-→ old primary stále prijíma writes
-→ two divergent histories
-```
+Pri physical failure môže byť current replica správny recovery candidate. Pri logical corruption môže byť rovnaká replica rovnako poškodená ako primary. HA plan preto musí odkazovať na samostatný clean-point a reconciliation contract, nie predpokladať, že ďalšia copy je vždy bezpečná.
 
-Fencing mechanisms môžu zahŕňať:
+## 8. Worked incident `DB-PAY-56`
 
-- lease/epoch term;
-- quorum/consensus leadership;
-- storage-level exclusive attachment;
-- network isolation;
-- cloud instance stop/fence;
-- credential/token generation;
-- proxy routing with writer generation;
-- application-level write epoch.
-
-Fencing musí byť effective, nie iba request na vypnutie old primary. Reader a downstream consumers tiež musia vedieť, ktorá history je authoritative.
-
-## 12. Client convergence
-
-Po promotion sa musia clients pripojiť k novému writerovi.
-
-Hranice:
-
-- DNS TTL a resolver cache;
-- connection-pool lifetime;
-- proxy/load-balancer health;
-- stale service discovery;
-- TLS certificate/hostname;
-- credentials a role grants;
-- read-only session state;
-- prepared statements a transaction retries.
-
-Databáza môže byť promoted za sekundy, no application RTO môže byť minúty až hodiny, ak pools držia dead connections alebo clients stále smerujú na old endpoint.
-
-## 13. Failover transaction outcomes
-
-Transactions počas failover-u môžu byť:
-
-- definitely aborted;
-- definitely committed and present on promoted replica;
-- committed on old primary but missing on new primary;
-- unknown pre clienta;
-- retried a duplicate;
-- partially realized v external systems.
-
-Každá business operation potrebuje stable identity a reconciliation. `Connection reset` nie je dostatočný outcome.
-
-## 14. Replication nie je backup
-
-Replica faithfully kopíruje:
-
-- správne writes;
-- accidental deletes;
-- application corruption;
-- compromised admin changes;
-- destructive migrations.
-
-Backup/PITR poskytuje historical recovery points a oddelenú retention/immutability boundary. Replikácia poskytuje current alebo near-current availability copy. Obe treba testovať.
-
-## 15. Rolling maintenance a mixed generations
-
-HA topology často umožňuje maintenance:
-
-```text
-upgrade replica
-→ catch up
-→ validate
-→ switchover
-→ upgrade old primary
-→ restore redundancy
-```
-
-Treba overiť:
-
-- version compatibility;
-- replication protocol;
-- schema/app compatibility;
-- rollback eligibility;
-- mixed-version duration;
-- failover počas maintenance;
-- replica identity a monitoring;
-- old-generation retirement.
-
-Switchover je planned role change. Failover je response na failure alebo ineligibility. Oba potrebujú fencing a client convergence.
-
-## 16. Worked incident `DB-PAY-56`
-
-Atlas PostgreSQL topology používala primary v `eu-central-1` a asynchronous standby v `eu-west-1`. Commit acknowledgement čakal iba na local WAL flush.
-
-Počas unindexed migration backfill-u:
+Atlas používal PostgreSQL primary v `eu-central-1` a asynchronous standby v `eu-west-1`. Commit acknowledgement čakal iba na local WAL flush. Počas unindexed migration backfill-u vzniklo:
 
 ```text
 WAL generation: 6.4× baseline
@@ -369,169 +135,70 @@ standby replay lag: 94 s
 application timeout retries: 3.1×
 ```
 
-O `10:14 UTC` AZ network failure oddelila primary od application a failover controllera. Primary databáza však zostala alive a časť batch workerov v rovnakom network segmente ju stále dosiahla.
+O `10:14 UTC` AZ network failure oddelila primary od časti application a failover controllera. Primary však zostala alive a niektoré batch workers ju stále dosiahli. Controller o `10:19 UTC` promoted standby podľa process health a connection state-u, bez porovnania replay position s poslednými acknowledged business operations.
 
-Failover controller o `10:19 UTC` promoted standby na základe process health a receive connection, bez exact flush/replay position porovnania s poslednými acknowledged business operations.
+Old primary nebola effective fence-nutá a prijímala writes ďalších `93 sekúnd`. Connection pools konvergovali nerovnomerne. Výsledkom boli dve write histories, `286` operations vyžadujúcich reconciliation a `37` client-acknowledged intents chýbajúcich na promoted history. Document projection časť gapu skryla tým, že zobrazovala `accepted` bez authoritative outbox evidence.
 
-Dôsledky:
+Triggerom bola AZ network failure. Primary HA root cause bol promotion contract bez acknowledged-position gate-u a effective fencing. Durability mismatch vznikol tým, že local asynchronous commit policy nezodpovedala zero-loss RPO claimu. Migration WAL, retry load, stale projection a pomalá client convergence boli amplifiers.
 
-- promoted standby chýbala časť acknowledged settlement/outbox transactions;
-- old primary prijímala writes ďalších 93 sekúnd;
-- application pools konvergovali na nový endpoint nerovnomerne;
-- vznikli dve divergentné write histories;
-- document projection skryla časť missing relational state-u;
-- `286` merchant operations potrebovalo reconciliation;
-- `37` intents bolo potvrdených clientovi, ale nebolo na promoted history;
-- provider ledger zabránil niektorým duplicates, no `sent-unknown` cohort zostal.
+## 9. Evidence, containment a recovery
 
-### Trigger, root cause a amplifiers
-
-- **Trigger:** AZ network failure.
-- **Primary HA root cause:** promotion contract neviazal eligibility na acknowledged business position a nevyžadoval effective fencing old writer-a.
-- **Durability mismatch:** local asynchronous commit policy nezodpovedala deklarovanému zero-loss RPO.
-- **Capacity amplifier:** migration WAL spôsobila large apply lag.
-- **Client amplifier:** connection pools a DNS nemali generation-aware convergence.
-- **Data-model amplifier:** read projection ukazovala accepted state bez authoritative outbox evidence.
-
-## 17. Competing hypotheses a discriminating evidence
-
-Pri missing writes po failover-e treba odlíšiť:
-
-1. transaction nikdy necommitla;
-2. commitla a je na promoted replica, reader je stale;
-3. commitla na old primary, nebola replikovaná;
-4. replica received, ale neflushla/aplikovala;
-5. application retry vytvoril duplicate identity;
-6. old primary pokračovala vo writes;
-7. document/cache skryli authoritative gap;
-8. external provider má side effect bez local final state-u.
-
-Evidence:
+Pri missing write po failover-e treba odlíšiť necommitnutú transaction, commitnutú a prítomnú transaction, commitnutú iba na old primary, received-but-not-applied log, stale reader, duplicate retry a external side effect bez local final state-u.
 
 ```text
-business operation/idempotency key
-→ client attempt a response
-→ primary transaction/WAL commit LSN
-→ standby receive/flush/replay LSN
-→ promotion timeline/term
-→ fencing evidence
-→ old/new primary rows and timelines
-→ DNS/proxy/pool routing
-→ outbox/broker/provider ledger
-→ reconciliation verdict
+business operation key
+→ client attempt a acknowledgement
+→ old-primary transaction a WAL position
+→ standby receive/flush/replay position
+→ promotion term a writer epoch
+→ fencing read-back
+→ DNS/proxy/pool route
+→ outbox, broker a provider evidence
+→ cohort reconciliation
 ```
 
-## 18. Evidence-preserving containment
+Containment zastaví automatic failback a blind retries, fence-ne všetkých možných writers, zachová timelines, WAL a routing evidence a obmedzí nové writes na durable degraded mode. Divergentné histories sa nesmú zlievať podľa timestampu bez business manifestu.
 
-```text
-zastaviť automatic failback a blind retries
-→ fence oba possible writers podľa explicitnej authority
-→ preserve WAL/timelines/promotion/routing evidence
-→ pause destructive migration
-→ restrict new writes alebo enter durable degraded mode
-→ inventory acknowledged operations around failover window
-→ classify histories and external effects
-→ establish one authoritative writer generation
-```
+Authoritative recovery vyberie jednu timeline podľa declared recovery authority a complete evidence. Potom klasifikuje `missing`, `never-sent`, `sent-unknown`, `completed` a duplicate-attempt cohorts, replayuje iba exact safe manifest, rebuildne projections a zmení commit policy alebo truthful RPO. Lag/position-aware promotion gate, writer epoch a client-convergence test musia prejsť pred ďalším automatic failoverom.
 
-Nesnaž sa okamžite merge-nuť divergentné histories bez business manifestu.
+## 10. Acceptance paths
 
-## 19. Authoritative recovery
+**Positive path** potvrdí business transaction, overí required replica flush stage a následne vykoná controlled switchover. New writer obsahuje acknowledged position, old writer je fence-nutý a clients konvergujú bez duplicate operation.
 
-1. vybrať authoritative timeline podľa declared recovery authority a complete evidence;
-2. fence old primary a revoke old writer credentials;
-3. porovnať acknowledged operations s promoted database, old primary, outbox a provider ledgerom;
-4. klasifikovať `missing`, `never-sent`, `sent-unknown`, `completed` a `duplicate-attempt` cohorts;
-5. replayovať iba exact safe manifest;
-6. rebuildnúť projections z authoritative streamu;
-7. zaviesť writer epoch do application writes a events;
-8. zmeniť commit/replication policy alebo truthful RPO;
-9. pridať lag/position-aware promotion gate;
-10. testovať client convergence, failover pod migration loadom a second failover.
+**Lag path** vytvorí WAL alebo apply pressure. Replica zostane connected, ale promotion gate ju správne označí za ineligible podľa business-position gapu. System buď počká, zvolí inú candidate alebo explicitne prijme degraded RPO.
 
-## 20. Replication/HA acceptance verdict
+**Partition path** izoluje control plane od primary, zatiaľ čo časť writers ju stále dosiahne. Recovery authority musí old writer effective fence-nuť pred new writes; inak test zlyhá ako split brain.
 
-Topology je prijatá, keď:
+**Unknown-outcome path** stratí commit response počas role transition. Stable operation identity a reconciliation nájdu committed outcome alebo bezpečne vytvoria jediný intended result.
 
-- exact replicated subject a failure scenarios sú explicitné;
-- physical/logical mechanismus zodpovedá use case-u;
-- transfer/flush/apply/visibility positions sú observable;
-- commit acknowledgement zodpovedá business RPO;
-- lag má capacity, alert a abort contract;
-- read routing má explicitnú staleness semantics;
-- promotion eligibility kontroluje generation, position a capacity;
-- old writer je effective fence-nutý pred new writes;
-- clients konvergujú v RTO vrátane pools/DNS/proxy;
-- unknown failover outcomes majú idempotency a reconciliation;
-- backup/PITR rieši logical corruption;
-- failback je samostatne rehearsed;
-- zonal, regional, network-partition a second-failure tests prejdú;
-- forbidden stale-read, lost-acknowledged-write a split-brain outcomes zlyhajú.
+**Corruption path** replikuje logical error na standby. HA failover nesmie byť označený za recovery; plan vyberie clean historical point a vykoná business reconciliation.
 
-## 21. Troubleshooting flow
+**Second-failure path** testuje failover počas migration loadu a následnú stratu novej replica alebo controlled failback. Tým sa overí, že topology po prvom failover-e stále spĺňa redundancy a recovery contract.
 
-```text
-replica lag, stale read alebo failover inconsistency
-→ exact cluster/timeline/operation subject
-→ primary and replica roles/generations
-→ sent/receive/flush/replay/visible positions
-→ generation vs apply capacity
-→ commit acknowledgement policy
-→ read/client routing
-→ failure detector/promotion authority
-→ fencing and divergent histories
-→ business/external reconciliation
-→ second failover and failback validation
-```
+## 11. Troubleshooting a anti-patterny
 
-## 22. Anti-patterny
+Diagnostika ide od exact cluster/timeline/operation subjectu cez roles, positions, commit policy, routing, promotion authority a fencing až po business reconciliation. Green process health bez position evidence nepodporuje promotion decision.
 
-### Replica je healthy
+Typické anti-patterny sú `replica je healthy`, `synchronous znamená zero loss`, `read-only query môže ísť kamkoľvek`, promotion bez fencing-u, RTO merané pri database role change-i, replica používaná ako backup a automatic failback bez divergence analýzy. Každý z nich zamieňa jednu technickú vrstvu za complete business availability contract.
 
-Bez position, lag a data-subject evidence to nič nehovorí o promotion eligibility.
+## 12. Kontrolné otázky
 
-### Asynchronous je vždy rýchlejšie a dosť dobré
-
-Môže byť správne, ale business musí akceptovať RPO alebo mať reconstructability.
-
-### Synchronous znamená zero loss
-
-Záleží na počte replicas, failure domains a receive/flush/apply stage-i.
-
-### Read-only query môže ísť na ľubovoľnú replica
-
-Read môže rozhodovať o authoritative state alebo vyžadovať read-after-write.
-
-### Promotion vyriešila HA
-
-Bez fencing a client convergence môže vzniknúť split brain alebo pokračujúci outage.
-
-### Replikácia je backup
-
-Logical corruption sa replikuje.
-
-### Failback je reverse failover
-
-Divergence, capacity a current authority z neho robia samostatnú risky transition.
-
-## 23. Kontrolné otázky
-
-1. Čo tvorí exact replication/HA subject?
-2. Ako sa physical a logical replication líšia?
-3. Aký je rozdiel medzi receive, flush, replay a visibility position?
-4. Ako synchronous a asynchronous commit menia RPO a latency?
-5. Čo spôsobuje replication lag?
-6. Kedy je stale read neprijateľný?
-7. Čo tvorí promotion eligibility?
-8. Prečo je fencing povinný?
-9. Ako client convergence ovplyvňuje RTO?
-10. Prečo `DB-PAY-56` stratilo acknowledged writes?
-11. Prečo replica nenahrádza backup?
-12. Čo overuje replication/HA acceptance verdict?
+1. Aký je rozdiel medzi receive, flush, replay a query-visible position?
+2. Ako sa commit acknowledgement mapuje na business RPO?
+3. Prečo asynchronous standby nemôže automaticky garantovať zero-loss RPO?
+4. Kedy read replica porušuje read-after-write alebo authorization semantics?
+5. Čo tvorí promotion eligibility?
+6. Prečo musí fencing prebehnúť pred new writes?
+7. Ako DNS a connection pools ovplyvňujú application RTO?
+8. Ako sa klasifikuje unknown transaction počas failover-u?
+9. Prečo replikácia nenahrádza backup/PITR?
+10. Ktoré causal boundaries vysvetľujú `DB-PAY-56`?
+11. Čo musí odmietnuť partition path?
+12. Prečo treba testovať second failure a failback?
 
 ## Glossary impact
 
-Relevantné pojmy: replication subject, physical replication, logical replication, replication position, receive/flush/replay lag, synchronous replication, asynchronous replication, acknowledged-write RPO, read-replica staleness, promotion eligibility, recovery authority, writer fencing, split brain, writer epoch, client convergence, failback generation a replication/HA acceptance verdict.
+Relevantné pojmy: replication subject, timeline generation, physical replication, logical replication, receive/flush/replay/visibility position, acknowledged-write RPO, synchronous acknowledgement stage, read-replica staleness contract, promotion eligibility, recovery authority, writer fencing, writer epoch, split brain, client convergence, divergent history, failback generation a second-failure validation.
 
 ## Primárne zdroje
 
