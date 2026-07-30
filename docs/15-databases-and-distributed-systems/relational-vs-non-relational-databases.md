@@ -1,434 +1,276 @@
 # Relational vs. non-relational databases
 
-Voľba databázy nie je súťaž medzi `SQL` a `NoSQL`. Je to rozhodnutie, kde budú uložené authoritative business facts, aké invarianty musí systém chrániť, aké query a access patterns potrebuje, ako bude meniť schema a ako sa bude správať pri concurrency, partition, failover-e a recovery.
+Voľba databázy nie je rozhodnutie medzi „tabuľkami“ a „JSON-om“. Je to návrh authority, invariants, transaction boundaries, access paths, distribution, lifecycle a recovery pre konkrétny business state. Relational, document, key-value, wide-column, graph a time-series systémy organizujú dáta a koordinujú concurrent changes odlišne; každý model niektoré operácie zjednodušuje a iné presúva do application, event pipeline alebo operational reconciliation.
+
+Správna otázka preto neznie „SQL alebo NoSQL?“, ale „ktorý systém má byť autoritatívny pre tento business fact, ktoré zmeny musia byť atomické, aké queries a failure scenáre sú dominantné a ako sa preukáže, že odvodené copies zostali správne?“. Atlas Payments používa relational ledger pre settlement invariants a document projection pre merchant reads. Incident `DB-PAY-56` ukazuje, čo sa stane, keď projection začne nepozorovane fungovať ako druhý autoritatívny writer.
+
+## 1. Dominantný invariant-to-data-system lifecycle
+
+Data-system design začína business invariants a operation boundaries. Až potom sa vyberá model, schema, partitioning, indexes, transaction a replication contract. Runtime musí zachovať authority a derived-state lineage aj pri retry, partial failure, migration a failover.
 
 ```text
-business capability a authoritative facts
-→ exact data subject a invarianty
-→ entity/aggregate/relationship boundaries
-→ read a write access patterns
-→ transaction a consistency requirements
-→ scale, locality a failure model
-→ relational alebo non-relational fit
-→ physical model a indexes
-→ effective runtime behavior
-→ migration, recovery a second-operation validation
+business capability a invariants
+→ exact data-system subject a authority map
+→ aggregate/transaction a consistency boundaries
+→ relational/document/key-value/graph/time-series model
+→ schema, keys, constraints a access paths
+→ placement, partitioning a replication
+→ write/read protocol a derived projections
+→ effective runtime state a business verification
+→ migration, reconciliation a recovery
+→ second-operation a forbidden-path validation
 ```
 
-Databázový model je súčasť business correctness contractu. Nesprávne umiestnená autorita môže vytvoriť dual writes, nejasnú transaction boundary a data reconciliation, aj keď všetky jednotlivé databázy technicky fungujú.
+Databázový produkt je iba jedna implementačná boundary. End-to-end correctness závisí aj od application retry semantics, event publication, cache/projection freshness, schema compatibility, provider effects a recovery tooling.
 
-## 1. Exact database-selection subject
+## 2. Exact data-system subject a field authority
 
-Tvrdenie `potrebujeme NoSQL kvôli škálovaniu` je nedostatočné. Selection subject má uvádzať:
-
-- business capability a critical user journeys;
-- authoritative facts a ich ownera;
-- invarianty, ktoré nesmú byť porušené;
-- entity, aggregate a relationship boundaries;
-- dominantné read/write patterns;
-- expected volume, throughput, latency a growth;
-- hot-key, tenant a locality distribution;
-- transaction scope;
-- požadovanú consistency a staleness tolerance;
-- availability, durability, RPO a RTO;
-- schema-evolution a migration model;
-- operational skill, tooling a support constraints.
-
-Príklad:
+Tvrdenie „settlements sú v PostgreSQL a MongoDB“ nie je návrh. Exact subject zachováva business entity a operations, authoritative system, schema/model generation, primary a derived fields, keys a identity semantics, transaction/aggregate boundary, read/write paths, consistency a staleness contract, partition/shard key, indexes, retention, encryption, replication/backup, migration lineage a owners.
 
 ```text
-capability: merchant settlement execution
-authoritative facts: settlement intent, provider operation, final state
-invarianty:
-  one merchant operation maps to at most one settlement
-  acknowledged intent is never lost
-  provider submission is not duplicated
-read patterns:
-  lookup by merchant + operation ID
-  list recent settlements by merchant
-write pattern:
-  create intent + durable outbox event
-transaction scope:
-  settlement row + outbox row
-consistency:
-  current authoritative write state
-projection tolerance:
-  merchant dashboard may lag 5 seconds
+subject: DATA-PAY-56-v2
+entity: settlement intent a execution state
+authority: PostgreSQL settlement + outbox transaction
+identity: merchant_id + merchant_operation_id
+invariants:
+  one accepted intent per merchant operation
+  amount/currency immutable after acceptance
+  provider effect at most once
+projection: document merchant_settlement_view
+projection source: ordered outbox events
+projection staleness: p99 <= 5 s
+forbidden: direct document write mení authoritative state
 ```
 
-Tento subject prirodzene oddeľuje invariant-heavy write model od denormalizovanej read projection.
+Field authority musí byť explicitná. Relational ledger môže vlastniť amount, status transition a provider correlation; document projection môže vlastniť UI-only rendering metadata. Last-write-wins medzi oboma stores nevytvára reconciliation, iba skrýva konflikt.
 
-## 2. Relational model
+## 3. Relational model: invariants, joins a transactions
 
-Relational database reprezentuje dáta cez relations, rows, columns, keys a constraints. Jej hlavná sila nie je iba SQL syntax, ale schopnosť explicitne modelovať:
+Relational databáza organizuje state do relations s explicitnými columns, types, keys a constraints. Primary/unique keys chránia identity; foreign keys referential integrity; check constraints local business pravidlá. Transactions umožňujú meniť viac rows/tables ako jednu atomic unit a query language podporuje joins a set-based operations.
 
-- identity cez primary a candidate keys;
-- referential integrity cez foreign keys;
-- uniqueness a domain constraints;
-- multi-row transactions;
-- joins a ad hoc relational queries;
-- declarative query optimization;
-- schema a constraint evolution.
-
-Príklad logického modelu:
+Relational model je silný, keď business facts majú stabilné identity, viac vzťahov, cross-row alebo cross-table invariants, ad-hoc queries, audit/reconciliation potreby a schema evolution, ktorú treba koordinovať s viacerými application generations.
 
 ```text
-merchant
-  1 ─── N settlement
-
-settlement
-  1 ─── N settlement_attempt
-  1 ─── 1 outbox_event pre create transition
+merchant intent
+→ insert settlement
++ insert outbox command
++ uniqueness constraint
++ referential a amount checks
+→ one atomic commit
 ```
 
-Relational model je silný, keď business correctness závisí od vzťahov alebo invariantov naprieč viacerými records. Normalizácia pomáha odstrániť nežiaduce duplicity authoritative facts, ale nie je absolútny cieľ. Read-optimized tables, materialized views alebo projections môžu byť zámerne denormalizované.
+Tento model nevyrieši distribúciu automaticky. Large joins, global constraints, hot keys, cross-region latency a long transactions môžu byť drahé. Normalization znižuje redundantný authoritative state, ale príliš fragmentovaný model môže zvyšovať join, lock a operational complexity.
 
-## 3. Non-relational model nie je jedna kategória
+## 4. Document model: aggregate locality a flexible shape
 
-`NoSQL` zahŕňa viac odlišných modelov.
+Document database ukladá related data do documentov, často s nested objects a arrays. Silná je vtedy, keď aplikácia číta alebo mení celý aggregate spolu, shape sa vyvíja medzi cohorts a denormalizácia znižuje cross-collection joins alebo transactions.
 
-### Key-value
+```json
+{
+  "merchantId": "m-71",
+  "settlementId": "s-902",
+  "status": "pending",
+  "amount": {"currency": "EUR", "minor": 12500},
+  "timeline": []
+}
+```
+
+Single-document atomicity môže byť veľmi užitočná, no aggregate boundary musí vychádzať z write invariants, nie iba z convenient read response-u. Unbounded arrays, document growth, duplicate embedded data a multi-document updates môžu vytvoriť contention a reconciliation debt. Modern document systems podporujú multi-document transactions, ale ich existencia nenahrádza dobrý aggregate design a môže zvýšiť latency, coordination a sharding cost.
+
+Flexible schema znamená, že storage nemusí odmietnuť každý variant; neznamená schema-free system. Application, validation rules, indexes, serializers, readers a historical documents stále tvoria versionovaný schema contract.
+
+## 5. Key-value, wide-column, graph a time-series models
+
+Key-value store mapuje exact key na opaque alebo partially structured value. Poskytuje nízku latency pre known-key access, sessions, idempotency records, rate limits alebo caches. Nehodí sa ako primary authority, ak business potrebuje bohaté predicates, joins alebo cross-key invariants bez application coordination.
+
+Wide-column model organizuje rows podľa partition keyu a clustering/order semantics. Je vhodný pre veľmi veľký distributed write/read workload s queries známymi vopred. Model sa navrhuje podľa access paths; query mimo partition keyu môže vyžadovať scan, secondary index alebo novú denormalizovanú table.
+
+Graph database robí edges a traversals first-class. Je vhodná pre identity relations, fraud paths, dependency alebo authorization graphs. Graph traversal však nemusí byť najlepší system of record pre high-throughput ledger mutations.
+
+Time-series system optimalizuje timestamped append-heavy observations, retention, compression a time-window aggregation. Metrics alebo sensor events sú prirodzené subjects; mutable financial entity s uniqueness a multi-row invariantmi zvyčajne potrebuje inú primary authority.
+
+Tieto categories nie sú absolútne. Produkty pridávajú transactions, secondary indexes, JSON, graph alebo time-series extensions. Rozhoduje effective contract konkrétneho engine-u a deploymentu, nie marketingový label.
+
+## 6. Aggregate a transaction boundary
+
+Aggregate je scope, ktorý musí udržať invariants počas jednej business operation. Ak settlement a outbox command musia vzniknúť spolu, patria do jednej atomic authority boundary alebo potrebujú explicitný distributed protocol s recovery.
+
+Príliš malý aggregate presunie consistency do eventov a compensation. Príliš veľký aggregate vytvorí contention, hot partition a veľké transactions. Správna hranica sa odvodzuje z invariants, concurrency, operation identity a failure behavior.
 
 ```text
-key → opaque alebo semi-structured value
+operation intent
+→ identify invariant set
+→ choose atomic boundary
+→ serialize conflicting changes
+→ commit/abort
+→ publish derived changes
+→ reconcile downstream projections
 ```
 
-Vhodné pre cache, sessions, counters, leases a jednoduchý state lookup. Critical otázky sú key design, atomic operations, TTL, eviction, persistence a hot-key distribution.
-
-### Document
+Cross-store dual write bez atomic coordination je nebezpečný:
 
 ```text
-aggregate identity → nested document
+commit PostgreSQL
+→ write document projection
+→ process crash medzi krokmi
 ```
 
-Vhodné, keď sa súvisiace dáta typicky čítajú a menia ako jeden aggregate. Embedded model môže znížiť joins a network round trips. Ak sa jeden invariant často rozprestiera cez viac documents, aplikácia potrebuje multi-document transaction, redesign aggregate boundary alebo explicitnú eventual-consistency workflow.
+Výsledkom je partial success. Transactional outbox alebo change-data capture zachová commit lineage a projection sa stane rebuildable derived stateom.
 
-### Wide-column
+## 7. Schema, constraints a application compatibility
+
+Schema contract zahŕňa types, required/optional fields, defaults, keys, constraints, indexes, version a reader/writer compatibility. Relational DDL býva explicitne enforcement-nuté engine-om. Document schema môže byť application- alebo server-validovaná a historical records môžu mať viac shapes.
+
+Constraint má byť čo najbližšie k authoritative write boundary. Application-only uniqueness cez `SELECT then INSERT` zlyhá pri concurrency; unique constraint rozhodne konflikt autoritatívne. Naopak database constraint nevie sám vysvetliť všetky business workflows a application musí bezpečne spracovať conflict, retry a unknown outcome.
+
+Schema evolution je protocol medzi old/new readers, writers, backfillom, indexes/constraints a replicas. Additive expand, tolerant readers, bounded backfill, read/write switch, validation a contract fáza sú bezpečnejšie než destructive one-shot change.
+
+## 8. Keys, partitioning a locality
+
+Primary/business key určuje identity. Partition alebo shard key určuje placement a routing. Môžu byť rovnaké, ale riešia inú otázku. Dobrý distribution key má dostatočnú cardinality, rovnomerný load, stable semantics, query locality a minimálnu potrebu cross-partition transactions.
+
+Hot merchant, timestamp-only append alebo low-cardinality status môžu vytvoriť skew. Random key rozloží writes, ale zhorší range alebo tenant locality. Composite key môže kombinovať tenant a bucket, no mení query, rebalancing a uniqueness semantics.
+
+Sharding je architektúrna zmena, nie iba capacity toggle. Zavádza routing metadata, rebalance/migration, distributed transactions/queries, cross-shard uniqueness, hotspots a partial failures. Ak dataset a workload bezpečne zvláda jeden cluster, skoré sharding často pridáva complexity bez užitočného outcome-u.
+
+## 9. Access paths a workload contract
+
+Data model sa hodnotí podľa konkrétnych reads a writes: key lookup, range, join, graph traversal, append, aggregation, stream, batch alebo full-text. Každý path má population, selectivity, latency, consistency, frequency a peak concurrency.
+
+Index alebo denormalization zrýchľuje read za cenu write, storage, maintenance a migration costu. Document embedding znižuje joins, ale duplikuje state. Materialized projection znižuje query latency, ale potrebuje source generation, lag a rebuild contract.
 
 ```text
-partition key + clustering order → sparse ordered rows
+business query
+→ exact subject a freshness requirement
+→ routing/partition
+→ index alebo scan/traversal
+→ visibility/consistency
+→ result a authority interpretation
 ```
 
-Vhodné pre vysoký distributed throughput a query-first modelovanie. Partition key rozhoduje o locality, balancing a hot partitions. Ad hoc joins a globálne invarianty bývajú obmedzenejšie alebo drahšie.
+Fast query nad stale projection nie je správny outcome, ak rozhoduje o authorization, available balance alebo operation finality.
 
-### Graph
+## 10. Consistency a read semantics
+
+Consistency nie je jedna property všetkých database reads. Potrebné sú explicitné guarantees: read-your-writes, monotonic reads, causal ordering, bounded staleness, snapshot view alebo linearizable authoritative decision.
+
+Projection môže mať eventual consistency a UI môže zobrazovať `processing`, pokiaľ je staleness bounded a business action sa stále overí vo authoritative store. Rovnaká stale projection nesmie autorizovať duplicate settlement alebo tvrdiť final failure/success bez ledger proofu.
+
+Relational engine s ACID transaction nevytvára automaticky global consistency cez cache, document view, broker a provider. End-to-end model musí zachovať operation identity, event ordering, idempotency a reconciliation.
+
+## 11. Polyglot persistence a authority graph
+
+Polyglot persistence je legitímna, keď rôzne stores riešia odlišné workloady a authority zostáva jednoznačná. Atlas môže používať PostgreSQL pre ledger, document store pre merchant read model, Redis pre cache/idempotency window, object storage pre immutable evidence a search engine pre support discovery.
 
 ```text
-vertices + edges + properties
+PostgreSQL authoritative commit
+→ outbox/change stream
+→ document/search/cache projections
+→ lag a generation evidence
+→ rebuild/reconcile from authority
 ```
 
-Vhodné pre relationship traversal, path finding, dependency alebo fraud graphy. Nie každý connected dataset potrebuje graph database; rozhodujú dominantné traversal patterns a ich hĺbka.
+Každý derived store má source, transform generation, checkpoint, freshness, failure/duplicate handling, rebuild a delete/retention semantics. Direct write do projectionu, bidirectional sync bez conflict authority alebo last-write-wins medzi stores vytvára multi-master business state, aj keď to architecture diagram nepomenúva.
 
-### Search a analytical engines
+## 12. Worked incident `DB-PAY-56`
 
-Inverted-index alebo columnar analytical systémy sú optimalizované pre full-text, aggregation a scan workloads. Často sú odvodeným evidence alebo query store-om, nie authoritative transactional ledgerom.
+Atlas malo authoritative `settlement` a `settlement_attempt` tables v PostgreSQL. Merchant UI čítalo document projection `merchant_settlement_view`. Projection sa mala meniť iba z ordered outbox events.
 
-## 4. Aggregate a invariant boundary
+Release 8.0 pridával `merchant_operation_id` pre stable idempotency a uniqueness. Počas mixed-version rollout-u nový API writer zapisoval relational transaction, legacy retry worker pri missing projection documente vytvoril document priamo a repair job mal fallback `document newer wins`. Tým vznikli tri authority paths.
 
-Najdôležitejšia modelovacia otázka je:
+Súbežne migration nad približne `780 miliónmi` rows nemala supporting partial index. Batch scans predĺžili transactions, WAL vzrástol `6.4×`, standby replay lag dosiahol `94 s` a application timeout retries `3.1×`. AZ network failure spustila failover; asynchronous standby chýbala časť acknowledged relational writes a old primary pokračovala vo writes ďalších `93 s`.
 
-> Ktoré facts musia prejsť z jedného validného state-u do druhého atomicky?
+Document projection skryla authoritative gap: niektoré UI records existovali bez settlement/outbox transaction, iné ostali stale a repair job zapisoval status späť podľa document timestampu. `286` merchant operations vyžadovalo reconciliation a `37` intents bolo potvrdených clientovi, ale chýbalo na promoted relational history.
 
-Príklad settlement transition:
+Triggerom bola kombinácia migration loadu a AZ network failure. Data-model root cause bol nejasný authority graph: document projection mohla byť written ako fallback a repair používal last-write-wins namiesto ledger/event lineage. HA root cause a migration causes sú rozpracované v ďalších kapitolách.
+
+## 13. Evidence-preserving containment a recovery
+
+Tím zastavil direct document writers a last-write-wins repair, fenced old/new relational writers podľa explicitnej epoch authority, pozastavil migration a blind retries a zachoval WAL timelines, outbox/broker checkpoints, document versions, transform generations a provider ledger evidence.
+
+Operations sa klasifikovali podľa business keyu na authoritative relational commit present, old-primary-only, document-only, never-sent, sent-unknown, completed a duplicate-attempt. Jedna relational timeline bola zvolená ako authority; exact safe manifests doplnili chýbajúce intents alebo correlation records, provider ledger rozhodol external outcomes a projections sa rebuildli z authoritative streamu.
+
+Redesign odstránil direct projection writes, zaviedol stable `merchant_id + merchant_operation_id` uniqueness, writer epoch v records/events, projection source/checkpoint metadata, stale-state UI semantics, authoritative action checks a continuous reconciliation canary.
+
+## 14. Data-model acceptance contract
+
+Positive path musí preukázať, že business operation vstúpi do jednej authoritative atomic boundary, derived events/projections vzniknú z commit lineage a intended reads spĺňajú query/freshness contract. Retry path musí použiť stable identity a vrátiť pôvodný outcome. Migration/failover path musí zachovať authority aj pri mixed generations.
+
+Forbidden paths musia zlyhať: direct projection write, document-only authoritative settlement, duplicate business key, stale projection použitá na final/action decision, bidirectional last-write-wins, cross-partition operation bez explicitného protocolu a schema variant, ktorý readers ticho interpretujú inak.
 
 ```text
-merchant operation does not exist
-→ settlement intent created
-→ outbox event created
-→ acknowledgement returned
+positive:
+intent → authoritative commit → event → projection → read
+
+retry:
+same business key → same operation/outcome
+
+rebuild:
+projection lost → replay from authority → equivalent view
+
+forbidden:
+projection becomes writer
+conflict resolved by timestamp alone
+stale derived state authorizes mutation
 ```
 
-Ak `settlement` a `outbox` patria do jednej correctness boundary, model má podporiť jednu atomic transition alebo iný mechanizmus s ekvivalentným dôkazom. Uložiť ich do dvoch nezávislých databases a označiť oba writes za `eventually consistent` nemení business invariant na eventual invariant.
+Verdict patrí exact model, schema, partition, transform a application generation. Second store alebo second failure test overuje, že authority nie je iba dokumentačný claim.
 
-Eventual consistency je vhodná pre odvodené views, search indexes, recommendations alebo analytics, ak:
+## 15. Troubleshooting polyglot inconsistency
 
-- authority je explicitná;
-- propagation má identity a checkpoint;
-- stale semantics sú prijateľné;
-- missing/duplicate/reordered updates sú riešené;
-- reconciliation existuje;
-- user outcome nerozbije invariant.
-
-## 5. Normalization a denormalization
-
-Normalization znižuje update anomalies tým, že authoritative fact má jedno logické miesto. Denormalization kopíruje alebo predpočíta facts pre konkrétny access pattern.
+Pri rozdielnom state-e medzi stores začni business operation identity a authority mapou. Potom porovnaj authoritative commit/timeline, outbox/change stream, transform generation, checkpoint/lag, projection document a application routing/cache behavior. External provider ledger rozhoduje side effects, ktoré local stores nevedia samy potvrdiť.
 
 ```text
-authoritative normalized write model
-→ committed change/event
-→ asynchronous projection
-→ denormalized read model
-→ freshness a correctness verification
+user-visible inconsistency
+→ business key a expected invariant
+→ authoritative store/timeline
+→ commit/outbox/event identity
+→ projection checkpoint a transform
+→ document/cache/search state
+→ mixed writer alebo stale reader
+→ external effect/reconciliation
+→ rebuild alebo exact repair
+→ forbidden second-write validation
 ```
 
-Denormalization potrebuje:
-
-- source-of-truth identity;
-- projection generation;
-- ordering a idempotency semantics;
-- backfill/rebuild path;
-- lag a completeness SLI;
-- user-visible stale behavior;
-- reconciliation.
-
-Ak dve stores možno nezávisle editovať a obe sa nazývajú source of truth, vzniká dual authority, nie polyglot persistence.
-
-## 6. Query-first a invariant-first návrh
-
-Model sa má hodnotiť z oboch smerov.
-
-### Query-first
-
-- ktoré exact queries dominujú;
-- ktoré predicates, ordering a pagination sa používajú;
-- koľko rows/documents/partitions sa dotkne jedna operation;
-- aký je fan-out;
-- aká latency a freshness sú potrebné.
-
-### Invariant-first
-
-- ktoré writes musia byť atomic;
-- ktoré uniqueness a relationship constraints sú required;
-- aké concurrent transitions sú možné;
-- kto rozhoduje o final state;
-- čo musí prežiť crash a failover;
-- ako sa unknown outcome reconciliuje.
-
-Optimalizovať iba query bez write invariants môže vytvoriť rýchly, ale nesprávny systém. Optimalizovať iba normálnu formu bez access patterns môže vytvoriť korektný, ale neprevádzkovateľný systém.
-
-## 7. Consistency a transaction semantics
-
-Relational databáza automaticky neznamená serializovateľné správanie a non-relational databáza automaticky neznamená absenciu transactions. Treba overiť konkrétny product, topology a operation contract:
-
-- atomicity jednej row alebo document operation;
-- multi-record alebo multi-document transactions;
-- isolation level;
-- read a write concern;
-- leader/follower alebo quorum semantics;
-- replica staleness;
-- conflict resolution;
-- retry a unknown-commit behavior.
-
-MongoDB napríklad poskytuje atomic single-document operations a podporuje multi-document transactions v replica setoch a sharded clusters; dokumentový model však stále odporúča navrhnúť aggregate boundaries tak, aby zbytočné distributed transactions neboli default. PostgreSQL poskytuje multi-row transactions, constraints a viac isolation úrovní, no aplikácia stále musí správne určiť transaction boundary a retry semantics.
-
-## 8. Scale a partitioning
-
-`Horizontálne škáluje` nie je úplný verdict. Distribution vyžaduje:
-
-```text
-logical data subject
-→ partition/shard key
-→ placement a replication
-→ request routing
-→ single-partition alebo cross-partition operation
-→ rebalance/failure behavior
-→ consistency a recovery
-```
-
-Dôležité otázky:
-
-- je traffic rovnomerne rozdelený;
-- existujú hot tenants alebo hot keys;
-- vyžadujú queries scatter-gather;
-- prechádzajú transactions cez partitions;
-- ako sa mení shard key;
-- čo sa stane pri rebalancing-u;
-- ako sa obnovuje partial alebo corrupted shard;
-- kto vlastní global uniqueness.
-
-Jeden veľký správne navrhnutý relational cluster môže byť jednoduchší a spoľahlivejší než predčasne sharded systém. Naopak, workload s prirodzene partition-local operations môže profitovať z distributed non-relational modelu.
-
-## 9. Polyglot persistence
-
-Polyglot persistence je legitímna, keď každá store má explicitnú rolu:
-
-| Store | Authority | Typický účel |
-|---|---|---|
-| relational OLTP | authoritative transactions a invariants | settlement ledger |
-| document projection | odvodený aggregate view | merchant detail screen |
-| key-value | disposable alebo reconstructable runtime state | cache, session, limiter |
-| search engine | odvodený search index | full-text a filtering |
-| analytical warehouse | odvodené historical facts | reporting a forecasting |
-
-Každý odvodený store potrebuje lineage, freshness, rebuild a retirement contract. `Máme microservices, preto každá service potrebuje inú databázu` nie je technické odôvodnenie.
-
-## 10. Worked incident `DB-PAY-56`
-
-Atlas Payments pripravoval release `payments 8.0`. Tím chcel zjednodušiť merchant reads a postupne presunúť settlement state z PostgreSQL do document store-u.
-
-Nový write path:
-
-```text
-merchant request
-→ insert PostgreSQL settlement_intent
-→ COMMIT autocommit statement
-→ upsert document settlement aggregate
-→ insert PostgreSQL outbox_event
-→ HTTP 202
-```
-
-Document obsahoval settlement status, merchant metadata, provider attempt a dashboard fields. PostgreSQL stále obsahovala provider ledger references a outbox. Oba stores boli v návrhu označené ako authoritative pre časť rovnakého settlement lifecycle-u.
-
-Počas migration backfill-u sa zvýšila database latency a o `10:14 UTC` nastal AZ network failure. Application process po prvom PostgreSQL commite stratil connection. Retry vytvoril document aggregate, ale outbox insert neprebehol. Niektoré requests preto mali:
-
-```text
-PostgreSQL settlement_intent: exists
-document aggregate: exists alebo retried
-PostgreSQL outbox_event: missing
-provider operation: absent
-HTTP outcome: unknown alebo 202 z retried pathu
-```
-
-O `10:19 UTC` bol promoted async standby, ktorý navyše nemal poslednú časť WAL. Read API začalo preferovať document store a zobrazovalo časť settlements ako `accepted`, hoci neexistoval executable outbox intent.
-
-### Trigger, root cause a amplifiers
-
-- **Trigger:** AZ network failure počas migration loadu.
-- **Primary design root cause:** jeden settlement invariant bol rozdelený medzi dve independently committed authoritative stores.
-- **Transaction root cause:** settlement a outbox nevznikali v jednej atomic database transaction.
-- **Migration amplifier:** unindexed backfill a dlhé transactions zvýšili lock waits a replication lag.
-- **HA amplifier:** async promotion bez acknowledgement/RPO contractu a bez complete writer fencing.
-- **Read-model amplifier:** document projection bola použitá ako authority bez lineage/freshness verdictu.
-
-Výber document database sám osebe nebol chyba. Chyba bola použiť read-friendly document aggregate ako druhú authority pre invariant, ktorý sa stále realizoval cez relational ledger a outbox.
-
-## 11. Competing hypotheses a discriminating evidence
-
-Pri symptóme `accepted settlement sa nevykonal` treba odlíšiť:
-
-1. request nevstúpil do systému;
-2. PostgreSQL intent necommitol;
-3. commitol, ale response sa stratila;
-4. document projection chýba alebo je stale;
-5. outbox event nevznikol;
-6. outbox existuje, ale nebol publishnutý;
-7. standby promotion stratila acknowledged write;
-8. provider prijal operation, ale callback chýba;
-9. query číta nesprávny store alebo replica generation.
-
-Evidence chain:
-
-```text
-merchant operation ID
-→ API request/attempt IDs
-→ PostgreSQL transaction/WAL/LSN evidence
-→ settlement a outbox rows
-→ document version/change-stream checkpoint
-→ broker message/offset
-→ provider idempotency ledger
-→ failover timeline a promoted LSN
-→ read-route a projection generation
-```
-
-## 12. Evidence-preserving containment
-
-```text
-zastaviť rollout a schema/backfill changes
-→ zachovať primary/standby WAL, transaction a failover evidence
-→ fence old a new writers
-→ zastaviť automatic replay bez classification
-→ inventory settlement/outbox/document/provider cohorts
-→ označiť document projection non-authoritative
-→ obmedziť new admission alebo prejsť na durable degraded mode
-→ vytvoriť reconciliation manifest
-```
-
-Broad delete, blind replay alebo prepis projection state-u môže odstrániť dôkaz a vytvoriť duplicate provider operations.
-
-## 13. Authoritative recovery
-
-1. obnoviť PostgreSQL ako jedinú authority pre settlement transition;
-2. klasifikovať operations na `never-committed`, `intent-only`, `outbox-ready`, `sent-unknown` a `completed`;
-3. doplniť missing outbox events iba pre exact `intent-only` manifest;
-4. overiť provider ledger pred každým replayom;
-5. rebuildnúť document projection z authoritative committed streamu;
-6. zaviesť atomic `settlement + outbox` transaction;
-7. definovať acknowledged-write replication contract;
-8. opraviť migration a index strategy;
-9. vykonať failover a second-operation test;
-10. odstrániť dual-authority write path.
-
-## 14. Database-model acceptance verdict
-
-Model je prijatý, keď:
-
-- authoritative facts a owners sú explicitné;
-- entity, aggregate a relationship boundaries zodpovedajú invariants;
-- critical transition má enforceable transaction/consistency contract;
-- read a write patterns majú podporovaný access path;
-- partition/shard key a hot-key risk sú vyhodnotené;
-- denormalized copies majú lineage, lag a rebuild path;
-- žiadne dva stores nie sú nevedome dual authority;
-- retries, unknown outcomes a reconciliation sú definované;
-- HA, backup a recovery chránia business facts, nie iba bytes;
-- migration prejde current-scale load a failure testom;
-- allowed, forbidden a second-operation outcomes prejdú.
-
-## 15. Troubleshooting flow
-
-```text
-data inconsistency alebo missing business outcome
-→ exact operation, entity/aggregate a authority
-→ expected invariant a transaction boundary
-→ current write/read routes
-→ committed state v každom store
-→ projection lineage a checkpoint
-→ concurrency/retry/failover timeline
-→ replication a migration generation
-→ competing data-model hypotheses
-→ bounded reconciliation
-→ original a forbidden business validation
-```
+Náhodný manual edit derived documentu môže symptom skryť a zničiť causal evidence.
 
 ## 16. Anti-patterny
 
-### SQL vs. NoSQL podľa popularity
+Data-model anti-patterny zamieňajú product feature alebo read convenience za authority a correctness contract.
 
-Ignoruje invarianty, access patterns a operations.
-
-### Schema-less znamená bez schema governance
-
-Schema sa iba presunie do producers, consumers, indexes a validation code-u.
-
-### Jeden aggregate document obsahuje všetko
-
-Veľké contention, write amplification a unbounded growth môžu zničiť výhodu document locality.
-
-### Každá microservice musí mať inú technológiu
-
-Zvyšuje operational a recovery surface bez preukázaného benefitu.
-
-### Eventual consistency opraví dual write
-
-Bez authority, durable eventu, idempotency a reconciliation iba pomenúva divergence.
-
-### Read replica alebo cache je source of truth
-
-Odvodený a stale state sa nesmie použiť na authoritative transition bez explicitného contractu.
+- **SQL versus NoSQL podľa trendu —** ignoruje invariants, access paths, distribution a recovery.
+- **Flexible schema znamená bez schema —** readers, validators, indexes a historical shapes stále tvoria contract.
+- **Transactions vyriešia zlý aggregate —** distributed transaction môže byť drahá a nevhodná náhrada locality.
+- **Denormalizuj všetko —** duplicate state bez ownera a reconciliation vytvára divergence.
+- **Projection môže opraviť source —** derived view nemá authority na reverse write bez explicitného business protocolu.
+- **Last-write-wins vyrieši konflikt —** clock/order nerozhoduje business validity ani external side effect.
+- **Sharding je automatické scale-out —** zavádza placement, cross-shard a rebalance failure modes.
+- **Fast read je správny read —** stale projection môže byť neprijateľná pre action alebo finality.
 
 ## 17. Kontrolné otázky
 
-1. Čo tvorí exact database-selection subject?
-2. Kedy je relational model prirodzený pre invarianty?
-3. Ako sa key-value, document, wide-column a graph modely líšia?
-4. Čo je aggregate boundary?
-5. Ako normalization a denormalization súvisia s authority?
-6. Kedy je eventual consistency prijateľná?
-7. Prečo NoSQL neznamená absenciu transactions?
-8. Čo musí obsahovať shard-key verdict?
-9. Ako sa polyglot persistence líši od dual authority?
-10. Prečo document store nebol sám osebe root cause `DB-PAY-56`?
-11. Aký evidence chain odlíši projection lag od strateného authoritative intentu?
-12. Čo musí overiť database-model acceptance verdict?
+1. Čo tvorí exact data-system subject a field-authority map?
+2. Kedy relational model poskytuje najsilnejšiu hodnotu?
+3. Ako document aggregate boundary súvisí s atomicitou?
+4. Na aké workloads sú vhodné key-value, wide-column, graph a time-series systems?
+5. Prečo moderné transactions nenahrádzajú schema/aggregate design?
+6. Ako sa business key a shard key líšia?
+7. Čo je risk skorého shardingu?
+8. Ako access paths ovplyvňujú model a indexes?
+9. Kedy je eventual consistency prijateľná?
+10. Ako polyglot persistence zachováva jednoznačnú authority?
+11. Prečo document projection skryla a zosilnila `DB-PAY-56`?
+12. Ktoré positive, retry, rebuild a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: database-selection subject, authoritative fact, relational model, non-relational model, aggregate boundary, invariant boundary, normalization, denormalization, derived data store, dual authority, polyglot persistence, shard key, hot partition, query-first model, invariant-first model a database-model acceptance verdict.
+Relevantné pojmy: data-system subject, field authority, relational model, document aggregate, key-value/wide-column/graph/time-series model, aggregate boundary, schema generation, business key, partition/shard key, access-path contract, derived projection, projection checkpoint, authority graph, polyglot persistence, rebuildable state a data-model acceptance contract.
 
 ## Primárne zdroje
 
-- [PostgreSQL Documentation — SQL Language](https://www.postgresql.org/docs/current/sql.html)
-- [PostgreSQL Documentation — Transactions](https://www.postgresql.org/docs/current/transactions.html)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/current/)
+- [MySQL 8.4 Reference Manual — InnoDB](https://dev.mysql.com/doc/refman/8.4/en/innodb-storage-engine.html)
 - [MongoDB Manual — Data Modeling](https://www.mongodb.com/docs/manual/data-modeling/)
 - [MongoDB Manual — Transactions](https://www.mongodb.com/docs/manual/core/transactions/)
 
