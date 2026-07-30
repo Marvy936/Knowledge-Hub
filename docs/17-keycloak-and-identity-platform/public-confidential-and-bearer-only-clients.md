@@ -28,6 +28,10 @@ Public/confidential opisuje schopnosť autentizovať clienta voči authorization
 
 Acceptance subject zahŕňa realm a client generation, application components a deployment locations, code distribution, secret/key storage, enabled Standard/Implicit/Direct Access Grants/Service Accounts/Device/CIBA/token-exchange capabilities, redirect URIs, PKCE, client authenticator, service-account roles, linked scopes, token lifetimes, audiences a logout/revocation behavior.
 
+Tento subject spája configuration s konkrétnou runtime boundary. Samotný prepínač `Client authentication` nevysvetľuje, kto client používa, kde sa credential nachádza ani ktoré granty zostali zapnuté. Pri incident analysis sa preto musí preukázať celý capability set a jeho effective použitie, nie iba export client representation alebo názov access modelu.
+
+Rozmery subjectu sa hodnotia spolu. Public binary s náhodne vloženým secretom sa nestane confidential clientom, pretože každý používateľ vlastní jeho kópiu. Naopak server-side workload s chráneným keyom nie je bezpečný, ak má zároveň nepotrebné redirects, Direct Grants a broad service-account roles. Exact subject umožňuje vytvoriť positive aj negative matrix pre každý samostatný runtime job.
+
 ```text
 client settlement-ops-cli
 → native desktop binary distribuovaný používateľom
