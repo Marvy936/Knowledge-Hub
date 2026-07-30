@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/sections-10-13-prose-first-revalidation
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -13,10 +16,8 @@ jobs:
   audit:
     runs-on: self-hosted
     steps:
-      - name: Checkout branch
+      - name: Checkout revision
         uses: actions/checkout@v4
-        with:
-          ref: agent/sections-10-13-prose-first-revalidation
 
       - name: Set up Python
         uses: actions/setup-python@v5
