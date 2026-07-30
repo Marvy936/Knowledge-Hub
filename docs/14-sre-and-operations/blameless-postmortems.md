@@ -1,561 +1,219 @@
 # Blameless postmortems
 
-Blameless postmortem je reviewovaný a zdieľaný záznam incidentu, ktorý zachytáva **impact, časovú os, response, príčinné mechanizmy, úspešné aj neúspešné kontroly a overiteľné follow-up actions** bez osobného obviňovania ľudí, ktorí konali s informáciami a nástrojmi dostupnými v danom čase.
+Blameless postmortem je reviewovaný a zdieľaný záznam incidentu, ktorý zachytáva user a business impact, timeline, response, príčinné mechanizmy, úspešné aj zlyhané controls a overiteľné follow-up actions bez osobného obviňovania ľudí, ktorí konali s informáciami, incentives a nástrojmi dostupnými v danom čase. Jeho účelom nie je vytvoriť pekný dokument, ale premeniť incident na organizačný learning a production change.
 
-Blameless neznamená bez zodpovednosti, bez presnosti ani bez nepríjemných zistení. Znamená, že accountability sa viaže na opravu systémov, procesov a rozhodovacích podmienok, nie na zjednodušený príbeh o vinníkovi.
+Blameless neznamená anonymný, nepresný ani bez accountability. Human actions sa zapisujú fakticky; action owners majú termíny a verification; leadership poskytuje priority a accepted residual risk má ownera. Osobný blame je zlý analytický model, pretože nevysvetľuje, prečo systém považoval danú action za možnú, bezpečnú alebo normálnu.
+
+## 1. Dominantný incident-to-learning lifecycle
+
+Postmortem nadväzuje na incident a RCA, ale pridáva review, publication, action governance a cross-incident learning. Dokument je iba intermediate artifact; konečný outcome je effective control a znížený recurrence alebo impact risk.
 
 ```text
 postmortem trigger a exact incident subject
 → evidence-preserving draft
-→ factual impact a timeline
-→ causal analysis a response evaluation
+→ factual impact, timeline a response
+→ causal analysis a control evaluation
 → what went well / poorly / where we got lucky
-→ corrective-action portfolio
-→ independent review a publication
-→ action tracking a mechanism closure
-→ cross-incident learning a recurrence validation
+→ mechanism-bound action portfolio
+→ independent review a safe publication
+→ implemented, deployed a effective verification
+→ similar-system a recurrence review
+→ organizational learning closure
 ```
 
-## 1. Prečo postmortem existuje
+Incident response obnovuje službu. RCA vysvetľuje causes. Postmortem uchováva tento knowledge, hodnotí response a zabezpečuje, aby actions nezostali iba v dokumente.
 
-Incident response obnovuje službu. Postmortem mení incident na organizačné learning evidence.
+## 2. Exact postmortem subject a trigger
 
-Bez formalizovaného reviewu sa často stane:
-
-```text
-incident skončí
-→ temporary mitigation zostane
-→ assumptions sa zabudnú
-→ action items nemajú ownera
-→ rovnaký failure path sa vráti
-→ budúci responder začína od nuly
-```
-
-Postmortem má tri hlavné outcomes:
-
-1. reprodukovateľné porozumenie incidentu;
-2. konkrétne zníženie pravdepodobnosti alebo impactu recurrence;
-3. prenos knowledge mimo ľudí, ktorí boli priamo pri incidente.
-
-## 2. Exact postmortem subject
-
-Postmortem musí byť viazaný na immutable incident generation:
-
-- incident ID;
-- service a business capability;
-- impact start/end;
-- affected users, tenants, Regions alebo operations;
-- severity a declaration generation;
-- relevant releases/configurations/policies;
-- incident commander a response roles;
-- evidence cutoff;
-- document owner a reviewers;
-- publication state.
-
-Príklad:
+Postmortem patrí immutable incident a document generation. Zachováva incident ID, capability, affected cohorts, impact start/end, severity, release/config generations, response roles, evidence cutoff, document ownera, reviewers, revision a publication state.
 
 ```text
 postmortem: PM-SRE-PAY-54-v1
 incident: SRE-PAY-54
 capability: settlement reconciliation
-impact: 91 stale/unknown merchant settlements
+impact: 91 stale alebo unknown merchant settlements
 technical cohort: 7 842 active rows incorrectly archived
 window: 02:14–06:03 UTC
-review status: draft → reviewed → published
+status: draft → reviewed → published
 ```
 
-Editovanie published postmortemu má vytvoriť novú revision alebo auditovanú opravu, nie potichu prepísať historical record.
+Published document sa neopravuje silent editom; nová evidence vytvára auditovanú revision alebo correction note. Trigger criteria sa definujú pred incidentom: významný user impact, data corruption/loss, SEV-1/2, veľký error-budget burn, destructive intervention, missed recovery objective, monitoring/escalation failure, high-potential near miss alebo recurrence. Minor events môžu mať lightweight review, no criteria nesmú závisieť od reputačného nepohodlia tímu.
 
-## 3. Kedy postmortem vytvoriť
+## 3. Blameless analysis a accountability
 
-Criteria majú byť definované pred incidentom. Typické triggers:
+Blameless contract predpokladá, že ľudia mali pracovný cieľ a konali podľa vtedy dostupného local contextu. Analýza sa pýta, aké signals, defaults, permissions, incentives, workload a process urobili dané rozhodnutie pravdepodobným.
 
-- user-visible outage alebo degradation nad threshold;
-- data loss, corruption alebo confidentiality impact;
-- error-budget consumption nad policy hranicu;
-- SEV-1/SEV-2 declaration;
-- manual failover, rollback alebo destructive intervention;
-- recovery time nad objective;
-- monitoring alebo escalation failure;
-- near miss s vysokým potential impactom;
-- recurrence predchádzajúceho mechanismu;
-- stakeholder request.
-
-Každý minor alert nepotrebuje plný dokument. Menšie events môžu používať lightweight review. Kritérium však nesmie závisieť od toho, či incident vyzerá pre tím nepríjemne.
-
-## 4. Blamelessness ako analysis contract
-
-Blameless writing predpokladá:
-
-```text
-ľudia mali dobrý úmysel
-+ konali podľa vtedy dostupných informácií
-+ používali povolené nástroje a procesy
-→ analyzujeme, prečo environment podporil chybný outcome
-```
-
-Namiesto:
-
-```text
-operator neopatrne spustil compactor
-```
-
-použi:
+Namiesto `operator neopatrne spustil compactor` je presnejšie:
 
 ```text
 release workflow povolil production activation,
-pretože config schema akceptovala missing scope,
-canary vrátila zero affected rows
-a gate overoval job exit namiesto business invariantu
+pretože config schema prijala missing scope,
+canary mala zero eligible rows
+a gate hodnotil exit code namiesto business invariantu.
 ```
 
-Taký opis je presnejší aj actionable.
+Role alebo identity možno uviesť pre timeline, audit, handoff, action ownership a recognition dobrej response práce. Zakázané je hodnotiace označenie bez causal významu. Úmyselné podvody alebo závažné policy violations patria do príslušného procesu; technická analýza stále skúma prevention, detection a blast-radius limits.
 
-## 5. Blameless neznamená anonymný
+Accountability znamená, že postmortem owner dokončí review, action owners dodajú alebo eskalujú blockers, reviewers odmietnu plytké causes a leadership poskytne capacity. Blamelessness nie je dôvod tolerovať neuzavreté actions.
 
-Mená alebo role môžu byť potrebné pre:
+## 4. Impact, detection a factual timeline
 
-- incident handoff;
-- audit;
-- action ownership;
-- timeline reconstruction;
-- recognition dobrej response práce.
+Executive summary v niekoľkých vetách vysvetlí, čo sa stalo, komu, ako dlho, cez aký failure mechanismus, ako prebehla recovery a ktoré actions sú najdôležitejšie. Nesmie deklarovať definitívnu root cause pred dokončením analýzy.
 
-Zakázaný nie je identity context, ale osobné hodnotenie bez mechanistickej hodnoty. V širšie zdieľanej verzii možno identity minimalizovať podľa privacy a security policy.
+Impact je user-centered a numerický: affected users/operations, duration, failed/delayed/unknown outcomes, financial/legal/security/support impact, data-integrity class, SLO/error-budget consumption, cohorts, confidence a limitations. `Database bola corrupted` je technical state, nie impact statement.
 
-## 6. Accountability bez blame
-
-Healthy accountability znamená:
-
-- incident owner zabezpečí completion dokumentu;
-- action owners doručia alebo explicitne eskalujú blockers;
-- leadership poskytne priority a capacity;
-- reviewers odmietnu plytké causal claims;
-- accepted residual risk má ownera a expiry;
-- intentional policy violations sa riešia samostatným vhodným procesom.
-
-Blamelessness nie je výhovorka pre neuzatvorené action items.
-
-## 7. Povinná štruktúra
-
-Kvalitný postmortem obsahuje minimálne:
-
-1. metadata a status;
-2. executive summary;
-3. user/business impact;
-4. detection a response summary;
-5. overenú timeline;
-6. trigger a causal analysis;
-7. contributing factors;
-8. what went well;
-9. what went poorly;
-10. where we got lucky;
-11. recovery a reconciliation;
-12. corrective actions;
-13. residual risk;
-14. lessons a similar-system scope;
-15. review a publication evidence.
-
-Template pomáha konzistentnosti, ale nesmie nahradiť myslenie.
-
-## 8. Executive summary
-
-Summary má v niekoľkých vetách vysvetliť:
-
-```text
-čo sa stalo
-+ komu a ako to ublížilo
-+ ako dlho
-+ hlavný failure mechanismus
-+ ako bola služba obnovená
-+ aké najdôležitejšie actions nasledujú
-```
-
-Nesmie tvrdiť definitívnu root cause, kým analysis nie je dokončená.
-
-Príklad:
-
-```text
-Release 7.25.0 aktivoval settlement compactor, ktorý interpretoval
-chýbajúci tenant scope ako wildcard a archivoval aj active rows.
-Provider callbacks potom stratili correlation path; 91 merchant settlements
-bolo dočasne stale alebo unknown. Job bol zastavený, affected cohort bol
-obnovený z isolated point-in-time restore a reconciliovaný s provider ledgerom.
-Follow-up odstraňuje wildcard semantics, zavádza bounded affected manifest
-a testuje coordinated restore consistency group.
-```
-
-## 9. Impact
-
-Impact musí byť user-centered a numericky podložený:
-
-- počet affected users/operations;
-- duration;
-- failed, degraded, delayed a unknown outcomes;
-- financial, legal, security alebo support impact;
-- data integrity/loss classification;
-- SLO/error-budget impact;
-- affected cohorts;
-- confidence a measurement limitations.
-
-`Database bola corrupted` nie je impact statement. Je to technický stav.
-
-## 10. Detection a response
-
-Zaznamenaj oddelene:
+Response timings sa oddeľujú:
 
 ```text
 time to detect
-→ time to acknowledge
-→ time to declare
-→ time to contain
-→ time to technical recovery
-→ time to business reconciliation
-→ time to full closure
+→ acknowledge
+→ declare
+→ contain
+→ technical recovery
+→ business reconciliation
+→ full closure
 ```
 
-Pri `SRE-PAY-54` bola database healthy a job skončil successful. Incident odhalila až callback-correlation correctness a merchant-state discrepancy. To je monitoring lesson, nie iba timeline detail.
+Timeline používa exact state transitions, source a confidence, nie retrospektívne hodnotenia. `02:10 — workload načítal config 54 bez tenant_scope; config read-back potvrdzuje absent field` je analyticky hodnotnejšie než `team urobil zlú konfiguráciu`.
 
-## 11. Factual timeline
+## 5. Controls: went well, poorly a luck
 
-Timeline používa overené state transitions. Každá položka má:
+`What went well` identifikuje controls a behavior, ktoré treba zachovať. Pri `SRE-PAY-54` business correctness SLI odhalila silent failure, IC zastavil destructive jobs, WAL/audit zachovali IDs, provider podporoval idempotency lookup, isolated restore zabránil broad rewind a responders odmietli unsafe replay.
 
-- timestamp a timezone;
-- actor alebo system subject;
-- action/transition;
-- evidence source;
-- outcome;
-- confidence.
+`What went poorly` pomenúva system gaps: missing scope bol fail-open, canary nemala positive eligible population, job oracle bol exit code, broad role a unbounded batch zvýšili impact, restore decrypt grant bol stale a consistency-group manifest chýbal. Formulácia `team nevedel` sa nahrádza konkrétnym missing signalom alebo contractom.
 
-Nevkladaj do timeline retrospectívne hodnotenie:
+`Where we got lucky` odhaľuje latentný risk. WAL clean point bol ešte retained, provider ledger dostupný, immutable reference zostala pri väčšine rows, incident nastal mimo najvyššieho peaku a corruption nezasiahla credentials/audit. Luck nie je control; kritické lucky condition potrebuje action alebo explicitné risk acceptance.
 
-```text
-02:10 — team urobil zlú konfiguráciu
-```
+## 6. Causal section a response evaluation
 
-Lepšie:
+Postmortem preberá RCA verdict bez jeho zjednodušenia na dramatický lineárny príbeh. Rozlišuje trigger, technical/systemic roots, escape/detection causes, amplification, recovery delay a residual unknowns. Causal tvrdenia majú evidence a counterfactual podporu.
 
-```text
-02:10 — workload načítal config generation 54 bez tenant_scope;
-config read-back potvrdzuje absent field
-```
+Zároveň hodnotí incident response: či declaration prišla včas, command roles boli jasné, actions boli bounded, evidence sa zachovalo, communication bola pravdivá, mitigation znížila impact a recovery zahŕňala business reconciliation. Dobrá root cause analýza nekompenzuje zlý response process a naopak.
 
-## 12. What went well
+## 7. Action portfolio a prioritization
 
-Táto sekcia nie je dekorácia. Identifikuje controls, ktoré treba zachovať alebo rozšíriť:
-
-- business correctness SLI odhalila silent failure;
-- incident commander zastavil ďalšie destructive jobs;
-- WAL a audit zachovali exact affected IDs;
-- provider podporoval idempotency key lookup;
-- isolated restore zabránil broad production rewind;
-- support identifikoval affected merchants;
-- responders eskalovali uncertainty namiesto unsafe replayu.
-
-Silné response behavior sa má explicitne uznať.
-
-## 13. What went poorly
-
-Opisuje system/process gaps:
-
-- destructive config bola fail-open;
-- canary nemala positive eligible population;
-- job success oracle bol exit code;
-- broad DB role a chýbajúci max scope zväčšili blast radius;
-- restore decryption grant nebol current;
-- consistency-group manifest chýbal;
-- business recovery bola pomalšia než deklarovaný RTO.
-
-Vyhni sa formulácii `team nevedel`, ak možno presne pomenovať chýbajúci signal, tool alebo contract.
-
-## 14. Where we got lucky
-
-Luck analysis odhaľuje latentný risk:
-
-- idempotency keys zabránili potvrdeným duplicate provider settlements;
-- compactor neodstránil immutable provider reference pre všetky rows;
-- WAL retention ešte obsahovala clean point;
-- incident nastal mimo najvyššieho traffic peak-u;
-- decryption key nebola compromised;
-- provider ledger bol dostupný pre reconciliation.
-
-Luck sa nesmie zameniť za control. Každé kritické `mali sme šťastie` potrebuje risk decision alebo action.
-
-## 15. Causal section
-
-Postmortem používa výsledok RCA, ale neprepisuje ho na dramatický lineárny príbeh.
-
-Rozlišuj:
-
-- trigger;
-- technical root cause;
-- systemic root cause;
-- escape/detection causes;
-- amplification factors;
-- recovery-delay causes;
-- residual unknowns.
-
-Causal tvrdenia odkazujú na evidence a counterfactual reasoning. `Root cause: operator error` je review failure.
-
-## 16. Action items
-
-Action items majú odstraňovať alebo obmedzovať mechanisms:
+Actions musia mapovať na failure mechanisms a kombinovať prevent, detect, contain, recover a learn controls. Iba detection necháva incident opakovať; iba prevention môže byť neúmerne drahá a stále nezlepší recovery.
 
 | ID | Mechanismus | Action | Owner | Priority | Due | Verification |
 |---|---|---|---|---|---|---|
-| ARCH-219 | missing scope → wildcard | mandatory scope + fail-closed runtime | Settlement Platform | P0 | 2026-08-05 | missing/empty/wrong scope rejected |
-| SAFE-87 | unbounded batch | affected manifest + max 500 rows | Data Platform | P0 | 2026-08-07 | broad batch abort test |
-| OBS-311 | silent archive corruption | transition/correlation SLI | Observability | P1 | 2026-08-12 | controlled failure pages |
-| REC-144 | slow restore access | decryption/access canary | Resilience | P1 | 2026-08-10 | isolated restore drill |
-| REC-145 | incomplete consistency group | DB/outbox/broker/provider manifest | Payments SRE | P0 | 2026-08-14 | end-to-end reconciliation drill |
+| ARCH-219 | missing scope → wildcard | required scope + fail-closed runtime | Settlement Platform | P0 | 2026-08-05 | missing/empty/wrong scope rejected |
+| SAFE-87 | unbounded batch | manifest + max 500 rows | Data Platform | P0 | 2026-08-07 | broad batch abort test |
+| OBS-311 | silent corruption | transition/correlation SLI | Observability | P1 | 2026-08-12 | controlled failure pages |
+| REC-144 | stale decrypt access | restore access canary | Resilience | P1 | 2026-08-10 | isolated drill |
+| REC-145 | incomplete consistency group | DB/outbox/broker/provider manifest | Payments SRE | P0 | 2026-08-14 | reconciliation drill |
 
-Action item musí mať verification, nie iba status `Done`.
+Priority vychádza z impactu, recurrence, current exposure, lead time, dependency, error-budget a compliance/security urgency. Organizácia môže mať action-item SLO, ale hodnoty sú local policy. `Všetko P0` odstráni schopnosť rozhodovať.
 
-## 17. Action classes
+## 8. Review, publication a knowledge distribution
 
-Vyvážené portfolio obsahuje:
+Independent review overuje impact completeness, evidence timeline, causal depth, factual language, control analysis, action mapping, owners/terms, privacy redaction, similar-system scope a publication audience. Unreviewed draft nie je organizational knowledge.
 
-### Prevent
+Postmortem sa zdieľa owning a dependent teams, platform/security/data owners, leadership podľa impactu a searchable incident repository. Secrets, PII, exploit details alebo sensitive vendor data patria do redacted alebo restricted annexu. Cieľom je čo najširšie useful learning bez rozšírenia security/privacy risku.
 
-Odstráni failure path alebo invalid state.
+Structured metadata podporuje trend analysis: common triggers, escape causes, detection gaps, dependencies, recovery delays, stale runbooks, overdue actions, toil a repeated technology/control failures. Desať lokálnych incidents môže odhaliť jednu platform root cause.
 
-### Detect
+## 9. Connected postmortem `PM-SRE-PAY-54-v1`
 
-Skráti čas do spoľahlivého signal-u.
+Impact zahŕňal `186 420` broad-archived rows, `7 842` neterminálnych, `613` callbacks so secondary correlation, `91` stale/unknown merchant settlements, nula potvrdených duplicates a business recovery `3 h 49 min`, čím sa prekročil RTO `45 min`.
 
-### Contain
+Learning verdict nebol „jedna osoba zle nastavila parameter“. Destructive workflow považoval missing scope za validný broad intent a delivery/recovery systém túto interpretáciu neodmietol. Replication a backup zachovali validné bytes poškodeného state-u; decrypt/access a consistency-group gaps predĺžili recovery.
 
-Zmenší blast radius alebo rate.
+Actions preto nesmerovali iba na compactor code, ale aj schema contract, blast-radius guardrail, business canary, detection, restore access, reconciliation a similar-system wildcard audit.
 
-### Recover
+## 10. Action lifecycle a mechanism closure
 
-Skráti a spresní obnovu.
-
-### Learn
-
-Rozšíri knowledge, testy alebo similar-system audit.
-
-Iba prevent actions môžu byť neúmerne drahé; iba detect actions nechávajú incident opakovať. Portfolio má byť risk-based.
-
-## 18. Priority a action-item SLO
-
-Postmortem action priority má vychádzať z:
-
-- potential impact;
-- recurrence likelihood;
-- current exposure;
-- control effectiveness;
-- implementation lead time;
-- dependencies;
-- error-budget policy;
-- compliance alebo security urgency.
-
-Organizácia môže definovať action-item SLO, napríklad P0 mitigation do dní a mechanism closure do týždňov. Čísla musia byť lokálnou policy, nie univerzálnym pravidlom.
-
-## 19. Review gate
-
-Nezávislý review overuje:
-
-- impact completeness;
-- timeline evidence;
-- causal depth;
-- blameless factual language;
-- what-went-well/poorly/luck coverage;
-- action mapping na mechanisms;
-- owners, priority a due dates;
-- privacy/security redaction;
-- similar-system scope;
-- publication audience.
-
-Unreviewed postmortem nie je organizational knowledge.
-
-## 20. Publication a sharing
-
-Zdieľanie má byť čo najširšie v rámci bezpečnostných a privacy hraníc:
-
-- owning team;
-- dependent teams;
-- platform/security/data owners;
-- leadership podľa impactu;
-- searchable incident repository;
-- training alebo game-day library.
-
-Secrets, customer PII, exploit details alebo citlivé vendor údaje musia byť redacted alebo oddelené do restricted annexu.
-
-## 21. Action tracking
-
-Postmortem zostáva živý cez action lifecycle:
+Action zostáva otvorená cez celý lifecycle:
 
 ```text
-accepted action
+accepted
 → planned
 → implemented
-→ deployed/effective
-→ verified
+→ deployed
+→ effective read-back
+→ verified against original mechanism
 → mechanism closed alebo residual risk accepted
 ```
 
-Ticket closed po merge-i nie je production effectiveness. Verification môže vyžadovať:
+Merge alebo ticket status nie je production effectiveness. Verification môže vyžadovať negative test, canary, restore drill, wrong-subject rejection, recurrence-free observation window alebo second scenario. Similar-system search musí skontrolovať, či rovnaký wildcard/default/destructive pattern neexistuje inde.
 
-- negative test;
-- canary;
-- restore drill;
-- wrong-subject rejection;
-- second incident/operation simulation;
-- telemetry read-back;
-- recurrence-free observation window.
+Pri recurrence sa analyzuje, či ide o rovnaký mechanismus alebo podobný symptom, či previous controls boli effective v správnom scope-e a či vznikol alternate path. Recurrence nie je dôvod na blame; je dôkaz nedokončeného learning/control loopu.
 
-## 22. Recurrence review
+## 11. Postmortem acceptance contract
 
-Pri podobnom incidente sa pýtaj:
+Positive acceptance preukazuje objective trigger, exact generation, kvantifikovaný impact, evidence timeline, blameless causal depth, response evaluation, controls/luck analysis a mechanism-bound actions. Review a publication musia prejsť pre intended audience.
 
-- bol to rovnaký mechanismus alebo iba podobný symptom?
-- boli previous actions dokončené?
-- boli effective v správnom scope-e?
-- vznikol alternate path?
-- bola action príliš lokálna?
-- prečo similar-system search nenašiel túto variantu?
-- prečo recurrence watch skončil priskoro?
+Closure path vyžaduje deployed/effective verification, similar-system review a recurrence test. Forbidden paths zahŕňajú postmortem ako trest, anonymnú neurčitosť, memory-only timeline, `human error` root, `buďte opatrnejší` action, priority inflation a publikovaný dokument bez action governance.
 
-Recurring incident nie je dôvod na blame; je dôkaz, že learning/control loop nebol uzavretý.
+```text
+learning:
+incident evidence → causal/control review → actions
 
-## 23. Cross-incident trend analysis
+closure:
+action deployed → effective → mechanism test → trend learning
 
-Structured metadata umožňuje agregovať:
+forbidden:
+blame language
+impact bez user semantics
+luck ignorovaná
+closed ticket bez verification
+silent revision historical recordu
+```
 
-- opakované trigger classes;
-- common root/escape causes;
-- detection gaps;
-- affected dependencies;
-- recovery delays;
-- stale runbooks;
-- overdue action items;
-- toil a on-call amplification;
-- similar technology/control failures.
+## 12. Troubleshooting postmortem programu
 
-Trend analysis môže odhaliť, že desať lokálnych incidents má jednu platform root cause.
+Ak sa documents publikujú, ale reliability sa nemení, sleduj postmortem trigger coverage, time-to-draft/review, action ownership, overdue rate, effective verification, repeated mechanism classes a leadership capacity decisions.
 
-## 24. Worked postmortem `PM-SRE-PAY-54-v1`
+```text
+repeated incident
+→ prior postmortem generation
+→ causal/action mapping
+→ deployed scope a effectiveness
+→ similar-system review
+→ recurrence watch
+→ ownership/priority/blocker gap
+→ re-open action alebo program design
+```
 
-### Impact
+Počet postmortemov nie je success metric. Dôležitá je kvalita learningu a uzavretie high-risk mechanisms.
 
-- `186 420` rows broad-archived;
-- `7 842` rows nebolo terminal;
-- `613` provider callbacks potrebovalo secondary correlation;
-- `91` merchant-visible settlements bolo stale/unknown;
-- potvrdené duplicate settlements: `0`;
-- business recovery trvala `3 h 49 min`;
-- deklarovaný RTO `45 min` bol prekročený.
+## 13. Anti-patterny
 
-### What went well
+Postmortem anti-patterny buď poškodzujú psychological safety, alebo vytvárajú dokument bez účinnej zmeny.
 
-- business correctness SLI detegovala silent failure;
-- incident command zastavil destructive jobs;
-- WAL/audit poskytli affected manifest;
-- isolated restore prebehol bez production rewind;
-- provider idempotency lookup umožnil reconciliation;
-- responders odmietli broad replay pri unknown outcome.
+- **Postmortem ako trest —** ľudia skrývajú uncertainty a incidenty, čím rastie systemic risk.
+- **Blameless znamená nekonkrétny —** vynechanie actions a failures znemožní causal learning a accountability.
+- **Šablóna vyplnená po pamäti —** bez preserved evidence vznikne presvedčivý, no nepresný príbeh.
+- **Root cause je human error —** organizácia nevie, ktorý executable control zmeniť.
+- **Action je buďte opatrnejší —** nie je scoped, owned ani verifiable.
+- **Všetko P0 —** priority stratia význam a kritické controls sa utopia.
+- **Dokument published, actions zabudnuté —** pre usera je to nerozoznateľné od žiadneho postmortemu.
+- **Luck ignorovaná —** latentný high-impact path zostane otvorený.
 
-### What went poorly
-
-- missing scope bol wildcard;
-- zero-row canary vytvorila false confidence;
-- broad role a unbounded batch zväčšili impact;
-- restore identity nemala current decryption grant;
-- consistency-group a post-point manifest sa skladali počas incidentu;
-- declared RPO/RTO neboli odvodené od tested end-to-end recovery pathu.
-
-### Where we got lucky
-
-- WAL clean point bol stále retained;
-- provider ledger bol dostupný;
-- immutable external reference zostala pre väčšinu rows;
-- traffic bol pod campaign peakom;
-- corruption nezasiahla credential ani audit stores.
-
-### Learning verdict
-
-Incident nevznikol preto, že jedna osoba `zle nastavila parameter`. Vznikol preto, že destructive workflow považoval missing scope za validný broad intent a celý delivery/recovery systém túto interpretáciu neodmietol.
-
-## 25. Postmortem acceptance verdict
-
-Postmortem je prijatý, keď:
-
-- spĺňa pre-defined trigger criteria;
-- exact incident/document generation je identifikovaná;
-- impact je user/business-centered a kvantifikovaný;
-- timeline je evidence-backed;
-- language je factual a blameless;
-- response effectiveness je vyhodnotená;
-- what went well, poorly a luck sú explicitné;
-- causal section je dostatočne hlboká;
-- actions mapujú na failure mechanisms;
-- owners, priorities, due dates a verification existujú;
-- independent review prešiel;
-- document je publikovaný správnemu audience;
-- action tracking vedie až k effective-state verification;
-- similar-system a recurrence review sú naplánované;
-- sensitive data je správne chránené.
-
-## 26. Anti-patterny
-
-### Postmortem ako trest
-
-Ľudia skrývajú uncertainty a incidents, čím rastie systémový risk.
-
-### Blameless = bez konkrétnosti
-
-Vynechanie actions, actors a failures znemožní učenie.
-
-### Šablóna vyplnená po pamäti
-
-Bez preserved evidence vznikne presvedčivý, ale nepresný príbeh.
-
-### Root cause: human error
-
-Organizácia nevie, ktorý executable control má zmeniť.
-
-### Action: buďte opatrnejší
-
-Nie je scoped, owned ani verifiable.
-
-### Všetko P0
-
-Priority stratia význam a kritické actions sa utopia.
-
-### Dokument publikovaný, actions zabudnuté
-
-Pre usera je postmortem bez účinnej zmeny nerozoznateľný od žiadneho postmortemu.
-
-### Luck ignorovaná
-
-Latentný high-impact path zostane otvorený.
-
-## 27. Kontrolné otázky
+## 14. Kontrolné otázky
 
 1. Čo robí postmortem blameless, ale accountable?
-2. Aké objektívne triggers majú vyžadovať postmortem?
-3. Čo tvorí exact postmortem subject?
-4. Ako sa executive summary líši od causal analysis?
-5. Prečo musí byť impact user-centered?
-6. Ako zapísať timeline bez retrospectívneho blame?
-7. Prečo sú `what went well` a `where we got lucky` dôležité?
-8. Aké action classes tvorí vyvážené portfolio?
-9. Prečo merge alebo closed ticket nie je mechanism closure?
-10. Ako independent review zvyšuje kvalitu?
-11. Ako recurrence review odlíši rovnaký mechanismus od podobného symptómu?
-12. Čo musí overiť postmortem acceptance verdict?
+2. Ktoré objective triggers vyžadujú postmortem?
+3. Čo tvorí exact postmortem generation?
+4. Ako summary, timeline a causal section plnia odlišné úlohy?
+5. Prečo impact musí byť user-centered?
+6. Ako sa human action zapíše fakticky?
+7. Prečo analyzovať went well, poorly a luck?
+8. Ako action portfolio mapuje na mechanisms?
+9. Prečo merge nie je mechanism closure?
+10. Ako independent review a publication zvyšujú learning?
+11. Ako recurrence review odlíši same mechanism od similar symptom?
+12. Ktoré learning, closure a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: postmortem subject, blameless analysis contract, system accountability, postmortem trigger, factual timeline, what went well, what went poorly, where we got lucky, action-item SLO, mechanism closure, recurrence review, cross-incident trend analysis a postmortem acceptance verdict.
+Relevantné pojmy: postmortem subject, blameless analysis contract, system accountability, factual timeline, what went well/poorly/lucky, action portfolio, action-item SLO, mechanism closure, recurrence review, cross-incident trend analysis a postmortem acceptance contract.
 
 ## Primárne zdroje
 
-- [Google SRE — Postmortem Culture: Learning from Failure](https://sre.google/sre-book/postmortem-culture/)
-- [Google SRE Workbook — Postmortem Culture: Learning from Failure](https://sre.google/workbook/postmortem-culture/)
+- [Google SRE — Postmortem Culture](https://sre.google/sre-book/postmortem-culture/)
+- [Google SRE Workbook — Postmortem Culture](https://sre.google/workbook/postmortem-culture/)
 - [Google SRE — Incident Management Guide](https://sre.google/resources/practices-and-processes/incident-management-guide/)
-- [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
+- [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
