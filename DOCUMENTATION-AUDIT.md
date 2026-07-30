@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **309**
+- Audited authoritative articles: **310**
 - Audited conceptual sections: **12474**
-- Total words: **740,221**
-- Findings: **25652** (critical 7597, high 8799, medium 3223, low 6033)
-- File grades: A 1, B 4, C 2, D 302
+- Total words: **741,518**
+- Findings: **25624** (critical 7591, high 8785, medium 3219, low 6029)
+- File grades: A 4, B 4, C 2, D 300
 
 ## Interpretation
 
@@ -308,7 +308,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 158 | 4 | 6 | 9 | 23 | 2750 | `docs/00-foundations/automation-mindset.md` |
 | D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
-| D | 154 | 4 | 9 | 3 | 19 | 2389 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | D | 153 | 5 | 6 | 5 | 19 | 2652 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 145 | 6 | 6 | 3 | 15 | 2392 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
@@ -324,14 +323,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| D | 75 | 2 | 4 | 1 | 14 | 2394 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | C | 53 | 0 | 3 | 3 | 15 | 3765 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 | B | 29 | 0 | 0 | 0 | 25 | 3831 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | B | 25 | 0 | 0 | 0 | 21 | 4209 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 3605 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
-| B | 18 | 0 | 1 | 0 | 9 | 2315 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
+| B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
+| A | 10 | 0 | 0 | 0 | 9 | 2375 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 2513 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 9 | `docs/keycloak-block1-remediation-trigger.md` |
 
 ## Critical and high findings
 
@@ -17519,31 +17520,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 464, `term-before-explanation` — **16. Reconciliation acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`
 - **HIGH** line 464, `thin-concept-section` — **16. Reconciliation acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md`
-
-- **CRITICAL** line 297, `bare-bullet-items` — **17. Acceptance matrix**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact production redirect dostane code;`, `PKCE S256 exchange prejde raz;`, `intended user dostane iba expected roles/scopes/audience;`, `local session a protected API fungujú;`.
-- **CRITICAL** line 297, `outline-instead-of-explanation` — **17. Acceptance matrix**: 11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `list-first-introduction` — **1. Dominantný registration-to-session model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 297, `single-sentence-concept` — **17. Acceptance matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 354, `single-sentence-concept` — **Logout page ako revocation test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 297, `thin-concept-section` — **17. Acceptance matrix**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
-### `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md`
-
-- **CRITICAL** line 140, `bare-bullet-items` — **8. IdP-initiated flow a unsolicited Response**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact target client;`, `allowlisted default ACS;`, `bounded RelayState semantics;`, `replay protection;`.
-- **CRITICAL** line 281, `outline-instead-of-explanation` — **18. Metadata a key rollover test**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 295, `bare-bullet-items` — **19. Acceptance matrix**: 10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NameID a attributes majú expected type a authority;`, `local session dostane iba client-specific permission;`, `logout zruší Keycloak aj SP session podľa contractu.`, `wrong entity ID alebo unregistered ACS je odmietnuté;`.
-- **CRITICAL** line 295, `outline-instead-of-explanation` — **19. Acceptance matrix**: 12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **HIGH** line 140, `list-heavy-section` — **8. IdP-initiated flow a unsolicited Response**: 7 odrážok a iba 49 slov súvislého vysvetlenia.
-- **HIGH** line 210, `list-heavy-section` — **13. Audience, Destination, Recipient a time**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 261, `single-sentence-concept` — **17. SAML redesign**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 281, `bare-bullet-items` — **18. Metadata a key rollover test**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SP trust store načíta old aj new certificate;`, `Keycloak začne podpisovať new keyom;`, `new assertions prejdú na všetkých SP replicas;`, `old in-flight assertions zostanú overiteľné počas overlapu;`.
-- **HIGH** line 281, `single-sentence-concept` — **18. Metadata a key rollover test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 295, `single-sentence-concept` — **19. Acceptance matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 281, `thin-concept-section` — **18. Metadata a key rollover test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 295, `term-before-explanation` — **19. Acceptance matrix**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP-`, `ACS`, `SP`, `ID`, `SLO`
-- **HIGH** line 295, `thin-concept-section` — **19. Acceptance matrix**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
 ### `docs/16-gitops-and-platform-engineering/application-promotion.md`
 
 - **HIGH** line 24, `single-sentence-concept` — **2. Deploy, promote, release a expose**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
@@ -17643,27 +17619,23 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 237, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 373, `list-heavy-section` — **19. Self-service acceptance verdict**: 13 odrážok a iba 41 slov súvislého vysvetlenia.
 
-### `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md`
-
-- **HIGH** line 245, `bare-bullet-items` — **13. Connected incident KC-PAY-65**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `group hierarchy bola použitá ako permission hierarchy;`, `realm role bola použitá pre client-specific privilege;`, `session revocation sa skončila pri Keycloak SSO state-e.`.
-
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2996 | 511 | 0 | 0 | 3507 |
-| `single-sentence-concept` | 0 | 3094 | 0 | 0 | 3094 |
-| `outline-instead-of-explanation` | 2939 | 0 | 0 | 0 | 2939 |
-| `term-before-explanation` | 0 | 618 | 2152 | 0 | 2770 |
-| `thin-concept-section` | 0 | 2481 | 0 | 0 | 2481 |
-| `example-not-explicit` | 0 | 0 | 0 | 2405 | 2405 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2368 | 2368 |
-| `list-first-introduction` | 0 | 1530 | 0 | 0 | 1530 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1260 | 1260 |
-| `short-concept-section` | 0 | 0 | 1071 | 0 | 1071 |
+| `bare-bullet-items` | 2993 | 509 | 0 | 0 | 3502 |
+| `single-sentence-concept` | 0 | 3089 | 0 | 0 | 3089 |
+| `outline-instead-of-explanation` | 2936 | 0 | 0 | 0 | 2936 |
+| `term-before-explanation` | 0 | 617 | 2149 | 0 | 2766 |
+| `thin-concept-section` | 0 | 2478 | 0 | 0 | 2478 |
+| `example-not-explicit` | 0 | 0 | 0 | 2402 | 2402 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2365 | 2365 |
+| `list-first-introduction` | 0 | 1529 | 0 | 0 | 1529 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1262 | 1262 |
+| `short-concept-section` | 0 | 0 | 1070 | 0 | 1070 |
 | `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
 | `empty-section` | 785 | 0 | 0 | 0 | 785 |
-| `list-heavy-section` | 0 | 565 | 0 | 0 | 565 |
+| `list-heavy-section` | 0 | 563 | 0 | 0 | 563 |
 
 ## Required remediation pattern
 

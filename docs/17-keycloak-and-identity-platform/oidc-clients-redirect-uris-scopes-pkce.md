@@ -6,6 +6,8 @@ Najčastejší omyl je hodnotiť clienta podľa toho, či login funguje. Broad w
 
 ## 1. Dominantný registration-to-session model
 
+OIDC client registration je server-side policy object, ktorý musí zostať kontinuálne viazaný na konkrétnu application generation. Najprv sa určí vlastník a protected journey, potom realm issuer, client type, redirect destinations, browser transaction controls, grants, scopes a token consumers. Keycloak tieto values použije počas authorization a token exchange-u; client a resource server následne vykonajú vlastnú validation a authorization.
+
 ```text
 application ownership a protected journey
 → exact realm issuer a OIDC client generation
@@ -22,7 +24,9 @@ application ownership a protected journey
 → refresh, logout, revocation a second-login validation
 ```
 
-Registration generation musí byť viazaná na application release. Ak frontend release používa callback `/oauth/callback`, ale Keycloak client stále povoľuje starý broad wildcard, bezpečnostný výsledok je daný širším server-side allowlistom, nie intended route-om v kóde.
+Žiadna jednotlivá zelená fáza nepreukazuje celý outcome. Keycloak môže bezpečne vydať code, ale broad redirect ho doručí cudziemu hostu; client môže validovať ID Token, ale API dostane access token bez správnej audience; browser logout môže skončiť, ale starý bearer token zostane platný. Registration generation preto musí byť viazaná na application release aj downstream validation contract.
+
+Ak frontend release používa callback `/oauth/callback`, ale Keycloak stále povoľuje historický wildcard, effective trust určuje širší server-side allowlist. Druhý client alebo druhý environment musí mať samostatný subject a negative test; kopírovanie registration bez nového reviewu prenáša staré privilege a redirect assumptions.
 
 ## 2. Exact OIDC client subject
 
@@ -296,22 +300,25 @@ Client policy odmietne no-PKCE request a broad production redirect. API vyžaduj
 
 ## 17. Acceptance matrix
 
-Pozitívne tests:
+Acceptance matrix nie je zoznam smoke testov. Je to dôkaz, že rovnaká exact client generation povoľuje intended browser, token a API path a súčasne odmieta substitúcie, ktoré v incidente `KC-PAY-65` vytvorili privilege. Každý test musí zachovať realm issuer, client UUID/ID, redirect, PKCE transaction, token claims, local session a resource outcome, aby zelený výsledok nepatril inej konfigurácii.
 
-- exact production redirect dostane code;
-- PKCE `S256` exchange prejde raz;
-- intended user dostane iba expected roles/scopes/audience;
-- local session a protected API fungujú;
-- refresh a logout behavior zodpovedajú contractu.
+Pozitívna vetva overuje použiteľnosť a least privilege:
 
-Negatívne tests:
+- **Exact production redirect** — Keycloak doručí authorization code iba na `https://payments-admin.atlas.example/oauth/callback`; test následne overí, že callback patrí k pôvodnej `state` transaction.
+- **PKCE `S256` exchange** — client s pôvodným verifierom vymení code presne raz; token endpoint tým dokáže väzbu na client instance, nie iba znalosť code-u.
+- **Minimálna token projection** — intended user dostane iba schválenú audience, scopes a `payments-admin` client roles; unrelated realm alebo partner role sa v tokene nenachádza.
+- **End-to-end protected journey** — client validuje ID Token, vytvorí local session a API prijme access token iba pre povolený tenant, action a workflow state.
+- **Lifecycle behavior** — refresh rotation, idle/max session a logout vytvoria očakávané descendants a audit events bez toho, aby rozšírili token lifetime.
 
-- sibling preview subdomain je odmietnutá;
-- missing PKCE a `plain` method sú odmietnuté;
-- code s wrong verifierom alebo second exchange zlyhá;
-- wrong client, wrong realm a wrong audience sú odmietnuté;
-- unrelated realm role sa v tokene nenachádza;
-- old token alebo cookie po incident revocation nedokáže privileged operation.
+Negatívna vetva overuje security boundary a recovery:
+
+- **Foreign redirect** — sibling preview subdomain a iný path sú odmietnuté ešte pred vydaním code-u; to dokazuje, že wildcard z incidentu už nie je effective.
+- **PKCE downgrade alebo substitution** — request bez challenge, metóda `plain`, wrong verifier a druhý exchange toho istého code-u zlyhajú bez vydania tokenu.
+- **Wrong trust subject** — wrong client, wrong realm issuer a token s wrong audience sú odmietnuté na príslušnej client alebo API boundary.
+- **Privilege non-projection** — user môže mať unrelated effective realm role, ale role scope a mapper ju nesmú vložiť do tokenu tohto clienta.
+- **Incident revocation** — starý access token, refresh descendant aj local cookie po revocation nedokážu privileged operation; browser návrat na login stránku sám osebe nestačí.
+
+Verdict je green až vtedy, keď všetky positive aj forbidden paths patria rovnakej candidate generation. Ak test iba prejde cez login UI, ale nezachová token audience, role diff a API result, výsledok je neúplný a nesmie povoliť production rollout.
 
 ## 18. Troubleshooting flow
 
@@ -353,7 +360,7 @@ Mapper vloží claim; nerozhoduje, či konkrétna settlement operation je povole
 
 ### Logout page ako revocation test
 
-Browser redirect neoveruje access token ani application session invalidation.
+Browser redirect neoveruje access token ani application session invalidation. Tento anti-pattern vytvára false recovery verdict: používateľ vidí login stránku, zatiaľ čo ukradnutý bearer token alebo server-side application session stále vykonáva business operácie.
 
 ## 20. Kontrolné otázky
 

@@ -4287,44 +4287,58 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "title": "OIDC clients, redirect URIs, scopes a PKCE",
-      "words": 2394,
+      "words": 2786,
       "headings": 27,
       "sections": 27,
-      "findings": 21,
-      "critical": 2,
-      "high": 4,
-      "medium": 1,
-      "low": 14,
-      "score": 75,
-      "grade": "D"
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
       "title": "Realm, client, user, group, role a session",
-      "words": 2315,
+      "words": 2375,
       "headings": 25,
       "sections": 25,
-      "findings": 10,
+      "findings": 9,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 9,
-      "score": 18,
-      "grade": "B"
+      "score": 10,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "title": "SAML clients, metadata, assertions a bindings",
-      "words": 2389,
+      "words": 3225,
       "headings": 29,
       "sections": 29,
-      "findings": 35,
-      "critical": 4,
-      "high": 9,
-      "medium": 3,
-      "low": 19,
-      "score": 154,
-      "grade": "D"
+      "findings": 17,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 17,
+      "score": 21,
+      "grade": "B"
+    },
+    {
+      "path": "docs/keycloak-block1-remediation-trigger.md",
+      "title": "keycloak-block1-remediation-trigger",
+      "words": 9,
+      "headings": 0,
+      "sections": 0,
+      "findings": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "score": 0,
+      "grade": "A"
     }
   ],
   "findings": [
@@ -234606,15 +234620,15 @@
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "1. Dominantný registration-to-session model",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "3. Public a confidential execution boundary",
-      "line": 51,
+      "line": 55,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -234623,7 +234637,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "3. Public a confidential execution boundary",
-      "line": 51,
+      "line": 55,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -234632,7 +234646,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "6. Web Origins a CORS nie sú redirect allowlist",
-      "line": 97,
+      "line": 101,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -234641,7 +234655,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "7. Authorization Code + PKCE v Keycloak clientovi",
-      "line": 111,
+      "line": 115,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -234650,7 +234664,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "9. Client scopes: default, optional a dedicated",
-      "line": 153,
+      "line": 157,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -234659,7 +234673,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "10. Protocol mappers a claim authority",
-      "line": 173,
+      "line": 177,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -234668,7 +234682,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "11. Full Scope Allowed a role scope mappings",
-      "line": 192,
+      "line": 196,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -234677,7 +234691,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "12. OAuth scope parameter a Keycloak client scope",
-      "line": 210,
+      "line": 214,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -234686,7 +234700,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "13. Audience a token consumer",
-      "line": 230,
+      "line": 234,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -234695,101 +234709,20 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "14. Session a logout configuration",
-      "line": 236,
+      "line": 240,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact production redirect dostane code;`, `PKCE S256 exchange prejde raz;`, `intended user dostane iba expected roles/scopes/audience;`, `local session a protected API fungujú;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "17. Acceptance matrix",
-      "line": 297,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PKCE`, `S256`, `API`",
-      "score": 4
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "18. Troubleshooting flow",
-      "line": 316,
+      "line": 323,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
-      "section": "Logout page ako revocation test",
-      "line": 354,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
@@ -234873,15 +234806,6 @@
       "score": 1
     },
     {
-      "path": "docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md",
-      "section": "13. Connected incident KC-PAY-65",
-      "line": 245,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `group hierarchy bola použitá ako permission hierarchy;`, `realm role bola použitá pre client-specific privilege;`, `session revocation sa skončila pri Keycloak SSO state-e.`.",
-      "score": 8
-    },
-    {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "section": "3. Client ID ako SP entity ID",
       "line": 53,
@@ -234930,37 +234854,10 @@
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "section": "8. IdP-initiated flow a unsolicited Response",
       "line": 140,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "8. IdP-initiated flow a unsolicited Response",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact target client;`, `allowlisted default ACS;`, `bounded RelayState semantics;`, `replay protection;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "8. IdP-initiated flow a unsolicited Response",
-      "line": 140,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "8. IdP-initiated flow a unsolicited Response",
-      "line": 140,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACS`, `CSRF`, `policy`",
-      "score": 4
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
@@ -235011,37 +234908,10 @@
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "section": "13. Audience, Destination, Recipient a time",
       "line": 210,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "13. Audience, Destination, Recipient a time",
-      "line": 210,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "13. Audience, Destination, Recipient a time",
-      "line": 210,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "13. Audience, Destination, Recipient a time",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACS`",
-      "score": 4
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
@@ -235056,123 +234926,15 @@
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "section": "17. SAML redesign",
       "line": 261,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "18. Metadata a key rollover test",
-      "line": 281,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "18. Metadata a key rollover test",
-      "line": 281,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "18. Metadata a key rollover test",
-      "line": 281,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SP trust store načíta old aj new certificate;`, `Keycloak začne podpisovať new keyom;`, `new assertions prejdú na všetkých SP replicas;`, `old in-flight assertions zostanú overiteľné počas overlapu;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "18. Metadata a key rollover test",
-      "line": 281,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "18. Metadata a key rollover test",
-      "line": 281,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "18. Metadata a key rollover test",
-      "line": 281,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NameID a attributes majú expected type a authority;`, `local session dostane iba client-specific permission;`, `logout zruší Keycloak aj SP session podľa contractu.`, `wrong entity ID alebo unregistered ACS je odmietnuté;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
-      "section": "19. Acceptance matrix",
-      "line": 295,
+      "section": "18. Metadata a key rollover test",
+      "line": 283,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -235181,16 +234943,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "section": "19. Acceptance matrix",
-      "line": 295,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP-`, `ACS`, `SP`, `ID`, `SLO`",
-      "score": 7
+      "line": 297,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "section": "20. Troubleshooting flow",
-      "line": 315,
+      "line": 321,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

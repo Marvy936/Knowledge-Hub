@@ -258,11 +258,11 @@ Oba protocol clients mali `Full Scope Allowed`. OIDC token obsahoval:
 
 SAML mapper publikoval rovnakú effective role ako `Role=settlement-admin`. Downstream applications verili role stringu bez client-specific authority a tenant checku.
 
-Po sign-out-e zmizla Keycloak browser session. OIDC access token a local SAML application session však pokračovali. Incident ukázal tri odlišné defects:
+Po sign-out-e zmizla Keycloak browser session. OIDC access token a local SAML application session však pokračovali. Incident ukázal tri kauzálne odlišné defects, ktoré treba opraviť na troch boundaries:
 
-1. group hierarchy bola použitá ako permission hierarchy;
-2. realm role bola použitá pre client-specific privilege;
-3. session revocation sa skončila pri Keycloak SSO state-e.
+1. **Group hierarchy sa stala permission hierarchy** — contractor zdedil privilege z organizačného parenta, hoci direct-role audit bol čistý; náprava preto musí oddeliť organization group od dedicated access group.
+2. **Realm role reprezentovala client-specific privilege** — `settlement-admin` sa dostala do OIDC aj SAML projection; náprava používa client roles a explicitné role scope mappings.
+3. **Revocation skončila pri Keycloak SSO state-e** — sign-out odstránil browser session, ale nie už vydaný token ani local SP session; recovery musí prejsť celý session descendant graph.
 
 ## 14. Redesign role a session modelu
 

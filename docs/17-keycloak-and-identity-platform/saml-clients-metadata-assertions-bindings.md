@@ -139,19 +139,19 @@ Signed AuthnRequest môže byť required, najmä keď request ovplyvňuje ACS, N
 
 ## 8. IdP-initiated flow a unsolicited Response
 
-IdP-initiated login vzniká bez predchádzajúceho SP AuthnRequest-u. Nemá `InResponseTo` binding na pending transaction. Môže byť potrebný pre legacy portal alebo application launcher, ale má slabší login-intent a tenant-routing context.
+IdP-initiated login vzniká bez predchádzajúceho SP AuthnRequest-u. Keycloak preto nemôže vložiť `InResponseTo` väzbu na pending SP transaction a Service Provider nemá pôvodný request, z ktorého by odvodil expected client, Assertion Consumer Service, return destination a requested assurance. Tento flow môže byť potrebný pre legacy launcher, ale používa slabší login-intent model než SP-initiated SSO.
 
-Safe design potrebuje:
+Bezpečný návrh musí nahradiť chýbajúci request context explicitným a úzkym contractom. Keycloak vyberie presne jeden target client a jeho allowlisted default ACS; Service Provider prijme unsolicited Response iba na dedikovanom path-e a nepoužije arbitrary `RelayState` ako tenant, role alebo open-redirect authority. Response a Assertion IDs idú do shared replay cache, pretože validná podpísaná bearer assertion nesmie vytvoriť druhú local session.
 
-- exact target client;
-- allowlisted default ACS;
-- bounded RelayState semantics;
-- replay protection;
-- login CSRF/open-redirect controls;
-- client-specific role/attribute mapping;
-- local session a tenant policy.
+Controls majú samostatné úlohy:
 
-Privileged admin applications majú typicky preferovať SP-initiated flow. „Keycloak to podporuje“ nie je dôvod aktivovať unsolicited responses.
+- **Exact target client a default ACS** — IdP launcher nesmie dynamicky vybrať iný privileged client alebo neinventarizovaný callback.
+- **Bounded `RelayState`** — hodnota odkazuje iba na server-side allowlisted return state; neobsahuje neoverený tenant ani externú URL.
+- **Replay a login-CSRF control** — SP spotrebuje Response/Assertion IDs raz a viaže vytvorenie session na očakávaný browser/login intent podľa vlastného launcher contractu.
+- **Client-specific mapper** — assertion obsahuje iba NameID a attributes, ktoré tento SP smie authoritative konzumovať; broad effective realm roles sa nepublikujú.
+- **Local authorization a revocation** — SP po assertion validation stále overí tenant a resource permission a musí vedieť server-side zrušiť local session nezávisle od SLO.
+
+Privileged admin applications majú preferovať SP-initiated flow. Ak IdP-initiated path zostane, patrí do samostatného low-risk clienta a acceptance matrix musí preukázať, že unsolicited Response pre privileged clienta je odmietnutá. Samotná schopnosť Keycloaku tento flow emitovať nie je bezpečnostné zdôvodnenie.
 
 ## 9. Signing direction a signature requirements
 
@@ -209,16 +209,16 @@ Missing alebo multiple attribute values potrebujú explicitné behavior. SP nesm
 
 ## 13. Audience, Destination, Recipient a time
 
-Keycloak ako IdP generuje fields, ktoré SP musí overiť:
+Keycloak ako Identity Provider generuje viacero navzájom dopĺňajúcich bindings. Service Provider ich musí vyhodnotiť voči jednej pending transaction a jednej client/metadata generation; validácia iba podpisu necháva otvorenú substitúciu medzi clients, endpoints alebo starými responses. Každé pole odpovedá na inú otázku o intended consumerovi, transport destination, bearer presentation, request correlation a časovej platnosti.
 
-- **AudienceRestriction** — logical SP entity, pre ktorý assertion platí;
-- **Destination** — endpoint, kam je protocol Response adresovaná;
-- **Recipient** — ACS, kde možno bearer assertion prezentovať;
-- **InResponseTo** — pending request, ku ktorému response patrí;
-- **NotBefore/NotOnOrAfter** — bounded validity;
-- **SessionIndex** — identifier relevantný pre session/logout correlation.
+- **`AudienceRestriction` — logical SP identity.** Hodnota musí obsahovať exact entity ID clienta, pre ktorý assertion vznikla; assertion pre sibling SP sa nesmie prijať iba preto, že používa rovnaký certificate.
+- **`Destination` — protocol Response endpoint.** SP porovná externú URL, na ktorú bola Response adresovaná, s aktuálnym request endpointom po trusted proxy normalization.
+- **`Recipient` — povolený ACS pre bearer assertion.** SubjectConfirmation musí smerovať na konkrétny Assertion Consumer Service; iný shared alebo historický ACS je substitution failure.
+- **`InResponseTo` — pending AuthnRequest.** SP nájde request ID v shared transaction store a atomicky ho spotrebuje; missing väzba je povolená iba v osobitnom IdP-initiated contracte.
+- **`NotBefore` a `NotOnOrAfter` — bounded validity.** SP používa monitorovanú malú clock-skew toleranciu a rešpektuje exclusive expiry boundary, aby nepredĺžil stolen-assertion window.
+- **`SessionIndex` — session/logout correlation.** Identifier pomáha spojiť assertion s Keycloak a SP session state-om, ale sám neautorizuje business action ani negarantuje úspešné SLO.
 
-Tieto fields nie sú duplicity. Wrong audience môže znamenať token substitution medzi clients. Wrong destination/recipient môže znamenať callback confusion. Missing `InResponseTo` mení transaction model. Veľká clock-skew tolerancia predlžuje replay window.
+Tieto fields nie sú duplicitné. Wrong audience znamená client substitution, wrong destination alebo recipient callback confusion, missing `InResponseTo` zmenu transaction modelu a veľká časová tolerancia replay risk. Acceptance preto musí meniť každú hodnotu samostatne a potvrdiť, že SP odmietne práve tú chybnú boundary.
 
 ## 14. Keycloak session a downstream SAML session
 
@@ -260,7 +260,7 @@ Po Keycloak sign-out-e local SP session zostala aktívna. Útočník pokračoval
 
 ## 17. SAML redesign
 
-Redesign používa:
+Redesign odstraňuje implicitný shared-client model a vytvára jeden reprodukovateľný federation contract pre privileged SP. Každá zmena entity ID, endpointu, keyu alebo mappera je nová client generation, ktorá musí prejsť metadata diffom a protocol canary pred produkčným použitím.
 
 ```text
 unique production SP entity ID
@@ -276,41 +276,47 @@ unique production SP entity ID
 → server-side local session revocation
 ```
 
-Ak IdP-initiated path zostane pre low-risk portal, použije samostatného clienta, default landing page bez privilege, strict RelayState a samostatný acceptance test.
+Tento chain presúva tenant a privilege decision z `RelayState` a broad realm role na exact client, allowlisted mapper a downstream resource policy. Signed request chráni client-controlled request fields, `InResponseTo` obnovuje transaction binding a server-side SP revocation poskytuje recovery aj počas SLO outage-u.
+
+Ak IdP-initiated path zostane pre low-risk portal, použije samostatného clienta, default landing page bez privilege, bounded `RelayState` a samostatný acceptance test. Nesmieme ho pridať ako alternate path k privileged clientovi, pretože by znovu obišiel pending request a jeho assurance contract.
 
 ## 18. Metadata a key rollover test
 
-Rollover rehearsal má preukázať:
+Rollover je distribuovaná trust transition medzi Keycloakom, metadata publication, všetkými SP replicas a in-flight assertions. Cieľom nie je iba „nový certificate je uložený“, ale kontinuálna schopnosť overiť správne assertions počas overlapu a definitívne odmietnuť starý key po retirement-e. Rehearsal používa exact old/new key generations a zachováva, ktorý verifier načítal ktorú metadata revision.
 
-1. nový Keycloak signing certificate je publikovaný v IdP metadata;
-2. SP trust store načíta old aj new certificate;
-3. Keycloak začne podpisovať new keyom;
-4. new assertions prejdú na všetkých SP replicas;
-5. old in-flight assertions zostanú overiteľné počas overlapu;
-6. old key sa odstráni až po expiry a verifier convergence;
-7. forbidden old-key assertion po retirement zlyhá.
+1. **Publish new verification material.** Keycloak IdP metadata obsahujú nový signing certificate spolu so starým počas plánovaného overlapu; metadata hash a validity sa archivujú.
+2. **Converge every SP verifier.** Každá SP replica načíta old aj new certificate a read-back potvrdí loaded generation, nie iba úspešný configuration push.
+3. **Switch active signing key.** Keycloak začne podpisovať novým keyom a canary assertion nesie jeho expected certificate alebo key identity.
+4. **Verify new assertions fleet-wide.** Rovnaký SP-initiated journey prejde cez každú SP replica, aby load balancer neskryl stale verifier.
+5. **Preserve bounded old validity.** Assertion podpísaná starým keyom pred cutoverom zostane overiteľná iba do svojej pôvodnej expiry a overlap limitu; nové assertions už starý key nepoužívajú.
+6. **Retire after convergence.** Starý certificate sa odstráni z metadata a verifier trustu až po expiry in-flight artifacts a potvrdenej fleet convergence.
+7. **Prove forbidden old path.** Čerstvo vytvorená alebo replaynutá assertion podpísaná retired keyom je odmietnutá a nevytvorí local session.
 
-Encryption rollover vykoná zrkadlový test pre SP decryption keys.
+Encryption rollover vykoná zrkadlový test pre SP decryption keys: Keycloak musí šifrovať new public keyom až po tom, čo všetky SP replicas načítali corresponding private key, a old private key sa odstráni až po drain-e in-flight responses. Ak ktorýkoľvek verifier nevie reportovať loaded generation, rollover verdict zostáva unknown.
 
 ## 19. Acceptance matrix
 
-Pozitívne tests:
+SAML client je accepted iba vtedy, keď jedna exact metadata a client generation vytvorí správnu SP-initiated session a odmietne client, endpoint, message a key substitutions. Test musí korelovať AuthnRequest ID, Keycloak client UUID, Response/Assertion IDs, signed node, audience/destination/recipient, NameID/attributes, Keycloak SessionIndex, local SP session a protected resource result.
 
-- SP-initiated AuthnRequest s correct issuer, signature, ACS a bindingom prejde;
-- Response nesie expected audience, destination, recipient, time a `InResponseTo`;
-- NameID a attributes majú expected type a authority;
-- local session dostane iba client-specific permission;
-- logout zruší Keycloak aj SP session podľa contractu.
+Pozitívna vetva overuje celý intended lifecycle:
 
-Negatívne tests:
+- **Signed SP-initiated request** — AuthnRequest s exact issuerom, registered ACS, approved bindingom a trusted SP signature sa priradí správnemu Keycloak clientovi.
+- **Bound response semantics** — Response nesie expected audience, destination, recipient, validity a `InResponseTo`; SP pending request nájde a spotrebuje presne raz.
+- **Authoritative subject a attributes** — NameID má dohodnutý format a stable source, attributes majú expected type/cardinality a mapper nepublikuje unrelated roles.
+- **Least-privilege local session** — SP vytvorí account/session iba pre intended tenant a client-specific permission; resource authorization overí konkrétnu action a object state.
+- **Lifecycle closure** — logout alebo incident revocation zruší Keycloak client session aj local SP session podľa contractu a zanechá auditovateľný partial-failure state.
 
-- wrong entity ID alebo unregistered ACS je odmietnuté;
-- unsigned request je odmietnutý, ak signature required;
-- unsolicited response je odmietnutá pre privileged clienta;
-- wrong audience/destination/recipient alebo replay zlyhá;
-- inherited unrelated realm role sa nepublikuje;
-- old signing key po retirement zlyhá;
-- SLO outage nebráni server-side local-session revocation.
+Negatívna vetva dokazuje boundaries:
+
+- **Wrong client alebo endpoint** — unknown entity ID, unregistered ACS, wrong destination alebo recipient sú odmietnuté bez vytvorenia session.
+- **Request-integrity failure** — unsigned alebo nesprávne podpísaný AuthnRequest je odmietnutý, keď client signature required.
+- **Unsolicited privileged response** — IdP-initiated Response pre privileged clienta zlyhá, pretože chýba povolený alternate contract a pending request.
+- **Semantic alebo replay failure** — wrong audience, expired/not-yet-valid assertion, wrong `InResponseTo` a reused Response/Assertion ID sú odmietnuté aj pri validnej XML signature.
+- **Privilege non-projection** — inherited unrelated realm role sa v AttributeStatement nenachádza a SP ju nevie získať cez missing-value fallback.
+- **Retired-key denial** — assertion podpísaná old keyom po retirement-e zlyhá na každej SP replica, nie iba na jednej canary node.
+- **SLO outage recovery** — nedostupný Single Logout endpoint nezabráni server-side invalidácii local session a downstream business accessu.
+
+Green verdict vyžaduje obe vetvy. Login demo bez actual assertion inspection a protected-resource checku preukazuje iba to, že browser prešiel cez Keycloak, nie že federation contract je bezpečný.
 
 ## 20. Troubleshooting flow
 
