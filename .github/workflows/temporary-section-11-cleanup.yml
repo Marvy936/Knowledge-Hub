@@ -1,0 +1,115 @@
+name: Temporary section 11 cleanup
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-11-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+
+      - name: Normalize language, status and navigation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('docs/11-cloud-and-aws')
+          replacements = {
+              'NePreukazuje': 'Nepreukazuje',
+              'NePrepisuje': 'Neprepisuje',
+              'NePrenáša': 'Neprenáša',
+              'What is the authoritative desired state in ECS and EKS?': 'Čo je authoritative desired state v ECS a EKS?',
+              'Why is `RUNNING` or `Ready` not serving acceptance?': 'Prečo `RUNNING` alebo `Ready` nie je serving acceptance?',
+              'What is the difference between ECS execution and task role?': 'Aký je rozdiel medzi ECS execution role a task role?',
+              'How does Pod Identity differ from EKS access entry?': 'Ako sa Pod Identity líši od EKS access entry?',
+              'Which observations distinguish scheduler from CNI failure?': 'Ktoré observations odlíšia scheduler failure od CNI failure?',
+              'Why can adding Nodes worsen IP exhaustion?': 'Prečo môže pridanie Nodes zhoršiť IP exhaustion?',
+              'What does EndpointSlice prove?': 'Čo preukazuje EndpointSlice?',
+              'How do readiness, deregistration, preStop and grace interact?': 'Ako spolu súvisia readiness, deregistration, preStop a termination grace?',
+              'Why is control-plane update not a cluster upgrade?': 'Prečo control-plane update nie je celý cluster upgrade?',
+              'Which test closes the IP-capacity recovery?': 'Ktorý test uzatvára recovery po IP-capacity incidente?',
+              'What creates exact CloudWatch metric identity?': 'Čo tvorí exact CloudWatch metric identity?',
+              'Why is missing not zero?': 'Prečo missing datapoint nie je nula?',
+              'What does alarm state prove?': 'Čo preukazuje alarm state?',
+              'How can EMF schema drift create a new series?': 'Ako EMF schema drift vytvorí novú time series?',
+              'What does CloudTrail Event history omit?': 'Čo CloudTrail Event history neobsahuje?',
+              'Why is trail logging not selector coverage proof?': 'Prečo trail logging nepreukazuje selector coverage?',
+              'How do CloudWatch and CloudTrail complement each other?': 'Ako sa CloudWatch a CloudTrail navzájom dopĺňajú?',
+              'Which postcondition must automated remediation verify?': 'Ktorú postcondition musí automated remediation overiť?',
+              'Why can restart worsen investigation?': 'Prečo môže restart zhoršiť vyšetrovanie?',
+              'Which forbidden test closes the remediation-loop incident?': 'Ktorý forbidden test uzatvorí remediation-loop incident?',
+              'What makes a machine an eligible managed node?': 'Čo robí machine eligible managed node-om?',
+              'Why is tag selector not immutable approval?': 'Prečo tag selector nie je immutable approval?',
+              'What does Run Command `Success` prove?': 'Čo preukazuje Run Command `Success`?',
+              'How do max concurrency and max errors limit blast radius?': 'Ako max concurrency a max errors obmedzujú blast radius?',
+              'Why must State Manager documents be idempotent?': 'Prečo musia byť State Manager documents idempotentné?',
+              'What does patch compliance depend on?': 'Od čoho závisí patch compliance?',
+              'When is immutable replacement safer than package rollback?': 'Kedy je immutable replacement bezpečnejší než package rollback?',
+              'What does Session Manager audit and what may it not log?': 'Čo Session Manager audituje a čo nemusí logovať?',
+              'How does Automation assume role create a PassRole boundary?': 'Ako Automation assume role vytvára PassRole boundary?',
+              'Which business postcondition closes patch operation?': 'Ktorá business postcondition uzatvorí patch operation?',
+              'What is the difference between key resource and material generation?': 'Aký je rozdiel medzi key resource a material generation?',
+              'Why does key rotation not re-encrypt existing data?': 'Prečo key rotation nere-encryptuje existujúce dáta?',
+              'How does encryption context bind ciphertext?': 'Ako encryption context viaže ciphertext?',
+              'Why is alias not audit identity?': 'Prečo alias nie je audit identity?',
+              'Which three systems must secret rotation coordinate?': 'Ktoré tri systémy musí secret rotation koordinovať?',
+              'What does AWSCURRENT prove and not prove?': 'Čo `AWSCURRENT` preukazuje a čo nepreukazuje?',
+              'Why can fixed rotation delay be unsafe?': 'Prečo môže byť fixed rotation delay nebezpečný?',
+              'What telemetry proves consumer-loaded version?': 'Ktorá telemetry preukazuje consumer-loaded version?',
+              'How does regional replica differ from regional target credential?': 'Ako sa regional replica líši od regional target credentialu?',
+              'Which forbidden test closes rotation recovery?': 'Ktorý forbidden test uzatvorí rotation recovery?',
+              'What evidence distinguishes lost acknowledgement from rollback?': 'Ktorý dôkaz odlíši lost acknowledgement od rollbacku?',
+              'Why should SQS not be purged during duplicate incident?': 'Prečo sa SQS počas duplicate incidentu nemá purge-nuť?',
+              'What does exact caller reveal in KMS drill?': 'Čo exact caller odhalí v KMS drille?',
+              'Why does green Direct Connect not close hybrid path?': 'Prečo green Direct Connect neuzatvára hybrid path?',
+              'How is CloudFront cache leak contained safely?': 'Ako sa bezpečne contain-ne CloudFront cache leak?',
+              'Why must backup drill inspect copy and KMS?': 'Prečo musí backup drill overiť copy aj KMS?',
+              'What does second clean run prove?': 'Čo preukazuje druhý čistý run?',
+          }
+
+          for path in root.glob('*.md'):
+              text = path.read_text(encoding='utf-8')
+              for old, new in replacements.items():
+                  text = text.replace(old, new)
+              path.write_text(text, encoding='utf-8', newline='\n')
+
+          readme = root / 'README.md'
+          text = readme.read_text(encoding='utf-8')
+          status = '> **Stav prose-first revalidácie:** 28/28 kapitol prepísaných s vysvetlenými praktickými príkladmi · validation in progress.\n\n'
+          marker = '# Cloud and AWS\n\n'
+          if status not in text:
+              if marker in text:
+                  text = text.replace(marker, marker + status, 1)
+              else:
+                  text = status + text
+          readme.write_text(text, encoding='utf-8', newline='\n')
+          PY
+
+          python scripts/update_navigation.py --write
+
+          rm -f .github/cloudops-finops-rewrite.trigger
+          rm -f .github/workflows/temporary-cloudops-finops-rewrite.yml
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/11-cloud-and-aws .github
+          git rm .github/workflows/temporary-section-11-cleanup.yml
+          git commit -m "docs(aws): normalize section 11 language status and navigation"
+          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
