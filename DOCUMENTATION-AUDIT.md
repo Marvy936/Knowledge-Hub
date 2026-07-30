@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **310**
+- Audited authoritative articles: **309**
 - Audited conceptual sections: **12474**
-- Total words: **741,518**
+- Total words: **741,509**
 - Findings: **25624** (critical 7591, high 8785, medium 3219, low 6029)
-- File grades: A 4, B 4, C 2, D 300
+- File grades: A 3, B 4, C 2, D 300
 
 ## Interpretation
 
@@ -332,7 +332,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 2375 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 2513 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
-| A | 0 | 0 | 0 | 0 | 0 | 9 | `docs/keycloak-block1-remediation-trigger.md` |
 
 ## Critical and high findings
 
