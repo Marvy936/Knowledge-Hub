@@ -1,0 +1,75 @@
+name: Temporary section 11 audit report
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-11-audit-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+
+      - name: Generate concise report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/audit_learning_depth.py \
+            --all-docs \
+            --report /tmp/full-report.md \
+            --json /tmp/audit.json
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path('/tmp/audit.json').read_text())
+          root = 'docs/11-cloud-and-aws/'
+          files = sorted(
+              item for item in data['files']
+              if item['path'].startswith(root) and not item['path'].endswith('/README.md')
+          , key=lambda item: item['path'])
+          findings = [
+              item for item in data['findings']
+              if item['path'].startswith(root)
+              and item['severity'] in {'critical', 'high', 'medium'}
+          ]
+
+          lines = ['SECTION 11 AUDIT', f'files={len(files)}', '']
+          for item in files:
+              lines.append(
+                  f"FILE {item['path']} words={item['words']} grade={item['grade']} "
+                  f"critical={item['critical']} high={item['high']} medium={item['medium']} low={item['low']}"
+              )
+          lines.append('')
+          for finding in findings:
+              lines.append(
+                  'FINDING '
+                  f"path={finding['path']} severity={finding['severity']} "
+                  f"line={finding['line']} section={finding['section']} "
+                  f"rule={finding['rule']} detail={finding['detail']}"
+              )
+          lines.append('')
+          lines.append(f'TOTAL_FINDINGS={len(findings)}')
+          Path('.github/section11-audit-report.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/section11-audit-report.txt
+          git rm .github/workflows/temporary-section-11-audit-report.yml
+          git commit -m "chore(aws): persist section 11 strict audit report"
+          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
