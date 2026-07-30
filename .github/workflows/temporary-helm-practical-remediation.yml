@@ -1,0 +1,82 @@
+name: Temporary Helm practical remediation
+
+on:
+  push:
+    branches:
+      - agent/helm-practical-examples
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/helm-practical-examples
+          fetch-depth: 0
+
+      - name: Patch prose around practical examples
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('docs/10-helm-and-cka/helm-practical-chart-walkthrough.md')
+          text = path.read_text(encoding='utf-8')
+
+          old_test = '''## 10. Helm test Pod
+
+```gotemplate
+'''
+          new_test = '''## 10. Helm test Pod
+
+Helm test je post-deployment experiment pripojený k release-u cez hook annotation. Test resource sa nevkladá do bežnej serving cohorty; Helm ho vytvorí až pri `helm test` a vyhodnotí jeho terminal state. V tomto príklade testujeme presne internú DNS a Service-to-readiness cestu. Úspešný výstup preukazuje, že test Pod resolve-nul Service a dostal úspešnú HTTP odpoveď. NePreukazuje external ingress, user authentication, database write ani celý business transaction path.
+
+Test Pod preto zostáva malý a jeho oracle je explicitný: `curl --fail` musí skončiť exit kódom nula. Ak test zlyhá, `helm test --logs` ukáže jeho stdout/stderr, no root cause sa ešte musí lokalizovať medzi DNS, Service endpoints, policy, listener a application readiness.
+
+```gotemplate
+'''.replace('NePreukazuje', 'Nepreukazuje')
+
+          old_tasks = '''## Kontrolné úlohy
+
+1. Zmeň `legacyAuthorizerEnabled` na string a vysvetli, ktorý gate zlyhá ako prvý.
+'''
+          new_tasks = '''## Kontrolné úlohy
+
+Nasledujúce úlohy nie sú syntaxové otázky. Každá zámerne poruší inú boundary a vyžaduje, aby si pomenoval prvý gate, ktorý problém zachytí, príkaz použitý na pozorovanie a dôkaz potrebný na uzavretie opravy. Výsledok nestačí opísať vetou „deployment funguje“; treba uviesť, čo konkrétny výstup preukazuje a čo ešte nepreukazuje.
+
+Pri každej úlohe zachovaj pôvodný render alebo live YAML, vykonaj iba jednu autoritatívnu zmenu a po oprave zopakuj positive aj forbidden test. Takto sa z cvičenia stáva reprodukovateľný diagnosis experiment namiesto náhodného editovania chartu.
+
+1. Zmeň `legacyAuthorizerEnabled` na string a vysvetli, ktorý gate zlyhá ako prvý.
+'''
+
+          old_end = '''8. Vytvor semantic CI test, ktorý odmietne mutable image tag aj explicitné `false` zmenené na `true`.
+
+## Oficiálna dokumentácia
+'''
+          new_end = '''8. Vytvor semantic CI test, ktorý odmietne mutable image tag aj explicitné `false` zmenené na `true`.
+
+Úloha je uzavretá až po druhom čistom behu. Ten preukazuje, že oprava nezávisela od ručného state-u z prvého pokusu. Samostatne zaznamenaj, či dôkaz pochádza zo source, renderu, API admission, live objectu, process-loaded configuration alebo business requestu; tieto vrstvy sa nesmú zameniť.
+
+## Oficiálna dokumentácia
+'''
+
+          for old, new in ((old_test, new_test), (old_tasks, new_tasks), (old_end, new_end)):
+              if old not in text:
+                  raise SystemExit(f'Expected remediation anchor not found: {old[:60]!r}')
+              text = text.replace(old, new, 1)
+
+          path.write_text(text, encoding='utf-8', newline='\n')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/10-helm-and-cka/helm-practical-chart-walkthrough.md
+          git rm .github/workflows/temporary-helm-practical-remediation.yml
+          git commit -m "docs(helm): explain test and exercise evidence boundaries"
+          git push origin HEAD:agent/helm-practical-examples
