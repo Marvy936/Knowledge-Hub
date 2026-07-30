@@ -141,7 +141,9 @@ Closure vyžaduje correct context/host, exact UID/process/flow identity, scope/t
 
 ## Praktické drilly
 
-Spustiteľný scenárový index a review template patria do [CKA troubleshooting drills](../../troubleshooting/cka/README.md).
+Spustiteľný scenárový index a review template patria do [CKA troubleshooting drills](../../troubleshooting/cka/README.md). Index materializuje mechanizmy z tejto kapitoly ako resetovateľné fault injections s initial-state validatorom, time budgetom a hard closure scriptom.
+
+Po každom behu sa review record používa na výber ďalšieho variantu s rovnakým slabým reasoning krokom, ale inou identitou alebo root cause. Tým sa zabráni memorovaniu jedného injectoru a trénuje sa prenositeľná causal diagnosis.
 
 ## Glossary impact
 
