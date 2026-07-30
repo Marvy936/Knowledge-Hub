@@ -1,325 +1,91 @@
 # Rate limiting
 
-Rate limiting nie je iba počítadlo requestov pred API. Je to admission-control contract, ktorý musí chrániť downstream capacity, fairness, business invarianty a recovery paths pri presne pomenovanom limite a scope-e.
-
-Limiter môže korektne vracať `429 Too Many Requests` a napriek tomu nezabrániť overloadu, ak počíta nesprávny subject, existuje iba per Pod, ignoruje operation cost alebo povoľuje viac trafficu než downstream dokáže dokončiť.
-
-## 1. Dominantný model
+Rate limiting nie je iba počítadlo requestov pred API. Je to admission-control contract, ktorý mapuje business demand a fairness na skutočnú completion capacity downstream pathu. Limiter môže korektne vracať `429 Too Many Requests` a napriek tomu preťažiť provider, ak počíta nesprávny subject, existuje iba per Pod, ignoruje operation cost alebo blokuje recovery traffic rovnakou vyčerpanou kvótou ako nové creates.
 
 ```text
 business capacity, fairness alebo abuse objective
-→ exact admission subject, key a operation class
-→ downstream execution envelope
-→ limit scope, algorithm a state generation
-→ request cost a current usage
-→ admit, delay, degrade alebo reject
-→ response a retry contract
-→ distributed convergence a fairness verification
-→ downstream business outcome
-→ second-burst a recovery validation
+→ exact admission subject a operation class
+→ downstream rate, concurrency a recovery envelope
+→ hierarchical policy, algorithm a state generation
+→ logical operation cost a current usage
+→ admit, delay, degrade, reserve alebo reject
+→ truthful response a retry contract
+→ completion, backlog a fairness feedback
+→ distributed convergence a recovery
+→ autoscale, burst a second-overload validation
 ```
 
-Rate-limit verdict musí byť odvodený z effective global demandu a downstream outcome-u, nie iba z local countera.
+Admission verdict musí byť odvodený z effective fleet demandu a final business completion, nie iba z local countera.
 
-## 2. Čo presne limitujeme
+## 1. Admission subject a chránený envelope
 
-Rate-limiting subject obsahuje minimálne:
+Exact subject pomenúva capability, caller/tenant/merchant, endpoint a operation class, provider a Region, logical operation a physical attempt, weighted cost, policy generation, global alebo local scope, burst, downstream rate/concurrency, backlog objective, reserve a rejection/retry semantics.
 
-- business capability a API operation;
-- caller, tenant, merchant, user alebo workload identity;
-- endpoint, provider, Region a priority class;
-- logical operation a physical attempt identity;
-- request cost alebo concurrency weight;
-- limit generation, window a burst allowance;
-- authoritative counter scope;
-- downstream capacity a protected invariant;
-- rejection, delay, degradation a retry semantics.
+Tvrdenie `limit je 1 000 req/s` je preto neúplné. Status lookup, settlement create a bulk replay nemajú rovnaký cost ani failure consequence. Limit per Pod sa pri autoscale násobí. Limit podľa raw HTTP attempts môže penalizovať bezpečný status lookup a zároveň neobmedziť drahý logical create, ktorý sa cez retries objaví viackrát.
 
-Tvrdenie `limit je 1 000 req/s` je neúplné. Nie je zrejmé:
-
-- pre koho;
-- pre ktorý endpoint;
-- či ide o logical operations alebo HTTP attempts;
-- či je limit local, zonálny alebo global;
-- či status query stojí rovnako ako side-effecting create;
-- aký burst je povolený;
-- čo sa stane po prekročení;
-- či downstream vôbec zvládne 1 000 admitted operations za sekundu.
-
-## 3. Rate, quota, concurrency a capacity
-
-### Rate limit
-
-Obmedzuje počet alebo cost operácií za časové obdobie.
-
-```text
-600 units / 60 s
-```
-
-### Quota
-
-Obmedzuje celkové použitie v dlhšom intervale alebo lifecycle-e.
-
-```text
-2 000 000 provider operations / day
-```
-
-### Concurrency limit
-
-Obmedzuje počet súčasne rozpracovaných operácií.
-
-```text
-max 320 in-flight provider attempts
-```
-
-Concurrency limit reaguje na duration. Rovnaký request rate pri desaťnásobnej latency môže potrebovať približne desaťnásobný počet in-flight slots.
-
-### Capacity envelope
-
-Je skutočný bezpečný výkon celého completion pathu:
+Rate, quota, concurrency a capacity riešia rozdielne dimensions. Rate obmedzuje units za čas, quota dlhodobé allocation, concurrency súčasné in-flight operations a capacity envelope celý completion path:
 
 ```text
 API admission
-→ transaction/outbox commit
-→ broker
-→ consumer
-→ provider
+→ settlement + outbox commit
+→ broker a consumer
+→ provider attempt
 → final-state persistence
 → reconciliation
 ```
 
-Admission nemá byť vyššia než najnižšia bezpečná a recoverable capacity required pathu, pokiaľ existuje explicitný bounded buffer a backlog objective.
+Ak provider bezpečne dokončí `6 500` attempts/s a unesie `1 200` in-flight, admission `9 000` creates/s nie je bezpečná len preto, že PostgreSQL ich vie commitnúť. Bounded buffer môže krátko absorbovať rozdiel, ale potrebuje hard capacity, maximum backlog age a recovery target.
 
-## 4. Limiting key a fairness
+## 2. Hierarchia, fairness a operation cost
 
-Bežné keys:
-
-- authenticated tenant alebo API client;
-- user/account;
-- merchant;
-- source network identity;
-- endpoint alebo operation class;
-- provider a Region;
-- organization/project;
-- device alebo session.
-
-IP adresa je často slabá business identity:
-
-- veľa users môže zdieľať NAT;
-- jeden client môže meniť IP;
-- proxy môže skryť pôvod;
-- spoofovateľný forwarding header môže obísť limiter;
-- IPv6 môže vytvoriť veľký address space.
-
-Fair limiter typicky používa hierarchiu:
+Jeden global limit chráni celkovú kapacitu, ale dovolí jednému tenantovi vyčerpať celý budget. Jeden per-tenant limit chráni fairness, no súčet tenants môže stále preťažiť provider. Effective policy preto býva hierarchická:
 
 ```text
-global service budget
-→ provider/Region budget
-→ tenant budget
-→ operation-class budget
-→ caller burst budget
+global settlement envelope
+→ provider + Region envelope
+→ tenant weighted share
+→ operation class
+→ client burst allowance
 ```
 
-Jedna úroveň nestačí. Tenant môže dodržať svoj limit a súčet tenants stále preťaží provider. Global limit zase môže dovoliť jednému tenantovi vyčerpať všetku kapacitu.
+Každý request spotrebuje quota units podľa expected cost. Status query môže stáť `1`, create `8`, bulk settlement `400` a reconciliation export `1 000` units. Cost vychádza z fan-outu, records, provider calls, I/O, lock duration, payloadu a risku. Front-door limiter potrebuje lacnú identity a konzervatívny cost ešte pred drahým parsingom alebo database lookupom; presnejší limiter môže existovať na ďalšej boundary.
 
-## 5. Weighted cost
+Priority a rezervovaná kapacita musia byť authenticated a hard-bounded. Cancellation, status a unknown-outcome lookup potrebujú reserve aj pri create overload-e. Interactive creates môžu mať vyššiu prioritu než bulk replay, ale priority queue nesmie obísť global/provider cap ani permanentne vyhladovať batch. Fairness sa preto overuje na admitted aj completed worke per tenant/class.
 
-Request count nie je vždy vhodná jednotka.
+IP adresa je slabá business identity: NAT zdieľa viac users, proxy môže skryť origin a neoverený forwarding header možno spoofnúť. Security/abuse limiter môže IP používať ako defense-in-depth, no business quota sa viaže na authenticated subject.
 
-```text
-GET operation status       = 1 unit
-create settlement          = 8 units
-bulk settlement of 100     = 400 units
-reconciliation export      = 1 000 units
-```
+## 3. Algorithms a burst semantics
 
-Cost môže vychádzať z:
+Fixed window je lacný, ale umožní boundary burst: `999` requests na konci jednej minúty a `1 000` na začiatku ďalšej vytvorí približne `1 999` requests za sekundu. Sliding log je presnejší, no drží per-request timestamps; sliding counter je lacnejšia aproximácia. Approximation musí byť súčasťou risk contractu.
 
-- očakávaného CPU alebo I/O;
-- počtu records;
-- provider calls;
-- payload size;
-- fan-out;
-- lock duration;
-- monetary alebo abuse risku.
-
-Cost odhadnutý až po drahom parse alebo database lookup-e nechráni pred front-door exhaustion. Lacná admission identity a hrubý cost musia byť dostupné včas; presnejší cost možno aplikovať na ďalšej boundary.
-
-## 6. Fixed window
-
-Počíta requests v pevnom časovom okne.
+Token bucket kombinuje sustained rate a burst:
 
 ```text
-12:00:00–12:00:59 → 1 000 requests
-12:01:00–12:01:59 → nový counter
-```
-
-Výhody:
-
-- jednoduchý;
-- lacný;
-- ľahko distribuovateľný.
-
-Nevýhoda je boundary burst:
-
-```text
-999 requests o 12:00:59
-+ 1 000 requests o 12:01:00
-→ 1 999 requests približne za jednu sekundu
-```
-
-Ak downstream nezvládne tento burst, fixed-window limit je formálne dodržaný a operationally nesprávny.
-
-## 7. Sliding window
-
-### Sliding log
-
-Uchováva timestamps jednotlivých requests a presne počíta interval končiaci teraz. Je presný, ale state a cleanup cost rastú s trafficom.
-
-### Sliding-window counter
-
-Kombinuje current a previous bucket podľa prekryvu. Je lacnejší a približný.
-
-Approximation musí byť súčasťou contractu. Pri hard financial alebo security limite môže byť potrebný konzervatívny verdict; pri abuse protection môže byť malá odchýlka prijateľná.
-
-## 8. Token bucket
-
-Token bucket modeluje sustained rate a burst:
-
-```text
-tokens pribúdajú rýchlosťou r
+refill rate = r units/s
 bucket capacity = B
 request cost = c
-admit ak tokens >= c
+admit, ak tokens >= c
 ```
 
-Príklad:
+Idle client môže minúť celý bucket naraz. `B` preto nesmie vychádzať iba z user-experience želania; queues, pools a provider musia burst absorbovať. Leaky-bucket alebo paced admission vyrovnáva output, ale pridáva queue latency. Ak arrival dlhodobo prevyšuje drain rate, bounded queue sa musí naplniť a ďalšiu prácu odmietnuť alebo degradovať. Unbounded queue nie je limiter, iba odložený incident.
 
-```text
-refill: 100 units/s
-capacity: 500 units
-```
+Algorithm nie je celý contract. Dôležité sú tiež clock/refill generation, key scope, atomicity countera, behavior počas partition-u, policy rollout, fail-open/fail-closed a to, či denied attempt spotreboval quota.
 
-Dlhodobý priemer je približne 100 units/s, ale idle client môže krátko použiť burst 500 units.
+## 4. Local, global a distributed state
 
-Dôležité je rozlíšiť:
+Local limiter chráni process, ale per-Pod `L` pri `N` Podoch povoľuje približne `N × L`. Autoscaling a rolling update tým menia policy. Local bucket je vhodný ako defense-in-depth alebo leased shard pod global admission, nie ako neoznačená global quota.
 
-- configured capacity bucketu;
-- current token state;
-- clock a refill generation;
-- distributed replicas countera;
-- downstream burst tolerance.
+Centralized limiter poskytuje spoločný verdict za cenu latency, hotspotu a novej dependency. Sharded/leased model rozdeľuje global budget medzi instances; unused leases, membership change a reconnect môžu vytvoriť underutilization alebo overshoot. Lease generation, reclaim a maximum aggregate error musia byť explicitné.
 
-Burst capacity nesmie byť iba násobok podľa želanej user experience. Musí byť absorbovateľná queues, pools a providerom.
+Nie každý counter potrebuje linearizability. Soft fairness môže tolerovať bounded overshoot. Paid quota, scarce provider concurrency alebo compliance export môže vyžadovať authoritative reservation/commit semantics a konzervatívny partition behavior. Atomic command na jednom Redis node ešte nedokazuje, ktoré acknowledged increments prežili failover a či dva Regions neprekročili spoločný hard limit.
 
-## 9. Leaky bucket a paced admission
+Distributed acceptance test musí meniť Pod count, zabiť counter ownera, oddeliť Region, obnoviť stale lease a preukázať effective global maximum. Configured values bez fleet read-backu nie sú evidence.
 
-Leaky-bucket model vyrovnáva output na približne konštantnú rýchlosť. Request môže byť:
+## 5. Admission outcome, HTTP a retries
 
-- zaradený do bounded queue;
-- oneskorene admitted;
-- odmietnutý po naplnení queue alebo deadline-u.
+Limiter nemusí iba povoliť alebo odmietnuť. Môže bounded delayovať, použiť cheaper/stale-safe representation, shednúť optional work alebo rezervovať capacity pre recovery. Každý outcome musí zachovať business truth: financial create nemožno silentne dropnúť; rebuildable telemetry možno sampleovať.
 
-Pacing znižuje burst, ale pridáva queue latency. Queue bez hard boundu iba presunie overload do memory a predĺži čas do failure-u.
-
-```text
-arrival rate > drain rate počas dlhého času
-→ queue rastie
-→ deadline expiruje
-→ stale work a retries
-→ overload amplification
-```
-
-## 10. Local a distributed limiter
-
-### Local limiter
-
-Každý process alebo Pod drží vlastný counter.
-
-Ak je limit `L` per instance a existuje `N` instances:
-
-```text
-effective aggregate limit ≈ N × L
-```
-
-Autoscaling preto mení effective policy. Rolling deployment môže dočasne zvýšiť počet instances a tým limit.
-
-Local limiter je vhodný ako:
-
-- posledná ochrana processu;
-- approximate shard budget;
-- defense-in-depth pod global admission.
-
-Nie je automaticky global tenant quota.
-
-### Centralized limiter
-
-Jeden logical counter alebo strongly coordinated service poskytuje spoločný verdict. Prináša:
-
-- presnejšiu globálnu policy;
-- dodatočnú latency a dependency;
-- hotspot risk;
-- partition a fail-open/fail-closed rozhodnutie.
-
-### Sharded alebo leased limiter
-
-Global budget sa rozdelí medzi instances:
-
-```text
-global 10 000 units/s
-→ Pod A lease 120
-→ Pod B lease 140
-→ ...
-```
-
-Unused leases, membership changes a reconnects môžu vytvoriť underutilization alebo overshoot. Lease generation a reclaim musia byť explicitné.
-
-## 11. Consistency limit countera
-
-Nie každý limiter potrebuje linearizable counter. Potrebný model závisí od rizika.
-
-### Approximate limit
-
-Mierny overshoot je prijateľný; preferuje dostupnosť a nízku latency.
-
-Použitie:
-
-- soft API fairness;
-- telemetry sampling;
-- non-critical background refresh.
-
-### Hard limit
-
-Prekročenie môže porušiť provider quota, financial risk alebo security boundary.
-
-Použitie:
-
-- paid quota;
-- scarce license;
-- compliance export;
-- critical provider concurrency.
-
-Hard limit potrebuje autoritatívny counter, reservation/commit semantics alebo konzervatívny partition behavior. `Redis INCR` v jednom node môže byť atomic command, ale celý distributed failover/persistence contract musí stále preukázať, ktoré increments prežili a ktoré clients dostali acknowledgement.
-
-## 12. Admission outcome
-
-Limiter nemusí iba povoliť alebo odmietnuť.
-
-Možné outcomes:
-
-- **admit** — operation môže pokračovať;
-- **delay** — bounded queue/pacing, ak deadline dovolí;
-- **degrade** — lacnejší alebo stale-safe response;
-- **shed** — zahodiť optional work;
-- **reject** — caller dostane truthful retry contract;
-- **reserve** — kapacita sa drží pre high-priority alebo recovery operation.
-
-Status lookup, cancellation a reconciliation nemajú byť blokované rovnakou vyčerpanou create quota, inak preťažený systém znemožní klientom bezpečne zistiť outcomes.
-
-## 13. HTTP contract
-
-RFC 6585 definuje `429 Too Many Requests` pre situáciu, keď user poslal príliš veľa requests v danom čase. Response môže obsahovať `Retry-After`.
+RFC 6585 definuje `429 Too Many Requests`. Response má vysvetliť retry contract a môže niesť `Retry-After`:
 
 ```http
 HTTP/1.1 429 Too Many Requests
@@ -328,263 +94,78 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:atlas:problem:rate-limit",
-  "status": 429,
   "limit_scope": "merchant-provider-create",
   "retryable": true
 }
 ```
 
-`Retry-After` môže byť počet sekúnd alebo HTTP date. Client ho nemá interpretovať ako garanciu budúceho prijatia; je to minimum alebo guidance podľa server contractu.
+`Retry-After` nie je garancia prijatia po 12 sekundách. Client musí používať deadline, exponential backoff, jitter a concurrency cap. Aktívny IETF HTTPAPI draft z mája 2026 navrhuje `RateLimit-Policy` a `RateLimit` fields; zatiaľ ide o Internet-Draft, preto sa wire contract versionuje a nevydáva za finálny RFC.
 
-Aktívny IETF Internet-Draft `RateLimit header fields for HTTP` z mája 2026 navrhuje `RateLimit-Policy` a `RateLimit` fields. Je to work in progress, nie finálny RFC. Implementácia musí preto versionovať svoj wire contract a nesmie predstierať štandard, ktorý ešte nebol publikovaný.
+Desaťtisíc clients s rovnakým one-second retry intervalom vytvorí ďalší burst. Server preto potrebuje aggregate retry budget a client guidance; idempotency musí zachovať logical operation identity. Limiter má počítať, či retry len číta existujúci outcome alebo vytvára nový expensive attempt.
 
-## 14. Retry interaction
+## 6. Feedback z completion pathu
 
-Rate-limited response bez client guidance môže vytvoriť synchronizovaný retry storm.
-
-```text
-10 000 clients dostane 429
-→ všetky retry po 1 s
-→ ďalší burst 10 000
-```
-
-Potrebné controls:
-
-- `Retry-After` alebo explicitný next-attempt hint;
-- exponential backoff;
-- jitter;
-- aggregate retry budget;
-- stable logical-operation identity;
-- server-side dedupe/idempotency;
-- client-side concurrency cap.
-
-Limiter musí rozhodnúť, či rejected attempt spotreboval quota. Nejasná policy môže viesť k client/server disagreementu.
-
-## 15. Priority a rezervovaná kapacita
-
-Priority classes môžu byť legitímne:
+Static quota nevie zachytiť zvýšenú provider latency, growing backlog alebo unknown-outcome spike. Admission controller preto sleduje admitted logical rate, current in-flight, oldest backlog age, completion rate, provider latency, database/pool waits, unknown cohort a fairness.
 
 ```text
-P0: cancellation a unknown-outcome lookup
-P1: interactive settlement create
-P2: scheduled merchant batch
-P3: rebuildable projection/backfill
+provider credits klesnú
+→ provider/Region budget sa zníži
+→ bulk admission sa throttle-ne
+→ status/reconciliation reserve zostane
+→ backlog age sa stabilizuje
+→ gradual recovery podľa completions
 ```
 
-Riziká:
+Rate limiting a backpressure sa dopĺňajú. Limiter aplikuje policy na caller/class; backpressure prenáša current downstream capacity upstream. Feedback potrebuje hysteresis a gradual ramp, aby po poklese queue depthu nevypustil celý backlog a nevytvoril second overload.
 
-- starvation nižšej priority;
-- každý caller sa označí ako high priority;
-- priority inversion cez shared pool;
-- recovery traffic nemá reserve;
-- high-priority queue obíde fairness.
+Security limiter nenahrádza authentication, authorization, validation, WAF/DDoS protection ani cost anomaly detection. Pri extrémnom attack trafficu môže byť lacnejší upstream drop než generovanie detailnej `429` odpovede pre každý packet.
 
-Priority musí byť odvodená z authenticated business role a enforced na každej relevantnej queue/pool boundary.
+## 7. Connected incident `DB-PAY-60`
 
-## 16. Security a abuse
+Release `payments 8.4` otvoril bulk replay po 47-minútovom provider outage-i. Gateway mala `80` Podov; každý držal token bucket `450 requests/s` a burst `900`. Effective fleet policy preto povoľovala `36 000 requests/s` a immediate burst `72 000`.
 
-Rate limiting môže zmierniť abuse, ale nenahrádza:
+Safe envelopes boli: PostgreSQL settlement+outbox `9 000` logical operations/s, provider P2 `6 500` new attempts/s a result persistence `7 200` results/s. Partner dosiahol `21 600 requests/s` plus normal traffic `3 200/s`. Limiter počítal raw HTTP attempts, nemal tenant/provider hierarchy, status stál rovnako ako create a autoscale násobil policy.
 
-- authentication;
-- authorization;
-- input validation;
-- WAF/DDoS protection;
-- cost controls;
-- anomaly detection.
+Počas 14 minút gateway prijala `6.9 milióna` requests; jeden partner spotreboval `71 %` create capacity, backlog age dosiahol `54 minút` a HTTP-attempt amplification `2.4×`. Local buckets vracali `429` bez `Retry-After`; SDK retryovala po fixných `100 ms`. Provider a DB pooly sa saturovali, hoci väčšina local bucketov nebola trvalo empty.
 
-Limiter identity nesmie dôverovať neoverenému `X-Forwarded-For`. Rate-limit responses a headers nemajú odhaľovať citlivú global capacity alebo usage iného tenanta.
+Evidence `450 × 80 = 36 000/s` a per-Pod bucket states vylúčili global-counter lag. Provider saturation začínala približne pri `6 500/s`. Root cause bol process-local request counter bez fleet, tenant, operation-cost a downstream-capacity contractu. Provider slowdown bol trigger; autoscale, fixed retries, shared priority a missing recovery reserve boli amplifiers.
 
-Pri extrémnom attack trafficu môže byť odpovedanie na každý request drahšie než connection drop alebo upstream filtering. RFC 6585 výslovne nevyžaduje, aby server vždy generoval `429`.
+## 8. Redesign a acceptance paths
 
-## 17. Connected incident `DB-PAY-60`
+Target používa global settlement envelope, provider+Region budget, tenant weighted share, operation cost a per-client burst. Pre P2 je safe new-attempt rate `5 800/s`, hard in-flight `1 200`, recovery reserve `15 %` a samostatný status/reconciliation budget. Duplicate request so známym idempotency keyom najprv načíta existing operation a neplatí cost nového create-u.
 
-Release `payments 8.4` otvoril partnerom bulk replay po 47-minútovom provider outage-i. Gateway fleet mal `80` Podov a každý Pod vlastný token bucket:
+**Positive path** udrží admitted a completed rate v safe envelope, poskytne fair tenant share a truthful retry fields.
 
-```text
-sustained limit per Pod: 450 requests/s
-burst per Pod:           900 requests
-fleet sustained limit:   36 000 requests/s
-fleet immediate burst:   72 000 requests
-```
+**Overload path** spomalí alebo odmietne bulk work podľa backlog age, zachová status/cancellation/reconciliation a neprekročí provider concurrency.
 
-Safe downstream envelopes boli:
+**Recovery path** postupne zvyšuje credits podľa final completions a prejde second burst bez oscillation.
 
-```text
-PostgreSQL settlement+outbox: 9 000 logical operations/s
-provider P2 new attempts:     6 500 attempts/s
-final-result persistence:     7 200 results/s
-```
+**Forbidden path** odmietne per-Pod policy vydávanú za global, jeden tenant vyčerpávajúci celý budget, status starvation, no-jitter retry storm, stale lease overshoot a false admission nad downstream capacity.
 
-Limiter počítal raw HTTP attempts, nemal tenant/provider hierarchy a nerozlišoval create od status lookupu. Po autoscale na 80 Podov sa configured `450 req/s` interpretovalo ako service limit, hoci bolo per Pod.
+Acceptance zahŕňa autoscale, rolling update, counter failure/partition, one-tenant flood, mixed costs, cache/idempotency hits a druhý overload počas recovery.
 
-Partner replay dosiahol `21 600 requests/s`; normal traffic bol približne `3 200 requests/s`. Počas 14 minút:
+## 9. Troubleshooting a anti-patterny
 
-- gateway prijala `6.9 milióna` requests;
-- `71 %` admitted create capacity spotreboval jeden partner;
-- provider backlog age vzrástol na `54 minút`;
-- status a reconciliation requests súťažili s new creates;
-- local buckets vracali `429` bez `Retry-After`;
-- partner SDK opakoval request po fixných `100 ms`;
-- HTTP-attempt amplification dosiahla `2.4×`;
-- provider pool a settlement DB pool sa saturovali napriek tomu, že väčšina Pod-local limiterov nebola trvalo vyčerpaná.
+Diagnostika ide od exact admission subjectu cez caller/tenant/provider identity, configured vs. effective fleet limit, algorithm a state generation, logical cost, downstream rate/concurrency/backlog, retry contract, fairness/reserves a final completion. `429 count` bez rejected operation classu a downstream outcome-u nie je dostatočný signal.
 
-### Konkurenčné hypotézy
+Najčastejšie anti-patterny sú neoznačené `500 req/s`, per-Pod limiter ako global quota, IP ako user, jeden token pre všetky operations, `429` bez retry guidance, unbounded queue ako limiter, high priority obchádzajúca hard cap a statická policy ignorujúca downstream credits.
 
-1. Provider P2 má nižšiu kapacitu než deklaruje.
-2. Kafka broker nevie ingestovať admission rate.
-3. Database commit path je bottleneck.
-4. Limiter je global, ale counter replication laguje.
-5. Limiter je local a jeho effective fleet limit sa násobí počtom Podov.
-6. Jeden tenant vyčerpal shared budget bez fairness boundary.
+## 10. Kontrolné otázky
 
-### Diskriminačné dôkazy
-
-```text
-configured per-Pod rate × ready Pod count
-→ 450 × 80 = 36 000 requests/s
-```
-
-Gateway metrics ukázali samostatné bucket states pre každý Pod. Neexistoval global counter ani provider budget. Provider P2 saturation začínala približne pri `6 500 attempts/s`, teda hlboko pod fleet admission limitom.
-
-Per-tenant breakdown ukázal `71 %` admitted creates z jedného partnera. Status endpoint mal rovnaký token cost ako create a nemal reserve. `429` responses neniesli retry timing, pričom SDK mala hard-coded 100-ms retry.
-
-### Primary rate-limiting root cause
-
-> Admission policy bola process-local request counter bez fleet, tenant, operation-cost a downstream-provider capacity contractu.
-
-Provider slowdown bol trigger. Autoscaling, no-jitter retries, shared priority a chýbajúci status/recovery reserve boli causal amplifiers.
-
-## 18. Containment a authoritative redesign
-
-Containment:
-
-```text
-stop bulk replay
-→ preserve per-tenant/Pod admission evidence
-→ publish bounded Retry-After
-→ reserve status/reconciliation capacity
-→ cap provider P2 in-flight attempts
-→ reduce create admission pod safe completion rate
-```
-
-Target hierarchy:
-
-```text
-global settlement envelope
-→ provider + Region envelope
-→ tenant weighted share
-→ operation class
-→ per-client burst
-```
-
-Pre provider P2:
-
-```text
-safe new-attempt rate: 5 800/s
-hard in-flight cap:     1 200
-recovery reserve:       15 %
-status/reconciliation:  independent reserved budget
-```
-
-Limiter používa logical operation cost. Duplicate HTTP attempt so známym idempotency keyom najprv číta existujúci operation outcome a nemá byť účtovaný ako nový expensive create.
-
-Admission controller sleduje:
-
-- admitted logical rate;
-- current in-flight;
-- backlog age, nie iba depth;
-- provider latency a unknown outcomes;
-- database pool wait;
-- tenant fairness;
-- rejected/delayed/degraded outcomes;
-- retry-after compliance;
-- completion rate a final business success.
-
-## 19. Rate-limiting acceptance verdict
-
-Rate limiting je prijatý, keď:
-
-- exact business operation, caller, tenant, provider, Region a generation sú explicitné;
-- limit units a request costs zodpovedajú workloadu;
-- configured local a effective fleet/global limits sú rozlíšené;
-- downstream safe rate, concurrency a burst envelope sú zmerané;
-- global, provider, tenant a operation-class budgets vytvárajú fairness;
-- priority a recovery reserves sú authenticated a enforced;
-- distributed counter consistency a partition behavior sú explicitné;
-- `429`, `Retry-After` a retry semantics sú truthful;
-- limiter nesmie blokovať safe status, cancellation a reconciliation paths;
-- admission reaguje aj na backlog age, in-flight a completion capacity;
-- autoscale, rolling update, counter failure, burst a one-tenant flood tests prejdú;
-- forbidden starvation, global overshoot, retry storm a false-admission outcomes sú odmietnuté.
-
-## 20. Troubleshooting flow
-
-```text
-429 storm, unfairness alebo downstream overload
-→ exact admission subject a business operation
-→ caller/tenant/provider/Region identity
-→ configured limit vs effective fleet/global limit
-→ algorithm, window, token/counter generation
-→ request cost a logical/physical attempt mapping
-→ downstream rate/concurrency/backlog envelope
-→ rejection/delay/retry contract
-→ fairness a priority reserves
-→ completion/business outcome
-→ second-burst/autoscale validation
-```
-
-## 21. Anti-patterny
-
-### Limit je 500 req/s
-
-Bez scope-u, keyu, costu a distributed topology je číslo neoveriteľné.
-
-### Per-Pod limiter škáluje s aplikáciou
-
-Škáluje aj effective admission, čo môže zničiť shared dependency.
-
-### IP je user
-
-NAT môže trestať mnoho users alebo umožniť jednému clientovi limit obísť.
-
-### Všetky requesty stoja jeden token
-
-Bulk alebo side-effecting request môže byť rádovo drahší než status query.
-
-### `429` vyrieši overload
-
-Client bez backoffu, jitteru a retry budgetu môže vytvoriť väčší load.
-
-### Queue je rate limiter
-
-Unbounded queue iba odloží failure a zvyšuje stale work.
-
-### High priority obíde limit
-
-Bez hard reserve a authority môže high-priority traffic vyčerpať celý systém.
-
-### Rate limiting je backpressure
-
-Limiter riadi admission podľa policy; backpressure prenáša downstream demand/capacity späť upstream. Môžu spolupracovať, ale nie sú totožné.
-
-## 22. Kontrolné otázky
-
-1. Čo tvorí exact rate-limiting subject?
-2. Ako sa rate limit líši od quota a concurrency limitu?
+1. Čo tvorí exact admission subject a chránený capacity envelope?
+2. Ako sa rate, quota a concurrency limit líšia?
 3. Prečo per-Pod limit nie je global limit?
-4. Aký burst vytvára fixed-window boundary?
-5. Ako token bucket modeluje sustained rate a burst?
+4. Ako hierarchical budgets poskytujú capacity aj fairness?
+5. Ako fixed window, token bucket a paced admission menia burst?
 6. Kedy je approximate distributed counter prijateľný?
-7. Prečo IP nemusí byť správny fairness key?
-8. Ako weighted request cost mení policy?
-9. Čo má obsahovať truthful `429` response?
-10. Prečo limiter v `DB-PAY-60` nechránil provider P2?
-11. Prečo status a reconciliation potrebujú reserve?
-12. Čo overuje rate-limiting acceptance verdict?
+7. Čo musí niesť truthful `429` a retry contract?
+8. Prečo status a reconciliation potrebujú reserve?
+9. Prečo limiter v `DB-PAY-60` nechránil provider P2?
+10. Ktoré positive, overload, recovery a forbidden paths musia prejsť?
 
 ## Glossary impact
 
-Relevantné pojmy: rate-limiting subject, admission control, quota, concurrency limit, capacity envelope, limiting key, weighted request cost, fixed window, sliding log, sliding-window counter, token bucket, leaky bucket, local limiter, global limiter, leased budget, distributed counter consistency, burst allowance, priority reserve, retry-after contract, fairness verdict a rate-limiting acceptance verdict.
+Relevantné pojmy: rate-limiting subject, admission control, quota, concurrency limit, capacity envelope, hierarchical budget, limiting key, weighted request cost, fixed window, sliding window, token bucket, paced admission, local limiter, global limiter, leased budget, distributed-counter consistency, burst allowance, priority reserve, retry-after contract, completion feedback, fairness verdict a rate-limiting acceptance verdict.
 
 ## Primárne zdroje
 
