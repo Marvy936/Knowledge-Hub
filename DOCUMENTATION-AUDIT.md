@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **309**
 - Audited conceptual sections: **11123**
-- Total words: **700,332**
+- Total words: **700,347**
 - Findings: **22228** (critical 6438, high 7312, medium 2754, low 5724)
 - File grades: A 32, B 20, C 0, D 257
 
@@ -290,7 +290,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
-| B | 18 | 0 | 0 | 0 | 14 | 1436 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
+| B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1877 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
