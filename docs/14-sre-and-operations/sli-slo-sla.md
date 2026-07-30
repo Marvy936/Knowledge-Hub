@@ -201,25 +201,13 @@ Dashboard screenshot bez query, window a source generation nie je dostatočné i
 
 ## 12. Anti-patterny
 
-### Začať metricou, ktorú už máme
+Tieto anti-patterny vznikajú, keď dostupný signal alebo contractual minimum nahradí user-centered measurement contract. Výsledkom je reprodukovateľné číslo, ktoré však odpovedá na inú otázku než používateľská spoľahlivosť.
 
-Easy-to-export CPU alebo HTTP status môže byť diagnostický signal, ale nie user-relevant SLI.
-
-### `2xx` equals success
-
-Status code môže potvrdiť iba jednu protocol boundary. Async a business completion potrebuje samostatný oracle.
-
-### Missing telemetry equals zero errors
-
-Evidence outage znižuje confidence a môže vytvoriť blocking unknown state; nesmie zlepšiť SLI.
-
-### Jeden global objective
-
-Aggregate SLO skryje tenant, Region, operation alebo release cohort failure.
-
-### SLA diktuje interné meranie
-
-External agreement je minimum commitmentu, nie horná hranica interného user-centric observability.
+- **Začať metricou, ktorú už máme —** Easy-to-export CPU alebo HTTP status môže byť diagnostický signal, ale nie user-relevant SLI. Najprv sa definuje required outcome a až potom najbližší authoritative observation point.
+- **`2xx` equals success —** Status code môže potvrdiť iba jednu protocol boundary. Async a business completion potrebuje samostatný oracle a operation-level correlation.
+- **Missing telemetry equals zero errors —** Evidence outage znižuje confidence a môže vytvoriť blocking unknown state; nesmie zlepšiť SLI. Coverage a lateness sú preto súčasťou measurement generation.
+- **Jeden global objective —** Aggregate SLO skryje tenant, Region, operation alebo release cohort failure. Critical cohorts potrebujú samostatné views alebo hard non-aggregate gates.
+- **SLA diktuje interné meranie —** External agreement je minimum commitmentu, nie horná hranica interného user-centric observability. Interný SLO má odhaliť risk ešte pred contractual breachom.
 
 ## 13. Kontrolné otázky
 
