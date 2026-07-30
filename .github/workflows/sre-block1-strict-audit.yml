@@ -37,6 +37,14 @@ jobs:
               if item['path'] in paths:
                   print(f"STRICT {item['path']} words={item['words']} grade={item['grade']} critical={item['critical']} high={item['high']} medium={item['medium']} low={item['low']}")
                   failed |= any(item[k] for k in ('critical', 'high', 'medium'))
+          for finding in data['findings']:
+              if finding['path'] in paths and finding['severity'] in {'critical', 'high', 'medium'}:
+                  print(
+                      "FINDING "
+                      f"path={finding['path']} severity={finding['severity']} "
+                      f"section={finding.get('section')} line={finding.get('line')} "
+                      f"rule={finding['rule']} detail={finding['detail']}"
+                  )
           if failed:
               raise SystemExit('SRE block 1 still has medium-or-higher findings')
           PY
