@@ -1,435 +1,368 @@
 # Security Groups a Network ACLs
 
-Security Groups a Network ACLs nie sú dva varianty toho istého firewallu. Security Group je stateful allow policy viazaná na ENI/resource identity. NACL je stateless ordered allow/deny policy viazaná na subnet boundary. Reálny connection verdict vznikne až po route resolution, vyhodnotení source a destination controls v správnom smere, connection tracking-u, listeneri a return path-e.
-
-## Dominantný lifecycle
+Security Group a Network ACL nie sú dva varianty toho istého firewallu. Security Group je stateful allow policy viazaná na ENI alebo podporovaný resource. Network ACL je stateless ordered allow/deny policy viazaná na subnet boundary. Connection prejde až vtedy, keď route dovedie packet na správny enforcement point, new-flow rules ho povolia, return path rešpektuje connection state alebo explicitné stateless rules a destination process prijme request.
 
 ```text
-communication a isolation intent
-→ exact source/destination flow identity
+communication intent
+→ exact source and destination tuple
 → route reachability
-→ source SG new-flow verdict
-→ source-subnet NACL ordered verdict
-→ gateway/inspection/NAT path
-→ destination-subnet NACL ordered verdict
-→ destination SG a connection tracking
-→ listener, TLS a application authorization
-→ return path a tracked/stateless verdicts
+→ source Security Group and source-subnet NACL
+→ NAT, endpoint or inspection path
+→ destination-subnet NACL and destination Security Group
+→ listener, TLS and application authorization
+→ return packet or tracked response
 → business outcome
-→ revocation, exception expiry a recovery closure
 ```
 
-Route hovorí, kam packet smeruje. SG a NACL rozhodujú iba na svojich enforcement boundaries. Application authentication stále zostáva samostatná vrstva.
+Security controls sa preto diagnostikujú podľa direction a observation pointu. Outbound rule na source ENI sa nesmie porovnávať s inbound packetom na destination subnet-e a pre-NAT address sa nesmie zamieňať s adresou, ktorú pozoruje partner.
 
-## Connected Atlas Payments subject
+## 1. Exact flow-policy subject
 
-Atlas Payments používa:
+Atlas Payments používa source ENI `ENI-P42C` s private IP `10.42.48.27` v subnet-e `SUB-PC`. ENI je asociovaná so Security Group generation `SG-PAY-APP-31`; subnet používa NACL generation `NACL-PC-7`. Egress route je `RT-PC → NAT-C`. Partner destination je `203.0.113.42:443` a sample request `P-884`.
+
+Konkrétny TCP flow je:
 
 ```text
-source fleet: payments-api-prod
-source ENI SG: SG-PAY-APP
-source subnet cohorts: SUB-PA, SUB-PB, SUB-PC
-source NACLs: NACL-PA, NACL-PB, NACL-PC
-NAT path: NAT-A/B/C alebo regional NAT subject
-partner destination: 203.0.113.42:443
-business request: P-884
+10.42.48.27:53144
+→ 203.0.113.42:443
 ```
 
-Exact flow-policy subject musí obsahovať:
+Pri incidente sa zachová account, Region, VPC, source ENI a SG set, subnet a NACL, source/destination ports, route/NAT generation, new alebo established connection state, Flow Log observation, TLS peer a business idempotency result.
+
+Bez source portu `53144` nemožno správne vyhodnotiť stateless return rule.
+
+## 2. Security Group ako stateful ENI policy
+
+Security Group obsahuje iba allow rules. Všetky SGs asociované s ENI sa vyhodnocujú ako spoločný allow set; poradie rules nerozhoduje. Ak new connection prejde outbound a inbound policy, return traffic patriaci k tracked connection je povolený bez zrkadlovej SG rule.
 
 ```text
-account/Region/VPC
-source ENI, SG set, private IP, subnet a NACL
-original protocol a source/destination ports
-selected route a intermediate path
-translated tuple, ak používa NAT
-source a destination NACL rule generations
-source a destination SG rule IDs/generations
-new alebo established connection state
-listener/TLS/application identity
-Flow Log record a request timeline
-business/idempotency result
+new HTTPS connection
+→ source SG outbound allow
+→ destination SG inbound allow
+→ connection tracked
+→ response traffic allowed as tracked return
 ```
 
-Bez direction a tuple identity sa outbound rule ľahko porovná s inbound packetom alebo pre-NAT address s post-NAT observation pointom.
+Stateful neznamená, že rule mutation okamžite ukončí každú existujúcu long-lived connection. Revocation test musí rozlíšiť fresh connection, established socket a application connection pool.
 
-## 1. Security Group je ENI-level stateful allow graph
+Security Group reference je identity relationship. Rule `SG-ALB → SG-PAY-APP TCP/8080` znamená, že application target ENI prijíma relevantný traffic z ENIs reprezentovaných load-balancer SG podľa service semantics. Packet neprechádza cez SG ako cez samostatné zariadenie.
 
-Security Group:
+## 3. Praktický SG model v Terraform-e
 
-- je asociovaná s ENI alebo podporovaným resource-om;
-- má inbound a outbound allow rules;
-- nemá explicitné deny rules;
-- vyhodnocuje všetky applicable allows ako spoločný set;
-- používa connection tracking pre return traffic;
-- môže referencovať CIDR, prefix list alebo inú SG podľa podporovaného connectivity modelu.
+Load balancer môže prijímať HTTPS od clients a application targets iba backend traffic od load balancera:
 
-SG rule teda reprezentuje:
+```hcl
+resource "aws_security_group" "alb" {
+  name        = "atlas-payments-alb"
+  description = "Public HTTPS entry for Atlas Payments"
+  vpc_id      = aws_vpc.payments.id
 
-```text
-source alebo destination identity
-+ protocol
-+ port/range
-+ direction
-→ allow new flow
+  tags = {
+    Generation = "SG-PAY-ALB-18"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "alb_https" {
+  security_group_id = aws_security_group.alb.id
+  description       = "HTTPS from approved client networks"
+  ip_protocol       = "tcp"
+  from_port         = 443
+  to_port           = 443
+  cidr_ipv4         = "0.0.0.0/0"
+}
+
+resource "aws_security_group" "application" {
+  name        = "atlas-payments-app"
+  description = "Payments application ENIs"
+  vpc_id      = aws_vpc.payments.id
+
+  tags = {
+    Generation = "SG-PAY-APP-31"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "application_from_alb" {
+  security_group_id            = aws_security_group.application.id
+  description                  = "Application port only from ALB"
+  referenced_security_group_id = aws_security_group.alb.id
+  ip_protocol                  = "tcp"
+  from_port                    = 8080
+  to_port                      = 8080
+}
+
+resource "aws_vpc_security_group_egress_rule" "application_https" {
+  security_group_id = aws_security_group.application.id
+  description       = "HTTPS to governed external dependencies"
+  ip_protocol       = "tcp"
+  from_port         = 443
+  to_port           = 443
+  cidr_ipv4         = "0.0.0.0/0"
+}
 ```
 
-Ak new connection initiation prejde, tracked response traffic nepotrebuje zrkadlovú SG rule. Nová reverse-direction connection je však nový flow a potrebuje vlastné allow pravidlá.
+Application SG nemá inbound `0.0.0.0/0:8080`; backend listener je dostupný iba z ALB identity. Egress je v ukážke broad, pretože partner IPs môžu byť dynamické. Production design môže použiť managed prefix lists, proxy, Network Firewall alebo private endpoints podľa dependency contractu. Broad egress sa nesmie prezentovať ako automaticky least privilege.
 
-## 2. SG reference je identity contract, nie transit path
+Moderné standalone SG rule resources dávajú každej rule samostatnú Terraform identity a znižujú nejasnosti pri zmene alebo importe. Plan stále nie je runtime verdict; live ENI môže mať ďalšiu SG alebo manuálnu rule.
 
-Rule:
+## 4. Live SG read-back
 
-```text
-SG-ALB → SG-PAY-APP TCP/8080
+Najprv zisti SG set exact ENI:
+
+```bash
+aws ec2 describe-network-interfaces \
+  --network-interface-ids eni-0pay42c \
+  --region eu-central-1 \
+  --query 'NetworkInterfaces[0].{Ip:PrivateIpAddress,Subnet:SubnetId,Groups:Groups[].{Id:GroupId,Name:GroupName}}'
 ```
 
-znamená, že target ENI prijíma applicable traffic z ENIs reprezentovaných SG-ALB podľa service semantics. Packet „neprechádza cez“ Security Group.
+Potom zobraz rule IDs a descriptions:
 
-SG-to-SG model je vhodný pre dynamické fleets, pretože sa neviaže na konkrétne private IPs. Potrebuje však čistý ownership:
-
-- dedicated SG pre workload tier;
-- stabilný communication contract;
-- descriptions/rule IDs;
-- source IaC a owner;
-- expiry pri temporary rules;
-- kontrolu shared-group blast radiusu.
-
-## 3. Security Group stateful neznamená okamžitú revokáciu každého flowu
-
-Pri incidente rozlišuj:
-
-```text
-nový connection attempt
-established tracked connection
-long-lived TCP/TLS session
-application pool connection
+```bash
+aws ec2 describe-security-group-rules \
+  --region eu-central-1 \
+  --filters Name=group-id,Values=sg-0payapp31 \
+  --query 'SecurityGroupRules[].{RuleId:SecurityGroupRuleId,Egress:IsEgress,Protocol:IpProtocol,From:FromPort,To:ToPort,Cidr4:CidrIpv4,ReferencedGroup:ReferencedGroupInfo.GroupId,Description:Description}' \
+  --output table
 ```
 
-Rule mutation a successful API response nepreukazujú, že všetky existujúce sessions okamžite prestali prenášať traffic. Revocation closure musí testovať fresh connections aj existing sessions podľa threat modelu.
+Tento read-back preukazuje configured SG rules a ich stable rule IDs. Nehovorí, ktorú rule použil konkrétny packet ani či route a listener fungujú.
 
-Pre urgentný coarse deny môže byť vhodná NACL alebo iná stateless enforcement vrstva, ale jej subnet-wide blast radius musí byť explicitný.
+## 5. NACL ako ordered stateless subnet policy
 
-## 4. Network ACL je subnet-level ordered stateless verdict
+Každý subnet je asociovaný s jednou Network ACL; jedna NACL môže byť shared viacerými subnetmi. NACL má samostatné inbound a outbound rules. Rules sa vyhodnocujú podľa rastúceho rule number a prvý match rozhodne. Unmatched traffic skončí implicitným deny.
 
-Každý subnet je asociovaný s jednou NACL; jedna NACL môže obsluhovať viac subnetov.
-
-NACL:
-
-- má samostatné inbound a outbound rules;
-- podporuje `ALLOW` aj `DENY`;
-- vyhodnocuje rules podľa rastúceho rule number;
-- prvý matching rule rozhodne;
-- unmatched traffic skončí default deny;
-- nepozná connection state;
-- vyžaduje explicitný forward aj return contract.
-
-NACL rule subject:
+NACL nepozná connection state. Outbound HTTPS request a inbound SYN-ACK sú dva samostatné policy verdicts.
 
 ```text
-subnet boundary
-+ direction
-+ source/destination CIDR
-+ protocol
-+ source/destination port semantics
-+ rule number
-→ allow alebo deny
+outbound packet:
+source 10.42.48.27:53144 → destination 203.0.113.42:443
+
+inbound return packet:
+source 203.0.113.42:443 → destination 10.42.48.27:53144
 ```
 
-## 5. Stateless return path
+Inbound return rule preto matchuje destination ephemeral port `53144`, nie destination port `443`.
 
-Pre outbound HTTPS client flow:
+## 6. Praktický custom NACL v Terraform-e
 
-```text
-client ephemeral port → destination TCP/443
+Nasledujúci NACL povoľuje outbound HTTPS a inbound return traffic pre Linux ephemeral range z governance contractu. Presný range musí zodpovedať používanému OS/runtime-u.
+
+```hcl
+resource "aws_network_acl" "application_c" {
+  vpc_id     = aws_vpc.payments.id
+  subnet_ids = [aws_subnet.application["c"].id]
+
+  tags = {
+    Name       = "payments-application-c"
+    Generation = "NACL-PC-8"
+  }
+}
+
+resource "aws_network_acl_rule" "application_c_out_https" {
+  network_acl_id = aws_network_acl.application_c.id
+  rule_number    = 100
+  egress         = true
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 443
+  to_port        = 443
+}
+
+resource "aws_network_acl_rule" "application_c_in_return" {
+  network_acl_id = aws_network_acl.application_c.id
+  rule_number    = 100
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 32768
+  to_port        = 60999
+}
 ```
 
-source subnet NACL typicky potrebuje:
+Táto ukážka je zámerne minimálna a neobsahuje DNS, internal VPC alebo management flows. Production NACL musí pokryť celý subnet communication contract. Custom NACL sa nemá aplikovať na production subnet, kým preflight nepreukáže všetky forward a return paths.
 
-```text
-outbound: destination TCP/443 allow
-inbound: response na client ephemeral destination port allow
+Rule number je executable priority. Ak rule 90 denyuje partner CIDR a rule 100 povoľuje general HTTPS, deny vyhrá. NACL review preto musí hodnotiť ordered ruleset ako celok.
+
+## 7. Live NACL association a ordered rules
+
+Zisti NACL používanú subnetom:
+
+```bash
+aws ec2 describe-network-acls \
+  --region eu-central-1 \
+  --filters Name=association.subnet-id,Values=subnet-0payc \
+  --query 'NetworkAcls[].{Id:NetworkAclId,Associations:Associations,Entries:Entries}'
 ```
 
-Destination-side boundaries majú zrkadlovo správne directions.
+Pre čitateľnejší výstup:
 
-Presný ephemeral range závisí od client OS/runtime a pathu. Autoritatívny návrh vychádza z actual source-port behavioru a threat modelu, nie zo slepo skopírovaného historického rozsahu.
-
-## 6. Rule ordering je executable policy
-
-Príklad:
-
-```text
-100 DENY 203.0.113.0/24 TCP/443
-200 ALLOW 0.0.0.0/0 TCP/443
-*   DENY all
+```bash
+aws ec2 describe-network-acls \
+  --region eu-central-1 \
+  --network-acl-ids acl-0payc \
+  --query 'NetworkAcls[0].Entries[].{Number:RuleNumber,Egress:Egress,Action:RuleAction,Protocol:Protocol,Cidr:CidrBlock,From:PortRange.From,To:PortRange.To}' \
+  --output table
 ```
 
-Specific deny funguje iba preto, že sa vyhodnotí pred broad allow. Renumbering alebo insertion môže zmeniť efektívny verdict bez zmeny samotných CIDRs.
+Rules s číslom `32767` alebo `*` reprezentujú default deny boundary podľa output formátu. Presence outbound TCP/443 nepreukazuje inbound return allowance.
 
-NACL review preto musí porovnávať ordered ruleset ako celok, nie iba existenciu jednej allow rule.
+## 8. Default a custom NACL behavior
 
-## 7. Default a custom NACL
+Default NACL typicky povoľuje traffic a možno ho sprísniť. Nový custom NACL začína s deny-all behaviorom, kým explicitné rules nepridáš. To je bezpečný default, ale nebezpečný rollout, ak tím zabudne DNS, response ports alebo internal dependencies.
 
-Default NACL býva broad. Nový custom NACL začína restrictive behaviorom, kým nepridáš všetky potrebné directions a ports.
+Association custom NACL so subnetom je okamžitá policy zmena pre celú subnet cohortu. Safe rollout používa canary subnet alebo exact preflight, rollback association a business test.
 
-Mechanizmus častého failure:
+## 9. SG a NACL majú odlišný účel
+
+Security Group je primárny workload-level least-access mechanismus. Sleduje ENI/resource identity a stateful connections. NACL je subnet guardrail, coarse isolation alebo emergency deny boundary. Kopírovanie každej SG rule do NACL vytvára dve policy sources, ktoré sa ľahko rozídu.
+
+NACL je vhodná napríklad na explicitný deny známeho CIDR pre celý subnet alebo na baseline segmentation. SG je vhodnejšia na dynamický application-to-database contract cez SG reference.
+
+## 10. Load balancer vytvára dve connections
+
+Pri Application Load Balanceri existujú dva samostatné network subjects:
 
 ```text
-nový subnet sa asociuje s custom NACL
-→ service-port allow existuje
-→ return ephemeral rule chýba
-→ SYN odíde
-→ SYN-ACK je odmietnutý
-→ client vidí timeout
+client → ALB listener
+ALB node → application target
 ```
 
-Association je okamžitá policy zmena pre celý subnet a potrebuje canary a rollback path.
+Client connection používa ALB subnets, NACL a ALB SG. Backend connection používa target subnet NACL a target SG inbound from ALB SG. Client-side success nepreukazuje backend path; ALB môže vrátiť `502` alebo `503`.
 
-## 8. SG a NACL majú rozdielny purpose
+Read-back target health:
 
-| Boundary | Security Group | Network ACL |
-|---|---|---|
-| Scope | ENI/resource | subnet |
-| State | stateful | stateless |
-| Verdicts | allow only | ordered allow/deny |
-| Return traffic | tracked response automaticky | explicitná rule |
-| Identity | SG/CIDR/prefix list | CIDR/protocol/ports |
-| Typický účel | workload least access | subnet guardrail/emergency coarse deny |
-
-NACL nemá nahrádzať precise workload SG. Zrkadlenie každej SG rule do NACL vytvára duplicitu a zvyšuje failure risk bez automatického security benefitu.
-
-## 9. Load balancer vytvára dve connection subjects
-
-Pri ALB/NLB path-e analyzuj oddelene:
-
-```text
-client → load balancer listener
-load balancer → target port
+```bash
+aws elbv2 describe-target-health \
+  --target-group-arn "$TARGET_GROUP_ARN" \
+  --region eu-central-1 \
+  --query 'TargetHealthDescriptions[].{Target:Target.Id,Port:Target.Port,Az:Target.AvailabilityZone,State:TargetHealth.State,Reason:TargetHealth.Reason}'
 ```
 
-Potrebné observation points:
+Target `healthy` preukazuje health-check contract, nie customer payment journey.
 
-- LB subnet, NACL a SG;
-- listener/protocol/certificate;
-- target-group port a health-check path;
-- target subnet NACL;
-- target ENI SG inbound z LB identity;
-- target process listener;
-- return paths oboch connections.
+## 11. Revocation fresh vs established flow
 
-Client IP preservation a protocol mode menia visible source fields, ale nemenia potrebu viazať policy na exact observation point.
+Po odstránení SG rule otestuj nový TCP handshake. Existing keep-alive alebo long-lived TLS session môže určitý čas pokračovať podľa connection tracking a application behavioru. Ak threat model vyžaduje okamžitý cut, treba uzavrieť existing connections, rotate endpoint/credential alebo použiť ďalšiu enforcement vrstvu.
 
-## 10. Egress dependencies a least privilege
-
-Broad outbound SG je jednoduchý, ale skryje dependency inventory. Restrictive egress musí zahŕňať:
-
-- DNS a time;
-- identity/token endpoints;
-- image/package repositories;
-- telemetry;
-- AWS service endpoints;
-- Secrets/KMS/configuration paths;
-- partner APIs a certificate infrastructure.
-
-Policy closure má overiť povolené dependencies aj forbidden destinations. „Application sa spustila“ nepreukazuje, že všetky runtime alebo recovery paths zostali funkčné.
-
-## 11. Flow Logs a analyzátory
-
-VPC Flow Logs môžu poskytnúť:
-
-- source/destination IP a port;
-- protocol;
-- interface ID;
-- `ACCEPT` alebo `REJECT`;
-- AZ/account/traffic-path fields podľa formátu;
-- observation window.
-
-Hranice:
-
-- `REJECT` sám nemusí jednoznačne pomenovať SG alebo NACL;
-- `ACCEPT` nepreukazuje listener, TLS ani business success;
-- aggregation môže skryť packet-level detail;
-- pre-NAT/post-NAT observation sa môže líšiť.
-
-Reachability Analyzer modeluje configuration path. Network Access Analyzer hľadá paths podľa access requirements. Ani jeden nenahrádza runtime connection test a application evidence.
-
-## 12. Worked incident — NACL blokuje return ephemeral ports iba v AZ-c
-
-### Symptóm
-
-Po prijatí `SUB-PC` do production fleet:
+Revocation closure:
 
 ```text
-HTTPS calls na PSP fungujú z AZ-a a AZ-b
-rovnaký binary a SG v AZ-c timeoutuje
-DNS je rovnaké
-NAT-C je available
-Flow Logs ukazujú outbound attempts
+rule or identity removed
+→ fresh connection denied
+→ existing sessions inventoried and terminated when required
+→ forbidden destination inaccessible
+→ required allowed paths remain healthy
+→ audit evidence retained
 ```
 
-### Exact subject
+## 12. Flow Logs a Reachability Analyzer
 
-```text
-source ENI: ENI-P42C
-source SG: SG-PAY-APP generation 31
-source subnet: SUB-PC
-source NACL: NACL-PC generation 7
-original flow: 10.42.48.27:53144 → 203.0.113.42:443
-route/NAT: RT-PC → NAT-C
-business request: P-884
+VPC Flow Logs môžu zachytiť ENI, source/destination addresses a ports, protocol, action a observation interval. `REJECT` pomáha lokalizovať network policy boundary, ale sám nemusí jednoznačne označiť SG alebo NACL. `ACCEPT` preukazuje, že capture boundary packet akceptovala; nepreukazuje destination listener alebo response.
+
+Reachability Analyzer modeluje configuration path medzi supported AWS resources. Je užitočný pri SG/NACL/route diagnosis, ale nevykonáva TLS alebo application transaction.
+
+Praktický modeled path:
+
+```bash
+PATH_ID=$(aws ec2 create-network-insights-path \
+  --source eni-0pay42c \
+  --destination eni-0internal-api \
+  --protocol tcp \
+  --destination-port 443 \
+  --region eu-central-1 \
+  --query NetworkInsightsPath.NetworkInsightsPathId \
+  --output text)
+
+aws ec2 start-network-insights-analysis \
+  --network-insights-path-id "$PATH_ID" \
+  --region eu-central-1
 ```
 
-### Competing hypotheses
+Pre internet destination bez AWS resource identity je runtime a Flow Log evidence dôležitejšia než modeled end-to-end path.
 
-1. SG-PAY-APP outbound rule chýba.
-2. Partner blokuje NAT-C EIP.
-3. NAT-C port allocation alebo AZ path zlyháva.
-4. NACL-PC outbound rule blokuje TCP/443.
-5. NACL-PC inbound return rule blokuje destination port `53144`.
-6. DNS/TLS je odlišné iba v AZ-c.
-7. Host firewall alebo application socket pool zlyháva.
-8. Route association SUB-PC je nesprávna.
+## 13. Runtime flow test
 
-### Discriminating observations
+Z affected workloadu:
 
-- SG ID a effective outbound allow sú identické s healthy cohortami.
-- RT-PC a NAT-C path sú správne; NAT metrics nemajú port-allocation errors.
-- Partner log vidí SYN/connection attempt z NAT-C EIP.
-- NACL-PC má outbound allow na destination 443.
-- NACL-PC inbound umožňuje iba destination 443, nie client ephemeral range.
-- Flow evidence koreluje return packet s `REJECT` na affected subnet path.
+```bash
+getent ahostsv4 auth.psp.example
+nc -vz -w 3 auth.psp.example 443
+openssl s_client \
+  -connect auth.psp.example:443 \
+  -servername auth.psp.example \
+  -brief </dev/null
+```
 
-Causal chain:
+Ak TCP timeoutuje, packet capture alebo `ss` môže ukázať chosen source port:
+
+```bash
+ss -tnp dst 203.0.113.42:443
+```
+
+Source port sa následne porovná s NACL return rule. Tento observation je silnejší než všeobecná veta „ephemeral ports sú povolené“.
+
+## 14. Worked incident: NACL blokuje return port iba v AZ-c
+
+Po zaradení `SUB-PC` do production fleet-u fungovali PSP HTTPS calls z AZ-a a AZ-b, no rovnaký binary a SG v AZ-c timeoutoval. DNS odpoveď bola rovnaká, NAT-C bol available a Flow Logs ukazovali outbound attempts.
+
+Exact flow bol `10.42.48.27:53144 → 203.0.113.42:443`. Source ENI bola `ENI-P42C`, SG generation `SG-PAY-APP-31`, NACL generation `NACL-PC-7`, route `RT-PC → NAT-C` a request `P-884`.
+
+Hypotézy zahŕňali SG outbound, partner EIP allowlist, NAT port pressure, outbound NACL, inbound return NACL, TLS, host firewall a route association.
+
+SG a route boli rovnaké ako v healthy cohorts. NAT metrics nemali port-allocation errors a partner videl SYN z NAT-C EIP. NACL-PC mala outbound allow na destination `443`, ale inbound allowovala iba destination `443`. SYN-ACK sa vracal na client destination port `53144` a skončil default deny. Flow evidence korelovala return packet s `REJECT` na affected subnet path.
 
 ```text
-client SYN z portu 53144
-→ outbound NACL TCP/443 allow
-→ NAT a partner
-→ SYN-ACK sa vracia na client port 53144
-→ inbound NACL-PC nemá matching allow
+client SYN from 53144
+→ outbound destination 443 allowed
+→ NAT-C and partner
+→ SYN-ACK returns to destination 53144
+→ inbound NACL has no matching ephemeral rule
 → default deny
 → client timeout
 ```
 
-### Containment
+Containment odobral `SUB-PC` z rollout a scale placementu, zachoval NACL generation, Flow Logs, CloudTrail a source-port sample a ponechal healthy capacity v ostatných AZs. Tím nepridal `ALLOW ALL` ako rýchlu opravu.
 
-- odober SUB-PC z nového ASG rollout/scale placementu;
-- zachovaj NACL generation, Flow Logs, CloudTrail a source-port sample;
-- nepovoľuj `ALL 0.0.0.0/0` bez bounded review;
-- zachovaj healthy serving capacity v AZ-a/AZ-b.
+Recovery najprv zmerala actual ephemeral range používaného runtime-u, potom upravila IaC o bounded inbound return rule s explicitným numberom. Fresh TCP/TLS connection z canary instance prešla. Nová inbound connection z partner side zostala forbidden, pretože return rule nepovoľuje unsolicited new connection cez NAT/state model.
 
-### Authoritative recovery
+Closure vyžadovala allowed partner path z každej AZ, correct business response pre `P-884`, žiadne broad inbound exposure a druhý fleet scale-out bez policy driftu.
 
-1. Urči actual ephemeral port contract pre používaný OS/runtime.
-2. Uprav IaC pre inbound return rule s najmenším udržateľným scope-om.
-3. Aplikuj zmenu s explicitným rule number a rollback planom.
-4. Testuj fresh TCP/TLS connections z SUB-PC.
-5. Over allowed partner path aj forbidden inbound/new reverse connection.
-6. Vytvor canary instance a payment request pred plným fleet admission.
+## 15. Policy-as-code tests
 
-### Closure verdict
-
-Incident je uzavretý až keď:
-
-- fresh HTTPS flows fungujú z každej AZ;
-- NACL ordered ruleset zodpovedá IaC;
-- SG least-access contract ostal nezmenený;
-- unsolicited inbound a forbidden destinations ostávajú blokované;
-- request `P-884` má presne jeden authorization outcome;
-- subnet conformance test overuje forward aj return directions.
-
-## 13. Ďalšie failure boundaries
-
-### Broad SG reference vytvorí shared trust domain
-
-Nesúvisiace workloady zdieľajú rovnakú SG a automaticky získajú communication path. Rule review musí zahŕňať membership inventory SG, nie iba samotnú rule.
-
-### Emergency NACL deny zablokuje management alebo recovery traffic
-
-Subnet-wide deny zastaví aj Systems Manager, DNS, identity alebo evidence export. Emergency change potrebuje ownera, expiry a explicitný recovery-access test.
-
-### SG rule bola odstránená, ale existing session pokračuje
-
-Fresh connection je blocked, no long-lived tracked/application pool session môže prežiť podľa connection state-u. Revocation test musí pozorovať oba subjects.
-
-### Load balancer health funguje, user traffic nie
-
-Health-check source/port môže mať samostatnú allow rule, zatiaľ čo listener-to-target alebo client-to-LB flow používa iný protocol/path.
-
-### `Connection refused` nie je typický silent policy drop
-
-Packet pravdepodobne dosiahol endpoint, ale nič nepočúva, binduje iba localhost, target port je chybný alebo host firewall aktívne rejectuje. Timeout a refused sú rozdielne observation outcomes.
-
-### Prefix list update rozšíri access mnohým SGs
-
-Central reusable identity zmení effective allow graph všetkých consumers. Potrebuje dependency inventory, review a regression test.
-
-## 14. Troubleshooting sequence
+Static policy test má odmietnuť:
 
 ```text
-exact source/destination tuple a direction
-→ route reachability
-→ source SG new-flow allow
-→ source NACL outbound ordered verdict
-→ NAT/TGW/firewall observation
-→ destination NACL inbound ordered verdict
-→ destination SG allow/connection tracking
-→ listener/TLS/application authorization
-→ reverse path
-→ fresh aj established flow verification
-→ business a forbidden outcome
+application SG inbound 0.0.0.0/0 on backend port
+NACL allow-all rule before intended deny
+custom NACL without required return-path fixture
+shared SG mutated without owner and impact set
+rule without description or stable rule identity
 ```
 
-Preskakovanie priamo na SG console často ignoruje route, NACL, listener alebo translated address identity.
-
-## 15. Earlier controls
-
-- purpose-specific SGs a rule descriptions/IDs;
-- no broad management ports from internet;
-- NACL ordered-policy tests vrátane return paths;
-- canary association pred subnet-wide NACL rolloutom;
-- temporary-rule expiry a owner;
-- SG membership inventory pri SG references;
-- Flow Logs a configuration analyzers;
-- allowed aj forbidden synthetic flows;
-- load-balancer two-connection test;
-- emergency deny runbook s management/recovery exception validation;
-- IaC drift detection pre SGs, NACLs a associations.
-
-## Referenčné rozlíšenia
-
-| Symptóm/otázka | Najbližšia boundary |
-|---|---|
-| Fresh flow timeoutuje | route, SG, NACL, silent firewall, listener path |
-| `Connection refused` | listener/bind/target port/active reject |
-| Return traffic chýba | NACL, asymmetry, NAT/stateful inspection |
-| Rule existuje, flow stále blocked | direction, tuple, ordering, observation point |
-| Rule odstránená, session pokračuje | connection tracking/long-lived session |
-| Flow Log `ACCEPT`, app zlyhá | TLS/auth/application/downstream |
+Integration fixture vytvorí canary ENI/Pod v každej subnet cohort-e a overí DNS, TCP, TLS, allowed business path a forbidden path. Policy JSON/YAML sama nepreukazuje effective enforcement.
 
 ## Kontrolné otázky
 
-1. Prečo SG nepotrebuje zrkadlovú return rule pre tracked flow?
-2. Prečo NACL return rule potrebuje client ephemeral ports?
-3. Ako SG reference reprezentuje workload identity?
-4. Ako ordered NACL rules menia effective verdict?
-5. Prečo custom NACL association môže spôsobiť okamžitý subnet outage?
-6. Ako odlíšiš new flow od established connection pri revokácii?
-7. Aké dve connections vytvára load balancer?
-8. Čo preukazuje a nepreukazuje Flow Log `ACCEPT`/`REJECT`?
-9. Kedy je emergency NACL deny vhodný a aké má riziká?
-10. Ako overíš original aj forbidden outcome po oprave?
-
-## Glossary impact
-
-Relevantné pojmy: VPC flow-policy subject, SG effective allow graph, SG membership inventory, tracked connection subject, fresh-flow revocation test, NACL ordered-policy generation, stateless return-path contract, policy observation point, load-balancer dual-connection subject, emergency deny lifecycle a network-policy recovery closure.
+1. Prečo SG return traffic nepotrebuje zrkadlovú rule?
+2. Prečo NACL return traffic explicitnú rule potrebuje?
+3. Ktorý port matchuje inbound SYN-ACK pre outbound HTTPS clienta?
+4. Ako zistíš SG set exact ENI?
+5. Ako zistíš NACL asociovanú so subnetom?
+6. Prečo rule number mení NACL verdict?
+7. Aký rozdiel je medzi SG reference a CIDR rule?
+8. Čo Flow Log `ACCEPT` a `REJECT` preukazujú a čo nie?
+9. Ako revocation test rozlišuje fresh a established connection?
+10. Aký positive a forbidden test uzavrie AZ-c incident?
 
 ## Oficiálna dokumentácia
 
 - [Security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
-- [Security group connection tracking](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html)
+- [How security groups work](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html)
 - [Network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html)
+- [Control subnet traffic with network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/nacl-rules.html)
+- [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html)
 - [Reachability Analyzer](https://docs.aws.amazon.com/vpc/latest/reachability/what-is-reachability-analyzer.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
