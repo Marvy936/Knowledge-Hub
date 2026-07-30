@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **309**
-- Audited conceptual sections: **11181**
-- Total words: **707,423**
-- Findings: **22249** (critical 6438, high 7312, medium 2754, low 5745)
-- File grades: A 31, B 21, C 0, D 257
+- Audited conceptual sections: **11123**
+- Total words: **700,332**
+- Findings: **22228** (critical 6438, high 7312, medium 2754, low 5724)
+- File grades: A 32, B 20, C 0, D 257
 
 ## Interpretation
 
@@ -280,18 +280,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| B | 29 | 0 | 0 | 0 | 25 | 3831 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
-| B | 25 | 0 | 0 | 0 | 21 | 4209 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
-| B | 23 | 0 | 0 | 0 | 20 | 3605 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 1658 | `docs/14-sre-and-operations/blameless-postmortems.md` |
 | B | 21 | 0 | 0 | 0 | 13 | 1798 | `docs/14-sre-and-operations/incident-management.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2087 | `docs/14-sre-and-operations/operational-readiness.md` |
+| B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
+| B | 18 | 0 | 0 | 0 | 14 | 1436 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1877 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
@@ -305,6 +304,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 14 | 0 | 0 | 0 | 13 | 1484 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1406 | `docs/16-gitops-and-platform-engineering/argo-cd.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1741 | `docs/16-gitops-and-platform-engineering/flux.md` |
+| A | 14 | 0 | 0 | 0 | 14 | 1694 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 1815 | `docs/14-sre-and-operations/backup-and-restore.md` |
 | A | 13 | 0 | 0 | 0 | 9 | 1734 | `docs/14-sre-and-operations/sli-slo-sla.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1951 | `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md` |
@@ -14865,11 +14865,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `outline-instead-of-explanation` | 2494 | 0 | 0 | 0 | 2494 |
 | `term-before-explanation` | 0 | 561 | 1841 | 0 | 2402 |
 | `single-sentence-concept` | 0 | 2388 | 0 | 0 | 2388 |
-| `example-not-explicit` | 0 | 0 | 0 | 2386 | 2386 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2154 | 2154 |
+| `example-not-explicit` | 0 | 0 | 0 | 2377 | 2377 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2151 | 2151 |
 | `thin-concept-section` | 0 | 2104 | 0 | 0 | 2104 |
 | `list-first-introduction` | 0 | 1361 | 0 | 0 | 1361 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1205 | 1205 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1196 | 1196 |
 | `short-concept-section` | 0 | 0 | 913 | 0 | 913 |
 | `no-prose-concept` | 788 | 0 | 0 | 0 | 788 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |

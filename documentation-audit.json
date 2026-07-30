@@ -4161,15 +4161,15 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
       "title": "Guardrails",
-      "words": 3605,
-      "headings": 32,
-      "sections": 32,
-      "findings": 20,
+      "words": 1424,
+      "headings": 13,
+      "sections": 13,
+      "findings": 17,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 20,
-      "score": 23,
+      "low": 17,
+      "score": 21,
       "grade": "B"
     },
     {
@@ -4189,16 +4189,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
       "title": "Multi-tenancy",
-      "words": 3831,
-      "headings": 34,
-      "sections": 34,
-      "findings": 25,
+      "words": 1694,
+      "headings": 14,
+      "sections": 14,
+      "findings": 14,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 25,
-      "score": 29,
-      "grade": "B"
+      "low": 14,
+      "score": 14,
+      "grade": "A"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
@@ -4259,15 +4259,15 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
       "title": "Service catalog",
-      "words": 4209,
-      "headings": 32,
-      "sections": 32,
-      "findings": 21,
+      "words": 1436,
+      "headings": 13,
+      "sections": 13,
+      "findings": 14,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 21,
-      "score": 25,
+      "low": 14,
+      "score": 18,
       "grade": "B"
     },
     {
@@ -203050,71 +203050,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "2. Guardrail, gate, default a control",
-      "line": 30,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "2. Guardrail, gate, default a control",
-      "line": 30,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "3. Exact guardrail subject",
-      "line": 50,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "3. Exact guardrail subject",
-      "line": 50,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "4. Invariant a threat/risk model",
-      "line": 67,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "4. Invariant a threat/risk model",
-      "line": 67,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "6. Policy definition, parameter a binding",
-      "line": 94,
+      "section": "1. Invariant pred policy jazykom",
+      "line": 21,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203122,8 +203059,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "7. Validation actions a enforcement semantics",
-      "line": 102,
+      "section": "1. Invariant pred policy jazykom",
+      "line": 21,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
+      "section": "2. Exact guardrail subject",
+      "line": 29,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203131,8 +203077,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "7. Validation actions a enforcement semantics",
-      "line": 102,
+      "section": "2. Exact guardrail subject",
+      "line": 29,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203140,8 +203086,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "8. Mutation a defaulting",
-      "line": 110,
+      "section": "2. Exact guardrail subject",
+      "line": 29,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203149,8 +203095,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "9. Generation a corrective guardrails",
-      "line": 118,
+      "section": "3. Expected inventory a match coverage",
+      "line": 45,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203158,8 +203104,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "9. Generation a corrective guardrails",
-      "line": 118,
+      "section": "3. Expected inventory a match coverage",
+      "line": 45,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203167,8 +203113,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "10. Image, provenance a artifact guardrails",
-      "line": 126,
+      "section": "4. Enforcement layers a authority",
+      "line": 64,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203176,8 +203122,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "12. Policy rollout ako migration",
-      "line": 142,
+      "section": "4. Enforcement layers a authority",
+      "line": 64,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203185,8 +203131,35 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "13. Exceptions a break-glass",
-      "line": 161,
+      "section": "5. Kubernetes policy, binding a actions",
+      "line": 72,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
+      "section": "6. Mutation, generation a correction",
+      "line": 80,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
+      "section": "6. Mutation, generation a correction",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
+      "section": "7. Exceptions ako capability s lifecycle-om",
+      "line": 88,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203194,8 +203167,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "16. Policy ownership a product model",
-      "line": 196,
+      "section": "9. Connected incident GITOPS-PAY-64",
+      "line": 115,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203203,8 +203176,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "Guardrail redesign",
-      "line": 227,
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 132,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203212,17 +203185,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "18. Guardrail acceptance verdict",
-      "line": 248,
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 138,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
-      "section": "19. Troubleshooting flow",
-      "line": 269,
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 138,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203365,26 +203338,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "1. Dominantný model",
-      "line": 7,
+      "section": "1. Tenant layers a exact subject",
+      "line": 21,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203392,8 +203347,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "3. Exact tenant subject",
-      "line": 47,
+      "section": "2. Isolation objectives a topology",
+      "line": 38,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203401,8 +203356,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "3. Exact tenant subject",
-      "line": 47,
+      "section": "3. Onboarding a identity propagation",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
+      "section": "3. Onboarding a identity propagation",
+      "line": 46,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203410,7 +203374,7 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "4. Isolation objectives a threat model",
+      "section": "4. API authorization, workloads a indirect privilege",
       "line": 64,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -203419,7 +203383,25 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "6. Namespace ako management unit",
+      "section": "4. API authorization, workloads a indirect privilege",
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
+      "section": "5. Controllers a confused deputy",
+      "line": 72,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
+      "section": "6. GitOps tenant boundary",
       "line": 90,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -203428,7 +203410,7 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "6. Namespace ako management unit",
+      "section": "6. GitOps tenant boundary",
       "line": 90,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -203437,8 +203419,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "9. GitOps multi-tenancy",
-      "line": 114,
+      "section": "8. Storage, data, secrets a observability",
+      "line": 108,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203446,17 +203428,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "10. Network a DNS isolation",
-      "line": 122,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "10. Network a DNS isolation",
-      "line": 122,
+      "section": "10. Connected incident GITOPS-PAY-64",
+      "line": 134,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203464,8 +203437,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "10. Network a DNS isolation",
-      "line": 122,
+      "section": "11. Authoritative redesign a acceptance paths",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
+      "section": "11. Authoritative redesign a acceptance paths",
+      "line": 144,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203473,116 +203455,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "11. Compute, scheduling a noisy neighbors",
-      "line": 130,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "12. Storage a data isolation",
-      "line": 140,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "12. Storage a data isolation",
-      "line": 140,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "12. Storage a data isolation",
-      "line": 140,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "13. Secrets, identity a KMS boundaries",
-      "line": 148,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "13. Secrets, identity a KMS boundaries",
-      "line": 148,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "14. Shared services a platform dependencies",
-      "line": 156,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "16. Tenant change, migration a offboarding",
-      "line": 185,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "16. Tenant change, migration a offboarding",
-      "line": 185,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "16. Tenant change, migration a offboarding",
-      "line": 185,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "Multi-tenant redesign",
-      "line": 230,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "Multi-tenant redesign",
-      "line": 230,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
-      "section": "20. Multi-tenancy acceptance verdict",
-      "line": 254,
+      "section": "12. Troubleshooting a anti-patterny",
+      "line": 152,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203986,44 +203860,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "2. Inventory, registry, CMDB a service catalog",
-      "line": 30,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "5. Authority map per field",
-      "line": 79,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "6. Descriptor, provider a ingestion",
-      "line": 97,
+      "section": "1. Catalog, registry, inventory a runtime truth",
+      "line": 21,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -204031,8 +203869,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "9. Ownership ako operational contract",
-      "line": 121,
+      "section": "1. Catalog, registry, inventory a runtime truth",
+      "line": 21,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -204040,26 +203878,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "10. Lifecycle, support tier a deprecation",
-      "line": 129,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "10. Lifecycle, support tier a deprecation",
-      "line": 129,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "11. Freshness, staleness a completeness",
-      "line": 137,
+      "section": "2. Exact entity subject",
+      "line": 29,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -204067,110 +203887,101 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "12. Catalog ako projection, nie runtime oracle",
+      "section": "2. Exact entity subject",
+      "line": 29,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "3. Authority map per field",
+      "line": 45,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "3. Authority map per field",
+      "line": 45,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "4. Ingestion, processing a last-good semantics",
+      "line": 67,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "5. Entity model, relations a ownership",
+      "line": 83,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "6. Freshness a critical automation gate",
+      "line": 91,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "7. Catalog ako projection, nie privileged decision engine",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "7. Catalog ako projection, nie privileged decision engine",
+      "line": 112,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "8. Lifecycle, deprecation a removal",
+      "line": 120,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
+      "section": "10. Authoritative redesign a acceptance paths",
       "line": 145,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "12. Catalog ako projection, nie runtime oracle",
-      "line": 145,
-      "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "13. Scorecards a standards evidence",
-      "line": 153,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "15. Orphans, duplicates a deletion",
-      "line": 181,
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 151,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "15. Orphans, duplicates a deletion",
-      "line": 181,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "16. Security a privacy boundary",
-      "line": 189,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "16. Security a privacy boundary",
-      "line": 189,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "17. Observability a catalog SLO",
-      "line": 197,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "Catalog redesign",
-      "line": 251,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "19. Service-catalog acceptance verdict",
-      "line": 270,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "20. Troubleshooting flow",
-      "line": 291,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
-      "section": "20. Troubleshooting flow",
-      "line": 291,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
