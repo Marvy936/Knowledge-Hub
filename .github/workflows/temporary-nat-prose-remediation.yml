@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: temporary-nat-prose-remediation
+  cancel-in-progress: false
+
 jobs:
   remediate:
     runs-on: self-hosted
