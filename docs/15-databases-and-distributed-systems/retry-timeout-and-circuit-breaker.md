@@ -1,577 +1,155 @@
 # Retry, timeout a circuit breaker
 
-Retry, timeout a circuit breaker nie sú nezávislé utility decorators. Tvoria jeden control system nad latency, capacity, failure classification a unknown outcomes.
-
-Zle zložené policies môžu z malého dependency incidentu vytvoriť retry storm, vyčerpať pools a queues, predĺžiť latency a znásobiť non-idempotent side effects. Správny návrh preto začína logical operation, deadline budgetom a jedným explicitným retry ownerom.
-
-## 1. Dominantný model
+Retry, timeout a circuit breaker tvoria jeden control system nad logical operation, latency, capacity a unknown outcomes. Ak sú nakonfigurované nezávisle v SDK, gatewayi, service a provider clientovi, malý dependency incident sa môže zmeniť na retry storm, pool exhaustion a duplicate physical effects.
 
 ```text
 logical operation a business deadline
 → exact dependency/attempt subject
-→ end-to-end timeout budget
-→ failure a outcome classification
-→ retry eligibility a stable identity
-→ bounded attempts + backoff/jitter/budget
-→ circuit state a admission decision
-→ dependency recovery probe
-→ final business outcome a reconciliation
-→ second-failure validation
+→ remaining deadline budget
+→ failure alebo unknown-outcome classification
+→ stable operation a attempt identity
+→ one retry owner + bounded aggregate budget
+→ backoff/jitter alebo explicit refusal
+→ circuit admission a recovery probes
+→ durable final/reconciliation state
+→ slow dependency, lost response a second-failure validation
 ```
 
-Každý physical attempt musí byť mapovateľný na jeden logical operation a jeho authoritative outcome.
+Timeout znamená iba to, že caller prestal čakať. Neznamená, že request nedorazil, transaction rollbackla alebo external effect nenastal.
 
-## 2. Timeout nie je failure proof
+## 1. Resilience subject, deadline a timeout
 
-Timeout znamená:
+Exact subject musí pomenovať logical operation, physical attempts, caller/dependency generation, business deadline, queue/connect/request/transaction timeouts, retry owner, idempotency identity, failure classification, circuit scope, fallback a final outcome authority.
 
-> Caller prestal čakať v definovanom čase.
-
-Neznamená automaticky:
-
-- request nedorazil;
-- server nezačal pracovať;
-- transaction rollbackla;
-- external effect nenastal;
-- response neexistuje;
-- retry je bezpečný.
-
-```text
-provider effect completed
-→ response lost alebo oneskorená
-→ caller timeout
-→ outcome = unknown, nie failed
-```
-
-Pre side-effecting operation sa timeout musí mapovať na lookup/reconciliation path.
-
-## 3. Deadline vs. timeout
-
-### Timeout
-
-Maximálna duration konkrétneho waitu alebo attemptu.
-
-### Deadline
-
-Absolútny alebo odvodený end-to-end čas, po ktorom caller už result nepotrebuje alebo ho nemôže bezpečne použiť.
+Deadline je end-to-end čas, po ktorom result už nie je užitočný alebo bezpečný. Timeout je maximum konkrétneho waitu/attemptu. Každá downstream vrstva musí dostať remaining budget:
 
 ```text
 business deadline 2 000 ms
-→ gateway processing 100 ms
-→ queueing 250 ms
-→ service budget 1 650 ms
-→ provider attempt + cleanup musia zostať v tomto budgete
+- routing/auth/queueing 350 ms
+= service child budget 1 650 ms
+→ provider attempt + cleanup musia zostať v 1 650 ms
 ```
 
-Každá downstream vrstva musí dostať remaining budget, nie nový plný timeout.
+Ak client timeoutuje za `900 ms`, gateway za `900 ms`, service za `1 500 ms` a provider attempt za `700 ms` bez propagation, downstream work pokračuje po odchode caller-a. Spotrebúva threads, connections, queue slots, quota a retry budget a môže dokončiť side effect, o ktorom caller nevie.
 
-## 4. Deadline propagation
+Timeout layers zahŕňajú DNS/connect/TLS, pool checkout, request response, statement, transaction, queue lease a provider attempt. Ich súčet a queueing musia zapadnúť do jedného business deadline-u; najväčší config value nie je effective contract.
 
-Bez propagation vzniká:
+## 2. Outcome classification a stable identity
+
+Retry policy musí rozlíšiť:
+
+- definitely not executed alebo explicitne transient retryable;
+- permanent validation/auth/business rejection;
+- dependency overload s `Retry-After` alebo deferred contractom;
+- exhausted deadline/open circuit;
+- unknown outcome po možnom commite alebo send-e.
 
 ```text
-client timeout 1 s
-→ gateway timeout 2 s
-→ service timeout 3 s
-→ provider timeout 30 s
+provider effect succeeds
+→ response lost
+→ caller timeout
+→ outcome = sent-unknown
+→ lookup/reconciliation, nie blind retry
 ```
 
-Caller už dávno odišiel, ale downstream work pokračuje a spotrebúva:
+`operation_id` identifikuje logical business intent. `attempt_id` identifikuje physical execution. Každý retry musí zachovať operation/idempotency key, tenant/payload identity, provider idempotency key, current writer epoch, original deadline a attempt lineage. Idempotency key odvodený z attemptu mení retry na novú operation.
 
-- threads;
-- connections;
-- queue slots;
-- provider quota;
-- retry budget;
-- memory;
-- locks.
+Unknown database commit, provider timeout alebo worker crash medzi effectom a result persistence potrebuje status lookup a reconciliation capacity. Retry eligibility vzniká až po outcome classification.
 
-Downstream musí vedieť remaining deadline a cancellation state. Application je stále zodpovedná za zastavenie spawned worku tam, kde je to bezpečné.
+## 3. Retry owner, limits a backoff
 
-## 5. Timeout layers
+Retry môže existovať v SDK, gatewayi, service, driveri, message consumerovi, mesh-i a provider SDK. Ak SDK vykoná tri attempts, gateway dva a provider client tri, maximum je `3 × 2 × 3 = 18`, nie osem.
 
-Bežný request môže mať:
+Pre jednu dependency boundary má existovať jeden primary retry owner. Ostatné vrstvy môžu reconnectnúť pred potvrdeným sendom alebo queryovať status, ale nesmú vytvárať independent effect attempts.
 
-- DNS/connect timeout;
-- TLS handshake timeout;
-- connection-pool checkout timeout;
-- request/response timeout;
-- database statement timeout;
-- transaction timeout;
-- queue visibility/lease timeout;
-- provider attempt timeout;
-- user/business deadline.
-
-Najväčší configured timeout nie je automaticky effective deadline. Queueing a retries spotrebúvajú spoločný budget.
-
-## 6. Failure classification
-
-Retry policy potrebuje explicitnú classification.
-
-### Typicky retryable
-
-- transient connection reset pred potvrdeným sendom;
-- rate limit s `Retry-After` a available budgetom;
-- temporary leader election;
-- explicit retriable serialization failure celej transaction;
-- bounded overload response;
-- stale discovery endpoint po safe reconnecte.
-
-### Typicky non-retryable
-
-- validation error;
-- authentication/authorization denial;
-- invariant conflict;
-- unsupported schema/version;
-- malformed request;
-- permanent business rejection;
-- exhausted deadline;
-- open circuit.
-
-### Unknown outcome
-
-- timeout po možnom send-e;
-- connection loss po request body;
-- lost commit acknowledgement;
-- provider call bez response;
-- worker crash medzi side effectom a result persistence.
-
-Unknown outcome potrebuje lookup/idempotency/reconciliation, nie blind retry.
-
-## 7. Stable operation a attempt identity
+Per-operation limit chráni jeden request. Aggregate retry budget chráni celú dependency a fleet:
 
 ```text
-operation_id: logical business intent
-attempt_id:   jeden physical execution attempt
-```
-
-Retry musí zachovať:
-
-- operation/idempotency key;
-- payload identity alebo hash;
-- tenant/resource scope;
-- provider idempotency key;
-- current writer/leader epoch;
-- attempt lineage;
-- original deadline.
-
-Nový random idempotency key pri každom retryi mení retry na novú business operation.
-
-## 8. Retry owner
-
-Retry môže implementovať:
-
-- client SDK;
-- gateway/proxy;
-- service;
-- database driver;
-- message consumer;
-- service mesh;
-- provider SDK.
-
-Ak každá vrstva retryuje nezávisle, attempts sa násobia.
-
-```text
-SDK:             1 + 2 retries = 3
-Gateway:         1 + 1 retry   = 2
-Provider client: 1 + 2 retries = 3
-
-maximum physical attempts = 3 × 2 × 3 = 18
-```
-
-Pre jeden dependency boundary má byť jeden primary retry owner; ostatné vrstvy musia rešpektovať outcome, budget a idempotency contract.
-
-## 9. Retry limit a retry budget
-
-### Per-request limit
-
-Obmedzuje attempts jedného logical requestu.
-
-### Aggregate retry budget
-
-Obmedzuje retry volume celej service/dependency/cohort populácie.
-
-Per-request `maxAttempts=3` nestačí, ak tisíce concurrent requests retryujú súčasne.
-
-Príklad:
-
-```text
-normal first attempts: 10 000/min
-retry budget:          max 1 000/min
+first attempts: 10 000/min
+allowed retries: 1 000/min
 budget exhausted
-→ fail fast/defer/reconcile
+→ fail fast, defer alebo reconcile
 ```
 
-Retry budget chráni dependency aj caller capacity.
+Exponential backoff bez jitteru môže prebudiť celý fleet v rovnakom intervale. Každý retry kontroluje remaining deadline, circuit state a server hint. `Retry-After` sa rešpektuje iba ak business deadline dovolí čakať. Immediate retries sú výnimka pre presne klasifikovaný pre-send transient failure.
 
-## 10. Backoff a jitter
+Hedging spustí concurrent attempt pre tail latency. Je vhodný iba pre idempotent reads alebo deduplicated/fenced operations s capacity budgetom a cancellable loserom. Hedging payment provider callu je intentional duplication.
 
-Immediate retry môže uspieť pri jednej lost packet udalosti, ale coordinated retries vytvárajú synchronized load spikes.
+## 4. Circuit breaker ako admission state machine
 
-```text
-attempt 1
-→ exponential backoff
-→ random jitter
-→ remaining-deadline check
-→ attempt 2
-```
-
-Jitter rozkladá clients v čase. Backoff bez jitteru môže všetky instances prebudiť v rovnakých intervaloch.
-
-Server-provided `Retry-After` alebo explicitný overload hint má prednosť pred agresívnym local schedule-om, ak business deadline dovolí čakať.
-
-## 11. Hedging
-
-Hedged request spustí ďalší concurrent attempt po krátkom delayi, aby znížil tail latency.
-
-Je bezpečný iba pre:
-
-- idempotent reads;
-- deduplicated requests;
-- resources s capacity budgetom;
-- explicitne zrušiteľný losing attempt;
-- no-side-effect alebo fenced operations.
-
-Hedging non-idempotent provider callu je intentional duplication, nie retry optimization.
-
-## 12. Circuit breaker
-
-Circuit breaker chráni caller a dependency pred opakovanými calls, ktoré pravdepodobne zlyhajú.
-
-Typický state machine:
+Circuit breaker chráni caller a dependency pred attempts, ktoré pravdepodobne zlyhajú:
 
 ```text
 Closed
-→ failures/slow outcomes prekročia threshold
+→ failure/slow/unknown threshold
 → Open
-→ cooldown/recovery interval
-→ Half-Open
-→ bounded probes
-→ Closed alebo Open
+→ cooldown
+→ Half-Open bounded probes
+→ Closed alebo znovu Open
 ```
 
-### Closed
+Closed neznamená dependency healthy; iba povoľuje calls a zbiera samples. Open odmieta alebo použije truthful degraded path. Half-Open smie pustiť malý representative cohort, nie celý backlog.
 
-Requests prechádzajú a breaker vyhodnocuje rolling failure/latency sample.
+Breaker key musí zodpovedať failure domainu: provider + Region + operation class, prípadne endpoint generation alebo shard. Global breaker môže blokovať healthy cohort; per-Pod breaker v 72 Podoch môže každý posielať vlastné retries a probes. Local enforcement preto často potrebuje coordinated metrics a shared retry/admission budget.
 
-### Open
+Signals zahŕňajú timeouty, connect failures, latency, saturation, rate limit, unknown-outcome rate a final business completion. HTTP `5xx` samotné nestačí; timeouting dependency môže vyčerpať capacity bez jediného response-u.
 
-Requests sú odmietnuté bez dependency callu alebo smerujú na explicitný degraded path.
+Circuit breaker nenahrádza bulkhead ani rate limit. Bulkhead izoluje pools, rate limit obmedzuje admission a breaker reaguje na observed dependency state. Long timeout môže spotrebovať všetky connections skôr, než breaker nazbiera threshold.
 
-### Half-Open
+## 5. Fallback, recovery a capacity isolation
 
-Malý počet probes overuje recovery. Nesmie vypustiť celý backlog naraz.
+Open circuit môže vrátiť explicitný unavailable/deferred result, durable queue acceptance, reduced capability, bounded stale representation alebo reconciliation-required state. Fallback nesmie vracať cached success ani stale authority pre side effect.
 
-## 13. Breaker scope
+Recovery contract určuje cooldown, probe count, representative operation, success threshold, warmup a backlog release rate. Health endpoint nie je dostatočný probe pre auth, quota, data a real business path.
 
-Breaker key musí zodpovedať failure domainu:
+Provider attempts, status lookup, reconciliation a control-plane traffic potrebujú oddelené bulkheads/reserves. Retry storm nesmie vyčerpať capacity potrebnú na zistenie unknown outcomes alebo consensus route change.
 
-- dependency service;
-- Region;
-- provider;
-- tenant;
-- shard;
-- operation type;
-- endpoint generation.
+Queue backlog age a pool waits sú admission signals. Circuit close po dependency recovery nesmie naraz vypustiť celý accumulated backlog a znovu ju preťažiť.
 
-Jeden global breaker môže blokovať healthy shards. Breaker per Pod môže byť naopak príliš fragmentovaný a každý Pod vyšle vlastné probes/retries.
+## 6. Connected incident `DB-PAY-59`
 
-Prakticky treba často shared alebo coordinated retry/admission budget, hoci breaker state môže zostať local.
+Počas regional partition-u a degradácie `P1` používalo Atlas Payments tri retry vrstvy: merchant SDK max 2 retries, gateway max 1 a provider client max 2. Teoretické maximum bolo `18` attempts na logical operation. Deadline sa nepropagoval; každá vrstva začala vlastný budget.
 
-## 14. Breaker signal
+Breaker bol local v každom zo `72` provider-worker Podov. Otváral sa po `20` HTTP `5xx` za 30 sekúnd, no provider prevažne timeoutoval. Timeouts sa nepočítali ako failures, breaker key nerozlišoval provider route/Region a každý Pod mal vlastný half-open probe. Breakers preto zostali Closed.
 
-Breaker nemá sledovať iba HTTP `5xx`.
+Za deväť minút prišlo `24 600` logical operations a vzniklo `68 240` physical provider attempts, teda amplification `2.77×`. `1 384` operations skončilo `sent-unknown`, pool checkout p99 dosiahol `1.9 s` a active worker concurrency vzrástla `4.6×`. `27` duplicate physical attempts vzniklo aj preto, že niektoré legacy cohorts odvodzovali provider key z `attempt_id`. Provider idempotency zachovala jeden financial effect, no reconciliation trvala 38 minút.
 
-Relevantné signals:
+Root cause resilience layeru bola nesúvislá composition timeoutov, retries a breaker scopes bez shared operation/deadline budgetu. Provider degradation a partition boli trigger; retry storm bol silný amplifier.
 
-- timeout/deadline exceeded;
-- connection failure;
-- high latency;
-- rate limiting;
-- saturation;
-- malformed/contract failures oddelene;
-- provider business rejection oddelene;
-- queue age;
-- unknown-outcome rate;
-- successful final business completion.
+## 7. Redesign a acceptance paths
 
-Transport `200` s business failure nie je success. Timeout s neskorším successful provider effectom nie je jednoduchý dependency failure sample.
+Public `900 ms` request vykonáva iba durable acceptance; provider execution je asynchronous s vlastným bounded worker budgetom. SDK po accepted/unknown create neretryuje, ale queryuje status. Gateway neretryuje non-idempotent POST. Provider worker je jediný retry owner, používa stable provider key, max dva attempts pred reconciliation a shared provider+Region retry budget.
 
-## 15. Circuit breaker vs. retry
+Breaker key je provider + Region + operation class. Signals zahŕňajú timeout, connect, `5xx`, saturation a unknown rate. Half-Open používa malý canary cohort; fallback je durable defer alebo reconciliation-required, nie false success.
 
-- Retry očakáva, že transient failure sa môže v krátkom čase zlepšiť.
-- Circuit breaker bráni ďalším attempts, keď failure pravdepodobne pretrváva.
+**Positive path** dokončí first attempt v budgete alebo bounded retry po explicitne transient failure-i.
 
-```text
-request
-→ breaker admission
-→ bounded retry policy
-→ dependency
-```
+**Unknown path** stratí provider response; operation vstúpi do sent-unknown, reserved lookup zistí outcome a nevytvorí nový key/effect.
 
-Retry musí prestať, keď breaker otvorí. Breaker bez retry budgetu nemusí zastaviť storm pred dosiahnutím threshold-u na mnohých instances.
+**Recovery path** otvorí circuit, chráni capacity, vykoná representative half-open probes a rampuje backlog bez second overloadu.
 
-## 16. Circuit breaker vs. rate limit a bulkhead
+**Forbidden path** odmietne deadline reset, viac retry ownerov, attempt-based idempotency, retry po open circuit/deadline, breaker ignorujúci timeouty a cached false success fallback.
 
-### Rate limit
+Acceptance zahŕňa slow dependency, lost response, rate limit hint, open/half-open transition, fleet restart, second failure počas recovery a exhausted reconciliation reserve.
 
-Obmedzuje admission podľa množstva/času a chráni quota alebo fairness.
+## 8. Troubleshooting a anti-patterny
 
-### Bulkhead
+Diagnostika ide od logical operation a attempt tree cez business deadline, per-layer timeouts, failure classification, retry owners/limits/budget, idempotency identity, breaker key/state/signals, queues/pools/bulkheads a external outcome až po reconciliation.
 
-Izoluje capacity pools medzi workloads/dependencies.
+Najčastejšie anti-patterny sú timeout automaticky znamenajúci retry, tri retries v každej vrstve, backoff bez jitter/deadline/budgetu, breaker iba na `5xx`, per-Pod breaker považovaný za fleet control, plošné zvýšenie timeoutu, cached success pri open circuit a idempotency key podľa attemptu.
 
-### Circuit breaker
+## 9. Kontrolné otázky
 
-Reaguje na observed failure/recovery state dependency.
-
-Tieto controls sa dopĺňajú. Circuit breaker nevytvára connection reserve, ak všetky threads už čakajú v dlhom timeout-e.
-
-## 17. Graceful degradation
-
-Open circuit môže vrátiť:
-
-- explicitný `503`/deferred response;
-- stale cache s jasným freshness markerom;
-- queue acceptance, ak je durable a business contract to povoľuje;
-- reduced capability;
-- manual/reconciliation-required state.
-
-Fallback nesmie klamať o success alebo použiť stale authority na side effect.
-
-## 18. Recovery a half-open probes
-
-Recovery contract zahŕňa:
-
-- cooldown;
-- probe count a concurrency;
-- representative operation;
-- dependency capacity warmup;
-- success threshold;
-- backlog release rate;
-- re-open condition;
-- observability.
-
-Health endpoint môže byť green, ale real operation môže stále zlyhávať pre auth, quota, data alebo business path.
-
-## 19. Connected incident `DB-PAY-59`
-
-Počas regional partition-u a provider `P1` degradácie malo Atlas Payments tri retry vrstvy:
-
-```text
-merchant SDK:    max 2 retries
-API gateway:     max 1 retry on timeout/connect failure
-provider client: max 2 retries
-```
-
-Teoretické maximum bolo `18` physical attempts na jeden logical operation.
-
-Configured deadlines:
-
-```text
-merchant request deadline: 900 ms
-gateway upstream timeout:  900 ms
-settlement service timeout: 1 500 ms
-provider client timeout:   700 ms per attempt
-```
-
-Deadline sa nepropagoval. Každá vrstva začala vlastný timeout budget.
-
-Circuit breaker:
-
-- bol local v každom zo `72` provider-worker Podov;
-- otvoril sa po `20` HTTP `5xx` v 30 sekundách;
-- timeouts sa nepočítali ako failures;
-- každý Pod mal vlastný half-open probe;
-- breaker key nerozlišoval provider route generation ani Region.
-
-Provider `P1` však prevažne timeoutoval, nie vracal `5xx`. Breakers zostali `Closed`.
-
-## 20. Retry-storm dôsledky
-
-Za 9 minút:
-
-- `24 600` logical settlement operations;
-- `68 240` physical provider attempts;
-- attempt amplification `2.77×`;
-- `1 384` operations v `sent-unknown` cohort-e;
-- `27` duplicate physical provider attempts z overlapping retries/leader epochs;
-- provider connection pool checkout p99 `1.9 s`;
-- worker active concurrency vzrástla `4.6×`;
-- Region A quorum/control operations zaznamenali vyššiu latency pre shared network/CPU pressure;
-- zero duplicate financial effects vďaka provider idempotency.
-
-Retry storm bol amplifier. Trigger bol provider degradation a partition. Root cause resilience layeru bola nesúvislá composition timeoutov, retries a breaker scopes bez shared logical-operation/deadline budgetu.
-
-## 21. Unknown-outcome failure
-
-Pri provider timeout-e systém vykonal:
-
-```text
-attempt timeout
-→ gateway retry na inom workerovi
-→ provider client nový attempt_id
-→ rovnaký operation_id, ale nie vždy rovnaký provider idempotency key
-```
-
-Niektoré cohorts použili stable provider key, iné legacy key odvodený z `attempt_id`. To vytvorilo 27 duplicate physical attempts.
-
-Provider ledger nakoniec potvrdil jeden financial effect pre každú operation, ale reconciliation trvalo 38 minút.
-
-## 22. Evidence-preserving containment
-
-```text
-stop gateway a SDK retries pre settlement create
-→ force one retry owner
-→ preserve operation/attempt/deadline/breaker state
-→ open provider P1 circuit centrally
-→ stop stale-route Region B calls
-→ reserve provider lookup/reconciliation capacity
-→ classify never-sent/sent-unknown/completed
-→ query provider by stable idempotency key
-→ replay iba exact never-sent manifest
-```
-
-## 23. Authoritative redesign
-
-### Deadline contract
-
-```text
-business acceptance deadline: 900 ms
-provider execution: asynchronous after durable acceptance
-provider attempt deadline: 2 s independent worker budget
-final operation deadline/SLO: explicit status workflow
-```
-
-Public request už nečaká na provider effect.
-
-### Retry ownership
-
-```text
-merchant SDK
-→ no blind retry after accepted/unknown create
-→ status lookup using stable operation_id
-
-gateway
-→ no non-idempotent retry
-
-provider worker
-→ single bounded retry owner
-→ stable provider idempotency key
-→ aggregate retry budget
-```
-
-### Backoff/budget
-
-- max 2 provider attempts pred reconciliation state;
-- exponential backoff s full jitter;
-- shared provider+Region retry budget;
-- honor `Retry-After`;
-- no retry po deadline, validation alebo open circuit;
-- queue backlog age ako admission signal.
-
-### Circuit breaker
-
-```text
-key: provider + Region + operation class
-signals: timeout + connect + 5xx + saturation + unknown rate
-state: coordinated metrics, bounded local enforcement
-half-open: small canary cohort
-fallback: durable defer/reconciliation-required, nie false success
-```
-
-### Capacity isolation
-
-- provider attempts majú vlastný bulkhead;
-- status lookup má reserved capacity;
-- reconciliation má dedicated rate limit;
-- control/consensus traffic nie je v rovnakom resource pool-e ako retry storm.
-
-## 24. Retry/timeout/circuit-breaker acceptance verdict
-
-Resilience design je prijatý, keď:
-
-- exact logical operation, attempts a dependency subject sú explicitné;
-- end-to-end deadline a per-stage remaining budgets sú definované;
-- timeout sa neinterpretuje automaticky ako failure;
-- failure/retry/unknown classifications sú explicitné;
-- stable operation a provider idempotency identity prežijú retries;
-- jeden primary retry owner existuje pre dependency boundary;
-- per-request limit aj aggregate retry budget sú enforced;
-- backoff, jitter a server hints sú podporované;
-- circuit breaker scope zodpovedá failure domainu;
-- timeout, latency, saturation a business outcome sú súčasť breaker signalov;
-- Open/Half-Open behavior má bounded admission a truthful fallback;
-- queues, pools a control-plane traffic majú bulkhead/reserve;
-- unknown outcomes majú lookup a reconciliation;
-- slow dependency, lost response, open circuit, recovery probe a second-failure tests prejdú;
-- forbidden retry storm, deadline reset, duplicate side effect a false-success outcomes sú odmietnuté.
-
-## 25. Troubleshooting flow
-
-```text
-timeout, retry storm alebo cascading failure
-→ exact logical operation a attempt tree
-→ caller business deadline
-→ per-layer timeout/deadline propagation
-→ failure classification
-→ retry owners/limits/backoff/jitter
-→ aggregate retry budget
-→ operation/idempotency identity
-→ breaker key/state/signals
-→ queues/pools/bulkheads
-→ dependency and external outcome
-→ reconciliation a second-failure test
-```
-
-## 26. Anti-patterny
-
-### Timeout znamená retry
-
-Outcome môže byť unknown a effect už mohol nastať.
-
-### Každá vrstva má tri retries
-
-Attempts sa násobia, nie sčítavajú.
-
-### Exponential backoff stačí
-
-Bez jitteru, deadline a aggregate budgetu môže storm pokračovať.
-
-### Circuit breaker počíta iba `5xx`
-
-Slow/timeouting dependency môže zničiť capacity bez `5xx` responses.
-
-### Breaker per Pod je úplná izolácia
-
-Desiatky Podov môžu každý posielať vlastné attempts a probes.
-
-### Zvýšime timeout
-
-Môže zvýšiť held resources a znížiť throughput.
-
-### Open circuit vráti cached success
-
-Fallback musí zachovať business truth a freshness/authority contract.
-
-### Idempotency key podľa attemptu
-
-Každý retry sa stane novou operation.
-
-## 27. Kontrolné otázky
-
-1. Ako sa timeout líši od failure-u?
-2. Ako sa deadline líši od per-attempt timeout-u?
-3. Prečo treba propagovať remaining budget?
-4. Čo je unknown outcome?
-5. Ako sa operation_id líši od attempt_id?
-6. Prečo viac retry vrstiev násobí attempts?
-7. Čo je aggregate retry budget?
-8. Prečo jitter patrí k backoffu?
-9. Aké stavy má circuit breaker?
-10. Prečo breakers v `DB-PAY-59` neotvorili?
-11. Ako má vyzerať half-open recovery?
-12. Čo overuje retry/timeout/circuit-breaker acceptance verdict?
+1. Ako sa timeout líši od failure-u a deadline-u?
+2. Prečo sa propaguje remaining budget?
+3. Čo je unknown outcome?
+4. Ako sa operation ID líši od attempt ID?
+5. Prečo retries vo vrstvách násobia attempts?
+6. Čo chráni aggregate retry budget?
+7. Prečo backoff potrebuje jitter?
+8. Ako breaker scope zodpovedá failure domainu?
+9. Prečo breakers v `DB-PAY-59` zostali Closed?
+10. Ktoré positive, unknown, recovery a forbidden paths musia prejsť?
 
 ## Glossary impact
 
