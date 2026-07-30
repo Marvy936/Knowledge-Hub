@@ -1,469 +1,151 @@
 # Leader election a consensus
 
-Leader election a consensus sú súvisiace, ale odlišné mechanisms.
-
-- **Leader election** rozhoduje, ktorý participant má dočasne vykonávať coordinujúcu rolu.
-- **Consensus** zabezpečuje, že distributed participants sa zhodnú na jednej usporiadanej history rozhodnutí napriek failures v podporovanom modeli.
-
-Zvolený leader nie je automaticky oprávnený vykonať arbitrary external effect navždy. Application musí viazať leadership na term, lease, revision alebo fencing token a každý authoritative mutation path musí stale leadera odmietnuť.
-
-## 1. Dominantný model
+Leader election rozhoduje, ktorý participant má dočasne coordinovať prácu. Consensus rozhoduje, aká ordered history decisions je committed napriek podporovaným failures. Zvolený leader preto nie je automaticky navždy oprávnený vykonávať external effects. Authority musí byť viazaná na current term, lease alebo monotonic fencing epoch a destination musí stale epoch odmietnuť.
 
 ```text
-coordination/invariant intent
-→ exact consensus a leadership subject
+coordination intent a non-mergeable invariant
+→ exact cluster/application subject
 → members, failure domains a quorum
-→ term/epoch a candidate election
-→ leader authority
+→ election timeout, term a leader
 → proposal a replicated log
-→ quorum commit
-→ ordered apply a client acknowledgement
-→ lease/fencing pri external mutation
+→ quorum commit a ordered apply
+→ client acknowledgement/read revision
+→ lease-bound application ownership
+→ fenced external mutation
 → failure, re-election a reconciliation
-→ second-election validation
+→ process-pause a second-election validation
 ```
 
-Kľúčové je rozlíšiť `leader believes`, `cluster elected`, `entry committed`, `state applied` a `external effect accepted`.
+Treba oddeľovať states `process believes leader`, `cluster elected leader`, `entry committed`, `member applied entry` a `external resource accepted effect`.
 
-## 2. Prečo potrebujeme consensus
+## 1. Consensus subject, failure model a quorum
 
-Distributed replicas potrebujú jednotne rozhodnúť napríklad o:
+Exact subject musí pomenovať chránený invariant, cluster a membership generation, voting/learner members, failure domains, quorum, crash/recovery a network assumptions, persistent storage, election/lease timing, read consistency, application ownership a external mutation boundary.
 
-- current configuration generation;
-- lock/lease ownership;
-- membership;
-- leader epoch;
-- ordered commands;
-- failover authority;
-- metadata state;
-- unique allocation.
+Raft/etcd je crash-fault consensus, nie Byzantine protocol. Timeouts nevedia dokázať crash; iba pozorujú chýbajúcu komunikáciu. Pre `N` voting members je majority quorum `floor(N/2)+1`: tri members tolerujú jeden simultaneous failure, päť members dva, ak zostane connected majority a storage/protocol assumptions platia.
 
-Bez consensus alebo domain-specific merge modelu môžu concurrent writers vytvoriť divergentné authoritative histories.
+Viac members nezvyšuje automaticky throughput ani availability. Zvyšuje quorum communication, failure-domain a operational surface. Členovia v rovnakom zone/account failure domain-e neposkytujú deklarovanú nezávislosť.
 
-Consensus nie je potrebný pre každý byte alebo read. Používa sa tam, kde coordination chráni non-mergeable invariant.
+Consensus patrí k non-mergeable decisions, napríklad current configuration generation, ownership, unique allocation, membership alebo failover authority. Nie každý read ani byte potrebuje consensus.
 
-## 3. Failure model a assumptions
+## 2. Election, replicated log a visibility
 
-Pred hodnotením algoritmu treba pomenovať:
-
-- crash-stop alebo crash-recovery nodes;
-- Byzantine behavior či jeho absenciu;
-- message loss, delay a reordering;
-- persistent storage guarantees;
-- clock assumptions;
-- network partition;
-- member count a quorum;
-- membership change protocol;
-- external side effects.
-
-Raft/etcd rieši crash-fault consensus s majority quorum a nie je Byzantine consensus protocol.
-
-## 4. Quorum
-
-Pre `N` voting members je majority quorum:
+Raft election zjednodušene:
 
 ```text
-floor(N / 2) + 1
-```
-
-Príklady:
-
-| Members | Quorum | Tolerované simultaneous failures |
-|---:|---:|---:|
-| 1 | 1 | 0 |
-| 3 | 2 | 1 |
-| 5 | 3 | 2 |
-| 7 | 4 | 3 |
-
-Viac members nezvyšuje automaticky výkon. Zvyšuje quorum communication cost a operational surface.
-
-## 5. Terms a leader election
-
-Consensus history je rozdelená do monotonically increasing terms alebo epochs.
-
-Zjednodušený Raft election flow:
-
-```text
-follower nedostáva heartbeat
-→ election timeout
-→ candidate zvýši term
-→ požiada peers o votes
+heartbeat absent do election timeoutu
+→ follower zvýši term a kandiduje
 → majority vote
 → leader pre nový term
-→ heartbeats/AppendEntries
+→ AppendEntries/heartbeats
 ```
 
-Election timeout je failure detector založený na čase. Nevie dokázať crash; iba rozhoduje, že communication nebola pozorovaná v limite.
+V jednom fixed membership term-e sa legitímne majority leaders nemôžu rozdeliť do dvoch disjoint majorities. Old process však môže stále veriť, že je leader, držať stale connection alebo volať external provider. Consensus safety vlastnej history preto nestačí na application safety.
 
-## 6. Election safety
-
-V jednom term-e nesmú byť zvolení dvaja legitímni leaders s majority supportom. Majority quorums sa pretínajú, preto dve disjoint majorities v rovnakom fixed membership sete neexistujú.
-
-To však nezabraňuje:
-
-- old processu veriť, že je stále leader;
-- stale client connection;
-- external provideru prijať call od old leadera;
-- application cache držať starý leader flag;
-- nesprávnej membership reconfiguration;
-- side effectu mimo consensus guardu.
-
-## 7. Replicated log
-
-Leader prijme proposal a replikuje log entry followers.
+Proposal lifecycle je:
 
 ```text
 client proposal
-→ leader appends locally
-→ AppendEntries peers
+→ leader local append
+→ replication peers
 → majority stores entry
 → entry committed
 → state machines apply in order
-→ client acknowledgement podľa contractu
+→ result visible podľa read contractu
+→ client acknowledgement
 ```
 
-Treba rozlíšiť:
+Proposed, appended, replicated, committed, applied a externally visible sú odlišné states. Uncommitted entries old leadera môže nový leader prepísať. Local member môže zaostávať za commit indexom. Client, ktorý potrebuje current state, nesmie zamieňať local applied value s cluster-authoritative readom.
 
-- proposed;
-- appended;
-- replicated;
-- committed;
-- applied;
-- externally visible.
+Operational evidence zahŕňa current term, leader identity, commit/applied index, per-member progress, pending proposals, fsync latency, election count a response revision.
 
-Uncommitted entries starého leadera môže nový leader prepísať. Committed entry sa nesmie stratiť v supported failure model-e.
+## 3. Reads, leases a application leadership
 
-## 8. Commit vs. apply
+Linearizable read musí overiť current consensus authority. Member-local/serializable read môže byť stale výmenou za latency alebo availability. Application musí explicitne preniesť requested mode, response revision/term a minimum acceptable generation.
 
-Consensus commit znamená, že entry je durably accepted majority logom podľa protocolu. State machine apply môže mierne zaostávať.
-
-Operational evidence preto zahŕňa:
-
-- current term;
-- leader identity;
-- commit index;
-- applied index;
-- pending proposals;
-- per-member match/applied progress;
-- disk fsync latency;
-- election count.
-
-Client, ktorý potrebuje current applied state, nesmie zamieňať `committed` s `applied on this local member`.
-
-## 9. Linearizable reads
-
-Linearizable read musí potvrdiť, že read source reprezentuje current consensus authority.
-
-V etcd sú default range reads linearizable; `serializable` range môže byť member-local a stale výmenou za nižšiu latency a vyššiu availability.
-
-Read contract preto musí preniesť:
-
-- requested consistency mode;
-- response revision;
-- cluster/member identity;
-- term;
-- minimum acceptable revision/generation.
-
-## 10. Leader election nie je distributed lock navždy
-
-Leader role môže byť viazaná na lease:
+Leader election service často používa lease-bound key:
 
 ```text
 campaign
-→ leader key + lease
-→ lease renew
-→ lease expiry/revoke
+→ leader key attached to lease
+→ periodic renew
+→ lease loss/expiry
 → next campaigner
 ```
 
-Application musí priebežne overovať ownership. Jednorazový úspech `Campaign` neautorizuje nekonečný worker loop.
+Jednorazový `Campaign` success neautorizuje nekonečný worker loop. Renew failure musí zastaviť new work admission a active work musí rešpektovať cancellation/unknown-outcome contract.
 
-## 11. Leases a clocks
+Lease nie je process-local timestamp. Bezpečnosť závisí od authoritative lease service-u, renew acknowledgement, process pause, network delay a behavioru po uncertainty. Local boolean `isLeader=true` je cache, nie authority.
 
-Lease je časovo obmedzené právo spravované authoritative coordination systemom. Bezpečnosť závisí od:
+## 4. Fencing external mutations
 
-- kto meria expiry;
-- renew acknowledgement;
-- failure detector semantics;
-- process pause;
-- network delay;
-- client handling po renew failure;
-- grace period;
-- external fencing.
-
-Local wall-clock flag `lease valid until 18:10` bez authoritative renew evidence je slabý.
-
-## 12. Fencing tokens
-
-Fencing token je monotonically increasing epoch priradený novej authority.
+Fencing token je monotonically increasing epoch novej authority:
 
 ```text
-leader term/epoch 51
-→ mutation carries epoch 51
-→ resource accepts only epoch >= last_seen_epoch
+new leader epoch 52
+→ command carries 52
+→ resource stores last accepted epoch 52
 
-stale leader epoch 50
-→ rejected
+stale leader epoch 51
+→ resource rejects mutation
 ```
 
-Fencing musí byť enforced v destination/resource boundary. Token iba zapísaný do logu bez validation nič nezastaví.
+Fencing musí byť enforce-nutý v mutation destination: database conditional write, command table, provider adapter/proxy, storage generation alebo broker producer epoch. Token iba zalogovaný v callerovi nič nezastaví.
 
-Príklady enforcementu:
+Consensus môže vybrať operation ownera, ale nevie atomicky commitnúť arbitrary provider side effect mimo protocolu. External attempt stále potrebuje stable idempotency key, durable attempt/result evidence, lookup pri lost response-e a reconciliation. Fencing a idempotency riešia odlišné otázky: kto smie konať a či opakovaný logical intent vytvorí viac effectov.
 
-- database row `writer_epoch` condition;
-- storage generation pre lock ownera;
-- provider proxy kontrolujúci controller epoch;
-- broker producer epoch;
-- job table compare-and-set;
-- API request field validated current authority service-om.
+Application split brain vzniká, keď consensus cluster uznáva jedného current leadera, ale old process pokračuje unfenced. Nie je to chyba election safety; je to missing enforcement medzi coordination a resource boundary.
 
-## 13. Split brain na application vrstve
+## 5. Membership, maintenance a recovery
 
-Consensus cluster môže zostať safe, no application vytvorí dual execution:
+Membership je committed consensus state. Unsafe simultaneous remove/add môže znížiť reachable members pod quorum alebo vytvoriť ambiguous configuration. Changes sa robia sequentially: commit one change, overiť member sync/health, až potom ďalšia. Learner sa promotuje až po catch-up-e.
 
-```text
-old leader stratí lease
-→ process-local flag zostane true
-→ new leader zvolený
-→ oba workers volajú external provider
-```
+Planned leader transfer potrebuje caught-up target, bounded in-flight proposals, old leader demotion, client convergence a external fencing. Restart leadera nie je graceful handoff proof.
 
-To nie je consensus split brain, ak cluster uznáva iba new leadera. Je to **unfenced application leadership**.
+Pri majority loss-u cluster správne nemôže commitovať. Recovery nesmie vytvoriť nový independent cluster z minority bez explicitného disaster-recovery authority a reconciliation history. Pri disk corruption alebo restore-i treba zachovať cluster/member identity, committed revision a membership generation.
 
-## 14. Leader transfer a planned maintenance
+## 6. Connected incident `DB-PAY-59`
 
-Planned transfer potrebuje:
+Atlas používal päťčlenný etcd cluster. Region A commitla route generation `912`. Reconciliation scheduler používal Election service s lease TTL `15 s`, renew intervalom `5 s` a batchom trvajúcim až `60 s`. Pred partition-om bol leader `reconciler-b-17` v Region B s epoch `51`.
 
-- current leader eligibility;
-- target caught-up state;
-- bounded in-flight proposals;
-- client routing convergence;
-- old leader demotion;
-- external fencing;
-- post-transfer read/write verification.
+Po partition-e old leader nedokázal lease renewnúť a Region A zvolila epoch `52`. Old process však nastavil `isLeader=true` iba pri pôvodnom campaign success-e, batch loop nekontroloval lease loss a provider request neniesol epoch. Pokračoval ďalších `42 s`, hoci cluster uznával iba epoch `52`.
 
-Samotný process restart môže vyvolať election, ale negarantuje graceful handoff.
+Old worker spracoval `318` records; `74` operations dostalo attempts z oboch epochs a `27` vytvorilo duplicate physical provider attempts. Provider idempotency zachovala jeden financial effect, no `1 384` timeouted operations zostalo `sent-unknown` pre ďalšie reconciliation.
 
-## 15. Membership changes
+Root cause bola leadership overená iba pri vstupe do worker loopu a missing fencing na external mutation boundary. Election fungovala správne; application nepremietla current authority do každého effectful commandu.
 
-Membership je consensus state, nie statický config na jednotlivých nodes.
+## 7. Redesign a acceptance paths
 
-Unsafe changes môžu zmeniť quorum tak, že cluster stratí progress alebo vytvorí ambiguous configuration.
+Work unit je krátka a bounded: acquire operation ownership, overiť current leader key/epoch, vykonať jednu operation, durably zapísať result a až potom pokračovať. Každý provider command nesie `operation_id`, `leader_epoch`, `attempt_id` a stable provider idempotency key. Adapter alebo command authority odmietne epoch nižšiu než last accepted.
 
-Safe reconfiguration:
+**Positive path** zvolí leadera, commitne decision, vykoná fenced mutation a zapíše durable result s current epoch.
 
-```text
-one membership change
-→ commit current configuration
-→ verify new member sync/health
-→ next change
-```
+**Lease-loss path** zastaví new admission okamžite; active operation sa dokončí iba podľa bounded contractu alebo vstúpi do unknown/reconciliation state-u.
 
-etcd strict reconfiguration checks odmietajú changes, ktoré by znížili started members pod quorum. Learner musí byť dobehnutý pred promotion.
+**Recovery path** zabije leadera, zvolí nový term a redeliveruje operation. Old process alebo delayed request s old epoch je odmietnutý.
 
-## 16. Consensus a external systems
+**Forbidden path** odmietne process-local permanent leadership, external mutation bez epoch, stale-epoch retry, uncommitted entry vydávanú za success a unsafe parallel membership changes.
 
-Consensus nevie atomicky commitnúť arbitrary provider operation, ak provider nie je participant rovnakého protocolu.
+Acceptance zahŕňa minority partition, majority loss, process pause dlhší než TTL, delayed old request, second election, leader transfer a membership reconfiguration.
 
-```text
-consensus says worker W owns operation O
-→ W calls provider
-→ response lost
-```
+## 8. Troubleshooting a anti-patterny
 
-Consensus pomáha rozhodnúť ownership, ale unknown external outcome stále potrebuje:
+Diagnostika ide od exact cluster/application subjectu cez membership/quorum, terms/votes, leader, commit/applied indexes, read mode/revision, lease/campaign evidence, process-local state, fencing enforcement a external attempts až po re-election a reconciliation.
 
-- idempotency key;
-- durable attempt record;
-- provider lookup;
-- reconciliation;
-- fencing epoch;
-- retry owner.
+Najčastejšie anti-patterny sú `leader bol zvolený, môže konať`, predstava, že etcd zabráni všetkým application split brainom, lease uložená ako local timestamp, single leader zamieňaný s exactly-once, viac nodes bez failure-domain modelu, naraz menená membership a healthy leader považovaný za current applied state na každom memberovi.
 
-## 17. Connected incident `DB-PAY-59`
-
-Atlas provider-route control používal päťčlenný etcd cluster. Quorum side Region A commitla route generation `912`.
-
-Samostatný reconciliation scheduler používal etcd Election service:
-
-```text
-leader lease TTL: 15 s
-renew interval:     5 s
-worker batch:       up to 60 s
-```
-
-Pred partition-om bol leader `reconciler-b-17` v Region B s leader epoch `51`.
-
-Po partition-e:
-
-1. Region B leader nedokázal renew-nuť lease cez quorum.
-2. Region A campaigner získal leadership s epoch `52`.
-3. `reconciler-b-17` mal process-local `isLeader=true` nastavený pri pôvodnom `Campaign` success-e.
-4. Batch loop nekontroloval lease loss medzi provider operations.
-5. Provider request neobsahoval fencing epoch.
-6. Starý worker pokračoval ďalších `42 s`.
-
-Consensus cluster uznával iba epoch `52`. Application však umožnila epoch `51` vykonávať external side effects.
-
-## 18. Consensus/leadership root cause
-
-Primary root cause bol:
-
-> Leadership bola overená iba pri vstupe do worker loopu a external mutation boundary nevynucovala current monotonic fencing epoch.
-
-Trigger bol regional partition. Consensus election fungovala správne.
-
-Amplifiers:
-
-- 60-sekundový non-interruptible batch;
-- local boolean leadership cache;
-- provider API bez epoch validation;
-- retry policy nezviazaná s operation owner epoch;
-- stale route generation `911` v Region B;
-- observability sledovala počet elected leaders v etcd, nie concurrent external actors.
-
-## 19. Dôsledky
-
-Počas overlap window:
-
-- old epoch `51` worker spracoval `318` operation records;
-- new epoch `52` worker spracoval rovnaký backlog partition z current authority;
-- `74` logical operations dostalo attempts z oboch epochs;
-- `27` operations vytvorilo duplicate physical provider attempts;
-- provider idempotency zabezpečila jeden financial effect;
-- `1 384` timeouted operations zostalo v `sent-unknown` cohort-e pre ďalšie retries/reconciliation.
-
-Znovu platí: zero duplicate financial effects neznamená, že leader/fencing contract prešiel.
-
-## 20. Evidence-preserving containment
-
-```text
-pause all reconciliation campaigners
-→ preserve etcd term, leader key, lease a revision evidence
-→ preserve worker process/batch/epoch logs
-→ revoke old workload identity
-→ fence provider mutation path
-→ classify attempts by operation_id + leader_epoch
-→ query provider idempotency ledger
-→ resume iba one current fenced worker cohort
-```
-
-## 21. Authoritative redesign
-
-### Short bounded work units
-
-```text
-acquire operation ownership
-→ validate current leader key/epoch
-→ process one bounded operation
-→ durable result
-→ release/next
-```
-
-### Transactional leadership guard
-
-Leader key sa používa na transactional guard coordination mutation, nie iba na initial election.
-
-### Fencing
-
-Každý reconciliation/provider command obsahuje:
-
-```text
-operation_id
-leader_epoch
-attempt_id
-provider_idempotency_key
-```
-
-Provider adapter alebo authoritative command table odmietne epoch nižšiu než current accepted epoch.
-
-### Lease-loss handling
-
-- renew failure okamžite ruší new work admission;
-- active operations kontrolujú cancellation boundary;
-- unknown external attempts sa nerepeatnú bez lookupu;
-- old identity sa revokuje pri failover-e;
-- leader change event je business telemetry dimension.
-
-## 22. Consensus acceptance verdict
-
-Leader-election/consensus design je prijatý, keď:
-
-- exact coordination/invariant subject je explicitný;
-- failure model, members, failure domains a quorum sú zdokumentované;
-- term/epoch, leader, commit a apply state sú observable;
-- election timeout a expected failover window sú testované;
-- linearizable vs. member-local reads sú explicitné;
-- leadership je lease/term-bound, nie process-local forever flag;
-- every authoritative/external mutation path vynucuje fencing;
-- stale leader nemôže vykonať forbidden effect;
-- client acknowledgement zodpovedá committed/applied boundary;
-- membership changes sú sequential a quorum-safe;
-- unknown external outcomes majú idempotency a reconciliation;
-- leader failure, minority partition, majority loss, process pause a second election tests prejdú;
-- forbidden dual-writer, stale-epoch a uncommitted-as-success outcomes sú odmietnuté.
-
-## 23. Troubleshooting flow
-
-```text
-dual leader, lost decision alebo unavailable coordinator
-→ exact cluster/election/application subject
-→ membership a quorum
-→ terms, votes a current leader
-→ log match/commit/applied indexes
-→ read consistency mode/revision
-→ lease/campaign ownership
-→ process-local leadership state
-→ fencing token enforcement
-→ external side effects a retries
-→ re-election/reconciliation
-→ second-election validation
-```
-
-## 24. Anti-patterny
-
-### Leader bol zvolený, teda môže konať
-
-Leadership môže expirovať alebo byť nahradená. Mutation potrebuje current guard/fencing.
-
-### etcd zabráni všetkým split brainom
-
-Chráni vlastný consensus state. Application môže stále vykonať unfenced dual side effects.
-
-### Lease je timestamp v procese
-
-Authoritative expiry a renew evidence sú dôležitejšie než local clock.
-
-### Jediný leader znamená exactly once
-
-Crash po external effecte pred durable resultom vytvára unknown outcome a retry.
-
-### Viac nodes znamená vyššiu availability bez ceny
-
-Quorum latency, failure domains a operations sa menia.
-
-### Remove/add members naraz
-
-Membership changes môžu stratiť quorum; musia byť committed sequentially.
-
-### Healthy leader znamená current applied state
-
-Commit/apply lag, local read mode a client cache môžu vrátiť starý state.
-
-## 25. Kontrolné otázky
+## 9. Kontrolné otázky
 
 1. Ako sa leader election líši od consensus?
-2. Čo je majority quorum pre 5 members?
+2. Čo je quorum pre päť voting members?
 3. Čo reprezentuje term alebo epoch?
-4. Ako sa proposal, commit a apply líšia?
-5. Prečo timeout nevie dokázať leader crash?
-6. Čo je leader lease?
-7. Prečo je fencing token potrebný?
-8. Kde sa musí fencing enforce-nuť?
-9. Ako application split brain vznikol v `DB-PAY-59`?
-10. Prečo provider idempotency nenahrádza fencing?
-11. Ako bezpečne meniť membership?
-12. Čo overuje consensus acceptance verdict?
+4. Ako sa proposal, commit, apply a visibility líšia?
+5. Prečo election timeout nedokazuje crash?
+6. Prečo jednorazový Campaign success nestačí?
+7. Kde sa musí fencing token enforce-nuť?
+8. Ako idempotency dopĺňa fencing?
+9. Prečo consensus v `DB-PAY-59` fungoval a application napriek tomu zlyhala?
+10. Ktoré positive, lease-loss, recovery a forbidden paths musia prejsť?
 
 ## Glossary impact
 
