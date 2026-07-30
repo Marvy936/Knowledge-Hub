@@ -3839,16 +3839,16 @@
     {
       "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
       "title": "CAP theorem",
-      "words": 1754,
-      "headings": 31,
-      "sections": 31,
-      "findings": 71,
-      "critical": 20,
-      "high": 29,
-      "medium": 9,
-      "low": 13,
-      "score": 517,
-      "grade": "D"
+      "words": 1277,
+      "headings": 11,
+      "sections": 11,
+      "findings": 5,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 5,
+      "score": 7,
+      "grade": "A"
     },
     {
       "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
@@ -3867,16 +3867,16 @@
     {
       "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
       "title": "Consistency models",
-      "words": 1688,
-      "headings": 49,
-      "sections": 49,
-      "findings": 89,
-      "critical": 31,
-      "high": 41,
-      "medium": 7,
-      "low": 10,
-      "score": 732,
-      "grade": "D"
+      "words": 1289,
+      "headings": 11,
+      "sections": 11,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 9,
+      "grade": "A"
     },
     {
       "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
@@ -3909,16 +3909,16 @@
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
       "title": "Leader election a consensus",
-      "words": 1769,
-      "headings": 38,
-      "sections": 38,
-      "findings": 81,
-      "critical": 30,
-      "high": 28,
-      "medium": 10,
-      "low": 13,
-      "score": 635,
-      "grade": "D"
+      "words": 1279,
+      "headings": 11,
+      "sections": 11,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
@@ -4007,16 +4007,16 @@
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
       "title": "Retry, timeout a circuit breaker",
-      "words": 2010,
-      "headings": 55,
-      "sections": 55,
-      "findings": 115,
-      "critical": 45,
-      "high": 47,
-      "medium": 13,
-      "low": 10,
-      "score": 970,
-      "grade": "D"
+      "words": 1453,
+      "headings": 11,
+      "sections": 11,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 9,
+      "grade": "A"
     },
     {
       "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
@@ -200890,25 +200890,7 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "1. Dominantný model",
-      "line": 13,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "1. Dominantný model",
-      "line": 13,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "2. Formálna intuition",
+      "section": "2. Partition decision je per operation",
       "line": 30,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -200917,116 +200899,17 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "2. Formálna intuition",
+      "section": "2. Partition decision je per operation",
       "line": 30,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "2. Formálna intuition",
-      "line": 30,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "3. Čo znamená consistency v CAP",
-      "line": 40,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "3. Čo znamená consistency v CAP",
-      "line": 40,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema constraints;`, `referential integrity;`, `serializable multi-row transaction;`, `causal consistency;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "3. Čo znamená consistency v CAP",
-      "line": 40,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "3. Čo znamená consistency v CAP",
-      "line": 40,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "5. Partition tolerance nie je voliteľný checkbox",
-      "line": 79,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "5. Partition tolerance nie je voliteľný checkbox",
-      "line": 79,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet loss;`, `asymmetric reachability;`, `routing blackhole;`, `overloaded linku;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "5. Partition tolerance nie je voliteľný checkbox",
-      "line": 79,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "5. Partition tolerance nie je voliteľný checkbox",
-      "line": 79,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "5. Partition tolerance nie je voliteľný checkbox",
-      "line": 79,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "7. Decision je per operation, nie iba per product",
-      "line": 111,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "7. Decision je per operation, nie iba per product",
-      "line": 111,
+      "section": "7. Redesign a acceptance paths",
+      "line": 116,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -201034,71 +200917,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "8. Quorum a majority side",
-      "line": 126,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "8. Quorum a majority side",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čítať z local cache;`, `použiť serializable/member-local read;`, `držať staré connection;`, `ignorovať revision;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "8. Quorum a majority side",
-      "line": 126,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "9. Consistency-preserving partition behavior",
-      "line": 150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "9. Consistency-preserving partition behavior",
-      "line": 150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "9. Consistency-preserving partition behavior",
-      "line": 150,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `žiadne divergentné committed histories pre daný invariant.`, `caller potrebuje truthful degraded behavior;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "9. Consistency-preserving partition behavior",
-      "line": 150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "9. Consistency-preserving partition behavior",
-      "line": 150,
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 130,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -201106,426 +200926,12 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "9. Consistency-preserving partition behavior",
-      "line": 150,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP-`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "10. Availability-preserving partition behavior",
-      "line": 172,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "10. Availability-preserving partition behavior",
-      "line": 172,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "10. Availability-preserving partition behavior",
-      "line": 172,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commutative operations;`, `last-writer policy s akceptovanou stratou;`, `CRDT alebo explicitný merge;`, `append-only local log;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "10. Availability-preserving partition behavior",
-      "line": 172,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "10. Availability-preserving partition behavior",
-      "line": 172,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRDT`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "11. Stale reads sú contract, nie náhoda",
-      "line": 194,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "11. Stale reads sú contract, nie náhoda",
-      "line": 194,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "11. Stale reads sú contract, nie náhoda",
-      "line": 194,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu age alebo revision gap;`, `source replica/generation;`, `session guarantees;`, `whether read môže autorizovať write alebo external effect;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "11. Stale reads sú contract, nie náhoda",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "11. Stale reads sú contract, nie náhoda",
-      "line": 194,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `API`, `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "12. Partition-heal nie je automatická correctness",
-      "line": 213,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "12. Partition-heal nie je automatická correctness",
-      "line": 213,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "12. Partition-heal nie je automatická correctness",
-      "line": 213,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `committed majority history;`, `uncommitted minority attempts;`, `local accepted writes;`, `external effects vykonané mimo consensus;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "12. Partition-heal nie je automatická correctness",
-      "line": 213,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "14. Connected incident DB-PAY-59",
-      "line": 247,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "14. Connected incident DB-PAY-59",
-      "line": 247,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachoval quorum;`, `commitol generation 912 ;`, `linearizable reads vracali current route P2 .`, `nemohla commitovať nový route state;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "14. Connected incident DB-PAY-59",
-      "line": 247,
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 130,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "14. Connected incident DB-PAY-59",
-      "line": 247,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "14. Connected incident DB-PAY-59",
-      "line": 247,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P2`, `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "16. Dôsledky DB-PAY-59",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "16. Dôsledky DB-PAY-59",
-      "line": 299,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `1 384 operations skončilo ako sent-unknown pre timeout;`, `27 duplicate physical provider attempts vyžadovalo reconciliation;`, `provider idempotency zabránila duplicate financial settlement effectom`.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "16. Dôsledky DB-PAY-59",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "16. Dôsledky DB-PAY-59",
-      "line": 299,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "16. Dôsledky DB-PAY-59",
-      "line": 299,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "16. Dôsledky DB-PAY-59",
-      "line": 299,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P1`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "17. Evidence-preserving containment",
-      "line": 312,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "17. Evidence-preserving containment",
-      "line": 312,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "18. Authoritative redesign",
-      "line": 327,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "18. Authoritative redesign",
-      "line": 327,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "18. Authoritative redesign",
-      "line": 327,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route decision obsahuje exact generation;`, `settlement row persistuje used route generation;`, `minimum acceptable generation sa prenáša requestom;`, `local cache key je versionovaný;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "18. Authoritative redesign",
-      "line": 327,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact replicated subject a invariant sú explicitné;`, `partition scenarios a observation limits sú pomenované;`, `consistency znamená konkrétny model, nie všeobecnú „správnosť“;`, `availability znamená konkrétny response/liveness contract;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "19. CAP acceptance verdict",
-      "line": 355,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `freshness`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "20. Troubleshooting flow",
-      "line": 373,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "CAP znamená vyber si dve",
-      "line": 391,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "Partition tolerance vypneme",
-      "line": 395,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "CP systém je vždy unavailable",
-      "line": 399,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "Quorum vyriešilo application correctness",
-      "line": 407,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "Stale read je bezpečný, lebo ide iba o read",
-      "line": 411,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
-      "section": "Po heal-e je incident ukončený",
-      "line": 415,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
@@ -201619,494 +201025,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "2. Consistency model vs. database isolation",
-      "line": 24,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Transaction isolation",
-      "line": 28,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Transaction isolation",
-      "line": 28,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Transaction isolation",
-      "line": 28,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read committed;`, `repeatable read;`, `snapshot isolation;`, `serializable;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Transaction isolation",
-      "line": 28,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Distributed consistency",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Distributed consistency",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `linearizable;`, `sequential;`, `causal;`, `eventual;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Distributed consistency",
-      "line": 38,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "3. Exact consistency subject",
-      "line": 52,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "3. Exact consistency subject",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "3. Exact consistency subject",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objects alebo key range;`, `single operation vs. transaction;`, `participating clients/sessions;`, `primary/replica/cache path;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "3. Exact consistency subject",
-      "line": 52,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "4. Linearizability",
-      "line": 82,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "4. Linearizability",
-      "line": 82,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current leader/ownership;`, `lock a lease state;`, `idempotency create-if-absent;`, `account balance invariant;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "4. Linearizability",
-      "line": 82,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "4. Linearizability",
-      "line": 82,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "5. Sequential consistency",
-      "line": 103,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "6. Serializability a strict serializability",
-      "line": 111,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "7. Causal consistency",
-      "line": 129,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "8. Eventual consistency",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "8. Eventual consistency",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu staleness;`, `monotonic reads;`, `read-your-writes;`, `conflict winnera;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "8. Eventual consistency",
-      "line": 146,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "9. Bounded staleness",
-      "line": 163,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "9. Bounded staleness",
-      "line": 163,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "9. Bounded staleness",
-      "line": 163,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časová age;`, `revision/sequence lag;`, `počet versions;`, `event backlog age;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "9. Bounded staleness",
-      "line": 163,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "10. Session guarantees",
-      "line": 179,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Read-your-writes",
-      "line": 183,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Monotonic reads",
-      "line": 187,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Monotonic writes",
-      "line": 191,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "12. Stale reads a side effects",
-      "line": 215,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "13. Replica, cache a projection consistency",
-      "line": 229,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "13. Replica, cache a projection consistency",
-      "line": 229,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "13. Replica, cache a projection consistency",
-      "line": 229,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `async replica;`, `out-of-order events;`, `skipped consumer offset;`, `stale cache;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "13. Replica, cache a projection consistency",
-      "line": 229,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "14. Version a evidence tokens",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "14. Version a evidence tokens",
-      "line": 253,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "14. Version a evidence tokens",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `datastore revision;`, `commit sequence;`, `event offset;`, `policy generation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "14. Version a evidence tokens",
-      "line": 253,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "14. Version a evidence tokens",
-      "line": 253,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "15. Read repair a anti-entropy",
-      "line": 275,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "15. Read repair a anti-entropy",
-      "line": 275,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "15. Read repair a anti-entropy",
-      "line": 275,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read repair;`, `hinted handoff;`, `anti-entropy/Merkle comparison;`, `background reconciliation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "15. Read repair a anti-entropy",
-      "line": 275,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "15. Read repair a anti-entropy",
-      "line": 275,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRDT`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "16. Conflict resolution",
-      "line": 289,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Last-write-wins",
-      "line": 293,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Application merge",
-      "line": 297,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Reject/manual resolution",
-      "line": 301,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 309,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 309,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neukladala observed revision pri route decision-e;`, `nepřenášala minimum acceptable generation;`, `označovala local read ako strong v internom wrapperi;`, `používala stale route na provider side effect.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 309,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 309,
+      "section": "2. Silné models a real-time order",
+      "line": 39,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202114,8 +201034,44 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 309,
+      "section": "4. Session guarantees a version tokens",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "5. End-to-end visible consistency",
+      "line": 89,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "5. End-to-end visible consistency",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "6. Connected incident DB-PAY-59",
+      "line": 109,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "6. Connected incident DB-PAY-59",
+      "line": 109,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -202123,53 +201079,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 309,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P1`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "18. Consistency root cause",
-      "line": 345,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "18. Consistency root cause",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "18. Consistency root cause",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route generation nebola persisted na všetkých decisions;`, `client session neniesla minimum observed revision;`, `projection/cache freshness nebola business signal;`, `endpoint failover zmenil read source;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "18. Consistency root cause",
-      "line": 345,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "18. Consistency root cause",
-      "line": 345,
+      "section": "7. Redesign a acceptance paths",
+      "line": 126,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202177,246 +201088,12 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "18. Consistency root cause",
-      "line": 345,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "19. Evidence-preserving containment",
-      "line": 359,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "20. Authoritative redesign",
-      "line": 372,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Provider route",
-      "line": 374,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Merchant status/dashboard",
-      "line": 383,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Session guarantees",
-      "line": 393,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Event projections",
-      "line": 403,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Event projections",
-      "line": 403,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Event projections",
-      "line": 403,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Event projections",
-      "line": 403,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partition key drží per-operation order;`, `projection tracks source offset;`, `missing prefix blokuje current verdict;`, `cache key obsahuje immutable generation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Event projections",
-      "line": 403,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `real-time, program a causal order requirements sú uvedené;`, `database isolation a distributed consistency sú rozlíšené;`, `acknowledgement a visibility boundary sú explicitné;`, `stale reads majú age/revision/generation bound a allowed-use contract;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 140,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "21. Consistency acceptance verdict",
-      "line": 411,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `policy`, `freshness`",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "22. Troubleshooting flow",
-      "line": 429,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Strong consistency",
-      "line": 448,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Eventual consistency znamená niekoľko sekúnd",
-      "line": 452,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Serializable = linearizable",
-      "line": 456,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Replica read je iba performance optimization",
-      "line": 460,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Sticky session garantuje read-your-writes",
-      "line": 464,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Timestamp vyrieši causality",
-      "line": 468,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
-      "section": "Convergence opraví external effects",
-      "line": 472,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
@@ -203617,89 +202294,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "1. Dominantný model",
-      "line": 10,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "1. Dominantný model",
-      "line": 10,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "2. Prečo potrebujeme consensus",
-      "line": 28,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "2. Prečo potrebujeme consensus",
-      "line": 28,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current configuration generation;`, `lock/lease ownership;`, `membership;`, `leader epoch;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "2. Prečo potrebujeme consensus",
-      "line": 28,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "3. Failure model a assumptions",
-      "line": 45,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "3. Failure model a assumptions",
-      "line": 45,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "3. Failure model a assumptions",
-      "line": 45,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `crash-stop alebo crash-recovery nodes;`, `Byzantine behavior či jeho absenciu;`, `message loss, delay a reordering;`, `persistent storage guarantees;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "3. Failure model a assumptions",
-      "line": 45,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "3. Failure model a assumptions",
-      "line": 45,
+      "section": "2. Election, replicated log a visibility",
+      "line": 31,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203707,107 +202303,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "6. Election safety",
-      "line": 98,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "6. Election safety",
-      "line": 98,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old processu veriť, že je stále leader;`, `stale client connection;`, `external provideru prijať call od old leadera;`, `application cache držať starý leader flag;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "6. Election safety",
-      "line": 98,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "6. Election safety",
-      "line": 98,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "7. Replicated log",
-      "line": 111,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "7. Replicated log",
-      "line": 111,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proposed;`, `appended;`, `replicated;`, `committed;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "7. Replicated log",
-      "line": 111,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "8. Commit vs. apply",
-      "line": 136,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "8. Commit vs. apply",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current term;`, `leader identity;`, `commit index;`, `applied index;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "8. Commit vs. apply",
-      "line": 136,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "8. Commit vs. apply",
-      "line": 136,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "8. Commit vs. apply",
-      "line": 136,
+      "section": "3. Reads, leases a application leadership",
+      "line": 62,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203815,215 +202312,26 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "8. Commit vs. apply",
-      "line": 136,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "9. Linearizable reads",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requested consistency mode;`, `response revision;`, `cluster/member identity;`, `term;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "9. Linearizable reads",
-      "line": 153,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "9. Linearizable reads",
-      "line": 153,
+      "section": "4. Fencing external mutations",
+      "line": 80,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "9. Linearizable reads",
-      "line": 153,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "11. Leases a clocks",
-      "line": 181,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "11. Leases a clocks",
-      "line": 181,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto meria expiry;`, `renew acknowledgement;`, `failure detector semantics;`, `process pause;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "11. Leases a clocks",
-      "line": 181,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "11. Leases a clocks",
-      "line": 181,
+      "section": "5. Membership, maintenance a recovery",
+      "line": 99,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "12. Fencing tokens",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "12. Fencing tokens",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database row writer epoch condition;`, `storage generation pre lock ownera;`, `provider proxy kontrolujúci controller epoch;`, `broker producer epoch;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "12. Fencing tokens",
-      "line": 196,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "12. Fencing tokens",
-      "line": 196,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "14. Leader transfer a planned maintenance",
-      "line": 233,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "14. Leader transfer a planned maintenance",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "14. Leader transfer a planned maintenance",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current leader eligibility;`, `target caught-up state;`, `bounded in-flight proposals;`, `client routing convergence;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "14. Leader transfer a planned maintenance",
-      "line": 233,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "16. Consensus a external systems",
-      "line": 264,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "16. Consensus a external systems",
-      "line": 264,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "16. Consensus a external systems",
-      "line": 264,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency key;`, `durable attempt record;`, `provider lookup;`, `reconciliation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "16. Consensus a external systems",
-      "line": 264,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 283,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 51 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 283,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Region B leader nedokázal renew-nuť lease cez quorum.`, `Region A campaigner získal leadership s epoch 52 .`, `Batch loop nekontroloval lease loss medzi provider operations.`, `Provider request neobsahoval fencing epoch.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "17. Connected incident DB-PAY-59",
-      "line": 283,
+      "section": "5. Membership, maintenance a recovery",
+      "line": 99,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204031,260 +202339,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "18. Consensus/leadership root cause",
-      "line": 308,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "18. Consensus/leadership root cause",
-      "line": 308,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `60-sekundový non-interruptible batch;`, `local boolean leadership cache;`, `provider API bez epoch validation;`, `retry policy nezviazaná s operation owner epoch;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "18. Consensus/leadership root cause",
-      "line": 308,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "18. Consensus/leadership root cause",
-      "line": 308,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "18. Consensus/leadership root cause",
-      "line": 308,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "19. Dôsledky",
-      "line": 325,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "19. Dôsledky",
-      "line": 325,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "19. Dôsledky",
-      "line": 325,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `old epoch 51 worker spracoval 318 operation records;`, `74 logical operations dostalo attempts z oboch epochs;`, `27 operations vytvorilo duplicate physical provider attempts;`, `provider idempotency zabezpečila jeden financial effect;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "19. Dôsledky",
-      "line": 325,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "19. Dôsledky",
-      "line": 325,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "19. Dôsledky",
-      "line": 325,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "20. Evidence-preserving containment",
-      "line": 338,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "21. Authoritative redesign",
-      "line": 351,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Short bounded work units",
-      "line": 353,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Transactional leadership guard",
-      "line": 363,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Fencing",
-      "line": 367,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease-loss handling",
-      "line": 380,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease-loss handling",
-      "line": 380,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease-loss handling",
-      "line": 380,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease-loss handling",
-      "line": 380,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `renew failure okamžite ruší new work admission;`, `active operations kontrolujú cancellation boundary;`, `unknown external attempts sa nerepeatnú bez lookupu;`, `old identity sa revokuje pri failover-e;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease-loss handling",
-      "line": 380,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease-loss handling",
-      "line": 380,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact coordination/invariant subject je explicitný;`, `term/epoch, leader, commit a apply state sú observable;`, `election timeout a expected failover window sú testované;`, `linearizable vs. member-local reads sú explicitné;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "22. Consensus acceptance verdict",
-      "line": 388,
+      "section": "6. Connected incident DB-PAY-59",
+      "line": 107,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204292,57 +202348,39 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "23. Troubleshooting flow",
-      "line": 406,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "7. Redesign a acceptance paths",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Lease je timestamp v procese",
-      "line": 433,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "7. Redesign a acceptance paths",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Jediný leader znamená exactly once",
-      "line": 437,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 131,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Viac nodes znamená vyššiu availability bez ceny",
-      "line": 441,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Remove/add members naraz",
-      "line": 445,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/leader-election-and-consensus.md",
-      "section": "Healthy leader znamená current applied state",
-      "line": 449,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 131,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md",
@@ -205579,710 +203617,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "2. Timeout nie je failure proof",
-      "line": 24,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "2. Timeout nie je failure proof",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request nedorazil;`, `server nezačal pracovať;`, `transaction rollbackla;`, `external effect nenastal;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "2. Timeout nie je failure proof",
-      "line": 24,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "3. Deadline vs. timeout",
-      "line": 48,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Timeout",
-      "line": 50,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "4. Deadline propagation",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "4. Deadline propagation",
-      "line": 68,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threads;`, `connections;`, `queue slots;`, `provider quota;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "4. Deadline propagation",
-      "line": 68,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "5. Timeout layers",
-      "line": 91,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "5. Timeout layers",
-      "line": 91,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/connect timeout;`, `TLS handshake timeout;`, `connection-pool checkout timeout;`, `request/response timeout;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "5. Timeout layers",
-      "line": 91,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "5. Timeout layers",
-      "line": 91,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "6. Failure classification",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky retryable",
-      "line": 111,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky retryable",
-      "line": 111,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky retryable",
-      "line": 111,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky retryable",
-      "line": 111,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient connection reset pred potvrdeným sendom;`, `rate limit s Retry-After a available budgetom;`, `temporary leader election;`, `explicit retriable serialization failure celej transaction;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky retryable",
-      "line": 111,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky non-retryable",
-      "line": 120,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky non-retryable",
-      "line": 120,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky non-retryable",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky non-retryable",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validation error;`, `authentication/authorization denial;`, `invariant conflict;`, `unsupported schema/version;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Typicky non-retryable",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Unknown outcome",
-      "line": 131,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Unknown outcome",
-      "line": 131,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Unknown outcome",
-      "line": 131,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Unknown outcome",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout po možnom send-e;`, `connection loss po request body;`, `lost commit acknowledgement;`, `provider call bez response;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Unknown outcome",
-      "line": 131,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "7. Stable operation a attempt identity",
-      "line": 141,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "7. Stable operation a attempt identity",
-      "line": 141,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "7. Stable operation a attempt identity",
-      "line": 141,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "7. Stable operation a attempt identity",
-      "line": 141,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operation/idempotency key;`, `payload identity alebo hash;`, `tenant/resource scope;`, `provider idempotency key;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "7. Stable operation a attempt identity",
-      "line": 141,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "7. Stable operation a attempt identity",
-      "line": 141,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "8. Retry owner",
-      "line": 160,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "8. Retry owner",
-      "line": 160,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client SDK;`, `gateway/proxy;`, `service;`, `database driver;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "8. Retry owner",
-      "line": 160,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "8. Retry owner",
-      "line": 160,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "9. Retry limit a retry budget",
-      "line": 184,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Per-request limit",
-      "line": 186,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "10. Backoff a jitter",
-      "line": 207,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "11. Hedging",
-      "line": 223,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "11. Hedging",
-      "line": 223,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotent reads;`, `deduplicated requests;`, `resources s capacity budgetom;`, `explicitne zrušiteľný losing attempt;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "11. Hedging",
-      "line": 223,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "12. Circuit breaker",
-      "line": 237,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Closed",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Open",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "13. Breaker scope",
-      "line": 265,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "13. Breaker scope",
-      "line": 265,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency service;`, `Region;`, `provider;`, `tenant;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "13. Breaker scope",
-      "line": 265,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "13. Breaker scope",
-      "line": 265,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "14. Breaker signal",
-      "line": 281,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "14. Breaker signal",
-      "line": 281,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout/deadline exceeded;`, `connection failure;`, `high latency;`, `rate limiting;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "14. Breaker signal",
-      "line": 281,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "15. Circuit breaker vs. retry",
-      "line": 300,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "15. Circuit breaker vs. retry",
-      "line": 300,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "16. Circuit breaker vs. rate limit a bulkhead",
-      "line": 314,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Rate limit",
-      "line": 316,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Bulkhead",
-      "line": 320,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "17. Graceful degradation",
-      "line": 330,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "17. Graceful degradation",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "17. Graceful degradation",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný 503 /deferred response;`, `stale cache s jasným freshness markerom;`, `reduced capability;`, `manual/reconciliation-required state.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "17. Graceful degradation",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "17. Graceful degradation",
-      "line": 330,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "18. Recovery a half-open probes",
-      "line": 342,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "18. Recovery a half-open probes",
-      "line": 342,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "18. Recovery a half-open probes",
-      "line": 342,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cooldown;`, `probe count a concurrency;`, `representative operation;`, `dependency capacity warmup;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "18. Recovery a half-open probes",
-      "line": 342,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "19. Connected incident DB-PAY-59",
-      "line": 357,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bol local v každom zo 72 provider-worker Podov;`, `timeouts sa nepočítali ako failures;`, `každý Pod mal vlastný half-open probe;`, `breaker key nerozlišoval provider route generation ani Region.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "19. Connected incident DB-PAY-59",
-      "line": 357,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "19. Connected incident DB-PAY-59",
-      "line": 357,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "19. Connected incident DB-PAY-59",
-      "line": 357,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `24 600 logical settlement operations;`, `68 240 physical provider attempts;`, `attempt amplification 2.77× ;`, `1 384 operations v sent-unknown cohort-e;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
+      "section": "2. Outcome classification a stable identity",
+      "line": 37,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -206290,8 +203626,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
+      "section": "2. Outcome classification a stable identity",
+      "line": 37,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -206299,215 +203635,8 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "20. Retry-storm dôsledky",
-      "line": 390,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "22. Evidence-preserving containment",
-      "line": 421,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "23. Authoritative redesign",
-      "line": 435,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Deadline contract",
-      "line": 437,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Deadline contract",
-      "line": 437,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Retry ownership",
-      "line": 448,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Backoff/budget",
-      "line": 464,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Backoff/budget",
-      "line": 464,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Backoff/budget",
-      "line": 464,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Backoff/budget",
-      "line": 464,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `max 2 provider attempts pred reconciliation state;`, `exponential backoff s full jitter;`, `shared provider+Region retry budget;`, `honor Retry-After ;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Backoff/budget",
-      "line": 464,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Circuit breaker",
-      "line": 473,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Capacity isolation",
-      "line": 483,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Capacity isolation",
-      "line": 483,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Capacity isolation",
-      "line": 483,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Capacity isolation",
-      "line": 483,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider attempts majú vlastný bulkhead;`, `status lookup má reserved capacity;`, `reconciliation má dedicated rate limit;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Capacity isolation",
-      "line": 483,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Capacity isolation",
-      "line": 483,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 15 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `end-to-end deadline a per-stage remaining budgets sú definované;`, `timeout sa neinterpretuje automaticky ako failure;`, `failure/retry/unknown classifications sú explicitné;`, `stable operation a provider idempotency identity prežijú retries;`.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
+      "section": "4. Circuit breaker ako admission state machine",
+      "line": 72,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -206515,102 +203644,48 @@
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
+      "section": "5. Fallback, recovery a capacity isolation",
+      "line": 93,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "24. Retry/timeout/circuit-breaker acceptance verdict",
-      "line": 490,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
-      "score": 4
+      "section": "6. Connected incident DB-PAY-59",
+      "line": 103,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "25. Troubleshooting flow",
-      "line": 510,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "7. Redesign a acceptance paths",
+      "line": 113,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Timeout znamená retry",
-      "line": 529,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Každá vrstva má tri retries",
-      "line": 533,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Exponential backoff stačí",
-      "line": 537,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Circuit breaker počíta iba 5xx",
-      "line": 541,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Breaker per Pod je úplná izolácia",
-      "line": 545,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Zvýšime timeout",
-      "line": 549,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Open circuit vráti cached success",
-      "line": 553,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md",
-      "section": "Idempotency key podľa attemptu",
-      "line": 557,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Troubleshooting a anti-patterny",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md",
