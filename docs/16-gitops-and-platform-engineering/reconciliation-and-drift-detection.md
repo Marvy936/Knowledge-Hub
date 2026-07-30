@@ -55,18 +55,25 @@ controller odošle mutation
 
 ## 3. Drift classification a field authority
 
-Praktické classes možno zoskupiť podľa authority:
+Drift classification sa začína otázkou, komu patrí odlišný field alebo resource. Ak human alebo pipeline priamo zmení Git-owned image či config, ide o unauthorized drift a reconciler ho môže po safety gate-e opraviť. Ak HPA mení replicas, operator spravuje child resources alebo secret controller materializuje data, rozdiel môže byť legitimate delegated writer state a slepý revert by vytvoril oscillation.
 
-- **unauthorized Git-owned drift** — human/pipeline mení image alebo config priamo;
-- **legitimate delegated writer** — HPA mení replicas, operator children, secret controller data;
-- **normalization/mutation drift** — API default, webhook sidecar, serialization form;
-- **dependency drift** — rovnaký manifest resolve-ne nový tag, chart alebo secret generation;
-- **inventory drift** — missing, orphaned alebo tracking-collision resource;
-- **runtime drift** — spec vyzerá správne, loaded/runtime outcome nie.
+API defaulting, serialization a admission-injected sidecar môžu vytvoriť normalization alebo mutation delta bez porušenia intentu. Naopak nezmenený manifest s mutable image tagom, chartom alebo external Secretom môže vytvoriť dependency drift bez source diffu. Missing, orphaned a tracking-collision resources patria do inventory driftu. Posledná class je runtime drift: desired aj live spec vyzerajú správne, ale Pods, loaded configuration, endpointy alebo external behavior nespĺňajú contract.
 
-`managedFields` pomáha identifikovať field managers, ale nie je business authority oracle. Manager name môže byť broad, stale alebo shared. Contract musí určiť exact field paths a expected writer-a.
+```text
+Git-owned unauthorized delta
+→ reconcile alebo contain
 
-Po klasifikácii controller môže reportovať, reconcile-nuť, úzko ignorovať, adoptovať live value cez reviewed Git proposal, contain-nuť incident alebo odmietnuť mutation pre nejasnú authority. Action sa odvodzuje z field authority a risku, nie z existencie diffu.
+delegated writer delta
+→ ignore iba exact owned field + monitor
+
+normalization/mutation delta
+→ schema-aware canonicalization a bounded exception
+
+dependency/inventory/runtime delta
+→ resolve generation, ownership a business impact
+```
+
+`managedFields` pomáha identifikovať field managers, ale nie je business authority oracle. Manager name môže byť broad, stale alebo shared. Contract musí určiť exact field paths a expected writer-a. Po klasifikácii controller môže reportovať, reconcile-nuť, úzko ignorovať, adoptovať live value cez reviewed Git proposal, contain-nuť incident alebo odmietnuť mutation pre nejasnú authority. Action sa odvodzuje z field authority a risku, nie z existencie diffu.
 
 ## 4. Ignore rules a false negatives
 
