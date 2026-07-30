@@ -72,7 +72,9 @@ missing tenant_scope
 
 Impact mechanismus pokračoval odstránením correlation metadata, nemožnosťou priradiť provider callback a stale/unknown merchant outcome-om. Trigger však nebol root cause; rovnaký run by incident nevytvoril, keby destructive operation chýbajúci scope fail-closed odmietla.
 
-Užitočná RCA rozlišuje viac príčinných vrstiev:
+Užitočná RCA rozlišuje viac príčinných vrstiev, pretože každá vedie k inému controlu. Technical root cause opisuje executable failure mechanismus. Systemic cause vysvetľuje design alebo governance, ktorý mechanismus dovolil. Escape a detection causes patria delivery a observability boundaries; amplification vysvetľuje blast radius a recovery-delay cause nepripravenosť obnovy. Bez tejto taxonómie by tím opravil query, ale ponechal broad database role, weak canary aj stale restore workload identity.
+
+V incidente sa preto analyzuje nielen prvá chybná mutation, ale aj to, prečo test, policy, detection a recovery paths nedokázali incident zastaviť alebo rýchlo napraviť. Jednotlivé causes nie sú konkurenčné odpovede; tvoria causal portfolio jedného outcome-u.
 
 - **technical root cause —** missing scope sa pri destructive query interpretoval ako wildcard;
 - **systemic root cause —** destructive-operation contract nemal mandatory scope, affected manifest, max rows/rate ani invariant gate;

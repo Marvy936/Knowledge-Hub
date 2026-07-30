@@ -46,7 +46,9 @@ Consistency group je versionovaný zoznam subjects, ktoré treba obnoviť alebo 
 
 ## 3. Backup, replication, snapshot, archive a export
 
-Tieto artifacts riešia odlišné problems:
+Tieto artifacts riešia odlišné problems a systém ich používa na iných boundaries. Backup je spravovaný recovery contract: policy určuje, ktorý subject sa zachytí, ako dlho sa uchová a ako sa nájde a obnoví. Replication je availability mechanismus, ktorý udržiava ďalší current copy, ale zvyčajne zdieľa mutation stream a preto rýchlo prenesie logical corruption. Snapshot, archive a export zase menia point-in-time, retention alebo portability semantics.
+
+Rozlíšenie rozhoduje o tom, ktorý failure model je pokrytý. Live replica pomôže pri instance loss-e, no nemusí poskytnúť clean historical point; archive zachová históriu, no nemusí splniť krátky RTO. Restore materializuje artifact, zatiaľ čo recovery až overí business capability.
 
 - **backup —** recovery-oriented copy s policy, retention, catalogom a restore pathom;
 - **replication —** ďalší live alebo near-live copy subject zvyšujúci availability, ktorý však kopíruje aj logical deletion alebo compromise;

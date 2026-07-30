@@ -122,6 +122,10 @@ Strategy sa mapuje podľa scenario: continuous logs a durable events pre nízke 
 
 ## 7. Target verzus actual measurement
 
+Recovery objective je plánovaný limit; actual measurement je evidence z konkrétneho incidentu alebo exercise-u. RPO target určuje najstarší prijateľný business-valid point, zatiaľ čo actual recovered point identifikuje timestamp alebo sequence, ktorý bol skutočne obnovený. RTO target určuje maximálny prijateľný interval a actual recovery time meria celý definovaný start-to-end path. Tieto hodnoty sa nesmú zapisovať do jedného poľa, lebo by želaný contract prepisoval nameranú realitu.
+
+Výsledok zároveň potrebuje vysvetliť, čo bolo permanentne stratené, čo sa rekonštruovalo a koľko času spotrebovali technical restore a work recovery. Až táto kombinácia ukáže, či target prešiel a kde vznikol gap.
+
 Objective a nameraný výsledok majú samostatné fields:
 
 - **RPO target —** požadovaný recovery point;
@@ -157,6 +161,10 @@ maximum disruption:         2 h
 RTO aj maximum tolerable disruption boli prekročené. Dashboard pritom začínal timer až restore jobom, restore access/key path bol stale, target nebol preprovisioned, provider reconciliation nebola v model-e a drill nepokrýval schema v17 ani logical corruption.
 
 ## 9. Corrective objective generation `REC-PAY-55`
+
+Pôvodný objective miešal data-loss invariant, initial recovery point, safe new traffic a historical work recovery do jedného RPO/RTO páru. Nová generation tieto boundaries oddeľuje, aby architecture a exercise mohli každú zmerať samostatne. Permanent loss je hard invariant, business-consistent replay window je point objective a staged RTOs určujú, kedy sa vracia durable admission, automatic completion a nakoniec historical reconciliation.
+
+Toto rozdelenie neoslabuje business commitment. Naopak odhaľuje, či služba iba prijíma nové intents, či ich vie bezpečne dokončiť a či už uzavrela affected historical cohort. Každý target má vlastný observation point a nesmie byť splnený green stavom inej boundary.
 
 Nový contract oddelil permanent loss, initial reconstructability a staged service recovery:
 
