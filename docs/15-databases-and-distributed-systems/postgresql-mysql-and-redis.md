@@ -1,462 +1,159 @@
 # PostgreSQL, MySQL a Redis
 
-PostgreSQL, MySQL a Redis nie sú tri stupne jednej databázovej škály. PostgreSQL a MySQL sú relational database management systems s transactions, constraints, SQL a durable storage modelom. Redis je in-memory data-structure server s odlišným command, persistence, replication a failure contractom. Výber produktu musí vychádzať z authoritative facts, invariantov, access patterns, latency, durability, recovery a operational capability, nie z nálepiek `SQL`, `NoSQL`, `rýchle` alebo `cloud-native`.
+PostgreSQL, MySQL a Redis nie sú tri úrovne jednej databázovej maturity škály. PostgreSQL a MySQL sú relational database systems s transactions, constraints, SQL, logs a durable recovery mechanizmami. Redis je in-memory data-structure server s odlišným command, TTL, eviction, persistence, replication a failover contractom. Správny výber preto nezačína názvom produktu, ale presným business factom, jeho authority rolou a failure outcome-om, ktorý musí systém udržať.
 
 ```text
-business capability a data role
-→ exact product-selection subject
-→ authoritative/derived/ephemeral classification
-→ invariant, query a transaction requirements
-→ durability/replication/recovery objectives
-→ concurrency, scale a latency profile
-→ PostgreSQL/MySQL/Redis mechanism fit
-→ schema/index/key/persistence realization
-→ operational ownership a evidence
-→ failure/recovery/business validation
+business fact a operation
+→ authoritative / derived / ephemeral role
+→ invariant, query a transaction boundary
+→ durability, consistency a recovery objective
+→ product-specific mechanism fit
+→ schema/index alebo key/data-structure realization
+→ acknowledgement a failure semantics
+→ operational evidence a reconciliation
+→ cache-loss, failover a restore validation
 ```
 
-## 1. Exact product-role subject
+`Redis je rýchly`, `PostgreSQL je source of truth` alebo `MySQL je jednoduchší` nie sú architecture decisions. Každé tvrdenie musí byť naviazané na konkrétnu operation, data generation a acceptance contract.
 
-Tvrdenie `použijeme Redis na výkon` alebo `PostgreSQL je source of truth` je príliš všeobecné. Subject musí uviesť:
+## 1. Product-role subject a authority map
 
-- business capability a exact facts;
-- authoritative, derived, cached, ephemeral alebo coordination role;
-- transaction a invariant boundary;
-- required query shapes a relationship model;
-- write/read concurrency;
-- latency a throughput objectives;
-- data volume, growth a retention;
-- durability a acknowledged-write semantics;
-- consistency a stale-read tolerance;
-- partitioning/sharding requirements;
-- backup, PITR a reconciliation path;
-- team/platform operational capability;
-- migration a exit strategy;
-- allowed aj forbidden failure outcomes.
+Exact product-role subject uvádza business capability a facts, ich authoritative alebo derived classification, transaction boundary, query a relationship requirements, latency a throughput objectives, volume a retention, acknowledgement a durability semantics, stale-read tolerance, partitioning, backup/PITR alebo rebuild path a operational ownership.
 
-Príklad:
+Atlas Payments používa produkty takto:
 
 ```text
-PostgreSQL:
-  authority: settlement + outbox + idempotency operation
-  invariant: one merchant operation → one executable settlement intent
+PostgreSQL
+  authority: settlement operation + outbox + reconciliation
+  invariant: one merchant operation → at most one executable intent
   recovery: base backup + WAL PITR + provider reconciliation
 
-MySQL:
-  authority: merchant policy and provider configuration
-  invariant: one active policy generation per merchant/provider/effective interval
+MySQL
+  authority: versioned merchant/provider policy
+  invariant: one active policy generation per effective interval
   recovery: full backup + binlog/GTID replay
 
-Redis:
-  role: bounded cache, rate-limit counters, short-lived dedupe acceleration
-  authority: none for acknowledged settlement completion
-  recovery: rebuild from authoritative stores/events
+Redis
+  role: bounded cache, admission counters, short-lived dedupe acceleration
+  authority: none for final provider or settlement outcome
+  recovery: rebuild from durable authority and events
 ```
 
-## 2. PostgreSQL mental model
+Authority je property konkrétneho factu, nie produktu ako celku. PostgreSQL môže byť authoritative pre settlement a zároveň obsahovať rebuildable projection. Redis môže byť authoritative pre zámerne ephemeral rate-limit counter, ale nie automaticky pre irreversible payment decision. Jeden fact nesmie mať dvoch nezávislých writers len preto, že platforma používa polyglot persistence.
 
-PostgreSQL je extensible relational database s MVCC, SQL, constraints, rich index types, WAL-based durability/recovery a širokým object modelom.
+## 2. PostgreSQL mechanismus a vhodná rola
 
-Dominantný write lifecycle:
+PostgreSQL realizuje relational state cez tables, keys, constraints, MVCC, locks, query planner, indexes a WAL. Dominantný write path je:
 
 ```text
 client transaction
 → parse/rewrite/plan
-→ MVCC snapshot a locks
-→ heap/index changes
-→ constraints/triggers
-→ WAL records
-→ commit record + durability policy
-→ visibility podľa transaction/isolation
-→ replication/archive/recovery chain
+→ MVCC snapshot + locks
+→ heap/index mutations
+→ constraints a triggers
+→ WAL generation
+→ commit/durability boundary
+→ visibility
+→ replication/archive/recovery
 ```
 
-Typické strengths:
+Je silný, keď correctness závisí od relational identity, uniqueness, referential integrity, predicate alebo multi-row transitions. Foreign keys, `CHECK`, unique a exclusion constraints, partial/expression indexes, rich SQL, JSONB a extensions umožňujú kombinovať invariant-heavy authority s rôznymi query patterns.
 
-- complex relational invariants;
-- foreign keys, unique/exclusion/check constraints;
-- advanced SQL, CTE, window functions a rich joins;
-- MVCC a multiple isolation levels;
-- JSON/JSONB spolu s relational modelom;
-- partial, expression, covering a specialized indexes;
-- extensions a custom types/operators;
-- physical/logical replication;
-- base backup + WAL PITR;
-- transactional DDL pre veľkú časť schema operations.
+Táto sila však nevytvára správnosť automaticky. Dlhé transactions zadržiavajú old row versions a môžu zvyšovať vacuum, WAL a replication pressure. DDL a row locks môžu blokovať workload. Nesprávna transaction boundary rozdelí settlement a outbox aj v PostgreSQL. Stale statistics alebo skew môžu vytvoriť zlý plan. Product fit preto zahŕňa schema, transactions, maintenance a recovery, nie iba feature list.
 
-Strength neznamená automatickú správnosť. PostgreSQL môže mať:
+## 3. MySQL/InnoDB mechanismus a vhodná rola
 
-- dlhé transactions zadržiavajúce old row versions;
-- vacuum/bloat pressure;
-- lock a DDL blocking;
-- connection/process overhead;
-- hot rows/index pages;
-- replication lag;
-- nesprávne query plans pre stale statistics alebo skew;
-- application invariants, ktoré constraints nepokrývajú.
-
-## 3. MySQL mental model
-
-MySQL je relational database platforma; pri moderných transactional workloads sa typicky používa InnoDB storage engine. Mechanizmus treba analyzovať cez konkrétny engine a server generation, nie všeobecné tvrdenie `MySQL robí X`.
-
-Dominantný InnoDB lifecycle:
+MySQL treba posudzovať cez konkrétny storage engine a server generation. Pri critical OLTP je typickým subjectom InnoDB, ktorý kombinuje MVCC, locks, buffer pool, undo/redo, constraints, crash recovery a coordination s binary logom.
 
 ```text
 client transaction
-→ parser/optimizer/executor
-→ InnoDB MVCC a locks
-→ buffer pool/page changes
-→ undo/redo
-→ constraints a commit
-→ binary log coordination
+→ optimizer/executor
+→ InnoDB snapshot a locks
+→ page/undo/redo mutations
+→ constraints
+→ commit + binary-log coordination
 → replication/PITR visibility
 ```
 
-Typické strengths:
+MySQL je silný relational owner pre veľké množstvo transactional use cases. InnoDB poskytuje durable transactions, row-level locking a recovery; binary log podporuje replication a PITR; GTID dáva operation identity pre topology a recovery; Group Replication alebo InnoDB Cluster môžu tvoriť HA mechanizmus.
 
-- mature relational transactions a indexing;
-- široký ecosystem a operational familiarity;
-- InnoDB buffer pool, MVCC, row locking a crash recovery;
-- binary log pre replication a PITR;
-- GTID-based replication identity;
-- Group Replication/InnoDB Cluster options;
-- practical compatibility s veľkým množstvom frameworks a managed services.
+Correctness však závisí od exact configuration. Storage engine, SQL modes, collation a case behavior, implicit conversions, DDL algorithm/lock, binlog format a filters, flush policy, replication mode a timestamp semantics môžu meniť outcome. PostgreSQL a MySQL sa preto nemajú porovnávať sloganom `correct vs fast`; obe platformy potrebujú explicitný invariant, transaction, acknowledgement a recovery contract.
 
-Product-specific caveats:
+## 4. Redis mechanismus a vhodná rola
 
-- storage engine mení transaction, locking a durability semantics;
-- SQL modes a collation/case behavior môžu meniť correctness;
-- DDL behavior a online-algorithm support závisia od operation/version;
-- replication filter/binlog format ovplyvňujú recovery a replicas;
-- `max_connections` a one-thread-per-connection default môžu vytvoriť overload;
-- timestamps/timezones a implicit conversions potrebujú explicitný contract;
-- optimizer/index behavior treba merať na current data distribution.
-
-PostgreSQL a MySQL sa nemajú porovnávať sloganom `PostgreSQL je correct, MySQL je fast`. Obe platformy vedia bezpečne prevádzkovať critical relational workloads, ak exact engine, configuration, schema, transaction, replication a recovery semantics spĺňajú požadovaný contract.
-
-## 4. Redis mental model
-
-Redis je server natívnych data structures. Operations typicky pracujú nad keyom a data-type-specific commands:
-
-- strings;
-- hashes;
-- lists;
-- sets a sorted sets;
-- streams;
-- bitmaps/bitfields;
-- geospatial, probabilistic, time-series, JSON, vector a ďalšie specialized structures podľa distribution/modules.
-
-Dominantný command lifecycle:
+Redis modeluje state cez keys a native data structures: strings, hashes, lists, sets, sorted sets, streams a ďalšie capabilities podľa distribution. Operation začína key identity a data-type command semantics, nie SQL query plannerom.
 
 ```text
-client connection
-→ command parsing a key routing
-→ single-threaded/main execution path pre data operation
-→ in-memory mutation
-→ replication stream
+client command
+→ key/slot routing
+→ in-memory data-structure operation
+→ optional replication stream
 → optional AOF/RDB persistence
 → acknowledgement
-→ replica/failover/restart behavior
+→ failover/restart semantics
 ```
 
-Redis je silný pre:
+Redis je prirodzený fit pre bounded cache, TTL-native ephemeral state, counters, rate limiting, leaderboards, session acceleration, short-lived dedupe, streams alebo coordination, keď sú presne známe safety a liveness assumptions. Direct key access a atomic server-side operation môžu poskytovať veľmi nízku latency.
 
-- bounded cache;
-- counters a rate limiting;
-- leaderboards a sorted-set ranking;
-- ephemeral session data;
-- short-lived dedupe acceleration;
-- streams/queues s explicitným delivery contractom;
-- coordination primitives, keď sú safety/liveness assumptions správne;
-- low-latency data-structure operations.
+Redis však nie je automaticky nedurable ani automaticky durable. RDB vytvára snapshots, AOF zaznamenáva commands a ich combination mení restart a loss window. Replication je typicky asynchronous. `MULTI/EXEC` vykoná queued commands bez interleavingu, ale nerobí relational rollback; `WATCH` poskytuje optimistic conflict check. Eviction a expiry môžu byť intended lifecycle alebo correctness failure. Cluster slot topology ovplyvňuje multi-key atomicity. Acknowledgement preto musí byť mapované na persistence, replication a failover scenario.
 
-Redis nie je automaticky non-durable. Poskytuje:
+## 5. Transactions, queries a modeling boundary
 
-- RDB point-in-time snapshots;
-- AOF write log;
-- kombináciu RDB + AOF;
-- no-persistence mode pre cache use cases;
-- asynchronous replication a HA layers;
-- transactions cez `MULTI`/`EXEC` a optimistic locking cez `WATCH`.
-
-Tieto mechanizmy majú iné guarantees než relational transaction system:
-
-- Redis transaction serializuje queued commands, ale neposkytuje rollback vykonaných commands;
-- multi-key atomicity môže byť ovplyvnená cluster slot topology;
-- replication je defaultne asynchronous;
-- `WAIT` znižuje risk write loss, ale samo nevytvára strongly consistent CP database;
-- eviction/expiry môže byť intended data lifecycle alebo correctness failure;
-- persistence policy určuje acknowledged-write loss window;
-- failover a client retry môžu vytvoriť duplicate/unknown outcomes.
-
-## 5. Transactions a invariant boundaries
-
-### PostgreSQL/MySQL
-
-Relational transaction môže atomicky chrániť viac rows/tables v jednom database authority boundary:
+PostgreSQL a MySQL vedia chrániť multi-row a multi-table invariant v jednej local transaction:
 
 ```text
 BEGIN
-→ validate merchant operation
+→ verify operation identity
 → insert settlement
 → insert outbox
-→ update balance/reservation
+→ record policy generation
 → COMMIT
 ```
 
-Constraints a isolation dopĺňajú application logic.
+Redis vie atomicky vykonať command alebo bounded command group, no nemá rovnaký relational constraint a rollback model. Otázka `podporuje produkt transactions?` je nedostatočná. Treba vedieť read/write set, conflicts, required rollback alebo compensation, durability po acknowledgement-e, cluster boundary a unknown-outcome retry semantics.
 
-### Redis
+Relational schema je vhodná pre relationships, joins, set-based operations a declarative constraints. Redis schema začína keyom, slotom, data type-om, TTL, eviction a access patternom. Secondary access paths sa často realizujú ďalšími structures, ktoré treba aktualizovať atomicky alebo reconciliovať. Hot keys, large values, unbounded cardinality a O(N) commands môžu zmeniť low-latency design na latency incident.
 
-Redis command môže byť atomic nad server execution boundary. `MULTI`/`EXEC` vykoná skupinu commands sekvenčne bez interleavingu; `WATCH` poskytuje optimistic check-and-set. To však nie je ekvivalent arbitrary relational transaction s rollbackom, foreign keys, query predicates a durable external workflow semantics.
+JSON column v PostgreSQL/MySQL ani Redis hash neodstraňuje potrebu schema governance. Typ produktu nemení business fact na schemaless; iba presúva miesto, kde sa schema a invariant vynucujú.
 
-Otázka nie je `podporuje transactions?`, ale:
+## 6. Durability, replication a recovery podľa role
 
-- čo je exact read/write set;
-- aké conflicts treba detegovať;
-- či rollback alebo compensation je potrebná;
-- aký durability outcome nasleduje po acknowledgement-e;
-- či keys sú na jednej execution/cluster boundary;
-- ako sa rieši unknown outcome a retry.
-
-## 6. Data modeling
-
-### PostgreSQL/MySQL
-
-Relational schema prirodzene modeluje:
-
-- entities a identities;
-- relationships;
-- normalization;
-- referential integrity;
-- joins a ad hoc queries;
-- set-based transitions;
-- constraints.
-
-Obe platformy podporujú aj semi-structured JSON use cases, ale JSON column neodstraňuje potrebu schema, indexing a invariant governance.
-
-### Redis
-
-Redis model začína access patternom a data structure:
+PostgreSQL acknowledgement závisí od WAL flush, storage a synchronous/asynchronous replication policy. MySQL acknowledgement závisí od InnoDB redo/flush, binary-log coordination, storage a replication policy. Redis acknowledgement závisí od persistence mode-u, fsync policy, replication a failover behavior. V každom produkte platí:
 
 ```text
-operation
-→ key identity a slot
-→ data type
-→ atomic command/Lua/function/transaction boundary
-→ TTL/eviction/persistence
-→ replication/failover
-```
-
-Unbounded key cardinality, large values, hot keys a O(N) commands môžu poškodiť latency a memory. Key naming je súčasť partitioning, multi-tenancy, observability a deletion lifecycle-u.
-
-## 7. Indexing a query model
-
-PostgreSQL a MySQL používajú optimizer a indexes na získanie rows podľa predicates/order/joinov. Index selection závisí od:
-
-- operators;
-- column order;
-- selectivity a distribution;
-- covering needs;
-- write cost;
-- query plan;
-- statistics;
-- engine-specific behavior.
-
-Redis lookup je často direct key access alebo data-structure operation. Secondary indexy sa modelujú explicitnými structures alebo specialized capabilities. To môže byť veľmi rýchle, ale application musí udržiavať consistency medzi primary key a secondary structures alebo použiť atomic server-side mechanismus.
-
-`Redis nemá SQL query planner` nie je slabina pri exact key lookup-e. Je to zásadná hranica pri ad hoc relational query requirements.
-
-## 8. Durability a acknowledgement
-
-### PostgreSQL
-
-Durability závisí od WAL/commit configuration, storage, synchronous replication policy a recovery chain. Client acknowledgement musí byť mapované na commit/WAL position a failure scenario.
-
-### MySQL
-
-Durability závisí od InnoDB redo/flush semantics, binary-log coordination, storage a replication policy. Binlog je dôležitý pre replication aj PITR.
-
-### Redis
-
-Durability závisí od persistence mode-u:
-
-- no persistence;
-- periodic RDB snapshots;
-- AOF s configured fsync policy;
-- RDB + AOF.
-
-`SET` success neznamená univerzálne `write prežije každý failover`. Persistence a replication configuration, acknowledgement requirements a failover model musia byť explicitné.
-
-## 9. Replication a high availability
-
-### PostgreSQL
-
-- physical streaming replication;
-- logical replication/publications/subscriptions;
-- synchronous/asynchronous commit options;
-- external promotion/orchestration a fencing;
-- WAL archive/PITR.
-
-### MySQL
-
-- binary-log-based replication;
-- GTID identity;
-- source/replica topologies;
-- Group Replication/InnoDB Cluster;
-- MySQL Router/client convergence;
-- binlog-based PITR.
-
-### Redis
-
-- asynchronous primary/replica replication;
-- Sentinel alebo Cluster pre HA/topology;
-- partial/full resynchronization;
-- optional `WAIT` acknowledgement;
-- AOF/RDB persistence independent from pure replication.
-
-Vo všetkých troch produktoch platí:
-
-```text
-replica exists
-≠ acknowledged write prežije every failure
+write success
+≠ write prežije každý failure
+≠ replica obsahuje acknowledged position
 ≠ logical corruption je recoverable
-≠ clients konvergovali na correct writer
+≠ clients smerujú na správneho writera
 ```
 
-## 10. Backup a recovery
+Recovery sa musí prispôsobiť data role. PostgreSQL authority potrebuje base backup, WAL continuity, clean target a reconciliation. MySQL authority potrebuje full backup, binlog/GTID continuity a exact stop position. Redis cache možno flushnúť a rebuildnúť; Redis state použitý ako authority potrebuje explicitný RDB/AOF, replication, restore a data-loss contract. Replication nenahrádza historical recovery v žiadnom z produktov.
 
-| Produkt | Typical recovery building blocks |
-|---|---|
-| PostgreSQL | logical dump, physical/base backup, WAL archive, PITR, timelines |
-| MySQL | logical/physical full backup, binary logs, positions/GTID, PITR |
-| Redis | RDB, AOF, replica/cluster-specific recovery, application rebuild |
+Operational evidence je tiež product-specific. PostgreSQL potrebuje transaction/lock/wait, backend, WAL/archive, vacuum a replication positions. MySQL potrebuje InnoDB transactions/locks, buffer pool, redo, binlog a applier state, Performance Schema a DDL evidence. Redis potrebuje memory/fragmentation, eviction/expiry, latency/slow log, clients/buffers, AOF/RDB, replication offsets, hot/big keys a cluster slots. Jedna cross-product `database CPU` metrika je slabý verdict.
 
-Recovery design má vychádzať z data role. Cache možno flushnúť a rebuildnúť. Authoritative settlement ledger potrebuje clean point, zero/explicit data-loss contract a business reconciliation.
+## 7. Connected incident `DB-PAY-57`
 
-## 11. Operational model
+Architecture používala PostgreSQL ako settlement/outbox authority, MySQL ako merchant-policy authority a Redis ako 24-hodinový dedupe accelerator. Effective gateway behavior však Redis key existence považoval za final proof, či provider operation existuje.
 
-### PostgreSQL signals
-
-- transactions, locks a wait events;
-- connection/backend count;
-- buffer/cache a I/O;
-- checkpoints/WAL/archive;
-- vacuum, dead tuples a bloat;
-- replication positions/lag;
-- query plans/statistics;
-- backup/restore evidence.
-
-### MySQL signals
-
-- connections/threads;
-- InnoDB transactions/locks;
-- buffer pool a redo;
-- binary logs/replication appliers;
-- query plans/performance schema;
-- DDL state;
-- backup/binlog continuity.
-
-### Redis signals
-
-- memory fragmentation a eviction;
-- command latency a slow log;
-- clients/buffers;
-- keyspace hit/miss/expiry;
-- persistence forks/AOF rewrite;
-- replication offsets/lag;
-- hot keys/big keys;
-- cluster slots/failover.
-
-Cross-product dashboard s jednou metrikou `database CPU` je nedostatočný.
-
-## 12. Product role matrix
-
-| Requirement | PostgreSQL | MySQL | Redis |
-|---|---|---|---|
-| complex relational invariants | strong fit | strong fit s exact engine/config | weak/general mismatch |
-| ad hoc SQL/joins | strong fit | strong fit | not primary model |
-| key-based low-latency cache | possible, not specialized | possible, not specialized | strong fit |
-| TTL/expiry-native ephemeral state | limited/general SQL mechanisms | limited/general SQL mechanisms | strong fit |
-| durable multi-table transaction | strong fit | strong fit with InnoDB | different command/transaction model |
-| WAL/binlog PITR | WAL-based | binary-log-based | AOF/RDB, not equivalent PITR semantics |
-| rich data structures | via schema/extensions | via schema/features | native core strength |
-| authoritative financial ledger | common fit with controls | common fit with controls | only with deliberately proven custom contract; usually poor default |
-
-Matrix nie je benchmark ani automatic verdict. Exact workload a team capability rozhodujú.
-
-## 13. Connected incident `DB-PAY-57`
-
-Architecture používala:
-
-```text
-PostgreSQL ledger-service
-  authority: settlement/outbox
-
-MySQL merchant-policy-service
-  authority: provider route + fee/risk policy generation
-
-Redis idempotency-service
-  intended role: 24 h dedupe acceleration
-  actual use: gateway treated key existence as final operation authority
-```
-
-Po pooling/session-state failure začalo `214` operations vyžadovať policy verification. Redis failover počas incidentu stratil časť recent keys, pretože replication bola asynchronous a AOF používal `everysec` semantics. Gateway po missing key opakoval provider call bez PostgreSQL/provider read-backu.
-
-Observed cohort:
+Po pooling/session-state failure-i vyžadovalo `214` operations policy verification a `31` použilo nesprávnu routing-policy generation. Počas incidentu Redis failover stratil časť recent keys, pretože replication bola asynchronous a AOF používal `everysec` semantics. Gateway interpretoval cache miss ako business absence a zopakoval provider call bez PostgreSQL alebo provider read-backu.
 
 ```text
 214 operations: policy verification required
-31 operations: wrong routing-policy generation used
-19 operations: provider result unknown after timeout
-68 Redis dedupe keys absent after failover/restart window
-7 duplicate provider attempts
-0 confirmed duplicate settlements after provider idempotency reconciliation
+31 operations: wrong policy generation
+19 operations: provider result unknown
+68 Redis keys: absent po failover/restart window
+7 provider attempts: duplicate
+0 confirmed duplicate settlements po provider reconciliation
 ```
 
-Nula confirmed duplicate settlements bola výsledkom provider idempotency a reconciliation, nie dôkazom, že Redis authority design bol správny.
+Nula confirmed duplicate settlements nebola dôkazom správneho Redis designu. Provider idempotency a reconciliation zabránili final duplicate effectu. Root cause bola product-role inversion: rebuildable state rozhodovalo o authoritative external action. Druhý problém bol, že settlement record neuchovával exact MySQL policy generation použitú pri decision-e.
 
-### Causal boundaries
+## 8. Redesign a acceptance paths
 
-- **Trigger:** pool/session failure a Redis failover počas response.
-- **Product-role root cause:** rebuildable Redis dedupe state bolo použité ako authoritative proof, či provider operation môže byť zopakovaná.
-- **Policy-consistency root cause:** settlement neukladal exact MySQL policy generation použitú pri decision-e.
-- **Amplifiers:** independent clocks, asynchronous replication, cache-key TTL, retry bez PostgreSQL/provider evidence a product-generic monitoring.
+Redesign uložil authoritative operation ID, settlement, outbox, exact policy generation a reconciliation state v PostgreSQL transaction boundary. MySQL zostal ownerom immutable/versioned policy generations. Redis sa vrátil k derived cache a admission role; jeho failure môže zvýšiť latency alebo database load, ale nesmie zmeniť correctness.
 
-## 14. Evidence-preserving containment
-
-```text
-freeze provider retries
-→ preserve PostgreSQL transactions/outbox
-→ preserve MySQL binlogs/policy generations
-→ preserve Redis AOF/RDB/replication offsets/config
-→ query provider idempotency ledger
-→ classify operations by exact product evidence
-→ stop treating cache absence as business absence
-```
-
-## 15. Authoritative redesign
-
-Nové ownership:
-
-```text
-PostgreSQL:
-  authoritative operation ID
-  settlement + outbox atomic transaction
-  exact policy generation used
-  final/reconciliation state
-
-MySQL:
-  authoritative merchant policy generations
-  immutable effective intervals/version IDs
-
-Redis:
-  derived cache and admission acceleration
-  rebuildable keys
-  no authority to decide duplicate external effect
-```
-
-Retry decision:
+Retry path je:
 
 ```text
 Redis hit
@@ -464,89 +161,38 @@ Redis hit
 
 Redis miss
 → PostgreSQL operation lookup
-→ provider idempotency lookup if outcome unknown
-→ only then create/retry bounded operation
+→ provider idempotency lookup pri unknown outcome
+→ až potom bounded create/retry decision
 ```
 
-Redis failure môže zvýšiť latency/load, ale nesmie zmeniť correctness.
+**Positive path** preukáže správnu PostgreSQL settlement transition, exact MySQL policy generation a Redis acceleration bez authority inversion.
 
-## 16. Product-selection acceptance verdict
+**Recovery path** stratí Redis cache alebo vykoná failover; application rebuildne keys, zvýši controlled load na authority a zachová rovnaký business outcome.
 
-Product/role design je prijatý, keď:
+**Failure path** pri unavailable MySQL policy authority alebo unknown provider result zastaví alebo prejde do explicitného pending/reconciliation state-u. Nesmie vybrať stale policy ani retryovať podľa cache missu.
 
-- každý business fact má jedného authoritative ownera;
-- product semantics zodpovedajú invariant/query/latency requirements;
-- transaction a command boundaries sú explicitné;
-- PostgreSQL/MySQL engine-specific assumptions sú current a testované;
-- Redis TTL, eviction, persistence, replication a cluster semantics sú súčasť contractu;
-- derived/cache absence sa nezamieňa s business absence;
-- acknowledgement je mapované na durability/failover evidence;
-- backup/PITR/rebuild path zodpovedá data role;
-- cross-product event/version identity umožňuje reconciliation;
-- operational signals sú product-specific aj business-level;
-- wrong-product-role a stale/failed-store scenarios majú safe outcome;
-- second operation, failover, restore a cache-loss tests prejdú.
+**Forbidden path** odmietne dva authoritative writers, cache absence ako operation absence, eviction/TTL meniace final state, Redis failover spúšťajúci duplicate external effect a product-generic acknowledgement claim bez current configuration evidence.
 
-## 17. Troubleshooting cross-product incidentu
+Acceptance vyžaduje second operation, Redis loss, PostgreSQL/MySQL failover, restore a stale-policy test. Product sa prijíma pre konkrétnu rolu, nie ako všeobecne `správna databáza`.
 
-```text
-incorrect/stale/duplicate outcome
-→ exact business operation
-→ authoritative owner per fact
-→ PostgreSQL transaction/WAL evidence
-→ MySQL transaction/binlog/policy generation
-→ Redis key/type/TTL/persistence/replication evidence
-→ cache/derived vs authority classification
-→ external provider evidence
-→ retry/unknown outcome path
-→ recovery/rebuild/reconciliation
-→ product-role redesign
-```
+## 9. Troubleshooting a anti-patterny
 
-## 18. Anti-patterny
+Pri stale, missing alebo duplicate outcome-e sa najprv určí exact business operation a authority per fact. Potom sa koreluje PostgreSQL transaction/WAL evidence, MySQL transaction/binlog/policy generation, Redis key/type/TTL/persistence/replication state a external provider ledger. Cache alebo projection evidence sa musí označiť ako derived; až potom možno rozhodovať o retry, rebuild alebo reconciliation.
 
-### PostgreSQL na všetko, lebo je powerful
+Najčastejšie anti-patterny sú PostgreSQL na všetko bez workload analýzy, MySQL redukovaný na „jednoduchší PostgreSQL“, Redis automaticky označený za cache alebo naopak source of truth, cache miss interpretovaný ako business absence, benchmark bez failure/recovery modelu a rovnaký key/value interface považovaný za rovnakú durability semantics.
 
-Môže zbytočne niesť ephemeral/high-churn use cases, ale často je stále lepší než neodôvodnená polyglot zložitosť.
+## 10. Kontrolné otázky
 
-### MySQL je iba jednoduchší PostgreSQL
-
-Ignoruje InnoDB, binary log, GTID, optimizer, SQL mode a product-specific operations.
-
-### Redis je databáza, teda je source of truth
-
-Data structure server môže byť durable, ale authority potrebuje explicitný persistence/replication/recovery contract.
-
-### Redis je iba cache
-
-Ignoruje streams, transactions, persistence a coordination use cases; rovnako nesprávne ako používať ho bez guarantees analýzy.
-
-### Cache miss znamená operation neexistuje
-
-Cache je incomplete/evictable/expiring derived evidence.
-
-### Rovnaký key/value model = rovnaké semantics
-
-Acknowledgement, durability, ordering, cluster a recovery sa líšia.
-
-### Vyberieme podľa benchmarku
-
-Benchmark bez current workload, data distribution, failure a recovery modelu je slabý dôkaz.
-
-## 19. Kontrolné otázky
-
-1. Ako sa PostgreSQL, MySQL a Redis kategorizujú?
-2. Čo tvorí exact product-role subject?
-3. Ktoré PostgreSQL mechanisms sú dôležité pre relational authority?
-4. Prečo treba pri MySQL pomenovať storage engine a binlog semantics?
-5. Ako Redis data structures menia data modeling?
-6. Ako sa Redis transactions líšia od relational transactions?
-7. Ako RDB, AOF a no-persistence menia Redis durability?
-8. Prečo replication nie je rovnaká v troch produktoch?
-9. Kedy je Redis dobrý dedupe accelerator, ale zlý final authority?
-10. Ako exact policy generation pomáha v `DB-PAY-57`?
-11. Aké evidence treba korelovať pri cross-product incidente?
-12. Čo musí overiť product-selection acceptance verdict?
+1. Čo tvorí exact product-role subject?
+2. Pre ktoré facts je PostgreSQL v Atlas Payments authoritative?
+3. Ktoré InnoDB a binary-log boundaries treba pri MySQL pomenovať?
+4. Ako Redis command, TTL, eviction a persistence menia correctness?
+5. Prečo `MULTI/EXEC` nie je rovnaký model ako relational transaction?
+6. Ako sa product acknowledgement mapuje na durability a failover?
+7. Prečo cache miss nesmie znamenať operation absence?
+8. Ako exact policy generation podporuje reconciliation?
+9. Prečo nula duplicate settlements nepotvrdila správnosť Redis authority designu?
+10. Ktoré positive, recovery, failure a forbidden paths musia prejsť?
 
 ## Glossary impact
 
@@ -554,7 +200,7 @@ Relevantné pojmy: product-role subject, PostgreSQL authority role, InnoDB trans
 
 ## Primárne zdroje
 
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/current/)
+- [PostgreSQL 18 Documentation](https://www.postgresql.org/docs/current/)
 - [MySQL 8.4 Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/)
 - [Redis Documentation — Data types](https://redis.io/docs/latest/develop/data-types/)
 - [Redis Documentation — Transactions](https://redis.io/docs/latest/develop/using-commands/transactions/)
