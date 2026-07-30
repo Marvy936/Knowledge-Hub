@@ -1,0 +1,48 @@
+name: Database block 1 strict audit
+
+on:
+  pull_request:
+    paths:
+      - 'docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md'
+      - 'docs/15-databases-and-distributed-systems/transactions-and-acid.md'
+      - 'docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md'
+      - 'docs/15-databases-and-distributed-systems/replication-and-high-availability.md'
+      - '.github/workflows/database-block-1-strict.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  strict-audit:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit four database chapters
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/audit_learning_depth.py --all-docs --report /tmp/report.md --json /tmp/audit.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          paths = {
+              'docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md',
+              'docs/15-databases-and-distributed-systems/transactions-and-acid.md',
+              'docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md',
+              'docs/15-databases-and-distributed-systems/replication-and-high-availability.md',
+          }
+          data = json.loads(Path('/tmp/audit.json').read_text())
+          failed = False
+          for item in data['files']:
+              if item['path'] in paths:
+                  print(f"STRICT {item['path']} words={item['words']} grade={item['grade']} critical={item['critical']} high={item['high']} medium={item['medium']} low={item['low']}")
+                  failed |= any(item[k] for k in ('critical', 'high', 'medium'))
+          for finding in data['findings']:
+              if finding['path'] in paths and finding['severity'] in {'critical', 'high', 'medium'}:
+                  print(f"FINDING path={finding['path']} severity={finding['severity']} section={finding.get('section')} line={finding.get('line')} rule={finding['rule']} detail={finding['detail']}")
+          if failed:
+              raise SystemExit('Database block 1 still has medium-or-higher findings')
+          PY
