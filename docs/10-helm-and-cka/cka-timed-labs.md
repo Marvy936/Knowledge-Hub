@@ -129,7 +129,9 @@ Sledujú sa score percent, body za minútu, median task time, diagnosis/repair/v
 
 ## Praktické laby
 
-Rozšírený vykonávací protokol a tréningové sety patria do [CKA labs](../../labs/cka/README.md).
+Rozšírený vykonávací protokol a tréningové sety patria do [CKA labs](../../labs/cka/README.md). Kapitola vysvetľuje reasoning a acceptance model; praktická časť poskytuje spustiteľné initial states, task sheets a hard-validation scripts, na ktorých sa tento model opakovane nacvičuje.
+
+Výsledky z labov sa vracajú do learning loopu tejto kapitoly. Každý context, diagnosis alebo validation gap má viesť ku konkrétnemu targeted tasku, nie k mechanickému opakovaniu celého rovnakého setu.
 
 ## Glossary impact
 
