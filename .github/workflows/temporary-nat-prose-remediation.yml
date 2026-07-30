@@ -1,0 +1,71 @@
+name: Temporary NAT prose remediation
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+
+      - name: Add explanatory prose before Terraform examples
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('docs/11-cloud-and-aws/internet-gateway-nat-gateway.md')
+          text = path.read_text(encoding='utf-8')
+
+          old_igw = '''## 3. Praktický public subnet a IGW v Terraform-e
+
+```hcl
+'''
+          new_igw = '''## 3. Praktický public subnet a IGW v Terraform-e
+
+Nasledujúci Terraform príklad oddeľuje štyri identity, ktoré sa často nesprávne zlúčia do pojmu „public subnet“: VPC-attached Internet Gateway, zonálny subnet, route table a explicitnú subnet association. Subnet dostane internet route, ale workload nedostane public IPv4 automaticky. Tento rozdiel je dôležitý, pretože route preukazuje iba možný next hop pre resource, ktorý už má vhodnú internet-routable address identity.
+
+Po apply treba samostatne overiť IGW attachment, effective route-table association a public address konkrétneho ENI. Terraform state alebo úspešný apply nepreukazuje Security Group, listener ani application response.
+
+```hcl
+'''
+
+          old_nat = '''## 7. Zonal public NAT v Terraform-e
+
+```hcl
+'''
+          new_nat = '''## 7. Zonal public NAT v Terraform-e
+
+Zonal public NAT potrebuje tri navzájom viazané resources: Elastic IP ako external source identity, NAT Gateway umiestnenú v public subnet-e a default route z private application subnetu na exact NAT ID. Pre Multi-AZ design sa tento trojblok vytvára samostatne v každej accepted AZ. Zdieľanie jedného zonálneho NATu medzi všetkými subnets by síce fungovalo v normal state-e, ale vytvorilo by cross-AZ dependency a zlyhanie jednej egress zóny by zasiahlo celý workload.
+
+Príklad nižšie materializuje iba AZ-a. Jeho output preukazuje desired resource graph; až live route read-back, translated EIP observation a HTTPS canary z application subnetu preukážu effective egress path.
+
+```hcl
+'''
+
+          for old, new in ((old_igw, new_igw), (old_nat, new_nat)):
+              if old not in text:
+                  raise SystemExit(f'Anchor not found: {old!r}')
+              text = text.replace(old, new, 1)
+
+          path.write_text(text, encoding='utf-8', newline='\n')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/11-cloud-and-aws/internet-gateway-nat-gateway.md
+          git rm .github/workflows/temporary-nat-prose-remediation.yml
+          git commit -m "docs(aws): explain IGW and zonal NAT resource graphs"
+          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
