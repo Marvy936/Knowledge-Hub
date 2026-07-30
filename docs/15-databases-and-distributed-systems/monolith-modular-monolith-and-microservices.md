@@ -1,697 +1,214 @@
 # Monolith, modular monolith a microservices
 
-Monolith, modular monolith a microservices nie sú maturity levels, cez ktoré musí každá aplikácia postupne prejsť. Sú to rozdielne boundaries pre deployment, runtime failure, data ownership, transactions, communication, scaling, operations a team autonomy. Správny návrh minimalizuje nezvládnutú koordináciu pri zachovaní business invariantov a požadovanej rýchlosti zmeny.
+Monolith, modular monolith a microservices nie sú maturity levels, cez ktoré musí každá aplikácia povinne prejsť. Sú to rozdielne boundaries pre build, deployment, process failure, data authority, transactions, communication, scaling, ownership a recovery. Správna architecture minimalizuje coordination cost a distributed failure surface bez toho, aby rozdelila business invariant na viac nezávislých writers.
 
 ```text
-business capabilities a change topology
+business capability a invariant
 → exact architecture subject
-→ domain/invariant/ownership boundaries
-→ module/service a data boundaries
-→ communication a transaction model
+→ module/service a data authority boundaries
+→ local alebo cross-boundary transaction model
+→ communication a compatibility protocol
 → deployment, scale a failure isolation
-→ observability, security a operations
-→ migration/compatibility strategy
-→ effective organizational a runtime behavior
-→ business outcome a second-change/failure validation
+→ ownership, SLO, on-call a recovery
+→ migration s single authority
+→ intended benefit vs effective cost
+→ second-change, dependency-failure a restore validation
 ```
 
-## 1. Exact architecture subject
+Počet repositories, Kubernetes Deployments alebo databases sám neurčuje architecture. Desať independently deployed services nad jednou shared database a synchronized release-om môže byť distributed monolith. Jeden artifact môže byť dobre modularizovaný, horizontally scaled a spoľahlivo prevádzkovaný.
 
-Tvrdenie `máme microservices` podľa počtu repozitárov alebo Kubernetes Deploymentov je slabé. Subject musí obsahovať:
+## 1. Architecture subject a rozhodovacie hranice
 
-- business capabilities a user journeys;
-- domain/subdomain a invariant boundaries;
-- team ownership a change coupling;
-- source/module/build/deployment boundaries;
-- process a failure boundaries;
-- authoritative data ownership;
-- transaction a consistency model;
-- synchronous/asynchronous communication paths;
-- independent scaling requirements;
-- release a compatibility protocol;
-- observability, security, on-call a recovery ownership;
-- platform/organizational capability;
-- migration generation a exit/rollback strategy;
-- expected benefits a measurable costs.
+Exact architecture subject musí pomenovať business capabilities a critical journeys, domain a invariant boundaries, team ownership a change coupling, source/build/deploy/process boundaries, authoritative data ownership, transaction a consistency model, synchronous a asynchronous paths, scale a failure profiles, release compatibility, observability, security, on-call, recovery a očakávaný merateľný benefit.
 
-Príklad:
+Pre settlement capability je rozhodujúci invariant:
 
 ```text
-capability: merchant settlement
-invariant: one merchant operation creates one executable settlement intent
-modules/services:
-  settlement command
-  merchant policy
-  provider execution
-  projection/reporting
-authority:
-  PostgreSQL settlement/outbox
-  versioned merchant policy
-communication:
-  synchronous decision path + durable asynchronous completion
-failure objective:
-  policy/reporting failure nesmie stratiť acknowledged settlement intent
-ownership:
-  one team owns end-to-end SLO and reconciliation
+one merchant operation
+→ at most one authoritative settlement intent
+→ exactly one durable outbox command for accepted transition
+→ provider outcome reconciled to that same identity
 ```
 
-## 2. Monolith
+Tento invariant prirodzene patrí do jednej local transaction a ownership boundary. Merchant policy, provider execution a reporting môžu mať odlišné scale alebo freshness profily, ale ich oddelenie je bezpečné iba vtedy, keď command core uchová exact policy generation, durable event identity a unknown-outcome state.
 
-Monolith je application, ktorej významná časť sa buildí a deployuje ako jeden artifact alebo runtime unit. Môže byť dobre modularizovaný alebo úplne previazaný.
+Architecture style je teda outcome konkrétnych boundaries. Source repository, build artifact, deployment, process, database a team boundary sa môžu prekrývať, ale nemusia byť totožné.
 
-Typický lifecycle:
+## 2. Monolith a jeho skutočný contract
+
+Monolith buildí a deployuje významnú časť systému ako jeden artifact alebo runtime unit:
 
 ```text
 source change
 → one build/artifact
 → one deployment generation
 → in-process calls
-→ shared transaction/data access
-→ process-level scaling/failure
+→ shared process/resources
+→ local data transaction
 → coordinated rollback/recovery
 ```
 
-### Výhody
+Jeho výhodou je jednoduchší local development, debugging a deployment; in-process calls nemajú network timeout a partial-failure semantics; invariant-heavy operations môžu používať jednu database transaction; platforma spravuje menej identities, certificates, routes, dashboards, pools a runbooks. Je vhodný pre menší tím, meniace sa domain boundaries a podobný scale/failure profil.
 
-- jednoduché local development a end-to-end debugging;
-- in-process calls bez network failure semantics;
-- jednoduchšie atomic transactions cez jeden database boundary;
-- menej deployment, identity, certificate, discovery a observability objects;
-- nižší platform/on-call overhead;
-- jednoduchšia consistency a refactoring naprieč codebase-om;
-- dobrá voľba pre malý tím alebo neustálené domain boundaries.
+Cena je coordinated release, shared process failure a resource contention, hrubšie scaling, rastúci build/test cycle, slabé ownership a jednoduché obchádzanie internal boundaries. Monolith nie je synonymum single instance ani legacy code. Jeden artifact môže mať veľa replicas, HA, queues a caches. Problémom nie je deployment unit, ale coupling, ktorý organizácia nevie kontrolovať.
 
-### Náklady
+## 3. Modular monolith ako enforce-nutá boundary
 
-- whole-artifact release coupling;
-- shared process failure a resource contention;
-- coarse independent scaling;
-- slow build/test/deploy pri nekontrolovanom raste;
-- nejasné ownership pri veľkom tíme;
-- jednoduché obchádzanie module boundaries;
-- shared database môže vytvoriť schema coupling;
-- jedna change môže vyžadovať koordináciu veľkej časti systému.
-
-Monolith nie je synonymum pre single instance. Jeden monolithic artifact môže mať mnoho replicas, HA, queues, cache a external dependencies.
-
-## 3. Modular monolith
-
-Modular monolith používa jeden deployment/process boundary, ale zavádza explicitné internal module boundaries:
+Modular monolith zachováva jeden deployment/process, ale capability boundaries vynucuje v source a data access modeli:
 
 ```text
 business capability
-→ module API
-→ hidden internal model/data access
+→ module public contract
+→ private implementation a tables
 → explicit dependency direction
-→ in-process call/event
+→ in-process command/event
 → one deployment generation
 ```
 
-Module má typicky:
+Module potrebuje jasný purpose, public API, private model, controlled dependencies, owned schema alebo role-based access boundary, architecture tests a explicitné transaction assumptions. Priame SQL alebo shared ORM entity naprieč modulmi boundary ruší, aj keď diagram tvrdí opak.
 
-- jasný business purpose;
-- public contract;
-- private implementation;
-- controlled dependencies;
-- owned schema/tables alebo aspoň enforced data-access boundary;
-- tests na architecture/dependency rules;
-- explicit event/command model;
-- failure a transaction assumptions.
+Modular monolith zachováva local transactions tam, kde majú vysokú hodnotu, a zároveň umožňuje team ownership a budúcu extraction. Je lacnejšie presúvať hranice v jednom codebase než meniť remote API, multiple data histories a fleet operations. Zostáva však shared failure a deployment boundary; nejde o predstieranú microservice autonomy.
 
-### Výhody
+Dlhodobý modular monolith môže byť optimálny výsledok. Extraction má prísť až vtedy, keď independent deployment, scale, compliance alebo failure isolation prináša merateľnú hodnotu vyššiu než distributed overhead.
 
-- zachováva jednoduché deployment a operations;
-- umožňuje atomic transactions medzi modulmi, keď je to skutočne potrebné;
-- znižuje network/distributed-system overhead;
-- vytvára boundaries použiteľné pre budúcu extraction;
-- podporuje team ownership bez okamžitého distributed runtime-u;
-- refactoring boundaries je lacnejší než pri remote contracts a independent data histories.
+## 4. Microservices a povinný distributed contract
 
-### Riziká
-
-- boundaries môžu existovať iba v diagramoch;
-- priame SQL/shared ORM entities ich obídu;
-- internal events môžu byť iba skryté function calls bez durable semantics;
-- jeden deploy stále koordinuje release;
-- resource/failure isolation zostáva process-level;
-- team môže predčasne predstierať service autonomy.
-
-Modular monolith je často najnižší spoľahlivý architecture scope pre rastúci domain, kým independent deployment, scaling alebo failure isolation neprinesú preukázanú hodnotu.
-
-## 4. Microservices
-
-Microservice architecture rozdeľuje systém na independently deployable services s explicitnými runtime a ownership boundaries.
+Microservice vlastní coherent business capability, deployuje sa independentne a má explicitnú runtime, data a operational boundary:
 
 ```text
 service-owned capability
-→ service API/event contract
-→ network/broker transport
-→ independent process/deployment
-→ service-owned state
+→ versioned API/event contract
+→ network alebo broker transport
+→ service-owned authoritative state
 → local transaction
-→ cross-service workflow/consistency
+→ durable cross-service workflow
 → independent failure/recovery
 ```
 
-### Potenciálne výhody
+Potenciálny benefit je independent release cadence, scale, failure isolation, technology fit a end-to-end team ownership. Tieto benefity nie sú zadarmo. Service pridáva latency, timeout, retry a unknown outcomes; identity, TLS a authorization; discovery a routing; API/event compatibility; tracing a log correlation; per-service capacity, SLO, on-call, backup a runbooks; data projections, backlog, replay a reconciliation.
 
-- independent deployment a release cadence;
-- failure a resource isolation;
-- independent scaling;
-- jasnejšie team/service ownership;
-- technology/data model fit per bounded capability;
-- menší deployable unit;
-- možnosť oddeleného compliance/security boundary.
+Microservice nie je malá trieda vystavená cez HTTP. Boundary má byť stabilná capability s vlastnou authority a operational ownerom. Ak dve services vždy musia commitovať, deployovať a obnovovať spolu, decomposition pravdepodobne neoddelila reálnu capability.
 
-### Povinné náklady
+## 5. Data authority a transaction model
 
-- network latency, timeout a partial failure;
-- service discovery, identity, TLS a authorization;
-- API/event versioning a compatibility;
-- distributed tracing/log correlation;
-- cross-service consistency a workflow recovery;
-- per-service deployment, capacity, SLO, on-call a runbooks;
-- data duplication/projections;
-- integration test a environment complexity;
-- fleet-wide connection, retry a resource multiplication;
-- incident coordination a ownership gaps.
+Shared database môže zjednodušiť joins a transactions, ale direct table access vytvára hidden coupling. `Database per service` neznamená server per service. Znamená, že authoritative state sa mení iba cez service contract. Physical realization môže byť separate cluster, database alebo schema s enforced roles podľa isolation risku.
 
-Microservice nie je `malá trieda cez HTTP`. Service boundary má zodpovedať coherent business capability, ownership a data authority.
-
-## 5. Boundary dimensions
-
-Architecture sa nesmie klasifikovať iba jednou osou.
-
-| Boundary | Monolith | Modular monolith | Microservices |
-|---|---|---|---|
-| source | môže byť jeden repo | často jeden repo s modules | jeden alebo viac repos |
-| build | jeden build graph/artifact | jeden artifact, module checks | independent artifacts |
-| deployment | coordinated | coordinated | independent |
-| process/failure | shared | shared | per service |
-| communication | in-process | controlled in-process | network/event |
-| data | často shared | ownership môže byť enforced logicky | service-owned authority |
-| transaction | local/shared DB | local/shared DB podľa invariantov | local per service; workflow naprieč services |
-| scaling | whole application | whole application/module-specific iba interne | per service |
-| operations | one service surface | one service surface + modules | fleet of service surfaces |
-
-Jeden repository s desiatimi independently deployed services je microservice runtime. Desať repositories buildovaných a deployovaných naraz nad jednou shared database môže byť distributed monolith.
-
-## 6. Domain a invariant boundaries
-
-Boundary má vychádzať z:
-
-- business capability;
-- ubiquitous language;
-- invariantov, ktoré musia byť atomic alebo strongly coordinated;
-- data ownership;
-- change cadence;
-- team cognitive load;
-- failure isolation;
-- scale profile;
-- security/compliance needs.
-
-Silný invariant:
-
-```text
-settlement row + executable outbox intent vzniknú spolu alebo vôbec
-```
-
-naznačuje spoločnú local transaction boundary. Rozdelenie len preto, že `outbox je eventing service`, vytvorí distributed invariant bez benefitu.
-
-Naopak reporting projection môže mať:
-
-- iný freshness objective;
-- independent scale;
-- rebuildable derived state;
-- eventual consistency;
-- separate deployment.
-
-Je prirodzenejší extraction candidate.
-
-## 7. Data ownership
-
-### Shared database
-
-Shared database zjednodušuje joins a transactions, ale umožňuje hidden coupling:
-
-- service A číta private tables service B;
-- schema change obchádza contract;
-- ownership incidentu je nejasné;
-- independent deployment je iba zdanlivý.
-
-### Database per service
-
-`Database per service` znamená exclusive authority cez service contract, nie povinne samostatný database server. Môže byť:
-
-- separate database;
-- separate schema s enforced role ownership;
-- separate cluster pri isolation potrebe.
-
-Nesmie znamenať, že jeden business fact má viac authoritative writers.
-
-### Derived data
-
-Service môže mať local projection:
+Derived projection má samostatnú semantics:
 
 ```text
 source service authoritative event
 → durable delivery
-→ local projection
-→ freshness/lag evidence
-→ rebuild path
+→ consumer local transaction
+→ projection generation
+→ freshness a completeness evidence
+→ rebuild/reconciliation path
 ```
 
-Projection absence alebo staleness nesmie meniť authoritative write outcome bez explicitného contractu.
+Projection absence alebo staleness nesmie meniť source write outcome bez explicitného degraded contractu.
 
-## 8. Transactions naprieč boundaries
-
-Monolith/modular monolith môže používať jednu local database transaction. Microservices typicky potrebujú:
-
-- local transaction per service;
-- transactional outbox/inbox;
-- durable message delivery;
-- idempotency;
-- saga/process manager;
-- compensation;
-- reconciliation;
-- unknown-outcome handling.
+Monolith alebo modular monolith môže chrániť invariant local transaction. Cross-service workflow potrebuje local commit per service, outbox/inbox, stable identity, idempotency, durable delivery, saga alebo process manager, compensation a reconciliation.
 
 ```text
-local commit
-→ durable event
+local authority commit
+→ durable outbox event
 → delivery attempt
 → consumer local commit
 → acknowledgement
 → workflow state
-→ timeout/compensation/reconciliation
+→ timeout, retry, compensation alebo reconciliation
 ```
 
-Distributed transaction protocol môže byť vhodný v niektorých controlled environments, ale nie je automatic replacement za dobrú boundary. Ak dva services vždy musia commitovať spolu a zlyhávať spolu, decomposition môže byť nesprávne.
+Tento mechanismus nie je automaticky horší, ale je drahší a musí priniesť reálny boundary benefit. Rozdeliť settlement a outbox do dvoch services len preto, že `eventing má byť samostatná služba`, vytvorí distributed invariant bez užitočnej isolation.
 
-## 9. Communication coupling
+## 6. Communication, deployment a scale coupling
 
-### Synchronous
+Synchronous call poskytuje immediate response, ale vytvára runtime availability a latency coupling. Caller potrebuje deadline, bounded retry a unknown-outcome semantics. Chain piatich synchronous services môže byť tesnejší runtime monolith než in-process modular application.
 
-Výhody:
+Asynchronous communication poskytuje temporal decoupling, buffering a durable workflow evidence. Cena sú duplicates, ordering, backlog, schema evolution, delayed failure visibility a reconciliation. `Všetko cez events` je rovnaký anti-pattern ako `všetko cez HTTP`; transport sa vyberá podľa operation contractu.
 
-- immediate response;
-- jednoduchší caller mental model;
-- prirodzené request/response validation.
+Independent deployment existuje iba vtedy, keď old/new provider a consumer generations zostanú compatible počas staged rollout-u a rollbacku. Shared DTO package, synchronized migrations alebo direct database reads môžu vytvoriť distributed deployment monolith.
 
-Náklady:
-
-- runtime availability coupling;
-- latency multiplication;
-- timeout/retry/unknown outcome;
-- cascading failure;
-- version/contract coupling.
-
-### Asynchronous
-
-Výhody:
-
-- temporal decoupling;
-- buffering a independent consumption;
-- fan-out;
-- durable workflow evidence.
-
-Náklady:
-
-- eventual consistency;
-- duplicates a ordering;
-- backlog/replay;
-- schema evolution;
-- delayed failure visibility;
-- reconciliation.
-
-Microservices s chainom piatich synchronous calls môžu mať silnejší runtime coupling než modular monolith.
-
-## 10. Deployment a compatibility
-
-Independent deployment potrebuje independent compatibility:
-
-```text
-provider contract generation
-→ old/new consumer inventory
-→ backward/forward-compatible change
-→ staged provider rollout
-→ consumer convergence
-→ contract retirement
-```
-
-Ak každý service deployment vyžaduje synchronized release všetkých consumers, systém je distributed deployment monolith.
-
-Data migrations musia zohľadniť:
-
-- old/new service versions;
-- event backlog;
-- rollback artifacts;
-- projections;
-- shared libraries;
-- cross-service invariants;
-- recovery po partial rollout-e.
-
-## 11. Scaling a resource multiplication
-
-Microservice extraction môže oddeliť scale profile, ale zároveň násobí:
-
-- application instances;
-- connection pools;
-- caches;
-- telemetry agents;
-- healthchecks;
-- queues;
-- TLS connections;
-- control-plane objects.
-
-Fleet-wide resource model:
+Microservices tiež násobia resources:
 
 ```text
 services × replicas × per-replica pools/retries/buffers
-→ database/broker/provider demand
+→ database, broker, cache a provider demand
 ```
 
-Každý service optimalizovaný lokálne môže globálne preťažiť shared dependency.
+Každý service môže byť lokálne „správne“ nastavený a fleet napriek tomu prekročí shared dependency envelope. Capacity a retry budget preto musia byť capability-wide.
 
-## 12. Failure isolation
+## 7. Failure isolation a organizational capability
 
-Service boundary izoluje iba failures, ktoré neprechádzajú cez shared dependencies a retry paths.
+Service boundary izoluje iba failures, ktoré neprechádzajú cez shared dependencies a retry paths. Spoločná overloaded database, central Redis authority, synchronous call chain, shared identity/control plane alebo common library rollout môžu zlyhanie rozšíriť cez celý fleet.
 
-Príklady slabého isolation:
+Failure isolation sa dokazuje controlled dependency-failure a partial-rollout testom. `Beží v inom Pode` nie je evidence.
 
-- všetky services používajú jednu overloaded database;
-- shared Redis cluster zlyhá ako central authority;
-- synchronous call chain prenesie latency;
-- common library defect sa rolloutne všade;
-- retry storm zasiahne provider;
-- shared identity/DNS/control plane zastaví všetky services.
+Každý independently operated service potrebuje ownera, SLI/SLO, capacity, dashboards, alerts, traces, on-call, runbooks, backup/recovery, security lifecycle a compatibility inventory. Capability zároveň potrebuje jedného end-to-end ownera pre incident command a reconciliation. Model `dev owns code, DBA database, platform deploy a ops incident` bez spoločnej authority vytvára queues a ownership gaps.
 
-Failure isolation sa preukazuje experimentom a incident evidence, nie počtom Pods.
+Organizácia, ktorá nevie bezpečne prevádzkovať desať services, nezíska autonomy len tým, že monolith rozdelí. Platform maturity, cognitive load a support capacity sú architecture constraints rovnako ako latency a transaction semantics.
 
-## 13. Observability a operations
+## 8. Connected incident `DB-PAY-57`
 
-Každý independently operated service potrebuje:
-
-- ownera;
-- SLI/SLO a error budget;
-- dashboards a actionable alerts;
-- logs/traces/events s stable identity;
-- capacity model;
-- on-call/escalation;
-- runbooks a incident roles;
-- backup/recovery;
-- security/identity lifecycle;
-- dependency a contract inventory;
-- deployment/recovery evidence.
-
-Ak organizácia nevie bezpečne prevádzkovať desať services, decomposition môže znížiť delivery aj reliability.
-
-## 14. Organizational boundaries
-
-Architecture a organization sa vzájomne ovplyvňujú. Service ownership má byť end-to-end:
+Pred release `payments 8.1` bol settlement command súčasťou modular monolithu:
 
 ```text
-source
-→ build/release
-→ runtime/data
-→ SLO/on-call
-→ incident/recovery
-→ lifecycle/retirement
-```
-
-`Dev team owns code, DBA owns database, platform owns deploy, ops owns incidents` bez spoločného capability ownera vytvára queue a gaps bez ohľadu na architecture style.
-
-Team size nie je jediný faktor. Dôležité sú:
-
-- domain expertise;
-- cognitive load;
-- communication paths;
-- release autonomy;
-- compliance separation;
-- support model;
-- platform maturity.
-
-## 15. Migration patterns
-
-### Modularize first
-
-```text
-identify capability
-→ enforce code/data boundary
-→ remove direct internal access
-→ introduce explicit contract
-→ measure change/failure/scale need
-→ extract iba ak benefit pretrváva
-```
-
-### Strangler extraction
-
-```text
-route bounded operation/cohort
-→ new service local authority
-→ compatibility adapter/event sync
-→ compare outcomes
-→ increase exposure
-→ retire old path
-```
-
-### Branch by abstraction
-
-Callers prepnú na abstraction, za ktorou sa implementation postupne nahrádza. Umožňuje incremental migration a rollback bez permanentného dual write-u.
-
-### Event-carried projection
-
-Najprv sa extrahuje rebuildable read model, nie critical write invariant. Je to nižšie risk extraction.
-
-Migration musí mať:
-
-- exact generation;
-- single authority;
-- dual-write avoidance alebo reconciliation;
-- cohort boundaries;
-- rollback/roll-forward;
-- data verification;
-- old-path retirement.
-
-## 16. Kedy zvoliť ktorý model
-
-### Monolith je rozumný, keď
-
-- tím je malý;
-- domain boundaries sa menia;
-- local transaction prináša veľkú hodnotu;
-- scale/failure profile je podobný;
-- platform/on-call capacity je obmedzená;
-- independent deployment benefit nie je preukázaný.
-
-### Modular monolith je rozumný, keď
-
-- treba jasné domain/ownership boundaries;
-- jeden deployment je stále efektívny;
-- transactions naprieč niektorými modulmi sú legitímne;
-- budúca extraction je možná, ale nie nutná;
-- chcete testovať architecture boundaries bez distributed overheadu.
-
-### Microservices sú rozumné, keď
-
-- bounded capabilities sú stabilné;
-- independent deployment/scale/failure isolation prináša merateľnú hodnotu;
-- data ownership a cross-service workflow sú explicitné;
-- team/platform vie prevádzkovať fleet;
-- compatibility, observability a recovery mechanisms sú pripravené.
-
-## 17. Connected incident `DB-PAY-57`
-
-Pred release `payments 8.1` bol settlement modul súčasťou modular monolithu:
-
-```text
-merchant policy module
-→ settlement module
-→ atomic PostgreSQL settlement + outbox
+merchant-policy module
+→ settlement + idempotency + outbox transaction
 → provider worker
 → projection module
 ```
 
-Extraction vytvorila:
+Extraction vytvorila synchronous chain cez merchant-policy-service/MySQL, idempotency-service/Redis, ledger-service/PostgreSQL a provider-execution-service. Deklarovaným cieľom bolo independent scaling a ownership. Effective state však používal shared on-call tím, synchronized release cez shared DTO package, jeden invariant rozdelený medzi tri services, Redis cache miss ako authority decision, 96 independently tuned connection pools a recovery runbook iba pre PostgreSQL.
+
+Network flap a pool exhaustion spustili:
 
 ```text
-settlement-api
-→ merchant-policy-service / MySQL
-→ idempotency-service / Redis
-→ ledger-service / PostgreSQL
-→ provider-execution-service
-→ projection-service
-```
-
-Deklarovaný cieľ bol independent scaling a ownership. Effective stav však mal:
-
-- shared end-to-end on-call tím bez service-specific ownership;
-- synchronous policy + idempotency + ledger chain;
-- jeden business invariant rozdelený medzi tri services;
-- Redis cache miss použitý ako authority decision;
-- policy generation neprenesenú do settlement recordu;
-- 96 Podov s independently configured pools;
-- synchronized deployment kvôli shared DTO package-u;
-- recovery runbook iba pre PostgreSQL, nie cross-service workflow.
-
-Network flap a pool exhaustion boli trigger. Architecture amplifikovala incident:
-
-```text
-local scale decisions
-→ fleet connection multiplication
+fleet connection multiplication
 → emergency transaction pooling
-→ session-state failure
+→ session tenant-state failure
 → stale/missing policy context
 → Redis dedupe ambiguity
-→ cross-service retry
+→ cross-service retries
 → provider unknown outcomes
 → no common recovery point
 ```
 
-### Architecture root cause
+Primary architecture root cause bola premature service extraction bez zachovania authoritative settlement invariant-u, versionovaných contracts a operational/recovery ownershipu. Monolith nebol automaticky správny a microservices neboli automaticky chybné; runtime boundaries vznikli skôr než domain authority, workflow, capacity a recovery contract.
 
-Primary architecture root cause bol **premature service extraction bez zachovania jedného authoritative settlement invariant-u, versionovaných contracts a operational/recovery ownershipu**.
+## 9. Redesign, migration a acceptance paths
 
-Monolith nebol automaticky správny a microservices neboli automaticky chybné. Chyba bola, že runtime boundaries boli zavedené skôr než:
+Tím zvolil hybrid target. Settlement command, idempotency operation a outbox zostali v modular command core s jednou PostgreSQL transaction, ownerom a recovery boundary. Merchant policy zostal samostatný versioned service; každý accepted command ukladá exact policy generation. Provider execution konzumuje durable outbox event asynchronous spôsobom. Projection/reporting zostáva rebuildable service. Redis je cache a admission accelerator, nie final authority.
 
-- domain/invariant boundaries;
-- data authority;
-- transaction/outbox workflow;
-- product roles;
-- independent compatibility;
-- capacity budgets;
-- on-call/recovery contracts.
+Migration používa `modularize first`: enforce code/data boundary, odstrániť direct internal access, zaviesť explicitný contract a až potom extrahovať bounded cohort. Strangler alebo branch-by-abstraction postup drží jedného authoritative writera; old path sa po convergence musí retire-nuť.
 
-## 18. Evidence-preserving containment
+**Positive path** preukáže independent change v policy alebo projection service bez synchronized release a bez zmeny settlement invariant-u.
 
-```text
-freeze service/pool/retry changes
-→ map exact call/data/ownership graph
-→ identify one authority per business fact
-→ preserve per-service logs, DB positions a message/provider evidence
-→ stop duplicate retries
-→ fence affected tenant cohort
-→ route correctness decisions na PostgreSQL/provider authority
-→ retain service generations for RCA
-```
+**Recovery path** znefunkční policy, provider alebo projection dependency. Command core buď používa current bounded policy evidence, alebo vstúpi do explicitného pending/degraded state-u; acknowledged intent zostane durable a workflow sa po recovery reconciliuje.
 
-## 19. Authoritative redesign
+**Failure path** pri incompatible contracte, unavailable authority alebo exhausted shared dependency zastaví affected cohort a zachová exact operation state namiesto cascading retries.
 
-Tím zvolil hybrid target:
+**Forbidden path** odmietne direct cross-service table writes, dual authority počas extraction, synchronized deployment vydávaný za independence, cache miss ako business decision a service bez ownera/SLO/recovery pathu.
 
-### Modular command core
+Acceptance vyžaduje second change, partial rollout, dependency failure, fleet-scale test a restore. Intended benefit — napríklad faster independent releases alebo isolated provider scaling — sa porovnáva s reálnou latency, incident a operational cost.
 
-```text
-settlement command + idempotency + outbox
-→ one PostgreSQL local transaction
-→ one owner/SLO/recovery boundary
-```
+## 10. Troubleshooting a anti-patterny
 
-### Separate services
+Pri delivery alebo runtime probléme sa mapuje exact capability, source/build/deploy/process boundaries, data authority, synchronous a asynchronous graph, local a cross-service transactions, shared dependency multiplication, contract coupling, ownership a recovery. Až potom sa rozhoduje, či boundary modularizovať, zlúčiť, extrahovať alebo redesignovať.
 
-- merchant policy zostáva versionovaný service; command request uloží exact policy generation;
-- provider execution je asynchronous service consuming durable outbox/event;
-- projection/reporting je independent rebuildable service;
-- Redis je cache/admission accelerator, nie business authority.
+Najčastejšie anti-patterny sú microservices ako symbol modernosti, service per entity, database per service interpretovaná ako server per service, shared database s direct accessom, všetko cez HTTP, všetko cez events, modular monolith ako dočasný neúspech, technology autonomy bez platform capacity a extraction bez retirementu old pathu.
 
-### Compatibility a ownership
+## 11. Kontrolné otázky
 
-- contracts sú independently versionované;
-- shared DTO package nie je synchronized-release gate;
-- every service má explicitný owner, SLO, pool/capacity budget a runbook;
-- end-to-end settlement capability má jedného incident/reconciliation ownera;
-- recovery manifest mapuje PostgreSQL, MySQL, Redis a provider evidence.
-
-Tento návrh nie je návrat k `jednému veľkému monolitu`. Zachováva local invariant tam, kde je atomicita najcennejšia, a oddeľuje capabilities, ktorých scale/failure/freshness model je skutočne iný.
-
-## 20. Architecture acceptance verdict
-
-Architecture je prijatá, keď:
-
-- exact business capabilities a invarianty sú explicitné;
-- module/service boundaries zodpovedajú coherent ownership;
-- každý authoritative fact má jedného writera/ownera;
-- local vs cross-boundary transaction model je mechanistický;
-- sync/async communication má timeout, retry, delivery a recovery contract;
-- deployment independence je preukázaná compatibility testom;
-- scale model zahŕňa fleet-wide pools/retries/shared dependencies;
-- failure isolation je testovaná, nie iba deklarovaná;
-- observability, security, on-call, backup a recovery existujú per boundary;
-- organizational capability unesie operational surface;
-- migration drží single authority a bounded cohorts;
-- expected architecture benefit je meraný proti reálnym costom;
-- second change, partial rollout, dependency failure a restore prejdú;
-- distributed-monolith a dual-authority forbidden outcomes sú odmietnuté.
-
-## 21. Troubleshooting architecture failure-u
-
-```text
-slow delivery alebo runtime incident
-→ exact capability/journey
-→ source/build/deploy/process boundaries
-→ data authority a invariant map
-→ sync/async call graph
-→ transaction a unknown-outcome path
-→ shared dependency/resource multiplication
-→ contract/release coupling
-→ failure/ownership/recovery graph
-→ intended benefit vs effective cost
-→ modularize, merge, extract alebo redesign boundary
-→ second-change/failure validation
-```
-
-## 22. Anti-patterny
-
-### Microservices sú modernejšie
-
-Modernosť nie je business alebo reliability requirement.
-
-### Jeden service na entity
-
-Entity boundary nemusí byť coherent capability alebo invariant boundary.
-
-### Database per service = server per service
-
-Authority boundary možno vynútiť aj logical database/schema/roles; physical isolation sa odvodzuje z risku.
-
-### Shared database, ale services sú independent
-
-Direct table access vytvára hidden deployment a ownership coupling.
-
-### Všetko cez synchronous HTTP
-
-Vytvára runtime monolith s network failure semantics.
-
-### Všetko cez events
-
-Command/query a immediate validation use cases môžu byť zbytočne komplikované; delivery a consistency costs nezmiznú.
-
-### Modular monolith je dočasný neúspech
-
-Môže byť dlhodobý optimal architecture outcome.
-
-### Každý tím vlastný stack
-
-Technology autonomy bez platform/operations capability násobí risk.
-
-### Extraction bez retirementu
-
-Old a new path vytvoria permanent dual authority.
-
-## 23. Kontrolné otázky
-
-1. Čo tvorí exact architecture subject?
+1. Ktoré boundaries tvoria exact architecture subject?
 2. Ako sa monolith líši od modular monolithu?
-3. Ktoré boundaries microservice pridáva?
-4. Prečo repository count neurčuje architecture?
-5. Ako invariant boundary ovplyvňuje service boundary?
-6. Čo znamená database per service?
-7. Ako sa local transaction nahrádza cross-service workflowom?
+3. Čo musí microservice vlastniť okrem code a deploymentu?
+4. Prečo repository alebo Pod count neurčuje architecture style?
+5. Ako business invariant ovplyvňuje service boundary?
+6. Čo znamená database per service a čo neznamená?
+7. Ako local transaction prechádza na durable cross-service workflow?
 8. Čo je distributed monolith?
-9. Ako microservices násobia connection a retry demand?
-10. Prečo `DB-PAY-57` nebol dôkazom, že microservices vždy zlyhajú?
-11. Ktoré časti settlement flowu zostali alebo boli oddelené po redesign-e?
-12. Čo musí overiť architecture acceptance verdict?
+9. Ako services násobia pools, retries a shared dependency demand?
+10. Ktoré positive, recovery, failure a forbidden paths musia prejsť?
 
 ## Glossary impact
 

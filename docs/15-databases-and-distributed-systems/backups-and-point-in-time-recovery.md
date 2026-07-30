@@ -1,457 +1,174 @@
 # Backups a point-in-time recovery
 
-Backup nie je súbor s príponou `.bak` ani zelený scheduled job. Je to versionovaný recovery mechanismus pre presne definovaný data a business subject. Point-in-time recovery nie je iba voľba timestampu; je to obnovenie správneho base state-u, kontinuálneho change logu, správnej timeline, keys, schema a dependencies do bodu, ktorý je technicky konzistentný a zároveň použiteľný pre business recovery.
+Backup nie je úspešne dokončený scheduled job ani objekt s príponou `.bak`. Je to obnoviteľný, versionovaný mechanizmus pre presne definovaný data a business subject. Point-in-time recovery nie je iba výber timestampu. Obnova musí skombinovať správny base state, neprerušený change-log, správnu timeline alebo event position, použiteľné keys a identity, kompatibilnú schema a application generation a následne preukázať, že obnovený systém vie bezpečne pokračovať v business operáciách.
 
 ```text
 business recovery objective
 → exact protected subject a consistency group
-→ backup/log generation a clean-point semantics
-→ capture, transfer, isolation, encryption a retention
-→ catalog a continuity evidence
-→ recovery target a timeline
-→ isolated restore a log replay
-→ schema/dependency/application validation
-→ post-point merge, replay alebo reconciliation
-→ promotion, fencing a business acceptance
-→ second-restore a alternate-target closure
+→ base backup + change-log generation
+→ durable capture, read-back, retention a key lineage
+→ clean recovery candidate a target position
+→ isolated restore a controlled replay
+→ engine, schema, data a application validation
+→ post-point reconstruction a reconciliation
+→ writer fencing, promotion a traffic ramp
+→ measured RPO/RTO a alternate restore
 ```
 
-## 1. Exact database recovery subject
+Záloha má hodnotu až vtedy, keď z nej možno opakovateľne vytvoriť správny authoritative state. Zelený upload, existujúci snapshot alebo fungujúca replica sú iba intermediate evidence.
 
-Tvrdenie `databáza je zálohovaná` je neúplné. Recovery subject musí obsahovať najmenej:
+## 1. Recovery subject a consistency boundary
 
-- engine, major version a exact cluster/server identity;
-- databases, schemas, tablespaces a external large-object dependencies;
-- authoritative business facts a consistency group;
-- transaction/commit a client acknowledgement boundary;
-- base-backup generation;
-- WAL, binary-log alebo iný change-log interval;
-- timeline, LSN, GTID, binlog file/position alebo ekvivalentný ordering subject;
-- schema a migration generation;
-- encryption keys, credentials a restore identity;
-- recovery target a stop semantics;
-- RPO, RTO a work-recovery boundary;
-- post-point operations, ktoré treba replaynuť alebo reconciliovať;
-- allowed aj forbidden restore outcomes.
+Tvrdenie `databáza je zálohovaná` nehovorí, čo sa vlastne chráni. Recovery subject musí pomenovať engine a cluster identity, databases a schemas, authoritative business facts, transaction a acknowledgement boundary, base-backup generation, požadovaný WAL alebo binary-log interval, schema a application generation, encryption-key lineage, restore identity, recovery target, RPO/RTO a post-point operations, ktoré bude potrebné replaynuť alebo reconciliovať.
 
-Príklad:
+Pre Atlas Payments je protected subject širší než jedna tabuľka:
 
 ```text
 capability: complete merchant settlement exactly once
-primary store: PostgreSQL cluster pay-prod-eu1
-protected group:
-  settlements
-  settlement_events
-  outbox_commands
-  idempotency_operations
-ack boundary: HTTP 202 after atomic settlement + outbox commit
-base backup: BB-PAY-2026-07-29T00:00Z
-WAL range: base backup start LSN → target LSN
-schema: payments-v42
-recovery target: immediately before first incorrect tenant-policy write
-business RPO: no lost acknowledged intent
-business RTO: safe degraded admission within 15 min; completion within 45 min
+PostgreSQL authority:
+  settlement intent
+  outbox command
+  idempotency operation
+  final reconciliation state
+external evidence:
+  MySQL policy generation
+  provider idempotency ledger
+ack boundary:
+  HTTP 202 až po atomic settlement + outbox commit
 ```
 
-Ak sa obnoví iba `settlements`, ale nie outbox, idempotency alebo provider-correlation state, databáza môže byť crash-consistent a business-inconsistent.
+Ak sa obnoví `settlements`, ale chýba outbox alebo idempotency state, databáza môže byť technicky spustiteľná a súčasne business-nekonzistentná. Consistency group preto nie je zoznam súborov; je to množina facts a ordering evidence, ktoré spolu rozhodujú o jednom business outcome-e.
 
-## 2. Backup, snapshot, replication a archive nie sú synonymá
+## 2. Backup, snapshot, replication a archive
 
-| Mechanizmus | Primárny účel | Typická hranica | Čo sám negarantuje |
-|---|---|---|---|
-| logical dump | portable logical export | selected databases/objects | physical layout, WAL continuity, rýchly full restore |
-| physical/base backup | engine-level starting state | celý cluster/server generation | recovery po base-backup čase bez change logu |
-| snapshot | point copy storage state-u | volume/filesystem/storage set | application alebo cross-volume consistency |
-| continuous log archive | changes po base backup-e | WAL/binlog/change stream | použiteľný base backup a complete sequence |
-| replication | current redundant copy | replication topology | clean historical point pri logical corruption |
-| archive | long-term retained data/evidence | retention subject | online recovery path alebo current application compatibility |
+Tieto mechanizmy riešia odlišné problémy. Logical backup exportuje objekty a rows cez engine-aware logical representation. Physical alebo base backup zachytáva engine storage generation použiteľnú ako starting point pre physical recovery. Snapshot kopíruje storage state v danom bode, ale bez coordination nemusí byť application-consistent naprieč volumes alebo stores. Continuous WAL či binary-log archive zachováva zmeny po base backup-e. Replication poskytuje current alebo near-current copy pre availability, nie clean historical point. Dlhodobý archive chráni retained data alebo evidence, ale nemusí byť priamo použiteľný pre online restore.
 
-Replication môže okamžite skopírovať chybný `DELETE`, nesprávny tenant update alebo kompromitovaný write. Snapshot po tejto zmene je úspešný snapshot poškodeného state-u. Backup strategy preto potrebuje history, clean-point selection a nezávislú restore cestu.
+Tieto rozdiely určujú failure coverage. Replica okamžite skopíruje chybný `DELETE`, zlú migration aj kompromitovaný write. Snapshot vytvorený po chybe je úspešný snapshot poškodeného state-u. Logical dump môže byť portable, ale nie je PostgreSQL base backupom pre WAL replay. Recovery stratégia preto musí explicitne skladať viac mechanizmov podľa chráneného subjectu.
 
-## 3. Logical a physical backup
+## 3. Capture a change-log continuity
 
-### Logical backup
-
-Logical export zapisuje databázové objekty a rows cez engine-aware logical representation. Je vhodný pre:
-
-- selected object recovery;
-- migration medzi kompatibilnými generations;
-- audit alebo portable export;
-- menšie datasets;
-- obnovu, pri ktorej je prijateľný dlhší reload a index rebuild.
-
-Musí sa overiť:
-
-- transaction snapshot alebo consistency semantics exportu;
-- zahrnutie roles, grants, extensions, sequences, routines a large objects;
-- schema ordering a dependency graph;
-- encoding, collation a version compatibility;
-- restore throughput a resource cost;
-- referential a business validation po importe.
-
-### Physical backup
-
-Physical/base backup zachytáva engine storage generation. Je vhodný pre veľké databázy a WAL/binlog-based recovery. Musí byť koordinovaný s engine-om; obyčajná kópia aktívnych data files bez snapshot alebo backup protocolu môže obsahovať nekonzistentné pages.
-
-Physical backup je naviazaný na:
-
-- engine a major-version compatibility;
-- tablespace paths a storage layout;
-- checkpoint/backup start a stop positions;
-- WAL alebo redo dependencies;
-- encryption a file ownership;
-- recovery configuration.
-
-## 4. PostgreSQL PITR mechanismus
-
-PostgreSQL PITR kombinuje base backup s kontinuálnym WAL archívom:
+PostgreSQL PITR používa engine-consistent base backup a neprerušenú sériu WAL records. Base backup poskytne starting files; WAL replay ich posunie na požadovanú transaction boundary a promotion vytvorí novú timeline.
 
 ```text
-base backup start LSN
-→ base backup files
-→ complete WAL sequence od backup startu
-→ restore_command alebo archive retrieval
-→ redo replay
-→ recovery target time/name/XID/LSN podľa contractu
-→ promotion na novej timeline
+base-backup start LSN
+→ complete base-backup files
+→ continuous WAL sequence
+→ timeline history
+→ restore_command/read-back
+→ replay po recovery target
+→ recovery completion
+→ new timeline promotion
 ```
 
-WAL zaznamenáva zmeny potrebné na crash recovery. Base backup poskytne starting files; archivované WAL segments posunú state dopredu. Recovery môže skončiť pred konkrétnou chybnou zmenou.
+`archive_command` success musí znamenať, že segment je durably uložený a neskôr čitateľný. Lokálne potvrdenie upload requestu nestačí. Chýbajúci jediný required segment môže znemožniť recovery za daný bod. Rovnako treba zachovať timeline history a configuration alebo external files, ktoré WAL nereprezentuje.
 
-Kritické boundaries:
-
-- `archive_command` success musí znamenať durable a čitateľnú archiváciu, nie iba prijatie upload requestu;
-- žiadny required WAL segment nesmie chýbať;
-- base backup musí začínať pred prvým dostupným required WAL segmentom;
-- timeline history files patria do recovery chainu;
-- recovery target musí mať jednoznačnú clock/LSN authority;
-- restore sa má vykonať izolovane, aby nevytvoril druhého writera;
-- promotion vytvorí novú timeline; stará history sa nesmie potichu prepísať;
-- schema, extensions a application binaries musia byť kompatibilné s target pointom.
-
-`pg_dump` je logical backup. Nie je base backupom pre WAL replay.
-
-## 5. MySQL point-in-time recovery
-
-MySQL PITR typicky používa full backup a binary logs:
+MySQL point-in-time recovery typicky začína full backupom a zaznamenanou binary-log coordinate alebo GTID množinou. Po restore sa replayujú binary-log events až po exact stop position. Timestamp môže byť praktický orientačný údaj, ale event position alebo GTID je presnejšia authority, najmä keď viac events zdieľa rovnakú časovú granularitu.
 
 ```text
-full backup a recorded binlog coordinate
-→ restore full backup
-→ identify required binary-log sequence
-→ replay events po backup coordinate
-→ stop pred/na exact event position alebo target time
-→ validate server, schema a business state
+full backup + binlog coordinate
+→ restore base state
+→ verify source/server identity
+→ replay complete binlog sequence
+→ stop pred/na exact event
+→ validate schema a business state
 ```
 
-Binary log slúži aj replication a recovery use case-om. Recovery contract musí poznať:
+V oboch produktoch je rozhodujúca chain continuity, nie počet zelených uploadov. Kontrola musí overiť sequence, checksums, object readability, source identity, retention vzhľadom na najstarší supported base backup, key availability a retrieval latency.
 
-- source/server UUID a binlog generation;
-- binlog file a position alebo GTID set;
-- row/statement/mixed logging implications;
-- encrypted-log key path;
-- retention a continuity;
-- excluded alebo filtered events;
-- target event boundary;
-- downstream replicas a clients, ktoré treba fence-nuť.
+## 4. Clean point a recoverable candidate
 
-Timestamp je slabší target než exact event position, keď viac events zdieľa rovnakú časovú granularitu alebo clocks nie sú authoritative.
-
-## 6. Clean point a recovery target
-
-`Najnovší backup` nemusí byť najlepší recovery candidate. Kandidát sa klasifikuje podľa:
+Najnovší backup nemusí byť najlepší kandidát. Recovery candidate sa posudzuje podľa toho, či vznikol pred alebo po triggeri, či má complete log sequence, správnu source/timeline identity, kompatibilnú schema a binaries, použiteľné keys a či už obsahuje logical corruption.
 
 ```text
 candidate generation
-→ pred alebo po triggeri?
+→ trigger pred alebo po candidate?
 → complete log continuity?
-→ correct timeline/source identity?
-→ schema/application compatibility?
-→ logical corruption present?
-→ encryption a access usable?
+→ correct source/timeline?
+→ schema a application compatible?
+→ corruption absent?
+→ keys a identity usable?
 → dependencies recoverable?
 → post-point divergence spracovateľná?
-→ business invarianty validné?
 ```
 
-Recovery target môže byť:
+Najsilnejší recovery target kombinuje engine position s business eventom. `Obnoviť na 11:46` je nejednoznačné, ak chybný commit prišiel o `11:46:12.418` a viac clocks alebo stores nemá spoločnú transaction authority. Praktický target môže byť PostgreSQL LSN, named restore point, MySQL event position/GTID a zároveň posledný potvrdený business operation ID pred incidentom.
 
-- timestamp;
-- named restore point;
-- PostgreSQL LSN alebo transaction boundary;
-- MySQL binlog event position alebo GTID set;
-- application event ID;
-- business operation boundary.
+## 5. Cross-store recovery a derived state
 
-Najsilnejší target kombinuje engine position s business evidence. Tvrdenie `obnoviť na 11:46` je slabé, ak nevie určiť, či chybný commit o `11:46:12.418` patrí pred alebo po targete.
-
-## 7. Continuity a retention
-
-PITR je chain. Jediný chýbajúci required segment môže zablokovať replay za daný bod.
-
-```text
-base backup
-→ WAL/binlog segment 1
-→ segment 2
-→ ...
-→ segment N
-→ target
-```
-
-Kontroly musia overovať:
-
-- sequence continuity, nie iba počet uploadov;
-- object existence aj readability;
-- checksum a expected size;
-- source cluster/server identity;
-- retention vzhľadom na najstarší supported base backup;
-- timeline/GTID metadata;
-- encryption-key retention;
-- catalog consistency;
-- restore retrieval latency;
-- forbidden deletion alebo lifecycle transitions.
-
-`Backup job succeeded` môže znamenať iba to, že lokálny process odovzdal object storage request. Recovery acceptance vyžaduje independent read-back a restore.
-
-## 8. Cross-store consistency group
-
-Distributed application môže používať PostgreSQL, MySQL, Redis, object storage a external provider. Rovnaký timestamp na každom systéme nevytvára automaticky jeden business-consistent point.
-
-Treba definovať:
-
-- ktorý store je authority pre ktorý fact;
-- durable ordering alebo event ID medzi stores;
-- whether derived store možno rebuildnúť;
-- provider/external ledger availability;
-- schema/config generation;
-- cache a ephemeral state semantics;
-- post-point reconciliation.
-
-Príklad:
+Distributed platforma môže používať PostgreSQL, MySQL, Redis, object storage, broker a external provider. Rovnaký timestamp na všetkých systémoch nevytvára cross-store atomic point. Recovery model musí vedieť, kto vlastní každý fact, ktorý state je derived a rebuildable a aké durable identity prepájajú stores.
 
 ```text
 PostgreSQL settlement/outbox LSN
-↔ durable event ID
-↔ MySQL merchant-policy generation
-↔ provider idempotency ledger
+↔ durable operation/event ID
+↔ MySQL policy generation
+↔ provider idempotency identity
 ↔ Redis cache/dedupe generation
 ```
 
-Ak Redis obsahuje iba rebuildable cache, nemusí vstupovať do data-loss RPO. Ak sa však používa ako jediný idempotency authority, jeho persistence a failover semantics sa stávajú súčasťou business recovery subjectu.
+Redis cache možno po restore zahodiť a rebuildnúť. Ak však application používa Redis key ako jediný proof, či provider call už prebehol, Redis persistence a failover semantics sa stávajú súčasťou correctness boundary. To je zvyčajne authority inversion: rebuildable state rozhoduje o irreversible business effecte.
 
-## 9. Encryption, identity a isolation
+Post-point operations sa preto nesmú slepo zahodiť ani replaynuť. Každá operation patrí do cohortu `never-committed`, `committed-never-sent`, `sent-unknown`, `provider-completed` alebo `duplicate-attempt`. Recovery manifest vzniká koreláciou database logs, outboxu, API evidence, broker checkpointov a provider ledgeru.
 
-Backup, ktorý nemožno dešifrovať, nie je recoverable. Recovery chain zahŕňa:
+## 6. Restore generation, isolation a validation
 
-- backup encryption key;
-- key version a wrapping lineage;
-- restore principal a network path;
-- separated production/backup administration;
-- immutable alebo deletion-protected copies;
-- audit log;
-- break-glass access;
-- tested key recovery;
-- retention po key rotation.
+Restore je nový subject s vlastným generation ID, source manifestom, target environmentom, engine/schema/application versions, recovered position a validation evidence. Má prebiehať izolovane, aby nevytvoril druhého writera alebo neodoslal reálne provider operations ešte pred acceptance verdictom.
 
-Restore test nesmie používať širšie permanentné privilege než reálny incident responder. Inak overuje lab exception, nie production recovery path.
+Validácia ide od infraštruktúry po business outcome. Najprv sa overí storage, network, permissions, encryption keys a restore identity. Potom engine startup, recovery completion, checksums a catalogs. Nasleduje schema generation, constraints a extensions; data integrity a business invarianty; application transaction, idempotency a read/write paths; napokon exact accepted, completed a unknown cohorts. Až potom možno rozhodnúť o promotion.
 
-## 10. Restore je samostatná generácia
+Restore test, ktorý používa trvalý super-admin účet alebo manuálne obchádza current network a KMS controls, neoveruje production recovery path. Identity, key rotation, break-glass access, object immutability a deletion protection patria do rovnakého mechanizmu ako samotné backup files.
 
-Restore vytvára nový subject:
+## 7. Connected incident `DB-PAY-57`
 
-```text
-restore generation ID
-→ source backup/log manifest
-→ target environment
-→ engine/schema/application versions
-→ recovered position/timeline
-→ validation evidence
-→ promotion/fencing decision
-```
+Release `payments 8.1` používal PostgreSQL ledger, MySQL merchant-policy store, Redis idempotency/dedupe layer a provider ledger. Po end-of-month scale-out-e bežalo `96` settlement Podov s PostgreSQL poolom `40`, teda teoretických `3 840` client sessions proti približne `585` dostupným application slots.
 
-Validácia má vrstvy:
+O `11:38 UTC` network flap vytvoril reconnect storm. Emergency PgBouncer transaction pooling odstránil server-session affinity, hoci application nastavovala tenant context iba pri physical connection initialization a používala temporary tables. Od `11:46:12 UTC` preto časť operations používala missing alebo stale policy context. Incident bol potvrdený až o `17:58 UTC`; logical corruption už bola v primary, replicas aj novších snapshots.
 
-1. **Infrastructure:** storage, permissions, network, keys.
-2. **Engine:** startup, recovery completion, checksums, system catalogs.
-3. **Schema:** expected migrations, constraints, extensions.
-4. **Data:** counts, referential integrity, sampled/complete invariants.
-5. **Application:** reads, writes, transaction a idempotency flows.
-6. **Business:** exact accepted/completed/unknown cohorts.
-7. **Forbidden:** corruption, duplicates, cross-tenant state, stale writer.
-8. **Recovery operations:** replay, merge, compensation a backlog drain.
-
-## 11. Connected incident `DB-PAY-57`
-
-Release `payments 8.1` rozdelil payment platformu na:
-
-```text
-settlement-api
-→ PostgreSQL ledger-service
-→ MySQL merchant-policy-service
-→ Redis idempotency/dedupe layer
-→ provider
-→ projection-service
-```
-
-Po end-of-month autoscale bežalo `96` settlement Podov. Každý mal PostgreSQL pool `40`, teda teoretických `3 840` client sessions proti server envelope-u približne `585` application connections.
-
-O `11:38 UTC` krátky network flap vytvoril reconnect storm. Pri pool exhaustion bol núdzovo zapnutý PgBouncer transaction pooling. Aplikácia však nastavovala tenant context raz pri session initialization a používala temporary table pre batch processing. Transaction pooling zrušil server-session affinity.
-
-Od `11:46:12 UTC` začali niektoré operations používať missing alebo stale tenant-policy context. Incident bol potvrdený až o `17:58 UTC`, keď už bol incorrect state v primary, replicas aj neskorších snapshots.
-
-Tím chcel PostgreSQL obnoviť na `11:46:11 UTC`. Backup catalog ukazoval:
-
-```text
-base backup: 00:00 UTC — success
-WAL archive uploads: green
-requested target: 11:46:11 UTC
-```
-
-Independent continuity check však našiel:
+Tím požadoval PostgreSQL PITR na `11:46:11 UTC`. Dashboard ukazoval successful base backup a zelené WAL uploads, independent continuity kontrola však zistila:
 
 ```text
 last continuous WAL: 11:40:59 UTC
-missing interval: 11:41:00–11:56:59 UTC
-next available WAL: 11:57:00 UTC
+missing interval:     11:41:00–11:56:59 UTC
+next available WAL:   11:57:00 UTC
 ```
 
-Object lifecycle policy odstránila objects z dočasného archive prefixu, hoci uploader už lokálne označil segments ako archived. Presný target nebol dosiahnuteľný z daného base backupu.
+Object lifecycle policy odstránila segments z dočasného archive prefixu po tom, čo uploader lokálne označil upload za complete. Requested target preto nebol dosiahnuteľný. MySQL mal vlastný binlog coordinate, Redis AOF `everysec` a provider samostatnú external history; versionovaný cross-store checkpoint neexistoval.
 
-Súčasne:
+Trigger bol reconnect storm a pooling zmena. Backup/PITR root cause bol acceptance založený na job activity namiesto durable continuity a tested restore-u. Replication a novšie snapshots logical corruption iba rozšírili. Cross-store recovery predĺžila absencia spoločnej operation a policy-generation identity.
 
-- MySQL merchant-policy store mal vlastný binlog coordinate;
-- Redis používal AOF `everysec`, ale nebol navrhnutý ako permanentný settlement authority;
-- provider ledger obsahoval external attempts;
-- neexistoval versionovaný cross-store consistency checkpoint.
+## 8. Recovery, acceptance a forbidden outcomes
 
-### Causal boundaries
+Containment najprv zmrazilo schema, pool a retry zmeny; fence-nulo affected write cohort; zachovalo PostgreSQL data/WAL/timelines, MySQL binlogs, Redis persistence/config a provider evidence; uzavrelo backup catalog a určilo prvý chybný business event spolu s engine positions.
 
-- **Trigger:** reconnect storm a núdzová pooling zmena.
-- **Backup/PITR root cause:** recovery control overoval job/upload activity, nie durable WAL continuity, clean target reachability a restore.
-- **Recovery amplifier:** logical corruption bola replikovaná do replicas a nových snapshots.
-- **Cross-store amplifier:** neexistoval authoritative checkpoint medzi PostgreSQL eventom, MySQL policy generation a provider ledgerom.
-- **Detection delay:** front-door success a backup dashboards zostali zelené.
+Recovery použila isolated PostgreSQL restore po posledný kontinuálny bod `11:40:59 UTC`. Tím vytvoril exact manifest post-point operations a cez outbox, API, MySQL binlog a provider ledger rekonštruoval iba evidence-backed cohorts. Derived projections a Redis dedupe keys boli rebuildnuté, nová timeline bola promoted až po writer fencing-u a traffic sa vracal cez canary a staged ramp. Následný second restore z iného base backupu a alternate targetu overil, že výsledok nebol závislý od jedného artifactu.
 
-## 12. Evidence-preserving containment
+**Positive path** obnoví správny base backup, replayne complete log sequence na clean business boundary, prejde engine až business validáciou a bezpečne vytvorí nový authoritative writer.
 
-Bezpečné prvé kroky:
+**Recovery path** pracuje so starším clean pointom, explicitne zmeria objective gap a rekonštruuje post-point operations iba z durable a external evidence. Permanent loss, reconstructed work a actual RPO/RTO sa reportujú oddelene.
 
-```text
-freeze schema/config/pool changes
-→ fence affected write cohort
-→ preserve PostgreSQL data/WAL/timelines
-→ preserve MySQL binlogs a coordinates
-→ snapshot Redis persistence/config/runtime state
-→ export provider idempotency evidence
-→ seal backup catalog a object lifecycle evidence
-→ identify first bad business event + engine positions
-→ classify recovery candidates
-```
+**Failure path** zastaví restore pri missing segment-e, nečitateľnom objecte, stale keyi, wrong source identity alebo incompatible schema. Nesmie improvizovať silent gap ani označiť nearest available point za requested target.
 
-Nie je bezpečné okamžite prepísať production z najnovšieho snapshotu alebo zmazať affected rows bez immutable manifestu.
+**Forbidden path** odmietne restore poškodeného latest snapshotu, promotion bez fencing-u, cache absence ako proof business absence, slepé replayovanie unknown provider operations a používanie production data v neizolovanom teste.
 
-## 13. Authoritative recovery
+Mechanizmus je prijatý až vtedy, keď alternate target, druhý responder a second restore prejdú rovnakým contractom. V `DB-PAY-57` bola permanentná strata acknowledged operations po reconciliation nulová, ale pôvodný PITR objective napriek tomu zlyhal, pretože requested point nebol technicky dosiahnuteľný.
 
-Tím použil:
+## 9. Troubleshooting a anti-patterny
 
-1. isolated PostgreSQL restore po posledný kontinuálny point `11:40:59 UTC`;
-2. application/business invariant validation;
-3. exact manifest operations medzi `11:41:00` a containmentom;
-4. outbox, API, MySQL binlog a provider-ledger correlation;
-5. classification `never-committed`, `committed-never-sent`, `sent-unknown`, `provider-completed`;
-6. bounded reconstruction iba pre evidence-backed operations;
-7. rebuild derived projections a Redis dedupe keys z authoritative outcomes;
-8. new timeline promotion s writer fencing;
-9. canary a staged traffic ramp;
-10. second restore z iného base backupu a alternate targetu.
+Diagnostika recovery failure-u postupuje od exact recovery generation cez base-backup identity, catalog/readability, log continuity a timeline/GTID target ku keys, engine logs, schema/application compatibility, business invariants, post-point divergence a promotion/fencing. `Restore sa spustil` alebo `database accepting connections` nie je finálny verdict.
 
-Technical recovery point bol starší než desired target, ale permanentná strata acknowledged operations bola znížená na nulu pomocou external a durable event reconciliation. To nemení fakt, že pôvodný PITR objective neprešiel.
+Najčastejšie anti-patterny sú zelený backup job bez read-backu, replica považovaná za backup, latest snapshot automaticky považovaný za clean, PITR definované iba timestampom, rovnaký wall-clock čas vydávaný za cross-store consistency a restore uzavretý po engine startup-e. Každý z nich zamieňa artifact alebo intermediate observation za recoverable business state.
 
-## 14. Backup/PITR acceptance verdict
+## 10. Kontrolné otázky
 
-Recovery mechanismus je prijatý, keď:
-
-- exact protected subject a consistency group sú explicitné;
-- logical/physical/base backup semantics sú vhodné;
-- capture je transaction/engine-consistent;
-- WAL/binlog/change-log sequence je complete, čitateľná a správne identifikovaná;
-- retention chráni celý supported recovery window;
-- keys, identities, network a tools sú current;
-- clean candidate a recovery target sú jednoznačné;
-- restore beží izolovane a vytvorí evidovanú timeline/generation;
-- engine, schema, data, application a business validations prejdú;
-- post-point divergence má replay/merge/compensation/reconciliation contract;
-- old writers a wrong timelines sú fence-nuté;
-- actual recovered point, permanent loss a recovery time sú zmerané;
-- alternate target a second responder prejdú;
-- forbidden missing-segment, stale-key a corrupted-candidate scenarios zlyhajú bezpečne.
-
-## 15. Troubleshooting recovery failure-u
-
-```text
-restore alebo PITR zlyháva
-→ exact recovery subject/generation
-→ base backup identity a compatibility
-→ catalog/readability/checksums
-→ WAL/binlog continuity a source identity
-→ timeline/GTID/event target
-→ keys, roles, paths a permissions
-→ engine recovery logs
-→ schema/application generation
-→ data/business invariants
-→ post-point divergence
-→ promotion/fencing
-→ objective-vs-actual verdict
-```
-
-## 16. Anti-patterny
-
-### Backup job je zelený
-
-Neoveruje durable archive, continuity, readability ani restore.
-
-### Replica je backup
-
-Logical corruption a malicious writes sa replikujú.
-
-### Najnovší snapshot je najlepší
-
-Môže obsahovať incident state.
-
-### PITR = vybrať timestamp
-
-Chýba engine position, timeline, clean boundary a business event mapovanie.
-
-### pg_dump + WAL
-
-Logical dump nie je PostgreSQL base backup pre physical WAL replay.
-
-### Obnovíme všetky stores na rovnaký čas
-
-Clocks a independent logs nevytvárajú cross-store transaction.
-
-### Restore skončil pri engine start-e
-
-Application, business, reconciliation a forbidden outcomes ešte nemusia prejsť.
-
-### Kľúč obnovíme počas incidentu
-
-Untested key path môže dominovať RTO.
-
-## 17. Kontrolné otázky
-
-1. Čo tvorí exact database recovery subject?
-2. Ako sa backup, snapshot, replication a archive líšia?
-3. Kedy použiť logical a physical backup?
-4. Ako PostgreSQL base backup a WAL vytvárajú PITR?
-5. Ako MySQL full backup a binary logs vytvárajú PITR?
-6. Prečo je continuity dôležitejšia než počet uploaded segments?
-7. Ako sa clean point líši od latest pointu?
-8. Čo je recovery timeline?
-9. Prečo rovnaký timestamp nevytvára cross-store consistency?
-10. Prečo `DB-PAY-57` nemohlo dosiahnuť requested target?
-11. Ako možno rekonštruovať post-point business operations?
-12. Čo musí overiť backup/PITR acceptance verdict?
+1. Čo tvorí exact database recovery subject a consistency group?
+2. Ako sa logical backup, physical/base backup, snapshot, replication a archive líšia?
+3. Prečo PostgreSQL PITR potrebuje base backup aj complete WAL sequence?
+4. Prečo je pri MySQL event position alebo GTID presnejší než samotný timestamp?
+5. Ako sa clean recovery point líši od latest available pointu?
+6. Prečo rovnaký timestamp nevytvára cross-store transaction?
+7. Čo tvorí restore generation a prečo musí byť izolovaná?
+8. Ako sa klasifikujú post-point operations a unknown provider outcomes?
+9. Prečo requested target v `DB-PAY-57` nebol dosiahnuteľný?
+10. Ktoré positive, recovery, failure a forbidden paths musia prejsť?
 
 ## Glossary impact
 
@@ -459,8 +176,8 @@ Relevantné pojmy: database recovery subject, protected consistency group, logic
 
 ## Primárne zdroje
 
-- [PostgreSQL Documentation — Backup and Restore](https://www.postgresql.org/docs/current/backup.html)
-- [PostgreSQL Documentation — Continuous Archiving and Point-in-Time Recovery](https://www.postgresql.org/docs/current/continuous-archiving.html)
+- [PostgreSQL 18 Documentation — Backup and Restore](https://www.postgresql.org/docs/current/backup.html)
+- [PostgreSQL 18 Documentation — Continuous Archiving and Point-in-Time Recovery](https://www.postgresql.org/docs/current/continuous-archiving.html)
 - [MySQL 8.4 Reference Manual — Backup and Recovery](https://dev.mysql.com/doc/refman/8.4/en/backup-and-recovery.html)
 - [MySQL 8.4 Reference Manual — Point-in-Time Recovery](https://dev.mysql.com/doc/refman/8.4/en/point-in-time-recovery.html)
 
