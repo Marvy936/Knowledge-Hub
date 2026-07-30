@@ -31,16 +31,11 @@ Odporúča sa najprv dokončiť:
 10. [Golden paths a paved road](golden-paths-and-paved-road.md)
 11. [Self-service](self-service.md)
 12. [Developer experience](developer-experience.md)
+13. [Service catalog](service-catalog.md)
+14. [Guardrails](guardrails.md)
+15. [Multi-tenancy](multi-tenancy.md)
 
-Aktuálny authoritative stav sekcie je **12/15 · In progress**.
-
-## Plánované pokračovanie
-
-Authoritative poradie bude pokračovať bez zmeny roadmapy:
-
-13. Service catalog
-14. Guardrails
-15. Multi-tenancy
+Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**.
 
 ## Connected learning scenarios
 
@@ -375,6 +370,64 @@ regulated user segment + observed settlement-repair journey
 
 Recovery najprv zastaví mandatory migration, klasifikuje 64 consumers na managed, extensible, exception alebo detached state, opraví `LP-8841` cez jednu durable operation a až potom rozšíri pilot podľa end-to-end outcome-u. Portal a catalog status sa odvodia z effective capability generation, nie z historického template tasku.
 
+### `GITOPS-PAY-64` — stale catalog authority, false-green guardrails a cross-tenant confused deputy
+
+Atlas rozšíril LaunchPad o catalog-driven isolation profiles a guardrail program `GP-7`. Nový `settlement-export-api` mal patriť tenantovi `vega-regulated`, spracúvať restricted data a používať dedicated isolation profile. Repository transfer zmenil ownera, tenant boundary a data classification, ale nový descriptor neprešiel starou processor schema generation. Catalog zachoval poslednú dobrú stitched entity:
+
+```text
+visible entity generation:  catalog-g118
+owner:                     orion-payments
+tenant boundary:           shared-internal
+data classification:       internal
+isolation profile:         standard
+latest source revision:    9ba771e (processing error)
+```
+
+LaunchPad nekontroloval source revision, processing error ani critical-field freshness a vytvoril namespace so standard profile-om. Restricted guardrail binding sa preto nematchol. Širšia cross-namespace rule bola iba `Warn,Audit` a preskočila ju broad `PolicyException` s `platform.atlas.io/migration=true` bez expiry. Dashboard ukazoval `0 denied requests`, hoci neukazoval expected inventory, no-match subjects ani skipped exceptions.
+
+Flux povoľoval cross-namespace references a shared controller mal cluster-admin authority. Tenant mohol vytvoriť namespaced `SettlementConnection`; cluster-scoped operator s broad Secret read permission dôveroval user-controlled `credentialRef.namespace` a načítal `orion-payments/provider-settlement`. Vega workload tak získal Orion provider context napriek tomu, že tenant user nemal direct Secret permission.
+
+```text
+10:02:11 → descriptor revision 9ba771e merged
+10:03:07 → catalog processing error; catalog-g118 ostáva visible
+10:06:42 → LaunchPad plan používa stale tenant profile
+10:08:13 → namespace vytvorený ako shared-internal
+10:11:26 → Flux Kustomization Ready=True
+10:12:04 → cross-namespace reference warning, request allowed
+10:12:19 → operator načíta Orion credential
+10:15:44 → prvý Vega export cez foreign provider identity
+10:57:31 → tenant breach potvrdený
+```
+
+Počas 45 minút bolo v nesprávnom provider context-e dostupných `2 184` settlement records a `312` bolo exportovaných do Vega workspace. Catalog page poslala incident nesprávnemu ownerovi a predĺžila triage o 26 minút. Separate namespace a RBAC neboli complete tenant boundary, pretože privileged operator sa stal confused deputy.
+
+Causal boundaries:
+
+- **Service-catalog root cause** — last-good projection bola správna pre degraded discovery, ale critical automation ju použila ako fresh authority bez source/processor generation a CAS gate-u.
+- **Guardrail root cause** — policy success sa meral denial countom bez expected inventory a match coverage; warn-only action a broad non-expiring exception nevytvárali prevention.
+- **Multi-tenancy root cause** — namespace isolation nepokrývala cross-namespace GitOps references, cluster-admin controller, broad operator credential, network baseline ani external provider identity.
+- **Amplifiers** — mutable tenant labels, wildcard Argo default project, absent operator-side tenant authorization, shared nodes/egress a incident routing podľa stale ownera.
+
+Authoritative redesign:
+
+```text
+stable tenant ID tenant-vega-71 + restricted-v3 profile
+→ exact catalog source revision a compatible processor generation
+→ stitched entity catalog-g119 s critical-field freshness gate
+→ namespace UID + controller-owned tenant binding
+→ policy/binding/parameter generation s expected-inventory match proof
+→ Deny cross-tenant references + bounded expiring exceptions
+→ Flux no-cross-namespace refs + tenant service-account impersonation
+→ explicit Argo source/destination/resource allowlists
+→ operator same-tenant authorization a delegated credential identity
+→ default-deny network, scoped egress, quota, node/storage/observability profile
+→ positive Vega workflow + negative Orion access canaries
+→ effective tenant acceptance a residual scan
+```
+
+Containment zrušil foreign connection, rotoval Orion credential, zastavil cross-namespace reconciliation, izoloval Vega egress a reconciled exported records. Catalog, policy a tenant boundaries boli opravené a testované spolu; izolovaná zmena jedného layeru by ponechala ďalší indirect privilege path.
+
+
 ## Cieľ zvládnutia aktívnych blokov
 
 ### Git ako source of truth
@@ -502,19 +555,50 @@ Recovery najprv zastaví mandatory migration, klasifikuje 64 consumers na manage
 - používať counterbalanced speed, quality, experience, reliability a business metrics;
 - overiť causal hypothesis, privacy, feedback closure, second cohort a operational experience.
 
+### Service catalog
+
+- rozlíšiť inventory, registry, CMDB a service catalog podľa authority a decision contractu;
+- definovať exact catalog entity, source generation, processor generation a stitched projection;
+- vytvoriť field-level authority, provenance, freshness a conflict model;
+- vysvetliť ingestion, processing, stitching, relations, orphan a deletion lifecycle;
+- odlíšiť catalog projection od runtime, ownership, policy a business authority;
+- navrhnúť CAS-bound catalog-driven automation a safe last-good semantics;
+- overiť expected inventory, owner transfer, source move, processor error a second-change behavior.
+
+### Guardrails
+
+- rozlíšiť guardrail, safe default, gate, scorecard a širší control;
+- definovať protected invariant, exact policy/binding/parameter subject a enforcement boundary;
+- vysvetliť Deny, Warn, Audit, mutation, generation, background scan a failure policy;
+- navrhnúť match coverage, policy rollout migration a effective-state verification;
+- vytvoriť bounded subject-specific exception, expiry, compensation a break-glass lifecycle;
+- testovať no-match, engine outage, selector drift, policy rollback a controller interaction;
+- overiť risk outcome bez false-green denial countu a bez neprijateľného developer frictionu.
+
+### Multi-tenancy
+
+- definovať platform, business/data a infrastructure tenant a stable tenant identity;
+- vytvoriť threat model a versionovaný isolation profile naprieč control a data plane-om;
+- porovnať namespace, virtual control plane, cluster, account a dedicated compute topology;
+- navrhnúť tenant-scoped RBAC, GitOps, controllers, network, storage, secrets a shared services;
+- vysvetliť confused-deputy, cross-namespace reference a noisy-neighbor failure modes;
+- vytvoriť durable onboarding, migration, offboarding a residual-scan lifecycle;
+- overiť positive workflow, foreign-tenant negative paths, second tenant a controller compromise.
+
+
 ## Dominantný model sekcie
 
 ```text
-business alebo platform capability intent
-→ exact desired-state, release, secret, platform-product alebo tenant subject
-→ declarative versioned authority a ownership boundaries
+business, platform alebo tenant capability intent
+→ exact desired-state, release, secret, product, catalog, guardrail a tenant subject
+→ declarative versioned authority, field provenance a ownership boundaries
 → validated change, product hypothesis, golden path, promotion alebo self-service request
-→ source artifact, controller resolution, policy, durable operation a experience feedback
-→ desired-vs-observed comparison alebo bounded orchestration
-→ reconciliation, provisioning, materialization a consumer transition
-→ effective runtime, developer a business outcome
-→ drift, feedback, rotation, recovery a lifecycle closure
-→ second-change/second-promotion/second-rotation/second-tenant validation
+→ source artifact, catalog projection, controller resolution, policy a durable operation
+→ desired-vs-observed comparison, policy evaluation alebo bounded orchestration
+→ reconciliation, provisioning, materialization, tenant isolation a consumer transition
+→ effective runtime, developer, security a business outcome
+→ drift, feedback, exception, rotation, recovery a lifecycle closure
+→ second-change/promotion/rotation/policy/tenant/failure validation
 ```
 
 Každá komplexná kapitola musí rozlišovať:
@@ -552,6 +636,15 @@ Každá komplexná kapitola musí rozlišovať:
 - self-service request od unrestricted privilege;
 - accepted request od durable operation, usable capability a business outcome;
 - activity metric od developer experience, productivity a counterbalanced outcome;
+- service catalog od inventory, registry, CMDB a runtime authority;
+- source descriptor/provider generation od stitched catalog projection;
+- last-good catalog availability od fresh critical metadata decisionu;
+- scorecard alebo warning od authoritative guardrail enforcementu;
+- policy logic od binding, parameter, action, exception a match coverage;
+- admission decision od stored, controller-resolved a effective compliance;
+- namespace separation od composed control-plane a data-plane isolation;
+- direct RBAC denial od controller-mediated confused-deputy pathu;
+- tenant label od stable tenant identity a isolation profile generation;
 - shared platform od tenant isolation boundary;
 - configured object od valid/effective runtime mechanismu;
 - trigger, root cause a causal amplifier;
@@ -574,8 +667,10 @@ Každá komplexná kapitola musí rozlišovať:
 | Golden paths a paved road | Learning | L2 |
 | Self-service | Learning | L2 |
 | Developer experience | Learning | L2 |
-| Service catalog | Not Started | L0 |
-| Guardrails | Not Started | L0 |
-| Multi-tenancy | Not Started | L0 |
+| Service catalog | Learning | L2 |
+| Guardrails | Learning | L2 |
+| Multi-tenancy | Learning | L2 |
 
-Sekcia zostáva **In progress**. Stav **Ready for user review** možno použiť až po vytvorení všetkých 15 authoritative kapitol, overení complete navigation chainu, glossary, audit artifacts a finálnom section-level consistency passe.
+Sekcia je **15/15 · Ready for user review**. Všetkých 15 authoritative kapitol je vytvorených, ordering a navigation chain sú complete, glossary fragmenty `16a`–`16d` sú synchronizované a finálny section-level consistency pass spája authority, reconciliation, platform product, catalog, guardrail a tenant model bez zamenenia projection alebo local successu za effective runtime a business verdict.
+
+Tento stav neznamená **User reviewed**, **Accepted**, **Verified** ani **Stable**. Označuje, že repository-native obsah a validačné artifacts sú pripravené na používateľskú kontrolu.

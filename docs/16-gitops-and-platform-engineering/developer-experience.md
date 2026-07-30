@@ -467,5 +467,5 @@ Relevantné pojmy: developer-experience subject, developer journey, feedback-loo
 
 **Navigácia**
 
-[← Predchádzajúca: Self-service](self-service.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Self-service](self-service.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Service catalog →](service-catalog.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

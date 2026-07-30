@@ -230,6 +230,10 @@ Overenie, že recovery funguje nielen na pôvodnom affected subjecte, ale aj na 
 
 Connection slots, identity a route vyhradené pre incident inspection, fencing, recovery a administratívne operations pri application saturation. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
+## Admission action
+
+Spôsob, akým policy engine naloží s neúspešnou validáciou. `Deny` request odmietne, `Warn` ho dovolí s upozornením a `Audit` zaznamená failure do audit evidence; tieto actions preto predstavujú odlišné risk decisions, nie iba rozdielny log level.
+
 ## Admission control — distributed systems
 
 Rozhodovací boundary, ktorá podľa exact caller/tenant/operation identity, current demandu, policy a downstream capacity povolí, oneskorí, degraduje alebo odmietne novú prácu. Pozri [Rate limiting](../docs/15-databases-and-distributed-systems/rate-limiting.md).
@@ -1458,6 +1462,10 @@ Typed reference z Route rule na backend resource, typicky Kubernetes Service a p
 
 Riadené doplnenie alebo transformácia existujúcich dát, typicky v bounded batches s checkpointingom, rate limitom, validáciou a možnosťou pause/resume. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Background policy audit
+
+Periodické alebo event-driven vyhodnocovanie už uložených resources voči policy. Zachytáva pre-existing a drift violations, ktoré request-time admission nevidel, ale samo osebe nemusí zabrániť ich runtime účinku ani uchovávať kompletnú historickú stopu.
+
 ## Backing index
 
 Skrytý fyzický index patriaci data streamu; writes smerujú do aktuálneho write backing indexu a searches prechádzajú všetky relevantné generations. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -2002,6 +2010,10 @@ Telemetry alebo validation merajúca final caller-visible či business-visible c
 
 Exact business capability, primary/recovery account a Region, application/data/trust generations, RTO, RPO, minimálna capacity a forbidden outcomes použité na DR rozhodovanie. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Business tenant
+
+Zákazník, legal entity alebo iný business/data subject, ktorého údaje a operácie musia byť oddelené podľa business contractu. Nemusí sa zhodovať s platform tenantom ani s jedným Kubernetes namespace-om.
+
 ## Cache acceptance verdict
 
 Dôkaz, že key identity, generations, freshness, invalidation, eviction, failure fallback a mutation/failover/second-read tests chránia správny business outcome. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
@@ -2302,9 +2314,37 @@ Exact producer, release, tenant, signal/backend, identity model, dimensions, act
 
 Počet unikátnych kombinácií labels alebo attributes; vysoká alebo neobmedzená cardinality môže výrazne zvýšiť memory, storage, query cost a destabilizovať telemetry pipeline. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Catalog compare-and-swap
+
+Precondition model, pri ktorom catalog-driven operation smie pokračovať iba vtedy, ak critical entity generation zostala rovnaká ako pri plánovaní a approvale. Zmena ownera, tenant boundary alebo lifecycle preto invaliduje stale plan namiesto aplikovania bývalého rozhodnutia.
+
+## Catalog-driven operation
+
+Automatizovaná alebo self-service mutation, ktorá používa catalog entity alebo relation ako vstup. Bez field authority, freshness a exact entity generation môže catalog-driven operation udeliť privilege alebo vytvoriť resource podľa stale projection.
+
+## Catalog entity subject
+
+Exact identita catalog entity vrátane catalog instance, `apiVersion`, `kind`, namespace, name, source identity a relevantnej source/stitched generation. Display name bez scope-u a generation nie je dostatočný audit ani automation subject.
+
+## Catalog freshness budget
+
+Maximálna tolerovaná staleness konkrétneho catalog fieldu alebo source projection pre definovaný use case. Discovery UI môže akceptovať staršiu hodnotu než privileged tenant, IAM alebo decommission decision.
+
+## Catalog processing error
+
+Failure počas policies/processors alebo stitching pipeline-u, ktorý zabráni vytvoreniu novej validnej final entity. Catalog môže zachovať poslednú dobrú projection, ale critical downstream consumers musia vidieť error a nesmú dostupnosť starej entity zameniť za freshness.
+
 ## Catalog projection
 
 Developer-facing index a relation model odvodený z catalog declarations a authoritative runtime/platform evidence, ktorý nesmie byť zamenený za live alebo desired-state authority. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Catalog relation integrity
+
+Vlastnosť relation graphu, pri ktorej source, type a target reference majú definovanú semantics, sú resolvable a dostatočne aktuálne pre intended decision. Dangling alebo stale relation môže zostať užitočná pre diagnostiku, ale nie je automaticky dependency truth.
+
+## Catalog source generation
+
+Immutable revision, provider cursor alebo iná identity raw inputu, z ktorého catalog entity vznikla. Umožňuje reprodukovať ingestion a odlíšiť aktuálny descriptor od poslednej úspešne spracovanej verzie.
 
 ## Catastrophic backtracking
 
@@ -2817,6 +2857,10 @@ Exact platform release tvorený infra/host image-om, Kubernetes a etcd verziami,
 ## Cluster-level logging
 
 Architektúra, ktorá prenáša container, Node a control-plane logs do backendu s lifecycle a retenciou nezávislou od jednotlivých Podov a Nodes. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
+
+## Cluster-per-tenant
+
+Topology, v ktorej tenant dostáva samostatný Kubernetes cluster. Zlepšuje control-plane a add-on isolation, ale zvyšuje fleet-management cost a nevyrieši automaticky shared cloud account, CI, registry, external provider alebo application-level data tenancy.
 
 ## Cluster recovery set
 
@@ -3674,6 +3718,10 @@ Zlyhanie AWS API alebo management/configuration operácie, pri ktorom môže exi
 
 Súbor podmienok ako API readiness, etcd quorum, Node/add-on health, certificate stav a backup readiness, ktoré musia prejsť pred upgrade alebo zásahom. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## Control-plane isolation
+
+Ochrana Kubernetes alebo iného platform API a jeho objects pred cross-tenant read, mutation, availability a policy effects. Zahŕňa authorization, API capacity, cluster-scoped resources, admission a controller boundaries.
+
 ## Control plane — Kubernetes
 
 Sada komponentov poskytujúca API, persistence, scheduling a reconciliation cluster-wide desired state-u. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
@@ -3733,6 +3781,10 @@ Lokálna cache napĺňaná typicky cez list/watch, ktorú controller používa n
 ## Controller chaining — Kubernetes
 
 Model, v ktorom vyšší controller vytvára desired state pre nižší resource a ďalšie controllers ho postupne realizujú, napríklad Deployment → ReplicaSet → Pod → kubelet. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Controller confused deputy
+
+Failure mode, v ktorom tenant nemá priamy privilege, ale odošle namespaced alebo inak povolený request privileged controlleru, ktorý vykoná cross-tenant alebo širšiu mutation bez overenia tenant ownershipu. Obrana vyžaduje subject propagation, reference authorization a scoped execution identity.
 
 ## Controller convergence verdict
 
@@ -3954,6 +4006,10 @@ Použitie rovnakého private alebo symmetric key materialu v staging, production
 
 Agregácia structured postmortem metadata s cieľom nájsť opakované causal classes, detection gaps, recovery delays, stale controls alebo platform-wide investment needs. Pozri [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md).
 
+## Cross-namespace reference
+
+Reference z resource v jednom namespace do source, secret, configuration alebo iného objectu v inom namespace. V multi-tenant systéme je to samostatná authorization boundary; samotná technická schopnosť resolve-núť reference nepreukazuje povolenie.
+
 ## Cross-pillar decision — Well-Architected
 
 Versionované architecture rozhodnutie zaznamenávajúce benefit, trade-offs, guardrails a validation naprieč reliability, security, performance, operations, cost a sustainability outcomes. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -3997,6 +4053,10 @@ Súlad času a verzie obnoveného etcd API state-u, persistent application dát,
 ## Cross-system recovery generation
 
 Koordinovaná časová a compatibility väzba medzi restored Kubernetes API state-om, application data, queues, external resources, secrets a deployment/schema generations. Pozri [etcd backup a restore](../docs/09-kubernetes/etcd-backup-restore.md).
+
+## Cross-tenant negative test
+
+Test, ktorý sa zámerne pokúsi z tenant A čítať, meniť alebo použiť resource, identity, network endpoint, storage, observability query alebo business data tenanta B. Dopĺňa positive test a dokazuje isolation namiesto iba použiteľnosti.
 
 ## Cross-tool contract
 
@@ -4229,6 +4289,10 @@ Odkaz naviazaný na konkrétnu field hodnotu, napríklad trace ID, Pod, error co
 ## Data-plane failure — AWS
 
 Zlyhanie reálneho workload trafficu, request processingu, storage I/O alebo DNS/network cesty napriek potenciálne funkčnému AWS management API. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
+
+## Data-plane isolation
+
+Ochrana running workloads a ich network, compute, storage a data paths pred cross-tenant confidentiality, integrity, availability a noisy-neighbor effects. Samostatný control plane ju automaticky nezaručuje.
 
 ## Data plane — Zero Trust
 
@@ -5578,6 +5642,10 @@ Množina Linux capabilities aktuálne používaná kernelom pri privilege checks
 
 Kapacita skutočne dostupná workloadu po zohľadnení quotas, reservations, failures, topology, limits a maintenance, nie iba nominálny súčet resources. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
+## Effective compliance
+
+Stav, v ktorom nie iba request alebo uložený manifest, ale aj controller-resolved resource, running workload a relevantný security/business outcome spĺňajú chránený invariant. Policy pass bez read-backu effective state-u môže byť false green.
+
 ## Effective control
 
 Control otestovaný alebo pozorovaný proti intended threat/failure a preukázane vytvárajúci required technical a business outcome. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -5897,6 +5965,10 @@ Controller alebo custom owner a jeho versionovaný lifecycle pre creation, updat
 ## EndpointSlice revision cohort
 
 Množina endpoint Pod UIDs patriacich jednej Deployment/ReplicaSet revision, používaná na koreláciu trafficu a telemetry s konkrétnym template digestom. Pozri [Deployment](docs/09-kubernetes/deployment.md).
+
+## Enforcement boundary
+
+Miesto, na ktorom má guardrail dostatočnú authority a context na vykonanie záväzného allow, deny, mutation alebo correction decisionu. Skoršie IDE či CI checks môžu znižovať feedback time, ale nenahrádzajú final authoritative boundary.
 
 ## Enforcement boundary — resource
 
@@ -6314,6 +6386,10 @@ Viacfázový model databázovej alebo contract zmeny: najprv sa pridá kompatibi
 
 Backward-compatible database alebo API migration pattern, ktorý najprv pridá nový model, následne rolloutne kompatibilný software a až v neskoršom kroku odstráni starú kompatibilitu. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Expected catalog inventory
+
+Externým authority setom definovaný denominator entít, ktoré majú byť v catalogu. Coverage meraná iba voči úspešne ingested entities môže skryť chýbajúci celý repository, account alebo tenant segment.
+
 ## Expected context inventory
 
 Vopred validovaná množina paths a named contexts, ktoré musia alebo nesmú byť dostupné builderu. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
@@ -6713,6 +6789,10 @@ Authority term alebo generation, ktorá odlišuje aktuálneho oprávneného writ
 ## Fencing token
 
 Monotonically increasing authority epoch, ktorý destination porovná s posledným accepted tokenom a odmietne stale writera. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Field authority map
+
+Kontrakt, ktorý pre každý critical catalog field určuje authoritative writera, source identity, update mechanismus, validation, conflict policy a freshness semantics. Zabraňuje tomu, aby stitched projection alebo last-write-wins nevedomky nahradili skutočnú authority.
 
 ## Field — Grafana
 
@@ -7126,6 +7206,10 @@ Konzistentný pohľad na retained tags, manifests, blobs, referrers, uploads, le
 
 Dôkaz, že dynamický pipeline generator analyzoval deklarovaný scope, zachoval required gates, vytvoril všetkých potrebných producers/consumers a explicitne uviedol preskočené components. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
 
+## Generated guardrail resource
+
+Resource vytvorený policy alebo platform controllerom ako súčasť guardrailu, napríklad NetworkPolicy, ResourceQuota alebo RoleBinding. Potrebuje field ownership, update/delete lifecycle a pravidlá pre tenant modifications, inak generation vytvára hidden writera.
+
 ## Generation closure
 
 Stav, keď controller observed generation, dependent object graph, effective runtime a acceptance evidence všetky zodpovedajú aktuálnemu `metadata.generation`. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -7434,9 +7518,25 @@ Kubernetes probe používajúca gRPC Health Checking Protocol na overenie startu
 
 Kubernetes QoS class pre Pod, ktorého relevantné containers majú CPU a memory requests rovné limits podľa QoS pravidiel. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Guardrail
+
+Systematická hranica povoleného priestoru, ktorá umožňuje decentralizovanú autonómiu pri zachovaní definovaných security, reliability, cost alebo governance invariants. Môže kombinovať safe defaults, warnings, audit, validation, mutation, generation, denial a corrective mechanisms.
+
+## Guardrail acceptance verdict
+
+End-to-end rozhodnutie, že konkrétny guardrail správne matchuje expected subjects, presadzuje invariant na vhodnej boundary, má bounded exception/failure semantics a preukazuje effective risk outcome bez neprimeraného blokovania legitímnej práce.
+
+## Guardrail failure policy
+
+Rozhodnutie, či policy evaluation error alebo nedostupnosť enforcement komponentu vedie k povoleniu alebo odmietnutiu requestu. Fail-open a fail-closed menia security aj availability contract a musia byť zvolené podľa risk class, nie globálnym zvykom.
+
 ## Guardrail metric
 
 Metrika chrániaca experiment alebo rollout pred neprijateľným vedľajším dopadom, aj keď primary metric vyzerá pozitívne. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Guardrail subject
+
+Exact evaluation subject zahŕňajúci policy, binding, parameter a engine generation, principal, operation, target resource, pre/post-mutation object, exception a outcome identity. Policy name alebo resource name samostatne nie sú dostatočné.
 
 ## Guest operating system
 
@@ -8466,6 +8566,10 @@ Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného pl
 
 Policy vyhodnocujúca infrastructure source, plan, configuration alebo runtime state podľa security, compliance, cost a operational guardrails. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Infrastructure tenant
+
+Konkrétny infrastructure scope pridelený tenantovi, napríklad namespace, virtual cluster, cluster, cloud account alebo dedicated node pool. Je projection isolation decisionu a nemusí byť totožný s business tenantom.
+
 ## Ingest acknowledgement — tracing
 
 Potvrdenie, že tracing backend alebo durable queue prijala trace records; samo nepreukazuje complete trace ani historical block publication. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
@@ -8745,6 +8849,10 @@ Subnet bez všeobecného inbound internet pathu aj bez general outbound internet
 ## Isolation boundary
 
 Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Isolation profile
+
+Versionovaný contract, ktorý pre tenant alebo workload definuje topology, authorization, network, compute, storage, secrets, shared-service, observability a lifecycle controls. Hodnota `restricted` bez generation a concrete mechanisms nie je dostatočným dôkazom isolation.
 
 ## Issuer trust generation — OIDC
 
@@ -9121,6 +9229,10 @@ Immutable published snapshot Lambda function code a podporovaných configuration
 ## Last compatible state
 
 Najnovší presne identifikovaný runtime subject, ktorý je technicky, dátovo, eventovo, klientsky a bezpečnostne kompatibilný s aktuálnym distributed state-om a možno ho použiť ako recovery target. Nemusí byť totožný s bezprostredne predchádzajúcim release-om. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
+
+## Last-good catalog projection
+
+Posledná bezchybná stitched entity zachovaná po novšom ingestion alebo processing failure. Zvyšuje catalog availability, ale musí niesť stale/error semantics; pre critical automation nemá byť implicitne považovaná za aktuálnu authority.
 
 ## Last known good
 
@@ -9742,6 +9854,10 @@ Schema určujúca field names, types, analyzers a object structure dokumentov v 
 
 CI/CD variable, ktorej hodnota spĺňajúca GitLab constraints sa pri výpise do job logu nahrádza maskovaným textom; masking nezabraňuje úmyselnej exfiltration jobom. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
 
+## Match coverage
+
+Pomer alebo inventory dôkaz, že policy binding a selectors skutočne vyhodnotili všetky expected subjects. Zero violations bez match coverage môže znamenať nesprávny selector alebo vypnutý enforcement, nie compliance.
+
 ## Matched cohort
 
 Experimentálna alebo kontrolná skupina zostavená tak, aby bola porovnateľná podľa významných vlastností, napríklad tenant size, regiónu, zariadenia alebo workloadu. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -10194,6 +10310,14 @@ Argo CD Application kombinujúca viac repository/chart/value sources do jedného
 
 Dockerfile build s viacerými `FROM` stages, ktorý oddeľuje compilation, test, artifact a runtime filesystemy a umožňuje kopírovať do final image-u iba explicitné artifacts. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
+## Multi-tenancy
+
+Model zdieľania platform resources medzi viacerými tenants pri explicitných isolation, fairness, ownership a lifecycle contracts. Nie je to synonymum pre namespace-per-team; zahŕňa control plane, data plane, controllers, external services a business data.
+
+## Multi-tenancy acceptance verdict
+
+End-to-end rozhodnutie, že exact tenant a isolation profile sú správne presadené cez GitOps, API, controllers, network, compute, storage, secrets, shared services a business-data paths a že positive aj foreign-tenant negative tests prešli.
+
 ## Multi-window burn-rate alert
 
 Alert kombinujúci krátke citlivé a dlhšie potvrdzujúce evaluation windows na odhalenie rýchleho aj pomalého budget burnu bez nadmerného noise-u. Pozri [Error budgets](docs/14-sre-and-operations/error-budgets.md).
@@ -10317,6 +10441,10 @@ Exact namespace UID, owner, quota/LimitRange generations, workload request, admi
 ## Namespace — Linux namespace
 
 Kernel objekt poskytujúci procesu izolovaný pohľad na vybranú kategóriu systémového stavu. Pozri [Namespaces](docs/01-linux-and-systems/namespaces.md).
+
+## Namespace-per-tenant
+
+Topology, v ktorej tenant alebo workload dostáva samostatný Kubernetes namespace. Poskytuje namespaced naming, RBAC, quota a policy scope, ale neizoluje cluster-scoped resources, broad controllers, shared nodes ani external identities bez ďalších controls.
 
 ## Namespace takeover — package
 
@@ -10589,6 +10717,10 @@ Chain od Node condition/taintu cez toleration window, eviction, replacement, sto
 ## `NoExecute` taint
 
 Node taint effect blokujúci nové Pody bez matching toleration a schopný evictnuť už bežiace netolerujúce Pody. Pozri [Taints, tolerations, affinity a topology](docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Noisy neighbor
+
+Tenant alebo workload, ktorý spotrebovaním shared compute, I/O, network, API, controller alebo provider capacity zhorší outcome iných tenants. CPU/memory ResourceQuota pokrýva iba časť možných noisy-neighbor paths.
 
 ## Nominated Node
 
@@ -10966,6 +11098,10 @@ Incident, request, alert, maintenance alebo process condition vytvárajúca opak
 
 Well-Architected pillar zameraný na efektívny development, operations insight, safe change a continuous improvement. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
+## Operational ownership relation
+
+Catalog relation, ktorá spája software alebo platform entity s resolvable ownerom a konkrétnym decision/escalation scope-om. Nie je to iba display label; musí podporovať owner transfer, reachability, orphan handling a incident routing.
+
 ## Operational-readiness acceptance verdict
 
 Dôkaz, že exact service/change generation má current architecture, effective reliability/security/capacity/recovery controls, tested ownership a day-2 paths, uzavreté blockers, bounded exceptions a staged production acceptance. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
@@ -11049,6 +11185,10 @@ Object alebo attribute mutation identifikovaná origin DC, originating timestamp
 ## Orphan container — Compose
 
 Container patriaci Compose projektu, ktorého service už nie je prítomná v aktuálnom resolved modeli. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Orphan entity
+
+Catalog entity, ktorá stratila parent/provider edge alebo registered source a nemá iný aktívny ingestion path. Orphan status nepreukazuje, že runtime resource alebo software zanikol; deletion catalog recordu musí byť oddelená od decommission closure.
 
 ## Orphan volume — Docker
 
@@ -11714,6 +11854,10 @@ Exact platform capability/version, internal user segment, job-to-be-done, journe
 
 Exact requester/team, capability/version, service identity, environment, data/operations tier, requested inputs, quota, policy bundle, idempotency key a expected outputs jednej platform operation. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
+## Platform tenant
+
+Interný tím, workload owner alebo iný subject, ktorému platform deleguje API, GitOps alebo self-service authority. Môže prevádzkovať viac business tenants a používať viac infrastructure scopes.
+
 ## Platform value hypothesis
 
 Falsifikovateľné tvrdenie spájajúce target segment, current problem, platform capability, očakávaný developer/business outcome a guard conditions. Pozri [Platform as a Product](../docs/16-gitops-and-platform-engineering/platform-as-a-product.md).
@@ -11858,6 +12002,10 @@ Immutable distribuovateľný package policy modules, data, manifestu, revision a
 
 Prístup vyjadrujúci automatizovateľné policy decisions ako versionované, testovateľné a auditovateľné machine-readable rules. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Policy binding generation
+
+Versionovaný effective scope, ktorý spája policy logic s resources, namespaces, operations, actions a prípadnými parameters. Rule bez matching bindingu nemá enforcement effect, preto binding patrí do policy identity.
+
 ## Policy bundle
 
 Versionovaný package policy a supporting data určený na atomickú distribúciu a activation v policy engine. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -11926,9 +12074,17 @@ NIST Zero Trust logical component vyhodnocujúci enterprise policy a contextual 
 
 Explicitný, scoped, approved a expirovateľný object povoľujúci dokumentovanú odchýlku od konkrétnej policy s compensating controls. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Policy exception subject
+
+Exact kombinácia policy generation, resource alebo operation identity, tenant/environment, reason, owner, approval, expiry a compensating controls, pre ktorú je bypass povolený. Broad selector bez expiry je alternate policy, nie bounded exception.
+
 ## Policy exception — Terraform
 
 Časovo obmedzený a auditovaný override konkrétnej policy s ownerom, dôvodom, compensating controls, approvalom, expiration a remediation plánom. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Policy generation
+
+Immutable alebo reprodukovateľná identity effective policy logic vrátane dependencies a engine/API compatibility. Pri guardraile nestačí hash expression, ak binding, parameters alebo external data menia výsledné rozhodnutie.
 
 ## Policy generation identity
 
@@ -11966,6 +12122,10 @@ Dodatočná povinnosť v decision result-e, ktorú PEP musí vykonať spolu s ac
 
 Presná enforcement/telemetry boundary, na ktorej sú viditeľné konkrétne addresses, ports, direction a pre/post-NAT identity; verdict z iného bodu nemusí patriť rovnakému flow subjectu. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
+## Policy parameter generation
+
+Identity concrete values, ktorými sa abstract policy mení na environment alebo tenant-specific rule. Zmena replica limitu, trusted issueru alebo isolation profile parameteru mení effective guardrail aj bez editácie policy logic.
+
 ## Policy peer — NetworkPolicy
 
 Source alebo destination množina vyjadrená cez Pod selector, namespace selector, ich kombináciu alebo `ipBlock`. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
@@ -11989,6 +12149,10 @@ Dôkaz, že retired alebo malicious policy/data generation, cached decisions, ex
 ## Policy revocation generation — Kubernetes networking
 
 Transition z allow policy/connection state-u na deny state vrátane overenia nových aj existujúcich flows a prípadného session/credential cleanupu. Pozri [CNI a NetworkPolicy](../docs/09-kubernetes/cni-networkpolicy.md).
+
+## Policy rollout migration
+
+Riadený prechod policy cez expected-inventory analysis, offline tests, Audit/Warn, remediation, bounded exceptions a Enforce. Má explicitné exit criteria a expiry; permanentný audit-only stav nie je dokončený preventívny control.
 
 ## Policy routing
 
@@ -12481,6 +12645,10 @@ Environment s obmedzenou deployment identitou, approval alebo policy pravidlami 
 ## Protected environment — GitLab
 
 GitLab environment s obmedzeným allowed-to-deploy alebo approval modelom pre citlivé runtime targety, napríklad production. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Protected invariant
+
+Presné tvrdenie o stave alebo správaní, ktoré guardrail chráni, napríklad zákaz cross-tenant credential access. Je odvodené z threat/risk modelu a je širšie než jeden syntaktický field check.
 
 ## Protected-resource generation — AWS Backup
 
@@ -14514,6 +14682,10 @@ Celý tok dešifrovanej secret hodnoty od password/secret source cez Ansible mem
 
 Vzťah effective entrypoint/command, PID 1, signals, runtime usera, workdir, health/readiness a required filesystem/dependencies. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
+## Runtime projection
+
+Catalog alebo portal view odvodený z deployment, observability alebo cloud systemu. Musí niesť concrete target identity, generation a observation time a nesmie byť zamieňaný za authoritative runtime controller alebo business oracle.
+
 ## Runtime shim — containerd
 
 Per-container alebo per-runtime lifecycle proces oddeľujúci container process od containerd daemon lifecycle a poskytujúci task I/O a exit-state coordination. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
@@ -15341,6 +15513,14 @@ Remote runtime a ownership boundary s explicitným API/event contractom, indepen
 ## Service capacity model
 
 End-to-end model required processing boundaries, ich sustainable throughputu, concurrency, queueing, dependency limits a failure behavioru pre konkrétny business operation subject. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
+
+## Service catalog
+
+Riadený graph softvérových, platformových, organizačných a resource entities pre ownership, discovery, lifecycle, dependencies a developer/operational workflows. Je hubom a projection layerom; nie je automaticky authority pre každý zobrazený field.
+
+## Service-catalog acceptance verdict
+
+End-to-end rozhodnutie, že catalog pokrýva expected inventory, zachováva field authorities a generations, signalizuje staleness/errors, má integrity relations a vedie discovery, routing a automation k správnemu outcome-u aj pri source move, orphan alebo processor failure.
 
 ## Service contract — cloud
 
@@ -16278,6 +16458,10 @@ Vyžiadanie silnejšieho alebo čerstvejšieho authentication eventu pri sensiti
 
 Load-balancer behavior smerujúci opakované requests alebo flows klienta na rovnaký target počas definovaného obdobia. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Stitched entity generation
+
+Identity final catalog entity vytvorenej po ingestion, policies/processors, emitted relations a stitching. Môže sa líšiť od source generation a musí odhaliť, keď final projection zostala stará po chybe novšieho inputu.
+
 ## Storage acceptance verdict
 
 Verdikt, že správny PVC/PV/backing asset je bezpečne attached a mounted, obsahuje accepted data generation, má jediného oprávneného writera a obnoviteľný backup. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -16929,6 +17113,34 @@ Semantics určujúca, či metric export reprezentuje cumulative hodnotu od zači
 ## Tenant ID — Loki
 
 Identifier oddeľujúci ingestion, storage, query a limits jednotlivých Loki tenantov. Pozri [Loki](docs/12-observability/loki.md).
+
+## Tenant identity propagation
+
+Prenos stable tenant ID a isolation profile generation z tenant authority cez catalog, self-service, GitOps, namespaces/clusters, controllers, network, secrets, observability a billing. Strata alebo premapovanie identity na ľubovoľný label vytvára cross-tenant risk.
+
+## Tenant onboarding operation
+
+Durable distributed operation, ktorá vytvára tenant registry record, infrastructure scopes, identities, policies, quotas, network, secret/provider a shared-service partitions a končí až po positive aj negative verification. Namespace creation je iba jeden child step.
+
+## Tenant residual scan
+
+Post-offboarding alebo post-migration vyhľadanie všetkých resources, credentials, data, snapshots, DNS, GitOps objects, observability partitions a billing records podľa stable tenant ID. Bráni tomu, aby delete namespace zanechal aktívne foreign paths alebo aby sa identity predčasne reused.
+
+## Tenant-scoped GitOps
+
+GitOps model, v ktorom tenant môže používať iba povolené sources, destinations, resource kinds a reconciliation identities a nemôže reference-núť cudzie namespace resources alebo platform authority. Scope sa presadzuje v GitOps projecte/controlleri, RBAC aj admission.
+
+## Tenant service-account impersonation
+
+Mechanizmus, pri ktorom central GitOps alebo platform controller vykonáva tenant reconciliation pod explicitnou namespaced service-account identity namiesto vlastného cluster-admin credentialu. Umožňuje Kubernetes authorization presadiť tenant boundary aj pri shared controlleri.
+
+## Tenant shared service
+
+Platform service používaná viacerými tenants, napríklad ingress, DNS, registry, observability, service mesh alebo operator. Potrebuje tenant-aware authorization, partitioning, quota, audit a failure containment, pretože shared service je cross-tenant boundary.
+
+## Tenant subject
+
+Stable authority identity tenanta vrátane tenant ID, typu, trust/data scope-u, hierarchy, owners, isolation profile generation a assigned infrastructure scopes. Display name alebo namespace label samostatne nie je dostatočný.
 
 ## Terminating error — PowerShell
 
@@ -17686,6 +17898,10 @@ Stable Kubernetes in-process declarative validation resource používajúci CEL 
 
 Kubernetes resource prepájajúci ValidatingAdmissionPolicy s match scope-om, parameters a validation actions. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Validation action
+
+Concrete response na policy validation result, napríklad Deny, Warn alebo Audit. Action určuje, či violation zabráni mutation alebo iba vytvorí evidence, a preto musí byť súčasťou effective policy generation.
+
 ## Validation — testing
 
 Overenie, či systém rieši správny používateľský alebo business problém v reálnom kontexte. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
@@ -17829,6 +18045,10 @@ Vulnerability Exploitability eXchange statement vyjadrujúci affected, not affec
 ## Viewer connection — ELB
 
 Client-to-load-balancer connection s vlastným DNS, source, listener, Security Group, TLS a request contractom; pri ALB je oddelená od backend target connection. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## Virtual control plane
+
+Per-tenant Kubernetes API server, controller manager a data store nad shared alebo sprostredkovaným data plane-om. Zlepšuje isolation cluster-scoped API objects a administrative autonomy, ale stále potrebuje network, compute, storage a controller isolation.
 
 ## Virtual environment — Python
 

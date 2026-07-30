@@ -366,6 +366,6 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Golden paths a paved road](docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md)
 - [x] [Self-service](docs/16-gitops-and-platform-engineering/self-service.md)
 - [x] [Developer experience](docs/16-gitops-and-platform-engineering/developer-experience.md)
-- [ ] Service catalog
-- [ ] Guardrails
-- [ ] Multi-tenancy
+- [x] [Service catalog](docs/16-gitops-and-platform-engineering/service-catalog.md)
+- [x] [Guardrails](docs/16-gitops-and-platform-engineering/guardrails.md)
+- [x] [Multi-tenancy](docs/16-gitops-and-platform-engineering/multi-tenancy.md)
