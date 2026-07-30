@@ -1,430 +1,202 @@
 # Incident management
 
-Incident management je koordinovaný proces na obmedzenie user a business impactu, obnovenie bezpečnej služby a zachovanie dostatočných dôkazov na následné učenie. Nie je to synonymum pre debugging ani chat, v ktorom veľa ľudí súčasne skúša zmeny.
+Incident management je koordinovaný control system na obmedzenie user a business impactu, obnovenie bezpečnej služby a zachovanie dôkazov potrebných na učenie a nápravu. Nie je synonymom debuggingu ani chatom, v ktorom veľa ľudí súčasne skúša zmeny. Incident vzniká vtedy, keď observed alebo pravdepodobný impact prekročí bežný operational workflow a vyžaduje explicitnú command štruktúru, prioritizáciu a bounded authority.
 
-Incident začína vtedy, keď observed alebo pravdepodobný impact prekročí bežný operational workflow a vyžaduje explicitnú koordináciu, prioritizáciu a bounded authority.
+Technická diagnóza je iba jedna časť response. Tím musí súčasne riadiť blast radius, rozhodovať pod neistotou, koordinovať zmeny, komunikovať potvrdený stav a overiť, že pôvodný business outcome bol skutočne obnovený. Zelený endpoint alebo dočasný pokles error rate-u tento end-to-end verdict neposkytuje.
 
-## 1. Dominantný lifecycle
+## 1. Dominantný impact-to-recovery lifecycle
+
+Incident lifecycle začína user-impact signalom a končí až stabilným, overeným outcome-om a vlastnenou follow-up prácou. Declaration mení normal troubleshooting na koordinovaný režim; command roles oddeľujú rozhodovanie, technické vykonávanie, communication a longer-horizon planning.
 
 ```text
-signal alebo user report
-→ exact incident subject a declaration criteria
-→ severity, scope a impact hypothesis
-→ command roles a communication channels
-→ evidence-preserving stabilization
-→ competing hypotheses a bounded mitigations
-→ effective-state a business recovery verification
-→ handoff a recurrence watch
-→ incident closure
-→ post-incident learning a action ownership
+signal, user report alebo imminent risk
+→ exact incident subject a impact hypothesis
+→ declaration a severity transition
+→ IC, Operations, Communications a Planning ownership
+→ authoritative incident state a evidence preservation
+→ stabilization a blast-radius control
+→ competing hypotheses a bounded changes
+→ technical, business a forbidden-outcome verification
+→ handoff, recurrence watch a communication closure
+→ incident closure a owned corrective work
 ```
 
-Incident je uzavretý až po obnovení pôvodného business outcome-u, stabilizácii relevantných cohorts a zachytení follow-up práce. Zelený dashboard alebo pokles error rate-u nestačí.
+Rýchlosť bez koordinácie môže zhoršiť incident. Naopak command process bez user-impact feedbacku sa môže zmeniť na administratívny overhead. Každý transition preto potrebuje objective, owner a observation, ktorá ukáže, či impact klesá.
 
 ## 2. Exact incident subject
 
-Incident subject má obsahovať:
-
-```text
-business capability a affected user outcome
-+ start/detection/declaration times
-+ tenant/Region/cohort
-+ release/configuration/topology generations
-+ affected operations a data
-+ SLO/error-budget impact
-+ suspected control/data/dependency paths
-+ active mitigations
-+ current authority a role ownership
-```
-
-Príklad:
+Názov „payments outage“ nestačí. Exact subject zachováva affected capability, cohort a Region, start/detection/declaration times, release a configuration generations, affected operations a data, SLO/error-budget impact, suspected paths, active mitigations a current command ownership.
 
 ```text
 incident: SRE-PAY-53
 capability: settlement completion
 Region: prod-eu1
-affected cohort: end-of-month campaign merchants
+cohort: end-of-month campaign merchants
 start: 10:02 UTC
 detected: 10:07 UTC
 declared: 10:31 UTC
 impact: completion latency > 10 min, rising backlog
 release: settlement-api 8.1.0
 capacity generation: CAP-PAY-53-A
+current commander: IC-1
 ```
 
-Bez presného subjectu môžu tímy riešiť odlišné incidents pod jedným názvom alebo aplikovať mitigation na nesprávny cohort.
+Subject sa aktualizuje, keď sa objaví nový affected cohort alebo data risk, ale history zostáva zachovaná. Bez tejto identity môžu rôzne tímy riešiť odlišný scope pod jedným incident ID alebo aplikovať mitigation na nesprávnu release generation.
 
-## 3. Incident declaration
+## 3. Declaration a severity ako control transition
 
-Vyhlásenie incidentu je control transition, nie administratívna formalita.
+Declaration je okamih, keď organizácia prizná, že normal ownership a tooling nestačia. Spúšťa command roles, communication cadence, change logging, vendor paths a priority nad bežnou prácou. Má nastať pri critical journey SLO burne, rastúcom impacte, data/security risku, multi-team koordinácii, nejasnom blast radiuse alebo potrebe urgentného externého communication.
 
-Typické declaration triggers:
+Severity opisuje user/business impact a response urgency, nie iba počet errors. Zohľadňuje criticality capability, affected cohorts, duration a growth rate, workaround, data integrity, regulatory alebo security risk, recovery complexity a neistotu scope-u.
 
-- critical user journey porušuje alebo pravdepodobne poruší SLO;
-- error budget sa spaľuje nad definovanou rýchlosťou;
-- impact rastie rýchlejšie než normal troubleshooting dokáže reagovať;
-- viac tímov alebo failure domains potrebuje koordináciu;
-- existuje data integrity, security alebo safety risk;
-- diagnosis je neistá, no containment má deadline;
-- public alebo contractual communication je potrebná;
-- bežný owner alebo runbook nemá dostatočnú authority.
-
-Deklarovať neskoro znamená ponechať coordination problem v neformálnom režime.
-
-## 4. Severity
-
-Severity vyjadruje impact a požadovanú response urgency. Nemá byť odvodená iba od počtu errors.
-
-Zohľadni:
-
-- criticality business capability;
-- affected users, tenants a Regions;
-- data loss alebo incorrect side effects;
-- duration a growth rate;
-- workaround availability;
-- contractual, security alebo regulatory impact;
-- recovery complexity;
-- blast-radius uncertainty.
-
-Príklad lokálneho modelu:
-
-| Severity | Charakteristika | Response |
+| Severity | Impact contract | Response contract |
 |---|---|---|
-| SEV-1 | rozsiahly critical outage, data integrity alebo nekontrolovaný rast impactu | okamžitá command štruktúra a executive/customer communication |
-| SEV-2 | významná degradácia critical journey alebo ohraničený high-impact cohort | okamžitý technical response a pravidelné updates |
-| SEV-3 | obmedzený impact s workaroundom a stabilným scope-om | owned urgent remediation |
-| SEV-4 | nízky impact alebo operational defect bez urgentného user rizika | normal queue |
+| SEV-1 | rozsiahly critical outage, data-integrity risk alebo nekontrolovaný rast | okamžitá command štruktúra, executive/customer communication a continuous response |
+| SEV-2 | významná degradácia critical journey alebo bounded high-impact cohort | okamžitý technical response, explicitný owner a pravidelné updates |
+| SEV-3 | obmedzený stabilný impact s workaroundom | urgentná owned remediation v pracovnom režime |
+| SEV-4 | nízky impact bez urgentného user risku | normal queue a review |
 
-Tabuľka je organizačný contract, nie univerzálny štandard.
+Severity možno zvýšiť aj pri nezmenenom error count-e, ak rastie uncertainty alebo data risk. Zníženie vyžaduje evidence, nie optimizmus.
 
-## 5. Command roles
+## 4. Command roles a decision authority
 
-Počas komplexného incidentu treba oddeliť koordináciu od vykonávania.
+Incident Commander drží objective, priority, role assignments, decision cadence, escalation a closure. Nemusí byť najhlbší subject-matter expert; ak je jediný expert zároveň IC, stráca kapacitu na technické myslenie aj coordination.
 
-### Incident Commander — IC
+Operations lead koordinuje hypotheses, technical actions a effective-state observations. Communications lead prekladá potvrdený stav na predvídateľné interné a externé updates a chráni responders pred opakovanými status otázkami. Planning alebo logistics lead sleduje staffing, vendor access, temporary overrides, handoff, longer-horizon recovery a follow-up commitments.
 
-- drží incident objective a priority;
-- prideľuje roles a owners;
-- schvaľuje alebo zastavuje riskantné mitigations;
-- udržiava shared state a decision cadence;
-- rozhoduje o escalation, handoff a closure.
+Pri menšom incidente môže jedna osoba držať viac roles, ale responsibilities nesmú zmiznúť. Každé high-risk rozhodnutie musí mať identifikovanú authority: IC môže schváliť scoped mitigation, no data restore, security containment alebo contractual customer action môže vyžadovať ďalšieho ownera.
 
-IC nemusí byť najhlbší subject-matter expert.
+## 5. Authoritative incident state
 
-### Operations lead
-
-- koordinuje technickú diagnostiku a zmeny;
-- udržiava hypothesis/action/evidence chain;
-- zaisťuje, že súčasné zásahy nekolidujú;
-- reportuje effective outcome IC.
-
-### Communications lead
-
-- publikuje interné a externé updates;
-- oddeľuje confirmed facts od hypotheses;
-- udržiava stakeholder cadence;
-- chráni responders pred opakovanými status otázkami.
-
-### Planning alebo logistics lead
-
-- sleduje follow-up úlohy, handoff a staffing;
-- rieši access, vendor support a dlhší recovery horizon;
-- zaznamenáva divergence od normal state-u.
-
-Pri menšom incidente môže jedna osoba držať viac roles. Responsibilities však musia zostať explicitné.
-
-## 6. Incident state document
-
-Jeden authoritative state document alebo channel má obsahovať:
+Chat je komunikačný stream, nie spoľahlivý current state. Incident potrebuje jeden stručný materializovaný dokument alebo channel topic obsahujúci incident ID, severity, commander-a, impact, scope/exclusions, timeline, active hypotheses, recent evidence, mitigations a owners, paused changes, next checkpoint, communication status a recovery criteria.
 
 ```text
-incident ID, severity a commander
-current user/business impact
-scope a exclusions
-known timeline
-active hypotheses
-recent evidence
-current mitigations a owners
-forbidden alebo paused changes
-next decision checkpoint
-communication status
-recovery a closure criteria
+current truth
++ unresolved uncertainty
++ active action/owner/expected signal
++ decision history
++ next checkpoint
 ```
 
-Chat history nie je spoľahlivý incident state. Dôležité decisions musia byť stručne materializované.
+State document sa aktualizuje po významnom observation alebo decision transitione. Nemá kopírovať všetku telemetry; má umožniť novému responderovi pochopiť, čo je potvrdené, čo sa skúša a ktoré zmeny nesmú kolidovať.
 
-## 7. Stabilization pred root cause
+## 6. Stabilization pred úplným root cause
 
-Počas impactu je priorita:
+Počas rastúceho impactu je priorita zastaviť blast radius, zachovať evidence a obnoviť bounded service. Úplné vysvetlenie môže prísť neskôr. Legitímne stabilizačné kroky zahŕňajú zastavenie rollout-u, admission limit, izoláciu cohortu, vypnutie noncritical feature, retry reduction, failover na known-good path, fencing destructive automation alebo activation degraded mode-u.
 
-```text
-zastaviť rast blast radiusu
-→ zachovať kritické dôkazy
-→ obnoviť bezpečný bounded service outcome
-→ až potom optimalizovať alebo kompletne vysvetliť root cause
-```
+Mitigation nie je remediation. Môže znížiť impact bez odstránenia root mechanismu. Preto sa zaznamenáva ako temporary state s ownerom, expiry a recovery implication. Napríklad admission limit chráni DB/provider path, ale vytvára odmietnuté operations, ktoré musia zostať vo user-impact evidence.
 
-Príklady stabilization:
+Evidence preservation má prednosť pred broad cleanupom. Pred mutation sa zachovajú exact queries, actor, configuration, release, affected operation manifests a relevantné logs/ledgers. Incident response nesmie zničiť informáciu potrebnú na odlíšenie lost, pending, completed a unknown outcomes.
 
-- zastaviť rollout;
-- obmedziť admission;
-- izolovať affected cohort;
-- vypnúť noncritical feature;
-- znížiť retry amplification;
-- failover na known-good path;
-- zablokovať destructive automation;
-- chrániť data a audit evidence;
-- aktivovať degraded mode.
+## 7. Hypothesis-driven a bounded changes
 
-Mitigation nie je automaticky remediation. Môže iba znížiť impact.
-
-## 8. Hypothesis-driven response
-
-Každá technická akcia má mať:
-
-```text
-hypothesis
-+ observation, ktorá ju podporuje
-+ bounded action
-+ očakávaný signal
-+ abort criterion
-+ rollback alebo compensation
-+ owner a timestamp
-```
-
-Príklad:
+Každá technická akcia potrebuje hypothesis, supporting observation, exact scope, expected signal, abort criterion, rollback alebo compensation, ownera a timestamp.
 
 ```text
 hypothesis: provider retries saturujú DB pool
 observation: retry multiplier 4.6×, DB acquire p99 1.4 s
 action: znížiť provider concurrency a vypnúť immediate retries
-expected: DB acquire p99 < 200 ms, queue drain rate rastie
+expected: DB acquire p99 < 200 ms a queue drain rastie
 abort: completion rate klesne pod 1 500/s
 owner: Ops-2
 ```
 
-„Skúsme pridať workery“ bez hypothesis a expected observation je nekoordinačná zmena.
+Incident mode neruší change governance; iba ju zrýchľuje a zviditeľňuje. Parallel untracked changes ničia causal evidence a môžu vytvoriť oscillation. Operations lead preto vedie action log a IC rozhoduje o konfliktných alebo blast-radius meniacich zásahoch.
 
-## 9. Change control počas incidentu
+Unknown outcome sa nesmie riešiť blind retryom. Ak provider request mohol uspieť, recovery potrebuje idempotency, ledger reconciliation alebo compensation, nie opakovanie podľa timeoutu.
 
-Incident neznamená nulové change governance. Znamená rýchlejší, explicitný a auditovateľný contract.
+## 8. Communication ako samostatný control loop
 
-Každá zmena potrebuje:
+Dobrý update oddeľuje potvrdené facts od hypotheses a uvádza impact, current action, zostávajúce riziká a čas ďalšieho update-u. Externý communication nemá tvrdiť root cause, kým nie je overený; interný update nemá zahltiť stakeholderov raw telemetry bez rozhodovacieho významu.
 
-- exact subject a scope;
-- initiator a approver podľa severity;
-- current generation;
-- expected effect;
-- rollback/compensation;
-- observation window;
-- recorded result.
+Predvídateľná cadence znižuje interruption responders a zabraňuje protichodným správam. Communications lead tiež zachováva correction lineage: ak sa scope zmení, predchádzajúci update sa nevymaže, ale explicitne opraví.
 
-Parallel untracked changes ničia causal evidence a môžu vytvoriť oscillation.
+## 9. Connected incident `SRE-PAY-53`
 
-## 10. Communication
+O `10:07 UTC` page `SettlementCompletionFastBurn` signalizovala rastúci completion burn rate. Primary on-call incident nevyhlásil, pretože predpokladal bežný provider transient. Nasledujúcich 24 minút application engineer zvýšil workers zo 120 na 240, database engineer zvýšil pool, support požiadal replay starších settlements a provider owner zmenil retry interval. Nikto nedržal shared state ani approved action sequence.
 
-Dobrý update odpovedá:
+DB pressure a retries vzrástli, queue age pokračovala v raste a mitigations si navzájom menili observations. Support komunikoval „takmer vyriešené“, hoci completion SLO sa zhoršovalo. Incident bol deklarovaný až o `10:31 UTC` ako `SEV-1` po prekročení 15-minútovej queue age a potvrdení merchant impactu.
 
-```text
-čo je potvrdené
-čo je impact
-čo robíme teraz
-aké riziká zostávajú
-kedy bude ďalší update
-```
+Traffic spike a provider slowdown zostali triggerom; capacity defect bol technický root mechanismus. Incident-management failure bola oneskorená declaration a chýbajúca command štruktúra, ktorá dovolila nekorelované parallel changes počas rastúceho impactu.
 
-Externý update nesmie prezentovať hypothesis ako root cause. Interný technický detail má zostať dostatočný na coordinated action, nie zahltiť všetkých raw telemetry.
+## 10. Stabilization, recovery a handoff
 
-Communication cadence má byť predvídateľná a oddelená od technického response loopu.
+Po declaration bol pridelený IC, zmeny mimo approved incident actions sa zastavili a vznikli Ops, Comms a Planning roles. Admission sa obmedzila na `1 700 unique intents/s`, immediate retries sa vypli, worker concurrency sa viazala na DB/provider capacity, noncritical batch traffic sa pozastavil a affected queue sa inventarizovala pred controlled drainom.
 
-## 11. Recovery criteria
+Do 18 minút kleslo DB acquire p99 pod `180 ms`. Queue prestala rásť o `10:54 UTC` a do SLO sa vrátila o `11:42 UTC`. Historical cohort sa reconcilioval samostatne; incident zostal otvorený do second-peak testu.
 
-Recovery nie je iba návrat jednej metric pod threshold.
+Pri dlhom response handoff prenáša exact subject, effective state, unresolved risks, actions a outcomes, active hypotheses, temporary overrides, thresholds, stakeholder commitments a explicitný transfer command roles. Nový responder nemá rekonštruovať incident z tisícov chat messages.
 
-Pre settlement incident:
+## 11. Incident acceptance a closure contract
 
-- new unique intents majú accepted alebo explicitne rejected outcome;
-- completion latency je v SLO;
-- queue age klesá a drain rate je stabilná;
-- DB/provider saturation sú v guardraile;
-- duplicate alebo lost settlements nevznikajú;
-- affected historical cohort je reconciled;
-- temporary overrides sú inventoried;
-- on-call a support channels už nevidia rast impactu;
-- second operation a adjacent cohort prejdú.
+Positive response path musí preukázať včasnú declaration, správnu severity, explicitné roles a current state. Mitigation path musí znížiť user impact bez poškodenia evidence alebo data integrity. Recovery path musí obnoviť original business outcome, reconciliovať historical cohort a potvrdiť adjacent operation aj second-peak stability.
 
-Ak backlog ešte rastie, incident nie je recovered len preto, že API error rate klesla.
-
-## 12. Worked incident `SRE-PAY-53`
-
-O `10:07 UTC` page `SettlementCompletionFastBurn` upozornila na rastúci completion burn rate. Primary on-call však incident nevyhlásil. Predpokladal bežný provider transient a pokračoval v normal troubleshooting.
-
-Nasledujúcich 24 minút:
-
-1. application engineer zvýšil worker replicas zo 120 na 240;
-2. database engineer zvýšil connection pool limit;
-3. support lead požiadal o replay starších settlements;
-4. provider owner zmenil retry interval;
-5. nikto nedržal shared incident state ani approved action sequence.
-
-Výsledok:
-
-- DB connection pressure vzrástol;
-- retries sa zosilnili;
-- queue age pokračovala v raste;
-- dve mitigations si navzájom menili observation;
-- support komunikoval, že problém je „takmer vyriešený“, hoci completion SLO sa zhoršovalo.
-
-Incident bol formálne vyhlásený o `10:31 UTC` ako `SEV-1` po prekročení 15-minútovej queue age a potvrdení viacerých merchant impacts.
-
-Trigger zostal traffic spike a provider slowdown. Primary capacity root cause je opísaný v predchádzajúcej kapitole.
-
-Incident-management failure bol **oneskorený declaration a chýbajúca command štruktúra, ktorá dovolila nekorelované parallel mitigations počas rastúceho impactu**.
-
-## 13. Stabilization a recovery
-
-Po declaration:
+Forbidden paths musia byť kontrolovane odmietnuté: untracked parallel changes, broad destructive cleanup, communication hypothesis ako fact, green API pri rastúcom backloge, closure s aktívnym hidden overrideom alebo handoff bez command ownershipu.
 
 ```text
-IC assigned
-→ change freeze mimo approved incident actions
-→ Ops, Comms a Planning roles
-→ admission limit 1 700 unique intents/s
-→ immediate retries disabled
-→ worker concurrency bounded podľa DB/provider
-→ noncritical batch traffic paused
-→ provider escalation
-→ queue cohort inventory
-→ controlled drain a reconciliation
+positive:
+signal → declaration → command → bounded mitigation
+
+recovery:
+impact stabilný → SLO outcome → reconciliation → recurrence watch
+
+forbidden:
+ack bez incident ownershipu
+parallel unlogged mutations
+root-cause čakanie počas rastúceho impactu
+metric recovery bez business recovery
+temporary mitigation bez ownera/expiry
 ```
 
-Do 18 minút sa DB acquire p99 vrátilo pod `180 ms`. Queue age prestala rásť o `10:54 UTC`; do SLO sa vrátila o `11:42 UTC`. Historical affected cohort bol reconciled samostatne a incident zostal otvorený, kým second-peak test nepotvrdil stabilitu.
+Closure neznamená, že všetka remediation je dokončená. Znamená, že impact je odstránený alebo explicitne akceptovaný, recovery criteria a recurrence watch prešli, evidence a timeline sú zachované, temporary states majú ownera a follow-up actions majú priority a closure evidence.
 
-## 14. Handoff
+## 12. Troubleshooting response failure-u
 
-Pri dlhom incidente handoff musí obsahovať:
-
-- current incident subject a severity;
-- effective state a unresolved risks;
-- executed actions a outcomes;
-- active hypotheses;
-- temporary overrides;
-- upcoming thresholds a decision times;
-- stakeholder commitments;
-- explicit transfer of IC a operational roles.
-
-Nový responder nesmie rekonštruovať incident iba z tisícov chat messages.
-
-## 15. Closure
-
-Incident možno uzavrieť, keď:
-
-- impact je odstránený alebo explicitne akceptovaný;
-- recovery criteria prešli;
-- temporary mitigations majú ownera a expiry;
-- evidence a timeline sú zachované;
-- affected data/business state je reconciled;
-- support a customer communication je uzavretá;
-- post-incident review má ownera a termín;
-- urgent corrective actions sú filed a prioritized;
-- recurrence watch prešiel definovaným intervalom.
-
-Closure nie je deklarácia, že všetka remediation je hotová.
-
-## 16. Incident-management acceptance verdict
-
-Response je prijatá, keď:
-
-- declaration criteria a severity boli správne použité;
-- incident subject a impact boli explicitné;
-- IC, Ops, Comms a Planning responsibilities boli jasné;
-- state document zachytával current truth;
-- evidence bola zachovaná pred destructive changes;
-- mitigations mali hypothesis, scope, owner a abort criterion;
-- parallel changes boli koordinované;
-- original business outcome bol obnovený;
-- forbidden outcomes, napríklad duplicate settlement, boli overené;
-- adjacent cohort a second operation prešli;
-- handoff zachoval command continuity;
-- follow-up actions majú ownera, priority a closure evidence.
-
-## 17. Troubleshooting response failure
+Ak impact pokračuje napriek veľkej aktivite, najprv over, či incident bol deklarovaný, kto drží objective a aký je exact scope. Potom skontroluj current state, active changes, hypotheses, expected observations a recovery criteria.
 
 ```text
-impact pokračuje napriek aktivite
-→ bol incident deklarovaný?
-→ kto je IC a aký je objective?
-→ aký je current incident subject/scope?
-→ existuje authoritative state document?
-→ ktoré changes sú aktívne a kto ich vlastní?
-→ aké hypotheses a expected observations existujú?
-→ ktoré mitigations kolidujú?
-→ je impact metric user-centered?
-→ čo je containment a čo remediation?
-→ aké recovery criteria ešte neprešli?
+impact pokračuje
+→ declaration/severity/IC
+→ exact subject a authoritative state
+→ active changes a owners
+→ hypothesis/evidence/expected signal
+→ conflicting mitigations
+→ user-centered impact oracle
+→ containment vs remediation
+→ recovery criteria a adjacent cohort
 ```
 
-Veľa responders a veľa commands neznamená effective response.
+Veľa responders a commands neznamená effective response. Dôležité je, či coordinated actions znižujú business impact a zachovávajú recovery options.
 
-## 18. Earlier controls
+## 13. Anti-patterny
 
-- explicitné declaration a severity criteria;
-- incident roles a backups;
-- static alebo dependency-independent coordination channel;
-- incident state template;
-- change/action log;
-- user-centered impact dashboards;
-- evidence preservation checklist;
-- communication templates;
-- vendor escalation contracts;
-- regular incident drills;
-- handoff checklist;
-- closure a recurrence criteria.
+Incident anti-patterny zamieňajú technical expertise alebo activity za coordination a verified recovery. Výsledkom je pomalší response a horšia causal evidence aj napriek vysokému počtu zapojených ľudí.
 
-## 19. Anti-patterny
+- **Najseniornejší engineer je automaticky IC —** expert potom stráca kapacitu na deep diagnosis a súčasne nemusí efektívne koordinovať roles a communication.
+- **Najprv nájdime root cause —** impact rastie, kým tím čaká na kompletné vysvetlenie. Stabilization môže prebehnúť s explicitnou neistotou.
+- **Všetci skúšajú zmeny —** parallel actions menia observations a môžu sa zosilniť. Každá mutation potrebuje hypothesis, ownera a log.
+- **Chat je incident state —** critical decisions a current truth sa stratia, čo poškodí handoff a stakeholder alignment.
+- **Zelený endpoint znamená recovered —** backlog, incorrect outcomes alebo historical data damage môžu pokračovať.
+- **Incident končí po mitigation —** temporary override sa stane permanentným hidden riskom bez recovery a recurrence closure.
 
-### Najseniornejší engineer je automaticky IC
-
-Deep technical expert potom nemôže súčasne koordinovať celý response.
-
-### Najprv nájdime root cause
-
-Impact rastie, kým tím čaká na kompletné vysvetlenie.
-
-### Všetci skúšajú zmeny
-
-Parallel actions zničia causal evidence a môžu sa navzájom zosilniť.
-
-### Chat je incident state
-
-Critical decisions sa stratia a handoff zlyhá.
-
-### Zelený endpoint znamená recovered
-
-Historical backlog, incorrect outcomes alebo data damage môžu pokračovať.
-
-### Incident končí po mitigation
-
-Temporary override sa stane permanentným hidden riskom.
-
-## 20. Kontrolné otázky
+## 14. Kontrolné otázky
 
 1. Čo tvorí exact incident subject?
-2. Kedy normal troubleshooting musí prejsť na incident režim?
-3. Ako severity súvisí s impactom a urgency?
-4. Aké responsibilities majú IC, Ops, Comms a Planning?
-5. Prečo IC nemusí byť najhlbší expert?
-6. Čo obsahuje incident state document?
-7. Ako stabilization súvisí s root-cause analysis?
-8. Čo potrebuje bounded incident change?
-9. Prečo parallel mitigations poškodili `SRE-PAY-53`?
-10. Čo musí obsahovať handoff?
-11. Ako sa recovery criteria líšia od jednej green metric?
-12. Čo musí overiť incident-management acceptance verdict?
+2. Kedy normal troubleshooting prechádza na incident režim?
+3. Ako severity vyjadruje impact a uncertainty?
+4. Prečo IC nemusí byť najhlbší expert?
+5. Čo musí obsahovať authoritative incident state?
+6. Ako sa stabilization líši od remediation?
+7. Čo potrebuje bounded incident change?
+8. Prečo parallel mitigations poškodili `SRE-PAY-53`?
+9. Ako communication oddeľuje facts a hypotheses?
+10. Čo musí preniesť handoff?
+11. Ako sa technical recovery líši od business recovery?
+12. Ktoré positive, recovery a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: incident subject, incident declaration, severity contract, Incident Commander, Operations lead, Communications lead, Planning lead, incident state document, stabilization, bounded incident change, recovery criteria, command continuity, incident closure a incident-management acceptance verdict.
+Relevantné pojmy: incident subject, declaration transition, severity contract, Incident Commander, Operations/Communications/Planning lead, authoritative incident state, stabilization, bounded incident change, command continuity, recovery criteria, recurrence watch a incident acceptance contract.
 
 ## Primárne zdroje
 
