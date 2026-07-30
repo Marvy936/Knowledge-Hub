@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **302**
-- Audited conceptual sections: **12272**
-- Total words: **718,964**
-- Findings: **25514** (critical 7591, high 8785, medium 3219, low 5919)
-- File grades: A 0, B 0, C 2, D 300
+- Audited authoritative articles: **307**
+- Audited conceptual sections: **12370**
+- Total words: **730,630**
+- Findings: **25580** (critical 7591, high 8785, medium 3219, low 5985)
+- File grades: A 2, B 3, C 2, D 300
 
 ## Interpretation
 
@@ -314,7 +314,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
 | D | 132 | 0 | 11 | 1 | 35 | 5685 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
-| D | 113 | 0 | 8 | 7 | 18 | 3712 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
+| D | 113 | 0 | 8 | 7 | 18 | 3713 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
 | D | 109 | 0 | 7 | 8 | 19 | 3697 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
@@ -325,6 +325,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 53 | 0 | 3 | 3 | 15 | 3765 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
+| B | 29 | 0 | 0 | 0 | 25 | 3827 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
+| B | 25 | 0 | 0 | 0 | 21 | 4209 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
+| B | 23 | 0 | 0 | 0 | 20 | 3605 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 12 | `docs/review-trigger-gitops-block4-2.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 12 | `docs/review-trigger-gitops-block4.md` |
 
 ## Critical and high findings
 
@@ -17620,10 +17625,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `outline-instead-of-explanation` | 2936 | 0 | 0 | 0 | 2936 |
 | `term-before-explanation` | 0 | 617 | 2149 | 0 | 2766 |
 | `thin-concept-section` | 0 | 2478 | 0 | 0 | 2478 |
-| `example-not-explicit` | 0 | 0 | 0 | 2364 | 2364 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2348 | 2348 |
+| `example-not-explicit` | 0 | 0 | 0 | 2397 | 2397 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2359 | 2359 |
 | `list-first-introduction` | 0 | 1529 | 0 | 0 | 1529 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1207 | 1207 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1229 | 1229 |
 | `short-concept-section` | 0 | 0 | 1070 | 0 | 1070 |
 | `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
 | `empty-section` | 785 | 0 | 0 | 0 | 785 |
