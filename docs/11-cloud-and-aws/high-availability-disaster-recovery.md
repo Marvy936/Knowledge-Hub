@@ -1,292 +1,335 @@
 # High availability a disaster recovery
 
-High availability (HA) a disaster recovery (DR) riešia odlišné failure scopes. HA udržiava alebo automaticky obnovuje business outcome pri očakávateľnom lokálnom zlyhaní. DR obnovuje business capability po strate primárneho prostredia, dát alebo trust modelu podľa explicitných RTO a RPO.
+High availability a disaster recovery riešia odlišné failure scopes. High availability udržiava alebo rýchlo obnovuje business outcome pri očakávateľnom component alebo Availability Zone failure. Disaster recovery obnovuje capability po strate primárneho Regionu, dát, accountu alebo dôveryhodného identity plane-u podľa explicitných RTO a RPO.
 
-Dominantný lifecycle:
+HA typicky pracuje s current production state-om. DR môže zámerne použiť starší čistý recovery point a nové prostredie. Replication preto nie je backup: môže rýchlo preniesť logical delete, ransomware-encrypted data alebo chybnú schema. Backup zase nie je failover: restore môže vyžadovať nový resource, network, credentials, application startup a reconciliation.
 
 ```text
 business capability a impact analysis
-→ dependency, state a trust inventory
 → failure a disaster scenarios
-→ availability/RTO/RPO contract
-→ HA a DR strategy
-→ backup/replication/isolation evidence
+→ RTO/RPO a minimum-capacity contract
+→ HA a DR architecture
+→ protected recovery set
 → detection a declaration
-→ recovery point selection a environment activation
-→ data/application/identity reconciliation
-→ traffic cutover a business validation
-→ failback, evidence a improvement
+→ failover alebo restore
+→ single-writer authority
+→ business validation
+→ failback a improvement
 ```
 
-## 1. Exact recovery subject
+## 1. Recovery subject pre Atlas Payments
 
-Atlas Payments používa recovery subject `REC-PAY-42`:
+Atlas používa recovery subject `REC-PAY-42`. Primárny Region je `eu-central-1`, recovery Region `eu-west-1` a release generation `PAY-4.2.0`. Authoritative state sa skladá z ledger checkpointu `L842` a event offsetu `E91`. Recovery artifact set `R57` obsahuje image digest, Helm chart, IaC, PKI a secret generations. Backup generation je `B2026-07-28T0030Z` a replication checkpoint `RC-842991`.
+
+Business RTO je 45 minút a RPO päť minút. Recovery prostredie musí vedieť obslúžiť najmenej 40 % peak trafficu, pričom settlement queue zachová zvyšnú prácu. Recovery ownerom je Payments Incident Commander. Duplicate authorization, strata potvrdeného settlementu a reuse kompromitovaného credentialu sú forbidden outcomes.
+
+RTO a RPO bez exact state identity nemajú praktický význam. Päťminútové RPO musí odpovedať, ktorých dát a ktorého business checkpointu sa týka.
+
+## 2. Availability je meraná na user outcome
+
+Instance, Pod alebo load balancer môže byť healthy a payment journey môže zlyhávať. Availability musí definovať oprávneného clienta, operation, latency boundary a business result.
+
+Pre Atlas:
 
 ```text
-business capability = authorize and settle payment exactly once
-primary Region = eu-central-1
-recovery Region = eu-west-1
-release generation = PAY-4.2.0
-primary data generation = ledger checkpoint L842 + event offset E91
-recovery artifact set = chart/image/IaC/PKI/secret generations R57
-backup generation = B2026-07-28T0030Z
-replication checkpoint = RC-842991
-RTO = 45 min
-RPO = 5 min
-minimum recovered capacity = 40 % peak with settlement queue preserved
-recovery owner = Payments Incident Commander
-forbidden outcomes = duplicate authorization, settlement loss, stale credential reuse
+valid payment authorization request
+→ authenticated and accepted
+→ provider authorization
+→ ledger and outbox commit
+→ response within 800 ms p99
+→ exactly one durable outcome
 ```
 
-RTO alebo RPO bez presného capability a state subjectu nie sú overiteľné.
+Availability numerator nie je počet HTTP 200 odpovedí. Response môže byť rýchla a duplicitne autorizovať platbu. SLI musí zahŕňať correctness invariant.
 
-## 2. Availability je user outcome
-
-Process, instance alebo load balancer môže byť healthy, ale platba nemusí byť autorizovaná. Availability preto definuje:
-
-- measurement point;
-- oprávneného clienta;
-- úspešný outcome;
-- latency/error boundary;
-- scope a failure domains;
-- partial degradation;
-- forbidden business result.
-
-```text
-availability = successful valid operations / all valid operations
-```
-
-HA sa uzatvára na tomto outcome-e, nie na počte running resources.
+Praktická synthetic kontrola môže vytvoriť non-charge test transaction s deterministic idempotency key a overiť API, ledger aj outbox. Zelený ALB health check ostáva iba infraštruktúrny a readiness dôkaz.
 
 ## 3. High availability lifecycle
 
+HA začína redundantnou serving capacity v nezávislých failure domains. Po failure musí monitoring odlíšiť unhealthy cohort, traffic alebo writer authority sa musí odobrať, remaining capacity musí absorbovať load a client musí bezpečne reconnectovať alebo retryovať.
+
 ```text
-healthy redundant capacity
-→ component/AZ failure detection
-→ traffic alebo leadership withdrawal
-→ surviving-capacity check
-→ state failover/fencing
-→ client retry alebo reconnect
-→ business outcome verification
+healthy multi-AZ capacity
+→ failure detection
+→ failed target alebo writer withdrawal
+→ surviving capacity and authority check
+→ reconnect/retry with idempotency
+→ business outcome validation
 → failed component replacement
 → redundancy restoration
 ```
 
-HA design musí uviesť tolerovaný scope. Multi-AZ nerieši automaticky Region outage, logical corruption, account compromise, KMS deletion ani chybný deployment aplikovaný do všetkých AZ.
+Multi-AZ design musí mať odpoveď pre compute, egress, database, caches, queues, secrets, DNS a observability. Tri application subnets nepomôžu, ak všetky používajú jednu zonálnu NAT Gateway.
 
-### Statically stable recovery
+HA tiež potrebuje statically stable minimum. Počas control-plane incidentu nemusí byť možné okamžite launchovať replacement. Existujúca capacity v surviving AZs musí obslúžiť kritickú časť trafficu bez predpokladu, že Auto Scaling vždy zafunguje v prvých minútach.
 
-Pri výpadku control plane-u nemusí byť možné rýchlo launchovať novú kapacitu. Kritická služba preto potrebuje minimálnu už pripravenú data-plane kapacitu schopnú prežiť definovaný failure, nie iba presvedčenie, že Auto Scaling ju počas incidentu doplní.
+## 4. BIA ako versionovaný business input
 
-## 4. HA nie je DR
+Business Impact Analysis má byť konkrétny artefakt, nie veta „payments sú kritické“.
 
-HA typicky používa aktuálny production state. DR môže vyžadovať starší dôveryhodný recovery point a nové prostredie.
+```yaml
+capability: CAP-PAY-42
+owner: payments-business-owner
+criticalOperations:
+  authorize:
+    maximumTolerableDowntimeMinutes: 30
+    rtoMinutes: 15
+    rpoMinutes: 0
+  settle:
+    maximumTolerableDowntimeMinutes: 120
+    rtoMinutes: 45
+    rpoMinutes: 5
+minimumRecoveryCapacity:
+  percentOfPeak: 40
+  backlogAllowed: true
+manualWorkaround:
+  available: false
+dependencies:
+  - payment-provider
+  - ledger-database
+  - settlement-queue
+  - kms-and-secrets
+  - dns-and-certificates
+forbiddenOutcomes:
+  - duplicate-authorization
+  - lost-confirmed-settlement
+  - use-of-revoked-credential
+```
 
-Replication znižuje RPO, ale prenáša aj deletion, ransomware alebo logical corruption. Backup zachová starší point, ale restore môže mať vyššie RTO. Robustný model kombinuje replication, versionované izolované backupy a testovanú application recovery.
+Tento dokument ukazuje, že authorize a settle môžu mať odlišné recovery objectives. Zero RPO pre potvrdenú autorizáciu nevznikne automaticky cross-Region backupom; application musí definovať, kedy môže klientovi potvrdiť výsledok.
 
-## 5. Business Impact Analysis, RTO a RPO
+## 5. RTO, RPO, RTA a RPA
 
-### Business Impact Analysis
-
-BIA určuje:
-
-- kritické capabilities a dependencies;
-- maximum tolerable downtime;
-- tolerovanú data loss;
-- právne a bezpečnostné povinnosti;
-- manuálne workaroundy;
-- poradie obnovy;
-- minimálnu funkčnú kapacitu.
-
-### RTO
-
-RTO zahŕňa celý čas:
+RTO meria celý recovery interval, nie iba čas restore jobu:
 
 ```text
 detection
-+ escalation/declaration
-+ provisioning alebo promotion
-+ restore/replay
++ escalation and disaster declaration
++ recovery access
++ provisioning or promotion
++ data restore/replay
 + application startup
 + validation
 + traffic cutover
-= recovery time actual
+= Recovery Time Actual
 ```
 
-### RPO
+RPO určuje maximálny akceptovaný rozdiel medzi authoritative production state-om pred disaster eventom a obnoveným state-om. Recovery Point Actual sa meria po restore a reconciliation. Latest backup timestamp nie je automaticky RPA, pretože recovery point môže byť nečitateľný, nekonzistentný alebo poškodený.
 
-RPO určuje maximálnu tolerovanú stratu state-u. Posledný dokončený backup job ešte nepreukazuje použiteľný recovery point. Potrebný je decryptable, integrity-valid a application-consistent point s preukázaným restore pathom.
+AWS Well-Architected používa RTO a RPO ako workload restoration objectives; pravidelný DR test má preukázať, či implementácia tieto ciele reálne spĺňa. citeturn398658search3turn398658search11turn398658search16
 
-### RTA a RPA
+## 6. Recovery-set manifest
 
-Recovery Time Actual a Recovery Point Actual sú dôkazom, či architektúra a proces reálne spĺňajú cieľ.
+Databázový snapshot nie je celý systém. Recovery set viaže data, artifacts, identity, network a external integration state do jednej generácie.
 
-## 6. Recovery-set contract
-
-Obnoviteľná služba potrebuje viac než databázový snapshot:
-
-```text
-data a transaction logs
-+ IaC a account/network baseline
-+ immutable application artifacts
-+ configuration a secrets
-+ KMS/PKI recovery path
-+ DNS/certificates
-+ IAM a organization guardrails
-+ external integration state
-+ observability a runbooks
-+ owners a approvals
-= recovery set
+```yaml
+recoverySet: R57
+capability: CAP-PAY-42
+cleanBoundary: "2026-07-28T00:30:00Z"
+data:
+  database:
+    recoveryPoint: arn:aws:rds:eu-west-1:200000000042:snapshot:payments-20260728-0030
+    ledgerCheckpoint: L842
+  queue:
+    replayManifest: s3://atlas-recovery/manifests/E91.json
+    offset: E91
+  receipts:
+    manifestVersion: RM81
+artifacts:
+  imageDigest: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  helmChartDigest: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  infrastructureCommit: 4f57c9a
+identity:
+  recoveryRole: arn:aws:iam::200000000042:role/AtlasRecoveryOperator
+  kmsKeyArn: arn:aws:kms:eu-west-1:200000000042:key/11111111-2222-3333-4444-555555555555
+  secretGeneration: SEC-REC-11
+network:
+  vpcGeneration: VPC-REC-11
+  dnsGeneration: DNS-REC-7
+external:
+  providerEgressIdentity: EIP-REC-3
+validation:
+  syntheticPaymentId: DR-CANARY-884
+  forbiddenCredentialGeneration: SE10
 ```
 
-Každá položka má version, ownera, location, retention, encryption a restore dependency.
+Manifest znemožňuje náhodne skombinovať najnovší database snapshot s neskorším queue offsetom. Každá položka má ownera, version, location a restore dependency.
 
-## 7. DR stratégie
+## 7. DR stratégie a ich skutočný prepared state
 
-| Stratégia | Prepared state | Typický trade-off |
-|---|---|---|
-| Backup and restore | backupy a IaC, minimálna active infra | najnižší steady cost, najvyššie RTO |
-| Pilot light | kritický state layer beží | nižšie RTO, riziko scale-up/capacity driftu |
-| Warm standby | zmenšená funkčná kópia | priebežné testy, vyšší cost |
-| Multi-site active-active | viac lokalít obsluhuje traffic | najnižšie RTO, najťažšia consistency a failback |
+Backup and restore udržiava protected data a deployable IaC, no väčšinu runtime vytvorí až po incidente. Má najnižší steady-state cost a najvyššie RTO.
 
-Stratégia sa vyberá podľa BIA, nie podľa prestíže architektúry.
+Pilot light udržiava kritický state alebo identity layer, zatiaľ čo application capacity sa doplní pri disaster declaration. Je rýchlejší než čistý restore, ale recovery scale-out môže zlyhať na quota, subnet alebo artifact drift.
 
-## 8. Connected walkthrough — Region je healthy, ale recovery je nepoužiteľná
+Warm standby beží ako zmenšená funkčná kópia. Dá sa priebežne testovať, no potrebuje overený scale-up a single-writer contract.
 
-### Symptom
+Multi-site active-active obsluhuje traffic vo viacerých Regions. Znižuje RTO, ale vytvára najťažší data consistency, routing, conflict a failback model. Nesmie sa vybrať iba preto, že pôsobí „najodolnejšie“.
 
-Security incident kompromituje primary account a deployment credentials. Incident commander deklaruje DR do `eu-west-1`. Database restore a application startup prebehnú za 28 minút, ale payment traffic nemožno bezpečne otvoriť ani po 90 minútach.
+## 8. Praktický recovery preflight
 
-### Competing hypotheses
+Pred incidentom sa pravidelne overuje, či recovery account a Region skutočne obsahujú dependencies.
 
-1. Backup je poškodený.
-2. Recovery KMS key alebo policy neumožňuje decrypt.
-3. Recovery Region nemá quota/subnet capacity.
-4. DNS alebo certificate cutover nie je pripravený.
-5. Secrets sú iba replikované z kompromitovaného source-u.
-6. Restored ledger a queue offsets patria k rozdielnym recovery points.
-7. External payment provider nepovoľuje recovery egress identity.
-8. Starý primary writer stále beží.
-9. Recovery runbook počítal iba database restore, nie trust recovery.
+```bash
+aws sts get-caller-identity --profile atlas-recovery
 
-### Discriminating observations
+aws ec2 describe-subnets \
+  --profile atlas-recovery \
+  --region eu-west-1 \
+  --filters Name=tag:RecoveryGeneration,Values=VPC-REC-11 \
+  --query 'Subnets[].{Id:SubnetId,Az:AvailabilityZoneId,FreeIps:AvailableIpAddressCount}'
 
-| Observation | Čo rozlišuje |
-|---|---|
-| backup manifest, checksum a restore logs | byte integrity od application validity |
-| KMS key/account/policy generation | data availability od decrypt authorization |
-| ledger checkpoint a queue offset | konzistentný state od mixed recovery points |
-| primary writer fencing evidence | single-writer recovery od split brainu |
-| recovery secret provenance a issuance time | čistý trust state od kompromitovanej repliky |
-| quotas, subnet IPs a launch failures | artifact/data problem od capacity problemu |
-| DNS/certificate generations a client TLS | running app od reachable trusted service |
-| provider allowlist/request IDs | internal readiness od external integration blocku |
+aws rds describe-db-snapshots \
+  --profile atlas-recovery \
+  --region eu-west-1 \
+  --snapshot-type manual \
+  --query 'DBSnapshots[?contains(DBSnapshotIdentifier, `payments`)].{Id:DBSnapshotIdentifier,Time:SnapshotCreateTime,Status:Status,Kms:KmsKeyId}'
 
-### Finding
+aws kms describe-key \
+  --profile atlas-recovery \
+  --region eu-west-1 \
+  --key-id arn:aws:kms:eu-west-1:200000000042:key/11111111-2222-3333-4444-555555555555
+```
 
-Database snapshot bol validný, ale recovery Secrets Manager replica obsahovala credentials vydané pred compromise a provider ich zablokoval. Ledger snapshot `L842` bol navyše spárovaný s queue offsetom z neskoršieho checkpointu. Technický restore bol zelený, recovery set však nebol konzistentný ani dôveryhodný.
+Tieto príkazy preukazujú recovery identity, subnet inventory, snapshot inventory a KMS key state. Nevykonávajú restore, neoverujú application compatibility a nepreukazujú provider allowlist. Sú preflightom, nie DR testom.
 
-### Containment
+## 9. Isolated restore experiment
 
-- neotvárať production traffic;
-- hard-fence primary writers a revoke kompromitované credentials;
-- zachovať backup/replication/KMS/IAM/CloudTrail evidence;
-- izolovať recovery account od compromised automation;
-- zastaviť automatické prepisovanie recovery configu source stavom.
+Restore sa vykonáva v recovery account-e a izolovanej VPC, aby test consumer neposlal reálne payment alebo email side effects.
 
-### Recovery
+Ukážkový RDS restore command:
 
-1. Vybrať canonical recovery point s viazaným ledger/queue manifestom.
-2. Obnoviť do izolovaného recovery accountu/Regionu.
-3. Vydať nové credentials a certificates z čistého trust rootu.
-4. Reconciliovať external provider, pending operations a exactly-once ledger.
-5. Spustiť minimum capacity a synthetic payment bez real charge side effectu.
-6. Otvárať traffic po bounded cohorts.
-7. Merať RTA/RPA a deklarovať odchýlku od RTO/RPO.
+```bash
+aws rds restore-db-instance-from-db-snapshot \
+  --profile atlas-recovery \
+  --region eu-west-1 \
+  --db-instance-identifier payments-dr-test-20260730 \
+  --db-snapshot-identifier payments-20260728-0030 \
+  --db-instance-class db.r7g.large \
+  --db-subnet-group-name atlas-recovery-db \
+  --vpc-security-group-ids sg-0recoverydb \
+  --no-publicly-accessible
+```
 
-### Verification
+API acceptance iba vytvorí restore workflow. Potom sa čaká na resource state:
 
-Recovery je prijatá až keď:
+```bash
+aws rds wait db-instance-available \
+  --profile atlas-recovery \
+  --region eu-west-1 \
+  --db-instance-identifier payments-dr-test-20260730
+```
 
-- payment authorization a settlement fungujú end-to-end;
-- old credentials sú odmietnuté;
-- primary writer je preukázateľne fenced;
-- ledger a queue state sú konzistentné;
-- pending operations sú reconciled bez duplicít;
-- recovery capacity spĺňa minimum;
-- monitoring, audit a incident access fungujú;
-- duplicate payment zostáva forbidden outcome.
+`available` stále nie je business verdict. Nasleduje schema a data validation s recovery application role:
 
-## 9. Failover a failback
+```bash
+psql "$RECOVERY_DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
+select current_database(), current_user;
+select version from schema_generation where component = 'payments';
+select max(checkpoint_id) from ledger_checkpoint;
+select count(*) from settlement where payment_id = 'P-884';
+SQL
+```
 
-Failover určuje presun authority a trafficu do recovery prostredia. Failback nie je jednoduché prepnutie DNS späť.
+Potom sa deployne presný image digest a spustí synthetic payment, ktorý používa test provider endpoint alebo hard safety gate. Recovery test nesmie mať production charge capability.
+
+## 10. Disaster declaration a authority transfer
+
+Failover nie je technická improvizácia každého tímu. Incident Commander deklaruje disaster, zvolí recovery set a prenesie authority.
 
 ```text
-stabilizácia recovery prostredia
-→ určenie authoritative state-u
-→ synchronizácia alebo export delta
-→ kompatibilita primary environmentu
+incident classification
+→ disaster declared
+→ production mutations fenced
+→ recovery set selected
+→ recovery identity activated
+→ environment restored or scaled
+→ single-writer verified
+→ business canary
+→ traffic opened by cohorts
+```
+
+Fencing starej production authority je zásadné. Ak primary writer alebo deployment credentials zostanú použiteľné, recovery environment môže vytvoriť split brain.
+
+Praktická fencing evidence môže obsahovať disabled old KMS grant, revoked provider credential, database writer endpoint isolation a SCP/role session revocation podľa incidentu. Samotné presmerovanie DNS nie je fencing.
+
+## 11. Worked incident: technický restore je zelený, recovery nie je dôveryhodná
+
+Security incident kompromitoval primary account a deployment credentials. Incident Commander deklaroval DR do `eu-west-1`. Database restore a application startup skončili za 28 minút, ale production traffic nebolo možné bezpečne otvoriť ani po 90 minútach.
+
+Hypotézy zahŕňali poškodený backup, KMS deny, chýbajúcu capacity, DNS/certificate failure, kompromitované secret replicas, nekompatibilný ledger a queue checkpoint, provider allowlist a stále aktívneho primary writera.
+
+Database snapshot bol čitateľný a schema kompatibilná. Recovery Secrets Manager replica však obsahovala credentials vydané pred compromise a provider ich správne zablokoval. Ledger checkpoint `L842` bol navyše spárovaný s queue offsetom neskorším než clean boundary. Restore job bol technicky úspešný, no recovery set nebol konzistentný ani trust-clean.
+
+Containment ponechalo traffic zatvorený, hard-fence-nulo primary writers, revoke-nulo kompromitované credentials a izolovalo recovery account od source automation. Tím zachoval backup, KMS, IAM a CloudTrail evidence.
+
+Recovery vybrala canonical manifest, obnovila konzistentný ledger a queue point, vydala nové credentials a certificates z čistého trust rootu a reconciliovala provider operations. Minimum capacity sa otvorila až po synthetic payment bez real charge side effectu.
+
+RTA bolo vyššie než cieľ a tento rozdiel sa zaznamenal ako risk, nie skryl úspešným database restore time-om.
+
+## 12. Traffic cutover
+
+DNS alebo routing change musí byť versionovaný a bounded. Pri Route 53 failover alebo weighted migration treba poznať TTL, client cache a existing connections.
+
+Pred otvorením production trafficu sa overí:
+
+```text
+recovery endpoint and certificate
+→ current writer authority
+→ data checkpoint and reconciliation
+→ minimum capacity
+→ observability and incident access
+→ external provider acceptance
+→ canary cohort
+→ gradual traffic increase
+```
+
+Route 53 record update preukazuje control-plane mutation. Neznamená, že všetky resolvers a clients už používajú recovery endpoint. Business telemetry musí ukázať actual arrival.
+
+## 13. Failback
+
+Failback nie je DNS prepnutie späť. Recovery environment medzitým vytvorilo nové authoritative data. Pôvodný Region sa musí rebuildnúť alebo synchronizovať z current authority.
+
+```text
+recovery environment stabilized
+→ authoritative data and credential generation fixed
+→ primary Region rebuilt from trusted source
+→ delta replicated or exported
+→ compatibility and capacity validated
 → controlled traffic shift
-→ single-writer verification
-→ retirement temporary recovery paths
+→ single-writer reverified
+→ temporary recovery paths retired
 ```
 
-Bez authority a data-generation contractu môže failback vytvoriť stratu alebo split brain.
+Ak sa failback spustí proti starej primary databáze bez reconciliation, môže znovu zaviesť lost alebo divergent state.
 
-## 10. Recovery testing
+## 14. DR game day
 
-Test musí zahŕňať:
+Tabletop preverí rozhodovanie a kontakty, ale nepreukazuje restore. Restore bez business testu nepreukazuje capability. Plný game day meria detection, declaration, access, provisioning, data restore, identity recovery, external integration, traffic cutover, failback a cleanup.
 
-- detection a declaration latency;
-- access pri nedostupnom primary identity plane;
-- clean-account/Region provisioning;
-- quota a capacity;
-- KMS/PKI/Secrets recovery;
-- application-consistent restore;
-- DNS a certificate cutover;
-- external integrations;
-- business transaction a forbidden outcomes;
-- failback;
-- evidence retention a cleanup.
+Test musí obsahovať forbidden paths: old credential nesmie fungovať, primary writer musí byť fenced a duplicate payment nesmie vzniknúť pri replayi. Po teste sa recovery resources bezpečne odstránia a evidence uchová.
 
-Tabletop bez restore nie je recovery test. Restore bez business validation tiež nie.
+AWS Reliability guidance explicitne odporúča pravidelne obnovovať dáta a testovať DR implementáciu, pretože iba experiment overí recovery integrity a proces. citeturn398658search8turn398658search16
 
-## 11. Earlier controls
-
-- versionovaný BIA a dependency map;
-- recovery-set manifest;
-- off-account/off-Region immutable backup;
-- oddelené recovery identities a keys;
-- pravidelné restore a game-day testy;
-- static minimum recovery capacity;
-- explicitný fencing a single-writer protocol;
-- pre-approved DNS/certificate/provider paths;
-- merané RTA/RPA;
-- post-test improvement owners a deadlines.
-
-## 12. Kontrolné otázky
+## Kontrolné otázky
 
 1. Aký failure scope rieši HA a aký DR?
-2. Ktorý business capability a state generation sa obnovuje?
-3. Čo presne znamenajú RTO a RPO v end-to-end čase?
-4. Je recovery point application-consistent?
-5. Sú backups oddelené od production identity a failure domainu?
-6. Ktoré credentials a trust roots treba obnoviť?
-7. Ako sa preukáže single writer?
-8. Aká minimálna capacity musí existovať bez control-plane scale-outu?
-9. Ako sa overí external integration a exactly-once outcome?
-10. Ako prebehne bezpečný failback?
-
-## Glossary impact
-
-Relevantné pojmy: business recovery subject, recovery-set manifest, recovery authority, RTA, RPA, application-consistent recovery point, clean trust generation, statically stable recovery capacity, disaster declaration boundary, traffic-reopen verdict, single-writer recovery a failback authority transfer.
+2. Čo presne meria RTO a prečo restore job time nestačí?
+3. Ktorý authoritative state tvorí RPO pre settlement?
+4. Prečo replication nie je clean backup?
+5. Čo musí obsahovať recovery-set manifest?
+6. Ktoré CLI observations sú iba preflight a ktoré už testujú restored application?
+7. Ako sa preukáže single-writer authority?
+8. Prečo DNS cutover nie je fencing?
+9. Aký trust state treba obnoviť po compromise?
+10. Ako sa vykoná failback bez návratu stale state-u?
 
 ## Oficiálna dokumentácia
 
-- [Disaster recovery options in the cloud](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html)
 - [Disaster recovery objectives](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html)
 - [Plan for disaster recovery](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html)
+- [Disaster Recovery of Workloads on AWS](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/introduction.html)
+- [Reliability Pillar](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/reliability.html)
+- [Restore a DB instance from a DB snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RestoreFromSnapshot.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
