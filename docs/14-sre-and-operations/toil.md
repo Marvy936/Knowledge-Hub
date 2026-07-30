@@ -82,7 +82,9 @@ Measurement nesmie byť surveillance nad jednotlivcami. Cieľom je identifikova�
 
 ## 6. Elimination strategy order
 
-Riešenia majú poradie od odstránenia demandu po explicitné prijatie:
+Riešenie sa vyberá podľa toho, kde možno bezpečne prerušiť demand loop. Najvyššiu hodnotu má odstránenie upstream condition; automatizácia posledného kroku je vhodná až vtedy, keď demand zostáva legitímny a decision možno formalizovať bez skrytia uncertainty.
+
+Poradie zároveň vyjadruje trade-off medzi trvalým znížením práce a nákladom na redesign. Tím môže zvoliť partial automation alebo bounded acceptance, ale musí explicitne uviesť, prečo root-demand elimination zatiaľ nie je primerané a aký residual toil zostáva.
 
 1. **Eliminate root demand** — oprav failure mechanismus, aby trigger nevznikal.
 2. **Redesign service contract** — pridaj backpressure, idempotency, bounded state machine alebo safer ownership.
@@ -192,25 +194,13 @@ Pokles on-call času pri raste customer wait alebo support tickets nie je úspec
 
 ## 12. Anti-patterny
 
-### Automatizuj každý manuálny krok
+Toil anti-patterny optimalizujú viditeľnosť alebo ownership práce bez odstránenia demandu a risku. Program preto hodnotí end-to-end occurrence, human touch, customer wait a reliability outcome, nie iba počet tickets jedného tímu.
 
-Manual work môže obsahovať risk judgment. Najprv oddel deterministic execution od ambiguous decisionu.
-
-### Toil equals celé on-call
-
-Novel diagnosis a incident command nie sú rovnaké ako opakovaný runbook.
-
-### Počítaj iba hodiny
-
-Nízkoobjemový destructive workflow môže mať vyššiu prioritu než častá low-risk práca.
-
-### Presuň ticket inému tímu
-
-Organizačný transfer nemení system demand ani customer wait.
-
-### Odstráň alert
-
-Ak failure pokračuje, zníženie page countu nie je toil reduction.
+- **Automatizuj každý manuálny krok —** Manual work môže obsahovať risk judgment. Najprv oddel deterministic execution od ambiguous decisionu a zachovaj fenced human path pre uncertainty.
+- **Toil equals celé on-call —** Novel diagnosis a incident command nie sú rovnaké ako opakovaný runbook. Inventory musí klasifikovať konkrétne workflows, nie celú službu v rotačnom kalendári.
+- **Počítaj iba hodiny —** Nízkoobjemový destructive workflow môže mať vyššiu prioritu než častá low-risk práca. Prioritization kombinuje volume, privilege, blast radius a growth.
+- **Presuň ticket inému tímu —** Organizačný transfer nemení system demand ani customer wait. Úspech vyžaduje pokles end-to-end worku alebo jasný transfer authority a capability.
+- **Odstráň alert —** Ak failure pokračuje, zníženie page countu nie je toil reduction. Alert možno zmeniť až spolu s detection contractom a dôkazom, že user risk neklesol iba z observability.
 
 ## 13. Kontrolné otázky
 
