@@ -210,25 +210,13 @@ Ručný override bez preserved reason, expiry a approvera vytvára druhú neaudi
 
 ## 12. Anti-patterny
 
-### Budget ako povolenie míňať chyby
+Error-budget anti-patterny oddeľujú aritmetiku od user risku alebo policy consequence. Taký budget môže vyzerať presne, ale nevedie k bezpečnému change rozhodnutiu ani k uzavretiu recurrence mechanizmu.
 
-Budget umožňuje bounded risk, nie vedomé poškodzovanie users alebo ignorovanie known defectu.
-
-### Percento bez operation countu a času
-
-`40 % zostáva` nehovorí, či ide o štyri alebo štyri milióny events ani ako rýchlo sa budget míňa.
-
-### Automatický freeze všetkého
-
-Blokuje aj changes, ktoré risk znižujú. Policy musí rozlišovať discretionary a remediation work.
-
-### Calendar reset ako recovery
-
-Window reset mení číslo, nie production mechanismus.
-
-### Priemer budgets
-
-Availability, correctness, durability a critical cohorts majú nekompenzovateľné verdicts.
+- **Budget ako povolenie míňať chyby —** Budget umožňuje bounded risk, nie vedomé poškodzovanie users alebo ignorovanie known defectu. Known high-impact mechanismus potrebuje remediation aj pri formálne zdravom budgete.
+- **Percento bez operation countu a času —** `40 % zostáva` nehovorí, či ide o štyri alebo štyri milióny events ani ako rýchlo sa budget míňa. Decision potrebuje remaining count, burn rate a zostávajúci window.
+- **Automatický freeze všetkého —** Globálny freeze blokuje aj changes, ktoré risk znižujú. Policy musí rozlišovať discretionary, emergency, security a remediation work.
+- **Calendar reset ako recovery —** Window reset mení číslo, nie production mechanismus. Normal mode sa obnoví až po SLI recovery a recurrence evidence.
+- **Priemer budgets —** Availability, correctness, durability a critical cohorts majú nekompenzovateľné verdicts. Composite average nesmie zelenou osou prekryť exhausted critical objective.
 
 ## 13. Kontrolné otázky
 
