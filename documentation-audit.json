@@ -4091,16 +4091,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
       "title": "Developer experience",
-      "words": 3713,
-      "headings": 45,
-      "sections": 45,
-      "findings": 33,
+      "words": 1517,
+      "headings": 13,
+      "sections": 13,
+      "findings": 15,
       "critical": 0,
-      "high": 8,
-      "medium": 7,
-      "low": 18,
-      "score": 113,
-      "grade": "D"
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 19,
+      "grade": "B"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/flux.md",
@@ -4147,16 +4147,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
       "title": "Golden paths a paved road",
-      "words": 3765,
-      "headings": 38,
-      "sections": 38,
-      "findings": 21,
+      "words": 1477,
+      "headings": 13,
+      "sections": 13,
+      "findings": 13,
       "critical": 0,
-      "high": 3,
-      "medium": 3,
-      "low": 15,
-      "score": 53,
-      "grade": "C"
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 15,
+      "grade": "B"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
@@ -4203,16 +4203,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
       "title": "Platform as a Product",
-      "words": 3835,
-      "headings": 39,
-      "sections": 39,
-      "findings": 22,
+      "words": 1511,
+      "headings": 13,
+      "sections": 13,
+      "findings": 13,
       "critical": 0,
-      "high": 3,
-      "medium": 3,
-      "low": 16,
-      "score": 53,
-      "grade": "C"
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 16,
+      "grade": "B"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
@@ -4245,16 +4245,16 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
       "title": "Self-service",
-      "words": 3697,
-      "headings": 40,
-      "sections": 40,
-      "findings": 34,
+      "words": 1549,
+      "headings": 14,
+      "sections": 14,
+      "findings": 17,
       "critical": 0,
-      "high": 7,
-      "medium": 8,
-      "low": 19,
-      "score": 109,
-      "grade": "D"
+      "high": 0,
+      "medium": 0,
+      "low": 17,
+      "score": 18,
+      "grade": "B"
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",
@@ -202519,8 +202519,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "1. Dominantný model",
-      "line": 7,
+      "section": "1. Experience, productivity, activity a satisfaction",
+      "line": 20,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202528,8 +202528,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "1. Dominantný model",
-      "line": 7,
+      "section": "1. Experience, productivity, activity a satisfaction",
+      "line": 20,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -202537,8 +202537,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "2. Developer experience, productivity a satisfaction",
-      "line": 27,
+      "section": "2. Exact DevEx subject",
+      "line": 34,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
+      "section": "3. Journey a momenty pravdy",
+      "line": 42,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202546,52 +202555,7 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "2. Developer experience, productivity a satisfaction",
-      "line": 27,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "3. Exact developer-experience subject",
-      "line": 49,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "3. Exact developer-experience subject",
-      "line": 49,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "3. Exact developer-experience subject",
-      "line": 49,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "3. Exact developer-experience subject",
-      "line": 49,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `workload`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "Feedback loops",
+      "section": "5. Friction taxonomy a valuable friction",
       "line": 70,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -202600,35 +202564,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "Cognitive load",
-      "line": 76,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "Organizational friction",
-      "line": 137,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "8. Cognitive load a platform boundaries",
-      "line": 160,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "8. Cognitive load a platform boundaries",
-      "line": 160,
+      "section": "5. Friction taxonomy a valuable friction",
+      "line": 70,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -202636,116 +202573,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "8. Cognitive load a platform boundaries",
-      "line": 160,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "9. Flow, interruptions a work-in-progress",
-      "line": 176,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 64 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "9. Flow, interruptions a work-in-progress",
-      "line": 176,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "10. Documentation, discoverability a learning experience",
-      "line": 191,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 51 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "10. Documentation, discoverability a learning experience",
-      "line": 191,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "10. Documentation, discoverability a learning experience",
-      "line": 191,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "13. Baseline, cohort a causal inference",
-      "line": 248,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "13. Baseline, cohort a causal inference",
-      "line": 248,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "13. Baseline, cohort a causal inference",
-      "line": 248,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "13. Baseline, cohort a causal inference",
-      "line": 248,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "15. DevEx počas incidentu a on-call",
-      "line": 283,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "15. DevEx počas incidentu a on-call",
-      "line": 283,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "15. DevEx počas incidentu a on-call",
-      "line": 283,
+      "section": "6. Instrumentovaný end-to-end timeline",
+      "line": 78,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -202753,8 +202582,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "15. DevEx počas incidentu a on-call",
-      "line": 283,
+      "section": "6. Instrumentovaný end-to-end timeline",
+      "line": 78,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202762,35 +202591,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "15. DevEx počas incidentu a on-call",
-      "line": 283,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "16. AI-assisted development ako DevEx intervention",
-      "line": 298,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 55 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "16. AI-assisted development ako DevEx intervention",
-      "line": 298,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "16. AI-assisted development ako DevEx intervention",
-      "line": 298,
+      "section": "7. Quantitative a qualitative evidence",
+      "line": 97,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -202798,8 +202600,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "16. AI-assisted development ako DevEx intervention",
-      "line": 298,
+      "section": "8. Causal hypothesis a experiment",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
+      "section": "9. Connected incident GITOPS-PAY-63",
+      "line": 120,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -202807,12 +202618,39 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
-      "section": "16. AI-assisted development ako DevEx intervention",
-      "line": 298,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 138,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/developer-experience.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/flux.md",
@@ -203095,8 +202933,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "1. Dominantný model",
-      "line": 7,
+      "section": "1. Golden path, paved road, template a guardrail",
+      "line": 22,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203104,35 +202942,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "3. Exact golden-path subject",
-      "line": 65,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 61 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "3. Exact golden-path subject",
-      "line": 65,
+      "section": "1. Golden path, paved road, template a guardrail",
+      "line": 22,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "5. Opinionated defaults a decision architecture",
-      "line": 108,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 50 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "5. Opinionated defaults a decision architecture",
-      "line": 108,
+      "section": "3. Journey, nie iba create artifact",
+      "line": 57,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203140,8 +202960,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "5. Opinionated defaults a decision architecture",
-      "line": 108,
+      "section": "4. Decision architecture a progressive disclosure",
+      "line": 65,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203149,89 +202969,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "5. Opinionated defaults a decision architecture",
-      "line": 108,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "6. Abstraction bez straty kontextu",
-      "line": 123,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "7. Bootstrap template verzus managed path",
-      "line": 145,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "9. Backstage Software Templates ako implementačný mechanizmus",
-      "line": 178,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "12. Versioning a upgrade lifecycle",
-      "line": 233,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "12. Versioning a upgrade lifecycle",
-      "line": 233,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "13. Testing golden pathu",
-      "line": 251,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "14. Supply-chain a security boundary",
-      "line": 272,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "16. Connected incident GITOPS-PAY-63",
-      "line": 309,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "Redesign",
-      "line": 346,
+      "section": "5. Bootstrap copy verzus managed lifecycle",
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203239,26 +202978,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "17. Golden-path acceptance verdict",
-      "line": 366,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "17. Golden-path acceptance verdict",
-      "line": 366,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "17. Golden-path acceptance verdict",
-      "line": 366,
+      "section": "6. Composition graph a supply-chain identity",
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203266,8 +202987,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "17. Golden-path acceptance verdict",
-      "line": 366,
+      "section": "6. Composition graph a supply-chain identity",
+      "line": 109,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203275,12 +202996,57 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
-      "section": "17. Golden-path acceptance verdict",
-      "line": 366,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `policy`",
-      "score": 4
+      "section": "7. Preflight, instantiate a adopt",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
+      "section": "8. Upgrades, extensions a exceptions",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
+      "section": "9. Connected incident GITOPS-PAY-63",
+      "line": 133,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
+      "section": "9. Connected incident GITOPS-PAY-63",
+      "line": 133,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md",
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/guardrails.md",
@@ -203824,17 +203590,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "1. Dominantný model",
-      "line": 7,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "1. Dominantný model",
-      "line": 7,
+      "section": "1. Project, service a product",
+      "line": 19,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203842,8 +203599,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "3. Exact platform-product subject",
-      "line": 58,
+      "section": "2. Exact platform-product subject",
+      "line": 38,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203851,8 +203608,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "4. Používateľ nie je abstraktný developer",
-      "line": 77,
+      "section": "3. User segment a job-to-be-done",
+      "line": 55,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203860,17 +203617,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "4. Používateľ nie je abstraktný developer",
-      "line": 77,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "5. Job-to-be-done a value hypothesis",
-      "line": 94,
+      "section": "4. Value hypothesis a guard conditions",
+      "line": 63,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -203878,35 +203626,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "7. Prioritizácia a roadmap authority",
-      "line": 142,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 59 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "7. Prioritizácia a roadmap authority",
-      "line": 142,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `availability`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "8. Capability contract ako produktový sľub",
-      "line": 158,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 63 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "8. Capability contract ako produktový sľub",
-      "line": 158,
+      "section": "5. Capability contract a product lifecycle",
+      "line": 77,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203914,8 +203635,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "8. Capability contract ako produktový sľub",
-      "line": 158,
+      "section": "5. Capability contract a product lifecycle",
+      "line": 77,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203923,8 +203644,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "9. Adoption nie je rollout mandate",
-      "line": 176,
+      "section": "6. Roadmap ako outcome decision",
+      "line": 95,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
+      "section": "7. Adoption, choice a trust",
+      "line": 112,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203932,8 +203662,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "10. Product discovery, delivery a operations",
-      "line": 199,
+      "section": "8. Measurement bez output a survivorship biasu",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
+      "section": "8. Measurement bez output a survivorship biasu",
+      "line": 120,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203941,8 +203680,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "10. Product discovery, delivery a operations",
-      "line": 199,
+      "section": "9. Connected incident GITOPS-PAY-63",
+      "line": 139,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -203950,8 +203689,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "11. Funding, capacity a cost model",
-      "line": 213,
+      "section": "10. Authoritative redesign a acceptance paths",
+      "line": 151,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -203959,66 +203698,12 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "12. Ownership a operating model",
-      "line": 227,
+      "section": "11. Troubleshooting a anti-patterny",
+      "line": 157,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "14. Feedback closure a product experiments",
-      "line": 280,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "17. Platform-as-a-Product acceptance verdict",
-      "line": 371,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "17. Platform-as-a-Product acceptance verdict",
-      "line": 371,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "17. Platform-as-a-Product acceptance verdict",
-      "line": 371,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "17. Platform-as-a-Product acceptance verdict",
-      "line": 371,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/platform-as-a-product.md",
-      "section": "17. Platform-as-a-Product acceptance verdict",
-      "line": 371,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `Reliability`",
-      "score": 4
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/pull-based-deployment.md",
@@ -204148,8 +203833,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "1. Dominantný model",
-      "line": 7,
+      "section": "1. Automation, delegation a self-service",
+      "line": 21,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -204157,35 +203842,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "3. Exact self-service request subject",
-      "line": 50,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "3. Exact self-service request subject",
-      "line": 50,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "3. Exact self-service request subject",
-      "line": 50,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "3. Exact self-service request subject",
-      "line": 50,
+      "section": "1. Automation, delegation a self-service",
+      "line": 21,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204193,107 +203851,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "3. Exact self-service request subject",
-      "line": 50,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "4. Discoverability a eligibility",
-      "line": 67,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "5. Preflight a plán",
-      "line": 75,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 67 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "5. Preflight a plán",
-      "line": 75,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "5. Preflight a plán",
-      "line": 75,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "6. Policy, approval a authorization",
-      "line": 91,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "7. Delegated execution identity",
-      "line": 113,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "7. Delegated execution identity",
-      "line": 113,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "7. Delegated execution identity",
-      "line": 113,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "7. Delegated execution identity",
-      "line": 113,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "7. Delegated execution identity",
-      "line": 113,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `Policy`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "8. Durable operation state machine",
-      "line": 126,
+      "section": "2. Exact request subject",
+      "line": 39,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -204301,8 +203860,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "8. Durable operation state machine",
-      "line": 126,
+      "section": "2. Exact request subject",
+      "line": 39,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204310,8 +203869,17 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "9. Idempotency a duplicate request",
-      "line": 160,
+      "section": "4. Policy, approvals a execution identity",
+      "line": 65,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
+      "section": "4. Policy, approvals a execution identity",
+      "line": 65,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204319,8 +203887,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "11. Waiting a external dependencies",
-      "line": 197,
+      "section": "5. Durable operation a child identities",
+      "line": 73,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -204328,71 +203896,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "11. Waiting a external dependencies",
-      "line": 197,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "12. Queue, capacity a backpressure",
-      "line": 211,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "12. Queue, capacity a backpressure",
-      "line": 211,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "Integration verification",
-      "line": 233,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "Developer-functional verification",
-      "line": 237,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "14. Self-service change a delete",
-      "line": 251,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "17. Security a abuse model",
-      "line": 308,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "18. Connected incident GITOPS-PAY-63",
-      "line": 328,
+      "section": "5. Durable operation a child identities",
+      "line": 73,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204400,26 +203905,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "19. Self-service acceptance verdict",
-      "line": 373,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "19. Self-service acceptance verdict",
-      "line": 373,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "19. Self-service acceptance verdict",
-      "line": 373,
+      "section": "6. Idempotency a lost response",
+      "line": 93,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -204427,8 +203914,8 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "19. Self-service acceptance verdict",
-      "line": 373,
+      "section": "6. Idempotency a lost response",
+      "line": 93,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -204436,21 +203923,66 @@
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "19. Self-service acceptance verdict",
-      "line": 373,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
+      "section": "8. Usable outcome a status contract",
+      "line": 116,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/self-service.md",
-      "section": "20. Troubleshooting flow",
-      "line": 393,
+      "section": "8. Usable outcome a status contract",
+      "line": 116,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
+      "section": "9. Capacity, fairness a abuse resistance",
+      "line": 133,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
+      "section": "10. Connected incident GITOPS-PAY-63",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
+      "section": "10. Connected incident GITOPS-PAY-63",
+      "line": 141,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
+      "section": "11. Authoritative redesign a acceptance paths",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/self-service.md",
+      "section": "12. Troubleshooting a anti-patterny",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/16-gitops-and-platform-engineering/service-catalog.md",

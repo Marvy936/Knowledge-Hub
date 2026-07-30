@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **309**
-- Audited conceptual sections: **11290**
-- Total words: **716,379**
-- Findings: **22301** (critical 6438, high 7333, medium 2775, low 5755)
-- File grades: A 31, B 17, C 2, D 259
+- Audited conceptual sections: **11181**
+- Total words: **707,423**
+- Findings: **22249** (critical 6438, high 7312, medium 2754, low 5745)
+- File grades: A 31, B 21, C 0, D 257
 
 ## Interpretation
 
@@ -274,16 +274,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
-| D | 113 | 0 | 8 | 7 | 18 | 3713 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
-| D | 109 | 0 | 7 | 8 | 19 | 3697 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| C | 53 | 0 | 3 | 3 | 15 | 3765 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
-| C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 | B | 29 | 0 | 0 | 0 | 25 | 3831 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | B | 25 | 0 | 0 | 0 | 21 | 4209 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
@@ -294,13 +290,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
+| B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
+| B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1877 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 2260 | `docs/14-sre-and-operations/disaster-recovery.md` |
 | B | 16 | 0 | 0 | 0 | 15 | 1682 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
+| B | 16 | 0 | 0 | 0 | 13 | 1511 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1567 | `docs/14-sre-and-operations/error-budgets.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 2309 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
+| B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 2112 | `docs/14-sre-and-operations/chaos-engineering.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1484 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1406 | `docs/16-gitops-and-platform-engineering/argo-cd.md` |
@@ -14857,56 +14857,23 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 469, `term-before-explanation` — **28. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JML`, `PEP`, `resource`, `step-up`, `posture`, `workload`, `identity`, `delegation`
 - **HIGH** line 469, `thin-concept-section` — **28. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/16-gitops-and-platform-engineering/developer-experience.md`
-
-- **HIGH** line 49, `list-heavy-section` — **3. Exact developer-experience subject**: 10 odrážok a iba 48 slov súvislého vysvetlenia.
-- **HIGH** line 137, `single-sentence-concept` — **Organizational friction**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 160, `list-heavy-section` — **8. Cognitive load a platform boundaries**: 7 odrážok a iba 54 slov súvislého vysvetlenia.
-- **HIGH** line 176, `list-heavy-section` — **9. Flow, interruptions a work-in-progress**: 6 odrážok a iba 64 slov súvislého vysvetlenia.
-- **HIGH** line 191, `list-heavy-section` — **10. Documentation, discoverability a learning experience**: 6 odrážok a iba 51 slov súvislého vysvetlenia.
-- **HIGH** line 248, `list-heavy-section` — **13. Baseline, cohort a causal inference**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 283, `list-heavy-section` — **15. DevEx počas incidentu a on-call**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 298, `list-heavy-section` — **16. AI-assisted development ako DevEx intervention**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
-
-### `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md`
-
-- **HIGH** line 65, `list-heavy-section` — **3. Exact golden-path subject**: 10 odrážok a iba 61 slov súvislého vysvetlenia.
-- **HIGH** line 108, `list-heavy-section` — **5. Opinionated defaults a decision architecture**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 366, `list-heavy-section` — **17. Golden-path acceptance verdict**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
-
-### `docs/16-gitops-and-platform-engineering/platform-as-a-product.md`
-
-- **HIGH** line 142, `list-heavy-section` — **7. Prioritizácia a roadmap authority**: 7 odrážok a iba 59 slov súvislého vysvetlenia.
-- **HIGH** line 158, `list-heavy-section` — **8. Capability contract ako produktový sľub**: 9 odrážok a iba 63 slov súvislého vysvetlenia.
-- **HIGH** line 371, `list-heavy-section` — **17. Platform-as-a-Product acceptance verdict**: 12 odrážok a iba 39 slov súvislého vysvetlenia.
-
-### `docs/16-gitops-and-platform-engineering/self-service.md`
-
-- **HIGH** line 50, `list-heavy-section` — **3. Exact self-service request subject**: 10 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 75, `list-heavy-section` — **5. Preflight a plán**: 7 odrážok a iba 67 slov súvislého vysvetlenia.
-- **HIGH** line 113, `list-heavy-section` — **7. Delegated execution identity**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 211, `list-heavy-section` — **12. Queue, capacity a backpressure**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 233, `single-sentence-concept` — **Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 373, `list-heavy-section` — **19. Self-service acceptance verdict**: 13 odrážok a iba 41 slov súvislého vysvetlenia.
-
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | `bare-bullet-items` | 2478 | 460 | 0 | 0 | 2938 |
 | `outline-instead-of-explanation` | 2494 | 0 | 0 | 0 | 2494 |
-| `term-before-explanation` | 0 | 561 | 1855 | 0 | 2416 |
-| `example-not-explicit` | 0 | 0 | 0 | 2391 | 2391 |
-| `single-sentence-concept` | 0 | 2391 | 0 | 0 | 2391 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2152 | 2152 |
+| `term-before-explanation` | 0 | 561 | 1841 | 0 | 2402 |
+| `single-sentence-concept` | 0 | 2388 | 0 | 0 | 2388 |
+| `example-not-explicit` | 0 | 0 | 0 | 2386 | 2386 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2154 | 2154 |
 | `thin-concept-section` | 0 | 2104 | 0 | 0 | 2104 |
 | `list-first-introduction` | 0 | 1361 | 0 | 0 | 1361 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1212 | 1212 |
-| `short-concept-section` | 0 | 0 | 920 | 0 | 920 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1205 | 1205 |
+| `short-concept-section` | 0 | 0 | 913 | 0 | 913 |
 | `no-prose-concept` | 788 | 0 | 0 | 0 | 788 |
 | `empty-section` | 678 | 0 | 0 | 0 | 678 |
-| `list-heavy-section` | 0 | 456 | 0 | 0 | 456 |
+| `list-heavy-section` | 0 | 438 | 0 | 0 | 438 |
 
 ## Required remediation pattern
 
