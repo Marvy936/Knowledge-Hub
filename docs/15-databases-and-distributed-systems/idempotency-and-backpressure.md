@@ -1,844 +1,207 @@
 # Idempotency a backpressure
 
-Idempotency chráni logical operation pred opakovaným vykonaním. Backpressure chráni spracovateľský graph pred tým, aby upstream vytváral viac práce, než downstream dokáže bezpečne dokončiť.
-
-Ani jeden mechanizmus sám nestačí. Idempotentný systém môže skolabovať pod nekonečným počtom duplicate attempts. Backpressured systém môže zase spracovať každý duplicate presne raz ako novú logical operation, ak nemá stable identity a equivalence contract.
-
-## 1. Dominantný model
+Idempotency chráni jednu logical operation pred viacnásobným business effectom. Backpressure chráni processing graph pred tým, aby upstream vytváral viac in-flight a queued worku, než downstream dokáže bezpečne dokončiť. Ani jeden mechanizmus nestačí samostatne: idempotentný systém môže skolabovať pod miliónmi duplicate attempts a backpressured systém môže vykonať každý duplicate ako novú operation, ak nemá stable identity a equivalence contract.
 
 ```text
-business operation a completion-capacity objective
-→ exact idempotency/backpressure subject
-→ stable operation identity a payload fingerprint
-→ atomic claim a operation state machine
-→ bounded demand, queue a in-flight credits
+business operation a completion objective
+→ exact tenant, operation, identity a semantic fingerprint
+→ atomic claim + authoritative state transition
+→ operation lifecycle, owner epoch a retention
+→ durable event/provider identity chain
+→ downstream credits a bounded queues
 → side effect a durable result
-→ duplicate, replay alebo overflow verdict
+→ duplicate, overflow alebo unknown verdict
 → acknowledgement, retry a reconciliation
-→ retention, drain a recovery
-→ second-delivery a sustained-overload validation
+→ drain, recovery a retention closure
+→ concurrent duplicate, rebalance a sustained-overload validation
 ```
 
-Correctness sa hodnotí na logical operation a business effecte. Capacity sa hodnotí na celom source-to-sink flowe, nie iba na jednom queue alebo process memory grafe.
+Correctness sa hodnotí na logical operation a final effecte. Capacity sa hodnotí na celom source-to-sink flowe, nie iba na jednom brokeri alebo process queue.
 
-## 2. Idempotentná operation
+## 1. Idempotency subject a business equivalence
 
-Operation je idempotentná, ak opakované vykonanie rovnakého intentu nevytvorí ďalší odlišný intended effect.
+Operation je idempotentná, keď opakované spracovanie rovnakého intentu nevytvorí ďalší odlišný intended business effect. Physical retry môže vykonať lookup, zapísať audit alebo vrátiť novší status; rozhodujúce je, že smeruje k tej istej authoritative operation.
 
-```text
-apply(op) raz
-≈
-apply(op) viackrát
-```
+Exact subject obsahuje tenant/account, operation type, client idempotency key alebo stable business ID, normalized semantic fingerprint, schema generation, authoritative operation record, lifecycle state, processing owner/epoch, downstream event a provider identities, response/status semantics a retention window.
 
-To neznamená, že každý physical attempt:
+HTTP method semantics sú iba vstup. RFC 9110 považuje `PUT` a `DELETE` za idempotentné podľa intended effectu, no zle navrhnutý `PUT /charge` môže stále vytvárať nový charge. Naopak `POST /settlements` môže byť business-idempotentný cez explicitný key a operation registry.
 
-- vykoná nulovú prácu;
-- vráti byte-identical response;
-- nevytvorí nové logs/metrics/audit records;
-- nemôže zlyhať;
-- nemá concurrency races.
-
-Rozhodujúci je authoritative business outcome.
-
-## 3. HTTP method idempotency vs. business idempotency
-
-RFC 9110 označuje method ako idempotentnú, ak intended effect viacerých identických requests je rovnaký ako effect jedného requestu. `PUT` a `DELETE` sú štandardne idempotentné methods; `POST` nie je automaticky idempotentný.
-
-Method semantics však nestačia:
-
-```text
-PUT /balance/merchant-7
-{"balance": 100}
-```
-
-môže byť idempotentný replacement, zatiaľ čo:
-
-```text
-PUT /accounts/merchant-7/charge
-{"amount": 100}
-```
-
-môže byť business-neidempotentný, ak server interpretuje každý request ako nový charge napriek method name.
-
-Naopak `POST /settlements` môže byť business-idempotentný cez explicitný key a operation registry.
-
-## 4. Exact idempotency subject
-
-Idempotency subject zahŕňa:
-
-- tenant/merchant/account identity;
-- API operation alebo command type;
-- client-provided idempotency key alebo business operation ID;
-- normalized payload fingerprint;
-- relevant headers, currency, amount a target identity;
-- operation schema/version;
-- authoritative operation record;
-- current lifecycle state a owner generation;
-- downstream event/provider identity;
-- retention a expiry contract;
-- response replay a conflict semantics.
-
-Samotný UUID nie je idempotency contract.
-
-## 5. Key scope
-
-Key musí byť unique v správnom namespace.
-
-Príklad:
+Key musí mať správny namespace:
 
 ```text
 (tenant_id, operation_type, idempotency_key)
 ```
 
-Príliš úzky scope:
+Rovnaký key pre retry tej istej operation zostáva stabilný. Server-generated nový ID pri každom attempt-e duplicate nerozpozná. Samotný UUID nie je contract; bez scope-u, atomic claimu, lifecycle-u a retention je iba string.
+
+## 2. Semantic fingerprint a key-reuse conflict
+
+Server musí odlíšiť retry rovnakého intentu od omylom znovu použitého keyu. Fingerprint sa počíta z canonical business významu: tenant, operation type/path, amount, currency, recipient/provider target a schema generation. Raw-body hash môže nepravdivo rozlíšiť rovnaký intent pre field order alebo naopak ignorovať význam headera, ktorý mení effect.
 
 ```text
-idempotency_key iba global
+same key + same fingerprint
+→ load same operation/status/result
+
+same key + different fingerprint
+→ explicit conflict
+→ no overwrite, no second effect
 ```
 
-môže vytvoriť cross-tenant collision.
+Fingerprint je immutable evidence uložená pri claime. Neskorší request nesmie prepísať payload prvého attemptu ani dostať starý success response pre iný intent. Schema generation zabraňuje tomu, aby rovnaký JSON získal po rollout-e odlišný business význam bez conflict verdictu.
 
-Príliš široký alebo meniaci sa scope:
+Response nemusí byť byte-identický. Duplicate počas processingu môže dostať `202` a rovnaký status resource; po completion current truthful final response. Všetky responses však odkazujú na ten istý operation ID a final outcome.
+
+## 3. Atomic claim, operation state a concurrency
+
+Check-then-insert nie je idempotency:
 
 ```text
-(operation_id generated serverom pri každom retryi)
+T1 SELECT key → absent
+T2 SELECT key → absent
+T1 create operation A
+T2 create operation B
 ```
 
-nevie rozpoznať opakovaný client intent.
-
-Key má zostať rovnaký pre retries tej istej logical operation a nesmie sa použiť pre iný intent.
-
-## 6. Payload fingerprint
-
-Server musí rozhodnúť, či rovnaký key reprezentuje rovnaký intent.
-
-Fingerprint môže zahŕňať:
-
-```text
-HTTP method
-+ canonical path/operation type
-+ tenant
-+ normalized semantic payload
-+ currency/amount/recipient
-+ schema generation
-```
-
-Rovnaký key a rovnaký fingerprint:
-
-- vráti existujúci operation status/result;
-- nepridá nový business effect.
-
-Rovnaký key a odlišný fingerprint:
-
-- musí byť explicitný conflict;
-- nesmie ticho vrátiť starý response ani prepísať operation.
-
-Raw-body hash môže byť príliš citlivý na field order alebo nepodstatné metadata. Fingerprint sa má odvodiť zo semantic intentu po bezpečnej canonicalization.
-
-## 7. Atomic claim
-
-Anti-pattern:
-
-```text
-SELECT key
-→ none
-→ create operation
-→ INSERT key mapping
-```
-
-Dva concurrent requests môžu oba prečítať `none`.
-
-Správny claim potrebuje atomic primitive:
-
-- unique constraint + `INSERT ... ON CONFLICT`;
-- compare-and-swap;
-- serializable transaction;
-- conditional write;
-- linearizable key reservation.
-
-Pre settlement command core:
-
-```text
-BEGIN
-→ claim (tenant, operation_type, key, fingerprint)
-→ create settlement operation
-→ create outbox event
-→ persist initial idempotency state
-COMMIT
-```
-
-Claim a authoritative operation nesmú byť independently acknowledged.
-
-## 8. Idempotency state machine
-
-Binary `seen/not seen` nestačí.
-
-Praktický lifecycle:
-
-```text
-ABSENT
-→ CLAIMED
-→ ACCEPTED_DURABLE
-→ PROCESSING
-→ COMPLETED
-   alebo FAILED_FINAL
-   alebo RECONCILIATION_REQUIRED
-```
-
-Každý state potrebuje:
-
-- owner/generation;
-- created a updated timestamps;
-- request fingerprint;
-- authoritative operation ID;
-- last durable evidence;
-- response/status representation;
-- takeover/recovery rule.
-
-`CLAIMED` po process crash-i nesmie zostať permanentne blokujúci ani byť automaticky považovaný za safe-to-repeat. Lease expiry môže povoliť takeover processingu, nie vytvorenie novej logical operation.
-
-## 9. Concurrent duplicate behavior
-
-Druhý request môže prísť, keď prvý je stále processing.
-
-Možné contracts:
-
-- vrátiť `202` a rovnaký status resource;
-- bounded wait na current result;
-- vrátiť `409/425` podľa API contractu;
-- pripojiť sa ako observer k existujúcej operation.
-
-Nesmie bez dôkazu:
-
-- vytvoriť druhý operation ID;
-- spustiť nový provider attempt;
-- prepísať fingerprint;
-- označiť operation failed iba preto, že prvý response ešte neexistuje.
-
-## 10. Idempotency retention
-
-TTL nie je iba cache tuning.
-
-Retention musí pokryť minimálne:
-
-```text
-max client retry horizon
-+ max queue/backlog age
-+ provider unknown-outcome reconciliation
-+ replay/recovery window
-+ business dispute alebo support requirement
-```
-
-Ak key expiruje skôr než operation dosiahne terminal/reconciled state, retry sa môže stať novou logical operation.
-
-Terminal records možno archivovať alebo compactovať, ale authority potrebná na duplicate verdict musí zostať dostupná počas contract window-u.
-
-## 11. Response replay
-
-Idempotency registry môže uchovávať:
-
-- exact operation ID;
-- current status URL;
-- selected response fields;
-- final result digest;
-- HTTP status generation;
-- completion timestamp.
-
-Nie každý duplicate musí dostať byte-identical response. Môže dostať current truthful status, ale response musí odkazovať na rovnakú logical operation a rovnaký business outcome.
-
-Sensitive response body sa nemá slepo ukladať bez data-classification, encryption a retention pravidiel.
-
-## 12. Stable identity cez distributed flow
-
-Jedna logical operation potrebuje identity chain:
-
-```text
-client idempotency key
-→ authoritative operation_id
-→ outbox event_id
-→ broker message identity
-→ consumer processing record
-→ provider idempotency key
-→ final-result event
-```
-
-Nie všetky IDs musia byť rovnaké, ale mapping musí byť durable a queryable.
-
-Provider idempotency key odvodený z `attempt_id` je chybný:
-
-```text
-attempt 1 → provider-key-A
-attempt 2 → provider-key-B
-```
-
-Provider vidí dve nezávislé operations.
-
-Stabilnejšie:
-
-```text
-provider key = tenant + business operation identity + effect type
-```
-
-## 13. Idempotent consumer
-
-At-least-once delivery znamená, že consumer musí očakávať duplicate messages.
-
-Pattern:
-
-```text
-BEGIN
-→ INSERT processed_message(consumer, event_id) UNIQUE
-→ apply local state transition
-→ write result/outbox
-COMMIT
-```
-
-Ak unique claim už existuje, consumer načíta authoritative prior outcome.
-
-Processed-message table sama nestačí pri external side effecte. Ak provider call nastane mimo local transaction, treba:
-
-- stable provider idempotency key;
-- durable attempt state;
-- unknown-outcome lookup;
-- reconciliation pred retryom.
-
-## 14. Exactly-once scope
-
-End-to-end `exactly once` nie je magická broker property.
-
-Treba presne pomenovať scope:
-
-- exactly-once record processing v jednej Kafka transaction;
-- one committed database transition per event ID;
-- one provider financial effect per business key;
-- one user-visible notification;
-- one final reconciled business outcome.
-
-Transaction v brokeri nemôže sama atomicky zahrnúť arbitrary external provider bez spoločného transaction protocolu. Correctness preto vzniká kombináciou stable identity, atomic local transitions, idempotent destinations a reconciliation.
-
-## 15. Čo je backpressure
-
-Backpressure je feedback, ktorým downstream vyjadruje, koľko ďalšej práce dokáže prijať.
-
-```text
-source production
-→ demand/credit signal from sink
-→ bounded emission
-```
-
-Cieľom nie je nulová queue. Cieľom je bounded memory, bounded in-flight work, truthful latency a kontrolovateľný overload outcome.
-
-Reactive Streams napríklad vyžaduje, aby Publisher neposlal viac elements, než Subscriber požiadal. Kafka consumer umožňuje assigned partitions `pause()` a neskôr `resume()`, ale pause state sa po rebalance automaticky nezachováva.
-
-## 16. Backpressure vs. rate limiting
-
-### Rate limiting
-
-Policy rozhoduje, koľko práce môže určitý caller alebo class vytvoriť za čas.
-
-### Backpressure
-
-Runtime downstream capacity rozhoduje, koľko práce môže upstream aktuálne posunúť.
-
-### Circuit breaker
-
-Dočasne zastavuje calls do dependency, ktorej failure/latency prekročila threshold.
-
-### Queue
-
-Absorbuje bounded rozdiel medzi arrival a service rate.
-
-Mechanizmy spolupracujú:
-
-```text
-downstream credits klesnú
-→ backpressure signal
-→ admission rate sa zníži
-→ optional work sa shedne
-→ breaker môže otvoriť pre failed dependency
-```
-
-## 17. Little's Law a in-flight work
-
-Približný vzťah:
-
-```text
-in-flight work ≈ throughput × average duration
-```
-
-Ak provider throughput zostane `5 000/s`, ale duration vzrastie zo `100 ms` na `2 s`:
-
-```text
-500 in-flight
-→ 10 000 in-flight
-```
-
-Bez concurrency capu môže latency increase vyčerpať:
-
-- threads/tasks;
-- connections;
-- memory;
-- ephemeral ports;
-- provider quota;
-- retry budget.
-
-Rate môže zostať rovnaká a systém napriek tomu skolabuje na concurrency.
-
-## 18. Bounded queues
-
-Každá queue potrebuje:
-
-- exact owner a purpose;
-- item identity a cost;
-- hard capacity;
-- age/deadline limit;
-- admission a overflow policy;
-- priority/fairness;
-- persistence/durability semantics;
-- drain rate a recovery target;
-- observability.
-
-Queue depth bez age je neúplná. Tisíc 5-ms jobs a tisíc 30-minútových financial operations nemajú rovnaký impact.
-
-Unbounded queue:
-
-```text
-arrival > completion
-→ hidden latency
-→ deadline expiry
-→ retries
-→ stale work
-→ memory exhaustion
-```
-
-## 19. Push a pull flow
-
-### Pull/credit model
-
-Consumer žiada presný počet items alebo drží permit/semaphore.
-
-```text
-available provider slots = 120
-→ request/poll max 120 relevant records
-```
-
-### Push model
-
-Producer posiela bez explicitného downstream demandu. Receiver musí:
-
-- reject;
-- drop podľa contractu;
-- buffer bounded amount;
-- spill do durable queue;
-- signal slowdown iným channelom.
-
-Zdroj, ktorý nemožno spomaliť, stále potrebuje overflow policy. `Buffer everything` nie je backpressure.
-
-## 20. Kafka consumer backpressure
-
-Consumer môže:
-
-- obmedziť `max.poll.records`;
-- držať bounded worker permits;
-- pause assigned partitions pri nulových credits;
-- pokračovať v `poll()` podľa group/liveness contractu;
-- resume iba partitions s dostupnou downstream capacity;
-- commitovať offset až po required durable outcome-e.
-
-Dôležitý caveat:
-
-> Kafka pause/resume state sa po rebalance nezachováva.
-
-Assignment callback preto musí znovu odvodiť pause state z current credits a recovery policy. Inak rebalance nečakane obnoví plnú consumption rate.
-
-## 21. Hidden buffers
-
-Backpressure audit musí zahŕňať:
-
-- client SDK queue;
-- load balancer pending requests;
-- HTTP/2 alebo gRPC stream flow-control windows;
-- server accept/request queue;
-- executor/task queue;
-- database connection pool waiters;
-- producer buffer;
-- broker partitions;
-- consumer fetch buffer;
-- retry topic;
-- provider client pool;
-- result persistence queue.
-
-Bounded queue na jednej vrstve nepomôže, ak pred ňou alebo za ňou existuje unbounded buffer.
-
-## 22. Overflow policies
-
-Keď capacity nie je dostupná, systém musí zvoliť explicitný outcome:
-
-- reject new create;
-- delay s bounded deadline;
-- drop rebuildable telemetry;
-- sample optional events;
-- coalesce redundant refreshes;
-- use latest-only state pre superseding updates;
-- spill durable work;
-- degrade na read-only/status mode;
-- cancel stale work;
-- route do delayed retry queue.
-
-Pre financial command nemožno silent drop použiť. Pre rapidly superseded metrics môže byť latest-only alebo sampling správne.
-
-## 23. Priority, fairness a starvation
-
-Backpressure iba podľa global queue môže nechať bulk tenant zablokovať interactive users.
-
-Hierarchický scheduler:
-
-```text
-global downstream credits
-→ provider/Region credits
-→ tenant weighted fair queue
-→ operation priority
-→ per-operation deadline
-```
-
-Status, cancellation a reconciliation potrebujú reserve. Batch replay sa môže spomaliť bez toho, aby znemožnil zistiť outcome už accepted operations.
-
-Starvation test musí overiť, že low-priority work stále dostane bounded progress po odznení overloadu.
-
-## 24. Feedback oscillation
-
-Príliš agresívny feedback môže oscilovať:
-
-```text
-queue high
-→ pause all
-→ queue drains
-→ resume all
-→ burst
-→ queue high
-```
-
-Potrebné sú:
-
-- high/low watermarks;
-- hysteresis;
-- gradual credit increase;
-- bounded probes;
-- smoothed completion rate;
-- minimum hold time;
-- jitter medzi consumers.
-
-Recovery throughput sa má zvyšovať postupne a podľa final completion, nie iba podľa nižšej queue depth.
-
-## 25. Connected incident `DB-PAY-60`
-
-Rate-limiting defect dovolil bulk replayu prejsť do durable settlement/outbox pathu rýchlejšie než provider dokázal dokončovať operations.
-
-Idempotency implementation používala samostatný shared service:
-
-```text
-SELECT idempotency key
-→ ak absent, generate new operation_id
-→ commit settlement + outbox
-→ autocommit INSERT key → operation mapping
-```
-
-Registry key bol iba:
-
-```text
-merchant_id + idempotency_key
-```
-
-Nemal payload fingerprint ani operation/schema generation. Cleanup mazal records `20 minút` po `first_seen`, aj keď operation bola stále `PROCESSING` alebo backlogovaná. Provider idempotency key sa odvodzoval z internal `operation_id`, takže duplicate logical operation dostala nový provider key.
-
-Počas 14-minútového admission burstu a následného drainu:
-
-- partner poslal `12 480` duplicate submissions s rovnakými business operation IDs;
-- `1 906` retries prišlo po 20-minútovej registry expiry;
-- `143` concurrent duplicate pairs prešlo cez check-before-insert race;
-- `83` duplicate authoritative operations vzniklo s odlišnými operation IDs;
-- `31` duplicate provider effects bolo potvrdených;
-- `29` bolo automaticky reversed;
-- `2` vyžadovali manuálnu merchant remediation.
-
-### Backpressure topology
-
-Provider fleet mal `48` worker Podov:
-
-```text
-max async in-flight per Pod: 2 000
-fleet theoretical in-flight: 96 000
-provider safe in-flight:     1 200
-Kafka max.poll.records:       500
-```
-
-Worker po `poll()` vložil records do prakticky unbounded async executor queue. Partitions sa pause-li až pri heap utilization nad `85 %`, nie podľa provider credits alebo queue age. Po rebalance sa pause state neobnovil.
-
-Dôsledky:
-
-- Kafka backlog dosiahol `2.7 milióna` commands;
-- oldest-command age dosiahol `54 minút`;
-- across-fleet executor queues obsahovali približne `348 000` tasks;
-- `17` worker Podov skončilo OOM killom;
-- provider connection pool wait p99 dosiahol `11.2 s`;
-- retry records sa vracali bez dostatočného delayu;
-- API pokračovalo v durable acceptance, pretože admission nečítala downstream credits ani backlog age.
-
-### Konkurenčné hypotézy
-
-1. Kafka stratila records.
-2. Provider idempotency nefungovala.
-3. Idempotency TTL cleanup bol bezpečný, lebo request window je 20 minút.
-4. Duplicate operations vznikli iba client bugom.
-5. Consumer pause chránil fleet, ale metrics boli oneskorené.
-6. Backlog bol veľký, no workers mali stále dostatočnú completion capacity.
-
-### Diskriminačné dôkazy
-
-Operation equivalence graph ukázal rovnaký merchant business ID a semantic payload mapovaný na viac internal operation IDs. Registry audit ukázal cleanup pred terminal outcome-om. Concurrent traces zachytili dva successful `SELECT absent` pred samostatnými settlement commits.
-
-Provider ledger ukázal odlišné provider idempotency keys odvodené z odlišných internal operation IDs, preto provider nemohol duplicate effects spojiť.
-
-Consumer evidence ukázala:
-
-```text
-assigned partitions
-→ poll 500 records
-→ executor queue bez hard permitu
-→ provider pool wait
-→ heap 85 %
-→ pause
-→ rebalance
-→ pause state lost
-→ poll resumes
-```
-
-Backlog age a in-flight rástli, hoci broker publication a offset storage boli healthy.
-
-### Primary idempotency root cause
-
-> Idempotency claim nebol atomic s authoritative operation, nemal semantic fingerprint a expiroval skôr než operation/reconciliation lifecycle.
-
-### Primary backpressure root cause
-
-> Upstream admission, consumer polling a executor submission neboli riadené downstream completion credits; buffers a theoretical in-flight concurrency boli rádovo väčšie než safe provider envelope.
-
-## 26. Evidence-preserving containment
-
-```text
-stop partner bulk admission
-→ preserve registry cleanup, operation, outbox, consumer a provider evidence
-→ reserve status/cancellation/reconciliation paths
-→ set provider P2 hard in-flight cap
-→ pause partitions podľa current credits
-→ classify duplicate-equivalence groups
-→ provider lookup pred ďalším attemptom
-→ reverse confirmed duplicate effects
-→ drain oldest safe operations first
-```
-
-Operations boli klasifikované:
-
-- one operation, one effect;
-- duplicate submission mapped na same operation;
-- duplicate operation, provider-never-sent;
-- duplicate operation, one provider effect;
-- duplicate operation, multiple provider effects;
-- sent-unknown;
-- final-failed;
-- reconciliation-required.
-
-Broad replay bez tejto klasifikácie by vytvoril ďalšie effects.
-
-## 27. Authoritative idempotency redesign
-
-Idempotency registry je súčasťou settlement command-core PostgreSQL transaction:
+Claim a authoritative operation musia vzniknúť v jednej transaction alebo v preukázanom conditional protocol-e:
 
 ```text
 BEGIN
 → INSERT idempotency_claim
    UNIQUE (tenant_id, operation_type, key)
-→ compare semantic fingerprint
-→ create alebo load authoritative operation
-→ insert settlement/outbox iba pri novom claim-e
+→ verify semantic fingerprint
+→ create settlement operation
+→ create durable outbox event
 COMMIT
 ```
 
-Behavior:
+Unique conflict načíta existing claim; nevytvorí nový operation ID. Claim oddelený do Redis alebo samostatnej service pred/po PostgreSQL commite vytvára dual-write gaps, ak jeden systém potvrdí a druhý zlyhá.
+
+Binary `seen/not-seen` nestačí. Practical state machine rozlišuje `CLAIMED`, `ACCEPTED_DURABLE`, `PROCESSING`, `COMPLETED`, `FAILED_FINAL` a `RECONCILIATION_REQUIRED`. Každý state nesie owner epoch, timestamps, fingerprint, operation ID a last durable evidence. Crash v `CLAIMED` môže povoliť fenced takeover processingu, nie vznik druhej logical operation.
+
+Concurrent duplicate počas processingu sa pripojí k existing statusu alebo bounded waitu. Nesmie spustiť ďalší provider attempt len preto, že final response ešte neexistuje.
+
+## 4. Identity chain a external effects
+
+Stable identity musí prejsť celým distributed flowom:
 
 ```text
-same key + same fingerprint + terminal
-→ return same operation/result
-
-same key + same fingerprint + processing
-→ return 202 + same status resource
-
-same key + different fingerprint
-→ reject conflict
-
-unknown prior outcome
-→ lookup/reconcile, nevytvárať nový operation
+client key
+→ authoritative operation_id
+→ outbox event_id
+→ broker message identity
+→ consumer processing claim
+→ provider idempotency key
+→ final-result event
 ```
 
-Provider key:
+IDs nemusia byť rovnaké, ale mapping je durable a queryable. Provider key odvodený z `attempt_id` je chybný, pretože retry sa providerovi javí ako nová operation. Stabilný provider key vychádza z tenant + merchant business operation + effect type.
+
+Idempotent consumer vykoná event claim a local transition v jednej transaction. Pri external provider call-e local transaction nedokáže atomicky zahrnúť effect. Worker preto ukladá durable attempt state, používa stable provider key, pri lost response-e vykoná provider lookup a až potom zapíše final alebo reconciliation-required result.
+
+`Exactly once` sa vždy scoping-uje. Kafka môže poskytnúť supported exactly-once read-process-write v Kafka boundary; unique database claim môže garantovať one local transition per event ID; provider idempotency môže garantovať one effect per business key. End-to-end business outcome stále potrebuje identity, local atomicity a reconciliation.
+
+## 5. Retention, expiry a recovery
+
+Idempotency retention nie je cache TTL. Musí pokryť maximum client retry horizon, backlog age, provider unknown-outcome reconciliation, broker replay/restore a support/dispute window. Non-terminal alebo reconciliation-required record nesmie expirovať do `ABSENT`.
 
 ```text
-provider_idempotency_key
-= tenant + merchant_business_operation_id + effect_type
+retention floor
+= retry horizon
++ maximum accepted backlog/replay horizon
++ external reconciliation window
++ recovery/support margin
 ```
 
-Registry record sa nemaže podľa jednoduchého `first_seen TTL`. Retention pokrýva client retry, max backlog, restore/replay a provider reconciliation window. Non-terminal alebo reconciliation-required record nemôže expirovať do absent state-u.
+Terminal records možno compactovať alebo archivovať, ale minimum evidence pre duplicate verdict — key scope, fingerprint, operation ID a final digest — musí zostať. Clock-based cleanup podľa `first_seen` bez lifecycle checku môže po dlhom outage-i zmeniť starú accepted operation na nový create.
 
-## 28. Authoritative backpressure redesign
+Recovery inventarizuje orphan claims, owner epochs, operation/outbox state, provider attempts a result events. Takeover je fenced a unknown outcomes sa lookupujú. Broad delete/replay bez equivalence graphu môže vytvoriť ďalšie effects.
 
-Provider P2 capacity contract:
+## 6. Backpressure a completion credits
 
-```text
-hard provider in-flight: 1 200
-worker Pods:              48
-base permits per Pod:     25
-poll batch:               max 50, ďalej bounded dostupnými permits
-executor queue:           hard bound 100 per Pod
-```
-
-Control loop:
+Backpressure je feedback, ktorým downstream vyjadruje, koľko ďalšej práce dokáže prijať. Reactive Streams modeluje demand tak, že Publisher nesmie emitovať viac elements, než Subscriber requested. V service platforme môže byť credit semaphore, consumer permit, HTTP/2/gRPC flow window alebo downstream capacity signal.
 
 ```text
 provider completions uvoľnia credits
-→ consumer poll/pause podľa credits
-→ bounded executor admission
-→ offset commit po durable outcome
-→ backlog age feeds API admission
-→ gradual recovery with hysteresis
+→ consumer môže pollnúť/admitnúť ďalšie work
+→ bounded executor drží max in-flight
+→ durable result uvoľní ownership
 ```
 
-Backlog policy:
+Rate limiting a backpressure nie sú totožné. Limiter aplikuje policy podľa caller/class a času. Backpressure reaguje na current sink capacity a duration. Circuit breaker zastavuje attempts pri failure state-e. Queue absorbuje iba bounded rozdiel medzi arrival a completion.
 
-```text
-age < 5 min
-→ normal weighted admission
+Littleov vzťah `in-flight ≈ throughput × duration` vysvetľuje, prečo rovnakých `5 000/s` pri latency raste z `100 ms` na `2 s` potrebuje približne `500 → 10 000` in-flight. Bez hard concurrency capu sa vyčerpajú threads, connections, memory, ports a provider quota, aj keď request rate ostane rovnaká.
 
-5–15 min
-→ throttle bulk, preserve interactive/status
+## 7. Bounded queues, push/pull a hidden buffers
 
-> 15 min
-→ reject new bulk creates with Retry-After
-→ preserve cancellation/status/reconciliation
+Každá queue potrebuje ownera, item identity/cost, hard capacity, maximum age/deadline, durability, overflow policy, fairness a drain target. Queue depth bez age je neúplná; tisíc 5-ms jobs a tisíc 30-minútových financial commands majú odlišný outcome risk.
 
-unknown-outcome spike
-→ stop new provider attempts for affected key
-→ lookup/reconcile first
-```
+Pull/credit model pollne iba toľko records, koľko permits downstream dovolí. Push source, ktorý nemožno spomaliť, musí explicitne rejectnúť, dropnúť rebuildable data, coalesce-nuť superseding state alebo spillnúť bounded durable work. `Buffer everything` nie je backpressure.
 
-Assignment callback po rebalance znovu aplikuje pause state podľa provider/tenant credits. Retry topics majú explicitný delay a rovnakú stable operation identity; retry nesmie obísť original quota alebo priority class.
+Kafka consumer môže limitovať `max.poll.records`, držať worker permits a pause-nuť assigned partitions pri nulových credits. Pause state sa po rebalance automaticky nezachováva; assignment callback ho musí z current credits znovu odvodiť. Offset sa commitne až po required durable outcome-e.
 
-## 29. Idempotency/backpressure acceptance verdict
+Backpressure audit zahŕňa SDK queue, gateway pending requests, server executor, database-pool waiters, producer buffer, broker partitions, consumer fetch buffer, retry topic, provider pool a result queue. Jeden bounded executor nepomôže, ak pred ním leží unbounded buffer.
 
-Návrh je prijatý, keď:
+Overflow policy zodpovedá data classu. Financial command sa truthful rejectne alebo durably deferne; optional telemetry sa môže sampleovať; superseding refresh coalescovať. Status, cancellation a reconciliation majú reserved credits. Weighted fair queue bráni bulk tenantovi vyhladovať interactive a recovery work.
 
-- exact logical operation, tenant, key scope a semantic fingerprint sú explicitné;
-- key claim a authoritative operation vznikajú atomic alebo cez preukázaný conditional protocol;
-- same-key/same-payload, same-key/different-payload a concurrent duplicate outcomes sú definované;
-- operation state machine rozlišuje accepted, processing, completed, failed-final a reconciliation-required;
-- retention pokrýva retry, backlog, replay a provider reconciliation lifecycle;
-- stable identity prechádza cez outbox, broker, consumer a provider effect;
-- exactly-once tvrdenie má presný scope;
-- všetky queues, buffers, pools a in-flight boundaries majú hard bounds;
-- downstream demand/credits riadia upstream poll, executor a admission;
-- backlog age, deadlines, fairness a priority reserves sú explicitné;
-- rebalance/reconnect obnoví pause a credit state bezpečne;
-- overflow policy zodpovedá business data classu;
-- sustained overload, duplicate concurrency, lost response, stale key, rebalance a drain tests prejdú;
-- forbidden duplicate financial effect, silent loss, unbounded memory, starvation a false-completed outcomes sú odmietnuté.
+## 8. Connected incident `DB-PAY-60`
 
-## 30. Troubleshooting flow
+Po provider outage-i prešiel partner bulk replay cez fleet admission `21 600 requests/s` a vytvoril backlog s oldest age `54 minút`. Idempotency service používala `SELECT absent → create settlement/outbox → autocommit key mapping`. Key nemal fingerprint ani operation/schema generation a cleanup mazal records po `20 minútach` od `first_seen`, aj keď operation stále `PROCESSING`.
 
-```text
-duplicate effect, growing backlog alebo OOM
-→ exact logical operation a semantic fingerprint
-→ idempotency key scope/state/retention
-→ atomic claim a concurrent history
-→ operation/event/provider identity chain
-→ authoritative effect/result evidence
-→ source arrival vs sink completion rate
-→ queue/buffer/in-flight inventory
-→ credits, pause/resume a rebalance state
-→ overflow/retry/priority behavior
-→ reconciliation a bounded drain
-→ duplicate/overload second test
-```
+Partner poslal `12 480` duplicate submissions; `1 906` retries prišlo po expiry a `143` concurrent pairs prešlo check-before-insert race-om. Vzniklo `83` duplicate authoritative operations s odlišnými IDs a provider keymi. Provider potvrdil `31` duplicate effects; `29` bolo automaticky reversed a `2` vyžadovali manual merchant remediation.
 
-## 31. Anti-patterny
+Backpressure topology bola rovnako nebezpečná. `48` worker Podov malo po `2 000` async in-flight, teda theoretical `96 000` proti provider safe in-flight `1 200`. Kafka pollovala po `500`; records išli do prakticky unbounded executor queue. Pause nastal až pri heap `85 %` a po rebalance sa neobnovil.
 
-### Idempotency key = UUID
+Backlog dosiahol `2.7 milióna` commands, executor queues približne `348 000` tasks, `17` Podov OOM a provider-pool wait p99 `11.2 s`. API naďalej durable-acceptovala creates, pretože nečítala provider credits ani backlog age.
 
-Bez scope-u, fingerprintu, atomic claimu, lifecycle-u a retention nie je UUID correctness mechanism.
+Evidence ukázala dva samostatné root causes. Idempotency claim nebol atomic, nemal semantic fingerprint a expiroval pred operation/reconciliation closure. Backpressure neprepájala API admission, consumer poll a executor submission s downstream completion credits; buffers a theoretical concurrency boli rádovo väčšie než provider envelope.
 
-### `SELECT` potom `INSERT`
+## 9. Redesign a acceptance paths
 
-Bez uniqueness/serialization môže concurrent duplicate vytvoriť dve operations.
+Command core drží idempotency claim, settlement a outbox v jednej PostgreSQL transaction. Same key/same fingerprint vráti tú istú operation; different fingerprint conflict; non-terminal claim nemôže expirovať. Provider key používa merchant business operation ID, nie internal attempt.
 
-### Key môže expirovať po 15 minútach
+Provider P2 má hard in-flight `1 200`; `48` Podov dostane base `25` permits, poll batch je max `50` a executor hard bound `100` per Pod. Completion uvoľňuje credits, consumer pause/resume ich rešpektuje a backlog age riadi API admission. Pri age `5–15 min` sa throttle-ne bulk; nad `15 min` sa nové bulk creates odmietnu, ale status/cancellation/reconciliation pokračujú. Recovery používa hysteresis a gradual credit increase.
 
-Nie ak backlog alebo provider reconciliation trvá dlhšie.
+**Positive path** vytvorí jeden atomic claim, jeden operation/outbox a jeden provider effect; duplicate dostane ten istý status/result.
 
-### Provider key podľa attempt ID
+**Concurrent/recovery path** crashne ownera, redeliveruje event alebo stratí provider response. Fenced takeover a lookup zachovajú jednu logical operation a unknown cohort sa reconciliuje.
 
-Každý retry sa providerovi javí ako nový effect.
+**Overload path** obmedzí poll/executor/admission podľa credits, bounded queue age a fairness reserves; memory a provider in-flight zostanú v envelope.
 
-### Kafka exactly once vyrieši provider call
+**Forbidden path** odmietne check-then-insert, key reuse s iným fingerprintom, non-terminal expiry, attempt-based provider key, unbounded executor, pause iba podľa heapu, lost pause po rebalance a silent financial drop.
 
-Broker transaction nezahŕňa arbitrary external side effect bez spoločného protocolu.
+Acceptance zahŕňa concurrent duplicate, retry po dlhšom backlogu než pôvodný TTL, crash pred/po external effecte, rebalance, cache/registry loss, sustained overload, bounded drain a second overload počas recovery.
 
-### Queue absorbuje burst
+## 10. Troubleshooting a anti-patterny
 
-Iba ak je bounded, má deadline a drain capacity. Inak absorbuje failure do budúcnosti.
+Pri duplicate effecte, backlogu alebo OOM sa najprv vytvorí equivalence graph: tenant/business ID/fingerprint → internal operations → outbox/events → provider keys/effects. Potom sa analyzuje claim transaction, lifecycle/retention, owner epochs a unknown evidence. Capacity diagnostika porovná arrival a final completion, inventarizuje všetky buffers/in-flight boundaries, credits, pause/rebalance a overflow/fairness.
 
-### Pause pri 90 % heap
+Najčastejšie anti-patterny sú `idempotency key = UUID`, `SELECT then INSERT`, fixed TTL kratší než backlog, provider key podľa attemptu, broker exactly-once vydávané za provider exactly-once, queue ako neobmedzený shock absorber, `max.poll.records` vydávané za concurrency cap a pokles queue depthu vydávaný za business recovery.
 
-Je to neskorý memory symptom, nie downstream demand contract.
-
-### `max.poll.records` je concurrency limit
-
-Records môžu byť presunuté do iného unbounded executora.
-
-### Rate limiting je backpressure
-
-Rate policy nemusí poznať current downstream state. Backpressure musí prenášať effective capacity feedback.
-
-### Po poklese queue depth je recovery hotová
-
-External unknown outcomes, duplicate effects a stale operations môžu zostať.
-
-## 32. Kontrolné otázky
+## 11. Kontrolné otázky
 
 1. Ako sa HTTP method idempotency líši od business idempotency?
-2. Čo tvorí exact idempotency subject?
-3. Prečo key potrebuje semantic fingerprint?
-4. Ako sa atomic claim implementuje?
-5. Aké states potrebuje idempotency record?
-6. Ako sa správa concurrent duplicate počas processingu?
-7. Z čoho sa odvodzuje retention window?
-8. Prečo provider key nesmie vychádzať z attempt ID?
-9. Ako exactly-once scope súvisí s external effectom?
-10. Čo je backpressure a ako sa líši od rate limitu?
-11. Prečo queue depth bez age nestačí?
-12. Ako Kafka rebalance ovplyvní pause state?
-13. Ktoré hidden buffers treba inventarizovať?
-14. Prečo `DB-PAY-60` vytvoril duplicate effects aj OOM?
-15. Čo musí overiť idempotency/backpressure acceptance verdict?
+2. Čo tvorí exact key scope a semantic fingerprint?
+3. Prečo claim a authoritative operation musia vzniknúť atomic?
+4. Aké states a owner evidence potrebuje operation lifecycle?
+5. Ako stable identity pokračuje cez outbox, broker a provider?
+6. Z čoho sa odvodzuje retention window?
+7. Ako exactly-once tvrdenie závisí od scope-u?
+8. Ako sa backpressure líši od rate limitu a circuit breakeru?
+9. Prečo queue depth bez age a hidden-buffer inventory nestačia?
+10. Prečo `DB-PAY-60` vytvoril duplicate effects aj OOM?
+11. Ktoré positive, concurrent/recovery, overload a forbidden paths musia prejsť?
 
 ## Glossary impact
 
-Relevantné pojmy: idempotency subject, business idempotency, idempotency key scope, semantic payload fingerprint, atomic idempotency claim, idempotency state machine, duplicate join, idempotency retention, response replay, operation identity chain, idempotent consumer, exactly-once scope, backpressure subject, downstream credit, bounded queue, queue age, hidden buffer, overflow policy, flow-control window, consumer pause state, demand propagation, feedback hysteresis, bounded drain a idempotency/backpressure acceptance verdict.
+Relevantné pojmy: idempotency subject, business idempotency, key scope, semantic fingerprint, atomic claim, idempotency state machine, duplicate join, idempotency retention, operation identity chain, idempotent consumer, exactly-once scope, backpressure subject, downstream credit, bounded queue, queue age, hidden buffer, overflow policy, consumer pause state, demand propagation, recovery hysteresis, bounded drain a idempotency/backpressure acceptance verdict.
 
 ## Primárne zdroje
 
 - [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html)
-- [IETF HTTPAPI — The Idempotency-Key HTTP Header Field, draft-07](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/)
+- [IETF HTTPAPI — The Idempotency-Key HTTP Header Field](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/)
+- [AWS Builders' Library — Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)
 - [Reactive Streams Specification for the JVM](https://github.com/reactive-streams/reactive-streams-jvm)
-- [Apache Kafka 4.1 — KafkaConsumer](https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html)
+- [Apache Kafka — KafkaConsumer](https://kafka.apache.org/documentation/)
 - [gRPC — Flow Control](https://grpc.io/docs/guides/flow-control/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
