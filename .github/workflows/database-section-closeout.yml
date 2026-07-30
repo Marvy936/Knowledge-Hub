@@ -1,0 +1,64 @@
+name: Database section closeout
+
+on:
+  push:
+    branches:
+      - agent/databases-style-revalidation-block-1
+    paths:
+      - '.database-section-closeout-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  closeout:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/databases-style-revalidation-block-1
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Record database prose-first revalidation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          readme = Path('docs/15-databases-and-distributed-systems/README.md')
+          text = readme.read_text(encoding='utf-8')
+          old = '''Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
+
+## Completion state
+
+Všetkých 18 authoritative kapitol je vytvorených. Sekcia prešla finálnym section-level consistency gate-om a je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''
+          new = '''Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
+
+## Completion state
+
+Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v piatich prose-first strict blokoch. Každá kapitola má explicitný subject/generation/evidence model, connected failure a vysvetlené positive, recovery, overload alebo forbidden acceptance paths; per-file gate vykazuje nulové critical, high a medium learning-depth findings. Authoritative ordering, navigation, glossary a päť incidentov `DB-PAY-56` až `DB-PAY-60` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.'''
+          if old not in text:
+              raise SystemExit('README closeout baseline not found')
+          readme.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
+
+          ledger = Path('DOCUMENTATION-REVIEW-STATUS.md')
+          lines = ledger.read_text(encoding='utf-8').splitlines()
+          replacement = "| `15-databases-and-distributed-systems` — Databases and Distributed Systems | 18/18 prose-first strict revalidation | Ready for user review | 2026-07-30 | Všetkých 18 authoritative kapitol bolo kompletne znovu spracovaných v piatich strict blokoch podľa Keycloak-style prose-first gate-u. `DB-PAY-56` spája data authority, atomic settlement/outbox, safe migration a fenced HA; `DB-PAY-57` clean-point PITR, fleet-wide pooling, PostgreSQL/MySQL/Redis roles a architecture ownership; `DB-PAY-58` immediate/final communication contracts, consumer acknowledgement, route generation a versioned cache coherence; `DB-PAY-59` per-operation CAP decision, formal consistency history, quorum/leader fencing a bounded retry/circuit control; `DB-PAY-60` hierarchical global/provider/tenant admission, atomic semantic idempotency a downstream-credit backpressure. Záverečný incident zachováva 80 Pod-local limiterov s effective admission 36 000 req/s proti provider capacity približne 6 500 attempts/s, 20-minútovú idempotency expiry pri 54-minútovom backlogu, 83 duplicate authoritative operations, 31 duplicate provider effects a theoretical worker concurrency 96 000 proti safe in-flight 1 200. Redesign používa global/provider/tenant/operation-class budgets, recovery reserves, atomic claim + settlement + outbox, semantic fingerprint, stable provider identity, bounded queues/credits, rebalance-safe pause, backlog-age admission a reconciliation pred unknown retryom. Všetky kapitoly používajú explicitné subject/generation/evidence boundaries, positive/recovery/failure/overload/forbidden paths a second-operation, failover, replay alebo sustained-overload validation s nulovými critical/high/medium findings. Ordering 18/18, navigation od SRE po GitOps, glossary fragments `15a`–`15e`, generated artifacts a current primary-source semantics zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená, Accepted, Verified ani Stable. |"
+          found = False
+          for i, line in enumerate(lines):
+              if line.startswith('| `15-databases-and-distributed-systems`'):
+                  lines[i] = replacement
+                  found = True
+                  break
+          if not found:
+              raise SystemExit('Database ledger row not found')
+          ledger.write_text('\n'.join(lines).rstrip() + '\n', encoding='utf-8', newline='\n')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/15-databases-and-distributed-systems/README.md DOCUMENTATION-REVIEW-STATUS.md
+          git commit -m 'docs(db): record prose-first section revalidation'
+          git push origin HEAD:agent/databases-style-revalidation-block-1
