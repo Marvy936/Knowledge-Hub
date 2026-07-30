@@ -1,396 +1,250 @@
 # Reliability, availability a durability
 
-Reliability nie je synonymum pre `server beží`. Je to schopnosť systému plniť požadovanú funkciu za definovaných podmienok a počas definovaného obdobia. Availability opisuje, či možno službu alebo operáciu použiť vtedy, keď ju používateľ potrebuje. Durability opisuje, či už prijatý a potvrdený stav zostane zachovaný a obnoviteľný napriek zlyhaniam.
+Reliability nie je synonymum pre uptime a availability nie je synonymum pre zdravý proces. **Reliability** vyjadruje, či systém počas definovaných podmienok opakovane vykonáva požadovanú funkciu. **Availability** opisuje, či je konkrétna capability použiteľná vtedy, keď vznikne oprávnená potreba. **Durability** opisuje, či už prijatý a potvrdený business state zostane zachovaný alebo reprodukovateľný počas dohodnutého obdobia. Systém môže mať všetky procesy `Running`, prijímať HTTP requesty a napriek tomu byť nespoľahlivý, ak nedokončí business journey, vytvára duplicity alebo stráca potvrdený stav.
 
-Tieto vlastnosti sa prekrývajú, ale nie sú zameniteľné. API môže byť dostupné a pritom vracať nesprávny výsledok. Databáza môže byť dočasne nedostupná, ale všetky potvrdené dáta zostanú durable. Systém môže mať zdravé procesy a infraštruktúru, no zlyhať v end-to-end business journey.
+Tieto vlastnosti sa majú hodnotiť nad jedným presným subjectom. Bez operation, cohort, generation, acknowledgement boundary a observation pointu sa z „99.99 % availability“ stáva číslo bez reprodukovateľnej semantics. Táto kapitola používa Atlas settlement journey, pri ktorej API prijme merchant intent, atomicky uloží payment a outbox record, publisher pošle command do brokeru, worker vykoná provider operation a reconciler potvrdí final business outcome.
+
+## 1. Dominantný capability-to-recovery model
+
+Reliability vzniká až vtedy, keď sa business expectation preloží na merateľné vlastnosti, runtime ich skutočne presadí a recovery obnoví pôvodný outcome. Diagram preto nie je zoznam komponentov, ale sled od sľubu používateľovi po dôkaz, že systém zvládol aj zlyhanie.
 
 ```text
 business capability a user expectation
 → exact reliability subject a conditions
-→ required function a success boundary
-→ availability, correctness, latency a durability properties
-→ failure opportunities a measurement population
-→ observed effective behavior
-→ impact a recovery
-→ allowed, forbidden a residual-risk validation
+→ required function a acknowledgement boundary
+→ availability, correctness, latency a durability contracts
+→ dependency a failure-domain model
+→ runtime operation a authoritative observations
+→ impact classification a containment
+→ recovery alebo reconciliation
+→ original-outcome validation
+→ forbidden-path a second-failure validation
 ```
 
-## 1. Exact reliability subject
+Každá šípka je samostatná decision boundary. `HTTP 202` môže potvrdiť iba prijatie requestu, PostgreSQL commit môže potvrdiť durable intent a provider ledger môže potvrdiť finálny settlement. Ak tím tieto boundaries zleje do jedného zeleného health checku, nevie odlíšiť dostupné API od dokončenej služby.
 
-Tvrdenie `payments sú reliable` je príliš neurčité. Reliability subject musí uvádzať najmenej:
+## 2. Exact reliability subject
 
-- konkrétnu business operation alebo journey;
-- actor alebo traffic cohort;
-- vstupné a výstupné conditions;
-- environment, Region a release generation;
-- časový interval alebo počet opportunities;
-- požadovaný outcome;
-- dependencies zahrnuté v end-to-end boundary;
-- acknowledgement boundary;
-- data a recovery subject;
-- spôsob merania a evidence authority.
-
-Príklad subjectu:
+Tvrdenie „payments sú reliable“ sa nedá auditovať ani diagnostikovať. Exact subject musí zachovať identitu operation, používateľského cohortu, release a infrastructure generation, časové okno, požadovaný outcome, dependency scope, acknowledgement semantics a evidence authority.
 
 ```text
-operation: submit settlement
+subject: REL-PAY-52-v2
+capability: submit and complete settlement
 cohort: valid production merchant requests
-service: atlas-settlement-api
-release: 7.25.0
+release: atlas-settlement-api 7.25.0
 region: eu-central-1
-period: rolling 28 days
-success: accepted settlement completes exactly once within 10 minutes
-ack boundary: HTTP 202 after PostgreSQL payment + outbox commit
-recovery requirement: every acknowledged intent remains reconstructable for 90 days
+operation key: merchant + idempotency key
+acknowledgement: HTTP 202 až po payment + outbox commit
+completion: provider-confirmed exactly once do 10 minút
+durability: acknowledged intent reconstructable 90 dní
+window: rolling 28 days
+observation: edge + PostgreSQL + broker + provider ledger
 ```
 
-Ak sa zmení operation, cohort, release, Region, časové okno alebo acknowledgement semantics, mení sa analyzovaný subject. Priemerná hodnota cez nezlučiteľné subjects môže skryť závažné zlyhanie.
+Ak sa zmení `202` contract, provider, Region, release, retention policy alebo SLI query, mení sa generation analyzovaného subjectu. Priemerná hodnota cez starú a novú generation môže zakryť regresiu rovnako ako priemer cez všetkých tenants môže zakryť úplný výpadok jedného kritického cohortu.
 
-## 2. Reliability
+## 3. Reliability ako súbor nekompenzovateľných vlastností
 
-Reliability možno chápať ako pravdepodobnosť, že systém vykoná požadovanú funkciu bez failure-u za stated conditions a počas stated period. Prakticky to znamená, že treba pomenovať:
+Reliability je širšia než availability. Pre Atlas settlement journey obsahuje najmenej päť samostatných vlastností:
 
-1. **Required function** — čo má systém reálne dokončiť.
-2. **Stated conditions** — traffic, dependency state, data shape, failure assumptions a environment.
-3. **Period alebo opportunities** — počas akého času alebo koľkých operácií sa vlastnosť hodnotí.
-4. **Failure definition** — ktoré outcomes sú nesprávne, oneskorené, duplicitné alebo stratené.
+- **availability** — validný merchant môže operation začať a dostať pravdivý výsledok alebo bezpečný explicitný failure;
+- **correctness** — výsledný amount, currency, tenant, provider a workflow transition zodpovedajú business contractu;
+- **latency** — acknowledgement aj final completion nastanú v bounded čase;
+- **durability** — potvrdený intent a jeho audit lineage sa nestratia ani pri process, storage alebo operator failure;
+- **recoverability** — po poruche možno obnoviť nielen bytes, ale aj konzistentný a vykonateľný business state.
 
-Reliability je širšia než availability. Môže zahŕňať:
+Tieto vlastnosti sa nemajú spriemerovať do jedného composite score. Dobrá latency nekompenzuje duplicate settlement a vysoká front-door availability nekompenzuje stratený outbox command. Critical objective má vlastný verdict a môže zablokovať release aj pri zelených ostatných osiach.
 
-- dostupnosť operácie;
-- správnosť výsledku;
-- bounded latency;
-- data integrity a durability;
-- exactly-once alebo at-least-once business semantics;
-- recovery behavior;
-- bezpečné degraded modes.
+## 4. Availability: čas, udalosti a partial cohorts
 
-Reliability nie je automaticky súčinom niekoľkých percent. Dependencies a failure modes bývajú korelované. Jedna chybná release generation môže súčasne narušiť availability, correctness aj durability.
-
-## 3. Availability
-
-Availability odpovedá na otázku, či je požadovaná service capability použiteľná v potrebnom čase. Dva bežné modely sú:
-
-### Time-based availability
+Time-based availability meria podiel eligible času, počas ktorého je capability použiteľná. Je vhodná pre continuously expected endpoint alebo control plane, ale musí definovať service window, planned-maintenance semantics, observation point a čo presne znamená `usable`.
 
 ```text
-availability = usable time / total eligible time
+time availability = usable eligible time / total eligible time
 ```
 
-Je vhodná pre capability, ktorá má byť kontinuálne dostupná, napríklad administratívny portal alebo database endpoint. Musí však definovať:
-
-- observation point;
-- eligible service window;
-- planned-maintenance semantics;
-- partial degradation;
-- regional alebo tenant scope;
-- čo znamená `usable`.
-
-### Event-based alebo request-based availability
+Event-based availability meria podiel oprávnených opportunities, ktoré skončili good outcome-om. Pre request-driven služby lepšie zachytáva peak traffic aj partial failures.
 
 ```text
-availability = good eligible events / total eligible events
+event availability = good eligible operations / total eligible operations
 ```
 
-Je vhodná pre request-driven služby. Lepšie zachytáva partial failures a rozdielny traffic v čase. Potrebuje presnú klasifikáciu:
+Denominator je súčasť security a reliability contractu. Malformed request môže byť mimo population, ale rate-limited valid request môže byť skutočný availability failure, ak limit chráni iba nedostatočnú kapacitu. Retries možno merať ako transport attempts aj ako unique business operations; ide o dva odlišné subjecty a nesmú sa nevedomky zameniť.
 
-- validných a invalidných requests;
-- success a failure outcomes;
-- retries;
-- duplicate attempts;
-- client-aborted requests;
-- load-shed a rate-limited operations;
-- requests, ktoré sa k measurement pointu vôbec nedostali.
+Availability tiež nie je binárne `up/down`. Atlas môže zlyhávať iba pre jeden tenant, novú release cohortu, konkrétny provider, write path alebo payload class. Globálne `99.99 %` môže zostať zelené, aj keď top-tier merchant nedokáže dokončiť ani jednu operáciu. Každý významný cohort preto potrebuje samostatný denominator alebo explicitný coverage dôkaz.
 
-HTTP `2xx` nie je automaticky good event. `202 Accepted` môže byť správny iba vtedy, ak downstream contract garantuje durable prijatie, sledovateľný stav a dokončenie alebo explicitný final failure.
+## 5. Durability a acknowledgement boundary
 
-## 4. Partial availability a user cohorts
-
-Služba nemusí byť iba `up` alebo `down`. Môže zlyhávať:
-
-- iba pre jednu Region alebo Availability Zone;
-- iba pre nový release cohort;
-- iba pre určitý tenant;
-- iba pre write operations;
-- iba pri konkrétnom payload type;
-- iba v jednom downstream path-e;
-- iba nad určitou latency hranicou.
-
-Aggregate availability cez celý systém môže zostať zelená, hoci kritický cohort je úplne nefunkčný. Preto availability subject často potrebuje segmentáciu podľa user journey, operation, tenant, Region, platform alebo release generation.
-
-## 5. Durability
-
-Durability je pravdepodobnosť, že potvrdený data alebo state subject zostane zachovaný počas definovaného intervalu. Neznamená iba, že existuje viac storage copies.
-
-Durability contract musí uviesť:
-
-- ktoré bytes alebo business facts sú chránené;
-- kedy systém tvrdí, že write je committed alebo acknowledged;
-- ktoré copies a logs vstupujú do durability modelu;
-- consistency medzi súvisiacimi records;
-- retention a deletion semantics;
-- ochranu pred logical corruption a malicious mutation;
-- backup a restore coverage;
-- encryption-key dependency;
-- spôsob preukázania reconstructability.
-
-```text
-business intent
-→ write set a transaction boundary
-→ commit/acknowledgement
-→ replicated alebo journaled state
-→ retention a mutation lifecycle
-→ backup/restore lineage
-→ reconstructed business fact
-→ application a business validation
-```
-
-Storage replication chráni najmä pred physical failure-om. Nechráni automaticky pred:
-
-- chybným `DELETE` alebo retention jobom;
-- application corruption;
-- kompromitovaným privileged principalom;
-- replikovanou nesprávnou zmenou;
-- chýbajúcou dependent record;
-- neplatným encryption keyom;
-- backupom, ktorý nemožno obnoviť;
-- obnovou technických bytes bez business consistency.
-
-## 6. Acknowledgement boundary
-
-Najdôležitejšia durability otázka je: **čo presne systém sľúbil v okamihu acknowledgementu?**
-
-Príklad:
-
-```text
-HTTP 202
-→ payment row aj outbox command sú committed v jednej PostgreSQL transaction
-→ command môže byť neskôr publishnutý
-→ caller môže bezpečne opakovať request s rovnakým idempotency keyom
-```
-
-Ak API vráti `202` pred durable commitom, môže po process failure stratiť prijatý intent. Ak commit prebehne, ale response sa stratí, vzniká unknown outcome a retry musí byť idempotentný. Ak payment row prežije, ale outbox command sa stratí, business intent nie je complete, hoci časť dát zostala durable.
-
-## 7. Availability nie je durability
-
-Tieto scenáre sú odlišné:
-
-| Stav | Availability | Durability |
-|---|---|---|
-| API je nedostupné, no potvrdené dáta zostali zachované | zlá | dobrá |
-| API odpovedá, ale potvrdené writes sa po crashi stratia | zdanlivo dobrá | zlá |
-| Read-only degraded mode sprístupní existujúce dáta | čiastočná | môže byť dobrá |
-| Backup existuje, ale restore nevie obnoviť konzistentný system | runtime môže byť dobrý | nepreukázaná |
-| Všetky replicas okamžite replikujú chybný delete | krátkodobo dobrá | business durability zlá |
-
-Reliability design preto potrebuje oddelené indicators a recovery tests. Jedna `uptime` metric nemôže reprezentovať všetky tri vlastnosti.
-
-## 8. Connected failure `SRE-PAY-52`
-
-Atlas Payments používa transactional outbox:
+Durability sa začína otázkou: **čo systém sľúbil v okamihu acknowledgementu?** Pre settlement API je správna hranica:
 
 ```text
 merchant request
-→ atlas-settlement-api
-→ PostgreSQL transaction:
-   payments row + outbox row
-→ HTTP 202
-→ outbox publisher
-→ broker
-→ settlement worker
-→ provider acknowledgement
-→ final settlement state
+→ validate tenant, amount a idempotency key
+→ jedna PostgreSQL transaction:
+   payment row + outbox row
+→ commit
+→ až potom HTTP 202
 ```
 
-Dňa 29. júla 2026 o `08:15 UTC` začala broker partition zvyšovať publish latency. API naďalej zapisovalo payment a outbox rows a vracalo `202`. Edge dashboard ukazoval request availability `99.99 %`, pretože front door a PostgreSQL commits fungovali.
+Po tomto bode musí intent prežiť process crash, broker outage aj retry. Stratená response po commite vytvára unknown outcome, nie bezpečný dôvod na novú business operation. Opakovaný request s rovnakým idempotency keyom musí nájsť pôvodný state alebo atomicky pokračovať v tej istej operation identity.
 
-Prevádzkový tím mal opakovaný runbook:
+Replication sama osebe durability nedokazuje. Dokáže rýchlo rozmnožiť chybný `DELETE`, corruption alebo malicious mutation. Kompletný durability contract zahŕňa transaction boundary, replicas a logs, retention, soft-delete alebo immutable lineage, backup/restore, encryption-key dependency a business validation po obnove.
+
+```text
+acknowledged business intent
+→ committed state a execution lineage
+→ replicated/journaled copies
+→ mutation a retention lifecycle
+→ independent recovery lineage
+→ reconstructed state
+→ application validation
+→ business reconciliation
+```
+
+Restore, ktorý načíta tabuľky, ale nevie obnoviť chýbajúce provider identifiers alebo consistent outbox state, obnovil bytes, nie službu.
+
+## 6. Dependencies, degraded modes a truthful acknowledgement
+
+End-to-end reliability zahŕňa dependencies, ktoré používateľ nevidí. Ak broker nie je dostupný, API má tri legitímne možnosti: bezpečne prijať durable intent s bounded backlog contractom, prejsť do degraded mode s explicitným stavom, alebo request odmietnuť skôr, než vytvorí nepravdivý acknowledgement. Nemá pokračovať v `202`, ak už nedokáže garantovať uchovanie a neskoršie spracovanie.
+
+Degraded mode musí chrániť business invariant. Read-only status page môže zostať dostupná, kým new settlements sú zastavené. Load shedding môže chrániť recovery capacity, ale validné odmietnuté operations sa stále musia objaviť v availability a business-impact evidence. „Dependency failure“ nie je automatická exclusion, pretože používateľ kupuje end-to-end capability.
+
+## 7. Connected incident `SRE-PAY-52`
+
+Dňa 29. júla 2026 o `08:15 UTC` broker partition zvýšila publish latency. API naďalej atomicky commitovalo payment a outbox rows a vracalo `202`. Front-door dashboard meral iba HTTP responses a ukazoval request availability `99.99 %`.
+
+On-call použil opakovaný recovery runbook:
 
 ```text
 nájsť outbox rows staršie než 30 minút
-→ manuálne zvýšiť počet workers
+→ zvýšiť počet workers
 → pri pretrvávajúcom backloge spustiť cleanup SQL
-→ znovu spustiť publisher
+→ reštartovať publisher
 ```
 
-Cleanup query používala `created_at < now() - interval '30 minutes'` bez podmienky `published_at IS NOT NULL`. O `09:02 UTC` odstránila `4 182` stále nepublikovaných commands. Payment rows zostali v databáze a API bolo dostupné, ale accepted settlements sa nikdy nedostali k providerovi.
+Cleanup query filtrovala iba `created_at < now() - interval '30 minutes'`. Nevyžadovala `published_at IS NOT NULL` ani provider/reconciliation proof. O `09:02 UTC` odstránila `4 182` stále nepublikovaných commands. Payment rows zostali, takže API a základné status reads pôsobili zdravo, ale potvrdené settlement intents už neboli vykonateľné.
 
-### Vlastnosti incidentu
+Incident narušil viac properties naraz. Availability acceptance pathu ostala vysoká. Reliability required function `provider-confirmed exactly once do 10 minút` zlyhala. Business durability zlyhala, pretože po acknowledgement-e zmizla execution lineage. Correctness zlyhala, pretože stav `accepted` predstieral existenciu vykonateľného intentu.
 
-- **Availability:** HTTP acceptance path zostal dostupný.
-- **Reliability:** required function `complete exactly once within 10 minutes` zlyhala.
-- **Durability:** acknowledged settlement intent neprežil celý required lifecycle; payment fact zostal, execution command sa stratil.
-- **Correctness:** status `accepted` už nereprezentoval skutočne vykonateľný intent.
-- **Recoverability:** production databáza sama neobsahovala complete current outbox set.
+Broker partition bola trigger. Primárny root cause bol nebezpečný cleanup/retention contract, ktorý nerozlišoval published a unpublished commands. Green front-door SLI, privileged manual workflow a chýbajúca reconciliation boli causal amplifiers.
 
-Root cause nebola samotná broker partition. Partition bola trigger. Root cause bol nebezpečný retention/cleanup contract nad nepublikovanými commands. Causal amplifiers boli green front-door SLI, manuálny runbook, chýbajúca backlog age boundary a neprítomná end-to-end reconciliation.
+## 8. Diagnostika cez competing hypotheses
 
-## 9. Competing hypotheses a discriminating evidence
+Symptóm „accepted settlement sa nedokončil“ môže mať viac príčin: request sa nedostal k API, transaction necommitla, response sa stratila po commite, publisher stojí, broker command existuje bez consumer progressu, provider vykonal operation bez acknowledgementu, projection je stale alebo outbox row bola po commite zmazaná.
 
-Pri symptóme `accepted settlement sa nedokončil` treba odlíšiť:
-
-1. request sa nikdy nedostal k API;
-2. API necommitlo payment row;
-3. payment commitol, ale response sa stratila;
-4. outbox row existuje a publisher stojí;
-5. broker message existuje, worker ju nespracoval;
-6. provider prijal operation, ale acknowledgement sa stratilo;
-7. outbox row bola po acknowledgement-e odstránená;
-8. UI číta stale projection.
-
-Discriminating evidence:
+Diagnostika preto sleduje jednu operation identity cez observation points:
 
 ```text
-idempotency key a request ID
-→ API access/application log
-→ PostgreSQL transaction/payment/outbox records
-→ WAL alebo CDC archive
+merchant + idempotency key
+→ edge request a response
+→ payment/outbox transaction ID
+→ WAL alebo CDC history
 → publisher attempt a cursor
-→ broker offset/message identity
-→ worker execution log
+→ broker message/offset
+→ worker execution
 → provider idempotency ledger
 → projection generation
 ```
 
-Prítomná payment row bez outbox row a bez broker/provider evidence, pričom isolated PITR obsahuje outbox row pred cleanupom, dokazuje post-commit logical deletion.
+Prítomná payment row, chýbajúca outbox row, nulová broker/provider evidence a PITR snapshot s pôvodným outbox recordom dokazujú post-commit logical deletion. CPU graph alebo počet running Pods túto hypotézu nepotvrdí ani nevyvráti.
 
-## 10. Evidence-preserving containment
+## 9. Evidence-preserving containment a recovery
 
-Bezpečné prvé kroky:
+Prvým krokom je zastaviť cleanup job a odobrať mu write capability. API potom musí prestať vytvárať nové nepravdivé acknowledgements alebo prejsť na bounded backpressure. Tím zachová SQL text, actor identity, audit records, WAL/CDC lineage a current payment, outbox, broker a provider snapshots.
 
-1. zastaviť cleanup job a odobrať jeho write capability;
-2. pozastaviť nové `202` acknowledgements alebo prejsť na bounded backpressure;
-3. zachovať cleanup SQL, actor, transaction ID, audit a WAL/CDC evidence;
-4. snapshotnúť current payment, outbox, broker a provider state;
-5. oddeliť known completed, pending, unknown a lost-intent cohorts;
-6. zabrániť blind replayu bez idempotency a provider reconciliation.
+Recovery nepoužíva blind replay. Najprv rozdelí operations na completed, pending, unknown a proven-lost cohorts. Chýbajúce outbox commands sa obnovia z isolated PITR do staging table, porovnajú s current payment state a provider ledgerom a až potom sa reinsertujú s pôvodnou operation identity. Provider idempotency key zabráni duplicate external effectu.
 
-Scale-up publishera bez zastavenia cleanupu by iba zrýchlil race. Obnovenie všetkých rows bez provider comparison by mohlo vytvoriť duplicate settlements.
+Po obnove sa overuje pôvodný business outcome: všetkých `4 182` acknowledged intents je buď provider-confirmed exactly once, alebo má explicitný terminal failure komunikovaný merchantovi. Následne sa vykoná second-failure test s broker outage-om, aby nová retention policy nedokázala zmazať unpublished row.
 
-## 11. Authoritative recovery
+## 10. Reliability acceptance contract
 
-Recovery používa isolated point-in-time restore do času pred cleanupom:
+Acceptance nie je zoznam komponentov, ktoré „sú zelené“. Positive path musí preukázať, že validná operation prejde od requestu po authoritative provider outcome v bounded čase a že acknowledgement nastane až po durable transaction boundary. Recovery path musí preukázať reconstructability z nezávislej lineage.
+
+Forbidden paths musia zlyhať kontrolovane. Systém nesmie potvrdiť intent bez payment/outbox commitu, nesmie publishnúť dve provider operations pre jeden idempotency key, nesmie odstrániť unpublished command, nesmie označiť stale projection za final a nesmie považovať restore bez business reconciliation za recovery.
 
 ```text
-isolated PITR candidate
-→ extract deleted outbox commands
-→ join s production payment state
-→ compare broker a provider idempotency ledgers
-→ classify never-sent, sent-unknown a completed
-→ reinsert iba safe commands s pôvodným idempotency keyom
-→ publish cez bounded cohort
-→ verify provider a customer outcome
-→ retire temporary recovery path
+positive:
+valid operation → durable ack → exactly-once completion → correct projection
+
+recovery:
+logical deletion → isolated restore → reconciliation → original outcome
+
+forbidden:
+ack without durable intent
+duplicate provider effect
+silent lost intent
+stale status as final truth
+old unsafe cleanup generation
 ```
 
-Recovery je complete až keď:
+Acceptance verdict patrí exact release, configuration, retention-policy a recovery generation. Druhý release alebo druhý Region potrebuje vlastný test; úspech jedného subjectu sa neprenáša automaticky.
 
-- všetkých `4 182` intents má authoritative final classification;
-- never-sent commands boli bezpečne vykonané;
-- sent-unknown commands boli reconciled bez duplicate side effectu;
-- completed operations neboli replaynuté;
-- customer-visible status zodpovedá provider ledgeru;
-- unsafe cleanup path už neexistuje;
-- druhá broker partition nespôsobí stratu acknowledged intentu.
+## 11. Troubleshooting model
 
-## 12. Reliability acceptance verdict
-
-Business capability je prijatá, keď:
-
-- required function, conditions, period a population sú explicitné;
-- availability, correctness, latency a durability majú oddelené evidence;
-- acknowledgement boundary zodpovedá durable state transitionu;
-- partial cohorts a downstream completion sú merané;
-- dependency failure vedie k bounded backpressure alebo bezpečnému degraded mode-u;
-- logical deletion a corruption majú recovery path;
-- restore preukáže reconstructability, nie iba existenciu backupu;
-- original business operation funguje;
-- duplicate, lost-intent, stale-status a silent-success paths zlyhajú;
-- second-failure a second-recovery test prejdú.
-
-## 13. Troubleshooting flow
+Pri reliability incidente začni user-visible capability a exact operation cohortou, nie infraštruktúrnym grafom. Urči acknowledgement, required final outcome a časovú hranicu. Potom sleduj durable state a async lineage, porovnaj competing hypotheses a zachovaj evidence pred mutation.
 
 ```text
-user-visible failed capability
-→ exact operation, cohort, release a time window
-→ acknowledgement a required final outcome
-→ availability observation point
-→ transaction a durable-state identity
-→ async delivery a dependency chain
-→ correctness a latency verdict
-→ backup/recovery lineage
+symptom a affected cohort
+→ exact operation/release/time
+→ acknowledged promise
+→ authoritative state identities
+→ dependency a async lineage
 → competing hypotheses
-→ evidence-preserving containment
-→ business reconciliation
-→ original a forbidden outcome validation
+→ discriminating evidence
+→ containment
+→ recovery/reconciliation
+→ original + forbidden outcome validation
 ```
 
-## 14. Earlier controls
+Ak front-door SLI vyzerá zdravo, neuzatváraj incident. Môže iba dokazovať, že jedna skorá boundary funguje.
 
-- user-journey reliability contract;
-- event-based availability namiesto process-up metric;
-- atomic payment + outbox commit;
-- idempotency key od edge po provider;
-- unpublished-row deletion invariant;
-- backlog age a completion-latency indicators;
-- automatic backpressure pri broker outage;
-- immutable, reviewed retention policy;
-- least-privilege cleanup identity;
-- isolated restore rehearsal;
-- periodic payment/outbox/broker/provider reconciliation;
-- silent-success a logical-delete chaos test.
-
-## 15. Anti-patterny
+## 12. Anti-patterny
 
 ### Uptime equals reliability
 
-Healthy process alebo `200/202` nepreukazuje final business outcome.
+Running proces alebo úspešný health check nepreukazuje correctness, durability ani final business completion.
 
-### Viac replicas equals durability
+### Replication equals backup
 
-Replication môže okamžite rozmnožiť logical corruption alebo chybný delete.
+Replication zvyšuje availability a odolnosť voči physical failure-u, ale replikuje aj chybnú mutation. Recovery potrebuje oddelenú lineage a restore test.
 
-### Backup exists
+### `202` znamená, že sa o to systém postará
 
-Bez restore, dependency a business validation nie je durability preukázaná.
+`202` je sľub iba v rozsahu server-side contractu. Bez durable intentu, status identity a bounded completion/failure semantics je nepravdivý.
 
-### Planned downtime sa vždy odpočíta
+### Globálny priemer
 
-Používateľský impact nezmizne preto, že maintenance bola naplánovaná. Exclusion musí byť explicitná a zmysluplná pre daný contract.
+Aggregate availability môže skryť úplný failure kritického tenant-a, Regionu alebo release cohorty.
 
-### Priemer cez všetkých používateľov
+### Recovery overená počtom rows
 
-Critical tenant alebo Region môže byť úplne nedostupný pri zelenom globálnom priemere.
+Technický row count nepreukazuje referential, workflow ani provider consistency. Validácia musí skončiť business outcome-om.
 
-### Acknowledged means queued somewhere
-
-Acknowledgement musí patriť presnej durable state transition, nie nádeji, že downstream proces neskôr uspeje.
-
-## 16. Kontrolné otázky
+## 13. Kontrolné otázky
 
 1. Čo tvorí exact reliability subject?
-2. Ako sa reliability, availability a durability líšia?
+2. Prečo reliability nie je synonymum availability?
 3. Kedy je vhodnejšia time-based a kedy event-based availability?
-4. Prečo `202 Accepted` nemusí byť good event?
-5. Ako partial availability skryje aggregate metric?
-6. Čo musí obsahovať durability contract?
-7. Prečo storage replication nechráni pred logical corruption?
-8. Kde je acknowledgement boundary transactional outboxu?
-9. Ako odlíšiť lost response od lost committed intentu?
-10. Prečo restore bytes nie je automaticky business recovery?
-11. Ktorý dôkaz potvrdí post-commit deletion?
-12. Čo musí overiť reliability acceptance verdict?
+4. Ako denominator mení SLI semantics?
+5. Prečo `202` musí nasledovať až po presnej durable boundary?
+6. Prečo replication nechráni pred logical deletion?
+7. Čo odlišuje restore bytes od business recovery?
+8. Ako partial cohort failure zostane skrytý v globálnom priemere?
+9. Ktoré evidence odlíši lost response od lost committed intentu?
+10. Prečo broker partition nebola root cause `SRE-PAY-52`?
+11. Ktoré forbidden paths musí acceptance test odmietnuť?
+12. Prečo je potrebný second-failure test?
 
 ## Glossary impact
 
-Relevantné pojmy: reliability subject, required function, stated conditions, event-based availability, time-based availability, partial availability, durability subject, acknowledgement boundary, durable intent, logical durability failure, reconstructability, reliability acceptance verdict a second-failure validation.
+Relevantné pojmy: reliability subject, required function, stated conditions, event-based availability, time-based availability, partial availability, acknowledgement boundary, business durability, execution lineage, reconstructability, reliability acceptance contract, forbidden reliability path a second-failure validation.
 
 ## Primárne zdroje
 
 - [Google SRE — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
 - [Google SRE — Embracing Risk](https://sre.google/sre-book/embracing-risk/)
 - [Google SRE — Availability Table](https://sre.google/sre-book/availability-table/)
-- [Google SRE — Introduction](https://sre.google/sre-book/introduction/)
+- [Google SRE — Data Integrity](https://sre.google/sre-book/data-integrity/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
