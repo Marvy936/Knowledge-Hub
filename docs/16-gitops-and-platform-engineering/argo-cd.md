@@ -1,617 +1,181 @@
 # Argo CD
 
-Argo CD je Kubernetes-native GitOps controller pre declarative application delivery. Jeho podstatou nie je UI ani tlačidlo Sync, ale explicitný Application contract medzi source revisions, renderom, target destination, resource ownershipom, diffom, sync policy a health evidence.
-
-Argo CD môže byť technicky funkčné a napriek tomu nevytvárať spoľahlivý GitOps model, ak Application používa hidden parameter overrides, broad AppProject, mutable alebo ambiguous source refs, nebezpečné ignore rules alebo nejasný multi-writer ownership.
-
-## 1. Dominantný model
+Argo CD je Kubernetes-native pull reconciler pre declarative application delivery. Jeho authoritative contract nie je UI tlačidlo `Sync`, ale presná väzba medzi Application/AppProject, resolved source generations, repo-server renderom, destination, field/resource ownershipom, diffom, sync policy, resource health a business acceptance.
 
 ```text
 application delivery intent
-→ Application/AppProject subject
-→ repository a revision resolution
-→ repo-server render
-→ application-controller desired/live comparison
-→ sync policy, phases, waves a prune decision
-→ Kubernetes mutation a resource tracking
-→ health, history a business verification
-→ drift/self-heal/rollback
-→ second-sync a controller-restart closure
+→ exact Application/AppProject/control-plane subject
+→ trusted sources a resolved input graph
+→ deterministic repo-server render
+→ desired/live comparison a tracking
+→ project, RBAC a sync-option policy
+→ phases, waves, hooks, apply a prune
+→ resource health a effective workload state
+→ business canary a release verdict
+→ self-heal, rollback, controller recovery a second sync
 ```
 
-Argo CD acceptance verdict musí pokryť celý chain od exact source generation po effective workload outcome.
+Argo môže technicky fungovať a zároveň poskytovať false-Synced/Healthy verdict, ak Application obsahuje hidden override, broad project alebo ignore rule, mutable ref, weak tracking či druhého live writera.
 
-## 2. Hlavné komponenty
+## 1. Application a control-plane subject
 
-### API server
+Exact subject obsahuje Application name/namespace/UID/generation, AppProject, Argo installation a controller/repo-server version, repository/source identities a resolved revisions, renderer/parameters/plugins, destination cluster/namespace, sync policy/options, prune/self-heal/allow-empty, ignore rules, tracking method/installation ID, hooks/waves, credentials, health customizations, operation history a business/rollback contract.
 
-Poskytuje API pre UI, CLI a integrations. Rieši napríklad:
+Hlavné components majú odlišnú authority. API server poskytuje management API, auth/RBAC, repository/cluster credential interfaces a webhook. Repo-server fetchuje source a generuje manifests. Application controller pozoruje Applications, desired/live resources, diff, sync, tracking, health a operation history. ApplicationSet controller môže generovať Applications z authoritative template/generatora. Redis/cache, IdP, notification a plugin components ovplyvňujú control-plane availability a loaded generation.
 
-- Application management a status;
-- sync/rollback operations;
-- authentication a authorization;
-- repository a cluster credential management;
-- webhook endpoint;
-- RBAC enforcement.
+`payments-prod je Synced` bez Application UID/generation, resolved source revisions, diff rules a controller generation nie je reprodukovateľné tvrdenie.
 
-### Repository server
+## 2. AppProject a end-to-end trust boundary
 
-Resolve-uje source a generuje manifests z:
-
-- repository URL;
-- branch, tag alebo commit;
-- path/chart;
-- Helm/Kustomize/plugin settings;
-- values a parameters;
-- dependencies.
-
-Repo-server output je controller-resolved desired state. Jeho cache, toolchain a credentials sú súčasť deployment subjectu.
-
-### Application controller
-
-Kontinuálne:
-
-1. pozoruje Applications;
-2. získava desired manifests;
-3. číta live resources;
-4. vyhodnocuje sync a health;
-5. vykonáva sync alebo self-heal podľa policy;
-6. spravuje operation history, hooks a resource tracking.
-
-### Optional supporting components
-
-Argo CD deployment môže obsahovať identity provider integration, Redis/cache components, notification controllers, ApplicationSet controller a ďalšie extensions. Ich failure a upgrade state môže meniť control-plane behavior.
-
-## 3. Exact Argo CD Application subject
-
-Application subject zahŕňa:
-
-- Application name, namespace, UID a generation;
-- AppProject;
-- source alebo sources repository identities;
-- target revisions a resolved commit/chart versions;
-- paths, values, parameters a plugin generation;
-- destination server/cluster a namespace;
-- sync policy, prune, self-heal a allow-empty;
-- sync options;
-- ignore differences;
-- resource tracking method a installation ID;
-- hooks, phases a waves;
-- repository/cluster credentials;
-- controller/repo-server version a loaded configuration;
-- status, operation history a health customizations;
-- business acceptance a rollback contract.
-
-`payments-prod je Synced` bez tejto identity nehovorí, ktorú source generation a ktoré comparison rules status reprezentuje.
-
-## 4. Application CRD
-
-Zjednodušený Application:
-
-```yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: payments-prod
-  namespace: argocd
-spec:
-  project: payments-prod
-  source:
-    repoURL: ssh://git.example/platform/environments.git
-    targetRevision: refs/heads/production
-    path: clusters/prod/payments
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: payments
-  syncPolicy:
-    automated:
-      enabled: true
-      prune: true
-      selfHeal: true
-```
-
-Tento object stále nepreukazuje:
-
-- resolved commit SHA;
-- rendered manifest inventory;
-- whether overrides exist;
-- source authenticity;
-- destination readiness;
-- sync success;
-- workload health;
-- business outcome.
-
-## 5. AppProject ako trust boundary
-
-AppProject môže obmedziť:
-
-- povolené source repositories;
-- povolené destination clusters a namespaces;
-- cluster-scoped a namespaced resource kinds;
-- project roles a RBAC;
-- project-scoped repositories/clusters.
-
-Default project s broad source/destination/resource permissions je vhodný pre demo, nie automaticky pre multi-team production.
-
-Silný boundary:
+AppProject obmedzuje allowed source repositories, destination clusters/namespaces, cluster-scoped a namespaced resource kinds a project roles. Production project má mať explicitné allowlists:
 
 ```text
-payments-prod project
-→ trusted environment repositories only
-→ production cluster only
-→ payments namespaces only
-→ explicit allow/deny resource kinds
+payments-prod AppProject
+→ trusted environment repositories
+→ production cluster
+→ payments namespaces
+→ bounded resource kinds
 → scoped project roles
 ```
 
-AppProject však nenahrádza Kubernetes RBAC ani repository governance. Controller service account môže mať širšie technical permissions, než project policy povoľuje cez Argo API; obe vrstvy treba auditovať.
+Default broad project je vhodný na demo, nie ako production tenant boundary. AppProject však nenahrádza Kubernetes RBAC. Application controller service account a cluster credentials musia technicky umožňovať iba intended mutations alebo musí byť ich širší permission model kompenzovaný silným project/tenant enforcementom a auditom.
 
-## 6. Source tracking strategies
+Repository credentials, repo-server plugin execution a cluster credentials sú súčasť trust pathu. Repo-server spracúva repository-controlled content; plugins potrebujú filesystem/network/credential isolation a pinned generation. ApplicationSet generator expansion musí byť bounded, pretože jedna template change môže zmeniť stovky destinations. Generated Application sa opravuje na generator/template authority vrstve, nie permanentným direct editom.
 
-Argo CD môže sledovať:
+## 3. Source resolution, render a overrides
 
-### Branch alebo symbolic ref
-
-Controller kontinuálne porovnáva manifests na aktuálnom tip-e ref-u.
-
-Výhody:
-
-- prirodzený continuous delivery flow;
-- jednoduchá promotion cez PR/merge.
-
-Riziká:
-
-- force push;
-- nejasný cut-off počas incidentu;
-- branch/tag name ambiguity;
-- viac commits môže prebehnúť medzi observations;
-- rollback ref-u nemusí odstrániť overrides alebo external effects.
-
-### Tag
-
-Stabilnejší pointer, ale môže byť mutable retaggingom.
-
-### Commit SHA
-
-Najpresnejší immutable source coordinate. Promotion vyžaduje zmenu Application alebo environment manifestu na nový SHA.
-
-### Helm chart version alebo range
-
-Range môže automaticky resolve-nuť novú chart version. Production reproducibility vyžaduje zaznamenať resolved version a dependencies.
-
-Fully qualified refs znižujú ambiguity:
+Argo môže sledovať branch, tag, commit SHA alebo Helm chart version/range. Branch je continuous mutable pointer; tag môže byť retagovaný; commit SHA je najpresnejšia immutable coordinate. Fully qualified refs znižujú ambiguity. Pri range alebo multi-source Application treba zaznamenať všetky resolved versions.
 
 ```text
-refs/heads/release-9.0
-refs/tags/release-9.0
+chart source revision A
++ values source revision B
++ plugin/tool generation C
++ Application parameters D
+→ rendered desired inventory E
 ```
 
-## 7. Parameter overrides
+Parameter overrides majú precedence nad Git source values. Ad-hoc production override preto predstavuje hidden desired state, ak nie je Git-managed, reviewed, visible, owned a expiring. Rollback Git ref-u ho nemusí odstrániť.
 
-Argo CD môže ukladať source-tool parameters v Application spec. Overrides majú precedence nad Git source values.
+Repo-server evidence má obsahovať resolved sources, renderer version/config, parameters, dependencies, manifest inventory a render errors. Cache hit nie je authority; stale cache po ref movemente alebo credential recovery musí byť revalidated. Multi-source resource collisions a partial source availability nesmú silentne vytvoriť incomplete desired set.
+
+## 4. Comparison, tracking a ignore rules
+
+Application controller porovnáva rendered desired objects s tracked live resources. Tracking annotation alebo label určuje ownership inventory; shared labels, copied annotations, zmena tracking methodu alebo viac installations bez installation ID môžu vytvoriť collisions a unsafe prune.
+
+Resource tree v UI nie je automatický ownership proof. Generated operator children môžu patriť parent controlleru, nie priamo Application.
+
+Diff pipeline zahŕňa normalization, API defaulting, managedFields a `ignoreDifferences`. Ignore defaultne mení comparison oracle; pri príslušnej sync option môže meniť aj apply behavior. Broad path môže skryť image, env, probes a security context:
 
 ```text
-Git value image.digest=pay900a
-Application override image.digest=pay899hf7
-→ rendered desired image=pay899hf7
+critical live drift
+→ ignored comparison path
+→ no actionable delta
+→ Synced
+→ self-heal sa nespustí
 ```
 
-To môže byť užitočné pre experiment, ale oslabuje Git ako complete source of truth.
+Ignore rule potrebuje exact resource/field/manager, ownera, dôvod a negative fixture, ktorá dokazuje, že adjacent critical drift zostáva visible.
 
-Production policy by mala:
+## 5. Automated sync, self-heal, prune a sync options
 
-- zakázať ad-hoc overrides alebo ich deklarovať v Git-managed Application objecte;
-- inventarizovať current overrides;
-- ukázať ich v diff/review evidence;
-- priradiť ownera a expiry;
-- overiť rollback a controller restart;
-- alertovať na override mimo approved pathu.
+Automated sync aplikuje novú desired generation bez direct CI cluster credentialu. `prune` povoľuje odstrániť tracked resources chýbajúce v desired set-e. `selfHeal` spúšťa automated sync pri live drift-e bez novej source revision. `allowEmpty` povoľuje empty desired set a musí byť používané iba s explicitným destructive contractom.
 
-## 8. Multi-source Applications
-
-Application môže kombinovať viac sources, napríklad chart a environment values.
+Tieto flags sú samostatné:
 
 ```text
-chart repository revision A
-+ values repository revision B
-+ plugin/config generation C
-→ rendered desired set D
+new Git generation → automated sync
+manual Git-owned drift → selfHeal
+resource removed from valid desired inventory → prune
 ```
 
-Riziká:
+Sync options menia mutation semantics. `Replace` alebo force delete/create môže zmeniť UID a spôsobiť disruption; server-side apply mení field ownership; `PruneLast` a propagation menia deletion ordering; `FailOnSharedResource` môže chrániť ownership collision; `RespectIgnoreDifferences` prepája compare exception so sync pre-processingom. Každá option potrebuje field/disruption/rollback assessment.
 
-- partial source availability;
-- independent revision movement;
-- resource collision;
-- unclear ownership;
-- override precedence;
-- auto-sync triggered zmenou iba jednej source;
-- neúplný release coordinate.
+Argo automated sync sa typicky pokúša o jednu operation pre konkrétnu commit+parameters kombináciu; periodic reconciliation má defaultný interval s jitterom podľa current config. Preto hidden parameter change alebo stale override patrí do release identity rovnako ako commit.
 
-Acceptance evidence musí zachytiť všetky resolved sources, nie iba jeden revision label.
+## 6. Phases, waves, hooks a health
 
-## 9. Automated sync
-
-Automated sync umožní controlleru aplikovať detected desired change bez direct CI deployment credentialu.
-
-Dôležité policies:
-
-### `enabled`
-
-Určuje, či automated sync prebieha.
-
-### `prune`
-
-Povoľuje odstrániť tracked resources, ktoré zmizli z desired set-u.
-
-### `selfHeal`
-
-Povoľuje automated sync pri live drift-e bez novej source revision.
-
-### `allowEmpty`
-
-Povoľuje desired set bez resources; vyžaduje vysokú opatrnosť pre destructive scenáre.
-
-Tieto flags nie sú synonyms:
+Sync phases a waves vytvárajú deployment state machine:
 
 ```text
-new Git commit
-→ automated sync
-
-manual live patch
-→ selfHeal only, ak je povolený a diff nie je ignorovaný
-
-resource removed from Git
-→ prune only, ak je povolený
-```
-
-## 10. Sync operation a options
-
-Sync options menia apply behavior. Príklady:
-
-- namespace creation;
-- prune ordering a propagation;
-- selective apply iba OutOfSync resources;
-- client-side alebo server-side apply;
-- replace/create behavior;
-- respect ignore differences počas sync-u;
-- validation/dry-run behavior.
-
-Každá option môže meniť:
-
-- field ownership;
-- delete/recreate risk;
-- immutable field handling;
-- admission behavior;
-- diff vs. sync consistency;
-- rollback eligibility;
-- external controller interactions.
-
-`Replace=true` alebo force-like behavior nie je iba performance detail. Môže zmeniť resource UID, disruption a dependent objects.
-
-## 11. Resource tracking
-
-Argo CD potrebuje určiť, ktoré live resources patria Application.
-
-Tracking methods zahŕňajú:
-
-- annotation;
-- annotation + informational label;
-- label.
-
-Annotation tracking používa tracking identity obsahujúcu Application a resource identity. Riziká:
-
-- copied non-self-referencing annotations;
-- label collision s Helm alebo iným toolom;
-- zmena tracking method bez úplnej resync;
-- viac Argo CD installations bez installation ID;
-- manual removal tracking metadata;
-- generated children nesprávne považované za owned resources.
-
-Resource tree v UI nie je automatický ownership proof pre prune.
-
-## 12. Diff a `ignoreDifferences`
-
-Argo CD umožňuje ignore rules podľa:
-
-- group/kind/name/namespace;
-- JSON pointers;
-- JQ path expressions;
-- managed field managers;
-- system-wide resource customization.
-
-Defaultne ignore rule ovplyvňuje diff. Aby ovplyvnila aj sync apply, môže byť potrebná príslušná sync option.
-
-Riziko:
-
-```text
-ignore broad path
-→ Application Synced
-→ live critical field iná než desired
-→ selfHeal sa nespustí
-```
-
-Ignore rules potrebujú unit fixtures s expected ignored aj forbidden visible driftom.
-
-## 13. Health assessment
-
-Argo CD oddeľuje sync status od resource health. Health môže byť:
-
-- Healthy;
-- Progressing;
-- Degraded;
-- Suspended;
-- Missing;
-- Unknown.
-
-Built-in alebo custom health logic musí odrážať actual capability. Green Deployment health nemusí overovať:
-
-- exact image digest vo všetkých Pods;
-- loaded secret/config generation;
-- Service endpoints pre všetky cohorts;
-- database migration compatibility;
-- provider path;
-- business transaction completion.
-
-Pre critical applications je potrebný PostSync/canary alebo external acceptance oracle, nie iba resource health.
-
-## 14. Sync phases, hooks a waves
-
-Phases typicky zahŕňajú:
-
-- `PreSync`;
-- `Sync`;
-- `PostSync`;
-- failure/delete-related hook behavior podľa supported generation.
-
-Waves určujú ordering v rámci phase.
-
-Príklad:
-
-```text
-wave -10 → CRD alebo namespace baseline
-wave -5  → database compatibility/precondition Job
-wave 0   → application resources
-wave 5   → route exposure
+PreSync → compatibility/precondition
+Sync wave -10 → CRD/baseline
+Sync wave 0 → application
+Sync wave 5 → route exposure
 PostSync → business canary
 ```
 
-Riziká:
+Ordering nenahrádza readiness. Hook musí byť idempotentný, mať stable identity, bounded deadline, delete/retention policy a recovery pri unknown outcome-e. Generated hook name môže po retry vytvoriť duplicate side effect; selective sync môže hooks preskočiť; prune môže dependency odstrániť priskoro.
 
-- hook side effect nie je idempotentný;
-- generated hook name vytvára duplicates;
-- hook zostane po timeout-e v unknown state;
-- wave ordering nenahrádza application readiness;
-- selective sync môže hooks preskočiť;
-- prune ordering odstráni dependency priskoro.
+Resource health (`Healthy`, `Progressing`, `Degraded`, `Suspended`, `Missing`, `Unknown`) je oddelená od sync statusu. Green Deployment nemusí overiť exact image digest vo všetkých Podoch, loaded Secret/ConfigMap, Service endpoint cohort, migration compatibility alebo provider flow. Critical Application preto potrebuje external/PostSync business oracle a per-generation runtime evidence.
 
-## 15. ApplicationSet boundary
+## 7. Connected incident `GITOPS-PAY-61`
 
-ApplicationSet generuje Applications z listov, clusters, Git directories alebo iných generators.
+Production Application používala `project: default`, mutable `targetRevision: production`, automated sync s prune a `selfHeal: false`. Effective config obsahoval override `image.digest=sha256:pay899hf7`, system-wide ignore containers subtree, force-pushable branch, broad project, direct CI/human writers, shared tracking label a health uzavreté pri ready Deployment-e.
 
-Treba rozlíšiť:
-
-```text
-ApplicationSet desired template/generator
-→ generated Application
-→ Application desired resources
-```
-
-Direct edit generated Application môže byť prepísaný ApplicationSet controllerom. Policy sa preto musí meniť na authoritative generator/template vrstve.
-
-Generator expansion musí byť bounded a reviewed, pretože jedna zmena môže vytvoriť alebo zmeniť stovky Applications a destinations.
-
-## 16. Argo CD control-plane security
-
-Security subject zahŕňa:
-
-- API auth a RBAC;
-- AppProject boundaries;
-- repository credentials;
-- cluster credentials;
-- repo-server plugin isolation;
-- webhook exposure;
-- admin account/token lifecycle;
-- SSO groups a project roles;
-- controller service accounts;
-- secret encryption a backup;
-- audit logs;
-- upgrade a disaster recovery.
-
-Repo-server spracúva potentially untrusted repository content. Config management plugins a Helm/Kustomize execution musia mať bounded filesystem, network, credentials a secret exposure.
-
-## 17. Observability
-
-Minimálne signals:
-
-- Application desired/resolved revision;
-- sync status a OutOfSync age;
-- health status a transition age;
-- reconciliation queue/duration;
-- repo fetch/render latency a errors;
-- controller API errors/retries;
-- sync operation result a resources changed;
-- prune/delete count;
-- hook result/duration;
-- source/destination credential failures;
-- ignored-difference matches;
-- parameter override inventory;
-- resource tracking conflicts;
-- business acceptance result.
-
-Application status bez timestamps, revision a operation contextu nestačí na incident timeline.
-
-## 18. Connected incident `GITOPS-PAY-61`
-
-Production Application mala:
-
-```yaml
-spec:
-  project: default
-  source:
-    targetRevision: production
-  syncPolicy:
-    automated:
-      enabled: true
-      prune: true
-      selfHeal: false
-```
-
-Ďalší effective config:
-
-- parameter override `image.digest=sha256:pay899hf7`;
-- system-wide ignore containers subtree;
-- production branch s povoleným force pushom;
-- default AppProject povoľoval všetky repositories, clusters, namespaces a resource kinds;
-- CI aj humans mali direct write access;
-- health sa uzavrel pri ready Deployment-e bez business canary;
-- resource tracking používal shared instance label, ktorý modifikoval aj Helm chart.
-
-### Argo CD root cause
-
-Application/AppProject contract nevyjadroval production authority a safety boundary. Hidden override, broad project, broad ignore rule, mutable ref, weak tracking a incomplete health oracle vytvorili false-Synced/Healthy verdict.
-
-### Incident timeline
+Timeline:
 
 ```text
 20:14:03 webhook refresh
 20:14:04 CI direct apply
-20:14:07 Argo sync operation
-20:18:26 human live patch
+20:14:07 Argo sync
+20:18:26 human patch
 20:21:11 production ref force-reset
 20:28:09 ref restored
 20:31:40 Application Synced/Healthy
-20:52:17 business policy-generation mismatch confirmed
+20:52:17 business mismatch confirmed
 ```
 
-Argo operation history bola technicky konzistentná s resolved Application configom. Problém bol, že Application config itself nebola úplná Git-managed authority a diff/health rules odfiltrovali rozhodujúci mismatch.
+Argo operation history bola konzistentná s controller-resolved configom, nie s Git-declared generation. Override, broad ignore a incomplete health oracle odfiltrovali rozhodujúce rozdiely. AppProject nevyjadroval production trust boundary a tracking collision oslabovala ownership evidence.
 
-### Redesign
+Redesign zaviedol Git-managed dedicated AppProject/Application, trusted source/destination/resource allowlists, protected fully qualified ref, nulové runtime overrides, annotation tracking s installation ID, narrow ignore exceptions, scoped self-heal, prune guards, waves a PostSync settlement canary.
 
-```text
-Git-managed AppProject + Application
-→ dedicated production project
-→ trusted repo/destination/resource allowlists
-→ fully qualified protected production ref
-→ no runtime parameter overrides
-→ annotation resource tracking + installation identity
-→ narrow diff exceptions
-→ automated sync + scoped self-heal
-→ prune guards a sync waves
-→ PostSync business canary
-→ exact revision/render/live digest evidence
-```
+## 8. Recovery a acceptance paths
 
-Break-glass:
+**Positive path** resolve-ne celý source graph, renderuje exact inventory, syncne podľa scoped project/RBAC a potvrdí live/runtime generation aj business canary.
 
-```text
-incident approval
-→ temporary scoped Argo sync suspension alebo resource exception
-→ short-lived cluster credential
-→ recorded live mutation
-→ immediate Git reconciliation
-→ restore auto-sync/self-heal
-→ revoke credential
-→ direct-drift test
-```
+**Drift path** manual Git-owned patch spustí scoped self-heal; HPA/operator fields zostanú pod svojím writerom.
 
-## 19. Argo CD acceptance verdict
+**Recovery path** prežije webhook/source/target outage, repo-server/controller restart a unknown hook/apply outcome bez stale renderu alebo duplicate side effectu.
 
-Argo CD design je prijatý, keď:
+**Rollback path** zmení Git-managed source/Application generation a preukáže compatible full graph; neostáva na live-only undo.
 
-- Application, AppProject, sources, destinations a controller generation sú explicitné;
-- all source revisions a render inputs sú resolved a observable;
-- production refs/artifacts sú non-ambiguous a reproducible;
-- parameter overrides sú zakázané alebo Git-managed, visible a expiring;
-- AppProjects obmedzujú trusted repositories, destinations, resources a roles;
-- Kubernetes RBAC zodpovedá project policy a tenant modelu;
-- sync policy, prune, self-heal a allow-empty semantics sú explicitné;
-- sync options majú field-ownership, disruption a rollback assessment;
-- tracking method a installation identity zabraňujú collisions;
-- ignore rules sú úzke a negative-tested;
-- phases/waves/hooks sú idempotentné, bounded a recovery-safe;
-- Synced/Healthy/business acceptance sú oddelené;
-- ApplicationSet-generated config sa mení na authoritative template vrstve;
-- repo-server/plugin credentials a execution sú izolované;
-- source outage, target outage, webhook loss, controller restart, force push, direct drift, prune a second-sync tests prejdú;
-- forbidden hidden override, wrong destination, shared-resource prune, false-Synced, false-Healthy a dual-writer outcomes sú odmietnuté.
+**Forbidden path** odmietne hidden override, wrong destination, broad default project, tracking collision, shared-resource prune, broad ignore, false-Synced/Healthy a direct second writer.
 
-## 20. Troubleshooting flow
+Acceptance zahŕňa force-push attempt, multi-source partial failure, webhook loss, controller restart, direct drift, prune, unknown hook, ApplicationSet regeneration a second sync.
 
-```text
-Argo app je OutOfSync, false-Synced, Degraded alebo nasadilo wrong generation
-→ Application UID/generation + AppProject
-→ sources a resolved revisions
-→ repo-server render/parameters/cache
-→ desired object inventory
-→ live tracking IDs/managedFields
-→ diff/ignore/normalization
-→ sync policy/options/phases/waves/hooks
-→ controller operation history/API errors
-→ health customization
-→ workload/business generation
-→ authoritative remediation a second sync
-```
+## 9. Troubleshooting a anti-patterny
 
-## 21. Anti-patterny
+Pri OutOfSync alebo wrong generation sa mapuje Application UID/generation a AppProject, sources/resolved revisions, repo-server render/cache/parameters, desired inventory, live tracking/managedFields, diff/ignore rules, sync options/phases/hooks, controller operation history, health customization, loaded runtime a business generation.
 
-### Default project je dostatočný
+Anti-patterny sú default project v production, ambiguous mutable ref, „dočasný“ override bez expiry, self-heal zapnutý bez ownershipu, ignore používané na odstránenie noise, Healthy vydávané za release success a waves vydávané za dependency correctness.
 
-Default broad policy zvyčajne nevyjadruje production tenant a resource boundary.
+## 10. Kontrolné otázky
 
-### `targetRevision: production` je jednoznačné
-
-Môže byť mutable branch a môže kolidovať s tagom. Potrebná je ref a promotion policy.
-
-### Override je iba dočasný
-
-Bez expiry a Git reconciliation sa stáva hidden desired state-om.
-
-### Self-heal zapneme všade
-
-Bez field ownershipu a emergency contractu môže revertovať legitímny controller alebo incident containment.
-
-### Ignore differences opraví OutOfSync noise
-
-Broad rule môže skryť critical drift a zabrániť self-heal-u.
-
-### Healthy Application znamená úspešný release
-
-Resource health nie je business canary ani data/provider compatibility verdict.
-
-### Sync wave vyrieši všetky dependencies
-
-Ordering nenahrádza readiness, idempotency a external side-effect reconciliation.
-
-## 22. Kontrolné otázky
-
-1. Aké sú hlavné Argo CD components a ich responsibilities?
-2. Čo tvorí exact Application subject?
-3. Ako AppProject vytvára trust boundary?
-4. Ako sa branch, tag a commit tracking líšia?
-5. Prečo parameter override oslabuje Git authority?
-6. Aké riziká má multi-source Application?
-7. Ako sa auto-sync, prune a self-heal líšia?
-8. Ako resource tracking ovplyvňuje diff a prune?
-9. Prečo ignoreDifferences môže vytvoriť false-Synced stav?
-10. Ako phases, waves a hooks menia deployment state machine?
-11. Prečo `GITOPS-PAY-61` prešlo ako Synced/Healthy?
-12. Čo overuje Argo CD acceptance verdict?
+1. Čo tvorí exact Argo Application/control-plane subject?
+2. Ako AppProject a Kubernetes RBAC spolu tvoria boundary?
+3. Ako sa branch, tag, commit a multi-source coordinate líšia?
+4. Prečo override oslabuje Git authority?
+5. Ako tracking ovplyvňuje diff a prune?
+6. Ako sa auto-sync, self-heal, prune a allowEmpty líšia?
+7. Ktoré risks nesú Replace, SSA a prune options?
+8. Prečo phases/waves nenahrádzajú readiness a idempotency?
+9. Prečo `GITOPS-PAY-61` prešlo ako Synced/Healthy?
+10. Ktoré positive, drift, recovery, rollback a forbidden paths musia prejsť?
 
 ## Glossary impact
 
-Relevantné pojmy: Argo CD Application subject, AppProject boundary, repository server, application controller, resolved revision, source tracking strategy, parameter override, multi-source Application, automated sync, self-heal, prune, allow-empty, sync option, resource tracking method, tracking ID, sync phase, sync wave, resource hook, ApplicationSet authority, false-Synced Application, Argo health verdict a Argo CD acceptance verdict.
+Relevantné pojmy: Argo CD Application subject, AppProject boundary, repo-server render generation, application controller, resolved revision graph, parameter override, multi-source Application, automated sync, self-heal, prune, allow-empty, sync option, resource tracking identity, installation ID, ignoreDifferences, sync phase, sync wave, resource hook, ApplicationSet authority, false-Synced a Argo acceptance verdict.
 
 ## Primárne zdroje
 
-- [Argo CD — Overview](https://argo-cd.readthedocs.io/en/stable/)
 - [Argo CD — Architectural Overview](https://argo-cd.readthedocs.io/en/stable/operator-manual/architecture/)
-- [Argo CD — Application Specification](https://argo-cd.readthedocs.io/en/latest/user-guide/application-specification/)
+- [Argo CD — Application Specification](https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/)
 - [Argo CD — Projects](https://argo-cd.readthedocs.io/en/stable/user-guide/projects/)
-- [Argo CD — Automated Sync Policy](https://argo-cd.readthedocs.io/en/release-3.2/user-guide/auto_sync/)
+- [Argo CD — Automated Sync Policy](https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/)
+- [Argo CD — Sync Options](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/)
 - [Argo CD — Resource Tracking](https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/)
-- [Argo CD — Diff Customization](https://argo-cd.readthedocs.io/en/latest/user-guide/diffing/)
-- [Argo CD — Sync Phases and Waves](https://argo-cd.readthedocs.io/en/release-3.2/user-guide/sync-waves/)
+- [Argo CD — Diff Customization](https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/)
+- [Argo CD — Sync Phases and Waves](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
