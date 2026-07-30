@@ -1,189 +1,78 @@
 # Reconciliation a drift detection
 
-Reconciliation nie je periodické spustenie `kubectl apply`. Je to control loop, ktorý opakovane resolve-ne desired generation, pozoruje live state, klasifikuje rozdiel a vykoná iba mutation povolenú ownership, safety a recovery contractom.
-
-Drift detection zase nie je synonymum pre automatickú opravu. Najprv musí spoľahlivo určiť, či rozdiel predstavuje incident, legitímny runtime writer, defaulting, stale observation alebo iba normalizačný artefakt.
-
-## 1. Dominantný model
+Reconciliation je control loop, ktorý opakovane resolve-ne desired generation, pozoruje live state, klasifikuje rozdiel a vykoná iba mutation povolenú field ownershipom, safety a recovery contractom. Drift detection nie je automatické revertovanie každého rozdielu. Najprv musí rozlíšiť unauthorized drift, legitimate controller writer-a, API defaulting, admission mutation, dependency change, stale observation a runtime mismatch.
 
 ```text
-exact desired-state generation
-→ observed live/resource inventory
-→ normalization a ownership context
-→ desired-vs-observed delta
-→ drift classification
-→ report, ignore, adopt, reconcile alebo refuse
-→ bounded mutation/prune
-→ controller a workload convergence
-→ health/business verification
-→ second-observation a recurrence closure
+exact desired generation a resource inventory
+→ live object identity a observation generation
+→ normalization, mutation a ownership context
+→ semantic desired/live delta
+→ drift class a business risk
+→ report, reconcile, ignore, adopt, contain alebo refuse
+→ bounded apply/prune + read-back
+→ workload/runtime convergence
+→ health a business acceptance
+→ second observation a recurrence closure
 ```
 
-Reconciliation verdict musí byť viazaný na exact source generation, exact live object identity a explicitný field ownership.
+`Synced`, `Healthy` a `business accepted` sú tri rozdielne verdicts. Diff engine môže byť zelený nad nesprávnym oracle-om a health môže potvrdiť ready Pods s nesprávnym image alebo config generation.
 
-## 2. Desired, observed a effective state
+## 1. Subject a desired/observed/effective state
 
-### Desired state
+Exact subject obsahuje Application/controller identity, source revision a render inputs, target cluster/namespace/API generation, desired a tracked live resource set, object UID a tracking ID, field managers/writers, normalization a ignore policy, sync/prune/self-heal policy, operation history, health/business oracle a rollback/decommission boundary.
 
-Controller-resolved declarative target:
+Treba oddeľovať:
 
 ```text
-repository + revision + path + parameters + generator
-→ rendered desired objects
+desired state
+→ controller-resolved target objects
+
+observed state
+→ live API objects v observation čase
+
+effective runtime state
+→ ReplicaSets/Pods + loaded config/secrets + endpoints + behavior
 ```
 
-### Observed state
+Deployment spec môže byť zhodný s desired manifestom, no staré Pods alebo process-loaded Secret stále používajú predchádzajúcu generation. Naopak raw YAML diff môže ukazovať harmless defaulting bez behavior change.
 
-State načítaný z target API v konkrétnom observation čase.
+## 2. Loop, semantic diff a unknown mutation
 
-### Effective runtime state
+Reconciler vykonáva source observation, render, target observation, normalization, comparison, classification, action a requeue. Loop musí byť idempotentný voči converged state-u, bounded retrymi/mutations, obnoviteľný po restarte a truthful pri partial alebo unknown outcome-e.
 
-To, čo workload skutočne vykonáva:
+Semantic diff zohľadňuje API schema/defaulting, quantities, unordered lists, status/metadata, managed fields, admission mutation a controller-generated fields. Raw text diff nie je správny oracle. Normalizácia však nesmie odstrániť critical behavior difference.
+
+API timeout po PATCH-i vytvára unknown outcome:
 
 ```text
-Deployment spec
-→ ReplicaSet
-→ Pods
-→ loaded ConfigMap/Secret
-→ service endpoints
-→ application/provider behavior
+controller odošle mutation
+→ API ju aplikuje
+→ response sa stratí
+→ controller timeout
 ```
 
-Live Kubernetes object môže zodpovedať desired manifestu, ale runtime môže stále používať starú loaded configuration alebo nesprávny external dependency state.
+Ďalší krok je fresh read-back stable object identity. Blind retry môže znovu spustiť hook, vytvoriť ďalší generated resource alebo prepísať novší writer state.
 
-## 3. Reconciliation subject
+## 3. Drift classification a field authority
 
-Reconciliation subject obsahuje:
+Praktické classes možno zoskupiť podľa authority:
 
-- Application alebo controller identity;
-- source revision a render inputs;
-- target cluster, namespace a API discovery generation;
-- desired resource set;
-- tracked live resource set;
-- object UID, API version a ownership/tracking identity;
-- field managers a expected writers;
-- normalization/defaulting/mutation behavior;
-- diff a ignore policy generation;
-- sync/prune/self-heal policy;
-- health checks a business acceptance;
-- retry, backoff a reconciliation interval;
-- incident, rollback a decommissioning boundary.
+- **unauthorized Git-owned drift** — human/pipeline mení image alebo config priamo;
+- **legitimate delegated writer** — HPA mení replicas, operator children, secret controller data;
+- **normalization/mutation drift** — API default, webhook sidecar, serialization form;
+- **dependency drift** — rovnaký manifest resolve-ne nový tag, chart alebo secret generation;
+- **inventory drift** — missing, orphaned alebo tracking-collision resource;
+- **runtime drift** — spec vyzerá správne, loaded/runtime outcome nie.
 
-Bez identity source aj live generation je `OutOfSync` iba label bez reprodukovateľného causal modelu.
+`managedFields` pomáha identifikovať field managers, ale nie je business authority oracle. Manager name môže byť broad, stale alebo shared. Contract musí určiť exact field paths a expected writer-a.
 
-## 4. Reconciliation loop
+Po klasifikácii controller môže reportovať, reconcile-nuť, úzko ignorovať, adoptovať live value cez reviewed Git proposal, contain-nuť incident alebo odmietnuť mutation pre nejasnú authority. Action sa odvodzuje z field authority a risku, nie z existencie diffu.
 
-Typický loop:
+## 4. Ignore rules a false negatives
 
-```text
-observe source
-→ resolve revision
-→ render desired resources
-→ observe target resources
-→ normalize
-→ compare
-→ classify delta
-→ act alebo report
-→ observe convergence
-→ requeue
-```
+Ignore rule je versionovaná exception z drift oracle-u. Potrebuje exact object/field/manager scope, ownera, dôvod, expected writer-a, expiry/revalidation a positive i forbidden negative fixture.
 
-Každý loop musí byť:
-
-- idempotentný voči už converged state-u;
-- bounded počtom mutations a retries;
-- resilientný voči source/target timeoutom;
-- schopný pokračovať po controller restarte;
-- truthful pri partial alebo unknown apply outcome-e;
-- chránený pred delete stormom pri empty/failed renderi.
-
-## 5. Drift taxonomy
-
-Drift treba klasifikovať podľa príčiny a authority.
-
-### Unauthorized manual drift
-
-Human alebo pipeline zmení Git-owned field priamo v target API.
-
-### Legitímny controller drift
-
-HPA mení replicas alebo operator dopĺňa controller-owned fields podľa explicitného contractu.
-
-### Defaulting drift
-
-API server doplní default value, ktorá v source nie je explicitne uvedená.
-
-### Admission mutation
-
-Webhook zmení alebo doplní object pri create/update.
-
-### Serialization alebo ordering drift
-
-List order, omitted empty field alebo type normalization vytvára diff bez behavior change.
-
-### Generated-resource drift
-
-Operator vytvorí child resource, ktorý nemá byť priamo vlastnený GitOps Application.
-
-### Dependency drift
-
-Manifest je rovnaký, ale mutable image tag, chart dependency alebo external secret resolve-nul inú generation.
-
-### Orphan drift
-
-Live resource existuje, ale už nepatrí do desired inventory alebo stratil tracking identity.
-
-### Missing drift
-
-Desired resource bol zmazaný alebo nikdy nevznikol.
-
-### Runtime drift
-
-Object spec vyzerá správne, ale Pods, loaded config, network path alebo external state neplnia contract.
-
-## 6. Diff pipeline
-
-Raw YAML diff často nie je správny oracle.
-
-```text
-source manifests
-→ render
-→ API defaulting/schema normalization
-→ known-type normalization
-→ ignore rules
-→ managed-field ownership
-→ semantic diff
-```
-
-Diff engine musí rozlišovať:
-
-- absent vs. explicit default;
-- unordered vs. ordered lists;
-- quantity formáty, napríklad `1000m` a `1`;
-- controller-generated fields;
-- status a metadata;
-- fields vlastnené iným controllerom;
-- immutable field replacement;
-- unknown/custom resource schemas.
-
-Normalizácia nesmie z critical behavior rozdielu vytvoriť false negative.
-
-## 7. Ignore rules
-
-Ignore rule je exception z drift oracle-u, nie všeobecný opravný nástroj.
-
-Bezpečný ignore contract obsahuje:
-
-- exact group/kind/name/namespace alebo úzky selector;
-- exact JSON pointer/JQ path alebo manager;
-- ownera a dôvod;
-- expected writer;
-- business impact;
-- expiry alebo revalidation trigger;
-- positive a negative test;
-- monitoring ignored fieldov mimo sync statusu.
-
-Nebezpečný príklad:
+Broad rule:
 
 ```yaml
 ignoreDifferences:
@@ -193,359 +82,99 @@ ignoreDifferences:
       - .spec.template.spec.containers
 ```
 
-Také pravidlo môže skryť image, command, ports, environment, probes, resources aj security context.
+môže skryť image, env, command, ports, probes, resources a security context. Ak diff zmizne, Application je `Synced` a self-heal nemá trigger. Manager-wide ignore môže rovnako skryť viac fields než intended.
 
-## 8. Field ownership a managedFields
+Ignored fields musia zostať observable mimo sync labelu. Legitimate sidecar injection sa rieši exact sidecar-owned paths alebo normalized expected outputom, nie vypnutím oracle-u pre celý containers subtree.
 
-Kubernetes `managedFields` eviduje field management, ale nie je automatickým business authority verdictom.
+## 5. Self-heal, prune a loop safety
 
-```text
-GitOps controller
-→ image, labels, Pod template
+Drift detection iba zisťuje rozdiel. Self-heal automaticky syncne live drift bez novej source revision. Je vhodný pre deleted resources a unauthorized Git-owned changes, ale nebezpečný pri emergency patchi, shared resource, source corruption, nejasnom ownershipe alebo hooku s external effectom.
 
-HPA
-→ replicas
+Prune odstráni tracked live resource chýbajúci v validnom desired inventory. Bezpečný gate vyžaduje successful non-empty/non-ambiguous render, tracking/ownership proof, deletion eligibility, ordering a dependent/business validation. Failed render nesmie byť interpretovaný ako authoritative empty set.
 
-external secret controller
-→ Secret data
-
-mutating webhook
-→ injected sidecar
-```
-
-Ak dva writers vlastnia rovnaký field, vzniká:
-
-- apply conflict;
-- oscillation;
-- repeated OutOfSync;
-- hidden overwrite;
-- stale ownership po migrácii apply mechanizmu.
-
-Reconciliation design musí určiť, či sa field:
-
-- riadi z Git-u;
-- ignoruje, lebo ho vlastní explicitný controller;
-- adoptuje do Git-u;
-- odstráni z iného writera;
-- migruje medzi field managers.
-
-## 9. Drift detection vs. self-heal
+Permanentný conflict môže vytvoriť hot loop:
 
 ```text
-drift detection
-→ zistenie a report rozdielu
-
-self-heal
-→ automated sync pri live drift-e
-```
-
-Self-heal môže byť vhodný pre:
-
-- deleted resources;
-- unauthorized image patch;
-- zmenenú security policy;
-- missing labels alebo routes.
-
-Môže byť nebezpečný pri:
-
-- emergency incident patchi;
-- nejasnom field ownershipe;
-- destructive prune;
-- shared resource-e;
-- migration hooku s external side effectom;
-- source corruption;
-- controller bug-e alebo incorrect renderi.
-
-Preto self-heal potrebuje guardrails, nie slepú maximálnu agresivitu.
-
-## 10. Sync status, health a business outcome
-
-### Synced
-
-Desired a live state sa podľa current diff rules nepovažujú za rozdielne.
-
-### Healthy
-
-Resource-specific health logic považuje resource graph za operationally healthy.
-
-### Business accepted
-
-Pôvodná business capability funguje pre intended cohort a forbidden outcomes nevznikajú.
-
-```text
-Synced
-≠ Healthy
-≠ business correct
-```
-
-Príklady:
-
-- Deployment môže byť Synced, ale Progressing alebo Degraded;
-- Deployment môže byť Healthy, ale používať stale feature/policy generation;
-- Application môže byť OutOfSync iba pre harmless defaulted field;
-- Application môže byť Synced, lebo critical field je ignorovaný.
-
-## 11. Apply a unknown outcome
-
-Controller môže po API timeout-e nevedieť, či mutation nastala.
-
-```text
-PATCH request odoslaný
-→ API server mutation dokončil
-→ response sa stratila
-→ controller timeout
-```
-
-Bez fresh read-back môže retry:
-
-- znovu spustiť hook;
-- vytvoriť ďalší generated name resource;
-- konfliktovať s novším writerom;
-- nesprávne označiť operation ako failed.
-
-Reconciliation musí používať stable object identity, idempotent apply semantics a post-timeout observation.
-
-## 12. Prune a orphan handling
-
-Prune odstráni tracked live resource, ktorý už nie je v desired set-e.
-
-Riziká:
-
-- failed render vyprodukuje empty set;
-- path alebo ref sa zmení nesprávne;
-- tracking metadata sa poškodí;
-- resource bol adoptovaný iným ownerom;
-- deletion propagation odstráni dependents;
-- finalizer zablokuje sync;
-- shared resource je omylom považovaný za application-owned.
-
-Bezpečný prune contract:
-
-```text
-valid non-ambiguous desired inventory
-→ tracked ownership proof
-→ deletion eligibility
-→ ordering/wave
-→ bounded delete
-→ dependent/business validation
-```
-
-## 13. Controller retry, backoff a hot loop
-
-Permanentný diff môže vytvoriť reconcile storm:
-
-```text
-apply
-→ mutating webhook prepíše field
+GitOps apply
+→ webhook/operator prepíše field
 → diff
 → apply
 → ...
 ```
 
-Hot loop spotrebúva:
+Loop potrebuje backoff, rate limit, repeated-delta detection a containment. Inak spotrebuje API, renderer, webhook a audit capacity bez convergence.
 
-- Kubernetes API QPS;
-- repository render capacity;
-- controller CPU/memory;
-- audit/log volume;
-- admission webhook capacity;
-- downstream operator work.
+## 6. Sync, health a business evidence
 
-Metrics majú zahŕňať:
-
-- reconciliation duration a queue depth;
-- source/render errors;
-- compare latency;
-- OutOfSync age;
-- sync attempts/result;
-- resource mutation count;
-- repeated same-delta count;
-- health transition latency;
-- drift by writer/field/class;
-- controller workqueue retries.
-
-## 14. Drift response choices
-
-Po klasifikácii driftu možno:
-
-### Report
-
-Drift je viditeľný, ale mutation vyžaduje approval.
-
-### Reconcile
-
-Git-owned unauthorized drift sa automaticky opraví.
-
-### Ignore
-
-Field patrí explicitnému writerovi a ignore scope je úzky.
-
-### Adopt
-
-Live value sa premení na reviewed desired-state commit.
-
-### Refuse
-
-Controller zastaví mutation, pretože authority alebo safety je nejasná.
-
-### Contain
-
-Suspend-ne Application, odoberie traffic alebo zablokuje ďalšie writers pri incidente.
-
-Action musí byť odvodená z field authority a business risku, nie iba z diff existence.
-
-## 15. Connected incident `GITOPS-PAY-61`
-
-Po release `payments 9.0` Argo CD porovnávalo desired a live state podľa system-wide rule:
-
-```yaml
-resource.customizations.ignoreDifferences.apps_Deployment: |
-  jqPathExpressions:
-    - .spec.template.spec.containers
-```
-
-Rule vzniklo mesiace predtým pre sidecar injection problém, ale platilo pre všetky Deployments a celý containers subtree.
-
-Súčasne:
-
-- `selfHeal` bolo `false`;
-- CI a on-call menili Deployment priamo;
-- parameter override menil desired image mimo Git-u;
-- HPA vlastnil replicas, ale writer contract nebol dokumentovaný;
-- rollout health sa vyhodnocoval iba z ready Pods.
-
-Observed generations:
+`Synced` znamená iba, že desired a live objekty sa podľa current diff rules nepovažujú za odlišné. `Healthy` používa resource-specific health logic. Business acceptance potvrdzuje intended capability a forbidden outcomes.
 
 ```text
-Git:                 pay900a / route 1842
-Argo resolved:       pay899hf7 / route 1842
-live Pod template:   pay900b / route 1841
-running Pods:        pay900b + pay899hf7 cohorts
+Synced
+≠ applied complete history
+≠ Healthy
+≠ correct loaded generation
+≠ business accepted
 ```
 
-Diff pipeline odstránil z comparison celý containers subtree. Výsledok:
+Critical release evidence má obsahovať resolved revision/input graph, rendered object inventory, live template/image/config digests, Pod cohort generations, loaded policy/secret generation, route/endpoints a business canary. Runtime mismatch musí vedieť zneplatniť release verdict aj pri zelenom Argo status-e.
+
+## 7. Connected incident `GITOPS-PAY-61`
+
+System-wide Argo customization ignorovala celý Deployment containers subtree. Súčasne bolo `selfHeal=false`, CI a human menili Deployment priamo, parameter override menil desired image a HPA ownership replicas nebolo dokumentované.
 
 ```text
-critical image/env drift
-→ normalization/ignore
-→ no actionable delta
-→ Application Synced
-→ self-heal sa nespustí
+Git:               pay900a / route 1842
+Argo resolved:     pay899hf7 / route 1842
+live Pod template: pay900b / route 1841
+running Pods:      pay900b + pay899hf7
 ```
 
-### Reconciliation root cause
+Diff pipeline odstránil critical image/env delta, takže Application zostala `Synced`. ManagedFields pritom ukazovali Argo, CI service account aj human kubectl managera. Osemnásť a šesť Podov používalo dve image generations; request traces dokazovali route policy `1841`; commit `9f31c2a` nikdy nebol celý effective.
 
-Drift oracle mal broad exception, ktorá skryla critical Git-owned fields. Reconciliation navyše nemala one-writer contract ani business generation oracle.
+Root cause bol broad false-negative oracle a chýbajúci one-writer/business-generation contract. Recovery freeze-nula writers, zachovala YAML/managedFields, odstránila broad ignore, vytvorila narrow sidecar rule, odstránila override, commitla exact generation, zapla scoped self-heal a overila loaded policy aj second injected drift.
 
-### Evidence
+## 8. Acceptance paths
 
-- live Deployment managedFields ukázali `argocd-controller`, CI service account aj human kubectl managera;
-- compare output neobsahoval container diff;
-- Argo history ukazovala successful sync na resolved override generation;
-- 18 a 6 Podov používalo dve image generations;
-- application metrics ukázali route-policy generation `1841` v request traces;
-- Git commit `9f31c2a` nikdy nebol celý effective v production.
+**Positive path** exact desired generation renderuje a converge-ne na live/runtime generation, ktorú potvrdí business canary.
 
-### Recovery
+**Delegated-writer path** HPA/operator zmení iba vlastné fields bez oscillation alebo false driftu.
 
-```text
-freeze writers a preserve live YAML/managedFields
-→ remove broad system ignore
-→ create narrow sidecar-owned path rule
-→ remove parameter override
-→ commit exact desired image/config generation
-→ enable self-heal pre Git-owned critical fields
-→ reconcile Deployment/ReplicaSet/Pods
-→ verify loaded policy generation
-→ reconcile business cohort
-→ inject second manual drift a verify repair
-```
+**Recovery path** po direct delete/patchi alebo controller restarte self-heal obnoví Git-owned state a read-back preukáže convergence.
 
-## 16. Reconciliation acceptance verdict
+**Failure path** pri source/render/target uncertainty odmietne destructive prune a označí stav truthful unknown/unreachable.
 
-Reconciliation a drift detection sú prijaté, keď:
+**Forbidden path** odmietne broad ignore false negative, multi-writer oscillation, empty-render delete storm, false-Synced/Healthy a repeated hot loop.
 
-- exact desired revision/render a live resource identities sú explicitné;
-- desired, observed a effective runtime state sú rozlíšené;
-- diff normalization je schema-aware a testovaná;
-- drift taxonomy odlišuje unauthorized, controller-owned, defaulted, mutated, dependency a runtime drift;
-- field ownership a tracking identity sú explicitné;
-- ignore rules sú úzke, owned, versioned a testované na false negatives;
-- Synced, Healthy a business accepted verdicts sú oddelené;
-- self-heal scope zodpovedá Git-owned fields a emergency contractu;
-- apply timeout používa read-back a stable identity;
-- prune vyžaduje valid desired inventory a ownership proof;
-- controller loops majú backoff, rate limits a hot-loop detection;
-- source corruption, empty render, target outage a controller restart behavior sú definované;
-- manual drift, admission mutation, HPA ownership, missing resource, orphan, prune a second-reconcile tests prejdú;
-- forbidden hidden image/config drift, oscillation, delete storm, false-Synced a false-Healthy outcomes sú odmietnuté.
+Acceptance zahŕňa manual drift, HPA ownership, admission mutation, missing/orphan resource, API timeout, prune, source corruption, controller restart a second reconciliation.
 
-## 17. Troubleshooting flow
+## 9. Troubleshooting a anti-patterny
 
-```text
-OutOfSync, false-Synced alebo reconcile loop
-→ exact Application/source revision/render
-→ tracked live resource UID a ownership identity
-→ raw desired/live objects
-→ normalization/defaulting/admission effects
-→ ignore rules a managedFields
-→ sync/self-heal/prune policy
-→ controller operation/retry/read-back
-→ workload loaded state a health
-→ business generation/outcome
-→ repair, second observation a recurrence control
-```
+Pri OutOfSync, false-Synced alebo hot loope sa mapuje Application/source/render generation, tracked UID/ID, raw desired/live objects, defaulting/mutation, ignore rules/managedFields, sync/self-heal/prune policy, controller operation/read-back, loaded runtime a business generation.
 
-## 18. Anti-patterny
+Anti-patterny sú automaticky revertovať každý drift, manager-wide ignores, `Synced=deployed`, `Healthy=správna verzia`, prune bez ownership proof a nekonečné reconciliation retries bez classification/backoffu.
 
-### Každý drift treba automaticky revertovať
-
-Nie, ak field vlastní HPA, operator alebo emergency writer podľa explicitného contractu.
-
-### Ignore manager `kube-controller-manager`
-
-Manager-wide ignore môže skryť viac fields než intended. Potrebný je exact field/risk model.
-
-### Synced = deployed
-
-Synced je diff verdict. Deployment potrebuje apply, health a business evidence.
-
-### Healthy = správna verzia
-
-Health logic môže potvrdiť ready Pods bez kontroly image/config generation.
-
-### Prune opraví orphaned resources
-
-Bez ownership proof môže odstrániť shared alebo adopted resource.
-
-### Reconciliation sa môže opakovať donekonečna
-
-Hot loop môže zničiť control-plane capacity a musí mať classification, backoff a alert.
-
-## 19. Kontrolné otázky
+## 10. Kontrolné otázky
 
 1. Ako sa desired, observed a effective runtime state líšia?
-2. Čo tvorí reconciliation subject?
-3. Aké hlavné drift classes existujú?
-4. Prečo raw YAML diff nie je vždy správny oracle?
-5. Ako broad ignore rule vytvorí false negative?
-6. Ako managedFields pomáhajú a kde nestačia?
-7. Ako sa drift detection líši od self-heal?
-8. Prečo Synced, Healthy a business accepted nie sú synonymá?
-9. Ako controller rieši unknown apply outcome?
-10. Čo musí overiť prune gate?
-11. Prečo `GITOPS-PAY-61` ostal Synced?
-12. Čo overuje reconciliation acceptance verdict?
+2. Čo tvorí exact reconciliation subject?
+3. Prečo raw YAML diff nie je vždy oracle?
+4. Ako sa drift classes líšia podľa authority?
+5. Kde managedFields pomáhajú a kde nestačia?
+6. Ako broad ignore vytvára false negative?
+7. Ako sa detection a self-heal líšia?
+8. Čo musí overiť prune eligibility?
+9. Prečo `GITOPS-PAY-61` zostal `Synced`?
+10. Ktoré positive, delegated, recovery, failure a forbidden paths musia prejsť?
 
 ## Glossary impact
 
-Relevantné pojmy: reconciliation subject, desired state, observed state, effective runtime state, reconciliation loop, drift taxonomy, unauthorized drift, controller-owned drift, dependency drift, semantic diff, normalization, ignore rule, field ownership, managedFields evidence, self-heal, prune eligibility, orphan resource, reconcile hot loop, false-Synced, health verdict a reconciliation acceptance verdict.
+Relevantné pojmy: reconciliation subject, desired state, observed state, effective runtime state, semantic diff, drift taxonomy, field authority, managedFields evidence, ignore exception, false-Synced, self-heal, prune eligibility, unknown apply outcome, reconcile hot loop, business-generation oracle a reconciliation acceptance verdict.
 
 ## Primárne zdroje
 
 - [OpenGitOps Principles](https://opengitops.dev/)
 - [Kubernetes — Controllers](https://kubernetes.io/docs/concepts/architecture/controller/)
-- [Argo CD — Diff Customization](https://argo-cd.readthedocs.io/en/latest/user-guide/diffing/)
+- [Argo CD — Diff Customization](https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/)
 - [Argo CD — Automated Sync Policy](https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/)
 - [Argo CD — Resource Tracking](https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/)
 
