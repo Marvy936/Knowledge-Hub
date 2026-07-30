@@ -1,588 +1,227 @@
 # Disaster recovery
 
-Disaster recovery je riadená obnova kritickej business capability po disruption, ktorá presiahne bežný high-availability, retry alebo lokálny incident-response mechanizmus. Neznamená iba spustiť infraštruktúru v inom Regione. Recovery je hotová až vtedy, keď je obnovený správny, bezpečný a reconciled business outcome.
+Disaster recovery — DR — je riadené obnovenie kritickej business capability po disruption, pri ktorom pôvodné failure domain, control plane alebo business state nemožno bezpečne ďalej používať. Nie je to existencia druhého Regionu, databázovej repliky ani dokumentu s poradím príkazov. Recovery je dokončená až vtedy, keď alternate generation prevezme presne ohraničenú writer a traffic authority, spracúva nové aj affected historical operations podľa business contractu a nezanecháva split brain, skrytý backlog alebo neuzavretý unknown outcome.
+
+DR nadväzuje na high availability, incident response, backup/restore a RPO/RTO, ale nenahrádza ich. High availability absorbuje bežný component alebo failure-domain výpadok v existujúcom operating modeli. Incident response koordinuje impact a recovery. Backup poskytuje recovery artifacts. DR skladá tieto mechanizmy s identity, network, provider, capacity, communication a business reconciliation do jedného scenario-specific recovery graphu.
+
+## 1. Dominantný scenario-to-business-recovery lifecycle
+
+Recovery plán vzniká z business impactu a konkrétneho disruption scenára. Najprv sa určí capability, consistency group a recovery objectives, potom complete dependency graph, activation authority a alternate target. Samotný failover alebo restore je iba transition; acceptance vyžaduje business read-back, reconciliation a bezpečný steady state alebo failback.
 
 ```text
-business capability a disruption scenario
-→ exact recovery subject a consistency group
-→ recovery strategy a authority
-→ standby generation, dependencies a capacity
-→ activation trigger a declaration
-→ fencing a evidence preservation
-→ data/control/dependency recovery
-→ traffic a writer cutover
-→ technical, security a business validation
-→ reconciliation a work recovery
-→ failback alebo steady-state adoption
-→ second-disruption acceptance
+business capability, BIA a disruption scenario
+→ exact DR subject, objectives a consistency group
+→ strategy, alternate target a recovery graph
+→ current release/data/identity/network/provider generations
+→ objective activation trigger a decision authority
+→ evidence preservation, old-writer fencing a stabilization
+→ control-plane, data-plane a dependency recovery
+→ business canary a bounded traffic/writer cutover
+→ backlog, post-point a external-effect reconciliation
+→ degraded/normal service acceptance
+→ adopted recovery steady state alebo controlled failback
+→ alternate-scenario a second-responder exercise
 ```
 
-## 1. Disaster, incident a high availability
+Každá šípka je samostatná failure boundary. Promoted database nemusí mať usable key, active application nemusí mať provider path a green HTTP endpoint nemusí dokazovať final settlement completion. DR claim preto patrí exact end-to-end subjectu, nie najzdravšiemu komponentu.
 
-Nie každý incident je disaster. Praktické rozlíšenie používa rozsah a recovery mechanismus.
+## 2. Exact DR subject a activation class
 
-### High availability
-
-Systém absorbuje bežný component alebo failure-domain výpadok bez manuálneho obnovenia celej capability. Príklady:
-
-- Pod alebo VM replacement;
-- database failover v jednej Region;
-- strata jednej Availability Zone;
-- traffic redistribution medzi zdravé replicas.
-
-### Incident response
-
-Tím koordinuje containment a recovery pri degradácii alebo outage. Služba môže zostať v pôvodnom failure domain-e.
-
-### Disaster recovery
-
-Obnova potrebuje alternate environment, clean restore, regional cutover, rekonštrukciu významnej časti service graphu alebo dlhšie business continuity opatrenie.
+Tvrdenie `máme DR v eu-west-1` sa nedá reprodukovať. Exact subject zachováva business capability a critical journeys, disruption scenario, primary a recovery locations, application/data/dependency consistency group, strategy, RPO/RTO a maximum tolerable disruption, release/configuration/data generations, identity/key/network/DNS generations, provider contracts, traffic a writer authority, plan/runbook generation, activation authority, degraded mode a failback contract.
 
 ```text
-component failure zvládnutý local redundancy
-→ HA
-
-impact vyžadujúci coordinated mitigation
-→ incident response
-
-primary environment alebo business state nie je bezpečne použiteľný
-→ disaster recovery
-```
-
-Label `disaster` nemá byť emocionálny. Je to activation class s explicitným planom, authority a recovery objective-mi.
-
-## 2. Exact DR subject
-
-Tvrdenie `máme DR v druhom Regione` nie je overiteľné. DR subject má uviesť:
-
-- business capability a critical journeys;
-- disruption scenario;
-- primary a recovery locations;
-- application, data a dependency consistency group;
-- recovery tier a strategy;
-- RPO, RTO a degraded-mode objective;
-- architecture a release generation;
-- data replication alebo backup generation;
-- identity, key, network a DNS generations;
-- external-provider contracts;
-- traffic a writer ownership;
-- activation authority;
-- plan/runbook generation;
-- validation a failback contract.
-
-Príklad:
-
-```text
+subject: DR-PAY-55-v4
 capability: merchant settlement completion
-scenario: primary Region unavailable > 10 min
+scenario: prod-eu1 network/control-plane unavailable > 10 min
 primary: eu-central-1 / prod-eu1
 recovery: eu-west-1 / prod-euw1
 strategy: warm standby
 RPO: 5 min business-consistent
-RTO: 45 min merchant-facing safe recovery
-release: payments 7.26.0
-plan: DR-PAY-55-v4
-consistency group:
-  PostgreSQL + outbox + broker position + provider correlation
-traffic authority: Route 53 generation DNS-PAY-18
+RTO: 45 min safe merchant-facing completion
+release: payments 7.26.1
+consistency group: PostgreSQL + outbox + broker checkpoint
+                   + provider correlation + customer projection
+traffic authority: DNS-PAY-18
 writer authority: FENCE-PAY-7
 ```
 
-## 3. Business impact analysis a recovery tier
+Activation class sa odlišuje od emocionálneho labelu. Pod replacement alebo strata jednej AZ, ktorú absorbuje local redundancy, patrí HA. Koordinovaný outage v pôvodnom Regione môže zostať incident response. DR sa aktivuje, keď primary environment alebo state nie je v objective time-e bezpečne použiteľný a treba alternate environment, clean recovery alebo zásadnú rekonštrukciu service graphu.
 
-Recovery strategy musí vychádzať z business impact analysis, nie z preferencie konkrétnej cloud služby.
+## 3. Business impact a výber recovery stratégie
 
-Vyhodnoť:
+Strategy sa odvodzuje od business impact analysis, nie od preferovanej cloud služby. BIA určuje financial, contractual, security, legal a data-integrity impact, customer tolerance, maximum disruption a divergence, degraded operations, dependency criticality, staffing/vendor availability a cost/complexity.
 
-- financial a contractual impact;
-- data integrity a legal risk;
-- customer tolerance;
-- maximum tolerable disruption;
-- maximum tolerable data divergence;
-- degraded operations;
-- dependency criticality;
-- staffing a vendor availability;
-- recovery cost a complexity.
+Backup-and-restore má nízke steady-state náklady, ale dlhší activation a reconstruction time. Pilot light drží critical data a minimálny control plane, pričom compute a traffic path sa aktivujú počas recovery. Warm standby udržiava zmenšenú service generation a potrebuje scale-up a dependency activation. Active-passive drží pripravený standby, ale writer authority je na jednej strane. Active-active znižuje activation time, no výrazne zvyšuje consistency, routing, conflict a split-brain complexity.
 
-Praktické strategy tiers:
+Label stratégie nie je evidence. Warm standby bez current secrets, provider allowlistu, callback route-u, broker checkpointu, on-call pathu a failure-mode capacity je iba čiastočne provisioned environment. Každý tier musí mať explicitný operating a recovery contract.
 
-### Backup a restore
+## 4. Recovery graph a hidden dependencies
 
-Najnižšie steady-state náklady, najdlhší recovery čas. Vyžaduje pripravenú infrastructure generation, clean recovery points a rekonštrukciu dependencies.
+DR sa modeluje ako directed dependency graph. Customer path typicky vedie cez DNS/routing, edge/TLS/WAF, workload runtime a service discovery, identity/secrets/KMS, database a durable logs, broker/queues, provider network/credentials/callbacks, observability/audit a nakoniec support, reconciliation a business operations.
 
-### Pilot light
+Pre každý node a edge sa zachová authority, current generation, recovery mechanismus, dependency order, owner, capacity/quota, validation oracle, forbidden outcome a fallback. Database replica bez functional provider pathu neobnoví settlement capability; provider credential bez callback routing nevytvorí uzavretý business workflow.
 
-Critical data a minimálne control components existujú v recovery environment-e. Compute a traffic path sa aktivujú počas recovery.
+Graph musí obsahovať data plane aj control plane. Data plane zahŕňa business records, event/message state, consumer offsets, idempotency a correlation records. Control plane zahŕňa infrastructure definitions, cluster/deployment controllers, DNS/certificates, identity/policies/keys, artifacts/registry, feature flags, observability a recovery approvals. Ak je DR plan, credential alebo artifact dostupný iba v compromised primary account-e, recovery graph je sám závislý od failure domainu, ktorý má prežiť.
 
-### Warm standby
+## 5. Current replica, clean point a scenario classification
 
-Zmenšená, priebežne aktualizovaná service generation je spustiteľná, ale potrebuje scale-up, dependency activation a traffic cutover.
+Physical alebo regional failure môže ponechať current replicated state business-valid. Logical corruption, ransomware, malicious writer alebo incompatible schema však môžu current replica urobiť unsafe. Activation preto najprv klasifikuje disruption a až potom vyberá replicated failover, point-in-time clean restore, partial extraction, event replay, compensation alebo rebuild from authority.
 
-### Active-passive
-
-Standby je pripravený prevziať traffic, no writer authority je typicky iba na jednej strane.
-
-### Active-active
-
-Viac lokalít spracúva production traffic. Znižuje activation time, ale zvyšuje consistency, conflict, routing a split-brain complexity.
-
-Strategy label nie je acceptance evidence. Warm standby bez current secrets, provider allowlistu a recovery capacity je iba čiastočne provisioned environment.
-
-## 4. Recovery graph
-
-DR sa má modelovať ako dependency graph, nie zoznam resources.
+Replication znižuje lag, ale faithful kopíruje aj logical delete, invalid configuration a compromised policy effect. Recovery candidate potrebuje clean-point a consistency verdict. Pri external provider operation sa local data porovnáva s idempotency ledgerom; unknown outcome nemožno automaticky replayovať.
 
 ```text
-customer DNS a routing
-→ edge/TLS/WAF
-→ workload runtime a service discovery
-→ identity, secrets a KMS
-→ database a durable log
-→ broker/queue a consumer position
-→ external provider network/credentials/callbacks
-→ observability, paging a audit
-→ support, reconciliation a business operations
-```
-
-Pre každý node a edge urč:
-
-- source of truth;
-- recovery mechanismus;
-- current generation;
-- dependency order;
-- recovery ownera;
-- capacity a quota;
-- validation oracle;
-- forbidden outcome;
-- fallback alebo manual continuity path.
-
-Database replica bez functional provider pathu neobnoví settlement capability.
-
-## 5. Control plane a data plane
-
-Recovery environment potrebuje viac než application data.
-
-### Data plane
-
-- user a business records;
-- message a event state;
-- object/block/file data;
-- consumer offsets;
-- idempotency a correlation records;
-- configuration potrebná pre business processing.
-
-### Control plane
-
-- infrastructure definitions;
-- cluster a deployment controllers;
-- DNS a certificates;
-- identity, policies, secrets a keys;
-- release artifacts a registries;
-- feature flags a routing policy;
-- observability a incident tooling;
-- recovery automation a approvals.
-
-Control plane môže byť unavailable alebo compromised súčasne s data plane-om. DR plan uložený iba v primary account-e nie je recovery plan.
-
-## 6. Replication, clean point a corruption
-
-Replication znižuje lag, ale kopíruje aj:
-
-- logical corruption;
-- malicious writes;
-- mistaken deletes;
-- incompatible schema state;
-- invalid configuration;
-- compromised credentials alebo policy effects.
-
-DR potrebuje scenario-specific recovery choice:
-
-```text
-physical/regional failure
-→ current replicated state môže byť správny
+regional infrastructure loss
+→ current replicated state môže byť validný
+→ fence primary → promote standby
 
 logical corruption alebo compromise
 → current replica môže byť unsafe
-→ vyber clean point a side-by-side recovery
+→ select clean point → isolated restore → merge/reconcile
 ```
 
-Recovery plan má podporovať:
+Scenario classification je preto súčasť activation decisionu. Nesprávna stratégia môže vytvoriť väčší incident než pôvodný disruption.
 
-- current replicated failover;
-- point-in-time clean restore;
-- partial object/table recovery;
-- external-ledger reconciliation;
-- event replay alebo compensation;
-- immutable recovery artifacts.
+## 6. Writer fencing, epochs a traffic authority
 
-## 7. Writer fencing a split brain
-
-Pred aktiváciou alternate writera treba preukázať, že old writer už nemôže pokračovať alebo byť neskôr neúmyselne obnovený.
-
-Mechanizmy:
-
-- database promotion generation;
-- lease alebo epoch token;
-- consensus/leader election;
-- network isolation;
-- credential revocation;
-- write endpoint rotation;
-- queue ownership generation;
-- explicit traffic and writer fence.
+Pred aktiváciou alternate writera musí byť old writer efektívne fenced. Vydaný stop command alebo nefunkčný monitoring nie je dôkaz, že primary nemôže znova prijať writes. Fencing môže používať database promotion generation, lease/epoch token, consensus, network isolation, credential revocation, write endpoint rotation, broker ownership generation a explicitnú traffic/writer authority.
 
 ```text
-primary unknown alebo partially reachable
-+ standby promoted bez fencing
+primary partially reachable
++ recovery writer activated bez effective fencing
 → divergent writes
-→ ambiguous reconciliation
+→ ambiguous external effects
+→ nebezpečný failback a reconciliation
 ```
 
-Fencing verdict musí byť založený na effective state-e, nie na vydanom command-e.
+Traffic cutover a writer cutover sú odlišné transitions. DNS môže smerovať browser traffic na recovery Region, kým callbacks, long-lived connections alebo background consumers stále používajú primary. Každá route potrebuje generation a active-path read-back. Bounded ramp sa riadi business completion SLI, nie iba DNS API successom.
 
-## 8. Activation trigger a authority
+## 7. Activation decision pod neistotou
 
-DR activation má definovať:
+Plan definuje objective triggers, decision authority, required consultations, maximum waiting time, degraded-mode conditions, evidence cutoff, communication cadence, cost/regulatory consequences a abort alebo alternate strategy. Triggerom môže byť primary Region unavailable dlhšie než desať minút, projected RTO breach, confirmed integrity compromise, unsafe primary recovery path alebo provider-declared extended regional impact.
 
-- objective trigger;
-- decision authority;
-- required consultation;
-- maximum waiting time;
-- conditions pre degraded mode;
-- evidence cutoff;
-- communication cadence;
-- cost a regulatory consequences;
-- abort alebo alternate strategy.
+Čakanie na absolútnu istotu spotrebuje RTO. Predčasný cutover bez fencing a consistency verdictu môže vytvoriť split brain. Decision contract preto určuje, ktoré facts musia byť potvrdené, ktoré uncertainty možno akceptovať a kedy sa volí degraded mode namiesto full activation.
 
-Príklady triggerov:
+Declaration spúšťa roles, change freeze, vendor paths a authoritative recovery state. IC drží business objective; technical recovery owners obnovujú graph nodes; communications oddeľuje confirmed facts od hypotheses; business/data owners rozhodujú o unknown external outcomes a risk acceptance.
 
-- primary Region unavailable dlhšie než 10 minút;
-- projected RTO breach bez regional recovery;
-- confirmed integrity compromise;
-- primary recovery path unsafe;
-- facility alebo account control plane unavailable;
-- provider declares extended regional impact.
+## 8. Recovery phases a degraded service
 
-Čakanie na absolútnu istotu môže spotrebovať RTO. Predčasný failover bez fencing a consistency verdictu môže vytvoriť horší incident. Plan preto potrebuje explicitný decision contract.
+Po declaration sa stabilizuje impact, preserve-nú volatile evidence, zastavia unrelated changes a fenced writers/destructive automation. Recovery environment sa overí cez account/Region access, network, compute, release, keys, secrets, certificates, quotas a control-plane readiness. Data a dependencies sa obnovia alebo promote-nú podľa scenario verdictu, potom sa aktivujú provider egress, credentials, callbacks a broker ownership.
 
-## 9. Recovery phases
+Pred customer trafficom prejde synthetic alebo internal business canary. Traffic sa rampuje po cohorts s entry, success, abort a observation criteria. Work recovery následne drainuje backlog, reconciliuje post-point operations, obnovuje batch/reporting a odstraňuje temporary overrides.
 
-Praktický DR lifecycle môže používať tieto fázy.
+Degraded mode môže prijímať durable intents bez okamžitého provider submissionu, poskytovať read-only history alebo prioritizovať critical tenants. Musí však mať user-visible semantics, durability a queue limits, maximum duration, ownera, exit criteria, capacity model a reconciliation path. Silent `202`, keď systém nevie garantovať bounded completion, nie je degraded mode, ale nepravdivé acknowledgement.
 
-### Declaration a stabilization
+## 9. Connected incident `SRE-PAY-55`
 
-- declare disaster subject a authority;
-- preserve volatile evidence;
-- freeze unrelated changes;
-- classify physical vs logical vs malicious failure;
-- fence writers a destructive automation;
-- activate communication a vendor paths.
+Atlas používal warm standby `prod-euw1`. Catalog deklaroval RPO päť minút, RTO 45 minút, plan `DR-PAY-55-v3` a posledný test 18. marca 2026. Dňa 29. júla o `07:12 UTC` primary Region stratil podstatnú časť network a control-plane connectivity.
 
-### Environment activation
+Standby database zaostávala iba 32 sekúnd, application release bola current a configured capacity predstavovala 70 % primary. Recovery graph však nebol current: runtime role nemala KMS decrypt grant, provider povoľoval iba eu-central-1 NAT IPs, callback route smerovala na primary, broker checkpoint bol naposledy overený pred 27 minútami, runbook patril broker architecture v3 a health oracle kontroloval `/healthz`, nie provider-confirmed completion.
 
-- verify recovery account/Region access;
-- activate network, compute a service control plane;
-- load approved release/config generation;
-- verify key, secret a certificate paths;
-- confirm quotas a capacity.
+Database bola promoted o `07:41`; `/healthz` prešiel o `07:53` a DNS weight sa presunul. API začala vracať `202`, ale provider credential nebolo decryptovateľné, egress nebol allowlisted, callback route bola chybná, stale broker checkpoint vytvoril mixed `never-sent` a `sent-unknown` cohort a worker scale prekročil DB pool guardrail.
 
-### Data a dependency recovery
+Regional failure bol trigger. Root cause bol warm-standby design a plan, ktoré nepredstavovali versionovaný end-to-end business recovery graph a neboli rehearsed na current identity, provider, broker, routing a capacity generation. Component readiness a front-door health vytvorili false recovery verdict.
 
-- select replicated alebo clean recovery state;
-- restore/promote database a broker state;
-- recover external correlations;
-- validate schema a invariants;
-- activate provider egress, credentials a callbacks.
+## 10. Evidence-preserving recovery a measured outcome
 
-### Traffic cutover
+IC zastavil ďalší unbounded cutover, zmrazil non-DR changes, zachoval DNS/KMS/broker/provider/deployment evidence, zastavil nové provider submissions, bounded prijímal durable intents a fenced primary aj standby consumer ownership. Traffic bol obmedzený na `900 unique intents/s`.
 
-- prove health at business boundary;
-- update routing generation;
-- observe resolver/cache behavior;
-- ramp traffic podľa guardrailov;
-- preserve rollback/failback options.
+Recovery manifest `REC-PAY-55-1` obnovil KMS grant a decrypt canary, provider recovery IP allowlist, callback routing, authoritative broker checkpoint a epoch fencing. Operations sa rozdelili na `never-sent`, `sent-unknown` a `completed`; consumers sa aktivovali s bounded concurrency a traffic sa rampoval podľa completion SLI a DB/provider saturation.
 
-### Work recovery
+Safe merchant-facing recovery nastala o `09:31 UTC`, teda `2 h 19 min` po disruption. RTO 45 minút zlyhalo. Permanentná strata acknowledged intents bola nula, ale `318` operations vyžadovalo provider-ledger reconciliation. Recovery Region zostal dočasným primary, kým sa pripravil controlled failback.
 
-- drain backlog;
-- reconcile post-point operations;
-- resume scheduled/batch work;
-- remove temporary overrides;
-- close support a customer commitments.
+## 11. Failback ako nová risky transition
 
-## 10. Degraded mode
+Failback nie je automatický návrat po obnove primary Regionu. Vyžaduje current authoritative writer identity, reverse replication alebo merge, post-point/conflict manifest, obnovené primary dependencies a capacity, bounded traffic ramp, abort criteria, retirement old active generation a nové RPO/RTO measurement.
 
-DR nemusí okamžite obnoviť všetky capabilities. Degraded mode môže zachovať critical invariant pri nižšej funkcionalite.
+Často je bezpečnejšie ponechať recovery Region ako temporary primary a vykonať rebalancing neskôr. Failback počas neuzavretého incidentu môže zopakovať route, key alebo checkpoint failure. Acceptance preto testuje aj fallback/failback, nie iba one-way activation.
 
-Príklady:
+## 12. DR exercises a evidence scope
 
-- prijímať settlement intents, ale odložiť provider submission;
-- povoliť read-only history;
-- prioritizovať regulated alebo high-value cohorts;
-- pozastaviť reporting a recomputation;
-- obmedziť tenant traffic;
-- používať explicitné `Retry-After` namiesto silent acceptance.
+Tabletop overuje decisions, roles a assumptions. Component test overuje restore, key, DNS alebo dependency. Parallel recovery aktivuje alternate environment bez customer trafficu. Partial-traffic exercise používa bounded cohort. Full regional exercise pokrýva service graph, traffic, data, provider path, business validation a work recovery.
 
-Degraded mode musí mať:
+Plan bez current-generation exercise-u je hypothesis. Exercise meria declaration, fencing, access/environment activation, recovered point, technical service, business validation, reconciliation, actual RPO/RTO, manual steps a second-responder reproducibility. Evidence sa nesmie použiť na širší claim než testovaný subject: Pod replacement nepreukazuje regional DR.
 
-- user-visible semantics;
-- durability a queue limits;
-- maximum duration;
-- reconciliation path;
-- ownera a exit criteria;
-- testovaný capacity model.
+## 13. DR acceptance contract
 
-## 11. DR testing a exercise classes
+Positive path preukáže, že current alternate generation je accessible, correctly configured, capacity-ready a business-complete. Regional-failure path musí fence primary, obnoviť current replicated state, aktivovať provider/broker/DNS paths a splniť objectives. Corruption path musí odmietnuť current bad replica a použiť clean restore/reconciliation. Degraded path musí pravdivo obmedziť capability. Failback path musí zachovať single-writer authority a post-point state.
 
-Plan bez current-generation exercise-u je hypothesis.
-
-### Tabletop
-
-Overuje decisions, roles, communications a assumptions bez technickej aktivácie.
-
-### Component recovery test
-
-Overuje konkrétny restore, DNS, key alebo dependency path.
-
-### Parallel recovery
-
-Aktivuje alternate environment bez production trafficu a porovnáva behavior.
-
-### Partial traffic exercise
-
-Presunie bounded cohort alebo synthetic business operations.
-
-### Full regional exercise
-
-Testuje complete service graph, traffic, data, provider path a work recovery.
-
-### Surprise alebo limited-notice exercise
-
-Testuje real readiness a discovery friction, ale musí zachovať safety a organizational authorization.
-
-Exercise musí merať:
-
-- declaration time;
-- access a environment activation;
-- data recovered point;
-- technical service recovery;
-- business validation;
-- reconciliation/work recovery;
-- actual RPO/RTO;
-- unresolved manual steps;
-- second-responder reproducibility.
-
-## 12. Worked incident `SRE-PAY-55`
-
-Atlas Payments používal warm standby `prod-euw1` pre primary `prod-eu1`. Service catalog deklaroval:
+Forbidden paths musia zlyhať: wrong Region, stale key alebo runbook, provider path bez allowlistu, broker checkpoint bez authority, health-only cutover, traffic pred fencing, RTO zastavené pri DNS API a failback bez divergence manifestu.
 
 ```text
-RPO: 5 min
-RTO: 45 min
-strategy: warm standby
-last DR test: 2026-03-18
-plan: DR-PAY-55-v3
+positive:
+current recovery graph → canary → bounded traffic → business completion
+
+failure:
+primary Region loss → fence → activate → reconcile within objectives
+
+corruption:
+unsafe replica denied → clean point → side-by-side recovery
+
+forbidden:
+split brain
+HTTP green without completion
+unknown provider outcome replay
+stale generation accepted
+unbounded failback
 ```
 
-Dňa 29. júla o `07:12 UTC` primary Region stratil podstatnú časť network/control-plane connectivity. Existing workloads nedokázali spoľahlivo komunikovať s database, brokerom ani providerom. Incident command aktivoval regional DR.
+Verdict patrí exact scenario, plan, release, identity, dependency a exercise generation. Alternate responder a second disruption overujú, že recovery nie je jednorazový heroický výkon.
 
-Počiatočný recovery inventory:
+## 14. Troubleshooting DR activation
 
-```text
-standby database lag:          32 s
-standby application release:   7.26.0
-standby configured capacity:   70 % primary
-KMS restore/decrypt grant:     missing pre runtime role
-provider egress allowlist:     iba eu-central-1 NAT IPs
-broker consumer checkpoint:    posledná verified sync pred 27 min
-DNS health endpoint:           /healthz bez provider completion
-runbook generation:            DR-PAY-55-v3, architecture pred broker v4
-```
-
-O `07:41 UTC` bola standby database promoted. O `07:53 UTC` prešiel `/healthz` a DNS weight sa presunul do `eu-west-1`. API začala vracať HTTP `202`, ale final settlement completion zostala zablokovaná:
-
-- runtime nevedel decryptnúť provider credential;
-- po manuálnom grant-e provider odmietal egress z nových IP;
-- broker recovery použil stale checkpoint a vytvoril mixed `never-sent`/`sent-unknown` cohort;
-- callbacks smerovali na primary Region;
-- standby worker scale prekročil DB pool guardrail;
-- monitoring ukazoval front-door availability, nie provider-confirmed completion.
-
-Trigger bol regional connectivity/control-plane failure.
-
-Primary DR root cause bol **warm-standby design a plan, ktoré nepredstavovali versionovaný end-to-end business recovery graph a neboli rehearsed na current identity, provider, broker a routing generation**.
-
-Causal amplifiers:
-
-- component-level readiness namiesto consistency-group readiness;
-- `/healthz` bez final business oracle;
-- missing tested KMS grant;
-- external provider allowlist a callback routing mimo DR manifestu;
-- stale broker checkpoint/runbook generation;
-- configured capacity bez failure-mode load testu;
-- nejasný writer/consumer fencing contract.
-
-## 13. Evidence-preserving containment
-
-IC zastavil ďalší unbounded cutover:
-
-```text
-freeze non-DR changes
-→ preserve DNS, KMS, broker, provider a deployment evidence
-→ stop new provider submissions
-→ keep durable intent acceptance bounded
-→ fence primary a standby consumer ownership
-→ classify broker/provider cohorts
-→ activate provider emergency contact
-→ replace green /healthz verdict business completion oracle-om
-```
-
-Traffic sa dočasne obmedzil na `900 unique intents/s` s explicitným degraded-mode contractom.
-
-## 14. Authoritative recovery
-
-1. vytvoriť exact recovery manifest `REC-PAY-55-1`;
-2. opraviť runtime KMS grant a overiť decrypt canary;
-3. pridať recovery egress IPs do provider allowlistu;
-4. presunúť callback routing na recovery Region;
-5. obnoviť broker checkpoint z authoritative event/provider evidence;
-6. rozdeliť `never-sent`, `sent-unknown` a `completed` cohorts;
-7. aktivovať consumers s epoch fencing a bounded concurrency;
-8. validovať provider-confirmed synthetic settlement;
-9. rampovať tenant traffic podľa completion SLI a DB/provider saturation;
-10. reconciliovať affected operations;
-11. odstrániť temporary grants a overrides;
-12. prijať `prod-euw1` ako current active generation do controlled failbacku.
-
-Safe merchant-facing recovery nastala o `09:31 UTC`, teda `2 h 19 min` po disruption start-e. Deklarovaný 45-minútový RTO neprešiel. Potvrdená permanentná strata acknowledged intents bola nula, ale `318` operations vyžadovalo provider-ledger reconciliation.
-
-## 15. Failback
-
-Failback je samostatná risky transition, nie automatický návrat po skončení provider incidentu.
-
-Vyžaduje:
-
-- current authoritative writer identity;
-- reverse replication alebo merge plan;
-- conflict a post-point manifest;
-- restored primary capacity a dependencies;
-- traffic ramp a abort criteria;
-- old active environment retirement;
-- updated RPO/RTO measurement;
-- customer/business closure.
-
-Častý správny outcome je ponechať recovery Region ako dočasný primary a naplánovať controlled rebalancing.
-
-## 16. DR acceptance verdict
-
-Disaster recovery je prijatá, keď:
-
-- business capability, disruption scenarios a consistency groups sú explicitné;
-- strategy zodpovedá BIA, RPO, RTO a maximum tolerable disruption;
-- complete recovery graph má owners a recovery mechanisms;
-- control plane, data plane, identity, keys, network, DNS a external dependencies sú zahrnuté;
-- standby release/config/data generations sú current alebo majú bounded convergence path;
-- writer/consumer fencing zabraňuje split brain;
-- recovery identity a access sú testované;
-- capacity a quotas prežijú failure-mode load;
-- technical, security, user a business validation prejdú;
-- post-point work má replay/merge/compensation/reconciliation contract;
-- degraded mode je explicitný a bounded;
-- actual RPO/RTO sú zmerané od business boundaries;
-- failback alebo adopted-steady-state plan je overený;
-- alternate responder vykoná second exercise;
-- forbidden scenario, napríklad wrong Region alebo stale key, je odmietnutý.
-
-## 17. Troubleshooting flow
+Pri zlyhaní activation sleduj exact capability/scenario/plan, declaration authority, writer fencing, recovery account/Region access, release/control plane, identity/key/certificates, network/DNS/provider paths, data clean point alebo checkpoint, capacity/quotas, business oracle, traffic ramp, reconciliation a actual objective time.
 
 ```text
 DR activation alebo exercise zlyháva
-→ exact capability/scenario/plan generation
-→ declaration a authority
-→ primary fencing/writer ownership
-→ recovery account/Region access
-→ control-plane a release generation
-→ identity/key/secret/certificate path
-→ network/DNS/provider connectivity
-→ data clean point/replication/checkpoint
-→ capacity/quotas/dependency readiness
-→ technical a business oracle
-→ traffic ramp/reconciliation
-→ actual RPO/RTO a failback closure
+→ subject/scenario/generation
+→ declaration a fencing
+→ control-plane access
+→ identity/key/network/provider
+→ data/checkpoint/consistency group
+→ capacity a dependency readiness
+→ business canary
+→ traffic/reconciliation
+→ RPO/RTO a failback closure
 ```
 
-## 18. Earlier controls
+Database promoted alebo DNS changed sú intermediate observations. Diagnostika končí až business capability a writer authority verdictom.
 
-- BIA a scenario-specific objectives;
-- versionovaný recovery graph;
-- recovery account/Region independence;
-- immutable infrastructure a artifact availability;
-- tested recovery identities a keys;
-- provider DR contract a contacts;
-- DNS/certificate/egress/callback manifest;
-- broker/queue checkpoint a fencing semantics;
-- clean recovery points a catalog;
-- failure-mode capacity test;
-- business-outcome health canary;
-- scheduled tabletop, partial a full exercises;
-- action closure a second-responder test.
+## 15. Anti-patterny
 
-## 19. Anti-patterny
+DR anti-patterny zamieňajú existenciu komponentu alebo minulého testu za current end-to-end recoverability.
 
-### Druhý Region existuje
+- **Druhý Region existuje —** nemusí obsahovať current accessible release, identity, provider a capacity generation.
+- **Database replica je DR —** ignoruje control plane, broker, network, provider, callbacks a reconciliation.
+- **Healthcheck je green —** process/front door môže fungovať bez final business outcome-u.
+- **Failover bez fencing —** vytvára split brain a divergentné external effects.
+- **DR test bez trafficu alebo provider pathu —** neoveruje reálnu capability ani work recovery.
+- **Runbook bol testovaný minulý rok —** architecture, credentials, contacts, quotas a dependencies sa zmenili.
+- **RTO končí pri DNS cutover-e —** ignoruje route propagation, completion, backlog a reconciliation.
+- **Failback hneď po návrate primary —** pridáva risky transition pred stabilizáciou a divergence closure.
 
-Neznamená, že obsahuje current, accessible a business-complete recovery generation.
+## 16. Kontrolné otázky
 
-### Database replica je DR
-
-Ignoruje application, identity, broker, network, provider a reconciliation graph.
-
-### Healthcheck je green
-
-Môže overovať process alebo front door, nie final business outcome.
-
-### Failover bez fencing
-
-Vytvára split brain a divergentné writes.
-
-### DR test bez trafficu alebo provider pathu
-
-Neoveruje skutočnú business capability.
-
-### Runbook bol testovaný minulý rok
-
-Architecture, credentials, contacts, quotas a dependencies sa mohli zmeniť.
-
-### RTO končí pri DNS cutover-e
-
-Ignoruje cache propagation, business validation, backlog a work recovery.
-
-### Failback hneď po obnove primary Regionu
-
-Pridáva ďalšiu risky transition počas stále neuzavretého incidentu.
-
-## 20. Kontrolné otázky
-
-1. Ako sa HA, incident response a disaster recovery líšia?
+1. Ako sa HA, incident response, backup a DR líšia?
 2. Čo tvorí exact DR subject a consistency group?
-3. Ako sa backup/restore, pilot light, warm standby a active-active líšia?
-4. Prečo database replica nie je complete DR plan?
-5. Ako control plane ovplyvňuje recovery?
-6. Kedy treba current replica a kedy clean point?
-7. Prečo je writer fencing povinný?
-8. Čo má obsahovať activation decision contract?
-9. Ako sa degraded mode bezpečne navrhuje?
-10. Prečo `SRE-PAY-55` vrátilo HTTP `202`, ale nie settlement capability?
-11. Ktoré hranice má merať full DR exercise?
-12. Čo musí overiť DR acceptance verdict?
+3. Ako BIA určuje recovery strategy?
+4. Prečo warm standby label nie je acceptance evidence?
+5. Ako recovery graph odhaľuje hidden dependencies?
+6. Kedy použiť current replica a kedy clean point?
+7. Prečo traffic a writer fencing sú oddelené?
+8. Čo musí obsahovať activation decision contract?
+9. Ako sa degraded mode navrhne pravdivo a bounded?
+10. Prečo `SRE-PAY-55` vrátilo `202`, ale nie settlement capability?
+11. Prečo failback potrebuje samostatný plan a verdict?
+12. Ktoré positive, failure, corruption a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: disaster-recovery subject, recovery graph, recovery strategy tier, pilot light, warm standby, business continuity mode, disaster declaration, recovery authority, recovery environment generation, provider DR contract, regional writer fencing, recovery traffic cutover, failback generation, DR exercise, work recovery a DR acceptance verdict.
+Relevantné pojmy: disaster-recovery subject, activation class, recovery strategy, recovery graph, recovery environment generation, current-vs-clean recovery state, writer fencing, traffic authority, DR activation contract, degraded recovery mode, work recovery, failback generation, DR exercise evidence scope a DR acceptance contract.
 
 ## Primárne zdroje
 
-- [NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final)
-- [NIST CSRC Glossary — Contingency plan a disaster recovery plan](https://csrc.nist.gov/glossary/term/contingency_plan)
+- [NIST SP 800-34 Rev. 1 — Contingency Planning Guide](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final)
+- [NIST CSRC — Contingency plan](https://csrc.nist.gov/glossary/term/contingency_plan)
 - [Google SRE — Emergency Response](https://sre.google/sre-book/emergency-response/)
 - [Google SRE — Data Integrity](https://sre.google/sre-book/data-integrity/)
 
