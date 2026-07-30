@@ -1,549 +1,193 @@
 # Indexy, locks a migrations
 
-Index, lock a schema migration nie sú tri oddelené témy. Index mení access path a write cost. Access path ovplyvňuje, koľko rows a pages transaction navštívi a uzamkne. Migration mení schema, indexes, constraints alebo dáta počas concurrent production trafficu. Bez spoločného modelu môže správna DDL zmena vytvoriť lock queue, replication lag alebo neúplný rollout.
+Index, lock a schema migration nie sú tri oddelené prevádzkové témy. Index určuje access path a cenu čítania aj zápisu. Access path ovplyvňuje počet navštívených rows, pages a lockov. Migration mení schema, constraints, indexy alebo samotné dáta počas concurrent production trafficu. Bez spoločného modelu môže korektný DDL statement vytvoriť lock queue, retry amplification, WAL pressure, replication lag alebo nekompatibilitu medzi application generations.
 
 ```text
-business query alebo schema intent
+business query alebo schema-change intent
 → exact table/index/migration subject
 → current data distribution a workload
-→ query plan a access path
-→ lock a version-retention footprint
-→ migration generation a compatibility phases
-→ bounded execution
-→ effective schema/index/constraint state
-→ application a replica convergence
-→ business a rollback validation
+→ planner a effective access path
+→ transaction a lock footprint
+→ compatibility protocol medzi application generations
+→ bounded backfill alebo DDL execution
+→ catalog, planner, replica a runtime convergence
+→ business validation a old-path retirement
+→ second-batch, rollback a failover test
 ```
 
-## 1. Exact index/lock/migration subject
+Kapitola preto neposudzuje index podľa toho, či v catalogu existuje, ani migration podľa toho, či command skončil s exit code `0`. Autoritatívny verdict vzniká až vtedy, keď je intended access path skutočne použitý, constraint chráni business invariant, mixed-version traffic zostáva kompatibilný a rollout prejde aj pri restart-e, lag-u a opakovanom batchi.
 
-Subject má uvádzať:
+## 1. Exact subject a authority
 
-- database, cluster, schema a table identity;
-- engine/version a topology generation;
-- row count, table/index size a growth;
-- query predicates, joins, ordering a limit;
-- current query plan a statistics generation;
-- existing indexes a constraints;
-- concurrent read/write workload;
-- transaction duration a lock modes;
-- migration artifact a phase;
-- application versions, replicas a consumers;
-- timeout, abort, rollback a recovery contract;
-- allowed a forbidden business outcomes.
+Tvrdenie `pridáme index na merchant_operation_id` nehovorí, na aký workload, scale a invariant sa zmena viaže. Exact subject musí pomenovať database cluster a engine generation, schema a table identity, počet rows a distribúciu dát, dominantné queries, current plans a statistics, existujúce indexes a constraints, write rate, transaction duration, replica topology, migration artifact, application generations a failure contract.
 
-Príklad:
+Pre `DB-PAY-56` bol subject:
 
 ```text
 table: settlement_attempt
-rows: 780 million
-change: add merchant_operation_id and enforce uniqueness
-read pattern: merchant_id + merchant_operation_id
-backfill cohort: merchant_operation_id IS NULL
-traffic: 4 000 writes/s, 12 000 reads/s
-topology: primary + async standby
-application generations: 7.25 and 8.0 during rollout
+rows: približne 780 miliónov
+change: doplniť merchant_operation_id a enforce-nuť uniqueness
+read key: merchant_id + merchant_operation_id
+historical cohort: merchant_operation_id IS NULL
+traffic: približne 4 000 writes/s a 12 000 reads/s
+migration generations: application 7.25 + 8.0
+replication: primary + asynchronous standby
+business invariant: jedna merchant operation nesmie vytvoriť viac settlementov
 ```
 
-## 2. Čo index robí
+Autoritou pre uniqueness nie je migration dashboard ani application-level `SELECT then INSERT`. Autoritou je validný database constraint alebo iný concurrency-safe mechanizmus nad presne definovaným cohortom. Autoritou pre dokončenie backfillu nie je počet spracovaných batchov, ale nulový remaining-invalid cohort, compatible application behavior a constraint/catalog read-back.
 
-Index je samostatná data structure, ktorá mapuje indexed keys na row alebo tuple locations. Databáza môže namiesto full scan-u použiť index na obmedzenie candidate setu.
+## 2. Access path mení celý runtime mechanizmus
+
+Index je samostatná data structure, ktorá mapuje indexed values na candidate rows alebo tuple locations. Planner však nemusí index použiť. Rozhoduje podľa predicates, ordering, statistics, selectivity, data correlation, cost modelu, parameter values a dostupnosti konkrétneho indexu.
 
 ```text
-query predicate/order
-→ planner estimates
+query text + parameter cohort
+→ current statistics
+→ cardinality a selectivity estimate
 → candidate access paths
-→ index scan alebo table scan
-→ row visibility a filters
-→ result
-```
-
-Index nie je automaticky použitý. Planner môže zvoliť scan, ak:
-
-- query vracia veľkú časť table;
-- statistics odhadujú nízku selectivity;
-- predicate nezodpovedá index expression/order;
-- type cast alebo function bráni použitiu;
-- table je malá;
-- index je invalid alebo unavailable;
-- random I/O cost prevyšuje sequential scan;
-- ordering/join strategy preferuje iný plan.
-
-## 3. B-tree a ďalšie index families
-
-### B-tree
-
-Bežný default pre equality, range, ordering a prefix multicolumn patterns.
-
-```text
-ordered key space
-→ tree traversal
-→ leaf range
-→ row references
-```
-
-### Hash
-
-Optimalizovaný najmä pre equality operations. Product-specific durability, concurrency a operator support treba overiť.
-
-### Inverted index
-
-Mapuje terms alebo contained values na documents/rows. Používa sa pre full-text, arrays alebo document fields podľa engine-u.
-
-### Spatial alebo generalized indexes
-
-Podporujú geometry, ranges, nearest-neighbor alebo custom operator classes.
-
-### BRIN alebo block-range summary
-
-Malý summary index môže byť vhodný pre veľmi veľké physically correlated tables. Nie je náhradou selective B-tree pre arbitrary lookup.
-
-Index type sa vyberá podľa operators, data distribution a query pathu, nie podľa názvu column type-u.
-
-## 4. Multicolumn index
-
-Poradie columns určuje, ktoré predicates a ordering možno efektívne využiť.
-
-Príklad:
-
-```sql
-CREATE INDEX idx_settlement_merchant_created
-ON settlement (merchant_id, created_at DESC);
-```
-
-Pri query:
-
-```sql
-WHERE merchant_id = $1
-ORDER BY created_at DESC
-LIMIT 50
-```
-
-môže index podporiť filter aj order. Rovnaký index nemusí byť ideálny pre global query iba podľa `created_at`.
-
-Hodnotiť treba:
-
-- equality predicates;
-- range predicate;
-- ordering;
-- selectivity;
-- prefix usage;
-- included/covering columns;
-- write amplification;
-- duplicate/redundant indexes.
-
-## 5. Unique index a constraint
-
-Unique index môže byť physical enforcement mechanizmus uniqueness invariant-u. Application-level `SELECT then INSERT` nie je bezpečný pri concurrency:
-
-```text
-T1 SELECT: not found
-T2 SELECT: not found
-T1 INSERT
-T2 INSERT
-```
-
-Unique constraint rozhodne konflikt autoritatívne. Application musí spracovať success, conflict a unknown outcome podľa business keyu.
-
-Partial unique index môže enforce-nuť invariant iba pre konkrétny state cohort, napríklad jeden active operation. Predicate musí presne zodpovedať business semantics a migration phases.
-
-## 6. Index cost
-
-Index urýchľuje niektoré reads, ale pridáva:
-
-- storage;
-- memory/cache pressure;
-- write amplification;
-- WAL/redo volume;
-- vacuum/maintenance work;
-- build/rebuild time;
-- replication traffic;
-- schema-change complexity.
-
-Každý `INSERT`, `UPDATE` indexed column alebo `DELETE` môže meniť viac index structures. Nadbytočný index môže znížiť write throughput a predĺžiť recovery bez relevantného read benefitu.
-
-## 7. Statistics a plan generation
-
-Planner rozhoduje z estimates. Stale alebo nepresné statistics môžu viesť k zlému join orderu alebo scan choice.
-
-```text
-current data distribution
-→ collected statistics
-→ cardinality/selectivity estimate
-→ cost model
 → chosen plan
-→ actual rows/time/buffers
-→ estimate-vs-actual verdict
+→ visited rows/pages
+→ lock a buffer footprint
+→ latency a concurrent queueing
 ```
 
-Diagnostika porovnáva estimated a actual rows, nie iba total duration. Parameter values, data skew, prepared-plan behavior a correlation môžu spôsobiť rozdiel medzi cohorts.
+Pre query `WHERE merchant_id = ? ORDER BY created_at DESC LIMIT 50` môže byť vhodný B-tree `(merchant_id, created_at DESC)`, pretože filter aj order začínajú stabilným merchant prefixom. Rovnaký index však nie je automaticky vhodný pre global query iba podľa `created_at`. Multicolumn poradie je súčasť contractu, nie syntaktický detail.
 
-## 8. Locks
+B-tree podporuje equality, range a ordering patterns. Inverted index je vhodný pre full-text, arrays alebo contained document values. BRIN alebo podobný block-range summary môže byť efektívny pri veľmi veľkej physically correlated table, ale nenahrádza selective lookup index. Typ indexu sa vyberá podľa operators, distribution a query pathu.
 
-Lock chráni concurrent access k row, table, index alebo schema metadata. Lock mode a compatibility určujú, kto môže pokračovať.
+Index zároveň zvyšuje cenu writes. Každý insert, delete alebo update indexed hodnoty môže meniť viac structures, generovať WAL/redo, zaťažovať cache, vacuum a replication. Preto `pridať index na každý filter` môže zrýchliť izolovaný read test, ale znížiť write throughput a predĺžiť failover alebo restore.
 
-Dôležité rozlíšenia:
+## 3. Uniqueness a constraints sú concurrency controls
 
-- granted vs. waiting lock;
-- row-level vs. table/schema lock;
-- lock holder vs. root blocker;
-- wait duration vs. transaction age;
-- blocking chain vs. deadlock cycle;
-- application lock vs. database lock;
-- advisory lock vs. enforced data lock.
-
-Transaction zvyčajne drží acquired locks do commit/rollback-u. Krátky statement v dlhej transaction preto môže blokovať dlho po dokončení samotného SQL.
-
-## 9. Lock amplification cez access path
-
-Query bez suitable indexu môže navštíviť veľa rows, aj keď zmení malý batch.
-
-```sql
-UPDATE settlement_attempt
-SET merchant_operation_id = legacy_operation_id
-WHERE merchant_operation_id IS NULL
-  AND created_at < $cutoff
-LIMIT ...
-```
-
-SQL dialect a batching pattern sa líšia, ale mechanizmus zostáva:
+Application check typu:
 
 ```text
-weak predicate access path
-→ large scan
-→ many visited/locked rows alebo pages
-→ longer transaction
-→ concurrent waiters
-→ queueing a timeout retries
-→ more load
+SELECT operation WHERE business_key = X
+→ nič sa nenašlo
+→ INSERT
 ```
 
-Supporting partial index môže zmenšiť candidate scan:
+nie je bezpečný pri concurrency. Dve transactions môžu prečítať rovnaký absent state a obe pokračovať. Unique constraint rozhoduje konflikt na authoritative write boundary. Application potom musí rozlíšiť nový success, existing idempotent outcome, skutočný conflict a unknown commit result.
 
-```sql
-CREATE INDEX ...
-ON settlement_attempt (created_at, id)
-WHERE merchant_operation_id IS NULL;
-```
+Partial unique index môže chrániť invariant iba v určitom state-e, napríklad najviac jednu `active` operation. Predicate však musí presne zodpovedať business semantics. Ak application a database používajú odlišné definície `active`, constraint môže povoliť forbidden duplicate alebo blokovať legitímny transition.
 
-Index však treba vytvoriť bezpečne a overiť jeho effective použitie.
+Constraint rollout je compatibility protocol. Najprv treba zabrániť novým invalid writes, potom opraviť historical cohort, overiť nulové violations a až následne aktivovať finálnu authoritative enforcement. `Index existuje` nie je dostatočné: môže byť invalid, neunique, nepoužitý plannerom alebo vytvorený nad neúplným cohortom.
 
-## 10. DDL locks
+## 4. Locks, waits a DDL boundary
 
-Schema changes môžu vyžadovať metadata alebo table locks. Exact behavior závisí od engine-u, statementu, table size, default value, validation a online/concurrent option.
-
-Pred production DDL treba poznať:
-
-- required lock mode;
-- či lock acquisition čaká za starými transactions;
-- či statement blokuje reads alebo writes;
-- či rewrituje table;
-- WAL/redo a replication impact;
-- rollback behavior;
-- cancellation safety;
-- partial/invalid artifact state;
-- compatibility s old/new application generation.
-
-Krátka DDL operácia môže čakať dlho na lock a po získaní blokovať celý queue.
-
-## 11. Concurrent/online index build
-
-PostgreSQL `CREATE INDEX CONCURRENTLY` umožňuje build bez blokovania bežných writes, ale vykonáva viac práce, čaká na relevantné transactions a má caveats. Nemôže bežať v bežnom transaction blocku a po failure môže zostať invalid index, ktorý treba explicitne diagnostikovať.
-
-`CONCURRENTLY` preto nie je synonymum pre:
-
-- instant;
-- zero load;
-- zero lock;
-- automatic retry;
-- valid index po každom failure-i;
-- vhodné execution počas ľubovoľného peak-u.
-
-Acceptance vyžaduje catalog state, validity, planner use a production metrics.
-
-## 12. Schema migration ako compatibility protocol
-
-Bezpečná migration nie je jeden DDL statement. Je to protocol medzi database a viacerými application generations.
-
-### Expand
-
-- pridať backward-compatible schema;
-- vytvoriť nové nullable columns/tables/indexes;
-- nasadiť tolerant readers;
-- začať bounded dual-read/dual-write iba s explicitným ownerom.
-
-### Backfill
-
-- stable ordering a cursor;
-- bounded batch size;
-- resumability;
-- current-row/version predicate;
-- replication/lock/WAL guardrails;
-- correctness a progress evidence.
-
-### Switch
-
-- shadow compare alebo read switch;
-- current application generations používajú nový model;
-- constraint validation;
-- reconciliation.
-
-### Contract
-
-- odstrániť old writers/readers;
-- enforce-nuť final constraints;
-- dropnúť obsolete columns/indexes;
-- retire migration code a compatibility path.
+Lock chráni row, table, index alebo schema metadata počas concurrent operations. Dôležitý nie je iba názov lock mode-u, ale holder, waiter, root blocker, transaction age a compatibility s ostatnými operations. Krátky SQL statement môže zostať súčasťou dlhej open transaction a držať lock výrazne dlhšie než samotná execution.
 
 ```text
-expand
-→ tolerant deployment
-→ bounded backfill
-→ reconcile
+weak alebo missing access path
+→ large candidate scan
+→ veľa navštívených rows/pages
+→ širší lock a snapshot footprint
+→ dlhšia transaction
+→ waiters a timeouty
+→ retries
+→ ešte väčší load
+```
+
+Lock wait nie je automaticky deadlock. Deadlock vyžaduje cycle, napríklad T1 drží A a čaká na B, zatiaľ čo T2 drží B a čaká na A. Databáza jednu transaction abortne, ale application musí retryovať celú business transition bezpečne a idempotentne.
+
+DDL môže potrebovať metadata alebo table lock. Exact behavior závisí od engine-u, statementu, table size, default value, validation mode a online/concurrent option. Online DDL neznamená zero lock ani zero load. Môže čakať na staré transactions, generovať veľký I/O a WAL, zaťažiť replicas alebo po zlyhaní ponechať partial artifact.
+
+PostgreSQL `CREATE INDEX CONCURRENTLY` znižuje blocking bežných writes, ale vykonáva viac fáz, čaká na relevantné transactions a po failure môže ponechať invalid index. Acceptance preto musí overiť catalog validity, uniqueness, planner use a production effect.
+
+## 5. Migration ako versionovaný protocol
+
+Bezpečná migration prepája database a viac application generations cez fázy `expand → backfill → switch → contract`. Expand pridá backward-compatible schema a tolerant readers/writers. Backfill transformuje historical state cez stable cursor, malé transactions, conditional writes a resumability. Switch presunie authoritative reads/writes až po reconciliation. Contract odstráni old paths a aktivuje finálne constraints.
+
+```text
+expand schema
+→ deploy tolerant generations
+→ bounded idempotent backfill
+→ catch-up a reconciliation
 → read/write switch
 → constraint proof
-→ contract
-→ old-generation retirement
+→ contract old schema
+→ retire old application a migration path
 ```
 
-## 13. Backfill correctness
+Backfill nesmie prepisovať novší live state stale hodnotou. Safe mechanizmus používa immutable source fields, row version alebo state predicate, stable keyset cursor a conflict cohort. Batch sa považuje za dokončený až po authoritative cursor commit-e a row-level outcome evidence; progress counter v samostatnej cache nestačí.
 
-Backfill musí rozlíšiť historical missing state od rows, ktoré live writer práve zmenil.
+Každá fáza potrebuje abort criteria. Lock wait, OLTP latency, WAL generation, replica lag, pool waiters, vacuum pressure alebo error-budget burn môžu migration zastaviť skôr, než sa zmení na incident. Pause musí zachovať exact cursor a umožniť bezpečný resume alebo rollback.
 
-Nebezpečný model:
+## 6. Worked incident `DB-PAY-56`
+
+Migration pridávala `merchant_operation_id` do `settlement_attempt` s približne `780 miliónmi` rows. Plán používal batch `25 000` rows, potom unique index a `NOT NULL` constraint. Historical cohort sa vyberal podľa `merchant_operation_id IS NULL ORDER BY created_at`, ale supporting partial index neexistoval.
+
+Každý batch opakovane scanoval veľkú časť table. Transactions trvali 4 až 11 minút, držali rows a old snapshots a vytvorili tento chain:
 
 ```text
-read old row
-→ compute transformed value
-→ live writer updates newer state
-→ backfill writes stale computed value
+scan-heavy backfill
+→ lock waits a pool waiters
+→ timeout retries
+→ WAL generation 6.4× baseline
+→ standby replay lag 94 s
+→ vacuum/version pressure
+→ application p95 nad 8 s
 ```
 
-Bezpečnejšie mechanizmy:
+Operator následne spustil štandardný `CREATE UNIQUE INDEX`. Statement čakal za long transaction a po získaní locku zablokoval writers. Po cancel-e zostala request queue a replication backlog. Neskorší concurrent build zlyhal na historical duplicates a ponechal invalid index artifact, no deployment automation kontrolovala iba index name.
 
-- conditional update na old version/state;
-- immutable source fields;
-- change capture a catch-up;
-- per-row version;
-- stable cursor;
-- idempotent transformation;
-- conflict/retry cohort;
-- final full reconciliation.
+Triggerom následného failover incidentu bola AZ network failure. Migration nebola jedinou root cause, ale zväčšila apply lag a uncertainty promotion candidate-u. Primary migration root cause bol chýbajúci current-scale access path, bounded transaction model a catalog/effectiveness gate. Existence-only check zamenil partial artifact za enforcement.
 
-## 14. Constraint validation
+## 7. Evidence, containment a authoritative recovery
 
-Veľká table môže dostať constraint v phases, ak engine podporuje oddelenie definition a validation. Cieľom je:
-
-1. zabrániť novým invalid writes;
-2. backfillnúť historical rows;
-3. overiť complete cohort;
-4. validovať authoritative constraint;
-5. odstrániť application-only guard.
-
-`Backfill completed` metric nestačí. Potrebný je zero-invalid-row query, constraint catalog state a forbidden-write test.
-
-## 15. Migration observability
-
-Sleduj:
-
-- rows remaining a verified rate;
-- batch latency a errors;
-- lock waits a blocker age;
-- active/idle-in-transaction sessions;
-- query-plan changes;
-- buffer/cache pressure;
-- WAL/redo generation;
-- replication lag;
-- vacuum/garbage-collection lag;
-- application latency/error rate;
-- constraint/index validity;
-- data reconciliation differences.
-
-Progress bez reliability guardrails môže iba rýchlejšie poškodzovať production.
-
-## 16. Worked incident `DB-PAY-56`
-
-Migration pridávala `merchant_operation_id` do `settlement_attempt` s približne `780 miliónmi` rows.
-
-Execution plan:
+Pri migration latency treba rozlíšiť CPU alebo storage saturation, plan regression, lock queue, pool starvation, vacuum/version retention, WAL/replication pressure, index build load a retry amplification. Rozhodujúca evidence chain je:
 
 ```text
-1. add nullable column
-2. deploy application 8.0
-3. backfill 25 000 rows per transaction
-4. build unique index
-5. mark column NOT NULL
+migration generation + batch identity
+→ current query plan a estimated/actual rows
+→ active transaction age
+→ lock graph a root blocker
+→ table/index catalog validity
+→ WAL, receive, flush a replay positions
+→ pool waiters a application retries
+→ remaining-invalid cohort
+→ business SLI
 ```
 
-Skutočný backfill vyberal rows podľa:
+Containment najprv zastaví nové batchy a retry amplification, zachová plans, locks, cursors a catalog evidence a chráni OLTP admission. Náhodné ukončenie sessions môže spustiť veľký rollback alebo stratiť informáciu, ktoré rows sa commitli.
 
-```text
-merchant_operation_id IS NULL
-ORDER BY created_at
-```
+Authoritative recovery vytvorí supporting partial index bezpečným postupom, overí planner use, zmenší batch a použije stable keyset cursor s conditional update. Historical duplicates sa odstránia podľa exact manifestu. Unique constraint sa aktivuje až po zero-violation proofe. Potom nasleduje second batch, pause/resume, rollback/restart a failover-under-load test.
 
-Supporting partial index neexistoval. Každý batch preto opakovane scanoval veľkú časť table. Batch transactions trvali 4 až 11 minút a držali row locks aj old snapshots.
+## 8. Acceptance paths
 
-Dôsledky:
+**Positive path** začína reprezentatívnym production-scale cohortom. Intended index je validný a planner ho používa, batches majú bounded duration, old aj new application generation sú kompatibilné a constraint odmietne concurrent duplicate. Business latency, WAL a replica lag zostanú v guardraile.
 
-- OLTP lock waits vzrástli z milisekúnd na desiatky sekúnd;
-- connection pool sa naplnil waiters;
-- timeout retries zvýšili write load;
-- WAL generation vzrástla 6.4×;
-- async standby lag dosiahol 94 sekúnd;
-- autovacuum nemohlo efektívne retire-nuť old versions;
-- application p95 prekročilo 8 sekúnd.
+**Recovery path** úmyselne preruší batch po committed cursor-e, reštartuje worker a pokračuje bez skipped alebo double-transformed rows. Zlyhaný concurrent index build zostane rozpoznaný ako invalid a automation ho nesmie označiť za complete.
 
-Operator následne spustil štandardný `CREATE UNIQUE INDEX` namiesto approved concurrent variantu. Statement čakal za long transaction a po získaní locku zablokoval writers. Bol cancelnutý, ale incident už mal veľký request queue a replication backlog.
+**Failure path** prekročí lock, WAL alebo lag threshold. Migration sa bezpečne pozastaví, zachová exact state a OLTP pokračuje bez unbounded retry stormu.
 
-Neskôr `CREATE UNIQUE INDEX CONCURRENTLY` zlyhal na historical duplicates a zanechal invalid index artifact. Deployment automation kontrolovala iba existenciu index name-u, nie validity a uniqueness acceptance.
+**Forbidden path** skúša stale backfill overwrite, duplicate business key, broad blocking DDL, index-name-only acceptance a contract phase pri stále aktívnom old writerovi. Všetky musia byť odmietnuté alebo rollbacknuté bez porušenia business invariant-u.
 
-### Root causes
+**Second-operation path** opakuje migration na ďalšom tenant/cohort partitione a počas controlled failover-u. Tým sa overí, že úspech nebol závislý od jedného data distributionu alebo jedného primary timeline-u.
 
-- migration nebola modelovaná podľa current table scale a workloadu;
-- backfill nemal supporting access path a bounded transaction duration;
-- DDL lock mode nebol súčasťou execution gate-u;
-- index acceptance kontrolovala existence, nie valid/effective state;
-- duplicate cleanup a uniqueness proof nepredchádzali constraint activation.
+## 9. Troubleshooting a anti-patterny
 
-## 17. Competing hypotheses a discriminating evidence
+Diagnostika má ísť od exact query a migration generation cez planner, statistics, lock graph, transaction age, cursor a catalog state až k replication a business outcome-u. `Database je pomalá` nie je diagnóza; treba určiť, či čas trávi execution, lock wait, pool acquisition, rollback, replica apply alebo retries.
 
-Pri migration latency treba odlíšiť:
+Najčastejšie anti-patterny sú index na každý filter, unbounded single-statement backfill, DDL v peak-u podľa predpokladanej krátkej execution, blind kill root blockera, progress counter bez reconciliation a acceptance podľa existencie artifactu. Všetky zamieňajú intermediate observation za effective business control.
 
-1. CPU alebo storage saturation;
-2. query-plan regression;
-3. lock queue;
-4. connection pool starvation;
-5. replication slot/WAL retention;
-6. vacuum/version pressure;
-7. index build load;
-8. DDL waiting/holding lock;
-9. application retry amplification.
+## 10. Kontrolné otázky
 
-Evidence chain:
-
-```text
-migration generation a batch ID
-→ active transactions a age
-→ lock graph/root blocker
-→ EXPLAIN estimated vs actual plan
-→ table/index statistics a validity
-→ WAL/replication positions
-→ vacuum/version-retention state
-→ pool waiters/timeouts/retries
-→ application business SLI
-```
-
-## 18. Evidence-preserving containment
-
-```text
-pause new migration batches
-→ cancel iba identifikovaný safe statement, nie náhodné sessions
-→ zachovať plans, locks, catalog a replication evidence
-→ stop retry amplification
-→ znížiť batch concurrency
-→ chrániť OLTP admission
-→ inventory partial/invalid index a backfill state
-→ overiť exact last committed cursor
-```
-
-Killing root blocker bez pochopenia transaction outcome môže vytvoriť rollback storm alebo unknown batch state.
-
-## 19. Authoritative remediation
-
-1. vytvoriť supporting partial index bezpečným online/concurrent postupom;
-2. overiť index validity a planner use;
-3. zmeniť backfill na stable keyset cursor a menšie transactions;
-4. používať conditional idempotent updates;
-5. zaviesť lock, WAL, lag a OLTP latency abort criteria;
-6. inventory a odstrániť historical duplicates cez exact manifest;
-7. buildnúť unique index a overiť uniqueness;
-8. attachnúť/enforce-nuť constraint podľa engine-safe protocolu;
-9. overiť old/new application compatibility;
-10. vykonať second batch, failover a rollback/restart test.
-
-## 20. Index/lock/migration acceptance verdict
-
-Zmena je prijatá, keď:
-
-- exact query/schema subject a data scale sú známe;
-- intended index zodpovedá predicates, ordering a distribution;
-- estimate-vs-actual plan je overený;
-- read benefit prevyšuje write/storage/maintenance cost;
-- lock modes a blocker behavior sú rehearsed;
-- transactions a batches majú bounded duration;
-- migration používa expand/backfill/switch/contract protocol;
-- old/new application generations sú kompatibilné;
-- backfill je idempotentný, resumable a conflict-safe;
-- index/constraint sú validné a effective, nie iba present;
-- replication, vacuum a capacity guardrails prešli;
-- rollback/restart a second-batch test prešli;
-- forbidden duplicate, stale overwrite a broad-lock outcomes zlyhajú.
-
-## 21. Troubleshooting flow
-
-```text
-query alebo migration degradation
-→ exact query/schema/index generation
-→ current plan a statistics
-→ estimated vs actual rows
-→ index eligibility/validity
-→ transaction age a lock graph
-→ batch cursor a affected manifest
-→ WAL/replication/vacuum pressure
-→ application retry a business impact
-→ bounded pause/cancel/remediation
-→ plan, constraint a second-batch verification
-```
-
-## 22. Anti-patterny
-
-### Index na každý filter
-
-Zvyšuje write a maintenance cost a môže byť redundantný.
-
-### Index existuje, teda sa používa
-
-Môže byť invalid, unsuitable alebo planner zvolí iný path.
-
-### Online DDL znamená bez rizika
-
-Stále používa resources, waits a metadata locks.
-
-### Backfill jedným UPDATE
-
-Unbounded transaction zvyšuje locks, WAL, rollback a replication risk.
-
-### Batch progress = correctness
-
-Rows môžu byť stale-overwritten, skipped alebo double-processed.
-
-### DDL v peak-u, lebo statement je krátky
-
-Lock acquisition a table rewrite behavior sú dôležitejšie než text statementu.
-
-### Killni blocker
-
-Bez outcome a rollback modelu môže situáciu zhoršiť.
-
-## 23. Kontrolné otázky
-
-1. Čo tvorí exact index/lock/migration subject?
-2. Prečo planner nemusí index použiť?
-3. Ako sa B-tree a inverted index líšia?
-4. Prečo záleží na poradí multicolumn indexu?
-5. Ako unique constraint rieši concurrency race?
-6. Aký je write cost indexu?
-7. Ako access path ovplyvňuje lock footprint?
-8. Čo treba vedieť pred DDL v production?
-9. Aké caveats má concurrent index build?
-10. Ako expand/backfill/switch/contract funguje?
-11. Prečo backfill poškodil `DB-PAY-56`?
-12. Čo overuje index/lock/migration acceptance verdict?
+1. Ako access path ovplyvňuje lock a replication footprint?
+2. Prečo unique constraint rieši concurrency lepšie než `SELECT then INSERT`?
+3. Kedy môže planner ignorovať existujúci index?
+4. Prečo online alebo concurrent DDL nie je bezrizikový?
+5. Ako funguje `expand → backfill → switch → contract`?
+6. Ako backfill zabráni stale overwrite-u?
+7. Ktoré evidence odlišujú lock queue od CPU alebo pool starvation?
+8. Prečo invalid index artifact nesmie prejsť existence-only gate-om?
+9. Ako migration prispela k incidentu `DB-PAY-56`?
+10. Čo musia overiť recovery a forbidden paths?
 
 ## Glossary impact
 
-Relevantné pojmy: index subject, access path, query selectivity, multicolumn index, partial index, covering index, write amplification, plan generation, estimate-vs-actual verdict, lock graph, root blocker, DDL lock, migration generation, expand–backfill–switch–contract, stable cursor, stale backfill overwrite, constraint validation a index/lock/migration acceptance verdict.
+Relevantné pojmy: index subject, effective access path, query selectivity, plan generation, multicolumn index, partial index, write amplification, authoritative constraint, lock graph, root blocker, DDL lock, migration generation, expand–backfill–switch–contract, stable cursor, stale backfill overwrite, catalog validity, migration abort criterion a second-batch validation.
 
 ## Primárne zdroje
 
@@ -551,6 +195,7 @@ Relevantné pojmy: index subject, access path, query selectivity, multicolumn in
 - [PostgreSQL Documentation — Multicolumn Indexes](https://www.postgresql.org/docs/current/indexes-multicolumn.html)
 - [PostgreSQL Documentation — CREATE INDEX](https://www.postgresql.org/docs/current/sql-createindex.html)
 - [PostgreSQL Documentation — Explicit Locking](https://www.postgresql.org/docs/current/explicit-locking.html)
+- [MySQL 8.4 Reference Manual — InnoDB Online DDL Operations](https://dev.mysql.com/doc/refman/8.4/en/innodb-online-ddl-operations.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
