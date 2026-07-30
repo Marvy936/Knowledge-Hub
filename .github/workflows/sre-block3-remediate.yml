@@ -1,0 +1,36 @@
+name: SRE block 3 remediation
+
+on:
+  push:
+    branches:
+      - agent/sre-style-revalidation-block-3
+    paths:
+      - "scripts/remediate_sre_block3_depth.py"
+      - ".github/workflows/sre-block3-remediate.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/sre-style-revalidation-block-3
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply exact depth remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/remediate_sre_block3_depth.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/14-sre-and-operations/root-cause-analysis.md \
+                  docs/14-sre-and-operations/backup-and-restore.md \
+                  docs/14-sre-and-operations/rpo-and-rto.md
+          git commit -m "docs(sre): close block 3 strict depth findings"
+          git push origin HEAD:agent/sre-style-revalidation-block-3
