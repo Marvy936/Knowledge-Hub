@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: temporary-helm-practical-remediation
+  cancel-in-progress: false
+
 jobs:
   remediate:
     runs-on: self-hosted
@@ -35,12 +39,12 @@ jobs:
 '''
           new_test = '''## 10. Helm test Pod
 
-Helm test je post-deployment experiment pripojený k release-u cez hook annotation. Test resource sa nevkladá do bežnej serving cohorty; Helm ho vytvorí až pri `helm test` a vyhodnotí jeho terminal state. V tomto príklade testujeme presne internú DNS a Service-to-readiness cestu. Úspešný výstup preukazuje, že test Pod resolve-nul Service a dostal úspešnú HTTP odpoveď. NePreukazuje external ingress, user authentication, database write ani celý business transaction path.
+Helm test je post-deployment experiment pripojený k release-u cez hook annotation. Test resource sa nevkladá do bežnej serving cohorty; Helm ho vytvorí až pri `helm test` a vyhodnotí jeho terminal state. V tomto príklade testujeme presne internú DNS a Service-to-readiness cestu. Úspešný výstup preukazuje, že test Pod resolve-nul Service a dostal úspešnú HTTP odpoveď. Nepreukazuje external ingress, user authentication, database write ani celý business transaction path.
 
 Test Pod preto zostáva malý a jeho oracle je explicitný: `curl --fail` musí skončiť exit kódom nula. Ak test zlyhá, `helm test --logs` ukáže jeho stdout/stderr, no root cause sa ešte musí lokalizovať medzi DNS, Service endpoints, policy, listener a application readiness.
 
 ```gotemplate
-'''.replace('NePreukazuje', 'Nepreukazuje')
+'''
 
           old_tasks = '''## Kontrolné úlohy
 
