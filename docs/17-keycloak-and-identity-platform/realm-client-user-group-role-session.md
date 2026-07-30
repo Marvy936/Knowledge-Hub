@@ -387,3 +387,11 @@ Relevantné pojmy: realm subject, client internal UUID, Keycloak user identity, 
 - [Keycloak — Assigning permissions using roles and groups](https://www.keycloak.org/docs/latest/server_admin/#assembly-managing-users_server_administration_guide)
 - [Keycloak — Managing user sessions](https://www.keycloak.org/docs/latest/server_admin/#_user-session-management)
 - [Keycloak — Upgrading Guide](https://www.keycloak.org/docs/latest/upgrading/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Keycloak architecture a responsibility boundary](keycloak-architecture-and-responsibility-boundary.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OIDC clients, redirect URIs, scopes a PKCE →](oidc-clients-redirect-uris-scopes-pkce.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -335,3 +335,11 @@ Relevantné pojmy: Keycloak deployment subject, realm issuer, frontend endpoint,
 - [Keycloak — Configuring distributed caches](https://www.keycloak.org/server/caching)
 - [Keycloak — Server Administration Guide](https://www.keycloak.org/docs/latest/server_admin/)
 - [Keycloak — Upgrading Guide](https://www.keycloak.org/docs/latest/upgrading/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Multi-tenancy](../16-gitops-and-platform-engineering/multi-tenancy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Realm, client, user, group, role a session →](realm-client-user-group-role-session.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

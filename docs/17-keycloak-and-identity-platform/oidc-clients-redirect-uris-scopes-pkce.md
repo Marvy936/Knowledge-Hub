@@ -382,3 +382,11 @@ Relevantné pojmy: OIDC client generation, public client, confidential client, v
 - [OAuth 2.0 Security Best Current Practice — RFC 9700](https://www.rfc-editor.org/rfc/rfc9700)
 - [OAuth 2.0 for Native Apps — RFC 8252](https://www.rfc-editor.org/rfc/rfc8252)
 - [PKCE — RFC 7636](https://www.rfc-editor.org/rfc/rfc7636)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Realm, client, user, group, role a session](realm-client-user-group-role-session.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SAML clients, metadata, assertions a bindings →](saml-clients-metadata-assertions-bindings.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -369,3 +369,37 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Service catalog](docs/16-gitops-and-platform-engineering/service-catalog.md)
 - [x] [Guardrails](docs/16-gitops-and-platform-engineering/guardrails.md)
 - [x] [Multi-tenancy](docs/16-gitops-and-platform-engineering/multi-tenancy.md)
+## Fáza 6 — Identity platformy
+
+### Keycloak and Identity Platform
+
+- [x] [Keycloak architecture a responsibility boundary](docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md)
+- [x] [Realm, client, user, group, role a session](docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md)
+- [x] [OIDC clients, redirect URIs, scopes a PKCE](docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md)
+- [x] [SAML clients, metadata, assertions a bindings](docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md)
+- [ ] Tokens, claims, protocol mappers a client scopes
+- [ ] Public, confidential a bearer-only client model
+- [ ] Service accounts a machine-to-machine authentication
+- [ ] Authentication flows, executions a required actions
+- [ ] MFA, WebAuthn, passkeys a step-up authentication
+- [ ] Password policies, brute-force protection a account recovery
+- [ ] Identity brokering
+- [ ] LDAP a Active Directory federation
+- [ ] User storage, synchronization a cache semantics
+- [ ] Authorization Services, resources, scopes, policies a permissions
+- [ ] Token exchange, impersonation a delegated access
+- [ ] Admin Console, Admin REST API a automation
+- [ ] Events, audit, metrics a observability
+- [ ] Themes, email templates a localization
+- [ ] Keycloak server configuration, hostname a reverse proxy
+- [ ] TLS, truststores, cookies, headers a production hardening
+- [ ] Database, transactions, connection pools a schema lifecycle
+- [ ] Infinispan caches, clustering a session behavior
+- [ ] Keycloak Operator a Kubernetes deployment
+- [ ] High availability, multi-AZ a multi-cluster trade-offs
+- [ ] Backup, restore, realm import/export a disaster recovery
+- [ ] Upgrades, migration guides a rollback boundaries
+- [ ] Custom providers, SPI a extension lifecycle
+- [ ] Securing APIs, microservices a MCP servers cez Keycloak
+- [ ] Keycloak performance, sizing a load testing
+- [ ] Keycloak troubleshooting

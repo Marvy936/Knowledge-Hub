@@ -63,8 +63,9 @@ Aktívne sekcie:
 15. [SRE and Operations](docs/14-sre-and-operations/README.md)
 16. [Databases and Distributed Systems](docs/15-databases-and-distributed-systems/README.md)
 17. [GitOps and Platform Engineering](docs/16-gitops-and-platform-engineering/README.md)
+18. [Keycloak and Identity Platform](docs/17-keycloak-and-identity-platform/README.md)
 
-Všetky hlavné domény aktuálnej roadmapy sú aktívne. Budúce identity, ML, LLM a agentické oblasti sú predbežne rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
+Hlavná roadmapa pokračuje aktívnou sekciou Keycloak and Identity Platform. Budúce ML, MLOps, LLM a agentické oblasti zostávajú rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 

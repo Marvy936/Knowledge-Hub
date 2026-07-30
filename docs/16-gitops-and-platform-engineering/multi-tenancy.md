@@ -370,5 +370,5 @@ Tieto dokumenty popisujú jednotlivé building blocks a odporúčania, ale Kuber
 
 **Navigácia**
 
-[← Predchádzajúca: Guardrails](guardrails.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Guardrails](guardrails.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak architecture a responsibility boundary →](../17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
