@@ -1,604 +1,233 @@
 # Chaos engineering
 
-Chaos engineering je disciplinované experimentovanie na systéme s cieľom získať evidence-backed dôveru, že kritická business capability odolá realistickým turbulentným podmienkam. Nie je to náhodné vypínanie resources ani dramatický game day bez hypotézy a closure.
+Chaos engineering je disciplinované experimentovanie, ktorým sa organizácia pokúša falsifikovať konkrétnu hypotézu o spoľahlivosti business capability pod realistickou turbulentnou podmienkou. Nie je to náhodné vypínanie resources, všeobecný game day ani dôkaz odvahy spúšťať faults v production. Hodnota vzniká až z presného experiment subjectu, user-centered steady state-u, controlled faultu, safety state machine, úplnej recovery observation a mechanism-level remediation.
+
+Experiment môže úspešne odhaliť, že hypotéza bola nepravdivá. To je valuable learning, ale reliability claim neprešiel. Naopak tool exit code `0`, obnovený Pod count alebo krátky pokles error rate-u neznamenajú, že business outcome, backlog a unknown external effects zostali v povolených hraniciach.
+
+## 1. Dominantný risk-to-confidence lifecycle
+
+Chaos program začína známym riskom alebo neovereným assumptionom. Z neho sa vytvorí falsifikovateľná hypothesis, current baseline a najmenší reprezentatívny experiment. Fault injection je iba stred lifecycle-u; verdict vzniká až po recovery, reconciliation a repeat experiment-e.
 
 ```text
-reliability risk alebo unknown
-→ exact experiment subject a current generation
-→ steady-state a business hypothesis
-→ realistic fault alebo condition
-→ control a experimental cohort
-→ safety boundary a abort criteria
-→ authorized injection
-→ observation počas faultu a recovery
-→ hypothesis verdict
-→ weakness/remediation
-→ effective-state a recurrence validation
-→ second experiment a confidence update
+reliability risk alebo unknown assumption
+→ exact experiment subject a evidence claim
+→ measurable steady state a falsifikovateľná hypothesis
+→ realistic variable, control a experimental cohort
+→ preconditions, blast radius a safety state machine
+→ authorized effective injection
+→ business, technical a human observations
+→ abort alebo controlled recovery
+→ backlog/state/external-effect reconciliation
+→ supported, falsified, inconclusive alebo incident verdict
+→ mechanism-bound remediation
+→ repeat experiment a bounded confidence update
 ```
 
-## 1. Experiment, test a incident
+Evidence scope je súčasťou claimu. Experiment nad local Pod failure-om môže potvrdiť replica replacement, ale nesmie byť prezentovaný ako dôkaz regional DR, provider continuity alebo business-consistent recovery.
 
-### Test
+## 2. Test, chaos experiment, game day a incident
 
-Overuje explicitný contract s definovaným oracle-om. Môže byť deterministic a prebiehať mimo production.
+Test overuje explicitný contract s definovaným oracle-om a môže byť deterministic mimo production. Chaos experiment skúša falsifikovať hypothesis o komplexnom system behavior-e pod turbulentnou condition. Game day je širšie coordinated exercise ľudí, systems a procedures; môže obsahovať chaos experiment, DR rehearsal alebo tabletop. Incident je neplánovaný alebo nekontrolovaný impact.
 
-### Chaos experiment
+Rozlíšenie mení authority a safety behavior. Experiment bez hypothesis je fault injection bez learning contractu. Experiment bez business steady state-u môže byť component drill, nie service reliability evidence. Keď impact prekročí approved boundary alebo recovery nie je controlled, chaos authority končí a incident command preberá vedenie.
 
-Skúša falsifikovať hypotézu o správaní komplexného systemu pod realistickou turbulentnou podmienkou. Outcome môže odhaliť unknown interaction.
+## 3. Exact experiment subject a immutable claim
 
-### Game day
-
-Koordinované cvičenie ľudí, systems a procedures. Môže obsahovať chaos experiments, ale môže byť aj tabletop alebo disaster-recovery rehearsal.
-
-### Incident
-
-Neplánovaný alebo nekontrolovaný user/business impact. Experiment, ktorý prekročí safety boundary a už nie je riadený, sa musí preklasifikovať na incident.
-
-```text
-fault injection bez hypotézy
-→ experiment nie je definovaný
-
-hypotéza bez user/business steady state-u
-→ technický drill, nie reliability evidence
-
-impact mimo abort/containment contractu
-→ incident response
-```
-
-## 2. Exact chaos subject
-
-Experiment subject má uviesť:
-
-- business capability a user journey;
-- service, environment a Region;
-- architecture/release/config generation;
-- control a experimental cohorts;
-- exact fault target;
-- dependency a failure boundary;
-- steady-state metrics a populations;
-- SLO/error-budget context;
-- experiment window;
-- owner, approver a responders;
-- blast radius;
-- abort a recovery mechanisms;
-- expected evidence;
-- forbidden outcomes.
-
-Príklad:
+Subject zachováva capability a journey, environment/Region, architecture/release/config generations, control a experimental cohorts, exact fault target a dependency boundary, steady-state population, SLO/error-budget context, window, owner/approver/responders, maximum blast radius, abort/recovery mechanisms, expected evidence a forbidden outcomes.
 
 ```text
 experiment: CH-PAY-55-2
 capability: provider-confirmed settlement completion
-release: 7.26.1
-control: prod-eu1 tenant cohort A
-experimental: prod-euw1 synthetic + 1 % internal cohort
-event: provider egress unavailable 8 min
-hypothesis: accepted durable intents remain reconstructable;
-            completion recovers within 12 min after egress restoration
+release: payments 7.26.1
+control: prod-eu1 synthetic cohort
+experimental: prod-euw1 internal merchants, max 1 %
+variable: provider egress unavailable 8 min
+hypothesis: durable intents remain reconstructable;
+            completion recovers within 12 min;
+            no duplicate or lost settlement
 steady state:
   completion good ratio >= 99.9 %
-  no duplicate provider settlement
   queue age <= 10 min
-  sent-unknown cohort = 0 after reconciliation
-blast radius: max 1 % internal merchants, max 2 000 operations
+  retry amplification <= 1.4x
+blast radius: max 2 000 operations
 ```
 
-## 3. Reliability question a hypothesis
+Experiment definition má byť immutable alebo reprodukovateľná. Zmena cohortu, release-u, intensity, duration, oracle-u alebo abort threshold-u vytvára novú generation. Inak môže report tvrdiť, že prešiel experiment, ktorý sa počas executionu zmenil na ľahší.
 
-Silná chaos hypotéza je falsifikovateľná a viazaná na outcome.
+## 4. Reliability question, hypothesis a steady state
 
-```text
-za podmienok X
-pre subject/cohort Y
-keď nastane event Z
-systém zachová invariant A
-alebo sa obnoví do boundary B
-bez forbidden outcome-u C
-```
+Silná hypothesis má tvar: za podmienok X, pre subject Y, keď nastane variable Z, systém zachová invariant A alebo sa obnoví do boundary B bez forbidden outcome-u C. `Systém by mal prežiť` alebo `Kubernetes prescheduluje Pody` neposkytuje business claim ani recovery bound.
 
-Slabé hypotézy:
-
-- `systém by mal prežiť`;
-- `Kubernetes prescheduluje Pody`;
-- `DR funguje`;
-- `retry policy je správna`.
-
-Silná hypotéza:
+Pre provider timeout experiment je silná hypothesis:
 
 ```text
-ak provider vracia timeouty 8 minút,
-unique accepted settlement intents zostanú durable,
-provider attempts neprekročia shared retry budget 1.4×,
+ak provider timeoutuje 8 minút,
+unique acknowledged settlement intents zostanú durable,
+provider attempts neprekročia shared retry budget 1.4x,
 DB acquire p99 zostane pod 250 ms,
-a po obnove provider pathu sa 99 % affected operations
-uzavrie do 12 minút bez duplicate settlementu.
+a 99 % affected operations sa po obnove uzavrie do 12 minút
+bez duplicate settlementu.
 ```
 
-## 4. Steady state
+Steady state opisuje measurable behavior pred, počas a po fault-e. Zahŕňa completion/correctness, latency, queue age/drain, durability/reconstructability, degraded user outcome, security invariant, saturation, recovery time a reconciliation. Component metrics vysvetľujú mechanismus, ale Pod count, CPU alebo `/healthz` samostatne nevytvárajú service oracle. Control cohort pomáha odlíšiť fault effect od bežného trafficu, release driftu alebo provider variability.
 
-Steady state opisuje measurable system behavior, nie iba interný component health.
+## 5. Realistická variable a experiment fidelity
 
-Vhodné steady-state dimensions:
+Variable má reprezentovať modeled real-world condition: process/node loss, CPU alebo memory pressure, latency/packet loss/DNS failure, replica lag alebo leader loss, provider timeout/429, KMS denial, quota exhaustion, telemetry loss, traffic spike, certificate rotation, deployment alebo backlog replay.
 
-- successful business completion ratio;
-- correctness a duplicate/loss rate;
-- latency distribution;
-- queue age a drain behavior;
-- durability/reconstructability;
-- user-visible degraded outcome;
-- security invariant;
-- resource saturation guardrails;
-- recovery time;
-- reconciliation closure.
+Priorita nevychádza iba z frequency. Rare event s catastrophic impactom a slabou recovery evidence môže byť dôležitejší než častý bounded failure. Experiment musí zasiahnuť správnu boundary. Jeden Pod kill je vhodný pre local scheduling hypothesis, ale nie pre regional control-plane loss. Synthetic request bez external side effectu môže overiť edge path, ale nie exactly-once provider operation.
 
-Nevhodný jediný oracle:
+Fidelity rastie postupne: model/simulation, nonproduction experiment, shadow alebo synthetic production cohort, bounded internal cohort a širší production scope. Nižšia fidelity je užitočná na bezpečné odhalenie základných defects; vyššia sa používa až vtedy, keď otázku nemožno spoľahlivo zodpovedať inde.
 
-- Pod count;
-- CPU;
-- HTTP `/healthz`;
-- database process running;
-- experiment tool exit code.
+## 6. Preconditions a experiment eligibility
 
-Steady state má mať control aj experimental cohort, aby zmena počas experimentu nebola zamieňaná za bežný traffic alebo dependency drift.
+Pred executionom sa overí current owner a on-call coverage, neprítomnosť relevantného incidentu, exact release/environment, stable baseline, telemetry coverage, injection identity a permissions, affected manifest, blast-radius enforcement, abort automation, recovery path, communication channel, error-budget eligibility a data/security/regulatory constraints.
 
-## 5. Realistické events
+Precondition nie je formalita. Experiment nesmie prvýkrát zistiť, že team nemá decrypt access, recovery command, provider contact alebo business oracle. Ak monitoring nevie rozlíšiť control a experimental cohort alebo recovery path nebol rehearse-nutý, experiment sa zastaví pred injection.
 
-Chaos variables majú reprezentovať relevantné real-world conditions.
+Eligibility môže byť denied aj pri zdravom service state-e, ak error budget je at risk, prebieha critical launch alebo dependency owner nedal potrebný súhlas. Chaos program nemá prednosť pred customer a safety commitments.
 
-### Compute a process
+## 7. Blast radius a privileged injection
 
-- process crash;
-- node loss;
-- CPU throttling;
-- memory pressure alebo OOM;
-- slow startup;
-- partial fleet generation loss.
+Blast radius má user/tenant, operation, Region/AZ/resource, dependency, data, duration, traffic, financial/legal a recovery-complexity dimensions. Minimal blast radius znamená najmenší scope, ktorý stále testuje daný mechanismus; nereprezentatívny fault vytvára false confidence.
 
-### Network
+Injection je privileged change. Potrebuje exact target manifest, least-privilege short-lived identity, environment restrictions, max scope/duration, dry-run/read-back, immutable definition, dual control pre high-risk faults, audit, automatic expiry, cleanup a kill switch. Credential schopné meniť ľubovoľnú production network policy je samostatný security defect, aj keby samotný experiment bol dobre navrhnutý.
 
-- latency, packet loss a reordering;
-- DNS failure alebo stale cache;
-- asymmetric routing;
-- dependency connection refusal;
-- Region alebo AZ partition;
-- MTU alebo TLS handshake failure.
+Scope expansion počas experimentu vyžaduje novú approval a generation. Operator nesmie neformálne zvýšiť percento trafficu, pretože „zatiaľ je všetko zelené“.
 
-### Data a state
+## 8. Safety state machine a abort semantics
 
-- replica lag;
-- unavailable leader;
-- disk/full I/O latency;
-- stale cache;
-- corrupted record alebo schema incompatibility;
-- lost acknowledgement/unknown outcome.
-
-### Dependencies a control planes
-
-- provider timeout/429;
-- identity issuer unavailable;
-- KMS/secret access denied;
-- registry/artifact unavailable;
-- admission/control plane failure;
-- quota exhaustion;
-- telemetry pipeline loss.
-
-### Non-failure turbulence
-
-- traffic spike;
-- autoscaling event;
-- deployment alebo config rollout;
-- certificate/key rotation;
-- tenant hotspot;
-- backlog replay.
-
-Fault frequency nie je jediný prioritization signal. Rare event s catastrophic impact a slabou recovery evidence môže mať vyššiu prioritu než častý bounded failure.
-
-## 6. Preconditions
-
-Pred experimentom over:
-
-- current service owner a on-call coverage;
-- no active relevant incident;
-- experiment environment a release generation;
-- steady-state baseline;
-- reliable observability;
-- injection tool identity a permissions;
-- affected manifest;
-- blast-radius controls;
-- abort automation;
-- recovery mechanism;
-- communication channel;
-- error-budget/policy eligibility;
-- downstream/provider approval, ak je potrebný;
-- data-integrity a regulatory constraints.
-
-Experiment nesmie prvýkrát objaviť, že team nemá access, telemetry alebo recovery command.
-
-## 7. Blast radius
-
-Blast radius má dimensions:
-
-- users/tenants;
-- operations/events;
-- Region/AZ/node/pod count;
-- dependency scope;
-- data set;
-- time;
-- traffic percentage;
-- financial alebo legal exposure;
-- recovery complexity.
-
-Minimize blast radius neznamená urobiť experiment nereprezentatívny. Znamená nájsť najmenší scope, ktorý stále testuje daný failure mechanismus.
+Experiment používa explicitné states:
 
 ```text
-jeden Pod kill
-→ vhodný pre local replica behavior
-→ nevhodný dôkaz regional DR
-
-synthetic request bez provider side effectu
-→ vhodný pre edge path
-→ nevhodný dôkaz settlement correctness
-```
-
-## 8. Safety state machine
-
-Chaos tooling má používať explicitnú state machine.
-
-```text
-Draft
-→ Reviewed
-→ Armed
-→ BaselineVerified
-→ Injecting
-→ Observing
-→ Recovering
-→ Reconciling
-→ Accepted alebo Failed
+Draft → Reviewed → Armed → BaselineVerified
+→ Injecting → Observing → Recovering → Reconciling
+→ Accepted | Falsified | Inconclusive | Aborted | Incident
 → Closed
 ```
 
-Každý transition potrebuje:
+Každý transition má ownera, preconditions, expected evidence, timestamp a abort path. Injection bez baseline, širší scope bez approval, druhý fault pri unknown state-e alebo `Passed` pred reconciliation sú forbidden transitions.
 
-- ownera;
-- timestamp;
-- preconditions;
-- expected state;
-- abort path;
-- audit evidence.
+Abort criteria sú measurable: completion fast burn, population nad 2 000 operations, duplicate settlement nad nulu, sent-unknown cohort nad 20, queue age nad 12 minút, DB acquire p99 nad 500 ms, telemetry coverage pod threshold alebo adjacent cohort impact. Abort neznamená iba stopnúť injector. Aktivuje cleanup/recovery a pri pretrvávajúcom impacte incident declaration. Kill switch bez overenej recovery path je neúplný safety control.
 
-Forbidden transitions:
+## 9. Observation a attribution
 
-- injectovať bez baseline;
-- rozšíriť scope bez nového approval;
-- označiť experiment `passed`, kým recovery/reconciliation nie sú complete;
-- spustiť ďalší fault pri unknown current state-e.
+Počas experimentu sa sledujú tri vrstvy. Injection evidence potvrdzuje intended target, effective intensity/duration, partial injector failures a cleanup. System behavior porovnáva control/experimental cohorts, business SLI, retries, queues, saturation, failover a telemetry coverage. Human behavior sleduje page delivery, qualified response, runbook eligibility, declaration/escalation, decision latency a manual touch points.
 
-## 9. Abort criteria
+Tieto outcomes sa hodnotia oddelene. Technický mechanismus môže prejsť, ale on-call escalation zlyhať. Alebo injection tool môže skončiť successom, no fault sa na intended network path nikdy neprejavil; výsledok je inconclusive, nie supported.
 
-Abort criterion musí byť measurable a automaticky alebo rýchlo vyhodnotiteľný.
+Concurrent deployment, traffic spike alebo provider event môže attribution narušiť. Experiment state preto zachováva change calendar a independent observations. Keď causal attribution nemožno urobiť, report nesmie vybrať želaný verdict.
 
-Príklady:
+## 10. Recovery a reconciliation ako súčasť experimentu
 
-- completion fast-burn prekročí 14× počas 5 minút;
-- affected population presiahne 2 000 operations;
-- duplicate provider settlement > 0;
-- sent-unknown cohort > 20;
-- queue age > 12 minút;
-- DB acquire p99 > 500 ms počas 3 minút;
-- observability coverage klesne pod required threshold;
-- recovery command zlyhá;
-- adjacent tenant cohort vykazuje impact.
-
-Abort neznamená iba zastaviť injection. Musí aktivovať recovery a incident declaration, ak impact pretrváva.
-
-## 10. Injection identity a control
-
-Fault injection je privileged operation. Potrebuje:
-
-- exact target manifest;
-- least-privilege identity;
-- short-lived authorization;
-- environment/Region restrictions;
-- max scope a duration;
-- dry-run/read-back;
-- immutable experiment definition;
-- dual control pre high-risk faults;
-- audit trail;
-- kill switch;
-- automatic expiry a cleanup.
-
-Broad credential, ktoré dokáže meniť ľubovoľnú production network policy, je independent security risk.
-
-## 11. Observation počas experimentu
-
-Sleduj tri vrstvy:
-
-### Injection evidence
-
-- fault bol applied na intended target;
-- effective duration a intensity;
-- partial failures injection toolu;
-- cleanup state.
-
-### System behavior
-
-- control vs experimental cohort;
-- business SLI;
-- component path;
-- retries, queues a saturation;
-- failover/reconciliation state;
-- telemetry coverage.
-
-### Human/operational behavior
-
-- page delivery a qualified response;
-- runbook eligibility;
-- declaration a escalation;
-- communication;
-- decision latency;
-- manual touch points;
-- recovery authority.
-
-Chaos môže testovať technický mechanizmus aj organizational response, ale tieto outcomes majú byť hodnotené oddelene.
-
-## 12. Recovery je súčasť experimentu
-
-Experiment nekončí odstránením faultu.
+Experiment nekončí odstránením faultu. Sleduje reconnection, backlog a retry stabilization, state convergence, business outcome closure, removal temporary overrides, adjacent cohort a second operation. Dôležité sú recovery latency, overshoot/oscillation, retry storm, stale connections/cache, drain rate a unknown/duplicate outcomes.
 
 ```text
 fault removed
-→ dependency/service reconnection
-→ backlog a retries stabilize
-→ data/state convergence
-→ business outcomes close
-→ temporary overrides removed
-→ adjacent cohort valid
-→ second operation succeeds
+→ dependency reconnect
+→ retries/concurrency stabilize
+→ backlog drains
+→ data a external effects converge
+→ affected operations close
+→ temporary controls retire
+→ adjacent a second operation succeed
 ```
 
-Sleduj:
+Ak metric krátko dosiahne baseline, ale queue rastie alebo sent-unknown cohort nie je reconciled, experiment zostáva v `Recovering` alebo `Reconciling`. Predčasný closure by zamenil symptom recovery za business recovery.
 
-- recovery latency;
-- overshoot/oscillation;
-- retry storm po obnove;
-- stale connections/caches;
-- backlog drain;
-- duplicate/unknown outcomes;
-- operator cleanup;
-- recurrence po druhom fault cycle.
+## 11. Verdict a evidence scope
 
-## 13. Experiment verdict
+`Hypothesis supported` vyžaduje complete evidence, steady state a recovery within boundaries a neprítomnosť forbidden outcomes. `Falsified` znamená, že behavior alebo recovery porušili hypothesis; experiment priniesol learning, ale reliability claim zlyhal. `Inconclusive` znamená neúčinný fault, nedostatočnú telemetry, nereprezentatívny cohort alebo confounding event. `Aborted safely` potvrdzuje safety response, nie automaticky pôvodnú hypothesis. Pri prekročení controlled boundary vzniká experiment-induced incident.
 
-Možné verdicts:
+Verdict musí uviesť presný scope. `Local worker replacement supported` sa nesmie publikovať ako `regional resilience proven`. Confidence je bounded claim viazaný na current generation, variable, cohort a observation window.
 
-### Hypothesis supported
+## 12. False confidence pred `SRE-PAY-55`
 
-Steady state a recovery boundaries prešli, evidence je complete a forbidden outcomes nenastali.
+Experiment `CH-PAY-41 — Region resilience` zabil 50 % settlement worker Pods v `prod-eu1`, čakal na replacement replicas, sledoval HTTP `202` error rate a skončil pri obnovenom Pod count-e. Korektne dokázal local worker replacement.
 
-### Hypothesis falsified
+Neobsahoval Region/control-plane loss, standby KMS identity, provider egress/callback, broker checkpoint/fencing, DNS cutover, standby capacity, final completion SLI, reconciliation ani actual RTO. Organizational report napriek tomu použil `Passed` ako regional DR evidence.
 
-System behavior alebo recovery porušili hypotézu. Experiment je úspešný ako learning, ale reliability claim neprešiel.
+Root cause chaos failure-u bol experiment-subject mismatch: narrow Pod drill bol bez causal contractu použitý na širší business-recovery claim. Readiness review následne prijala nesúvisiace evidence ako dôkaz current DR capability.
 
-### Inconclusive
+## 13. Post-remediation experiment `CH-PAY-55-2`
 
-Fault nebol effective, telemetry bola neúplná, cohort nereprezentatívny alebo concurrent event znemožnil attribution.
+Nový bounded experiment použil control cohort v `prod-eu1`, internal experimental cohort v `prod-euw1`, deny primary provider egress, primary writer epoch freeze a recovery provider/DNS path. Scope bol max 2 000 operations a jedno percento internal merchants. Steady state vyžadoval durable acceptance, provider-confirmed completion, nulové duplicate/lost outcomes, queue age do desať minút a recovery do 45 minút.
 
-### Aborted safely
+Preconditions zahŕňali current `DR-PAY-55-v4`, decrypt canary, provider allowlist/callback, broker checkpoint, active on-call/IC/provider contacts a fencing read-back. Prvý run falsifikoval hypothesis: DNS cutover bol effective za 94 sekúnd, no existing keep-alive sessions držali primary route dlhšie než modelovaných 30 sekúnd. Bounded abort zabránil customer impactu.
 
-Safety threshold sa aktivoval a recovery prešla. Reliability claim môže zostať unresolved alebo failed podľa evidence.
+Po connection-drain, TTL/keep-alive contracte, active-path read-backu a reconnect guardraile repeat prešiel: business recovery `31 min 42 s`, recovered-point gap 48 sekúnd, nula duplicate/lost intents, nula sent-unknown po reconciliation a druhý cycle successful.
 
-### Experiment-induced incident
+## 14. Remediation a chaos acceptance contract
 
-Impact prekročil controlled boundary alebo recovery nebola bounded. Incident management preberá authority.
+Finding pokračuje od exact mechanismu cez severity/owner, containment, engineering control, deployment/effective read-back a repeat experiment. `Upraviť runbook` nestačí, ak executable path zostáva rovnaký. Repeat má použiť rovnaký mechanismus a adjacent cohort alebo second cycle, aby odhalil presun failure-u.
 
-`Tool exit code 0` nie je chaos acceptance verdict.
-
-## 14. Remediation closure
-
-Weakness má pokračovať lifecycle-om:
+Positive path preukáže effective fault, stable business steady state a complete recovery. Falsification path musí bezpečne zastaviť ramp, zachovať evidence a vytvoriť owned remediation. Abort path musí prejsť do recovery/incident authority. Forbidden paths zahŕňajú injection bez baseline, broad identity, scope expansion, incomplete telemetry, claim širší než subject a closure pred reconciliation.
 
 ```text
-experiment finding
-→ exact failure mechanism
-→ severity a owner
-→ containment alebo risk acceptance
-→ engineering control
-→ test a rollout
-→ production effective-state evidence
-→ repeat experiment
-→ hypothesis verdict
-→ residual risk
+positive:
+current baseline → effective fault → bounded behavior → full recovery
+
+falsified:
+assumption broken → safe abort → mechanism action → repeat
+
+forbidden:
+random fault bez hypothesis
+Pod health ako business oracle
+stop injection bez recovery
+inconclusive označené passed
+old experiment evidence pre new generation
 ```
 
-Action `upraviť runbook` nestačí, ak executable system path zostáva rovnaký. Repeat experiment má použiť rovnaký mechanismus aj alternate cohort alebo second cycle.
+## 15. Troubleshooting chaos experimentu
 
-## 15. Worked false-confidence experiment pred `SRE-PAY-55`
-
-Pred regional incidentom Atlas evidoval experiment `CH-PAY-41 — Region resilience`, označený ako passed.
-
-Experiment vykonal:
+Pri slabom alebo nebezpečnom výsledku sleduj experiment generation, question/hypothesis, cohorts, baseline/coverage, target a effective fault, blast radius, abort behavior, concurrent events, business steady state, recovery/reconciliation, verdict scope a remediation repeat.
 
 ```text
-kill 50 % settlement worker Pods v prod-eu1
-→ overiť, že Kubernetes vytvorí replacement Pody
-→ sledovať HTTP 202 error rate
-→ ukončiť po návrate replica countu
-```
-
-Chýbalo:
-
-- strata Region/control plane-u;
-- standby identity a KMS path;
-- provider egress allowlist a callback routing;
-- broker checkpoint/fencing;
-- DNS cutover;
-- standby capacity;
-- final settlement completion SLI;
-- reconciliation a actual RTO;
-- current DR plan generation.
-
-Experiment korektne dokázal iba local worker replacement. Organizational reporting ho však interpretoval ako regional DR evidence.
-
-Primary chaos-engineering failure bol **experiment-subject mismatch: narrow Pod-failure drill bol bez validného causal contractu použitý ako dôkaz end-to-end regional business recovery**.
-
-## 16. Post-remediation experiment `CH-PAY-55-2`
-
-Po incidente tím vytvoril bounded regional recovery experiment.
-
-```text
-control: prod-eu1 synthetic merchant cohort
-experimental: prod-euw1 internal merchant cohort
-faults:
-  deny primary provider egress
-  freeze primary writer epoch
-  activate recovery provider/DNS path
-steady state:
-  durable acceptance
-  provider-confirmed completion
-  no duplicate/lost operation
-  queue age <= 10 min
-  actual recovery <= 45 min
-scope:
-  max 2 000 operations
-  max 1 % internal cohort
-```
-
-Preconditions:
-
-- `DR-PAY-55-v4` current;
-- KMS decrypt canary prešiel;
-- provider recovery allowlist a callbacks verified;
-- broker checkpoint generation current;
-- on-call, IC a provider contacts active;
-- rollback a fencing read-back available.
-
-Experiment odhalil prvú slabinu: DNS cutover bol effective za 94 sekúnd, ale existing client keep-alive sessions držali primary route dlhšie než modelovaných 30 sekúnd. Hypotéza bola falsified bez customer impactu, pretože cohort bol bounded a abort criterion zastavil ramp.
-
-Remediation:
-
-- connection-drain a TTL/keep-alive contract;
-- active-path header/read-back;
-- client reconnect guardrail;
-- updated traffic ramp.
-
-Repeat experiment prešiel:
-
-```text
-business recovery: 31 min 42 s
-business-consistent recovered point gap: 48 s
-confirmed duplicates: 0
-confirmed lost intents: 0
-sent-unknown after reconciliation: 0
-second cycle: passed
-```
-
-## 17. Chaos acceptance verdict
-
-Experiment je prijatý, keď:
-
-- exact business/reliability question je definovaná;
-- subject, generations, cohorts a fault target sú immutable;
-- steady state používa user/business outcome a guardrails;
-- hypothesis je falsifikovateľná;
-- event je realistický pre modeled risk;
-- blast radius je minimálny, ale reprezentatívny;
-- current baseline a telemetry coverage sú overené;
-- privileged injection má bounded identity, scope a duration;
-- abort a recovery state machine sú testované;
-- control a experimental observations sú attributable;
-- recovery, backlog, reconciliation a second operation sú complete;
-- verdict rozlišuje supported, falsified, inconclusive a incident;
-- weakness má ownera a mechanism-level remediation;
-- repeat experiment overí production-effective control;
-- experiment evidence sa nepoužíva na širší claim než testovaný subject.
-
-## 18. Troubleshooting experimentu
-
-```text
-experiment nevytvoril dôveru alebo spôsobil incident
-→ exact experiment definition/generation
-→ question a hypothesis
-→ control/experimental cohorts
-→ baseline a telemetry coverage
-→ injection target/effective fault
-→ blast radius/abort behavior
-→ concurrent changes/events
-→ business steady state
-→ recovery a reconciliation
+experiment nevytvoril dôveru
+→ subject a evidence claim
+→ hypothesis/oracle
+→ cohort a baseline
+→ injection effectiveness
+→ safety/abort
+→ business a technical behavior
+→ recovery/reconciliation
 → verdict scope
-→ remediation/effective-state
-→ repeat experiment
+→ action a repeat
 ```
 
-## 19. Earlier controls
+Tool output je iba injection evidence. Reliability conclusion vzniká až integráciou všetkých boundaries.
 
-- reliability risk register;
-- experiment templates a review;
-- steady-state business SLI;
-- bounded fault catalog;
-- injection identity policy;
-- scope/duration enforcement;
-- automated abort a cleanup;
-- incident-command integration;
-- experiment calendar/change coordination;
-- data/security/legal guardrails;
-- finding/action ownership;
-- repeat-experiment requirement;
-- confidence claim via exact experiment subject.
+## 16. Anti-patterny
 
-## 20. Anti-patterny
+Chaos anti-patterny maximalizujú spectacle alebo activity namiesto falsifikovateľného learningu.
 
-### Chaos monkey ako stratégia
+- **Chaos monkey ako stratégia —** random fault bez hypothesis, ownera a recovery contractu nevytvára actionable evidence.
+- **App nepadla, experiment prešiel —** correctness, backlog, user outcome alebo recovery mohli zlyhať.
+- **Pod kill dokazuje regional DR —** evidence claim je širší než experiment subject.
+- **Production za každú cenu —** fidelity nesmie prekročiť maturity, blast-radius a regulatory boundaries.
+- **Abort znamená stop injection —** recovery a incident response môžu stále pokračovať.
+- **Experiment končí pri obnovenej metric —** retries, queue a unknown outcomes nemusia byť uzavreté.
+- **Finding bez repeat experimentu —** implementovaný control nemusí byť effective alebo môže presunúť failure.
+- **Tool exit code je verdict —** orchestration success nie je business reliability evidence.
 
-Random fault bez hypothesis a ownera nevytvára actionable evidence.
-
-### Experiment prešiel, lebo app nepadla
-
-User outcome, correctness, backlog alebo recovery mohli zlyhať.
-
-### Pod kill dokazuje regional DR
-
-Claim je širší než experiment subject.
-
-### Production za každú cenu
-
-Authenticity je dôležitá, ale blast radius, maturity a regulatory boundary majú prednosť.
-
-### Abort = stop injection
-
-Recovery a incident response môžu byť stále potrebné.
-
-### Experiment skončil po obnovení metric
-
-Backlog, retries a unknown outcomes nemusia byť uzavreté.
-
-### Finding bez repeat experimentu
-
-Implementovaná zmena nemusí byť effective alebo môže presunúť failure.
-
-### Tool output je verdict
-
-Orchestration success nie je reliability evidence.
-
-## 21. Kontrolné otázky
+## 17. Kontrolné otázky
 
 1. Ako sa chaos experiment líši od testu, game day a incidentu?
-2. Čo tvorí exact chaos subject?
-3. Ako sa píše falsifikovateľná steady-state hypotéza?
-4. Prečo internal health nestačí ako steady state?
-5. Ako vybrať realistic event?
-6. Ktoré dimensions má blast radius?
-7. Čo má obsahovať safety state machine?
-8. Ako abort criterion súvisí s incident declaration?
-9. Prečo recovery patrí do experimentu?
-10. Prečo `CH-PAY-41` nedokazoval regional DR?
-11. Čo znamená inconclusive experiment?
-12. Čo musí overiť chaos acceptance verdict?
+2. Čo tvorí exact experiment subject a claim?
+3. Ako sa píše falsifikovateľná hypothesis?
+4. Prečo steady state potrebuje business outcome a control cohort?
+5. Ako sa vyberá realistická variable a fidelity?
+6. Čo musí prejsť pred experiment eligibility?
+7. Ako blast radius a injection identity obmedzujú risk?
+8. Čo riadi safety state machine a abort?
+9. Prečo recovery a reconciliation patria do experimentu?
+10. Prečo `CH-PAY-41` nevytvoril regional DR evidence?
+11. Ako supported, falsified, inconclusive a incident verdicts odlíšiš?
+12. Ktoré positive, falsified a forbidden paths patria do acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: chaos experiment subject, steady-state hypothesis, chaos variable, control cohort, experimental cohort, blast-radius contract, experiment safety state machine, injection identity, effective fault, chaos abort criterion, experiment-induced incident, chaos evidence scope, hypothesis verdict, remediation repeat experiment a chaos acceptance verdict.
+Relevantné pojmy: chaos experiment subject, evidence claim, steady-state hypothesis, realistic variable, control/experimental cohort, experiment fidelity, blast-radius contract, injection identity, safety state machine, chaos abort, effective fault, hypothesis verdict, experiment-induced incident, repeat experiment a chaos acceptance contract.
 
 ## Primárne zdroje
 
