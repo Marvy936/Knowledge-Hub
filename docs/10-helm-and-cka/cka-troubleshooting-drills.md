@@ -162,5 +162,5 @@ Relevantné pojmy: CKA troubleshooting subject, expected-state contract, failure
 
 **Navigácia**
 
-[← Predchádzajúca: CKA timed labs](cka-timed-labs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IaaS, PaaS a SaaS →](../11-cloud-and-aws/iaas-paas-saas.md)
+[← Predchádzajúca: CKA timed labs](cka-timed-labs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Helm chart — od prázdneho adresára po overený release →](helm-practical-chart-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

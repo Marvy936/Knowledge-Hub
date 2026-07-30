@@ -753,5 +753,5 @@ Chart.yaml + locked dependencies + ordered values
 
 **Navigácia**
 
-[← Predchádzajúca: CKA troubleshooting drills](cka-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md)
+[← Predchádzajúca: CKA troubleshooting drills](cka-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: IaaS, PaaS a SaaS →](../11-cloud-and-aws/iaas-paas-saas.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
