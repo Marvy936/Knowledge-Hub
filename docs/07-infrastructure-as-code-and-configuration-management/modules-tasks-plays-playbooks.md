@@ -1,94 +1,49 @@
 # Modules, tasks, plays a playbooks
 
-Ansible automation nie je vykonanie YAML súboru ako jedného skriptu. Je to per-host execution graph, v ktorom play vyberie targety a execution policy, task vytvorí operáciu pre každý relevantný host, action plugin pripraví control-node časť a module alebo API call vykoná konkrétnu state transition.
+Ansible automation nie je vykonanie YAML súboru ako jedného shell scriptu. Playbook sa rozloží na plays, každý play vyberie host set a execution policy, každý task vytvorí samostatnú operáciu pre každý eligible host a module alebo action/plugin vykoná konkrétnu observation či mutation. Globálny process exit code je iba súhrn. Dôveryhodný verdict musí vedieť, ktoré tasks sa pre ktorý host vykonali, preskočili, zlyhali, boli rescued a aký effective runtime state zostal po handleroch a recovery vetvách.
 
-Hlavný model kapitoly:
+Kapitola pokračuje incidentom `IAC-PAY-78`. Atlas Payments rollout odstráni current batch z load balancera, nainštaluje package, vyrenderuje config, validuje ho, notify-ne restart handler a po health checku vráti hosts do trafficu. Operátor však použije `--tags config`, čím preskočí package prerequisite. Na jednom hoste config validation zlyhá po zápise file-u, na ďalšom `changed_when` nesprávne vráti false a handler sa nespustí. Playbook môže mať partial green výsledok, ale fleet outcome nie je uzavretý.
+
+## 1. Dominantný intent-to-per-host-transition lifecycle
 
 ```text
 run intent a resolved target manifest
-→ play policy a ordered content graph
+→ play target, privilege, strategy a batch policy
+→ ordered/static/dynamic content graph
 → per-host task eligibility
-→ action/module execution
+→ action/plugin/module execution
 → structured result: ok | changed | failed | unreachable | skipped
-→ handler, rescue alebo host removal transition
-→ postcondition a fleet coverage verification
+→ handler, rescue, always alebo host-removal transition
+→ per-host postcondition
+→ fleet coverage a runtime verification
+→ second converge run a recovery closure
 ```
 
-Globálny process exit code je iba súhrn. Bez per-host a per-task evidence nemusí dokazovať, že všetky očakávané targety dosiahli desired state.
+## 2. Module ako operation contract
 
-## 1. Atlas scenár: rolling configuration update
-
-Atlas Payments aktualizuje konfiguráciu na dvanástich application hosts. Jeden host je v maintenance, preto approved target manifest obsahuje jedenásť hosts. Playbook má:
-
-1. odstrániť aktuálny batch z load balancera;
-2. nainštalovať podporovaný package;
-3. vyrenderovať konfiguráciu;
-4. validovať ju;
-5. reštartovať službu iba po zmene;
-6. overiť runtime verziu a health;
-7. vrátiť host do load balancera.
+Module je executable capability s argument schema, current-state observation behaviorom, mutation semantics a result schema. Oficiálna dokumentácia opisuje modules ako discrete units code používané v ad-hoc commands alebo playbook tasks; module môže vytvoriť change event, ktorý notify-ne handler. citeturn329472search21
 
 ```yaml
-- name: Roll out Atlas Payments configuration
-  hosts: payments_app
-  serial: 2
-  any_errors_fatal: true
-
-  pre_tasks:
-    - name: Remove current batch from traffic
-      company.platform.load_balancer_member:
-        host_id: "{{ atlas_host_id }}"
-        state: absent
-      delegate_to: localhost
-
-  roles:
-    - role: company.platform.payments_service
-
-  post_tasks:
-    - name: Verify loaded configuration version
-      ansible.builtin.uri:
-        url: https://127.0.0.1:8443/runtime
-        return_content: true
-      register: runtime_status
-      failed_when: runtime_status.json.config_version != atlas_release_version
-      changed_when: false
-
-    - name: Return current batch to traffic
-      company.platform.load_balancer_member:
-        host_id: "{{ atlas_host_id }}"
-        state: present
-      delegate_to: localhost
-```
-
-Tento scenár spája všetky vrstvy. Module pozná jednu operáciu, task jej dáva arguments a execution controls, play určuje host set a batch policy a playbook skladá traffic, configuration a verification phases.
-
-## 2. Module: operation contract
-
-Module je executable capability s argument schema, state-observation behaviorom a result schema. Používaj Fully Qualified Collection Name:
-
-```yaml
-- name: Ensure package is installed
+- name: Ensure payments package is installed
   ansible.builtin.package:
     name: atlas-payments
     state: present
 ```
 
-FQCN viaže task na konkrétny content namespace. Neviaže ho však automaticky na immutable version; tú určuje resolved collection a execution environment.
+FQCN určuje content namespace. Neviaže task automaticky na immutable collection version; tú určuje execution environment a collection manifest.
 
-State-aware module sa typicky pokúsi:
+State-aware module typicky:
 
 ```text
-read relevant current state
-→ compare requested state
-→ perform bounded mutation, ak treba
-→ return structured result
+pozoruje relevantný current state
+→ porovná requested state
+→ vykoná bounded mutation, ak treba
+→ vráti structured result
 ```
 
-`command` a `shell` tento model samy nemajú. Pri shell operácii musí autor explicitne vyriešiť quoting, idempotency, current-state detection, exit-code contract a side effects.
+`command` a `shell` tento model automaticky neposkytujú. Autor musí vyriešiť quoting, idempotency, exit-code semantics, side effects a truthfulness `changed` resultu.
 
-## 3. Task: per-host transition
-
-Task je module/action invocation plus execution policy:
+## 3. Task ako per-host invocation
 
 ```yaml
 - name: Render Atlas configuration
@@ -97,12 +52,12 @@ Task je module/action invocation plus execution policy:
     dest: /etc/atlas/payments.yml
     owner: root
     group: atlas
-    mode: "0640"
+    mode: '0640'
     validate: /usr/bin/atlas-payments validate --config %s
-  notify: Atlas payments configuration changed
+  notify: Restart Atlas Payments
 ```
 
-Pre každý host vzniká samostatný task result. Rovnaký task môže skončiť:
+Pre každý target host vzniká vlastný result:
 
 ```text
 app-01 → ok
@@ -112,153 +67,235 @@ app-04 → unreachable
 app-05 → skipped
 ```
 
-Dôležité result fields zahŕňajú `changed`, `failed`, `skipped`, `msg`, návratový kód a module-specific údaje. Registered result je host-scoped:
+Task result nie je iba UI farba. `changed` môže spustiť handler; `failed` môže host vyradiť z ďalšieho flow; `skipped` môže znamenať legitímnu condition aj chybný variable path.
+
+## 4. Registered result a custom verdicts
 
 ```yaml
-- name: Read current runtime state
+- name: Read runtime state
   ansible.builtin.command:
-    argv: [/usr/bin/atlas-payments, runtime, --json]
+    argv:
+      - /usr/bin/atlas-payments
+      - runtime
+      - --json
   register: atlas_runtime
   changed_when: false
-  failed_when: atlas_runtime.rc != 0
+  failed_when:
+    - atlas_runtime.rc != 0
+    - atlas_runtime.stdout | length == 0
 ```
 
-`changed_when` a `failed_when` sú domain verdicty. Nesmú iba meniť farbu pipeline. False `changed` môže spustiť zbytočný handler; false `ok` môže zabrániť potrebnému runtime transitionu.
+Registered result je host-scoped. `changed_when` a `failed_when` sú domain verdicty a musia zodpovedať reálnej operation semantics.
 
-## 4. Action location nie je host pattern
+False `changed: false`:
 
-Task syntax môže aktivovať action plugin na control node-e a module na managed node-e. Lookup, template rendering, includes a delegated alebo cloud/API tasks môžu vykonávať významnú časť práce lokálne.
+```text
+file alebo remote state sa zmenil
+→ task tvrdí no-change
+→ handler notification nevznikne
+→ runtime ostane na starom loaded state-e
+```
+
+False `changed: true` môže spúšťať zbytočné restarty pri každom run-e a rozbiť idempotency signal.
+
+## 5. Action location a delegation
+
+Task môže vykonávať action logic na controlleri a module na managed node-e. Lookup, template rendering, cloud modules a delegated tasks môžu vykonávať významnú operáciu lokálne.
 
 ```yaml
-- name: Update load-balancer membership
+- name: Remove host from load balancer
   company.platform.load_balancer_member:
-    host_id: "{{ atlas_host_id }}"
+    host_id: "{{ atlas_instance_id }}"
     state: absent
   delegate_to: localhost
 ```
 
-Host context je production application host, ale API identity pochádza z control-node credential chainu. Run evidence preto musí oddeliť:
+`delegate_to` mení execution location, nie host iteration count. Pri dvanástich target hosts môže task vytvoriť dvanásť delegated API calls.
+
+Run evidence oddeľuje:
 
 ```text
 inventory host identity
 connection/become identity
-local action identity
-remote API account a region
+controller execution identity
+cloud/API account a region
 ```
 
-## 5. Play: target a execution policy
-
-Play mapuje host pattern na execution context:
+## 6. Play ako target a execution policy
 
 ```yaml
-- name: Configure Atlas application hosts
-  hosts: payments_app
+- name: Roll out payments configuration
+  hosts: payments_app:&production:!maintenance
   gather_facts: true
   become: true
   serial: 2
   max_fail_percentage: 0
+  any_errors_fatal: true
+
   roles:
-    - company.platform.payments_service
+    - atlas.payments.runtime
 ```
 
-Play vlastní najmä:
+Play určuje:
 
-- target pattern;
-- connection a privilege policy;
+- host pattern;
 - fact gathering;
-- strategy, forks interaction a `serial` batching;
+- connection/privilege;
+- strategy a batch;
 - variables a roles;
-- pre-tasks, tasks, post-tasks a handlers;
+- pre/tasks/post/handlers;
 - failure thresholds.
 
-Každý host má vlastný execution state. Pri failure môže byť odstránený z ďalších tasks, zatiaľ čo ostatné hosts pokračujú podľa strategy a error policy.
+`serial: 2` obmedzí batch, ale nevytvorí automaticky health gate. Post-task alebo orchestration logic musí potvrdiť, že batch je safe pred pokračovaním.
 
-## 6. Playbook: orchestration medzi capabilities
-
-Playbook je ordered list plays. Jednotlivé plays môžu cieliť rôzne groups a mať odlišný risk model:
+## 7. Playbook ako orchestration medzi capabilities
 
 ```yaml
 - name: Validate database compatibility
-  hosts: database
+  hosts: database:&production
   roles:
-    - company.platform.database_preflight
+    - atlas.database.preflight
 
 - name: Roll out application
-  hosts: payments_app
+  hosts: payments_app:&production:!maintenance
+  serial: 2
   roles:
-    - company.platform.payments_service
+    - atlas.payments.runtime
 ```
 
-Playbook má vyjadrovať orchestration a dependency medzi capabilities. Detailná reusable implementácia patrí do roles alebo collections. Monolitický playbook zvyšuje coupling, zhoršuje testing a skrýva ownership.
+Playbook má vyjadrovať orchestration. Reusable detailed implementation patrí do roles/collections. Monolitický playbook s hundreds tasks skrýva ownership, dependencies a support boundaries.
 
-## 7. Static imports a dynamic includes
-
-Static import sa rozbalí pri parse phase. Dynamic include sa rozhoduje počas executionu.
+## 8. Kompletný rolling example
 
 ```yaml
-- name: Load invariant preparation tasks
+- name: Roll out Atlas Payments configuration
+  hosts: payments_app:&production:!maintenance
+  serial: 2
+  any_errors_fatal: true
+  become: true
+
+  pre_tasks:
+    - name: Remove current host from traffic
+      company.platform.load_balancer_member:
+        instance_id: "{{ atlas_instance_id }}"
+        state: absent
+      delegate_to: localhost
+
+    - name: Wait until active connections drain
+      ansible.builtin.uri:
+        url: "https://{{ inventory_hostname }}:8443/metrics/drain"
+        return_content: true
+        validate_certs: true
+      register: drain_status
+      until: drain_status.json.active_connections == 0
+      retries: 30
+      delay: 5
+      changed_when: false
+
+  tasks:
+    - name: Install supported package version
+      ansible.builtin.package:
+        name: "atlas-payments-{{ atlas_release_version }}"
+        state: present
+
+    - name: Render validated configuration
+      ansible.builtin.template:
+        src: payments.yml.j2
+        dest: /etc/atlas/payments.yml
+        owner: root
+        group: atlas
+        mode: '0640'
+        validate: /usr/bin/atlas-payments validate --config %s
+      notify: Restart Atlas Payments
+
+    - name: Flush restart before runtime verification
+      ansible.builtin.meta: flush_handlers
+
+    - name: Verify loaded version
+      ansible.builtin.uri:
+        url: https://127.0.0.1:8443/runtime
+        return_content: true
+        validate_certs: true
+      register: runtime_status
+      failed_when: runtime_status.json.config_version != atlas_release_version
+      changed_when: false
+
+  post_tasks:
+    - name: Return host to traffic
+      company.platform.load_balancer_member:
+        instance_id: "{{ atlas_instance_id }}"
+        state: present
+      delegate_to: localhost
+```
+
+Tento example stále potrebuje account read-back pre delegated API, expected target manifest a fleet-level business verifier.
+
+## 9. Static imports verzus dynamic includes
+
+```yaml
+- name: Import invariant preparation
   ansible.builtin.import_tasks: prepare.yml
 
-- name: Load platform-specific tasks
+- name: Include OS-specific tasks
   ansible.builtin.include_tasks: "{{ ansible_facts.os_family | lower }}.yml"
 ```
 
-Rozdiel ovplyvňuje task inventory, tags, variable availability, conditions a čas failure. Pri auditovanom production run-e musí byť možné vysvetliť, ktoré dynamic paths sa pre každý host reálne načítali.
+Static import sa rozbalí pri parse phase. Dynamic include sa vyhodnotí počas executionu per host/context. Rozdiel ovplyvňuje task visibility, tags, conditions a failure timing.
 
-## 8. Blocks, rescue a always
+Production evidence má vedieť, ktorý dynamic path sa pre každý host skutočne načítal.
 
-Block zoskupuje transitions a zdieľané directives:
+## 10. Blocks, rescue a always
 
 ```yaml
-- name: Update one Atlas host
+- name: Update one host safely
   block:
-    - name: Render configuration
+    - name: Install configuration
       ansible.builtin.template:
         src: payments.yml.j2
         dest: /etc/atlas/payments.yml
         validate: /usr/bin/atlas-payments validate --config %s
+      notify: Restart Atlas Payments
 
-    - name: Restart service
-      ansible.builtin.service:
-        name: atlas-payments
-        state: restarted
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
 
   rescue:
-    - name: Capture runtime evidence
-      ansible.builtin.command: /usr/bin/atlas-payments diagnostics
+    - name: Capture diagnostics
+      ansible.builtin.command:
+        argv: [/usr/bin/atlas-payments, diagnostics]
+      register: diagnostics
       changed_when: false
 
+    - name: Mark host unavailable for traffic
+      ansible.builtin.set_fact:
+        atlas_recovery_required: true
+
   always:
-    - name: Record host transition outcome
+    - name: Record transition closure
       ansible.builtin.debug:
-        msg: "host transition closed"
+        msg: "recovery_required={{ atlas_recovery_required | default(false) }}"
 ```
 
-`rescue` nie je transakcia. Pred failure už mohli vzniknúť remote side effects. Recovery musí vedieť, ktoré transitions boli potvrdené, ktoré majú unknown outcome a či je bezpečný rollback, roll-forward alebo izolácia hostu.
+`rescue` nie je rollback transakcia. Pred failure už mohli vzniknúť file, package, API alebo service side effects. Recovery musí inventoryovať confirmed, partial a unknown transitions.
 
-## 9. Worked failure: tags preskočili prerequisite
-
-Operátor spustí:
+## 11. Tags ako selection, nie dependency graph
 
 ```bash
 ansible-playbook site.yml --tags config
 ```
 
-Task na render configu má tag `config`, ale package installation a schema preflight nie. Nový template používa syntax podporovanú iba novým package releaseom.
+Ak package prerequisite nemá tag `config`, template môže použiť syntax nepodporovanú starým binary.
 
 ```text
-operator vyberie tag subset
-→ task selection nie je dependency graph
-→ prerequisite package a preflight sa nevykonajú
-→ config sa zapíše na časť hosts
-→ validation alebo restart zlyhá po side effects
+tag subset
+→ prerequisite skipped
+→ config mutation prebehne
+→ validation/restart failure po side effecte
 ```
 
-Tags sú selection mechanism, nie bezpečný alternate workflow. Podporované tag paths potrebujú vlastný contract a tests; kritické prerequisites možno označiť `always` iba vtedy, keď ich semantics zodpovedajú každému podporovanému partial runu.
+Podporované tag paths potrebujú vlastné tests. Tags nesmú byť ad-hoc alternatívou k complete workflowu.
 
-## 10. Worked failure: `run_once` vykonal migráciu v každom batchi
-
-Play používa `serial: 2` a migration task:
+## 12. `run_once` nie je distributed lock
 
 ```yaml
 - name: Run shared schema migration
@@ -266,118 +303,157 @@ Play používa `serial: 2` a migration task:
   run_once: true
 ```
 
-`run_once` vyberá jeden host z aktuálneho batch/execution contextu. Nie je distributed lock ani globálny exactly-once contract.
+Pri batched execution môže semantics závisieť od play/batch flow. `run_once` nepreukazuje global exactly-once, idempotency ani external lock.
 
-```text
-batch 1 → migration execution
-batch 2 → ďalšia run_once selection
-batch 3 → ďalšia execution
+Shared migration patrí do samostatného singleton playu alebo external coordination mechanizmu:
+
+```yaml
+- name: Run schema migration once
+  hosts: migration_controller
+  tasks:
+    - name: Acquire migration lock and migrate
+      atlas.database.migrate:
+        release: "{{ atlas_release_version }}"
 ```
 
-Shared mutation patrí do samostatného playu s explicitným singleton targetom, idempotency key alebo external coordination mechanizmom. Database migration musí mať vlastný subject, lock a verification.
+## 13. Delegation a shared API fan-out
 
-## 11. Worked failure: delegation znásobila shared API mutation
+Dvanásť inventory hosts vytvorí dvanásť delegated task instances. Ak všetky menia jeden load-balancer listener, môžu konfliktovať.
 
-Task delegovaný na localhost zostáva logicky v host loop-e. Dvanásť application hosts môže preto vyvolať dvanásť paralelných volaní na rovnaký load-balancer objekt.
+Riešenia:
+
+- host-specific idempotent member operation;
+- aggregation do jednej reviewed manifest mutation;
+- `throttle` alebo serializácia;
+- samostatný orchestration play;
+- external controller.
+
+## 14. Handler semantics a explicitný flush
+
+Handlers sa spúšťajú po notifications. Ak runtime verification musí vidieť loaded config v tom istom play flow, použije sa explicitný `meta: flush_handlers` na správnom mieste.
+
+`flush_handlers` však môže vykonať všetky pending handlers a meniť failure timing. Je to deliberate state transition, nie iba convenience.
+
+## 15. Worked incident: validation failure po file mutation
+
+Template module používa `validate`, ktoré typicky validuje temporary file pred final replace. Custom shell task však najprv prepísal destination a až potom spustil validator.
 
 ```text
-12 inventory hosts
-→ 12 task instances
-→ delegate_to mení execution location, nie iteration count
-→ shared API dostane concurrent conflicting operations
+file mutation complete
+→ validator fails
+→ host enters rescue
+→ service stále beží so starým loaded state
+→ disk obsahuje invalid new config
 ```
 
-Riešením môže byť host-specific idempotent operation, explicitná aggregation, samostatný orchestration play alebo riadená serialization. `run_once` sa nesmie použiť ako náhrada za distributed coordination bez analýzy batches a retries.
+Recovery musí rozhodnúť, či obnoviť backup file, opraviť a restartovať alebo host izolovať. Zelený `rescue` branch nesmie konvertovať host na complete success.
 
-## 12. Causal troubleshooting walkthrough: playbook je green, dva hosts stále používajú starý runtime
+## 16. Worked incident: false changed zabránil restartu
 
-### 1. Zafixuj execution subject
+Custom command aktualizoval config, ale:
 
-Zaznamenaj source revision, execution environment digest, collections, resolved target manifest, play pattern, tags/skip-tags, variables, strategy, `serial`, limit a run ID.
+```yaml
+changed_when: false
+```
 
-### 2. Súťažiace hypotézy
+bolo pridané na odstránenie noise.
 
-1. Config task bol pre dva hosts skipped cez condition alebo dynamic include.
-2. Tags vybrali template, ale nie prerequisite alebo handler definition.
-3. Module nesprávne reportoval `changed: false`.
-4. Handler bol notified, ale host zlyhal pred handler phase.
-5. `ignore_errors` alebo `rescue` konvertovali neuzavretý host state na green run.
-6. Delegated verifier kontroloval nesprávny environment alebo iba jeden host.
-7. Runtime proces načítava iný config path než ten, ktorý task zmenil.
+```text
+remote mutation
+→ result ok/no-change
+→ handler not notified
+→ process používa starý loaded config
+```
 
-### 3. Diskriminačné observation points
+Skorší control je state-aware module alebo checksum comparison, nie manuálne potlačenie `changed`.
 
-- parsed/listed task graph a dynamic include decisions;
-- per-host task events vrátane skipped/failed/rescued;
-- template destination a checksum;
-- `changed` result a handler notification queue;
-- handler execution event a service process start time;
-- effective runtime config version z každého stable host ID;
-- traffic membership a batch timeline.
+## 17. Competing hypotheses pri mixed runtime
 
-### 4. Containment
+Symptom: playbook success, dva hosts používajú starú runtime version.
 
-Pozastav ďalšie batches. Hosts bez potvrdeného runtime state-u odstráň z trafficu, ak mixed version nie je bezpečná.
+```text
+H1: tasks boli skipped condition/include pathom
+H2: tags preskočili prerequisite alebo handler definition
+H3: task mutoval, ale changed=false
+H4: handler notification vznikla, ale handler neprebehol
+H5: failure/rescue nechal partial state
+H6: verifier kontroloval iba jeden host alebo wrong endpoint
+H7: service číta iný config path
+H8: hosts neboli v target inventory
+```
 
-### 5. Recovery
+Dôkazy:
 
-- skipped path → oprav condition/include alebo explicitne scoped recovery run;
-- false changed signal → oprav module/result contract a spusti handler transition;
-- failure pred handlerom → rozhodni bounded restart, revert alebo roll-forward;
-- tags gap → obnov podporovaný complete execution path;
-- wrong verifier → oprav observation identity a zopakuj fleet verification.
+- per-host events a task path H1/H2/H5;
+- file checksum, result a notification H3/H4;
+- process start time a runtime endpoint H4/H7;
+- exact host verifier manifest H6;
+- expected/resolved inventory H8.
 
-### 6. Over pôvodný outcome
+## 18. Evidence-preserving containment a recovery
 
-Potvrď všetkých očakávaných host IDs, config checksum, loaded runtime version, service health a traffic inclusion. Druhý complete run má byť no-change okrem vedomých health checks.
+1. pozastaviť ďalšie batches;
+2. zachovať run events, target manifest, vars fingerprints a file checksums;
+3. odstrániť unverified hosts z trafficu;
+4. klasifikovať skipped, false-changed, handler-failed a partial-rescue hosts;
+5. vykonať najmenší reviewed recovery per host;
+6. overiť loaded config/version a local health;
+7. vrátiť host do trafficu až po LB health;
+8. vykonať fleet-level business journey;
+9. spustiť complete second converge run.
 
-### 7. Posuň control skôr
+## 19. Acceptance a forbidden paths
 
-Pridaj expected task/handler evidence, tests podporovaných tag paths, per-host runtime oracle a gate, ktorý neoznačí partial/rescued state ako complete success.
+Execution blok je prijatý, keď:
 
-## 13. Referenčné pravidlá
+```text
+module/collection identity je pinned
++ expected task path je známy
++ per-host results sú complete
++ changed signal je pravdivý
++ config mutation a handler execution sú korelované
++ rescue/ignored failure nie je complete success
++ delegated API identity je správna
++ unsupported tag subset je odmietnutý
++ batch health gate funguje
++ second full run converguje bez mutation
+```
 
-- Module je operation contract; task je per-host invocation a policy.
-- FQCN určuje namespace, nie automaticky immutable dependency version.
-- Play určuje target a execution policy; playbook skladá capabilities.
-- Task result je per host, nie iba globálny.
-- `changed` riadi ďalšie transitions a musí byť pravdivý.
-- Static import a dynamic include vytvárajú odlišnú task visibility.
-- `delegate_to` nemení host iteration count.
-- `run_once` nie je globálny lock ani exactly-once garancia.
-- Tags nevyjadrujú dependencies.
-- `rescue` musí pracovať s už vykonanými side effects.
-- Complete success potrebuje per-host runtime a coverage verification.
+Forbidden tests:
 
-## 14. Kontrolné otázky
+- `--tags config` bez prerequisite;
+- false `changed_when` pri mutation;
+- delegated staging identity;
+- handler failure po file change;
+- rescue branch interpretovaný ako pass;
+- `run_once` migration v batched flow bez locku.
 
-1. Aký je rozdiel medzi module, task, play a playbook?
-2. Kde môže action plugin vykonávať prácu?
-3. Prečo `changed` nie je iba reporting field?
-4. Ako sa líši static import od dynamic include?
-5. Prečo tags nie sú dependency solver?
-6. Čo `delegate_to` mení a čo nemení?
-7. Prečo `run_once` nie je distributed lock?
-8. Aké side effects môže zanechať rescued failure?
-9. Ktoré evidence odlíšia skipped task od false `changed` resultu?
-10. Ako sa dokazuje complete fleet outcome po green run-e?
+## 20. Kontrolné otázky
+
+1. Aký rozdiel je medzi module, task, play a playbook?
+2. Prečo result patrí per host?
+3. Čo FQCN preukazuje a čo nepreukazuje?
+4. Ako `changed_when` ovplyvňuje convergence?
+5. Čo mení `delegate_to` a čo nemení?
+6. Ako sa static import líši od dynamic include?
+7. Prečo rescue nie je rollback?
+8. Prečo tags nie sú dependency solver?
+9. Prečo `run_once` nie je exactly-once guarantee?
+10. Kedy je potrebný `flush_handlers`?
+11. Aké evidence odlíšia skipped task od handler failure?
+12. Ako sa dokazuje complete fleet outcome?
 
 ## Glossary impact
 
-Relevantné pojmy: Ansible operation contract, per-host task transition, play execution policy, playbook orchestration, action execution location, structured module result, changed signal, static import, dynamic include, delegated iteration, batch-scoped `run_once`, rescued partial state, task-path evidence a per-host outcome verification.
+Relevantné pojmy: Ansible module, task, play, playbook, FQCN, registered result, changed_when, failed_when, delegation, static import, dynamic include, block, rescue, always, handler flush, tag selection, run_once, per-host task path a partial state.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
-- [Using Ansible playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/index.html)
-- [Ansible playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_intro.html)
+- [Working with playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks.html)
 - [Introduction to modules](https://docs.ansible.com/projects/ansible/latest/module_plugin_guide/modules_intro.html)
-- [Controlling where tasks run](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_delegation.html)
-- [Error handling in playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
+- [Conditionals](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_conditionals.html)
+- [Executing playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_execution.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Inventory](inventory.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables, facts a templates →](variables-facts-templates.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
