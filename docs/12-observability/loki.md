@@ -1,6 +1,6 @@
 # Loki
 
-Grafana Loki je log aggregation systém založený na log streamoch identifikovaných tenant ID a label setom. Na rozdiel od full-text index systems Loki primárne indexuje stream metadata; log content komprimuje do chunks a ukladá do object storage alebo iného configured chunk store-u. Tento model môže znížiť index cost, ale robí z label contractu, timestamps, schema periods, object-store lifecycle a query scope-u zásadné correctness boundaries. citeturn662053search15turn662053search19turn662053search21
+Grafana Loki je log aggregation systém založený na log streamoch identifikovaných tenant ID a label setom. Na rozdiel od full-text index systems Loki primárne indexuje stream metadata; log content komprimuje do chunks a ukladá do object storage alebo iného configured chunk store-u. Tento model môže znížiť index cost, ale robí z label contractu, timestamps, schema periods, object-store lifecycle a query scope-u zásadné correctness boundaries.
 
 Loki nemôže nájsť log, ktorý producer nevytvoril, collector neprečítal, distributor odmietol, ingester neuložil, object-store lifecycle predčasne zmazal alebo query hľadala v nesprávnom tenantovi či streamoch. Process health preto nie je log-delivery verdict.
 
@@ -21,7 +21,7 @@ system alebo business occurrence
 → retention a cardinality closure
 ```
 
-Každý stream musí mať aspoň jeden label. Rovnaký complete label set vytvára jeden stream. Zmena jedinej label value vytvorí ďalší stream, preto ephemeral Pod name, request ID alebo payment ID ako indexed labels zvyšujú active cardinality a churn. Loki odporúča low-cardinality labels a high-cardinality metadata ukladať ako structured metadata alebo log fields podľa ingestion modelu. citeturn662053search0turn662053search1
+Každý stream musí mať aspoň jeden label. Rovnaký complete label set vytvára jeden stream. Zmena jedinej label value vytvorí ďalší stream, preto ephemeral Pod name, request ID alebo payment ID ako indexed labels zvyšujú active cardinality a churn. Loki odporúča low-cardinality labels a high-cardinality metadata ukladať ako structured metadata alebo log fields podľa ingestion modelu.
 
 ## Exact Loki subject
 
@@ -45,7 +45,7 @@ logSchema: atlas-payments-log-12
 retention: 30d
 ```
 
-`service_name`, environment a Region sú bounded source identity. Pod name a trace ID sú užitočné pri investigation, ale ako indexed labels by vytvárali vysoký počet streams. Structured metadata je v current Loki modeli dostupná pri compatible schema/chunk format; jej použitie a limits treba overiť pre active schema. citeturn662053search0turn662053search13
+`service_name`, environment a Region sú bounded source identity. Pod name a trace ID sú užitočné pri investigation, ale ako indexed labels by vytvárali vysoký počet streams. Structured metadata je v current Loki modeli dostupná pri compatible schema/chunk format; jej použitie a limits treba overiť pre active schema.
 
 ## Schema a storage
 
@@ -72,7 +72,7 @@ storage_config:
 
 Configuration preukazuje desired schema period, index type a object-store path. Nepreukazuje, že exact config je loaded, bucket policy/KMS fungujú alebo retention component maže dáta podľa intended window. Schema periods sú časové authority boundaries; nesprávne `from` date môže poslať nové logs do nekompatibilného pathu.
 
-Loki storage obsahuje chunks a index. Index spája label sets s chunks; content samotný nie je plne indexovaný. Query najprv vyberie streams cez selector a potom spracuje log lines v relevantných chunks. citeturn662053search19turn662053search27
+Loki storage obsahuje chunks a index. Index spája label sets s chunks; content samotný nie je plne indexovaný. Query najprv vyberie streams cez selector a potom spracuje log lines v relevantných chunks.
 
 ## Labels, fields a structured metadata
 
@@ -92,7 +92,7 @@ Collector môže poslať record:
 }
 ```
 
-Indexed stream labels zostanú bounded. `trace_id`, Pod a operation ID sa uložia ako structured metadata alebo v JSON body. Log level a exception type možno parsovať pri query; nemusia automaticky vytvoriť samostatné streams. Loki labels určujú stream organization, nie každé searchable field. citeturn662053search1turn662053search12
+Indexed stream labels zostanú bounded. `trace_id`, Pod a operation ID sa uložia ako structured metadata alebo v JSON body. Log level a exception type možno parsovať pri query; nemusia automaticky vytvoriť samostatné streams. Loki labels určujú stream organization, nie každé searchable field.
 
 Forbidden label example:
 
@@ -106,7 +106,7 @@ Každá operation by vytvorila unikátny stream. To zvyšuje index, ingester str
 
 ## LogQL stream selection a parsing
 
-Všetky LogQL log queries začínajú stream selectorom. citeturn662053search12turn662053search29
+Všetky LogQL log queries začínajú stream selectorom.
 
 ```logql
 {service_name="provider-adapter", deployment_environment="production"}
@@ -175,7 +175,7 @@ Nanosecond timestamps a tenant identity sú súčasťou request subjectu. Wrong 
 
 Distributor môže odmietnuť streams alebo lines pre rate, line size, label count, out-of-order window, old/future timestamp alebo per-tenant limits. HTTP success/failure sa interpretuje podľa push API a collector output contractu.
 
-Loki current upgrade guidance uvádza default max line size a label-count boundaries, ale exact limits sú configurable a version-sensitive; operational chapter sa viaže na live `/config` alebo deployed values, nie na zapamätané defaults. citeturn662053search13
+Loki current upgrade guidance uvádza default max line size a label-count boundaries, ale exact limits sú configurable a version-sensitive; operational chapter sa viaže na live `/config` alebo deployed values, nie na zapamätané defaults.
 
 Collector timestamp musí reprezentovať event time podľa schema. Ak parser zlyhá a agent použije ingestion time, incident timeline sa posunie. Future timestamps môžu skryť logs mimo current dashboard range.
 

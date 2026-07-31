@@ -20,7 +20,7 @@ business alebo operational otázka
 → dashboard source a loaded revision closure
 ```
 
-Panel má byť poslednou vrstvou rozhodovacieho modelu, nie jeho zdrojom. Query inspector umožňuje pozrieť raw request a response, panel inspector raw data, transformations menia data frames a visualization options menia iba presentation. Tieto boundaries sa pri incidente analyzujú oddelene. citeturn662053search11turn662053search16turn662053search24
+Panel má byť poslednou vrstvou rozhodovacieho modelu, nie jeho zdrojom. Query inspector umožňuje pozrieť raw request a response, panel inspector raw data, transformations menia data frames a visualization options menia iba presentation. Tieto boundaries sa pri incidente analyzujú oddelene.
 
 ## Exact Grafana subject
 
@@ -70,7 +70,7 @@ datasources:
       httpMethod: POST
 ```
 
-Provisioning file preukazuje desired data-source identity a endpoint. Nepreukazuje, že Grafana exact file načítala, že DNS/TLS/auth fungujú alebo že endpoint reprezentuje intended tenant. Grafana podporuje provisioning data sources a dashboards as code; UI edit provisioned dashboardu môže byť neskôr prepísaný provisioning source-om. citeturn662053search2turn662053search32
+Provisioning file preukazuje desired data-source identity a endpoint. Nepreukazuje, že Grafana exact file načítala, že DNS/TLS/auth fungujú alebo že endpoint reprezentuje intended tenant. Grafana podporuje provisioning data sources a dashboards as code; UI edit provisioned dashboardu môže byť neskôr prepísaný provisioning source-om.
 
 Loaded data source možno overiť cez Grafana API s approved service-account tokenom:
 
@@ -153,7 +153,7 @@ Tento output preukazuje Prometheus result pre exact expression a absolute range.
 
 ## Transformations a reduce semantics
 
-Grafana transformations menia data frames po backend response. Môžu joinovať series, filtrovať fields, vypočítať hodnotu alebo reduce-nuť time series na jeden number. citeturn662053search9turn662053search24
+Grafana transformations menia data frames po backend response. Môžu joinovať series, filtrovať fields, vypočítať hodnotu alebo reduce-nuť time series na jeden number.
 
 Panel môže napríklad použiť:
 

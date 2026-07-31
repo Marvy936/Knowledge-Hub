@@ -6,10 +6,10 @@ docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490
 docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bullet_share=0.450|blocks=21|executable=0|explanations=4
 docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
 docs/12-observability/golden-signals.md|strict=0/0/0|prose=1005|bullet_share=0.109|blocks=13|executable=10|explanations=11
-docs/12-observability/grafana.md|strict=0/0/0|prose=949|bullet_share=0.133|blocks=10|executable=6|explanations=15
+docs/12-observability/grafana.md|strict=0/0/0|prose=939|bullet_share=0.135|blocks=10|executable=6|explanations=15
 docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
 docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
-docs/12-observability/loki.md|strict=0/0/0|prose=987|bullet_share=0.126|blocks=11|executable=5|explanations=14
+docs/12-observability/loki.md|strict=0/0/0|prose=966|bullet_share=0.128|blocks=11|executable=5|explanations=14
 docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bullet_share=0.144|blocks=13|executable=2|explanations=17
 docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
 docs/12-observability/opentelemetry.md|strict=30/25/14|prose=801|bullet_share=0.429|blocks=18|executable=0|explanations=4
