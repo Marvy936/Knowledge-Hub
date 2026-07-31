@@ -17,36 +17,50 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
 
 
 walkthrough = WALKTHROUGH.read_text(encoding="utf-8")
-backslash = chr(92)
+bsq = chr(92) + chr(34)
+
+escaped_alive = '`{' + bsq + 'status' + bsq + ':' + bsq + 'alive' + bsq + '}`'
+escaped_ready = '`{' + bsq + 'status' + bsq + ':' + bsq + 'ready' + bsq + '}`'
+escaped_payment = (
+    '`{' + bsq + 'id' + bsq + ':' + bsq + 'pay-100' + bsq + ','
+    + bsq + 'amount' + bsq + ':1250,'
+    + bsq + 'currency' + bsq + ':' + bsq + 'EUR' + bsq + '}`'
+)
+escaped_invalid_payment = (
+    '`{' + bsq + 'id' + bsq + ':' + bsq + 'pay-invalid' + bsq + ','
+    + bsq + 'amount' + bsq + ':0,'
+    + bsq + 'currency' + bsq + ':' + bsq + 'EUR' + bsq + '}`'
+)
+escaped_payment_fragment = '`' + bsq + 'id' + bsq + ':' + bsq + 'pay-100' + bsq + '`'
 
 walkthrough = replace_once(
     walkthrough,
-    f'[]byte(`{{{backslash}"status{backslash}":{backslash}"alive{backslash}"}}`)',
-    '[]byte(`{"status":"alive"}`)',
+    escaped_alive,
+    '`{"status":"alive"}`',
     "healthz JSON literal",
 )
 walkthrough = replace_once(
     walkthrough,
-    f'[]byte(`{{{backslash}"status{backslash}":{backslash}"ready{backslash}"}}`)',
-    '[]byte(`{"status":"ready"}`)',
+    escaped_ready,
+    '`{"status":"ready"}`',
     "readyz JSON literal",
 )
 walkthrough = replace_once(
     walkthrough,
-    f'strings.NewReader(`{{{backslash}"id{backslash}":{backslash}"pay-100{backslash}",{backslash}"amount{backslash}":1250,{backslash}"currency{backslash}":{backslash}"EUR{backslash}"}}`)',
-    'strings.NewReader(`{"id":"pay-100","amount":1250,"currency":"EUR"}`)',
+    escaped_payment,
+    '`{"id":"pay-100","amount":1250,"currency":"EUR"}`',
     "happy-path request body",
 )
 walkthrough = replace_once(
     walkthrough,
-    f'`{backslash}"id{backslash}":{backslash}"pay-100{backslash}"`',
+    escaped_payment_fragment,
     '`"id":"pay-100"`',
     "happy-path response assertion",
 )
 walkthrough = replace_once(
     walkthrough,
-    f'strings.NewReader(`{{{backslash}"id{backslash}":{backslash}"pay-invalid{backslash}",{backslash}"amount{backslash}":0,{backslash}"currency{backslash}":{backslash}"EUR{backslash}"}}`)',
-    'strings.NewReader(`{"id":"pay-invalid","amount":0,"currency":"EUR"}`)',
+    escaped_invalid_payment,
+    '`{"id":"pay-invalid","amount":0,"currency":"EUR"}`',
     "forbidden request body",
 )
 
