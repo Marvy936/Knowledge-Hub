@@ -1,0 +1,44 @@
+name: Temporary section 10 navigation sync
+
+on:
+  push:
+    branches:
+      - agent/section-10-practical-helm-examples
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-10-navigation-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-navigation:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout working branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/section-10-practical-helm-examples
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate canonical navigation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python scripts/update_navigation.py --write
+          python scripts/update_navigation.py --check
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git rm .github/workflows/temporary-section-10-navigation-sync.yml
+          git commit -m "docs(helm): synchronize generated navigation"
+          git push origin HEAD:agent/section-10-practical-helm-examples
