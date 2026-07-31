@@ -1,0 +1,89 @@
+status=failure
+
+FILES
+docs/11-cloud-and-aws/aws-backup.md|words=1537|grade=C|strict=0/3/0|prose_words=915|bullet_words=95|bullet_share=0.094|list_first=2|exec_blocks=11|commands=11|explanations=6
+docs/11-cloud-and-aws/aws-organizations-accounts.md|words=1791|grade=B|strict=0/0/0|prose_words=1238|bullet_words=99|bullet_share=0.074|list_first=2|exec_blocks=11|commands=10|explanations=6
+docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md|words=873|grade=C|strict=0/6/0|prose_words=337|bullet_words=75|bullet_share=0.182|list_first=2|exec_blocks=5|commands=12|explanations=6
+docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md|words=1055|grade=C|strict=1/4/1|prose_words=582|bullet_words=142|bullet_share=0.196|list_first=2|exec_blocks=6|commands=13|explanations=15
+docs/11-cloud-and-aws/cloudops-hands-on-labs.md|words=937|grade=D|strict=3/8/0|prose_words=499|bullet_words=74|bullet_share=0.129|list_first=2|exec_blocks=13|commands=20|explanations=2
+docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md|words=870|grade=D|strict=0/9/0|prose_words=416|bullet_words=84|bullet_share=0.168|list_first=2|exec_blocks=11|commands=24|explanations=3
+docs/11-cloud-and-aws/cloudwatch-cloudtrail.md|words=1409|grade=B|strict=0/1/0|prose_words=857|bullet_words=93|bullet_share=0.098|list_first=2|exec_blocks=11|commands=7|explanations=6
+docs/11-cloud-and-aws/cost-management-finops.md|words=1329|grade=B|strict=0/1/0|prose_words=701|bullet_words=103|bullet_share=0.128|list_first=2|exec_blocks=12|commands=6|explanations=1
+docs/11-cloud-and-aws/ec2-auto-scaling.md|words=1788|grade=B|strict=0/1/0|prose_words=1054|bullet_words=107|bullet_share=0.092|list_first=2|exec_blocks=15|commands=11|explanations=4
+docs/11-cloud-and-aws/ecs-eks.md|words=1932|grade=D|strict=0/8/0|prose_words=974|bullet_words=110|bullet_share=0.101|list_first=2|exec_blocks=18|commands=24|explanations=5
+docs/11-cloud-and-aws/elastic-load-balancing.md|words=1983|grade=C|strict=0/2/0|prose_words=1316|bullet_words=95|bullet_share=0.067|list_first=2|exec_blocks=14|commands=12|explanations=8
+docs/11-cloud-and-aws/high-availability-disaster-recovery.md|words=1782|grade=A|strict=0/0/0|prose_words=1197|bullet_words=102|bullet_share=0.079|list_first=2|exec_blocks=6|commands=7|explanations=7
+docs/11-cloud-and-aws/iaas-paas-saas.md|words=1794|grade=A|strict=0/0/0|prose_words=1216|bullet_words=109|bullet_share=0.082|list_first=2|exec_blocks=4|commands=5|explanations=5
+docs/11-cloud-and-aws/iam.md|words=1909|grade=B|strict=0/0/0|prose_words=1362|bullet_words=92|bullet_share=0.063|list_first=2|exec_blocks=14|commands=7|explanations=7
+docs/11-cloud-and-aws/internet-gateway-nat-gateway.md|words=1736|grade=B|strict=0/2/0|prose_words=1162|bullet_words=87|bullet_share=0.070|list_first=2|exec_blocks=8|commands=6|explanations=5
+docs/11-cloud-and-aws/kms-secrets-manager.md|words=1596|grade=C|strict=0/3/0|prose_words=817|bullet_words=101|bullet_share=0.110|list_first=2|exec_blocks=10|commands=9|explanations=3
+docs/11-cloud-and-aws/lambda.md|words=1699|grade=B|strict=0/1/0|prose_words=961|bullet_words=100|bullet_share=0.094|list_first=2|exec_blocks=10|commands=10|explanations=5
+docs/11-cloud-and-aws/public-private-hybrid-cloud.md|words=1963|grade=A|strict=0/0/0|prose_words=1433|bullet_words=125|bullet_share=0.080|list_first=2|exec_blocks=6|commands=9|explanations=11
+docs/11-cloud-and-aws/rds.md|words=1922|grade=B|strict=0/2/0|prose_words=1031|bullet_words=91|bullet_share=0.081|list_first=2|exec_blocks=19|commands=12|explanations=6
+docs/11-cloud-and-aws/regions-availability-zones.md|words=1725|grade=A|strict=0/0/0|prose_words=1247|bullet_words=112|bullet_share=0.082|list_first=2|exec_blocks=7|commands=10|explanations=11
+docs/11-cloud-and-aws/route53-cloudfront.md|words=1771|grade=C|strict=0/3/0|prose_words=1008|bullet_words=103|bullet_share=0.093|list_first=2|exec_blocks=14|commands=9|explanations=1
+docs/11-cloud-and-aws/s3-ebs-efs.md|words=1986|grade=B|strict=0/1/0|prose_words=1201|bullet_words=105|bullet_share=0.080|list_first=2|exec_blocks=18|commands=11|explanations=7
+docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md|words=1619|grade=A|strict=0/0/0|prose_words=1093|bullet_words=102|bullet_share=0.085|list_first=2|exec_blocks=8|commands=7|explanations=6
+docs/11-cloud-and-aws/security-groups-network-acls.md|words=1971|grade=A|strict=0/0/0|prose_words=1215|bullet_words=101|bullet_share=0.077|list_first=2|exec_blocks=10|commands=7|explanations=12
+docs/11-cloud-and-aws/shared-responsibility-model.md|words=1871|grade=B|strict=0/0/0|prose_words=1324|bullet_words=109|bullet_share=0.076|list_first=2|exec_blocks=7|commands=6|explanations=17
+docs/11-cloud-and-aws/systems-manager.md|words=1447|grade=B|strict=0/2/0|prose_words=842|bullet_words=104|bullet_share=0.110|list_first=2|exec_blocks=14|commands=11|explanations=2
+docs/11-cloud-and-aws/vpc-subnets-route-tables.md|words=1656|grade=A|strict=0/0/0|prose_words=1005|bullet_words=95|bullet_share=0.086|list_first=2|exec_blocks=10|commands=7|explanations=14
+docs/11-cloud-and-aws/well-architected-framework.md|words=1860|grade=A|strict=0/0/0|prose_words=1138|bullet_words=131|bullet_share=0.103|list_first=2|exec_blocks=9|commands=9|explanations=11
+
+FAILURES
+docs/11-cloud-and-aws/aws-backup.md: strict 0/3/0
+docs/11-cloud-and-aws/aws-backup.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/aws-organizations-accounts.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: strict 0/6/0
+docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: only 337 prose words
+docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: strict 1/4/1
+docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: only 582 prose words
+docs/11-cloud-and-aws/cloudops-hands-on-labs.md: strict 3/8/0
+docs/11-cloud-and-aws/cloudops-hands-on-labs.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cloudops-hands-on-labs.md: only 499 prose words
+docs/11-cloud-and-aws/cloudops-hands-on-labs.md: command/evidence explanation is too thin
+docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: strict 0/9/0
+docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: only 416 prose words
+docs/11-cloud-and-aws/cloudwatch-cloudtrail.md: strict 0/1/0
+docs/11-cloud-and-aws/cloudwatch-cloudtrail.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cost-management-finops.md: strict 0/1/0
+docs/11-cloud-and-aws/cost-management-finops.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/cost-management-finops.md: only 701 prose words
+docs/11-cloud-and-aws/cost-management-finops.md: command/evidence explanation is too thin
+docs/11-cloud-and-aws/ec2-auto-scaling.md: strict 0/1/0
+docs/11-cloud-and-aws/ec2-auto-scaling.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/ecs-eks.md: strict 0/8/0
+docs/11-cloud-and-aws/ecs-eks.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/elastic-load-balancing.md: strict 0/2/0
+docs/11-cloud-and-aws/elastic-load-balancing.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/high-availability-disaster-recovery.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/iaas-paas-saas.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/iam.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/internet-gateway-nat-gateway.md: strict 0/2/0
+docs/11-cloud-and-aws/internet-gateway-nat-gateway.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/kms-secrets-manager.md: strict 0/3/0
+docs/11-cloud-and-aws/kms-secrets-manager.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/kms-secrets-manager.md: only 817 prose words
+docs/11-cloud-and-aws/lambda.md: strict 0/1/0
+docs/11-cloud-and-aws/lambda.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/public-private-hybrid-cloud.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/rds.md: strict 0/2/0
+docs/11-cloud-and-aws/rds.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/regions-availability-zones.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/route53-cloudfront.md: strict 0/3/0
+docs/11-cloud-and-aws/route53-cloudfront.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/route53-cloudfront.md: command/evidence explanation is too thin
+docs/11-cloud-and-aws/s3-ebs-efs.md: strict 0/1/0
+docs/11-cloud-and-aws/s3-ebs-efs.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/security-groups-network-acls.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/shared-responsibility-model.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/systems-manager.md: strict 0/2/0
+docs/11-cloud-and-aws/systems-manager.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/systems-manager.md: only 842 prose words
+docs/11-cloud-and-aws/systems-manager.md: command/evidence explanation is too thin
+docs/11-cloud-and-aws/vpc-subnets-route-tables.md: 2 list-first conceptual sections
+docs/11-cloud-and-aws/well-architected-framework.md: 2 list-first conceptual sections
