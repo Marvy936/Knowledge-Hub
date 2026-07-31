@@ -1,217 +1,406 @@
 # CloudOps domain review a timed reasoning
 
-Táto kapitola premieňa SOA-C03 blueprint na opakovateľný reasoning tréning. Cieľom nie je odpovedať na čo najviac izolovaných otázok, ale merať, kde sa reasoning rozpadá: subject identification, service semantics, evidence selection, blast-radius control alebo verification.
+Táto kapitola premieňa blueprint AWS Certified CloudOps Engineer – Associate (`SOA-C03`) na opakovateľný tréning rozhodovania. Cieľom nie je iba označiť správnu odpoveď. Kandidát musí vedieť z neúplného symptómu vytvoriť presný subject, oddeliť známu zdravú časť systému od prvej divergentnej boundary, vybrať observation, ktorá rozlíši realistické hypotézy, a navrhnúť zmenu s najmenším potrebným blast radiusom.
 
-## 1. Review unit
+K 31. júlu 2026 používa oficiálny exam guide päť domén s váhami `22 % / 22 % / 22 % / 16 % / 18 %`. Váhy sú temporálne premenlivé a pred skúškou sa musia znovu overiť. Samotný reasoning model je stabilnejší:
 
-Každý tréningový scenár má jednotnú štruktúru:
+```text
+scenario statement
+→ exact account, Region, resource a generation
+→ required outcome a hard constraints
+→ known healthy evidence
+→ first divergent boundary
+→ competing hypotheses
+→ discriminating observation
+→ safest authoritative action
+→ technical, business a forbidden validation
+```
+
+Rýchlosť bez tejto disciplíny vytvára náhodné tipovanie. Naopak detailná analýza každej služby bez časového limitu nevytvára exam readiness. Tréning preto meria správnosť, čas aj druh chyby.
+
+## 1. Versionovaný scenario subject
+
+Každý scenár má mať identitu a reprodukovateľný vstup. Nasledujúci YAML nie je formát AWS skúšky. Je to tréningový manifest, ktorý zabraňuje tomu, aby sa po každom pokuse nepozorovane zmenili fakty alebo akceptačné kritériá.
 
 ```yaml
 scenarioId: SOA-D1-OBS-017
-domain: MonitoringLoggingRemediation
+examGuideGeneration: SOA-C03-2026-07
+contentDomain: MonitoringLoggingAnalysisRemediationPerformance
+weightPercent: 22
 timeLimitSeconds: 120
-symptom: Payment-success alarm entered ALARM after deployment
-constraints:
-  - business ledger remains healthy
-  - old metric series stopped publishing
-recentChange: release 7.18.0 changed EMF dimensions
-question: Which action best restores correct monitoring without causing an outage?
-evidenceExpected:
-  - compare exact metric dimensions
-  - inspect alarm history and publisher logs
+
+subject:
+  account: production-payments
+  region: eu-central-1
+  service: payments-api
+  release: 7.18.0
+  alarm: ALARM-PAY-SUCCESS-18
+  metric:
+    namespace: Atlas/Payments
+    name: SuccessfulAuthorizations
+    dimensions:
+      Environment: prod
+      Service: payments-api
+
+symptom: Alarm entered ALARM after deployment
+knownHealthy:
+  - provider and ledger show normal payment success
+  - application requests continue to complete
+recentChange: release 7.18.0 changed the Service dimension to payments
+requiredOutcome: restore trustworthy monitoring without recycling healthy capacity
 forbiddenActions:
-  - restart entire fleet
-  - treat missing as proven payment failure
+  - restart the whole fleet
+  - treat missing telemetry as proven payment failure
+  - delete alarm history before diagnosis
 ```
 
-Po odpovedi sa nezapisuje iba správne/nesprávne. Zaznamená sa error class.
+Manifest rozlišuje business state od telemetry state-u. Ak kandidát preskočí `knownHealthy`, môže zvoliť destructive remediation, ktorá vytvorí reálny incident z observability chyby.
 
-## 2. Error taxonomy
+## 2. Šesťriadkový scratchpad
 
-```text
-S1 subject error        → wrong account, Region, resource or generation
-S2 semantics error      → wrong service behavior assumption
-S3 evidence error       → observation cannot distinguish hypotheses
-S4 scope error          → action has unnecessary blast radius
-S5 recovery error       → mutation without authority/idempotency
-S6 verification error   → technical state accepted without business proof
-```
-
-Kandidát, ktorý má 75 % score, ale opakovane robí S6, potrebuje business validation drills, nie ďalšie flashcards.
-
-## 3. Timed session design
-
-Jedna 45-minútová session obsahuje:
-
-```text
-5 min  → preflight and objective
-25 min → 12 mixed-domain scenarios
-10 min → replay wrong/slow questions without options
-5 min  → update error ledger and next drill
-```
-
-Čas na jednu otázku je približne 120 sekúnd. Prvých 20 sekúnd patrí subjectu, ďalších 40 boundary a evidence, zvyšok answer comparison and final verification.
-
-## 4. Evidence-first scratchpad
-
-Pre každú otázku používaj šesť riadkov:
+Na papier alebo do dočasného textového súboru stačí šesť riadkov:
 
 ```text
 Subject:
+Required outcome:
 Known healthy:
 First divergent boundary:
-Best observation:
-Safest action:
+Best next observation:
 Acceptance evidence:
 ```
 
-Príklad:
+Pri RDS scenári môže výsledok vyzerať takto:
 
 ```text
-Subject: RDS cluster DB-PAY-42, eu-central-1, in-flight P-884
-Known healthy: cluster promoted and new connection works
-First divergent boundary: commit acknowledgement versus business outcome
-Best observation: DB idempotency ledger + provider request IDs
-Safest action: reconcile before retry
-Acceptance evidence: one provider authorization and one ledger state
+Subject: DB-PAY-42, eu-central-1, failover generation F19, payment P-884
+Required outcome: jeden provider aj ledger outcome bez slepého replayu
+Known healthy: nový writer prijíma fresh connections
+First divergent boundary: durable commit verzus stratené acknowledgement
+Best next observation: idempotency ledger + provider request IDs
+Acceptance evidence: jeden provider outcome, jeden ledger row, druhý reconcile pass no-op
 ```
 
-## 5. Domain 1 review
+Scratchpad nie je dokumentačná réžia. Núti kandidáta oddeliť observation od action. Ak riadok `Best next observation` obsahuje „restart instance“, reasoning už preskočil dôkazovú fázu.
 
-Monitoring/Logging/Remediation otázky sa riešia cez signal identity, freshness, aggregation, alarm state, delivery and automation postcondition.
+## 3. Error taxonomy
 
-Praktický verification set:
+Percentuálne score neukáže, prečo sa kandidát mýli. Preto sa každá chyba klasifikuje:
+
+```text
+S1 subject error
+   wrong account, Region, resource, principal alebo generation
+
+S2 semantics error
+   nesprávny predpoklad o službe, napríklad Multi-AZ = backup
+
+S3 evidence error
+   observation nerozlišuje vedúce hypotézy
+
+S4 scope error
+   action má zbytočne veľký blast radius
+
+S5 recovery error
+   mutation/replay bez authority, idempotency alebo reconciliation
+
+S6 verification error
+   control-plane alebo technical state prijatý bez business dôkazu
+```
+
+Opakovaný `S6` je závažnejší než jednorazová chyba syntaxe. Kandidát môže poznať AWS služby a stále uzatvárať incident pri `Available`, `Healthy` alebo `UPDATE_COMPLETE`, hoci používateľský outcome zlyháva.
+
+Praktický ledger:
+
+```csv
+scenario,domain,seconds,points,errorClass,firstBadAssumption,nextDrill
+SOA-D1-017,D1,88,2,,,none
+SOA-D2-021,D2,131,0,S6,restore-job-complete-means-recovered,AWS-LAB-007
+SOA-D5-009,D5,104,1,S3,checked-SG-before-effective-route,CLOUDOPS-DRILL-F
+```
+
+Tento súbor umožní vybrať konkrétny follow-up lab namiesto všeobecného „musím sa viac učiť“.
+
+## 4. Timed session ako control loop
+
+Jedna 45-minútová session môže používať tento rytmus:
+
+```text
+00:00–05:00  environment, objective a current exam-guide generation
+05:00–30:00  dvanásť mixed-domain scenárov
+30:00–40:00  replay chybných alebo pomalých scenárov bez options
+40:00–45:00  error ledger, next drill a one-sentence lesson
+```
+
+Na jednu otázku pripadá približne 120 sekúnd. Prvých dvadsať sekúnd patrí subjectu a požadovanému outcome-u. Nasledujúcich približne štyridsať sekúnd slúži na boundary a evidence. Až potom sa porovnávajú answers podľa correctness, scope, cost a operational effort.
+
+Skip trigger nastáva, keď po približne 70–80 sekundách kandidát nevie pomenovať first divergent boundary alebo dve vedúce hypotézy. Označí scenár, zapíše posledný known fact a pokračuje. Návrat tak nezačína od nuly.
+
+## 5. Domain 1 — Monitoring, Logging, Analysis, Remediation and Performance Optimization
+
+Táto doména začína identitou signálu. Metric nie je iba názov na grafe; time series tvorí namespace, metric name, úplný dimension set, account, Region, period a statistic. Alarm je state machine nad touto identitou. Missing datapoint nie je automaticky nula ani zdravý stav.
+
+### Executable scenario: alarmuje stará time series
+
+Najprv čítaj alarm configuration a históriu bez mutation:
+
+```bash
+AWS_REGION=eu-central-1
+ALARM=ALARM-PAY-SUCCESS-18
+
+aws cloudwatch describe-alarms \
+  --alarm-names "$ALARM" \
+  --region "$AWS_REGION" \
+  --query 'MetricAlarms[0].{
+    State:StateValue,
+    Namespace:Namespace,
+    Metric:MetricName,
+    Dimensions:Dimensions,
+    Period:Period,
+    Statistic:Statistic,
+    Missing:TreatMissingData,
+    Actions:AlarmActions
+  }' \
+  --output yaml
+
+aws cloudwatch describe-alarm-history \
+  --alarm-name "$ALARM" \
+  --history-item-type StateUpdate \
+  --start-date 2026-07-31T07:00:00Z \
+  --end-date 2026-07-31T09:00:00Z \
+  --region "$AWS_REGION" \
+  --output table
+```
+
+Očakávaná observation je, že alarm stále sleduje `Service=payments-api`, používa `TreatMissingData=breaching` a do stavu `ALARM` prešiel po zmiznutí datapoints. Tieto príkazy dokazujú configuration a evaluation history. Nehovoria, či payments reálne zlyhali.
+
+Porovnaj current series a business logs:
 
 ```bash
 aws cloudwatch list-metrics \
   --namespace Atlas/Payments \
   --metric-name SuccessfulAuthorizations \
-  --region eu-central-1
+  --region "$AWS_REGION" \
+  --query 'Metrics[].Dimensions' \
+  --output json
 
-aws cloudwatch describe-alarm-history \
-  --alarm-name ALARM-PAY-SUCCESS-18 \
-  --region eu-central-1
-
-aws logs start-query \
+QUERY_ID=$(aws logs start-query \
   --log-group-name /atlas/prod/payments-api \
-  --start-time 1785227300 \
-  --end-time 1785229200 \
-  --query-string 'fields @timestamp, release, outcome | filter release="7.18.0"'
+  --start-time 1785481200 \
+  --end-time 1785488400 \
+  --query-string 'fields @timestamp, release, outcome, service | filter release="7.18.0" | stats count() by outcome, service' \
+  --region "$AWS_REGION" \
+  --query queryId --output text)
+
+aws logs get-query-results \
+  --query-id "$QUERY_ID" \
+  --region "$AWS_REGION"
 ```
 
-Question trap: missing datapoint is not automatically zero or service failure.
+Ak `list-metrics` ukáže novú dimension `Service=payments` a logs dokazujú úspešné autorizácie, first divergent boundary je telemetry contract. Bezpečná action je najprv disable-nuť destructive alarm action alebo pridať precondition, potom kompatibilne upraviť publisher a alarm. Fleet restart nie je recovery.
 
-## 6. Domain 2 review
+Acceptance vyžaduje current series, správny alarm transition, samostatný telemetry-freshness alarm a synthetic business failure, ktorý spustí iba jeden bounded remediation execution.
 
-Reliability/Business Continuity uses failure scope, current authority, RTO/RPO, replication lag, backup isolation and restore validation.
+## 6. Domain 2 — Reliability and Business Continuity
 
-Question trap: selecting Multi-AZ for logical deletion or selecting backup restore for low-latency read scaling.
+Tu sa odlišuje component availability, business continuity, replication, backup a clean recovery. Multi-AZ chráni pred určitými infrastructure failures. Nevráti tabuľku po logickom delete, pretože standby môže rovnakú zmenu korektne replikovať.
 
-Timed scenario:
+### Executable scenario: failover alebo PITR
 
-```text
-Source RDS is healthy but table was accidentally deleted.
-Multi-AZ standby contains the same deletion.
-Latest clean PITR point is 12 minutes old.
-RPO is 15 minutes.
-```
+Scenár hovorí, že source RDS cluster je `available`, tabuľka bola omylom zmazaná, Multi-AZ peers obsahujú rovnakú zmenu a posledný čistý PITR point je dvanásť minút starý pri RPO pätnásť minút.
 
-Correct reasoning chooses isolated PITR restore and reconciliation, not failover. Verification checks schema/data/business state before cutover.
-
-## 7. Domain 3 review
-
-Deployment/Provisioning/Automation focuses on immutable versions, controller convergence, drift, rollback eligibility and automation scope.
+Najprv prečítaj topology a restore window:
 
 ```bash
-aws cloudformation describe-stack-events --stack-name payments-prod
-aws autoscaling describe-instance-refreshes --auto-scaling-group-name payments-api-prod
-aws ecs describe-services --cluster payments-prod --services payments-api
+aws rds describe-db-clusters \
+  --db-cluster-identifier db-pay-prod-17 \
+  --region eu-central-1 \
+  --query 'DBClusters[0].{
+    Status:Status,
+    Members:DBClusterMembers,
+    Earliest:EarliestRestorableTime,
+    Latest:LatestRestorableTime,
+    BackupRetention:BackupRetentionPeriod
+  }' \
+  --output yaml
+
+aws rds describe-events \
+  --source-type db-cluster \
+  --source-identifier db-pay-prod-17 \
+  --duration 120 \
+  --region eu-central-1 \
+  --output table
 ```
 
-Question trap: CloudFormation `UPDATE_COMPLETE` accepted as application success.
+Topology output dokazuje service state a available restore interval. Neidentifikuje clean business timestamp. Ten musí vzniknúť koreláciou audit eventu, transaction logu, ledgeru a external provider state-u.
 
-## 8. Domain 4 review
+Správna answer obnoví nový isolated cluster na clean timestamp a vykoná reconciliation. Failover na ďalšieho člena by iba zmenil writera nad už poškodeným state-om. Acceptance nie je `DBClusterStatus=available`; je to schema/data invariant, compatible application, jeden payment outcome a measured Recovery Point Actual.
 
-Security/Compliance uses actual caller, policy layers, encryption context, evidence retention and forbidden access tests.
+## 7. Domain 3 — Deployment, Provisioning and Automation
+
+Táto doména testuje rozdiel medzi source intentom, API acceptance, controller convergence a runtime outcome. CloudFormation `UPDATE_COMPLETE`, accepted Auto Scaling refresh alebo Lambda alias update dokazujú iba určitú control-plane boundary.
+
+### Executable scenario: ECS deployment nevyrobil serving capacity
+
+```bash
+aws ecs describe-services \
+  --cluster payments-prod \
+  --services payments-api \
+  --region eu-central-1 \
+  --query 'services[0].{
+    Desired:desiredCount,
+    Running:runningCount,
+    Pending:pendingCount,
+    Deployments:deployments,
+    Events:events[0:10]
+  }' \
+  --output yaml
+
+aws ecs list-tasks \
+  --cluster payments-prod \
+  --service-name payments-api \
+  --desired-status STOPPED \
+  --region eu-central-1
+```
+
+Ak service events obsahujú `RESOURCE:ENI`, application image, command a health check ešte nie sú first boundary. Scheduler nevytvoril task network identity. Ďalší observation je subnet headroom alebo ENI density, nie restart old healthy cohortu.
+
+```bash
+aws ec2 describe-subnets \
+  --subnet-ids subnet-0paya subnet-0payb subnet-0payc \
+  --region eu-central-1 \
+  --query 'Subnets[].{Subnet:SubnetId,AZ:AvailabilityZoneId,Free:AvailableIpAddressCount}' \
+  --output table
+```
+
+Recovery vytvorí alebo pripojí approved address generation a spustí canary tasks. Acceptance potvrdí image digest, task role, target eligibility, per-AZ distribution a payment canary. `runningCount=desiredCount` bez request testu je incomplete verdict.
+
+## 8. Domain 4 — Security and Compliance
+
+Security reasoning začína actual caller session, nie názvom role v diagram-e. Potom sa vyhodnocuje action, resource, context, identity/resource policies, boundary, session policy, SCP/RCP, service-specific policy a explicit deny.
+
+### Executable scenario: KMS `AccessDenied`
 
 ```bash
 aws sts get-caller-identity
-aws iam simulate-principal-policy \
-  --policy-source-arn arn:aws:iam::100000000042:role/payments-runtime \
-  --action-names kms:Decrypt \
-  --resource-arns "$KEY_ARN"
+
+aws kms describe-key \
+  --key-id "$KEY_ARN" \
+  --region eu-central-1 \
+  --query 'KeyMetadata.{Arn:Arn,State:KeyState,Usage:KeyUsage,Origin:Origin}' \
+  --output yaml
+
+aws kms get-key-policy \
+  --key-id "$KEY_ARN" \
+  --policy-name default \
+  --region eu-central-1 \
+  --query Policy \
+  --output text | jq .
 ```
 
-Question trap: adding broad IAM allow when KMS key policy or SCP is the actual boundary.
+Prvý command fixuje caller identity v aktuálnom credential provider contexte. Druhý overuje key identity a state. Tretí číta key policy. Úspešné `describe-key` ešte nepreukazuje permission na `Decrypt`.
 
-## 9. Domain 5 review
+Policy simulation môže pomôcť pri identity policies, ale nemusí modelovať všetky service-specific alebo Organizations layers. Definitívny positive a forbidden test používa non-production ciphertext a exact encryption context. Zlá answer pridá wildcard allow bez overenia calleru alebo KMS key policy. Správna answer opraví prvú authorization boundary a zachová deny pre nesprávny context.
 
-Networking/Content Delivery uses DNS → route → policy → transport → listener/cache → application ordering.
+## 9. Domain 5 — Networking and Content Delivery
+
+Network reasoning používa poradie:
+
+```text
+name resolution
+→ address a effective route
+→ stateful/stateless policy
+→ gateway, endpoint alebo attachment
+→ TCP/TLS
+→ listener, rule alebo cache behavior
+→ application outcome
+```
+
+### Executable scenario: funguje iba časť subnetov
 
 ```bash
-dig pay.example.com A
-aws ec2 describe-route-tables --filters Name=association.subnet-id,Values=subnet-0payc
-aws ec2 describe-network-acls --filters Name=association.subnet-id,Values=subnet-0payc
-aws elbv2 describe-target-health --target-group-arn "$TG_ARN"
+dig +short artifact.example.net A
+
+aws ec2 describe-network-interfaces \
+  --network-interface-ids eni-0pay42c \
+  --region eu-central-1 \
+  --query 'NetworkInterfaces[0].{Ip:PrivateIpAddress,Subnet:SubnetId,Groups:Groups[].GroupId}' \
+  --output yaml
+
+aws ec2 describe-route-tables \
+  --filters Name=association.subnet-id,Values=subnet-0payc \
+  --region eu-central-1 \
+  --query 'RouteTables[].{Id:RouteTableId,Routes:Routes}' \
+  --output yaml
 ```
 
-Question trap: target health used to explain wrong listener-rule precedence or cross-tenant cache collision.
+Ak query nevráti explicitne asociovanú table, subnet pravdepodobne používa main route table. To je observation, nie dôkaz, že route neexistuje. Nasleduje read-back main table a potom SG/NACL/packet evidence.
 
-## 10. Scoring model
+Pri CloudFront incidente `X-Cache: Hit` môže znamenať správny performance outcome alebo cross-tenant leak. Cache-key inputs a origin-request policy preto patria do correctness a security analýzy, nie iba cost optimization.
 
-Score combines correctness, time and error class:
+## 10. Porovnanie answer options
+
+Po identifikácii boundary porovnaj každú odpoveď cez päť otázok:
 
 ```text
-2 points → correct answer under time with correct reasoning
-1 point  → correct answer but slow or weak evidence
-0 points → incorrect answer
+1. Mení správny subject a generation?
+2. Rieši mechanizmus, ktorý vysvetľuje evidence?
+3. Zachováva healthy capacity, security a data authority?
+4. Je to najnižší potrebný operational blast radius?
+5. Obsahuje alebo umožňuje acceptance validation?
 ```
 
-Add a severity penalty for recurring S1/S4/S6 because these errors create operational damage.
+„Most operationally efficient“ neznamená najkratší príkaz. Managed AWS mechanismus je výhodný iba vtedy, keď rieši správnu boundary a spĺňa constraints. Automatický restart celej fleet-y je ľahko vykonateľný, ale môže byť najhoršou odpoveďou.
 
-Session record:
+## 11. Replay bez answer options
 
-```csv
-scenario,domain,seconds,points,error_class,note
-SOA-D1-017,D1,88,2,,metric generation identified
-SOA-D2-021,D2,131,0,S6,accepted restore job without validation
-SOA-D5-009,D5,104,1,S3,checked SG before route association
-```
-
-## 11. Replay without answer options
-
-For every wrong question, hide choices and ask:
+Každý chybný scenár sa do 24 hodín replay-ne bez možností. Kandidát odpovie:
 
 ```text
-Which observation would you run first?
-What result would discriminate two leading hypotheses?
-What action is safe before root cause is complete?
-What evidence closes recovery?
+Ktoré dve hypotézy sú najpravdepodobnejšie?
+Ktorý command alebo evidence source ich najlepšie rozlíši?
+Aký výsledok očakávaš pri každej hypotéze?
+Čo môžeš bezpečne contain-nuť pred úplným root cause?
+Aký positive a forbidden test uzatvára recovery?
 ```
 
-This prevents memorizing answer wording.
+Tým sa odstráni závislosť od wording-u distractorov. Ak kandidát pozná iba písmeno odpovede, vedomosť sa neprenesie do hands-on situácie.
 
 ## 12. Readiness gate
 
-A domain is ready when three consecutive sessions achieve at least 80 %, median answer time under 105 seconds, no repeated high-risk S1/S4/S6 pattern and at least one corresponding hands-on lab passes twice.
+Doména sa nepovažuje za pripravenú po jednom dobrom teste. Minimálny gate:
+
+```yaml
+domainReadiness:
+  consecutiveSessions: 3
+  minimumScorePercent: 80
+  maximumMedianAnswerSeconds: 105
+  repeatedHighRiskErrorsAllowed: 0
+  requiredHandsOnLabsPassedTwice: 1
+  requiredTroubleshootingDrillPassedTwice: 1
+```
+
+Tri sessions znižujú vplyv náhodnej sady. Hands-on a troubleshooting gate dokazujú, že kandidát vie command nielen rozpoznať, ale aj interpretovať jeho output a uzavrieť outcome.
 
 ## Kontrolné otázky
 
-1. Prečo raw percent score nestačí?
-2. Ktoré error classes majú najvyšší operational risk?
+1. Prečo raw score neukazuje typ reasoning problému?
+2. Ktoré informácie patria do scenario subjectu pred porovnávaním answers?
 3. Ako scratchpad oddeľuje observation od action?
-4. Prečo wrong question treba replay-nuť bez options?
-5. Čo tvorí domain readiness gate?
-6. Ako sa timed scenario prepája s hands-on labom?
-7. Kedy je correct but slow answer stále slabina?
-8. Prečo sa CloudFormation status nesmie zameniť za business result?
-9. Aký trap rozlišuje failover od PITR?
-10. Ako error ledger určí ďalší tréning?
+4. Prečo missing CloudWatch datapoint nie je automaticky zero?
+5. Kedy Multi-AZ failover nerieši incident a treba PITR?
+6. Čo `RESOURCE:ENI` dokazuje o poradí diagnostiky?
+7. Prečo `get-caller-identity` predchádza IAM policy analýze?
+8. Aký rozdiel je medzi route-table read-backom a packet-flow dôkazom?
+9. Prečo sa chybná otázka replayuje bez options?
+10. Ktoré merania uzatvárajú domain readiness?
 
 ## Oficiálna dokumentácia
 
-- [SOA-C03 Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/examguides/cloudops-associate-03.html)
-- [AWS Skill Builder](https://skillbuilder.aws/)
+- [AWS Certified CloudOps Engineer – Associate exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03.html)
+- [Domain 1: Monitoring, Logging, Analysis, Remediation, and Performance Optimization](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain1.html)
+- [Domain 2: Reliability and Business Continuity](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain2.html)
+- [Domain 4: Security and Compliance](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain4.html)
+- [Domain 5: Networking and Content Delivery](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-domain5.html)
+- [AWS CLI v2 Command Reference](https://docs.aws.amazon.com/cli/latest/reference/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
