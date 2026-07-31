@@ -5,7 +5,7 @@ docs/13-security-and-identity/authentication-authorization-auditing.md|strict=0/
 docs/13-security-and-identity/cia-triad.md|strict=0/0/0|prose=1058|bullet_share=0.109|blocks=6|executable=5|explanations=18
 docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=0/3/0|prose=1297|bullet_share=0.093|blocks=5|executable=4|explanations=14
 docs/13-security-and-identity/iam-rbac.md|strict=0/0/0|prose=966|bullet_share=0.107|blocks=6|executable=7|explanations=7
-docs/13-security-and-identity/image-signing.md|strict=20/24/12|prose=950|bullet_share=0.475|blocks=13|executable=0|explanations=12
+docs/13-security-and-identity/image-signing.md|strict=0/3/0|prose=994|bullet_share=0.085|blocks=7|executable=5|explanations=10
 docs/13-security-and-identity/kerberos.md|strict=0/1/0|prose=1028|bullet_share=0.099|blocks=6|executable=7|explanations=11
 docs/13-security-and-identity/ldap.md|strict=0/1/0|prose=1004|bullet_share=0.107|blocks=6|executable=2|explanations=9
 docs/13-security-and-identity/least-privilege.md|strict=0/0/0|prose=1033|bullet_share=0.111|blocks=6|executable=7|explanations=4
@@ -25,62 +25,9 @@ HIGH docs/13-security-and-identity/active-directory.md:7 [list-first-introductio
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [list-first-introduction] Asset-to-key-boundary lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:24 [single-sentence-concept] Exact cryptographic subject SEC-PAY-49 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:24 [list-first-introduction] Exact cryptographic subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/image-signing.md:22 [outline-instead-of-explanation] 1. Exact signing subject — 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:22 [bare-bullet-items] 1. Exact signing subject — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a release unit;`, `OCI image index alebo platform manifest digest;`, `architecture a OS variant;`, `source revision a builder generation;`.
-HIGH docs/13-security-and-identity/image-signing.md:22 [thin-concept-section] 1. Exact signing subject — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/image-signing.md:22 [term-before-explanation] 1. Exact signing subject — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `OS`, `SBOM`, `policy`, `enforcement`, `scope`
-CRITICAL docs/13-security-and-identity/image-signing.md:46 [outline-instead-of-explanation] 2. OCI graph a multi-platform contract — 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/image-signing.md:46 [bare-bullet-items] 2. OCI graph a multi-platform contract — 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ktoré platforms sú povolené;`, `či každá platform potrebuje vlastnú provenance a SBOM;`, `čo sa stane pri pridaní novej platformy.`.
-MEDIUM docs/13-security-and-identity/image-signing.md:46 [short-concept-section] 2. OCI graph a multi-platform contract — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:46 [term-before-explanation] 2. OCI graph a multi-platform contract — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`
-HIGH docs/13-security-and-identity/image-signing.md:64 [single-sentence-concept] 3. Čo signature dokazuje — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/image-signing.md:64 [outline-instead-of-explanation] 3. Čo signature dokazuje — 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:64 [bare-bullet-items] 3. Čo signature dokazuje — 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed payload nebol po podpise zmenený;`, `payload obsahuje deklarovaný subject.`, `correctness alebo review source-u;`, `isolation buildera;`.
-HIGH docs/13-security-and-identity/image-signing.md:64 [thin-concept-section] 3. Čo signature dokazuje — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:64 [term-before-explanation] 3. Čo signature dokazuje — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `attestation`
-CRITICAL docs/13-security-and-identity/image-signing.md:89 [bare-bullet-items] 4. Signing authority — 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `long-lived private keyom;`, `KMS alebo HSM Sign permission;`, `short-lived keyless OIDC identity;`, `release approval workflowom;`.
-HIGH docs/13-security-and-identity/image-signing.md:120 [list-heavy-section] 6. Keyless Sigstore model — 6 odrážok a iba 39 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:120 [bare-bullet-items] 6. Keyless Sigstore model — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OIDC issuer a presné claims;`, `Fulcio trust chain;`, `Rekor alebo bundle evidence;`, `trusted-root distribution;`.
-MEDIUM docs/13-security-and-identity/image-signing.md:120 [short-concept-section] 6. Keyless Sigstore model — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/image-signing.md:187 [list-heavy-section] 10. Signer authorization generation — 9 odrážok a iba 35 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:187 [bare-bullet-items] 10. Signer authorization generation — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `certificate issuer;`, `subject/SAN identity;`, `organization a repository;`, `workflow path a reusable workflow;`.
-MEDIUM docs/13-security-and-identity/image-signing.md:187 [short-concept-section] 10. Signer authorization generation — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:187 [term-before-explanation] 10. Signer authorization generation — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAN`
-HIGH docs/13-security-and-identity/image-signing.md:217 [list-heavy-section] 12. Admission a runtime enforcement — 7 odrážok a iba 36 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:217 [bare-bullet-items] 12. Admission a runtime enforcement — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachytiť všetky relevantné API paths;`, `získať alebo uložiť final resolved digest;`, `overiť signature a exact subject;`, `vyhodnotiť signer a attestation policy;`.
-MEDIUM docs/13-security-and-identity/image-signing.md:217 [short-concept-section] 12. Admission a runtime enforcement — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:217 [term-before-explanation] 12. Admission a runtime enforcement — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `attestation`
-CRITICAL docs/13-security-and-identity/image-signing.md:231 [bare-bullet-items] 13. Worked incident SEC-PAY-51 — 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolve-nul tag na index sha256:pay7240 ;`, `našiel platnú signature v rovnakom registry repository;`, `cache-oval allow podľa repository:tag ;`, `povolil rollout na arm64 nodes.`.
-CRITICAL docs/13-security-and-identity/image-signing.md:261 [outline-instead-of-explanation] 14. Discriminating evidence — 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:261 [bare-bullet-items] 14. Discriminating evidence — 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production Pods bežali na arm64 nodes;`, `kubelet resolved digest bol sha256:pay7240-arm ;`, `bundle payload uvádzal sha256:pay7240-amd ;`, `certificate chain, OIDC issuer a signature boli validné;`.
-HIGH docs/13-security-and-identity/image-signing.md:261 [thin-concept-section] 14. Discriminating evidence — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:261 [term-before-explanation] 14. Discriminating evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`
-HIGH docs/13-security-and-identity/image-signing.md:276 [single-sentence-concept] 15. Containment a recovery — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/image-signing.md:276 [outline-instead-of-explanation] 15. Containment a recovery — 14 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:276 [bare-bullet-items] 15. Containment a recovery — 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `freeze signing a promotion workflow;`, `quarantine index aj obe platform manifests;`, `zablokovať nové deployments bez mazania forensic artifacts;`, `identifikovať všetky runtime a rollback references.`.
-HIGH docs/13-security-and-identity/image-signing.md:276 [thin-concept-section] 15. Containment a recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:276 [term-before-explanation] 15. Containment a recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SBOM`, `policy`
-CRITICAL docs/13-security-and-identity/image-signing.md:316 [outline-instead-of-explanation] 17. Failure semantics — 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:316 [bare-bullet-items] 17. Failure semantics — 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré dependencies sú potrebné request-time;`, `čo možno bezpečne cache-ovať;`, `kedy sa deployment fail-closed;`, `ako funguje oddelený break-glass pre known-good digest;`.
-HIGH docs/13-security-and-identity/image-signing.md:316 [thin-concept-section] 17. Failure semantics — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/image-signing.md:328 [single-sentence-concept] 18. Signature acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/image-signing.md:328 [outline-instead-of-explanation] 18. Signature acceptance verdict — 11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/image-signing.md:328 [bare-bullet-items] 18. Signature acceptance verdict — 8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `deployment používa exact digest;`, `issuer a signer identity sú exact a authorized;`, `bundle/trust-root/time evidence sú validné;`, `required provenance a SBOM patria rovnakému subjectu;`.
-HIGH docs/13-security-and-identity/image-signing.md:328 [thin-concept-section] 18. Signature acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:328 [term-before-explanation] 18. Signature acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `policy`
-HIGH docs/13-security-and-identity/image-signing.md:344 [list-first-introduction] 19. Troubleshooting flow — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/image-signing.md:363 [no-prose-concept] 20. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/image-signing.md:363 [list-first-introduction] 20. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/image-signing.md:363 [outline-instead-of-explanation] 20. Earlier controls — 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/image-signing.md:363 [bare-bullet-items] 20. Earlier controls — 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build-once-promote-many s digest read-backom;`, `explicitný index/platform signing contract;`, `keyless identity scoped na exact workflow a environment;`, `non-exportable key custody pre key-based signing;`.
-HIGH docs/13-security-and-identity/image-signing.md:363 [thin-concept-section] 20. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/image-signing.md:363 [term-before-explanation] 20. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`
-HIGH docs/13-security-and-identity/image-signing.md:380 [single-sentence-concept] Podpisujeme tag — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/image-signing.md:384 [single-sentence-concept] Ľubovoľná validná signature stačí — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/image-signing.md:388 [single-sentence-concept] Podpis jednej platformy schvaľuje index — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/image-signing.md:392 [single-sentence-concept] Transparency log je preventive control — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/image-signing.md:396 [single-sentence-concept] Re-signing bez rebuild-u — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/image-signing.md:400 [single-sentence-concept] Admission bez runtime inventory — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/image-signing.md:7 [list-first-introduction] Subject-to-runtime trust lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/13-security-and-identity/image-signing.md:24 [single-sentence-concept] Exact signing subject SEC-PAY-51 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/image-signing.md:24 [list-first-introduction] Exact signing subject SEC-PAY-51 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/kerberos.md:24 [list-first-introduction] Exact Kerberos subject — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/ldap.md:24 [list-first-introduction] Exact LDAP subject — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/oauth-2.md:7 [list-first-introduction] Grant-to-resource lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -236,8 +183,6 @@ FAILURES
 active-directory.md: strict findings
 encryption-at-rest-and-in-transit.md: strict findings
 image-signing.md: strict findings
-image-signing.md: bullet share 0.475
-image-signing.md: practical examples too thin
 kerberos.md: strict findings
 ldap.md: strict findings
 oauth-2.md: strict findings
