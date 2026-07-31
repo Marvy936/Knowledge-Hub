@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **315**
-- Audited conceptual sections: **8708**
-- Total words: **654,539**
-- Findings: **14054** (critical 3458, high 4181, medium 1618, low 4797)
-- File grades: A 77, B 50, C 17, D 171
+- Audited authoritative articles: **316**
+- Audited conceptual sections: **8759**
+- Total words: **660,610**
+- Findings: **14078** (critical 3459, high 4188, medium 1619, low 4812)
+- File grades: A 77, B 50, C 17, D 172
 
 ## Interpretation
 
@@ -40,13 +40,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
-| D | 888 | 35 | 47 | 16 | 33 | 3254 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
+| D | 888 | 35 | 47 | 16 | 33 | 3260 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 854 | 37 | 41 | 15 | 28 | 2950 | `docs/09-kubernetes/deployment.md` |
 | D | 851 | 36 | 36 | 25 | 33 | 3084 | `docs/09-kubernetes/pod.md` |
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
-| D | 831 | 37 | 38 | 17 | 22 | 2511 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
+| D | 831 | 37 | 38 | 17 | 22 | 2518 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 811 | 37 | 41 | 8 | 19 | 2477 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | D | 807 | 40 | 31 | 18 | 12 | 2145 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
@@ -183,6 +183,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1731 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1300 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
+| D | 92 | 1 | 7 | 1 | 15 | 6058 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | D | 90 | 0 | 9 | 0 | 11 | 1375 | `docs/06-gitlab/security-scanning.md` |
 | D | 86 | 1 | 8 | 1 | 5 | 1401 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 84 | 0 | 8 | 1 | 11 | 1488 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
@@ -5641,6 +5642,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 433, `term-before-explanation` — **21. Praktické controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `MTU`, `policy`
 - **HIGH** line 433, `thin-concept-section` — **21. Praktické controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md`
+
+- **CRITICAL** line 82, `outline-instead-of-explanation` — **3. Aplikácia: process, health, readiness a persistentný business údaj**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **HIGH** line 82, `bare-bullet-items` — **3. Aplikácia: process, health, readiness a persistentný business údaj**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia ostáva PID 1, takže priamo prijíma SIGTERM ;`, `shutdown používa bounded desaťsekundový context;`, `/healthz testuje iba živý process;`, `/version publikuje build a configuration generation;`.
+- **HIGH** line 490, `single-sentence-concept` — **6. Multi-stage Dockerfile**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 748, `list-first-introduction` — **Čo runtime flags robia**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 996, `single-sentence-concept` — **19. Kompletný compose.yaml**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1691, `single-sentence-concept` — **39. Failure walkthrough: wrong platform alebo loader**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 1887, `single-sentence-concept` — **44. Acceptance matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 82, `term-before-explanation` — **3. Aplikácia: process, health, readiness a persistentný business údaj**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `SIGTERM`, `POST`, `GET`
+
 ### `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md`
 
 - **CRITICAL** line 22, `outline-instead-of-explanation` — **1. Atlas incident**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
@@ -8549,16 +8561,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2105 | 2105 |
-| `bare-bullet-items` | 1410 | 226 | 0 | 0 | 1636 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1554 | 1554 |
-| `outline-instead-of-explanation` | 1446 | 0 | 0 | 0 | 1446 |
-| `term-before-explanation` | 0 | 325 | 1056 | 0 | 1381 |
-| `single-sentence-concept` | 0 | 1370 | 0 | 0 | 1370 |
+| `example-not-explicit` | 0 | 0 | 0 | 2111 | 2111 |
+| `bare-bullet-items` | 1410 | 227 | 0 | 0 | 1637 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1560 | 1560 |
+| `outline-instead-of-explanation` | 1447 | 0 | 0 | 0 | 1447 |
+| `term-before-explanation` | 0 | 326 | 1056 | 0 | 1382 |
+| `single-sentence-concept` | 0 | 1374 | 0 | 0 | 1374 |
 | `thin-concept-section` | 0 | 1206 | 0 | 0 | 1206 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
-| `list-first-introduction` | 0 | 818 | 0 | 0 | 818 |
-| `short-concept-section` | 0 | 0 | 562 | 0 | 562 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1141 | 1141 |
+| `list-first-introduction` | 0 | 819 | 0 | 0 | 819 |
+| `short-concept-section` | 0 | 0 | 563 | 0 | 563 |
 | `no-prose-concept` | 349 | 0 | 0 | 0 | 349 |
 | `empty-section` | 253 | 0 | 0 | 0 | 253 |
 | `list-heavy-section` | 0 | 236 | 0 | 0 | 236 |

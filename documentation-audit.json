@@ -1963,7 +1963,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/buildkit-buildx.md",
       "title": "BuildKit a Buildx",
-      "words": 2511,
+      "words": 2518,
       "headings": 38,
       "sections": 38,
       "findings": 114,
@@ -2073,9 +2073,23 @@
       "grade": "D"
     },
     {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "title": "Praktický Docker projekt od Dockerfile-u po overený Compose runtime",
+      "words": 6058,
+      "headings": 51,
+      "sections": 51,
+      "findings": 24,
+      "critical": 1,
+      "high": 7,
+      "medium": 1,
+      "low": 15,
+      "score": 92,
+      "grade": "D"
+    },
+    {
       "path": "docs/08-container-fundamentals-and-docker/docker-troubleshooting.md",
       "title": "Docker troubleshooting",
-      "words": 3254,
+      "words": 3260,
       "headings": 46,
       "sections": 46,
       "findings": 131,
@@ -84313,6 +84327,222 @@
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `MTU`, `policy`",
       "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "3. Aplikácia: process, health, readiness a persistentný business údaj",
+      "line": 82,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "3. Aplikácia: process, health, readiness a persistentný business údaj",
+      "line": 82,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia ostáva PID 1, takže priamo prijíma SIGTERM ;`, `shutdown používa bounded desaťsekundový context;`, `/healthz testuje iba živý process;`, `/version publikuje build a configuration generation;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "3. Aplikácia: process, health, readiness a persistentný business údaj",
+      "line": 82,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "3. Aplikácia: process, health, readiness a persistentný business údaj",
+      "line": 82,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "3. Aplikácia: process, health, readiness a persistentný business údaj",
+      "line": 82,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `SIGTERM`, `POST`, `GET`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "5. .dockerignore : build-context boundary",
+      "line": 456,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "6. Multi-stage Dockerfile",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "9. Lokálny single-platform runtime build",
+      "line": 638,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "10. Image config, history a filesystem contract",
+      "line": 667,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "10. Image config, history a filesystem contract",
+      "line": 667,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "Čo runtime flags robia",
+      "line": 748,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "19. Kompletný compose.yaml",
+      "line": 996,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "Prečo sú tu dva lifecycle owners",
+      "line": 1097,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "20. Resolved Compose model",
+      "line": 1105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "21. Compose dry-run a resource plan",
+      "line": 1149,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "22. Compose build a bounded startup",
+      "line": 1172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "22. Compose build a bounded startup",
+      "line": 1172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "29. Multi-platform release build a registry publication",
+      "line": 1394,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "32. Build cache correctness a clean-room kontrola",
+      "line": 1515,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "39. Failure walkthrough: wrong platform alebo loader",
+      "line": 1691,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "42. Bezpečný cleanup",
+      "line": 1798,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "42. Bezpečný cleanup",
+      "line": 1798,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "44. Acceptance matrix",
+      "line": 1887,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "45. Ako máš tento walkthrough čítať",
+      "line": 1932,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-troubleshooting.md",
