@@ -1,4 +1,4 @@
-name: Temporary Section 11 exact findings reporter
+name: Temporary Section 11 CloudOps rewrite and audit
 
 on:
   push:
@@ -9,11 +9,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-section11-exact-findings-reporter
-  cancel-in-progress: true
+  group: temporary-section11-cloudops-rewrite
+  cancel-in-progress: false
 
 jobs:
-  report:
+  apply-and-audit:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,24 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Write exact strict findings
+      - name: Apply reviewed prose blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          write_blob() {
+            gh api "repos/$GITHUB_REPOSITORY/git/blobs/$1" --jq .content \
+              | tr -d '\n' | base64 -d > "$2"
+          }
+          write_blob 4323524425a8c344b3bc2454cdf1ead1b0a4816c docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md
+          write_blob 1f5a7109e78c837d70cc14c0143d15f3b6c691b9 docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md
+          write_blob 1f0f67e54b20a1611fcf638ceeeab2337fb05284 docs/11-cloud-and-aws/cloudops-hands-on-labs.md
+          write_blob 1f83958022658d1fff1542a23c6188cfe0bdcaab docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+
+      - name: Audit and publish findings
         shell: bash
         run: |
           set -euo pipefail
@@ -33,27 +50,14 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-
           audit = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
-          findings = [
-              item for item in audit['findings']
-              if item['path'].startswith('docs/11-cloud-and-aws/')
-              and item['severity'] in {'critical', 'high', 'medium'}
-          ]
-          lines = [
-              f"{item['severity'].upper()}|{item['path']}|line={item['line']}|"
-              f"rule={item['rule']}|section={item['section']}|detail={item['detail']}"
-              for item in findings
-          ]
-          Path('.github/section11-strict-findings.txt').write_text(
-              '\n'.join(lines or ['none']) + '\n', encoding='utf-8', newline='\n'
-          )
+          findings = [item for item in audit['findings'] if item['path'].startswith('docs/11-cloud-and-aws/') and item['severity'] in {'critical','high','medium'}]
+          Path('.github/section11-strict-findings.txt').write_text('\n'.join(f"{x['severity'].upper()}|{x['path']}|line={x['line']}|rule={x['rule']}|section={x['section']}|detail={x['detail']}" for x in findings) + ('\n' if findings else 'none\n'), encoding='utf-8', newline='\n')
           PY
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/section11-strict-findings.txt
+          git add docs GLOSSARY.md .github/section11-strict-findings.txt
           if ! git diff --cached --quiet; then
-            git commit -m "ci(docs): record exact Section 11 findings"
+            git commit -m "docs(aws): rewrite CloudOps preparation as practical prose"
             git push origin HEAD:agent/sections-10-13-prose-first-revalidation
           fi
