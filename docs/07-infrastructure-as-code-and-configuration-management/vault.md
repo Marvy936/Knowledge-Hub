@@ -468,5 +468,9 @@ Relevantné pojmy: Ansible Vault, encrypted artifact, encrypted value, vault ID,
 - [Managing Vault passwords](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_managing_passwords.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Roles a collections](roles-and-collections.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible idempotencia →](ansible-idempotency.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

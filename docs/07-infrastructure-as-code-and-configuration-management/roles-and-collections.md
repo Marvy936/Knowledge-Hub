@@ -467,5 +467,9 @@ Relevantné pojmy: Ansible role, role contract, defaults, role vars, namespacing
 - [Ansible collections](https://docs.ansible.com/collections.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Handlers, loops a conditionals](handlers-loops-conditionals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Vault →](vault.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

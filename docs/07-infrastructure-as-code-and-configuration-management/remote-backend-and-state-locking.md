@@ -473,5 +473,9 @@ Relevantné pojmy: Terraform backend, remote state, backend initialization, stat
 - [Terraform state backends](https://developer.hashicorp.com/terraform/language/state/backends)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Terraform state](terraform-state.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Modules →](modules.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

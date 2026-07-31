@@ -477,5 +477,9 @@ Relevantné pojmy: Terraform Core, provider, provider requirement, dependency lo
 - [Providers within modules](https://developer.hashicorp.com/terraform/language/modules/develop/providers)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Infrastructure as Code principles](infrastructure-as-code-principles.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables, locals a outputs →](variables-locals-outputs.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

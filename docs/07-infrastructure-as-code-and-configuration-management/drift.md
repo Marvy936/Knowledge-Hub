@@ -483,5 +483,9 @@ Relevantné pojmy: Terraform drift, drift detection subject, remote drift, confi
 - [Manage resource drift](https://developer.hashicorp.com/terraform/tutorials/state/resource-drift)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Lifecycle, import a moved blocks](lifecycle-import-moved-blocks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform testing a policy →](terraform-testing-and-policy.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

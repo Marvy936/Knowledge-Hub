@@ -450,5 +450,9 @@ Relevantné pojmy: Ansible idempotencia, convergence, correctness, reproducibili
 - [Error handling](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Vault](vault.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform vs. Ansible →](terraform-vs-ansible.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

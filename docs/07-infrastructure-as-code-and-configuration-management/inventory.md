@@ -487,5 +487,9 @@ Relevantné pojmy: Ansible inventory, inventory source, inventory plugin, resolv
 - [Ansible inventory command](https://docs.ansible.com/projects/ansible/latest/cli/ansible-inventory.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Ansible architecture](ansible-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Modules, tasks, plays a playbooks →](modules-tasks-plays-playbooks.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

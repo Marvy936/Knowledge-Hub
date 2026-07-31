@@ -587,5 +587,9 @@ Relevantné pojmy: Terraform–Ansible boundary, authoritative writer, attribute
 - [Check mode and diff mode](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Ansible idempotencia](ansible-idempotency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Containers vs. virtual machines →](../08-container-fundamentals-and-docker/containers-vs-virtual-machines.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

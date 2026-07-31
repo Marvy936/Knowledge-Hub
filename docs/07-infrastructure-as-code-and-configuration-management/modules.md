@@ -549,5 +549,9 @@ Relevantné pojmy: Terraform module, root module, child module, module source, m
 - [Terraform test](https://developer.hashicorp.com/terraform/language/tests)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Remote backend a state locking](remote-backend-and-state-locking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Lifecycle, import a moved blocks →](lifecycle-import-moved-blocks.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -455,5 +455,9 @@ Relevantné pojmy: Ansible module, task, play, playbook, FQCN, registered result
 - [Executing playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_execution.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Inventory](inventory.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables, facts a templates →](variables-facts-templates.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

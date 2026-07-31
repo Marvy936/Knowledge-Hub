@@ -458,5 +458,9 @@ Relevantné pojmy: Ansible variable, variable precedence, effective host context
 - [Precedence rules](https://docs.ansible.com/projects/ansible/latest/reference_appendices/general_precedence.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Modules, tasks, plays a playbooks](modules-tasks-plays-playbooks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Handlers, loops a conditionals →](handlers-loops-conditionals.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

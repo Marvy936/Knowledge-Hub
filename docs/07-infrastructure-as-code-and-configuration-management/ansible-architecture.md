@@ -511,5 +511,9 @@ Relevantné pojmy: Ansible control node, managed node, execution environment, co
 - [Check mode and diff mode](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Terraform testing a policy](terraform-testing-and-policy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Inventory →](inventory.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

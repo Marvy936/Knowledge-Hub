@@ -531,5 +531,9 @@ Relevantné pojmy: Ansible conditional, eligibility decision, boolean normalizat
 - [Error handling](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Variables, facts a templates](variables-facts-templates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Roles a collections →](roles-and-collections.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

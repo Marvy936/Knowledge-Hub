@@ -580,5 +580,9 @@ Relevantné pojmy: Terraform lifecycle, replacement, `create_before_destroy`, `p
 - [Move Terraform state](https://developer.hashicorp.com/terraform/cli/state/move)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Modules](modules.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Drift →](drift.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

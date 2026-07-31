@@ -562,5 +562,9 @@ Relevantné pojmy: Terraform state, state snapshot, resource binding, provider a
 - [Import existing resources](https://developer.hashicorp.com/terraform/language/import)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Expressions a dependency graph](expressions-and-dependency-graph.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Remote backend a state locking →](remote-backend-and-state-locking.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

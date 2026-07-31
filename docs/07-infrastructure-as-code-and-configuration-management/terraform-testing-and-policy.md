@@ -711,5 +711,9 @@ Relevantné pojmy: Terraform evidence subject, expected evidence inventory, nati
 - [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible architecture →](ansible-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

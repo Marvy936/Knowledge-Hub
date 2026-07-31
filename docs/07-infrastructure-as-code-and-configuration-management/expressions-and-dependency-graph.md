@@ -538,5 +538,9 @@ Relevantné pojmy: Terraform expression, reference, dependency edge, graph verte
 - [Terraform types and values](https://developer.hashicorp.com/terraform/language/expressions/types)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Variables, locals a outputs](variables-locals-outputs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform state →](terraform-state.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

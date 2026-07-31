@@ -565,5 +565,9 @@ Relevantné pojmy: input variable, type constraint, default, optional attribute,
 - [Terraform types and values](https://developer.hashicorp.com/terraform/language/expressions/types)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
 [← Predchádzajúca: Terraform providers, resources a data sources](terraform-providers-resources-data-sources.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Expressions a dependency graph →](expressions-and-dependency-graph.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
