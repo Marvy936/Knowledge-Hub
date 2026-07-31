@@ -1,595 +1,351 @@
 # Pipeline, stage, job a runner
 
-## Metadata
+CI/CD platforma premieňa versionovanú workflow definíciu a event context na konkrétny runtime execution graph. Pipeline, stage, job, step, runner a executor nie sú synonymá. Každá vrstva rieši inú časť ordering-u, izolácie, trustu, capacity, failure semantics a evidence. Keď sa tieto boundaries zlejú do jednej predstavy „pipeline beží“, vznikajú skryté dependencies, chýbajúce reports, nebezpečné credentials a false-green fan-in.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Workflow file je iba source intent. Platforma ho najprv parsuje, vyhodnotí conditions, rozbalí reusable workflows a matrix, priradí permissions a vytvorí jobs. Scheduler potom vyberie runner, executor pripraví process alebo container context a steps vykonajú commands. Authoritative verdict preto závisí od resolved graphu a runtime contexts, nie iba od YAML uloženého v repository.
 
-CI/CD platforma premieňa versionovanú workflow definíciu na konkrétny runtime execution graph. Pipeline, stage, job, step, runner a executor nie sú synonymá; každý pojem označuje inú vrstvu ordering-u, izolácie, trustu, capacity a evidence.
+## 1. Dominantný definition-to-verdict model
 
 ```text
-trigger a workflow revision
-→ pipeline instance a evaluated DAG
-→ schedulované jobs
-→ runner/executor contexts
-→ explicitný artifact a report flow
-→ fan-in verdict
-→ mutation/cleanup transitions
-→ retained evidence
-```
-
-Dôležitý nie je názov v konkrétnej platforme, ale runtime contract: čo sa spustí, s akými inputs a permissions, na akom runneri, v akom poradí a ako sa výsledok stane autoritatívnym verdictom.
-
-## 1. Cieľ kapitoly
-
-Nosný model kapitoly je pipeline-execution lifecycle:
-
-```text
-event a source identity
-→ workflow parse/evaluation
-→ DAG, matrix a policy expansion
-→ job execution contracts
-→ runner scheduling a executor isolation
-→ explicitný data/evidence transfer
-→ failure/cancel/retry semantics
+trusted event a workflow revision
+→ parse, include a reusable-workflow resolution
+→ condition, matrix a policy expansion
+→ resolved pipeline DAG
+→ job contracts a permissions
+→ runner scheduling a executor creation
+→ step execution a explicitný data flow
+→ reports, artifacts a per-job outcomes
 → complete fan-in verdict
-→ mutation-aware cleanup
-→ pipeline telemetry a learning
+→ cleanup, cancellation a retained evidence
 ```
 
-Pipeline YAML je iba deklarácia. Runtime pipeline má vlastnú identity, state, attempts, permissions, artifacts a environment effects.
+Každý transition môže zlyhať inak. Neplatný YAML zastaví parse. Condition môže legitímne vynechať job alebo ho omylom vyradiť z required evidence. Runner provisioning môže zlyhať pred prvým stepom. Job môže skončiť success, ale nepublikovať report. Final job môže byť green, pretože používa `always()` a ignoruje failed dependency výsledok.
 
-## 2. Nosný scenár: Atlas Orders 3.10.0 pipeline
+## 2. Exact pipeline execution subject
 
-Atlas pipeline reaguje na merge-queue candidate:
+Pipeline instance potrebuje viac než run ID:
 
-```text
-candidate C
-→ compile workflow W
-→ lint/type/static jobs
-→ unit shards
-→ PostgreSQL/event integration
-→ build images A a B
-→ contract/security verification
-→ package promotion evidence E
-→ deploy staging
-→ smoke a operational validation
+```yaml
+pipelineSubject:
+  repository: atlas/payments
+  event:
+    type: pull_request
+    deliveryId: evt-4fd821
+    actor: contributor-17
+    trustClass: untrusted-fork
+  sourceSha: 8e21b8d
+  targetSha: 53d92af
+  candidateSha: d94e1c6
+  workflow:
+    path: .github/workflows/ci.yml
+    sha: 18ab442
+    resolvedReusableWorkflows:
+      - atlas/platform-ci/.github/workflows/build.yml@4d10f77
+  graph:
+    graphDigest: sha256:dag1000
+    expectedJobs:
+      - validate
+      - build
+      - test-linux-amd64-0
+      - test-linux-amd64-1
+      - test-linux-arm64-0
+      - artifact-policy
+      - verdict
+  runnerPolicySha: a11ce92
 ```
 
-Pipeline používa:
+Event trust class je súčasťou subjectu, pretože rovnaký workflow môže dostať odlišné permissions pri pushi, internom PR alebo forku. Resolved reusable revisions musia byť immutable; mutable ref znamená, že source workflow SHA samostatne neurčuje execution graph.
 
-- untrusted verification pool pre pull requests;
-- trusted ephemeral build pool;
-- protected staging deployment pool;
-- PostgreSQL a broker service dependencies;
-- explicitné image digests a reports;
-- environment lock pre staging;
-- cleanup aj pri cancellation.
+## 3. Pipeline, stage, job a step
 
-Každá chyba v DAG edge, runner policy alebo artifact flow môže vytvoriť false green aj pri správnych testoch.
+**Pipeline** je jedna inštancia resolved workflowu pre konkrétny event a subject. Obsahuje graph, shared context, status a retained outputs.
 
-## 3. Pojmy ako vrstvy runtime modelu
+**Stage** je ordering alebo policy grouping. Niektoré platformy ho majú ako explicitný objekt, iné ho realizujú dependencies. Stage `deploy` neznamená, že všetky predchádzajúce jobs poskytli complete evidence; to musí definovať graph a verdict contract.
 
-- **Workflow definition** — versionovaný template alebo program vytvárajúci execution graph.
-- **Pipeline instance** — konkrétny run viazaný na event, candidate, workflow revision a inputs.
-- **Stage** — široká logická fáza alebo barrier medzi skupinami jobs.
-- **Job** — samostatne plánovaná execution, trust a failure unit.
-- **Step** — sekvenčná operácia zdieľajúca job context.
-- **Runner** — agent alebo worker prijímajúci job assignment.
-- **Executor** — mechanizmus izolácie a spustenia, napríklad shell, container, VM alebo Kubernetes pod.
+**Job** je schedulovateľná execution unit s vlastným runner contextom, timeoutom, permissions, inputs, outputs a outcome-om. Filesystem a environment medzi jobs nie sú implicitne spoločné, pokiaľ platforma nepoužíva persistent workspace alebo explicitný executor model.
 
-```text
-pipeline
-└─ evaluated DAG
-   ├─ job on runner/executor
-   │  └─ sequential steps
-   ├─ parallel jobs
-   └─ fan-in/decision jobs
+**Step** je command alebo action vykonaný v jobe. Steps zdieľajú job workspace a credentials podľa platformy. Step-level success nepreukazuje job-level acceptance, ak cleanup, report publication alebo post-action zlyhá.
+
+## 4. Runner a executor
+
+Runner je agent alebo service, ktorý prijíma job a poskytuje execution capacity. Executor je konkrétny spôsob spustenia: shell process, container, VM, Kubernetes Pod alebo iný izolovaný context. Jeden runner môže podporovať viac executorov; názov labelu `docker` nehovorí, či job má host Docker socket, privileged container alebo čistú ephemeral VM.
+
+Runtime subject runnera môže obsahovať:
+
+```bash
+printf 'runner_host=%s\n' "$(hostname)"
+printf 'kernel=%s\n' "$(uname -srmo)"
+printf 'identity=%s\n' "$(id)"
+printf 'workspace=%s\n' "$PWD"
+printf 'cgroup=%s\n' "$(cat /proc/self/cgroup | sha256sum | cut -d' ' -f1)"
+mount | sed -n '1,20p'
 ```
 
-## 4. Pipeline instance a provenance
+Output pomáha rozlíšiť host, kernel, identity, cgroup a mount context. Nepreukazuje úplnú izoláciu, absence residual processes ani network reachability. Runner policy má explicitne definovať persistence, privileged interfaces, egress a credential delivery.
 
-Atlas pipeline identity zahŕňa:
+## 5. Resolved DAG, nie vizuálne poradie
 
-- trigger event a payload;
-- source, target a synthetic candidate SHA;
-- workflow/template revision;
-- actor alebo workload identity;
-- inputs, variables a policy decisions;
-- evaluated DAG a matrix variants;
-- runner images a executor types;
-- jobs, attempts a timestamps;
-- artifacts, reports a deployment records.
+Jobs majú dependencies podľa dát a decision flowu. Stage-style lineárny model môže zbytočne blokovať nezávislé práce; príliš voľný DAG môže naopak spustiť policy pred vytvorením artifactu.
 
-Dva runs rovnakého YAML môžu mať iný outcome kvôli runner image, cache, secret version, external dependency alebo event payloadu. Pipeline provenance preto obsahuje runtime inputs, nie iba repository commit.
+Príklad konkrétneho workflowu:
 
-## 5. Parse, evaluate a compile fáza
+```yaml
+name: candidate-ci
+on:
+  pull_request:
 
-Pred spustením jobs platforma:
+permissions:
+  contents: read
 
-```text
-načíta workflow definition
-→ overí syntax a schema
-→ vyhodnotí conditions a dynamic includes
-→ expanduje matrix
-→ zostaví DAG
-→ určí environments a permissions
-→ vytvorí schedulovateľné jobs
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/validate-source.sh
+
+  build:
+    needs: validate
+    runs-on: trusted-build
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    outputs:
+      artifact-digest: ${{ steps.publish.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: publish
+        run: ./scripts/build-and-publish.sh
+
+  test:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1]
+        platform: [linux-amd64, linux-arm64]
+    runs-on: test-${{ matrix.platform }}
+    steps:
+      - run: ./scripts/test-artifact.sh '${{ needs.build.outputs.artifact-digest }}' '${{ matrix.platform }}' '${{ matrix.shard }}'
+
+  verdict:
+    if: always()
+    needs: [validate, build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - run: ./scripts/aggregate-verdict.sh '${{ toJSON(needs) }}'
 ```
 
-Chyba v tejto fáze je pipeline failure, hoci sa nespustil žiadny runner. Dynamická condition môže tiež nečakane vynechať required control; preto expected-control manifest a policy nepatria iba do finálneho jobu.
+YAML ukazuje intended graph a permission scopes. Nepreukazuje resolved action revisions, platform-generated jobs ani correctness `aggregate-verdict.sh`. Final job s `if: always()` sa spustí aj po failure; script musí explicitne odmietnuť failed, canceled alebo missing dependency.
 
-## 6. Stage a DAG
+## 6. Matrix a expected execution inventory
 
-Stage poskytuje čitateľnú broad phase:
+Matrix rozbalí jeden job template na viac execution units. Complete verdict potrebuje expected tuple inventory, nie iba počet úspešných jobs.
 
-```text
-verify → package → deploy
+```json
+{
+  "expected": [
+    {"platform":"linux-amd64","shard":0},
+    {"platform":"linux-amd64","shard":1},
+    {"platform":"linux-arm64","shard":0},
+    {"platform":"linux-arm64","shard":1}
+  ],
+  "received": [
+    {"platform":"linux-amd64","shard":0},
+    {"platform":"linux-amd64","shard":1},
+    {"platform":"linux-arm64","shard":0}
+  ]
+}
 ```
 
-Hrubý barrier však môže blokovať nezávislú prácu. Presný DAG vyjadruje skutočné dependencies:
+Fan-in check:
 
-```text
-lint ───────────────┐
-                     ├─> build A/B ──> artifact verify ──> deploy staging
-unit shards ────────┘          ▲
-                               │
-contract/integration ──────────┘
+```bash
+jq -e '
+  def norm: sort_by(.platform, .shard);
+  (.expected | norm) == (.received | norm)
+' matrix-manifest.json
 ```
 
-DAG edge znamená viac než ordering. Môže niesť:
+Non-zero exit preukazuje, že tuple sets sa nezhodujú. Nepreukazuje, prečo shard chýba ani či received reports patria správnemu artifactu. Každý report potrebuje candidate, artifact digest, platform a shard identity.
 
-- required predecessor verdict;
-- artifact/report dependency;
-- permission alebo environment boundary;
-- failure propagation;
-- cleanup a lock lifecycle.
+## 7. Explicitný data flow medzi jobs
 
-Chýbajúci edge vytvára race. Zbytočný edge predlžuje critical path.
-
-## 7. Critical path
-
-Critical path je najdlhšia dependency cesta od triggeru po required verdict alebo deployment.
+Jobs si nesmú implicitne odovzdávať stav cez shared workspace. Dôveryhodné transitions používajú outputs, artifacts alebo content-addressed storage.
 
 ```text
-queue 2m + integration 9m + build 5m + verify 3m = 19m
-lint 1m + unit 4m                            = 5m
-```
-
-Skrátenie lint jobu o 30 sekúnd nezmení 19-minútový verdict. Atlas sleduje:
-
-- runner queue a startup;
-- stage barriers;
-- shard imbalance;
-- service readiness;
-- artifact transfer;
-- fan-in čakanie;
-- environment locks.
-
-Viac paralelizácie môže zvýšiť contention, quotas a transfer overhead.
-
-## 8. Job ako execution contract
-
-Job explicitne deklaruje:
-
-```text
-source/candidate identity
-+ runtime image, OS a architecture
-+ commands/steps
-+ inputs a predecessor artifacts
-+ permissions a network scope
-+ variables a secret references
-+ CPU/memory/disk limits
-+ timeout, retry a cancellation policy
-+ reports/artifacts
-+ success a cleanup semantics
-```
-
-Atlas `integration-postgres` job napríklad používa pinovaný image, reálny PostgreSQL service, read-only source token, žiadne deployment credentials, JUnit report a 15-minútový timeout.
-
-Job je správna boundary, keď je potrebná samostatná izolácia, permission scope, runtime, retry, timeout alebo parallel scheduling.
-
-## 9. Steps zdieľajú job context
-
-Steps typicky zdieľajú:
-
-- workspace a filesystem;
-- environment variables;
-- job credentials;
-- process/container/VM context;
-- network namespace;
-- working directory.
-
-Preto step nie je samostatná security boundary. Ak Atlas build step dostane registry write token, ďalší step v rovnakom jobe ho môže potenciálne použiť.
-
-Steps sú vhodné pre sekvenčné `setup → execute → report → cleanup` v jednom trust contexte. Rozdielne permissions alebo isolation vyžadujú samostatný job.
-
-## 10. Runner a control plane
-
-Control plane vytvára jobs a prideľuje ich compatible runnerom. Runner:
-
-```text
-získa assignment/lease
-→ pripraví executor
-→ načíta source a explicitné inputs
-→ získa scoped credentials
-→ spustí steps
-→ streamuje logs/status
-→ uploadne artifacts a reports
-→ vykoná cleanup
-→ odošle final job verdict
-```
-
-Runner je security a capacity boundary. Môže mať source, registry, cloud API alebo internal-network access.
-
-## 11. Executor choice
-
-### Shell executor
-
-- nízky startup overhead;
-- priamy host access;
-- slabá izolácia a vysoké persistence riziko.
-
-### Container executor
-
-- reprodukovateľnejší userspace;
-- oddelený filesystem/process namespace;
-- zdieľaný kernel a riziko privileged mounts/socketov.
-
-### VM executor
-
-- silnejšia izolácia;
-- vhodný pre untrusted code alebo citlivý build;
-- vyšší startup a infra cost.
-
-### Kubernetes executor
-
-- elastické scheduling a resource controls;
-- integrácia s namespace, service account a network policy;
-- závislosť od cluster control plane a správnej pod-security konfigurácie.
-
-Executor sa volí podľa trustu, workloadu a failure blast radiusu, nie iba ceny.
-
-## 12. Runner pools a scheduling policy
-
-Atlas oddeľuje pools:
-
-```text
-pr-untrusted
-trusted-build
-private-integration
-protected-staging-deploy
-```
-
-Job capability labels ako `linux`, `arm64` alebo `private-network` pomáhajú scheduling-u, ale samy nie sú security control. Bezpečnosť vytvárajú oddelené pools, protected refs/environments, workload identity, network segmentation a ephemeral execution.
-
-Nesprávny label môže spôsobiť nekonečnú queue alebo spustiť job na príliš privilegovanom runneri.
-
-## 13. Source checkout identity
-
-Job musí vedieť, čo presne checkoutol:
-
-- source branch SHA;
-- synthetic merge alebo merge-queue candidate;
-- shallow/full history;
-- submodules a LFS objects;
-- tags a merge base podľa potreby.
-
-Shallow clone môže rozbiť diff coverage, semantic versioning alebo merge-base selection. Test source branchu namiesto candidate tree môže vytvoriť green pre stav, ktorý sa nikdy neintegruje.
-
-## 14. Workspace lifecycle
-
-Bezpečný workspace:
-
-```text
-create clean
-→ checkout exact candidate
-→ execute
-→ upload explicit outputs
-→ revoke credentials
-→ remove workspace a temporary state
-```
-
-Persistent workspace môže zachovať stale outputs, secrets, malicious symlinks alebo branch contamination. Downstream job sa nesmie spoliehať na implicitný filesystem predchádzajúceho jobu.
-
-## 15. Explicitný prenos dát
-
-Medzi jobs sa prenáša iba deklarovaný stav:
-
-- **artifact** — retention-bound file alebo bundle;
-- **registry object** — package/image s digestom a provenance;
-- **report** — machine-readable evidence pre platform verdict;
-- **cache** — non-authoritative optimization;
-- **external state** — environment alebo service s vlastným lifecycle.
-
-Downstream job overí identity a integrity. Mutable tag alebo rovnaký filename nestačí.
-
-Report môže ovplyvniť verdict; artifact môže byť iba diagnostický. Command exit 0 bez required reportu môže znamenať incomplete evidence.
-
-## 16. Service dependencies a readiness
-
-Atlas integration job spúšťa PostgreSQL a broker service. Contract obsahuje:
-
-- pinované versions;
-- network identity a ports;
-- credentials;
-- migrations a deterministic seed;
-- resource limits;
-- logs a metrics;
-- functional readiness probe;
-- cleanup.
-
-Process start nie je readiness. Fixed sleep môže byť zbytočne dlhý alebo príliš krátky. Condition-based probe čaká na schopnosť vykonať relevantnú operáciu a pri timeout-e zachová posledný observed state.
-
-## 17. Permission flow
-
-Atlas rozdeľuje:
-
-```text
-verify job
-→ read source, no sensitive secrets
-
 build job
-→ read dependencies, write candidate registry namespace
-
-verification/signing job
-→ read immutable digest, write attestation
-
-deploy job
-→ read verified artifact, scoped staging identity
+→ immutable artifact digest
+→ test jobs čítajú digest
+→ reports obsahujú digest
+→ policy job overí ten istý digest
+→ verdict agreguje subject-bound evidence
 ```
 
-Jeden job kombinujúci untrusted source execution, signing a production deployment má neprijateľný blast radius. Preferované sú short-lived workload identities pred statickými credentials.
+Cache je výkonová optimalizácia, nie job output. Ak test potrebuje build result, má používať artifact alebo digest, nie cache key, ktorého obsah môže byť evicted, overwritten alebo poisoned.
 
-## 18. Job status a verdict propagation
+Pri upload-e sa overuje checksum:
 
-Job states môžu byť:
-
-- success;
-- failed;
-- canceled alebo superseded;
-- timed out;
-- skipped by evaluated policy;
-- waiting/manual;
-- advisory/allowed failure;
-- infrastructure/tool failure;
-- incomplete.
-
-DAG musí definovať propagáciu:
-
-```text
-required test failed → package blocked
-missing shard/report → aggregate incomplete
-superseded verification → canceled, nie product failure
-cleanup → runs after success/failure/cancel
-advisory finding → visible, ale neblokuje podľa policy
+```bash
+sha256sum test-report.json > test-report.json.sha256
 ```
 
-`allow_failure` bez ownera, expiry a reporting-u mení control na dekoráciu.
+Checksum dokáže detegovať zmenu bytes po vytvorení. Nepreukazuje, že report vytvoril trusted job alebo že jeho verdict je pravdivý. Provenance zahŕňa producer identity a pipeline subject.
 
-## 19. Timeout, retry a cancellation
+## 8. Job permissions a credential delivery
 
-Timeout existuje na command, readiness, job, pipeline, deployment, approval a upload vrstve. Má spustiť:
+Najmenšie oprávnenie sa aplikuje per job. Validate job nepotrebuje publication identity. Build môže publikovať iba do candidate namespace-u. Deployment job nesmie vykonávať untrusted PR source.
 
-- ukončenie child processes;
-- upload dostupných logs/reports;
-- credential revoke;
-- lock/resource cleanup;
-- správnu failure klasifikáciu.
+Short-lived federation znižuje static secret exposure, ale token je stále capability. Audience, subject claims, repository/ref/environment conditions a lifetime určujú blast radius. `id-token: write` v každom jobe je broad trust, aj keď žiadny static secret neexistuje.
 
-Retry je povolený iba pre identifikovanú transient class a zachová attempts. Mutation job potrebuje idempotency alebo reconciliation.
+Credential read-back nesmie vypísať token. Overuje sa identity endpoint alebo cloud caller identity s redaction:
 
-Cancellation je bezpečná pri read-only verification. Pri migrácii, deploymente, signing alebo publication musí riešiť partial state a kritickú atomic operáciu.
-
-## 20. Concurrency a locks
-
-Atlas serializuje:
-
-- deployment do rovnakého environmentu;
-- schema migration;
-- publication rovnakej release version;
-- shared performance environment.
-
-Lock má identity ownera, lease/timeout, stale-lock recovery a cleanup pri cancel/failure. Nekontrolovaný stale lock môže zastaviť celý delivery flow; chýbajúci lock môže vytvoriť súbežné mutations.
-
-## 21. Matrix, sharding a fan-in
-
-Atlas unit tests bežia v ôsmich shardoch. Aggregate job pozná expected manifest:
-
-```text
-candidate C
-expected shards 0..7
-→ received reports
-→ verify unique identities a same source/tool config
-→ fail/incomplete pri missing alebo duplicate shard
-→ aggregate verdict
+```bash
+aws sts get-caller-identity --output json | jq '{Account,Arn}'
 ```
 
-Zelených sedem existujúcich shardov nesmie zakryť ôsmy, ktorý sa nikdy nenaplánoval alebo neuploadol report.
+Output preukazuje current AWS principal pre konkrétny request. Nepreukazuje jeho effective permissions ani absence session policy. Authorization sa testuje bounded operation alebo policy simulation podľa rizika.
 
-Matrix navyše overuje OS/runtime/architecture variants; každý variant je samostatný job verdict.
+## 9. Failure, timeout, cancellation a retry
 
-## 22. Cleanup ako required transition
-
-Cleanup prebieha po success, failure, timeout aj cancellation:
-
-- odstráni ephemeral environment;
-- revoke-ne credentials;
-- uvoľní environment lock;
-- zastaví services;
-- uploadne evidence;
-- odstráni temporary secrets/workspace;
-- ukončí traffic experiment.
-
-Cleanup je idempotentný a partial-state aware. Jeho failure je samostatný viditeľný outcome, pretože môže ovplyvniť ďalšie runs, security aj cost.
-
-## 23. Worked failure: chýbajúci DAG edge nasadil stale artifact
-
-Atlas `deploy-staging` job deklaroval dependency iba na `unit-tests`, nie na `build-images` a `artifact-verify`:
+Job outcome musí odlíšiť application failure od execution failure. Timeout môže zanechať external side effect. Cancellation môže prerušiť upload alebo cleanup. Retry na inom runneri môže zmeniť architecture alebo workspace state.
 
 ```text
-unit tests green
-→ deploy job sa spustil skôr
-→ mutable staging tag stále ukazoval na digest z predchádzajúceho runu
-→ smoke testoval starý artifact
-→ current pipeline dostala green staging verdict
-→ nový digest nikdy nebol nasadený ani validovaný
+NOT_STARTED
+→ SCHEDULED
+→ RUNNING
+→ SUCCEEDED / CHANGE_FAILED / INFRA_FAILED / TIMED_OUT / CANCELED
+→ OUTPUT_PUBLISHED alebo OUTPUT_INCOMPLETE
+→ CLEANUP_CONFIRMED alebo RESIDUAL_STATE_UNKNOWN
 ```
 
-### Root cause
+Retry policy sa viaže na class. Runner provisioning failure možno zopakovať. Test assertion failure sa nemá ticho rerunovať do zelena. Deployment timeout najprv potrebuje read-back, pretože mutation mohla prebehnúť.
 
-Stage názvy vytvárali vizuálny dojem poradia, ale runtime DAG nemal required artifact edge ani digest handoff. Mutable tag maskoval nesprávny input.
+Cancellation propagácia má zastaviť superseded work, no evidence prvého failure sa zachová. Aggressive cancel-in-progress môže odrezať report upload a vytvoriť neviditeľný flaky pattern.
 
-### Náprava
+## 10. Cleanup a persistent state
 
-- explicitný `needs` chain build → verify → deploy;
-- deploy input je digest artifact, nie tag;
-- deployment record overí candidate/digest;
-- fan-in blokuje pri missing predecessor evidence;
-- DAG contract test kontroluje required edges.
+Ephemeral runner znižuje residual risk, ale cleanup stále zahŕňa external resources: test namespace, cloud account resources, temporary credentials, locks a reservation records. `finally` alebo post steps nemajú garantovaný beh pri host failure.
 
-## 24. Worked failure: untrusted PR získal privileged runner
-
-Self-hosted runner mal labels `linux`, `docker`, `private-network`, `deploy`. PR job požadoval iba `linux` a scheduler ho pridelil tomuto hostu:
+Cleanup sa preto modeluje ako reconciler nad inventory:
 
 ```text
-untrusted PR script
+pipeline creates resource with run/candidate labels
+→ cleanup request
+→ independent sweeper observes expired resources
+→ ownership a TTL validation
+→ delete
+→ absence read-back
+```
+
+Job success bez potvrdenia critical cleanup-u môže byť `SUCCEEDED_WITH_RESIDUAL_RISK`, nie čistý pass.
+
+## 11. Connected incident `REL-PAY-66`
+
+Atlas používal persistent self-hosted runner pre validate, build aj deploy. Workflow zobrazoval stages `test → build → deploy`, ale build job nemal explicitnú dependency na generated-client step. Warm workspace obsahoval starý output, takže test prešiel. Matrix pre arm64 mala štyri shards, no condition po chybe v expression vytvorila iba tri; verdict job používal `always()` a kontroloval iba, že aspoň jeden `test` result bol success.
+
+Deploy job zdedil long-lived production kubeconfig a checkoutol PR branch kvôli helper scriptu. Výsledný chain bol:
+
+```text
+untrusted source
 → persistent privileged runner
-→ mounted Docker socket a cached registry credentials
-→ attacker vytvoril host container
-→ prečítal token z predchádzajúceho deploy jobu
+→ hidden generated output
+→ incomplete matrix
+→ false-green fan-in
+→ rebuilt artifact
+→ production credential v rovnakom context-e
 ```
 
-### Root cause
+Release bol technicky spustený, ale arm64 image obsahoval chýbajúci module a jedna production node cohorta vstúpila do crash loopu. Shared runner zároveň zachoval registry credential v Docker configu pre ďalší job.
 
-Labels sa považovali za security boundary. Verification a deploy workload zdieľali persistent host, workspace, network a credential residue.
+Root cause nebol iba missing shard. Pipeline design zlieval graph, data, trust a runtime boundaries.
 
-### Náprava
+## 12. Redesign a acceptance verdict
 
-- fyzicky/logicky oddelené pools;
-- untrusted PRs iba na ephemeral sandboxed executors;
-- protected runner policy a no-secrets default;
-- short-lived scoped identity;
-- zákaz privileged socketov a host mounts;
-- cleanup/credential revocation a runner attestation;
-- audit scheduling decisions.
+Atlas rozdelil pools na untrusted ephemeral verification, trusted build, isolated signing a protected deployment. Build vytvára jeden immutable artifact. Matrix manifest sa generuje pred expansion a každý report nesie tuple aj digest. Verdict odmieta missing/canceled/infra states. Deployment používa reviewed immutable helper image, nie PR checkout, a získava short-lived environment identity.
 
-## 25. Pipeline observability
-
-Atlas sleduje:
-
-- pipeline/job verdict podľa failure class;
-- queue time podľa runner poolu;
-- critical-path duration;
-- first-attempt a retry rate;
-- canceled/superseded execution;
-- runner provisioning/OOM/throttling;
-- missing report a artifact-transfer rate;
-- environment lock wait;
-- cleanup failures;
-- source/candidate/artifact identity v logs a traces.
-
-Pipeline je produkčný systém pre delivery a potrebuje ownera, capacity plán a incident response.
-
-## 26. Diagnostický postup
-
-Pri pipeline failure:
-
-1. Potvrď event, source/target/candidate a workflow revision.
-2. Skontroluj parse/evaluation result, matrix a created DAG.
-3. Nájdite required predecessor a artifact/report edges.
-4. Over runner pool, labels, trust policy, queue a executor.
-5. Porovnaj runtime image, architecture, resources, network a credentials.
-6. Potvrď checkout depth, submodules, LFS a source SHA.
-7. Skontroluj workspace cleanliness a cache assumptions.
-8. Over service readiness, logs a resource limits.
-9. Klasifikuj failure, timeout, cancel, retry a incomplete semantics.
-10. Potvrď expected shard/matrix manifest a fan-in.
-11. Over cleanup, locks a partial mutation state.
-12. Oprav runtime contract alebo DAG a potvrď first-attempt nový run.
-
-## 27. Referenčné pravidlá
-
-- Workflow definition nie je runtime pipeline instance.
-- Stage je broad barrier; DAG vyjadruje presné dependencies.
-- Job je execution, trust, permission a failure boundary.
-- Steps jedného jobu zdieľajú context a credentials.
-- Runner je security aj capacity boundary; executor určuje izoláciu.
-- Labels samy nestačia na security separation.
-- Checkout identity musí byť explicitná.
-- Prenos medzi jobs je explicitný a integrity-checked.
-- Cache nie je authoritative output.
-- Process start nie je functional readiness.
-- Missing report alebo shard je incomplete, nie pass.
-- Retry a cancel rešpektujú mutation state.
-- Locks majú lease a cleanup.
-- Cleanup je required, auditovaný outcome.
-
-## 28. Časté omyly
-
-### „Pipeline a YAML sú to isté“
-
-YAML je template; runtime run má konkrétne inputs, graph, permissions a state.
-
-### „Stage garantuje správny artifact flow“
-
-Bez explicitného DAG edge môže downstream job začať s nesprávnym alebo chýbajúcim outputom.
-
-### „Steps sú izolované“
-
-Typicky zdieľajú workspace, network a job credentials.
-
-### „Runner je iba server“
-
-Je trust, isolation, scheduling a capacity boundary.
-
-### „Zelené shardy znamenajú complete suite“
-
-Treba poznať expected manifest a zachytiť shard, ktorý nevznikol.
-
-### „Cancel je bezpečný kill“
-
-Mutation môže zostať partial a vyžadovať reconciliation alebo cleanup.
-
-## 29. Zhrnutie
-
-Dôveryhodný Atlas pipeline runtime je:
+Pipeline runtime je prijatý iba vtedy, keď:
 
 ```text
-versioned workflow + trigger
-→ evaluated DAG a explicitné identities
-→ isolated jobs na správnych runner pools
-→ scoped permissions a deterministic inputs
-→ immutable artifact/report flow
-→ complete fan-in verdict
-→ mutation-aware retry/cancel
-→ idempotent cleanup
-→ telemetry a runtime learning
+workflow a resolved includes sú immutable
++ expected DAG/matrix je evidovaný
++ jobs majú explicitné inputs, outputs a permissions
++ runner/executor trust class zodpovedá eventu
++ build/test/policy používajú rovnaký artifact subject
++ fan-in odmieta missing a infra failures
++ cancellation zachová first-failure evidence
++ cleanup má nezávislý reconciliation path
++ untrusted job nevie získať publication/deploy capability
++ cold second run vytvorí rovnaký contract outcome
 ```
 
-Pipeline model prepája CI/CD logiku s reálnym execution a trust systémom. Správna syntax bez správnych dependencies, runner boundaries a evidence aggregation môže stále vytvoriť false green alebo security incident.
+## 13. Troubleshooting flow
 
-## 30. Kontrolné otázky
+Pri pipeline incidente sleduj:
 
-1. Aký je rozdiel medzi workflow definition a pipeline instance?
-2. Ako sa líšia stage, job, step, runner a executor?
-3. Prečo DAG edge vyjadruje viac než ordering?
-4. Ako critical path ovplyvňujú queue, readiness a artifact transfer?
-5. Čo tvorí job execution contract?
-6. Prečo steps nie sú security boundary?
-7. Ako sa volí executor podľa trust levelu?
-8. Prečo runner labels nestačia na izoláciu?
-9. Ako sa prenášajú artifacts a reports medzi jobs?
-10. Prečo process start nie je readiness?
-11. Ako expected shard manifest zabraňuje false green?
-12. Ako chýbajúci DAG edge nasadil stale Atlas artifact?
-13. Ako untrusted PR získal privileged runner?
-14. Prečo cleanup patrí do pipeline verdictu?
+```text
+event a workflow revision
+→ resolved includes, conditions a matrix
+→ DAG a job permissions
+→ runner scheduling a executor context
+→ workspace/cache/artifact data flow
+→ per-job outcomes a outputs
+→ fan-in logic
+→ external mutations a cleanup
+```
+
+Competing hypotheses môžu byť parser/include drift, condition skip, matrix omission, runner label mismatch, stale workspace, artifact upload failure, permission escalation, cancellation race alebo broken aggregator. Vizuálny pipeline graph môže byť neúplný; authoritative data je resolved job inventory a runtime logs.
+
+## 14. Anti-patterny
+
+### Stages ako dôkaz správneho ordering-u
+
+Stage názvy samy nepreukazujú data dependency ani complete evidence.
+
+### Shared filesystem medzi jobs
+
+Implicitný workspace vytvára hidden inputs, race conditions a cross-run contamination.
+
+### Final job s `always()` bez explicitného fan-inu
+
+Taký job môže byť zelený aj pri failed alebo missing dependencies.
+
+### Jeden runner pool pre všetky trust classes
+
+PR, signing a production deployment nemajú zdieľať persistence, credentials ani network access.
+
+### Retry jobu bez identity invariants
+
+Nový runner alebo artifact môže zmeniť subject a rerun už nie je rovnaký experiment.
+
+## 15. Kontrolné otázky
+
+1. Aký je rozdiel medzi workflow source a resolved pipeline graphom?
+2. Čo odlišuje pipeline, stage, job a step?
+3. Aký je rozdiel medzi runnerom a executorom?
+4. Prečo matrix potrebuje expected tuple inventory?
+5. Prečo cache nie je vhodný job output?
+6. Čo musí final verdict kontrolovať pri `always()`?
+7. Ako event trust class mení permissions?
+8. Čo preukazuje `get-caller-identity` a čo nie?
+9. Ako timeout mení retry semantics?
+10. Prečo cleanup potrebuje independent reconciliation?
+11. Aké boundaries sa zliali v `REL-PAY-66`?
+12. Ako sa overí forbidden untrusted-to-deploy path?
 
 ## Glossary impact
 
-Relevantné pojmy: workflow definition, pipeline instance, pipeline, stage, DAG, critical path, job, step, runner, executor, runner pool, execution contract, workspace lifecycle, service container, report, artifact transfer, matrix, shard, fan-in, environment lock, job attempt, incomplete verdict a cleanup transition.
+Relevantné pojmy: pipeline instance, resolved execution graph, stage, job contract, step, runner, executor, event trust class, matrix tuple, expected job inventory, explicit artifact flow, fan-in verdict, residual runner state, short-lived job identity, cancellation propagation a cleanup reconciler.
+
+## Primárne zdroje
+
+- [GitHub Actions — Workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+- [GitHub Actions — Security hardening](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+- [GitLab CI/CD pipelines](https://docs.gitlab.com/ci/pipelines/)
+- [GitLab Runner executors](https://docs.gitlab.com/runner/executors/)
+- [SLSA specification](https://slsa.dev/spec/)
+- [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
