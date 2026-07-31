@@ -1,1 +1,1 @@
-trigger-section10-audit-remediation-2026-07-31
+obsolete trigger; retained temporarily only to permit safe cleanup
