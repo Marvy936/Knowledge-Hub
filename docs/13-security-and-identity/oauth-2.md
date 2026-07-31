@@ -1,585 +1,184 @@
 # OAuth 2.0
 
-OAuth 2.0 je authorization framework pre delegovaný alebo workload access k protected API. Authorization Server vydá token, ale Resource Server stále rozhoduje, či exact principal alebo client smie vykonať exact action nad exact resource-om v current business context-e.
+OAuth 2.0 je authorization framework pre delegovaný alebo workload access k protected API. Authorization Server vydá access token, ale Resource Server stále rozhoduje, či exact client alebo principal smie vykonať exact action nad exact resource-om v aktuálnom business context-e. Protocol-correct Authorization Code + PKCE flow preto nevyrieši stale identity input, broad audience, chýbajúcu tenant/object authorization ani neúplnú revocation.
 
-Bezpečný authorization code, platná signature a správny scope nevyriešia stale identity input, broad audience, chýbajúcu object authorization ani neúplnú revocation.
+OAuth sa nemá opisovať iba ako „login cez Google“ alebo ako JWT mechanizmus. Framework oddeľuje Resource Ownera, Clienta, Authorization Server a Resource Server a definuje, ako client získa obmedzené oprávnenie. Authentication usera je samostatná vrstva, ktorú typicky poskytuje OpenID Connect.
 
-## 1. Dominantný lifecycle
+## Grant-to-resource lifecycle
 
 ```text
-protected-operation intent
-→ exact issuer, client a resource registration
-→ authorization transaction a authenticated subject/client
+protected operation a delegation intent
+→ issuer, client a resource registration
+→ authorization transaction a user/session context
 → state, redirect URI a PKCE binding
-→ one-time authorization code alebo iný grant
-→ token-endpoint validation a client authentication
-→ access-token audience, scope, lifetime a sender binding
-→ Resource Server token validation
-→ local tenant/object/business authorization
-→ refresh, exchange, delegation a derived-token graph
-→ revocation, audit a forbidden-path validation
+→ authorization code alebo iný grant
+→ token endpoint a client authentication
+→ access/refresh token generation
+→ audience, scope, lifetime a sender binding
+→ Resource Server validation
+→ tenant, object a business authorization
+→ refresh, exchange, revocation a descendant closure
 ```
 
-Oddeľuj:
+Úspech na token endpoint-e nie je resource access verdict. Platná signature nie je správny audience. Scope nie je object ownership. Revoked refresh token neznamená automaticky zrušenie všetkých už vydaných access tokens a application sessions.
 
-```text
-authorization request uspela
-≠ code exchange uspel
-≠ token je určený tomuto Resource Serveru
-≠ scope povoľuje exact operation
-≠ object/tenant/business state povoľuje operation
-≠ stale alebo compromised grant bol všade revoke-nutý
+## Exact OAuth subject SEC-PAY-48
+
+```yaml
+issuer: https://id.atlas.example
+clientId: settlement-approval-web
+clientType: public-browser-client
+redirectUri: https://approval.atlas.example/callback
+resourceServer: https://api.payments.atlas.example
+requestedOperation: approve-settlement
+resource: settlement/op-884
+authorizationCode: CODE-884
+pkceMethod: S256
+accessTokenAudience: atlas-internal
+accessTokenScope: payments.approve
+subject: urn:atlas:human:7421
+identityInputGeneration: stale-AD-DC-FRA-02
+accessTokenLifetime: 1h
+refreshTokenFamily: RTF-991
+incident: SEC-PAY-48
 ```
 
-OAuth nie je samostatný login protocol. User authentication a identity claims štandardizuje OpenID Connect. Access token je credential pre Resource Server, nie univerzálny user-login dôkaz pre clienta.
+Subject ukazuje, že protocol transaction môže byť správna, zatiaľ čo issuer používa stale directory authorization input a Resource Server prijíma príliš broad audience a scope.
 
-## 2. Exact OAuth subject
+## Authorization Code + PKCE
 
-Pri incidente zaznamenaj:
+Browser alebo native public client nemôže bezpečne chrániť static client secret. Authorization Code flow s PKCE vytvorí per-transaction secret `code_verifier`; authorization request posiela jeho derived `code_challenge` a token endpoint neskôr vyžaduje original verifier. `state` viaže callback na local transaction a chráni pred request/response mix-upom. Exact redirect URI bráni odoslaniu code-u na attacker-controlled endpoint.
 
-```text
-issuer a Authorization Server generation
-client ID, type, owner a registration revision
-grant/flow a authorization transaction ID
-subject, actor a authentication/eligibility generation
-redirect URI, state a PKCE generation
-requested a granted resource/audience/scope
-access-token type, iat/exp a sender binding
-refresh family alebo token-exchange lineage
-Resource Server a exact action/resource/tenant
-policy revision, decision a enforcement point
-revocation/cache propagation a audit scope
+Príprava PKCE hodnôt:
+
+```bash
+CODE_VERIFIER="$(openssl rand -base64 64 | tr -d '=+/' | cut -c1-64)"
+CODE_CHALLENGE="$(printf '%s' "$CODE_VERIFIER" | openssl dgst -sha256 -binary | openssl base64 -A | tr '+/' '-_' | tr -d '=')"
+printf 'verifier=%s\nchallenge=%s\n' "$CODE_VERIFIER" "$CODE_CHALLENGE"
 ```
 
-Connected Atlas subject:
+Výstup preukazuje local generation verifier/challenge pair. Nepreukazuje, že Authorization Server vyžaduje `S256`, transaction používa unpredictable `state`, redirect URI je exact alebo code nebol replay-nutý.
 
-```text
-security incident: SEC-PAY-48
-OAuth subject: OAUTH-PAY-48
-issuer: https://identity.corp.atlas.example
-client: settlement-console
-Resource Server: payments-admin-api
-subject: martina.kovacova@corp.atlas.example
-upstream authentication: enterprise Kerberos session KRB-PAY-48
-scope: payments.approve
-JWT issue time: 08:13 UTC
-JWT expiry: 09:13 UTC
-audience: atlas-internal
-privileged group removal: 07:40 UTC
+Token exchange:
+
+```bash
+curl -fsS https://id.atlas.example/oauth2/token \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode 'grant_type=authorization_code' \
+  --data-urlencode "code=$AUTHORIZATION_CODE" \
+  --data-urlencode 'client_id=settlement-approval-web' \
+  --data-urlencode 'redirect_uri=https://approval.atlas.example/callback' \
+  --data-urlencode "code_verifier=$CODE_VERIFIER" \
+  | jq '{token_type, expires_in, scope, access_token_present: has("access_token"), refresh_token_present: has("refresh_token")}'
 ```
 
-## 3. Actors a decision boundaries
+Response preukazuje token-endpoint outcome pre konkrétny code transaction. Nepreukazuje access-token signature, audience, sender binding, Resource Server acceptance ani business authorization. Token values sa nesmú logovať do CI alebo incident artifacts.
 
-OAuth rozlišuje:
+## Access token, authorization code a refresh token
 
-- **Resource Owner** alebo administrative policy, ktorá povoľuje access;
-- **Client**, ktorý token žiada a používa;
-- **Authorization Server — AS**, ktorý vyhodnotí grant policy a vydá token;
-- **Resource Server — RS**, ktorý chráni API a pozná actual resource state.
+Authorization code je krátkodobý one-time grant určený pre token endpoint. Access token je capability prezentovaná Resource Serveru. Refresh token umožňuje získať nové access tokens a má dlhší lifecycle, preto potrebuje silnejšie storage, rotation a reuse detection. Client credential alebo private key je autentikátor clienta, nie user access token.
 
-```text
-AS:
-  môže client dostať token pre payments-admin-api
-  s capability payments.approve?
+Opaque token vyžaduje introspection alebo gateway lookup. JWT token môže Resource Server validovať lokálne, ale revocation je ťažšia a claims môžu zostať stale do expiry. Voľba nie je iba performance rozhodnutie; určuje availability, revocation latency, privacy a key-distribution boundary.
 
-RS:
-  môže tento subject/client schváliť práve settlement X
-  pre tenant Y, v current workflow state a approval windowe?
-```
+## Audience a scope
 
-Scope nie je kompletná business authorization. AS spravidla nepozná všetky object ownership, tenant, transaction-state a separation-of-duties constraints.
+Audience identifikuje Resource Server alebo resource set, pre ktorý je token určený. Scope opisuje delegated capability. Broad audience `atlas-internal` umožňuje confused-deputy a token replay medzi APIs. Resource-specific audience `payments-api` a narrow scope `settlements.approve` znižujú blast radius, no stále nehovoria, ktorý settlement alebo tenant principal smie schváliť.
 
-## 4. Client registration je trust contract
-
-Registration určuje:
+Resource Server musí po token validation vykonať local authorization:
 
 ```text
-client ID a public/confidential type
-redirect URIs
-allowed grants/response types
-client-auth method a keys
-allowed resources/audiences/scopes
-owner, environment a tenant
-lifecycle, rotation a incident contact
-```
-
-Client ID nie je secret. Secret vložený do SPA, mobile alebo desktop binary neposkytuje confidential-client authentication.
-
-Redirect URI, key a allowed-scope changes sú high-impact policy mutations. Potrebujú ownera, approval, audit a deployment verification.
-
-## 5. Authorization Code + PKCE lifecycle
-
-```text
-client vytvorí pending transaction
-→ random state + high-entropy PKCE verifier
-→ authorization request s code_challenge S256
-→ AS autentizuje subject a vyhodnotí policy/consent
-→ one-time short-lived code cez exact redirect URI
-→ client overí state a issuer
-→ token request s code, redirect URI, verifier a client auth
-→ AS atomicky zneplatní code
-→ vydá bounded tokens
-```
-
-Code nie je access token. Je viazaný na client, redirect URI, PKCE challenge, issuer a transaction generation.
-
-PKCE chráni code interception/injection. `state` viaže browser callback na client transaction. OIDC `nonce` rieši inú identity-token replay/substitution boundary.
-
-## 6. Redirect URI a issuer binding
-
-Authorization Server má používať exact registered redirect URI matching s úzkymi profile-specific výnimkami, napríklad variable loopback port pre native apps.
-
-Client callback musí overiť:
-
-```text
-pending transaction existuje
-→ state sedí
-→ expected issuer sedí
-→ code/error patrí tejto transaction
-→ redirect endpoint nie je open redirector
-→ transaction sa po použití atomicky odstráni
-```
-
-Return destination aplikácie nie je dôvod povoliť wildcard OAuth redirect. Ulož ju server-side alebo ju samostatne allowlistuj.
-
-Mix-up ochrana začína trusted issuer bootstrapom. Discovery URL alebo issuer z user inputu nevytvára trust.
-
-## 7. Public a confidential clients
-
-Public client nedokáže spoľahlivo chrániť distributed credential. Používa Authorization Code + PKCE a platform-appropriate redirect a token storage.
-
-Confidential client môže chrániť private key, certificate alebo secret v controlled backend boundary. Token endpoint authentication môže používať `private_key_jwt`, mTLS alebo iný registered mechanismus.
-
-Client authentication dokazuje client identity pri AS endpoint-e. Nedokazuje resource-owner consent ani permission nad target objectom.
-
-## 8. Access token contract
-
-Access token má byť:
-
-- určený presnému Resource Serveru alebo audience;
-- obmedzený scopes/capabilities;
-- krátkodobý podľa risku;
-- prenášaný iba cez TLS;
-- chránený pred log/URL/cache leakage;
-- validovaný RS;
-- podľa potreby sender-constrained.
-
-Bearer token môže použiť každý holder. mTLS certificate-bound token alebo DPoP viaže použitie na client key/certificate, ale nerieši broad scope alebo wrong audience.
-
-Jeden token s audience `atlas-internal` pre všetky APIs vytvára large replay a confused-deputy boundary. Preferuj resource-specific tokens.
-
-## 9. Scope, audience a local resource policy
-
-```text
-issuer
-+ expected audience/resource
-+ token active/expiry
-+ client/subject/actor context
-+ granted scope
-+ local tenant/object/workflow policy
+validated issuer + subject/client
++ exact audience
++ scope
++ tenant membership
++ object ownership/workflow state
++ current JIT/revocation context
 → allow alebo deny
 ```
 
-Scope `payments.approve` nepovoľuje automaticky:
+`scope=payments.approve` nie je náhrada `settlement op-884 patrí tenant-u X, čaká na approval a principal má current approval assignment`.
 
-- schváliť payment iného tenant-a;
-- obísť JIT approval;
-- schváliť vlastný request pri separation of duties;
-- meniť provider route;
-- vykonať action po eligibility removal-e.
+## Resource Server validation a 401/403
 
-RS musí odmietnuť token pre inú audience, aj keď signature, issuer a scope vyzerajú platne.
+JWT validation zahŕňa trusted issuer bootstrap, allowed algorithms, signature, key selection, audience, expiration/not-before, token type a required claims. Client-supplied `jku`, `x5u` alebo arbitrary issuer URL nesmie určovať trust source bez allowlistu.
 
-## 10. Resource Server token validation
+API call s explicitným audience-bound tokenom:
 
-JWT access token typicky vyžaduje:
-
-```text
-trusted issuer
-→ allowed algorithm a trusted key/kid
-→ signature
-→ expected audience
-→ exp/nbf/iat policy
-→ token/client/subject profile claims
-→ sender proof, ak required
-→ local authorization
+```bash
+curl -i https://api.payments.atlas.example/v1/settlements/op-884/approve \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H 'Idempotency-Key: approval-op-884-SEC-PAY-48'
 ```
 
-JWT je signed, nie automaticky encrypted. Claims sú holderovi čitateľné a nemajú obsahovať unnecessary sensitive data.
+`401 Unauthorized` typicky znamená chýbajúcu alebo neplatnú authentication/token boundary. `403 Forbidden` znamená, že token bol rozpoznaný, ale operation nie je povolená. Implementácia musí neodhalovať sensitive object existence a súčasne auditovať exact deny reason interne. HTTP code sám nepreukazuje, ktorá policy alebo business check rozhodla.
 
-Opaque token sa overuje introspection alebo authoritative lookupom. Introspection cache vytvára trade-off medzi revocation latency a availability. Endpoint timeout musí byť odlíšený od `active=false`; fail-open/closed behavior patrí do operation-risk contractu.
+## Public a confidential clients
 
-Base64 decode bez signature a semantic validation nie je token validation.
+Public client nedokáže chrániť static secret a používa PKCE. Confidential client beží v kontrolovanom backend-e a autentizuje sa na token endpoint-e, ideálne asymmetric private-key metódou alebo mTLS namiesto shared secretu. „Confidential“ nie je vlastnosť názvu clienta; závisí od deployment boundary a credential protection.
 
-## 11. `401` a `403`
+Client Credentials flow reprezentuje workload/client, nie usera. Device Authorization flow podporuje input-constrained device, ale phishing a user-code handling vyžadujú pozornosť. Token Exchange môže vytvoriť downstream token s novým audience a scope; exchange graph musí zachovať original actor, effective client a revocation descendants.
 
-```text
-missing/invalid/expired/wrong-audience token
-→ 401
+## Refresh rotation a reuse detection
 
-valid token, ale scope/tenant/object/business policy deny
-→ 403 alebo policy-specific non-disclosing response
+Refresh-token rotation vydá pri každom použití nový token a zneplatní previous member family. Ak sa starý token objaví znovu, reuse detection má revoke-nuť celú family, pretože nevie rozlíšiť legitímny client od attacker copy.
+
+Rotation state musí byť atomic. Dva concurrent refresh requests môžu inak vytvoriť false reuse alebo dve platné branches. Client potrebuje bounded retry a recovery pre unknown token-endpoint outcome; blind retry po timeout-e môže použiť už spotrebovaný token.
+
+Revocation endpoint:
+
+```bash
+curl -fsS https://id.atlas.example/oauth2/revoke \
+  -u "settlement-approval-backend:$CLIENT_SECRET" \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode "token=$REFRESH_TOKEN" \
+  --data-urlencode 'token_type_hint=refresh_token'
 ```
 
-Resource existence nemusí byť odhalená unauthorized callerovi. Error response má byť užitočný pre legitimate clienta bez leakage sensitive policy detailu.
+Successful response preukazuje, že Authorization Server request prijal podľa svojho contractu. Nepreukazuje okamžitú invalidáciu self-contained access tokens, application cookies, exchanged tokens alebo cached authorization decisions. Secret v command line môže uniknúť process listingom; production automation používa bezpečný credential injection.
 
-## 12. Authorization state nie je len token snapshot
+## Bearer a sender-constrained tokens
 
-Self-contained token môže zostať cryptographically validný do expiry, aj keď group, role, account alebo JIT grant boli medzitým odstránené.
+Bearer token môže použiť ktokoľvek, kto ho získa. mTLS-bound alebo DPoP-bound token viaže capability na key proof a znižuje replay z ukradnutého tokenu. Sender constraint však nevyrieši malware ovládajúci legitímny client key ani chýbajúcu object authorization.
 
-```text
-identity/entitlement generation pri issuance
-→ claims/scopes snapshot
-→ distributed RS validation
-→ residual authorization window
-```
+Resource Server musí validovať binding na každom requeste a token exchange musí zachovať alebo explicitne zmeniť binding. Gateway, ktorá binding overí, ale downstream service prijme token priamo bez overenia, vytvorí bypass path.
 
-High-risk capability potrebuje kombináciu:
+## Deprecated a nebezpečné patterns
 
-- krátkej access-token lifetime;
-- revocation/status mechanismu podľa architecture;
-- event-driven session/grant revocation;
-- current local resource/JIT checku;
-- bounded cache;
-- negative second-session testu.
+Implicit flow odovzdáva token cez browser front channel a pre nové návrhy sa nepoužíva. Resource Owner Password Credentials grant obchádza modernú authentication orchestration, MFA a federation a nové návrhy ho nemajú používať. Static long-lived bearer tokens a shared client secrets bez rotation vytvárajú nejasnú attribution a vysokú revocation latency.
 
-Signature validity nepreukazuje current eligibility.
+## Incident `SEC-PAY-48`
 
-## 13. Refresh-token lifecycle
+Authorization Code + PKCE transaction bola protocol-correct. `state`, exact redirect a verifier sedeli. Authorization Server však autentizoval principal cez fresh Kerberos ticket, ktorého PAC vznikol na stale AD replica. Následne vydal hodinový JWT s audience `atlas-internal` a scope `payments.approve`.
 
-Refresh token je credential pre AS, často hodnotnejší než access token. Predlžuje grant a môže vydávať nové access tokens.
+Resource Server validoval signature, issuer, expiration, broad audience a scope, ale nekontroloval current JIT assignment, tenant, exact settlement object ani directory generation. Privileged approval preto prešla. Root cause bol neconverged AD state; broad audience, long token lifetime a scope-only authorization boli causal amplifiers.
 
-Rotation:
+Competing hypotheses zahŕňali stolen code, PKCE bypass, forged JWT, wrong issuer, stale token, Resource Server object-authorization defect a stale directory input. Fresh issue times a valid protocol evidence vylúčili replay starého tokenu. AD replica metadata a PAC/claim lineage ukázali stale authority.
 
-```text
-RT1 → AT2 + RT2
-RT1 invalid
-RT2 → AT3 + RT3
-```
+## Containment a authoritative recovery
 
-AS uchová family/lineage. Reuse old generation môže signalizovať theft alebo lost-response race. Implementation potrebuje atomicity, bounded retry/idempotency semantics a incident policy.
+Containment zablokuje approval operation pre affected principal/tenant, revoke-ne refresh family a application session a zachová authorization request, token metadata bez secret values, issuer/key IDs, Resource Server decision log a business side effect. Global token-key rotation sa nevykonáva bez dôkazu signing-key compromise.
 
-Pri confirmed reuse sa spravidla revoke-ne active family/grant a vyžaduje reauthorization, pretože server nevie spoľahlivo určiť, ktorý holder je legitímny.
+Recovery obnoví directory convergence, vydá resource-specific token s audience `payments-api`, zúži scope, pridá current JIT a object-level authorization a zavedie short lifetime alebo online revocation pre high-risk operations. Existing refresh, exchanged tokens a application cookies sa revoke-nú ako descendant graph.
 
-Pre public clients OAuth Security BCP vyžaduje refresh-token rotation alebo sender-constrained refresh tokens.
+Acceptance vyžaduje, aby validný authorized principal schválil intended settlement, affected principal dostal deny cez existing aj fresh token, token s wrong audience zlyhal, scope bez object assignment zlyhal, reused refresh token revoke-nul family a audit zachoval issuer, subject, client, audience, scope, policy revision, object a result. Druhý authorization po membership change musí odrážať current authority bez čakania na starú hodinovú token lifetime.
 
-## 14. Revocation je graph problem
+## Kontrolné otázky
 
-Revocation môže zahŕňať:
+1. Prečo protocol-correct PKCE flow nepreukazuje business authorization?
+2. Aký rozdiel je medzi audience a scope?
+3. Prečo `payments.approve` nestačí bez object-level checku?
+4. Čo revocation endpoint nepreukazuje pre JWT descendants?
+5. Ako refresh rotation rieši stolen-token reuse a aký concurrency problém vytvára?
+6. Kedy sender-constrained token stále nezabráni abuse?
+7. Prečo root cause incidentu nebol OAuth protocol?
 
-```text
-local application session
-refresh token a family
-grant/consent
-opaque access-token state
-JWT status/denylist alebo expiry window
-downstream exchanged tokens
-gateway cache
-Resource Server introspection/JWKS cache
-```
+## Referencie
 
-Revocation request success na AS nepreukazuje, že každý RS okamžite odmieta všetky descendants. Incident closure potrebuje end-to-end forbidden-use test.
-
-## 15. Client Credentials
-
-Client Credentials sa používa, keď confidential workload koná vo vlastnom mene.
-
-```text
-workload client authentication
-→ AS service policy
-→ audience/scoped workload token
-→ RS workload authorization
-```
-
-Nie je to human delegation. Shared client secret medzi veľkým fleetom znižuje attribution. Preferuj workload identity, mTLS alebo private-key authentication s krátkodobým lifecycle-om.
-
-Workload token nesmie predstierať human subjecta bez explicitného impersonation alebo delegation modelu.
-
-## 16. Device Authorization a native/browser clients
-
-Device Authorization oddeľuje constrained device od trusted user browsera. User code nie je dostatočný secret; flow potrebuje short expiry, rate-limited polling, clear client identity a protection pred phishing/code substitution.
-
-Native app používa external system browser a Authorization Code + PKCE. Embedded webview môže pozorovať user credentials a obchádzať browser trust/SSO controls.
-
-SPA je public client a JavaScript-accessible token je vystavený XSS. Backend for Frontend môže držať tokens server-side a browseru dať HttpOnly session cookie, ale pridáva CSRF, session revocation, backend availability a no-generic-proxy requirements.
-
-## 17. Deprecated alebo forbidden patterns
-
-OAuth Security BCP neodporúča nové response types, ktoré vydávajú access token priamo na authorization endpoint-e. Authorization Code + PKCE poskytuje protected code exchange.
-
-Resource Owner Password Credentials — ROPC — sa nesmie používať. Client by priamo zbieral user password a obchádzal MFA, passkeys, federation, consent a origin-bound authentication.
-
-Client secret v SPA/mobile, wildcard redirects a long-lived broad bearer tokens sú architecture defects, nie iba configuration preferences.
-
-## 18. mTLS a DPoP
-
-mTLS môže autentizovať confidential clienta na token endpoint-e a viazať access token na certificate. DPoP používa application-layer signed proof pre HTTP method, URI, issued time a unique `jti`.
-
-```text
-token
-+ confirmation key thumbprint
-+ per-request proof
-→ sender-binding verdict
-```
-
-Sender constraint znižuje replay po token leakage bez private keyu. Stále potrebuje TLS, exact audience, scope, key rotation a local authorization.
-
-Proxy URI normalization, TLS termination a certificate forwarding musia byť explicitne navrhnuté; inak RS nevie proof spoľahlivo overiť.
-
-## 19. Gateway a downstream propagation
-
-Gateway môže validovať external token, ale downstream identity path musí byť explicitný:
-
-- original token iba pre service, ktorá je intended audience;
-- token exchange na narrower audience;
-- signed internal subject/actor context;
-- oddelený service workload token.
-
-Gateway musí odstrániť client-supplied security headers. Backend smie trustovať internal header iba z authenticated, non-bypassable gateway pathu.
-
-Propagovať jeden broad user token cez všetky services znamená, že každý downstream holder zdedí jeho replay capability.
-
-## 20. Token Exchange, delegation a actor chain
-
-Token Exchange môže vytvoriť nový downstream token z subject a optional actor tokenu.
-
-```text
-subject
-+ actor/executing service
-+ requested resource/audience
-+ narrowed scope
-+ chain-depth policy
-→ downstream token
-```
-
-Delegation zachová initiating subject aj actor. Impersonation mení výslednú identity semantics a potrebuje silnejší policy/audit model.
-
-Exchange nesmie automaticky kopírovať všetky upstream scopes. Revocation musí poznať descendants alebo akceptovať explicitný residual window.
-
-## 21. Multi-tenant authorization
-
-Tenant parameter poslaný clientom nie je authority. RS potrebuje server-side mapping:
-
-```text
-trusted issuer/subject/client
-→ authoritative tenant membership
-→ object ownership
-→ action/workflow policy
-```
-
-Shared issuer môže používať tenant claim, ale claim sa trustuje iba po issuer/audience/profile validation. Identity linking podľa emailu bez issuer+subject boundary môže spojiť cudzie accounts.
-
-Audit má zachovať tenant, subject, client, actor, resource a decision.
-
-## 22. Worked failure: secure code flow vydal stale privilege
-
-### Symptom
-
-Settlement console použije Authorization Code + PKCE, validný `state`, exact redirect URI a trusted signing key. Napriek tomu Martina o `08:17 UTC` schváli provider-route change po odstránení privileged group membershipu.
-
-### Exact subject
-
-```text
-OAuth subject: OAUTH-PAY-48
-issuer: https://identity.corp.atlas.example
-client: settlement-console
-flow: Authorization Code + PKCE S256
-authenticated subject: martina.kovacova@corp.atlas.example
-directory/Kerberos source: DC-FRA-02 / KRB-PAY-48
-grant scope: payments.approve
-audience: atlas-internal
-iat/exp: 08:13–09:13 UTC
-Resource Server: payments-admin-api
-operation: POST /settlements/PAY-884219/approve
-```
-
-### Competing hypotheses
-
-1. authorization code bol intercepted alebo replayed;
-2. `state` alebo issuer binding zlyhali;
-3. PKCE downgrade umožnil code injection;
-4. AS signing key bol compromised;
-5. wrong redirect/client registration vydala token attackerovi;
-6. stale AD/Kerberos/LDAP eligibility vytvorila wrong scope;
-7. broad audience umožnila token použiť na unintended API;
-8. RS považoval scope za complete business authorization;
-9. stolen refresh token vydal nový access token po revocation.
-
-### Discriminating evidence
-
-```text
-state: exact match, single use
-PKCE: S256 challenge/verifier match
-code: single-use, correct client a redirect
-issuer/signature/kid: trusted a valid
-client authentication: expected private key
-JWT iat: 08:13 UTC, teda po AD removal-e
-grant input DC-FRA-02: stale privileged membership
-JWT scope: payments.approve
-JWT audience: atlas-internal
-RS validation: signature/issuer/audience/scope allow
-RS local JIT approval check: absent
-refresh reuse: none
-```
-
-Authorization transaction bola protocol-correct. Root cause inputu je stale directory/Kerberos eligibility. OAuth causal amplifiers sú broad audience, hodinový self-contained privilege snapshot a RS, ktorý nekontroloval current JIT/business authorization.
-
-### Evidence-preserving containment
-
-- zastaviť privileged token issuance pre affected entitlement generation;
-- revoke-nuť subject session, refresh family, grant a known exchanged descendants;
-- pridať bounded RS deny/status control pre affected token/principal generation;
-- preserve-nuť AS transaction, state/PKCE verdict, client auth, token metadata, RS decision a business audit bez raw tokenov/secrets;
-- neotáčať signing key, ak key compromise nie je podporené evidence;
-- neotvárať broad admin fallback alebo fail-open introspection.
-
-### Authoritative recovery
-
-1. opraviť AD/LDAP/Kerberos freshness path;
-2. invalidovať všetky sessions/grants odvodené zo stale group generation;
-3. nahradiť broad `atlas-internal` audience resource-specific `payments-admin-api` tokenom;
-4. skrátiť high-risk access-token lifetime a zaviesť bounded status/revocation path;
-5. grantovať `payments.approve` iba z current JIT approval generation, nie permanentného directory group snapshotu;
-6. vyžadovať na RS exact tenant, settlement, workflow state, approver separation a approval ID;
-7. zachovať subject+actor pri gateway/token exchange;
-8. testovať direct API, alternate audience, stale JWT, old refresh family a second-login paths.
-
-### Acceptance verdict
-
-- correct Authorization Code + PKCE flow vydá token iba oprávnenému current subjectu/clientovi;
-- token má exact `payments-admin-api` audience a minimal scope;
-- RS povoľuje approved settlement iba s validným JIT approval/resource state-om;
-- removed principal zlyhá s fresh loginom, old JWT, refresh, token exchange aj direct API;
-- wrong audience, issuer, redirect, PKCE, sender proof a tenant fixtures zlyhajú;
-- audit zachová client, subject, actor, grant, resource a decision bez raw credentials;
-- druhá controlled eligibility removal prejde revocation-propagation a second-session testom.
-
-## 23. Audit a observability
-
-Podľa stage sleduj:
-
-- authorization request/result, issuer a client;
-- state/PKCE/redirect/issuer failures;
-- requested a granted resource/scope;
-- client-auth method a key generation;
-- code reuse a token endpoint errors;
-- token family/refresh reuse;
-- audience/issuer/signature/introspection failures;
-- 401/403 podľa API/action;
-- sender-proof failures;
-- token-exchange actor/subject chain;
-- revocation propagation latency;
-- RS local authorization decision.
-
-Neloguj authorization code, PKCE verifier, access/refresh token, client secret ani private-key assertion.
-
-## 24. Incident response
-
-```text
-identify issuer/client/subject/actor/resource/scope/family
-→ preserve AS, client, gateway a RS evidence
-→ revoke session/grant/refresh family/descendants
-→ rotate client credential iba ak compromised
-→ contain access-token replay window
-→ reconcile affected resource actions
-→ restore trusted client/identity state
-→ validate old paths forbidden
-→ add earlier control
-```
-
-AS signing-key compromise je odlišný incident. Potrebuje koordinovaný JWKS/trust update a posúdenie všetkých tokens z exposure interval-u.
-
-## 25. Troubleshooting flow
-
-```text
-trusted issuer/metadata
-→ client registration/type/auth method
-→ redirect URI/state/PKCE/resource/scope
-→ subject authentication a eligibility
-→ code binding/single use
-→ token endpoint/client auth
-→ granted audience/scope/token type
-→ JWT/introspection/sender validation
-→ RS tenant/object/business authorization
-→ refresh/exchange/revocation lineage
-```
-
-`invalid_grant` môže znamenať expired/reused code, redirect alebo PKCE mismatch, wrong client binding, revoked refresh token alebo rotation race.
-
-API `401` smeruje k token trust/validity. API `403` smeruje k scope alebo local resource policy. Admin token, ktorý „funguje“, iba maskuje missing exact permission.
-
-## 26. Earlier controls
-
-- exact redirect a PKCE S256 policy pre code clients;
-- resource-specific audience a minimal scope catalog;
-- client registration owner, expiry a key rotation;
-- entitlement-generation ID v grant audit metadata;
-- event-driven revoke pri privileged mover/leaver/removal;
-- short-lived high-risk token plus current JIT/resource check;
-- refresh-family reuse and lost-response tests;
-- negative audience/tenant/object/token-exchange fixtures;
-- end-to-end revocation canary;
-- actor/subject preservation cez gateway a downstream services.
-
-## 27. Anti-patterny
-
-### OAuth access token ako login identity
-
-Client potrebuje OIDC alebo iný authentication contract.
-
-### Valid signature = allow
-
-Audience, scope, subject/client, local object policy a current state stále chýbajú.
-
-### Jeden token pre všetky APIs
-
-Compromise alebo confused deputy má široký blast radius.
-
-### Scope ako complete authorization
-
-Tenant, object, workflow a separation-of-duties checks sa obídu.
-
-### ROPC alebo implicit flow pre nový client
-
-Primary credential alebo access token sa dostáva do nesprávnej front-channel/client boundary.
-
-### Revocation iba refresh tokenu
-
-Existing access tokens, sessions a exchanged descendants môžu prežiť.
-
-### Gateway header bez non-bypassable trust pathu
-
-Client header spoofne alebo zavolá backend priamo.
-
-## 28. Kontrolné otázky
-
-1. Čo tvorí exact OAuth subject?
-2. Kde sa líši AS grant decision od RS business authorization?
-3. Ako sa `state`, PKCE, redirect URI a issuer binding dopĺňajú?
-4. Prečo client ID nie je secret?
-5. Ako sa scope a audience líšia?
-6. Čo musí RS overiť nad rámec JWT signature?
-7. Ako introspection cache mení revocation a availability?
-8. Prečo refresh rotation potrebuje token-family a retry semantics?
-9. Ako mTLS/DPoP pomáha a čo nevyrieši?
-10. Ako preukážeš end-to-end revocation vrátane exchanged tokens?
-
-## Glossary impact
-
-Relevantné pojmy: OAuth subject, authorization-transaction generation, grant-input generation, resource-specific token, token authorization snapshot, local resource verdict, refresh-family generation, derived-token graph, revocation-propagation verdict, subject-actor chain, JIT-bound scope a OAuth acceptance verdict.
-
-## Primárne zdroje
-
-- [RFC 6749 — OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749)
-- [RFC 9700 — OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
-- [RFC 7636 — PKCE](https://www.rfc-editor.org/rfc/rfc7636)
-- [RFC 8707 — Resource Indicators](https://www.rfc-editor.org/rfc/rfc8707)
-- [RFC 9068 — JWT access-token profile](https://www.rfc-editor.org/rfc/rfc9068)
-- [RFC 7662 — Token Introspection](https://www.rfc-editor.org/rfc/rfc7662)
-- [RFC 7009 — Token Revocation](https://www.rfc-editor.org/rfc/rfc7009)
-- [RFC 8705 — OAuth mTLS](https://www.rfc-editor.org/rfc/rfc8705)
-- [RFC 9449 — DPoP](https://www.rfc-editor.org/rfc/rfc9449)
-- [RFC 8693 — Token Exchange](https://www.rfc-editor.org/rfc/rfc8693)
+- [OAuth 2.0 Authorization Framework](https://www.rfc-editor.org/rfc/rfc6749)
+- [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
+- [PKCE](https://www.rfc-editor.org/rfc/rfc7636)
+- [OAuth 2.0 Token Revocation](https://www.rfc-editor.org/rfc/rfc7009)
+- [OAuth 2.0 Token Introspection](https://www.rfc-editor.org/rfc/rfc7662)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
