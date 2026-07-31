@@ -17,52 +17,6 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
 
 
 walkthrough = WALKTHROUGH.read_text(encoding="utf-8")
-bsq = chr(92) + chr(34)
-
-escaped_alive = '`{' + bsq + 'status' + bsq + ':' + bsq + 'alive' + bsq + '}`'
-escaped_ready = '`{' + bsq + 'status' + bsq + ':' + bsq + 'ready' + bsq + '}`'
-escaped_payment = (
-    '`{' + bsq + 'id' + bsq + ':' + bsq + 'pay-100' + bsq + ','
-    + bsq + 'amount' + bsq + ':1250,'
-    + bsq + 'currency' + bsq + ':' + bsq + 'EUR' + bsq + '}`'
-)
-escaped_invalid_payment = (
-    '`{' + bsq + 'id' + bsq + ':' + bsq + 'pay-invalid' + bsq + ','
-    + bsq + 'amount' + bsq + ':0,'
-    + bsq + 'currency' + bsq + ':' + bsq + 'EUR' + bsq + '}`'
-)
-escaped_payment_fragment = '`' + bsq + 'id' + bsq + ':' + bsq + 'pay-100' + bsq + '`'
-
-walkthrough = replace_once(
-    walkthrough,
-    escaped_alive,
-    '`{"status":"alive"}`',
-    "healthz JSON literal",
-)
-walkthrough = replace_once(
-    walkthrough,
-    escaped_ready,
-    '`{"status":"ready"}`',
-    "readyz JSON literal",
-)
-walkthrough = replace_once(
-    walkthrough,
-    escaped_payment,
-    '`{"id":"pay-100","amount":1250,"currency":"EUR"}`',
-    "happy-path request body",
-)
-walkthrough = replace_once(
-    walkthrough,
-    escaped_payment_fragment,
-    '`"id":"pay-100"`',
-    "happy-path response assertion",
-)
-walkthrough = replace_once(
-    walkthrough,
-    escaped_invalid_payment,
-    '`{"id":"pay-invalid","amount":0,"currency":"EUR"}`',
-    "forbidden request body",
-)
 
 old_verifier = '''        payload="$(wget -qO- http://payments-api:8080/version)"
         printf '%s\\n' "$payload"
@@ -184,4 +138,4 @@ new_row = "| `08-container-fundamentals-and-docker` — Container Fundamentals a
 ledger = ledger[: match.start()] + new_row + ledger[match.end() :]
 LEDGER.write_text(ledger, encoding="utf-8")
 
-print("Section 08 walkthrough corrections and closeout metadata applied.")
+print("Section 08 walkthrough closeout metadata applied.")
