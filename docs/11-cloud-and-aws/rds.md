@@ -56,6 +56,8 @@ TCP/TLS success nepreukazuje database login alebo query. Ďalší test musí pou
 
 ## 3. RDS deployment model v Terraform-e
 
+Terraform deklaruje database topology, subnet, security, parameter a backup inputs. Managed service potom tieto inputs realizuje asynchrónne; až live endpoint, writer membership, parameter effectiveness, connection test a transaction evidence ukážu, že vznikla očakávaná database generation.
+
 ```hcl
 resource "aws_rds_cluster" "payments" {
   cluster_identifier = "db-pay-prod-17"
@@ -101,6 +103,8 @@ resource "aws_rds_cluster_instance" "payments" {
 Presná resource shape závisí od engine a current RDS deployment supportu. Terraform apply môže vytvoriť cluster a instances, no nepreukazuje schema, roles, application connectivity ani failover behavior.
 
 ## 4. Live RDS topology read-back
+
+Live read-back oddeľuje deklarovaný deployment model od current writer a replica state-u. Output dokazuje control-plane topology a endpoint identity v danom čase, nie application DNS cache, pooled connections, schema compatibility alebo výsledok in-flight transakcie.
 
 ```bash
 aws rds describe-db-clusters \

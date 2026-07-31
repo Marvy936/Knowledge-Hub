@@ -37,7 +37,7 @@ management account
 → local IAM a resource policies
 ```
 
-AWS odporúča navrhovať OUs podľa funkcie a spoločného control profilu, nie kopírovať organizačný diagram firmy. Foundation typicky oddeľuje security a infrastructure a workload OUs odlišujú production a non-production controls. citeturn398658search0turn398658search1
+AWS odporúča navrhovať OUs podľa funkcie a spoločného control profilu, nie kopírovať organizačný diagram firmy. Foundation typicky oddeľuje security a infrastructure a workload OUs odlišujú production a non-production controls.
 
 Ukážkový Atlas strom:
 
@@ -104,9 +104,9 @@ Account má v organizácii jedného parenta: root alebo OU. Ak incidentný runbo
 
 ## 4. Management account je trust root, nie workload account
 
-Management account ovláda organization lifecycle a consolidated billing. AWS best practice je držať bežné resources a workloads v member accounts a management account používať iba na úlohy, ktoré ho skutočne vyžadujú. citeturn398658search9turn398658search37
+Management account ovláda organization lifecycle a consolidated billing. AWS best practice je držať bežné resources a workloads v member accounts a management account používať iba na úlohy, ktoré ho skutočne vyžadujú.
 
-Dôvod nie je estetický. SCPs neobmedzujú users a roles v management account-e a authorization policies nechránia jeho resources rovnakým spôsobom ako member-account resources. Workload v management account-e preto obchádza významnú guardrail vrstvu. citeturn398658search24turn398658search41
+Dôvod nie je estetický. SCPs neobmedzujú users a roles v management account-e a authorization policies nechránia jeho resources rovnakým spôsobom ako member-account resources. Workload v management account-e preto obchádza významnú guardrail vrstvu.
 
 Management account potrebuje phishing-resistant MFA, root credential custody, minimum human accessu, alerting na policy changes a delegovanie service administration do member accounts. Deployment pipeline pre payment application tam nepatrí.
 
@@ -140,7 +140,7 @@ Command accepted nepreukazuje, že workload stále funguje. Policy inheritance s
 
 ## 6. Service Control Policy ako principal permissions guardrail
 
-SCP definuje maximálne dostupné permissions pre IAM principals v member accounts. Neudeľuje access. Local identity policy musí stále obsahovať allow a všetky applicable denies/envelopes musia request prepustiť. citeturn398658search28turn398658search29
+SCP definuje maximálne dostupné permissions pre IAM principals v member accounts. Neudeľuje access. Local identity policy musí stále obsahovať allow a všetky applicable denies/envelopes musia request prepustiť.
 
 Nasledujúci SCP odmieta používanie Regions mimo `eu-central-1` a `eu-west-1`, pričom global alebo recovery-required actions musia byť vedome vyňaté podľa presného service contractu:
 
@@ -188,7 +188,7 @@ Po vytvorení nie je policy effective, kým sa neattachne na target. Attachment 
 
 ## 7. Resource Control Policy ako resource-side guardrail
 
-RCP obmedzuje, aké actions môžu identities vykonávať nad podporovanými resources v member accounts. Rovnako ako SCP access neudeľuje. Jeho effective result sa kombinuje s identity alebo resource policy permissions. citeturn398658search13turn398658search32turn398658search39
+RCP obmedzuje, aké actions môžu identities vykonávať nad podporovanými resources v member accounts. Rovnako ako SCP access neudeľuje. Jeho effective result sa kombinuje s identity alebo resource policy permissions.
 
 Príklad RCP, ktorý odmietne nešifrovaný S3 transport:
 
@@ -212,11 +212,11 @@ Príklad RCP, ktorý odmietne nešifrovaný S3 transport:
 }
 ```
 
-RCP support je service-specific. Pred rolloutom sa overuje, ktoré resources a principals policy skutočne obmedzuje. AWS odporúča testovať impact a sledovať CloudTrail AccessDenied evidence pred broad root attachmentom. citeturn398658search13turn398658search33
+RCP support je service-specific. Pred rolloutom sa overuje, ktoré resources a principals policy skutočne obmedzuje. AWS odporúča testovať impact a sledovať CloudTrail AccessDenied evidence pred broad root attachmentom.
 
 ## 8. Declarative policies nie sú authorization policies
 
-Declarative policies centrálne konfigurujú podporované service features naprieč organizáciou. Nepoužívajú rovnaký allow/deny model ako SCP alebo RCP. Môžu napríklad presadzovať podporované VPC security settings alebo obmedziť public sharing určitých resources podľa policy type-u. citeturn398658search5turn398658search21turn398658search31
+Declarative policies centrálne konfigurujú podporované service features naprieč organizáciou. Nepoužívajú rovnaký allow/deny model ako SCP alebo RCP. Môžu napríklad presadzovať podporované VPC security settings alebo obmedziť public sharing určitých resources podľa policy type-u.
 
 Pri diagnostike treba najprv identifikovať policy type. `AccessDenied` smeruje k authorization graphu; resource vytvorený s centrally enforced configuration môže byť výsledkom declarative policy inheritance.
 

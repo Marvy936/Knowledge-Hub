@@ -302,6 +302,8 @@ Policy simulation môže pomôcť pri identity policies, ale nemusí modelovať 
 
 ## 9. Domain 5 — Networking and Content Delivery
 
+Networking scenár sa rieši v poradí observation boundaries, pretože rovnaký timeout môže vzniknúť v DNS, route, policy, transport, listeneri alebo application. Kandidát má najprv určiť poslednú preukázateľne zdravú vrstvu a až potom zvoliť command, ktorého rozdielny output rozdelí vedúce hypotézy.
+
 Network reasoning používa poradie:
 
 ```text

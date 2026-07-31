@@ -116,7 +116,7 @@ detection
 
 RPO určuje maximálny akceptovaný rozdiel medzi authoritative production state-om pred disaster eventom a obnoveným state-om. Recovery Point Actual sa meria po restore a reconciliation. Latest backup timestamp nie je automaticky RPA, pretože recovery point môže byť nečitateľný, nekonzistentný alebo poškodený.
 
-AWS Well-Architected používa RTO a RPO ako workload restoration objectives; pravidelný DR test má preukázať, či implementácia tieto ciele reálne spĺňa. citeturn398658search3turn398658search11turn398658search16
+AWS Well-Architected používa RTO a RPO ako workload restoration objectives; pravidelný DR test má preukázať, či implementácia tieto ciele reálne spĺňa.
 
 ## 6. Recovery-set manifest
 
@@ -308,7 +308,7 @@ Tabletop preverí rozhodovanie a kontakty, ale nepreukazuje restore. Restore bez
 
 Test musí obsahovať forbidden paths: old credential nesmie fungovať, primary writer musí byť fenced a duplicate payment nesmie vzniknúť pri replayi. Po teste sa recovery resources bezpečne odstránia a evidence uchová.
 
-AWS Reliability guidance explicitne odporúča pravidelne obnovovať dáta a testovať DR implementáciu, pretože iba experiment overí recovery integrity a proces. citeturn398658search8turn398658search16
+AWS Reliability guidance explicitne odporúča pravidelne obnovovať dáta a testovať DR implementáciu, pretože iba experiment overí recovery integrity a proces.
 
 ## Kontrolné otázky
 

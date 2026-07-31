@@ -269,6 +269,8 @@ Savings verification compared same-volume baseline, amortized cost and cost per 
 
 ## 12. Change business case
 
+FinOps change business case viaže navrhovanú úsporu na presný resource cohort, baseline window a business denominator. Bez tejto väzby nemožno po zmene rozlíšiť skutočnú úsporu od poklesu trafficu, presunu costu do inej služby alebo degradácie reliability, ktorá iba znížila spotrebu.
+
 Optimization record:
 
 ```yaml

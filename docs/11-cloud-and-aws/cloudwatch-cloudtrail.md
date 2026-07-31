@@ -161,6 +161,8 @@ Infinite retention zvyšuje cost a data exposure. Card data, bearer tokens a sec
 
 ## 6. Logs Insights investigation
 
+Logs Insights query má byť reprodukovateľný dôkazový experiment, nie náhodné hľadanie slov. Pred spustením sa fixuje log-group set, UTC interval, schema generation a correlation identity; výsledok potom ukazuje iba events, ktoré boli emitované, doručené, zachované a matchli query, nie automaticky úplnú business históriu.
+
 ```bash
 QUERY_ID=$(aws logs start-query \
   --log-group-name /atlas/prod/payments-api \

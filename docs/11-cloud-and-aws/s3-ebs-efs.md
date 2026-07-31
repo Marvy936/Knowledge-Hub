@@ -306,6 +306,8 @@ Timeout typicky leží v DNS/network/SG/NACL. `Permission denied` po úspešnom 
 
 ## 15. EFS a access point v Terraform-e
 
+Terraform vytvorí filesystem, mount targets a access-point identity, ale úspešný file operation závisí aj od DNS, route, SG/NACL, TLS/IAM client authorization a POSIX ownership. Preto sa po apply neakceptuje iba resource state; testuje sa mount aj read/write pod presnou workload identity.
+
 ```hcl
 resource "aws_efs_file_system" "reports" {
   encrypted        = true

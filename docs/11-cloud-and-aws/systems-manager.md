@@ -92,6 +92,8 @@ Document name, exact version, content hash, parameters, target manifest, executi
 
 ## 5. Run Command delivery and result
 
+Run Command má oddelenú delivery a execution boundary. Accepted command môže zostať pending alebo delivery-timeoutovať; exit code nula zase dokazuje iba výsledok pluginu na konkrétnom node, nie správny target manifest, application health alebo business outcome.
+
 ```bash
 COMMAND_ID=$(aws ssm send-command \
   --document-name Atlas-ValidatePayments \
@@ -179,6 +181,8 @@ aws ssm create-association \
 Command `append line`, `create user without existence check` or `restart every run` creates recurring side effects. State Manager is not substitute for immutable image pipeline when replacement is authoritative host model.
 
 ## 10. Inventory freshness
+
+Systems Manager Inventory je periodická observation s vlastným collection timestampom. Záznam môže byť syntakticky správny a zároveň stale alebo neúplný, preto sa package, OS alebo application verdict vždy viaže na agent, association, upload time a porovnanie s current node state-om.
 
 ```bash
 aws ssm list-inventory-entries \

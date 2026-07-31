@@ -55,6 +55,8 @@ Ingress subnet potrebuje IP headroom pre managed scale a maintenance. IP-exhaust
 
 ## 4. Praktický ALB základ v Terraform-e
 
+Terraform konfigurácia vytvorí front-door resources a ich vzájomné references, nie úspešný request. Po apply treba oddelene overiť listener, ordered rules, target registration, health-check contract, backend network path a application response, pretože každá z týchto vrstiev môže byť green alebo broken nezávisle.
+
 ```hcl
 resource "aws_lb" "payments" {
   name               = "alb-pay-public-17"
@@ -168,6 +170,8 @@ resource "aws_lb_listener_rule" "payments_canary" {
 Listener rule priority je program order. Broad `/api/*` s nižším číslom by shadowoval presnejšiu payment rule. Weighted forward nie je presný request percentage pre malú sample; stickiness, retries a long-lived connections môžu observed distribution skresliť.
 
 ## 6. Live ALB a listener read-back
+
+Live read-back porovnáva intended Terraform generation s effective AWS configuration. Výstup ukazuje, ktoré listeners, rules a target groups control plane eviduje; až request s presným Host, pathom a cohort telemetry dokáže, že dataplane vybral očakávaný backend.
 
 ```bash
 aws elbv2 describe-load-balancers \

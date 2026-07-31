@@ -43,6 +43,8 @@ Najnovší recovery point môže obsahovať logical corruption. Najstarší čis
 
 ## 3. Backup plan a assignment v Terraform-e
 
+Terraform v tejto sekcii nereprezentuje samotnú obnoviteľnosť. Deklaruje iba plan, pravidlá a selection contract; až live assignment, úspešný recovery point, požadovaná kópia a vykonaný restore dokazujú, že konkrétny resource je skutočne chránený. Preto sa po aplikovaní konfigurácie vždy číta effective state a porovnáva s authoritative inventory.
+
 ```hcl
 resource "aws_backup_vault" "payments" {
   name        = "vault-pay-prod-8"
@@ -142,6 +144,8 @@ quiesce or transaction boundary
 Service-native RDS backup má engine recovery contract. EC2/EBS alebo multi-volume application môže potrebovať Systems Manager pre/post scripts, filesystem freeze alebo database checkpoint. Samostatne validné points z rozdielnych časov môžu byť logicky nekompatibilné.
 
 ## 7. Recovery manifest
+
+Recovery manifest spája service-specific recovery points do jednej business generation. Bez neho môže tím obnoviť technicky platnú databázu, objekty a filesystem z navzájom odlišných časov, takže application síce naštartuje, ale ledger, queue a external provider už nereprezentujú jeden konzistentný stav.
 
 `RM-PAY-27` viaže service-specific points:
 
@@ -300,6 +304,8 @@ Containment zachovalo source points a zablokovalo destructive credentials. Recov
 Closure vyžadovala completed source and destination generations, usable key, clean-room restore, payment validation and alerting that treats required copy failure as protection failure.
 
 ## 14. Cleanup after rehearsal
+
+Cleanup po recovery rehearsal je súčasť acceptance, nie administratívny dodatok. Obnovené dáta, temporary credentials, network paths a testovacie writers môžu po úspešnom cvičení vytvoriť nový security alebo cost incident, preto sa ich odstránenie a revokácia dokazujú samostatným inventory read-backom.
 
 Recovery test môže vytvoriť databases, volumes, filesystems, ENIs, secrets and logs containing production data. Cleanup is governed transition:
 

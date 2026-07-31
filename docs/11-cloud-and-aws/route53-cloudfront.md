@@ -183,6 +183,8 @@ CloudFront custom-domain certificate musí byť v required ACM control Region, t
 
 ## 7. Ordered cache behaviors
 
+CloudFront vyhodnocuje cache behaviors ako ordered routing program. Prvý matching path pattern vyberie origin a policy set, preto health všetkých origins nepomôže, ak broad behavior zachytí authenticated API request a priradí mu nesprávny cache alebo forwarding contract.
+
 ```hcl
 ordered_cache_behavior {
   path_pattern     = "/api/payments/*"
@@ -329,6 +331,8 @@ Invalidation neopravia origin ani browser/service-worker cache a môže vyvolať
 
 ## 12. Live distribution a cache policy read-back
 
+Live read-back fixuje distribution ETag, deployed configuration a referenced policy IDs. Tieto outputs dokazujú effective control-plane generation, no actual edge POP môže stále servovať cached representation; preto sa korelujú s request ID, `X-Cache`, `Age`, matched path a origin logom.
+
 ```bash
 aws cloudfront get-distribution-config \
   --id D-PAY-17 \
@@ -399,6 +403,8 @@ matched behavior
 ```
 
 ## 16. Recovery acceptance
+
+Edge recovery sa uzatvára až po overení routing aj representation identity. Nestačí, že distribution je `Deployed`; positive test musí dostať správny obsah a forbidden test musí preukázať, že iný tenant, stale variant, wrong behavior alebo public-origin path nemôže byť prijatý.
 
 Edge recovery je prijatá až keď authoritative DNS odpoveď smeruje na approved distribution, exact API behavior matchuje caching-disabled policy, tenant isolation prejde, origin authorization je private, stale error/object variants sú odstránené alebo expired a actual client cohorts viditeľne používajú new generation.
 

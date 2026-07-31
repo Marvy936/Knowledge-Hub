@@ -41,6 +41,8 @@ Warm reuse je performance optimization. Global SDK client alebo cache možno reu
 
 ## 3. Function a alias v Terraform-e
 
+Terraform vytvorí function configuration, immutable version a alias pointer, ale nepreukáže spracovanie eventu. Deployment acceptance pokračuje cez trigger alebo event-source mapping, invocation admission, executed version, downstream side effects, acknowledgement a idempotent business result.
+
 ```hcl
 resource "aws_lambda_function" "settlement" {
   function_name = "payments-settle"

@@ -224,6 +224,8 @@ aws elbv2 describe-target-health \
 
 ## 8. Guest a process diagnostics cez Systems Manager
 
+EC2 a Auto Scaling evidence končí pri host a fleet lifecycle-e, preto treba guest a process stav čítať samostatne. Systems Manager umožní vykonať rovnaký read-only diagnostic na presne identifikovanej instance bez otvorenia inbound SSH, no jeho command success stále dokazuje iba exit status a output skriptu, nie load-balancer ani business readiness.
+
 ```bash
 COMMAND_ID=$(aws ssm send-command \
   --instance-ids i-0123456789abcdef0 \

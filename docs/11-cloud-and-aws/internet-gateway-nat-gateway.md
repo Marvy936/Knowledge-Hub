@@ -42,6 +42,8 @@ Pri IPv6 môže resource používať global unicast address. Internet Gateway um
 
 ## 3. Praktický public subnet a IGW v Terraform-e
 
+Public subnet nevzniká názvom ani samotným Internet Gateway attachmentom. Terraform musí vytvoriť adresovanie a effective default route, no inbound a outbound connectivity sa prejaví až po priradení public identity, SG/NACL verdictoch, listeneri a return path-e.
+
 ```hcl
 resource "aws_internet_gateway" "payments" {
   vpc_id = aws_vpc.payments.id
@@ -125,6 +127,8 @@ aws ec2 describe-nat-gateways \
 Pri automatic mode treba sledovať, či NAT už expandoval do novej AZ. Po prvom workload ENI v novej AZ môže service expansion trvať; počas transition môže traffic dočasne použiť existing AZ path. Capacity a cutover test preto nesmie predpokladať okamžitú local coverage.
 
 ## 7. Zonal public NAT v Terraform-e
+
+Zonálny NAT príklad vytvára translation resource a route target pre konkrétnu source cohortu. Neoveruje destination allowlist, source-port headroom, connection reuse ani AZ resilience, preto sa po apply číta route association, NAT address generation a runtime flow evidence.
 
 ```hcl
 resource "aws_eip" "nat_a" {

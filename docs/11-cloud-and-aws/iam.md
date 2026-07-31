@@ -138,7 +138,7 @@ Identity policy je candidate allow. KMS key policy, boundary, SCP, session polic
 
 ## 5. Permissions boundary neudeľuje access
 
-Permissions boundary určuje maximum, ktoré môžu identity policies udeliť userovi alebo role. Sama permission nevytvorí. Effective permission je pri bežnom role modeli prienik identity grants a boundary, ďalej obmedzený ďalšími applicable policies. citeturn398658search4turn398658search12turn398658search46
+Permissions boundary určuje maximum, ktoré môžu identity policies udeliť userovi alebo role. Sama permission nevytvorí. Effective permission je pri bežnom role modeli prienik identity grants a boundary, ďalej obmedzený ďalšími applicable policies.
 
 Boundary pre workload role môže povoliť iba application services a explicitne odmietnuť IAM mutation:
 
@@ -213,9 +213,9 @@ Role môže mať širšie permissions, ale táto session ich nezíska, ak sessio
 
 Identity policy je pripojená k userovi, group alebo role. Resource policy je pripojená k resource-u, napríklad S3 bucketu, KMS keyu, Secrets Manager secretu, SQS queue alebo IAM role trustu.
 
-Pri same-account requeste AWS často vyhodnocuje candidate allows z oboch zdrojov, no presná interaction závisí od principal type-u a od toho, či resource policy grantuje IAM role ARN, role-session ARN, user ARN alebo account principal. Permissions boundary a session policy môžu mať pri týchto variantoch rozdielny effect. Diagnostika preto nemá používať univerzálnu vetu „policies sa sčítajú“. citeturn398658search7turn398658search10turn398658search19
+Pri same-account requeste AWS často vyhodnocuje candidate allows z oboch zdrojov, no presná interaction závisí od principal type-u a od toho, či resource policy grantuje IAM role ARN, role-session ARN, user ARN alebo account principal. Permissions boundary a session policy môžu mať pri týchto variantoch rozdielny effect. Diagnostika preto nemá používať univerzálnu vetu „policies sa sčítajú“.
 
-Cross-account access typicky potrebuje povolenie na oboch stranách: source principal musí mať identity allow a target trust/resource policy musí external principal prijať. Organizational guardrails a service-specific key policies môžu access ďalej obmedziť. citeturn398658search20turn398658search44
+Cross-account access typicky potrebuje povolenie na oboch stranách: source principal musí mať identity allow a target trust/resource policy musí external principal prijať. Organizational guardrails a service-specific key policies môžu access ďalej obmedziť.
 
 ## 8. Organizations guardrails sú maximum, nie grant
 
@@ -234,7 +234,7 @@ authenticated principal/session
 → allow or deny
 ```
 
-AWS policy evaluation začína implicit deny, hľadá applicable explicit deny a až potom hodnotí allow podľa policy types a request contextu. citeturn398658search4turn398658search7turn398658search42
+AWS policy evaluation začína implicit deny, hľadá applicable explicit deny a až potom hodnotí allow podľa policy types a request contextu.
 
 ## 9. Conditions sú executable security assumptions
 
