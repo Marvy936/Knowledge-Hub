@@ -7,7 +7,7 @@ docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bulle
 docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
 docs/12-observability/golden-signals.md|strict=44/39/15|prose=681|bullet_share=0.499|blocks=15|executable=0|explanations=2
 docs/12-observability/grafana.md|strict=25/27/6|prose=838|bullet_share=0.413|blocks=19|executable=0|explanations=6
-docs/12-observability/instrumentation-telemetry.md|strict=0/1/0|prose=1017|bullet_share=0.109|blocks=9|executable=4|explanations=16
+docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
 docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
 docs/12-observability/loki.md|strict=32/28/8|prose=767|bullet_share=0.438|blocks=22|executable=3|explanations=2
 docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bullet_share=0.144|blocks=13|executable=2|explanations=17
@@ -547,7 +547,6 @@ HIGH docs/12-observability/grafana.md:426 [single-sentence-concept] UI hotfix pr
 HIGH docs/12-observability/grafana.md:430 [single-sentence-concept] Transformations ako skrytý business model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/grafana.md:434 [single-sentence-concept] Alerting v dvoch control planes bez ownershipu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/grafana.md:438 [single-sentence-concept] Broad data-source credential — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/instrumentation-telemetry.md:7 [list-first-introduction] End-to-end lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/jaeger-tempo.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/jaeger-tempo.md:58 [list-heavy-section] 3. Trace continuity a span graph — 6 odrážok a iba 47 slov súvislého vysvetlenia.
 CRITICAL docs/12-observability/jaeger-tempo.md:58 [bare-bullet-items] 3. Trace continuity a span graph — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID a span ID;`, `parent span ID alebo links;`, `stable operation name a kind;`, `start/end time a status;`.
@@ -844,7 +843,6 @@ golden-signals.md: evidence explanation too thin (2)
 grafana.md: strict findings
 grafana.md: bullet share 0.413
 grafana.md: practical examples too thin
-instrumentation-telemetry.md: strict findings
 jaeger-tempo.md: strict findings
 jaeger-tempo.md: bullet share 0.479
 jaeger-tempo.md: practical examples too thin

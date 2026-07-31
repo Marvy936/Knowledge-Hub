@@ -6,6 +6,8 @@ Instrumentation sa preto navrhuje od business questions a failure boundaries sme
 
 ## End-to-end lifecycle
 
+Instrumentation sa správa ako versionovaný production data path, nie ako jednorazové pridanie SDK. Každá transition mení, čo responder môže z výsledku usúdiť: producer môže record vytvoriť, processor ho transformovať, exporter potvrdiť transport a backend ho až následne sprístupniť query. Preto sa celý mechanizmus číta v nasledujúcom poradí a každá boundary má samostatný read-back.
+
 ```text
 business outcome a investigation otázky
 → exact operation a failure-boundary inventory
