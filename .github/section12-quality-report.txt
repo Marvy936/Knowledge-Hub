@@ -14,7 +14,7 @@ docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bulle
 docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
 docs/12-observability/opentelemetry.md|strict=30/25/14|prose=801|bullet_share=0.429|blocks=18|executable=0|explanations=4
 docs/12-observability/prometheus.md|strict=32/34/12|prose=1142|bullet_share=0.397|blocks=23|executable=1|explanations=8
-docs/12-observability/red-method.md|strict=24/26/7|prose=1261|bullet_share=0.285|blocks=22|executable=0|explanations=2
+docs/12-observability/red-method.md|strict=0/0/0|prose=946|bullet_share=0.128|blocks=15|executable=12|explanations=9
 docs/12-observability/use-method.md|strict=22/47/12|prose=745|bullet_share=0.482|blocks=11|executable=0|explanations=14
 
 FAILURES
@@ -55,9 +55,6 @@ opentelemetry.md: practical examples too thin
 prometheus.md: strict findings
 prometheus.md: bullet share 0.397
 prometheus.md: practical examples too thin
-red-method.md: strict findings
-red-method.md: practical examples too thin
-red-method.md: evidence explanation too thin (2)
 use-method.md: strict findings
 use-method.md: bullet share 0.482
 use-method.md: practical examples too thin
