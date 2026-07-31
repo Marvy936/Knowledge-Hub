@@ -866,3 +866,11 @@ Takto treba čítať GitLab pipeline ako jeden execution a evidence systém. `.g
 - [GitLab deployments](https://docs.gitlab.com/ci/environments/deployments/)
 - [Kubernetes Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Kubernetes Services](https://kubernetes.io/docs/concepts/services-networking/service/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: GitLab CI/CD syntax](gitlab-ci-cd-syntax.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Runners a executors →](runners-and-executors.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

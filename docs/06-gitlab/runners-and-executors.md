@@ -276,5 +276,5 @@ Relevantné pojmy: GitLab Runner, runner manager, runner scope, protected runner
 
 **Navigácia**
 
-[← Predchádzajúca: GitLab CI/CD syntax](gitlab-ci-cd-syntax.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables a secrets →](variables-and-secrets.md)
+[← Predchádzajúca: Praktický GitLab pipeline od source change po overený deployment](gitlab-pipeline-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables a secrets →](variables-and-secrets.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

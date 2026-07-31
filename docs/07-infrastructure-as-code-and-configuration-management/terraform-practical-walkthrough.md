@@ -1082,3 +1082,11 @@ Týmto spôsobom sa Terraform neučí ako séria príkazov `init`, `plan`, `appl
 - [Terraform JSON output format](https://developer.hashicorp.com/terraform/internals/json-format)
 - [Terraform state](https://developer.hashicorp.com/terraform/language/state)
 - [AWS EC2 VPC documentation](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Terraform testing a policy](terraform-testing-and-policy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible architecture →](ansible-architecture.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

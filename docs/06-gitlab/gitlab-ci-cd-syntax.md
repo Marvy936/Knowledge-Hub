@@ -286,5 +286,5 @@ Relevantné pojmy: GitLab pipeline source, root configuration, include resolutio
 
 **Navigácia**
 
-[← Predchádzajúca: Protected branches a environments](protected-branches-and-environments.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Runners a executors →](runners-and-executors.md)
+[← Predchádzajúca: Protected branches a environments](protected-branches-and-environments.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický GitLab pipeline od source change po overený deployment →](gitlab-pipeline-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
