@@ -1,44 +1,47 @@
 # Terraform providers, resources a data sources
 
-Terraform Core nevie samo spravovať cloud alebo SaaS objekty. Providers sú versionované executable pluginy, ktoré prekladajú Terraform graph na operácie konkrétneho API a späť mapujú remote objekty do state. Preto provider nie je iba syntaxická knižnica. Je to trust, behavior a object-identity boundary.
+Terraform Core nevie priamo vytvoriť VPC, DNS record ani databázu. Provider je samostatne versionovaný executable plugin, ktorý implementuje schemas a prekladá Terraform graph na operácie konkrétneho API. Provider preto nie je iba knižnica syntaxe. Je to zároveň supply-chain dependency, target-resolution boundary, authentication boundary, remote-object identity boundary a zdroj plan/apply behavioru.
 
-Kapitola pokračuje v scenári Atlas Payments. Root configuration `prod-eu` má spravovať primary network v `eu-central-1`, replica storage v `eu-west-1` a čítať už existujúcu DNS zone, ktorú vlastní samostatný platform state.
+Táto kapitola pokračuje incidentom `IAC-PAY-75`. Atlas Payments chce spravovať primary platformu v `eu-central-1`, replica storage v `eu-west-1` a iba čítať DNS zone vlastnenú centrálnym platform tímom. Root module má dve AWS provider configurations, no child module nedostane alias mapping. Resource sa vytvorí cez default provider v primary regione, zatiaľ čo mutable data source vyberie nový „latest“ image bez source diffu.
 
-## 1. Dominantný model
+## 1. Dominantný provider-to-object lifecycle
 
 ```text
-provider requirement + locked package
-→ provider configuration a caller identity
-→ resource/data-source address
-→ plan-time read a change decision
-→ provider API operation
-→ remote identity
-→ state binding a refreshed attributes
-→ consumer dependency a runtime verification
+provider source a version constraint
+→ selected package a lock checksums
+→ provider configuration a alias
+→ workload identity, account a region
+→ resource alebo data-source address
+→ plan-time read alebo CRUD decision
+→ remote API request a response
+→ remote object identity
+→ state binding alebo read-only value
+→ downstream dependency a runtime verification
 ```
 
-Každá vrstva musí zostať identifikovateľná:
+Každá vrstva má inú autoritu:
 
-- **Requirement:** ktorý provider source a compatibility range configuration povoľuje?
-- **Locked package:** ktoré konkrétne bytes a checksums sa vykonajú?
-- **Configuration:** s akým accountom, regionom, endpointom a aliasom provider pracuje?
-- **Address:** ktorý Terraform objekt vlastní alebo pozoruje remote objekt?
-- **Operation:** aký Create/Read/Update/Delete alebo read request provider vykonal?
-- **Remote identity:** ktorý cloud alebo SaaS objekt bol zasiahnutý?
-- **State binding:** na ktorú resource address sa remote ID uložilo?
+- **Provider requirement** určuje, ktorý plugin family konfigurácia používa.
+- **Dependency lock** identifikuje konkrétnu selected version a package checksums.
+- **Provider configuration** určuje effective endpoint, account, region a credentials.
+- **Resource address** určuje Terraform ownership identity.
+- **Remote ID** určuje objekt v externom systéme.
+- **State binding** spája Terraform address s remote ID.
+- **Data source** iba číta hodnotu; lifecycle objektu nevlastní.
 
-Ak sa pomýli alias, credentials, state alebo resource address, HCL môže byť syntakticky správny a mutation napriek tomu zasiahne nesprávny target.
+Syntakticky platná HCL konfigurácia môže zasiahnuť nesprávny account alebo region, ak effective provider configuration nie je tá, ktorú reviewer predpokladal.
 
-## 2. Terraform Core verzus provider
+## 2. Terraform Core verzus provider responsibility
 
 Terraform Core:
 
 ```text
-načíta configuration
+načíta configuration a state
 → vyhodnotí expressions
 → zostaví dependency graph
-→ koordinuje plan a apply
-→ pracuje so state
+→ požiada provider o schemas/read/plan/apply operácie
+→ koordinuje graph execution
+→ pripraví nový state snapshot
 ```
 
 Provider:
@@ -48,18 +51,20 @@ načíta provider configuration
 → autentizuje caller-a
 → interpretuje resource/data-source schema
 → volá remote API
-→ čaká, polluje a normalizuje response
+→ retryuje, polluje a normalizuje response
 → vracia remote identity a attributes
 ```
 
-Provider definuje aj to, či zmena znamená in-place update alebo replacement, ktoré hodnoty sú computed a ako sa rieši eventual consistency. Upgrade providera preto môže zmeniť plan bez zmeny business intentu.
+Provider určuje aj to, ktoré zmeny možno vykonať in-place, ktoré vyžadujú replacement, ktoré attributes sú computed a ako sa správa pri eventual consistency. Provider upgrade preto môže zmeniť plan bez zmeny HCL. Je to behavior change, ktorý patrí do review a compatibility testov.
 
-## 3. Requirement, selection a lock
+## 3. Requirement, selected version a lock file
 
-Atlas root module deklaruje provider requirement:
+Root module deklaruje provider requirement:
 
 ```hcl
 terraform {
+  required_version = "~> 1.0"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -69,28 +74,42 @@ terraform {
 }
 ```
 
-Lifecycle dependency je:
+Version constraint neidentifikuje presný executable package. `terraform init` vyrieši konkrétnu verziu a zapíše selection a checksums do `.terraform.lock.hcl`.
 
-```text
-source + version constraint
-→ init resolution
-→ selected provider version
-→ package checksums
-→ .terraform.lock.hcl
-→ reviewed upgrade
+Praktický verification:
+
+```bash
+terraform init -input=false
+terraform providers
+sha256sum .terraform.lock.hcl
 ```
 
-Constraint komunikuje podporovaný rozsah. Lock file identifikuje konkrétnu selected version a checksums pre root configuration. Obe vrstvy patria do change subjectu.
+`terraform providers` preukazuje, ktoré provider requirements a configurations Terraform rozpoznal v aktuálnom resolved module graph-e. Digest lock file-u preukazuje integritu konkrétneho súboru. Nepreukazuje, že provider package pochádza z dôveryhodného mirroru, že child module používa správny alias ani že credentials smerujú do správneho accountu.
 
-Mutable alebo neobmedzený provider výber môže spôsobiť, že rovnaký source commit vytvorí neskôr iný plan. Provider upgrade sa preto posudzuje ako executable supply-chain a behavior change, nie ako housekeeping.
+Provider lock file sa commitne do root configuration repository. Upgrade sa vykonáva ako vedomá dependency change:
 
-## 4. Provider configuration a target identity
+```bash
+terraform init -upgrade
+terraform plan -out=provider-upgrade.tfplan
+terraform show -json provider-upgrade.tfplan > provider-upgrade.json
+```
 
-Atlas používa dve configurations rovnakého providera:
+Review porovná plan actions, replacement reasons a provider release compatibility. „Iba lockfile diff“ nie je administratívna zmena, ak mení executable behavior.
+
+## 4. Provider configuration je target identity
+
+Atlas používa primary a replica configuration:
 
 ```hcl
 provider "aws" {
   region = "eu-central-1"
+
+  default_tags {
+    tags = {
+      Environment = "prod-eu"
+      ManagedBy   = "terraform"
+    }
+  }
 }
 
 provider "aws" {
@@ -99,24 +118,46 @@ provider "aws" {
 }
 ```
 
-Runtime configuration zahŕňa viac než region:
+Effective target zahŕňa viac než `region` v HCL:
 
 ```text
-provider alias
-+ credentials/workload identity
-+ account/subscription/project
-+ region a endpoints
-+ retry/polling settings
-+ organization policy context
+provider configuration address
++ environment variables a shared config
++ workload credentials
++ account/organization context
++ region a custom endpoints
++ assume-role chain
++ provider retries a feature flags
 ```
 
-Credentials nemajú byť hardcoded v provider blocku. Atlas používa short-lived workload identity, ktorej claims povoľujú iba správny environment a state scope.
+Pred apply sa target overí nezávisle:
 
-Pred mutation sa nezávisle overí caller account a region. Alias `replica` je scheduling aj authorization input, nie iba pohodlné meno.
+```bash
+aws sts get-caller-identity --output json
+aws configure get region
+```
 
-## 5. Child module provider contract
+Observed account/ARN a region preukazujú caller context pre tieto CLI requesty. Nepreukazujú, že Terraform provider používa úplne rovnaký credential source alebo alias. Najsilnejší model používa rovnakú workload identity a explicitné provider configuration inputs, ktoré pipeline read-backne bez secretov.
 
-Child module deklaruje requirements, ale root caller mu odovzdáva konkrétne configurations.
+## 5. Provider aliases v child module contracte
+
+Child module, ktorý potrebuje viac configurations, musí aliasy deklarovať:
+
+```hcl
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      configuration_aliases = [
+        aws.source,
+        aws.destination
+      ]
+    }
+  }
+}
+```
+
+Caller ich explicitne mapuje:
 
 ```hcl
 module "replication" {
@@ -126,64 +167,63 @@ module "replication" {
     aws.source      = aws
     aws.destination = aws.replica
   }
+
+  source_bucket      = module.primary.bucket_name
+  destination_bucket = "atlas-payments-replica"
 }
 ```
 
-Module contract musí uviesť, ktoré provider aliases očakáva. Inak môže resource ticho zdediť default configuration a vytvoriť objekt v primary regione alebo pod nesprávnou identity.
+Provider alias mapping je súčasť resolved configuration subjectu. Bez explicitného mappingu môže child resource zdediť default provider a vytvoriť objekt v primary regione. Green API response potom preukazuje iba úspešnú mutation v effective targete, nie správnosť zamýšľaného targetu.
 
-Provider mapping patrí do resolved configuration identity rovnako ako module inputs.
+## 6. Managed resource: address, remote ID a binding
 
-## 6. Managed resource a identity binding
-
-Resource reprezentuje objekt, ktorého lifecycle Terraform vlastní:
+Managed resource:
 
 ```hcl
-resource "aws_vpc" "prod" {
+resource "aws_vpc" "main" {
   cidr_block = "10.40.0.0/16"
 }
 ```
 
-Terraform address:
+má tri odlišné identity:
 
 ```text
-aws_vpc.prod
+configuration/resource address
+aws_vpc.main
+
+provider configuration
+provider["registry.terraform.io/hashicorp/aws"]
+
+remote identity
+account 7711 / eu-central-1 / vpc-0a42
 ```
 
-Remote identity:
+State ich spojí:
 
 ```text
-vpc-0714
+aws_vpc.main
+→ provider aws default
+→ vpc-0a42
 ```
 
-State binding:
+Address nie je cloud ID. Premenovanie resource blocku bez `moved` contractu môže vyzerať ako destroy/create. Strata bindingu môže viesť k duplicate create. Rovnaký remote ID spravovaný dvoma addresses alebo states vytvára conflict ownership incident.
 
-```text
-aws_vpc.prod → vpc-0714
+Inspection:
+
+```bash
+terraform state list
+terraform state show aws_vpc.main
 ```
 
-Address nie je cloud ID. Premenovanie address bez `moved` alebo adoption contractu môže vyzerať ako destroy/create. Rovnako strata state bindingu môže viesť k duplicate create, hoci remote objekt stále existuje.
+`state show` preukazuje známu state reprezentáciu a binding pre aktuálny backend subject. Nepreukazuje live health, správny traffic ani to, že objekt nezmenil druhý writer. Pre current remote observation treba refresh/plan alebo provider-native read API.
 
-Resource lifecycle cez providera je:
+## 7. Arguments, attributes a unknown values
 
-```text
-configuration arguments
-+ prior state
-+ refreshed remote attributes
-→ no-op | create | update | replace | destroy
-→ provider operation
-→ remote response
-→ new state binding
-```
-
-Replacement je identity change. Môže zmeniť IP, endpoint, data-bearing volume, policy attachment alebo availability. Preto sa nesmie skrývať v súhrne „1 to change“.
-
-## 7. Arguments, computed attributes a unknown values
-
-Configuration poskytuje arguments. Provider vracia attributes, pričom niektoré sú computed až po remote operation.
+Resource configuration poskytuje arguments. Provider vracia attributes, z ktorých niektoré vzniknú až po create:
 
 ```hcl
 output "vpc_id" {
-  value = aws_vpc.prod.id
+  value = aws_vpc.main.id
 }
 ```
 
@@ -193,287 +233,249 @@ Počas planu môže byť hodnota:
 (known after apply)
 ```
 
-Unknown hodnota zachová typ a dependency, ale znižuje presnosť downstream planu. Ak ovplyvňuje graph-shaping key, provider configuration alebo policy decision, configuration boundary treba prepracovať.
+Unknown value nie je wildcard ani `null`. Terraform pozná type a dependency, ale nie konkrétnu hodnotu. To je bezpečné pre downstream argument, ktorý môže čakať na apply. Nie je to bezpečné pre graph-shaping keys, provider target alebo authorization decision, ktoré musia byť známe pred mutation.
 
-## 8. Data source je read contract, nie ownership
+## 8. Data source je read contract, nie lifecycle ownership
 
-Atlas DNS zone vlastní samostatný platform state. Application state ju iba číta:
+Centrálny platform state vlastní DNS zone. Application configuration ju iba queryuje:
 
 ```hcl
-data "aws_route53_zone" "public" {
-  name = "payments.example.com."
+data "aws_route53_zone" "payments" {
+  name         = "payments.example.com."
+  private_zone = false
+}
+
+resource "aws_route53_record" "api" {
+  zone_id = data.aws_route53_zone.payments.zone_id
+  name    = "api.payments.example.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.api.dns_name
+    zone_id                = aws_lb.api.zone_id
+    evaluate_target_health = true
+  }
 }
 ```
 
-Data source:
+Data source načíta hodnoty cez provider, ale lifecycle queryovaného objektu nespravuje. Jeho output môže vytvoriť dependency a môže sa zmeniť bez source diffu.
 
-- nevlastní lifecycle objektu;
-- nevytvára remote resource;
-- číta podľa provider query semantics;
-- môže priniesť dependency a unknown hodnoty;
-- môže byť mutable alebo nejednoznačný input.
+Praktický risk je nejednoznačná query:
 
-Použitie data source je správne, keď external owner publikuje stabilný read contract. Nie je správne, keď query typu `most_recent = true` vyberá release-critical artifact bez digestu alebo policy. Taký výber mení resolved input bez source diffu.
+```hcl
+data "aws_ami" "runtime" {
+  most_recent = true
+  owners      = ["self"]
 
-## 9. Read timing a plan precision
+  filter {
+    name   = "name"
+    values = ["atlas-runtime-*"]
+  }
+}
+```
+
+Rovnaký source commit môže o týždeň resolve-nuť iné AMI. Plan potom navrhne replacement, hoci Git diff neexistuje. `most_recent` je discovery mechanism, nie immutable release identity.
+
+Bezpečnejší release chain je:
+
+```text
+image build a scan
+→ immutable AMI ID alebo OCI digest
+→ approval/promotion
+→ explicitný Terraform input
+→ deployment
+```
+
+## 9. Data-source timing a deferred reads
 
 Data source sa môže načítať pri plan-e, ak sú jeho arguments známe. Ak závisí od resource vytvoreného v rovnakom apply, read sa odloží:
 
-```text
-resource create
-→ remote ID known after apply
-→ data-source read deferred
-→ downstream values unknown
-```
-
-Široký `depends_on` môže odložiť read aj bez skutočnej potreby. To zväčšuje množstvo unknown values a môže zmeniť policy alebo replacement visibility.
-
-Plan precision preto závisí aj od toho, kde leží ownership a lifecycle boundary. Niekedy je správnejšie publikovať stabilný output contract z upstream state-u než znova queryovať mutable remote inventory.
-
-## 10. Dependencies cez values
-
-Referencia vytvára hodnotu aj graph edge:
-
 ```hcl
-resource "aws_subnet" "app" {
-  vpc_id = aws_vpc.prod.id
+data "example_endpoint" "runtime" {
+  service_id = example_service.payments.id
 }
 ```
 
 ```text
-aws_vpc.prod
-→ aws_subnet.app
+service_id unknown
+→ data read deferred to apply
+→ endpoint unknown v plan-e
 ```
 
-Preferuj value reference pred `depends_on`, pretože presne pomenúva prenášaný contract. Explicitný dependency edge je legitímny iba pri skrytej behaviorálnej závislosti, ktorú nemožno vyjadriť hodnotou.
+Plan potom poskytuje menej presnú evidence. Široký `depends_on` môže odložiť read aj bez skutočnej value dependency. To je dôvod, prečo sa dependencies vyjadrujú konkrétnymi outputs a references namiesto module-wide barriers.
 
-Module-level `depends_on` môže serializovať celý subgraph a zmeniť množstvo plan-time reads na apply-time unknowns. Každý taký edge potrebuje konkrétny mechanistický dôvod.
+## 10. Stable instance identity: `for_each` verzus `count`
 
-## 11. Instance identity: `count` a `for_each`
+Managed resources potrebujú stabilnú address identity.
 
-`count` používa indexovú identity:
+```hcl
+resource "aws_subnet" "private" {
+  for_each = var.subnets
+
+  vpc_id            = aws_vpc.main.id
+  availability_zone = each.value.zone
+  cidr_block        = each.value.cidr
+}
+```
+
+Addresses:
 
 ```text
-example_worker.node[0]
-example_worker.node[1]
+aws_subnet.private["az-a"]
+aws_subnet.private["az-b"]
 ```
 
-`for_each` používa key:
+Keys `az-a` a `az-b` sú management identity. Zmena keya môže vyzerať ako remove/create, hoci CIDR ostane rovnaký. `count` používa indexy; vloženie položky do stredu listu môže posunúť viac identities.
+
+`for_each` nie je automaticky bezpečný. Key musí byť stabilný a nesmie pochádzať z mutable display name-u alebo apply-time unknown value.
+
+## 11. Provider failure semantics a eventual consistency
+
+Provider request môže skončiť viacerými outcomes:
 
 ```text
-example_subnet.private["az-a"]
+remote request odmietnutý bez mutation
+remote create complete a read-after-write ešte 404
+remote create complete, provider timeout
+partial object existuje
+provider vráti ID, state write zlyhá
+API normalizuje hodnotu inak než configuration
 ```
 
-Pre dlhodobo identifikovateľné objekty je stabilný business key zvyčajne bezpečnejší než pozícia v liste. Zmena keya je však stále identity change. Display name, ktorý sa často mení, nie je dobrý key.
+Náhodný `sleep 60` nevytvára dôkaz. Lepší model používa provider-native waiter, bounded retry a nezávislý post-apply read-back.
 
-Instance identity ovplyvňuje state addresses, plan replacements, moved history a downstream references.
+Pri timeout-e sa najprv overí request ID, remote object a state binding. Retry bez reconciliation môže vytvoriť duplicate resource alebo opakovať side effect.
 
-## 12. Eventual consistency a provider failure semantics
+## 12. Worked incident: alias sa nepreniesol
 
-Po create môže remote API vrátiť ID skôr, než objekt vidia všetky subsystémy. Provider môže pollovať alebo retryovať, ale stále môžu nastať:
-
-- transient 404;
-- propagation delay;
-- throttling;
-- timeout po úspešnej mutation;
-- partial create;
-- inconsistent read-after-write;
-- normalization drift.
-
-Náhodný `sleep` nerieši identitu ani outcome. Preferuj provider-native waiter, explicitný readiness contract a post-apply verification.
-
-Pri timeout-e sa najprv overí remote request a state binding. Retry bez reconciliation môže vytvoriť duplicate alebo znovu vykonať nevratný side effect.
-
-## 13. Worked failure: alias sa nepreniesol do child module
-
-Atlas chcel vytvoriť replica bucket v `eu-west-1`. Root module nakonfiguroval `aws.replica`, ale child module neuviedol alias contract a caller neposlal explicitný provider mapping.
+Atlas chcel replica bucket v `eu-west-1`. Root configuration mala `aws.replica`, ale child module neuviedol `configuration_aliases` a caller neposlal mapping.
 
 ```text
 root pozná aws.replica
-→ child resource použije default aws
-→ apply identity je platná
+→ child resource zdedí default aws
+→ validná identity vytvorí bucket
 → bucket vznikne v eu-central-1
-→ job skončí green
+→ pipeline je green
 ```
 
-### Príčina
+Root cause nebol cloud outage ani permission failure. Effective provider mapping sa nezhodoval s intended targetom.
 
-Configuration bola syntakticky platná a provider API uspelo. Chyba bola v effective provider mappingu, nie v cloud dostupnosti.
+Recovery:
 
-### Náprava
+1. zastaviť ďalšiu replication promotion;
+2. identifikovať oba buckets podľa accountu, regionu, ARN a object inventory;
+3. overiť, či nesprávny bucket obsahuje dáta;
+4. vytvoriť explicitný alias contract;
+5. zvoliť copy/import/recreate podľa data state-u;
+6. aktualizovať consumers;
+7. overiť správny state binding a replication journey;
+8. až potom odstrániť nesprávny object.
 
-Module deklaruje požadované aliases, caller ich explicitne mapuje a plan evidence obsahuje provider configuration address, account a region pre každý citlivý resource.
+## 13. Worked incident: mutable data source zmenil release
 
-## 14. Worked failure: mutable data source zmenil runtime image
-
-Configuration používala data source `most_recent` na výber base image. Source commit, variables aj module version zostali rovnaké. O týždeň publisher pridal nový image.
+Application source, variables a module version sa nezmenili. Publisher však pridal nové AMI, ktoré splnilo `most_recent` filter.
 
 ```text
-rovnaký source commit
-→ nový plan vykoná nový data-source read
-→ vyberie iné image ID
-→ service replacement
-→ test evidence zo starého image už neplatí
+rovnaký Git commit
+→ nový provider read
+→ iné AMI ID
+→ instance replacement
+→ test evidence patrí starému image
 ```
 
-### Príčina
+Plan presne zobrazil replacement, ale process nesprávne považoval source equality za release identity equality. Náprava je explicitný immutable image input a resolved-input manifest.
 
-Data source bol release dependency bez immutable identity a bez resolved-input evidence.
+## 14. Competing hypotheses pri wrong-region objekte
 
-### Náprava
-
-Build/promotion workflow publikuje schválený image digest alebo immutable ID. Terraform dostane konkrétnu identity ako versionovaný input; discovery alias slúži iba na výber candidate-u pred approvalom.
-
-## 15. Worked failure: provider upgrade zmenil replacement behavior
-
-Atlas aktualizoval provider lock. Nová provider verzia zmenila normalizáciu jedného network argumentu a plan navrhol replacement load balancera.
-
-```text
-business configuration bez zmeny
-→ provider executable behavior sa zmení
-→ refreshed state sa normalizuje inak
-→ plan ukáže replacement
-```
-
-Upgrade nebol bug automaticky. Bol to dependency change, ktorý potreboval compatibility review, fixture plan a rollout po environments.
-
-## 16. Kauzálny diagnostický walkthrough
-
-Symptom: replica storage po úspešnom apply existuje v primary regione, hoci configuration uvádza `eu-west-1`.
-
-### Krok 1 — stabilizuj object subject
-
-```text
-resource address       module.replication.aws_s3_bucket.replica
-state binding          bucket atlas-payments-replica
-expected provider      aws.replica
-expected target        atlas-prod/eu-west-1
-actual target          atlas-prod/eu-central-1
-provider lock          P6
-apply plan             PL417
-```
-
-### Krok 2 — konkurenčné hypotézy
+Symptom: `module.replication.aws_s3_bucket.replica` existuje v primary regione.
 
 ```text
 H1: child module zdedil default provider
 H2: alias mapping existuje, ale credentials smerujú do iného accountu
-H3: region environment variable prepísal provider config
-H4: state patrí inému backendu alebo workspace
-H5: cloud UI ukazuje object s rovnakým názvom z iného subjectu
-H6: provider/API ignoroval alebo normalizoval region argument
+H3: provider region prepísal environment/shared config
+H4: state patrí inému backendu
+H5: pozorujeme iný bucket s rovnakým menom
+H6: provider/API ignoroval alebo normalizoval argument
 ```
 
-### Krok 3 — diskriminačné observation points
+Diskriminačné dôkazy:
 
-- resolved module provider mapping testuje H1;
-- caller identity a account audit testujú H2;
-- effective provider configuration bez secretov testuje H3;
-- backend lineage, serial a resource address testujú H4;
-- remote object ID, creation request a tags testujú H5;
-- provider logs a schema testujú H6.
+```bash
+terraform providers
+terraform state show 'module.replication.aws_s3_bucket.replica'
+aws sts get-caller-identity
+aws s3api get-bucket-location --bucket atlas-payments-replica
+```
 
-Atlas potvrdí, že child module nemal explicitný alias mapping a použil default provider. H1 vysvetľuje outcome.
+`terraform providers` ukáže provider dependencies/configuration relationships, state show binding a AWS CLI remote location. Ani jeden výstup samostatne nepreukazuje celý chain. Spolu s planom, audit eventom a source mappingom môžu potvrdiť H1.
 
-### Krok 4 — contain-ni ďalšiu mutation
+## 15. Acceptance a forbidden paths
 
-Promotion sa zastaví. Nesprávny bucket sa nemaže, kým sa neoverí, či obsahuje dáta alebo ho nepoužíva downstream consumer.
-
-### Krok 5 — recovery podľa actual state
-
-Tím vytvorí opravený plan s explicitným mappingom. Podľa data inventory zvolí bezpečný copy/create flow, aktualizuje consumers a až potom odstráni nesprávny objekt.
-
-### Krok 6 — over outcome
+Provider/object blok je prijatý až vtedy, keď:
 
 ```text
-plan provider address = aws.replica
-caller account/region = atlas-prod/eu-west-1
-remote object ID = expected replica
-state binding = správny
-replication journey = zdravá
+provider source/version/checksums sú pinned
++ primary a replica aliases sú explicitné
++ caller account/region sú read-backnuté
++ managed resources majú jediný state binding
++ data sources používajú jednoznačný read contract
++ release-critical image je immutable input
++ wrong-region provider mapping je policy/testom odmietnutý
++ second plan je no-op
++ runtime replication journey prejde
 ```
 
-### Krok 7 — skorší control
+Forbidden test má zámerne prehodiť provider mapping v disposable fixture a potvrdiť, že policy alebo assertion run zastaví pred mutation. Pozitívny happy-path test bez forbidden variantu nepreukazuje enforcement.
 
-Finding sa mení na module provider-contract test, target attestation pred apply a policy, ktorá odmietne citlivý resource bez explicitnej provider configuration identity.
+## 16. Anti-patterny
 
-## 17. Diagnostický runbook
+### „Provider constraint stačí, lock file netreba“
 
-1. Urči Core/provider version, lock digest a platform package.
-2. Identifikuj provider configuration address, alias, account, region a caller identity.
-3. Urči Terraform resource/data address a remote object ID.
-4. Over backend, workspace, lineage, serial a provider binding v state.
-5. Rozlíš managed resource, data source, imported alebo unmanaged object.
-6. Pri replacement-e nájdi konkrétny argument a provider schema behavior.
-7. Pri unknown value sleduj upstream computed value a deferred read.
-8. Pri timeout-e over remote request outcome pred retry.
-9. Pri wrong-target incidente contain-ni mutation a inventarizuj dáta/consumers.
-10. Zmeň finding na lock, mapping, identity, ownership alebo read-contract control.
+Constraint povoľuje rozsah; lock identifikuje konkrétnu selection a checksums.
 
-## 18. Referenčné pravidlá
+### „Alias je iba meno“
 
-- Provider je versionovaný executable dependency.
-- Requirement, lock a runtime configuration sú odlišné vrstvy.
-- Provider alias je súčasť target identity.
-- Child module má explicitný provider contract.
-- Resource address nie je remote ID.
-- State binding určuje managed object identity.
-- Data source poskytuje read contract, nie lifecycle ownership.
-- Mutable discovery query nie je release identity.
-- Value reference je preferovaný dependency contract.
-- Provider upgrade potrebuje čerstvý plan a compatibility review.
-- API success bez správneho targetu nie je úspešný outcome.
+Alias vyberá target configuration a tým account, region a identity.
 
-## 19. Časté omyly
+### „Data source nič nemení, takže je bez rizika“
 
-### „Provider block s regionom stačí“
+Mutable query môže zmeniť resolved release input a vyvolať replacement.
 
-Account, identity, alias mapping, endpoint a backend context môžu stále smerovať inam.
+### „State address a cloud ID sú to isté“
 
-### „Data source je bezpečný, lebo iba číta“
+Address je Terraform management identity; remote ID je platform identity. Binding ich spája.
 
-Mutable alebo nejednoznačný read môže zmeniť plan a release input.
+### „Successful API response znamená správny objekt“
 
-### „Resource name je cloud identity“
+Preukazuje úspech v effective targete, nie zhodu s intended targetom.
 
-Terraform address a remote ID sú odlišné identity spojené state-om.
+## 17. Kontrolné otázky
 
-### „Provider upgrade nemení infra intent“
+1. Prečo je provider executable trust boundary?
+2. Aký rozdiel je medzi provider requirementom a dependency lockom?
+3. Čo tvorí effective provider configuration?
+4. Prečo musí child module explicitne deklarovať provider aliases?
+5. Aký rozdiel je medzi resource address, provider configuration a remote ID?
+6. Čo preukazuje `terraform state show` a čo nepreukazuje?
+7. Prečo unknown value nie je `null`?
+8. Kedy data source znižuje reproducibility?
+9. Prečo `most_recent` nie je vhodná final release identity?
+10. Ako `for_each` key ovplyvňuje state binding?
+11. Aké dôkazy odlíšia wrong alias od wrong credentials?
+12. Ako sa testuje forbidden provider mapping path?
 
-Môže zmeniť defaults, normalization, read behavior aj replacement semantics.
+## Glossary impact
 
-### „Timeout znamená, že create zlyhal“
+Relevantné pojmy: Terraform Core, provider, provider requirement, dependency lock file, provider configuration, alias, managed resource, data source, resource address, remote identity, state binding, computed attribute, unknown value, configuration alias, immutable input, eventual consistency a provider failure semantics.
 
-Remote mutation mohla uspieť pred stratou response.
+## Primárne zdroje
 
-## 20. Zhrnutie
-
-Dôveryhodný provider/object lifecycle je:
-
-```text
-locked provider package
-→ explicitná provider a target identity
-→ resource alebo data-source address
-→ plan-time read/change decision
-→ remote API operation
-→ remote object identity
-→ state binding
-→ verified consumer/runtime outcome
-```
-
-Troubleshooting sa nekončí otázkou, či cloud API odpovedalo. Musí dokázať, ktorý provider executable a configuration bežali, ktorý object address a remote ID boli subjectom, kam sa binding uložil a či výsledok vznikol v správnom account/region ownership contexte.
-
-## Oficiálna dokumentácia
-
-- [Providers](https://developer.hashicorp.com/terraform/language/providers)
+- [Terraform providers](https://developer.hashicorp.com/terraform/language/providers)
 - [Provider requirements](https://developer.hashicorp.com/terraform/language/providers/requirements)
-- [Resources](https://developer.hashicorp.com/terraform/language/resources)
-- [Data sources](https://developer.hashicorp.com/terraform/language/data-sources)
+- [Terraform resources](https://developer.hashicorp.com/terraform/language/resources)
+- [Terraform data sources](https://developer.hashicorp.com/terraform/language/data-sources)
+- [Providers within modules](https://developer.hashicorp.com/terraform/language/modules/develop/providers)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Infrastructure as Code principles](infrastructure-as-code-principles.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Variables, locals a outputs →](variables-locals-outputs.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

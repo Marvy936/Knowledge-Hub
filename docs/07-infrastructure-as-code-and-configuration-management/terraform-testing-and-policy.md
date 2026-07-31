@@ -1,126 +1,151 @@
 # Terraform testing a policy
 
-Terraform configuration je executable specification, ktorá môže meniť identity, sieťové hranice, dáta a produkčnú dostupnosť. Dôveryhodný quality gate preto nemôže byť zoznam príkazov ani jedno manuálne čítanie planu. Musí vytvoriť subject-bound evidence, rozlíšiť chýbajúci dôkaz od čistého výsledku a preniesť rozhodnutie až k reálne aplikovanému planu a runtime outcome-u.
+Terraform configuration je executable specification, ktorá môže vytvoriť alebo odstrániť identity, meniť sieťové hranice, pristupovať k dátam a ovplyvniť produkčnú dostupnosť. Dôveryhodný quality gate preto nie je zoznam príkazov ani zelená pipeline. Je to evidence lifecycle, ktorý definuje presný change subject, očakávané dôkazy, vrstvy oracles, policy semantics, cleanup verdict a väzbu medzi schváleným saved planom a skutočne aplikovaným a runtime overeným výsledkom.
 
-Táto kapitola používa jeden priebežný scenár. Atlas Payments vydáva modul `payments-database` vo verzii `4.3.0`. Zmena pridáva mandatory encryption, upravuje replica topology a presúva resource addresses cez `moved` blocks. Ten istý module release musí prejsť od statického contractu cez plan a apply testy, policy rozhodnutie, production saved plan, post-apply verification až po cleanup a continuous validation.
+Kapitola uzatvára incident `IAC-PAY-77`. Atlas Payments vydáva module `payments-database 4.3.0`. Mock tests sú zelené, ale real-provider apply zlyhá na organization policy. Upgrade test neexistuje, takže chýbajúci `moved` block zostane neodhalený. Policy engine nedokáže načítať bundle, wrapper vytvorí prázdny report a gate ho interpretuje ako „0 violations“. Iný apply test síce prejde assertions, ale cleanup zanechá verejný bucket. Každý lokálny status vyzerá prijateľne, no complete evidence verdict musí byť `INCOMPLETE_OR_INVALID`, nie pass.
 
-## 1. Dominantný model: risk-to-runtime evidence lifecycle
+## 1. Dominantný risk-to-runtime evidence lifecycle
 
 ```text
-change subject a risk model
+exact change subject a risk class
 → expected evidence inventory
-→ format/static/contract checks
-→ plan a upgrade evidence
-→ real provider/apply evidence
-→ immutable plan subject
-→ policy verdict a bounded exception
-→ apply presne toho istého planu
-→ runtime verification
+→ format, validate a static evidence
+→ module contract a native plan tests
+→ upgrade tests nad existujúcim state-om
+→ real-provider apply/integration evidence
 → cleanup verdict
-→ drift a continuous validation
+→ immutable production saved plan
+→ machine-readable policy verdict a exception check
+→ apply presne schváleného planu
+→ state, remote, runtime a business verification
+→ second no-op plan, drift registration a evidence closure
 ```
 
-Každá vrstva odpovedá na inú otázku. Nižšia vrstva môže byť rýchlejšia, ale nesmie predstierať dôkaz, ktorý môže poskytnúť iba provider API alebo runtime.
+Každá vrstva odpovedá na inú otázku. Rýchlejší test nesmie predstierať dôkaz, ktorý môže poskytnúť iba provider API alebo runtime.
 
-## 2. Atlas change subject
+## 2. Exact Terraform evidence subject
 
-Test a policy výsledok je dôveryhodný iba vtedy, keď je viazaný na presnú zmenu:
-
-```text
-source revision: 8c91...
-module: payments-database 4.3.0
-Terraform version: 1.x pinned
-provider selection a checksums
-resolved variables a test fixture
-prior module/provider version pri upgrade teste
-backend/state lineage a serial pre production plan
-target account/region a workload identity
-plan artifact digest
-policy package version a exception set
+```yaml
+evidenceSubject:
+  repository: atlas/terraform-modules
+  sourceRevision: 8c91a42
+  module:
+    name: payments-database
+    version: 4.3.0
+    packageDigest: sha256:81bd...
+  terraformVersion: 1.x-pinned
+  providerLockDigest: sha256:4d5f...
+  policyBundle:
+    revision: 7a21c4e
+    digest: sha256:9c11...
+  fixtures:
+    cleanInstall: prod-like-v3
+    upgradeFrom:
+      - 4.2.4
+      - 4.1.9
+  production:
+    backendKey: payments/database/prod-eu.tfstate
+    lineage: 17ef...
+    startingSerial: 551
+    account: "771100001234"
+    region: eu-central-1
+  savedPlanDigest: sha256:291a...
 ```
 
-Toto je **Terraform evidence subject**. Zelený test nad iným providerom, mockom, fixture alebo regenerated planom nemusí hovoriť nič o schválenom production change-i.
+Zelený test nad inou module version, provider, fixture alebo target nie je automaticky evidence pre production subject. Každý report musí uviesť producer, tool/rules version, subject a validity status.
 
 ## 3. Expected evidence inventory
 
-Pred spustením pipeline definuj, aké dôkazy musia existovať pre danú risk class.
+Risk class definuje, ktoré artifacts musia existovať:
 
-Pre Atlas release je inventory:
-
-```text
-fmt verdict
-validate verdict
-static/security scan report
-module contract plan tests
-upgrade test 4.2.x → 4.3.0
-real-provider apply test
-post-apply database capability check
-cleanup verdict
-production saved plan digest
-policy verdicts
-required approvals alebo exceptions
-post-production runtime verification
-scheduled drift/continuous validation registration
+```yaml
+expectedEvidence:
+  - id: fmt
+    required: true
+  - id: validate
+    required: true
+  - id: static-security
+    required: true
+  - id: contract-plan-tests
+    required: true
+  - id: upgrade-4.2.4-to-4.3.0
+    required: true
+  - id: real-provider-apply
+    required: true
+  - id: runtime-transaction
+    required: true
+  - id: cleanup
+    required: true
+  - id: production-plan-json
+    required: true
+  - id: policy-verdict
+    required: true
+  - id: approval-or-exception
+    required: true
 ```
 
-Ak apply test job nebol vytvorený pre nesprávne `rules`, pipeline nemá „nula failures“. Má **incomplete evidence**.
+Ak `real-provider-apply` job nebol vytvorený pre chybu v pipeline `rules`, výsledok nie je „0 failures“. Je to missing required evidence.
 
-Quality gate musí rozlišovať:
+Verdict classes:
 
-- pass;
-- test alebo policy violation;
-- tool error;
-- missing/skipped evidence;
-- stale evidence;
-- cleanup-incomplete;
-- external dependency outage.
+```text
+PASS
+VIOLATION
+TOOL_OR_INFRA_FAILURE
+MISSING_OR_SKIPPED
+STALE_SUBJECT
+INVALID_REPORT
+CLEANUP_INCOMPLETE
+EXTERNAL_DEPENDENCY_OUTAGE
+SUPERSEDED
+```
 
-## 4. Najlacnejšie vrstvy: format, syntax a static model
+## 4. Najlacnejšie vrstvy
 
-### `terraform fmt`
+### Formatting
 
 ```bash
 terraform fmt -check -recursive
 ```
 
-Potvrdzuje kanonické formátovanie a znižuje diff noise. Nepotvrdzuje semantics, provider compatibility ani bezpečnosť.
+Preukazuje canonical formatting podľa použitej Terraform CLI. Nepreukazuje syntax completeness, provider compatibility, security ani runtime behavior.
 
-### `terraform validate`
+### Validation
 
 ```bash
-terraform init -backend=false
-terraform validate
+terraform init -backend=false -input=false
+terraform validate -json > validate.json
 ```
 
-Kontroluje konfiguračnú konzistenciu voči dostupným schemas. Neoveruje:
+Validation kontroluje configuration consistency voči dostupným module/provider schemas. JSON output umožní machine-readable spracovanie.
+
+Neoveruje:
 
 - credentials a authorization;
-- quotas;
-- organization policy;
+- cloud quotas a organization policy;
 - remote API behavior;
+- apply-time unknown values;
 - eventual consistency;
-- runtime capability;
+- runtime connectivity;
+- data migration;
 - cleanup.
 
 ### Static analysis
 
-Scanner môže detegovať public exposure, unpinned sources, deprecated fields, secret patterns alebo organization conventions. Výsledok však závisí od:
+Scanner môže nájsť public exposure, unpinned source, deprecated field alebo secret pattern. Dôveryhodný report potrebuje:
 
 ```text
-analyzer version
-+ ruleset
-+ resolved source visibility
-+ supported provider schemas
-+ baseline/exception context
+analyzer identity/version
+ruleset a policy revision
+scanned file/resource inventory
+parse errors a unsupported constructs
+findings
+baseline/exception subject
 ```
 
-Scanner job success nie je automaticky validný report a „nula findings“ nie je clean bez coverage evidence.
+Successful scanner process nie je automaticky validný report. „Nula findings“ bez coverage a parse validity je neúplný dôkaz.
 
-## 5. Contract invariants v konfigurácii
-
-Niektoré pravidlá patria priamo do module contractu, pretože musia platiť pri každom použití.
-
-### Input validation
+## 5. Invarianty priamo v Terraform contracte
 
 ```hcl
 variable "database" {
@@ -132,7 +157,7 @@ variable "database" {
 
   validation {
     condition = (
-      var.database.environment != "prod" ||
+      var.database.environment != "prod-eu" ||
       (var.database.encrypted && var.database.multi_az)
     )
     error_message = "Production database must be encrypted and multi-AZ."
@@ -140,16 +165,16 @@ variable "database" {
 }
 ```
 
-### Preconditions a postconditions
+Resource preconditions/postconditions:
 
 ```hcl
-resource "example_database" "this" {
-  # ...
+resource "example_database" "payments" {
+  replica_count = var.replica_count
 
   lifecycle {
     precondition {
       condition     = var.replica_count >= 2
-      error_message = "At least two replicas are required."
+      error_message = "Production requires at least two replicas."
     }
 
     postcondition {
@@ -160,31 +185,17 @@ resource "example_database" "this" {
 }
 ```
 
-Precondition chráni known assumption pred operáciou. Postcondition overuje provider result dostupný v Terraform evaluation modeli. Ani jedna automaticky nedokazuje, že aplikácia sa k databáze pripojí a vykoná transakciu.
+Precondition overuje known assumption pred operation. Postcondition overuje provider-visible result. Ani jedna nepreukazuje, že Payments API vykoná transakciu alebo že restore funguje.
 
-### `check` blocks
+## 6. Native Terraform tests
 
-Check môže poskytovať kontinuálny health signal bez rovnakého blocking behavioru. Kritický invariant, ktorý musí zastaviť apply, nesmie byť chránený iba non-blocking checkom.
-
-## 6. Native test lifecycle
-
-Terraform test files používajú `*.tftest.hcl` alebo `*.tftest.json` a spúšťajú sa cez:
+Test files používajú `*.tftest.hcl` alebo `*.tftest.json` a spúšťajú sa:
 
 ```bash
-terraform test
+terraform test -json > terraform-test.json
 ```
 
-Test run musí mať jasný subject:
-
-```text
-test fixture
-→ module/provider versions
-→ command plan alebo apply
-→ expected assertions
-→ target identity
-→ generated resources
-→ cleanup state
-```
+Test subject obsahuje fixture, module/provider versions, run command, variables, target identity a cleanup outcome.
 
 ### Plan test
 
@@ -193,8 +204,9 @@ run "production_plan" {
   command = plan
 
   variables {
-    environment   = "prod"
-    encryption    = true
+    environment   = "prod-eu"
+    encrypted     = true
+    multi_az      = true
     replica_count = 3
   }
 
@@ -202,425 +214,502 @@ run "production_plan" {
     condition     = output.replica_count == 3
     error_message = "Production topology is incorrect."
   }
+
+  assert {
+    condition     = output.encryption_enabled
+    error_message = "Encryption must remain enabled."
+  }
 }
 ```
 
-Plan test je vhodný pre:
+Plan test je vhodný pre input behavior, resource inventory, stable keys, outputs a known plan invariants. Neoverí real permissions, quotas, provider create/delete semantics ani runtime reachability.
 
-- typed input a validation behavior;
-- conditional resource inventory;
-- stable `for_each` identities;
-- tags a known arguments;
-- output contract;
-- expected replacement alebo no-replacement intent.
+### Forbidden fixture
 
-Nemôže spoľahlivo overiť apply-time unknowns, reálne permissions, quotas, provider defaults a runtime reachability.
+```hcl
+run "reject_unencrypted_production" {
+  command = plan
 
-### Apply test
+  variables {
+    environment   = "prod-eu"
+    encrypted     = false
+    multi_az      = true
+    replica_count = 3
+  }
 
-Apply test vytvorí reálne resources v disposable environment-e. Dokáže pozorovať:
-
-- provider create/update/delete behavior;
-- organization policy a IAM;
-- API normalization;
-- eventual consistency;
-- reálne outputy;
-- network a service capability.
-
-Potrebuje izolovaný account/project, short-lived identity, unique namespace, resource limits, TTL a recovery ownera.
-
-## 7. Worked failure: mock green, provider apply zlyhá
-
-Atlas mock test nastaví `encrypted = true` a všetky assertions prejdú. Reálny provider apply v test account-e však zlyhá, pretože organization policy vyžaduje customer-managed key a test identity nemá oprávnenie key použiť.
-
-Mechanizmus:
-
-```text
-mock reprodukuje iba explicitne namodelované attributes
-→ nepozná organization policy ani authorization
-→ module expressions sú správne
-→ remote mutation je neautorizovaná
+  expect_failures = [var.database]
+}
 ```
 
-Záver nie je „mocky sú zlé“. Mock je vhodný pre module logiku, ale risk provider/API boundary vyžaduje aspoň reprezentatívnu integration vrstvu.
+Forbidden test preukazuje, že neplatná configuration je skutočne odmietnutá. Happy path s encryption enabled nepreukazuje enforcement sám.
 
-Portfólio môže používať:
+## 7. Mocking a jeho hranice
+
+Mock provider je užitočný pre module expressions, branches a computed values. Napríklad test môže kontrolovať, že output publikuje expected shape bez vytvorenia reálnej databázy.
+
+Mock nepozná nič, čo explicitne nenamodelujeme:
 
 ```text
-mock provider
-→ plan s reálnou schema
+organization policy
+IAM authorization
+quota
+remote naming uniqueness
+API normalization
+eventual consistency
+provider waiter behavior
+real cleanup
+```
+
+Worked failure:
+
+```text
+mock nastaví encrypted=true
+→ assertions pass
+→ real apply potrebuje customer-managed KMS key
+→ test identity nemá kms:Encrypt/Decrypt
+→ provider operation zlyhá
+```
+
+Záver nie je „mocky nepoužívať“. Správne portfólio vrstvy kombinuje:
+
+```text
+mock/plan test
+→ real schema plan
 → apply v disposable targete
-→ read-only external capability verification
+→ nezávislý runtime verifier
 ```
 
-## 8. Assertions a oracle fidelity
+## 8. Apply/integration tests
 
-Dobrá assertion overuje stabilný contract:
+Apply test vytvorí reálne resources:
 
-- resource inventory a identity keys;
-- zakázanú kombináciu;
-- security invariant;
-- minimálny output contract;
-- dokumentovaný replacement behavior;
-- runtime capability z nezávislého observation pointu.
+```hcl
+run "provider_apply" {
+  command = apply
 
-Krehká assertion porovnáva:
+  variables {
+    environment   = "test-isolated"
+    encrypted     = true
+    multi_az      = false
+    replica_count = 1
+  }
 
-- celý serializovaný provider object;
-- exact human-readable plan text;
-- náhodné IDs;
-- ordering bez contract významu;
-- provider default, ktorý modul negarantuje.
+  assert {
+    condition     = output.database_status == "available"
+    error_message = "Provider did not report an available database."
+  }
+}
+```
 
-Oracle musí byť na správnej vrstve. Terraform state môže potvrdiť `status = available`, ale aplikačný smoke test musí potvrdiť, že Payments API vytvorí a načíta testovaciu transakciu.
+Dokáže pozorovať provider CRUD, organization policy, IAM, API normalization a eventual consistency. Potrebuje:
 
-## 9. Upgrade test ako stateful scenár
+- isolated account/project;
+- short-lived identity;
+- unique run namespace;
+- network/resource/cost limits;
+- TTL;
+- cleanup ownera;
+- preserved state pri cleanup failure.
 
-Reusable module musí testovať podporovaný upgrade path:
+Provider output `available` stále nepreukazuje application transaction.
+
+## 9. Runtime oracle
+
+Po apply sa použije independent observation point:
+
+```bash
+set -euo pipefail
+
+endpoint="$(terraform output -raw database_endpoint)"
+
+psql "host=$endpoint dbname=payments sslmode=require" <<'SQL'
+BEGIN;
+CREATE TEMP TABLE verification(id text primary key, value text not null);
+INSERT INTO verification(id, value) VALUES ('iac-test', 'ok');
+SELECT value FROM verification WHERE id = 'iac-test';
+ROLLBACK;
+SQL
+```
+
+Výstup `ok` preukazuje, že verifier sa pripojil cez TLS, vykonal write/read v tejto session a databáza poskytla očakávanú základnú capability. Nepreukazuje multi-AZ failover, backup restore, produkčný IAM path ani performance pod loadom. Tie potrebujú osobitné oracles.
+
+## 10. Upgrade test nad existujúcim state-om
 
 ```text
-apply payments-database 4.2.x
-→ zachovaj remote objects a state
-→ upgrade module/provider na 4.3.0
-→ fresh plan
-→ over moved mappings, defaults a replacements
+apply module 4.2.4
+→ zachovaj state a remote objects
+→ zmeň source na 4.3.0
+→ fresh upgrade plan
+→ over moved/default/provider/output changes
 → apply
 → runtime verify
 → second no-op plan
 → cleanup
 ```
 
-Tento test zachytí chyby, ktoré clean-room apply novej verzie neuvidí:
+Clean install novej verzie neobsahuje old addresses ani state history a nedokáže odhaliť chýbajúci `moved` block.
 
-- chýbajúce `moved` blocks;
-- zmenu `for_each` keys;
-- incompatible output types;
-- nový unsafe default;
-- provider state migration;
-- nečakaný replacement stateful resource.
-
-## 10. Worked failure: chýbajúci moved mapping
-
-Clean apply modulu `4.3.0` prejde. Upgrade z `4.2.4` však plánuje zničenie a vytvorenie databázy, pretože resource sa presunul do child module bez `moved` blocku.
+Worked failure:
 
 ```text
-clean install test
-→ neobsahuje starú address a binding history
-→ nový graph je interne správny
-→ upgrade consumer vidí old removed + new added
-→ replacement risk zostane neodhalený
+clean 4.3.0 apply pass
+→ upgrade 4.2.4 state obsahuje aws_db_instance.main
+→ 4.3.0 používa module.database.aws_db_instance.main
+→ no moved mapping
+→ replacement production database
 ```
 
-Preto test inventory musí obsahovať podporované upgrade paths, nie iba najnovšiu verziu na prázdnom state-e.
+Upgrade fixture je povinná pre supported source versions.
 
-## 11. Test isolation a cleanup verdict
+## 11. Plan action assertions
 
-Každý apply test potrebuje:
+Machine-readable plan umožní testovať destructive boundaries:
 
-- unique run ID a naming prefix;
-- samostatný state;
-- isolated identity a target;
-- bounded network exposure;
-- resource count/cost limits;
-- TTL;
-- destroy attempt a výsledok;
-- janitor alebo manual recovery path.
+```bash
+terraform plan -out=tfplan
+terraform show -json tfplan > tfplan.json
 
-`terraform test` sa môže pokúsiť cleanup vykonať, no provider/API failure môže zanechať resources.
+jq -e '
+  [
+    .resource_changes[]
+    | select(.address == "module.database.example_database.payments")
+    | .change.actions
+  ] == [["update"]]
+' tfplan.json
+```
 
-### Worked failure: zelený test, verejný bucket zostal
+Tento assertion preukazuje expected action v exact plan artifacte. Je krehký, ak provider legitimate behavior môže byť `no-op` alebo `update` podľa fixture. Stabilný oracle testuje documented contract, nie incidental plan text.
 
-Assertions prejdú, ale cleanup zlyhá na bucket-e s objektom vytvoreným externým verifierom. Pipeline označí test ako success a zahodí state artifact.
+## 12. Cleanup je súčasť verdictu
 
-Dôsledok:
+Functional assertions môžu prejsť a destroy zlyhať:
 
 ```text
-functional assertions pass
-+ destroy incomplete
-+ owner/state evidence lost
-→ public test resource prežíva bez TTL a inventory
+apply pass
+→ verifier vloží object do public test bucketu
+→ destroy bucketu zlyhá, lebo nie je empty
+→ pipeline zahodí state
+→ verejný resource prežíva bez ownera
 ```
 
-Celkový verdict musí byť `cleanup-incomplete`, nie plný success. Zachovaj state, resource IDs, logs a ownera; zastav konfliktné runs a vykonaj riadený cleanup.
+Celkový verdict je `CLEANUP_INCOMPLETE`.
 
-## 12. Flakiness ako failure model
+Pri cleanup failure zachovaj:
 
-Terraform tests môžu byť flaky pre:
+- state a remote IDs;
+- logs/request IDs;
+- ownera;
+- TTL a janitor task;
+- network/exposure containment;
+- manual recovery path.
+
+„Tests passed“ bez cleanup closure nie je úspešný ephemeral integration test.
+
+## 13. Flakiness ako explicitný failure model
+
+Príčiny:
 
 - eventual consistency;
 - API throttling;
-- mutable data sources;
-- shared test target;
-- name collisions;
+- shared target;
+- mutable data source;
+- name collision;
 - provider incident;
-- fixed sleeps;
-- residue po predchádzajúcom cleanup failure.
+- residue po cleanup failure;
+- fixed sleep.
 
-Fixed sleep nahrádza observation náhodným čakaním. Preferuj condition-based retry:
-
-```text
-poll konkrétny invariant
-→ bounded timeout
-→ record last observed state a request IDs
-→ fail s recovery evidence
-```
-
-Quarantine testu potrebuje ownera, dôvod, expiráciu a alternatívny risk control. Permanentne ignorovaný flaky test je missing evidence.
-
-## 13. Saved plan ako rozhodovací subject
-
-Production workflow má zachovať identitu medzi review a apply:
-
-```text
-terraform plan -out=tfplan
-→ digest a subject metadata
-→ machine-readable policy evaluation
-→ risk review/approval
-→ terraform apply tfplan
-```
-
-Saved plan je viazaný na:
-
-- configuration revision;
-- provider/module selections;
-- effective variables;
-- refreshed observations;
-- state lineage/serial;
-- target identity.
-
-Plan môže obsahovať sensitive hodnoty. Potrebuje restricted access, integrity protection a krátku retention.
-
-Apply, ktorý plan znovu implicitne prepočíta, nevykonáva pôvodne schválené rozhodnutie.
-
-## 14. Machine-readable plan a policy input
+Preferuj condition-based polling:
 
 ```bash
+for attempt in $(seq 1 30); do
+  status="$(provider-cli get --id "$RESOURCE_ID" --query status --output text || true)"
+  [[ "$status" == "ready" ]] && exit 0
+  sleep 10
+done
+
+printf 'last_status=%s\n' "$status" >&2
+exit 1
+```
+
+Bounded poll preukazuje posledný observed status v intervale. Nepreukazuje root cause, ak ready nenastane. Zachovaj request IDs a telemetry.
+
+Quarantine potrebuje ownera, dôvod, expiry a compensating control. Permanentne skipped flaky test je missing evidence.
+
+## 14. Production saved plan ako decision artifact
+
+```bash
+terraform plan -input=false -out=tfplan
+sha256sum tfplan > tfplan.sha256
 terraform show -json tfplan > tfplan.json
 ```
 
-Policy consumer musí rozumieť:
+Saved plan je viazaný na source, selections, values, state observations a target. Môže obsahovať sensitive data, preto potrebuje restricted access a retention.
 
-- resource address a action sequence;
-- `before`, `after` a unknown values;
-- sensitive markers;
-- replacement reasons;
-- prior state a configuration metadata;
-- environment a identity context.
+Apply:
 
-Human-readable plan text nie je stabilné API.
+```bash
+sha256sum -c tfplan.sha256
+terraform apply -input=false tfplan
+```
 
-Policy môže vyhodnocovať:
+Preukazuje artifact integrity a použitie saved planu. Nepreukazuje freshness, ak iný writer alebo remote drift zmenil subject. Backend/state semantics musia stale apply odmietnuť alebo workflow plán revalidovať.
+
+## 15. Policy input
+
+Policy decision môže používať:
 
 ```text
-source/configuration
-+ resolved module/provider metadata
+source metadata
++ module/provider manifest
 + plan JSON
-+ environment classification
-+ change ticket a identity
-+ external asset/risk data
++ environment/risk classification
++ change identity a ticket
++ exception inventory
++ external asset data
 ```
 
-Policy nad source nevidí všetky resolved values. Policy nad planom nemusí vidieť apply-time unknown alebo runtime business behavior. Policy coverage musí byť explicitná.
+Policy nad HCL nevidí všetky resolved values. Policy nad planom nemusí vidieť apply-time unknown alebo runtime business behavior.
 
-## 15. Policy verdict a exception lifecycle
+### Rego príklad: zakázaný public ingress
 
-Policy levels:
+```rego
+package terraform.network
 
-- **advisory** — signalizuje, neblokuje;
-- **soft mandatory** — blokuje defaultne, povoľuje autorizovanú výnimku;
-- **hard mandatory** — nemá bežný override path.
+default allow := false
 
-Exception nie je voľný text „approved“. Musí obsahovať:
+public_ingress[resource] if {
+  resource := input.resource_changes[_]
+  resource.type == "aws_security_group_rule"
+  resource.change.after.type == "ingress"
+  resource.change.after.cidr_blocks[_] == "0.0.0.0/0"
+}
+
+allow if {
+  count(public_ingress) == 0
+}
+
+deny contains message if {
+  resource := public_ingress[_]
+  message := sprintf(
+    "%s exposes ingress to 0.0.0.0/0",
+    [resource.address],
+  )
+}
+```
+
+Policy preukazuje behavior pre input schema a bundle revision. Nepreukazuje, že plan JSON je complete, že IPv6 `::/0` je tiež pokrytý alebo že runtime nemá alternate exposure path. Policy tests musia obsahovať allowed, IPv4/IPv6 denied, unknown/missing fields a schema-change fixtures.
+
+## 16. Policy verdict classes
 
 ```text
-policy ID a version
-affected plan/resource subject
-business a technical dôvod
-risk owner a approver
-compensating controls
-scope
-environment
-expiry
-remediation plan
+VALID_PASS
+VALID_VIOLATION
+INVALID_INPUT
+MISSING_REPORT
+TOOL_FAILURE
+BUNDLE_UNAVAILABLE
+EXPIRED_EXCEPTION
+SUPERSEDED_SUBJECT
 ```
 
-Permanentný globálny bypass vytvára governance drift.
+Wrapper nesmie konvertovať prázdny file alebo analyzer crash na `VALID_PASS`.
 
-Policy package potrebuje vlastné tests pre compliant/non-compliant fixtures, unknown fields, schema zmeny, boundary values a exception behavior.
+Príklad strict shell wrappera:
 
-## 16. Worked failure: policy engine outage sa interpretuje ako clean
+```bash
+set -euo pipefail
 
-Production plan pridáva public listener. Policy job nedokáže stiahnuť policy bundle a skončí s tool errorom. Pipeline wrapper však generuje prázdny report a gate ho interpretuje ako „0 violations“.
+test -s tfplan.json
+opa eval \
+  --fail-defined \
+  --data policy/ \
+  --input tfplan.json \
+  'data.terraform.network.deny' \
+  > policy-result.json
 
-Mechanizmus:
+test -s policy-result.json
+jq -e '.result != null' policy-result.json
+```
+
+Konkrétna OPA exit semantics musí byť presne navrhnutá a testovaná; uvedený wrapper je ilustrácia validácie vstupu/výstupu, nie univerzálny policy runner.
+
+## 17. Policy exceptions
+
+Exception nie je text `approved`. Obsahuje:
+
+```yaml
+exception:
+  policyId: terraform.network.public-ingress
+  policyRevision: 7a21c4e
+  planDigest: sha256:291a...
+  resourceAddresses:
+    - aws_security_group_rule.vendor_callback
+  environment: prod-eu
+  reason: bounded-vendor-migration
+  owner: payments-platform
+  approver: security-risk-owner
+  compensatingControls:
+    - provider-managed-ip-allowlist
+    - request-authentication
+  expiresAt: 2026-08-07T12:00:00Z
+  remediation: migrate-to-private-connectivity
+```
+
+Exception je subject-bound, scoped a expiring. Globálny permanentný bypass je governance drift.
+
+## 18. Worked incident: policy outage ako false clean
+
+Plan pridáva public listener. Policy bundle fetch zlyhá. Wrapper vytvorí `{ "violations": [] }` a gate passne.
 
 ```text
 policy evaluation nevznikla
-→ missing/tool-error evidence sa normalizuje na empty findings
-→ fail-open behavior nie je explicitný
-→ nevyhodnotený plan dostane clean verdict
+→ tool error normalizovaný na empty findings
+→ missing evidence sa tvári ako valid pass
+→ public exposure schválená
 ```
 
-Pre kritické production policies musí gate odlišovať:
+Náprava:
 
 ```text
-valid pass
-valid violation
-invalid/missing report
-tool/service outage
-expired exception
+valid report schema a producer identity
++ explicitné tool/bundle error classes
++ critical policy fail-closed alebo incident fallback
++ cached signed bundle podľa policy
++ manual security review pri outage
 ```
 
-Fail-open alebo fail-closed behavior patrí do change policy a musí mať incidentný fallback, nie tichú konverziu chyby na pass.
+## 19. Expected-versus-received evidence fan-in
 
-## 17. Causal troubleshooting walkthrough: green pipeline, nebezpečný production plan
+```bash
+jq -e '
+  (.expected | sort) as $expected
+  | (.received | map(select(.valid == true) | .id) | sort) as $received
+  | $expected == $received
+' evidence-manifest.json
+```
 
-Atlas review ukazuje green pipeline, ale production saved plan otvára database endpoint do internetu.
+Rovnosť IDs preukazuje completeness len vtedy, keď každý received artifact prešiel schema, subject a validity checks. Fake alebo stale report s rovnakým ID nesmie uspokojiť inventory.
 
-### 1. Identifikuj evidence subject
-
-Over:
-
-- source revision;
-- module/provider versions;
-- effective variables;
-- plan digest;
-- state lineage/serial;
-- target account/region;
-- policy package a exception set;
-- expected evidence inventory.
-
-### 2. Súťažiace hypotézy
-
-1. Security scanner alebo policy job nebol vytvorený.
-2. Report existoval, ale schema/processing zlyhali.
-3. Policy vyhodnotila iný regenerated plan.
-4. Public exposure bolo unknown pri policy čase.
-5. Exception mala príliš široký scope alebo neplatnú expiráciu.
-6. Module default zmenil exposure po upgrade.
-7. Test fixture neobsahovala production input combination.
-8. Gate interpretoval tool outage ako clean.
-
-### 3. Diskriminačné observation points
-
-- pipeline graph a job applicability;
-- report checksum/schema/processing verdict;
-- saved plan digest použitý policy aj apply jobom;
-- plan JSON address/action/unknown fields;
-- variable source a effective input manifest;
-- exception ID, resource scope a expiry;
-- module release diff a upgrade test evidence;
-- policy engine logs a bundle version.
-
-### 4. Containment
-
-Zastav apply a zneplatni approval pre affected plan. Neopravuj problém ručným kliknutím v cloud konzole.
-
-### 5. Recovery
-
-- missing evidence → oprav pipeline applicability a regeneruj celý evidence set;
-- wrong plan subject → vytvor nový saved plan a zopakuj review;
-- unknown field → pridaj blocking invariant na skoršiu vrstvu alebo post-plan policy;
-- broad exception → zúž/revoke exception;
-- unsafe default → oprav module contract a upgrade tests;
-- tool outage → použi schválený fail-closed/fallback workflow.
-
-### 6. Over pôvodný outcome
-
-Nový plan nesmie obsahovať public exposure, policy evidence musí byť complete a post-apply verifier musí nezávisle potvrdiť, že endpoint nie je verejne routovateľný.
-
-### 7. Posuň control skôr
-
-Pridaj regression fixture pre production mode, expected report inventory, digest binding medzi plan/policy/apply a explicitný tool-error verdict.
-
-## 18. Post-apply verification
-
-Provider apply success znamená, že Terraform dokončil svoj operation graph a state transition. Neznamená automaticky, že capability funguje.
-
-Atlas overí:
+## 20. Competing hypotheses pri „green“ pipeline a failed production apply
 
 ```text
-resource identity a effective attributes
-→ DNS/TLS/network reachability
-→ IAM least privilege
-→ application transaction
-→ monitoring a backup registration
-→ fresh no-op plan
+H1: production variables/target sa líšia od test fixture
+H2: mock neobsahuje organization policy
+H3: provider version/package sa líši
+H4: required integration job bol skipped
+H5: policy report je empty pre tool failure
+H6: approved plan bol regenerated
+H7: test cleanup residue ovplyvnilo quota/name
+H8: credentials alebo external service sa zmenili
 ```
 
-Externý verifier má používať samostatný observation path a podľa možnosti read-only identity.
+Diskriminačné evidence:
 
-## 19. Continuous validation
+- subject manifests testujú H1/H3/H6;
+- expected evidence inventory H4;
+- policy producer/validity H5;
+- real-provider audit H2/H8;
+- cleanup/state inventory H7.
 
-Delivery gate je point-in-time evidence. Po apply pokračuje:
+Rerun bez zachovania first-attempt evidence môže zničiť najlepší dôkaz.
 
-- scheduled drift plan;
-- check/health evaluation;
-- cloud asset policy;
-- vulnerability a deprecation inventory;
-- backup restore tests;
-- module/provider support tracking;
-- runtime security/configuration verification.
+## 21. Authoritative recovery incidentu `IAC-PAY-77`
 
-Nová policy alebo provider intelligence môže zmeniť verdict už nasadeného artifactu. Potrebná je korelácia supported module releases a deployed state subjects.
+Atlas:
 
-## 20. Referenčný quality-gate chain
+1. zastaví production apply;
+2. zachová plan, test/policy reports a first-attempt logs;
+3. označí verdict `INVALID_REPORT + MISSING_UPGRADE_EVIDENCE`;
+4. opraví policy wrapper tak, aby bundle outage nebol clean;
+5. pridá upgrade fixture `4.2.4 → 4.3.0` a moved mapping;
+6. spustí real-provider apply v izolovanom account-e s KMS policy;
+7. vykoná runtime DB transaction;
+8. uzavrie cleanup a overí resource inventory;
+9. vytvorí nový production saved plan;
+10. aplikuje presne jeho digest;
+11. overí runtime, second no-op plan a drift registration.
+
+## 22. Acceptance a forbidden paths
+
+Testing/policy blok je prijatý, keď:
 
 ```text
-fmt
-→ validate
-→ static/security analyzers
-→ contract a plan tests
-→ upgrade tests
-→ real-provider apply test
-→ cleanup verdict
-→ production saved plan
-→ policy a risk review
-→ apply saved plan
-→ independent runtime verification
-→ continuous validation
+expected evidence inventory je explicitné
++ reporty majú schema/producer/subject validity
++ fmt/validate/static/plan/apply/runtime vrstvy sú oddelené
++ mock-only evidence nie je production proof
++ supported upgrade paths majú stateful fixtures
++ cleanup failure zmení verdict
++ policy outage nie je pass
++ exceptions sú scoped a expiring
++ applied plan digest = approved plan digest
++ runtime business oracle prejde
++ second plan je no-op
 ```
 
-Referenčné pravidlá:
+Forbidden fixtures:
 
-- Zelený job bez validného reportu nie je evidence.
-- Skipped required test je incomplete, nie pass.
-- Mock test nedokazuje provider/API behavior.
-- Clean install nenahrádza upgrade test.
-- Cleanup je súčasť test verdictu.
-- Policy musí vyhodnotiť ten istý plan, ktorý sa applyne.
-- Tool outage a empty findings sú odlišné stavy.
-- Exception má ownera, scope a expiráciu.
-- Apply success potrebuje runtime oracle.
-- Point-in-time gate nenahrádza continuous validation.
+- unencrypted production input;
+- missing upgrade mapping;
+- public IPv4 aj IPv6 exposure;
+- missing/empty policy report;
+- expired exception;
+- regenerated plan digest;
+- cleanup-incomplete run.
 
-## 21. Kontrolné otázky
+## 23. Anti-patterny
 
-1. Čo tvorí Terraform evidence subject?
-2. Prečo expected evidence inventory odlišuje pass od false green?
-3. Ktoré riziká nevie zachytiť `terraform validate`?
-4. Kedy patrí invariant do validation, plan testu alebo apply testu?
-5. Prečo mock provider nedokazuje authorization a organization policy?
-6. Čo zachytí upgrade test, čo clean apply neuvidí?
-7. Prečo cleanup failure mení celkový test verdict?
-8. Ako sa viaže policy verdict na saved plan?
-9. Ako má gate interpretovať policy engine outage?
-10. Čo musí potvrdiť post-apply a continuous validation?
+### „`validate` prešlo, infra je správna“
+
+Validate nevolá production API ani business oracle.
+
+### „Mock test je zelený, provider bude fungovať“
+
+Mock pokrýva iba namodelovaný behavior.
+
+### „Scanner job success znamená clean“
+
+Potrebujeme validný, complete a subject-bound report.
+
+### „Assertions prešli, cleanup nie je súčasť testu“
+
+Zanechaný resource je test failure a operational risk.
+
+### „Policy engine nefungoval, preto dočasne povoľme všetko“
+
+Fail behavior je explicitná risk policy s fallbackom, nie tichý empty report.
+
+### „Apply znovu vypočíta rovnaký plan“
+
+Nový plan je nový decision subject.
+
+## 24. Kontrolné otázky
+
+1. Prečo quality gate potrebuje exact evidence subject?
+2. Ako sa pass líši od missing, invalid a cleanup-incomplete?
+3. Čo `fmt` a `validate` preukazujú a čo nie?
+4. Kedy je plan test vhodný a kedy treba apply test?
+5. Aké limity má mock provider?
+6. Prečo clean-install test nenahradí upgrade test?
+7. Čo musí obsahovať disposable apply-test environment?
+8. Prečo runtime oracle používa nezávislý observation point?
+9. Čo saved plan digest preukazuje a čo nepreukazuje?
+10. Aké fields musí policy exception obsahovať?
+11. Ako sa zabráni konverzii tool failure na empty findings?
+12. Aké forbidden fixtures musia existovať pre kritickú Terraform zmenu?
 
 ## Glossary impact
 
-Relevantné pojmy: Terraform evidence subject, expected evidence inventory, contract test, plan test, apply test, upgrade test, mock provider, cleanup-incomplete verdict, saved plan evidence, policy input, policy verdict, policy exception, tool-error verdict, runtime verification a continuous validation.
+Relevantné pojmy: Terraform evidence subject, expected evidence inventory, native Terraform test, plan test, apply test, mock provider, upgrade fixture, oracle fidelity, cleanup verdict, saved plan, plan JSON, Policy as Code, Rego, policy exception, invalid report, missing evidence a evidence fan-in.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
-- [Testing features in Terraform](https://developer.hashicorp.com/terraform/cli/test)
-- [`terraform test` command](https://developer.hashicorp.com/terraform/cli/commands/test)
-- [Terraform test files](https://developer.hashicorp.com/terraform/language/files/tests)
+- [Terraform test](https://developer.hashicorp.com/terraform/cli/commands/test)
+- [Terraform test files](https://developer.hashicorp.com/terraform/language/tests)
+- [Terraform plan](https://developer.hashicorp.com/terraform/cli/commands/plan)
+- [Terraform show JSON](https://developer.hashicorp.com/terraform/cli/commands/show)
+- [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible architecture →](ansible-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

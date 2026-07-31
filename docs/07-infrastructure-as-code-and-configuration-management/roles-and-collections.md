@@ -1,112 +1,107 @@
 # Roles a collections
 
-Role je reusable configuration capability. Collection je versionovaný distribution a execution dependency balík, ktorý môže niesť roles, modules, plugins, playbooks a dokumentáciu. Ich hlavná hodnota nie je directory layout, ale stabilný contract medzi ownerom, publisherom, execution environmentom a consumerom.
+Ansible role je reusable configuration capability. Collection je versionovaný distribution artifact, ktorý môže obsahovať roles, modules, action/inventory/lookup/filter plugins, playbooks a dokumentáciu. Ich hlavná hodnota nie je directory layout, ale provider–consumer contract medzi ownerom, publisherom, execution environmentom a playbookom. Rovnaký playbook commit nemusí vykonať rovnakú automation, ak sa zmení collection artifact, transitive Python dependency alebo plugin search path.
 
-Hlavný model:
+Kapitola otvára incident `IAC-PAY-79`. Atlas platform team publikuje collection `atlas.platform`. Consumer pinne iba broad version range, controller image používa mutable tag a role premenovala public handler topic bez compatibility aliasu. Nový artifact sa načíta bez consumer source diffu, zmení module result schema a config file sa síce aktualizuje, ale runtime handler sa nespustí. Supply-chain a role contract drift sa tvária ako playbook success.
+
+## 1. Dominantný capability-to-runtime lifecycle
 
 ```text
 capability intent a owner
 → role public contract
-→ immutable collection source a artifact
-→ resolved dependency a execution-environment subject
-→ caller inputs a target context
-→ expanded role execution graph
-→ host runtime outcome
-→ test, release a upgrade evidence
-→ consumer inventory, deprecation a recovery
+→ collection source a dependency graph
+→ immutable artifact build a provenance
+→ pinned execution environment
+→ caller inputs, providers/plugins a target context
+→ expanded task/handler graph
+→ host artifact a runtime outcome
+→ second-run, upgrade a recovery evidence
+→ consumer inventory, deprecation a retirement
 ```
-
-Rovnaký playbook commit nemusí znamenať rovnaký run, ak sa zmení collection artifact, transitive dependency alebo execution environment.
-
-## 1. Atlas scenár: Payments service capability
-
-Atlas platform team publikuje role:
-
-```text
-company.platform.payments_service
-```
-
-Role má nainštalovať package, vyrenderovať config, spravovať systemd unit, notify-nuť runtime transition a overiť health. Consumer playbook používa:
-
-```yaml
-- name: Configure Atlas Payments
-  hosts: payments_app
-  roles:
-    - role: company.platform.payments_service
-      atlas_payments_release: v43
-      atlas_payments_port: 8443
-      atlas_payments_tls_enabled: true
-```
-
-Role je distribuovaná v collection `company.platform` a execution environment pinne:
-
-```text
-ansible-core version
-collection artifact version/digest
-Python dependencies
-system packages a CLI tools
-```
-
-Bez tejto identity môže developer testovať inú capability než production controller.
 
 ## 2. Kedy vzniká role boundary
 
-Role má zmysel, keď existuje samostatná capability s:
+Role má zmysel, keď capability má:
 
-- verejnými inputs a defaults;
-- vlastnými tasks, templates alebo handlers;
-- jasnými side effects a privilege požiadavkami;
-- podporovanými platforms;
-- testovacím a release lifecycle-om;
-- viacerými consumers alebo opakovateľným použitím;
-- ownerom a support policy.
+- jasný purpose a non-goals;
+- verejné inputs a defaults;
+- vlastné tasks/templates/handlers;
+- privilege, package a network dependencies;
+- supported platforms;
+- idempotency a recovery behavior;
+- ownera a release lifecycle;
+- viac consumers alebo opakovateľné použitie.
 
-Dvojriadkový task file nemusí byť role. Naopak jedna mega-role pre celý host skrýva rozdielne ownership, failure a upgrade boundaries.
+Dvojriadkový task file nemusí byť role. Jedna mega-role pre celý server naopak skrýva odlišné ownership a failure domains.
 
-Boundary vyber podľa capability a change couplingu, nie podľa počtu files.
+## 3. Role public contract
 
-## 3. Role contract
-
-Public contract role zahŕňa:
-
-```text
-purpose a non-goals
-namespaced inputs, types a defaults
-required values a validation
-published facts alebo outputs
-notification topics
-created a modified resources
-privilege, network a package dependencies
-supported platforms a core versions
-idempotency a check/diff-mode expectations
-upgrade, rollback a recovery behavior
+```yaml
+roleContract:
+  fqcn: atlas.platform.payments_runtime
+  version: 3.4.2
+  purpose: configure-and-verify-payments-runtime
+  inputs:
+    atlas_payments_release:
+      required: true
+      type: string
+    atlas_payments_port:
+      default: 8443
+      type: integer
+    atlas_payments_tls_enabled:
+      default: true
+      type: boolean
+  notifications:
+    - Atlas Payments configuration changed
+  privileges:
+    become: root-for-install-and-service
+  supportedPlatforms:
+    - rhel-9
+    - debian-12
+  secondRunExpectation: no-unintended-change
 ```
 
-`defaults/main.yml` je vhodný pre podporované customization points:
+Contract zahŕňa variable semantics, modified resources, notification topics, side effects, check/diff expectations, upgrade a rollback behavior.
+
+## 4. Defaults verzus role vars
+
+```yaml
+# defaults/main.yml
+atlas_payments_port: 8443
+atlas_payments_tls_enabled: true
+```
+
+Defaults sú public customization points s nízkou precedence.
+
+```yaml
+# vars/main.yml
+atlas_payments_unit_name: atlas-payments.service
+```
+
+Role vars majú vyššiu precedence a patria iba skutočným interným constants. Environment-specific database endpoint v `vars/main.yml` môže prepísať caller production intent a je zlý contract.
+
+## 5. Namespacing
+
+Generic variables a topics kolidujú:
+
+```yaml
+port: 8443
+restart_service: true
+```
+
+Preferuj:
 
 ```yaml
 atlas_payments_port: 8443
-atlas_payments_tls_enabled: true
-atlas_payments_config_path: /etc/atlas/payments.yml
+atlas_payments_restart_policy: reload
 ```
 
-`vars/main.yml` má vyššiu precedence a je vhodný len pre skutočné interné constants. Environment data v role vars môže blokovať caller override a vytvoriť skrytý production mismatch.
+Namespacuj variables, published facts, handler topics, tags a template data. Namespacing nevyrieši zlú precedence, ale obmedzí accidental cross-role coupling.
 
-## 4. Role implementation lifecycle
-
-Typická role organizuje:
+## 6. Role structure ako lifecycle, nie cieľ
 
 ```text
-defaults a validation
-→ installation
-→ configuration artifact
-→ service/runtime transition
-→ verification
-→ handlers a recovery
-```
-
-```text
-roles/payments_service/
+roles/payments_runtime/
 ├── README.md
 ├── defaults/main.yml
 ├── tasks/main.yml
@@ -116,105 +111,87 @@ roles/payments_service/
 └── tests/
 ```
 
-Directory layout je pomôcka. `tasks/main.yml` má viesť capability lifecycle a importovať menšie files podľa významu, nie vytvárať jeden file na každý task.
-
-## 5. Namespacing ako isolation contract
-
-Generic values typu `port`, `user`, `enabled` alebo handler `restart service` môžu kolidovať medzi roles.
-
-Preferuj:
+`tasks/main.yml` má viesť capability lifecycle:
 
 ```yaml
-atlas_payments_port: 8443
-atlas_payments_user: atlas
-atlas_payments_enabled: true
+- name: Validate contract
+  ansible.builtin.import_tasks: validate.yml
+
+- name: Install runtime
+  ansible.builtin.import_tasks: install.yml
+
+- name: Configure runtime
+  ansible.builtin.import_tasks: configure.yml
+
+- name: Verify runtime
+  ansible.builtin.import_tasks: verify.yml
 ```
 
-Rovnako namespacuj:
+Rozdelenie po mechanistických phases je čitateľnejšie než jeden file na každý task.
 
-- published facts;
-- registered values s dlhším scope-om;
-- handler alebo `listen` topics;
-- tags;
-- template data structures.
-
-Namespacing nerieši zlé precedence ani contract design, ale znižuje accidental cross-role coupling.
-
-## 6. Static a dynamic role reuse
-
-Role možno načítať cez `roles:`, `import_role` alebo `include_role`.
+## 7. Static a dynamic role reuse
 
 ```yaml
-- name: Load Atlas role statically
+- name: Import role statically
   ansible.builtin.import_role:
-    name: company.platform.payments_service
+    name: atlas.platform.payments_runtime
 ```
 
 ```yaml
-- name: Load Atlas role dynamically
+- name: Include role dynamically
   ansible.builtin.include_role:
-    name: company.platform.payments_service
+    name: atlas.platform.payments_runtime
   when: atlas_payments_enabled | bool
 ```
 
-Static loading zviditeľňuje graph pri parse phase. Dynamic include rozhoduje počas executionu a môže závisieť od runtime value.
+Static a dynamic reuse ovplyvňujú parse/execution visibility, tags, conditions, variables a handler loading. Supported invocation modes patria do tests; caller nesmie predpokladať identické behavior bez contractu.
 
-Rozdiel ovplyvňuje:
-
-```text
-task listing
-tags a condition propagation
-variable availability
-handler loading
-failure timing
-```
-
-Supported invocation modes patria do role tests. Caller nemá predpokladať, že tags alebo handler visibility budú identické pri každom reuse mechanizme.
-
-## 7. Handler topic ako public transition contract
-
-Reusable role nemá nútiť callerov poznať interný handler name:
+## 8. Handler topic ako public API
 
 ```yaml
 handlers:
-  - name: Reload Atlas Payments process
+  - name: Reload Atlas Payments
     ansible.builtin.service:
       name: atlas-payments
       state: reloaded
     listen: Atlas Payments configuration changed
 ```
 
-Stable `listen` topic je public event contract. Jeho premenovanie môže byť breaking change, aj keď task syntax a variables zostanú rovnaké.
+Consumer môže notify-nuť topic bez znalosti interného handler name. Topic rename je compatibility change.
 
-Handler contract musí definovať, čo notification znamená, kedy je safe reload/restart a akú runtime verification role vykoná.
-
-## 8. Role dependencies a explicitná composition
-
-`meta/main.yml` môže deklarovať role dependencies. Skrytý chain však znižuje auditovateľnosť:
+Worked failure:
 
 ```text
-payments role
-→ runtime role
-→ repository role
-→ base hardening role
+role 3.5 premenovala topic
+→ external consumer stále notify-uje old topic
+→ file changed
+→ žiadny listener
+→ runtime old
 ```
 
-Dependency patrí do metadata iba keď je invariantom capability. Environment orchestration a voliteľné capabilities sú čitateľnejšie explicitne v playbooku.
+Kompatibilný release môže dočasne listenovať na oba topics alebo poskytnúť migration guide a consumer inventory.
 
-Skrytá dependency môže:
+## 9. Role dependencies
 
-- zmeniť firewall alebo package repository bez caller awareness;
-- rozšíriť privilege requirements;
-- notify-nuť handlers v nečakanom poradí;
-- zmeniť tag a skip semantics;
-- skomplikovať upgrade a rollback.
-
-## 9. Collection ako artifact a namespace
-
-Collection je versionovaný artifact s namespace:
+`meta/main.yml` môže deklarovať dependencies, ale hidden chain znižuje auditovateľnosť:
 
 ```text
-company.platform
+payments runtime
+→ repository configuration
+→ base hardening
+→ firewall
+```
+
+Dependency patrí do role metadata iba ak je invariant capability. Environment orchestration je čitateľnejšia explicitne v playbooku.
+
+Skrytá dependency môže meniť package repositories, firewall, privileges alebo handler ordering bez caller awareness.
+
+## 10. Collection ako executable artifact
+
+Collection namespace:
+
+```text
+atlas.platform
 ```
 
 Môže obsahovať:
@@ -224,313 +201,271 @@ roles/
 plugins/modules/
 plugins/action/
 plugins/inventory/
-plugins/filter/
 plugins/lookup/
+plugins/filter/
+plugins/callback/
 playbooks/
 docs/
 tests/
 ```
 
-FQCN, napríklad `company.platform.payments_service`, identifikuje source namespace. Bez immutable artifact version alebo digest však neidentifikuje presný executable content.
+Oficiálna dokumentácia definuje collection ako distribution format pre roles, modules, plugins a ďalší content. citeturn329472search22turn329472search19
 
-Collection artifact subject zahŕňa:
+Custom plugin môže bežať na controlleri s accessom k credentials a networku. Collection je supply-chain code, nie iba YAML package.
 
-```text
-source revision
-collection name a version
-built artifact digest
-publisher a provenance
-resolved dependencies
-supported ansible-core range
-release notes a compatibility contract
-```
-
-## 10. Dependency resolution a execution environment
-
-`requirements.yml` môže deklarovať versions:
+## 11. Artifact subject
 
 ```yaml
+collectionArtifact:
+  namespace: atlas
+  name: platform
+  version: 3.4.2
+  sourceRevision: 71ad...
+  artifactDigest: sha256:11cf...
+  publisher: atlas-platform-ci
+  ansibleCoreRange: ">=2.x,<next-breaking"
+  dependencies:
+    ansible.posix: 2.1.0
+    community.general: 11.2.0
+  provenanceDigest: sha256:77ef...
+```
+
+FQCN identifikuje namespace, nie exact bytes. Artifact version/digest a execution environment identifikujú implementation subject.
+
+## 12. Requirements a pinning
+
+```yaml
+# requirements.yml
 collections:
-  - name: company.platform
-    version: "3.4.2"
+  - name: atlas.platform
+    version: 3.4.2
   - name: ansible.posix
-    version: "2.1.0"
+    version: 2.1.0
 ```
 
-Broad ranges umožňujú, aby rovnaký playbook commit neskôr načítal iný implementation set.
+Install:
 
-Produkčný runtime subject má pinovať:
+```bash
+ansible-galaxy collection install \
+  -r requirements.yml \
+  --collections-path ./collections
 
-```text
-execution image digest
-ansible-core
-collection artifacts a digests
-Python wheels/packages
-system tools
-configuration a plugin search paths
+ansible-galaxy collection list
 ```
 
-Samotný `requirements.yml` nemusí zachytiť transitive Python dependency ani system package behavior.
+List preukazuje installed names/versions v path-e. Nepreukazuje source provenance, artifact integrity po install-e ani transitive Python/system dependencies.
 
-## 11. Supply-chain boundary
+Produkčný execution environment pinne image digest a obsahuje resolved manifest.
 
-Collection je executable code. Custom action, lookup, callback alebo inventory plugin môže bežať na control node-e s prístupom k credentials, filesystemu a networku.
-
-Pred adopciou over:
-
-- publisher a source repository;
-- release a maintenance history;
-- artifact provenance/integrity;
-- direct a transitive dependencies;
-- custom plugins a local execution paths;
-- shell/command usage;
-- secret a logging behavior;
-- required permissions a egress;
-- supported runtime matrix.
-
-Popularita alebo počet downloads nie je security verdict.
-
-## 12. Testing role a collection
-
-Role test lifecycle:
-
-```text
-contract fixture
-→ syntax a lint
-→ isolated first converge
-→ artifact a runtime assertions
-→ handler verification
-→ second converge
-→ expect no unintended changes
-→ cleanup verdict
-```
-
-Testuj minimálne:
-
-- documented defaults a required inputs;
-- supported overrides a invalid combinations;
-- platform matrix;
-- static a dynamic invocation modes;
-- handler topics;
-- deterministic templates;
-- partial failure a recovery;
-- idempotency a second-run behavior;
-- upgrade z podporovanej predchádzajúcej version.
-
-Collection pipeline navyše overuje metadata, docs, custom plugins/modules, artifact build/inspection, dependency resolution a publication provenance.
-
-Publikovaný artifact musí pochádzať z testovaného source subjectu, nie z lokálneho neauditovaného buildu.
-
-## 13. Release a compatibility policy
-
-Version má význam iba s explicitným compatibility contractom. Breaking change môže byť:
-
-- premenovanie alebo type change variable;
-- zmena default portu alebo TLS behavioru;
-- nový required privilege;
-- zmena handler topicu;
-- iný generated configuration format;
-- package removal alebo replacement;
-- zmena published fact/result schema;
-- odlišný supported platform alebo core range.
-
-Release lifecycle:
-
-```text
-reviewed source
-→ contract a integration tests
-→ version/changelog
-→ immutable artifact build
-→ artifact inspection a provenance
-→ publication
-→ consumer pinning
-→ canary upgrade
-→ fleet verification
-```
-
-## 14. Consumer inventory a deprecation
-
-Owner potrebuje vedieť:
-
-```text
-ktorý repository/playbook používa role
-collection a role version
-execution environment digest
-environments a target scope
-consumer owner
-supported upgrade path
-last verified runtime outcome
-```
-
-Bez consumer inventory nemožno bezpečne odstrániť old variable, handler topic alebo module behavior. Deprecation potrebuje deadline, migration guide, telemetry a owner escalation.
-
-## 15. Worked failure: mutable branch zmenila behavior bez playbook diffu
-
-Consumer používa Git branch `main` ako collection source. Medzi check-mode reviewom a production runom owner zmení default reload na hard restart.
-
-```text
-playbook commit je rovnaký
-→ mutable dependency resolves nový content
-→ role public behavior sa zmení
-→ production controller vykoná hard restart
-→ approval sa nevzťahoval na executed implementation
-```
-
-Fix zahŕňa immutable artifact version/digest, resolved dependency manifest a nový test/review pri upgrade.
-
-## 16. Worked failure: role vars zablokovali production override
-
-Role definuje v `vars/main.yml`:
-
-```yaml
-atlas_payments_database_endpoint: db.stage.internal:5432
-```
-
-Production inventory definuje správny endpoint, ale role vars majú vyššiu precedence.
-
-```text
-caller vyjadruje production intent
-→ internal role var ho prepíše
-→ template je syntakticky validný
-→ production service používa staging dependency
-```
-
-Environment hodnoty patria do caller-owned inputs alebo external service contractu. Role vars majú niesť iba vedomé interné constants.
-
-## 17. Worked failure: handler topic rename zlomil runtime convergence
-
-Version 3.5 premenovala topic:
-
-```text
-Atlas Payments configuration changed
-→ Atlas Payments reload required
-```
-
-Consumer task mimo role stále notify-uje starý topic. File sa zmení, ale handler sa nespustí.
-
-```text
-artifact mutation prebehla
-→ notification nemá listener
-→ run môže zostať green
-→ process používa starú config verziu
-```
-
-Topic je public contract a rename vyžaduje compatibility alias alebo major migration s consumer inventory a tests.
-
-## 18. Worked failure: broad range načítal nekompatibilnú transitive collection
-
-Execution environment build používa:
+## 13. Broad range failure
 
 ```yaml
 version: ">=3.0.0,<4.0.0"
 ```
 
-Nový minor release zmení module return schema. Role používa staré field v `failed_when` a interpretuje authorization failure ako success.
+Nový minor release zmení module return field. Role `failed_when` číta staré field a authorization failure sa interpretuje ako success.
 
 ```text
-broad dependency range
-→ nový artifact bez consumer source diffu
-→ result schema sa zmení
-→ failure classifier číta missing field
-→ neúplná mutácia dostane green verdict
+rovnaký playbook commit
+→ iný resolved collection
+→ odlišný result schema
+→ false green verdict
 ```
 
-Resolved lock/manifest a compatibility tests musia viazať presný dependency set na execution environment.
+Upgrade sa má vykonať ako explicitný dependency change s contract tests, nie vedľajší efekt image rebuild-u.
 
-## 19. Causal troubleshooting walkthrough: rovnaký playbook sa správa lokálne a v controlleri odlišne
+## 14. Execution environment manifest
 
-Developer run je no-change. Controller run mení config a reštartuje všetky hosts.
+```bash
+ansible --version
+ansible-galaxy collection list
+python -m pip freeze > python-packages.txt
+sha256sum requirements.yml python-packages.txt
+```
 
-### 1. Zafixuj supply-chain subject
+Observed manifest je evidence aktuálneho runtime. Silnejší build pipeline generuje signed SBOM/provenance pre execution image a kontroluje digest pred runom.
 
-Zaznamenaj playbook revision, execution image digest, `ansible-core`, collection artifact versions/digests, dependency manifest, role invocation mode, effective inputs, inventory a controller configuration.
+## 15. Supply-chain review
 
-### 2. Súťažiace hypotézy
+Pred adopciou external collection over:
 
-1. Local a controller používajú inú collection version.
-2. Transitive dependency alebo Python library sa resolve-la odlišne.
-3. Execution environment má iný template/filter behavior.
-4. FQCN alebo plugin search path načítal iný module.
-5. Role je lokálne importovaná staticky, controller ju includuje dynamicky cez odlišný path.
-6. Role vars/defaults sa líšia medzi artifacts.
-7. Controller má stale cached role/collection content.
-8. Runtime target alebo effective variables sa líšia, nie supply chain.
+- publisher/source repository;
+- release a maintenance history;
+- artifact provenance/integrity;
+- custom controller-side plugins;
+- shell/command usage;
+- logging a secret behavior;
+- network/privilege requirements;
+- direct/transitive dependencies;
+- supported core/runtime matrix.
 
-### 3. Diskriminačné observation points
+Download count nie je security verdict.
 
-- execution image a collection artifact digests;
-- resolved dependency/requirements manifest;
-- `ansible-core`, Python a system-tool versions;
-- FQCN a plugin path output;
-- role source checksum a changelog;
-- invocation mode a task listing;
-- redacted effective inputs;
-- rendered artifact checksum a module result schema.
+## 16. Role a collection test lifecycle
 
-### 4. Containment
+```text
+contract fixtures
+→ syntax/lint
+→ first converge
+→ artifact a runtime assertions
+→ handler integration
+→ second converge
+→ forbidden inputs
+→ upgrade fixture
+→ cleanup/recovery
+```
 
-Pozastav production rollout a zachovaj oba execution environments. Neopravuj rozdiel náhodným reinstallom, ktorý zničí comparison evidence.
+Praktický playbook fixture:
 
-### 5. Recovery
+```yaml
+- name: Test Atlas role
+  hosts: test_host
+  roles:
+    - role: atlas.platform.payments_runtime
+      atlas_payments_release: payments-v43
+      atlas_payments_port: 8443
+```
 
-- dependency mismatch → rebuildni pinned known-good environment;
-- transitive drift → vytvor resolved lock/manifest;
-- incompatible release → rollbackni exact artifact alebo apply-ni tested migration;
-- plugin collision → použi FQCN a zúž search path;
-- invocation contract gap → zjednoť podporovaný reuse mode a tests;
-- stale cache → invaliduj ju a over artifact digest.
+Assertions kontrolujú package version, config checksum, service state, loaded version a second-run changes.
 
-### 6. Over pôvodný outcome
+## 17. Compatibility policy
 
-Canary run musí použiť nový immutable runtime subject, dosiahnuť expected artifact a loaded service state a druhý run musí byť no-change. Potom rozšír rollout.
+Breaking changes zahŕňajú:
 
-### 7. Posuň control skôr
+- variable rename/type/default change;
+- new required privilege;
+- handler topic rename;
+- generated config format change;
+- package removal/replacement;
+- published result/fact schema change;
+- supported platform/core change.
 
-Pridaj execution subject manifest, artifact digest verification, compatibility matrix, consumer inventory a controller/local reproducibility test.
+Semantic version je owner claim. Consumer integration a upgrade tests sú evidence.
 
-## 20. Referenčné pravidlá
+## 18. Consumer inventory
 
-- Role je versionovaný capability contract, nie iba directory.
-- Defaults sú public customization; vars sú silné interné constants.
-- Namespacing znižuje cross-role collisions.
-- Static a dynamic reuse majú odlišné graph semantics.
-- Handler topic môže byť public breaking contract.
-- Role dependency nemá skrývať environment orchestration.
-- FQCN určuje namespace; artifact digest určuje presný content.
-- Collection a plugin sú executable supply-chain dependencies.
-- Execution environment je súčasť run subjectu.
-- Upgrade testuje contract, runtime outcome aj second-run convergence.
-- Deprecation potrebuje consumer inventory.
+```yaml
+consumer:
+  repository: atlas/payments-live
+  playbook: playbooks/payments.yml
+  collectionVersion: 3.4.2
+  executionEnvironmentDigest: sha256:71ca...
+  environments: [stage, prod-eu]
+  owner: payments-platform
+  lastVerified: 2026-07-31
+```
 
-## 21. Kontrolné otázky
+Bez inventory nemožno bezpečne odstrániť variable, topic alebo old release.
 
-1. Kedy task group tvorí samostatnú role capability?
-2. Čo patrí do public role contractu?
-3. Prečo environment values nepatria do role vars?
-4. Ako sa líši `import_role` od `include_role`?
-5. Prečo je handler topic compatibility contract?
-6. Čo FQCN identifikuje a čo neidentifikuje?
-7. Čo tvorí collection artifact subject?
-8. Prečo `requirements.yml` nemusí stačiť na reprodukovateľný runtime?
-9. Aké tests potrebuje supported role upgrade?
-10. Ako consumer inventory umožňuje bezpečnú deprecation?
+## 19. Worked incident `IAC-PAY-79`
+
+Controller image `latest` rebuildol collection 3.5.0. Role topic sa zmenil a transitive module result schema tiež.
+
+```text
+mutable execution image
+→ new collection bytes
+→ file mutation reports changed
+→ old notification topic has no listener
+→ module failure classifier reads missing field
+→ run green, runtime old
+```
+
+Root cause bol unresolved reusable dependency a breaking public contract bez consumer migration.
+
+## 20. Competing hypotheses pri local/controller rozdiele
+
+```text
+H1: collection versions/digests sa líšia
+H2: transitive Python/system dependency sa líši
+H3: plugin search path resolve-ne iný content
+H4: static/dynamic invocation mení handler visibility
+H5: role defaults/vars sa líšia
+H6: controller cache má stale content
+H7: target inventory/values sa líšia
+```
+
+Dôkazy:
+
+- image/collection digests H1;
+- package/SBOM H2;
+- FQCN/search config H3;
+- task/handler graph H4;
+- source checksums/effective values H5/H7;
+- cache path/timestamps H6.
+
+## 21. Evidence-preserving containment a recovery
+
+1. pozastaviť rollout;
+2. zachovať local aj controller images/manifests;
+3. identifikovať exact collection bytes a topic/result changes;
+4. obnoviť pinned known-good image alebo publikovať compatible fix;
+5. overiť handler execution a runtime version na canary hoste;
+6. spustiť second converge;
+7. aktualizovať consumer inventory a deprecation controls.
+
+## 22. Acceptance a forbidden paths
+
+```text
+role contract je documented a namespaced
++ collection artifact/version/digest sú immutable
++ execution environment je pinned
++ transitive dependency manifest je zachovaný
++ static/dynamic invocation modes sú testované
++ handler topics sú compatibility-tested
++ invalid inputs sú odmietnuté
++ mutable branch/range fixture je odmietnutý
++ first/second converge a runtime verification prejdú
++ consumer inventory pokrýva production users
+```
+
+## 23. Anti-patterny
+
+### „Role je iba folder structure“
+
+Bez public contractu je to iba reorganizovaný task code.
+
+### „FQCN pinne version“
+
+Identifikuje namespace, nie artifact bytes.
+
+### „Broad range automaticky prijíma kompatibilné minor releases“
+
+Compatibility musí byť testovaná.
+
+### „Handler topic je interný detail“
+
+Ak ho consumers notify-ujú, je public API.
+
+### „Controller image `latest` je pohodlná“
+
+Ruší reproducibility a approval identity.
+
+## 24. Kontrolné otázky
+
+1. Kedy má capability tvoriť role?
+2. Čo patrí do role public contractu?
+3. Aký rozdiel je medzi defaults a vars?
+4. Prečo namespacing nestačí na ownership?
+5. Ako static a dynamic role reuse menia behavior?
+6. Prečo handler topic môže byť breaking API?
+7. Čo collection artifact môže vykonávať na controlleri?
+8. Čo FQCN preukazuje a čo nie?
+9. Prečo broad version range oslabuje reproducibility?
+10. Aké vrstvy má role/collection test lifecycle?
+11. Prečo je consumer inventory potrebný pre deprecation?
+12. Ako sa testuje forbidden mutable-dependency path?
 
 ## Glossary impact
 
-Relevantné pojmy: Ansible capability contract, role public contract, role internal constant, role execution graph, notification topic compatibility, collection artifact subject, resolved collection dependency, execution-environment subject, collection supply-chain boundary, role upgrade evidence, consumer inventory a role deprecation lifecycle.
+Relevantné pojmy: Ansible role, role contract, defaults, role vars, namespacing, import_role, include_role, handler topic, role dependency, collection, FQCN, collection artifact, requirements manifest, execution environment, transitive dependency, consumer inventory a deprecation.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
-- [Reusing Ansible artifacts](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_reuse.html)
 - [Roles](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_reuse_roles.html)
-- [Using collections in a playbook](https://docs.ansible.com/ansible/latest/collections_guide/collections_using_playbooks.html)
-- [Installing collections](https://docs.ansible.com/projects/ansible/latest/collections_guide/collections_installing.html)
-- [Galaxy user guide](https://docs.ansible.com/projects/ansible/latest/galaxy/user_guide.html)
+- [Using collections in playbooks](https://docs.ansible.com/projects/ansible/latest/collections_guide/collections_using_playbooks.html)
+- [Developing collections](https://docs.ansible.com/projects/ansible/latest/dev_guide/developing_collections.html)
+- [Ansible collections](https://docs.ansible.com/collections.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Handlers, loops a conditionals](handlers-loops-conditionals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Vault →](vault.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

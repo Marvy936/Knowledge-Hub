@@ -1,153 +1,147 @@
 # Variables, facts a templates
 
-Variables, facts a templates tvoria jeden host-specific configuration pipeline. Variable sources vyjadrujú intent a environment data, precedence vytvorí effective value set, facts doplnia runtime observations a template z týchto vstupov vytvorí konkrétny artifact, ktorý sa validuje, publikuje a načíta do procesu.
+Variables, facts a templates tvoria jeden host-specific artifact-generation pipeline. Variable sources vyjadrujú intent a environment data, precedence z nich vyberie effective values, facts pridajú časovo ohraničené runtime observations a Jinja template vytvorí konkrétny configuration artifact. Template syntax môže byť úplne správna a napriek tomu vytvoriť nebezpečný výsledok, ak vyššia-precedence extra var prepíše production endpoint, stale fact vyberie starý OS path alebo nondeterministic timestamp spôsobí restart pri každom run-e.
 
-Hlavný model:
+Kapitola pokračuje incidentom `IAC-PAY-78`. Atlas Payments renderuje `/etc/atlas/payments.yml` pre každý application host. Host `app-07` dostane staging database endpoint z recovery-job extra vars, `app-09` použije stale cached OS fact a ďalšie hosts sa reštartujú pri každom convergence run-e, pretože template obsahuje `generated_at`. Root cause nie je v jednom Jinja riadku; je v neauditovateľnom effective input subjecte a nedeterministickom artifact lifecycle.
+
+## 1. Dominantný intent-to-loaded-artifact lifecycle
 
 ```text
-declared variable contracts a sources
-→ precedence a host scope
-→ effective host value subject
-→ fresh facts a external lookups
+declared variable contracts a allowed sources
+→ precedence a per-host flattening
+→ effective non-secret value manifest
+→ fresh facts a external lookup identities
 → derived values
 → deterministic template render
-→ parser validation a atomic publication
-→ handler/runtime transition
-→ loaded-artifact verification a provenance
+→ parser/domain validation
+→ atomic publication
+→ handler reload/restart
+→ loaded artifact a runtime verification
+→ second-run checksum/convergence closure
 ```
 
-Keď host dostane nesprávnu konfiguráciu, nestačí čítať template. Treba rekonštruovať celý effective input subject vrátane zdrojov, precedence, freshness a controller runtime.
+Ansible variable precedence určí, ktorá definition vyhrá. Neurčí, či zdroj je architektonicky správny. Oficiálna dokumentácia odporúča definovať value na jednom zrozumiteľnom mieste namiesto spoliehania sa na komplikovanú precedence. citeturn329472search2turn329472search6
 
-## 1. Atlas scenár: host-specific service configuration
-
-Atlas Payments renderuje `/etc/atlas/payments.yml` pre každý application host. Verejný role contract obsahuje:
+## 2. Exact host configuration subject
 
 ```yaml
-atlas_environment: production
-atlas_listen_port: 8443
-atlas_tls_enabled: true
-atlas_database_endpoint: db.prod.internal:5432
-atlas_release_version: v43
+hostConfigurationSubject:
+  host:
+    inventoryHostname: app-07
+    immutableAssetId: i-0app07
+    environment: prod-eu
+  run:
+    sourceRevision: 42ad9c1
+    role: atlas.payments.runtime@2.7.0
+    executionEnvironmentDigest: sha256:71ca...
+  variables:
+    inventoryDigest: sha256:40d9...
+    playParametersDigest: sha256:90ab...
+    extraVarsPresent: false
+  facts:
+    gatheredAt: 2026-07-31T08:05:00Z
+    cacheUsed: false
+  template:
+    sourceDigest: sha256:21ab...
+    renderedDigest: sha256:77ef...
+    destination: /etc/atlas/payments.yml
+  runtime:
+    expectedConfigVersion: payments-v43
 ```
 
-Host-specific runtime observations dopĺňajú:
+Manifest nesmie obsahovať secret values. Má obsahovať identity, source classes, allowed non-secret values alebo fingerprints, aby sa artifact dal reprodukovať a auditovať.
 
-```text
-stable host ID
-OS family a major version
-primary address
-available memory
-installed runtime capability
-```
+## 3. Variable contract
 
-Template následne vytvorí artifact:
-
-```jinja2
-# managed by Ansible
-release: {{ atlas_release_version }}
-environment: {{ atlas_environment }}
-listen:
-  address: {{ ansible_facts.default_ipv4.address }}
-  port: {{ atlas_listen_port }}
-tls:
-  enabled: {{ atlas_tls_enabled | bool | to_json }}
-database:
-  endpoint: {{ atlas_database_endpoint }}
-workers: {{ atlas_effective_workers }}
-```
-
-Task musí artifact validovať pred nahradením aktívneho súboru:
-
-```yaml
-- name: Render validated Atlas configuration
-  ansible.builtin.template:
-    src: payments.yml.j2
-    dest: /etc/atlas/payments.yml
-    owner: root
-    group: atlas
-    mode: "0640"
-    validate: /usr/bin/atlas-payments validate --config %s
-  notify: Atlas payments configuration changed
-```
-
-Correctness závisí od hodnôt aj ich provenance. Rovnaký text `8443` môže pochádzať z role defaultu, inventory, extra vars alebo stale cached fact-derived výpočtu; tieto zdroje nemajú rovnaký ownership ani audit význam.
-
-## 2. Variable contract, source, scope a precedence
-
-Variable je typed-by-convention dátový vstup. Ansible môže hodnotu načítať z role defaults, inventory, play vars, role parameters, `vars_files`, facts, registered results, `set_fact`, includes alebo extra vars.
-
-Pre každú významnú hodnotu definuj:
+Pre každú významnú variable definuj:
 
 ```text
 name a domain meaning
 expected type a valid range
-default alebo required status
-allowed override sources
-host/play/run scope
+required/default/null behavior
+allowed source layer
+host/play/role scope
 secret classification
 owner a compatibility policy
+effect na target, privilege alebo artifact identity
 ```
 
-Vyššia precedence znamená, že hodnota vyhrá. Neznamená, že zdroj je architektonicky správny.
-
-Praktický contract:
+Príklad role defaults:
 
 ```yaml
-atlas_listen_port: 8443       # overridable role default
-atlas_unit_name: atlas-payments.service  # internal constant
+# roles/runtime/defaults/main.yml
+atlas_listen_port: 8443
+atlas_tls_enabled: true
+atlas_worker_limit: 8
 ```
 
-Role defaults sú vhodné pre podporované customization points. Role vars s vysokou precedence patria skôr interným constants; environment-specific hodnoty v nich môžu znemožniť callerovi vyjadriť správny intent.
+Environment-specific endpoint nemá mať univerzálny fallback:
 
-## 3. Effective host value subject
+```yaml
+# required from environment inventory or role parameter
+atlas_database_endpoint: null
+```
 
-Pred mutáciou treba vedieť, aké hodnoty konkrétny host reálne použije. Effective subject zahŕňa:
+## 4. Precedence ako execution mechanism
+
+Values môžu pochádzať z role defaults, inventory/group/host vars, play vars, role parameters, `vars_files`, facts, registered results, `set_fact` a extra vars. Ansible načíta definitions a podľa precedence vyberie effective value. Extra vars majú veľmi vysokú precedence a môžu prepísať environment contract. citeturn329472search2
+
+Precedence nie je bezpečnostný model. Ak produkčný endpoint existuje v piatich layers, úspešné resolution neznamená jasné ownership.
+
+Pravidlo:
 
 ```text
-run/source revision
-inventory sources a host identity
-group memberships
-role a collection version
-play/role parameters
-facts a cache generation
-registered a set_fact values
-extra vars a controller-injected values
-lookup/plugin version a external query identity
+one critical value
+→ one authoritative source class
+→ explicit allowed overrides
+→ resolved-value assertion
 ```
 
-Ansible neposkytuje jeden univerzálny bezpečný príkaz, ktorý vysvetlí provenance každého value bez rizika secret leakage. Kombinuj:
-
-- `ansible-inventory --host <host>` pre resolved inventory variables;
-- `ansible-config dump --only-changed` pre effective engine configuration;
-- explicitné redacted preflight assertions;
-- controller job metadata;
-- role contract a source review;
-- task-level debug iba pre allowlisted non-secret fields.
-
-## 4. Required values, defaults a validation
-
-Required input má zlyhať pred side effects:
+## 5. Preflight validation pred side effects
 
 ```yaml
-- name: Validate Atlas inputs
+- name: Validate Atlas configuration contract
   ansible.builtin.assert:
     that:
-      - atlas_environment in ['dev', 'stage', 'production']
+      - atlas_environment == 'prod-eu'
       - atlas_listen_port | int > 0
       - atlas_listen_port | int < 65536
-      - atlas_tls_enabled | bool or atlas_environment != 'production'
+      - atlas_tls_enabled | bool
       - atlas_database_endpoint is defined
-      - atlas_database_endpoint | length > 0
-    fail_msg: Atlas configuration contract is invalid
+      - atlas_database_endpoint is match('^db\.prod\.internal:[0-9]+$')
+      - atlas_release_version is match('^payments-v[0-9]+$')
+    fail_msg: Effective Atlas configuration is invalid for production
 ```
 
-`default()` je vhodný iba pre bezpečný a dokumentovaný fallback. Použitie defaultu na production database endpoint alebo TLS flag konvertuje missing intent na tichú konfiguráciu.
+`assert` preukazuje, že current effective values spĺňajú expressions v tomto task context-e. Nepreukazuje, že endpoint existuje, je správna database identity alebo že secret/access policy funguje.
 
-Dátový typ je súčasť contractu. Text `"false"` a boolean `false` nemusia mať rovnaké správanie pri každej expression. Critical inputs validuj a normalizuj raz, nie ad hoc v každom tasku.
+## 6. Redacted effective-value manifest
 
-## 5. Facts sú observations, nie desired state
+```yaml
+- name: Build non-secret effective-value manifest
+  ansible.builtin.set_fact:
+    atlas_effective_manifest:
+      environment: "{{ atlas_environment }}"
+      listen_port: "{{ atlas_listen_port | int }}"
+      tls_enabled: "{{ atlas_tls_enabled | bool }}"
+      database_endpoint: "{{ atlas_database_endpoint }}"
+      release_version: "{{ atlas_release_version }}"
+      host_id: "{{ atlas_instance_id }}"
 
-Facts opisujú host v čase gather-u:
+- name: Persist manifest for audit
+  ansible.builtin.copy:
+    content: "{{ atlas_effective_manifest | to_nice_json }}"
+    dest: /var/lib/atlas/config-subject.json
+    owner: root
+    group: atlas
+    mode: '0640'
+```
+
+Manifest preukazuje effective allowlisted values použité týmto flowom. Nezobrazuje provenance automaticky; source ownership sa kombinuje s inventory/job metadata. Secret values ani tokens sa do manifestu nedávajú.
+
+## 7. Facts ako observations
+
+Facts opisujú host v čase gathering-u:
 
 ```yaml
 ansible_facts.os_family
@@ -156,281 +150,313 @@ ansible_facts.default_ipv4.address
 ansible_facts.memtotal_mb
 ```
 
-Sú vhodné na platform capability selection a host-specific render. Nie sú automaticky authoritative CMDB ani immutable identity proof.
+Oficiálna dokumentácia rozlišuje facts a magic variables; `inventory_hostname` je inventory identity, zatiaľ čo `ansible_hostname` môže pochádzať z gathered facts. `ansible_play_batch` označuje current batch podľa `serial`. citeturn329472search4
 
-Fact lifecycle:
+Fact nie je desired state ani immutable asset identity. Má observation time, collection method a freshness.
 
-```text
-connection a module runtime
-→ setup alebo custom fact read
-→ host-scoped observation
-→ optional cache write
-→ later condition/render use
-→ expiry alebo invalidation
-```
-
-Fact cache potrebuje backend, TTL, source/run identity, invalidation a maximum acceptable age. Host môže byť preinštalovaný, IP sa môže zmeniť a custom fact môže zostať na disku po starom deploymente.
-
-## 6. Worked failure: stale fact cache vybral starý platform path
-
-Host `app-09` bol aktualizovaný z OS major version 8 na 9. Fact cache má TTL 24 hodín a production run použije cached value `8`.
-
-```text
-host runtime je OS 9
-→ stale fact tvrdí OS 8
-→ condition načíta legacy task path
-→ template používa deprecated directive
-→ parser validation zlyhá až po package alebo file side effects
-```
-
-Fix nie je zvýšiť počet retries. Pre platform migration vyžaduj fresh gather alebo explicitný capability probe a viaž cache generation na run evidence.
-
-## 7. Registered values a `set_fact`
-
-Registered result je host-scoped observation z konkrétneho tasku:
+## 8. Fact cache a freshness contract
 
 ```yaml
-- name: Read Atlas runtime metadata
+factCacheSubject:
+  backend: redis-ansible-facts
+  generatedAt: 2026-07-31T07:50:00Z
+  ttlSeconds: 900
+  hostAssetId: i-0app09
+  gatheringSubset: [min, network]
+```
+
+Stale facts môžu vybrať nesprávny OS template, interpreter alebo network address. Production migration môže vyžadovať fresh gather:
+
+```bash
+ansible payments_app \
+  -i inventories/prod \
+  -m ansible.builtin.setup \
+  -a 'gather_subset=min,network' \
+  --tree /secure/evidence/facts
+```
+
+Výstup preukazuje gathered module observations pre reachable hosts. Nepreukazuje business health ani nemennosť po gather-e.
+
+## 9. Worked failure: stale OS fact
+
+Host bol upgradovaný z OS 8 na 9, ale cache stále vracia `distribution_major_version=8`.
+
+```text
+stale observation
+→ legacy include/template path
+→ deprecated directive
+→ package/file side effects prebehnú
+→ validation zlyhá neskoro
+```
+
+Recovery invaliduje cache, gather-ne fresh facts, overí package/file partial state a vykoná správny platform-specific recovery. Skorší gate porovná fact age a immutable host image/build identity.
+
+## 10. Registered values
+
+```yaml
+- name: Read current runtime metadata
   ansible.builtin.command:
     argv: [/usr/bin/atlas-payments, runtime, --json]
   register: atlas_runtime_result
   changed_when: false
   failed_when: atlas_runtime_result.rc != 0
+
+- name: Parse runtime metadata
+  ansible.builtin.set_fact:
+    atlas_runtime: "{{ atlas_runtime_result.stdout | from_json }}"
 ```
 
-Jeho schema závisí od task outcome. Skipped alebo failed result nemusí mať rovnaké nested fields ako successful result.
+Registered result schema sa líši pri success, skip a failure. Condition nesmie slepo čítať nested field bez testu `is defined`.
 
-`set_fact` vytvára derived host value počas runu:
+## 11. `set_fact` a derived values
 
 ```yaml
 - name: Derive bounded worker count
   ansible.builtin.set_fact:
-    atlas_effective_workers: "{{ [ansible_facts.memtotal_mb // 1024, 8] | min }}"
+    atlas_effective_workers: >-
+      {{ [([ansible_facts.memtotal_mb | int // 1024, atlas_worker_limit | int] | min), 1] | max }}
 ```
 
-Používaj ho pre jasné derivácie, nie ako imperative mutable store. `cacheable` môže preniesť hodnotu do budúcich runs a zmeniť freshness aj precedence behavior; preto potrebuje explicitný lifecycle.
+`set_fact` je vhodný pre zrozumiteľnú deriváciu. Nie je vhodný ako neprehľadný mutable store medzi roles. `cacheable: true` prenáša value do ďalších runs a mení lifecycle/freshness; používa sa iba s explicitnou cache policy.
 
-## 8. Cross-host data a stable service contracts
+## 12. Cross-host values a `hostvars`
 
-Prístup cez `hostvars` je možný, ale krehký:
+Krehký pattern:
 
 ```jinja2
 {{ hostvars[groups['database'][0]].ansible_host }}
 ```
 
-Tento expression predpokladá, že group existuje, ordering má význam, prvý host je správny endpoint a jeho values sú dostupné a fresh.
+Predpokladá existenciu group, význam orderingu, správnosť first hostu a dostupnosť/freshness jeho vars.
 
-Pre shared service endpoint preferuj explicitný contract z inventory, service discovery alebo controlled lookup:
+Preferuj explicitný service contract:
 
 ```yaml
 atlas_database_endpoint: db.prod.internal:5432
 ```
 
-Cross-host inference je execution dependency. Musí mať identity, availability a freshness semantics, nie iba fungovať v jednom inventory snapshot-e.
+alebo controlled service-discovery lookup s identity, version a failure semantics.
 
-## 9. Template rendering a artifact identity
-
-Jinja rendering typicky prebieha na control node-e v host-specific variable context-e. Výsledok preto závisí od:
-
-- source template revision;
-- execution environment, `ansible-core` a Jinja version;
-- filter, test a lookup plugins;
-- effective host values;
-- external lookup results;
-- locale/timezone alebo custom code podľa implementácie.
-
-Configuration artifact subject má obsahovať aspoň:
-
-```text
-template source digest
-execution environment digest
-host stable identity
-effective non-secret input manifest
-fact/cache generation
-lookup dependency identities
-rendered artifact checksum
-validation command/result
-destination path a ownership
-```
-
-## 10. Deterministic rendering
-
-Rovnaký subject má vytvoriť rovnaký artifact. Nondeterminism vzniká z timestampov, random hodnôt, unordered collections alebo volatile lookups.
-
-Zlé:
+## 13. Deterministic template rendering
 
 ```jinja2
-generated_at: {{ now() }}
+# managed by Ansible
+release: {{ atlas_release_version | to_json }}
+environment: {{ atlas_environment | to_json }}
+listen:
+  address: {{ ansible_facts.default_ipv4.address | to_json }}
+  port: {{ atlas_listen_port | int }}
+tls:
+  enabled: {{ atlas_tls_enabled | bool | to_json }}
+database:
+  endpoint: {{ atlas_database_endpoint | to_json }}
+workers: {{ atlas_effective_workers | int }}
+features:
+{{ atlas_features | dictsort | items2dict | to_nice_yaml(indent=2) | indent(2, true) }}
 ```
 
-Každý run zmení checksum, template task reportuje `changed` a handler reštartuje službu aj bez functional change.
+Render závisí od template source, Jinja/filters, values, facts a lookups. Collections alebo custom filters sú executable dependencies.
 
-Pre structured configuration používaj serializačné filters:
+Nedeterministické values ako `now()`, random alebo unordered serialization spôsobujú perpetual `changed` a handler churn.
+
+## 14. Template task a validation
+
+```yaml
+- name: Render validated Atlas configuration
+  ansible.builtin.template:
+    src: payments.yml.j2
+    dest: /etc/atlas/payments.yml
+    owner: root
+    group: atlas
+    mode: '0640'
+    backup: true
+    validate: /usr/bin/atlas-payments validate --config %s
+  register: atlas_template
+  notify: Restart Atlas Payments
+```
+
+Lifecycle:
+
+```text
+render temporary file
+→ validation command
+→ atomic destination replace, ak podporované
+→ content-delta changed result
+→ handler notification
+```
+
+Validation preukazuje parser/domain checks implementované command-om. Nepreukazuje loaded process state ani downstream connectivity.
+
+## 15. Rendered artifact checksum
+
+```yaml
+- name: Read rendered configuration checksum
+  ansible.builtin.stat:
+    path: /etc/atlas/payments.yml
+    checksum_algorithm: sha256
+  register: atlas_config_stat
+
+- name: Record checksum
+  ansible.builtin.debug:
+    msg:
+      host: "{{ inventory_hostname }}"
+      config_sha256: "{{ atlas_config_stat.stat.checksum }}"
+```
+
+Checksum preukazuje bytes na destination path v čase stat tasku. Nepreukazuje, že process ich načítal. Runtime endpoint má publikovať loaded config version/checksum.
+
+## 16. Worked failure: stale extra var smeruje do staging DB
+
+Recovery job template ponechal:
+
+```yaml
+atlas_database_endpoint: db.stage.internal:5432
+```
+
+ako extra var.
+
+```text
+inventory production endpoint
+→ extra var má vyššiu precedence
+→ template validný
+→ process sa pripojí do staging database
+```
+
+Parser validation neoverila environment identity. Recovery:
+
+1. odobrať hosts z trafficu;
+2. zachovať job extra-var metadata a rendered files;
+3. auditovať cross-environment data access;
+4. odstrániť stale override;
+5. pridať production endpoint assertion a allowed source policy;
+6. re-render/restart/verify.
+
+## 17. Worked failure: timestamp spôsobí restart loop
 
 ```jinja2
-{{ atlas_feature_map | to_nice_json }}
+generated_at: {{ now(utc=true).isoformat() }}
 ```
-
-Ručné skladanie JSON/YAML cez string concatenation poškodzuje escaping a typy.
-
-## 11. Validation, atomic publication a runtime load
-
-Template success má viac fáz:
 
 ```text
-render temporary artifact
-→ validate parser/domain invariants
-→ atomic replace, ak filesystem podporuje
-→ report changed podľa content delta
-→ notify handler
-→ process reload/restart
-→ verify loaded artifact checksum/version
+každý run nové bytes
+→ template changed
+→ handler restart
+→ second run nikdy nekonverguje
 ```
 
-`validate` musí byť side-effect free a reprezentatívny pre runtime parser. Atomic file replace chráni pred partial reads, ale nie pred semantic incompatibility, nesprávnym destination pathom ani procesom, ktorý config znovu nenačíta.
+Timestamp patrí do evidence manifestu alebo commentu, ktorý nie je súčasť functional artifactu, ak nemá runtime význam.
 
-Fallback typu unsafe writes zvyšuje race a corruption risk a musí byť explicitne zdôvodnený podľa filesystem/runtime boundary.
+## 18. Secrets v variable/template lifecycle
 
-## 12. Worked failure: extra vars ticho prepli production endpoint
+`no_log: true` obmedzuje task output. Nešifruje controller memory, rendered file, fact cache ani validation logs.
 
-Controller job template povoľuje operator-defined extra vars. Operátor pri rerun-e ponechá starú hodnotu:
+```yaml
+- name: Render credential file
+  ansible.builtin.template:
+    src: credentials.j2
+    dest: /etc/atlas/credentials
+    owner: root
+    group: atlas
+    mode: '0600'
+  no_log: true
+```
+
+Secret lifecycle potrebuje short-lived acquisition, minimum scope, file permissions, diff suppression, process reload, revocation a audit. Exposed credential sa rotuje u authority; pridanie `no_log` spätne exposure neodstráni.
+
+## 19. Loaded artifact verification
+
+```yaml
+- name: Query loaded runtime configuration
+  ansible.builtin.uri:
+    url: https://127.0.0.1:8443/runtime
+    validate_certs: true
+    return_content: true
+  register: atlas_runtime_status
+  changed_when: false
+  failed_when:
+    - atlas_runtime_status.status != 200
+    - atlas_runtime_status.json.config_version != atlas_release_version
+    - atlas_runtime_status.json.database_environment != 'prod-eu'
+```
+
+Preukazuje local process response a allowlisted runtime fields. Nepreukazuje load-balancer route, full business transaction ani every host unless run coverage je complete.
+
+## 20. Competing hypotheses pri wrong endpoint na jednom hoste
 
 ```text
-atlas_database_endpoint=db.stage.internal:5432
+H1: host/group variable override
+H2: stale extra var
+H3: duplicate inventory identity/group membership
+H4: stale fact/derived branch
+H5: unstable hostvars selection
+H6: lookup čítal wrong environment path
+H7: process číta iný destination
+H8: second writer zmenil file po run-e
 ```
 
-Extra vars majú vysokú precedence:
+Dôkazy:
+
+- inventory host/group output H1/H3;
+- controller job metadata H2;
+- fact timestamps H4;
+- lookup audit H5/H6;
+- file checksum/process command line/runtime endpoint H7;
+- filesystem audit timeline H8.
+
+## 21. Recovery a acceptance
 
 ```text
-inventory definuje production endpoint
-→ controller injektuje stale extra var
-→ effective value je staging endpoint
-→ template a parser validation prejdú
-→ production process sa pripojí do staging databázy
+host removed from traffic
+→ preserve run/value/fact/template evidence
+→ identify wrong source or stale observation
+→ correct authoritative value/cache/lookup
+→ deterministic render + validate
+→ handler reload/restart
+→ loaded config verification
+→ fleet manifest verification
+→ second no-change run
 ```
 
-Syntax a parser correctness neoverujú environment identity. Production preflight musí porovnať endpoint s allowlisted environment/service identity a uchovať redacted effective input evidence.
-
-## 13. Worked failure: timestamp vytvoril perpetual restart loop
-
-Template zapisuje current timestamp. Pri každom scheduled convergence run-e:
+Acceptance:
 
 ```text
-nový timestamp
-→ nový artifact checksum
-→ template reports changed
-→ handler restartuje service
-→ druhý run nie je no-change
+critical values majú one-source contract
++ facts sú fresh pre risk class
++ rendered checksums sú deterministic
++ parser validation prešla
++ process načítal expected version/environment
++ extra-var wrong endpoint je odmietnutý
++ timestamp fixture nevytvára perpetual change
++ secret nie je v diff/log/cache
++ second run reports no unintended change
 ```
 
-Dôsledkom môže byť pravidelný availability drop, session loss a alert noise. Generated timestamp patrí do deployment evidence alebo runtime metadata, nie do desired configu, ak nemá functional význam.
+## 22. Kontrolné otázky
 
-## 14. Secrets v values a artifacts
-
-`no_log: true` obmedzuje bežný task output, ale nie je secret lifecycle:
-
-- secret stále existuje v controller memory;
-- lookup alebo custom plugin ho môže leaknúť;
-- rendered file ho môže obsahovať;
-- validation command alebo process ho môže vypísať;
-- diff, callback a downstream debug môžu secret odhaliť;
-- cached fact alebo registered result môže predĺžiť exposure.
-
-Secret načítaj čo najneskôr, používaj v najmenšom scope, neukladaj do fact cache a po exposure ho revoke/rotate. Dodatočné pridanie `no_log` neopraví kompromitovaný credential.
-
-## 15. Causal troubleshooting walkthrough: jeden host používa nesprávny database endpoint
-
-`app-07` po green run-e používa staging endpoint. Ostatné production hosts používajú správny endpoint.
-
-### 1. Zafixuj artifact subject
-
-Zaznamenaj host stable ID, run/source revision, role/collection a execution image, inventory sources, group membership, fact cache generation, template digest, destination checksum a loaded runtime version.
-
-### 2. Súťažiace hypotézy
-
-1. Host-specific alebo group variable prepísala production value.
-2. Extra var alebo controller credential field bolo aplikované iba na recovery job.
-3. Duplicate inventory definition zmenila host group membership.
-4. Stale cached fact alebo `set_fact` zvolil nesprávnu derived branch.
-5. `hostvars` vybral nestabilný prvý database host.
-6. Lookup plugin čítal staging path alebo environment.
-7. Správny artifact bol vyrenderovaný, ale proces načítava iný file path.
-8. Artifact sa po Ansible run-e zmenil druhým writerom.
-
-### 3. Diskriminačné observation points
-
-- `ansible-inventory --host app-07` a group graph;
-- controller job extra vars metadata bez secret values;
-- redacted effective-value preflight;
-- fact cache timestamp a raw fresh capability observation;
-- lookup request identity a path;
-- rendered artifact checksum/content allowlist comparison;
-- process command line, open file/config endpoint a loaded version;
-- host audit/file modification timeline.
-
-### 4. Containment
-
-Odstráň host z trafficu a zablokuj ďalší rollout s rovnakým value subjectom. Ak sa použili production credentials voči staging systému alebo opačne, začni identity a data-impact audit.
-
-### 5. Recovery
-
-- precedence/source error → odstráň nesprávny override a zúž allowed sources;
-- stale fact → invaliduj cache a použi fresh observation;
-- cross-host inference → nahraď explicitným service contractom;
-- wrong lookup → oprav environment-scoped path/identity;
-- wrong runtime path → zosúlaď destination a process config source;
-- second writer → odstráň ownership konflikt a obnov artifact.
-
-### 6. Over pôvodný outcome
-
-Potvrď production endpoint cez process-level/runtime API na všetkých expected hosts, artifact checksum a fresh second run bez unintended changes.
-
-### 7. Posuň control skôr
-
-Pridaj effective-value manifest, environment identity assertion, cache-age gate, deterministic render regression test a loaded-config oracle.
-
-## 16. Referenčné pravidlá
-
-- Precedence určuje víťaza, nie správneho ownera.
-- Critical value potrebuje type, scope, source a validation contract.
-- Facts sú časovo ohraničené observations.
-- Cached facts a `set_fact cacheable` menia lifecycle medzi runs.
-- `hostvars` vytvára cross-host dependency.
-- Jinja sa renderuje v controller runtime a používa executable plugins.
-- Template output je deployovaný artifact s vlastnou identitou.
-- Parser validation nenahrádza environment ani runtime verification.
-- Deterministic template je predpoklad idempotencie.
-- `no_log` nie je revocation, storage ani access-control mechanizmus.
-
-## 17. Kontrolné otázky
-
-1. Čo tvorí effective host value subject?
-2. Prečo vysoká precedence neznamená správny ownership?
-3. Kedy je `default()` bezpečný a kedy skrýva missing intent?
-4. Prečo fact cache potrebuje generation a TTL?
-5. Aké riziká má cached `set_fact`?
-6. Prečo je výber `groups['database'][0]` krehký?
-7. Ktoré identity určujú template artifact?
-8. Ako timestamp v configu porušuje convergence?
-9. Čo validation a atomic replace dokážu a čo nie?
-10. Ako dokážeš, že proces načítal správny vyrenderovaný artifact?
+1. Prečo precedence neurčuje správneho ownera?
+2. Čo musí obsahovať host configuration subject?
+3. Aký rozdiel je medzi variable a fact?
+4. Prečo fact cache potrebuje freshness policy?
+5. Kedy je `set_fact cacheable` rizikový?
+6. Prečo `hostvars[groups[x][0]]` vytvára skrytý contract?
+7. Čo template validation preukazuje a čo nie?
+8. Prečo checksum nepreukazuje loaded runtime state?
+9. Ako môže extra var prekonať production inventory?
+10. Prečo nondeterministic template ničí idempotency signal?
+11. Čo `no_log` chráni a čo nechráni?
+12. Ako sa overí forbidden wrong-environment value path?
 
 ## Glossary impact
 
-Relevantné pojmy: effective host value subject, variable ownership contract, variable provenance, fact observation, fact cache generation, derived host value, cross-host value dependency, template artifact subject, deterministic rendering, parser validation, atomic configuration publication, loaded-artifact verification a secret-bearing render path.
+Relevantné pojmy: Ansible variable, variable precedence, effective host context, fact, fact cache, registered result, set_fact, magic variable, hostvars, deterministic template, rendered artifact, validate, atomic publication, checksum, loaded configuration a value provenance.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
 - [Using variables](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_variables.html)
-- [Discovering variables: facts and magic variables](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_vars_facts.html)
-- [Templating with Jinja2](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_templating.html)
-- [Controlling how Ansible behaves: precedence rules](https://docs.ansible.com/projects/ansible/latest/reference_appendices/general_precedence.html)
-- [`ansible.builtin.template`](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/template_module.html)
+- [Facts and magic variables](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_vars_facts.html)
+- [Template module](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/template_module.html)
+- [Precedence rules](https://docs.ansible.com/projects/ansible/latest/reference_appendices/general_precedence.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Modules, tasks, plays a playbooks](modules-tasks-plays-playbooks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Handlers, loops a conditionals →](handlers-loops-conditionals.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

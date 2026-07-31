@@ -1,129 +1,91 @@
 # Vault
 
-Ansible Vault rieši jednu konkrétnu časť secret lifecycle-u: chráni citlivé hodnoty **at rest** v repository alebo distribuovanom automation contente. Nechráni automaticky plaintext po dešifrovaní, consumer rollout, revocation ani incident response.
+Ansible Vault chráni sensitive values **at rest** v repository alebo automation contente. Nerobí z nich automaticky short-lived credentials, nechráni plaintext po dešifrovaní, neurčuje consumer rollout a nerevokuje starú hodnotu. Úspešný `ansible-vault encrypt` alebo `rekey` preto nie je complete secret-management outcome. Dôveryhodný lifecycle musí viesť od logical secret identity cez encrypted artifact a decryption authorization až po runtime publication, consumer verification, old-credential revocation a cleanup.
 
-Preto sa Vault nemá chápať ako príkaz `ansible-vault encrypt`, ale ako súčasť jedného end-to-end modelu:
+Kapitola pokračuje incidentom `IAC-PAY-79`. Database credential unikne do CI logu. Tím rekey-ne Vault file, takže ciphertext a vault password sa zmenia, ale samotný database password zostane platný. Neskôr sa nový credential dostane iba na osem z dvanástich hosts a optional revocation job nebeží. Repository vyzerá „bezpečne zašifrované“, no kompromitovaný credential zostáva aktívny a fleet používa dve epochs.
+
+## 1. Dominantný secret-to-revocation lifecycle
 
 ```text
-secret intent, owner a consumer inventory
-→ storage a encryption boundary
-→ encrypted artifact + vault ID
-→ decryption identity a runtime authorization
+logical secret intent, owner a consumer inventory
+→ target credential epoch creation
+→ encrypted Vault artifact a vault ID
+→ authorized decryption identity
 → bounded plaintext exposure
-→ consumer publication a loaded-state verification
-→ old-credential revocation
-→ workspace cleanup, audit a incident closure
+→ target file/API publication
+→ process reload a consumer verification
+→ old credential revocation
+→ forbidden-old-credential test
+→ workspace/log/artifact cleanup a audit closure
 ```
 
-Ak chýba ktorýkoľvek prechod, repository môže byť šifrované a systém napriek tomu používať starý credential, leakovať plaintext alebo ponechať kompromitovaný secret aktívny.
-
-## 1. Atlas scenár
-
-Atlas Payments potrebuje zmeniť produkčný database credential.
-
-Zmena má tieto identity:
-
-```text
-secret logical ID: payments-db/runtime-password
-secret epoch: 2026-07-27-02
-owner: Payments Platform
-consumers: app hosts app-01 až app-12
-vault domain: prod-database
-vault artifact: group_vars/production/vault.yml@commit S417
-decryption identity: controller job J882 / workload identity WI-PROD-ANSIBLE
-runtime destination: /etc/atlas-payments/runtime.env
-process verification field: credential_epoch=2026-07-27-02
-old credential epoch: 2026-06-10-01
-```
-
-Úspech nie je „file sa podarilo dešifrovať“. Úspech je:
-
-```text
-všetci oprávnení consumers načítali nový credential
-+ nový credential funguje
-+ starý credential je revokovaný
-+ plaintext nezostal v logs, artifacts ani workspace
-+ audit spája artifact, identity, consumers a revocation
-```
-
-## 2. Threat model a ochranná hranica
-
-Vault transformuje plaintext na encrypted content:
-
-```text
-plaintext value
-→ encryption s vault passwordom
-→ encrypted file alebo !vault value
-→ versionovanie v repository
-```
-
-Tým znižuje riziko, že človek s read accessom k repository okamžite prečíta secret. Nechráni však automaticky:
-
-- controller process memory;
-- decrypted temporary file;
-- rendered target configuration;
-- module arguments alebo registered results;
-- callback, debug a external-process logs;
-- shell history, editor swap a crash dump;
-- používateľa alebo job s decryption accessom;
-- kompromitovaný plugin alebo execution environment;
-- starý credential, ktorý nebol revokovaný.
-
-Mechanizmus je teda presne ohraničený:
-
-```text
-repository confidentiality ≠ runtime confidentiality ≠ credential lifecycle completion
-```
-
-Pri dynamic credentials, automatickej rotation, per-secret authorization alebo centrálnom revoke modeli je vhodnejší external secret manager. Vault môže zostať bootstrap vrstvou, ale iba s explicitným dôvodom a rotation pathom.
-
-## 3. Secret subject
-
-Pred encryption definuj secret ako riadený subject, nie iba YAML hodnotu.
-
-Minimálny subject obsahuje:
-
-```text
-logical secret ID
-credential type a target system
-environment a trust boundary
-owner a approver
-consumer inventory
-secret epoch/version
-storage artifact a vault domain
-decryption identity
-runtime destinations
-rotation deadline
-revocation status
-```
-
-Bez logical ID a consumer inventory nevieš rozlíšiť:
-
-- ktorý database password sa mení;
-- ktoré hosts ho majú načítať;
-- či stará hodnota môže byť zrušená;
-- či rovnaký encrypted block niekto skopíroval do ďalšieho prostredia;
-- či incident zasahuje jeden alebo viac credentials.
-
-Názov variable má vyjadrovať contract:
+## 2. Exact secret subject
 
 ```yaml
-atlas_payments_database_password: "{{ vault_atlas_payments_database_password }}"
+secretSubject:
+  logicalId: payments-db/runtime-password
+  targetSystem: payments-production-database
+  environment: prod-eu
+  epoch: 2026-07-31-02
+  owner: payments-platform
+  consumersManifestDigest: sha256:f39c...
+  vault:
+    artifact: group_vars/prod/vault.yml
+    sourceRevision: 991ad7e
+    vaultId: prod-database
+  decryption:
+    workloadIdentity: ansible-prod-controller
+    runId: gitlab-98231
+  runtime:
+    destination: /etc/atlas-payments/runtime.env
+    expectedMode: '0640'
+  previousEpoch: 2026-06-10-01
+  revocationRequired: true
 ```
 
-Repository-visible variable opisuje consumer interface. `vault_...` hodnota opisuje storage implementation. Tým sa dá neskôr zmeniť backend bez prepisovania templates a roles.
+Bez logical ID, epoch a consumer inventory nemožno dokázať, čo sa rotuje, kto to používa a kedy je bezpečné starú hodnotu zrušiť.
 
-## 4. Encrypted artifact a vault ID
+## 3. Čo Vault chráni a čo nechráni
 
-Celý file možno šifrovať:
+Vault vytvára:
+
+```text
+plaintext
+→ encryption s Vault secretom
+→ ciphertext versionovaný v repository
+```
+
+Oficiálna dokumentácia popisuje Vault ako mechanizmus na encryption variables/files, aby citlivý obsah nebol uložený ako plaintext. citeturn329472search23turn329472search26
+
+Nechráni automaticky:
+
+- controller memory;
+- temporary files;
+- rendered target files;
+- module arguments a registered results;
+- validator stderr;
+- callback/debug logs;
+- malicious collection/plugin s decryption accessom;
+- credential, ktorý unikol pred encryption;
+- starý target credential bez revocation.
+
+```text
+repository confidentiality
+≠ runtime plaintext confidentiality
+≠ credential lifecycle completion
+```
+
+## 4. Encrypted file a encrypted value
+
+Celý file:
 
 ```bash
 ansible-vault encrypt \
   --vault-id prod-database@prompt \
-  group_vars/production/vault.yml
+  group_vars/prod/vault.yml
 ```
 
-Alebo jednu hodnotu:
+Jedna value:
 
 ```bash
 ansible-vault encrypt_string \
@@ -132,421 +94,379 @@ ansible-vault encrypt_string \
   'sensitive-value'
 ```
 
-Vault header môže niesť label:
+Encrypted file skrýva štruktúru, ale zhoršuje semantic review. Inline value zachová názvy/non-secret metadata, ale veľa ciphertext blokov znižuje čitateľnosť.
+
+Repository-visible contract:
+
+```yaml
+atlas_payments_database_password: "{{ vault_atlas_payments_database_password }}"
+```
+
+oddeľuje consumer interface od storage implementation.
+
+## 5. Vault ID
+
+Header môže obsahovať label:
 
 ```text
 $ANSIBLE_VAULT;1.2;AES256;prod-database
 ```
 
-Vault ID je routing label pre decryption source. Nie je to secret ani samostatná kryptografická authorization policy.
+Vault ID je routing label pre password source. Nie je samostatná authorization policy ani secret identity.
 
-Rozdelenie vault domains má kopírovať reálne boundaries:
+Vault domains sa navrhujú podľa:
 
-- environment;
-- credential owner;
-- rotation lifecycle;
-- consumer scope;
-- incident blast radius;
+- environmentu;
+- ownera;
+- consumer scope-u;
+- rotation lifecycle-u;
+- blast radiusu;
 - decryption authorization.
 
-Jeden password pre development aj production znamená, že development compromise otvára production encrypted content.
+Jeden password pre dev aj prod rozširuje production compromise boundary.
 
-## 5. Encrypted file verzus encrypted value
+## 6. Decryption identity
 
-Encrypted file skrýva celý obsah a zjednodušuje storage, ale zhoršuje semantic review a merge. Inline encrypted value zachová názvy a non-secret metadata, ale veľké množstvo blokov znižuje čitateľnosť.
+Password source môže byť prompt, protected file, executable password client, controller credential alebo external secret manager. Oficiálna dokumentácia podporuje `--vault-password-file` a `--vault-id` patterns. citeturn329472search27
 
-Rozhodnutie má vychádzať z review a ownership modelu:
-
-```text
-potrebujem skryť celú štruktúru?
-→ encrypted file
-
-potrebujem viditeľný variable contract a malú secret unit?
-→ encrypted value
-```
-
-Ani jeden model nezaručuje, že reviewer rozumie zmene. Encrypted diff dokazuje iba zmenu ciphertextu.
-
-Review preto potrebuje autorizovanú plaintext comparison v chránenom prostredí a non-secret summary:
+Password client má používať short-lived minimum-scope workload identity:
 
 ```text
-secret epoch 01 → 02
-consumer set unchanged: app-01..app-12
-rotation reason: scheduled
-old credential revocation after fleet verification
-```
-
-Secret sa nikdy nekopíruje do merge-request komentára.
-
-## 6. Decryption identity a authorization
-
-Encrypted artifact a decryption material musia zostať oddelené.
-
-Password source môže byť:
-
-- interactive prompt;
-- protected password file mimo repository;
-- executable password-client;
-- automation-controller credential;
-- external secret manager integration.
-
-Produkčný run subject musí zaznamenať aspoň:
-
-```text
-vault IDs requested
-decryption workload identity
-protected ref/job template
-execution image digest
-secret scope
-environment authorization
-controller run ID
-```
-
-Password file v CI image je iba statický secret premiestnený do iného artifactu. Password-client script je lepší iba vtedy, keď používa minimum-scope short-lived identity, neloguje response a má auditovateľný read.
-
-```text
-controller workload identity
+controller identity
 → authenticate to secret service
 → retrieve only prod-database decryption material
-→ pass value directly to Ansible
-→ discard process/workspace state
+→ pass directly to Ansible
+→ avoid persistent plaintext
 ```
 
-CI nesmie poskytnúť decryption access neoverenému merge-request contentu. Inak môže útočník zmeniť playbook alebo plugin tak, aby secret odoslal mimo trust boundary.
+Static password zabudovaný v execution image je iba secret presunutý do iného artifactu.
 
-## 7. Runtime plaintext exposure path
+## 7. Trusted-content boundary
 
-Po dešifrovaní treba sledovať celý plaintext path:
+Production decryption nesmie byť dostupná untrusted merge-request contentu. Inak môže útočník zmeniť lookup/action/callback plugin a exfiltrovať dešifrovanú value.
+
+Controls:
+
+```text
+protected reviewed source revision
++ immutable execution environment
++ restricted plugin/search paths
++ environment-scoped workload identity
++ egress policy
++ separate validation a production-secret jobs
+```
+
+`no_log` nezastaví malicious code, ktoré posiela secret cez network.
+
+## 8. Plaintext path
 
 ```text
 decryption source
 → Ansible variable memory
 → Jinja/module argument
-→ temporary transfer
+→ controller/remote temporary path
 → target file alebo API request
 → application process
-→ logs, callbacks a registered results
+→ logs, callbacks, backups a crash artifacts
 ```
 
-Každý krok je samostatná exposure boundary.
+Každý krok je exposure boundary.
 
-`no_log: true` redukuje bežný output, ale:
-
-- neodstráni secret z memory;
-- nechráni malicious plugin;
-- nechráni target file;
-- nezastaví external command, aby secret vypísal;
-- nenahrádza access control;
-- nerevokuje už uniknutý credential.
-
-Secret-bearing task má vypnúť diff a zachovať samostatnú non-secret evidence:
+Secret-bearing task:
 
 ```yaml
-- name: Publish Atlas Payments runtime credential
+- name: Publish runtime credential
   ansible.builtin.template:
     src: runtime.env.j2
     dest: /etc/atlas-payments/runtime.env
     owner: root
     group: atlas-payments
-    mode: "0640"
+    mode: '0640'
     validate: /usr/local/bin/atlas-env-validate %s
   no_log: true
   diff: false
   notify: Reload Atlas Payments
 ```
 
-Non-secret verification môže publikovať destination checksum, secret epoch, process reload time a authentication probe verdict bez hodnoty credentialu.
+`no_log` redukuje bežný task output. Nechráni memory, destination file, malicious plugin ani external validator, ktorý secret vypíše.
 
-## 8. Temporary files a artifact hygiene
+## 9. Non-secret evidence
 
-Plaintext môže prežiť run v:
+Secret value sa neloguje. Evidence môže obsahovať:
 
-- editor swap alebo backup file;
-- controller temporary directory;
-- remote temporary directory;
-- CI workspace;
-- debug log;
+```yaml
+secretDeploymentEvidence:
+  logicalId: payments-db/runtime-password
+  epoch: 2026-07-31-02
+  hostId: i-0app07
+  destinationChecksum: sha256:71cc...
+  fileMode: '0640'
+  processReloadedAt: 2026-07-31T09:15:00Z
+  authenticationProbe: pass
+```
+
+Destination checksum preukazuje bytes, nie správnosť secretu ani loaded process state. Authentication probe a process epoch dopĺňajú proof.
+
+## 10. Target credential rotation verzus Vault rekey
+
+### Vault rekey
+
+```bash
+ansible-vault rekey \
+  --vault-id old@prompt \
+  --new-vault-id new@prompt \
+  group_vars/prod/vault.yml
+```
+
+Mení encryption wrapper/password chrániaci ciphertext.
+
+### Target credential rotation
+
+```text
+vytvor nový DB password epoch 02
+→ update encrypted artifact
+→ rollout consumers
+→ verify new auth
+→ revoke epoch 01
+```
+
+Rekey kompromitovaný database password nezneplatní.
+
+## 11. Worked incident: rekey namiesto rotation
+
+CI log obsahoval plaintext DB password. Tím zmenil iba Vault password.
+
+```text
+plaintext credential leaked
+→ ciphertext rewrapped
+→ target DB credential unchanged
+→ attacker stále autentizovaný
+```
+
+Recovery:
+
+1. obmedziť access k logom;
+2. auditovať použitie leaked credentialu;
+3. vytvoriť nový target credential;
+4. aktualizovať consumers;
+5. overiť new auth;
+6. revoke-nuť old credential;
+7. otestovať old credential rejection;
+8. rekey Vault iba ak unikol aj Vault password.
+
+## 12. Consumer rollout
+
+```text
+create epoch 02
+→ encrypt/publish artifact
+→ resolve exact consumer manifest
+→ canary decrypt/render/reload
+→ verify process epoch a DB auth
+→ rollout remaining hosts
+→ verify all expected hosts
+→ revoke epoch 01
+→ forbidden old-credential probe
+```
+
+Niektoré systems povoľujú overlap dvoch credentials, iné potrebujú koordinovaný cutover. Capability cieľového systému je súčasť rotation designu.
+
+## 13. Runtime verification
+
+```yaml
+- name: Query loaded credential epoch
+  ansible.builtin.uri:
+    url: https://127.0.0.1:8443/runtime
+    validate_certs: true
+    return_content: true
+  register: runtime
+  changed_when: false
+  failed_when: runtime.json.credential_epoch != atlas_database_credential_epoch
+```
+
+Runtime endpoint nesmie publikovať secret. Preukazuje process-reported epoch. DB authentication probe potvrdí functional use; old credential rejection potvrdí revocation.
+
+## 14. Old credential revocation
+
+Rotation verdict classes:
+
+```text
+ENCRYPTED_ARTIFACT_UPDATED
+CONSUMER_PARTIAL
+CONSUMER_COMPLETE
+REVOCATION_PENDING
+REVOCATION_COMPLETE
+CLEANUP_INCOMPLETE
+INCIDENT_REQUIRED
+```
+
+Pipeline nesmie skončiť complete po consumer rollout-e, ak old credential stále funguje.
+
+## 15. Worked incident: revocation job bol optional
+
+Všetkých hosts načítalo epoch 02, ale optional revocation job sa nespustil.
+
+```text
+new credential works
++ old credential still valid
+→ expanded active credential set
+→ compromise window remains
+```
+
+Quality gate vyžaduje `REVOCATION_COMPLETE` a forbidden old-auth test.
+
+## 16. Validator/log leakage
+
+Task mal `no_log`, ale external validator vypísal celý file na stderr pri chybe. Callback log ho uložil.
+
+```text
+Ansible output redacted
+→ external process leaks plaintext
+→ logs persist
+```
+
+Validator pre secret-bearing artifact musí mať redacted failure contract. Pri exposure sa credential rotuje; iba vymazanie logu nestačí.
+
+## 17. Temporary files a cleanup
+
+Plaintext môže prežiť v:
+
+- controller temp;
+- remote temp;
+- backup file;
+- workspace;
 - diff artifact;
-- cached fact alebo registered result;
-- crash dump;
-- backup vytvorený file module-om.
+- registered result;
+- fact cache;
+- crash dump.
 
-Cleanup nie je iba `rm -f`. Potrebuje overiteľný verdict:
+Cleanup verdict:
 
 ```text
 workspace destroyed
-+ artifacts neobsahujú secret-bearing files
-+ logs prešli redaction kontrolou
-+ remote temp a backup policy je splnená
-+ credential zostáva dostupný iba oprávnenému processu
++ logs/artifacts scanned for leakage
++ remote temp/backups handled
++ secret not cached as fact
++ only authorized target/process retains value
 ```
 
-Ak cleanup nevieš potvrdiť, run je `cleanup-incomplete`, nie plný success.
+Neoverený cleanup je `CLEANUP_INCOMPLETE`.
 
-## 9. Consumer rollout
+## 18. External secret manager boundary
 
-Atlas nemá meniť credential ako jeden neviditeľný file edit. Rotation je koordinovaný consumer transition.
+Vault je vhodný pre encrypted automation content. Ak potrebujeme dynamic credentials, central revocation, per-secret policy alebo leases, external secret manager je silnejší authority.
 
-Bezpečný model:
+Hybrid:
 
 ```text
-create credential epoch 02
-→ encrypt/publish subject S417
-→ preflight consumer inventory
-→ canary decrypt a render
-→ reload canary process
-→ verify authentication s epoch 02
-→ rollout remaining consumers
-→ verify all expected consumers
+repository obsahuje secret reference
+→ controller workload identity
+→ runtime lookup short-lived credentialu
+→ minimum plaintext lifetime
+```
+
+Custom lookup plugin je supply-chain dependency a potrebuje audit, version pinning a no-leak behavior.
+
+## 19. Competing hypotheses pri partial fleet rotation
+
+```text
+H1: hosts chýbali v target inventory
+H2: použili iný vault ID/password source
+H3: extra var prepísala decrypted value
+H4: file updated, handler skipped
+H5: process číta iný path
+H6: target credential cutover bol príliš skoro
+H7: second writer obnovil old file
+H8: verifier kontroluje file, nie process
+```
+
+Dôkazy:
+
+- expected/resolved hosts H1;
+- Vault run metadata H2;
+- effective epoch manifest H3;
+- checksum/handler/process start H4/H5/H8;
+- database audit H6;
+- filesystem timeline H7.
+
+## 20. Evidence-preserving containment a recovery
+
+```text
+pause rollout/revocation
+→ preserve encrypted artifact/run metadata bez plaintextu
+→ remove unhealthy hosts from traffic
+→ identify loaded epochs
+→ repair missing decryption/render/handler path
+→ verify all consumers on epoch 02
 → revoke epoch 01
-→ verify epoch 01 rejected
-→ close audit a cleanup
+→ test old rejection
+→ cleanup and audit closure
 ```
 
-Niektoré systems podporujú overlap window, počas ktorého platia oba credentials. Iné vyžadujú presne koordinovaný cutover. Model musí poznať capabilities cieľového systému.
+Ak plaintext unikol, incident response a credential rotation sú povinné; masking po udalosti nestačí.
 
-Runtime verification nemá kontrolovať iba file content. Potrebuje process-level alebo end-to-end oracle:
-
-- proces načítal novú epoch;
-- database authentication funguje;
-- všetci expected consumers sú healthy;
-- stará epoch už nie je používaná;
-- traffic sa nevrátil na neaktualizovaný host.
-
-## 10. Worked failure: rekey sa považoval za rotation
-
-Database credential epoch 01 unikol do CI logu. Tím vykonal:
-
-```bash
-ansible-vault rekey vault.yml
-```
-
-Rekey zmenil iba encryption password chrániaci repository artifact. Cieľový database password zostal rovnaký.
-
-Mechanizmus:
+## 21. Acceptance a forbidden paths
 
 ```text
-credential value je kompromitovaná
-→ zmení sa iba Vault wrapping key
-→ encrypted artifact má nový ciphertext
-→ database stále prijíma starú hodnotu
-→ útočník s uniknutým plaintextom zostáva autorizovaný
+logical secret ID/epoch/owner sú explicitné
++ Vault artifact a decryption identity sú oddelené
++ untrusted content nemá decrypt access
++ plaintext path je bounded
++ no_log/diff/log/validator controls sú testované
++ exact consumer manifest je complete
++ process loaded epoch je verified
++ new credential works
++ old credential is rejected
++ cleanup verdict is complete
++ rekey-only fixture is rejected as rotation closure
 ```
 
-Recovery musí zmeniť target credential, aktualizovať consumers, overiť novú hodnotu a revoke-nuť starú. Rekey môže byť doplnkový krok, ak bol kompromitovaný aj vault password.
+## 22. Anti-patterny
 
-## 11. Worked failure: untrusted pipeline dostala decryption access
+### „Vault vyriešil secrets management“
 
-Protected variable s vault passwordom bola dostupná jobu, ktorý spúšťal merge-request branch. Útočník pridal custom lookup plugin zapisujúci resolved variable do outbound HTTP requestu.
+Rieši storage encryption, nie celý lifecycle.
 
-```text
-repository ciphertext zostáva bezpečný
-→ trusted CI identity dešifruje secret
-→ untrusted executable content ovláda plaintext path
-→ plugin exfiltruje hodnotu
-```
+### „Rekey je rotation“
 
-`no_log` nepomôže, pretože exfiltration neprebieha cez bežný task output.
+Mení wrapper key, nie target credential.
 
-Required controls:
+### „`no_log` zabráni všetkým leakom“
 
-- decryption iba na protected reviewed revision;
-- trusted immutable execution environment;
-- obmedzené plugin/search paths;
-- environment-scoped workload identity;
-- egress control;
-- oddelenie plan/check jobov od production secret jobu.
+Nechráni malicious plugin, destination, validator ani memory.
 
-## 12. Worked failure: nový secret funguje, starý zostal aktívny
+### „Nový secret funguje, môžeme skončiť“
 
-Všetkých dvanásť hosts dostalo epoch 02 a authentication probe prešiel. Pipeline skončila green, ale revocation job bol optional a nebežal.
+Old credential musí byť revoked a forbidden testom odmietnutý.
 
-```text
-new credential publication succeeded
-→ consumer verification succeeded
-→ old credential remained valid
-→ compromise window zostal otvorený
-→ rollout success bol nesprávne stotožnený s rotation closure
-```
+### „Vault password môže byť v image“
 
-Rotation verdict musí rozlišovať:
+Iba presúva static secret do širšieho artifactu.
 
-```text
-published
-consumer-partial
-consumer-complete
-revocation-pending
-revocation-complete
-cleanup-incomplete
-incident-required
-```
+## 23. Kontrolné otázky
 
-## 13. Worked failure: `no_log` skryl task, validation command leakol secret
-
-Template task mal `no_log: true`, ale validation command pri chybe vypísal celý parsed environment na stderr. Callback ho pridal do controller logu.
-
-```text
-Ansible task output je redacted
-→ external validator dostane plaintext file
-→ validator vypíše secret
-→ callback uloží stderr
-→ log artifact prežije workspace
-```
-
-Secret-bearing validator musí mať redacted failure contract. Po exposure treba credential považovať za kompromitovaný, obmedziť log access, rotate/revoke a auditovať použitie.
-
-## 14. Causal troubleshooting walkthrough: po rotation funguje iba časť fleet-u
-
-Po rotácii epoch 02 je osem hosts healthy, štyri hlásia database authentication failure. Ansible job je green.
-
-### 1. Zafixuj secret a run subject
-
-Zaznamenaj:
-
-- logical secret ID a epoch;
-- encrypted artifact revision a vault ID;
-- decryption workload identity;
-- expected consumer inventory;
-- target file checksum a owner/mode;
-- handler/reload events;
-- process-loaded epoch;
-- old/new credential status v database;
-- controller run a cleanup verdict.
-
-### 2. Súťažiace hypotézy
-
-1. Štyri hosts neboli v resolved target inventory.
-2. Použili iný vault ID alebo password source.
-3. Stale extra var prepísala dešifrovanú hodnotu.
-4. File sa aktualizoval, ale handler neprebehol.
-5. Process načítava iný config path.
-6. Database credential cutover nastal pred consumer rolloutom.
-7. Backup alebo druhý writer vrátil epoch 01.
-8. Verifier kontroluje file, nie loaded process state.
-9. Secret unikol a database ho bezpečnostný systém automaticky revoke-ol.
-
-### 3. Diskriminačné observation points
-
-- expected vs. resolved/attempted/verified host IDs;
-- vault ID a password-source metadata bez secretu;
-- redacted effective-value epoch manifest;
-- destination checksum a file modification timeline;
-- handler notification/execution a process start time;
-- process environment alebo runtime credential epoch endpoint;
-- database authentication audit podľa principalu a hostu;
-- old/new credential enabled state;
-- controller log/artifact redaction scan.
-
-### 4. Containment
-
-Pozastav ďalšiu rotation alebo rollback. Neaktualizované hosts odstráň z trafficu, ak nemajú funkčnú database session. Zablokuj plaintext-bearing logs a artifacts.
-
-### 5. Recovery
-
-- omitted hosts → oprav inventory a vykonaj explicitný scoped rollout;
-- wrong vault source → oprav identity mapping a audituj nesprávne dešifrovaný domain;
-- precedence override → odstráň stale value a zúž allowed sources;
-- handler gap → vykonaj bounded reload a verify;
-- wrong path → zosúlaď destination a process config contract;
-- premature revoke → aktivuj kontrolovaný overlap alebo vydať novú epoch;
-- second writer → odstráň ownership konflikt;
-- exposure → rotate na ďalšiu epoch a vykonaj incident workflow.
-
-### 6. Over pôvodný outcome
-
-Potvrď všetkých dvanásť stable host IDs, loaded epoch 02, úspešnú database transaction, nulové použitie epoch 01, revocation epoch 01 a cleanup-complete evidence.
-
-### 7. Posuň control skôr
-
-Pridaj expected consumer manifest, epoch-aware process oracle, mandatory revocation gate, secret-bearing validator contract a redaction scan pred log/artifact publication.
-
-## 15. Break-glass a recovery
-
-Produkčný decryption path potrebuje testovaný break-glass model:
-
-- minimálny počet custodians;
-- oddelené uloženie;
-- audited retrieval;
-- emergency approval alebo policy;
-- obmedzený čas použitia;
-- post-use rotation;
-- pravidelný recovery test.
-
-Break-glass secret, ktorý sa nikdy netestoval, nemusí byť počas incidentu použiteľný. Secret dostupný každému nie je break-glass, ale trvalý široký access.
-
-## 16. Secret scanning a incident response
-
-Skenuj repository, workspaces, logs a artifacts na:
-
-- plaintext credentials;
-- private keys;
-- editor backups;
-- decrypted Vault files;
-- debug output;
-- generated environment files;
-- provider/cloud tokens.
-
-Scanner nenahrádza rotation a revocation.
-
-Pri podozrení na exposure:
-
-```text
-contain access k plaintext artifactu
-→ považuj credential za kompromitovaný
-→ issue new epoch
-→ update a verify consumers
-→ revoke old epoch
-→ audit historical use
-→ odstráň aktívne copies/caches
-→ podľa potreby rieš Git history
-→ oprav root cause
-```
-
-Odstránenie secretu z posledného commitu neodstráni jeho hodnotu z Git history ani z už stiahnutých clones.
-
-## 17. Referenčné pravidlá
-
-- Vault chráni at-rest content, nie celý runtime secret lifecycle.
-- Vault ID je routing label, nie access-control boundary.
-- Encrypted diff potrebuje autorizovaný semantic review.
-- Decryption identity musí byť oddelená od encrypted artifactu.
-- Untrusted content nesmie dostať production decryption access.
-- `no_log` je output-redaction control, nie revocation alebo sandbox.
-- Secret-bearing render a validation path potrebuje samostatnú exposure analýzu.
-- Rekey a target credential rotation sú odlišné operácie.
-- Consumer rollout nie je kompletný bez runtime verification.
-- Rotation nie je kompletná bez revocation starej hodnoty.
-- Cleanup-incomplete secret run nie je plný success.
-- Exposure vyžaduje rotate/revoke, nie iba lepšie maskovanie logs.
-
-## 18. Kontrolné otázky
-
-1. Ktorú časť secret lifecycle-u Ansible Vault chráni?
-2. Čo tvorí secret subject a consumer inventory?
-3. Prečo vault ID nie je authorization policy?
-4. Ako sa líši encrypted file od encrypted value?
-5. Prečo `no_log` nezastaví malicious plugin alebo external validator?
-6. Aké identity tvoria production decryption subject?
-7. Ako sa dokáže, že process načítal novú secret epoch?
-8. Aký je rozdiel medzi rekey a target credential rotation?
-9. Prečo rotation bez revocation nie je uzavretá?
-10. Aké evidence odlíšia wrong vault source, stale override a missing reload?
+1. Čo Vault chráni a čo nechráni?
+2. Čo musí obsahovať secret subject?
+3. Aký rozdiel je medzi encrypted file a value?
+4. Čo Vault ID znamená?
+5. Prečo decryption identity musí byť oddelená od repository?
+6. Aké boundaries má plaintext path?
+7. Čo `no_log` chráni a čo nie?
+8. Aký rozdiel je medzi rekey a target rotation?
+9. Prečo rotation nekončí consumer rolloutom?
+10. Ako sa dokazuje old credential revocation?
+11. Kedy je external secret manager vhodnejší?
+12. Ako sa testuje forbidden untrusted-decryption a rekey-only path?
 
 ## Glossary impact
 
-Relevantné pojmy: secret lifecycle subject, secret epoch, consumer inventory, Vault artifact subject, vault ID, decryption identity, runtime plaintext path, secret-bearing render path, consumer rollout, revocation-complete verdict, cleanup-incomplete secret run, encryption-key rotation, target credential rotation a break-glass decryption.
+Relevantné pojmy: Ansible Vault, encrypted artifact, encrypted value, vault ID, decryption identity, password client, logical secret ID, credential epoch, plaintext exposure, no_log, rekey, target credential rotation, consumer manifest, revocation, forbidden old credential a cleanup verdict.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
+- [Protecting sensitive data with Ansible Vault](https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html)
 - [Ansible Vault](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault.html)
-- [Encrypting content with Ansible Vault](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_encrypting_content.html)
-- [Using encrypted variables and files](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_using_encrypted_content.html)
-- [Managing vault passwords](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_managing_passwords.html)
+- [Managing Vault passwords](https://docs.ansible.com/projects/ansible/latest/vault_guide/vault_managing_passwords.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Roles a collections](roles-and-collections.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible idempotencia →](ansible-idempotency.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
