@@ -225,5 +225,5 @@ Maturity sa meria coverage exact resources a operations, revocation latency, sta
 
 **Navigácia**
 
-[← Predchádzajúca: Policy as Code](policy-as-code.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SRE and Operations →](../14-sre-and-operations/README.md)
+[← Predchádzajúca: Policy as Code](policy-as-code.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Reliability, availability a durability →](../14-sre-and-operations/reliability-availability-durability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
