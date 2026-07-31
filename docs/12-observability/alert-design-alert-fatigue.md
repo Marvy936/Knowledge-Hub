@@ -2,500 +2,275 @@
 
 Alert nie je threshold, červený panel ani informácia, že sa niečo zmenilo. Je to versionovaný operational action contract: pri konkrétnom user alebo business riziku má správny receiver v správnom čase dostať jednu zrozumiteľnú notification, vykonať bezpečnú prvú akciu a preukázať resolution. Alert fatigue vzniká, keď tento contract produkuje viac prerušení než správnych reakcií.
 
-## 1. Dominantný mentálny model
+Noisy alert nie je iba nepríjemnosť. Znižuje dôveru, predlžuje acknowledgement, podporuje broad silences a učí on-call ignorovať rovnaký channel. Oprava alert fatigue preto nezačína zvýšením threshold-u naslepo. Začína auditom signal population, actionability, routing, grouping, ownership a closure evidence.
+
+## Alert lifecycle
 
 ```text
-user/business outcome a urgency
-→ exact alert subject a valid signal population
-→ action contract
-→ condition a evaluation windows
+user alebo business risk
+→ exact alert subject a valid population
+→ action contract a urgency
+→ query, threshold a evaluation windows
 → pending/firing/resolved state
-→ stable alert identity
-→ grouping/inhibition/silence/routing
-→ notification a external incident identity
-→ acknowledgement a safe first action
-→ containment/recovery
-→ original a forbidden outcome validation
-→ alert-quality review a rule retirement/improvement
+→ identity, labels a routing
+→ grouping/inhibition/silence
+→ receiver delivery a acknowledgement
+→ bounded response
+→ technical a business recovery
+→ alert resolution a post-incident review
 ```
 
-Kritické rozlíšenie:
+Alert môže byť technicky firing a operationally neúspešný, ak page nedorazí alebo responder nevie, čo urobiť. Môže byť resolved, hoci user impact pokračuje, pretože query stratila data. Closure preto obsahuje signal freshness a business validation.
 
-```text
-metric prekročila threshold
-≠ existuje incident
-≠ treba pageovať človeka
-≠ notification dorazila správnemu ownerovi
-≠ responder vykonal správnu akciu
+## Exact alert subject
+
+Atlas používa:
+
+```yaml
+alertName: PaymentSettlementFastBurn
+alertGeneration: ALERT-PAY-31
+service: atlas-payments
+environment: production
+slo: settlement-completion
+population: valid logical settlement operations
+condition: multi-window error-budget burn
+severity: page
+owner: payments-oncall
+receiver: pagerduty-payments
+runbook: payments/settlement-fast-burn
+requiredFirstAction: isolate affected cohort after evidence capture
+forbiddenActions:
+  - restart all payment workloads
+  - increase retries globally
+  - silence all production alerts
 ```
 
-Alerting sa optimalizuje na čas k správnej reakcii, nie na počet zachytených technických odchýlok.
+Názov alertu, labels a annotations musia poskytovať enough context bez high-cardinality identity. Pod, payment ID a raw exception nepatria do page labels. Alert instance identity má byť stabilná cez replicas a retries.
 
-## 2. Exact alert subject
+## Actionability pred thresholdom
 
-Pre každú rule generation zaznamenaj:
+Pred vytvorením page alertu odpovedz:
 
 ```text
-Alert subject ID:
-User/business outcome a affected population:
-Signal, numerator/denominator a data authority:
-Rule engine a rule generation:
-Evaluation interval a windows:
-Threshold/burn-rate/no-data policy:
-Alert labels a identity:
-Severity a required response time:
-Owner, runbook a safe first action:
-Notification policy/receiver generation:
-External incident key:
-Validation a retirement criteria:
+Ktorý user outcome je ohrozený?
+Prečo musí človek reagovať teraz?
+Akú prvú bezpečnú action môže vykonať?
+Ktoré evidence potrebuje?
+Aký blast radius má nesprávna action?
+Čo znamená resolved?
 ```
 
-Rovnaký `alertname` v Prometheus, Grafane a cloud monitoringu nie je automaticky jeden alert subject. Môže ísť o tri conditions, tri identities a tri notification lifecycles.
+Ak odpoveď znie „pozrieť sa na dashboard“, alert pravdepodobne nemá complete runbook. Low-urgency capacity trend patrí do ticket/weekly planning, nie do nočnej page. Security alebo data-integrity incident môže page-nuť aj pri malom trafficu, preto severity nie je iba percent affected requests.
 
-## 3. Page, ticket a informational event
+## SLO burn-rate alert
 
-### Page
+Pre 99.9 % SLO je allowed error ratio `0.001`. Burn rate je observed error ratio / allowed ratio.
 
-Page je oprávnený iba keď:
+Recording rule:
 
-- existuje významný aktuálny alebo bezprostredný user/business impact;
-- oneskorenie zvyšuje škodu;
-- automatic remediation nestačí;
-- on-call má bezpečnú konkrétnu akciu;
-- signal má dostatočnú precision.
+```yaml
+groups:
+  - name: atlas-payments-slo
+    interval: 30s
+    rules:
+      - record: service:payment_settlement_error_ratio:rate5m
+        expr: |
+          sum(rate(payment_settlement_completed_total{result!="success"}[5m]))
+          /
+          sum(rate(payment_settlement_started_total[5m]))
 
-### Ticket
-
-Ticket je vhodný pre capacity trend, expiráciu, deprecated dependency, stale rule alebo recurring issue, ktoré nevyžadujú okamžité prerušenie.
-
-### Informational event
-
-Deployment, autoscaling, failover alebo config reload môže byť correlation evidence bez notification.
-
-```text
-urgent + important + actionable + real
-→ page
-
-important, ale nie urgentné
-→ ticket
-
-užitočný context bez action
-→ event/dashboard
+      - record: service:payment_settlement_error_ratio:rate1h
+        expr: |
+          sum(rate(payment_settlement_completed_total{result!="success"}[1h]))
+          /
+          sum(rate(payment_settlement_started_total[1h]))
 ```
 
-## 4. Symptom a cause boundary
+Fast-burn alert:
 
-Page preferuj na symptóm vysoko v stacku:
+```yaml
+      - alert: PaymentSettlementFastBurn
+        expr: |
+          (service:payment_settlement_error_ratio:rate5m / 0.001 > 14.4)
+          and
+          (service:payment_settlement_error_ratio:rate1h / 0.001 > 14.4)
+        for: 2m
+        labels:
+          severity: page
+          service: atlas-payments
+          environment: production
+          slo: settlement-completion
+        annotations:
+          summary: Payment settlement error budget is burning rapidly
+          runbook_url: https://runbooks.example/payments/settlement-fast-burn
+```
 
-- SLO error-budget burn;
-- end-to-end latency alebo availability;
-- data correctness/integrity failure;
-- queue freshness prekračujúca business deadline;
-- saturation, ktorá odstránila failover headroom.
+Short a long window znižujú page na krátky spike a zároveň reagujú na sustained high burn. Values a windows sa odvodzujú od SLO/error-budget strategy, nie kopírujú bez modelu.
 
-Cause signals ako CPU, Pod restart, GC, packet loss alebo dependency errors patria primárne do investigation telemetry.
+`for: 2m` vyžaduje continuous active condition pred firing. Môže oddialiť detection a nie je náhrada multi-window designu. Missing series môže resetnúť pending state alebo vytvoriť absent alert podľa expression; telemetry freshness sa sleduje samostatne.
 
-Cause alert môže pageovať iba ak spoľahlivo predpovedá bezprostredný impact, vyžaduje skorú akciu alebo chráni security/integrity boundary.
+## Minimum traffic a denominator
 
-## 5. Action contract
+Ratio pri jednom requeste môže byť 100 %, ale page nemusí byť správna, ak service nemá urgentný low-volume contract. Naopak jediná failed payment s data-integrity riskom môže byť kritická.
 
-Každý page musí odpovedať:
+Traffic guard:
 
-1. čo je poškodené a koho sa to týka;
-2. odkedy a v akom scope;
-3. prečo je reakcia urgentná;
-4. kto je owner;
-5. čo má responder urobiť ako prvé;
-6. čo nesmie urobiť;
-7. kde sú dashboard, traces, logs a runbook;
-8. ako sa preukáže resolution.
+```promql
+sum(rate(payment_settlement_started_total[5m])) > 1
+```
 
-Alert bez action nemá byť page. Ak runbook prvý krok znie iba „pozri dashboard“, action contract nie je dokončený.
+Guard preukazuje observed traffic rate nad threshold. Nepreukazuje, že telemetry je complete. Pri no traffic sa môže použiť synthetic journey alebo heartbeat alert. Alert condition musí rozlíšiť quiet service, missing producer a actual success.
 
-## 6. Condition a population
+## Query unit tests
 
-Condition potrebuje:
+Rule fixture overuje deterministic state transition nad známymi input series: či condition zostane pending dostatočne dlho, ktoré labels vytvoria alert identity a či expected alert vznikne v presnom evaluation time. Úspešný unit test nepreukazuje producer completeness, rule deployment ani notification delivery; tie zostávajú samostatnými runtime gates. Nasledujúca fixture preto testuje iba expression a alert-state contract.
 
-- exact numerator a denominator;
-- kompatibilný scope a cohort;
-- traffic/minimum-population guard;
-- evaluation a observation windows;
-- transient handling;
-- explicitný no-data verdict;
-- bounded output labels.
+```yaml
+rule_files:
+  - payments.rules.yml
 
-Príklad SLO-oriented signal:
+evaluation_interval: 30s
+
+tests:
+  - interval: 30s
+    input_series:
+      - series: 'payment_settlement_started_total{result="all"}'
+        values: '0+100x240'
+      - series: 'payment_settlement_completed_total{result="terminal_error"}'
+        values: '0+2x240'
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: PaymentSettlementFastBurn
+        exp_alerts:
+          - exp_labels:
+              severity: page
+              service: atlas-payments
+              environment: production
+              slo: settlement-completion
+```
+
+```bash
+promtool check rules payments.rules.yml
+promtool test rules payments.test.yml
+```
+
+Syntax check nepreukazuje signal semantics. Unit test preukazuje selected synthetic series behavior. Production replay/shadow evaluation musí overiť missing data, counter resets, labels a traffic distributions.
+
+## Severity a routing
+
+Severity vychádza z urgency a impactu:
 
 ```text
-final settlement failures alebo unknown outcomes
+page   = človek musí konať teraz, aby obmedzil user/data/security impact
+ticket = action je potrebná, ale môže počkať na working hours
+info   = context alebo audit, nie interruption
+```
+
+Route matchers musia byť testované s representative label fixtures. Alert s `severity=page` a chýbajúcim `service` môže skončiť v default ticket receiveri. Routing test a end-to-end canary sú súčasť deployment gate-u.
+
+## Grouping, inhibition a silences
+
+Grouping spája related alert instances do notification. Pri group-by `alertname,service,environment` sa AZ cohorts zobrazia v jednej page; to je vhodné, ak on-call vykonáva jednu action. Ak každá Region vyžaduje nezávislého ownera, Region patrí do group identity.
+
+Inhibition potlačí symptom alerts pri active root-cause alert-e. Musí zachovať rovnaký scope, inak broad Region alert skryje unrelated service failure. Silences sú time-bounded exceptions s ownerom, reasonom a expiry. Silence nie je oprava noisy rule.
+
+## Runbook ako executable decision support
+
+Runbook alertu obsahuje:
+
+```text
+meaning a user impact
+exact query a data source
+subject fields a expected cohort
+known false-positive boundaries
+first three read-only observations
+safe containment options
+forbidden actions
+recovery and rollback
+positive, forbidden and telemetry validation
+owner and escalation
+```
+
+Runbook command musí vysvetliť output. Napríklad:
+
+```bash
+curl -fsS -G 'http://prometheus:9090/api/v1/query_range' \
+  --data-urlencode 'query=sum by (availability_zone,provider_config_generation) (rate(payment_settlement_completed_total{result!="success"}[5m]))' \
+  --data-urlencode 'start=2026-07-29T09:10:00Z' \
+  --data-urlencode 'end=2026-07-29T09:35:00Z' \
+  --data-urlencode 'step=30s' \
+  | jq '.data.result'
+```
+
+Výstup preukazuje observed error rate cohorts v exact backend/range. Nepreukazuje TLS root cause ani metric completeness. Ďalší krok používa exemplar/trace a loaded config inventory.
+
+## Alert delivery SLO
+
+Monitoring condition a notification pipeline majú samostatné SLI:
+
+```text
+valid page alerts acknowledged within 5 minutes
 /
-valid logical settlements
+all valid page alerts
 ```
 
-nie:
+Meria sa rule condition-to-firing, firing-to-Alertmanager, route/group delay, receiver API delivery a human acknowledgement. Alertmanager notification success nepreukazuje on-call acknowledgement. Synthetic canary testuje firing aj resolved path bez real incidentu.
+
+## Alert fatigue metrics
+
+Alert quality sa hodnotí cez:
 
 ```text
-provider failed attempts
-/
-HTTP acceptance requests
+pages per on-call shift
+percentage actionable pages
+duplicate notifications per incident
+alerts without owner/runbook
+time to acknowledge
+time to correct first action
+silence count and broadness
+flapping frequency
+alerts closed without user impact
 ```
 
-Threshold musí byť odvodený od user impactu, SLO, physical limitu alebo recovery horizonu.
+Nízky page count s missing critical coverage nie je úspech. Cieľom je vysoký signal-to-action ratio pri complete business risks.
 
-## 7. Burn-rate a time semantics
+Každý alert má review date. Alerts, ktoré tri mesiace nikdy nefiring-li, sa neodstraňujú automaticky; testuje sa, či condition je stále relevantná a canary vie path aktivovať. Alert, ktorý firing-li stokrát bez action, sa prerobí alebo zníži na ticket.
 
-SLO burn-rate alerting porovnáva aktuálnu chybovosť s povoleným error budgetom. Multi-window model vie odlíšiť:
+## Flapping a hysteresis
 
-- fast burn — krátky prudký outage;
-- slow burn — dlhšiu miernu degradáciu.
+Threshold `queue_age > 60` môže opakovane prechádzať okolo hranice. `for`, multi-window query, recovery threshold alebo smoothing môžu znížiť flap, ale nesmú maskovať sustained impact.
 
-`for` filtruje transient condition, ale môže oneskoriť kritický outage alebo skryť periodický failure. `keep_firing_for` môže obmedziť flapping, nie nahradiť recovery validation.
+Hysteresis možno implementovať cez odlišný firing/resolution mechanismus v supported alerting system-e alebo cez stateful recording strategy. Každá komplikácia musí mať unit tests. Artificially dlhý `for` môže zmeniť 2-minútový RTO incident na late page.
 
-Každý časový control musí byť vysvetlený cez detection a response objective, nie kopírovaný medzi službami.
+## Worked incident: noisy Pod alert skryje business outage
 
-## 8. No data
+Atlas má alert `PodRestarted` s labels `pod`, `container`, `reason`, `namespace` a `severity=page`. Pri node upgrade-e vytvorí 86 pages. On-call použije broad silence `service=atlas-payments` na dve hodiny. O 40 minút neskôr začne final settlement fast-burn incident, ale Alertmanager ho silence-ne.
 
-No data môže znamenať:
+Root cause nie je iba broad silence. `PodRestarted` je symptom bez immediate action, high-cardinality identity a expected maintenance behavior. Page channel bol zneužitý na inventory event.
 
-- legitímne nulový demand;
-- odstránený target;
-- exporter/scrape/ingest failure;
-- schema alebo label drift;
-- úplný service outage;
-- query defect.
+Containment zruší broad silence, manuálne eskaluje business alert a zachová notification/audit history. Recovery zmení Pod restart signal na dashboard/ticket podľa restart rate a user impactu. Business SLO page ostane independent. Maintenance suppression používa exact non-production alebo maintenance alert matchers, nie celý service.
 
-Preto:
+Acceptance test vytvorí controlled Pod restart a očakáva žiadnu page pri healthy business outcome. Následne synthetic settlement failure musí vytvoriť jednu grouped page, správny receiver, acknowledgement a resolved notification. Forbidden broad silence policy je odmietnutá admission/review gate-om.
 
-```text
-no series
-≠ zero failures
-≠ healthy service
-```
+## Kontrolné otázky
 
-Rule potrebuje expected-traffic model, telemetry metamonitoring a black-box fallback.
+1. Prečo alert nie je iba threshold?
+2. Kedy signal patrí do page a kedy do ticketu?
+3. Čo multi-window burn-rate design rieši?
+4. Prečo `for` nie je náhrada správnej query?
+5. Ako traffic guard môže stále zlyhať pri telemetry outage?
+6. Čo `promtool test rules` preukazuje a čo nie?
+7. Ako grouping identity súvisí s action scope-om?
+8. Prečo silence nie je oprava noisy alertu?
+9. Ktoré metrics ukazujú alert fatigue?
+10. Ako Pod restart alert skryl business outage?
 
-## 9. Identity, grouping a notification policy
+## Oficiálna dokumentácia
 
-Alert identity vzniká z labels. Stabilné labels nesú ownership a incident scope, napríklad `service`, `environment`, `region`, `severity` a bounded operation.
-
-Current value, hostname list, error text a free-form detail patria do annotations.
-
-### Grouping
-
-Groupuj podľa pravdepodobného spoločného incidentu a ownera. Pod/request/trace identity typicky vytvára alert storm.
-
-### Inhibition
-
-Parent alert môže inhibovať child symptoms iba v rovnakej failure domain. `equal` scope musí zahŕňať relevantný environment, cluster, Region alebo tenant.
-
-### Silence
-
-Silence je bounded manuálny mute s ownerom, reasonom, expiry a audit trailom. Permanentná silence je neuzavretý defect.
-
-### External incident identity
-
-HA a receiver retries môžu vytvoriť duplicate notifications. Receiver musí používať stabilný incident key odvodený od intended alert/group identity.
-
-## 10. Alert ownership a control-plane authority
-
-Definuj jediného ownera condition a notification policy.
-
-```text
-Prometheus rule + Alertmanager
-alebo
-Grafana-managed rule + Grafana notification policy
-alebo
-cloud-native alarm path
-```
-
-Viac engines môže koexistovať pre rozdielne signals, ale rovnaký symptom nemá pageovať z troch independent control planes bez explicitného migration alebo fallback contractu.
-
-UI dashboard threshold nie je alert rule. Data-source-managed a Grafana-managed rules môžu používať odlišné windows, transformations a no-data semantics.
-
-## 11. Alert fatigue ako feedback failure
-
-Alert fatigue sa prejavuje:
-
-- vysokým pages-per-incident;
-- nízkym actionable rate;
-- duplicate notifications;
-- častým auto-resolution bez akcie;
-- flappingom;
-- rastúcim acknowledgement časom;
-- broad silences;
-- ignorovaním pagera.
-
-Dôsledok nie je iba nepohodlie. Noise zvyšuje pravdepodobnosť, že skutočný incident nebude včas rozpoznaný.
-
-Meraj:
-
-- pages per shift a per incident;
-- actionable/false-positive rate;
-- duplicate a flap rate;
-- time to acknowledge a mitigate;
-- rules bez ownera/runbooku;
-- notifications bez následnej action;
-- vek silences;
-- alerting gaps odhalené incidentmi.
-
-## 12. Worked failure: 43 pages pre jeden settlement incident
-
-### Subject
-
-```text
-Incident: ALERT-PAY-46
-Symptom: enterprise final-settlement failure ratio 6.9 %
-Start: 02:10 UTC
-Release: 7.23.0
-Primary rule authority: nejasná
-Prometheus rules: ALERT-GEN-71
-Grafana-managed rules: GRAF-ALERT-29
-Cloud infrastructure alarms: CLOUD-ALARM-18
-Alertmanager policy: AM-POL-52
-```
-
-### Notification outcome
-
-Za prvých sedem minút vzniklo:
-
-```text
-1 Prometheus SLO page
-1 Grafana duplicate SLO page
-32 per-task pool-saturation pages
-4 Pod restart pages
-4 CPU warning pages
-1 cloud load-balancer page
-= 43 pages
-```
-
-On-call mal z predchádzajúcich dvoch týždňov 68 % auto-resolved pages bez zásahu. Prvú settlement page preto považoval za ďalší transient. Acknowledgement prišlo po 14 minútach; správny user-impact scope bol identifikovaný po 27 minútach.
-
-### Competing hypotheses
-
-1. SLO alert bol nesprávny;
-2. alert delivery zlyhala;
-3. duplicate engines vytvorili viac incidentov;
-4. per-task labels vytvorili cardinality storm;
-5. inhibition/grouping policy bola chybná;
-6. on-call nemal actionable notification;
-7. broad silence z predchádzajúcej maintenance potlačila časť symptomov;
-8. alert fatigue znížila dôveru a response speed.
-
-### Discriminating evidence
-
-```text
-Prometheus SLO condition: valid
-Grafana rule: rovnaký symptom, iné 10m window a incident key
-per-task alerts: label task_id v identity
-Alertmanager group_by: [alertname, task_id]
-inhibition: iba cluster, bez service/environment
-runbook link: všeobecná observability homepage
-pages s action počas 30 dní: 24 %
-auto-resolved pages: 68 %
-maintenance silence: broad regex, stále aktívna
-```
-
-Mechanizmus:
-
-```text
-jeden user-impact incident
-→ tri rule authorities vyhodnotia podobný symptom
-→ cause rules vytvoria instance-level identities
-→ grouping zachová task_id
-→ notification storm otvorí viac external incidents
-→ dlhodobý noise zníži dôveru
-→ on-call oneskorí acknowledgement
-→ mitigation a user recovery sa spomalia
-```
-
-### Containment
-
-- potvrdiť jednu canonical SLO condition a jeden external incident;
-- zastaviť duplicate Grafana/cloud paging pre ten istý symptom;
-- presne silencing-nuť iba duplicate/cause rules s ownerom a krátkou expiry;
-- zachovať fingerprints, route decisions, receiver acknowledgements a on-call timeline;
-- neumlčať canonical user-impact page;
-- pripojiť respondera na exact settlement dashboard a safe containment.
-
-### Authoritative recovery
-
-1. určiť Prometheus + Alertmanager ako jediný owner settlement page-u;
-2. Grafana rule odstrániť alebo zmeniť na non-paging migration comparison;
-3. per-task saturation agregovať na service/Region actionable scope a degradovať na ticket/diagnostic signal;
-4. odstrániť dynamic task identity z page labels;
-5. opraviť grouping, inhibition a external incident key;
-6. nahradiť runbook konkrétnym containment/recovery postupom;
-7. zaviesť alert fixtures, notification sandbox a synthetic page canary;
-8. mesačne retire-nuť rules bez action.
-
-### Acceptance verdict
-
-Recovery je prijatá, keď:
-
-- controlled settlement burn vytvorí jednu canonical external page;
-- notification obsahuje user impact, scope, ownera a safe first action;
-- cause signals zostanú dostupné bez duplicate paging;
-- same incident sa deduplikuje aj pri HA retry;
-- forbidden cross-environment inhibition a broad silence nefungujú;
-- resolved notification uzavrie ten istý external incident;
-- actionable rate a pages-per-incident sa zlepšia;
-- druhý canary po rule reload-e zachová celý path.
-
-## 13. Runbook a notification content
-
-Dobrá notification obsahuje symptom, affected population, start/duration, current value, SLO/burn, ownera, runbook a investigation links.
-
-Runbook obsahuje:
-
-1. význam a non-meaning alertu;
-2. safety checks;
-3. user-impact validation;
-4. top hypotheses a discriminating queries;
-5. containment options;
-6. escalation/rollback;
-7. resolution a forbidden-outcome validation;
-8. evidence preservation.
-
-## 14. Alert as Code a testovanie
-
-Versionuj:
-
-- rules a recording dependencies;
-- routing/grouping/inhibition;
-- templates a receiver references;
-- ownership a runbook metadata;
-- fixtures a expected alert instances.
-
-Pipeline:
-
-```text
-lint/schema
-→ PromQL/query fixtures
-→ pending/firing/resolved tests
-→ label/cardinality policy
-→ route/inhibition/silence fixtures
-→ receiver sandbox
-→ staged runtime reload
-→ synthetic end-to-end alert
-→ resolved closure
-```
-
-Source validation nestačí. Treba overiť loaded rule/policy generation a external acknowledgement.
-
-## 15. Metamonitoring
-
-```text
-known canary signal
-→ rule evaluation
-→ firing identity
-→ Alertmanager/Grafana policy
-→ receiver request
-→ external incident
-→ test acknowledgement
-→ resolved closure
-```
-
-Monitoruj rule failures, missed evaluations, notification queue, route outcomes, receiver failures, template errors a canary latency.
-
-## 16. Troubleshooting model
-
-### Condition sa nespustila
-
-```text
-source population
-→ query result
-→ rule loaded generation
-→ evaluation interval/errors
-→ windows/for/no-data
-→ alert identity
-```
-
-### Firing bez notification
-
-```text
-producer send
-→ Alertmanager/policy receive
-→ route/group timing
-→ silence/mute/inhibition
-→ receiver/template
-→ external response/incidence key
-```
-
-### Duplicate pages
-
-```text
-multiple rule engines
-→ inconsistent labels/fingerprints
-→ HA replica labels
-→ route continue/fan-out
-→ receiver retry/unknown outcome
-→ external dedup key
-```
-
-### Flapping
-
-```text
-baseline a threshold
-→ window/scrape gaps
-→ unstable denominator
-→ for/keep_firing_for
-→ dynamic labels
-→ actual periodic failure
-```
-
-## 17. Anti-patterny
-
-### Page na každý failure mode
-
-Jeden symptom vytvorí notification storm.
-
-### Auto-resolved ako quality proof
-
-Ak človek nemusel konať, page mohol byť zbytočný.
-
-### Dashboard threshold ako alert policy
-
-Farba nemá ownership, routing ani acknowledgement.
-
-### Duplicate engines bez autority
-
-Rovnaký symptom vytvorí viac incidents a odlišné recovery states.
-
-### Permanentná silence
-
-Vytvorí blind spot bez closure.
-
-### Alert bez forbidden action
-
-Responder môže noise alebo incident zhoršiť nebezpečným broad changeom.
-
-## 18. Kontrolné otázky
-
-1. Čo tvorí exact alert subject?
-2. Kedy signal pageuje, vytvorí ticket alebo zostane eventom?
-3. Prečo symptom page typicky prevyšuje cause page?
-4. Čo musí obsahovať action contract?
-5. Ako burn-rate windows a `for` menia detection?
-6. Prečo no-data nie je zero?
-7. Ako labels vytvárajú alert a external incident identity?
-8. Ako grouping, inhibition a silence menia notification outcome?
-9. Prečo duplicate alerting engines zvyšujú fatigue?
-10. Ktoré metrics dokazujú alert quality?
-11. Ako testovať alert od signal-u po resolved acknowledgement?
-12. Ako retire-nuť stale alebo neakčný page?
-
-## Glossary impact
-
-Relevantné pojmy: alert-action subject, page eligibility contract, action contract, signal-population contract, alert-rule generation, notification-policy generation, external incident identity, pages-per-incident, actionable-rate verdict, alert-control-plane authority, canonical symptom page, cause-signal demotion, alert-fatigue feedback loop, alert retirement verdict a end-to-end alert acceptance.
-
-## Primárne zdroje
-
-- [Prometheus alerting practices](https://prometheus.io/docs/practices/alerting/)
-- [The Zen of Prometheus](https://prometheus.io/docs/practices/the_zen/)
+- [Google SRE Workbook: Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/)
 - [Prometheus alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
-- [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
-- [Google SRE — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
-- [Google SRE — Practical Alerting](https://sre.google/sre-book/practical-alerting/)
+- [Prometheus rule unit testing](https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/)
+- [Alertmanager configuration](https://prometheus.io/docs/alerting/latest/configuration/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

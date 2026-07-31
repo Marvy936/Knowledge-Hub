@@ -1,495 +1,273 @@
 # Golden Signals
 
-Google SRE používa štyri Golden Signals pre user-facing systémy: **Latency**, **Traffic**, **Errors** a **Saturation**. Ich hodnota nevzniká tým, že dashboard obsahuje štyri panely. Vzniká až vtedy, keď všetky štyri signals opisujú rovnaký exact user alebo caller outcome, správnu measurement boundary a relevantnú capacity risk.
+Google SRE používa štyri Golden Signals pre user-facing systémy: **Latency**, **Traffic**, **Errors** a **Saturation**. Ich hodnota nevzniká tým, že dashboard obsahuje štyri panely. Vzniká až vtedy, keď všetky štyri signals opisujú kompatibilný user alebo caller outcome, správnu measurement boundary a relevantnú capacity risk.
 
-Golden Signals spájajú dve perspektívy:
+Golden Signals spájajú dve otázky: čo práve zažíva caller a ako blízko je systém k mechanizmu, ktorý tento outcome poškodí. Ak latency meria iba úspešné synchronous requests, errors iba HTTP 5xx, traffic všetky retries a saturation CPU hosta, panely opisujú štyri odlišné populations a nevytvárajú jeden operational model.
 
-```text
-čo práve zažíva caller?
-+
-ako blízko je systém k mechanizmu, ktorý tento outcome poškodí?
-```
+## Outcome-first lifecycle
 
-## 1. Dominantný lifecycle
+Golden Signals tvoria jeden verdict iba vtedy, keď všetky štyri používajú kompatibilnú operation population a time boundary. Lifecycle preto najprv fixuje user journey a až potom oddeľuje demand, incorrect outcomes, end-to-end duration a čakajúcu prácu pred capacity cliffom. Každá ďalšia query musí zostať spätne naviazaná na tento subject a nesmie zameniť logical operation za interný attempt.
 
 ```text
-business capability a caller outcome
-→ exact workflow/operation/cohort subject
-→ valid demand population
-→ latency boundary a distribution
-→ traffic demand unit
-→ error numerator a success semantics
-→ saturation resource a effective capacity
-→ bounded breakdowns a change context
-→ SLI/error-budget alebo operational verdict
-→ alert/investigation
-→ dependency a USE localization
-→ containment/recovery
-→ original, forbidden a capacity validation
+user journey a SLO
+→ exact operation a valid population
+→ Traffic ako demand
+→ Errors ako incorrect outcomes
+→ Latency ako end-to-end distribution
+→ Saturation ako leading capacity risk
+→ bounded cohort dimensions
+→ SLO/burn a investigation dashboard
+→ dependency a resource decomposition
+→ containment, recovery a validation
 ```
 
-Golden Signals sú konzistentné iba vtedy, keď sa neporovnáva server-handler latency s end-to-end business errors, interné retry attempts s user demandom a host CPU s task-local pool saturation.
+Atlas Payments používa operation `payment.settle` pre valid enterprise payments. Operation začína pridelením stable idempotency key a končí provider confirmation plus ledger/outbox commitom. HTTP `202` je iba entry boundary.
 
-## 2. Exact Golden-Signal subject
+## Exact Golden Signals subject
 
-Pre Atlas Payments používame:
+Subject určuje spoločnú population, ktorú budú Latency, Traffic a Errors merať, a zároveň pomenúva resource boundaries relevantné pre Saturation. Bez tejto väzby môže každý panel používať inú release, cohort alebo unit a spoločný dashboard nebude mať kauzálny význam. Atlas preto zapisuje contract ako versionovaný, kontrolovateľný artefakt.
+
+```yaml
+subject: GS-PAY-43
+service: Atlas Payments
+logicalOperation: payment.settle
+population: valid enterprise settlement operations
+success: one completed settlement with matching ledger state
+latencyBoundary: accepted operation ID -> final completion
+dimensions:
+  - provider
+  - merchant_class
+  - region
+  - availability_zone
+  - release_channel
+capacityRisks:
+  - queue age
+  - provider concurrency
+  - database pool wait
+  - NAT port allocation
+```
+
+Dynamic operation IDs zostávajú v traces a logs. Golden Signals metrics používajú bounded cohorts.
+
+## Traffic: demand, nie iba počet requestov
+
+Traffic reprezentuje workload, ktorý systém prijíma. Pri asynchronous journey je potrebné rozlíšiť logical operations od technical attempts:
+
+```promql
+sum by (merchant_class) (
+  rate(payment_settlement_started_total{
+    environment="production"
+  }[5m])
+)
+```
+
+Táto query preukazuje observed started logical operations za sekundu podľa merchant class. Ak producer incrementuje counter pred idempotency claimom, client retries môžu population nafúknuť. Contract preto určuje presný increment point.
+
+Technical traffic sa sleduje samostatne:
+
+```promql
+sum(rate(http_server_requests_total{
+  service="payments-api",
+  route="POST /payments/{id}/settle"
+}[5m]))
+```
+
+Rozdiel medzi HTTP attempts a logical starts ukazuje edge/client retry amplification alebo rejected duplicates. Provider attempts per operation zase odhaľuje downstream retries.
+
+Traffic panel bez expected seasonality a capacity contextu nevie rozlíšiť úspešný business growth od retry stormu.
+
+## Errors: incorrect caller alebo business outcome
+
+Errors zahŕňajú všetky outcomes, ktoré porušia operation contract, nie iba process exceptions. Pre settlement sú to terminal provider rejection, exhausted retry budget, duplicate settlement, conflicting ledger state alebo operation, ktorá nebola dokončená do reconciliation deadline-u.
+
+```promql
+sum by (error_class) (
+  rate(payment_settlement_completed_total{
+    environment="production",
+    result!="success"
+  }[5m])
+)
+/
+sum(rate(payment_settlement_started_total{
+  environment="production"
+}[5m]))
+```
+
+Výsledok preukazuje observed non-success completions voči starts v rovnakom okne. Pending operations ešte nemusia byť v numerator-e, preto sa samostatne sleduje oldest unresolved age. `202` responses nie sú final success a provider `429` je attempt error, ktorý môže skončiť úspešným logical outcome-om alebo terminal timeoutom.
+
+Fast errors môžu zlepšiť aggregate latency, preto error a latency panel musia používať explicitné populations.
+
+## Latency: distribution celého outcome-u
+
+Latency začína na caller-relevant boundary a končí výsledkom, ktorý caller potrebuje. Atlas sleduje end-to-end completion, queue wait, provider request a database acquisition oddelene.
+
+```promql
+histogram_quantile(
+  0.99,
+  sum by (le, merchant_class) (
+    rate(payment_settlement_duration_seconds_bucket{
+      environment="production",
+      result="success"
+    }[5m])
+  )
+)
+```
+
+Query odhaduje p99 úspešných completions podľa histogram buckets. Nepreukazuje latency terminal errors ani operations, ktoré ešte neskončili. Preto sa dopĺňa successful/error distributions a unresolved age.
+
+SLO compliance pri boundary 2.5 s:
+
+```promql
+sum(rate(payment_settlement_duration_seconds_bucket{
+  environment="production",
+  le="2.5"
+}[5m]))
+/
+sum(rate(payment_settlement_started_total{
+  environment="production"
+}[5m]))
+```
+
+Tento pomer je správny iba ak numerator reprezentuje unikátne completed operations a denominator kompatibilné starts. Ak histogram obsahuje retries alebo iba success population, recording rule musí semantics upraviť.
+
+## Saturation: leading signal kapacitného mechanizmu
+
+Saturation ukazuje queued alebo throttled work. Nie je synonymom CPU utilization. Relevantný signal závisí od bottleneck modelu:
+
+```promql
+max(
+  db_pool_waiting_requests{
+    service="payments-api"
+  }
+)
+
+max(
+  payment_queue_oldest_message_age_seconds{
+    queue="settlement"
+  }
+)
+
+sum(rate(container_cpu_cfs_throttled_periods_total{
+  namespace="payments",
+  container="payments-api"
+}[5m]))
+/
+sum(rate(container_cpu_cfs_periods_total{
+  namespace="payments",
+  container="payments-api"
+}[5m]))
+```
+
+Prvá query preukazuje current pool waiters, druhá oldest queue age a tretia CPU quota throttling ratio. Žiadna sama nepreukazuje user impact. Golden Signals dashboard koreluje saturation s traffic, latency a errors pre rovnaký cohort a time window.
+
+Saturation môže byť zdravý backpressure. Queue rast počas krátkeho burstu je prijateľný, ak age ostáva pod deadline a downstream sa nepreťažuje. Alarm sa viaže na business deadline a trend, nie na nenulovú queue depth.
+
+## Jeden dashboard, kompatibilné populations
+
+Golden Signals dashboard pre `payment.settle` používa:
 
 ```text
-Golden-Signal subject: GS-PAY-44
-business capability: CAP-PAY-42
-observability subject: OBS-PAY-44
-workflow: enterprise final settlement
-release: payments-api 7.20.0
-account/Region: 100000000042 / eu-central-1
-cohort: enterprise merchants v eu-central-1b
-window: 2026-07-29T08:10Z–08:35Z
-valid operation: settlement s accepted idempotency key a valid provider route
-success: exactly one provider outcome reconciled a ledger marked settled
-latency boundary: accepted business command → final reconciled outcome
-traffic unit: logical settlement, nie provider attempt
-critical saturation resource: per-task provider connection pool
+Traffic: logical starts/s a completions/s
+Errors: terminal incorrect outcomes / starts
+Latency: end-to-end p50/p95/p99, success aj error
+Saturation: queue age, pool wait, provider concurrency, CPU throttling
+Context: release, AZ, provider config a deployment annotations
+Telemetry health: scrape/export/query canary
 ```
 
-Bez subjectu môže mať každý panel inú population. Taký dashboard vytvára štyri čísla, nie service-health contract.
+Raw panel query sa overí cez backend API:
 
-## 3. Latency
-
-Latency je čas od definovaného začiatku po definovaný outcome.
-
-Možné boundaries:
-
-- client-observed request;
-- edge alebo load-balancer request;
-- server handler;
-- queue wait;
-- dependency call;
-- end-to-end async workflow;
-- final business completion.
-
-Tieto hodnoty nie sú zameniteľné.
-
-```text
-HTTP handler skončí po prijatí commandu
-→ 202 môže prísť za 80 ms
-→ message čaká v queue a provider poole
-→ final settlement skončí o 5 sekúnd neskôr
+```bash
+curl -fsS -G 'http://prometheus:9090/api/v1/query_range' \
+  --data-urlencode 'query=max(payment_queue_oldest_message_age_seconds{queue="settlement"})' \
+  --data-urlencode 'start=2026-07-29T09:10:00Z' \
+  --data-urlencode 'end=2026-07-29T09:35:00Z' \
+  --data-urlencode 'step=30s' \
+  | jq '.data.result'
 ```
 
-Server latency je pravdivá pre acceptance boundary, ale nepreukazuje final outcome latency.
+Príkaz preukazuje backend samples pre exact query a time range. Nepreukazuje, že Grafana panel používa rovnaký data source, variables alebo transformations; panel query inspector sa kontroluje samostatne.
 
-### Distribution a successful/failed separation
+## Golden Signals a SLO
 
-Average maskuje tail a multimodálne populations. Sledujú sa:
+Golden Signals podporujú investigation, ale SLO potrebuje presnú SLI population a objective. Error budget burn alert by mal vychádzať z user outcome. Resource saturation môže byť warning alebo contextual alert, ak ešte nepoškodzuje outcome.
 
-- histogram alebo distribution;
-- p50 pre typický priebeh;
-- p95/p99 alebo threshold compliance pre tail;
-- successful latency;
-- failed, timeout a cancelled latency;
-- degraded/fallback latency.
+Fast burn signal:
 
-Fast failure môže znížiť combined average. Preto sa úspešné a neúspešné operácie nemajú miešať do jedného health verdictu.
-
-### Coordinated omission
-
-Measurement, ktorá zaznamená iba dokončené operácie, môže vynechať interval, keď systém novú prácu neprijímal alebo ju držal mimo meranej boundary. Arrival time, queue wait, rejection a timeout musia zostať súčasťou relevantného outcome contractu.
-
-## 4. Traffic
-
-Traffic je demand kladený na systém v high-level workload-specific jednotke.
-
-Príklady:
-
-- logical requests;
-- transactions;
-- messages;
-- queries;
-- bytes;
-- jobs alebo items;
-- concurrent sessions;
-- inference tokens.
-
-Traffic má reprezentovať caller alebo business demand. Interné calls môžu byť useful decomposition, ale nesmú bez označenia nahradiť demand unit.
-
-### Logical demand a amplification
-
-```text
-10 000 logical settlements
-→ retries a fan-out
-→ 11 800 provider attempts
+```promql
+(
+  1 - (
+    sum(rate(payment_settlement_completed_total{result="success"}[5m]))
+    /
+    sum(rate(payment_settlement_started_total[5m]))
+  )
+)
+/
+(1 - 0.999)
 ```
 
-Traffic panel založený na provider attempts ukáže `+18 %`, hoci user demand sa nezmenil. Rozdiel je retry amplification, nie growth.
+Výsledok vyjadruje observed error ratio ako násobok povoleného 0.1 % budgetu, ak metrics majú kompatibilné semantics. Alerting rule zvyčajne kombinuje short a long windows, aby zachytila rýchly incident bez page-u na krátky noise.
 
-Sleduj oddelene:
+## Worked incident: traffic stabilný, latency a errors rastú iba v jednej cohorte
 
-- external logical operations;
-- internal attempts;
-- attempts per logical operation;
-- fan-out factor;
-- redelivery alebo replay;
-- success after retry a exhausted retries.
+Pri `OBS-PAY-43` je logical traffic stabilný. HTTP acceptance ostáva `99.98 %`, no enterprise completion errors rastú v `eu-central-1b`. End-to-end p99 prekročí 12 s. Queue age je 40 ms a pool wait nízky, ale provider concurrency je na limite a attempts per operation stúpnu na 2.8.
 
-### Traffic absence
+Golden Signals vedú investigation takto. Traffic vylúči pokles demandu. Errors lokalizujú `1b/CFG-34`. Latency ukáže end-to-end, nie handler problém. Saturation provider concurrency vysvetlí retry amplification, ale nie pôvodný TLS error. Trace a logs následne ukážu `unknown_ca` na stale trust bundle.
 
-Nulový traffic nie je nulový error rate. Môže znamenať DNS, routing, target registration, client release alebo telemetry failure. Expected demand, upstream telemetry a black-box probes rozhodujú, či ide o incident alebo sezónnosť.
+Containment odoberie affected cohort z enterprise routing-u a zníži retry concurrency. Recovery nasadí `PROVIDER-CFG-35`, overí mTLS a obnoví traffic po vlnách.
 
-## 5. Errors
+Acceptance vyžaduje business success nad SLO, p99 pod 2.5 s, provider attempts per operation na baseline, nulový stale-config cohort a telemetry canary. Forbidden test spustí old config v isolated cohort-e a musí zlyhať bez vstupu do production routing-u.
 
-Error je validná operácia, ktorá nesplnila caller alebo business contract.
+## Praktické query validation
 
-Môže ísť o:
+PromQL syntax a rule behavior sa testujú pred rolloutom:
 
-- explicitnú failure response;
-- timeout alebo cancellation;
-- invalid alebo incomplete result;
-- dropped message;
-- retry exhaustion;
-- policy/quota rejection;
-- stale alebo degraded response;
-- partial workflow;
-- unknown external side-effect outcome;
-- `2xx` alebo `202`, po ktorom final business outcome nevznikne.
-
-Error ratio:
-
-```text
-failed valid operations
-───────────────────────
-all valid operations
+```yaml
+groups:
+  - name: atlas-payments-golden-signals
+    interval: 30s
+    rules:
+      - record: service:payment_settlement_started:rate5m
+        expr: sum(rate(payment_settlement_started_total[5m]))
+      - record: service:payment_settlement_error_ratio:rate5m
+        expr: |
+          sum(rate(payment_settlement_completed_total{result!="success"}[5m]))
+          /
+          sum(rate(payment_settlement_started_total[5m]))
 ```
 
-Numerator a denominator musia mať rovnakú operation, cohort, time a retry semantics.
+```bash
+promtool check rules golden-signals.rules.yml
 
-### Silent errors
-
-Silent failure nemusí emitovať `5xx`. Príklady:
-
-- `200` s nesprávnym obsahom;
-- accepted async command bez completion;
-- stale tenant data;
-- backup bez usable restore;
-- duplicate provider authorization pri nejasnom acknowledgement;
-- job, ktorý technicky skončil, ale nepublikoval výstup.
-
-Preto Golden Signals často potrebujú semantic alebo end-to-end outcome counter, nie iba transport status.
-
-## 6. Saturation
-
-Saturation vyjadruje, koľko práce čaká alebo ako blízko je kritický resource k effective capacity cliffu.
-
-Relevantné signals:
-
-- queue length, lag alebo oldest age;
-- connection-pool waiters a acquire latency;
-- worker/thread queue;
-- CPU run queue alebo throttling;
-- memory pressure a allocation stalls;
-- disk/network queues a drops;
-- in-flight requests voči limitu;
-- concurrency, quota alebo partition headroom;
-- available IP, descriptor alebo token capacity.
-
-Saturation je leading indicator. Latency a errors môžu byť zatiaľ v objective, ale rast queue ukazuje, že ďalší demand alebo failure jednej AZ spôsobí capacity cliff.
-
-### Saturation nie je utilization
-
-CPU 90 % bez queueing a SLO impactu môže byť zdravé. CPU 37 % môže sprevádzať kritickú connection-pool saturation.
-
-```text
-current use / nominálny limit
+promtool test rules golden-signals.test.yml
 ```
 
-nie je dostatočný denominator, ak loaded runtime limit, failover capacity alebo tenant quota je nižšia. Saturation musí používať effective capacity a wait/rejection evidence.
+`check rules` preukazuje parse a rule syntax, nie správnu business semantics. Unit test s input series a expected samples overí vybrané scenarios, ale production population, missing data a scrape lag sa testujú canary a shadow dashboardom.
 
-## 7. Measurement layers
+## Anti-patterny
 
-Golden Signals možno merať na viacerých vrstvách:
+Golden Signals zlyhajú, keď traffic počíta retries, errors iba HTTP 5xx, latency iba successful handler duration a saturation CPU pri database bottlenecku. Ďalším problémom je panel bez denominatora alebo units, aggregate bez cohort dimensions a no-data zobrazené ako nula.
 
-```text
-client
-→ DNS/TLS/edge
-→ load balancer
-→ application acceptance
-→ queue/workflow
-→ dependency
-→ final business outcome
-```
+Dashboard nemá byť wallboard s desiatkami všeobecných resources. Začína user outcome a až potom vedie k dependency a USE detailu.
 
-Rozdiel medzi vrstvami je evidence:
+## Kontrolné otázky
 
-- client latency vysoká, handler latency nízka → edge, queue alebo network wait;
-- acceptance success vysoký, final completion nízky → async/downstream failure;
-- dependency attempts rastú, logical traffic stabilný → retry amplification;
-- resource saturation rastie len v jednej AZ → cohort alebo placement boundary.
+1. Prečo musia Golden Signals používať kompatibilnú population?
+2. Aký rozdiel je medzi logical trafficom a HTTP attempts?
+3. Prečo `202` nie je final success?
+4. Čo end-to-end p99 zahŕňa navyše oproti handler latency?
+5. Prečo saturation nie je iba CPU utilization?
+6. Kedy queue depth predstavuje zdravý backpressure?
+7. Čo raw Prometheus API query preukazuje a čo nie o Grafana paneli?
+8. Ako Golden Signals viedli incident `OBS-PAY-43`?
+9. Čo `promtool check rules` nepreukazuje?
+10. Kedy saturation patrí do page alertu a kedy iba do contextu?
 
-Jedna vrstva nemá byť implicitne prezentovaná ako end-to-end truth.
+## Oficiálna dokumentácia
 
-## 8. Golden Signals pre rôzne workloads
-
-### HTTP alebo gRPC API
-
-- Latency: valid request duration distribution;
-- Traffic: logical calls/s;
-- Errors: caller-visible failure ratio;
-- Saturation: in-flight requests, worker/pool waits, throttling.
-
-### Queue consumer
-
-- Latency: message age + processing + final completion;
-- Traffic: logical messages produced/settled;
-- Errors: failed, expired alebo dead-letter outcomes;
-- Saturation: backlog, oldest age, busy workers a downstream pools.
-
-### Batch pipeline
-
-- Latency: job duration a output freshness;
-- Traffic: jobs/items per schedule window;
-- Errors: failed alebo partial output;
-- Saturation: backlog, parallel slots a missed completion window.
-
-### Database
-
-- Latency: transaction/query distribution;
-- Traffic: logical transactions/s;
-- Errors: abort, timeout, conflict alebo wrong-result semantics;
-- Saturation: connections, locks, CPU/I/O queues a replica lag.
-
-## 9. Golden Signals, RED, USE a SLO
-
-```text
-Golden Signals
-→ user outcome + capacity risk
-RED
-→ operation-level Rate, Errors a Duration
-traces/dependency RED
-→ component path
-USE
-→ resource utilization, saturation a errors
-logs/profile/config evidence
-→ mechanism
-```
-
-Golden Signals poskytujú SLI candidates, ale dashboard nie je automaticky SLO.
-
-SLO contract musí určiť:
-
-- valid population;
-- success a degraded semantics;
-- latency threshold a measurement point;
-- time window;
-- retry/partial/unknown outcomes;
-- exclusions a ownera.
-
-Saturation je typicky leading operational signal, nie priamo user-outcome SLI. Chráni error budget pred capacity cliffom.
-
-## 10. Worked failure: štyri green panely, chybný service verdict
-
-### Pôvodný dashboard
-
-Po release `7.20.0` ukazuje dashboard:
-
-```text
-Latency: HTTP handler p95 = 82 ms
-Traffic: provider attempts +31 %
-Errors: HTTP 5xx = 0.3 %
-Saturation: task CPU = 37 %
-```
-
-Tím usúdi, že služba je zdravá a traffic rastie.
-
-### Business evidence
-
-```text
-enterprise final-settlement p95 = 5.2 s
-final settlement failures/unknown outcomes = 7.4 %
-logical settlement traffic = stabilný
-provider attempts per operation = 1.31
-provider pool active = 8/8
-pool acquire p95 = 2.7 s
-pool waiters = 180–420 per task
-```
-
-Každý pôvodný panel meral inú alebo neúplnú boundary:
-
-- latency končila pri HTTP acceptance, nie final outcome;
-- traffic meral attempts, nie logical demand;
-- errors počítali transport `5xx`, nie business completion;
-- saturation používala CPU, hoci critical resource bol connection pool.
-
-### Competing hypotheses
-
-1. reálny user traffic vzrástol;
-2. provider je pomalší pre všetky cohorts;
-3. HTTP handler alebo task CPU je bottleneck;
-4. final workflow čaká v queue;
-5. provider connection pool má nižší effective limit;
-6. telemetry alebo query používa nesprávnu release/AZ population.
-
-### Causal explanation
-
-Loaded runtime použil default pool limit `8` namiesto deklarovaných `64`. Worker concurrency zostala `32`.
-
-```text
-logical demand stabilný
-→ pool capacity klesne na 8 connections/task
-→ acquire wait rastie
-→ end-to-end latency prekročí caller timeout
-→ retries pridajú attempts
-→ attempt traffic vyzerá ako growth
-→ fast acceptance a nízky CPU zostávajú green
-→ final errors a error-budget burn rastú
-```
-
-### Containment a recovery
-
-- zastaviť rollout a immediate retry amplification;
-- obmedziť worker concurrency;
-- zachovať logical/attempt, queue, pool, trace a loaded-config evidence;
-- opraviť effective pool configuration;
-- canary-nuť jeden task a jednu AZ;
-- rozšíriť po potvrdení end-to-end outcome a saturation guardrailov;
-- reconciliovať unknown provider outcomes.
-
-### Golden-Signal acceptance verdict
-
-```text
-Latency
-→ final successful settlement p95/p99 a threshold compliance obnovené
-Traffic
-→ logical demand oddelený od attempts; amplification v baseline
-Errors
-→ final outcome failure ratio pod SLO; unknown/duplicate outcomes absent
-Saturation
-→ pool waiters/acquire latency pod guardrailom aj pri failover headroome
-```
-
-Forbidden outcomes:
-
-- žiadne duplicate authorization;
-- žiadne skrytie traffic dropu ako zlepšenie;
-- žiadna regresia standard cohortu alebo susednej AZ;
-- žiadna telemetry no-data interpretovaná ako zero error.
-
-## 11. Alerting a dashboard hierarchy
-
-Service overview má viesť:
-
-```text
-SLO/error-budget a black-box outcome
-→ Latency, Traffic, Errors, Saturation
-→ operation/cohort/version breakdown
-→ dependency RED a trace
-→ USE resource evidence
-→ logs/profile/config
-```
-
-Page má byť viazaná na user impact alebo rýchly SLO risk. Saturation warning môže predchádzať page, ak má jasnú action a threshold odvodený od effective capacity.
-
-Relevantné alert patterns:
-
-- fast a slow error-budget burn;
-- final-completion latency burn;
-- sustained zero completions pri očakávanom demand-e;
-- queue age alebo pool wait prekračujúci business deadline;
-- saturation, ktorá odstránila failover headroom.
-
-## 12. Black-box a telemetry validation
-
-White-box signals môžu byť nesprávne, chýbať alebo merať inú boundary. Doplň:
-
-- regional synthetic transaction;
-- DNS/TLS/HTTP validation;
-- async completion canary;
-- known logical operation s očakávaným provider a ledger outcome;
-- telemetry canary, ktorá overí, že Golden Signals vznikli a sú queryovateľné.
-
-Black-box signal overí external contract. White-box signals vysvetlia mechanismus. Potrebné sú obe.
-
-## 13. Implementačný template
-
-```text
-Golden-Signal subject:
-Capability/workflow/caller:
-Valid operation population:
-Cohorts a versions:
-
-Latency:
-- start/end boundary:
-- successful/failed/degraded separation:
-- distribution a SLO threshold:
-
-Traffic:
-- logical demand unit:
-- attempts/fan-out decomposition:
-- expected demand model:
-
-Errors:
-- success contract:
-- numerator/denominator:
-- partial/unknown/silent outcomes:
-
-Saturation:
-- critical resource/queue:
-- loaded/effective capacity:
-- leading threshold a failover headroom:
-
-Black-box evidence:
-SLI/SLO:
-Alerts a owner:
-Investigation links:
-Recovery validation:
-Forbidden outcomes:
-```
-
-## 14. Anti-patterny
-
-### Štyri panely bez spoločného subjectu
-
-Každý signal používa inú boundary alebo population a dashboard nemá konzistentný význam.
-
-### Handler latency ako end-to-end latency
-
-Skryje queue, async workflow a dependency wait.
-
-### Attempts ako business traffic
-
-Retry storm sa javí ako legitímny growth.
-
-### Errors iba z transport statusu
-
-Silent, partial, stale a unknown business outcomes zostanú neviditeľné.
-
-### CPU ako univerzálna saturation
-
-Ignoruje pools, queues, quotas, locks, IPs a downstream limits.
-
-### Traffic drop ako zlepšenie
-
-Latency, errors aj saturation môžu klesnúť preto, že valid demand sa k službe nedostal.
-
-## 15. Kontrolné otázky
-
-1. Čo tvorí exact Golden-Signal subject?
-2. Prečo musia všetky štyri signals používať kompatibilnú population?
-3. Ako sa líši handler a end-to-end workflow latency?
-4. Prečo successful a failed latency oddeľujeme?
-5. Ako retries menia Traffic bez zmeny user demandu?
-6. Čo je silent error?
-7. Prečo Saturation nie je synonymum utilization?
-8. Ako effective capacity mení saturation denominator?
-9. Ako Golden Signals nadväzujú na RED, traces a USE?
-10. Ako black-box a telemetry canary chránia pred false-green verdictom?
-
-## Glossary impact
-
-Relevantné pojmy: Golden-Signal subject, latency-boundary contract, logical demand unit, demand amplification, business error population, silent outcome failure, saturation-resource contract, effective-capacity denominator, capacity-risk verdict, black-box outcome canary a Golden-Signal acceptance verdict.
-
-## Primárne zdroje
-
-- [Google SRE — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
-- [Google SRE — Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/)
-- [Google SRE — Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/)
+- [Google SRE Workbook: Monitoring](https://sre.google/workbook/monitoring/)
+- [Prometheus recording rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/)
+- [Prometheus rule unit testing](https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

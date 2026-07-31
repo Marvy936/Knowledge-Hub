@@ -1,493 +1,314 @@
 # OpenTelemetry
 
-OpenTelemetry je vendor-neutral specification, API/SDK ecosystem, protocol a Collector framework pre vytváranie, propagovanie, spracovanie a export telemetry. Nie je to observability backend ani hotová monitoring stratégia. Jeho úspech sa neposudzuje podľa toho, či Collector beží, ale podľa toho, či exact signal contract prejde od application occurrence až po správny backend outcome bez neviditeľnej straty, schema driftu alebo privacy porušenia.
+OpenTelemetry je vendor-neutral specification, API/SDK ecosystem, protocol a Collector framework pre vytváranie, propagovanie, spracovanie a export telemetry. Nie je to observability backend ani hotová monitoring stratégia. Úspech sa neposudzuje podľa toho, či Collector beží, ale podľa toho, či exact signal contract prejde od application occurrence až po správny backend outcome bez neviditeľnej straty, schema driftu alebo privacy porušenia.
 
-## 1. Dominantný mentálny model
+OpenTelemetry oddeľuje instrumentation od backendu, nie zodpovednosť za semantics. Tím stále musí definovať business operation, metric population, span boundaries, log schema, sampling, redaction, resource identity a loaded-state acceptance.
 
-```text
-business/operational otázka a signal requirement
-→ exact telemetry subject a schema generation
-→ API alebo zero-code instrumentation
-→ SDK runtime policy
-→ resource, scope a context identity
-→ signal record
-→ OTLP transport
-→ Collector receiver
-→ ordered processors
-→ sampling, filtering, redaction a enrichment
-→ exporter queue/retry
-→ backend acknowledgement
-→ backend query/read-back
-→ coverage, correctness, cost a privacy verdict
-→ rollout, rollback a contract retirement
-```
+## End-to-end signal lifecycle
 
-Kritické rozlíšenie:
+OpenTelemetry oddeľuje producer API, runtime SDK policy, transport a Collector processing, preto žiadny z týchto komponentov sám nepreukazuje end-to-end evidence. Signal musí zachovať operation semantics, resource identity a schema cez každú boundary a backend musí výsledok sprístupniť query. Lifecycle sa preto overuje v nasledujúcom poradí a pri každom kroku sa rozlišuje configured, loaded, accepted a queryable state.
 
 ```text
-OpenTelemetry je nakonfigurované
-≠ SDK alebo agent je načítaný
-≠ record vznikol
-≠ Collector ho prijal
-≠ processor ho zachoval správne
-≠ exporter ho doručil
-≠ backend ho interpretuje podľa rovnakého contractu
+business alebo operational otázka
+→ exact signal requirement a schema generation
+→ manual, library alebo zero-code instrumentation
+→ API a SDK runtime policy
+→ resource, instrumentation scope a context
+→ signal-specific processing
+→ OTLP serialization a transport
+→ Collector receiver/processors/exporters
+→ backend ingest a query
+→ dashboard, rule alebo investigation
+→ coverage, privacy, overhead a failure validation
 ```
 
-## 2. Exact OpenTelemetry subject
+OpenTelemetry API calls bez configured SDK/provider môžu byť no-op podľa language/runtime. Configured SDK bez exporter endpointu môže records bufferovať alebo zahadzovať. OTLP success preukazuje receiver acknowledgement, nie automaticky durable backend queryability.
 
-Pri change alebo incidente zaznamenaj:
+## Exact OTel subject
+
+Atlas používa:
+
+```yaml
+subject: OTEL-PAY-12
+service.name: payments-api
+service.namespace: atlas-payments
+service.version: 7.19.0
+deployment.environment.name: production
+cloud.region: eu-central-1
+schema.url: atlas-observability/12
+instrumentationScopes:
+  - atlas.payments.settlement@12.0.0
+  - opentelemetry.instrumentation.http@current-approved
+collectorConfig: OTELCOL-PAY-19
+samplingPolicy: TAIL-PAY-6
+redactionPolicy: PII-RED-8
+metricsBackend: prometheus-compatible production
+logsBackend: loki atlas-production
+tracesBackend: tempo atlas-production
+```
+
+Resource attributes identifikujú entity, ktorá telemetry produkuje. Instrumentation scope identifikuje library/component, ktorý signal vytvoril. Span/metric/log fields opisujú operation alebo event. `service.name` sa nesmie meniť podľa Pod alebo hostname; ephemeral identity patrí do `service.instance.id` alebo platform attributes podľa semantic conventions.
+
+Current semantic conventions sú versionované a jednotlivé convention groups môžu mať rôzny stability status. Upgrade instrumentation package preto potrebuje schema diff a consumer compatibility test, nie iba dependency update.
+
+## Tracer, Meter a Logger provider
+
+Python trace a metric example:
+
+```python
+from opentelemetry import metrics, trace
+from opentelemetry.trace import Status, StatusCode
+
+tracer = trace.get_tracer("atlas.payments.settlement", "12.0.0")
+meter = metrics.get_meter("atlas.payments.settlement", "12.0.0")
+
+started = meter.create_counter(
+    "payment.settlement.started",
+    unit="{operation}",
+    description="Logical settlement operations admitted after idempotency claim",
+)
+completed = meter.create_counter(
+    "payment.settlement.completed",
+    unit="{operation}",
+    description="Terminal logical settlement outcomes",
+)
+duration = meter.create_histogram(
+    "payment.settlement.duration",
+    unit="s",
+    description="End-to-end logical settlement duration",
+)
+
+
+def settle(operation_id: str, provider: str) -> None:
+    attributes = {
+        "payment.provider": provider,
+        "payment.merchant.class": "enterprise",
+    }
+    started.add(1, attributes)
+    with tracer.start_as_current_span("payment.settle", attributes=attributes) as span:
+        start = monotonic_seconds()
+        try:
+            claim_idempotency(operation_id)
+            authorize_provider(operation_id, provider)
+            commit_ledger(operation_id)
+            completed.add(1, {**attributes, "payment.result": "success"})
+            span.add_event("payment.settlement.completed")
+        except Exception as exc:
+            completed.add(1, {**attributes, "payment.result": "terminal_error"})
+            span.record_exception(exc)
+            span.set_status(Status(StatusCode.ERROR, str(exc)))
+            raise
+        finally:
+            duration.record(monotonic_seconds() - start, attributes)
+```
+
+Code preukazuje intended instrument definitions a increment boundaries. Nepreukazuje, že `operation_id` je atomically claimed, metric temporality/backend translation je compatible alebo exceptions sú terminal rather than retryable. Metric attribute values musia zostať bounded; operation ID sa nepridáva do metrics.
+
+Log correlation môže pridať trace/span IDs do structured log recordu cez language logging bridge. Log message stále potrebuje schema a redaction; trace context samo nedáva logu business meaning.
+
+## Context propagation
+
+OpenTelemetry propagators prenášajú context cez HTTP headers, message metadata alebo iné carriers. W3C Trace Context je bežný default. Baggage prenáša application context, ale môže sa šíriť cez mnoho trust boundaries a nesmie obsahovať secrets.
+
+```python
+from opentelemetry.propagate import inject, extract
+
+headers: dict[str, str] = {}
+inject(headers)
+queue.publish(body=payload, headers=headers)
+
+consumer_context = extract(message.headers)
+with tracer.start_as_current_span(
+    "payment.settle.consume",
+    context=consumer_context,
+):
+    process(message)
+```
+
+Príklad preukazuje intended inject/extract code. Controlled broker test musí overiť, že headers sa zachovajú pri retry, dead-letter a replayi. Blind trust external `traceparent` môže umožniť collision alebo sampling influence podľa threat modelu; ingress môže vytvoriť nový root a pôvodný context uložiť ako link.
+
+## OTLP transport
+
+OTLP môže používať gRPC alebo HTTP/protobuf podľa SDK/Collector/backend supportu. Endpoint, TLS, compression, headers, timeout a retry sú súčasťou signal pathu.
+
+Environment configuration example:
+
+```bash
+export OTEL_SERVICE_NAME=payments-api
+export OTEL_RESOURCE_ATTRIBUTES='service.namespace=atlas-payments,deployment.environment.name=production,cloud.region=eu-central-1'
+export OTEL_EXPORTER_OTLP_ENDPOINT='https://otel-gateway.observability.svc:4317'
+export OTEL_EXPORTER_OTLP_CERTIFICATE='/etc/otel/certs/ca.pem'
+export OTEL_TRACES_SAMPLER='parentbased_traceidratio'
+export OTEL_TRACES_SAMPLER_ARG='0.10'
+```
+
+Environment variables preukazujú intended process inputs. Nepreukazujú, že runtime library ich podporuje alebo načítala; effective loaded state sa publikuje bezpečným generation fieldom a overuje canary.
+
+Network handshake:
+
+```bash
+openssl s_client \
+  -connect otel-gateway.observability.svc:4317 \
+  -servername otel-gateway.observability.svc \
+  -CAfile /etc/otel/certs/ca.pem \
+  -brief </dev/null
+```
+
+TLS success lokalizuje transport/trust boundary. Nepreukazuje OTLP protocol, authorization headers alebo signal acceptance.
+
+## Collector pipelines
+
+```yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 1024
+    spike_limit_mib: 256
+  resource/normalize:
+    attributes:
+      - key: deployment.environment.name
+        value: production
+        action: upsert
+  attributes/redact:
+    actions:
+      - key: http.request.header.authorization
+        action: delete
+      - key: payment.card_number
+        action: delete
+  tail_sampling/payments:
+    decision_wait: 20s
+    policies:
+      - name: errors
+        type: status_code
+        status_code:
+          status_codes: [ERROR]
+      - name: baseline
+        type: probabilistic
+        probabilistic:
+          sampling_percentage: 5
+  batch:
+    timeout: 5s
+    send_batch_size: 2048
+
+exporters:
+  otlp/tempo:
+    endpoint: tempo-distributor:4317
+    tls:
+      insecure: false
+  otlphttp/loki:
+    endpoint: https://loki-gateway/otlp
+  prometheus:
+    endpoint: 0.0.0.0:9464
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, resource/normalize, attributes/redact, tail_sampling/payments, batch]
+      exporters: [otlp/tempo]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, resource/normalize, attributes/redact, batch]
+      exporters: [otlphttp/loki]
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, resource/normalize, batch]
+      exporters: [prometheus]
+```
+
+Processor order je executable policy. Redaction pred exportom chráni all configured backends. Tail sampling patrí iba do traces pipeline. Resource upsert môže maskovať producer environment drift; pre security-relevant identity môže byť safer validate/reject než overwrite.
+
+```bash
+otelcol-contrib --config=/etc/otelcol/config.yaml --dry-run
+
+curl -fsS http://otel-collector:8888/metrics \
+  | grep -E 'otelcol_(receiver_accepted|processor_refused|processor_dropped|exporter_sent|exporter_send_failed)'
+```
+
+Dry run preukazuje config parse/component initialization. Internal metrics poskytujú hop accounting. Backend query a end-to-end canary sú stále required.
+
+## Metric temporality a translation
+
+OTel metrics podporujú instruments a aggregation/temporality model. Exporter/backend môže prekladať names, units, histogram representation a temporality. Counter reset, delta-to-cumulative conversion alebo duplicate collectors môžu skresliť Prometheus rates.
+
+Migration gate porovnáva:
 
 ```text
-OTel subject ID:
-Business capability a expected signals:
-Application/release/cohort:
-Language SDK alebo auto-instrumentation version:
-API/SDK/config generation:
-Semantic-convention/schema generation:
-Resource-detector a precedence generation:
-Propagation format:
-Sampling generation:
-Agent/gateway topology:
-Collector distribution/image/component inventory:
-Collector config generation a processor order:
-Exporter/backend/tenant:
-Observation window a evidence cut-off:
+instrument name/type/unit
+→ attributes a bounded values
+→ aggregation a temporality
+→ exporter translation
+→ backend series names/labels
+→ recording rules a dashboards
 ```
 
-„Používame OTel“ nie je sufficient identity. Core, contrib, Kubernetes, vendor alebo custom Collector distributions nemusia obsahovať rovnaké components ani rovnakú stability úroveň.
+Producer unit `ms` a dashboard assumption `s` vytvoria 1000× error bez transport failure. Semantic contract test posiela known histogram samples a overuje backend values/units.
 
-## 3. API, SDK a zero-code instrumentation
+## Sampling
 
-### API
+Head sampler rozhodne pred final outcome. Parent-based behavior rešpektuje upstream sampling decision podľa configuration. Tail sampling umožní outcome-aware policy, ale pridáva buffering, decision wait a trace-affinity requirements.
 
-Application a libraries používajú API na vytváranie spans, metric measurements, log records a context operations. Reusable library nemá vnucovať konkrétny exporter alebo backend.
+Sampling affects traces, not automatically metrics/logs. Span-derived metrics inherit sampled population unless metrics-generator has another source. Audit alebo billing truth nesmie byť probabilistically sampled.
 
-### SDK
+## Zero-code instrumentation
 
-SDK realizuje runtime policy:
+Java agent, Python auto-instrumentation, .NET auto-instrumentation a Kubernetes/operator injection môžu pridať telemetry bez ručného code change-u. Zero-code stále mení process startup, class/module hooks, resource attributes a exporter behavior. Loaded-agent inventory je potrebný.
 
-- sampling;
-- span/log processors;
-- metric readers, views, aggregation a temporality;
-- batching a queues;
-- resource configuration;
-- exporters, limits a shutdown/flush.
+```bash
+ps -ef | grep -E 'opentelemetry|javaagent' | grep -v grep
 
-### Zero-code alebo automatic instrumentation
-
-Agent alebo operator môže instrumentovať framework bez ručných code changes. To zrýchľuje coverage, ale nevytvára automaticky business outcomes, správne span status semantics ani stabilnú cardinality.
-
-Manual a automatic instrumentation môžu koexistovať, ale ownership musí zabrániť duplicate spans a metrics.
-
-## 4. Signal maturity nie je jednotná
-
-OpenTelemetry podporuje traces, metrics a logs; events sú pomenovaný log model a profiles sa ďalej rozvíjajú.
-
-Aktuálne dôležité stability rozlíšenia:
-
-- metrics data model je Stable;
-- logs data model, Logs API a Logs SDK sú Stable okrem explicitných výnimiek;
-- Profiles specification je Alpha;
-- Collector ako celok má mixed status, pretože jednotlivé receivers, processors, exporters a extensions majú vlastnú stability;
-- semantic conventions a telemetry-producing instrumentations môžu mať odlišný stability status.
-
-Production contract musí pinovať konkrétny component a jeho signal-specific stability, nie iba verziu Collector binary.
-
-## 5. Resource, instrumentation scope a schema identity
-
-### Resource
-
-Resource opisuje entitu, ktorá telemetry vytvorila. Stabilná logical identity:
-
-```text
-service.name = provider-adapter
+tr '\0' '\n' < /proc/1/environ | grep '^OTEL_'
 ```
 
-Ephemeral identity:
+Commands preukazujú process args/environment v danom containeri, nie úspešné hooks alebo telemetry export. Synthetic request a backend query overia actual instrumentation.
 
-```text
-service.instance.id = pod/provider-adapter-7d9...
-```
+## Schema, attributes a privacy
 
-Pod name nesmie nahradiť logical service name. Resource detectors z environmentu, cloudu, Kubernetes a explicitnej konfigurácie potrebujú definovanú precedence.
+Semantic conventions znižujú pomenovacie rozdiely, ale custom domain attributes potrebujú namespace, ownera, type a stability. Attribute rename môže rozbiť tail policy, dashboard aj routing naraz.
 
-### Instrumentation scope
+Cardinality a data classification sa kontrolujú pred emission. Raw HTTP URL s IDs, database statement s secrets alebo user email môžu unikať. Collector redaction je druhá defense; producer minimization je prvá.
 
-Scope identifikuje library/component a version, ktorá record vytvorila. Pomáha odlíšiť application instrumentation, framework instrumentation a problematickú library generation.
+Forbidden-field canary odošle synthetic fingerprint a vyhľadá ho vo všetkých backends. Acceptance znamená, že expected safe fields existujú a forbidden value nikde nie je queryable.
 
-### Semantic conventions
+## Worked incident: Collector upgrade zmení metric identity
 
-Semantic conventions zjednocujú names, units a meanings. Upgrade môže premenovať attribute, zmeniť unit alebo status a tým poškodiť dashboards, rules, sampling a backend mappings.
+Po upgrade Collector/exporter generation `OTELCOL-PAY-19` zmizne Grafana settlement duration panel, hoci traces a logs sú zdravé. Prometheus targets sú up.
 
-Schema migration potrebuje compatibility window, fixture tests a consumer inventory.
+Competing hypotheses sú producer metric absence, Collector metrics pipeline failure, exporter translation rename, unit/temporality change, scrape relabel drop alebo dashboard query drift.
 
-## 6. Context propagation a baggage
+Producer debug output obsahuje `payment.settlement.duration` v sekundách. Collector internal metrics ukazujú accepted/sent metric points. Prometheus exposition však obsahuje premenovanú translated series a histogram representation, zatiaľ čo recording rule stále očakáva staré `_bucket` series. Transport je healthy; consumer compatibility sa rozbila.
 
-W3C Trace Context typicky používa `traceparent` a `tracestate`. Injection a extraction musia fungovať cez HTTP, gRPC, queues, messaging a async boundaries.
+Containment ponechá business completion counter alert a zastaví upgrade rollout. Recovery pinne approved exporter behavior alebo migruje recording rules cez dual-publish/shadow period. Schema contract test overí name, type, unit, labels, buckets/native histogram a query result.
 
-Baggage prenáša contextual fields, ale nie je bezplatný ani dôveryhodný automaticky. Potrebuje:
+Acceptance vyžaduje producer record, Collector accounting, Prometheus series, recording rule, Grafana panel a alert canary. Forbidden test odošle high-cardinality payment ID attribute do metric a deployment gate ho musí odmietnuť alebo odstrániť pred exportom.
 
-- allowlist;
-- size limit;
-- trust-boundary policy;
-- zákaz secrets a PII;
-- zákaz automatickej promotion do metric labels;
-- lifecycle pre stale values.
+## Kontrolné otázky
 
-Broken propagation vytvára nové roots, neúplné traces a nekonzistentné sampling decisions.
+1. Prečo OpenTelemetry nie je observability backend?
+2. Aký rozdiel je medzi resource a instrumentation scope?
+3. Čo API instrumentation code preukazuje a čo nie?
+4. Ako sa overuje propagation cez queue retry/replay?
+5. Čo TLS test nepreukazuje o OTLP?
+6. Prečo processor order mení security a reliability?
+7. Ako exporter translation môže rozbiť Prometheus rules?
+8. Prečo span-derived metrics nemusia byť úplná population?
+9. Čo loaded-agent commands nepreukazujú?
+10. Aké evidence uzatvára metric-translation incident?
 
-## 7. OTLP contract
+## Oficiálna dokumentácia
 
-OTLP/gRPC a OTLP/HTTP sú odlišné transports. Explicitne definuj:
-
-- endpoint a signal path;
-- protocol;
-- TLS/mTLS a CA/SNI;
-- authentication/tenant headers;
-- compression a message-size limit;
-- timeout, batching a retry;
-- acknowledgement semantics.
-
-TCP connect alebo Collector `/health` nepreukazuje správny OTLP signal path.
-
-## 8. Collector pipeline a processor order
-
-Collector pipeline:
-
-```text
-receiver
-→ ordered processors
-→ exporter
-```
-
-Relevantné processors:
-
-- memory limiter;
-- batch;
-- resource/attributes;
-- filter/transform;
-- redaction;
-- probabilistic alebo tail sampling;
-- routing podľa dostupnej distribution.
-
-Order je behavior:
-
-```text
-normalize identity
-→ redact sensitive fields
-→ enforce bounded dimensions
-→ sample/filter
-→ batch/export
-```
-
-Ak redaction nastane po fan-out-e, data už odišli. Ak filter pred normalization očakáva nový attribute name, môže ticho zachovať alebo zahodiť nesprávnu population.
-
-## 9. Agent a gateway topology
-
-```text
-applications
-→ agent/DaemonSet/sidecar Collectors
-→ gateway Collectors
-→ backends
-```
-
-Agent rieši local endpoint, file/host collection, krátky buffer a resource enrichment. Gateway rieši shared policy, tenant routing, tail sampling, centralized credentials a backend fan-out.
-
-Gateway je shared failure domain. Potrebuje:
-
-- HA a topology spread;
-- capacity a autoscaling model;
-- bounded queues;
-- independent exporter failure handling;
-- config-generation rollout;
-- end-to-end canary.
-
-Cluster-level receiver, ktorý má bežať raz, nesmie byť omylom nasadený na každom Node-e.
-
-## 10. Sampling a trace affinity
-
-Head sampling je lacné, ale nepozná final outcome. Tail sampling môže zachovať errors a high-latency traces, ale potrebuje všetky spans trace-u na jednej stateful sampling identity.
-
-```text
-trace ID
-→ deterministic routing/partition
-→ jeden active tail-sampling subject
-→ wait a completeness decision
-→ keep/drop reason
-```
-
-Random load balancing pred tail samplers vytvára partial trace populations. Healthy replicas potom robia správne rozhodnutia nad nesprávnymi subjectmi.
-
-Sampling policy musí publikovať effective keep rate, drops podľa reason, late spans, incomplete traces a impact na trace-derived metrics.
-
-## 11. Metrics, logs a backend mapping
-
-### Metrics
-
-Views riadia aggregation, buckets, names a povolené attributes. Pri Prometheus integrácii over:
-
-- cumulative/delta temporality;
-- counter reset semantics;
-- histogram type a bucket compatibility;
-- units a naming;
-- resource-to-label allowlist;
-- staleness a target identity.
-
-Všetky resource attributes nesmú byť automaticky metric labels.
-
-### Logs
-
-OTel logs môžu prísť cez application bridge, OTLP, filelog, syslog alebo Fluent Bit. File collection potrebuje persistent checkpoint state, multiline, timestamp, severity mapping a redaction.
-
-### Fan-out
-
-Jeden input môže smerovať do viacerých backends. Každý output potrebuje vlastnú queue, acknowledgement, privacy a termination criteria. Pomalý alebo permanentne chybný exporter nemá blokovať všetky paths.
-
-## 12. Delivery, queues a failure semantics
-
-Memory limiter chráni process, ale jeho aktivácia môže odmietať telemetry. Batch znižuje overhead, ale pridáva loss/latency window. Sending queue absorbuje iba bounded outage.
-
-Collector nie je automaticky durable broker.
-
-Pre kritický pipeline definuj:
-
-```text
-queue type a capacity
-oldest-item age
-retry/backoff limit
-persistent storage generation
-full-disk behavior
-shutdown drain
-unknown acknowledgement policy
-duplicate tolerance
-maximum accepted loss window
-```
-
-Audit/security telemetry môže potrebovať oddelený durable pipeline od best-effort traces.
-
-## 13. Worked failure: healthy gateways, neúplné tail-sampling decisions
-
-### Subject
-
-```text
-Incident: OTEL-PAY-46
-Operation: enterprise final settlement
-Release: 7.23.0
-Collector distribution: otelcol-contrib 0.135.x
-Gateway config: OTEL-GW-88
-Gateway replicas: 4
-Tail-sampling policy: keep errors, keep p99 > 2 s, sample 2 % ostatných
-Routing generation: OTEL-ROUTE-19
-Backend: Tempo 3.0 / tenant payments-prod
-```
-
-### Symptóm
-
-Authoritative settlement SLI ukazuje `6.9 %` final failures. Tempo search však nájde iba `0.7 %` error traces a väčšina slow traces má missing provider child span. Collector gateways sú Ready, CPU pod 55 % a exporters hlásia úspešné requests.
-
-### Competing hypotheses
-
-1. application nenastavuje span status;
-2. provider child spans nevznikajú;
-3. Tempo historical path stráca spans;
-4. semantic-convention migration zmenila operation names;
-5. tail sampler dostáva neúplné traces;
-6. memory limiter dropuje batches;
-7. query používa nesprávny tenant alebo release;
-8. late spans prichádzajú po sampling decision-e.
-
-### Discriminating evidence
-
-```text
-SDK sampled flag: true
-agent Collector accepted/exported spans: complete per trace fixture
-agent → gateway load balancer: round-robin per OTLP request
-spans jedného trace-u na gateway replicas: 2–4
-per-gateway tail-sampler incomplete traces: high
-keep-error decisions: below expected
-memory-limiter refusals: 0
-Tempo accepted spans: zodpovedajú kept partial populations
-controlled trace-ID-aware route: complete trace a error keep
-```
-
-Pri scale-out-e sa odstránil load-balancing exporter s trace-ID routingom a agenti začali posielať batches cez bežný round-robin Service. Spans jedného trace-u skončili na rôznych stateful tail sampleroch.
-
-Mechanizmus:
-
-```text
-complete trace vznikne v aplikáciách
-→ agents exportujú spans v samostatných batches
-→ round-robin ich rozdelí medzi gateways
-→ každý tail sampler vidí partial trace
-→ error/provider span nemusí byť na rovnakej replica
-→ policy neidentifikuje error alebo latency
-→ partial trace sa dropne alebo zachová neúplne
-→ backend je healthy, evidence coverage je chybná
-```
-
-### Containment
-
-- zastaviť ďalší gateway topology rollout;
-- zachovať per-hop accepted/dropped, sampling reason a trace-ID distribution evidence;
-- dočasne zvýšiť bounded head keep rate pre affected cohort, ak cost budget dovolí;
-- nepovažovať trace-derived error rate za SLI;
-- chrániť metrics/logs pipeline pred spoločným emergency changeom.
-
-### Authoritative recovery
-
-1. obnoviť trace-ID-aware routing pred tail samplingom;
-2. pinovať topology a component inventory v manifeste;
-3. vytvoriť multi-service complete-trace fixture;
-4. testovať errors, slow traces, late spans a ordinary traces;
-5. publikovať keep/drop reason metrics per policy;
-6. canary-nuť jednu gateway cohortu;
-7. overiť backend trace completeness a sampling distribution;
-8. vykonať druhý scale/restart test.
-
-### Acceptance verdict
-
-Recovery je prijatá, keď:
-
-- všetky spans synthetic trace-u dorazia k jednej active sampling identity;
-- error a high-latency fixtures sú zachované;
-- ordinary keep rate zodpovedá policy;
-- incomplete/late trace counters sú bounded;
-- backend trace graph je kompletný;
-- metrics a logs signals neregresujú;
-- forbidden sensitive baggage/attributes nie sú exportované;
-- druhý gateway scale-out zachová affinity a coverage.
-
-## 14. Self-observability a canary
-
-Sleduj per hop:
-
-- received, accepted, refused a dropped records;
-- processor/filter/sampling reasons;
-- queue size, capacity a oldest age;
-- exporter attempts, failures a acknowledgement;
-- memory limiter actions;
-- resource/schema distribution;
-- backend ingest lag;
-- process CPU/memory/restarts.
-
-End-to-end canary:
-
-```text
-known trace + metric + log
-→ agent
-→ gateway
-→ policy processors
-→ each intended backend
-→ query/read-back
-→ correlation a forbidden-field check
-```
-
-## 15. Troubleshooting model
-
-### Žiadna telemetry
-
-```text
-producer signal
-→ SDK/agent loaded state
-→ resource a schema
-→ endpoint/protocol/TLS/auth
-→ receiver pipeline
-→ processors/drop reasons
-→ exporter queue/ack
-→ backend tenant/query
-```
-
-### Duplicate telemetry
-
-```text
-manual + auto instrumentation
-→ duplicate discovery/cluster receiver
-→ two agents/file readers
-→ fan-out/migration
-→ ambiguous acknowledgement retry
-→ backend dedup identity
-```
-
-### Collector OOM alebo backlog
-
-```text
-ingest/burst
-→ active trace state
-→ batch/queue sizes
-→ tail-sampling wait
-→ exporter/backend throughput
-→ memory limiter
-→ container/disk limit
-→ loss boundary
-```
-
-### Schema drift
-
-```text
-producer/instrumentation version
-→ semantic-convention status
-→ resource/scope/schema URL
-→ processor transformations
-→ backend field/label mapping
-→ dashboards/rules/SLO consumers
-```
-
-## 16. Anti-patterny
-
-### OpenTelemetry ako observability stratégia
-
-Framework neurčuje user outcome, SLO, alert owner ani incident action.
-
-### Collector health ako delivery proof
-
-Process môže byť healthy pri dropped, misrouted alebo semantically corrupted telemetry.
-
-### Tail sampling za random load balancerom
-
-Rozdelí stateful trace subject.
-
-### Experimental component ako stabilný contract
-
-Collector binary version nezaručuje component maturity.
-
-### Všetky resource attributes ako labels
-
-Vytvorí cardinality a churn.
-
-### Redaction po fan-out-e
-
-Sensitive data už opustili trusted processing boundary.
-
-## 17. Kontrolné otázky
-
-1. Čo tvorí exact OpenTelemetry subject?
-2. Aký je rozdiel medzi API, SDK a zero-code instrumentation?
-3. Prečo signal a Collector component maturity treba posudzovať samostatne?
-4. Ako resource, scope a schema generation vytvárajú telemetry identity?
-5. Prečo `service.name` nesmie byť Pod name?
-6. Ako processor order mení correctness a privacy?
-7. Kedy agent a gateway topology pridáva shared failure domain?
-8. Prečo tail sampling potrebuje trace affinity?
-9. Ako queues a memory limiter menia loss semantics?
-10. Ako OTel metrics mapovať do Prometheus modelu?
-11. Ako diagnostikovať duplicate alebo missing telemetry per hop?
-12. Čo musí overiť end-to-end telemetry canary?
-
-## Glossary impact
-
-Relevantné pojmy: OpenTelemetry subject, signal-contract generation, Collector distribution generation, component-stability inventory, resource-precedence generation, instrumentation-scope generation, semantic-schema generation, processor-order contract, trace-affinity generation, per-hop telemetry accounting, exporter-delivery subject, telemetry-loss window, multi-signal canary a OpenTelemetry acceptance verdict.
-
-## Primárne zdroje
-
-- [OpenTelemetry specification overview](https://opentelemetry.io/docs/specs/otel/overview/)
-- [OpenTelemetry signals](https://opentelemetry.io/docs/concepts/signals/)
-- [Collector architecture](https://opentelemetry.io/docs/collector/architecture/)
-- [Collector components](https://opentelemetry.io/docs/collector/components/)
-- [Semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
-- [Telemetry stability](https://opentelemetry.io/docs/specs/otel/telemetry-stability/)
-- [Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
-- [Profiles specification](https://opentelemetry.io/docs/specs/otel/profiles/)
+- [OpenTelemetry specification](https://opentelemetry.io/docs/specs/otel/)
+- [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
+- [OTLP specification](https://opentelemetry.io/docs/specs/otlp/)
+- [Collector configuration](https://opentelemetry.io/docs/collector/configuration/)
 - [OpenTelemetry sampling](https://opentelemetry.io/docs/concepts/sampling/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
