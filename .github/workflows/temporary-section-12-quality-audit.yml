@@ -31,14 +31,14 @@ jobs:
           import re
           from pathlib import Path
 
-          path = Path('docs/12-observability/jaeger-tempo.md')
+          path = Path('docs/12-observability/opentelemetry.md')
           text = path.read_text(encoding='utf-8')
-          old = "## End-to-end trace lifecycle\n\n```text"
+          old = "## End-to-end signal lifecycle\n\n```text"
           new = (
-              "## End-to-end trace lifecycle\n\n"
-              "Trace backend môže vysvetliť distributed operation iba vtedy, keď sa zachová identita a completeness cez celý write a read path. "
-              "Propagation určí vzťahy medzi spans, sampling rozhodne, ktoré records pokračujú, ingest ich prijme a storage ich až následne sprístupní recent alebo historical query. "
-              "Úspech jednej boundary preto nie je dôkazom nasledujúcej a lifecycle sa overuje v tomto poradí.\n\n"
+              "## End-to-end signal lifecycle\n\n"
+              "OpenTelemetry oddeľuje producer API, runtime SDK policy, transport a Collector processing, preto žiadny z týchto komponentov sám nepreukazuje end-to-end evidence. "
+              "Signal musí zachovať operation semantics, resource identity a schema cez každú boundary a backend musí výsledok sprístupniť query. "
+              "Lifecycle sa preto overuje v nasledujúcom poradí a pri každom kroku sa rozlišuje configured, loaded, accepted a queryable state.\n\n"
               "```text"
           )
           if old in text:
