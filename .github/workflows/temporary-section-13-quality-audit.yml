@@ -23,100 +23,44 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Apply exact local remediation
+      - name: Apply final exact remediation
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
 
-          fixes = {
-            'active-directory.md': [
-              ('## Directory-change lifecycle\n\n```text',
-               '## Directory-change lifecycle\n\nDirectory change je bezpečnostne účinný až vtedy, keď sa jeho presná attribute generation dostane na replicas, ktoré clients skutočne používajú, a staré sessions sa zneplatnia. Nasledujúci lifecycle preto oddeľuje local commit, replication, replica selection a downstream authorization ako samostatné dôkazné hranice.\n\n```text'),
-            ],
-            'encryption-at-rest-and-in-transit.md': [
-              ('## Asset-to-key-boundary lifecycle\n\n```text',
-               '## Asset-to-key-boundary lifecycle\n\nCryptographic control sa hodnotí podľa assetu, attackera a plaintext boundary, nie podľa samotnej existencie key-u alebo TLS session. Lifecycle ukazuje, kde sa rozhoduje o algorithm-e, key authority, consumer validation a bezpečnom vyradení starej cesty.\n\n```text'),
-              ('## Exact cryptographic subject SEC-PAY-49\n\n```yaml',
-               '## Exact cryptographic subject SEC-PAY-49\n\nSubject spája jeden key s jeho environmentmi, protocols, storage a runtime plaintext boundary. Bez tejto identity by validná storage encryption mohla maskovať cross-purpose reuse a exportovateľný private key v consumer workload-e.\n\n```yaml'),
-            ],
-            'image-signing.md': [
-              ('## Subject-to-runtime trust lifecycle\n\n```text',
-               '## Subject-to-runtime trust lifecycle\n\nSignature verdict má význam iba vtedy, keď sa zachová exact OCI subject od podpisu až po platform digest zvolený runtime-om. Lifecycle preto oddeľuje signing identity, registry publication, consumer policy, cache a runtime read-back.\n\n```text'),
-              ('## Exact signing subject SEC-PAY-51\n\n```yaml',
-               '## Exact signing subject SEC-PAY-51\n\nSubject rozlišuje index, amd64 a arm64 manifests, signer identity, policy generation a cache key. Toto rozlíšenie je nevyhnutné, aby validný podpis jedného platform artifactu nemohol autorizovať iný runtime digest.\n\n```yaml'),
-            ],
-            'kerberos.md': [
-              ('## Exact Kerberos subject\n\n```yaml',
-               '## Exact Kerberos subject\n\nKerberos evidence musí byť viazaná na client principal, selected KDC, ticket issue time, service principal a key generation. Inak nemožno odlíšiť starú credential cache od fresh ticketu vydaného zo stale directory replica.\n\n```yaml'),
-            ],
-            'ldap.md': [
-              ('## Exact LDAP subject\n\n```yaml',
-               '## Exact LDAP subject\n\nLDAP result je platný iba pre konkrétny endpoint, Bind identity, query a replica generation. Subject preto zachováva exact base, scope, filter, projection a porovnávané replicas, aby sa freshness dala reprodukovať.\n\n```yaml'),
-            ],
-            'oauth-2.md': [
-              ('## Grant-to-resource lifecycle\n\n```text',
-               '## Grant-to-resource lifecycle\n\nOAuth grant je iba prechod k obmedzenej capability; konečný verdict vzniká až na Resource Serveri nad exact resource a current contextom. Lifecycle preto oddeľuje transaction binding, token generation, token validation a local business authorization.\n\n```text'),
-              ('## Exact OAuth subject SEC-PAY-48\n\n```yaml',
-               '## Exact OAuth subject SEC-PAY-48\n\nSubject viaže protocol transaction na issuer, client, resource server, audience, scope, identity input generation a descendant tokens. Toto umožňuje rozlíšiť protocol-correct flow od authorization rozhodnutia založeného na stale directory state-e.\n\n```yaml'),
-            ],
-            'openid-connect.md': [
-              ('## Exact OIDC subject SEC-PAY-49\n\n```yaml',
-               '## Exact OIDC subject SEC-PAY-49\n\nOIDC trust sa musí viazať na exact issuer, client, redirect, subject identity a signing-key purpose. Subject explicitne oddeľuje staging a production, aby shared key alebo email collision nemohli nahradiť issuer-bound identity.\n\n```yaml'),
-            ],
-            'policy-as-code.md': [
-              ('## Exact policy subject SEC-PAY-51\n\n```yaml',
-               '## Exact policy subject SEC-PAY-51\n\nPolicy subject spája intended generation, loaded generation, input schema, cache a každý enforcement path. Bez tejto väzby môže správna rule rozhodovať nad neúplným inputom alebo zostať mimo custom-controller side effectu.\n\n```yaml'),
-            ],
-            'saml.md': [
-              ('## Metadata-to-session lifecycle\n\n```text',
-               '## Metadata-to-session lifecycle\n\nSAML session je dôveryhodná iba vtedy, keď metadata, signed XML node a pending transaction opisujú rovnaký issuer, SP a ACS boundary. Lifecycle preto oddeľuje key trust, XML validation, semantic checks a local session creation.\n\n```text'),
-              ('## Exact SAML subject SEC-PAY-49\n\n```yaml',
-               '## Exact SAML subject SEC-PAY-49\n\nSubject viaže Response a Assertion na exact entity IDs, ACS, request ID, metadata generation a key purpose. Tým bráni tomu, aby certificate thumbprint alebo shared ACS nahradili production federation contract.\n\n```yaml'),
-            ],
-            'sbom.md': [
-              ('## Subject-to-remediation lifecycle\n\n```text',
-               '## Subject-to-remediation lifecycle\n\nSBOM má operational hodnotu až vtedy, keď opisuje exact immutable artifact a deklaruje stage, method a evidence authority. Lifecycle preto vedie od generation cez completeness a correlation až po deployed digest a verified remediation.\n\n```text'),
-              ('## Exact SBOM subject SEC-PAY-50\n\n```yaml',
-               '## Exact SBOM subject SEC-PAY-50\n\nSubject oddeľuje source revision, index, platform artifact, SBOM digest a generation method. Toto rozlíšenie odhaľuje document, ktorý je validný ako source inventory, ale nepravdivo sa vydáva za final-filesystem evidence.\n\n```yaml'),
-            ],
-            'secrets-management.md': [
-              ('## Capability-to-revocation lifecycle\n\n```text',
-               '## Capability-to-revocation lifecycle\n\nSecret lifecycle sa nekončí storage readom ani vytvorením novej version. Musí sledovať target trust, consumer-loaded generation, sessions a všetky descendants až po preukázanú revocation starej capability.\n\n```text'),
-            ],
-            'supply-chain-security.md': [
-              ('## Source-to-runtime trust lifecycle\n\n```text',
-               '## Source-to-runtime trust lifecycle\n\nSupply-chain assurance vzniká iba vtedy, keď sa source, builder, evidence authority, artifact graph a runtime digest dajú spojiť jedným immutable subjectom. Lifecycle oddeľuje tieto trust transitions, aby podpis alebo provenance nemohli zakryť compromised builder.\n\n```text'),
-              ('## Exact release subject SEC-PAY-50\n\n```yaml',
-               '## Exact release subject SEC-PAY-50\n\nRelease subject pomenúva source, build definition, dependency graph, builder, index, platform manifests, evidence authority a runtime. Bez neho by tag alebo source revision neumožnili quarantine všetkých outputs z compromised execution window.\n\n```yaml'),
-            ],
-            'threat-modeling.md': [
-              ('## Objective-to-negative-test lifecycle\n\n```text',
-               '## Objective-to-negative-test lifecycle\n\nThreat model je engineering control iba vtedy, keď chránený outcome vedie ku konkrétnemu attack pathu, requirementu a negative testu. Lifecycle ukazuje, ako sa architecture assumptions menia na falsifikovateľné dôkazy a residual-risk rozhodnutie.\n\n```text'),
-              ('## Exact model subject SEC-PAY-50\n\n```yaml',
-               '## Exact model subject SEC-PAY-50\n\nModel subject fixuje source, builder, output a trust boundaries jednej release generation. To umožňuje rozlíšiť source-level controls od post-review a post-test mutation paths na persistentnom runneri.\n\n```yaml'),
-            ],
-            'vulnerability-and-patch-management.md': [
-              ('## Finding-to-runtime-remediation lifecycle\n\n```text',
-               '## Finding-to-runtime-remediation lifecycle\n\nVulnerability ticket sa uzatvára až po odstránení affected runtime a creation/rollback paths, nie po scanner alebo package zmene. Lifecycle preto oddeľuje finding, affected-state validation, treatment, runtime activation a compromise assessment.\n\n```text'),
-            ],
-            'zero-trust.md': [
-              ('## Resource-access lifecycle\n\n```text',
-               '## Resource-access lifecycle\n\nZero Trust rozhodnutie je časovo bounded verdict nad exact principalom, action, resource a current contextom. Lifecycle preto oddeľuje identity assurance, posture, enforcement coverage, continuous re-evaluation a revocation existing sessions.\n\n```text'),
-              ('## Exact access subject SEC-PAY-51\n\n```yaml',
-               '## Exact access subject SEC-PAY-51\n\nAccess subject spája human a workload identity, device posture, policy generation, bypass path a exact runtime digest. Toto rozlíšenie ukazuje, že validná authentication a internal network location nepreukazujú current resource authorization.\n\n```yaml'),
-            ],
+          replacements = {
+              'secrets-management.md': (
+                  '## Exact secret subject SEC-PAY-49\n\n```yaml',
+                  '## Exact secret subject SEC-PAY-49\n\n'
+                  'Secret subject musí spojiť value alebo key reference s účelom, target trustom, všetkými consumers a loaded generations. '
+                  'V incidente je toto rozlíšenie rozhodujúce, pretože jedna exportovateľná key mala štyri odlišné federation purposes a storage encryption tento coupling neodhalila.\n\n'
+                  '```yaml'
+              ),
+              'vulnerability-and-patch-management.md': (
+                  '## Exact remediation subject SEC-PAY-50\n\n```yaml',
+                  '## Exact remediation subject SEC-PAY-50\n\n'
+                  'Remediation subject musí pokryť nielen vulnerable component, ale aj builder, outputs, exposure interval, runtime a rollback paths. '
+                  'Takto možno odlíšiť package update od dôveryhodnej obnovy po builder compromise a karanténovať všetky artifacts vytvorené v affected window.\n\n'
+                  '```yaml'
+              ),
+              'threat-modeling.md': (
+                  '## Threat statements\n\nPoužiteľný threat statement má actor, condition, action, asset a impact:\n\n```text',
+                  '## Threat statements\n\n'
+                  'Použiteľný threat statement má actor, condition, action, asset a impact. '
+                  'Tieto prvky vytvárajú kauzálnu vetu, z ktorej možno odvodiť presný control owner, observation point a forbidden negative test; samotný názov attack technique takýto engineering vstup neposkytuje.\n\n'
+                  '```text'
+              ),
           }
 
           root = Path('docs/13-security-and-identity')
-          for name, replacements in fixes.items():
+          for name, (old, new) in replacements.items():
               path = root / name
               text = path.read_text(encoding='utf-8')
-              for old, new in replacements:
-                  if old in text:
-                      text = text.replace(old, new, 1)
-              path.write_text(text, encoding='utf-8', newline='\n')
+              if old in text:
+                  text = text.replace(old, new, 1)
+                  path.write_text(text, encoding='utf-8', newline='\n')
           PY
       - name: Build Section 13 quality report
         shell: bash
@@ -190,6 +134,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/13-security-and-identity .github/section13-quality-report.txt
           if ! git diff --cached --quiet; then
-            git commit -m "docs(security): apply exact Section 13 remediation"
+            git commit -m "docs(security): close final Section 13 findings"
             git push origin HEAD:agent/section-13-practical-prose-revalidation
           fi
