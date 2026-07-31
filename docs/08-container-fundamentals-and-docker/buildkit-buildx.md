@@ -655,5 +655,5 @@ Relevantné pojmy: BuildKit release subject, builder trust domain, builder node 
 
 **Navigácia**
 
-[← Predchádzajúca: Docker Compose](docker-compose.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Docker projekt od Dockerfile-u po overený Compose runtime →](docker-practical-walkthrough.md)
+[← Predchádzajúca: Docker Compose](docker-compose.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Docker release od source zmeny po overený runtime →](docker-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

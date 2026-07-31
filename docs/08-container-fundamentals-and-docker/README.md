@@ -35,16 +35,16 @@ Odporúča sa najprv dokončiť:
 15. [Environment variables a health checks](environment-variables-health-checks.md)
 16. [Docker Compose](docker-compose.md)
 17. [BuildKit a Buildx](buildkit-buildx.md)
-18. [Praktický Docker projekt od Dockerfile-u po overený Compose runtime](docker-practical-walkthrough.md)
+18. [Praktický Docker release od source zmeny po overený runtime](docker-practical-walkthrough.md)
 19. [Docker troubleshooting](docker-troubleshooting.md)
 
 Po tejto sekcii nasleduje Kubernetes. Docker a OCI model poskytujú základ pre pochopenie Pod sandboxu, container runtime interface, image pullu, probes, Services, volumes, security contextu a node-level troubleshooting.
 
 ## Hlavný praktický walkthrough
 
-Kapitola [Praktický Docker projekt od Dockerfile-u po overený Compose runtime](docker-practical-walkthrough.md) vytvára malú Go HTTP službu s health, readiness, version a persistentným payment write/read contractom. Následne prechádza celý source tree, unit testy, `.dockerignore`, multi-stage Dockerfile, explicitný BuildKit test target, local single-platform build, image config a filesystem inspection, constrained `docker run`, non-root volume initialization, PID 1 a signal handling, health history, host port, named-volume persistence, Compose interpolation a resolved model, `depends_on` conditions, service DNS, runtime-hardening read-back, second `compose up`, configuration recreate, multi-platform registry publication, digest-pinned consumption a evidence-preserving troubleshooting.
+Kapitola [Praktický Docker release od source zmeny po overený runtime](docker-practical-walkthrough.md) používa existujúcu službu `payments-api` ako jeden súvislý release scenár. Neodbieha do implementácie aplikácie; sústreďuje sa na Docker mechanizmus od build contextu a multi-stage graphu cez explicitný test target, image config/layers/digest, registry publication, constrained container create/start, PID 1, volume a network identity až po Compose reconciliation, multi-platform read-back a business verification.
 
-Walkthrough obsahuje reálny Go source, testy, Dockerfile, Compose YAML, Bash a PowerShell commands, `jq`/`yq` assertions a GitLab release skeleton. Pri každom významnom kroku vysvetľuje, čo output preukazuje a čo ešte nie. Failure paths zahŕňajú container-loopback bind mismatch, volume ownership, mount obscuring, green process health pri zlyhávajúcom business write, mutable tag po scan-e, cgroup OOM a nesprávnu platformu alebo loader.
+Text je prepracovaný v rovnakom prose-first rytme ako Keycloak a CI/CD: najprv vysvetlí dominantný source-to-runtime model, potom presný release subject, konkrétne Dockerfile a Compose rozhodnutia, dôkazové hranice jednotlivých príkazov a connected incident `CTR-PAY-81`. Incident spája rozdielnych builderov, mutable tag, neúplný platform scan, plytký health oracle a nekompatibilný volume ownership do jedného diagnostického a recovery flowu.
 
 ## Practical-example acceptance contract
 
