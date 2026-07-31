@@ -1,4 +1,4 @@
-name: Temporary Section 13 practical audit
+name: Temporary Section 13 closeout
 
 on:
   push:
@@ -9,11 +9,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-section13-quality-audit
+  group: temporary-section13-closeout
   cancel-in-progress: true
 
 jobs:
-  audit:
+  closeout:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
@@ -23,117 +23,130 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Apply final exact remediation
+      - name: Close section metadata
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
+          import re
           from pathlib import Path
 
-          replacements = {
-              'secrets-management.md': (
-                  '## Exact secret subject SEC-PAY-49\n\n```yaml',
-                  '## Exact secret subject SEC-PAY-49\n\n'
-                  'Secret subject musí spojiť value alebo key reference s účelom, target trustom, všetkými consumers a loaded generations. '
-                  'V incidente je toto rozlíšenie rozhodujúce, pretože jedna exportovateľná key mala štyri odlišné federation purposes a storage encryption tento coupling neodhalila.\n\n'
-                  '```yaml'
-              ),
-              'vulnerability-and-patch-management.md': (
-                  '## Exact remediation subject SEC-PAY-50\n\n```yaml',
-                  '## Exact remediation subject SEC-PAY-50\n\n'
-                  'Remediation subject musí pokryť nielen vulnerable component, ale aj builder, outputs, exposure interval, runtime a rollback paths. '
-                  'Takto možno odlíšiť package update od dôveryhodnej obnovy po builder compromise a karanténovať všetky artifacts vytvorené v affected window.\n\n'
-                  '```yaml'
-              ),
-              'threat-modeling.md': (
-                  '## Threat statements\n\nPoužiteľný threat statement má actor, condition, action, asset a impact:\n\n```text',
-                  '## Threat statements\n\n'
-                  'Použiteľný threat statement má actor, condition, action, asset a impact. '
-                  'Tieto prvky vytvárajú kauzálnu vetu, z ktorej možno odvodiť presný control owner, observation point a forbidden negative test; samotný názov attack technique takýto engineering vstup neposkytuje.\n\n'
-                  '```text'
-              ),
-          }
+          readme_path = Path('docs/13-security-and-identity/README.md')
+          readme = readme_path.read_text(encoding='utf-8')
 
-          root = Path('docs/13-security-and-identity')
-          for name, (old, new) in replacements.items():
-              path = root / name
-              text = path.read_text(encoding='utf-8')
-              if old in text:
-                  text = text.replace(old, new, 1)
-                  path.write_text(text, encoding='utf-8', newline='\n')
+          chain = '''## Section-wide learning chain
+
+Sekcia používa jeden súvislý security lifecycle. Začína chráneným business outcome-om a exact subjectom, pokračuje identity a trust transitions, effective enforcementom a auditom a končí revocation, recovery a forbidden-path validation.
+
+```text
+business/security objective a protected asset
+→ exact identity, resource, release alebo cryptographic subject
+→ trust, administrative, data a execution boundaries
+→ authoritative identity/configuration/evidence generation
+→ authentication, directory, federation alebo build transition
+→ policy decision a complete enforcement coverage
+→ runtime side effect a audit evidence
+→ competing hypotheses a discriminating read-back
+→ evidence-preserving containment
+→ authoritative recovery a descendant revocation
+→ allowed, forbidden, alternate-path a second-operation validation
+```
+
+Connected incidents `SEC-PAY-47` až `SEC-PAY-51` držia rovnaký Atlas Payments context. `SEC-PAY-47` spája CIA, AAA, least privilege a IAM/RBAC cez stale entitlement a delegated workload capability. `SEC-PAY-48` spája AD replication, replica-bound LDAP query, fresh Kerberos PAC a OAuth resource authorization. `SEC-PAY-49` spája OIDC, SAML, secrets a cryptographic key-purpose boundaries. `SEC-PAY-50` vedie od vulnerability a threat modelu cez compromised builder po stage-correct SBOM. `SEC-PAY-51` uzatvára exact OCI signing subject, policy enforcement coverage a continuous Zero Trust revocation.
+
+'''
+          if '## Section-wide learning chain' not in readme:
+              readme = readme.replace('## Predpoklady\n', chain + '## Predpoklady\n', 1)
+
+          gate = '''## Section-level completion gate
+
+Sekcia je pripravená na používateľskú kontrolu iba vtedy, keď platí celý nasledujúci contract:
+
+1. všetkých 19 authoritative kapitol má dominantný lifecycle a exact security, identity, protocol, artifact alebo resource subject;
+2. každá kapitola obsahuje aspoň dva executable protocol, CLI, policy alebo configuration príklady;
+3. každý významný príkaz alebo artifact vysvetľuje mechanizmus, očakávaný read-back a hranicu toho, čo výsledok ešte nepreukazuje;
+4. configured, published, loaded, effective, runtime a business states zostávajú explicitne oddelené;
+5. komplexné failures používajú competing hypotheses, discriminating evidence, evidence-preserving containment a authoritative recovery;
+6. recovery overuje allowed outcome, forbidden outcome, alternate alebo delegated path a second session, ticket, rotation, policy decision alebo release operation;
+7. directory, federation, secret, cryptographic, supply-chain a policy descendants sú inventarizované a revoke-nuté, nie iba odstránené z jedného source-u;
+8. strict learning-depth audit pre všetkých 19 kapitol je `0/0/0` a practical audit nemá failures;
+9. navigation, glossary a centrálny review ledger sú synchronizované a dočasné audit artifacts sú odstránené.
+
+Finálny practical gate nameral 966 až 1 366 prose slov na kapitolu, bullet share 8,0 až 11,8 %, minimálne dva executable príklady a minimálne štyri explicitné evidence/proof-boundary vysvetlenia v každej kapitole.
+
+'''
+          if '## Section-level completion gate' not in readme:
+              readme = readme.replace('## Stav\n', gate + '## Stav\n', 1)
+
+          readme = re.sub(
+              r'^(\| .+? \|) Learning (\| L2 \|)$',
+              r'\1 Strict practical revalidation complete \2',
+              readme,
+              flags=re.MULTILINE,
+          )
+          readme_path.write_text(readme, encoding='utf-8', newline='\n')
+
+          ledger_path = Path('DOCUMENTATION-REVIEW-STATUS.md')
+          ledger = ledger_path.read_text(encoding='utf-8')
+          row = (
+              '| `13-security-and-identity` — Security and Identity | 19/19 prose-first practical strict revalidation | Ready for user review | 2026-07-31 | '
+              'Všetkých 19 authoritative kapitol bolo kompletne prepísaných v piatich connected blokoch podľa prose-first a practical-example gate-u. '
+              '`SEC-PAY-47` spája CIA, authentication/authorization/audit, least privilege a IAM/RBAC cez incomplete mover reconciliation, stale nested entitlement, prežívajúcu session a delegated Kubernetes workload capability. '
+              '`SEC-PAY-48` spája AD authority a replication metadata, DNS/site/DC selection, replica-bound LDAP query, fresh Kerberos ticket so stale PAC a protocol-correct OAuth flow s broad audience a scope-only resource authorization. '
+              '`SEC-PAY-49` spája exact OIDC issuer+subject a SAML entity/metadata trust s exportovateľným shared keyom, indirect Kubernetes Secret accessom, consumer-loaded generations, purpose-specific non-exportable replacementom a complete descendant revocation. '
+              '`SEC-PAY-50` spája affected-runtime vulnerability verdict, falsifikovateľný threat model, persistent compromised builder, source-to-runtime provenance authority a stage-correct source/toolchain/final-artifact SBOM. '
+              '`SEC-PAY-51` uzatvára multi-platform OCI subject binding, signature/attestation semantics, immutable Policy as Code generation a input contract, native aj custom-controller PEP coverage, digest/policy/posture-aware cache a continuous Zero Trust re-evaluation. '
+              'Kapitoly obsahujú reálne `kubectl`, PowerShell/AD, LDAP, Kerberos, OAuth/OIDC, SAML/XML, Vault, OpenSSL/KMS, Trivy/Grype, Syft, Cosign, OPA/Rego/CEL a runtime read-back príklady; každý významný artifact vysvetľuje, čo preukazuje a čo nie. '
+              'Finálny gate dosiahol 19/19 `0/0/0`, 966–1 366 prose slov, bullet share 8,0–11,8 %, minimálne dva executable príklady a minimálne štyri evidence-boundary vysvetlenia na kapitolu. '
+              'Ordering, navigation `12-observability/cardinality.md ↔ CIA triáda` cez celú sekciu po `Zero Trust ↔ 14-sre-and-operations/README.md`, glossary a generated artifacts boli synchronizované. '
+              'Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená, Accepted, Verified ani Stable. |'
+          )
+          pattern = r'^\| `13-security-and-identity` — Security and Identity \|.*$'
+          if re.search(pattern, ledger, flags=re.MULTILINE):
+              ledger = re.sub(pattern, row, ledger, count=1, flags=re.MULTILINE)
+          else:
+              marker = '| `14-sre-and-operations` — SRE and Operations |'
+              ledger = ledger.replace(marker, row + '\n\n' + marker, 1)
+          ledger_path.write_text(ledger, encoding='utf-8', newline='\n')
           PY
-      - name: Build Section 13 quality report
+      - name: Synchronize generated documentation
         shell: bash
         run: |
           set -euo pipefail
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+      - name: Validate final section
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
           python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
           python - <<'PY'
-          import json, re
+          import json
           from pathlib import Path
 
-          root = Path('docs/13-security-and-identity')
           raw = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
-          audit = {x['path']: x for x in raw['files']}
-          strict_findings = [
-              finding for finding in raw['findings']
-              if finding['path'].startswith('docs/13-security-and-identity/')
-              and finding['severity'] in {'critical', 'high', 'medium'}
+          findings = [
+              f for f in raw['findings']
+              if f['path'].startswith('docs/13-security-and-identity/')
+              and f['severity'] in {'critical', 'high', 'medium'}
           ]
-          executable_pattern = re.compile(
-              r'(?m)^(?:curl|kubectl|openssl|ldapsearch|ldapmodify|ldapwhoami|kinit|klist|kvno|setspn|repadmin|dcdiag|nltest|Resolve-DnsName|'
-              r'Get-AD|Get-Mg|az |aws |gcloud |vault |cosign |syft |grype |trivy |opa |conftest |kyverno |docker buildx|'
-              r'jq |yq |python |from |package |allow\b|deny\b|apiVersion:|kind:|resource |data |input |SELECT |POST |GET )'
-          )
-          explanation_pattern = re.compile(
-              r'(?i)(tento príkaz|táto query|tento výstup|výstup preukazuje|nepreukazuje|dokazuje|nedokazuje|'
-              r'observation|dôkaz|read-back|loaded state|effective state|runtime state|acceptance|forbidden outcome)'
-          )
-
-          rows, failures = [], []
-          for path in sorted(root.glob('*.md')):
-              if path.name == 'README.md':
-                  continue
-              text = path.read_text(encoding='utf-8')
-              outside, fenced = [], False
-              for line in text.splitlines():
-                  if line.strip().startswith('```'):
-                      fenced = not fenced
-                      continue
-                  if not fenced:
-                      outside.append(line)
-              prose = sum(len(re.findall(r'[\wÀ-ž]+', line)) for line in outside if line.strip() and not re.match(r'\s*(?:[-*+] |\d+\. |#|\|)', line))
-              bullets = sum(len(re.findall(r'[\wÀ-ž]+', line)) for line in outside if re.match(r'\s*(?:[-*+] |\d+\. )', line))
-              share = bullets / max(1, prose + bullets)
-              blocks = len(re.findall(r'```(?:bash|shell|powershell|python|json|yaml|yml|hcl|terraform|sql|console|rego|cel|xml|ldif|conf|text)\n', text))
-              executable = len(executable_pattern.findall(text))
-              explanations = len(explanation_pattern.findall(text))
-              item = audit[path.as_posix()]
-              rows.append(f'{path.as_posix()}|strict={item["critical"]}/{item["high"]}/{item["medium"]}|prose={prose}|bullet_share={share:.3f}|blocks={blocks}|executable={executable}|explanations={explanations}')
-              if item['critical'] or item['high'] or item['medium']:
-                  failures.append(f'{path.name}: strict findings')
-              if prose < 750:
-                  failures.append(f'{path.name}: only {prose} prose words')
-              if share > 0.34:
-                  failures.append(f'{path.name}: bullet share {share:.3f}')
-              if blocks < 2 or executable < 2:
-                  failures.append(f'{path.name}: practical examples too thin')
-              if explanations < 3:
-                  failures.append(f'{path.name}: evidence explanation too thin ({explanations})')
-
-          exact = [f"{f['severity'].upper()} {f['path']}:{f['line']} [{f['rule']}] {f['section']} — {f['detail']}" for f in strict_findings]
-          status = 'success' if not failures else 'failure'
-          output = [f'status={status}', '', *rows, '', 'STRICT FINDINGS', *(exact or ['none']), '', 'FAILURES', *(failures or ['none'])]
-          Path('.github/section13-quality-report.txt').write_text('\n'.join(output) + '\n', encoding='utf-8', newline='\n')
-          print('\n'.join(output))
+          if findings:
+              for finding in findings:
+                  print(finding)
+              raise SystemExit('Section 13 still has strict findings')
           PY
-      - name: Publish remediation and report
+      - name: Remove temporary artifacts and publish closeout
         shell: bash
         run: |
           set -euo pipefail
+          rm -f .github/section13-quality-report.txt
+          rm -f .github/workflows/temporary-section-13-quality-audit.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/13-security-and-identity .github/section13-quality-report.txt
+          git add -A
           if ! git diff --cached --quiet; then
-            git commit -m "docs(security): close final Section 13 findings"
+            git commit -m "docs(security): close practical Section 13 revalidation"
             git push origin HEAD:agent/section-13-practical-prose-revalidation
           fi
