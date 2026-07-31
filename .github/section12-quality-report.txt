@@ -5,7 +5,7 @@ docs/12-observability/alertmanager.md|strict=39/37/11|prose=908|bullet_share=0.4
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
 docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bullet_share=0.450|blocks=21|executable=0|explanations=4
 docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
-docs/12-observability/golden-signals.md|strict=44/39/15|prose=681|bullet_share=0.499|blocks=15|executable=0|explanations=2
+docs/12-observability/golden-signals.md|strict=0/2/0|prose=901|bullet_share=0.120|blocks=13|executable=10|explanations=11
 docs/12-observability/grafana.md|strict=25/27/6|prose=838|bullet_share=0.413|blocks=19|executable=0|explanations=6
 docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
 docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
@@ -391,104 +391,8 @@ HIGH docs/12-observability/fluent-bit.md:485 [single-sentence-concept] Unlimited
 HIGH docs/12-observability/fluent-bit.md:489 [single-sentence-concept] Všetky Kubernetes labels a annotations — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/fluent-bit.md:493 [single-sentence-concept] Dva DaemonSets čítajú rovnaké files — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/fluent-bit.md:497 [single-sentence-concept] Parse/redaction až v backend-e — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:13 [single-sentence-concept] 1. Dominantný lifecycle — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:13 [list-first-introduction] 1. Dominantný lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:55 [outline-instead-of-explanation] 3. Latency — 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:55 [bare-bullet-items] 3. Latency — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client-observed request;`, `edge alebo load-balancer request;`, `server handler;`, `queue wait;`.
-MEDIUM docs/12-observability/golden-signals.md:55 [short-concept-section] 3. Latency — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:80 [outline-instead-of-explanation] Distribution a successful/failed separation — 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:80 [bare-bullet-items] Distribution a successful/failed separation — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `histogram alebo distribution;`, `p50 pre typický priebeh;`, `p95/p99 alebo threshold compliance pre tail;`, `successful latency;`.
-HIGH docs/12-observability/golden-signals.md:80 [thin-concept-section] Distribution a successful/failed separation — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:97 [outline-instead-of-explanation] 4. Traffic — 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:97 [bare-bullet-items] 4. Traffic — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical requests;`, `transactions;`, `messages;`, `queries;`.
-MEDIUM docs/12-observability/golden-signals.md:97 [short-concept-section] 4. Traffic — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:114 [list-first-introduction] Logical demand a amplification — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:114 [outline-instead-of-explanation] Logical demand a amplification — 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:114 [bare-bullet-items] Logical demand a amplification — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `external logical operations;`, `internal attempts;`, `attempts per logical operation;`, `fan-out factor;`.
-HIGH docs/12-observability/golden-signals.md:114 [thin-concept-section] Logical demand a amplification — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:137 [outline-instead-of-explanation] 5. Errors — 10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:137 [bare-bullet-items] 5. Errors — 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitnú failure response;`, `timeout alebo cancellation;`, `invalid alebo incomplete result;`, `dropped message;`.
-HIGH docs/12-observability/golden-signals.md:137 [thin-concept-section] 5. Errors — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:137 [term-before-explanation] 5. Errors — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`
-CRITICAL docs/12-observability/golden-signals.md:164 [outline-instead-of-explanation] Silent errors — 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:164 [bare-bullet-items] Silent errors — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `200 s nesprávnym obsahom;`, `accepted async command bez completion;`, `stale tenant data;`, `backup bez usable restore;`.
-HIGH docs/12-observability/golden-signals.md:164 [thin-concept-section] Silent errors — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:177 [list-heavy-section] 6. Saturation — 9 odrážok a iba 43 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:177 [bare-bullet-items] 6. Saturation — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length, lag alebo oldest age;`, `connection-pool waiters a acquire latency;`, `worker/thread queue;`, `CPU run queue alebo throttling;`.
-MEDIUM docs/12-observability/golden-signals.md:177 [short-concept-section] 6. Saturation — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:177 [term-before-explanation] 6. Saturation — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `IP`
-HIGH docs/12-observability/golden-signals.md:205 [single-sentence-concept] 7. Measurement layers — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/golden-signals.md:205 [outline-instead-of-explanation] 7. Measurement layers — 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/golden-signals.md:205 [bare-bullet-items] 7. Measurement layers — 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `acceptance success vysoký, final completion nízky → async/downstream f`, `dependency attempts rastú, logical traffic stabilný → retry amplificat`.
-HIGH docs/12-observability/golden-signals.md:205 [thin-concept-section] 7. Measurement layers — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:205 [term-before-explanation] 7. Measurement layers — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `resource`
-CRITICAL docs/12-observability/golden-signals.md:228 [empty-section] 8. Golden Signals pre rôzne workloads — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/golden-signals.md:230 [no-prose-concept] HTTP alebo gRPC API — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:230 [list-first-introduction] HTTP alebo gRPC API — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:230 [outline-instead-of-explanation] HTTP alebo gRPC API — 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:230 [bare-bullet-items] HTTP alebo gRPC API — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: valid request duration distribution;`, `Traffic: logical calls/s;`, `Errors: caller-visible failure ratio;`, `Saturation: in-flight requests, worker/pool waits, throttling.`.
-HIGH docs/12-observability/golden-signals.md:230 [thin-concept-section] HTTP alebo gRPC API — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:237 [no-prose-concept] Queue consumer — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:237 [list-first-introduction] Queue consumer — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:237 [outline-instead-of-explanation] Queue consumer — 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:237 [bare-bullet-items] Queue consumer — 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: message age + processing + final completion;`, `Traffic: logical messages produced/settled;`, `Errors: failed, expired alebo dead-letter outcomes;`.
-HIGH docs/12-observability/golden-signals.md:237 [thin-concept-section] Queue consumer — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:244 [no-prose-concept] Batch pipeline — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:244 [list-first-introduction] Batch pipeline — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:244 [outline-instead-of-explanation] Batch pipeline — 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:244 [bare-bullet-items] Batch pipeline — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: job duration a output freshness;`, `Traffic: jobs/items per schedule window;`, `Errors: failed alebo partial output;`, `Saturation: backlog, parallel slots a missed completion window.`.
-HIGH docs/12-observability/golden-signals.md:244 [thin-concept-section] Batch pipeline — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:244 [term-before-explanation] Batch pipeline — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`
-CRITICAL docs/12-observability/golden-signals.md:251 [no-prose-concept] Database — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:251 [list-first-introduction] Database — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:251 [outline-instead-of-explanation] Database — 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:251 [bare-bullet-items] Database — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Latency: transaction/query distribution;`, `Traffic: logical transactions/s;`, `Errors: abort, timeout, conflict alebo wrong-result semantics;`, `Saturation: connections, locks, CPU/I/O queues a replica lag.`.
-HIGH docs/12-observability/golden-signals.md:251 [thin-concept-section] Database — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:251 [term-before-explanation] Database — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`
-HIGH docs/12-observability/golden-signals.md:258 [list-first-introduction] 9. Golden Signals, RED, USE a SLO — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:258 [outline-instead-of-explanation] 9. Golden Signals, RED, USE a SLO — 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:258 [bare-bullet-items] 9. Golden Signals, RED, USE a SLO — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid population;`, `success a degraded semantics;`, `latency threshold a measurement point;`, `time window;`.
-MEDIUM docs/12-observability/golden-signals.md:258 [short-concept-section] 9. Golden Signals, RED, USE a SLO — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:286 [empty-section] 10. Worked failure: štyri green panely, chybný service verdict — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/golden-signals.md:288 [single-sentence-concept] Pôvodný dashboard — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:301 [single-sentence-concept] Business evidence — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:301 [list-first-introduction] Business evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:301 [outline-instead-of-explanation] Business evidence — 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:301 [bare-bullet-items] Business evidence — 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency končila pri HTTP acceptance, nie final outcome;`, `traffic meral attempts, nie logical demand;`, `errors počítali transport 5xx , nie business completion;`.
-HIGH docs/12-observability/golden-signals.md:301 [thin-concept-section] Business evidence — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:301 [term-before-explanation] Business evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CPU`, `resource`
-CRITICAL docs/12-observability/golden-signals.md:320 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:320 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:320 [outline-instead-of-explanation] Competing hypotheses — 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:320 [bare-bullet-items] Competing hypotheses — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny user traffic vzrástol;`, `provider je pomalší pre všetky cohorts;`, `HTTP handler alebo task CPU je bottleneck;`, `final workflow čaká v queue;`.
-HIGH docs/12-observability/golden-signals.md:320 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:320 [term-before-explanation] Competing hypotheses — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `CPU`, `AZ`
-CRITICAL docs/12-observability/golden-signals.md:344 [no-prose-concept] Containment a recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/golden-signals.md:344 [list-first-introduction] Containment a recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:344 [outline-instead-of-explanation] Containment a recovery — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:344 [bare-bullet-items] Containment a recovery — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout a immediate retry amplification;`, `obmedziť worker concurrency;`, `zachovať logical/attempt, queue, pool, trace a loaded-config evidence;`, `opraviť effective pool configuration;`.
-HIGH docs/12-observability/golden-signals.md:344 [thin-concept-section] Containment a recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:344 [term-before-explanation] Containment a recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`
-HIGH docs/12-observability/golden-signals.md:354 [single-sentence-concept] Golden-Signal acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:354 [list-first-introduction] Golden-Signal acceptance verdict — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/golden-signals.md:354 [outline-instead-of-explanation] Golden-Signal acceptance verdict — 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:354 [bare-bullet-items] Golden-Signal acceptance verdict — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadne duplicate authorization;`, `žiadne skrytie traffic dropu ako zlepšenie;`, `žiadna regresia standard cohortu alebo susednej AZ;`, `žiadna telemetry no-data interpretovaná ako zero error.`.
-HIGH docs/12-observability/golden-signals.md:354 [thin-concept-section] Golden-Signal acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:354 [term-before-explanation] Golden-Signal acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`
-CRITICAL docs/12-observability/golden-signals.md:374 [outline-instead-of-explanation] 11. Alerting a dashboard hierarchy — 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/golden-signals.md:374 [bare-bullet-items] 11. Alerting a dashboard hierarchy — 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fast a slow error-budget burn;`, `final-completion latency burn;`, `sustained zero completions pri očakávanom demand-e;`, `queue age alebo pool wait prekračujúci business deadline;`.
-MEDIUM docs/12-observability/golden-signals.md:374 [short-concept-section] 11. Alerting a dashboard hierarchy — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/golden-signals.md:397 [outline-instead-of-explanation] 12. Black-box a telemetry validation — 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/golden-signals.md:397 [bare-bullet-items] 12. Black-box a telemetry validation — 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `regional synthetic transaction;`, `DNS/TLS/HTTP validation;`, `async completion canary;`.
-HIGH docs/12-observability/golden-signals.md:397 [thin-concept-section] 12. Black-box a telemetry validation — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/golden-signals.md:397 [term-before-explanation] 12. Black-box a telemetry validation — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `HTTP`
-CRITICAL docs/12-observability/golden-signals.md:409 [empty-section] 13. Implementačný template — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/golden-signals.md:447 [single-sentence-concept] Štyri panely bez spoločného subjectu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:451 [single-sentence-concept] Handler latency ako end-to-end latency — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:455 [single-sentence-concept] Attempts ako business traffic — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:459 [single-sentence-concept] Errors iba z transport statusu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:463 [single-sentence-concept] CPU ako univerzálna saturation — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:467 [single-sentence-concept] Traffic drop ako zlepšenie — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/12-observability/golden-signals.md:7 [list-first-introduction] Outcome-first lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/12-observability/golden-signals.md:24 [list-first-introduction] Exact Golden Signals subject — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/grafana.md:7 [single-sentence-concept] 1. Dominantný model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/grafana.md:7 [list-first-introduction] 1. Dominantný model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/grafana.md:51 [single-sentence-concept] 3. Štyri oddelené stavy — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
@@ -837,9 +741,6 @@ fluent-bit.md: strict findings
 fluent-bit.md: bullet share 0.441
 fluent-bit.md: practical examples too thin
 golden-signals.md: strict findings
-golden-signals.md: bullet share 0.499
-golden-signals.md: practical examples too thin
-golden-signals.md: evidence explanation too thin (2)
 grafana.md: strict findings
 grafana.md: bullet share 0.413
 grafana.md: practical examples too thin
