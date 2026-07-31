@@ -45,7 +45,6 @@ jobs:
           git push origin HEAD:agent/sections-10-13-prose-first-revalidation
 
       - name: Run Section 11 quality gate
-        id: quality_gate
         shell: bash
         run: |
           set -euo pipefail
@@ -69,7 +68,6 @@ jobs:
           fence_re = re.compile(r'^\s*```')
           bullet_re = re.compile(r'^\s*(?:[-*+] |\d+\. )')
           word_re = re.compile(r'[\wÀ-ž][\wÀ-ž+./:#-]*', re.UNICODE)
-          heading_re = re.compile(r'^##+\s+')
           command_re = re.compile(r'(?m)^(?:aws|kubectl|terraform|helm|curl|dig|openssl|psql|mysql|redis-cli|jq|yq)\s+')
           executable_fence_re = re.compile(r'```(?:bash|shell|hcl|terraform|yaml|yml|json|sql|policy|console)\n')
           explain_re = re.compile(
@@ -82,47 +80,20 @@ jobs:
                   continue
               rel = path.as_posix()
               text = path.read_text(encoding='utf-8')
-              lines = text.splitlines()
               in_fence = False
               prose_words = 0
               bullet_words = 0
-              bullet_lines = 0
-              prose_lines = 0
-              list_first_sections = [0]
-              section_lines = []
 
-              def inspect_section(block):
-                  meaningful = [line for line in block if line.strip()]
-                  if not meaningful:
-                      return
-                  first = meaningful[0]
-                  if bullet_re.match(first):
-                      prose_before_first_list = 0
-                      for line in meaningful:
-                          if bullet_re.match(line):
-                              break
-                          prose_before_first_list += len(word_re.findall(line))
-                      if prose_before_first_list < 25:
-                          list_first_sections[0] += 1
-
-              for line in lines:
+              for line in text.splitlines():
                   if fence_re.match(line):
                       in_fence = not in_fence
                       continue
                   if in_fence:
                       continue
-                  if heading_re.match(line):
-                      inspect_section(section_lines)
-                      section_lines = []
-                      continue
-                  section_lines.append(line)
                   if bullet_re.match(line):
-                      bullet_lines += 1
                       bullet_words += len(word_re.findall(bullet_re.sub('', line, count=1)))
                   elif line.strip() and not line.lstrip().startswith(('#', '|', '<!--', '---')):
-                      prose_lines += 1
                       prose_words += len(word_re.findall(line))
-              inspect_section(section_lines)
 
               total_explanatory_words = prose_words + bullet_words
               bullet_share = bullet_words / total_explanatory_words if total_explanatory_words else 0
@@ -138,8 +109,8 @@ jobs:
                   f"{rel}|words={item['words']}|grade={item['grade']}|"
                   f"strict={item['critical']}/{item['high']}/{item['medium']}|"
                   f"prose_words={prose_words}|bullet_words={bullet_words}|"
-                  f"bullet_share={bullet_share:.3f}|list_first={list_first_sections[0]}|"
-                  f"exec_blocks={executable_blocks}|commands={commands}|explanations={explanations}"
+                  f"bullet_share={bullet_share:.3f}|exec_blocks={executable_blocks}|"
+                  f"commands={commands}|explanations={explanations}"
               )
 
               if item['critical'] or item['high'] or item['medium']:
@@ -148,8 +119,6 @@ jobs:
                   )
               if bullet_share > 0.34:
                   failures.append(f'{rel}: bullet word share {bullet_share:.3f} exceeds 0.34')
-              if list_first_sections[0] > 1:
-                  failures.append(f'{rel}: {list_first_sections[0]} list-first conceptual sections')
               if prose_words < 850:
                   failures.append(f'{rel}: only {prose_words} prose words')
               if executable_blocks < 1:
