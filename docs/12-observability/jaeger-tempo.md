@@ -6,6 +6,8 @@ Jaeger a Tempo nie sú identické produkty. Jaeger poskytuje vlastný collector/
 
 ## End-to-end trace lifecycle
 
+Trace backend môže vysvetliť distributed operation iba vtedy, keď sa zachová identita a completeness cez celý write a read path. Propagation určí vzťahy medzi spans, sampling rozhodne, ktoré records pokračujú, ingest ich prijme a storage ich až následne sprístupní recent alebo historical query. Úspech jednej boundary preto nie je dôkazom nasledujúcej a lifecycle sa overuje v tomto poradí.
+
 ```text
 business operation
 → W3C alebo iný propagation context

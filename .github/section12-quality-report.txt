@@ -8,7 +8,7 @@ docs/12-observability/fluent-bit.md|strict=0/0/0|prose=1133|bullet_share=0.110|b
 docs/12-observability/golden-signals.md|strict=0/0/0|prose=1005|bullet_share=0.109|blocks=13|executable=10|explanations=11
 docs/12-observability/grafana.md|strict=0/0/0|prose=939|bullet_share=0.135|blocks=10|executable=6|explanations=15
 docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
-docs/12-observability/jaeger-tempo.md|strict=0/1/0|prose=901|bullet_share=0.124|blocks=10|executable=4|explanations=13
+docs/12-observability/jaeger-tempo.md|strict=0/0/0|prose=959|bullet_share=0.117|blocks=10|executable=4|explanations=14
 docs/12-observability/loki.md|strict=0/0/0|prose=966|bullet_share=0.128|blocks=11|executable=5|explanations=14
 docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bullet_share=0.144|blocks=13|executable=2|explanations=17
 docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
@@ -173,7 +173,6 @@ HIGH docs/12-observability/cardinality.md:545 [single-sentence-concept] Kratšia
 HIGH docs/12-observability/cardinality.md:549 [single-sentence-concept] Broad drop bez dependency inventory — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:553 [single-sentence-concept] Všetky Kubernetes labels automaticky — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:557 [single-sentence-concept] High-cardinality field „pre istotu“ — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/jaeger-tempo.md:7 [list-first-introduction] End-to-end trace lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/opentelemetry.md:5 [single-sentence-concept] 1. Dominantný mentálny model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/opentelemetry.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/12-observability/opentelemetry.md:60 [empty-section] 3. API, SDK a zero-code instrumentation — Sekcia nemá vysvetľovací obsah.
@@ -253,7 +252,6 @@ cardinality.md: strict findings
 cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
 cardinality.md: evidence explanation too thin (2)
-jaeger-tempo.md: strict findings
 opentelemetry.md: strict findings
 opentelemetry.md: bullet share 0.429
 opentelemetry.md: practical examples too thin
