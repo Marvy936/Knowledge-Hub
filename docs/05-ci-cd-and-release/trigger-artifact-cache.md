@@ -1,483 +1,302 @@
 # Trigger, artifact a cache
 
-## Metadata
+Trigger, artifact a cache patria do jedného delivery provenance chainu, ale majú úplne odlišnú autoritu. Trigger vytvára pipeline instance a určuje event, source a permission context. Artifact je autoritatívny immutable output, ktorý sa môže testovať, podpisovať a promovať. Cache je odstrániteľná výkonová optimalizácia. Ak cache začne rozhodovať o correctness alebo release identity, stala sa skrytým source of truth.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Najčastejšie incidents vznikajú pri zámene týchto rolí. Autentizovaný webhook ešte neznamená, že event má právo publikovať alebo deployovať. Úspešný cache restore neznamená, že obnovený obsah patrí current candidate-u. Artifact s názvom `release.zip` nie je immutable, pokiaľ nemá content identity, provenance a retention contract.
 
-Trigger, artifact a cache sú tri odlišné časti jedného delivery provenance reťazca. Trigger vytvorí konkrétny pipeline run a určí jeho trust context. Artifact je autoritatívny immutable výstup viazaný na presné build inputs a evidence. Cache je odstrániteľná optimalizácia, ktorá môže zrýchliť výpočet, ale nesmie rozhodovať o correctness ani release identity.
+## 1. Dominantný event-to-artifact model
 
 ```text
-autentizovaný event alebo príkaz
-→ resolved source, target, candidate a workflow revision
-→ pipeline run v konkrétnom permission contexte
-→ validovaný cache restore alebo cold recompute
+authenticated event alebo authorized manual request
+→ event deduplication a trust classification
+→ exact source, target, candidate a workflow subject
+→ permissions a runner trust selection
+→ cache lookup alebo cold recompute
 → build a verification
-→ immutable artifact digest + provenance
-→ complete evidence fan-in
-→ retention, promotion alebo distribúcia
-```
-
-## 1. Cieľ kapitoly
-
-Nosný model kapitoly je trigger-to-artifact lifecycle:
-
-```text
-event identity
-→ authorization a deduplication
-→ authoritative candidate/run identity
-→ trusted execution context
-→ cache ako nedôveryhodný optional input
 → immutable artifact publication
-→ evidence manifest a eligibility
-→ promotion/rollback retention
-→ audit a incident traceability
+→ artifact-bound reports, SBOM, signature a provenance
+→ retention, promotion, revocation alebo garbage collection
 ```
 
-Cieľom nie je naučiť sa zoznam triggerov, artifact store-ov a cache keys. Cieľom je rozumieť, ako sa z udalosti stane konkrétny, reprodukovateľný a auditovateľný release output bez zámeny oportunistického state za dôveryhodný artifact.
+Trigger rozhoduje, prečo sa run začal a v akom trust contexte. Artifact rozhoduje, ktoré bytes sa ďalej používajú. Cache nesmie nahradiť ani jednu z týchto identít.
 
-## 2. Nosný scenár: Atlas Orders 3.10.1
+## 2. Exact trigger subject
 
-Atlas mení payment retry behavior a migration bundle. Zmena môže spustiť viac udalostí:
+Event subject má zachovať producer, delivery ID, event type, actor, source ref, target ref, received time a trust class:
 
-```text
-pull request synchronization
-push na feature branch
-merge-queue candidate
-push na protected main
-release tag
-manual production promotion
+```yaml
+triggerSubject:
+  provider: github
+  eventType: pull_request
+  deliveryId: 4d0a2b1f-8ef4-4c0a-a6ce-32aa27f72cb1
+  actor: external-contributor
+  sourceRepository: fork-user/payments
+  sourceRef: refs/heads/fix-timeout
+  sourceSha: 8e21b8d
+  targetRepository: atlas/payments
+  targetRef: refs/heads/main
+  targetSha: 53d92af
+  receivedAt: 2026-07-31T12:18:03Z
+  trustClass: untrusted-fork
+  workflowSha: 18ab442
 ```
 
-Každá udalosť má iný účel a trust:
+`pull_request`, `push`, `schedule`, `workflow_dispatch`, tag a upstream trigger majú rozdielne security semantics. Fork PR môže obsahovať nedôveryhodný source. Tag môže byť mutable alebo vytvorený neautorizovaným actorom. Schedule nemusí reprezentovať current release candidate. Manual dispatch potrebuje identity, parameters a reason.
 
-```text
-fork/PR run
-→ validuje nedôveryhodný candidate bez secrets
+## 3. Event authentication, authorization a deduplication
 
-merge-queue run
-→ rozhoduje o budúcom main candidate
+Webhook signature dokazuje, že payload vytvoril držiteľ shared secretu alebo trusted provider. Nehovorí, či event smie publikovať artifact alebo deployovať production. Po cryptographic authentication nasleduje authorization podľa repository, actor, ref, environment a event type.
 
-protected-main build
-→ publikuje release-eligible immutable artifacts
+Pri diagnostike sa event payload parsuje bez vypisovania secretu:
 
-manual promotion
-→ vyberá existujúci schválený release manifest digest
+```bash
+jq '{action, repository:.repository.full_name, actor:.sender.login, sourceSha:.pull_request.head.sha, targetSha:.pull_request.base.sha}' event.json
 ```
 
-Atlas musí vedieť odpovedať:
+Výstup preukazuje fields v prijatom JSON-e. Nepreukazuje, že payload prešiel signature validation ani že SHA stále existuje v trusted repository. Pipeline má fetch-núť exact objects a nepoužívať mutable branch checkout.
 
-- ktorý event a actor vytvorili run;
-- ktoré source, target a candidate SHA sa vykonali;
-- ktorá workflow revision a policy rozhodovali;
-- či cache pochádzala zo správneho trust namespace;
-- ktoré bytes vznikli a aký majú digest;
-- ktoré reports, signatures a attestations patria tomuto digestu;
-- kde je artifact nasadený a dokedy je rollback-eligible.
-
-## 3. Trigger je vytvorenie runtime contractu
-
-Trigger neurčuje iba čas spustenia. Vytvára pipeline runtime contract:
+Delivery ID alebo vlastný idempotency key bráni duplicate pipeline creation:
 
 ```text
-repository + event ID + actor
-+ event type a payload
-+ source/target refs
-+ resolved source/target/candidate SHA
-+ workflow revision
-+ typed inputs
-+ permissions a secret scope
-+ concurrency group
-→ pipeline run identity
+provider delivery ID
++ event type
++ repository
+→ unique trigger record
 ```
 
-Rovnaký YAML môže byť bezpečný pri protected-main run-e a nebezpečný pri fork pull requeste. Permissions sa preto odvodzujú z overeného event contextu a server-side policy, nie z user-controlled názvu branchu alebo jobu.
+Deduplication nesmie zlúčiť dva odlišné events s rovnakým source SHA, ak sa zmenil target, workflow alebo policy generation.
 
-## 4. Authoritative run a candidate identity
+## 4. Trigger permissions a trust downgrade
 
-Pre jednu zmenu môže vzniknúť viac runs. Atlas explicitne určuje ich autoritu:
-
-| Run | Predmet rozhodnutia | Povolené outputs |
-|---|---|---|
-| PR source run | rýchly branch feedback | diagnostické reports |
-| merge-result/queue run | budúci main candidate | required integration verdict |
-| protected-main run | prijatý main commit | signed release artifacts |
-| schedule | časovo alebo scope závislá kontrola | refresh/drift evidence |
-| manual promotion | existujúci manifest digest | environment deployment record |
-
-Branch name nie je candidate identity. Required status sa viaže na presný synthetic merge alebo queue SHA a invaliduje sa pri zmene source, target alebo workflow policy.
-
-## 5. Event payload je nedôveryhodný input
-
-Branch name, tag, pull-request title, comment, changed path, manual input alebo webhook field môžu byť kontrolované používateľom.
-
-Bezpečný flow:
+Pipeline permission context sa nesmie odvodzovať iba z workflow file-u, pretože untrusted source môže workflow meniť. Bezpečný model vyberá trusted workflow revision z target repository a poskytne minimálne permissions podľa event classu.
 
 ```text
-payload bytes
-→ signature/authentication
-→ schema a type validation
-→ canonicalization a allowlist
-→ authorization pre požadovanú operáciu
-→ použitie ako dátový argument
+fork PR
+→ read source, no secrets, no package write, no production network
+
+internal PR
+→ read source, bounded test resources
+
+protected main push
+→ candidate artifact publication
+
+protected release tag alebo promotion record
+→ environment-scoped deployment identity
 ```
 
-Hodnoty sa nesmú priamo skladať do shell commandu, filesystem pathu, cloud role name, SQL alebo Kubernetes resource name. Quoting rieši iba časť injection rizika; nerieši, či má actor právo zvoliť `production`.
+Event z untrusted source sa nesmie „povýšiť“ tým, že maintainer pridá label, ak downstream job následne vykoná source-controlled script s production credentialom. Approval musí fixovať exact source/candidate a trusted execution plan.
 
-## 6. Deduplikácia a supersession
+## 5. Artifact ako immutable release output
 
-PR synchronization môže vytvoriť push aj merge-request event. Webhook môže byť opakovaný po timeout-e. Bez idempotency vznikajú paralelné buildy, mutable-tag races a nejasný authoritative result.
+Artifact má content identity a provenance. Môže byť OCI image, package, binary archive, migration bundle, SBOM, deployment manifest alebo signed release manifest. Filename alebo mutable tag je locator, nie identity.
 
-Atlas používa run key:
-
-```text
-repository
-+ event class
-+ delivery/event ID
-+ candidate SHA
-+ workflow revision
+```bash
+sha256sum dist/payments-api.tar.gz > dist/payments-api.tar.gz.sha256
+artifact_sha="$(cut -d' ' -f1 dist/payments-api.tar.gz.sha256)"
+printf 'artifact_sha256=%s\n' "$artifact_sha"
 ```
 
-Policy určuje:
+Checksum preukazuje bytes konkrétneho local file-u. Nepreukazuje source, builder, platform ani absence malicious content. Provenance musí spojiť digest s candidate, build definition, dependencies a builder identity.
 
-- ktorý run publikuje required status;
-- ktorý smie publikovať release artifact;
-- ako sa duplicate event deduplikuje;
-- kedy novší commit superseduje starší validation run;
-- ktoré mutation jobs sa nesmú tvrdo cancelovať.
+Pre OCI artifact:
 
-Read-only verification možno agresívne rušiť. Publication, migration alebo deployment potrebuje state-aware cancellation a cleanup.
-
-## 7. Path selection je dependency decision
-
-Monorepo trigger môže vybrať affected set, ale glob pattern nie je úplný dependency model.
-
-```text
-changed path
-→ dependency a generated-artifact graph
-→ affected components a controls
-→ conservative fallback pri neznámom edge
+```bash
+ref='registry.atlas.example/payments-api:candidate-d94e1c6'
+digest="$(crane digest "$ref")"
+printf '%s@%s\n' "${ref%:*}" "$digest"
 ```
 
-Root config, lockfile, schema, base image, shared library, workflow template, rename alebo delete môžu ovplyvniť služby mimo priameho path matchu. False-green selection incident opravuje dependency graph alebo fallback policy, nie iba konkrétny test.
+Resolved digest preukazuje current registry mapping v čase query. Mutable tag sa môže neskôr zmeniť; promotion record má ukladať digest reference.
 
-## 8. Schedule a manual trigger
+## 6. Artifact publication a unknown outcome
 
-Scheduled run je vhodný pre vlastnosti závislé od času alebo širokého scope-u: dependency refresh, vulnerability rescan, certificate expiry, drift, restore drill, full regression a cold-cache verification. Nemá nahrádzať merge gate pre známy blocking failure.
-
-Manual trigger je používateľské API. Atlas production promotion prijíma:
+Registry push alebo object upload môže dokončiť server-side a klient môže stratiť response. Blind retry môže vytvoriť duplicate metadata, prepis mutable tagu alebo rozdielne attestations. Po timeout-e sa najprv vykoná read-back podľa digestu alebo idempotency key-u.
 
 ```text
-environment_id: stable allowlisted ID
-release_manifest_digest: sha256:...
-strategy: canary | rolling | blue-green
-change_reference: audit identifier
+upload request
+→ server may persist bytes
+→ acknowledgement lost
+→ client state UNKNOWN
+→ query content digest a publication record
+→ conclude committed / absent / conflicting
+→ retry iba podľa verdictu
 ```
 
-Neprijíma branch name, ktorý by sa v produkčnom kroku znovu buildol. Manual promotion vyberá existujúci eligible digest.
+Successful upload response stále nepreukazuje, že všetky platform manifests, SBOM a signatures boli publikované. Release evidence inventory má explicitne uviesť expected referrers.
 
-## 9. Cache je optional a nedôveryhodný input
+## 7. Cache ako odstrániteľná optimalizácia
 
-Cache môže zrýchliť dependency download, compiler, container layer alebo analysis. Jej lifecycle:
-
-```text
-vypočítať exact key a trust namespace
-→ restore exact/fallback/miss
-→ validovať manifest, toolchain a integrity
-→ recompute chýbajúci state
-→ vykonať build/test
-→ zapísať nový cache iba z povoleného úspešného runu
-```
-
-Workflow musí zostať správny po úplnom odstránení cache. Cold run je correctness test pipeline.
-
-## 10. Cache key a namespace
-
-Key reprezentuje relevantné inputs:
+Cache zrýchľuje dependency download, compilation alebo test preparation. Correctness contract musí platiť aj pri cache miss. Cache key obsahuje všetky inputs, ktoré ovplyvňujú obnovený obsah:
 
 ```text
-trust namespace
-+ OS/base image digest
-+ architecture
-+ toolchain version
-+ dependency lock hash
+operating system a architecture
++ toolchain digest
++ dependency lock digest
 + build flags
-+ generator/schema/config identity
++ relevant source/config digest
++ cache schema version
+→ cache key
 ```
 
-Atlas oddeľuje minimálne:
+Príklad:
+
+```bash
+lock_sha="$(sha256sum package-lock.json | cut -d' ' -f1)"
+key="npm-linux-amd64-node22-${lock_sha}-v3"
+printf 'cache_key=%s\n' "$key"
+```
+
+Key preukazuje, ktoré hodnoty script zahrnul. Nepreukazuje, že zoznam inputs je complete ani že cache backend vráti trusted content. Untrusted a trusted runs majú oddelené namespaces a write permissions.
+
+## 8. Cache poisoning a trust direction
+
+Ak fork PR môže zapísať cache, ktorú neskôr obnoví privileged release job, cache vytvára trust escalation. Content hash key nepomôže, ak attacker pozná key a backend povoľuje overwrite alebo prefix restore.
+
+Bezpečný model používa:
+
+- read-only trusted cache pre untrusted jobs alebo úplne oddelené namespace;
+- immutable cache entries, ak backend podporuje;
+- exact keys namiesto broad fallback prefixov pre privileged build;
+- validation obnoveného obsahu;
+- periodic cold builds;
+- žiadne credentials, signed outputs ani final artifacts v cache.
+
+Cache archive môže obsahovať symlinks, executable scripts alebo absolute paths. Restore mechanism musí chrániť workspace boundary.
+
+## 9. Artifact versus cache versus report
+
+Artifact je output určený na ďalší trusted lifecycle. Cache možno zahodiť. Report je evidence o execution a má vlastný subject. Jeden object sa nemá nazývať cache v build jobe a potom bez zmeny trust contractu promovať ako release artifact.
 
 ```text
-untrusted-pr-readonly
-trusted-main
-release-builder
+cache
+→ recomputable, best effort, no release authority
+
+artifact
+→ immutable, retained, provenance-bound, promotable alebo revocable
+
+report
+→ evidence producer + subject + oracle + result
 ```
 
-Fork run nesmie zapisovať executable cache, ktorú neskôr obnoví privileged main alebo signing job. Cache name ani metadata nesmú obsahovať secrets.
+Artifact retention a garbage collection sa viažu na release/support/recovery. Cache eviction smie ovplyvniť iba duration. Report retention musí podporovať audit a incident diagnosis.
 
-## 11. Artifact je autoritatívny output
+## 10. Trigger loops a storm control
 
-Atlas artifacts pre release 3.10.1:
+Pipeline môže sama commitovať generated file alebo tag, čo vyvolá ďalší trigger. Upstream pipeline môže retryovať webhook a vytvoriť duplicate downstream runs. Storm control potrebuje provenance-aware filtering, deduplication a rate limits.
 
 ```text
-orders-api image digest A
-payment-worker image digest B
-migration bundle digest M
-release manifest digest R = {A, B, M, config schema}
-SBOM, signatures a provenance
+workflow-generated commit
+→ marker alebo actor identity
+→ trigger policy rozpozná expected automation
+→ run iba relevantného graphu
 ```
 
-Artifact má:
+Broad rule „ignore bot commits“ môže skryť legitímnu supply-chain mutation. Lepšie je rozlišovať operation type, changed paths a expected automation identity.
 
-- content-derived immutable digest;
-- source commit a workflow/run identity;
-- builder a toolchain identity;
-- dependency/base-image materials;
-- SBOM, provenance a podpis podľa policy;
-- explicitný retention a revocation state;
-- eligibility oddelenú od samotnej existencie.
+## 11. Connected incident `REL-PAY-67`
 
-Mutable tag môže byť alias. Deployment a evidence sa viažu na resolved digest.
-
-## 12. Identity, integrity, authenticity a provenance
-
-Tieto dôkazy odpovedajú na rozdielne otázky:
+Fork PR zmenil code generator a CI cache key zostal založený iba na `package-lock.json`. Untrusted job zapísal generated client do shared prefix cache `payments-generated-*`. Neskorší protected tag pipeline obnovil najnovšiu prefix match, spustil build na trusted runneri a publikoval signed image.
 
 ```text
-digest
-→ ktoré bytes?
-
-integrity verification
-→ zmenili sa bytes?
-
-signature/identity
-→ kto ich vytvoril alebo schválil?
-
-provenance
-→ z akého source, materials, workflowu a buildera vznikli?
-
-policy verdict
-→ smú sa použiť pre daný environment?
+untrusted fork trigger
+→ shared cache write
+→ poisoned generated output
+→ protected tag trigger
+→ privileged cache restore
+→ signed artifact publication
+→ production promotion
 ```
 
-Hash uložený vedľa kompromitovaného artifactu nepreukazuje dôveryhodný pôvod.
+Signature bola validná, pretože trusted builder skutočne podpísal bytes, ktoré vytvoril. Provenance tiež ukazovala trusted workflow, ale neobsahovala cache source a generated output lineage. Artifact bol kryptograficky dôveryhodný a obsahovo kompromitovaný.
 
-## 13. Build once, promote many
+Root cause bol nesprávny trust direction: odstrániteľná cache sa stala vstupom privileged artifact authority.
 
-Atlas buildne release artifacts iba v protected-main release builderi:
+## 12. Recovery a acceptance verdict
+
+Containment revokuje affected digest, zastaví promotions, zachová cache metadata a publication records a oddelí runner/cache credentials. Recovery vytvorí cold candidate build z pinned inputs, porovná generated output s reviewed source generatorom, publikuje nový digest a redeployuje po business canary.
+
+Trigger/artifact/cache contract je prijatý iba vtedy, keď:
 
 ```text
-accepted commit C
-→ pinned build inputs
-→ digesty A, B, M
-→ immutable release manifest R
-→ všetky ďalšie testy a environments používajú R
+event je authenticated, authorized a deduplicated
++ trust class určuje workflow a permissions
++ source/target/workflow subjects sú immutable
++ cache miss nemení correctness
++ untrusted write nevstupuje do trusted build namespace-u
++ artifact má digest, provenance a expected evidence inventory
++ publication timeout sa rieši read-backom
++ mutable tag sa nepoužíva ako promotion identity
++ revocation blokuje ďalší deploy
++ cold second build reprodukuje contract outcome
 ```
 
-Staging ani produkcia nerebuildujú. Rebuild by vytvoril nový supply-chain event a nové bytes, pre ktoré stará evidence neplatí.
+## 13. Troubleshooting flow
 
-## 14. Evidence fan-out a fan-in
-
-Po publikovaní manifestu R bežia paralelné controls:
+Pri podozrivom artifacte sleduj:
 
 ```text
-R
-├─> signature/provenance verification
-├─> image/SCA scan
-├─> component a migration tests
-├─> staging deployment/smoke
-└─> compatibility policy
+trigger delivery a trust class
+→ resolved source/target/workflow
+→ runner permissions
+→ cache key, namespace, writer a restored object
+→ build inputs a output digest
+→ publication acknowledgement/read-back
+→ signature/provenance/report subjects
+→ promotions a runtime digests
 ```
 
-Fan-in vytvorí evidence manifest a overí:
+Competing hypotheses môžu byť spoofed event, duplicate delivery, wrong ref, mutable tag race, poisoned cache, stale fallback restore, artifact overwrite, incomplete multi-platform publication alebo report mismatch. Evidence-preserving containment nemá okamžite vymazať cache backend; metadata môže byť jediný dôkaz cross-run contamination.
 
-- očakávané evidence IDs a shardy;
-- väzbu každého reportu na R alebo jeho component digest;
-- completion status nástroja;
-- freshness a policy version;
-- absence revocation;
-- platné exceptions.
+## 14. Anti-patterny
 
-„Nula findings“ bez complete scan reportu nie je pass.
+### Každý trigger používa rovnaké permissions
 
-## 15. Artifact state a retention
+Event type a source trust zásadne menia bezpečný capability set.
 
-Artifact lifecycle:
+### Cache key iba podľa branch name
 
-```text
-built
-→ verified
-→ signed/attested
-→ promotable
-→ deployed/released
-→ superseded alebo revoked
-→ retained podľa rollback/audit policy
-```
+Branch je mutable a nezachytáva dependencies, toolchain ani flags.
 
-Retention pokrýva rollback window, incident investigation, SBOM/provenance a audit. Pipeline-local krátkodobý ZIP nie je vhodný ako jediný production artifact store.
+### Release artifact uložený iba ako pipeline ZIP
 
-Revoked artifact zostáva identifikovateľný pre audit, ale promotion policy ho blokuje.
+Bez immutable identity, provenance a retention contractu sa nedá bezpečne promovať ani obnoviť.
 
-## 16. Worked failure: duplicate triggers prepísali release alias
+### Validná signature ako proof čistého buildu
 
-Atlas po merge-i spustil push pipeline aj upstream release pipeline. Obe publikovali mutable tag `orders:3.10.1`:
+Signature potvrdzuje signer a subject. Ak trusted build spotreboval poisoned input, podpíše kompromitovaný artifact.
 
-```text
-push run buildol digest A1
-upstream run buildol digest A2 s novším base-image resolve
-→ oba zapisovali rovnaký tag
-→ staging overil A1
-→ posledný writer nastavil tag na A2
-→ produkcia nasadila A2
-```
+### Blind retry po upload timeout-e
 
-### Root cause
+Unknown outcome potrebuje read-back, inak môže retry prepísať locator alebo vytvoriť conflicting metadata.
 
-Chýbala authoritative-run policy, deduplication a build-once contract. Mutable alias sa používal ako artifact identity.
+## 15. Kontrolné otázky
 
-### Náprava
-
-- iba protected-main run publikuje release artifact;
-- run key deduplikuje rovnaký candidate/workflow;
-- artifact sa publikuje immutable digestom;
-- tag je alias s resolved-digest auditom;
-- release manifest viaže evidence na presné digests;
-- promotion overuje digest, nie tag.
-
-## 17. Worked failure: fork otrávil privileged cache
-
-Fork PR mohol zapisovať shared compiler cache. Útočník vložil executable wrapper pod cestu, ktorú neskôr použil trusted signing job:
-
-```text
-untrusted PR zapísal shared cache
-→ main signing job obnovil cache hit
-→ wrapper bežal s registry/signing tokenom
-→ pokúsil sa exfiltrovať credentials
-```
-
-### Root cause
-
-Cache bola považovaná za neškodnú performance vrstvu, hoci obsahovala executable state a prekračovala trust boundary.
-
-### Náprava
-
-- cache namespaces sú oddelené podľa trustu;
-- fork nemá write do trusted namespace;
-- privileged job používa clean ephemeral runner;
-- executable dependencies sa overujú podľa lockfile/checksum;
-- signing job nepreberá branch workspace;
-- security incident uchová cache metadata a provenance pred invalidáciou.
-
-## 18. Failure taxonomy
-
-Lifecycle rozlišuje:
-
-- trigger rejected alebo unauthorized;
-- duplicate/superseded run;
-- invalid candidate/workflow context;
-- cache miss ako normálny recompute stav;
-- cache corrupt/poisoned/backend failure;
-- build failure;
-- artifact publication alebo integrity failure;
-- incomplete/expired evidence;
-- revoked alebo retention-missing artifact;
-- promotion denied.
-
-Cache miss nie je product failure. Chýbajúci production artifact alebo povinná attestation naopak nie je advisory detail.
-
-## 19. Diagnostický postup
-
-1. Potvrď event ID, actor, trigger class a authoritative-run policy.
-2. Over source, target, candidate a workflow revision.
-3. Skontroluj deduplication/concurrency key a supersession state.
-4. Rozlíš cache exact hit, fallback, miss, corruption a backend failure.
-5. Spusti cold build na čistom ephemeral runneri.
-6. Porovnaj artifact digest, nie tag alebo filename.
-7. Over builder, materials, provenance a signature.
-8. Skontroluj expected evidence manifest a väzbu reportov na digest.
-9. Over retention, revocation a promotion history.
-10. Pri trust incidente zachovaj run/cache/artifact evidence pred cleanupom.
-11. Oprav trigger, cache namespace alebo artifact policy a potvrď nový first-attempt flow.
-
-## 20. Referenčné pravidlá
-
-- Trigger definuje trust, candidate, workflow a permissions, nie iba čas.
-- Event payload je nedôveryhodný input.
-- Required result patrí presnému authoritative candidate SHA.
-- Duplicate a replay eventy potrebujú idempotency.
-- Production promotion prijíma existujúci digest, nie branch name na rebuild.
-- Cache je odstrániteľná a validovaná optimalizácia.
-- Cache trust namespaces nesmú prepájať fork a privileged workflows.
-- Artifact má immutable content identity a provenance.
-- Build-once znamená rovnaké bytes vo všetkých environments.
-- Fan-in overuje completeness aj subject identity evidence.
-- Retention musí prežiť rollback a audit window.
-- Trigger-to-production traceability je incidentný zdroj pravdy.
-
-## 21. Časté omyly
-
-### „Trigger určuje iba kedy pipeline beží“
-
-Určuje aj actor, trust context, candidate revision, workflow revision a povolené side effects.
-
-### „Tag je verzia artifactu“
-
-Tag môže byť mutable. Autoritatívna identity je resolved content digest.
-
-### „Cache hit je vždy bezpečný“
-
-Cache môže byť stale, corrupt alebo pochádzať z nedôveryhodného writera.
-
-### „Cache a artifact sú iba dva typy uložených súborov“
-
-Artifact môže byť correctness a release input; cache musí byť postrádateľná.
-
-### „Manual production job môže prijať branch name“
-
-Tým sa obchádza build-once a dôkaz sa oddeľuje od nasadených bytes.
-
-### „Scan bez findings je pass“
-
-Iba ak sa scan kompletne vykonal a report patrí správnemu digestu.
-
-## 22. Zhrnutie
-
-Dôveryhodný Atlas provenance chain je:
-
-```text
-autentizovaný a deduplikovaný trigger
-→ explicitný candidate/workflow/permission context
-→ validovaný optional cache alebo cold recompute
-→ protected build
-→ immutable artifact a release manifest digest
-→ complete subject-bound evidence
-→ promotion a retention
-→ auditovateľná väzba až po production deployment
-```
-
-Trigger vytvára runtime identity, artifact nesie dôveryhodný output a cache iba optimalizuje výpočet. Ich zámennosť vytvára false green, supply-chain drift aj incidentný chaos.
-
-## 23. Kontrolné otázky
-
-1. Čo všetko trigger definuje okrem času spustenia?
-2. Prečo branch name nie je candidate identity?
-3. Ako sa určuje authoritative run pri viacerých eventoch?
-4. Prečo event payload potrebuje authorization aj po validácii syntaxe?
-5. Kedy možno bezpečne cancelovať superseded run?
-6. Prečo path trigger potrebuje dependency model a fallback?
-7. Prečo production promotion prijíma digest namiesto branchu?
-8. Ako sa líšia artifact identity, integrity, authenticity a provenance?
-9. Ako build-once chráni platnosť evidence?
-10. Prečo cache musí byť postrádateľná?
-11. Ako trust namespace zabraňuje cache poisoningu?
-12. Čo musí fan-in overiť pred promotion?
-13. Prečo rollback window ovplyvňuje retention?
-14. Ako vznikol Atlas duplicate-trigger artifact drift?
+1. Aký rozdiel je medzi trigger authentication a authorization?
+2. Prečo source SHA bez target/workflow SHA nestačí?
+3. Čo je authority artifactu a čo cache?
+4. Čo preukazuje checksum a čo nepreukazuje?
+5. Ako vzniká unknown publication outcome?
+6. Ktoré inputs patria do cache key-u?
+7. Prečo prefix restore môže byť nebezpečný?
+8. Ako untrusted cache write kompromitoval trusted artifact v `REL-PAY-67`?
+9. Prečo validná signature incident neodhalila?
+10. Ako sa modeluje trigger deduplication?
+11. Kedy artifact evidence expirovalo alebo sa revokuje?
+12. Ako sa overí, že cold build nemení correctness?
 
 ## Glossary impact
 
-Relevantné pojmy: trigger contract, authoritative run, event payload, trigger deduplication, superseded run, candidate SHA, manual promotion, artifact, release manifest, artifact digest, integrity, authenticity, provenance, build once promote many, evidence fan-in, artifact eligibility, artifact retention, cache, cache key, cache namespace, cache poisoning a cold build.
+Relevantné pojmy: trigger subject, delivery ID, event trust class, trigger authorization, trigger deduplication, immutable artifact, artifact locator, artifact provenance, publication unknown outcome, cache key, cache namespace, prefix restore, cache poisoning, cold recompute, report subject a artifact revocation.
+
+## Primárne zdroje
+
+- [GitHub Docs — Webhook events and payloads](https://docs.github.com/en/webhooks/webhook-events-and-payloads)
+- [GitHub Docs — Security hardening for GitHub Actions](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+- [GitLab Docs — CI/CD cache](https://docs.gitlab.com/ci/caching/)
+- [GitLab Docs — Job artifacts](https://docs.gitlab.com/ci/jobs/job_artifacts/)
+- [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec)
+- [SLSA specification](https://slsa.dev/spec/)
+- [Sigstore Cosign documentation](https://docs.sigstore.dev/cosign/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
