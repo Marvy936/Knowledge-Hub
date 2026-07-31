@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **316**
-- Audited conceptual sections: **8743**
-- Total words: **658,563**
-- Findings: **14089** (critical 3460, high 4183, medium 1618, low 4828)
-- File grades: A 77, B 50, C 17, D 172
+- Audited conceptual sections: **8754**
+- Total words: **659,511**
+- Findings: **14075** (critical 3458, high 4183, medium 1618, low 4816)
+- File grades: A 77, B 50, C 18, D 171
 
 ## Interpretation
 
@@ -40,13 +40,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
-| D | 888 | 35 | 47 | 16 | 33 | 3260 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
+| D | 888 | 35 | 47 | 16 | 33 | 3261 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 854 | 37 | 41 | 15 | 28 | 2950 | `docs/09-kubernetes/deployment.md` |
 | D | 851 | 36 | 36 | 25 | 33 | 3084 | `docs/09-kubernetes/pod.md` |
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
-| D | 831 | 37 | 38 | 17 | 22 | 2518 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
+| D | 831 | 37 | 38 | 17 | 22 | 2519 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 811 | 37 | 41 | 8 | 19 | 2477 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | D | 807 | 40 | 31 | 18 | 12 | 2145 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
@@ -191,7 +191,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 80 | 0 | 9 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 79 | 0 | 8 | 0 | 10 | 1303 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | D | 79 | 1 | 8 | 0 | 3 | 1460 | `docs/06-gitlab/projects-groups-permissions.md` |
-| D | 78 | 2 | 2 | 0 | 31 | 4011 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | D | 76 | 0 | 8 | 0 | 9 | 1608 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 76 | 0 | 9 | 0 | 3 | 1351 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 72 | 0 | 8 | 0 | 5 | 1261 | `docs/05-ci-cd-and-release/a-b-testing.md` |
@@ -212,6 +211,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 54 | 0 | 5 | 0 | 11 | 1603 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 1822 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | C | 42 | 1 | 0 | 1 | 19 | 3182 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
+| C | 42 | 0 | 2 | 0 | 19 | 4957 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
@@ -5642,13 +5642,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 433, `term-before-explanation` — **21. Praktické controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`, `MTU`, `policy`
 - **HIGH** line 433, `thin-concept-section` — **21. Praktické controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md`
-
-- **CRITICAL** line 105, `bare-bullet-items` — **4. Build context je vstup, nie celý pracovný adresár**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť cache key;`, `zväčšiť prenášaný context;`, `skončiť v image layeri pri širokom COPY . . ;`, `sprístupniť secret build procesu;`.
-- **CRITICAL** line 866, `bare-bullet-items` — **21. Connected incident CTR-PAY-81**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scanner nepokrýval celý platform inventory;`, `production konzumovala mutable tag;`, `health oracle nekontroloval required write capability;`, `volume ownership nebol súčasťou runtime compatibility contractu.`.
-- **HIGH** line 970, `single-sentence-concept` — **24. Kedy je Docker release prijatý**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 1026, `single-sentence-concept` — **26. Praktický troubleshooting flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
 ### `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md`
 
 - **CRITICAL** line 22, `outline-instead-of-explanation` — **1. Atlas incident**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
@@ -8553,19 +8546,24 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 243, `single-sentence-concept` — **Secret removed from Git equals revoked**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 247, `single-sentence-concept` — **Fixed main equals fixed production**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md`
+
+- **HIGH** line 691, `list-first-introduction` — **Oddelené kopírovanie dependencies a source**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1420, `single-sentence-concept` — **27. Configuration change a controlled recreate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2120 | 2120 |
-| `bare-bullet-items` | 1412 | 226 | 0 | 0 | 1638 |
+| `example-not-explicit` | 0 | 0 | 0 | 2115 | 2115 |
+| `bare-bullet-items` | 1410 | 226 | 0 | 0 | 1636 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1561 | 1561 |
 | `outline-instead-of-explanation` | 1446 | 0 | 0 | 0 | 1446 |
 | `term-before-explanation` | 0 | 325 | 1056 | 0 | 1381 |
-| `single-sentence-concept` | 0 | 1372 | 0 | 0 | 1372 |
+| `single-sentence-concept` | 0 | 1371 | 0 | 0 | 1371 |
 | `thin-concept-section` | 0 | 1206 | 0 | 0 | 1206 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1147 | 1147 |
-| `list-first-introduction` | 0 | 818 | 0 | 0 | 818 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
+| `list-first-introduction` | 0 | 819 | 0 | 0 | 819 |
 | `short-concept-section` | 0 | 0 | 562 | 0 | 562 |
 | `no-prose-concept` | 349 | 0 | 0 | 0 | 349 |
 | `empty-section` | 253 | 0 | 0 | 0 | 253 |
