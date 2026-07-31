@@ -1,0 +1,41 @@
+name: Temporary fix Section 11 checker
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+      - name: Repair checker state counter
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('.github/workflows/temporary-section-11-quality-validation.yml')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace('list_first_sections = 0', 'list_first_sections = [0]')
+          text = text.replace('                  nonlocal list_first_sections\n', '')
+          text = text.replace('list_first_sections += 1', 'list_first_sections[0] += 1')
+          text = text.replace('list_first_sections > 1', 'list_first_sections[0] > 1')
+          text = text.replace('{list_first_sections} list-first', '{list_first_sections[0]} list-first')
+          text = text.replace('list_first={list_first_sections}|', 'list_first={list_first_sections[0]}|')
+          path.write_text(text, encoding='utf-8', newline='\n')
+          PY
+          git add .github/workflows/temporary-section-11-quality-validation.yml
+          if ! git diff --cached --quiet; then
+            git commit -m "ci(docs): fix Section 11 quality checker state"
+            git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+          fi
