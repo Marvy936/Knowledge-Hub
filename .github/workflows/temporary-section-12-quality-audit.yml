@@ -31,77 +31,25 @@ jobs:
           import re
           from pathlib import Path
 
-          def replace_once(path: Path, old: str, new: str) -> None:
-              text = path.read_text(encoding='utf-8')
-              if old in text:
-                  path.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
-
-          replacements = [
-              (
-                  'docs/12-observability/instrumentation-telemetry.md',
-                  "## End-to-end lifecycle\n\n```text",
-                  "## End-to-end lifecycle\n\n"
-                  "Instrumentation sa správa ako versionovaný production data path, nie ako jednorazové pridanie SDK. "
-                  "Každá transition mení, čo responder môže z výsledku usúdiť: producer môže record vytvoriť, "
-                  "processor ho transformovať, exporter potvrdiť transport a backend ho až následne sprístupniť query. "
-                  "Preto sa celý mechanizmus číta v nasledujúcom poradí a každá boundary má samostatný read-back.\n\n"
-                  "```text",
-              ),
-              (
-                  'docs/12-observability/golden-signals.md',
-                  "## Outcome-first lifecycle\n\n```text",
-                  "## Outcome-first lifecycle\n\n"
-                  "Golden Signals tvoria jeden verdict iba vtedy, keď všetky štyri používajú kompatibilnú operation population a time boundary. "
-                  "Lifecycle preto najprv fixuje user journey a až potom oddeľuje demand, incorrect outcomes, end-to-end duration a čakajúcu prácu pred capacity cliffom. "
-                  "Každá ďalšia query musí zostať spätne naviazaná na tento subject a nesmie zameniť logical operation za interný attempt.\n\n"
-                  "```text",
-              ),
-              (
-                  'docs/12-observability/golden-signals.md',
-                  "## Exact Golden Signals subject\n\n```yaml",
-                  "## Exact Golden Signals subject\n\n"
-                  "Subject určuje spoločnú population, ktorú budú Latency, Traffic a Errors merať, a zároveň pomenúva resource boundaries relevantné pre Saturation. "
-                  "Bez tejto väzby môže každý panel používať inú release, cohort alebo unit a spoločný dashboard nebude mať kauzálny význam. "
-                  "Atlas preto zapisuje contract ako versionovaný, kontrolovateľný artefakt.\n\n"
-                  "```yaml",
-              ),
-              (
-                  'docs/12-observability/prometheus.md',
-                  "## End-to-end lifecycle\n\n```text",
-                  "## End-to-end lifecycle\n\n"
-                  "Prometheus verdict vzniká až po sérii odlišných control a data-path rozhodnutí. "
-                  "Discovery určí kandidáta, relabeling z neho vytvorí effective target, scrape prečíta exposition a TSDB až následne sprístupní samples query a rules. "
-                  "Úspech jednej boundary preto nesmie byť použitý ako dôkaz úplnosti nasledujúcej; lifecycle sa číta v tomto poradí.\n\n"
-                  "```text",
-              ),
-              (
-                  'docs/12-observability/alertmanager.md',
-                  "## End-to-end lifecycle\n\n```text",
-                  "## End-to-end lifecycle\n\n"
-                  "Alertmanager nie je jednorazový forwarder, ale stateful notification workflow. "
-                  "Alert instance sa najprv deduplikuje a routuje, potom vstupuje do grouping a timing state-u a až receiver attempt môže vytvoriť external notification. "
-                  "Každý krok má inú proof boundary, preto sa celý delivery mechanizmus overuje v nasledujúcom poradí.\n\n"
-                  "```text",
-              ),
-              (
-                  'docs/12-observability/elasticsearch-opensearch.md',
-                  "## Document-to-query lifecycle\n\n```text",
-                  "## Document-to-query lifecycle\n\n"
-                  "Search evidence vzniká až po viacerých samostatných verdicts. "
-                  "Bulk envelope môže byť prijatý, jednotlivý item odmietnutý mappingom, úspešne indexed document ešte nemusí byť refreshed a searchable a green shard allocation nepreukazuje úplnosť source events. "
-                  "Preto sa ingest, durability, visibility a lifecycle boundaries čítajú v nasledujúcom poradí a každá má vlastný read-back.\n\n"
-                  "```text",
-              ),
-          ]
-          for path, old, new in replacements:
-              replace_once(Path(path), old, new)
+          path = Path('docs/12-observability/jaeger-tempo.md')
+          text = path.read_text(encoding='utf-8')
+          old = "## End-to-end trace lifecycle\n\n```text"
+          new = (
+              "## End-to-end trace lifecycle\n\n"
+              "Trace backend môže vysvetliť distributed operation iba vtedy, keď sa zachová identita a completeness cez celý write a read path. "
+              "Propagation určí vzťahy medzi spans, sampling rozhodne, ktoré records pokračujú, ingest ich prijme a storage ich až následne sprístupní recent alebo historical query. "
+              "Úspech jednej boundary preto nie je dôkazom nasledujúcej a lifecycle sa overuje v tomto poradí.\n\n"
+              "```text"
+          )
+          if old in text:
+              path.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
 
           citation_pattern = re.compile(r'\s*cite[^]+')
-          for path in Path('docs/12-observability').glob('*.md'):
-              text = path.read_text(encoding='utf-8')
-              cleaned = citation_pattern.sub('', text)
-              if cleaned != text:
-                  path.write_text(cleaned, encoding='utf-8', newline='\n')
+          for doc in Path('docs/12-observability').glob('*.md'):
+              source = doc.read_text(encoding='utf-8')
+              cleaned = citation_pattern.sub('', source)
+              if cleaned != source:
+                  doc.write_text(cleaned, encoding='utf-8', newline='\n')
           PY
       - name: Build Section 12 quality report
         shell: bash
