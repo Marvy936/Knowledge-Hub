@@ -145,6 +145,51 @@ Spustiteľný scenárový index a review template patria do [CKA troubleshooting
 
 Po každom behu sa review record používa na výber ďalšieho variantu s rovnakým slabým reasoning krokom, ale inou identitou alebo root cause. Tým sa zabráni memorovaniu jedného injectoru a trénuje sa prenositeľná causal diagnosis.
 
+## Executable drill: Ready Pody, ale Service nemá endpointy
+
+Drill `CKA-SVC-24` začína symptómom `503` cez Service `payments-api`, hoci dva application Pody sú `Ready`. Najprv sa zachová exact Service, Deployment a endpoint generation bez restartu:
+
+```bash
+kubectl -n payments get service payments-api -o yaml > /tmp/service-before.yaml
+kubectl -n payments get deployment,pod -l app.kubernetes.io/name=payments-api -o wide
+kubectl -n payments get endpointslice \
+  -l kubernetes.io/service-name=payments-api -o yaml
+kubectl -n payments get events --sort-by=.lastTimestamp | tail -n 30
+```
+
+Ak EndpointSlice nemá endpoints, hypotézy sú selector mismatch, Pody bez readiness, wrong namespace alebo controller problem. Service selector sa preto porovná s live Pod labels:
+
+```bash
+kubectl -n payments get service payments-api \
+  -o jsonpath='{.spec.selector}{"\n"}'
+kubectl -n payments get pods \
+  -l app.kubernetes.io/name=payments-api --show-labels
+kubectl -n payments get pod \
+  -l app.kubernetes.io/name=payments-api \
+  -o jsonpath='{range .items[*]}{.metadata.name}{" ready="}{.status.conditions[?(@.type=="Ready")].status}{"\n"}{end}'
+```
+
+Observation ukáže, že Service vyberá `app=payment-api`, zatiaľ čo Pody majú `app=payments-api`. To lokalizuje failure na selector contract; container log ani Node restart nie sú relevantná prvá oprava. Authoritatívny Service field sa opraví minimálnym patchom:
+
+```bash
+kubectl -n payments patch service payments-api --type=merge \
+  -p '{"spec":{"selector":{"app":"payments-api"}}}'
+kubectl -n payments get endpointslice \
+  -l kubernetes.io/service-name=payments-api -w
+```
+
+Po vzniku endpoints sa vykoná actual request, nie iba control-plane read-back:
+
+```bash
+kubectl -n payments run service-probe \
+  --image=curlimages/curl:8.10.1 \
+  --restart=Never --rm -i \
+  -- curl -fsS http://payments-api:8080/ready
+kubectl -n payments diff -f /tmp/service-before.yaml || true
+```
+
+Diff musí ukázať iba intended selector transition. Zakázané výsledky sú odstránenie readiness probe, broad NetworkPolicy bypass alebo zmena Service identity či portu. Second-operation test zopakuje rovnaký patch; resource generation a endpoints musia zostať stabilné bez ďalšieho side effectu.
+
 ## Glossary impact
 
 Relevantné pojmy: CKA troubleshooting subject, expected-state contract, failure-domain narrowing, evidence preservation, competing hypotheses, discriminating observation, containment, authoritative repair, reconvergence, forbidden outcome, adjacent-cohort verification, fault-injection generation a drill score closure.
