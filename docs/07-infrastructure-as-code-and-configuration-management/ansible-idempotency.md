@@ -454,5 +454,5 @@ Relevantné pojmy: Ansible idempotencia, convergence, correctness, reproducibili
 
 **Navigácia**
 
-[← Predchádzajúca: Vault](vault.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform vs. Ansible →](terraform-vs-ansible.md)
+[← Predchádzajúca: Vault](vault.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Ansible projekt od inventory po overený rolling configuration rollout →](ansible-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

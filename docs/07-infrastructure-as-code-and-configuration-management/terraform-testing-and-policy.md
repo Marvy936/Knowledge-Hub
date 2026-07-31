@@ -715,5 +715,5 @@ Relevantné pojmy: Terraform evidence subject, expected evidence inventory, nati
 
 **Navigácia**
 
-[← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible architecture →](ansible-architecture.md)
+[← Predchádzajúca: Drift](drift.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Terraform projekt od prázdneho adresára po overený remote state →](terraform-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
