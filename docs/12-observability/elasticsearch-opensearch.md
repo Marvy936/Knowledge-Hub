@@ -6,6 +6,8 @@ Pri log observability nestačí, že cluster health je green. Potrebujeme vedie�
 
 ## Document-to-query lifecycle
 
+Search evidence vzniká až po viacerých samostatných verdicts. Bulk envelope môže byť prijatý, jednotlivý item odmietnutý mappingom, úspešne indexed document ešte nemusí byť refreshed a searchable a green shard allocation nepreukazuje úplnosť source events. Preto sa ingest, durability, visibility a lifecycle boundaries čítajú v nasledujúcom poradí a každá má vlastný read-back.
+
 ```text
 system alebo business event
 → collector JSON document

@@ -3,7 +3,7 @@ status=failure
 docs/12-observability/alert-design-alert-fatigue.md|strict=32/35/8|prose=671|bullet_share=0.496|blocks=18|executable=0|explanations=1
 docs/12-observability/alertmanager.md|strict=0/0/0|prose=1097|bullet_share=0.091|blocks=14|executable=9|explanations=13
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
-docs/12-observability/elasticsearch-opensearch.md|strict=0/1/0|prose=912|bullet_share=0.156|blocks=10|executable=14|explanations=17
+docs/12-observability/elasticsearch-opensearch.md|strict=0/0/0|prose=964|bullet_share=0.149|blocks=10|executable=14|explanations=19
 docs/12-observability/fluent-bit.md|strict=0/0/0|prose=1133|bullet_share=0.110|blocks=11|executable=5|explanations=15
 docs/12-observability/golden-signals.md|strict=0/0/0|prose=1005|bullet_share=0.109|blocks=13|executable=10|explanations=11
 docs/12-observability/grafana.md|strict=0/0/0|prose=939|bullet_share=0.135|blocks=10|executable=6|explanations=15
@@ -173,7 +173,6 @@ HIGH docs/12-observability/cardinality.md:545 [single-sentence-concept] Kratšia
 HIGH docs/12-observability/cardinality.md:549 [single-sentence-concept] Broad drop bez dependency inventory — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:553 [single-sentence-concept] Všetky Kubernetes labels automaticky — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:557 [single-sentence-concept] High-cardinality field „pre istotu“ — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/elasticsearch-opensearch.md:7 [list-first-introduction] Document-to-query lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/jaeger-tempo.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/jaeger-tempo.md:58 [list-heavy-section] 3. Trace continuity a span graph — 6 odrážok a iba 47 slov súvislého vysvetlenia.
 CRITICAL docs/12-observability/jaeger-tempo.md:58 [bare-bullet-items] 3. Trace continuity a span graph — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID a span ID;`, `parent span ID alebo links;`, `stable operation name a kind;`, `start/end time a status;`.
@@ -308,7 +307,6 @@ cardinality.md: strict findings
 cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
 cardinality.md: evidence explanation too thin (2)
-elasticsearch-opensearch.md: strict findings
 jaeger-tempo.md: strict findings
 jaeger-tempo.md: bullet share 0.479
 jaeger-tempo.md: practical examples too thin
