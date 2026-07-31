@@ -4,7 +4,7 @@ docs/13-security-and-identity/active-directory.md|strict=20/28/5|prose=942|bulle
 docs/13-security-and-identity/authentication-authorization-auditing.md|strict=0/0/0|prose=1028|bullet_share=0.105|blocks=8|executable=6|explanations=8
 docs/13-security-and-identity/cia-triad.md|strict=0/0/0|prose=1058|bullet_share=0.109|blocks=6|executable=5|explanations=18
 docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=18/28/6|prose=1156|bullet_share=0.402|blocks=16|executable=1|explanations=10
-docs/13-security-and-identity/iam-rbac.md|strict=27/46/9|prose=904|bullet_share=0.480|blocks=20|executable=1|explanations=7
+docs/13-security-and-identity/iam-rbac.md|strict=0/0/0|prose=966|bullet_share=0.107|blocks=6|executable=7|explanations=7
 docs/13-security-and-identity/image-signing.md|strict=20/24/12|prose=950|bullet_share=0.475|blocks=13|executable=0|explanations=12
 docs/13-security-and-identity/kerberos.md|strict=25/41/5|prose=1148|bullet_share=0.350|blocks=24|executable=4|explanations=9
 docs/13-security-and-identity/ldap.md|strict=29/30/13|prose=913|bullet_share=0.423|blocks=20|executable=0|explanations=11
@@ -126,88 +126,6 @@ HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:425 [sin
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:429 [single-sentence-concept] TLS všade, hostname verification vypnuté — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:433 [single-sentence-concept] Jeden key pre viac purposes a environments — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:437 [single-sentence-concept] Key rotated = old trust odstránený — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:7 [single-sentence-concept] 1. Dominantný lifecycle — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:7 [list-first-introduction] 1. Dominantný lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/iam-rbac.md:32 [single-sentence-concept] 2. Exact IAM/RBAC subject — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:58 [outline-instead-of-explanation] 3. IAM capability map — 11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:58 [bare-bullet-items] 3. IAM capability map — 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative identity source a identity proofing;`, `account provisioning/deprovisioning;`, `authenticator a credential lifecycle;`, `authentication a session management;`.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:58 [short-concept-section] 3. IAM capability map — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/iam-rbac.md:58 [term-before-explanation] 3. IAM capability map — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `identity`, `workload`, `policy`, `enforcement`
-HIGH docs/13-security-and-identity/iam-rbac.md:76 [bare-bullet-items] 4. Authoritative source a desired state — 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `contractor registry — sponsor a expiration;`, `customer identity store — customer account state;`, `cloud inventory — account/resource ownership;`.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:101 [empty-section] 5. Joiner, mover a leaver — Sekcia nemá vysvetľovací obsah.
-HIGH docs/13-security-and-identity/iam-rbac.md:103 [list-first-introduction] Joiner — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/iam-rbac.md:116 [list-first-introduction] Mover — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/iam-rbac.md:130 [single-sentence-concept] Leaver — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:130 [list-first-introduction] Leaver — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:144 [outline-instead-of-explanation] 6. Entitlement catalog — 12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:144 [bare-bullet-items] 6. Entitlement catalog — 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable ID a purpose;`, `required business task;`, `actions a resource scope;`, `environment/data classification;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:144 [thin-concept-section] 6. Entitlement catalog — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/iam-rbac.md:144 [term-before-explanation] 6. Entitlement catalog — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `JIT`, `resource`, `scope`
-HIGH docs/13-security-and-identity/iam-rbac.md:185 [list-first-introduction] 8. Role engineering — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:185 [outline-instead-of-explanation] 8. Role engineering — 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:185 [bare-bullet-items] 8. Role engineering — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose;`, `permissions a scope;`, `ownera;`, `eligible principals;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:185 [thin-concept-section] 8. Role engineering — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:185 [term-before-explanation] 8. Role engineering — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`
-HIGH docs/13-security-and-identity/iam-rbac.md:213 [single-sentence-concept] 9. Role explosion a composability — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:213 [outline-instead-of-explanation] 9. Role explosion a composability — 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:213 [bare-bullet-items] 9. Role explosion a composability — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base capability roles plus resource-scoped assignments;`, `JIT activation;`, `trusted ABAC conditions;`, `standardized entitlement catalog;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:213 [thin-concept-section] 9. Role explosion a composability — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:213 [term-before-explanation] 9. Role explosion a composability — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `resource`
-HIGH docs/13-security-and-identity/iam-rbac.md:248 [single-sentence-concept] 11. Groups a nested effective access — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:248 [outline-instead-of-explanation] 11. Groups a nested effective access — 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:248 [bare-bullet-items] 11. Groups a nested effective access — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale membership;`, `circular alebo veľmi hlboké nesting;`, `propagation delay;`, `cross-domain group mapping;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:248 [thin-concept-section] 11. Groups a nested effective access — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:273 [empty-section] 12. Separation of duties — Sekcia nemá vysvetľovací obsah.
-HIGH docs/13-security-and-identity/iam-rbac.md:275 [single-sentence-concept] Static SoD — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:285 [list-heavy-section] 13. Kubernetes RBAC semantics — 12 odrážok a iba 64 slov súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/iam-rbac.md:285 [bare-bullet-items] 13. Kubernetes RBAC semantics — 7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Role — namespaced rules;`, `ClusterRoleBinding — cluster-wide assignment.`, `create/patch RBAC objects;`, `create workloads, exec/attach a select ServiceAccounts;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:311 [list-heavy-section] 14. Cloud a application policy planes — 8 odrážok a iba 47 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:311 [bare-bullet-items] 14. Cloud a application policy planes — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity policy;`, `resource policy;`, `role trust policy;`, `organization guardrail;`.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:345 [outline-instead-of-explanation] 16. Policy as code a reconciliation — 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:345 [bare-bullet-items] 16. Policy as code a reconciliation — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version-controlled;`, `reviewed ownerom a security policy;`, `schema/lint validované;`, `analyzované na wildcard a escalation paths;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:345 [thin-concept-section] 16. Policy as code a reconciliation — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:391 [empty-section] 18. Worked incident: add-only mover sync ponechal production access — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:393 [empty-section] Desired organizational state — Sekcia nemá vysvetľovací obsah.
-HIGH docs/13-security-and-identity/iam-rbac.md:404 [list-first-introduction] Effective graph po sync-e — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:419 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/iam-rbac.md:419 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:419 [outline-instead-of-explanation] Competing hypotheses — 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:419 [bare-bullet-items] Competing hypotheses — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HR source neobsahoval mover zmenu;`, `entitlement catalog zámerne povoľoval Finance Analytics production acc`, `direct Kubernetes binding bol vytvorený ručne;`, `nested group path prežil add-only sync;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:419 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:419 [term-before-explanation] Competing hypotheses — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `resource`, `policy`
-HIGH docs/13-security-and-identity/iam-rbac.md:430 [list-first-introduction] Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:450 [no-prose-concept] Evidence-preserving containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/iam-rbac.md:450 [list-first-introduction] Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:450 [outline-instead-of-explanation] Evidence-preserving containment — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/iam-rbac.md:450 [bare-bullet-items] Evidence-preserving containment — 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `suspend principal a revoke-nuť sessions/tokens;`, `freeze manual IAM/RBAC edits počas reconstruction;`, `vyhodnotiť ďalších principals používajúcich rovnaký nested path;`, `neodstrániť celý group graph bez impact analýzy;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:450 [thin-concept-section] Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:450 [term-before-explanation] Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `RBAC`, `HR`
-CRITICAL docs/13-security-and-identity/iam-rbac.md:460 [no-prose-concept] Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/iam-rbac.md:460 [list-first-introduction] Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:460 [outline-instead-of-explanation] Authoritative recovery — 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/iam-rbac.md:460 [bare-bullet-items] Authoritative recovery — 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `definovať ownera každého nested group edge-u;`, `revoke-nuť privileged sessions po entitlement removal-e;`, `splitnúť payments-prod-operator na mediated JIT task capabilities;`, `odstrániť human Secret a arbitrary workload access;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:460 [thin-concept-section] Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:460 [term-before-explanation] Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `workload`, `policy`
-HIGH docs/13-security-and-identity/iam-rbac.md:471 [single-sentence-concept] Acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:471 [outline-instead-of-explanation] Acceptance verdict — 10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/iam-rbac.md:471 [bare-bullet-items] Acceptance verdict — 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `required Finance Analytics access funguje;`, `approved JIT Payments operator dostane iba intended capability;`, `second reconciliation neznovu-vytvorí stale edge;`, `affected peer identities z legacy-shared-operations boli vyhodnotené;`.
-HIGH docs/13-security-and-identity/iam-rbac.md:471 [thin-concept-section] Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:471 [term-before-explanation] Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`, `JIT`, `identity`
-CRITICAL docs/13-security-and-identity/iam-rbac.md:486 [outline-instead-of-explanation] 19. Access request, approval a PAM — 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/iam-rbac.md:486 [bare-bullet-items] 19. Access request, approval a PAM — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requester a beneficiary;`, `exact entitlement/resource;`, `business task a reason;`, `environment/tenant;`.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:486 [short-concept-section] 19. Access request, approval a PAM — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/iam-rbac.md:486 [term-before-explanation] 19. Access request, approval a PAM — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`
-HIGH docs/13-security-and-identity/iam-rbac.md:502 [single-sentence-concept] 20. Troubleshooting IAM/RBAC deny — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:502 [list-first-introduction] 20. Troubleshooting IAM/RBAC deny — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/iam-rbac.md:527 [single-sentence-concept] 21. Troubleshooting excessive access — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:527 [list-first-introduction] 21. Troubleshooting excessive access — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/iam-rbac.md:546 [single-sentence-concept] IAM = login page — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:550 [single-sentence-concept] Mover = add new role — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:554 [single-sentence-concept] Role podľa človeka — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:558 [single-sentence-concept] Nested groups bez explainability — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:562 [single-sentence-concept] cluster-admin ako fix — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:566 [single-sentence-concept] ABAC s user-writable attributes — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/iam-rbac.md:570 [single-sentence-concept] Source policy update bez runtime testu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 CRITICAL docs/13-security-and-identity/image-signing.md:22 [outline-instead-of-explanation] 1. Exact signing subject — 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
 CRITICAL docs/13-security-and-identity/image-signing.md:22 [bare-bullet-items] 1. Exact signing subject — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a release unit;`, `OCI image index alebo platform manifest digest;`, `architecture a OS variant;`, `source revision a builder generation;`.
 HIGH docs/13-security-and-identity/image-signing.md:22 [thin-concept-section] 1. Exact signing subject — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
@@ -997,9 +915,6 @@ active-directory.md: practical examples too thin
 encryption-at-rest-and-in-transit.md: strict findings
 encryption-at-rest-and-in-transit.md: bullet share 0.402
 encryption-at-rest-and-in-transit.md: practical examples too thin
-iam-rbac.md: strict findings
-iam-rbac.md: bullet share 0.480
-iam-rbac.md: practical examples too thin
 image-signing.md: strict findings
 image-signing.md: bullet share 0.475
 image-signing.md: practical examples too thin
