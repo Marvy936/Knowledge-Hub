@@ -6,6 +6,8 @@ Golden Signals spájajú dve otázky: čo práve zažíva caller a ako blízko j
 
 ## Outcome-first lifecycle
 
+Golden Signals tvoria jeden verdict iba vtedy, keď všetky štyri používajú kompatibilnú operation population a time boundary. Lifecycle preto najprv fixuje user journey a až potom oddeľuje demand, incorrect outcomes, end-to-end duration a čakajúcu prácu pred capacity cliffom. Každá ďalšia query musí zostať spätne naviazaná na tento subject a nesmie zameniť logical operation za interný attempt.
+
 ```text
 user journey a SLO
 → exact operation a valid population
@@ -22,6 +24,8 @@ user journey a SLO
 Atlas Payments používa operation `payment.settle` pre valid enterprise payments. Operation začína pridelením stable idempotency key a končí provider confirmation plus ledger/outbox commitom. HTTP `202` je iba entry boundary.
 
 ## Exact Golden Signals subject
+
+Subject určuje spoločnú population, ktorú budú Latency, Traffic a Errors merať, a zároveň pomenúva resource boundaries relevantné pre Saturation. Bez tejto väzby môže každý panel používať inú release, cohort alebo unit a spoločný dashboard nebude mať kauzálny význam. Atlas preto zapisuje contract ako versionovaný, kontrolovateľný artefakt.
 
 ```yaml
 subject: GS-PAY-43

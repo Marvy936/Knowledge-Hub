@@ -5,7 +5,7 @@ docs/12-observability/alertmanager.md|strict=0/1/0|prose=1050|bullet_share=0.095
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
 docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bullet_share=0.450|blocks=21|executable=0|explanations=4
 docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
-docs/12-observability/golden-signals.md|strict=0/2/0|prose=901|bullet_share=0.120|blocks=13|executable=10|explanations=11
+docs/12-observability/golden-signals.md|strict=0/0/0|prose=1005|bullet_share=0.109|blocks=13|executable=10|explanations=11
 docs/12-observability/grafana.md|strict=25/27/6|prose=838|bullet_share=0.413|blocks=19|executable=0|explanations=6
 docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
 docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
@@ -305,8 +305,6 @@ HIGH docs/12-observability/fluent-bit.md:485 [single-sentence-concept] Unlimited
 HIGH docs/12-observability/fluent-bit.md:489 [single-sentence-concept] Všetky Kubernetes labels a annotations — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/fluent-bit.md:493 [single-sentence-concept] Dva DaemonSets čítajú rovnaké files — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/fluent-bit.md:497 [single-sentence-concept] Parse/redaction až v backend-e — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/golden-signals.md:7 [list-first-introduction] Outcome-first lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/12-observability/golden-signals.md:24 [list-first-introduction] Exact Golden Signals subject — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/grafana.md:7 [single-sentence-concept] 1. Dominantný model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/grafana.md:7 [list-first-introduction] 1. Dominantný model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/grafana.md:51 [single-sentence-concept] 3. Štyri oddelené stavy — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
@@ -575,7 +573,6 @@ elasticsearch-opensearch.md: practical examples too thin
 fluent-bit.md: strict findings
 fluent-bit.md: bullet share 0.441
 fluent-bit.md: practical examples too thin
-golden-signals.md: strict findings
 grafana.md: strict findings
 grafana.md: bullet share 0.413
 grafana.md: practical examples too thin
