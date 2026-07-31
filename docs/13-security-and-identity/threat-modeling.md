@@ -1,476 +1,191 @@
 # Threat modeling
 
-Threat modeling je systematický engineering proces, ktorým tím odvodzuje security a privacy requirements z konkrétneho systému ešte pred incidentom. Jeho výstupom nie je iba diagram ani zoznam kategórií. Hodnota vzniká v reťazi od chráneného outcome-u cez exact architecture generation a realistický attack path až po control, negative test, operational evidence a residual-risk decision.
+Threat modeling je systematický engineering proces, ktorým tím odvodzuje security a privacy requirements z konkrétneho systému ešte pred incidentom. Jeho výstupom nie je iba diagram ani zoznam STRIDE kategórií. Hodnota vzniká v reťazi od chráneného business outcome-u cez exact architecture generation a realistický attack path až po control, negative test, operational evidence a residual-risk decision.
+
+Model musí byť dostatočne presný na rozhodnutie. „Attacker kompromituje CI“ nie je použiteľný threat statement, kým nevieme, ktorý actor, cez ktorý input alebo trust boundary, s akou capability, ktorý asset ovplyvní a aký forbidden outcome vznikne.
+
+## Objective-to-negative-test lifecycle
+
+Threat model je engineering control iba vtedy, keď chránený outcome vedie ku konkrétnemu attack pathu, requirementu a negative testu. Lifecycle ukazuje, ako sa architecture assumptions menia na falsifikovateľné dôkazy a residual-risk rozhodnutie.
 
 ```text
-business alebo security objective
-→ exact threat-model subject a scope
+business/security objective
+→ exact system generation a scope
 → assets, actors, data a state transitions
 → trust, identity a administrative boundaries
 → assumptions a dependency failure modes
-→ concrete threat statement a attack path
-→ risk treatment a control mechanism
-→ testovateľný security requirement
-→ negative test a operational evidence
-→ residual risk, owner a update trigger
+→ concrete threat statement alebo attack tree
+→ control mechanism a owner
+→ testovateľná security requirement
+→ negative test a runtime evidence
+→ residual risk, exception a update trigger
 ```
 
-## 1. Threat-model subject
+Threat model nie je jednorazový dokument pri design review. Mení sa pri architecture, identity, data flow, dependency, deployment, trust alebo incident change-i. Model bez update triggera sa stáva historickou ilustráciou.
 
-Model musí byť viazaný na verziu systému, ktorú opisuje. Minimálny subject obsahuje:
+## Exact model subject SEC-PAY-50
 
-- service alebo critical flow;
-- source a architecture revision;
-- environment a tenant model;
-- entry a exit points;
-- identity, authorization a recovery flows;
-- build, deployment a supplier paths;
-- data classes a retention;
-- ownera, review date a otvorené risks.
+Model subject fixuje source, builder, output a trust boundaries jednej release generation. To umožňuje rozlíšiť source-level controls od post-review a post-test mutation paths na persistentnom runneri.
 
-Diagram bez revision identity sa môže stať false assurance po zmene runnera, proxy, issuer-a alebo deployment controlleru.
+```yaml
+apiVersion: security.atlas.example/v1
+kind: ThreatModel
+metadata:
+  name: payments-build-and-release
+spec:
+  generation: TM-PAY-50
+  sourceRevision: a81f2e9
+  builder: runner-prod-17
+  builderImage: sha256:builder17
+  outputImage: sha256:pay7240
+  protectedOutcomes:
+    - final image contains only approved build graph outputs
+    - signing and provenance authority cannot be influenced by untrusted input
+    - production runs only semantically verified platform digests
+  trustBoundaries:
+    - pull-request input to trusted build
+    - tenant job to runner host
+    - builder to registry
+    - registry to admission
+  forbiddenOutcomes:
+    - command execution from PR metadata
+    - post-test artifact injection
+    - tenant-generated trusted provenance
+    - unsigned or mismatched platform runtime
+```
 
-## 2. Security objectives
+Manifest preukazuje exact architecture generation a required outcomes. Nepreukazuje, že diagram pokrýva všetky data flows, controls sú loaded alebo tests reálne bežia.
 
-Objective definuje, čo nesmie byť porušené a čo musí zostať dostupné alebo auditovateľné.
+## Scope, assets a actors
 
-Slabý objective:
+Scope určuje, ktoré components, environments, identities a lifecycle stages model zahŕňa. Príliš úzky source-only scope v incidente vynechal persistent runner, builder helper, registry publication a signing authority. Príliš široký model „celá firma“ nevytvorí actionable requirements.
+
+Assets zahŕňajú source, dependency graph, build definition, builder image, runner host, credentials, artifact digest, provenance, SBOM, signatures, registry tags/referrers, deployment policy a production business outcome. Actor nie je iba external attacker; patrí sem untrusted contributor, compromised dependency maintainer, malicious insider, compromised workload a accidental automation.
+
+## Data-flow a trust-boundary model
+
+Pre build pipeline môže byť dominantný flow:
 
 ```text
-Build pipeline musí byť bezpečný.
+external contributor
+→ pull-request title/body/files
+→ source-control merge controls
+→ CI orchestration
+→ persistent runner host
+→ build helper a toolchain
+→ final filesystem
+→ registry publication
+→ signing/provenance/SBOM
+→ admission policy
+→ platform-specific runtime
 ```
 
-Silnejší objective:
+Trust boundary je miesto, kde sa mení authority, validation alebo administrative control. PR metadata vstupuje do shellu; tenant workflow beží na privileged runneri; build output prechádza do signing authority; registry artifact prechádza do cluster admission. Network segment sám nie je jediný trust boundary. Identity a administrative boundaries sú rovnako dôležité.
 
-> Production image musí vzniknúť z approved source revision na schválenom izolovanom builderi. Untrusted contribution ani build step nesmú meniť output po testoch, používať production signing authority alebo vytvoriť artifact, ktorý admission prijme bez digest-bound provenance a final-artifact SBOM.
+## Assumptions musia byť falsifikovateľné
 
-Objective sa musí dať preložiť do requirementu a allowed aj forbidden testu.
+Assumption „runner je trusted“ je slabá. Falsifikovateľná verzia znie: „každý release build beží na fresh ephemeral workerovi bez state-u z predchádzajúceho jobu; tenant step nemá host root, Docker socket ani signing credential; platform mimo tenant jobu generuje provenance“. Každá časť sa dá overiť.
 
-## 3. Scope a critical journeys
+Incident ukázal nepravdivé assumptions: runner bol persistentný, helper spracoval PR title cez shell, signing/provenance bežali v rovnakom tenant-controlled jobe a final SBOM inventarizovala source lockfile, nie final filesystem.
 
-Scope môže byť celý system context alebo jeden high-impact lifecycle. Praktické models často používajú hierarchiu:
+## Threat statements
 
-1. system context — users, external systems a hlavné boundaries;
-2. service model — processes, stores a identity flows;
-3. critical-flow model — detailný payment, login, recovery alebo release lifecycle;
-4. implementation model — konkrétne fields, tokens, commands a state transitions.
-
-Príliš široký scope vytvorí diagram `internet → cloud → database`. Príliš úzky model môže ignorovať CI/CD, backup alebo support path, cez ktorý sa rovnaký asset mení.
-
-## 4. Assets nie sú iba data
-
-Asset je každá capability alebo evidence s významným confidentiality, integrity, availability, authenticity alebo accountability impactom.
-
-Pre release flow sú assets napríklad:
-
-- source revision a review history;
-- build definition a reusable workflows;
-- builder image a runner isolation;
-- dependency a cache graph;
-- registry namespace a publish authority;
-- signing identity a provenance issuer;
-- artifact digest, SBOM a promotion record;
-- admission policy a runtime inventory;
-- audit logs potrebné na incident reconstruction.
-
-CI signing identity môže mať väčší systemic impact než jeden application server, pretože dokáže vytvoriť trusted artifacts pre viac environments.
-
-## 5. Actors, principals a attacker capabilities
-
-Actor je človek, workload, organization alebo external system. Principal je identity, pod ktorou konkrétny system actor-a rozpoznáva.
-
-Label `attacker` nestačí. Uveď starting position a capabilities:
-
-- anonymous internet actor;
-- authenticated tenant;
-- external contributor kontrolujúci PR branch a metadata;
-- compromised maintainer account;
-- malicious dependency publisher;
-- build step s workspace a network accessom;
-- source-control, CI alebo registry administrator;
-- compromised production workload.
-
-Legitímny actor môže zneužiť allowed feature. Crafted pull-request title alebo package name môže byť syntakticky validný input, ktorý scanner nepovažuje za attack.
-
-## 6. Data, commands a state transitions
-
-Každý významný flow má uvádzať:
-
-- data alebo command type;
-- origin a authoritative ownera;
-- protocol a serialization;
-- identity alebo delegation context;
-- integrity a ordering requirements;
-- classification a tenant scope;
-- failure, retry a replay semantics;
-- logging a redaction;
-- lifecycle transition, ktorý vyvoláva.
-
-Mnohé threats vznikajú pri transition:
+Použiteľný threat statement má actor, condition, action, asset a impact. Tieto prvky vytvárajú kauzálnu vetu, z ktorej možno odvodiť presný control owner, observation point a forbidden negative test; samotný názov attack technique takýto engineering vstup neposkytuje.
 
 ```text
-source revision
-→ approved release candidate
-→ builder input
-→ immutable artifact
-→ signed/promoted digest
-→ admitted workload
-→ running production generation
+Ak untrusted contributor vloží shell metacharacters do merged-PR title
+pričom vulnerable build helper interpoluje title do privileged shellu na persistentnom runneri,
+môže po testoch zmeniť final filesystem a publikovať podpísaný malicious image,
+čím poruší artifact integrity a production settlement trust.
 ```
 
-Pri každom transition urč actor-a, preconditions, idempotency, evidence a forbidden alternate path.
+Takýto statement priamo vedie ku controls: structured argument passing, pinned fixed helper, ephemeral isolation, no tenant signing authority, final-artifact inventory a semantic admission.
 
-## 7. Trust boundaries
+## STRIDE, attack trees, CAPEC a ATT&CK
 
-Trust boundary je miesto, kde sa mení identity authority, privilege, administrative owner, tenant, execution isolation, data classification alebo cryptographic protection.
+STRIDE pomáha systematicky prejsť spoofing, tampering, repudiation, information disclosure, denial of service a elevation of privilege pri každom elemente/flow-e. Nie je risk score ani zoznam mitigácií.
 
-Nie je to iba firewall. Pre release flow sú relevantné:
+Attack tree rozkladá cieľ na alternatívne a kombinované paths. Cieľ „run malicious production artifact“ môže mať branches compromise source, dependency, builder, registry, signer, admission alebo runtime. Tree odhalí, že podpis artifactu nechráni pred compromised builderom, ak signer autorizuje každý builder output.
 
-- contributor-controlled metadata → trusted workflow interpreter;
-- repository → CI control plane;
-- tenant build step → runner host;
-- untrusted build process → provenance/signing service;
-- builder → registry;
-- registry metadata → deployment policy;
-- admission decision → runtime controller;
-- staging → production trust root.
+CAPEC poskytuje attack-pattern vocabulary; MITRE ATT&CK opisuje observed adversary techniques a detection context. Ani jeden framework nenahrádza system-specific data flow a requirement. Copy-paste technique IDs bez boundary a evidence nevytvára threat model.
 
-Na každej boundary sa pýtaj:
+## Z threatu na requirement a negative test
+
+Threat sa uzavrie až testovateľným requirementom. Pre PR metadata:
 
 ```text
-kto vydal identity?
-čo je attacker-controlled?
-čo consumer validuje?
-aké privilege sa mení?
-kto môže boundary obísť?
-čo sa stane pri outage alebo stale state-e?
+Requirement TM-PAY-50-R7:
+Release pipeline nesmie interpretovať source-control metadata ako shell program.
+Všetky metadata sa prenášajú cez structured API alebo argument array.
+Adversarial title s `$(...)`, backticks, quotes a newlines nesmie vytvoriť process,
+meniť filesystem ani ovplyvniť artifact digest mimo expected metadata field-u.
 ```
 
-## 8. Assumptions a dependencies
+Controlled negative fixture môže vytvoriť test PR metadata a sledovať process/file evidence:
 
-Assumption je tvrdenie, na ktorom design stojí, ale nemusí ho system priamo presadzovať. Dependency je external component alebo process, ktorého behavior system potrebuje.
+```bash
+python scripts/render_release_metadata.py \
+  --title 'release $(touch /tmp/SHOULD_NOT_EXIST) `id`' \
+  --output /tmp/release-metadata.json
 
-Príklady critical assumptions:
-
-- runner je ephemeral a po každom jobe zničený;
-- release job nespúšťa untrusted metadata ako command source;
-- provenance signing material je mimo tenant build processu;
-- SBOM analyzuje final artifact, nie iba source lockfile;
-- admission je jediný production deployment path;
-- registry promotion zachová signatures a attestations.
-
-Každá assumption potrebuje ownera, evidence a failure consequence. Architecture dokument, ktorý označí persistent runner ako ephemeral, je neplatný model, nie iba nepresný label.
-
-## 9. Data Flow Diagram
-
-DFD je reasoning model external entities, processes, stores, flows a boundaries.
-
-```text
-[Contributor]
-    │ PR code + title + metadata
-    ▼
-[Source control]
-    │ approved revision + release metadata
-    ▼
-[CI control plane]
-    │ job definition + short-lived identity
-    ▼
-[Ephemeral builder] ── artifact digest ──> [Registry]
-    │                     │
-    ├─ provenance         ├─ SBOM/referrers
-    └─ build audit        └─ signature
-                              │
-                              ▼
-                       [Admission policy]
-                              │
-                              ▼
-                       [Kubernetes runtime]
+test ! -e /tmp/SHOULD_NOT_EXIST
+jq -e '.title == "release $(touch /tmp/SHOULD_NOT_EXIST) `id`"' \
+  /tmp/release-metadata.json
 ```
 
-Arrow `CI builds image` je nedostatočný. Model musí ukázať, kde vstupujú PR metadata, kto vlastní runner image, kto podpisuje provenance a na ktorý digest sú claims viazané.
+Prvý command preukazuje spracovanie konkrétnej fixture v test harness-e. `test` a `jq` overia forbidden side effect a exact data preservation. Nepreukazujú production runner isolation, všetky input fields ani absence command execution v inom pipeline kroku.
 
-## 10. Threat statements
+## Authentication, authorization a multi-tenancy threats
 
-Concrete threat statement spája actor-a, condition, action, asset a impact:
+Identity flow sa modeluje od proofing/authenticatora cez session/token, claims mapping, resource authorization a revocation. Threat „valid token accesses wrong tenant object“ nie je authentication defect; je object authorization a tenant-boundary failure.
 
-```text
-actor
-→ zneužije konkrétnu boundary alebo condition
-→ vykoná action
-→ zasiahne asset
-→ spôsobí security impact
-```
+Multi-tenant model musí zahŕňať control plane, data plane, backups, caches, observability, support/admin tools, migrations a external providers. Tenant ID v UI alebo request header nie je trust anchor. Authority sa odvodzuje z verified principal-to-tenant relation a server-side resource identity.
 
-Príklad:
+## Availability, privacy a unsafe fallback
 
-> Contributor vloží crafted release-note metadata do schváleného PR. Vulnerable helper na persistentnom privileged runneri interpretuje metadata ako shell command, zmení final image po testoch a release workflow publikuje a podpíše nedôveryhodný digest. Production admission kontroluje iba existenciu attestations, takže artifact nasadí.
+Threat modeling zahŕňa outage a recovery. Fail-open policy pri PDP outage, global retry pri provider failure, broad break-glass alebo restore bez tenant filtering môžu porušiť C/I pri pokuse zachrániť A.
 
-`Supply-chain attack` alebo `tampering` je iba category. Neurčuje missing control ani test.
+Privacy model sleduje collection, purpose, linkage, retention, access a deletion. Observability fields môžu obísť primary data controls. Recovery path môže obnoviť zmazané data alebo old credentials. Tieto flows patria do modelu rovnako ako primary request.
 
-## 11. STRIDE ako elicitation, nie výsledok
+## Risk treatment a residual risk
 
-STRIDE pomáha klásť systematické otázky:
+Likelihood a impact nie sú presné čísla bez uncertainty. Tím môže používať qualitative alebo quantitative model, ale zachová inputs a assumptions. Treatment môže znížiť probability, blast radius alebo recovery time; residual risk potrebuje ownera, expiration a monitoring.
 
-- **Spoofing** — možno predstierať source, builder, signer alebo workload identity?
-- **Tampering** — možno zmeniť code, artifact, provenance, SBOM alebo policy?
-- **Repudiation** — chýba attribution medzi contributorom, workflowom a runnerom?
-- **Information Disclosure** — môže build získať secrets, source alebo tenant data?
-- **Denial of Service** — môže malý input vyvolať drahý build, queue alebo policy failure?
-- **Elevation of Privilege** — môže untrusted change získať release alebo production authority?
+Control „code review“ neznižuje builder compromise risk, ak malicious state vzniká po review. WAF neznižuje malicious CI metadata path. Každý control sa viaže na exact mechanism a observation point.
 
-Threats sa potom formulujú nad exact flowom a boundary. Copy celej STRIDE alebo ATT&CK matice nevytvára actionable model.
+## Incident SEC-PAY-50
 
-## 12. Attack tree pre production artifact compromise
+Pôvodný threat model končil pri approved source a dependency scan-e. Nezahŕňal persistent runner, PR metadata ako code-adjacent input, builder helper, post-test filesystem mutation ani tenant-controlled evidence generation. Crafted title preto spustil command injection a vložil `settlement-debug.jar` do final image po testoch.
 
-```text
-Goal: spustiť attacker-controlled code ako trusted production image
-├─ zmeniť approved source
-├─ kompromitovať dependency resolution
-├─ kompromitovať builder alebo runner
-│  ├─ vulnerable build helper
-│  ├─ persistent state z predchádzajúceho jobu
-│  └─ poisoned shared cache
-├─ ukradnúť publish alebo signing authority
-├─ nahradiť digest pri distribúcii
-└─ obísť deployment policy
-   ├─ existence-only attestation gate
-   ├─ mutable tag
-   └─ alternate direct deployment path
-```
+Image mala matching signature a provenance, pretože compromised pipeline podpisovala vlastný output. SBOM bola source-lockfile inventory a injected JAR neobsahovala. Admission kontrolovalo existenciu evidence, nie approved builder a final-artifact completeness.
 
-OR branches sú alternate paths. AND branch môže vyžadovať napríklad `vulnerable helper + attacker-controlled metadata + privileged persistent runner`.
+Root cause bol incomplete trust model a vulnerable privileged execution path. Scanner finding bol trigger; assumptions o runner isolation, provenance authority a SBOM stage boli system-level defects.
 
-Tree ukazuje weakest path a spoločné controls. Nie je automatický probability model.
+## Containment, model update a acceptance
 
-## 13. Controls ako mechanisms
+Containment quarantinuje runner a outputs, zachová evidence a zastaví promotion. Model sa aktualizuje pred výberom controls, aby recovery neopravila iba konkrétny title parser a nevynechala persistent host, signing authority alebo final filesystem.
 
-Mitigation musí uviesť enforcement point, input a threat step, ktorý blokuje.
+Authoritative recovery používa fresh ephemeral workers, pinned fixed helper, structured metadata, no tenant signing credentials, platform-generated provenance, final-artifact SBOM a semantic admission. Negative tests pokrývajú crafted metadata, state z previous jobu, post-test injection, wrong builder identity a evidence generated neapproved authority.
 
-Slabé:
+Acceptance vyžaduje, aby každý threat statement mal ownera, requirement, automated alebo rehearsed negative test a runtime observation. Druhý architecture change — napríklad nový build cache alebo runner pool — musí explicitne trigger-nuť model review. Model, ktorý sa po zmene trust boundary automaticky neotvorí, nie je lifecycle control.
 
-```text
-Použiť provenance a SBOM.
-```
+## Kontrolné otázky
 
-Silnejšie:
+1. Prečo diagram bez security objectives nie je kompletný threat model?
+2. Ako sa identity a administrative boundary líšia od network boundary?
+3. Čo robí assumption falsifikovateľnou?
+4. Ako STRIDE, attack tree a ATT&CK slúžia odlišným účelom?
+5. Prečo podpis artifactu nebráni compromised builderu?
+6. Čo negative fixture pre PR title preukazuje a čo nie?
+7. Ktoré architecture changes musia znovu otvoriť model?
 
-> Build platform mimo tenant jobu vydá signed provenance pre exact digest. Production policy overí approved builder identity, expected repository/revision, build type a parameters. SBOM sa generuje z final filesystemu a policy kontroluje subject digest, lifecycle stage a completeness. Existence súboru alebo validná signature bez claim evaluation nestačí.
+## Referencie
 
-Defense in depth má význam, keď controls zlyhávajú nezávisle. Provenance a SBOM generované rovnakým compromised tenant processom nemusia byť dve nezávislé vrstvy.
-
-## 14. Requirement a negative test
-
-Threat sa prekladá do testovateľného contractu.
-
-### Requirement R1 — untrusted metadata
-
-> Release workflow musí prenášať PR title a release notes cez data channel, nie ich interpolovať do shell source-u. Control characters a command substitutions nesmú zmeniť executed command graph.
-
-Negative test: crafted title vytvorí iba literal release note; nevytvorí process, file ani network side effect.
-
-### Requirement R2 — builder isolation
-
-> Protected release musí bežať na fresh ephemeral builderi z pinned digestu. Predchádzajúci job nesmie ovplyvniť filesystem, process, credentials ani cache authority nasledujúceho release-u.
-
-Negative test: adversarial pre-job persistence fixture nie je v release jobe viditeľná.
-
-### Requirement R3 — evidence authority
-
-> Provenance musí vydať approved platform identity mimo user-defined steps a musí byť viazaná na final artifact digest. SBOM musí reprezentovať final artifact a explicitnú completeness generation.
-
-Negative test: self-generated provenance alebo source-only SBOM pre final image policy odmietne.
-
-### Requirement R4 — deployment
-
-> Production workload môže používať iba digest, ktorého signer, builder, source revision, provenance a SBOM spĺňajú current policy. Mutable tag alebo missing referrers zlyhajú.
-
-Negative test: correctly signed artifact z unapproved buildera alebo s wrong subject digestom je denied.
-
-Expected result zahŕňa deny, audit evidence a absenciu partial side effects.
-
-## 15. Worked incident `SEC-PAY-50`
-
-Pôvodný Atlas release threat model bol označený revision `TM-REL-12`. Obsahoval source repository, CI, registry a Kubernetes. Explicitne však predpokladal:
-
-```text
-runner = ephemeral
-provenance = platform-generated
-SBOM = final artifact inventory
-```
-
-Skutočný release `7.24.0` použil persistentný `runner-prod-17`, vulnerable `atlas-build-helper 2.4.1`, job-generated provenance a source-only SBOM. Crafted PR title vyvolal command injection a final image `sha256:pay7240` obsahoval injected JAR.
-
-### Prečo model zlyhal
-
-- runner lifecycle nebol viazaný na inventory evidence;
-- build helper a runner image neboli v DFD ani dependency inventory;
-- PR metadata neboli modelované ako attacker-controlled input;
-- signing/provenance authority bola nakreslená mimo jobu, hoci credential bol dostupný jobu;
-- SBOM stage nebola pomenovaná;
-- deployment control overoval existence evidence, nie semantics;
-- alternate rollback a direct controller paths neboli negatívne testované.
-
-Incident nebol „nepredvídateľný“. Relevantné boundary a assumptions v modeli chýbali alebo boli nepravdivé.
-
-## 16. Evidence-preserving model update
-
-Po incidente sa najprv zachová pôvodný `TM-REL-12`, aby zostalo viditeľné, ktoré assumptions zlyhali. Nová generation `TM-REL-13` pridá:
-
-- contributor metadata flow;
-- builder image a toolchain inventory;
-- runner persistence a cache boundaries;
-- provenance issuer a signing-key boundary;
-- final-artifact SBOM generation;
-- registry referrers a promotion;
-- admission claim evaluation;
-- runtime a rollback digest inventory;
-- incident revocation flow.
-
-Model sa nemá prepísať tak, aby spätne predstieral, že risk bol vždy známy.
-
-## 17. Residual risk
-
-Po controls zostáva napríklad:
-
-- malicious source schválený dvoma compromised reviewers;
-- compromise CI control plane-u alebo approved builder image supply chain;
-- zero-day v build toolchain-e bez dostupnej detection;
-- malicious dependency, ktorá je immutable a správne zaznamenaná;
-- insider s oprávneným emergency bypassom.
-
-Residual risk potrebuje business ownera, monitoring, review trigger a recovery plan. `Low` bez popisu zostávajúceho attack pathu nie je decision.
-
-## 18. Operational evidence
-
-Critical threats určujú, akú evidence musí systém produkovať:
-
-- source revision, approvals a branch-policy generation;
-- runner ID, image digest a ephemeral lifecycle;
-- resolved dependency, action a cache identities;
-- process graph a network egress release jobu;
-- provenance issuer, subject, builder a parameters;
-- SBOM subject, method, completeness a semantic diff;
-- registry publish/promotion audit;
-- admission decision s policy revision;
-- running a rollback digest inventory;
-- signer/builder revocation propagation latency.
-
-Preventive control bez incident evidence môže zlyhávať potichu.
-
-## 19. Fail-open a degraded behavior
-
-Security dependency outage musí mať explicitné semantics. Ak provenance verifier alebo registry referrers nie sú dostupné, production release nemá implicitne pokračovať.
-
-Možné bounded modes:
-
-- nové production deployments fail-closed;
-- existing verified workloads pokračujú;
-- emergency known-good digest potrebuje oddelený break-glass approval a audit;
-- low-risk non-production environment môže použiť časovo obmedzený advisory mode;
-- po obnovení sa všetky deferred decisions re-evaluujú.
-
-Degraded mode nie je general bypass.
-
-## 20. Privacy modeling
-
-Rovnaký system model možno použiť pre privacy objectives. LINDDUN pomáha analyzovať linking, identifying, non-repudiation, detecting, disclosure, unawareness a non-compliance.
-
-Build a SBOM evidence môže odhaliť contributor identities, internal package names alebo architecture. Threat model preto zahŕňa minimization, access, retention a incident sharing, nielen integrity artifacts.
-
-## 21. Update triggers a model-as-code
-
-Model aktualizuj pri:
-
-- novej trust alebo administrative boundary;
-- zmene runnera, buildera, cache alebo CI platformy;
-- novom supplierovi, dependency registry alebo build action;
-- zmene signing, provenance, SBOM alebo admission flowu;
-- novom deployment alebo rollback path-e;
-- incident, pen-test alebo control exception;
-- zmene attacker capabilities alebo threat intelligence.
-
-Versionovaný model-as-code môže kontrolovať missing owners, stale reviews a requirements bez negative tests. Automation však nenahrádza business a architecture reasoning.
-
-## 22. Acceptance verdict
-
-Threat-model block je uzavretý, keď:
-
-- model generation zodpovedá current architecture a inventory;
-- critical assumptions majú runtime evidence;
-- contributor metadata, builder, signing, registry a admission boundaries sú explicitné;
-- každý high-impact threat má concrete statement a attack path;
-- mitigations uvádzajú enforcement mechanism;
-- requirements majú allowed aj forbidden tests;
-- negative testy pre command injection, runner persistence, wrong builder, wrong subject a alternate deployment prejdú;
-- operational evidence umožní actor-to-runtime reconstruction;
-- residual risks majú ownera a review trigger;
-- druhý independent review nenájde hidden privileged path v modelovanom scope-e.
-
-## 23. Earlier controls
-
-- PR template triggerujúci review pri zmene trust boundary alebo privileged flowu;
-- architecture inventory pre runner, builder a evidence authorities;
-- assumptions registry s owners a canaries;
-- abuse-case fixtures pre untrusted metadata;
-- attack tree pre source, build, distribution a deployment compromise;
-- requirements-as-code pre provenance/SBOM/admission claims;
-- mandatory negative-test evidence pri high-risk release changes;
-- incident feedback, ktorý zachová old model a vytvorí new generation;
-- periodic adversarial workshop s engineering, operations a security.
-
-## 24. Anti-patterny
-
-### Diagram bez threat statements
-
-Je to architecture documentation, nie threat model.
-
-### STRIDE checklist bez flow contextu
-
-Categories sa odškrtnú, ale nevznikne missing control ani test.
-
-### Assumption bez evidence
-
-`Runner je ephemeral` môže byť nepravdivé práve počas incidentu.
-
-### Mitigation ako slogan
-
-`Použiť signing` neurčuje signer authority, subject ani verification policy.
-
-### Existence evidence ako control
-
-Attestation môže byť validná, ale opisovať unsafe alebo compromised process.
-
-### Accepted risk bez ownera
-
-Unresolved threat sa iba premenoval.
-
-## 25. Kontrolné otázky
-
-1. Čo tvorí exact threat-model subject?
-2. Ako objective preložíš do forbidden outcome-u?
-3. Prečo build identity a signing authority sú assets?
-4. Ako modelovať attacker-controlled metadata?
-5. Čo je trust boundary mimo network firewallu?
-6. Ako sa assumption líši od dependency?
-7. Prečo STRIDE nie je hotový threat model?
-8. Ako attack tree odhalí weakest supply-chain path?
-9. Čo musí obsahovať concrete threat statement?
-10. Ako mitigation preložiť do requirementu a negative testu?
-11. Prečo provenance a SBOM nemusia byť nezávislé controls?
-12. Čo musí overiť threat-model acceptance verdict?
-
-## Glossary impact
-
-Relevantné pojmy: threat-model subject, objective-to-negative-test lifecycle, architecture generation, critical assumption evidence, administrative trust boundary, untrusted metadata flow, threat statement, attack-path generation, mitigation mechanism, security requirement, negative security test, evidence authority, model acceptance verdict a threat-model recurrence trigger.
-
-## Primárne zdroje
-
-- [OWASP Threat Modeling Project](https://owasp.org/www-project-threat-modeling/)
-- [OWASP Threat Modeling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html)
-- [Microsoft Introduction to Threat Modeling](https://learn.microsoft.com/en-us/training/modules/tm-introduction-to-threat-modeling/)
+- [NIST Threat Modeling Workshop materials](https://www.nist.gov/itl/ssd/software-quality-group/threat-modeling)
+- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling)
+- [Microsoft Threat Modeling](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool)
 - [MITRE CAPEC](https://capec.mitre.org/)
 - [MITRE ATT&CK](https://attack.mitre.org/)
-- [LINDDUN Privacy Engineering](https://linddun.org/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

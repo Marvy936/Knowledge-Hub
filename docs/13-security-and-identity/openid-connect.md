@@ -2,363 +2,152 @@
 
 OpenID Connect — OIDC — je authentication a identity vrstva nad OAuth 2.0. Jej úlohou nie je vydať všeobecnú application permission, ale umožniť Relying Party dôveryhodne rozhodnúť, ktorý OpenID Provider autentizoval ktorý subject pre konkrétneho clienta, v akej transaction a s akým authentication contextom.
 
-ID Token je assertion pre Relying Party. Access token je credential pre Resource Server. Local application session a resource authorization vznikajú až v aplikácii. Zámena týchto artifacts vytvára token-substitution, account-linking a stale-session failures aj vtedy, keď je JWT signature platná.
+ID Token je assertion určená pre Relying Party. Access token je credential pre Resource Server. UserInfo je voliteľný claims endpoint a local application session vzniká až v aplikácii. Ak sa tieto artifacts zamieňajú, validná JWT signature môže stále viesť k token substitution, wrong-issuer account linking, stale entitlements alebo neúplnému logoutu.
 
-## 1. Dominantný issuer-to-session lifecycle
+## Issuer-to-session lifecycle
+
+OIDC trust začína explicitným issuer contractom. Discovery a JWKS sa používajú až po tom, čo application vie, ktorému issuerovi smie dôverovať; user-supplied issuer URL nesmie dynamicky vytvoriť trust root. Authentication transaction následne viaže state, nonce, PKCE, redirect a client session. Po code exchange Relying Party validuje ID Token a mapuje `issuer + subject` na lokálnu identity.
 
 ```text
 login alebo step-up intent
-→ exact issuer, client a redirect contract
-→ transaction state, nonce a PKCE
-→ OP authentication a authorization response
-→ code exchange na trusted token endpoint-e
+→ exact issuer, client a redirect registration
+→ state, nonce a PKCE transaction
+→ OP authentication a authorization code
+→ token endpoint a client binding
 → ID Token cryptographic a semantic validation
 → issuer + subject identity mapping
-→ authoritative claims mapping
-→ local session generation
-→ resource-level authorization
+→ claims-authority a assurance mapping
+→ local session a resource authorization
 → logout, revocation a second-session validation
 ```
 
-Každá boundary odpovedá na inú otázku. Signature dokazuje control nad signing keyom. `iss` určuje trust namespace. `aud` a `azp` určujú intended clienta. `nonce` viaže token na login transaction. `issuer + sub` určuje external identity. Claims mapping rozhoduje, ktoré assertions sa smú stať local attributes. Local policy až následne rozhoduje o konkrétnej operation.
+Úspešné OIDC login UI nepreukazuje správne account mapping ani resource authorization. Local session môže prežiť OP logout a access token môže prežiť local cookie deletion.
 
-## 2. Exact OIDC subject
+## Exact OIDC subject SEC-PAY-49
 
-Pri security alebo login incidente nestačí veta „OIDC token bol validný“. Zachovaj subject:
+OIDC trust sa musí viazať na exact issuer, client, redirect, subject identity a signing-key purpose. Subject explicitne oddeľuje staging a production, aby shared key alebo email collision nemohli nahradiť issuer-bound identity.
 
-```text
-OP issuer a discovery generation
-+ client ID, type a redirect URI
-+ authorization transaction ID
-+ state, nonce a PKCE generation bez secret values
-+ token endpoint a client-auth method
-+ ID Token kid/alg/iss/sub/aud/azp/time claims
-+ claims-mapping revision
-+ local account a session ID
-+ requested action/resource/tenant
-+ logout a revocation descendants
+```yaml
+incident: SEC-PAY-49
+productionIssuer: https://id.atlas.example/realms/production
+stagingIssuer: https://id.staging.atlas.example/realms/staging
+clientId: settlement-admin-console
+redirectUri: https://admin.atlas.example/oidc/callback
+identityKeyExpected: issuer-plus-subject
+subject: 248c16a9-3ea0-4f2a-8a17-f9a88421c0aa
+emailClaim: marcel.novak@atlas.example
+acrRequired: urn:atlas:assurance:phishing-resistant
+sharedSigningKey: FED-SIGN-07
+localSession: OIDC-SESSION-991
+forbiddenMapping: groups-direct-to-admin
 ```
 
-V connected incidente je subject `OIDC-PAY-49`:
+Subject ukazuje dva oddelené trust problems: rovnaký signing key bol použitý cez staging/production aj OIDC/SAML a Relying Party neviazal validnú signature na exact production issuer.
 
-```text
-production RP: https://payments-admin.atlas.example
-expected issuer: https://id.atlas.example/prod
-accepted issuer: https://id.atlas.example/staging
-client_id: atlas-payments-admin
-signing key: kid=FED-SIGN-07
-external subject: partner-487
-email claim: marta.novak@atlas.example
-group claim: settlement-admin
-local session: OIDC-SESS-90218
+## Discovery a trusted issuer bootstrap
+
+Discovery document publikuje endpoints, supported capabilities a `jwks_uri`. Client ho smie načítať iba pre staticky alebo administratívne schválený issuer a musí overiť, že returned `issuer` presne zodpovedá configured value.
+
+```bash
+curl -fsS \
+  https://id.atlas.example/realms/production/.well-known/openid-configuration \
+  | jq '{issuer, authorization_endpoint, token_endpoint, jwks_uri, id_token_signing_alg_values_supported}'
 ```
 
-## 3. OAuth a OIDC nie sú rovnaká decision boundary
+Výstup preukazuje discovery metadata dostupné z konkrétneho endpointu. Nepreukazuje, že application používa túto metadata generation, že TLS trust je správne pinned podľa policy alebo že runtime nepovolí staging issuer s rovnakým key ID.
 
-OAuth rieši delegated access clienta k Resource Serveru. OIDC pridáva authentication assertion pre clienta:
+JWKS read-back:
 
-```text
-OAuth access token
-→ consumer je API
-→ audience je resource
-→ scope a local policy povoľujú API operation
-
-OIDC ID Token
-→ consumer je RP/client
-→ audience je client ID
-→ claims opisujú subject a authentication event
+```bash
+JWKS_URI="$(curl -fsS https://id.atlas.example/realms/production/.well-known/openid-configuration | jq -r .jwks_uri)"
+curl -fsS "$JWKS_URI" | jq '[.keys[] | {kid, kty, use, alg}]'
 ```
 
-ID Token sa neposiela ako API credential. Access token sa nepoužíva ako generic login proof. Oba môžu byť JWT, ale rovnaká serialization neznamená rovnakú semantics.
+JWKS preukazuje public verification keys publikované issuerom. Nepreukazuje private-key protection, signer runtime generation, certificate lifecycle ani authorization konkrétneho key-u pre production OIDC purpose.
 
-## 4. Transaction: state, nonce a PKCE
+## State, nonce, PKCE a redirect binding
 
-Authorization Code flow má tri samostatné bindings:
+`state` viaže callback na local login transaction a chráni proti CSRF a response mix-upu. `nonce` viaže ID Token na transaction a bráni replayu tokenu z iného loginu. PKCE viaže authorization code na client instance. Exact redirect URI zabraňuje odoslaniu code-u na attacker-controlled endpoint.
 
-```text
-state
-→ callback patrí k browser/RP transaction
+Tieto hodnoty riešia odlišné threats a nesmú sa zlúčiť do jedného reused random stringu bez lifecycle-u. Transaction state sa po použití atomicky spotrebuje; callback s unknown, expired alebo reused state musí zlyhať closed.
 
-nonce
-→ ID Token patrí k authentication requestu
+## ID Token validation
 
-PKCE
-→ authorization code môže vymeniť iba client instance s verifierom
+Relying Party validuje signature iba kľúčom z trusted issuer JWKS a povoľuje explicitný algorithm set. Potom kontroluje `iss`, `aud`, prípadne `azp`, `exp`, `iat`, `nonce` a podľa use case-u `auth_time`, `acr` a `amr`. `kid` iba vyberá candidate key; nie je trust decision.
+
+Claims inspection pre debugging:
+
+```bash
+ID_TOKEN_PAYLOAD="$(printf '%s' "$ID_TOKEN" | cut -d. -f2 | tr '_-' '/+' | base64 -d 2>/dev/null)"
+printf '%s' "$ID_TOKEN_PAYLOAD" | jq '{iss, sub, aud, azp, exp, iat, nonce, auth_time, acr, amr, email, groups}'
 ```
 
-RP uloží expected issuer, redirect URI, state, nonce, PKCE verifier, requested assurance a return destination do jednej pending transaction. Values sú random, bounded a single-use. Po úspechu sa transaction atomicky spotrebuje.
+Tento príkaz iba dekóduje payload. **Neoveruje** signature, issuer trust, nonce, expiry ani audience. Je vhodný na evidence capture claims po tom, čo verifier verdict existuje; nesmie sa používať ako authentication implementation.
 
-Tieto controls neopravia nesprávny trust bootstrap. Transaction môže byť protocol-correct a stále skončiť tokenom od neautorizovaného issuer-a.
+## Identity mapping: issuer + subject
 
-## 5. Trusted issuer a discovery
+OIDC subject je lokálne unikátny v rámci issueru. Stabilný external identity key je preto dvojica `iss + sub`. Email, preferred username a display name sú mutable a môžu byť recyklované alebo kolidovať medzi issuer-mi. Account linking podľa emailu umožní staging alebo kompromitovanému external issueru prevziať production účet s rovnakou adresou.
 
-Issuer je primary OIDC trust namespace. RP ho získa pri controlled onboarding-u alebo z tenant mappingu, nie z arbitrary user URL.
+Pairwise subject identifiers znižujú koreláciu používateľa medzi clients, ale menia account-linking a migration contract. Public subject je stabilný naprieč clients jedného issueru. Relying Party musí vedieť, ktorý subject type používa, a migration nesmie potichu vytvoriť duplicate alebo merged accounts.
 
-```text
-approved issuer
-→ issuer-derived discovery URL
-→ metadata issuer exact match
-→ trusted authorization/token/UserInfo/JWKS endpoints
-→ bounded metadata cache a last-known-good policy
-```
+## Claims authority a local authorization
 
-Token `iss` sa porovná exactne vrátane scheme, hosta, portu a path-u. Zdieľaný signing key medzi dvoma issuers nerobí tieto issuers ekvivalentnými.
+ID Token môže niesť groups alebo roles, no application musí vedieť, či issuer je authority pre konkrétny entitlement a client. Direct mapping `groups contains settlement-admin → local admin` spája directory lag, mapper bug alebo staging issuer s privileged application authorization.
 
-Discovery automatizuje configuration; nevytvára trust. User-controlled `?issuer=https://attacker.example` nesmie pridať nového OP do allowlistu.
+Bezpečnejší chain používa allowlisted claim source, client-specific projection, current JIT/resource check a local policy revision. OIDC preukazuje authentication context; application authorization stále hodnotí tenant, object, workflow a current risk.
 
-## 6. ID Token validation
+`acr`, `amr` a `auth_time` podporujú step-up. `amr` opisuje použité metódy, `acr` dosiahnutú assurance class a `auth_time` čas primary authentication. High-risk action môže vyžadovať recent phishing-resistant step-up, nie iba existenciu dlhej SSO session.
 
-RP validuje ID Token v context-e pending transaction:
+## UserInfo a access token boundary
 
-1. parser prijme iba bounded JWT shape;
-2. JOSE algorithm a key type sú na allowliste;
-3. key pochádza iba z trusted issuer JWKS;
-4. signature je validná;
-5. `iss` exactne sedí s expected issuerom;
-6. `aud` obsahuje client ID a `azp` je správne pri multiple audiences;
-7. `exp`, `iat` a optional `nbf` sú v bounded time policy;
-8. `nonce` sedí s transaction;
-9. `auth_time`, `acr` a `amr` spĺňajú requested assurance, ak sú required;
-10. optional token hashes sa validujú podľa flowu;
-11. transaction sa spotrebuje;
-12. až potom sa claims mapujú na local account.
+UserInfo sa volá access tokenom a vracia claims podľa scopes. Response sa musí viazať na rovnaký `sub` ako ID Token; inak hrozí token substitution. UserInfo nie je autoritatívny entitlement read-back, pokiaľ issuer contract nehovorí presne, ktoré claims a freshness poskytuje.
 
-```text
-valid signature
-≠ trusted issuer
-≠ intended client
-≠ correct subject mapping
-≠ current business authorization
-```
+Access token sa neposiela Relying Party ako náhrada ID Tokenu, pokiaľ client zároveň nie je intended Resource Server. ID Token sa neposiela API ako bearer access token. Každý artifact má vlastný audience a consumer.
 
-Unknown `kid` môže vyvolať jeden bounded JWKS refresh. Token header nesmie určiť arbitrary verification URL alebo algorithm.
+## Session a logout semantics
 
-## 7. Identity key je issuer + subject
+Local application cookie je samostatná session generation. OP session, ID Token, access token, refresh token a downstream service sessions môžu mať odlišnú lifetime. Local logout odstráni application session, ale nemusí ukončiť OP SSO. Front-channel logout závisí od browser delivery, back-channel logout používa server-to-server notification a RP-initiated logout začína u clienta.
 
-OIDC `sub` je identifier v namespace konkrétneho issuer-a. External identity key je:
+Logout acceptance potrebuje descendant inventory. Ak Relying Party zruší cookie, ale API access token ostane platný 60 minút, privileged capability prežije. High-risk revocation môže vyžadovať online session check alebo krátke token lifetimes.
 
-```text
-issuer + sub
-```
+## Workload identity federation
 
-Email, username a display name sú mutable attributes. Rovnaký email od dvoch issuers neznamená rovnakú identity. Automatic linking podľa emailu umožní account takeover pri reassignment, malicious federation alebo environment collision.
+OIDC assertion môže autentizovať workload do cloud alebo CI platformy. Issuer, subject pattern, audience, repository/workflow/environment claims a token lifetime musia byť presne obmedzené. Trust „všetky tokens z GitHub issueru“ je príliš široký; policy má viazať repository, branch/ref, workflow identity a protected environment.
 
-Linking potrebuje authenticated proof oboch identities, authoritative enterprise identifier alebo explicitný administratívny workflow s auditom a unlink/recovery modelom.
+Workload federation odstraňuje long-lived cloud secret, ale presúva dôveru na issuer, claims a build/runtime policy. Compromised workflow s platným assertionom stále môže získať cloud token, ak trust policy je broad.
 
-## 8. Claims nie sú universal authority
+## Incident SEC-PAY-49
 
-Claim name štandardizuje syntax, nie business význam. `email_verified=true` nepreukazuje employment. `groups=[settlement-admin]` nepreukazuje, že issuer smie udeľovať production settlement privilege.
+Static RSA key `FED-SIGN-07` sa používal pre staging aj production a zároveň pre OIDC JWT aj SAML XML signatures. Staging debug principal získal private key nepriamo cez `create Pod`, výber `idp-runtime` ServiceAccountu, Secret mount a `exec`. Etcd KMS encryption a TLS fungovali, no chránili storage a transport, nie authorized runtime plaintext projection.
 
-Claims mapping je versionovaný contract:
+Attacker vytvoril staging-issued ID Token s emailom production admina. Production Relying Party overila signature rovnakým trusted keyom, ale nevalidovala exact issuer. Account linkovala podľa emailu a group claim mapovala priamo na admin role. Signature bola cryptographically validná; trust a identity semantics boli nesprávne.
 
-```text
-issuer + claim name
-→ expected type, cardinality a size
-→ normalization
-→ authoritative-source a allowed-value check
-→ local attribute alebo entitlement input
-→ local policy revision
-```
+Competing hypotheses zahŕňali stolen production session, compromised production signer, JWKS cache poisoning, wrong-issuer acceptance, account-linking collision a local role mapper. Token `iss`, signer key lineage, staging audit a account-linking record ukázali shared-key/wrong-issuer path.
 
-Privileged entitlement musí byť allowlisted pre konkrétneho issuer-a, tenant-a a environment. Missing alebo malformed claim nesmie prepnúť usera do broad default role.
+## Containment a authoritative recovery
 
-## 9. Authentication assurance
+Containment zablokuje affected issuer/key combination, revoke-ne local sessions a downstream tokens a zachová token headers/payloads, verifier decisions, JWKS generations, account-link records a Kubernetes audit. Global disable všetkých federation clients bez recovery path môže zničiť availability a evidence.
 
-`auth_time`, `acr` a `amr` riešia odlišné facts:
+Recovery vytvorí oddelené non-exportable keys pre staging/production a OIDC/SAML purposes, pinne exact issuer, mapuje identity cez `issuer + subject`, zavádza claims-authority allowlist a current resource authorization. Coordinated rollover publikuje nový verification key, prejde canary, odstráni old trust až po expiry/revocation window a overí loaded verifier generation.
 
-- `auth_time` — kedy prebehla active authentication;
-- `acr` — výsledná assurance alebo policy class podľa federation contractu;
-- `amr` — použité methods podľa provider semantics.
+Acceptance vyžaduje successful production login s exact issuer, deny pre staging token podpísaný inak platným keyom, deny pre email collision, deny pre unapproved group claim a successful recent step-up pre legitímneho admina. Existing a fresh sessions vytvorené cez old path musia zlyhať. Druhý key rollover musí prejsť bez shared-purpose alebo cross-environment trustu.
 
-Fresh login nemusí byť phishing-resistant. `prompt=login` nepreukazuje konkrétnu metódu. Sensitive settlement approval môže vyžadovať bounded `max_age`, exact approved `acr` a local JIT authorization.
+## Kontrolné otázky
 
-## 10. Local session a authorization
+1. Prečo discovery nezačína dôverou k user-supplied issuer URL?
+2. Čo odlišuje ID Token, access token, UserInfo a local session?
+3. Prečo `issuer + subject` tvorí bezpečnejší identity key než email?
+4. Čo payload decode nepreukazuje?
+5. Ako `nonce`, `state` a PKCE riešia odlišné threats?
+6. Prečo validná signature zo shared key-u nepreukázala production issuer?
+7. Ktoré descendant sessions musí logout/revocation uzavrieť?
 
-Validated ID Token je input na vytvorenie local session, nie session samotná. RP regeneruje session ID, nastaví Secure/HttpOnly/SameSite cookie, idle a absolute timeout, CSRF control, session assurance a server-side revocation.
+## Referencie
 
-```text
-validated OIDC identity
-→ local account
-→ local session generation
-→ current tenant, JIT a workflow state
-→ action/resource authorization
-```
-
-OP session, RP session, refresh token a API access tokens majú rozdielne lifecycles. „Logout succeeded“ na OP UI nie je dôkaz, že všetky local a downstream credentials sú neplatné.
-
-## 11. Worked failure — staging issuer accepted v production
-
-Atlas používal spoločný RSA private key `FED-SIGN-07` pre:
-
-- staging aj production identity provider;
-- OIDC ID Token signatures;
-- SAML XML signatures.
-
-Staging workload získaval key zo static Kubernetes Secretu. Broad debug permission umožnila vytvoriť Pod s rovnakou ServiceAccount a prečítať plaintext key. Attacker následne ovládol staging OP signing capability.
-
-Production RP malo tieto defects:
-
-```text
-rovnaký client_id v staging a production
-+ arbitrary tenant issuer routing
-+ shared JWKS key/kid
-+ signature a audience validation
-- exact expected issuer validation
-+ account linking podľa emailu
-+ direct group-to-admin mapping
-```
-
-Attacker vytvoril legitimate OIDC transaction voči staging OP. `state`, nonce aj PKCE sedeli. Staging OP vydal token:
-
-```json
-{
-  "iss": "https://id.atlas.example/staging",
-  "sub": "partner-487",
-  "aud": "atlas-payments-admin",
-  "email": "marta.novak@atlas.example",
-  "groups": ["settlement-admin"],
-  "acr": "urn:atlas:phishing-resistant"
-}
-```
-
-RP overilo signature keyom `FED-SIGN-07`, audience, expiry a nonce. Neoverilo exact issuer. Emailom našlo existujúci production účet a group claim preložilo na local admin role. Vytvorilo osemhodinovú session `OIDC-SESS-90218`, cez ktorú attacker zmenil settlement routing.
-
-## 12. Competing hypotheses a discriminating evidence
-
-Možné hypotézy boli:
-
-1. authorization code interception;
-2. nonce alebo login-CSRF failure;
-3. compromised production OP;
-4. account-linking collision;
-5. key/JWKS poisoning;
-6. staging issuer prijatý ako production trust.
-
-Discriminating evidence:
-
-- state, nonce a PKCE transaction boli korektné;
-- token endpoint bol staging endpoint uložený v pending transaction;
-- `iss` bol staging, nie production;
-- `kid=FED-SIGN-07` existoval v oboch JWKS generations;
-- local account vznikol cez email lookup, nie `issuer + sub`;
-- role vznikla priamym mappingom `groups=settlement-admin`;
-- production OP audit pre tento subject neobsahoval authentication event.
-
-Root cause je chýbajúce issuer-bound trust a identity mapping. Shared key, reused client ID, email linking a direct role claim sú causal amplifiers. Key theft je upstream enabling compromise.
-
-## 13. Evidence-preserving containment
-
-- zablokovať staging issuer a `kid=FED-SIGN-07` pre production RP;
-- zastaviť nové privileged session creation z affected federation paths;
-- preserve-nuť discovery/JWKS generations, token header/claims hash, transaction ID, mapping revision a session audit bez raw tokens;
-- revoke-nuť sessions a refresh descendants vytvorené z affected issuer/key interval-u;
-- neprepínať RP na signature-disable alebo broad fallback login;
-- nevymazať identity link pred zachovaním actor-to-session evidence.
-
-## 14. Authoritative recovery
-
-1. vytvoriť samostatný OIDC signing key pre production OP;
-2. odstrániť cross-environment a cross-protocol key reuse;
-3. publikovať bounded JWKS overlap a následne odstrániť `FED-SIGN-07`;
-4. pinúť client registration na exact production issuer a unique production client ID;
-5. identitu mapovať výhradne cez `issuer + sub`;
-6. zrušiť unsafe email links a vykonať controlled re-linking;
-7. privileged claims povoľovať iba z approved issuer/claim/value contractu;
-8. vyžadovať local JIT, tenant, object a workflow authorization;
-9. revoke-nuť affected RP sessions, refresh families a downstream tokens;
-10. auditovať actions a obnoviť affected settlement state.
-
-## 15. Acceptance verdict
-
-Recovery je prijatá až keď:
-
-- production RP odmietne validly signed token zo staging issuer-a;
-- token s wrong `aud`, `azp`, nonce, algorithm alebo expired time zlyhá;
-- rovnaký email z iného issuer-a nevytvorí link ani prevezme účet;
-- arbitrary group claim nevytvorí privileged role;
-- approved production issuer a subject vytvoria správnu bounded session;
-- old `FED-SIGN-07` tokeny a sessions sú neplatné;
-- local logout, back-channel logout a incident revocation majú overený scope;
-- druhý key rollover a second-login test prejdú bez fallbacku na starý key;
-- oprávnený user dokončí settlement approval, zatiaľ čo staging, cross-tenant a non-JIT paths zlyhajú.
-
-## 16. Troubleshooting flow
-
-```text
-expected issuer a client registration
-→ trusted discovery/JWKS generation
-→ state, nonce a PKCE transaction
-→ OP authentication a code exchange
-→ alg/kid/signature
-→ iss/aud/azp/time/nonce/assurance
-→ issuer+sub identity lookup
-→ claims mapping revision
-→ local session state
-→ resource authorization
-→ logout/revocation descendants
-```
-
-Login ending in `403` môže znamenať úspešnú authentication a správny local authorization deny. Redirect loop môže byť cookie/proxy/session defect. Unknown `kid` môže byť rotation alebo wrong issuer, nie dôvod trustovať key z tokenu.
-
-## 17. Earlier controls
-
-- unique client IDs a signing keys per environment a purpose;
-- issuer allowlist a exact discovery consistency tests;
-- negative fixtures pre shared key, wrong issuer a same-email subject;
-- federation claim-authority registry;
-- no automatic privileged linking podľa emailu;
-- session inventory podľa issuer, key generation a mapping revision;
-- bounded JWKS refresh a rollover rehearsal;
-- back-channel logout a emergency session-revocation drill;
-- canary, ktorý testuje povolený production token aj forbidden staging token.
-
-## 18. Anti-patterny
-
-### Signature validná, teda issuer je trusted
-
-Key dokazuje signature authority, nie automaticky správny issuer alebo environment.
-
-### Email je identity
-
-Email je mutable claim a môže kolidovať alebo byť reassigned.
-
-### Group claim je admin role
-
-Bez authority contractu môže partner alebo compromised claim source udeliť privilege.
-
-### ID Token je application session
-
-Token a local session majú odlišný timeout, revocation a authorization lifecycle.
-
-### Logout je global revocation
-
-OP, RP, refresh a API credentials nie sú jedna atomic session.
-
-## 19. Kontrolné otázky
-
-1. Čo OIDC pridáva nad OAuth 2.0?
-2. Prečo je issuer primary trust boundary?
-3. Ako sa state, nonce a PKCE líšia?
-4. Čo musí RP validovať na ID Token-e?
-5. Prečo identity key tvorí `issuer + sub`?
-6. Prečo email a group claims nie sú automatická business authority?
-7. Ako sa ID Token, access token a local session líšia?
-8. Ako sa `auth_time`, `acr` a `amr` dopĺňajú?
-9. Prečo shared signing key nerobí dva issuers ekvivalentnými?
-10. Čo musí overiť OIDC acceptance verdict?
-
-## Glossary impact
-
-Relevantné pojmy: OIDC subject, issuer trust generation, OIDC transaction generation, ID Token acceptance verdict, federation identity key, claims-authority contract, session-assurance generation, issuer-bound account linking, key-generation session inventory a OIDC revocation closure.
-
-## Primárne zdroje
-
-- [OpenID Connect Core 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-core-1_0.html)
-- [OpenID Connect Discovery 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-discovery-1_0.html)
-- [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
-- [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
-- [RFC 9207 — Authorization Server Issuer Identification](https://www.rfc-editor.org/rfc/rfc9207)
-- [RFC 9700 — OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
+- [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html)
+- [OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
+- [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
+- [JSON Web Token Best Current Practices](https://www.rfc-editor.org/rfc/rfc8725)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

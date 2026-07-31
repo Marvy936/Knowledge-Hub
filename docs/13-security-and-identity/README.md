@@ -4,6 +4,26 @@ Táto sekcia vysvetľuje bezpečnostné ciele, risk, identity, access control, d
 
 Cieľom nie je vytvoriť checklist nástrojov. Každá kapitola má vysvetliť chránené assets, trust boundaries, threat model, authorization a identity lifecycle, failure modes, audit evidence, recovery a trade-offy medzi confidentiality, integrity a availability.
 
+## Section-wide learning chain
+
+Sekcia používa jeden súvislý security lifecycle. Začína chráneným business outcome-om a exact subjectom, pokračuje identity a trust transitions, effective enforcementom a auditom a končí revocation, recovery a forbidden-path validation.
+
+```text
+business/security objective a protected asset
+→ exact identity, resource, release alebo cryptographic subject
+→ trust, administrative, data a execution boundaries
+→ authoritative identity/configuration/evidence generation
+→ authentication, directory, federation alebo build transition
+→ policy decision a complete enforcement coverage
+→ runtime side effect a audit evidence
+→ competing hypotheses a discriminating read-back
+→ evidence-preserving containment
+→ authoritative recovery a descendant revocation
+→ allowed, forbidden, alternate-path a second-operation validation
+```
+
+Connected incidents `SEC-PAY-47` až `SEC-PAY-51` držia rovnaký Atlas Payments context. `SEC-PAY-47` spája CIA, AAA, least privilege a IAM/RBAC cez stale entitlement a delegated workload capability. `SEC-PAY-48` spája AD replication, replica-bound LDAP query, fresh Kerberos PAC a OAuth resource authorization. `SEC-PAY-49` spája OIDC, SAML, secrets a cryptographic key-purpose boundaries. `SEC-PAY-50` vedie od vulnerability a threat modelu cez compromised builder po stage-correct SBOM. `SEC-PAY-51` uzatvára exact OCI signing subject, policy enforcement coverage a continuous Zero Trust revocation.
+
 ## Predpoklady
 
 Odporúča sa najprv dokončiť:
@@ -296,26 +316,42 @@ Po dokončení aktuálneho bloku má byť možné:
 - navrhnúť degraded modes pre IdP, posture a workload-identity outages,
 - reagovať na compromise identity providera, PEP alebo policy plane-u a obnoviť dôveryhodný stav.
 
+## Section-level completion gate
+
+Sekcia je pripravená na používateľskú kontrolu iba vtedy, keď platí celý nasledujúci contract:
+
+1. všetkých 19 authoritative kapitol má dominantný lifecycle a exact security, identity, protocol, artifact alebo resource subject;
+2. každá kapitola obsahuje aspoň dva executable protocol, CLI, policy alebo configuration príklady;
+3. každý významný príkaz alebo artifact vysvetľuje mechanizmus, očakávaný read-back a hranicu toho, čo výsledok ešte nepreukazuje;
+4. configured, published, loaded, effective, runtime a business states zostávajú explicitne oddelené;
+5. komplexné failures používajú competing hypotheses, discriminating evidence, evidence-preserving containment a authoritative recovery;
+6. recovery overuje allowed outcome, forbidden outcome, alternate alebo delegated path a second session, ticket, rotation, policy decision alebo release operation;
+7. directory, federation, secret, cryptographic, supply-chain a policy descendants sú inventarizované a revoke-nuté, nie iba odstránené z jedného source-u;
+8. strict learning-depth audit pre všetkých 19 kapitol je `0/0/0` a practical audit nemá failures;
+9. navigation, glossary a centrálny review ledger sú synchronizované a dočasné audit artifacts sú odstránené.
+
+Finálny practical gate nameral 966 až 1 366 prose slov na kapitolu, bullet share 8,0 až 11,8 %, minimálne dva executable príklady a minimálne štyri explicitné evidence/proof-boundary vysvetlenia v každej kapitole.
+
 ## Stav
 
 | Téma | Status | Úroveň |
 |---|---|---|
-| CIA triáda | Learning | L2 |
-| Authentication, authorization a auditing | Learning | L2 |
-| Least privilege | Learning | L2 |
-| IAM a RBAC | Learning | L2 |
-| Active Directory | Learning | L2 |
-| LDAP | Learning | L2 |
-| Kerberos | Learning | L2 |
-| OAuth 2.0 | Learning | L2 |
-| OpenID Connect | Learning | L2 |
-| SAML | Learning | L2 |
-| Secrets management | Learning | L2 |
-| Encryption at rest a in transit | Learning | L2 |
-| Vulnerability a patch management | Learning | L2 |
-| Threat modeling | Learning | L2 |
-| Supply-chain security | Learning | L2 |
-| SBOM | Learning | L2 |
-| Image signing | Learning | L2 |
-| Policy as Code | Learning | L2 |
-| Zero Trust | Learning | L2 |
+| CIA triáda | Strict practical revalidation complete | L2 |
+| Authentication, authorization a auditing | Strict practical revalidation complete | L2 |
+| Least privilege | Strict practical revalidation complete | L2 |
+| IAM a RBAC | Strict practical revalidation complete | L2 |
+| Active Directory | Strict practical revalidation complete | L2 |
+| LDAP | Strict practical revalidation complete | L2 |
+| Kerberos | Strict practical revalidation complete | L2 |
+| OAuth 2.0 | Strict practical revalidation complete | L2 |
+| OpenID Connect | Strict practical revalidation complete | L2 |
+| SAML | Strict practical revalidation complete | L2 |
+| Secrets management | Strict practical revalidation complete | L2 |
+| Encryption at rest a in transit | Strict practical revalidation complete | L2 |
+| Vulnerability a patch management | Strict practical revalidation complete | L2 |
+| Threat modeling | Strict practical revalidation complete | L2 |
+| Supply-chain security | Strict practical revalidation complete | L2 |
+| SBOM | Strict practical revalidation complete | L2 |
+| Image signing | Strict practical revalidation complete | L2 |
+| Policy as Code | Strict practical revalidation complete | L2 |
+| Zero Trust | Strict practical revalidation complete | L2 |
