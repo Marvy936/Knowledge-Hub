@@ -123,6 +123,8 @@ Guard preukazuje observed traffic rate nad threshold. Nepreukazuje, že telemetr
 
 ## Query unit tests
 
+Rule fixture overuje deterministic state transition nad známymi input series: či condition zostane pending dostatočne dlho, ktoré labels vytvoria alert identity a či expected alert vznikne v presnom evaluation time. Úspešný unit test nepreukazuje producer completeness, rule deployment ani notification delivery; tie zostávajú samostatnými runtime gates. Nasledujúca fixture preto testuje iba expression a alert-state contract.
+
 ```yaml
 rule_files:
   - payments.rules.yml

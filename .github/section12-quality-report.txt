@@ -1,6 +1,6 @@
 status=failure
 
-docs/12-observability/alert-design-alert-fatigue.md|strict=0/1/0|prose=891|bullet_share=0.126|blocks=13|executable=4|explanations=10
+docs/12-observability/alert-design-alert-fatigue.md|strict=0/0/0|prose=947|bullet_share=0.119|blocks=13|executable=4|explanations=11
 docs/12-observability/alertmanager.md|strict=0/0/0|prose=1097|bullet_share=0.091|blocks=14|executable=9|explanations=13
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
 docs/12-observability/elasticsearch-opensearch.md|strict=0/0/0|prose=964|bullet_share=0.149|blocks=10|executable=14|explanations=19
@@ -18,7 +18,6 @@ docs/12-observability/red-method.md|strict=0/0/0|prose=946|bullet_share=0.128|bl
 docs/12-observability/use-method.md|strict=0/0/0|prose=976|bullet_share=0.105|blocks=9|executable=3|explanations=13
 
 STRICT FINDINGS
-HIGH docs/12-observability/alert-design-alert-fatigue.md:124 [list-first-introduction] Query unit tests — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/cardinality.md:5 [single-sentence-concept] 1. Dominantný mentálny model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/12-observability/cardinality.md:58 [empty-section] 3. Volume, cardinality a churn — Sekcia nemá vysvetľovací obsah.
@@ -101,7 +100,6 @@ HIGH docs/12-observability/cardinality.md:553 [single-sentence-concept] Všetky 
 HIGH docs/12-observability/cardinality.md:557 [single-sentence-concept] High-cardinality field „pre istotu“ — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 FAILURES
-alert-design-alert-fatigue.md: strict findings
 cardinality.md: strict findings
 cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
