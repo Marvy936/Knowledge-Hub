@@ -22,7 +22,7 @@ source occurrence
 → backend query a business evidence
 ```
 
-Parser je typicky priradený inputu a transformuje raw source pri ingestion. Filters pracujú nad interným recordom a output plugin ho serializuje pre backend. Fluent Bit dokumentácia upozorňuje, že input parser sa aplikuje pred filters a buffered data používa internú reprezentáciu; neskoršia zmena parsera neprepíše records už uložené v bufferi. Exact behavior sa viaže na nasadenú version a config mode. citeturn886976search15turn886976search16turn886976search19
+Parser je typicky priradený inputu a transformuje raw source pri ingestion. Filters pracujú nad interným recordom a output plugin ho serializuje pre backend. Fluent Bit dokumentácia upozorňuje, že input parser sa aplikuje pred filters a buffered data používa internú reprezentáciu; neskoršia zmena parsera neprepíše records už uložené v bufferi. Exact behavior sa viaže na nasadenú version a config mode.
 
 ## Exact delivery subject
 

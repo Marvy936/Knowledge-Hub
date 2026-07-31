@@ -4,7 +4,7 @@ docs/12-observability/alert-design-alert-fatigue.md|strict=32/35/8|prose=671|bul
 docs/12-observability/alertmanager.md|strict=0/0/0|prose=1097|bullet_share=0.091|blocks=14|executable=9|explanations=13
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
 docs/12-observability/elasticsearch-opensearch.md|strict=0/1/0|prose=912|bullet_share=0.156|blocks=10|executable=14|explanations=17
-docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
+docs/12-observability/fluent-bit.md|strict=0/0/0|prose=1133|bullet_share=0.110|blocks=11|executable=5|explanations=15
 docs/12-observability/golden-signals.md|strict=0/0/0|prose=1005|bullet_share=0.109|blocks=13|executable=10|explanations=11
 docs/12-observability/grafana.md|strict=0/0/0|prose=939|bullet_share=0.135|blocks=10|executable=6|explanations=15
 docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
@@ -174,74 +174,6 @@ HIGH docs/12-observability/cardinality.md:549 [single-sentence-concept] Broad dr
 HIGH docs/12-observability/cardinality.md:553 [single-sentence-concept] Všetky Kubernetes labels automaticky — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:557 [single-sentence-concept] High-cardinality field „pre istotu“ — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/elasticsearch-opensearch.md:7 [list-first-introduction] Document-to-query lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/12-observability/fluent-bit.md:7 [single-sentence-concept] 1. Dominantný model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:7 [list-first-introduction] 1. Dominantný model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/12-observability/fluent-bit.md:50 [list-first-introduction] 3. Oddelené stavy — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/fluent-bit.md:90 [bare-bullet-items] 5. Inputs a source semantics — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Tail a systemd/journald;`, `forward, HTTP, TCP alebo syslog;`, `OpenTelemetry a metrics inputs;`, `platform-specific sources.`.
-MEDIUM docs/12-observability/fluent-bit.md:90 [short-concept-section] 5. Inputs a source semantics — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/12-observability/fluent-bit.md:90 [term-before-explanation] 5. Inputs a source semantics — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `TCP`
-CRITICAL docs/12-observability/fluent-bit.md:103 [bare-bullet-items] 6. Tail input, file identity a position DB — 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reread od začiatku;`, `preskočenie existujúceho obsahu podľa read from head semantics;`, `duplicates;`, `loss starého rotated file-u;`.
-MEDIUM docs/12-observability/fluent-bit.md:103 [short-concept-section] 6. Tail input, file identity a position DB — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:144 [list-heavy-section] 8. Parser a timestamp contract — 6 odrážok a iba 37 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:144 [bare-bullet-items] 8. Parser a timestamp contract — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source timestamp a timezone;`, `field names a types;`, `raw-message preservation;`, `parse-failure fallback;`.
-MEDIUM docs/12-observability/fluent-bit.md:144 [short-concept-section] 8. Parser a timestamp contract — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/fluent-bit.md:159 [outline-instead-of-explanation] 9. Tags, filters a routing — 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:159 [bare-bullet-items] 9. Tags, filters a routing — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadny output nematchne;`, `broad match pošle logs do forbidden backendu;`, `rewrite-tag loop;`, `dva outputs vytvoria duplicitu;`.
-MEDIUM docs/12-observability/fluent-bit.md:159 [short-concept-section] 9. Tags, filters a routing — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:186 [single-sentence-concept] 10. Chunks a buffering — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/fluent-bit.md:209 [outline-instead-of-explanation] 11. Backpressure a retries — 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:209 [bare-bullet-items] 11. Backpressure a retries — 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporary network/429/5xx;`, `permanent mapping, label, timestamp alebo auth failure;`, `partial item failure;`, `timeout s unknown outcome;`.
-HIGH docs/12-observability/fluent-bit.md:209 [thin-concept-section] 11. Backpressure a retries — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:232 [single-sentence-concept] 12. Output acknowledgement semantics — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/fluent-bit.md:250 [outline-instead-of-explanation] 13. Delivery semantics — 12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:250 [bare-bullet-items] 13. Delivery semantics — 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend write pred timeout acknowledgementom;`, `restart-e pred durable checkpointom;`, `reread rotated file-u;`, `retry batchu;`.
-HIGH docs/12-observability/fluent-bit.md:250 [thin-concept-section] 13. Delivery semantics — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/fluent-bit.md:250 [term-before-explanation] 13. Delivery semantics — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`
-HIGH docs/12-observability/fluent-bit.md:274 [single-sentence-concept] 14. Kubernetes DaemonSet boundary — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/fluent-bit.md:274 [outline-instead-of-explanation] 14. Kubernetes DaemonSet boundary — 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:274 [bare-bullet-items] 14. Kubernetes DaemonSet boundary — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mount exact runtime log paths;`, `persistent writable state;`, `tolerations pre všetky relevantné Nodes;`, `Pod Security a hostPath permissions;`.
-HIGH docs/12-observability/fluent-bit.md:274 [thin-concept-section] 14. Kubernetes DaemonSet boundary — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/fluent-bit.md:274 [term-before-explanation] 14. Kubernetes DaemonSet boundary — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`
-HIGH docs/12-observability/fluent-bit.md:300 [list-heavy-section] 15. Health, shutdown a self-observability — 9 odrážok a iba 50 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:300 [bare-bullet-items] 15. Health, shutdown a self-observability — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input records/bytes a active files;`, `parser/filter drops;`, `output processed/retried/errors/dropped;`, `response codes a item failures;`.
-CRITICAL docs/12-observability/fluent-bit.md:327 [empty-section] 16. Worked failure: backend outage, liveness restarty, duplicates aj loss — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/fluent-bit.md:333 [empty-section] Exact subject — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/fluent-bit.md:349 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:349 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/fluent-bit.md:349 [outline-instead-of-explanation] Competing hypotheses — 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:349 [bare-bullet-items] Competing hypotheses — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application počas šiestich minút nelogovala;`, `Loki odmietol entries pre labels/timestamps;`, `parser/filter zahodil iba affected events;`, `agent nematchol output route;`.
-HIGH docs/12-observability/fluent-bit.md:349 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/fluent-bit.md:349 [term-before-explanation] Competing hypotheses — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`
-HIGH docs/12-observability/fluent-bit.md:360 [single-sentence-concept] Discriminating evidence — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:360 [list-first-introduction] Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/fluent-bit.md:390 [no-prose-concept] Containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:390 [list-first-introduction] Containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/fluent-bit.md:390 [outline-instead-of-explanation] Containment — 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/fluent-bit.md:390 [bare-bullet-items] Containment — 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `odstrániť output dependency z liveness rozhodnutia;`, `zastaviť DaemonSet rollout a ďalšie restarty;`, `predĺžiť rotation retention na affected Nodes;`, `označiť affected interval ako incomplete evidence;`.
-HIGH docs/12-observability/fluent-bit.md:390 [thin-concept-section] Containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/fluent-bit.md:390 [term-before-explanation] Containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`
-CRITICAL docs/12-observability/fluent-bit.md:399 [no-prose-concept] Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:399 [list-first-introduction] Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/fluent-bit.md:399 [outline-instead-of-explanation] Authoritative recovery — 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/fluent-bit.md:399 [bare-bullet-items] Authoritative recovery — 7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť liveness od backend health; backlog riešiť alertom;`, `nastaviť bounded storage limits a loss policy;`, `replaynúť zachované source files s stable event/document identity;`, `deduplikovať known replay duplicates;`.
-HIGH docs/12-observability/fluent-bit.md:399 [thin-concept-section] Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/fluent-bit.md:399 [term-before-explanation] Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `AZ`, `policy`, `identity`
-HIGH docs/12-observability/fluent-bit.md:411 [single-sentence-concept] Fluent Bit acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/fluent-bit.md:411 [outline-instead-of-explanation] Fluent Bit acceptance verdict — 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/fluent-bit.md:411 [bare-bullet-items] Fluent Bit acceptance verdict — 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `temporary Loki outage nespúšťa liveness restart loop;`, `backlog age rastie a po recovery bezpečne klesne;`, `canary events sú queryovateľné s očakávaným duplicate contractom;`, `susedný Node a druhý DaemonSet rollout zachovajú behavior.`.
-HIGH docs/12-observability/fluent-bit.md:411 [thin-concept-section] Fluent Bit acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/fluent-bit.md:411 [term-before-explanation] Fluent Bit acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `policy`
-CRITICAL docs/12-observability/fluent-bit.md:424 [empty-section] 17. Troubleshooting model — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/fluent-bit.md:426 [empty-section] Žiadne logs — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/fluent-bit.md:440 [empty-section] Duplicates — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/fluent-bit.md:452 [empty-section] Rastúci disk backlog — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/fluent-bit.md:464 [empty-section] Metadata chýbajú — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/fluent-bit.md:477 [single-sentence-concept] Position DB na ephemeral filesysteme — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:481 [single-sentence-concept] Liveness via remote backend — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:485 [single-sentence-concept] Unlimited retry permanentných errors — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:489 [single-sentence-concept] Všetky Kubernetes labels a annotations — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:493 [single-sentence-concept] Dva DaemonSets čítajú rovnaké files — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/fluent-bit.md:497 [single-sentence-concept] Parse/redaction až v backend-e — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/jaeger-tempo.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/jaeger-tempo.md:58 [list-heavy-section] 3. Trace continuity a span graph — 6 odrážok a iba 47 slov súvislého vysvetlenia.
 CRITICAL docs/12-observability/jaeger-tempo.md:58 [bare-bullet-items] 3. Trace continuity a span graph — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID a span ID;`, `parent span ID alebo links;`, `stable operation name a kind;`, `start/end time a status;`.
@@ -377,9 +309,6 @@ cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
 cardinality.md: evidence explanation too thin (2)
 elasticsearch-opensearch.md: strict findings
-fluent-bit.md: strict findings
-fluent-bit.md: bullet share 0.441
-fluent-bit.md: practical examples too thin
 jaeger-tempo.md: strict findings
 jaeger-tempo.md: bullet share 0.479
 jaeger-tempo.md: practical examples too thin
