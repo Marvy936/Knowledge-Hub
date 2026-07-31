@@ -253,6 +253,8 @@ Po zmene sa recommendation status nepoužíva ako acceptance oracle. Realized sp
 
 ## 10. Commitments
 
+Commitment premieňa časť budúcej flexibility na zľavu, preto sa nakupuje až nad stabilným residual usage po odstránení waste-u. Rozhodnutie musí modelovať coverage, utilization, migration roadmap a downside overcommitmentu; purchase recommendation sama nepozná budúcu architektonickú zmenu ani business neistotu.
+
 Savings Plans a Reserved Instances vymieňajú flexibility za discounted committed usage. Purchase decision potrebuje stabilný baseline po odstránení waste-u, forecast confidence, plánované migrations, service a Region flexibility a downside model pri overcommitment-e.
 
 ```bash
