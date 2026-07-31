@@ -383,6 +383,8 @@ Tento poriadok rozlišuje shared cache od origin-side tenant bug-u. Invalidation
 
 ## 16. Recovery acceptance
 
+Edge recovery sa uzatvára až po overení routing aj representation identity. Nestačí, že distribution je `Deployed`; positive test musí dostať správny obsah a forbidden test musí preukázať, že iný tenant, stale variant, wrong behavior alebo public-origin path nemôže byť prijatý.
+
 Edge recovery je prijatá až keď authoritative DNS odpoveď smeruje na approved distribution, parent delegation je správna a recursive/client cohorts prešli cutoverom. Exact API path musí matchovať caching-disabled policy, tenant isolation musí prejsť po cold aj warm cache a S3 origin musí zostať private cez OAC.
 
 Stale error alebo object variants musia byť expirované alebo cieleným spôsobom invalidované. Old endpoint sa retired až po observed traffic drain. Second operation zopakuje configuration update alebo controlled rollout bez cross-tenant response, origin overloadu alebo návratu old DNS generation.
