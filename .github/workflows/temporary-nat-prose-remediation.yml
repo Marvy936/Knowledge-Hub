@@ -1,4 +1,4 @@
-name: Temporary section 10 and 11 quality audit
+name: Temporary section 10 audit remediation
 
 on:
   pull_request:
@@ -10,14 +10,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: temporary-sections-10-11-quality-audit
+  group: temporary-section-10-audit-remediation
   cancel-in-progress: false
 
 jobs:
-  audit:
+  remediate:
     runs-on: self-hosted
     steps:
       - name: Checkout coordinator branch
@@ -31,178 +31,196 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Audit section 10 and section 11
+      - name: Apply focused Section 10 fixes
         shell: bash
         run: |
           set -euo pipefail
 
-          audit_branch() {
-            local branch="$1"
-            local section="$2"
-            git fetch origin "$branch"
-            git checkout -B audit-target "origin/$branch"
-            python scripts/audit_learning_depth.py \
-              --all-docs \
-              --report "/tmp/${section}-report.md" \
-              --json "/tmp/${section}-audit.json"
-          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          audit_branch agent/section-10-practical-helm-examples section10
+          git fetch origin agent/section-10-practical-helm-examples
+          git checkout -B section-10-remediation origin/agent/section-10-practical-helm-examples
 
           python - <<'PY'
-          import json
-          import re
           from pathlib import Path
 
           root = Path('docs/10-helm-and-cka')
-          data = json.loads(Path('/tmp/section10-audit.json').read_text(encoding='utf-8'))
-          findings = [
-              item for item in data['findings']
-              if item['path'].startswith(str(root) + '/')
-              and item['severity'] in {'critical', 'high', 'medium'}
-          ]
 
-          practical_languages = {'bash', 'sh', 'shell', 'yaml', 'yml', 'json', 'gotemplate', 'hcl', 'terraform', 'sql', 'python'}
-          command_re = re.compile(r'^\s*(helm|kubectl|yq|jq|curl|diff|grep|sha256sum|rm|git)\b')
-          failures = []
+          walkthrough = root / 'helm-chart-practical-walkthrough.md'
+          text = walkthrough.read_text(encoding='utf-8')
+          old = '''Význam flags:
 
-          print('SECTION 10 QUALITY AUDIT')
-          for path in sorted(root.glob('*.md')):
-              if path.name == 'README.md':
-                  continue
-              text = path.read_text(encoding='utf-8')
-              fence_languages = [lang.lower() for lang in re.findall(r'^```([^\s`]*)', text, flags=re.MULTILINE)]
-              practical_fences = sum(lang in practical_languages for lang in fence_languages)
-              command_lines = sum(command_re.match(line) is not None for line in text.splitlines())
-              words = len(re.findall(r"[\wÀ-ž'-]+", text))
-              print(f'PRACTICAL {path} words={words} practical_fences={practical_fences} command_lines={command_lines}')
+- `--install` vytvorí release, ak ešte neexistuje;
+- `--atomic` pri zlyhaní upgrade-u požiada Helm o rollback a automaticky zapína čakanie;
+- `--wait` čaká na vybrané Kubernetes readiness conditions;
+- `--timeout` ohraničí čakanie, nie celý business recovery čas;
+- `--history-max` obmedzí počet uložených revisions.
+'''
+          new = '''Tento príkaz má dve vstupné vetvy. `--install` dovolí vytvoriť release, keď ešte neexistuje; pri existujúcom release-e sa vykonáva upgrade z aktuálnej revision na candidate generation. Preto pred prvým spustením aj opakovaným upgrade-om musí byť rovnaký release name, namespace a chart source súčasťou exact subjectu.
 
-              is_cka = path.name.startswith('cka-')
-              min_fences = 2 if is_cka else 3
-              min_commands = 4 if is_cka else 3
-              if practical_fences < min_fences:
-                  failures.append(f'{path}: practical_fences={practical_fences} < {min_fences}')
-              if command_lines < min_commands:
-                  failures.append(f'{path}: command_lines={command_lines} < {min_commands}')
+`--wait` čaká na vybrané Kubernetes readiness conditions a `--timeout 5m` ohraničuje toto čakanie. Nejde o päťminútový business recovery limit a úspešné čakanie nepreukazuje funkčnú Service cestu, správne načítanú konfiguráciu ani payment outcome. Tieto hranice sa overujú samostatnými runtime a business testami po release transition.
 
-          for finding in findings:
-              print(
-                  'FINDING '
-                  f"path={finding['path']} severity={finding['severity']} "
-                  f"line={finding['line']} section={finding['section']} "
-                  f"rule={finding['rule']} detail={finding['detail']}"
+`--atomic` pri neúspešnom upgrade-e požiada Helm o návrat k predchádzajúcemu release state-u a automaticky zapína čakanie. Nevracia však databázovú migráciu, odoslaný event ani externý side effect. `--history-max 10` iba obmedzuje počet Helm revisions uchovaných pre release; nemení retention externých dát ani kompatibilitu rollbacku. Flags teda znižujú mechanické riziko transition, ale nenahrádzajú recovery rozhodnutie.
+'''
+          if old in text:
+              text = text.replace(old, new, 1)
+              walkthrough.write_text(text, encoding='utf-8', newline='\n')
+          elif 'Tento príkaz má dve vstupné vetvy.' not in text:
+              raise SystemExit('Unexpected walkthrough structure')
+
+          named = root / 'named-templates.md'
+          text = named.read_text(encoding='utf-8')
+          old = '''```bash
+helm template payments-dev ./atlas-payments \\
+  --show-only templates/deployment.yaml \\
+  | yq '.metadata.labels'
+```'''
+          new = '''```bash
+helm lint ./atlas-payments
+
+helm template payments-dev ./atlas-payments \\
+  --show-only templates/deployment.yaml \\
+  > /tmp/named-template-deployment.yaml
+
+yq '.metadata.labels' /tmp/named-template-deployment.yaml
+
+helm template payments-dev ./atlas-payments \\
+  --show-only templates/deployment.yaml \\
+  --debug > /tmp/named-template-debug.txt
+```'''
+          if old in text:
+              text = text.replace(old, new, 1)
+              text = text.replace(
+                  'Očakávaný output obsahuje stabilné release a component labels:',
+                  '`helm lint` najprv overí chart-level template a convention chyby. Druhý príkaz uloží presný rendered Deployment, takže `yq` číta semantic field path namiesto vizuálneho odhadu. `--debug` zachová širší render context pri failure-i; jeho úspech stále nepreukazuje API admission ani runtime. Očakávaný label output je:',
+                  1,
               )
+              named.write_text(text, encoding='utf-8', newline='\n')
+          elif 'named-template-deployment.yaml' not in text:
+              raise SystemExit('Unexpected named-template command block')
 
-          failures.extend(
-              f"{item['path']}: {item['severity']} {item['rule']} in {item['section']}"
-              for item in findings
+          def insert_before_marker(filename: str, heading: str, addition: str) -> None:
+              path = root / filename
+              current = path.read_text(encoding='utf-8')
+              if heading in current:
+                  return
+              marker = '## Glossary impact' if '## Glossary impact' in current else '## Primárne zdroje'
+              if marker not in current:
+                  raise SystemExit(f'Insertion marker missing in {filename}')
+              path.write_text(current.replace(marker, addition.strip() + '\n\n' + marker, 1), encoding='utf-8', newline='\n')
+
+          insert_before_marker(
+              'cka-timed-labs.md',
+              '## Executable timed lab: bezpečný image rollout a Service verification',
+              r'''
+## Executable timed lab: bezpečný image rollout a Service verification
+
+Lab `CKA-WRK-21` dáva 12 minút na zmenu image Deploymentu `payments-api` v namespace `payments` bez zníženia available replicas pod dve. Najprv sa fixne context a current generation; príkazy ešte nič nemenia:
+
+```bash
+kubectl config current-context
+kubectl config view --minify
+kubectl -n payments get deployment payments-api -o wide
+kubectl -n payments get deployment payments-api -o yaml > /tmp/payments-before.yaml
+```
+
+Prvé dva príkazy chránia pred správnou zmenou v nesprávnom clustri. Live YAML zachová selector, strategy, image a generation pre neskorší forbidden-change diff. Samotné uloženie súboru nepreukazuje zdravie resource-u, preto sa ešte pred mutation overí current availability:
+
+```bash
+kubectl -n payments get deployment payments-api \
+  -o jsonpath='{.status.availableReplicas}{"/"}{.spec.replicas}{"\n"}'
+kubectl -n payments get pods \
+  -l app.kubernetes.io/name=payments-api -o wide
+```
+
+Candidate image sa nastaví exact digestom a controller transition sa sleduje oddelene od command exit code-u:
+
+```bash
+kubectl -n payments set image deployment/payments-api \
+  api=registry.example.com/payments-api@sha256:4444444444444444444444444444444444444444444444444444444444444444
+kubectl -n payments rollout status deployment/payments-api --timeout=4m
+kubectl -n payments get deployment payments-api \
+  -o jsonpath='{.spec.template.spec.containers[?(@.name=="api")].image}{"\n"}'
+```
+
+`set image` preukazuje iba accepted mutation. `rollout status` overí Deployment controller a readiness conditions; JSONPath potvrdí exact digest v live Pod template. Serving path sa testuje cez Service z izolovaného probe Podu:
+
+```bash
+kubectl -n payments get service,endpointslice \
+  -l app.kubernetes.io/name=payments-api
+kubectl -n payments run payments-probe \
+  --image=curlimages/curl:8.10.1 \
+  --restart=Never --rm -i \
+  -- curl -fsS http://payments-api:8080/ready
+```
+
+Nakoniec sa porovná zachovanie selectoru a strategy. Zakázaná skratka je zmazať affinity, probes alebo rollout constraints iba preto, aby nové Pody nabehli. Pri neúspechu sa číta new ReplicaSet, Events a Pod reason; nevykonáva sa ďalší nesúvisiaci patch. Task je uzavretý až po exact image, požadovanej availability, funkčnej Service ceste a diff-e bez forbidden changes.
+''',
           )
-          print(f'SECTION10_FAILURES={len(failures)}')
-          for failure in failures:
-              print(f'QUALITY_FAILURE {failure}')
-          if failures:
-              raise SystemExit(1)
+
+          insert_before_marker(
+              'cka-troubleshooting-drills.md',
+              '## Executable drill: Ready Pody, ale Service nemá endpointy',
+              r'''
+## Executable drill: Ready Pody, ale Service nemá endpointy
+
+Drill `CKA-SVC-24` začína symptómom `503` cez Service `payments-api`, hoci dva application Pody sú `Ready`. Najprv sa zachová exact Service, Deployment a endpoint generation bez restartu:
+
+```bash
+kubectl -n payments get service payments-api -o yaml > /tmp/service-before.yaml
+kubectl -n payments get deployment,pod -l app.kubernetes.io/name=payments-api -o wide
+kubectl -n payments get endpointslice \
+  -l kubernetes.io/service-name=payments-api -o yaml
+kubectl -n payments get events --sort-by=.lastTimestamp | tail -n 30
+```
+
+Ak EndpointSlice nemá endpoints, hypotézy sú selector mismatch, Pody bez readiness, wrong namespace alebo controller problem. Service selector sa preto porovná s live Pod labels:
+
+```bash
+kubectl -n payments get service payments-api \
+  -o jsonpath='{.spec.selector}{"\n"}'
+kubectl -n payments get pods \
+  -l app.kubernetes.io/name=payments-api --show-labels
+kubectl -n payments get pod \
+  -l app.kubernetes.io/name=payments-api \
+  -o jsonpath='{range .items[*]}{.metadata.name}{" ready="}{.status.conditions[?(@.type=="Ready")].status}{"\n"}{end}'
+```
+
+Observation ukáže, že Service vyberá `app=payment-api`, zatiaľ čo Pody majú `app=payments-api`. To lokalizuje failure na selector contract; container log ani Node restart nie sú relevantná prvá oprava. Authoritatívny Service field sa opraví minimálnym patchom:
+
+```bash
+kubectl -n payments patch service payments-api --type=merge \
+  -p '{"spec":{"selector":{"app":"payments-api"}}}'
+kubectl -n payments get endpointslice \
+  -l kubernetes.io/service-name=payments-api -w
+```
+
+Po vzniku endpoints sa vykoná actual request, nie iba control-plane read-back:
+
+```bash
+kubectl -n payments run service-probe \
+  --image=curlimages/curl:8.10.1 \
+  --restart=Never --rm -i \
+  -- curl -fsS http://payments-api:8080/ready
+kubectl -n payments diff -f /tmp/service-before.yaml || true
+```
+
+Diff musí ukázať iba intended selector transition. Zakázané výsledky sú odstránenie readiness probe, broad NetworkPolicy bypass alebo zmena Service identity či portu. Second-operation test zopakuje rovnaký patch; resource generation a endpoints musia zostať stabilné bez ďalšieho side effectu.
+''',
+          )
           PY
 
-          audit_branch agent/sections-10-13-prose-first-revalidation section11
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
 
-          python - <<'PY'
-          import json
-          import re
-          from pathlib import Path
+          git add docs
+          if git diff --cached --quiet; then
+            echo 'Section 10 findings are already fixed.'
+            exit 0
+          fi
 
-          root = Path('docs/11-cloud-and-aws')
-          data = json.loads(Path('/tmp/section11-audit.json').read_text(encoding='utf-8'))
-          findings = [
-              item for item in data['findings']
-              if item['path'].startswith(str(root) + '/')
-              and item['severity'] in {'critical', 'high', 'medium'}
-          ]
-
-          readme = (root / 'README.md').read_text(encoding='utf-8')
-          authoritative = [
-              root / match
-              for match in re.findall(r'^\d+\.\s+\[[^\]]+\]\(([^)]+\.md)\)', readme, flags=re.MULTILINE)
-          ]
-          if len(authoritative) != 28:
-              raise SystemExit(f'Expected 28 authoritative Section 11 chapters, found {len(authoritative)}')
-
-          practical_languages = {'bash', 'sh', 'shell', 'yaml', 'yml', 'json', 'hcl', 'terraform', 'sql', 'python', 'powershell'}
-          command_re = re.compile(r'^\s*(aws|terraform|tofu|kubectl|curl|jq|yq|dig|openssl|psql|mysql|python|bash|pwsh)\b')
-          bullet_re = re.compile(r'^\s*(?:[-*+]\s+|\d+[.)]\s+)')
-          failures = []
-
-          print('SECTION 11 QUALITY AUDIT')
-          for index, path in enumerate(authoritative, start=1):
-              text = path.read_text(encoding='utf-8')
-              fence_languages = [lang.lower() for lang in re.findall(r'^```([^\s`]*)', text, flags=re.MULTILINE)]
-              practical_fences = sum(lang in practical_languages for lang in fence_languages)
-              command_lines = sum(command_re.match(line) is not None for line in text.splitlines())
-
-              in_code = False
-              in_navigation = False
-              prose_lines = 0
-              bullet_lines = 0
-              prose_words = 0
-              for raw in text.splitlines():
-                  stripped = raw.strip()
-                  if stripped == '<!-- KNOWLEDGE-NAVIGATION:START -->':
-                      in_navigation = True
-                      continue
-                  if stripped == '<!-- KNOWLEDGE-NAVIGATION:END -->':
-                      in_navigation = False
-                      continue
-                  if in_navigation:
-                      continue
-                  if stripped.startswith('```'):
-                      in_code = not in_code
-                      continue
-                  if in_code or not stripped or stripped.startswith('#') or stripped.startswith('|') or stripped == '---':
-                      continue
-                  if bullet_re.match(raw):
-                      bullet_lines += 1
-                      continue
-                  words = re.findall(r"[\wÀ-ž'-]+", stripped)
-                  if len(words) >= 5:
-                      prose_lines += 1
-                      prose_words += len(words)
-
-              denominator = prose_lines + bullet_lines
-              bullet_ratio = bullet_lines / denominator if denominator else 1.0
-              ratio_limit = 0.42 if index >= 25 else 0.30
-              prose_floor = 550 if index >= 25 else 750
-
-              print(
-                  f'NARRATIVE {index:02d} {path} prose_words={prose_words} '
-                  f'prose_lines={prose_lines} bullet_lines={bullet_lines} '
-                  f'bullet_ratio={bullet_ratio:.3f} practical_fences={practical_fences} '
-                  f'command_lines={command_lines}'
-              )
-
-              if bullet_ratio > ratio_limit:
-                  failures.append(f'{path}: bullet_ratio={bullet_ratio:.3f} > {ratio_limit:.2f}')
-              if prose_words < prose_floor:
-                  failures.append(f'{path}: prose_words={prose_words} < {prose_floor}')
-              if practical_fences < 2:
-                  failures.append(f'{path}: practical_fences={practical_fences} < 2')
-              if command_lines < 2:
-                  failures.append(f'{path}: command_lines={command_lines} < 2')
-
-          for finding in findings:
-              print(
-                  'FINDING '
-                  f"path={finding['path']} severity={finding['severity']} "
-                  f"line={finding['line']} section={finding['section']} "
-                  f"rule={finding['rule']} detail={finding['detail']}"
-              )
-
-          failures.extend(
-              f"{item['path']}: {item['severity']} {item['rule']} in {item['section']}"
-              for item in findings
-          )
-          print(f'SECTION11_FAILURES={len(failures)}')
-          for failure in failures:
-              print(f'QUALITY_FAILURE {failure}')
-          if failures:
-              raise SystemExit(1)
-          PY
+          git commit -m "docs(helm): close practical command and prose findings"
+          git push origin HEAD:agent/section-10-practical-helm-examples
