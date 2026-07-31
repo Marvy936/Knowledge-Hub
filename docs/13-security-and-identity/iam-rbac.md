@@ -1,604 +1,198 @@
 # IAM a RBAC
 
-Identity and Access Management je lifecycle disciplína pre identities, accounts, credentials, authentication, federation, entitlements, privileged access, authorization, review, revocation a audit. Role-Based Access Control je jeden authorization model v tomto systéme. Role sama nevyrieši identity proofing, mover/leaver zmenu, session revocation, trusted attributes ani explainability effective accessu.
+Identity and Access Management je lifecycle disciplína pre identities, accounts, authenticators, federation, entitlements, privileged access, authorization, review, revocation a audit. Role-Based Access Control je iba jeden authorization model v tomto širšom systéme. Rola sama nevyrieši identity proofing, mover a leaver zmenu, session revocation, trusted attributes, delegated workload identities ani explainability effective accessu.
 
-IAM musí fungovať ako reconciler medzi authoritative identity/ownership state-om a effective permissions naprieč identity providerom, applications, cloudom, Kubernetesom, databázami a CI/CD.
+IAM sa preto správa ako reconciler medzi authoritative identity a ownership state-om a effective permissions naprieč identity providerom, applications, cloudom, Kubernetesom, databázami a CI/CD. Ak synchronizácia iba pridáva nové skupiny, ale neodstraňuje staré paths a session descendants, systém nie je reconciler; je to privilege accumulator.
 
-## 1. Dominantný lifecycle
+## Identity-to-effective-access lifecycle
 
-```text
-authoritative identity a resource-owner state
-→ identity/entitlement desired generation
-→ joiner, mover, leaver alebo workload event
-→ account, group, role a attribute reconciliation
-→ credential/federation/session generation
-→ RBAC/ABAC/resource-policy evaluation
-→ enforcement na resource boundary
-→ effective-access graph a audit
-→ access review, revoke a deprovision
-→ second-sync, second-session a forbidden-path validation
-```
-
-Tento lifecycle oddeľuje:
+Každý entitlement musí mať pôvod, ownera, scope, dôvod a zánik. Joiner event vytvorí minimálny baseline. Mover event vypočíta nový complete desired set namiesto aditívneho pridania. Leaver event zruší accounts, sessions, tokens, workload descendants a recovery paths v poradí, ktoré neumožní ďalšie použitie starého oprávnenia.
 
 ```text
-HR alebo service catalog obsahuje správny stav
-≠ downstream groups a roles sú zhodné
-≠ existujúce sessions používajú current entitlement state
-≠ effective access nemá alternate path
-≠ removal prežil ďalší reconciliation cycle
+authoritative identity, employment a ownership state
+→ joiner, mover, leaver alebo privileged-access event
+→ desired account a entitlement generation
+→ role/group/attribute graph reconciliation
+→ federation a session/token projection
+→ policy evaluation a effective access
+→ audit a access review
+→ revoke, remove a retire descendants
+→ second-sync a second-login validation
 ```
 
-## 2. Exact IAM/RBAC subject
+IAM source of truth môže byť HR systém pre employment state, service catalog pre workload ownera a resource registry pre tenant alebo environment scope. Žiadny z nich však automaticky nepozná celý effective access graph. Reconciliation musí spojiť authoritative intent s platform-specific groups, roles, policies, bindings, sessions a caches.
 
-Pre connected Atlas incident používame:
+## Exact IAM subject
 
-```text
-IAM subject: IAM-PAY-47
-security subject: SEC-PAY-47
-human identity: urn:atlas:human:7421
-authoritative source: HR-7421 generation 118
-old job function: Payments Operations
-new job function: Finance Analytics
-mover effective time: 2026-07-29 08:00 UTC
-entitlement catalog: ENT-CAT-42
-IdP reconciliation: IAM-SYNC-306
-nested group path:
-  finance-emea
-  → legacy-shared-operations
-  → prod-payment-operators
-federated session: SESSION-771
-Kubernetes binding: payments-prod-operators
-ClusterRole generation: RBAC-PAY-63
-namespace: payments-prod
+Pre incident `SEC-PAY-47` je dôležité odlíšiť desired identity state od effective accessu:
+
+```yaml
+identity: urn:atlas:human:7421
+employmentGeneration: HR-EMP-9081
+currentDepartment: finance-analytics
+previousDepartment: payments-operations
+desiredEntitlements:
+  - finance-analytics-read
+forbiddenEntitlements:
+  - prod-payment-operators
+  - payments-prod-operator
+observedPaths:
+  - directGroup: payments-oncall
+    state: removed
+  - nestedPath: finance-emea/legacy-shared-operations/prod-payment-operators
+    state: present
+sessionDescendants:
+  - SESSION-771
+  - access-token-884
+kubernetesBinding: payments-prod-operators
 ```
 
-Exact subject viaže business identity state, entitlement path, session a resource-side authorization generation.
+Tento subject vysvetľuje, prečo veta „direct group bola odstránená“ nepreukazuje revocation. Effective access stále vzniká nested membershipom, session claimom a Kubernetes bindingom.
 
-## 3. IAM capability map
+## Joiner, mover a leaver ako state replacement
 
-IAM platforma alebo operating model typicky pokrýva:
+Joiner workflow začína eligibility a vytvára iba baseline potrebný pre prvú pracovnú funkciu. Mover workflow nevykonáva `add(new-role)`; vypočíta complete desired set a odstráni všetko, čo doň nepatrí. Leaver workflow musí zohľadniť propagation a descendants: account disable bez session revocation môže ponechať hodinový token, cloud role session alebo Kubernetes credential.
 
-- authoritative identity source a identity proofing;
-- account provisioning/deprovisioning;
-- authenticator a credential lifecycle;
-- authentication a session management;
-- federation a principal mapping;
-- group, role, attribute a entitlement governance;
-- access request, approval a JIT activation;
-- human aj workload identities;
-- policy administration a enforcement integration;
-- audit, access review a certification;
-- revocation, recovery a break-glass.
+Desired-state payload môže vyzerať takto:
 
-Nie každý produkt implementuje celý lifecycle. Architecture musí určiť ownera a interface medzi HR, IdP, PAM, cloud IAM, Kubernetes, applications a audit platformou.
-
-## 4. Authoritative source a desired state
-
-Authoritative source určuje, odkiaľ pochádza pravda o konkrétnom identity alebo ownership attribute.
-
-Príklady:
-
-- HR — employment status, manager, department;
-- contractor registry — sponsor a expiration;
-- service catalog — workload owner, environment a criticality;
-- customer identity store — customer account state;
-- cloud inventory — account/resource ownership;
-- Kubernetes API/GitOps source — ServiceAccount a binding desired state.
-
-Jeden systém nemusí byť authoritative pre všetky attributes. Potrebná je attribute-level authority matrix:
-
-| Attribute | Authoritative source | Consumer | Freshness/invalidácia |
-|---|---|---|---|
-| employment status | HR | IdP/PAM/apps | immediate disable event |
-| team/job function | HR/org directory | entitlement engine | mover reconciliation |
-| service owner | service catalog | workload IAM/review | deployment/review gate |
-| production role eligibility | entitlement catalog + resource owner | PAM/IdP | approval + expiry |
-| Kubernetes binding | Git/IaC | cluster API | controller reconciliation |
-
-Add-only synchronization nie je desired-state reconciliation. Complete desired state musí vedieť pridávať aj odstraňovať stale assignments.
-
-## 5. Joiner, mover a leaver
-
-### Joiner
-
-```text
-proofed/approved identity
-→ account generation
-→ baseline entitlements
-→ authenticator enrollment
-→ owner/manager
-→ positive a forbidden onboarding tests
+```json
+{
+  "subject": "urn:atlas:human:7421",
+  "generation": "IAM-DESIRED-551",
+  "employment_state": "active",
+  "department": "finance-analytics",
+  "entitlements": [
+    {
+      "name": "finance-analytics-read",
+      "scope": "tenant:finance-eu",
+      "expires_at": null
+    }
+  ],
+  "forbidden": [
+    "prod-payment-operators",
+    "payments-prod-operator"
+  ],
+  "revoke_sessions_older_than_generation": "HR-EMP-9081"
+}
 ```
 
-Baseline access má byť minimálny. Joiner nemá dediť template privileges bez task a environment scoping-u.
+Payload preukazuje intended generation a negative requirements. Nepreukazuje, že každý target systém vykonal remove, nested graph sa prepočítal, session bola zrušená alebo cache vypršala. Reconciler potrebuje per-target acknowledgement a effective-state read-back.
 
-### Mover
+## Role engineering bez role explosion
 
-```text
-new job function
-→ calculate new desired entitlements
-→ remove incompatible old paths
-→ SoD/conflict check
-→ add approved new paths
-→ revoke/refresh sessions
-→ effective-access read-back
+Role má reprezentovať stabilný job alebo capability pattern, nie každú kombináciu usera, tenant-a a environment-u. Ak každá výnimka vytvorí novú rolu, vznikne role explosion a review sa stane nečitateľný. Ak jedna rola obsahuje všetky environment-y a actions, vznikne toxic super-role.
+
+Praktický model kombinuje RBAC a trusted attributes. Rola určí typ capability, napríklad `settlement-requeue-requester`; ABAC conditions obmedzia environment, tenant, incident, assurance a expiration. Relationship alebo object-level authorization následne overí, že operation patrí povolenému tenant-u a workflow-u.
+
+Role design začína task inventory, nie kopírovaním permissions existujúceho administrátora. Každá permission má consumera a use case; unused alebo nevysvetliteľná permission je defect. Role owner zodpovedá za semantics, resource owner za scope a IAM platform za propagation a review evidence.
+
+## Kubernetes RBAC ako additive graph
+
+Kubernetes používa Role a ClusterRole na definovanie pravidiel a RoleBinding alebo ClusterRoleBinding na priradenie subjects. Permissions sú additive; všeobecné deny pravidlá v RBAC neexistujú. Preto negative requirement musí presadiť užší allow graph, admission policy alebo oddelená architecture boundary.
+
+Úzka namespaced capability môže vyzerať takto:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: settlement-requeue-requester
+  namespace: payments-prod
+rules:
+  - apiGroups: ["operations.atlas.example"]
+    resources: ["settlementrequeues"]
+    verbs: ["create", "get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: payments-jit-requeue
+  namespace: payments-prod
+subjects:
+  - kind: Group
+    name: atlas:jIT:payments-requeue
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: settlement-requeue-requester
+  apiGroup: rbac.authorization.k8s.io
 ```
 
-Mover je remove aj add transaction. Najprv pridávať a neskôr „niekedy“ čistiť staré roles vytvára privilege accumulation window.
+Manifest preukazuje intended binding. Nepreukazuje, že group claim je aktuálny, binding je loaded na intended clusteri, iný ClusterRoleBinding nepridáva širší access alebo custom controller bezpečne spracuje request.
 
-### Leaver
-
-```text
-disable identity
-→ revoke sessions/tokens/authenticators
-→ remove direct/nested/delegated assignments
-→ rotate shared/derived credentials
-→ transfer ownership
-→ preserve audit/data podľa policy
-→ forbidden login a alternate-account test
-```
-
-Disable v jednom IdP nemusí odstrániť local application accounts, API keys, certificates, cloud roles alebo cached sessions.
-
-## 6. Entitlement catalog
-
-Entitlement je assignable role, group membership, permission set alebo capability. Catalog entry má obsahovať:
-
-- stable ID a purpose;
-- required business task;
-- actions a resource scope;
-- environment/data classification;
-- owner a approver;
-- eligibility rules;
-- standing alebo JIT model;
-- duration a review cadence;
-- conflicting entitlements;
-- indirect escalation analysis;
-- positive/negative tests;
-- deprecation a migration plan.
-
-Role name bez permission inventory a ownera nie je governance contract.
-
-## 7. RBAC model
-
-Základný RBAC chain:
-
-```text
-principal
-→ assignment alebo group membership
-→ role
-→ permission(action, resource, condition)
-→ authorization decision
-```
-
-Role reprezentuje reusable job function alebo technical capability. Nemá byť pomenovaná podľa jedného človeka ani vytvorená pre každú náhodnú kombináciu attributes.
-
-### Flat RBAC
-
-Role nemajú inheritance. Effective access sa jednoduchšie vysvetľuje, ale permissions sa môžu opakovať.
-
-### Hierarchical RBAC
-
-Role dedia iné roles. Znižuje duplicitu, ale vytvára transitive privilege a komplikuje removal. Hierarchy musí byť acyclic, bounded a queryovateľná.
-
-## 8. Role engineering
-
-```text
-business tasks
-→ operation inventory
-→ resource/data scopes
-→ common a privileged capability clusters
-→ SoD/conflict analysis
-→ role a assignment design
-→ positive/negative/escalation fixtures
-→ usage a review
-→ split, merge alebo retirement
-```
-
-Dobrý role contract má:
-
-- purpose;
-- permissions a scope;
-- ownera;
-- eligible principals;
-- activation a duration;
-- approval;
-- incompatibilities;
-- audit expectations;
-- removal semantics.
-
-Role count nie je maturity metric. Veľa roles môže znamenať role explosion; málo roles môže znamenať broad ambient authority.
-
-## 9. Role explosion a composability
-
-Role explosion vzniká pri modelovaní každej kombinácie:
-
-```text
-team × application × environment × Region × privilege level × tenant
-```
-
-Mitigácie:
-
-- base capability roles plus resource-scoped assignments;
-- JIT activation;
-- trusted ABAC conditions;
-- standardized entitlement catalog;
-- group-based assignment s bounded nestingom;
-- retirement duplicate roles;
-- mediated application capabilities namiesto infra role per task.
-
-ABAC nemá iba skryť role explosion do nekontrolovaných attributes.
-
-## 10. RBAC a ABAC
-
-RBAC je vhodný pre stabilné job functions a reusable capabilities. ABAC dopĺňa dynamický scope:
-
-```text
-role povoľuje settlement-requeue capability
-+ principal.team = payments-operations
-+ resource.environment = production
-+ payment.tenant in principal.allowed_tenants
-+ session.auth_age < 10 min
-+ approval.state = approved
-```
-
-Attributes musia mať trusted source, schema, freshness a controlled write path. Ak principal môže zmeniť vlastný `team`, `clearance` alebo resource tag použitý na authorization, condition nie je účinný control.
-
-## 11. Groups a nested effective access
-
-Groups zjednodušujú assignment, ale vytvárajú graph:
-
-```text
-principal
-→ direct group
-→ nested group
-→ role eligibility
-→ platform mapping
-→ permission
-```
-
-Riziká:
-
-- stale membership;
-- circular alebo veľmi hlboké nesting;
-- propagation delay;
-- cross-domain group mapping;
-- duplicate direct aj inherited assignment;
-- nejasný owner;
-- session claim zachovávajúci starý graph.
-
-Audit a access review musia vysvetliť exact path, nie iba výsledný názov role.
-
-## 12. Separation of duties
-
-### Static SoD
-
-Principal nesmie mať konfliktujúce entitlements súčasne, napríklad create vendor a approve payment.
-
-### Dynamic SoD
-
-Principal môže byť eligible pre obe capabilities, ale nesmie ich použiť v rovnakej transaction/session. Vyžaduje workflow context a enforcement.
-
-Mover a access-request proces má conflict check vykonať pred aktiváciou. Post-hoc report po incidentnej action nie je preventive SoD.
-
-## 13. Kubernetes RBAC semantics
-
-Kubernetes RBAC používa štyri hlavné objects:
-
-- `Role` — namespaced rules;
-- `ClusterRole` — cluster-scoped alebo reusable rules;
-- `RoleBinding` — bind Role/ClusterRole v jednom namespace;
-- `ClusterRoleBinding` — cluster-wide assignment.
-
-Rule obsahuje API groups, resources/subresources, verbs, optional `resourceNames` a non-resource URLs.
-
-Kubernetes RBAC permissions sú additive. Neexistuje štandardné explicit deny pravidlo, ktoré by odobralo allow z iného bindingu. Preto treba identifikovať všetky bindings a authorization modes.
-
-Sensitive verbs a capabilities:
-
-- `bind` — bind role bez vlastnenia všetkých jej permissions podľa pravidiel API;
-- `escalate` — create/update role s permissions nad vlastný current access;
-- `impersonate` — konať ako iný user/group/ServiceAccount;
-- create/patch RBAC objects;
-- create workloads, exec/attach a select ServiceAccounts;
-- read Secrets;
-- certificate-signing requests;
-- node proxy a admission/webhook configuration.
-
-Namespace nie je automaticky silná tenant boundary. Workload creation a Secret/ServiceAccount relationships môžu umožniť lateral alebo privilege escalation.
-
-## 14. Cloud a application policy planes
-
-Cloud effective access môže kombinovať:
-
-- identity policy;
-- resource policy;
-- role trust policy;
-- organization guardrail;
-- permissions boundary;
-- session policy;
-- condition keys;
-- explicit deny.
-
-Application môže kombinovať federated identity, local role, tenant ownership, relationship graph a data-plane authorization.
-
-Názvy `Owner`, `Administrator` alebo `Operator` majú význam iba v konkrétnom policy plane. Directory admin nie je automaticky cloud resource owner; cloud role nie je automaticky application data access.
-
-## 15. Workload IAM
-
-Workload identity record má obsahovať:
-
-```text
-stable workload identity
-owner a service catalog entry
-environment a deployment binding
-credential/issuer/audience
-permissions a resource scope
-rotation/expiration
-runtime generation
-usage a audit
-```
-
-Service principal bez ownera, deployment bindingu a recent expected use je candidate na quarantine. Workload offboarding zahŕňa role, tokens, certificates, secrets, resource policies a downstream database accounts.
-
-## 16. Policy as code a reconciliation
-
-IAM/RBAC sources majú byť:
-
-- version-controlled;
-- reviewed ownerom a security policy;
-- schema/lint validované;
-- analyzované na wildcard a escalation paths;
-- testované na representative principal–action–resource–context fixtures;
-- canary-nuté;
-- deploymentované controlled pipeline-om;
-- runtime read-backnuté;
-- drift a stale assignment monitorované.
-
-Test matrix:
-
-```text
-required allow
-forbidden action deny
-cross-tenant deny
-expired/JIT-inactive deny
-mover/leaver deny
-indirect escalation deny
-break-glass allow + alert + expiry
-```
-
-Policy apply success nie je effective-access verdict. Potrebný je resource-side authorization test.
-
-## 17. Authorization explainability
-
-Pre každý sensitive allow alebo deny má byť možné zostaviť:
-
-```text
-principal a session
-→ direct/nested groups
-→ role eligibility a activation
-→ policy/binding generations
-→ resource/attribute context
-→ combining semantics
-→ PDP decision
-→ PEP enforcement
-→ operation result
-```
-
-Explainability je potrebná pre incident response, access review, SoD, support aj policy migration. „RBAC denied“ alebo „user is admin“ nie je dostatočný dôkaz.
-
-## 18. Worked incident: add-only mover sync ponechal production access
-
-### Desired organizational state
-
-```text
-identity 7421
-old team: Payments Operations
-new team: Finance Analytics
-old production eligibility: remove
-new analytics access: add
-mover time: 08:00 UTC
-```
-
-### Effective graph po sync-e
-
-```text
-urn:atlas:human:7421
-→ finance-emea
-→ legacy-shared-operations
-→ prod-payment-operators
-→ Kubernetes group oidc:prod-payment-operators
-→ ClusterRoleBinding payments-prod-operators
-→ ClusterRole payments-prod-operator
-→ create pods / patch config / scale deployments
-```
-
-Identity sync odstránil iba direct `payments-oncall` group a pridal `finance-emea`. Starý nested path cez `legacy-shared-operations` zostal. Session `SESSION-771` bola vydaná po mover evente s týmto stale claimom.
-
-### Competing hypotheses
-
-1. HR source neobsahoval mover zmenu;
-2. entitlement catalog zámerne povoľoval Finance Analytics production access;
-3. direct Kubernetes binding bol vytvorený ručne;
-4. nested group path prežil add-only sync;
-5. old session iba cache-ovala predchádzajúci správny access;
-6. ClusterRoleBinding používala iný group string;
-7. admission alebo resource policy mala action odmietnuť;
-8. break-glass eligibility bola omylom active.
-
-### Discriminating evidence
-
-```text
-HR generation 118: team = Finance Analytics
-entitlement catalog: production operator not eligible
-IAM-SYNC-306 operations: add finance-emea, remove payments-oncall
-nested-group removal operations: none
-direct Kubernetes user binding: none
-IdP token issue time: 11:51 UTC, after mover
-IdP claim: prod-payment-operators
-ClusterRoleBinding subject: exact same group
-Kubernetes SubjectAccessReview:
-  create pods = yes
-  patch deployments/scale = yes
-  get secrets = yes
-PAM activation/approval: none
-```
-
-Root cause je identity/entitlement reconciliation, ktorá nepočítala complete desired graph. Broad role a chýbajúci admission constraint sú amplifiers. Nie je to Kubernetes cache bug ani authentication failure.
-
-### Evidence-preserving containment
-
-- suspend principal a revoke-nuť sessions/tokens;
-- odstrániť stale nested group edge a affected binding eligibility;
-- freeze manual IAM/RBAC edits počas reconstruction;
-- zachovať HR generation, sync operations, group graph, token claims, RBAC objects a audit events;
-- vyhodnotiť ďalších principals používajúcich rovnaký nested path;
-- neodstrániť celý group graph bez impact analýzy;
-- nepoužiť `cluster-admin` ako troubleshooting workaround.
-
-### Authoritative recovery
-
-1. zmeniť sync z add-only delta modelu na complete desired-state reconciliation;
-2. definovať ownera každého nested group edge-u;
-3. pri mover udalosti vykonať remove/incompatibility phase pred novou privileged activation;
-4. revoke-nuť privileged sessions po entitlement removal-e;
-5. splitnúť `payments-prod-operator` na mediated JIT task capabilities;
-6. odstrániť human Secret a arbitrary workload access;
-7. pridať policy fixtures pre direct, nested, stale-session a workload-escalation paths;
-8. spustiť second-sync a second-login canary.
-
-### Acceptance verdict
-
-Recovery je prijatá, keď:
-
-- HR, entitlement engine, IdP groups a Kubernetes effective access sú zhodné;
-- identity `7421` nemá direct, nested, inherited ani session-cached production path;
-- required Finance Analytics access funguje;
-- production Pod create, Secret read, config patch a scale sú denied;
-- approved JIT Payments operator dostane iba intended capability;
-- `kubectl auth can-i`/SubjectAccessReview positive a negative fixtures prejdú;
-- second reconciliation neznovu-vytvorí stale edge;
-- new session aj previously active session sú bez removed privilege;
-- affected peer identities z `legacy-shared-operations` boli vyhodnotené;
-- audit vysvetlí source → entitlement → session → binding → action chain.
-
-## 19. Access request, approval a PAM
-
-Access request má obsahovať:
-
-- requester a beneficiary;
-- exact entitlement/resource;
-- business task a reason;
-- environment/tenant;
-- duration;
-- resource owner/approver;
-- SoD a escalation check;
-- required authentication assurance;
-- audit/correlation ID.
-
-PAM/PIM môže poskytovať eligibility, JIT activation, approval, MFA, session duration, credential checkout, recording a access review. Nenahrádza však zlý role design ani stale source attributes.
-
-## 20. Troubleshooting IAM/RBAC deny
-
-```text
-exact principal/session?
-→ desired eligibility?
-→ direct/group/nested assignment?
-→ role/binding a scope?
-→ action/resource/subresource?
-→ trusted attributes?
-→ session freshness?
-→ boundary/guardrail/explicit deny?
-→ target resource policy?
-→ PEP decision?
-```
-
-Kubernetes helper:
+Effective access sa kontroluje z viacerých uhlov:
 
 ```bash
-kubectl auth can-i get pods \
-  --as=system:serviceaccount:payments-prod:worker \
-  -n payments-prod
+kubectl auth can-i --list \
+  --namespace payments-prod \
+  --as=urn:atlas:human:7421
+
+kubectl auth can-i create pods \
+  --namespace payments-prod \
+  --as=urn:atlas:human:7421
+
+kubectl auth can-i create settlementrequeues.operations.atlas.example \
+  --namespace payments-prod \
+  --as-group=atlas:jIT:payments-requeue \
+  --as=urn:atlas:human:legitimate-oncall
 ```
 
-Výsledok API authorization testu nepreukazuje admission, runtime, data-plane ani external-service authorization.
+`--list` poskytuje snapshot recognized permissions pre subject v danom namespace. Nezachytáva všetky non-resource URLs, admission constraints, external authorization, cloud permissions, ServiceAccount selection ani alternatívne identities. Druhý a tretí príkaz testujú konkrétne requests a preto sú vhodnejšie ako všeobecný zoznam, ale stále nepreukazujú end-to-end business authorization.
 
-## 21. Troubleshooting excessive access
+## Effective access graph a indirect paths
+
+Explainability vyžaduje graph:
 
 ```text
-direct assignment
-→ group a nested graph
-→ role hierarchy
-→ resource policy
-→ wildcard/conditions
-→ session/PAM eligibility
-→ impersonation/delegation
-→ policy modification capability
-→ workload escalation
-→ stale local account/credential
+authoritative identity
+→ direct a nested groups
+→ federated claims
+→ local groups a roles
+→ bindings/policies
+→ delegated identities a resources
+→ reachable capabilities
 ```
 
-Po source oprave over active sessions, cached tokens, workload credentials a second reconciliation.
+Pri incidente bol path `finance-emea → legacy-shared-operations → prod-payment-operators → ClusterRoleBinding → create Pod → settlement-debug ServiceAccount → provider Secret`. Review iba direct group membershipu by hlásil false-safe stav. Rovnako review iba Kubernetes bindings by nevysvetlil, prečo IdP stále emitoval group claim.
 
-## 22. Anti-patterny
+Capability graph musí analyzovať `bind`, `escalate`, `impersonate`, workload creation, pass-role alebo ServiceAccount selection, CI execution, secret projection a custom resource controllers. Indirect path môže byť silnejší než všetky direct permissions principalu.
 
-### IAM = login page
+## Access reviews, exceptions a break-glass
 
-Chýba provisioning, authorization, review, revocation a audit.
+Access review nie je potvrdenie zoznamu accountov. Reviewer potrebuje business task, current ownera, effective paths, posledné použitie, standing/JIT stav, session descendants a toxic combinations. Approval „stále potrebuje admin“ bez evidence iba predlžuje privilege creep.
 
-### Mover = add new role
+Exception má exact subject, risk ownera, compensating controls, expiration a removal trigger. Permanentná výnimka bez revalidation je druhý authoritative policy source. Break-glass sa kontroluje oddelene: credential custody, activation, real-time alert, scoped session, post-use rotation a second test po návrate normal pathu.
 
-Old access sa hromadí a vytvára privilege creep.
+## Incident `SEC-PAY-47`: add-only mover sync
 
-### Role podľa človeka
+HR source správne presunul principal 7421 do Finance Analytics. IAM workflow odstránil direct `payments-oncall`, ale neprepočítal nested group graph, neodstránil `prod-payment-operators` a nerevoke-nul session `SESSION-771`. Token preto ďalej niesol privileged claim a Kubernetes binding zostal effective.
 
-Nevzniká reusable task contract ani owner.
+Root cause bol add-only mover model. Broad Kubernetes role a delegated ServiceAccount path zväčšili blast radius, ale nevytvorili stale entitlement. Diskriminačný dôkaz porovnal HR generation, desired entitlement manifest, nested graph, token claim, loaded binding a audit side effects.
 
-### Nested groups bez explainability
+Containment suspenduje principal, revoke-ne sessions, odstráni affected nested path a dočasne zablokuje binding bez vymazania audit evidence. Recovery zmení reconciler na complete desired-state replacement, pridá per-target remove acknowledgement, session-generation invalidation a negative access fixtures. Broad role sa nahradí mediated JIT capability.
 
-Effective access nemožno spoľahlivo reviewovať ani revoke-nuť.
+## Acceptance a second-sync closure
 
-### `cluster-admin` ako fix
+Recovery prejde iba vtedy, keď direct aj nested entitlement zmiznú, existing session zlyhá, fresh login neobsahuje privileged claim a Kubernetes direct aj indirect paths sú denied. Legitímny JIT group musí stále získať iba `settlementrequeues` capability. Potom sa vykoná druhá mover zmena alebo opakovaný sync bez ďalšej mutácie. Tento second-sync test odhalí add-only alebo oscillating reconciler, ktorý prvý pass iba náhodne opravil.
 
-Maskuje exact missing permission a vytvára nový incident path.
+IAM success teda nie je počet synchronizovaných accounts. Je to zhoda authoritative desired state-u, effective access graphu, session state-u a business authorization po opakovanom reconciliation cykle.
 
-### ABAC s user-writable attributes
+## Kontrolné otázky
 
-Principal si sám mení authorization vstup.
+1. Prečo RBAC nie je celý IAM systém?
+2. Čím sa mover state replacement líši od `add(new-role)`?
+3. Prečo direct group removal nepreukazuje revocation?
+4. Čo `kubectl auth can-i --list` nevidí?
+5. Ako sa RBAC a ABAC dopĺňajú bez role explosion?
+6. Ktoré indirect permissions musia byť súčasťou capability graphu?
+7. Prečo je second-sync test dôležitý pre reconciler?
 
-### Source policy update bez runtime testu
+## Referencie
 
-Binding, token alebo alternate policy plane zostáva effective.
-
-## 23. Kontrolné otázky
-
-1. Čo tvorí exact IAM/RBAC subject?
-2. Prečo je IAM širšie než RBAC?
-3. Ako sa určuje authoritative source per attribute?
-4. Prečo mover potrebuje removal aj session revocation?
-5. Čo musí obsahovať entitlement catalog entry?
-6. Ako sa líši flat a hierarchical RBAC?
-7. Ako role explosion súvisí s ABAC a resource-scoped assignmentom?
-8. Prečo trusted attribute potrebuje controlled write path?
-9. Ako Kubernetes Role, ClusterRole a bindings vytvárajú effective access?
-10. Prečo je Kubernetes RBAC additive a čo z toho vyplýva?
-11. Ako vysvetlíš nested-group access path?
-12. Čo musí overiť second-sync a second-session acceptance test?
-
-## Glossary impact
-
-Relevantné pojmy: IAM subject, attribute-authority matrix, entitlement desired generation, identity reconciliation, joiner generation, mover reconciliation, leaver closure, entitlement catalog, role-contract generation, nested-group access path, trusted-attribute contract, effective-access graph, authorization explainability, IAM drift, second-sync test, workload IAM subject a IAM/RBAC acceptance verdict.
-
-## Primárne zdroje
-
-- [NIST Role-Based Access Control](https://csrc.nist.gov/projects/role-based-access-control)
-- [NIST least privilege glossary](https://csrc.nist.gov/glossary/term/least_privilege)
+- [NIST SP 800-53 Identity and Access Management controls](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final)
 - [Kubernetes RBAC authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
-- [Kubernetes RBAC good practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
 - [Kubernetes authorization overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/)
-- [Microsoft Entra RBAC](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/)
-- [Azure ABAC overview](https://learn.microsoft.com/en-us/azure/role-based-access-control/conditions-overview)
+- [SCIM protocol](https://www.rfc-editor.org/rfc/rfc7644)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
