@@ -35,16 +35,16 @@ Odporúča sa najprv dokončiť:
 15. [Environment variables a health checks](environment-variables-health-checks.md)
 16. [Docker Compose](docker-compose.md)
 17. [BuildKit a Buildx](buildkit-buildx.md)
-18. [Praktický Docker release od source zmeny po overený runtime](docker-practical-walkthrough.md)
+18. [Praktický Docker projekt od prázdneho adresára po overený Compose runtime](docker-practical-walkthrough.md)
 19. [Docker troubleshooting](docker-troubleshooting.md)
 
 Po tejto sekcii nasleduje Kubernetes. Docker a OCI model poskytujú základ pre pochopenie Pod sandboxu, container runtime interface, image pullu, probes, Services, volumes, security contextu a node-level troubleshooting.
 
 ## Hlavný praktický walkthrough
 
-Kapitola [Praktický Docker release od source zmeny po overený runtime](docker-practical-walkthrough.md) používa existujúcu službu `payments-api` ako jeden súvislý release scenár. Neodbieha do implementácie aplikácie; sústreďuje sa na Docker mechanizmus od build contextu a multi-stage graphu cez explicitný test target, image config/layers/digest, registry publication, constrained container create/start, PID 1, volume a network identity až po Compose reconciliation, multi-platform read-back a business verification.
+Kapitola [Praktický Docker projekt od prázdneho adresára po overený Compose runtime](docker-practical-walkthrough.md) ide rovnakým detailným walkthrough štýlom ako praktická Helm kapitola. Od prázdneho adresára vytvorí minimálnu Go HTTP aplikáciu, unit a forbidden-path test, `.dockerignore`, celý multi-stage Dockerfile, samostatný BuildKit test target, lokálny runtime image, network, named volume a hardenovaný non-root container. Každý súbor a každý významný príkaz je vložený priamo do výkladu a bezprostredne vysvetlený: čo je jeho vstup, čo zmení, aký output očakávame a čo zelený výsledok ešte nedokazuje.
 
-Text je prepracovaný v rovnakom prose-first rytme ako Keycloak a CI/CD: najprv vysvetlí dominantný source-to-runtime model, potom presný release subject, konkrétne Dockerfile a Compose rozhodnutia, dôkazové hranice jednotlivých príkazov a connected incident `CTR-PAY-81`. Incident spája rozdielnych builderov, mutable tag, neúplný platform scan, plytký health oracle a nekompatibilný volume ownership do jedného diagnostického a recovery flowu.
+Druhá polovica kapitoly skladá celý `compose.yaml`, najprv kontroluje resolved model cez `docker compose config`, potom overuje container-local health, Compose DNS, host-published port a volume-backed business write/read. Nasleduje recreate a druhý nezmenený run, configuration-driven replacement, zámerne chybný bind na container loopback, volume-permission failure, evidence-preserving diagnostika, recovery, multi-platform publication, image-index read-back, digest-pinned consumption a bezpečný cleanup. Aplikačný kód bol lokálne formátovaný a overený cez `go test`; Docker a registry commands zostávajú dokumentačne auditované príklady, kým sa nespustia proti reálnemu Engine-u a registry.
 
 ## Practical-example acceptance contract
 

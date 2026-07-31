@@ -830,5 +830,5 @@ Relevantné pojmy: Docker incident subject, original outcome contract, forbidden
 
 **Navigácia**
 
-[← Predchádzajúca: Praktický Docker release od source zmeny po overený runtime](docker-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes architecture →](../09-kubernetes/kubernetes-architecture.md)
+[← Predchádzajúca: Praktický Docker projekt od prázdneho adresára po overený Compose runtime](docker-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes architecture →](../09-kubernetes/kubernetes-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
