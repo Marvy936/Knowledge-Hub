@@ -1,517 +1,429 @@
 # Infrastructure as Code principles
 
-Infrastructure as Code (IaC) je change-control a reconciliation model nad vzdialeným systémom. Kód nepredstavuje infraštruktúru sám osebe. Predstavuje schválený **desired state**, ktorý sa musí spojiť so správnym toolchainom, vstupmi, state snapshotom, target identitou a remote observation, aby vznikol dôveryhodný plan a bezpečná mutation.
+Infrastructure as Code (IaC) je versionovaný change-control a reconciliation systém nad vzdialenými objektmi. Repository neobsahuje samotnú sieť, databázu ani IAM policy. Obsahuje deklaráciu požadovaného stavu, dependency contracty a rozhodovacie vstupy, z ktorých nástroj vytvorí plán remote operácií. Dôveryhodný výsledok preto nevzniká tým, že HCL prejde parserom. Vzniká až vtedy, keď presná konfigurácia, toolchain, state, target, identity a remote observation vedú k overenému technickému a business outcome-u.
 
-Táto kapitola používa jeden priebežný scenár: tím Atlas Payments pripravuje produkčný environment `prod-eu` pre release `3.14.0`. Zmena má vytvoriť sieť, private subnets, load balancer, runtime service a súvisiace identity bez toho, aby sa zamieňal source, state, target alebo runtime outcome.
+Kapitola používa incident `IAC-PAY-75`. Atlas Payments pripravuje zmenu produkčného environmentu `prod-eu`: novú private sieť, dva subnets, load balancer a runtime service. Pipeline však načíta nesprávny backend key, default provider smeruje do iného regionu a po úspešnom remote create zlyhá state write. Každý jednotlivý krok môže vyzerať lokálne správne, ale celý authority chain vytvorí duplicitnú infraštruktúru mimo zamýšľaného subjectu.
 
-## 1. Dominantný model
-
-Dôveryhodný IaC lifecycle je:
+## 1. Dominantný intent-to-outcome lifecycle
 
 ```text
-change intent a ownership
-→ immutable configuration a resolved inputs
-→ target + state identity
-→ refresh a saved plan
-→ risk/policy decision
+business alebo platform intent
+→ exact ownership a mutable attribute boundary
+→ immutable source revision
+→ pinned Terraform, providers a modules
+→ resolved variables, backend a target identity
+→ refresh a dependency graph
+→ saved plan a policy/approval evidence
 → serialized scoped apply
-→ remote reconciliation + state commit
-→ independent runtime verification
-→ drift, recovery a evidence closure
+→ provider remote operations
+→ state commit alebo unknown outcome
+→ independent runtime a business verification
+→ drift, recovery a second-operation closure
 ```
 
-Každý krok odpovedá na inú otázku:
+Tento chain oddeľuje šesť otázok, ktoré sa pri slabom IaC procese často zlejú do jedného zeleného jobu:
 
-- **Intent:** aký business alebo operational outcome sa mení a kto ho vlastní?
-- **Configuration:** aký desired state a ktoré presné dependencies ho definujú?
-- **State/target:** nad ktorou infra boundary sa plánuje a aplikuje?
-- **Plan:** aké mutations nástroj predikuje nad konkrétnym snapshotom?
-- **Decision:** je change risk prijateľný pre tento subject?
-- **Apply:** ktoré remote operácie skutočne prebehli?
-- **Verification:** zodpovedá runtime pôvodnému outcome-u?
-- **Closure:** je state konzistentný, drift vyriešený a recovery capability zachovaná?
+1. **Čo sa má zmeniť?** Business intent a desired state.
+2. **Kto smie atribút meniť?** Authoritative writer a ownership boundary.
+3. **Nad čím sa plánuje?** Exact configuration, inputs, state a target.
+4. **Čo nástroj predikuje?** Saved plan a risk evidence.
+5. **Čo sa naozaj stalo?** Provider requesty, remote objekty a state commit.
+6. **Je výsledok správny?** Runtime capability a business journey.
 
-IaC nie je bezpečný preto, že konfigurácia je deklaratívna. Bezpečný je až vtedy, keď celý lifecycle zachová identitu zmeny a odlíši predikciu, remote mutation, state evidence a runtime realitu.
+IaC sa stáva nebezpečným vtedy, keď sa jedna z týchto otázok nahradí implicitným predpokladom. Napríklad „plan je iba create“ nehovorí, či create smeruje do správneho účtu, či vznikne druhý objekt alebo či state pozná existujúci objekt.
 
-## 2. Atlas change subject
+## 2. Exact IaC change subject
 
-Atlas označí zmenu ako `CHG-314-EU`. Jej subject obsahuje:
+Atlas označí zmenu ako `CHG-IAC-314`. Subject nie je iba Git commit. Obsahuje celý rozhodovací kontext:
 
-```text
-repository revision       C71
-Terraform CLI             T1
-provider lock digest      P6
-module revisions          M12
-non-secret input set      V31
-backend/state key         atlas/prod-eu/platform
-state lineage + serial    L9 / S208
-target account            atlas-prod
-region                    eu-central-1
-workload identity         iac-prod-apply
-saved plan                PL412
+```yaml
+changeSubject:
+  repository: atlas/platform-live
+  sourceRevision: 71c4f2a
+  rootModule: environments/prod-eu
+  terraformVersion: 1.x-pinned
+  providerLockDigest: sha256:4d5f...
+  moduleManifestDigest: sha256:2c91...
+  inputManifestDigest: sha256:0ea8...
+  backend:
+    type: s3
+    key: payments/prod-eu/platform.tfstate
+    lineage: 37fd...
+    serial: 208
+  target:
+    account: "771100001234"
+    region: eu-central-1
+  workloadIdentity: gitlab-iac-prod
+  savedPlanDigest: sha256:9abc...
+  policyBundle: platform-policy@8f21c9e
 ```
 
-Bez tohto subjectu veta „Terraform plan bol schválený“ nie je auditovateľná. Nie je jasné, ktorú konfiguráciu, state, provider behavior, target a variable set approval pokrýval.
+Takýto manifest neobsahuje secret values. Obsahuje identity a fingerprints potrebné na reprodukciu a audit. Ak approval vidí iba názov branch-e alebo ľudský label `prod`, nevie určiť, ktorý backend, account, provider selection alebo variable set skutočne schválil.
+
+Praktický read-back môže vyzerať takto:
+
+```bash
+terraform version
+sha256sum .terraform.lock.hcl
+terraform workspace show
+aws sts get-caller-identity
+aws configure get region
+```
+
+Výstupy preukazujú verziu CLI, digest lock file-u, zvolený workspace a observed AWS caller/region v tomto jobe. Nepreukazujú, že backend key je správny, že child modules používajú očakávané provider aliases ani že saved plan vznikol z rovnakého subjectu. Preto sa kontroluje aj backend configuration a plan metadata.
 
 ## 3. Desired, known a actual state
 
-IaC pracuje minimálne s troma stavmi:
-
-- **Desired state** — configuration a vstupy požadujú napríklad tri private subnets a šesť service replicas.
-- **Known state** — backend eviduje resource addresses, remote IDs, lineage, serial a posledné známe attributes.
-- **Actual remote state** — cloud API reálne obsahuje siete, identity, routovanie a runtime objekty.
+Terraform pracuje minimálne s troma odlišnými modelmi:
 
 ```text
-configuration C71
-       +
-state L9/S208
-       +
-provider observations nad atlas-prod/eu-central-1
-       ↓
-saved plan PL412
-       ↓
-remote mutations
-       ↓
-actual state + nový state serial
+desired state
+= configuration + resolved inputs
+
+known state
+= resource addresses + remote bindings + posledné známe attributes
+
+actual remote state
+= objekty a hodnoty pozorované cez provider API
 ```
 
-Tieto vrstvy sa môžu rozísť. Configuration môže stále deklarovať subnet, state ho môže mapovať na staré ID a cloud API môže objekt už nepoznať. Diagnostika preto nezačína ďalším apply, ale určením, ktorá vrstva stratila pravdivosť.
-
-## 4. Authoritative ownership
-
-Pre každý mutable attribute musí existovať jeden jasný writer contract.
-
-Atlas napríklad definuje:
+Plan nevzniká iba porovnaním HCL s cloudom. Terraform potrebuje state bindings, aby vedel, že napríklad:
 
 ```text
-network CIDR a routes        → Terraform
-runtime replica count        → deployment platform
-emergency WAF deny rule      → incident controller, časovo obmedzené
-DNS health failover          → DNS controller
+module.network.aws_vpc.main
+→ account 7711 / eu-central-1 / vpc-0a42
 ```
 
-Ak Terraform, operátor a security controller menia ten istý firewall rule bez spoločného ownership modelu, nevzniká „drift“, ale konflikt troch desired states.
+Ak pipeline načíta prázdny alebo nesprávny state, cloud môže stále obsahovať produkčnú VPC, ale Terraform pre danú address-u binding nevidí. Výsledok `+ create` preto nepreukazuje, že objekt chýba. Preukazuje iba, že v aktuálnom configuration/state/observation subjecte neexistuje binding, ktorý by create eliminoval.
 
-Repository je authoritative pre deklaráciu, nie automaticky pre:
+## 4. Authoritative source a writer ownership
 
-- remote object identity,
-- secrets,
-- runtime health,
-- incidentný stav,
-- cloud-side organization policy,
-- data recovery.
+Git repository môže byť authoritative pre desired declaration, ale nie automaticky pre každý mutable runtime atribút. Atlas definuje ownership napríklad takto:
 
-Ownership transfer musí byť explicitný. `ignore_changes` bez takéhoto transferu iba skryje konflikt.
+```text
+VPC CIDR a route tables          → Terraform network state
+Kubernetes replica count         → deployment controller
+DNS health failover              → DNS controller
+incidentný WAF deny override     → incident controller s expiry
+runtime secrets                  → secret manager a workload identity
+```
 
-## 5. Deklaratívnosť a reconciliation
+Dôležité je slovo **jeden** authoritative writer pre konkrétny mutable atribút. Ak Terraform, autoscaler a operátor upravujú ten istý replica count, neexistuje jedna desired state authority. Systém bude oscilovať alebo bude jeden writer ticho rušiť rozhodnutia druhého.
 
-Deklaratívna konfigurácia opisuje požadovaný objektový stav. Engine a provider z rozdielu medzi configuration, state a observation odvodia graph operácií.
+`ignore_changes` môže byť legitímny, keď explicitne deleguje atribút inému controlleru:
 
 ```hcl
-resource "example_network" "prod" {
-  cidr = "10.40.0.0/16"
+resource "example_service" "payments" {
+  desired_count = 6
+
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
 }
 ```
 
-To neznamená, že systém nemá poradie alebo side effects. Tie sa presunuli do:
+Tento blok však sám nepreukazuje, kto atribút vlastní, aké má limity alebo ako sa obnoví po chybe. Bez dokumentovaného autoscaling contractu iba skryje drift a odstráni Terraformu schopnosť odhaliť neželanú zmenu.
 
-- dependency graphu,
-- provider CRUD a polling behavioru,
-- lifecycle pravidiel,
-- remote API semantics,
-- state update-u.
+## 5. Deklaratívny model stále vykonáva imperatívne operácie
 
-Terraform typicky reconciliuje počas explicitného `plan` a `apply`. Ak sa pipeline nespustí, remote drift sa sám neopraví ani nemusí byť viditeľný. Scheduled refresh/plan je preto samostatná control vrstva.
+Konfigurácia:
+
+```hcl
+resource "aws_vpc" "main" {
+  cidr_block           = "10.40.0.0/16"
+  enable_dns_hostnames = true
+
+  tags = {
+    Application = "payments"
+    Environment = "prod-eu"
+    ManagedBy   = "terraform"
+  }
+}
+```
+
+opisuje požadovaný object state. Terraform Core a provider však stále vykonajú konkrétny sequence:
+
+```text
+resolve provider configuration
+→ Read existujúceho bindingu
+→ Create/Update/Delete request
+→ poll alebo retry
+→ normalize response
+→ uložiť remote ID a attributes do state-u
+```
+
+Deklaratívnosť neodstraňuje side effects, eventual consistency ani partial failure. Presúva ich z ručne napísaného shell scriptu do graphu, provider implementation a state transition modelu.
 
 ## 6. Idempotencia, convergence a reproducibility
 
-Tieto vlastnosti treba odlišovať:
+Tieto vlastnosti nie sú synonymá.
 
-- **Idempotencia:** opakovanie už úspešnej operácie nevytvorí ďalšiu zmenu.
-- **Convergence:** opakované reconciliation približuje actual state k desired state.
-- **Reproducibility:** rovnaké explicitné vstupy a toolchain vytvoria porovnateľný plan a výsledok.
+**Idempotencia** znamená, že opakovanie už dosiahnutého desired state-u nevytvorí ďalšiu zmenu. **Convergence** znamená, že reconciliation približuje actual state k desired state-u. **Reproducibility** znamená, že rovnaký explicitný subject vedie k porovnateľnému planu a výsledku.
 
 Atlas očakáva:
 
-```text
-apply C71 nad S208 → vytvorí prod-eu platform
-refresh + plan C71 nad S209 → no changes
+```bash
+terraform plan -out=tfplan
+terraform apply tfplan
+terraform plan -detailed-exitcode
 ```
 
-To môže rozbiť mutable provider alebo module source, timestamp v managed argumente, nestabilná API normalizácia, skrytý environment variable, data source vyberajúci „latest“ alebo druhý writer.
+Druhý plan má pri stabilnom systéme skončiť exit code `0`. Exit code `0` preukazuje, že Terraform v aktuálnom configuration/state/provider observation subjecte nevidí navrhovanú zmenu. Nepreukazuje, že runtime je zdravý, že neexistujú unmanaged objekty ani že iný controller nemení atribúty mimo Terraform modelu.
 
-Preto sa pinujú CLI, providers, modules, policies a release artifacts a uchováva sa resolved input manifest.
-
-## 7. Plan je predikcia viazaná na subject
-
-Plan `PL412` vzniká z kombinácie:
+Reproducibility narúšajú najmä:
 
 ```text
-C71 + P6 + M12 + V31 + L9/S208
+mutable module ref
+mutable provider selection
+latest image data source
+skryté TF_VAR_* overrides
+iný backend alebo workspace
+iný cloud account/region
+provider/API normalizácia
+remote drift medzi planom a apply
+```
+
+## 7. Plan je subject-bound predikcia
+
+Saved plan je výsledok konkrétnej kombinácie:
+
+```text
+source revision
++ Terraform/provider/module versions
++ resolved variables
++ backend lineage/serial
 + refreshed remote observations
-+ target atlas-prod/eu-central-1
-+ plan identity a permissions
++ caller identity a target
+→ plan artifact
 ```
 
-Plan nie je všeobecné povolenie „aplikovať túto branch“. Invaliduje sa napríklad pri zmene:
+Production workflow má zachovať túto identitu:
 
-- configuration alebo variables,
-- provider/module/policy revision,
-- state serial alebo lineage,
-- target account/region,
-- remote objectu relevantného pre decision,
-- approval alebo security statusu,
-- release artifactu.
+```bash
+terraform plan -out=tfplan
+sha256sum tfplan > tfplan.sha256
+terraform show -json tfplan > tfplan.json
+```
 
-Apply, ktorý si po approvale ticho prepočíta nový plan, nevykonáva pôvodne schválené rozhodnutie. Saved plan potrebuje digest, subject metadata, kontrolovaný transfer a freshness gate.
+`tfplan` je executable decision artifact. `tfplan.json` je machine-readable evidence pre policy a review. SHA-256 preukazuje integritu konkrétnych bytes počas transferu. Nepreukazuje, že plan je stále fresh voči novému state serialu alebo remote driftu. Apply musí preto odmietnuť stale plan podľa state a platform semantics.
 
-## 8. Risk nie je počet plan actions
-
-Atlas klasifikuje change podľa mechanizmu a následku:
+Human-readable summary:
 
 ```text
-20 tag updates
-→ nízke runtime riziko
-
-1 route-table replacement
-→ možný výpadok celého environmentu
-
-1 IAM policy update
-→ privilege expansion
-
-1 database replacement
-→ data a identity risk
+Plan: 12 to add, 3 to change, 0 to destroy.
 ```
 
-Risk decision zohľadňuje:
+nie je dostatočný risk model. Jediný IAM privilege expansion alebo stateful resource replacement môže mať vyššie riziko než stovky tag updates.
 
-- create/update/replace/destroy,
-- stateful a identity-bearing resources,
-- network a IAM exposure,
-- data migration,
-- reversibility,
-- shared dependencies,
-- environment a blast radius,
-- novelty a incident history.
+## 8. Apply nie je jedna ACID transakcia
 
-Policy as Code môže rozhodnutie podporiť, ale potrebuje versionovanie, tests, vysvetliteľné findings a exception lifecycle. Tool error alebo nevyhodnotiteľný plan nie je pass.
-
-## 9. Apply nie je jedna transakcia
-
-Infra API neposkytujú jednu ACID transakciu pre celý graph. Počas apply môže:
-
-- resource vzniknúť, ale response sa stratiť,
-- remote operácia pokračovať po timeout-e,
-- časť graphu uspieť a časť zlyhať,
-- state write zlyhať po úspešnej remote mutation,
-- provider vidieť eventual-consistency 404,
-- externý side effect zostať bez state reprezentácie.
-
-Preto apply verdict musí odlíšiť:
+Terraform graph môže obsahovať desiatky remote operácií. Cloud API a state backend netvoria jednu transakciu. Reálne outcomes zahŕňajú:
 
 ```text
 no mutation
 known partial mutation
-unknown remote outcome
-mutation complete, state commit failed
+remote request accepted, outcome unknown
+remote mutation complete, state write failed
 state committed, runtime verification failed
 complete success
 ```
 
-Slepý retry je bezpečný iba vtedy, keď je predchádzajúci outcome známy alebo reconciliation preukáže idempotentný stav.
+Provider timeout po create requeste neznamená, že objekt nevznikol. Backend write failure po remote success znamená, že actual state a known state sa rozdelili.
 
-## 10. State je identity a recovery boundary
-
-State viaže Terraform address na remote identity:
+Evidence-preserving containment pri neznámom outcome-e je:
 
 ```text
-module.network.example_subnet.private["az-a"]
-→ subnet-123
+zastaviť ďalších writers
+→ zachovať plan, logs, request IDs a recovery state
+→ read-only overiť backend lineage/serial
+→ read-only overiť remote inventory
+→ rozhodnúť import/restore/compensation
+→ nový fresh plan
+→ runtime a business verification
 ```
 
-State môže obsahovať sensitive attributes, dependencies, provider metadata, lineage a serial. Nie je iba performance cache.
+Slepý retry môže vytvoriť duplicate NAT gateway, druhú DNS mutation alebo opakovať nevratný external side effect.
 
-Backend preto potrebuje:
+## 9. State boundary je zároveň blast-radius boundary
 
-- encryption,
-- least-privilege access,
-- locking,
-- atomic write semantics,
-- versioning a backup,
-- audit,
-- testovaný restore.
+Jeden Terraform state zdieľa:
 
-State boundary zároveň určuje blast radius, lock contention, apply permissions, ownership a recovery scope. Príliš veľký state spája nesúvisiace failure domains; príliš malé states vytvárajú množstvo cross-state contracts.
+- lock a writer queue;
+- apply identity a permissions;
+- plan/recovery lifecycle;
+- dependency graph;
+- incident blast radius;
+- backup a restore unit.
 
-Atlas oddeľuje `prod-eu` od developmentu samostatným accountom, backend keyom, identity, policy a recovery plánom. Environment nie je iba variable `environment = "prod"`.
+Samostatný module nie je automaticky samostatný state. Module je code/interface boundary. State boundary vzniká samostatným root module, backend subjectom a execution lifecycle-om.
 
-## 11. Worked failure: break-glass containment bolo automaticky revertované
+Atlas oddeľuje network, shared data platform a application runtime vtedy, keď majú rozdielny ownership, security domain, cadence a recovery. Nerozdeľuje ich iba preto, aby mal viac adresárov. Príliš veľký state vytvára široké permissions a lock contention; príliš malé states vytvárajú krehké cross-state contracts.
 
-Počas incidentu security engineer manuálne zablokoval škodlivý CIDR v produkčnom firewall-e. Emergency action mala ownera, ale nebola zaznamenaná do dočasného desired-state override-u. O desať minút scheduled Terraform apply použil pôvodnú configuration.
+## 10. Worked incident `IAC-PAY-75`
+
+Atlas pipeline mala aplikovať zmenu v `prod-eu`. Partial backend configuration však použila key:
 
 ```text
-incident controller pridá deny rule
-→ actual state sa vedome odchýli
-→ scheduled plan klasifikuje rozdiel iba ako drift
-→ automatický apply rule odstráni
-→ attack traffic sa vráti
+payments/prod-eu/platform-v2.tfstate
 ```
 
-### Príčina
-
-Automation nepoznala intent ani dočasný ownership transfer. Drift policy zamieňala neautorizovanú zmenu s aktívnym incidentným controlom.
-
-### Náprava
-
-Atlas zaviedol break-glass lifecycle:
+namiesto autoritatívneho:
 
 ```text
-authenticated emergency mutation
-→ incident record + owner + expiry
-→ pause conflicting reconciliation
-→ capture remote diff
-→ encode temporary alebo permanent desired state
-→ reviewed reconciliation
-→ revoke emergency capability
+payments/prod-eu/platform.tfstate
 ```
 
-Skorší control nie je zákaz všetkých manuálnych zásahov, ale schopnosť rozpoznať ich intent a uzavrieť ich späť do authoritative workflowu.
-
-## 12. Worked failure: remote create uspel, state commit zlyhal
-
-Apply `PL412` vytvoril NAT gateway. Následne runner stratil prístup k backendu ešte pred zápisom nového state serialu.
+Nový key obsahoval prázdny state. Default provider zároveň zdedil `AWS_REGION=eu-west-1`, hoci produkčný network mal byť v `eu-central-1`.
 
 ```text
-cloud create request accepted
-→ NAT gateway ngw-77 vznikne
-→ backend write zlyhá
-→ state S208 objekt nepozná
-→ job skončí failed
+správny source revision
++ nesprávny backend key
++ validná production identity
++ nesprávny default region
+→ plan ukáže čistý create
+→ policy vidí 0 destroy
+→ apply vytvorí druhú VPC v eu-west-1
+→ backend write zlyhá po remote create
+→ job skončí failed bez bindingu
 ```
 
-Slepý retry by mohol vytvoriť ďalší platený gateway alebo zlyhať na duplicate constraint-e.
+Všetky lokálne signály mohli zavádzať:
 
-### Správny recovery
+- HCL bolo validné;
+- credentials boli platné;
+- plan neobsahoval destroy;
+- cloud create uspel;
+- pipeline skončila failed, takže operátor predpokladal, že sa nič nevytvorilo.
 
-1. zastaviť ďalšie applies nad týmto state;
-2. zachovať provider logs a cloud request ID;
-3. overiť remote objekt cez read-only observation;
-4. zálohovať state a potvrdiť lineage/serial;
-5. vytvoriť nový refresh/plan bez mutation;
-6. importovať alebo opraviť binding iba po potvrdení identity;
-7. overiť runtime routing a nový state serial;
-8. zaznamenať unknown-outcome failure ako osobitnú triedu.
+Skutočný root cause bol nesprávny IaC subject a neuzavretý state transition.
 
-## 13. Kauzálny diagnostický walkthrough
+## 11. Competing hypotheses a diskriminačné dôkazy
 
-Symptom: nový plan navrhuje vytvoriť druhý production network, hoci cloud console už zobrazuje sieť `atlas-prod-eu`.
-
-### Krok 1 — stabilizuj subject
+Symptom: cloud console ukazuje dve VPC s podobnými tags, Terraform plan stále navrhuje create.
 
 ```text
-configuration          C71
-backend/state key      atlas/prod-eu/platform
-lineage/serial         L9/S208
-workspace              prod-eu
-target account/region  atlas-prod/eu-central-1
-provider lock          P6
-predchádzajúci apply   PL412
+H1: pipeline používa nesprávny backend key
+H2: správny state bol obnovený zo starého snapshotu
+H3: resource address sa zmenila bez moved/import contractu
+H4: remote create uspel, ale state write zlyhal
+H5: objekt vytvoril iný owner mimo Terraformu
+H6: konzola zobrazuje iný account alebo region
 ```
 
-### Krok 2 — formuluj konkurenčné hypotézy
+Diskriminačné observation points:
+
+```bash
+terraform workspace show
+terraform state pull > recovery-state.json
+jq '{lineage,serial}' recovery-state.json
+aws sts get-caller-identity
+aws ec2 describe-vpcs \
+  --filters 'Name=tag:Application,Values=payments' \
+  --query 'Vpcs[].{VpcId:VpcId,Cidr:CidrBlock,Tags:Tags}'
+```
+
+State lineage/serial a backend key testujú H1/H2. Git diff a resource addresses testujú H3. Cloud audit request ID a creation identity testujú H4/H5. Caller account a region testujú H6.
+
+`describe-vpcs` preukazuje remote inventory dostupný danému callerovi v zvolenom regione. Nepreukazuje Terraform ownership ani správny state binding. `state pull` preukazuje backend snapshot, nie live health objektov.
+
+## 12. Authoritative recovery
+
+Atlas recovery postupuje bez okamžitého destroy:
+
+1. zastaví všetky applies nad oboma candidate backend keys;
+2. zachová plan, state snapshots, provider logs a cloud audit request IDs;
+3. identifikuje správnu produkčnú VPC podľa accountu, regionu, CIDR, routes a runtime trafficu;
+4. identifikuje orphaned VPC vytvorenú chybným runom;
+5. obnoví správny backend configuration a state lineage;
+6. podľa remote reality vykoná import alebo kontrolovaný cleanup orphanu;
+7. vytvorí nový saved plan nad správnym subjectom;
+8. overí network path a kritickú payment journey;
+9. spustí druhý plan a zakázaný alternate-backend test.
+
+Acceptance nie je iba `terraform plan = no changes`. Zahŕňa:
 
 ```text
-H1: pipeline používa nesprávny backend alebo workspace
-H2: configuration address sa zmenila bez moved/import contractu
-H3: remote create uspel, ale state write zlyhal
-H4: cloud objekt vytvoril iný owner mimo Terraformu
-H5: console ukazuje iný account alebo region
-H6: provider refresh je stale pre eventual consistency
-H7: state bol obnovený zo starého snapshotu
+správny backend key a lineage
++ správny account/region
++ jediný intended network object
++ správne state bindings
++ zdravé routes a service connectivity
++ second plan no-op
++ forbidden backend/region mismatch odmietnutý pred mutation
 ```
 
-### Krok 3 — vyber diskriminačné observation points
+## 13. Praktický pipeline gate
 
-- backend key, lineage a serial testujú H1/H7;
-- resource addresses a Git diff testujú H2;
-- provider logs, cloud audit request ID a timestamps testujú H3/H4;
-- caller identity, account a region testujú H5;
-- priame read API a opakovaný refresh po propagation window testujú H6;
-- state version history ukáže, či novší serial existoval a bol prepísaný.
+Minimálny pre-apply shell gate môže explicitne overiť target:
 
-Atlas nájde úspešný cloud create request z apply identity, ale žiadny následný state write. H3 je potvrdená.
+```bash
+set -euo pipefail
 
-### Krok 4 — contain-ni mutation boundary
+expected_account="771100001234"
+expected_region="eu-central-1"
 
-State pipeline sa uzamkne a ďalšie applies sa zastavia. Nespúšťa sa destroy ani create.
+actual_account="$(aws sts get-caller-identity --query Account --output text)"
+actual_region="$(aws configure get region)"
 
-### Krok 5 — obnov dôveryhodný outcome
+[[ "$actual_account" == "$expected_account" ]]
+[[ "$actual_region" == "$expected_region" ]]
 
-Remote network sa identifikuje podľa request ID, accountu, regionu, CIDR a tags. Po backup-e state sa objekt importuje na správnu address, vytvorí sa nový plan a overí sa `no duplicate create`.
-
-### Krok 6 — over pôvodný outcome
-
-```text
-state address → správne remote ID
-plan → no duplicate network
-routing a subnets → zdravé
-state serial → nový a auditovaný
-runtime critical journey → prejde
+terraform init -input=false -backend-config=backend-prod-eu.hcl
+terraform workspace show | grep -Fx 'default'
+terraform plan -input=false -out=tfplan
+terraform show -json tfplan > tfplan.json
 ```
 
-### Krok 7 — vráť learning
+Tento gate zastaví jednoduchý account/region mismatch. Nepreukazuje správnu lineage, resource ownership ani runtime outcome. Tie vyžadujú ďalšie state, policy a post-apply observations.
 
-Finding sa zmení na backend availability gate, unknown-outcome verdict, cloud request-ID evidence a runbook pre state-commit failure.
+## 14. Anti-patterny
 
-## 14. Drift lifecycle
+### „Git je source of truth, preto cloud console ignorujeme“
 
-Drift môže byť:
+Git je authoritative pre desired declaration. Remote API a state sú nevyhnutné observation a identity vrstvy.
 
-- **remote drift** — objekt zmenil iný writer;
-- **configuration drift** — environments alebo branches sa neúmyselne rozchádzajú;
-- **state drift** — binding alebo snapshot nezodpovedá remote realite;
-- **provider drift** — nová verzia interpretuje rovnaký objekt inak;
-- **dependency drift** — mutable module alebo external data zmenili plan;
-- **ownership drift** — nový controller začal meniť atribút bez aktualizácie contractu.
+### „Plan nemá destroy, takže je bezpečný“
 
-Riadený flow je:
+Duplicate create, privilege expansion, wrong-region mutation alebo stateful replacement môžu byť kritické bez destroy countu.
 
-```text
-scheduled refresh/plan
-→ classify drift + intent
-→ determine authoritative owner
-→ revert | adopt | repair | transfer ownership
-→ update code/state
-→ verify runtime
-→ close exception
-```
+### „Apply failed, teda sa nič nezmenilo“
 
-Automaticky adoptovať všetko legitimizuje ClickOps. Automaticky revertovať všetko môže zrušiť incidentný containment.
+Remote mutation môže uspieť pred timeoutom alebo state-write failure.
 
-## 15. Identity, secrets a separation of duties
+### „Drift automaticky revertujeme“
 
-Atlas oddeľuje:
+Najprv treba klasifikovať intent a ownership. Break-glass containment môže byť legitímny dočasný desired state.
 
-- validation identity,
-- plan/read identity,
-- production apply identity,
-- state-recovery identity,
-- break-glass identity.
+### „Idempotentný nástroj vyrieši retry“
 
-Preferovaný model je short-lived workload identity viazaná na repository, ref, environment, backend a job purpose. Jedna permanentná admin credential pre všetky states ruší blast-radius kontrolu.
+Idempotencia závisí od správnej identity a bindingu. Retry nad prázdnym state-om môže vytvoriť ďalší objekt.
 
-`sensitive` alebo redaction obmedzuje presentation. Nezaručuje, že hodnota nie je v state, provider requeste alebo job memory. Secrets patria do external secret/identity lifecycle-u a state backend sa chráni ako citlivý systém.
+## 15. Kontrolné otázky
 
-## 16. Recovery sa navrhuje pred apply
+1. Prečo Git commit nie je úplný IaC change subject?
+2. Aký je rozdiel medzi desired, known a actual state?
+3. Čo state binding preukazuje a čo nepreukazuje?
+4. Prečo deklaratívny nástroj stále potrebuje failure model pre imperatívne remote operácie?
+5. Kedy je `ignore_changes` legitímny ownership contract a kedy iba skrytie driftu?
+6. Čo preukazuje saved plan digest a čo nepreukazuje?
+7. Prečo `0 to destroy` nie je bezpečnostný verdict?
+8. Aké outcomes môžu vzniknúť medzi provider mutation a state commitom?
+9. Prečo module boundary nie je automaticky state boundary?
+10. Ktoré observation points odlíšia wrong backend od lost state write-u?
+11. Ako sa overí forbidden alternate-account alebo alternate-backend path?
+12. Prečo musí acceptance obsahovať druhý operation alebo no-op plan?
 
-Pred high-risk change treba poznať:
+## Glossary impact
 
-- last compatible configuration a artifacts,
-- state backup a restore postup,
-- replace/destroy behavior,
-- data a identity preservation,
-- rollback verzus roll-forward limity,
-- compensating operations,
-- external side effects,
-- runtime oracle a RPO/RTO.
+Relevantné pojmy: Infrastructure as Code, desired state, known state, actual state, authoritative writer, reconciliation, idempotencia, convergence, reproducibility, change subject, saved plan, remote mutation, partial outcome, unknown outcome, state binding, lineage, serial, blast radius, evidence-preserving containment a second-operation validation.
 
-Git revert zmení desired configuration. Automaticky nevráti remote infraštruktúru, dáta ani state binding. Nový plan môže navrhnúť ďalšiu replacement, preto sa recovery vždy odvodzuje z aktuálneho state-delta inventory.
-
-## 17. Evidence closure
-
-Dôveryhodný Atlas change record prepája:
-
-```text
-CHG-314-EU
-→ source C71 + resolved inputs P6/M12/V31
-→ backend L9/S208
-→ saved plan PL412 + policy verdict
-→ approval subject
-→ apply identity + provider request IDs
-→ nový state serial
-→ runtime verification
-→ drift/recovery outcome
-```
-
-Evidence sa uchováva podľa support, rollback a compliance potreby. Green apply bez runtime oracle alebo bez potvrdeného state commit-u je neúplný verdict.
-
-## 18. Diagnostický runbook
-
-1. Urči change, configuration, toolchain, target a state subject.
-2. Oddeľ desired, known a actual remote state.
-3. Over authoritative ownera každého sporného atribútu.
-4. Skontroluj saved plan digest, freshness a approval väzbu.
-5. Identifikuj posledný úspešný apply transition a remote request IDs.
-6. Rozlíš no-op, partial mutation, unknown outcome, state-write failure a runtime failure.
-7. Pred retry refreshni observations bez neuváženej mutation.
-8. Zvoľ import, state repair, rollback, roll-forward, compensation alebo restore podľa actual delta.
-9. Over state binding aj pôvodný runtime/business outcome.
-10. Zmeň finding na ownership, identity, plan, backend alebo recovery control.
-
-## 19. Referenčné pravidlá
-
-- Repository je authoritative pre desired configuration, nie automaticky pre remote reality.
-- Plan je subject-bound predikcia, nie garancia.
-- Apply nie je jedna transakcia.
-- State je identity a recovery boundary, nie iba cache.
-- Environment potrebuje samostatný target, backend a identity contract.
-- Risk sa odvodzuje z mechanizmu a následku, nie z počtu actions.
-- Break-glass je platný iba s expiry, reconciliation a revokáciou.
-- Drift sa najprv klasifikuje podľa intentu a ownershipu.
-- Retry nasleduje po outcome reconciliation.
-- Apply success vyžaduje state commit aj runtime verification.
-
-## 20. Časté omyly
-
-### „Deklaratívne znamená bez side effects“
-
-Poradie a side effects zostávajú v graph-e, providerovi a remote API.
-
-### „Plan je bezpečný, lebo je zelený“
-
-Môže byť stale, pre nesprávny target alebo bez úplnej policy evidence.
-
-### „Failed apply nič nezmenil“
-
-Remote mutation mohla uspieť pred timeoutom alebo state write failure.
-
-### „Git revert je rollback infraštruktúry“
-
-Je to nový desired state, ktorý potrebuje nový plan a compatibility decision.
-
-### „Každý drift treba automaticky revertovať“
-
-Drift môže reprezentovať aktívny incidentný control alebo ownership transfer.
-
-## 21. Zhrnutie
-
-Dôveryhodný IaC lifecycle je:
-
-```text
-intent a ownership
-→ immutable desired-state subject
-→ správny target a state snapshot
-→ čerstvý saved plan
-→ risk decision
-→ serialized scoped apply
-→ remote/state reconciliation
-→ runtime verification
-→ drift a recovery closure
-```
-
-IaC troubleshooting nehľadá iba chybu v HCL. Rekonštruuje identitu configuration, state, targetu, provider operácií a runtime outcome-u a určuje prvú hranicu, na ktorej sa desired, known a actual state rozišli.
-
-## Oficiálna dokumentácia
+## Primárne zdroje
 
 - [Terraform language overview](https://developer.hashicorp.com/terraform/language)
 - [Terraform state](https://developer.hashicorp.com/terraform/language/state)
-- [Create a Terraform plan](https://developer.hashicorp.com/terraform/cli/commands/plan)
-- [Apply a Terraform plan](https://developer.hashicorp.com/terraform/cli/commands/apply)
+- [Purpose of Terraform state](https://developer.hashicorp.com/terraform/language/state/purpose)
+- [Terraform backends](https://developer.hashicorp.com/terraform/language/state/backends)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Security scanning](../06-gitlab/security-scanning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform providers, resources a data sources →](terraform-providers-resources-data-sources.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
