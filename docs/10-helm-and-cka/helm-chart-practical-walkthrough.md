@@ -384,13 +384,11 @@ helm upgrade --install payments-dev . \
   --history-max 10
 ```
 
-Význam flags:
+Tento príkaz má dve vstupné vetvy. `--install` dovolí vytvoriť release, keď ešte neexistuje; pri existujúcom release-e sa vykonáva upgrade z aktuálnej revision na candidate generation. Preto pred prvým spustením aj opakovaným upgrade-om musí byť rovnaký release name, namespace a chart source súčasťou exact subjectu.
 
-- `--install` vytvorí release, ak ešte neexistuje;
-- `--atomic` pri zlyhaní upgrade-u požiada Helm o rollback a automaticky zapína čakanie;
-- `--wait` čaká na vybrané Kubernetes readiness conditions;
-- `--timeout` ohraničí čakanie, nie celý business recovery čas;
-- `--history-max` obmedzí počet uložených revisions.
+`--wait` čaká na vybrané Kubernetes readiness conditions a `--timeout 5m` ohraničuje toto čakanie. Nejde o päťminútový business recovery limit a úspešné čakanie nepreukazuje funkčnú Service cestu, správne načítanú konfiguráciu ani payment outcome. Tieto hranice sa overujú samostatnými runtime a business testami po release transition.
+
+`--atomic` pri neúspešnom upgrade-e požiada Helm o návrat k predchádzajúcemu release state-u a automaticky zapína čakanie. Nevracia však databázovú migráciu, odoslaný event ani externý side effect. `--history-max 10` iba obmedzuje počet Helm revisions uchovaných pre release; nemení retention externých dát ani kompatibilitu rollbacku. Flags teda znižujú mechanické riziko transition, ale nenahrádzajú recovery rozhodnutie.
 
 Po úspechu načítaj Helm evidence:
 
