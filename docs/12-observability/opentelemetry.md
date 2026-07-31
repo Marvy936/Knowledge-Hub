@@ -47,7 +47,7 @@ tracesBackend: tempo atlas-production
 
 Resource attributes identifikujú entity, ktorá telemetry produkuje. Instrumentation scope identifikuje library/component, ktorý signal vytvoril. Span/metric/log fields opisujú operation alebo event. `service.name` sa nesmie meniť podľa Pod alebo hostname; ephemeral identity patrí do `service.instance.id` alebo platform attributes podľa semantic conventions.
 
-Current semantic conventions sú versionované a jednotlivé convention groups môžu mať rôzny stability status. Upgrade instrumentation package preto potrebuje schema diff a consumer compatibility test, nie iba dependency update. citeturn886976search2turn886976search8
+Current semantic conventions sú versionované a jednotlivé convention groups môžu mať rôzny stability status. Upgrade instrumentation package preto potrebuje schema diff a consumer compatibility test, nie iba dependency update.
 
 ## Tracer, Meter a Logger provider
 
@@ -252,7 +252,7 @@ Producer unit `ms` a dashboard assumption `s` vytvoria 1000× error bez transpor
 
 ## Sampling
 
-Head sampler rozhodne pred final outcome. Parent-based behavior rešpektuje upstream sampling decision podľa configuration. Tail sampling umožní outcome-aware policy, ale pridáva buffering, decision wait a trace-affinity requirements. citeturn886976search4turn886976search12
+Head sampler rozhodne pred final outcome. Parent-based behavior rešpektuje upstream sampling decision podľa configuration. Tail sampling umožní outcome-aware policy, ale pridáva buffering, decision wait a trace-affinity requirements.
 
 Sampling affects traces, not automatically metrics/logs. Span-derived metrics inherit sampled population unless metrics-generator has another source. Audit alebo billing truth nesmie byť probabilistically sampled.
 
