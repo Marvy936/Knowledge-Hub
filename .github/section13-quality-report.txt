@@ -12,7 +12,7 @@ docs/13-security-and-identity/least-privilege.md|strict=0/0/0|prose=1033|bullet_
 docs/13-security-and-identity/oauth-2.md|strict=0/3/0|prose=1170|bullet_share=0.094|blocks=7|executable=3|explanations=10
 docs/13-security-and-identity/openid-connect.md|strict=0/2/0|prose=1192|bullet_share=0.088|blocks=5|executable=2|explanations=11
 docs/13-security-and-identity/policy-as-code.md|strict=18/29/10|prose=1075|bullet_share=0.444|blocks=14|executable=1|explanations=5
-docs/13-security-and-identity/saml.md|strict=16/23/8|prose=877|bullet_share=0.437|blocks=13|executable=0|explanations=3
+docs/13-security-and-identity/saml.md|strict=0/2/0|prose=1037|bullet_share=0.125|blocks=5|executable=2|explanations=8
 docs/13-security-and-identity/sbom.md|strict=27/31/17|prose=1374|bullet_share=0.431|blocks=6|executable=0|explanations=9
 docs/13-security-and-identity/secrets-management.md|strict=17/23/5|prose=1202|bullet_share=0.368|blocks=14|executable=0|explanations=8
 docs/13-security-and-identity/supply-chain-security.md|strict=20/32/9|prose=1200|bullet_share=0.448|blocks=8|executable=0|explanations=7
@@ -194,53 +194,8 @@ HIGH docs/13-security-and-identity/policy-as-code.md:430 [single-sentence-concep
 HIGH docs/13-security-and-identity/policy-as-code.md:434 [single-sentence-concept] Cache bez revision a digestu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/policy-as-code.md:438 [single-sentence-concept] Permanent audit mode — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/policy-as-code.md:442 [single-sentence-concept] Global exception alebo fail-open — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/saml.md:25 [single-sentence-concept] 2. Exact SAML subject — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/saml.md:56 [list-heavy-section] 3. Metadata je trust bootstrap — 7 odrážok a iba 45 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/saml.md:56 [bare-bullet-items] 3. Metadata je trust bootstrap — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `entity ID;`, `SSO/SLO a ACS endpoints;`, `bindings;`, `signing a encryption keys;`.
-HIGH docs/13-security-and-identity/saml.md:56 [term-before-explanation] 3. Metadata je trust bootstrap — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SSO`, `SLO`, `ACS`, `policy`
-HIGH docs/13-security-and-identity/saml.md:99 [list-heavy-section] 5. Browser bindings — 7 odrážok a iba 53 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/saml.md:99 [bare-bullet-items] 5. Browser bindings — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS;`, `XML signature;`, `exact endpoint a entity bindingu;`, `request/response state;`.
-MEDIUM docs/13-security-and-identity/saml.md:99 [term-before-explanation] 5. Browser bindings — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `XML`
-HIGH docs/13-security-and-identity/saml.md:115 [list-heavy-section] 6. Secure XML a signed-node binding — 8 odrážok a iba 43 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/saml.md:115 [bare-bullet-items] 6. Secure XML a signed-node binding — 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `limitovať payload, depth, elements a attributes;`, `odmietnuť duplicate IDs;`, `resolve-nuť unique signed element;`, `použiť key iba z trusted entity metadata;`.
-MEDIUM docs/13-security-and-identity/saml.md:115 [short-concept-section] 6. Secure XML a signed-node binding — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/saml.md:115 [term-before-explanation] 6. Secure XML a signed-node binding — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DTD`, `policy`
-MEDIUM docs/13-security-and-identity/saml.md:147 [short-concept-section] 8. Audience, Destination a Recipient — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/saml.md:147 [term-before-explanation] 8. Audience, Destination a Recipient — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP`, `ACS`
-CRITICAL docs/13-security-and-identity/saml.md:245 [outline-instead-of-explanation] 15. Competing hypotheses a discriminating evidence — 14 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/saml.md:245 [bare-bullet-items] 15. Competing hypotheses a discriminating evidence — 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `XML Signature Wrapping;`, `replay legitímnej production assertion;`, `wrong reverse-proxy URL;`, `compromised production IdP;`.
-HIGH docs/13-security-and-identity/saml.md:245 [thin-concept-section] 15. Competing hypotheses a discriminating evidence — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/saml.md:245 [term-before-explanation] 15. Competing hypotheses a discriminating evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `XML`, `URL`
-CRITICAL docs/13-security-and-identity/saml.md:269 [no-prose-concept] 16. Evidence-preserving containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/saml.md:269 [list-first-introduction] 16. Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/saml.md:269 [outline-instead-of-explanation] 16. Evidence-preserving containment — 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/saml.md:269 [bare-bullet-items] 16. Evidence-preserving containment — 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť FED-SIGN-07 z production trusted metadata;`, `zablokovať IdP-initiated login pre high-risk SP;`, `zastaviť privileged session creation z affected entity/key interval-u;`, `revoke-nuť affected local sessions a downstream credentials;`.
-HIGH docs/13-security-and-identity/saml.md:269 [thin-concept-section] 16. Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/saml.md:269 [term-before-explanation] 16. Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `SP`, `ID`, `XML`
-CRITICAL docs/13-security-and-identity/saml.md:278 [no-prose-concept] 17. Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/saml.md:278 [list-first-introduction] 17. Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/saml.md:278 [outline-instead-of-explanation] 17. Authoritative recovery — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/saml.md:278 [bare-bullet-items] 17. Authoritative recovery — 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `publikovať trusted production metadata s exact entity ID;`, `obnoviť exact Destination, Recipient, Audience a InResponseTo validati`, `opraviť trusted proxy external-URL configuration;`, `mapovať identity cez entity + NameID format/value;`.
-HIGH docs/13-security-and-identity/saml.md:278 [thin-concept-section] 17. Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/saml.md:278 [term-before-explanation] 17. Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAML`, `OIDC`, `ID`, `URL`, `identity`
-CRITICAL docs/13-security-and-identity/saml.md:291 [no-prose-concept] 18. Acceptance verdict — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/saml.md:291 [list-first-introduction] 18. Acceptance verdict — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/saml.md:291 [outline-instead-of-explanation] 18. Acceptance verdict — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/saml.md:291 [bare-bullet-items] 18. Acceptance verdict — 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `validly signed staging assertion je v production odmietnutá;`, `unsigned/extra/ambiguous assertion a wrapping fixture zlyhajú;`, `same-email subject z inej entity neprevezme účet;`, `untrusted Role attribute nevytvorí privilege;`.
-HIGH docs/13-security-and-identity/saml.md:291 [thin-concept-section] 18. Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/saml.md:291 [term-before-explanation] 18. Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP`, `SLO`, `JIT`
-CRITICAL docs/13-security-and-identity/saml.md:304 [empty-section] 19. Troubleshooting flow — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/saml.md:321 [no-prose-concept] 20. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/saml.md:321 [list-first-introduction] 20. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/saml.md:321 [outline-instead-of-explanation] 20. Earlier controls — 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/saml.md:321 [bare-bullet-items] 20. Earlier controls — 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signed metadata refresh a rollover canary;`, `required SP-initiated flow pre privileged applications;`, `secure parser a wrapping regression fixtures;`, `exact external ACS test za reverse proxy;`.
-HIGH docs/13-security-and-identity/saml.md:321 [thin-concept-section] 20. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/saml.md:321 [term-before-explanation] 20. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP-`, `ACS`, `identity`
-HIGH docs/13-security-and-identity/saml.md:335 [single-sentence-concept] Trusted certificate = trusted IdP — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/saml.md:339 [single-sentence-concept] Valid signature = valid SAML login — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/saml.md:343 [single-sentence-concept] Recipient validation vypnutá za proxy — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/saml.md:347 [single-sentence-concept] IdP role = application role — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/saml.md:351 [single-sentence-concept] SLO = complete revocation — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/saml.md:7 [list-first-introduction] Metadata-to-session lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/13-security-and-identity/saml.md:25 [list-first-introduction] Exact SAML subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/13-security-and-identity/sbom.md:20 [outline-instead-of-explanation] 1. Exact SBOM subject — 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
 CRITICAL docs/13-security-and-identity/sbom.md:20 [bare-bullet-items] 1. Exact SBOM subject — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OCI image index alebo platform manifest digest;`, `package archive hash;`, `firmware alebo VM image digest;`, `source repository a exact revision pre source SBOM;`.
 MEDIUM docs/13-security-and-identity/sbom.md:20 [short-concept-section] 1. Exact SBOM subject — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
@@ -630,8 +585,6 @@ policy-as-code.md: strict findings
 policy-as-code.md: bullet share 0.444
 policy-as-code.md: practical examples too thin
 saml.md: strict findings
-saml.md: bullet share 0.437
-saml.md: practical examples too thin
 sbom.md: strict findings
 sbom.md: bullet share 0.431
 sbom.md: practical examples too thin
