@@ -1,8 +1,10 @@
 # Container Fundamentals and Docker
 
-Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker Engine, images, networking, storage, security, Dockerfile, Compose, BuildKit a systematické troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, image, runtime, build, distribution, configuration a lifecycle modelu.
+Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker Engine, images, networking, storage, security, Dockerfile, Compose, BuildKit a systematické troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, artifact, build, runtime, distribution, configuration, data a recovery modelu.
 
-Containers nadväzujú na Linux namespaces, cgroups, capabilities, networking, filesystems, artifact versioning, registries, CI/CD a Infrastructure as Code. Docker je konkrétna platforma a toolchain nad širšími container a OCI princípmi.
+Containers nadväzujú na Linux namespaces, cgroups, capabilities, networking, filesystems, artifact versioning, registries, CI/CD a Infrastructure as Code. Docker je konkrétna platforma a toolchain nad širšími container a OCI princípmi. Sekcia preto oddeľuje source, build graph, image/index/config/layers, registry digest, Engine object, kernel-backed process boundary, mounted data, network flow, health verdict a business outcome.
+
+Pôvodných 18 prose-first kapitol zostáva authoritative. Praktická remediation pridáva jeden celý executable Docker projekt, pretože samostatné Dockerfile, Compose, BuildKit a troubleshooting snippets nepreukazujú, že čitateľ vie zostaviť a overiť celý source-to-runtime lifecycle.
 
 ## Predpoklady
 
@@ -14,7 +16,7 @@ Odporúča sa najprv dokončiť:
 - [GitLab](../06-gitlab/README.md),
 - [Infrastructure as Code and Configuration Management](../07-infrastructure-as-code-and-configuration-management/README.md).
 
-## Odporúčané poradie
+## Authoritative poradie — aktívne kapitoly
 
 1. [Containers vs. virtual machines](containers-vs-virtual-machines.md)
 2. [Namespaces, cgroups a capabilities](namespaces-cgroups-capabilities.md)
@@ -33,9 +35,22 @@ Odporúča sa najprv dokončiť:
 15. [Environment variables a health checks](environment-variables-health-checks.md)
 16. [Docker Compose](docker-compose.md)
 17. [BuildKit a Buildx](buildkit-buildx.md)
-18. [Docker troubleshooting](docker-troubleshooting.md)
+18. [Praktický Docker projekt od Dockerfile-u po overený Compose runtime](docker-practical-walkthrough.md)
+19. [Docker troubleshooting](docker-troubleshooting.md)
 
 Po tejto sekcii nasleduje Kubernetes. Docker a OCI model poskytujú základ pre pochopenie Pod sandboxu, container runtime interface, image pullu, probes, Services, volumes, security contextu a node-level troubleshooting.
+
+## Hlavný praktický walkthrough
+
+Kapitola [Praktický Docker projekt od Dockerfile-u po overený Compose runtime](docker-practical-walkthrough.md) vytvára malú Go HTTP službu s health, readiness, version a persistentným payment write/read contractom. Následne prechádza celý source tree, unit testy, `.dockerignore`, multi-stage Dockerfile, explicitný BuildKit test target, local single-platform build, image config a filesystem inspection, constrained `docker run`, non-root volume initialization, PID 1 a signal handling, health history, host port, named-volume persistence, Compose interpolation a resolved model, `depends_on` conditions, service DNS, runtime-hardening read-back, second `compose up`, configuration recreate, multi-platform registry publication, digest-pinned consumption a evidence-preserving troubleshooting.
+
+Walkthrough obsahuje reálny Go source, testy, Dockerfile, Compose YAML, Bash a PowerShell commands, `jq`/`yq` assertions a GitLab release skeleton. Pri každom významnom kroku vysvetľuje, čo output preukazuje a čo ešte nie. Failure paths zahŕňajú container-loopback bind mismatch, volume ownership, mount obscuring, green process health pri zlyhávajúcom business write, mutable tag po scan-e, cgroup OOM a nesprávnu platformu alebo loader.
+
+## Practical-example acceptance contract
+
+Sekcia sa nepovažuje za prakticky hotovú iba preto, že jednotlivé kapitoly obsahujú Docker CLI alebo YAML snippets. Čitateľ musí vedieť prejsť jeden celý projekt od source inputs po verified runtime a vysvetliť identity a authority boundaries medzi Dockerfile-om, BuildKit builderom, image digestom, Docker contextom, container configom, volume-om, networkom a Compose projectom.
+
+Každý významný command musí odpovedať na tri otázky: aký subject číta alebo mení, aký output očakávame a akú hranicu output skutočne dokazuje. `docker buildx build --target test` dokazuje executed test graph, nie final runtime image; `image inspect` dokazuje image metadata, nie effective container config; `docker ps` dokazuje Engine process state, nie readiness; `compose config` dokazuje resolved model, nie mutation; `compose up --wait` dokazuje bounded running/health verdict, nie persistentný business outcome; POST/GET po recreate dokazuje konkrétnu data persistence path, nie backup/restore alebo host-failure recovery.
 
 ## Cieľ zvládnutia
 
@@ -104,25 +119,29 @@ Po dokončení sekcie má byť možné:
 - diagnostikovať disk/inode exhaustion, image pull/platform failure, dynamic linker, permissions, mounts, DNS, MTU a published ports,
 - vytvoriť controlled reproduction a odstrániť root cause cez versionovaný rebuild/recreate workflow namiesto ručného container driftu.
 
-## Stav
+## Revalidation completion gate
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Containers vs. virtual machines | Learning | L2 |
-| Namespaces, cgroups a capabilities | Learning | L2 |
-| OCI image a runtime standards | Learning | L2 |
-| Images, layers a copy-on-write | Learning | L2 |
-| Registries | Learning | L2 |
-| Container networking | Learning | L2 |
-| Container storage | Learning | L2 |
-| Container security | Learning | L2 |
-| Docker architecture | Learning | L2 |
-| Dockerfile | Learning | L2 |
-| Build context a layer cache | Learning | L2 |
-| Multi-stage builds | Learning | L2 |
-| Volumes a bind mounts | Learning | L2 |
-| Docker networks a port publishing | Learning | L2 |
-| Environment variables a health checks | Learning | L2 |
-| Docker Compose | Learning | L2 |
-| BuildKit a Buildx | Learning | L2 |
-| Docker troubleshooting | Learning | L2 |
+Sekcia je `Ready for user review`, keď:
+
+1. všetkých 18 concept kapitol zostáva prose-first a mechanisticky konzistentných;
+2. praktický walkthrough je zaradený do authoritative ordering a navigation chainu;
+3. walkthrough obsahuje kompletný source, test, Dockerfile, Compose model a verification scripts;
+4. build, image, container, network, mount, health, Compose a business states sa nezlievajú;
+5. examples používajú explicitný non-root user, read-only root, bounded writable paths, capability drop a resource limits;
+6. test stage, local runtime, multi-platform publication a digest read-back majú samostatné verdicts;
+7. business údaj prežije container aj Compose recreate v rovnakom data subjecte;
+8. second `compose up` a configuration update rozlišujú no-op reconciliation od controlled replacementu;
+9. failure walkthroughs používajú competing hypotheses, discriminating commands, containment a recovery;
+10. navigation, ledger a learning-depth audit prejdú bez dočasných workflowov alebo closeout skriptov v merge diff-e.
+
+## Aktuálny stav revalidácie
+
+| Blok | Kapitoly | Stav |
+|---|---:|---|
+| Container/OCI/kernel, images, registry, network, storage a security | 8/8 | Complete |
+| Docker Engine, Dockerfile, context/cache a multi-stage build | 4/4 | Complete |
+| Mounts, networking, configuration/health a Compose | 4/4 | Complete |
+| BuildKit/Buildx a troubleshooting | 2/2 | Complete |
+| End-to-end Docker practical walkthrough | 1/1 | Complete |
+
+Celkový authoritative stav: **19/19 · Ready for user review**. Tento stav znamená dokončený repository prose/practical pass; neznamená automatické používateľské schválenie, Accepted, Verified ani Stable. Príkazy boli technicky a syntakticky auditované proti aktuálnemu Docker CLI/Compose/Buildx contractu, ale neboli v tomto repository workflowe spustené proti reálnemu Docker Engine-u alebo registry.

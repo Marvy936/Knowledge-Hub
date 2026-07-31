@@ -830,5 +830,5 @@ Relevantné pojmy: Docker incident subject, original outcome contract, forbidden
 
 **Navigácia**
 
-[← Predchádzajúca: BuildKit a Buildx](buildkit-buildx.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes architecture →](../09-kubernetes/kubernetes-architecture.md)
+[← Predchádzajúca: Praktický Docker projekt od Dockerfile-u po overený Compose runtime](docker-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes architecture →](../09-kubernetes/kubernetes-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
