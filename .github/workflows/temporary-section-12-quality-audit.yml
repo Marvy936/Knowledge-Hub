@@ -23,6 +23,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Apply exact local remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('docs/12-observability/instrumentation-telemetry.md')
+          text = path.read_text(encoding='utf-8')
+          old = "## End-to-end lifecycle\n\n```text"
+          new = (
+              "## End-to-end lifecycle\n\n"
+              "Instrumentation sa správa ako versionovaný production data path, nie ako jednorazové pridanie SDK. "
+              "Každá transition mení, čo responder môže z výsledku usúdiť: producer môže record vytvoriť, "
+              "processor ho transformovať, exporter potvrdiť transport a backend ho až následne sprístupniť query. "
+              "Preto sa celý mechanizmus číta v nasledujúcom poradí a každá boundary má samostatný read-back.\n\n"
+              "```text"
+          )
+          if old in text:
+              path.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
+          PY
       - name: Build Section 12 quality report
         shell: bash
         run: |
@@ -81,10 +102,14 @@ jobs:
           Path('.github/section12-quality-report.txt').write_text('\n'.join(output) + '\n', encoding='utf-8', newline='\n')
           print('\n'.join(output))
           PY
+      - name: Publish remediation and report
+        shell: bash
+        run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/section12-quality-report.txt
+          git add docs/12-observability .github/section12-quality-report.txt
           if ! git diff --cached --quiet; then
-            git commit -m "ci(docs): refresh Section 12 quality report"
+            git commit -m "docs(observability): apply exact Section 12 remediation"
             git push origin HEAD:agent/section-12-practical-prose-revalidation
           fi
