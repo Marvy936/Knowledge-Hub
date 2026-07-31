@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - agent/section-13-practical-prose-revalidation
     paths:
       - "docs/**/*.md"
       - "ROADMAP.md"
@@ -15,6 +16,7 @@ on:
       - "scripts/update_glossary.py"
       - "scripts/audit_learning_depth.py"
       - ".github/workflows/knowledge-navigation.yml"
+      - ".github/section13*"
   pull_request:
     paths:
       - "docs/**/*.md"
@@ -66,6 +68,21 @@ jobs:
 
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
+
+      - name: Close Section 13 practical revalidation
+        if: github.event_name == 'push' && github.ref_name == 'agent/section-13-practical-prose-revalidation' && github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$PYTHON_BIN" .github/section13_closeout.py
+          git checkout origin/main -- .github/workflows/knowledge-navigation.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(security): close practical Section 13 revalidation"
+            git push origin HEAD:agent/section-13-practical-prose-revalidation
+          fi
 
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
