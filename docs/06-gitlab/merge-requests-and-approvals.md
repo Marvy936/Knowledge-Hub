@@ -1,494 +1,222 @@
 # Merge requests a approvals
 
-Merge request (MR) je evidence-driven integration decision nad presným source a target contextom. Git príkaz dokáže spojiť históriu; MR má dokázať, prečo bolo spojenie konkrétneho obsahu povolené.
+Merge request je evidence-driven integration decision nad presným source, target a policy contextom. Git dokáže technicky spojiť histories; MR má preukázať, prečo bolo spojenie konkrétneho candidate-u povolené. Review comment, approval badge ani green branch pipeline samostatne nevytvárajú dôveryhodný merge verdict. Decision musí byť viazaný na exact diff/candidate, current target generation, eligible approvers, resolved discussions, applicable ownership a complete fresh evidence.
+
+MR nie je statická stránka. Source branch sa môže meniť, target branch napredovať, approval rules resetovať alebo nereštartovať, Code Owners sa zmeniť a pipelines môžu patriť branch, merged-results alebo merge-train candidate-u. Každá zmena relevantného subjectu musí invalidovať alebo revalidovať decision evidence.
+
+## 1. Dominantný change-to-merge model
 
 ```text
-change intent
-→ source SHA a diff
-→ review a discussion outcomes
-→ applicable ownership a approval policy
-→ fresh pipeline evidence nad správnym candidate
-→ mergeability verdict
-→ final merge SHA
-→ artifact a deployment provenance
+change intent a issue/risk context
+→ exact source SHA a current target SHA
+→ diff a synthetic merge candidate
+→ reviewer/discussion outcomes
+→ applicable Code Owner a approval rules
+→ complete fresh pipeline/security evidence
+→ mergeability a policy verdict
+→ final merge action
+→ merged commit SHA a mainline read-back
+→ post-merge invalidation alebo incident closure
 ```
 
-Nosný model je:
+Approval je decision nad subjectom, nie trvalý súhlas s branch name. Force-push alebo target movement môže zmeniť bytes, ktoré sa mergnú.
+
+## 2. Exact merge-decision subject
+
+```yaml
+mergeDecisionSubject:
+  projectId: 481
+  mergeRequestIid: 1842
+  sourceBranch: feature/provider-routing-v18
+  sourceSha: 8e21b8d
+  targetBranch: main
+  targetSha: 53d92af
+  candidateSha: d94e1c6
+  diffVersionId: 9021
+  pipeline:
+    id: 771184
+    type: merged-results
+    sha: d94e1c6
+  approvalPolicyGeneration: mr-policy-pay-31
+  codeOwnerGeneration: codeowners-44
+  requiredApprovals:
+    payments-codeowners: 1
+    security: 1
+    database: 1
+  unresolvedDiscussions: 0
+```
+
+MR IID bez project ID nie je globally unique. Source SHA bez target/candidate SHA nepreukazuje integrated result. Pipeline ID bez type/sha môže patriť branch state-u.
+
+## 3. Practical MR API read-back
+
+```bash
+curl --fail --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "$GITLAB_URL/api/v4/projects/481/merge_requests/1842" \
+  | jq '{iid,state,sha,diff_refs,merge_status,detailed_merge_status,blocking_discussions_resolved,head_pipeline}'
+```
+
+Output preukazuje GitLab API representation v čase query. Nepreukazuje complete approval-rule evaluation, Code Owner freshness ani actual final merge candidate po ďalšom target update. Approval a pipeline endpoints sa čítajú samostatne a merge request sa znovu fetch-ne tesne pred merge action.
+
+Approval state:
+
+```bash
+curl --fail --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "$GITLAB_URL/api/v4/projects/481/merge_requests/1842/approvals" \
+  | jq '{approved,approvals_required,approvals_left,approved_by,rules}'
+```
+
+Tento output preukazuje current approval API. Nepreukazuje independent judgment, že approvers review-li current diff, ani že alternate merge path rovnaké rules presadí.
+
+## 4. Reviewer, approver a Code Owner
+
+Reviewer vykonáva technical review a discussion. Approver je subject eligible pre approval rule. Code Owner je ownership signal odvodený z matched paths a branch/rule semantics. Jeden user môže zastávať viac rolí, no policy má riešiť conflict of interest a separation of duties.
+
+Code Owners rule je účinná iba ak matched paths, protected branch settings a approval requirement fungujú spolu. Pattern error alebo file move môže zmeniť ownership. Generated, vendored alebo infrastructure files potrebujú explicitného ownera.
+
+## 5. Approval freshness
+
+Approval má byť resetnuté alebo explicitne revalidated po zmene source SHA, meaningful diff, target/candidate alebo approval policy. GitLab settings sa môžu správať rozdielne podľa version/tier. Dôveryhodný project zaznamenáva expected reset semantics a testuje ich.
 
 ```text
-presný decision subject
-+ úplné a čerstvé evidence
-+ aplikovateľná policy
-→ mergeability verdict
+approved subject d94e1c6
+→ source force-push vytvorí candidate e11a902
+→ approvals pre old subject sú stale
+→ rules a evidence sa re-evaluate
 ```
 
-Ak sa zmení source SHA, target context, pipeline candidate alebo policy, predchádzajúce rozhodnutie môže byť stale.
+Approval timestamp po force-push nie je sám o sebe proof, ak GitLab retained approval podľa configuration.
 
-Konkrétne approval, merged-results a merge-train capabilities sa menia podľa GitLab offeringu, tieru, verzie a konfigurácie. Stabilný je princíp subject identity, evidence freshness a integration-race kontroly.
+## 6. Pipeline context
 
-## 1. Priebežný scenár: Jana a Atlas Payments
+Branch pipeline testuje source branch. Merge-request pipeline používa MR context. Merged-results pipeline testuje synthetic merge result. Merge train testuje candidate v poradí s predchodcami. Required context závisí od concurrency modelu.
 
-Jana mení payment API v branchi `feature/idempotency`. MR obsahuje:
+Ak viac MRs môže byť schválených proti rovnakému targetu, branch-green evidence je stale po merge prvého. Merge train alebo fresh merged-result pipeline uzatvára integration race.
 
-- aplikačnú zmenu;
-- databázovú migration;
-- úpravu `.gitlab-ci.yml`;
-- nové idempotency testy.
+## 7. Discussions a review evidence
 
-Prvá branch pipeline prejde. Počas review sa však `main` posunie zmenou request modelu. Janina zelená branch pipeline stále dokazuje iba jej source SHA, nie výsledok spojenia s aktuálnym targetom.
+Unresolved discussion môže reprezentovať blocking defect, no resolved status samostatne nepreukazuje fix. Reviewer môže discussion resolve-núť bez code change alebo source sa môže neskôr zmeniť. Review closure má byť korelovaná s diff version a relevantným commitom.
 
-GitLab vytvorí merged-result candidate:
+Checklist nemá nahrádzať mechanistic review. Security-sensitive change potrebuje threats/permissions/evidence, database change mixed-version contract a pipeline change resolved graph/trust review.
+
+## 8. Merge methods
+
+Merge commit, squash, rebase a fast-forward menia history a traceability. Policy má definovať, ako sa source commits, MR, approvals, pipeline candidate a final mainline SHA korelujú.
+
+Squash môže vytvoriť final commit SHA, ktorý neexistoval počas branch pipeline. Content tree môže byť rovnaký, no commit identity sa zmení. Post-merge check alebo server-generated commit metadata musí zachovať link na verified candidate.
+
+## 9. Merge train a concurrency
+
+Merge train vytvára ordered candidates a revaliduje changes v predicted mainline context-e. Ak predchodca zlyhá alebo sa odstráni, nasledujúce candidates sa prepočítajú. Evidence pre old train position je superseded.
+
+Train nepreukazuje correct tests ani policy completeness. Rieši target concurrency, nie oracle quality.
+
+## 10. Exceptions a emergency merge
+
+Emergency merge môže mať shortened approval path, ale subject identity a audit zostávajú. Record obsahuje incident, exact diff/candidate, actor, omitted controls, compensating controls, expiry a mandatory retrospective validation.
+
+Direct push na protected branch ako „emergency“ obchádza MR evidence a môže spustiť odlišný pipeline graph. Ak je break-glass nevyhnutný, má bounded credential a následnú source/release reconciliation.
+
+## 11. Connected incident `GL-PAY-72`
+
+MR 1842 menil provider routing a `.gitlab-ci.yml`. Dostala payments a security approvals nad source SHA `8e21b8d`, target `53d92af`. Potom author force-pushol commit, ktorý zmenil external include na fork. Project setting nezresetoval approvals a required pipeline bola branch pipeline, nie merged-results.
+
+Súčasne iný MR zmenil shared event contract na main. MR 1842 sa mergol s novým targetom bez fresh candidate pipeline.
 
 ```text
-source SHA S4
-+ current target SHA T9
-→ synthetic candidate C4
+approval pre diff v1
+→ force-push diff v2
+→ retained approvals
+→ target advanced
+→ branch-green evidence
+→ merge candidate nebol testovaný
 ```
 
-Path ownership aktivuje service-owner, database-owner a platform-owner review. Jana pridá opravný commit `S5`; approvals viazané na `S4` a pipeline nad `C4` už nemusia platiť.
+Final mainline obsahoval untrusted CI include a incompatible event producer. 6 412 events ostalo v backlogu. Root cause bol stale merge-decision subject a wrong pipeline context.
 
-MR sa následne zaradí do merge trainu. Candidate sa testuje za skôr čakajúcimi zmenami. Po squash merge vznikne final SHA `F11`, z ktorého build publikuje artifact digest `D11`.
+## 12. Containment, recovery a acceptance
+
+Containment pause-ne merge/deploy pipelines, preserve-ne MR versions, approvals, pipelines, audit events a external include content a revoke-ne affected runner credentials. Recovery revert-ne alebo roll-forward-ne mainline cez fresh MR, pinne include SHA a pridá merged-results/merge-train policy.
+
+MR model je prijatý iba vtedy, keď:
 
 ```text
-MR !142
-→ reviewed S5
-→ train candidate C7
-→ final SHA F11
-→ artifact D11
-→ deployment record
+source/target/candidate/diff subjects sú exact
++ applicable owner/approval rules sú current
++ approvals sú eligible, independent a fresh
++ discussions sa viažu na current diff
++ required pipeline testuje correct candidate context
++ final merge SHA/tree sa read-backne
++ source change alebo target advance invaliduje stale evidence
++ direct-push/emergency path je bounded and audited
++ forbidden retained-approval force-push je testovaný
++ second concurrent MR prejde train/revalidation
 ```
 
-## 2. Decision subject nie je MR číslo
-
-MR `!142` je dlhodobý container diskusie. Počas života môže obsahovať mnoho source SHA a target contexts.
-
-Auditovateľný subject zahŕňa:
+## 13. Troubleshooting flow
 
 ```text
-MR ID
-+ source SHA
-+ target SHA alebo merge-base context
-+ diff identity
-+ merged-result/train candidate SHA
-+ policy revision
+project/MR identity
+→ diff versions a source SHA history
+→ target movements and candidate generation
+→ approval rules/eligible approvers/reset semantics
+→ Code Owner matching
+→ pipeline types and SHAs
+→ merge method/final SHA
+→ alternate direct/API merge paths
 ```
 
-Branch name je mutable pointer. Zelený badge alebo approval bez SHA väzby nie je dostatočný dôkaz.
+Competing hypotheses môžu byť retained approval, wrong approver eligibility, Code Owner mismatch, branch pipeline, stale target, merge-train supersession, unresolved discussion bypass alebo direct push. MR green badge je aggregate presentation, nie complete evidence.
 
-## 3. Source SHA, diff, candidate a final SHA
+## 14. Anti-patterny
 
-- **Source SHA:** aktuálny commit source branchu.
-- **Diff:** zmena voči konkrétnemu base/target contextu.
-- **Merged-result SHA:** dočasný candidate source + target.
-- **Merge-train candidate:** source + target + earlier queued MRs.
-- **Final merge SHA:** commit reálne zapísaný do target branchu po zvolenej merge stratégii.
+### Approval ako permanentný branch property
 
-```text
-source branch
-+ current target
-+ queue position
-→ tested integration candidate
-→ merge strategy
-→ final target SHA
-```
+Approval patrí exact diff/candidate generation.
 
-Branch pipeline a merged-result pipeline môžu mať rozdielny verdict, pretože testujú odlišný subject.
+### Reviewer rovná sa approver
 
-## 4. Review, discussion a approval
+Review participation nepreukazuje eligibility pre policy rule.
 
-### Review
+### Branch pipeline ako merge result
 
-Poznávací proces nad intentom, correctness, security, compatibility, operability, test evidence a recovery.
+Nezahŕňa current target ani concurrent changes.
 
-### Discussion
+### Code Owners file bez enforcement testu
 
-Záznam otázky alebo rizika. `Resolved` má znamenať známy outcome:
+Pattern môže nematchovať alebo branch rule approval nevyžadovať.
 
-```text
-opravené v commite X
-| akceptovaný trade-off
-| odložené do issue Y s ownerom
-| zamietnuté po dohode
-```
+### Emergency direct push bez reconciliation
 
-### Approval
+Obchádza review/evidence a vytvára alternate authority path.
 
-Zaznamenané rozhodnutie eligible identity nad konkrétnym subjectom a riskom.
+## 15. Kontrolné otázky
 
-```text
-review bez approval
-→ poznanie existuje, policy nemusí byť splnená
+1. Čo tvorí exact merge-decision subject?
+2. Prečo source SHA nestačí?
+3. Čo preukazuje MR API a čo nie?
+4. Ako sa líši reviewer, approver a Code Owner?
+5. Kedy sa approval stáva stale?
+6. Aký je rozdiel medzi MR a merged-results pipeline?
+7. Čo rieši merge train?
+8. Ako merge method mení traceability?
+9. Čo sa pokazilo v `GL-PAY-72`?
+10. Ako sa testuje approval reset po force-pushi?
+11. Ako sa uzatvára emergency merge?
+12. Čo musí preukázať final mainline read-back?
 
-approval bez review
-→ formálny klik bez silnej evidence
-```
+## Glossary impact
 
-Počet approvals nie je automaticky kvalita.
+Relevantné pojmy: merge request, merge-decision subject, diff version, source SHA, target SHA, candidate SHA, reviewer, approver, eligible approver, Code Owner, approval freshness, merged-results pipeline, merge train, merge method, blocking discussion a emergency merge.
 
-## 5. Approval rule musí chrániť pomenovaný risk
+## Primárne zdroje
 
-Príklad Atlas policy:
-
-```text
-application logic
-→ service owner
-
-database migration
-→ database owner
-
-CI/deployment definition
-→ platform owner
-
-critical security finding
-→ security risk decision
-```
-
-Rule potrebuje:
-
-- applicability scope;
-- eligible approvers;
-- required count;
-- self/committer restrictions;
-- reset a freshness policy;
-- fallback a exception lifecycle.
-
-Univerzálne „dve approvals na všetko“ môže byť zároveň slabé pre vysoké riziko a zbytočne drahé pre triviálnu zmenu.
-
-## 6. Code Owners sú path ownership, nie dependency graph
-
-CODEOWNERS môže automaticky priradiť ownerov pre:
-
-- migrations;
-- deployment manifests;
-- shared CI templates;
-- public API/event schemas.
-
-Mechanizmus potrebuje:
-
-```text
-correct pattern match
-+ eligible owner access
-+ enforcement na target branchi
-+ fallback pri absencii
-+ protection samotného ownership súboru
-```
-
-Shared library môže ovplyvniť Payments bez zmeny v `payments/` path-e. Path policy treba kombinovať s dependency a rendered-output evidence tam, kde je to dôležité.
-
-## 7. Approval freshness
-
-Approval je viazaný minimálne na:
-
-```text
-reviewed source SHA
-+ target context
-+ applicable ownership/policy
-+ supporting pipeline/security evidence
-```
-
-Po novom pushi, rebase alebo významnom target posune sa rozhodnutie môže invalidovať.
-
-Nie každá oprava preklepu vyžaduje celý review od nuly, ale výnimka musí byť explicitná. Tichá persistencia approvalu po zásadnej code zmene je stale evidence.
-
-## 8. Pipeline contexts
-
-### Branch pipeline
-
-Rýchly feedback nad source branchom. Nedokazuje integráciu s aktuálnym targetom.
-
-### Merge-request pipeline
-
-Používa MR context a môže mať odlišné rules a variables.
-
-### Merged-results pipeline
-
-Testuje dočasný merged commit source + target.
-
-### Merge train
-
-Testuje MR za zmenami, ktoré sú pred ním vo fronte.
-
-```text
-main + MR-A
-→ candidate A
-
-main + MR-A + MR-B
-→ candidate B
-```
-
-Ak A zlyhá alebo sa zmení, B musí byť prepočítaný.
-
-## 9. Pipeline evidence má viac stavov než green/red
-
-- `passed` — všetky required checks pre správny subject dokončili;
-- `failed` — kontrola našla porušenie;
-- `running/pending` — evidence ešte nie je úplná;
-- `canceled/superseded` — run patrí starému subjectu;
-- `skipped/not applicable` — treba dokázať správnu applicability;
-- `tool/infrastructure error` — kontrola neprebehla dôveryhodne;
-- `incomplete` — chýba shard, child pipeline alebo report.
-
-Tool error a incomplete nie sú pass.
-
-## 10. Mergeability je odvodený verdict
-
-```text
-MR nie je draft
-+ source/target nemajú conflict
-+ required evidence je fresh a complete
-+ applicable approvals sú splnené
-+ required discussions majú outcome
-+ actor smie mergeovať do target branchu
-+ integration candidate je aktuálny
-→ mergeable
-```
-
-MR môže byť approved a stále blocked. Target branch posun môže zmeniť mergeability bez nového source commitu.
-
-## 11. Merge strategy a traceability
-
-### Merge commit
-
-Zachová source commits a explicitný integration commit.
-
-### Fast-forward alebo semi-linear
-
-Udržiava lineárnejšiu mainline, ale často vyžaduje rebase a nové SHA.
-
-### Squash merge
-
-Vytvorí jeden final commit. Source commits sa nemusia dostať do mainline.
-
-Pri squash:
-
-```text
-source commits
-→ MR review history
-→ squash final SHA
-→ artifact digest
-→ deployment record
-```
-
-Stratégia sa vyberá podľa audit, backport, release a recovery požiadaviek, nie iba podľa vzhľadu histórie.
-
-## 12. Worked failure: dve zelené branch pipelines rozbili main
-
-MR-A mení request schema. MR-B súčasne mení serializer. Obe branch pipelines sú zelené proti starému `main`.
-
-```text
-MR-A branch pass
-MR-B branch pass
-→ A sa merge-ne
-→ B sa merge-ne bez fresh merged-result candidate
-→ serializer očakáva starú schema
-→ mainline integration test zlyhá
-```
-
-### Príčina
-
-Evidence patrila individuálnym source branches, nie predpokladanému final integration state-u.
-
-### Trvalá náprava
-
-- merged-results pipeline pre relevantné MRs;
-- merge train pri vysokej concurrency;
-- candidate SHA v gate evidence;
-- invalidation po target posune;
-- post-merge broken-main recovery.
-
-## 13. Worked failure: approval prežil zásadný push
-
-Database owner schválil migration v `S4`. Jana potom pridala commit `S5`, ktorý zmenil `NOT NULL` timing a backfill behavior.
-
-```text
-approval nad S4 zostane viditeľný
-→ pipeline nad S5 prejde syntax a unit tests
-→ MR sa merge-ne
-→ old workers narazia na constraint
-```
-
-### Príčina
-
-Approval policy neviazala database approval na current source SHA alebo neinvalidovala relevantnú zmenu.
-
-### Trvalá náprava
-
-- reset approvalu pri source zmene;
-- risk-specific owner re-review;
-- migration compatibility test;
-- audit relation approver → reviewed SHA;
-- explicitná policy pre trivial post-approval changes.
-
-## 14. Kauzálny diagnostický walkthrough
-
-Symptom: MR má všetky viditeľné approvals a zelenú pipeline, ale GitLab ho nepovoľuje merge-nuť.
-
-### Krok 1 — stabilizuj subject
-
-```text
-MR !142
-source SHA S5
-target SHA T12
-latest candidate C9
-final policy revision P7
-```
-
-### Krok 2 — formuluj konkurenčné hypotézy
-
-```text
-H1: approval patrí starému source SHA
-H2: applicable Code Owner rule nie je splnená
-H3: pipeline je branch run, nie required merged-result run
-H4: required child/shard evidence je incomplete
-H5: unresolved alebo outdated discussion stále blokuje
-H6: merge-train candidate je invalidovaný target posunom
-H7: actor nemá merge capability nad protected targetom
-```
-
-### Krok 3 — diskriminačné observation points
-
-- approval timestamps a reviewed SHA testujú H1;
-- changed paths, CODEOWNERS match a eligible approvers testujú H2;
-- pipeline source/candidate SHA testujú H3;
-- expected job/child inventory testuje H4;
-- discussion outcomes testujú H5;
-- train queue/invalidation reason testuje H6;
-- protected branch effective permission testuje H7.
-
-Atlas zistí, že zelená pipeline patrí `S5` branchu, ale required merged-result candidate `C9` bol canceled po target posune. Approvals sú fresh; H3/H6 vysvetľujú blocked verdict.
-
-### Krok 4 — oprav mechanizmus
-
-Vytvorí sa nový candidate nad aktuálnym targetom a znovu sa spustia required checks. Bypass approvalu ani branch protection problém nerieši.
-
-### Krok 5 — over outcome
-
-```text
-current candidate pipeline complete
-required child reports present
-approvals viazané na S5
-mergeability = allowed
-final SHA mapovaný na MR a artifact
-```
-
-### Krok 6 — vráť learning
-
-Finding sa mení na mergeability diagnostický panel, required candidate identity a alert pri stale-green branch evidence.
-
-## 15. Approval exception a break-glass
-
-```text
-urgent change
-→ konkrétny MR/rule scope
-→ risk owner a dôvod
-→ minimálne safety checks
-→ privileged merge action
-→ deployment/runtime evidence
-→ dodatočný review
-→ doplnenie preskočených controls
-→ closure
-```
-
-Ak Maintainer bypassuje pravidlá pravidelne, nejde o emergency proces, ale o chybnú policy alebo delivery flow.
-
-## 16. MR nekončí merge kliknutím
-
-```text
-requirement/issue
-→ MR a reviewed SHA
-→ approvals/discussions
-→ integration candidate evidence
-→ final SHA
-→ artifact digest
-→ deployment/release record
-→ runtime validation
-```
-
-Pri squash, rebase a merge train modeli musí provenance explicitne mapovať meniace sa commit identities.
-
-## 17. Diagnostický runbook
-
-1. Urči current source, target, candidate a policy revision.
-2. Rozlíš branch, MR, merged-result a train pipeline.
-3. Over expected required job/child/report inventory.
-4. Skontroluj approval freshness a reviewed SHA.
-5. Vyhodnoť applicable Code Owner a approval rules.
-6. Over discussion outcomes a conflicts.
-7. Skontroluj train position a invalidation reason.
-8. Over protected-target merge capability aktora.
-9. Po oprave potvrď final SHA a artifact provenance.
-10. Zmeň finding na freshness, policy alebo integration-race control.
-
-## 18. Referenčné pravidlá
-
-- MR ID nie je identity reviewovaného obsahu.
-- Review, discussion a approval sú odlišné vrstvy.
-- Každá approval rule chráni pomenovaný risk.
-- Approvals a pipelines potrebujú freshness policy.
-- Branch pipeline nie je merge-result evidence.
-- `Approved` nie je synonymum `mergeable`.
-- Tool error a incomplete evidence nie sú pass.
-- Merge train rieši queue integration race, nie slabý review.
-- Merge strategy musí zachovať post-merge traceability.
-- Bypass potrebuje uzavretý exception lifecycle.
-
-## 19. Časté omyly
-
-### „Má dve approvals, teda je bezpečný“
-
-Bez definovaného risku, eligibility a freshness ide iba o počet kliknutí.
-
-### „Pipeline je zelená“
-
-Treba vedieť, ktorý SHA a context testovala.
-
-### „Code Owner je v súbore, approval sa určite vyžaduje“
-
-Potrebný je match, eligible owner a enforcement na target branchi.
-
-### „Resolved znamená vyriešené“
-
-Thread musí mať explicitný outcome.
-
-### „Merge train zabráni každému incidentu“
-
-Rieši interakcie queued changes, nie chýbajúci test alebo nesprávnu migration.
-
-## 20. Zhrnutie
-
-Dôveryhodný GitLab MR lifecycle je:
-
-```text
-immutable source/target subject
-→ risk-specific review a ownership
-→ fresh candidate evidence
-→ complete mergeability policy
-→ serialized integration decision
-→ final SHA
-→ artifact a runtime provenance
-```
-
-Troubleshooting sa nesmie zastaviť pri ikonách `approved` a `passed`. Musí vysvetliť, či tieto evidence patria current subjectu, či sú úplné a ktorá konkrétna policy vrstva ešte blokuje alebo povoľuje merge.
-
-## Kontrolné otázky
-
-1. Prečo MR číslo nie je decision subject?
-2. Ako sa líšia source SHA, merged-result SHA a final SHA?
-3. Prečo review a approval nie sú synonymá?
-4. Čo musí chrániť approval rule?
-5. Ako vzniká stale approval?
-6. Kedy Code Owner approval skutočne platí?
-7. Prečo branch pipeline nestačí na integration decision?
-8. Aký race rieši merge train?
-9. Prečo approved MR nemusí byť mergeable?
-10. Ako sa final artifact mapuje späť na reviewovaný obsah?
-
-## Oficiálna dokumentácia
-
-- [Merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-- [Merge request reviews](https://docs.gitlab.com/user/project/merge_requests/reviews/)
-- [Merged results pipelines](https://docs.gitlab.com/ci/pipelines/merged_results_pipelines/)
-- [Merge trains](https://docs.gitlab.com/ci/pipelines/merge_trains/)
+- [GitLab Docs — Merge requests](https://docs.gitlab.com/user/project/merge_requests/)
+- [GitLab Docs — Merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
+- [GitLab Docs — Code Owners](https://docs.gitlab.com/user/project/codeowners/)
+- [GitLab Docs — Merged results pipelines](https://docs.gitlab.com/ci/pipelines/merged_results_pipelines/)
+- [GitLab Docs — Merge trains](https://docs.gitlab.com/ci/pipelines/merge_trains/)
+- [GitLab API — Merge requests](https://docs.gitlab.com/api/merge_requests/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
