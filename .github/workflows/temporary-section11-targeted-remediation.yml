@@ -1,0 +1,123 @@
+name: Temporary Section 11 targeted remediation
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section11-targeted-remediation
+  cancel-in-progress: false
+
+jobs:
+  remediate:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Insert targeted teaching prose and remove UI citations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          additions = {
+            'docs/11-cloud-and-aws/aws-backup.md': {
+              '3. Backup plan a assignment v Terraform-e': 'Terraform v tejto sekcii nereprezentuje samotnú obnoviteľnosť. Deklaruje iba plan, pravidlá a selection contract; až live assignment, úspešný recovery point, požadovaná kópia a vykonaný restore dokazujú, že konkrétny resource je skutočne chránený. Preto sa po aplikovaní konfigurácie vždy číta effective state a porovnáva s authoritative inventory.',
+              '7. Recovery manifest': 'Recovery manifest spája service-specific recovery points do jednej business generation. Bez neho môže tím obnoviť technicky platnú databázu, objekty a filesystem z navzájom odlišných časov, takže application síce naštartuje, ale ledger, queue a external provider už nereprezentujú jeden konzistentný stav.',
+              '14. Cleanup after rehearsal': 'Cleanup po recovery rehearsal je súčasť acceptance, nie administratívny dodatok. Obnovené dáta, temporary credentials, network paths a testovacie writers môžu po úspešnom cvičení vytvoriť nový security alebo cost incident, preto sa ich odstránenie a revokácia dokazujú samostatným inventory read-backom.'
+            },
+            'docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md': {
+              '9. Domain 5 — Networking and Content Delivery': 'Networking scenár sa rieši v poradí observation boundaries, pretože rovnaký timeout môže vzniknúť v DNS, route, policy, transport, listeneri alebo application. Kandidát má najprv určiť poslednú preukázateľne zdravú vrstvu a až potom zvoliť command, ktorého rozdielny output rozdelí vedúce hypotézy.'
+            },
+            'docs/11-cloud-and-aws/cloudwatch-cloudtrail.md': {
+              '6. Logs Insights investigation': 'Logs Insights query má byť reprodukovateľný dôkazový experiment, nie náhodné hľadanie slov. Pred spustením sa fixuje log-group set, UTC interval, schema generation a correlation identity; výsledok potom ukazuje iba events, ktoré boli emitované, doručené, zachované a matchli query, nie automaticky úplnú business históriu.'
+            },
+            'docs/11-cloud-and-aws/cost-management-finops.md': {
+              '12. Change business case': 'FinOps change business case viaže navrhovanú úsporu na presný resource cohort, baseline window a business denominator. Bez tejto väzby nemožno po zmene rozlíšiť skutočnú úsporu od poklesu trafficu, presunu costu do inej služby alebo degradácie reliability, ktorá iba znížila spotrebu.'
+            },
+            'docs/11-cloud-and-aws/ec2-auto-scaling.md': {
+              '8. Guest a process diagnostics cez Systems Manager': 'EC2 a Auto Scaling evidence končí pri host a fleet lifecycle-e, preto treba guest a process stav čítať samostatne. Systems Manager umožní vykonať rovnaký read-only diagnostic na presne identifikovanej instance bez otvorenia inbound SSH, no jeho command success stále dokazuje iba exit status a output skriptu, nie load-balancer ani business readiness.'
+            },
+            'docs/11-cloud-and-aws/ecs-eks.md': {
+              '2. ECS authority graph': 'ECS realizuje workload cez niekoľko samostatných authorities: task definition opisuje runtime template, service drží desired state, scheduler vyberá placement a capacity provider realizuje compute. Každá vrstva má vlastný generation a failure verdict, preto stav jednej z nich nemožno používať ako náhradu za serving application outcome.',
+              '3. ECS task definition v Terraform-e': 'Terraform príklad deklaruje immutable task-definition revision a jej dependencies. Nevytvorí však automaticky novú serving cohortu; až ECS service deployment, placement, image pull, secret injection, process startup a target eligibility ukážu, či sa revision stala reálnou production generation.',
+              '4. ECS service a load balancer': 'ECS service spája desired task count s deployment a traffic lifecycle-om. Load balancer integrácia pridáva samostatnú eligibility boundary, takže task môže byť `RUNNING`, ale nesmie prijímať traffic, kým správny port, health path, Security Group a application readiness nevytvoria healthy target.',
+              '5. ECS live diagnosis': 'Live diagnosis začína service events a task lifecycle evidence, pretože application logs nemusia existovať, ak placement, image pull alebo secret injection zlyhali skôr. Commandy nižšie sa čítajú ako postupné observation points; každý zužuje boundary, ale žiadny sám nepreukazuje end-to-end payment outcome.',
+              '7. EKS authority graph': 'EKS spravuje Kubernetes control plane, ale workload outcome vzniká cez authentication, admission, controllers, scheduler, kubelet, runtime, CNI, CSI a service dataplane. `kubectl` objekt preto reprezentuje desired alebo observed Kubernetes state konkrétnej generácie, nie automaticky dostupnú aplikáciu.',
+              '8. Kubernetes Deployment a Service': 'Deployment a Service riešia odlišné úlohy. Deployment vytvára a vymieňa Pod cohorts, zatiaľ čo Service a EndpointSlice vyberajú network-eligible backends; správny rollout potrebuje konzistentný label selector, readiness, port mapping a traffic test.',
+              '11. EndpointSlice a Service path': 'EndpointSlice je runtime zoznam backend addresses, ktoré Service dataplane môže použiť. Jeho existencia dokazuje controller selection a publikovanú endpoint generation, ale nie route, NetworkPolicy, listener, TLS ani application response, preto sa musí korelovať s konkrétnym Podom a requestom.'
+            },
+            'docs/11-cloud-and-aws/elastic-load-balancing.md': {
+              '4. Praktický ALB základ v Terraform-e': 'Terraform konfigurácia vytvorí front-door resources a ich vzájomné references, nie úspešný request. Po apply treba oddelene overiť listener, ordered rules, target registration, health-check contract, backend network path a application response, pretože každá z týchto vrstiev môže byť green alebo broken nezávisle.',
+              '6. Live ALB a listener read-back': 'Live read-back porovnáva intended Terraform generation s effective AWS configuration. Výstup ukazuje, ktoré listeners, rules a target groups control plane eviduje; až request s presným Host, pathom a cohort telemetry dokáže, že dataplane vybral očakávaný backend.'
+            },
+            'docs/11-cloud-and-aws/internet-gateway-nat-gateway.md': {
+              '3. Praktický public subnet a IGW v Terraform-e': 'Public subnet nevzniká názvom ani samotným Internet Gateway attachmentom. Terraform musí vytvoriť adresovanie a effective default route, no inbound a outbound connectivity sa prejaví až po priradení public identity, SG/NACL verdictoch, listeneri a return path-e.',
+              '7. Zonal public NAT v Terraform-e': 'Zonálny NAT príklad vytvára translation resource a route target pre konkrétnu source cohortu. Neoveruje destination allowlist, source-port headroom, connection reuse ani AZ resilience, preto sa po apply číta route association, NAT address generation a runtime flow evidence.'
+            },
+            'docs/11-cloud-and-aws/kms-secrets-manager.md': {
+              '9. Rotation configuration': 'Rotation configuration spúšťa koordinovaný transition medzi secret store-om, target credentialom a runtime consumers. Schedule a Lambda ARN preto nie sú acceptance; treba preukázať candidate creation, target authentication, label transition, consumer refresh, connection-pool renewal a až potom revokáciu starej credential generation.',
+              '13. Key retirement': 'Key retirement je data-recovery rozhodnutie, pretože disabled alebo deleted key môže zneprístupniť production resources aj historické backupy. Pred zmenou state-u sa vytvára dependency manifest a pozoruje decrypt usage; neprítomnosť recent API calls sama nepreukazuje, že neexistuje dormant archive alebo periodický restore path.'
+            },
+            'docs/11-cloud-and-aws/lambda.md': {
+              '3. Function a alias v Terraform-e': 'Terraform vytvorí function configuration, immutable version a alias pointer, ale nepreukáže spracovanie eventu. Deployment acceptance pokračuje cez trigger alebo event-source mapping, invocation admission, executed version, downstream side effects, acknowledgement a idempotent business result.'
+            },
+            'docs/11-cloud-and-aws/rds.md': {
+              '3. RDS deployment model v Terraform-e': 'Terraform deklaruje database topology, subnet, security, parameter a backup inputs. Managed service potom tieto inputs realizuje asynchrónne; až live endpoint, writer membership, parameter effectiveness, connection test a transaction evidence ukážu, že vznikla očakávaná database generation.',
+              '4. Live RDS topology read-back': 'Live read-back oddeľuje deklarovaný deployment model od current writer a replica state-u. Output dokazuje control-plane topology a endpoint identity v danom čase, nie application DNS cache, pooled connections, schema compatibility alebo výsledok in-flight transakcie.'
+            },
+            'docs/11-cloud-and-aws/route53-cloudfront.md': {
+              '7. Ordered cache behaviors': 'CloudFront vyhodnocuje cache behaviors ako ordered routing program. Prvý matching path pattern vyberie origin a policy set, preto health všetkých origins nepomôže, ak broad behavior zachytí authenticated API request a priradí mu nesprávny cache alebo forwarding contract.',
+              '12. Live distribution a cache policy read-back': 'Live read-back fixuje distribution ETag, deployed configuration a referenced policy IDs. Tieto outputs dokazujú effective control-plane generation, no actual edge POP môže stále servovať cached representation; preto sa korelujú s request ID, `X-Cache`, `Age`, matched path a origin logom.',
+              '16. Recovery acceptance': 'Edge recovery sa uzatvára až po overení routing aj representation identity. Nestačí, že distribution je `Deployed`; positive test musí dostať správny obsah a forbidden test musí preukázať, že iný tenant, stale variant, wrong behavior alebo public-origin path nemôže byť prijatý.'
+            },
+            'docs/11-cloud-and-aws/s3-ebs-efs.md': {
+              '15. EFS a access point v Terraform-e': 'Terraform vytvorí filesystem, mount targets a access-point identity, ale úspešný file operation závisí aj od DNS, route, SG/NACL, TLS/IAM client authorization a POSIX ownership. Preto sa po apply neakceptuje iba resource state; testuje sa mount aj read/write pod presnou workload identity.'
+            },
+            'docs/11-cloud-and-aws/systems-manager.md': {
+              '5. Run Command delivery and result': 'Run Command má oddelenú delivery a execution boundary. Accepted command môže zostať pending alebo delivery-timeoutovať; exit code nula zase dokazuje iba výsledok pluginu na konkrétnom node, nie správny target manifest, application health alebo business outcome.',
+              '10. Inventory freshness': 'Systems Manager Inventory je periodická observation s vlastným collection timestampom. Záznam môže byť syntakticky správny a zároveň stale alebo neúplný, preto sa package, OS alebo application verdict vždy viaže na agent, association, upload time a porovnanie s current node state-om.'
+            }
+          }
+
+          for filename, sections in additions.items():
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              for heading, paragraph in sections.items():
+                  marker = f'## {heading}\n\n'
+                  if marker not in text:
+                      raise SystemExit(f'Missing heading {heading!r} in {filename}')
+                  if paragraph in text:
+                      continue
+                  text = text.replace(marker, marker + paragraph + '\n\n', 1)
+              text = re.sub(r'\s*cite[^]+', '', text)
+              path.write_text(text, encoding='utf-8', newline='\n')
+
+          for path in Path('docs/11-cloud-and-aws').glob('*.md'):
+              text = path.read_text(encoding='utf-8')
+              cleaned = re.sub(r'\s*cite[^]+', '', text)
+              if cleaned != text:
+                  path.write_text(cleaned, encoding='utf-8', newline='\n')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/11-cloud-and-aws
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(aws): remediate targeted prose and explanation gaps"
+            git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+          fi
