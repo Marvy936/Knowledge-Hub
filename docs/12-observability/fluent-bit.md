@@ -1,532 +1,278 @@
 # Fluent Bit
 
-Fluent Bit je edge telemetry agent a processor. Číta lokálne sources, vytvára records, parsuje a obohacuje ich, priraďuje tags, routuje ich do outputs a riadi buffering, retries a backend acknowledgements. Je ľahký, ale nie je durable message broker ani exactly-once transport.
+Fluent Bit je edge telemetry agent a processor. Číta local files, systemd, sockets alebo ďalšie inputs, vytvára records, parsuje timestamps a fields, aplikuje filters, priraďuje tags, routuje chunks do outputs a riadi buffering, retries a backend acknowledgements. Je ľahký, ale nie je durable message broker ani exactly-once transport.
 
-Log delivery závisí od source semantics, file identity a offsetu, parser/filter orderu, tag routing, chunk storage, output response contractu, checkpointu a crash/restart modelu. Process `Running` preto nie je dôkazom, že log vznikol v cieľovom backend-e presne raz.
+Log delivery závisí od source identity a offsetu, parser/multiline behavioru, tag routing, processor orderu, chunk storage, output response contractu a crash/restart modelu. Process `Running` preto nie je dôkazom, že každý source event vznikol v cieľovom backende presne raz.
 
-## 1. Dominantný model
+## End-to-end lifecycle
 
 ```text
-source occurrence a file/socket identity
-→ input read a offset state
-→ parser/multiline/timestamp generation
-→ tag a filter generation
-→ redaction, enrichment a routing
-→ chunk creation
-→ memory alebo filesystem buffering
-→ scheduler, retry a backpressure
+source occurrence
+→ file/inode alebo socket identity
+→ input read a checkpoint
+→ parser a timestamp
+→ multiline assembly
+→ tag a route
+→ filters a metadata enrichment
+→ memory/filesystem chunk
+→ scheduler, retry a backoff
 → output request
-→ backend per-batch/per-item acknowledgement alebo unknown outcome
-→ source checkpoint a chunk release
-→ backend query a completeness validation
+→ backend per-request/per-item acknowledgement
+→ checkpoint advancement a buffer retirement
+→ backend query a business evidence
 ```
 
-Každá boundary môže vytvoriť loss, duplicate, delay, schema drift alebo privacy incident.
+Parser je typicky priradený inputu a transformuje raw source pri ingestion. Filters pracujú nad interným recordom a output plugin ho serializuje pre backend. Fluent Bit dokumentácia upozorňuje, že input parser sa aplikuje pred filters a buffered data používa internú reprezentáciu; neskoršia zmena parsera neprepíše records už uložené v bufferi. Exact behavior sa viaže na nasadenú version a config mode. citeturn886976search15turn886976search16turn886976search19
 
-## 2. Exact Fluent Bit subject
+## Exact delivery subject
 
-Pre Atlas Payments používame `FB-PAY-45`:
+Atlas používa `FB-PAY-43`:
+
+```yaml
+agent: fluent-bit-daemonset
+agentGeneration: FB-4.0-PAY-12
+node: ip-10-42-18-27
+sourcePath: /var/log/containers/provider-adapter-*.log
+sourceIdentity: inode + device + filename
+checkpointDatabase: /var/lib/fluent-bit/tail-containers.db
+parser: cri
+multilineParser: cri
+tag: kube.payments.provider-adapter
+filters:
+  - kubernetes metadata
+  - nest and modify
+  - record_modifier telemetry_schema=atlas-payments-12
+outputs:
+  - loki tenant atlas-production
+  - s3 emergency archive for failed-permanent cohort
+storagePath: /var/lib/fluent-bit/storage
+```
+
+Incident evidence musí zachovať exact config file/hash, process args, input path, inode/device, DB checkpoint, tag, chunk state, retry count, output response a backend query. Filename bez inode nestačí pri rotation.
+
+## YAML configuration
+
+```yaml
+service:
+  flush: 5
+  daemon: off
+  log_level: info
+  storage.path: /var/lib/fluent-bit/storage
+  storage.sync: normal
+  storage.checksum: on
+  storage.backlog.mem_limit: 64M
+  http_server: on
+  http_listen: 0.0.0.0
+  http_port: 2020
+
+pipeline:
+  inputs:
+    - name: tail
+      tag: kube.payments.*
+      path: /var/log/containers/provider-adapter-*.log
+      parser: cri
+      multiline.parser: cri
+      db: /var/lib/fluent-bit/tail-containers.db
+      db.sync: normal
+      read_from_head: false
+      refresh_interval: 5
+      rotate_wait: 30
+      storage.type: filesystem
+      mem_buf_limit: 32M
+      skip_long_lines: off
+
+  filters:
+    - name: kubernetes
+      match: kube.payments.*
+      merge_log: on
+      keep_log: off
+      labels: off
+      annotations: off
+
+    - name: modify
+      match: kube.payments.*
+      add:
+        - telemetry_schema atlas-payments-12
+      remove:
+        - authorization
+        - payment.card_number
+
+  outputs:
+    - name: loki
+      match: kube.payments.*
+      host: loki-distributor
+      port: 3100
+      tenant_id: atlas-production
+      labels: service_name=$kubernetes['labels']['app'], deployment_environment=production
+      structured_metadata: trace_id=$trace_id,pod_name=$kubernetes['pod_name'],payment_operation_id=$payment_operation_id
+      line_format: json
+```
+
+Configuration preukazuje desired pipeline, checkpoint DB, filesystem buffering a Loki label/metadata mapping. Nepreukazuje, že exact file je loaded, parser name existuje, filesystem je writable alebo output fields sú present.
+
+Syntax/config validation:
+
+```bash
+fluent-bit --config=/fluent-bit/etc/fluent-bit.yaml --dry-run
+
+fluent-bit --version
+```
+
+Dry run preukazuje parse a plugin/config initialization compatibility pre binary. Nepreukazuje source access, runtime metadata API, backend connectivity ani delivery semantics. Version output sa uloží k config generation, pretože plugin options a YAML support sú version-sensitive.
+
+## Tail input, inode a checkpoint
+
+Tail plugin sleduje files a ukladá offset state do SQLite DB. Rotation môže rename-nuť file, vytvoriť nový inode pod pôvodným name alebo skopírovať/truncate-nuť content. Stable source identity preto používa inode/device a checkpoint, nie iba filename.
+
+```bash
+stat -c 'path=%n device=%d inode=%i size=%s mtime=%y' \
+  /var/log/containers/provider-adapter-abc.log
+
+sqlite3 /var/lib/fluent-bit/tail-containers.db '.tables'
+
+sqlite3 /var/lib/fluent-bit/tail-containers.db \
+  'select name, offset, inode, created, rotated from in_tail_files;'
+```
+
+`stat` preukazuje current filesystem identity. DB query preukazuje checkpoint records podľa active schema, ktorá sa môže líšiť medzi versions. Ručná editácia DB počas running agentu je zakázaná; observation sa vykonáva na copy alebo podľa supported tooling.
+
+`read_from_head=false` pri novom unseen file začne na end-e podľa plugin semantics a môže preskočiť pre-existing lines. Pri recovery po strate DB môže rovnaká konfigurácia spôsobiť loss; `read_from_head=true` môže naopak replay-nuť celý file a vytvoriť duplicates. Recovery decision potrebuje authoritative source retention a backend deduplication model.
+
+## Parsing a multiline
+
+CRI parser example:
+
+```ini
+[PARSER]
+    Name        cri
+    Format      regex
+    Regex       ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
+    Time_Key    time
+    Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+```
+
+Application JSON je často vnorený v `log` field-e a Kubernetes filter `Merge_Log` ho môže parse-nuť podľa configuration. Malformed JSON alebo stack trace potrebuje explicitný failure behavior. Silent parser failure môže nechať raw string a downstream query fields chýbajú.
+
+Multiline state machine musí mať start/continuation rules a flush timeout. Nesprávna start regex môže spojiť viac requests do jedného giant recordu alebo rozdeliť stack trace na stovky lines. `skip_long_lines` rozhoduje, či oversized line input zastaví alebo preskočí podľa plugin contractu; preskočenie potrebuje counter/alert, inak je to silent loss.
+
+Parser test s fixture:
+
+```bash
+cat > /tmp/provider.log <<'EOF'
+2026-07-29T09:18:42.114Z stdout F {"level":"error","trace_id":"4bf92f3577b34da6a3ce929d0e0e4736","error_type":"tls.unknown_ca","message":"handshake failed"}
+EOF
+
+fluent-bit \
+  --input tail \
+  --prop 'path=/tmp/provider.log' \
+  --prop 'read_from_head=true' \
+  --prop 'parser=cri' \
+  --output stdout \
+  --flush 1
+```
+
+Stdout output preukazuje local parser/record result pre fixture. Nepreukazuje production Kubernetes metadata, multiline timing, buffer/retry alebo Loki output.
+
+## Tags, matching a filter order
+
+Tag je routing identity. `Match` a `Match_Regex` rozhodujú, ktoré filters a outputs record dostanú. Wrong tag môže viesť k zero outputs alebo duplicate delivery do viacerých outputs.
 
 ```text
-business capability: final payment settlement
-cluster/node/container source
-DaemonSet a image/config generation
-input plugin a exact path/socket
-file path + inode + rotation generation
-Tail DB path a schema/state generation
-multiline/parser generation
-tag a routing generation
-filter order a metadata/redaction generation
-chunk/storage path a limits
-output plugin, tenant/index/stream target
-backend credential/TLS generation
-retry/backoff generation
-source offset/checkpoint
-backend acknowledgement a query read-back
+input tag kube.payments.provider-adapter
+→ kubernetes filter matches kube.payments.*
+→ modify filter removes forbidden fields
+→ Loki output matches kube.payments.*
 ```
 
-„Fluent Bit Pod“ nie je dostatočná identity. Jeden Node môže mať inú loaded configuration, tail DB, backlog alebo source inode než zvyšok fleet-u.
+Filter order je executable policy. Redaction musí prebehnúť pred output serialization. Kubernetes metadata filter môže závisieť od API/cache connectivity; metadata failure nesmie automaticky zablokovať raw log delivery bez explicitného decisionu.
 
-## 3. Oddelené stavy
+Config review kontroluje, či každý intended tag má aspoň jeden output a či sensitive fields nemôžu obísť redaction cez secondary output.
 
-```text
-source line existuje
-≠ input ju prečítal
-≠ parser vytvoril správny record
-≠ record matchol output
-≠ output request uspel
-≠ backend prijal každý item
-≠ query ho nájde
+## Buffering, chunks a backpressure
+
+Inputs vytvárajú chunks. Memory buffering je rýchle, ale process crash môže stratiť in-memory state podľa plugin/storage behavioru. Filesystem buffering zvyšuje resilience, no potrebuje disk capacity, permissions, checksum a recovery monitoring.
+
+Internal metrics:
+
+```bash
+curl -fsS http://127.0.0.1:2020/api/v1/metrics/prometheus \
+  | grep -E 'fluentbit_(input|filter|output|storage)'
 ```
 
-A:
+Output preukazuje agent internal counters na konkrétnom instance. Metric names sa overujú pre version. `records` read vs output processed rozdiel môže znamenať buffered, retried, dropped alebo routed elsewhere; potrebuje per-plugin/tag accounting.
 
-```text
-input offset sa posunul
-≠ backend outcome je známy
-≠ record možno bezpečne zahodiť
+Storage inventory:
+
+```bash
+du -sh /var/lib/fluent-bit/storage
+
+df -h /var/lib/fluent-bit/storage
+
+find /var/lib/fluent-bit/storage -maxdepth 2 -type f -printf '%s %p\n' | sort -n | tail
 ```
 
-Pri timeout-e po backend write môže byť outcome unknown. Retry môže vytvoriť duplicate; advance checkpointu môže vytvoriť loss.
+Commands preukazujú filesystem usage a files, nie validný chunk state. Ručné mazanie buffer files počas incidentu ničí unresolved delivery authority a je zakázané bez explicitného data-loss decisionu.
 
-## 4. Configuration generation
+Backpressure nastane, keď output retryuje a input pokračuje. `mem_buf_limit`, filesystem backlog limits a pause/resume behavior rozhodujú, či source read pokračuje. Pri tail files môže paused input neskôr dobehnúť, ak source file zostane; pri ephemeral socket source môže pressure znamenať loss.
 
-Fluent Bit podporuje YAML a classic configuration. Aktuálna dokumentácia uvádza YAML ako štandardný format od verzie `3.2`; classic mode je plánovaný na deprecation na konci roka 2026.
+## Output acknowledgement a retries
 
-Nový projekt má preferovať YAML, ale acceptance nezávisí od file extension. Potrebuje:
+Loki output success typicky závisí od push HTTP response. Elasticsearch/OpenSearch output musí kontrolovať bulk item results, nie iba HTTP status. Output plugin contract sa preto líši.
 
-```text
-source config
-→ version-specific parse
-→ loaded plugin graph
-→ representative fixture records
-→ exact routes a outputs
-→ runtime counters
-→ backend read-back
+Retry môže doručiť rovnaký record viackrát, ak backend request commitol a response sa stratila. Fluent Bit nie je exactly-once. Downstream deduplication môže používať stable event ID v products, ktoré to podporujú; Loki log streams typicky tolerujú duplicate line a investigation musí poznať replay window.
+
+Retry policy potrebuje bounded backoff, queue/disk guardrail a permanent-error path. Mapping `400` sa opakovaním bez schema change neopraví a môže blokovať buffer. Permanent invalid records idú do explicitného quarantine/archive flowu podľa data policy.
+
+## Health a loaded state
+
+HTTP server poskytuje health/metrics endpoints podľa configuration. Process health nepreukazuje source readability ani output delivery. Kubernetes readiness, ktorá kontroluje iba port 2020, môže ponechať agent Ready pri plnom storage alebo permanent backend deny.
+
+Loaded config generation sa publikuje ako metric/log field a porovnáva s DaemonSet desired generation. Canary line prejde source → agent → backend query:
+
+```bash
+CANARY_ID="fb-canary-$(date -u +%s)"
+printf '{"event":"telemetry.canary","canary_id":"%s"}\n' "$CANARY_ID" \
+  >> /var/log/atlas-observability-canary.log
+
+logcli query \
+  --addr=http://loki-query-frontend:3100 \
+  --org-id=atlas-production \
+  --since=10m \
+  "{service_name=\"observability-canary\"} |= \"$CANARY_ID\""
 ```
 
-Syntakticky validná konfigurácia môže byť semanticky nefunkčná, keď tag nematchne output alebo filter zahodí records.
+Append preukazuje source file write. Backend query success preukazuje one end-to-end path. Count musí byť interpretovaný podľa retry/duplicate semantics; exactly one result nie je automaticky garantovaný bez downstream identity contractu.
 
-## 5. Inputs a source semantics
+## Worked incident: restart vytvorí duplicates a následnú loss
 
-Input plugin definuje, ako sa source číta, pauzuje a obnovuje.
+Node disk pressure ukončí Fluent Bit. Tail DB je na ephemeral filesysteme a po Pod replacement-e zmizne. `read_from_head=true` spôsobí replay retained container logov. Loki dostane duplicates, output retries rastú a local filesystem buffer sa zaplní. Operator zmení `read_from_head=false` a ručne zmaže buffer, čím preskočí nové unresolved lines.
 
-Príklady:
+Competing hypotheses sú application duplicate logging, container runtime rotation, checkpoint loss, backend retry, multiline duplication alebo query overlap. Inode/DB evidence ukáže novú prázdnu checkpoint DB a replay od offsetu 0. Records nesú rovnaké application event IDs, ale nové ingestion attempts.
 
-- Tail a systemd/journald;
-- forward, HTTP, TCP alebo syslog;
-- OpenTelemetry a metrics inputs;
-- platform-specific sources.
+Containment zastaví ďalšie Pod replacements a zachová source files, DB copy, buffer a backend sample. Ručné mazanie sa zastaví. Recovery umiestni checkpoint DB a buffer na persistent host path, nastaví bounded filesystem storage a source retention väčšiu než recovery window. Quarantine job deduplikuje business audit exports podľa event ID; Loki diagnostic logs zostanú označené replay generation.
 
-Memory pressure sa správa odlišne podľa inputu. Tail môže prestať čítať a pokračovať zo súboru; UDP alebo iný network source môže data nenávratne stratiť.
+Canary overí source read, offset advancement, restart resume, backend delivery a no forbidden sensitive fields. Failure test preruší backend, vytvorí backlog, reštartuje agent a očakáva bounded replay bez loss. Acceptance povoľuje at-least-once duplicates v documented window, ale žiadny unresolved chunk sa nesmie zmazať bez data-loss verdictu.
 
-## 6. Tail input, file identity a position DB
+## Kontrolné otázky
 
-Tail input sleduje file path, ale recovery potrebuje aj inode/file identity a offset.
+1. Prečo Fluent Bit process health nepreukazuje log delivery?
+2. Aký rozdiel je medzi filename a inode/device source identity?
+3. Čo checkpoint DB umožňuje pri restart-e?
+4. Prečo parser zmena neprepíše records už v bufferi?
+5. Ako filter order ovplyvňuje redaction?
+6. Čo internal metrics preukazujú a čo nie o backend queryability?
+7. Prečo filesystem buffer nemožno počas incidentu naslepo zmazať?
+8. Ako sa líši Loki HTTP acknowledgement od bulk per-item acknowledgement?
+9. Prečo at-least-once retry môže vytvoriť duplicates?
+10. Aký failure test uzatvára checkpoint recovery?
 
-```text
-path discovery
-→ open file/inode
-→ read bytes/lines
-→ parser
-→ checkpoint v position DB
-→ rotation/reopen
-```
+## Oficiálna dokumentácia
 
-Persistentná position DB chráni pred nejasným replay behaviorom. Ak je na container writable layeri alebo ephemeral Pod state-e, restart môže spôsobiť:
-
-- reread od začiatku;
-- preskočenie existujúceho obsahu podľa `read_from_head` semantics;
-- duplicates;
-- loss starého rotated file-u;
-- konflikt dvoch agents nad jednou DB.
-
-Nemaž Tail DB ako prvý troubleshooting krok.
-
-## 7. Rotation a multiline
-
-Rotation mení path, inode a otvorené file descriptors. Agent musí zvládnuť rename, truncation, delayed writes do starého file-u, nový inode a delete po rotate windowe.
-
-Príliš krátky `rotate_wait` môže stratiť late lines. Príliš dlhý drží state a descriptors.
-
-Multiline parser vytvára jeden logical event z viacerých fyzických lines:
-
-```text
-first-line rule
-→ continuation states
-→ flush timeout
-→ bounded buffer
-→ one logical record
-```
-
-Chybný parser môže rozdeliť exception na desiatky records alebo zlúčiť nesúvisiace events. Pri diagnostike zachovaj raw bytes vrátane exact newlines.
-
-## 8. Parser a timestamp contract
-
-Parser definuje:
-
-- source timestamp a timezone;
-- field names a types;
-- raw-message preservation;
-- parse-failure fallback;
-- sensitive-field handling;
-- schema/version.
-
-Parse failure nemá ticho zmiznúť. Musí mať counter, quarantine alebo explicitný fallback record.
-
-Chybný timestamp môže uložiť log mimo dashboard range-u alebo spôsobiť backend rejection. Ingestion time nie je automaticky správnou náhradou source event time-u.
-
-## 9. Tags, filters a routing
-
-Tag je interná routing identity. Filters a outputs používajú `Match` patterns.
-
-```text
-input tag
-→ parse
-→ metadata enrichment
-→ normalization
-→ producer-side alebo agent redaction
-→ cardinality allowlist
-→ route na outputs
-```
-
-Filter order je významný. Redaction po output fan-out-e je neskoro.
-
-Riziká:
-
-- žiadny output nematchne;
-- broad match pošle logs do forbidden backendu;
-- rewrite-tag loop;
-- dva outputs vytvoria duplicitu;
-- nedôveryhodná Kubernetes annotation určí tenant;
-- všetky labels/annotations vytvoria Loki stream alebo mapping explosion.
-
-Každá route potrebuje positive aj negative fixture.
-
-## 10. Chunks a buffering
-
-Fluent Bit zoskupuje records do chunks.
-
-```text
-records prichádzajú
-→ chunk rastie
-→ priradí sa output queue
-→ flush attempt
-→ success/retry/error
-→ release podľa delivery contractu
-```
-
-### Memory buffering
-
-Rýchle, ale volatile. Crash alebo node loss môže zničiť backlog. `mem_buf_limit` môže input pozastaviť; dôsledok závisí od inputu.
-
-### Filesystem buffering
-
-Zvyšuje outage tolerance a restart recovery, ale stále je lokálny a konečný. Potrebuje persistent path, permissions, encryption boundary, disk/inode monitoring a explicitný full-disk behavior.
-
-`storage.total_limit_size` alebo podobný per-output limit môže pri vyčerpaní viesť k eviction/drop behavioru. Je to log-loss boundary, nie iba capacity metric.
-
-## 11. Backpressure a retries
-
-Backpressure vzniká, keď output nedokáže prijímať tempo inputu.
-
-```text
-backend outage/429/latency/permanent error
-→ retries
-→ queue a backlog age rastú
-→ memory/disk pressure
-→ input pause alebo drop
-→ delayed alebo lost observability
-```
-
-Retry contract rozlišuje:
-
-- temporary network/429/5xx;
-- permanent mapping, label, timestamp alebo auth failure;
-- partial item failure;
-- timeout s unknown outcome;
-- maximum backlog age a capacity.
-
-Unlimited retry permanentného recordu môže blokovať zdravé records za ním.
-
-## 12. Output acknowledgement semantics
-
-Každý output má vlastný batch, compression, TLS, auth, response a idempotency model.
-
-### Loki
-
-Over tenant, bounded labels, structured metadata, timestamp a rejection reason. `429` môže byť retryable; invalid label alebo timestamp nemusí byť.
-
-### Elasticsearch/OpenSearch
-
-Top-level bulk `200` môže obsahovať failed items. Delivery verdict potrebuje per-item classification a mapping quarantine.
-
-### OTLP
-
-Over signal, protocol, endpoint/path, resource attributes, auth, tenant routing a downstream Collector backpressure.
-
-Multi-output fan-out potrebuje per-output backlog a completion state. Úspech jedného outputu nepreukazuje úspech druhého.
-
-## 13. Delivery semantics
-
-Exactly-once nemožno predpokladať.
-
-Duplicates môžu vzniknúť pri:
-
-- backend write pred timeout acknowledgementom;
-- restart-e pred durable checkpointom;
-- reread rotated file-u;
-- retry batchu;
-- dvoch agents nad rovnakým source;
-- migration dual-write.
-
-Loss môže vzniknúť pri:
-
-- memory-only buffer + crash;
-- full filesystem buffer;
-- ephemeral position DB;
-- network input pause/drop;
-- permanent invalid record bez quarantine;
-- rotated file delete pred recovery.
-
-Downstream evidence a incident workflow musia tolerovať bounded duplicates a vedieť identifikovať loss window.
-
-## 14. Kubernetes DaemonSet boundary
-
-Typický path:
-
-```text
-container stdout/stderr
-→ CRI files na Node
-→ jeden Fluent Bit Pod per Node
-→ persistent Tail DB a buffer
-→ metadata/RBAC
-→ remote backend
-```
-
-Dôležité controls:
-
-- mount exact runtime log paths;
-- persistent writable state;
-- tolerations pre všetky relevantné Nodes;
-- Pod Security a hostPath permissions;
-- resource requests/limits;
-- graceful shutdown;
-- network policy a credentials;
-- canary rollout podľa Nodes/AZs.
-
-Agent, ktorý nebeží na tainted alebo special Node cohort-e, vytvára observability blind spot aj pri green DaemonSet status-e pre ostatné Nodes.
-
-## 15. Health, shutdown a self-observability
-
-Liveness má testovať, či process dokáže pokračovať, nie či vzdialený backend je práve dostupný. Restart pri každom output failure môže zničiť local state a zhoršiť outage.
-
-Graceful shutdown potrebuje bounded čas na zastavenie inputov, flush chunks, uloženie offsets a uzavretie DB. Veľký backlog sa nemusí zmestiť do krátkeho `terminationGracePeriodSeconds`.
-
-Sleduj:
-
-- input records/bytes a active files;
-- parser/filter drops;
-- output processed/retried/errors/dropped;
-- response codes a item failures;
-- chunk count, bytes a oldest backlog age;
-- paused inputs;
-- Tail DB a storage health;
-- process restarts a loaded config generation;
-- end-to-end canary query.
-
-```text
-source canary vznikne
-→ input counter +1
-→ output acknowledgement
-→ backend query ho nájde
-→ duplicate count = expected
-→ latency pod guardrailom
-```
-
-## 16. Worked failure: backend outage, liveness restarty, duplicates aj loss
-
-### Symptóm
-
-Počas 18-minútového Loki outage rastie počet Fluent Bit restartov na production Nodes. Po obnovení Loki obsahuje časť settlement logs dvakrát, ale 6-minútové obdobie z dvoch Nodes úplne chýba. DaemonSet bol počas incidentu `Desired = Ready` a liveness po každom restarte znovu zozelenela.
-
-### Exact subject
-
-```text
-subject: FB-PAY-45
-DaemonSet generation: FB-PAY-318
-affected Nodes: pay-node-17, pay-node-21
-input: Tail /var/log/containers/provider-adapter*.log
-Tail DB: /fluent-bit/state/tail.db
-filesystem buffer: /fluent-bit/state/storage
-state mount: container writable layer — bez persistent volume
-read_from_head: true
-liveness: zlyhá pri output health failure
-Loki outage: 04:12–04:30 UTC
-rotation interval: 5 min
-```
-
-### Competing hypotheses
-
-1. application počas šiestich minút nelogovala;
-2. Loki odmietol entries pre labels/timestamps;
-3. parser/filter zahodil iba affected events;
-4. agent nematchol output route;
-5. backend timeout vytvoril duplicates;
-6. restart zničil Tail DB a filesystem chunks;
-7. rotation zmazala unread files pred recovery;
-8. Grafana query používa nesprávny tenant alebo time range.
-
-### Discriminating evidence
-
-```text
-source application counters: events existovali
-Node files pred rotáciou: obsahovali sample IDs
-Fluent Bit output retries/backlog: rast
-liveness restarts: každých ~60 s počas outage
-state paths: nie sú volume mount
-po restarte tail.db: nová database
-read_from_head: reread current files
-current files: duplicated event IDs po recovery
-rotated files staršie než retention: už neexistujú
-Loki rejection counters: bez permanent 4xx
-```
-
-Mechanizmus:
-
-```text
-Loki je dočasne nedostupný
-→ Fluent Bit bufferuje chunks na container writable layer
-→ output-dependent liveness označí process unhealthy
-→ kubelet nahradí container
-→ Tail DB aj backlog zaniknú
-→ read_from_head znovu prečíta ešte existujúce files
-→ timeout/replay vytvoria duplicates
-→ staršie rotated files sa medzi restartmi zmažú
-→ ich unread lines už nemožno obnoviť
-→ Pod readiness sa vráti, ale evidence má duplicate aj loss window
-```
-
-### Containment
-
-- odstrániť output dependency z liveness rozhodnutia;
-- zastaviť DaemonSet rollout a ďalšie restarty;
-- zachovať remaining source files, inodes, agent metrics/logs a backend responses;
-- predĺžiť rotation retention na affected Nodes;
-- označiť affected interval ako incomplete evidence;
-- nevymazávať Tail DB ani nespúšťať druhý collector nad rovnakými files.
-
-### Authoritative recovery
-
-1. mountnúť persistent per-Node storage pre Tail DB a filesystem chunks;
-2. oddeliť liveness od backend health; backlog riešiť alertom;
-3. nastaviť bounded storage limits a loss policy;
-4. replaynúť zachované source files s stable event/document identity;
-5. deduplikovať known replay duplicates;
-6. ak source files už neexistujú a niet secondary archive, explicitne uzavrieť obdobie ako unrecoverable log loss;
-7. canary-nuť config na jednom Node;
-8. fault-injectnúť backend outage, container restart, rotation a recovery;
-9. rozšíriť rollout po Node/AZ cohorts.
-
-### Fluent Bit acceptance verdict
-
-Recovery je prijatá, keď:
-
-- Tail DB a chunks prežijú container aj Pod restart podľa navrhnutého boundary;
-- temporary Loki outage nespúšťa liveness restart loop;
-- backlog age rastie a po recovery bezpečne klesne;
-- canary events sú queryovateľné s očakávaným duplicate contractom;
-- disk-full test vyvolá explicitný loss alert a definovanú policy;
-- permanent invalid record ide do quarantine a neblokuje queue;
-- forbidden security logs nie sú routované do application tenant-u;
-- susedný Node a druhý DaemonSet rollout zachovajú behavior.
-
-## 17. Troubleshooting model
-
-### Žiadne logs
-
-```text
-source path/socket
-→ input loaded
-→ inode/offset DB
-→ parser/multiline
-→ tag/filter Match
-→ chunk/buffer
-→ output TLS/auth
-→ backend response
-→ tenant/index/time query
-```
-
-### Duplicates
-
-```text
-agent restarts
-→ Tail DB persistence
-→ rotation/inode reuse
-→ timeout/unknown outcome
-→ retry/fan-out
-→ multiple readers
-→ backend document identity
-```
-
-### Rastúci disk backlog
-
-```text
-output availability/429/permanent errors
-→ retry policy
-→ oldest backlog age
-→ per-output limit
-→ disk/inodes
-→ flush concurrency
-→ loss/eviction boundary
-```
-
-### Metadata chýbajú
-
-```text
-tag/file-name contract
-→ Kubernetes API/DNS/RBAC
-→ metadata cache
-→ Pod lifecycle
-→ filter order
-→ allowlist
-```
-
-## 18. Anti-patterny
-
-### Position DB na ephemeral filesysteme
-
-Restart mení replay behavior a evidence completeness.
-
-### Liveness via remote backend
-
-Dočasný backend outage vytvára agent churn a state loss.
-
-### Unlimited retry permanentných errors
-
-Queue sa nikdy nevyprázdni.
-
-### Všetky Kubernetes labels a annotations
-
-Vytvára cardinality, mapping, privacy a tenant-routing riziká.
-
-### Dva DaemonSets čítajú rovnaké files
-
-Vytvára duplicates a dvojnásobný load.
-
-### Parse/redaction až v backend-e
-
-Citlivé data už prešli agentom, sieťou a bufferom.
-
-## 19. Kontrolné otázky
-
-1. Čo tvorí exact Fluent Bit subject?
-2. Ako sa líši source line, record, chunk a backend document/entry?
-3. Prečo Tail DB potrebuje persistent file identity a offset state?
-4. Ako rotation vytvára duplicate alebo loss boundary?
-5. Prečo filter order ovplyvňuje security a schema?
-6. Ako tag a `Match` vytvárajú routing verdict?
-7. Aký je rozdiel medzi memory a filesystem bufferingom?
-8. Prečo exactly-once nemožno predpokladať?
-9. Ako bulk `200` môže stále obsahovať failed items?
-10. Prečo output failure nemá byť automaticky liveness failure?
-11. Ako overíš config generation po rollout-e?
-12. Ako vykonáš end-to-end log-delivery canary?
-
-## Glossary impact
-
-Relevantné pojmy: Fluent Bit subject, source-file generation, Tail offset generation, position-state durability, parser generation, tag-route generation, filter-order contract, chunk-delivery state, filesystem-backlog generation, output acknowledgement, unknown log-delivery outcome, replay duplicate, log-loss window, output-independent liveness, log-delivery canary a Fluent Bit acceptance verdict.
-
-## Primárne zdroje
-
-- [Fluent Bit documentation](https://docs.fluentbit.io/manual)
-- [Configure Fluent Bit](https://docs.fluentbit.io/manual/administration/configuring-fluent-bit)
-- [YAML configuration](https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/yaml/configuration-file)
-- [Classic configuration](https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode)
+- [Fluent Bit manual](https://docs.fluentbit.io/manual/)
 - [Tail input](https://docs.fluentbit.io/manual/pipeline/inputs/tail)
 - [Buffering and storage](https://docs.fluentbit.io/manual/administration/buffering-and-storage)
-- [Backpressure](https://docs.fluentbit.io/manual/administration/backpressure)
 - [Monitoring](https://docs.fluentbit.io/manual/administration/monitoring)
+- [Configuration file](https://docs.fluentbit.io/manual/administration/configuring-fluent-bit)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
