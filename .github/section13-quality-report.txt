@@ -17,7 +17,7 @@ docs/13-security-and-identity/sbom.md|strict=27/31/17|prose=1374|bullet_share=0.
 docs/13-security-and-identity/secrets-management.md|strict=0/2/0|prose=1175|bullet_share=0.088|blocks=6|executable=7|explanations=8
 docs/13-security-and-identity/supply-chain-security.md|strict=20/32/9|prose=1200|bullet_share=0.448|blocks=8|executable=0|explanations=7
 docs/13-security-and-identity/threat-modeling.md|strict=22/30/19|prose=1187|bullet_share=0.436|blocks=9|executable=0|explanations=4
-docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=13/24/10|prose=926|bullet_share=0.489|blocks=8|executable=1|explanations=13
+docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=0/1/0|prose=1104|bullet_share=0.094|blocks=6|executable=5|explanations=12
 docs/13-security-and-identity/zero-trust.md|strict=26/34/13|prose=1219|bullet_share=0.474|blocks=14|executable=2|explanations=6
 
 STRICT FINDINGS
@@ -356,53 +356,7 @@ HIGH docs/13-security-and-identity/threat-modeling.md:431 [single-sentence-conce
 HIGH docs/13-security-and-identity/threat-modeling.md:435 [single-sentence-concept] Mitigation ako slogan — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/threat-modeling.md:439 [single-sentence-concept] Existence evidence ako control — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/threat-modeling.md:443 [single-sentence-concept] Accepted risk bez ownera — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:21 [list-heavy-section] 1. Exact remediation subject — 9 odrážok a iba 58 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:21 [bare-bullet-items] 1. Exact remediation subject — 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service, ownera, environment a tenant scope;`, `host alebo node-pool generation;`, `installed package build a vendor release;`, `running process, loaded library alebo kernel generation;`.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:21 [term-before-explanation] 1. Exact remediation subject — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `scope`
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:56 [single-sentence-concept] 3. Inventory ako prerequisite — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:56 [outline-instead-of-explanation] 3. Inventory ako prerequisite — 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:56 [short-concept-section] 3. Inventory ako prerequisite — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:56 [term-before-explanation] 3. Inventory ako prerequisite — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:109 [list-first-introduction] 6. Finding lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:126 [list-heavy-section] 7. Patch provenance a treatment choices — 7 odrážok a iba 49 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:126 [bare-bullet-items] 7. Patch provenance a treatment choices — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch alebo security update;`, `rebuild immutable artifactu;`, `upgrade na supported release line;`, `configuration mitigation alebo feature disable;`.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:194 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:194 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:194 [outline-instead-of-explanation] Competing hypotheses — 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:194 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:201 [list-first-introduction] Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:201 [outline-instead-of-explanation] Discriminating evidence — 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:201 [short-concept-section] Discriminating evidence — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:213 [single-sentence-concept] 11. Evidence-preserving containment — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:213 [list-first-introduction] 11. Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:213 [outline-instead-of-explanation] 11. Evidence-preserving containment — 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:213 [thin-concept-section] 11. Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:213 [term-before-explanation] 11. Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:225 [list-first-introduction] 12. Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:225 [outline-instead-of-explanation] 12. Authoritative recovery — 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:225 [thin-concept-section] 12. Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:225 [term-before-explanation] 12. Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:240 [single-sentence-concept] 13. Acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:240 [outline-instead-of-explanation] 13. Acceptance verdict — 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:240 [bare-bullet-items] 13. Acceptance verdict — 6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `fixed builder digest neobsahuje affected helper version;`, `clean independent rebuild vytvorí expected semantic artifact;`, `žiadny running ani rollback workload nepoužíva sha256:pay7240 ;`, `release credentials z exposure intervalu sú revoked;`.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:240 [thin-concept-section] 13. Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:240 [term-before-explanation] 13. Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `workload`
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:255 [list-heavy-section] 14. Exceptions, debt a metrics — 9 odrážok a iba 43 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:255 [bare-bullet-items] 14. Exceptions, debt a metrics — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory a authenticated-assessment coverage podľa asset class;`, `exposure window po risk tieroch;`, `time to triage, remediate a verify v percentiloch;`, `KEV a active-exploitation closure;`.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:255 [short-concept-section] 14. Exceptions, debt a metrics — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:255 [term-before-explanation] 14. Exceptions, debt a metrics — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KEV`
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:273 [no-prose-concept] 15. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:273 [list-first-introduction] 15. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:273 [outline-instead-of-explanation] 15. Earlier controls — 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/vulnerability-and-patch-management.md:273 [bare-bullet-items] 15. Earlier controls — 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable inventory source, builder, artifact a runtime identities;`, `builder-image a toolchain SBOM vedľa application SBOM;`, `source, artifact a binary-analysis coverage matrix;`, `pinned build environments a ephemeral runners;`.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:273 [thin-concept-section] 15. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/vulnerability-and-patch-management.md:273 [term-before-explanation] 15. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:289 [single-sentence-concept] CVSS-only SLA — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:293 [single-sentence-concept] Source scan reprezentuje celý release — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:297 [single-sentence-concept] Installed znamená fixed — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:301 [single-sentence-concept] Patch bez compromise hunt-u — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:305 [single-sentence-concept] Green job znamená verified runtime — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:309 [single-sentence-concept] Permanentná suppression — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:25 [list-first-introduction] Exact remediation subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/13-security-and-identity/zero-trust.md:37 [outline-instead-of-explanation] 2. Explicit access subject — 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
 CRITICAL docs/13-security-and-identity/zero-trust.md:37 [bare-bullet-items] 2. Explicit access subject — 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `human, workload a device identity;`, `issuer, authenticator a session generation;`, `delegation chain;`, `requested action a exact resource;`.
 HIGH docs/13-security-and-identity/zero-trust.md:37 [thin-concept-section] 2. Explicit access subject — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
@@ -502,7 +456,5 @@ threat-modeling.md: strict findings
 threat-modeling.md: bullet share 0.436
 threat-modeling.md: practical examples too thin
 vulnerability-and-patch-management.md: strict findings
-vulnerability-and-patch-management.md: bullet share 0.489
-vulnerability-and-patch-management.md: practical examples too thin
 zero-trust.md: strict findings
 zero-trust.md: bullet share 0.474
