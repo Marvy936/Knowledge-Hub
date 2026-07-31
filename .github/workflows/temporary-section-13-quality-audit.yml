@@ -1,0 +1,127 @@
+name: Temporary Section 13 practical audit
+
+on:
+  push:
+    branches:
+      - agent/section-13-practical-prose-revalidation
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section13-quality-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-13-practical-prose-revalidation
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build Section 13 quality report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          root = Path('docs/13-security-and-identity')
+          raw = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
+          audit = {x['path']: x for x in raw['files']}
+          strict_findings = [
+              finding
+              for finding in raw['findings']
+              if finding['path'].startswith('docs/13-security-and-identity/')
+              and finding['severity'] in {'critical', 'high', 'medium'}
+          ]
+
+          executable_pattern = re.compile(
+              r'(?m)^(?:curl|kubectl|openssl|ldapsearch|ldapmodify|kinit|klist|kvno|setspn|repadmin|dcdiag|'
+              r'Get-AD|Get-Mg|az |aws |gcloud |vault |cosign |syft |grype |trivy |opa |conftest |kyverno |'
+              r'jq |yq |python |from |package |allow\b|deny\b|apiVersion:|kind:|resource |data |input |SELECT |POST |GET )'
+          )
+          explanation_pattern = re.compile(
+              r'(?i)(tento príkaz|táto query|tento výstup|výstup preukazuje|nepreukazuje|dokazuje|nedokazuje|'
+              r'observation|dôkaz|read-back|loaded state|effective state|runtime state|acceptance|forbidden outcome)'
+          )
+
+          rows, failures = [], []
+          for path in sorted(root.glob('*.md')):
+              if path.name == 'README.md':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              outside, fenced = [], False
+              for line in text.splitlines():
+                  if line.strip().startswith('```'):
+                      fenced = not fenced
+                      continue
+                  if not fenced:
+                      outside.append(line)
+              prose = sum(
+                  len(re.findall(r'[\wÀ-ž]+', line))
+                  for line in outside
+                  if line.strip() and not re.match(r'\s*(?:[-*+] |\d+\. |#|\|)', line)
+              )
+              bullets = sum(
+                  len(re.findall(r'[\wÀ-ž]+', line))
+                  for line in outside
+                  if re.match(r'\s*(?:[-*+] |\d+\. )', line)
+              )
+              share = bullets / max(1, prose + bullets)
+              blocks = len(re.findall(
+                  r'```(?:bash|shell|powershell|python|json|yaml|yml|hcl|terraform|sql|console|rego|cel|xml|ldif|conf|text)\n',
+                  text,
+              ))
+              executable = len(executable_pattern.findall(text))
+              explanations = len(explanation_pattern.findall(text))
+              item = audit[path.as_posix()]
+              rows.append(
+                  f'{path.as_posix()}|strict={item["critical"]}/{item["high"]}/{item["medium"]}'
+                  f'|prose={prose}|bullet_share={share:.3f}|blocks={blocks}'
+                  f'|executable={executable}|explanations={explanations}'
+              )
+              if item['critical'] or item['high'] or item['medium']:
+                  failures.append(f'{path.name}: strict findings')
+              if prose < 750:
+                  failures.append(f'{path.name}: only {prose} prose words')
+              if share > 0.34:
+                  failures.append(f'{path.name}: bullet share {share:.3f}')
+              if blocks < 2 or executable < 2:
+                  failures.append(f'{path.name}: practical examples too thin')
+              if explanations < 3:
+                  failures.append(f'{path.name}: evidence explanation too thin ({explanations})')
+
+          exact = [
+              f"{finding['severity'].upper()} {finding['path']}:{finding['line']} "
+              f"[{finding['rule']}] {finding['section']} — {finding['detail']}"
+              for finding in strict_findings
+          ]
+          status = 'success' if not failures else 'failure'
+          output = [
+              f'status={status}', '', *rows, '',
+              'STRICT FINDINGS', *(exact or ['none']), '',
+              'FAILURES', *(failures or ['none'])
+          ]
+          Path('.github/section13-quality-report.txt').write_text(
+              '\n'.join(output) + '\n', encoding='utf-8', newline='\n'
+          )
+          print('\n'.join(output))
+          PY
+      - name: Publish report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/section13-quality-report.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "ci(docs): publish Section 13 practical audit"
+            git push origin HEAD:agent/section-13-practical-prose-revalidation
+          fi
