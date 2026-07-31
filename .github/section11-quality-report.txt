@@ -8,7 +8,7 @@ docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md|words=1724|grade=A|
 docs/11-cloud-and-aws/cloudops-hands-on-labs.md|words=1987|grade=A|strict=0/0/0|prose_words=985|bullet_words=132|bullet_share=0.118|list_first=2|exec_blocks=19|commands=27|explanations=16
 docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md|words=2124|grade=A|strict=0/0/0|prose_words=1520|bullet_words=95|bullet_share=0.059|list_first=2|exec_blocks=11|commands=25|explanations=20
 docs/11-cloud-and-aws/cloudwatch-cloudtrail.md|words=1452|grade=B|strict=0/0/0|prose_words=900|bullet_words=93|bullet_share=0.094|list_first=2|exec_blocks=11|commands=7|explanations=7
-docs/11-cloud-and-aws/cost-management-finops.md|words=1369|grade=A|strict=0/0/0|prose_words=741|bullet_words=103|bullet_share=0.122|list_first=2|exec_blocks=12|commands=6|explanations=1
+docs/11-cloud-and-aws/cost-management-finops.md|words=1654|grade=B|strict=0/0/0|prose_words=1026|bullet_words=103|bullet_share=0.091|list_first=2|exec_blocks=12|commands=6|explanations=2
 docs/11-cloud-and-aws/ec2-auto-scaling.md|words=1839|grade=B|strict=0/0/0|prose_words=1105|bullet_words=107|bullet_share=0.088|list_first=2|exec_blocks=15|commands=11|explanations=5
 docs/11-cloud-and-aws/ecs-eks.md|words=3437|grade=B|strict=0/0/0|prose_words=2281|bullet_words=134|bullet_share=0.055|list_first=2|exec_blocks=18|commands=29|explanations=15
 docs/11-cloud-and-aws/elastic-load-balancing.md|words=2060|grade=B|strict=0/0/0|prose_words=1393|bullet_words=95|bullet_share=0.064|list_first=2|exec_blocks=14|commands=12|explanations=10
@@ -21,7 +21,7 @@ docs/11-cloud-and-aws/lambda.md|words=1732|grade=B|strict=0/0/0|prose_words=994|
 docs/11-cloud-and-aws/public-private-hybrid-cloud.md|words=1963|grade=A|strict=0/0/0|prose_words=1433|bullet_words=125|bullet_share=0.080|list_first=2|exec_blocks=6|commands=9|explanations=11
 docs/11-cloud-and-aws/rds.md|words=1991|grade=B|strict=0/0/0|prose_words=1100|bullet_words=91|bullet_share=0.076|list_first=2|exec_blocks=19|commands=12|explanations=7
 docs/11-cloud-and-aws/regions-availability-zones.md|words=1725|grade=A|strict=0/0/0|prose_words=1247|bullet_words=112|bullet_share=0.082|list_first=2|exec_blocks=7|commands=10|explanations=11
-docs/11-cloud-and-aws/route53-cloudfront.md|words=1887|grade=B|strict=0/0/0|prose_words=1124|bullet_words=103|bullet_share=0.084|list_first=2|exec_blocks=14|commands=9|explanations=1
+docs/11-cloud-and-aws/route53-cloudfront.md|words=2454|grade=B|strict=0/0/0|prose_words=1652|bullet_words=118|bullet_share=0.067|list_first=2|exec_blocks=13|commands=10|explanations=13
 docs/11-cloud-and-aws/s3-ebs-efs.md|words=2027|grade=B|strict=0/0/0|prose_words=1242|bullet_words=105|bullet_share=0.078|list_first=2|exec_blocks=18|commands=11|explanations=7
 docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md|words=1619|grade=A|strict=0/0/0|prose_words=1093|bullet_words=102|bullet_share=0.085|list_first=2|exec_blocks=8|commands=7|explanations=6
 docs/11-cloud-and-aws/security-groups-network-acls.md|words=1971|grade=A|strict=0/0/0|prose_words=1215|bullet_words=101|bullet_share=0.077|list_first=2|exec_blocks=10|commands=7|explanations=12
@@ -39,7 +39,6 @@ docs/11-cloud-and-aws/cloudops-hands-on-labs.md: 2 list-first conceptual section
 docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/cloudwatch-cloudtrail.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/cost-management-finops.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/cost-management-finops.md: only 741 prose words
 docs/11-cloud-and-aws/cost-management-finops.md: command/evidence explanation is too thin
 docs/11-cloud-and-aws/ec2-auto-scaling.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/ecs-eks.md: 2 list-first conceptual sections
@@ -54,7 +53,6 @@ docs/11-cloud-and-aws/public-private-hybrid-cloud.md: 2 list-first conceptual se
 docs/11-cloud-and-aws/rds.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/regions-availability-zones.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/route53-cloudfront.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/route53-cloudfront.md: command/evidence explanation is too thin
 docs/11-cloud-and-aws/s3-ebs-efs.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/security-groups-network-acls.md: 2 list-first conceptual sections
