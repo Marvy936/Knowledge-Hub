@@ -1,502 +1,287 @@
 # Progressive delivery
 
-## Metadata
+Progressive delivery je riadený release system, ktorý po malých krokoch zosúlaďuje application deployment, traffic, audience, feature behavior a data-migration state s produkčnou evidence. Nie je to synonymum pre pomalý rollout ani jedna konkrétna strategy. Je to reconciliation loop nad viacerými control planes, ktoré sa môžu meniť nezávisle a dočasne sa rozísť.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Release môže mať new Pods nasadené, ale nulový traffic. Traffic môže byť na new release, no feature zostáva off. Feature môže byť enabled pre ring 1, zatiaľ čo database backfill ešte nepokrýva všetky rows. Dôveryhodný controller preto nesleduje jeden percent bar. Sleduje exact multi-axis state a povoľuje iba bounded transition, ktorého preconditions a recovery sú známe.
 
-Progressive delivery je riadený release systém, ktorý po malých krokoch zosúlaďuje deployment, traffic, audience, feature behavior a data-migration state s produkčnou evidence. Nie je to synonymum pre pomalý rollout ani jedna deployment technika. Je to reconciliation loop nad viacerými control planes.
+## 1. Dominantný multi-axis control loop
 
 ```text
 versionovaný rollout contract
-→ pozorovaný multi-axis runtime state
+→ observed application/traffic/audience/feature/data state
+→ precondition a generation validation
 → jeden bounded transition
-→ technical + functional + business evidence
+→ controller/runtime read-back
+→ technical, functional a business evidence
 → promote / pause / abort / inconclusive / invalid
-→ recovery alebo ďalší transition
-→ delayed validation
-→ odstránenie dočasného state-u a closure
+→ authoritative recovery alebo next transition
+→ closure a old-state retirement
 ```
 
-Hodnota nevzniká samotným znižovaním percenta trafficu. Vzniká tým, že každý transition má známy subject, preconditions, observation points, decision policy a recovery path.
+Progressive delivery je bezpečná iba vtedy, keď jednotlivé control planes majú authority, generation a read-back. Ak portal mení feature flag, service mesh traffic a migration job data state bez spoločného contractu, „rollout 25 %“ nemá jednoznačný význam.
 
-## 1. Nosný model: rollout controller ako reconciler
+## 2. Exact rollout contract
 
-Controller porovnáva desired a observed state:
+```yaml
+rolloutContract:
+  id: ROLLOUT-PAY-1000-RC4
+  releaseManifestDigest: sha256:release1000rc4
+  targetEnvironmentGeneration: prod-eu-1844
+  axes:
+    application:
+      stableDigest: sha256:pay993
+      candidateDigest: sha256:pay1000api
+    traffic:
+      authority: trafficassignment/payments-api
+      generation: 1844
+    audience:
+      ringProgramGeneration: payments-rings-v12
+    feature:
+      flag: settlement-review-v2
+      generation: flag-pay-882
+    data:
+      schemaContract: settlement-schema-v42-expand
+      backfillGeneration: backfill-pay-42-7
+  steps:
+    - id: deploy-dark
+      traffic: 0
+      feature: false
+    - id: ring0-2-percent
+      traffic: 2
+      audience: ring0
+      feature: true
+    - id: ring1-10-percent
+      traffic: 10
+      audience: ring1
+      feature: true
+    - id: general-availability
+      traffic: 100
+      feature: true
+  recoveryReference: recovery-payments-10.0-rc4
+```
+
+Contract definuje intended states, nie current reality. Controller pred každým stepom číta actual generations a odmietne transition, ak sa iný writer alebo incident response odchýlili od expected previous state-u.
+
+## 3. Observed multi-axis state
+
+```bash
+kubectl -n payments get deployment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,images:[.spec.template.spec.containers[].image]}'
+
+kubectl -n payments get trafficassignment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,effective:.status.effectiveWeights}'
+
+curl --fail https://payments-api.internal/management/config-generation | jq '{release,flagGeneration,schemaContract,backfillGeneration}'
+```
+
+Tieto read-backs preukazujú Kubernetes control state a application-declared loaded generations. Nepreukazujú actual request distribution, authoritative database completeness ani correctness feature evaluation. Observation model kombinuje controller state, runtime telemetry a business records.
+
+## 4. One transition at a time
+
+Keď controller naraz zvýši traffic, zapne flag a spustí destructive migration, failure má viac možných príčin a recovery môže byť nejednoznačná. Bounded transition mení jednu risk dimension alebo explicitne koordinovaný atomic set.
 
 ```text
-desired rollout state
-versus
-observed artifact + config + traffic + audience + flags + data phase + evidence
+application dark deploy
+→ verify runtime
+→ bounded traffic without feature
+→ verify infrastructure path
+→ enable feature for stable ring
+→ verify behavior
+→ widen audience
+→ complete data migration
 ```
 
-Potom vypočíta najmenšiu bezpečnú zmenu, vykoná ju a znovu pozoruje systém.
+Nie každý systém môže oddeliť všetky axes. Vtedy rollout contract musí pomenovať coupled transition a zvýšiť evidence/recovery requirements.
+
+## 5. Preconditions a stale-plan protection
+
+Transition používa expected current generations:
+
+```json
+{
+  "expected": {
+    "applicationRevision": 281,
+    "trafficGeneration": 1844,
+    "flagGeneration": "flag-pay-882",
+    "schemaContract": "settlement-schema-v42-expand"
+  },
+  "desiredStep": "ring1-10-percent"
+}
+```
+
+Ak current state nesedí, controller nevykoná stale plan. Human break-glass môže byť legitimate, ale musí vytvoriť new observed state a explicitné reconciliation decision.
+
+## 6. Evidence contract per step
+
+Každý step má vlastnú risk question. Dark deploy overuje startup, identity a dependencies. Initial traffic overuje request path. Feature activation overuje new behavior. Wider ring pridáva population diversity. Data contract step overuje migration progress a mixed-version safety.
+
+Evidence zahŕňa:
 
 ```text
-observe
-→ classify divergence
-→ validate preconditions
-→ acquire generation lock
-→ apply one transition
-→ verify effective state
-→ collect outcome evidence
-→ record verdict
-→ reconcile again
+runtime generation and eligibility
++ actual traffic/audience/variant distribution
++ technical SLO and saturation
++ logical business outcomes
++ forbidden duplicate/lost/cross-tenant outcomes
++ telemetry freshness and coverage
++ recovery eligibility
 ```
 
-Tento model je dôležitý, pretože control-plane zápis nie je automaticky effective runtime state. Route môže byť publikovaná, ale staré connections ostanú. Flag revision môže existovať, ale worker používa stale snapshot. Migration phase môže byť deklarovaná ako `dual-write`, hoci časť fleet stále zapisuje iba old representation.
+One global dashboard nemá dostatočný subject ani applicability.
 
-## 2. Osi promotion sú oddelené, ale musia mať spoločnú identity
+## 7. Analysis verdicts
 
-Progressive delivery riadi najmenej tieto osi:
+Progressive controller používa viac states:
+
+- **PROMOTE** — step splnil preconditions a evidence contract;
+- **PAUSE** — state zostáva bounded a čaká na additional evidence alebo human context;
+- **ABORT** — new exposure sa zastaví a spustí recovery;
+- **INCONCLUSIVE** — sample, telemetry alebo duration nestačí;
+- **INVALID** — observed state nezodpovedá rollout contractu, napríklad external writer zmenil flag;
+- **COMPLETE** — full acceptance a retirement conditions sú splnené.
+
+`INVALID` je dôležitý. Controller nesmie hodnotiť metrics pre state, ktorý sa v skutočnosti nevykonal podľa contractu.
+
+## 8. Controller coordination a ownership
+
+Argo Rollouts, service mesh, feature platform a migration operator môžu byť samostatné controllers. Jeden orchestrator nemusí vlastniť všetky resources, ale rollout contract potrebuje ownership graph a authoritative observation.
 
 ```text
-artifact       ktorý immutable digest beží
-environment    v ktorom targete beží
-traffic        koľko requestov smeruje na new generation
-audience       ktoré rings, tenants alebo clients sú eligible
-feature        ktorý runtime behavior je aktívny
-data           ktorá read/write representation je autoritatívna
-acceptance     či je release podporovaný a pripravený na cleanup
+application controller owns Deployment
+traffic controller owns TrafficAssignment
+flag platform owns targeting rules
+data operator owns migration CR
+progressive coordinator owns allowed sequence and verdict
 ```
 
-Každá os môže byť v inom stave. To je legitímne iba vtedy, ak je kombinácia zámerná a auditovateľná.
+Field ownership a idempotency keys bránia controllers navzájom si prepisovať desired state.
 
-Napríklad:
+## 9. Failure containment
+
+Pri failure sa najprv zmrazia ďalšie transitions. Nie vždy sa okamžite rollbackuje všetko. New operations sa môžu route-nuť na stable, feature vypnúť a existing candidate operations reconciliovať.
 
 ```text
-artifact M3 deployed = 100 % fleet
-traffic to M3 = 25 %
-risk-decision flag = 10 % eligible tenants
-database phase = dual-write, read-old
-audience = ring 1
-release acceptance = pending
+freeze rollout generation
+→ preserve observed multi-axis evidence
+→ stop new exposure
+→ classify in-flight and shared-state delta
+→ choose per-axis recovery
+→ validate stable plus forbidden outcome
 ```
 
-Agregovaná veta „release je na 25 %“ by bola nepresná. Nie je jasné, či 25 % označuje traffic, audience, feature exposure alebo data writes.
+Automatický global rollback môže vrátiť application, ale nevráti data alebo external effects.
 
-## 3. Nosný scenár: Atlas Orders release 3.12.0
+## 10. Delayed watch a closure
 
-Atlas pripravuje release `3.12.0`, ktorý presúva risk-decision výpočet na nový service a zároveň migruje uložený výsledok z `orders.risk_status` do `risk_decisions` table.
+Full traffic nie je closure. Release zostáva v delayed watch pre credential expiry, memory growth, backlog, data convergence a support signals. Old release/flag/schema compatibility sa odstráni až po consumer inventory a recovery decision.
 
-Rollout subject `R120` obsahuje:
+Closure obsahuje:
 
 ```text
-release manifest M3
-Orders API digest D_api3
-Risk worker digest D_worker3
-rendered config C21
-flag revision F31
-ring membership revision H15
-database migration phase S_expand
-analysis policy P12
-metrics query bundle Q18
+full desired/effective exposure
++ business acceptance
++ no unresolved reconciliation backlog
++ new recovery baseline
++ old cohort drained
++ temporary flags/rules retired or owned
++ evidence and decision record retained
 ```
 
-Plánovaný lifecycle:
+## 11. Connected incident `REL-PAY-71`
+
+Atlas rollout mal application controller, service-mesh traffic, feature platform a backfill job. Portal ukazoval jeden progress `25 %`, ale axes boli:
 
 ```text
-1. deploy M3 s feature off a schema expanded
-2. shadow traffic do Risk v3 bez authoritative writes
-3. ring 0: feature on, read-old + dual-write
-4. ring 1: 5 % eligible tenants
-5. ring 1: 25 % po sample a invariant evidence
-6. read-new with fallback-old
-7. rings 2 a 3
-8. 100 % feature exposure
-9. delayed settlement/reconciliation validation
-10. stop old writes, close rollback window
-11. contract old schema a remove flag branches
-12. release accepted and closed
+application: 25 % new Pods
+traffic: 10 % canary requests
+feature: 100 % enterprise accounts na new path kvôli stale override
+data: backfill 42 % complete
 ```
 
-Každý krok mení iba jasne určené osi. Controller nesmie súčasne rozšíriť audience, prepnúť read source a odstrániť rollback path, pretože pri failure by nebolo možné určiť mechanizmus ani bezpečnú recovery vrstvu.
+Controller vyhodnotil canary podľa release labelu na requests, no feature enabled new behavior aj na stable Pods. Backfill worker používal stale snapshot a prepísal novšie live rows. Po latency alert-e automation vykonala `rollout undo`, ale flag a backfill pokračovali.
 
-## 4. Rollout contract definuje rozhodovací systém
+Výsledkom bolo 83 stale data overwrites, 31 duplicate provider effects a mixed behavior na old release. Root cause bol neexistujúci multi-axis contract a recovery.
 
-`R120` obsahuje:
+## 12. Redesign a acceptance verdict
 
-- immutable release, config, flag, membership a migration identities;
-- desired state každej promotion osi;
-- presný povolený transition graph;
-- preconditions pre každý transition;
-- minimálnu vzorku, duration a failure-latency horizon;
-- technical, functional, business, security a data invariants;
-- policy pre missing alebo delayed telemetry;
-- maximum blast radius;
-- recovery hierarchy a rollback eligibility;
-- ownerov, approvals, expiry a pause timeout;
-- final intended state a cleanup obligations.
+Redesign zavedie rollout contract s expected generations, one-transition steps, one authoritative flag writer a version-safe backfill. Verdict je invalid, ak actual population alebo loaded generation nesedí. Recovery má per-axis plan a reconciliation.
 
-Contract nie je iba konfigurácia controlleru. Je to auditovateľný argument:
+Progressive delivery je prijatá iba vtedy, keď:
 
 ```text
-prečo smel release vstúpiť do kroku
-→ čo sa reálne zmenilo
-→ aká evidence vznikla
-→ prečo bol zvolený verdict
-→ aký state zostal po rozhodnutí
+all control axes a authorities sú inventarizované
++ release/target/axis generations sú exact
++ each transition má expected previous state
++ one bounded risk change je explicitný
++ actual population and loaded state sa read-backne
++ evidence je step-specific a authoritative
++ invalid/inconclusive nie sú pass
++ recovery je per-axis a shared-state aware
++ forbidden split-generation state je testovaný
++ delayed watch a retirement closure prejdú
 ```
 
-Zmena digestu, configu, flag payloadu, cohort policy alebo metrics query vytvára nový subject alebo invaliduje časť evidence.
-
-## 5. Preconditions chránia transition, nie všeobecnú predstavu o zdraví
-
-Pred aktiváciou ring 1 Atlas overí:
+## 13. Troubleshooting flow
 
 ```text
-M3 + C21 + F31 sú immutable a nasadené
-→ schema S_expand podporuje old aj new readers/writers
-→ shadow diff je complete pre required workload classes
-→ ring membership H15 je konzistentná naprieč API a workermi
-→ version/ring/flag/data-phase telemetry je dostupná
-→ stable baseline nemá aktívny incident
-→ previous compatible state a recovery package sú dostupné
-→ controller drží generation lock
+rollout contract a current step
+→ application desired/runtime state
+→ traffic authority and actual distribution
+→ audience membership
+→ flag published/loaded/effective state
+→ schema/backfill state
+→ evidence population
+→ verdict and recovery actions
 ```
 
-Každá precondition chráni konkrétnu failure boundary. Baseline health umožňuje atribúciu. Membership consistency chráni cross-service journey. Compatibility matrix chráni rollback. Telemetry completeness chráni decision oracle.
+Competing hypotheses môžu byť wrong release, route lag, ring cache, stale flag, backfill race, telemetry population mismatch alebo controller conflict. Percent progress nemá diagnostic authority.
 
-Precondition typu „dashboard je zelený“ je príliš neurčitá, pretože nehovorí, ktorý observation point alebo transition chráni.
+## 14. Anti-patterny
 
-## 6. Jeden transition musí mať authoritatívny effective-state check
+### Jeden progress bar pre viac axes
 
-Pri zmene flag exposure z 5 % na 25 % controller:
+Skryje, ktoré state transitions sa skutočne vykonali.
 
-```text
-1. overí expected current revision F31-step-5
-2. publikuje F31-step-25 cez compare-and-swap
-3. čaká na distribution acknowledgement
-4. meria effective evaluations per revision a variant
-5. overí skutočnú eligible cohortu a exposure events
-6. až potom začne observation window
-```
+### Súčasná zmena trafficu, flagu a data
 
-Čas publikovania configu nie je začiatok experimentu. Observation window začína, keď je effective state dostatočne rozšírený a merateľný.
+Zhoršuje causal diagnosis aj recovery.
 
-Rovnaký princíp platí pre routing, deployments a migration flags. Controller nemá predpokladať úspech na základe control-plane response; musí pozorovať data plane.
+### Metrics analysis nad invalid state-om
 
-## 7. Evidence je viazaná na subject a rozhodovaciu otázku
+Ak actual cohort nezodpovedá contractu, result nemá applicability.
 
-Atlas skladá päť vrstiev evidence.
+### Automatický global rollback
 
-### Technical
+Application rollback nemusí zrušiť feature, data alebo external effects.
 
-- request errors a p95/p99 latency;
-- Risk dependency retries a saturation;
-- queue lag, DB wait a resource pressure;
-- restarts, probe failures a propagation lag.
+### Full traffic ako okamžitá closure
 
-### Functional
+Delayed failures a old-state retirement zostávajú neoverené.
 
-- order completion;
-- jeden authoritative risk decision na order;
-- idempotent retry;
-- authorization a tenant isolation;
-- old/new representation equivalence.
+## 15. Kontrolné otázky
 
-### Business
+1. Čo progressive delivery pridáva nad canary strategy?
+2. Ktoré control axes má rollout contract inventarizovať?
+3. Prečo intended state nestačí?
+4. Ako stale-plan protection chráni transition?
+5. Prečo sa preferuje one bounded transition?
+6. Čo znamená `INVALID` verdict?
+7. Ako sa koordinujú viaceré controllers?
+8. Prečo recovery musí byť per-axis?
+9. Čo sa rozchádzalo v `REL-PAY-71`?
+10. Ako version-safe backfill súvisí s rolloutom?
+11. Čo obsahuje delayed watch?
+12. Kedy možno old state retirenúť?
 
-- accepted-order a manual-review distribution;
-- abandonment a support signal;
-- delayed settlement completion.
+## Glossary impact
 
-### Security a data invariants
+Relevantné pojmy: progressive delivery, rollout contract, control axis, multi-axis state, bounded transition, expected previous generation, stale-plan protection, step-specific evidence, invalid rollout state, progressive coordinator, per-axis recovery, delayed watch a rollout closure.
 
-- žiadny cross-tenant access;
-- žiadne duplicate side effects;
-- dual-write mismatch pod hard limitom;
-- nové values čitateľné aktívnymi consumers.
+## Primárne zdroje
 
-### Evidence health
-
-- query execution status;
-- ingestion latency;
-- expected sample inventory;
-- cohort comparability;
-- complete release dimensions.
-
-Evidence bez subject identity môže patriť inému digestu, configu, ring-u alebo data phase. Evidence bez freshness pravidla môže opisovať predchádzajúci krok.
-
-## 8. Verdict taxonomy oddeľuje release failure od evidence failure
-
-Atlas používa:
-
-- `PROMOTE` — required evidence je úplná a policy splnená;
-- `PAUSE` — current scope zostáva bezpečný, ale treba čas alebo triage;
-- `ABORT` — guardrail alebo invariant bol porušený;
-- `INCONCLUSIVE` — evidence je nedostatočná, oneskorená alebo neporovnateľná;
-- `INVALID` — skúmaný subject alebo setup nezodpovedal contractu;
-- `RECOVER` — treba vykonať konkrétnu containment/recovery vetvu.
-
-Query timeout nie je application failure. Chýbajúca business metric nie je business success. Neplatná cohort membership nie je neutrálna neistota; invaliduje atribúciu.
-
-## 9. Risk class určuje tvar rollout-u
-
-Atlas klasifikuje `R120` ako high-risk, pretože kombinuje:
-
-- nový network dependency;
-- mutable database transition;
-- background workers;
-- delayed business outcome;
-- external accounting side effects;
-- partial rollback limitations.
-
-Preto používa malé rings, samostatný data read switch, manuálny checkpoint pred ukončením rollback windowu a dlhú delayed validation.
-
-Low-risk statická UI copy zmena by nepotrebovala rovnaký počet krokov. Progressive delivery nie je univerzálny ceremoniál; risk a reversibility určujú required evidence, automation a approvals.
-
-## 10. Worked failure: traffic, feature a data phase sa rozišli
-
-Controller zvýšil route weight M3 z 25 % na 50 %. Feature platforma však zostala na 10 % exposure a migration controller už prepol `read-new` pre ring 1.
-
-```text
-50 % requests beží na M3
-→ iba časť z nich aktivuje Risk v3
-→ ring 1 číta new table
-→ ostatné requests stále zapisujú prevažne old representation
-→ fallback read rastie
-→ business metric sa agreguje iba podľa artifact digestu
-→ M3 vyzerá nekonzistentne a rollout sa pause-ne
-```
-
-### Príčina
-
-Tri control planes nemali jeden transition record ani atomic desired-state contract. Dashboard dimenzoval artifact, ale nie flag variant a data phase. Tím teda nevedel, ktoré requesty skutočne použili nový behavior.
-
-### Dôsledok
-
-Samotný traffic rollback by nevrátil read source. Samotný flag disable by ponechal ring na new table s rastúcim fallbackom. Recovery musela najprv zastaviť promotion, stabilizovať write path, vrátiť read source na old a až potom znížiť traffic.
-
-### Trvalá náprava
-
-```text
-spoločný rollout ID a axis inventory
-→ prerequisite graph: read-new requires dual-write coverage
-→ transition journal s expected/observed state
-→ telemetry dimensions artifact + flag revision + ring + data phase
-→ invariant: žiadny ďalší transition pri axis divergence
-```
-
-## 11. Worked failure: controller crashol po route update-e
-
-Pri promotion z 5 % na 25 % routing API úspešne aplikovalo revision `T25`, ale response sa stratila. Controller nestihol zapísať completed transition a po reštarte načítal lokálny state `T5`.
-
-Naivný controller by opakoval príkaz alebo rovno prešiel na ďalší krok. Atlas reconciler namiesto toho:
-
-```text
-načíta observed routing revision
-→ nájde T25 active
-→ overí, že transition subject a generation sedia
-→ reconciliuje journal ako completed-with-unknown-response
-→ spustí effective-state verification
-→ nezačne ďalší krok bez evidence T25
-```
-
-### Failure boundary
-
-Control-plane timeout vytvoril unknown outcome, nie potvrdené zlyhanie. Blind retry bez idempotency key alebo compare-and-swap mohol vytvoriť 50 % exposure alebo prepísať novší manuálny containment.
-
-### Trvalá náprava
-
-- idempotency key per transition;
-- desired/observed reconciliation po každom restart-e;
-- generation lock a fencing;
-- append-only transition journal;
-- data plane ostáva v poslednom potvrdenom bezpečnom state-e;
-- promotion timer sa neobnoví, kým effective state a evidence nie sú známe.
-
-## 12. Kauzálny diagnostický walkthrough
-
-Symptom: po promotion ring 1 z 5 % na 25 % klesne order completion, server error rate ostáva stabilná a fallback reads rastú.
-
-### Krok 1 — stabilizuj rollout subject a actual state
-
-```text
-rollout R120
-artifact M3 / config C21
-route T25
-flag F31-step-25
-ring policy H15
-migration desired = read-new
-effective worker distribution = unknown
-```
-
-Posledná položka je zásadná: desired data phase nie je dôkaz, že všetci writers používajú rovnaký effective state.
-
-### Krok 2 — vytvor konkurenčné hypotézy
-
-```text
-H1: Risk v3 code vracia nesprávne decisions
-H2: read-new path číta neúplné dáta pre stale workers
-H3: ring 1 má ťažší workload než control
-H4: global database incident zhoršuje oba variants
-H5: completion telemetry je delayed alebo nesprávne dimenzovaná
-```
-
-### Krok 3 — vyber observation points
-
-- dual-write coverage a worker config revision testujú H2;
-- risk-decision diff na paired orders testuje H1;
-- tenant/order complexity distribution testuje H3;
-- stable a canary DB wait v rovnakom regióne testuje H4;
-- raw completion events, ingestion lag a query revision testujú H5.
-
-Atlas zistí:
-
-```text
-API fleet je na F31-step-25
-30 % workerov stále používa F31-step-5
-fallback reads korelujú s outputs týchto workerov
-stable DB latency je normálna
-paired decision values sú správne, keď oba writes existujú
-telemetry je complete
-```
-
-H2 vysvetľuje symptom. Nejde o čistú code regression ani globálny DB incident.
-
-### Krok 4 — contain-ni príčinný state
-
-Controller pause-ne ďalšiu promotion, vráti ring 1 na `read-old`, ponechá dual-write, zablokuje worker rollout bez latest revision a počká na complete distribution. Binary artifact rollback by nebol potrebný a mohol by skomplikovať migration state.
-
-### Krok 5 — over pôvodný outcome
-
-Recovery je potvrdená až keď:
-
-```text
-fallback reads klesnú k nule
-dual-write coverage je complete
-order completion sa vráti k control baseline
-data equivalence invariant prejde
-worker revision inventory je úplný
-```
-
-### Krok 6 — vráť learning do skoršej vrstvy
-
-Finding sa zmení na phase prerequisite, worker-distribution gate, cross-axis telemetry a fault test controllera pri partial config propagation.
-
-## 13. Recovery hierarchy vychádza zo zmeneného state-u
-
-Atlas používa od najmenej invazívnej akcie:
-
-```text
-stop promotion
-→ reduce audience/traffic
-→ disable feature alebo vráť read source
-→ route na stable target
-→ rollback config/artifact
-→ roll-forward fix
-→ compensate side effects
-→ repair alebo restore data
-```
-
-Správna akcia sa neurčuje názvom stratégie, ale current state inventory. Ak nové writes zostali old-compatible, flag disable môže stačiť. Ak new worker emitoval nekompatibilné events, traffic rollback API neodstráni poison backlog.
-
-## 14. Pause je riadený state, nie odložené rozhodnutie
-
-Pause record obsahuje:
-
-- current actual state každej osi;
-- dôvod a chýbajúcu evidence;
-- ownera;
-- maximum pause duration;
-- povolené mutations počas pause;
-- freshness preconditions pre resume;
-- expiry action, napríklad abort alebo návrat na stable.
-
-Po hodinách sa môže zmeniť baseline, dependency health, ring membership alebo rollback eligibility. Resume preto nie je pokračovanie starého timeru; je to nový reconciliation a precondition pass.
-
-## 15. Full exposure nie je closure
-
-Po 100 % feature exposure Atlas stále overuje:
-
-- queue a settlement lag;
-- reconciliation výsledok;
-- memory a connection behavior;
-- late client versions;
-- support a business-cycle signals;
-- data migration invariants.
-
-Release sa uzavrie až keď:
-
-```text
-final artifact/config/feature/data state je explicitný
-old generation a dočasné routes sú retired
-flag evaluation a obsolete path sú odstránené
-migration rollback window je ukončené vedomým rozhodnutím
-contract cleanup je hotový
-release record a findings sú archivované
-```
-
-`100 % on` bez cleanupu vytvára permanentný skew a control-plane debt.
-
-## 16. Diagnostický runbook
-
-1. Urči rollout ID, contract revision a immutable subject.
-2. Zostav observed inventory artifactu, routingu, audience, flags a data phase.
-3. Porovnaj desired a effective state každej osi.
-4. Over generation lock, transition journal a posledný confirmed transition.
-5. Validuj evidence completeness, freshness, query execution a cohort comparability.
-6. Formuluj code, axis-divergence, workload, dependency a telemetry hypotézy.
-7. Vyber observation points, ktoré ich rozlíšia.
-8. Contain-ni mechanizmus na najnižšej bezpečnej vrstve.
-9. Over technical, functional, business a data outcome.
-10. Uzavri cleanup a premeň finding na precondition, policy alebo controller test.
-
-## 17. Referenčné pravidlá
-
-- Progressive delivery je reconciliation loop, nie timer.
-- Deployment, traffic, audience, feature, data a acceptance sú samostatné osi.
-- Všetky osi potrebujú spoločný rollout subject a actual-state inventory.
-- Control-plane success sa overuje v effective data plane.
-- Jeden transition má meniť ohraničený state a mať vlastnú evidence.
-- Missing telemetry je `INCONCLUSIVE`, subject mismatch je `INVALID`.
-- Risk a reversibility určujú kroky, approvals a observation horizon.
-- Unknown transition outcome sa reconciliuje, nie slepo opakuje.
-- Recovery vrstva sa vyberá podľa mutable state-u a side effects.
-- Full exposure bez delayed validation a cleanup nie je closure.
-
-## 18. Časté omyly
-
-### „Progressive delivery je pomalý rolling update“
-
-Bez subjectu, evidence a decision policy ide iba o pomalšie šírenie.
-
-### „25 % rollout presne opisuje state“
-
-Nie je jasné, či ide o traffic, audience, feature alebo data writes.
-
-### „Controller dostal HTTP 200, transition je hotový“
-
-Treba potvrdiť effective routing, distribution a exposure.
-
-### „Missing metric znamená nulový problém“
-
-Nefunkčný oracle nesmie povoliť promotion.
-
-### „100 % exposure znamená dokončenie“
-
-Old paths, flags, migration fallback a support skew môžu zostať.
-
-## 19. Zhrnutie
-
-Atlas progressive-delivery lifecycle je:
-
-```text
-immutable rollout contract
-→ observed multi-axis state
-→ precondition a generation lock
-→ jeden bounded transition
-→ effective-state verification
-→ subject-bound technical/functional/business/data evidence
-→ explicitný verdict
-→ recovery alebo ďalší reconciliation krok
-→ delayed validation
-→ debt-free closure
-```
-
-Progressive delivery je dôveryhodné iba vtedy, keď controller rozumie skutočnému distribuovanému state-u, nie iba vlastným príkazom. Jeho cieľom nie je maximalizovať počet rollout krokov, ale minimalizovať exposure pred detekciou a zachovať vysvetliteľnú recovery cestu pri každom transitione.
+- [Argo Rollouts documentation](https://argo-rollouts.readthedocs.io/)
+- [Flagger documentation](https://docs.flagger.app/)
+- [OpenFeature specification](https://openfeature.dev/specification/)
+- [GitOps Principles](https://opengitops.dev/)
+- [Google SRE Workbook — Canarying Releases](https://sre.google/workbook/canarying-releases/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

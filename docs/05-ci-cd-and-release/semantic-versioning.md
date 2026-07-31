@@ -1,586 +1,313 @@
 # Semantic Versioning
 
-## Metadata
+Semantic Versioning je compatibility communication contract. Číslo `MAJOR.MINOR.PATCH` nevzniká podľa veľkosti diffu, počtu commitov ani subjektívneho pocitu autora. Vzniká porovnaním observable change s explicitne deklarovaným public API a s tým, čo existujúci consumer smie očakávať.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+SemVer nepreukazuje, že release je bez defectov. `PATCH` môže obsahovať vážnu regresiu a `MAJOR` môže byť technicky kvalitný. Version decision vyjadruje intended compatibility boundary. Dôveryhodný release system musí túto boundary definovať, testovať a komunikovať cez source, artifacts, schemas, behavior a support policy.
 
-Semantic Versioning je compatibility komunikačný contract. Číslo `MAJOR.MINOR.PATCH` nevzniká z veľkosti diffu ani z úmyslu autora. Vzniká porovnaním observable zmeny s explicitne deklarovaným public API a s tým, čo existujúci consumer smie očakávať.
+## 1. Dominantný contract-to-version model
 
 ```text
-public contract
-→ candidate change
-→ observable delta
-→ compatibility dimensions
-→ consumer evidence
-→ PATCH, MINOR alebo MAJOR decision
-→ immutable publication
-→ adoption a deprecation lifecycle
+declared public contract a supported consumers
+→ exact candidate change
+→ observable API/behavior/schema delta
+→ compatibility analysis v relevantných dimensions
+→ consumer a migration evidence
+→ PATCH, MINOR alebo MAJOR verdict
+→ immutable artifact/release publication
+→ adoption, deprecation a support lifecycle
 ```
 
-## 1. Cieľ kapitoly
+Version nie je property Git diffu. Internal refactor bez observable zmeny môže byť PATCH. Jeden riadok, ktorý odstráni enum value alebo zmení default retry behavior, môže byť MAJOR pre consumerov.
 
-Nosný model kapitoly je semantic-version decision lifecycle:
+## 2. Exact compatibility subject
 
-```text
-inventarizuj public API
-→ identifikuj zmenený behavior
-→ urč affected consumerov
-→ otestuj backward compatibility
-→ klasifikuj bump
-→ zostav migration alebo deprecation plan
-→ publikuj immutable version a digest
-→ sleduj consumer adoption a regressions
-```
-
-SemVer je signál. Nedokazuje, že producer správne pochopil contract, že consumer je tolerantný ani že release je prevádzkovo bezpečný.
-
-## 2. Nosný scenár: čo patrí do Orders 3.10.1, 3.11.0 a 4.0.0
-
-Atlas Orders 3.10.0 publikuje HTTP contract:
+Atlas Payments definuje version decision record:
 
 ```yaml
-POST /orders
-request:
-  customerId: string
-  items: array
-  idempotencyKey: string
-response:
-  orderId: string
-  state: ACCEPTED | REJECTED
-behavior:
-  rovnaký idempotencyKey a rovnaký request vracia rovnaký order
-  neznáme response fields musí consumer ignorovať
-  neznáma state hodnota nie je povolená
+compatibilitySubject:
+  component: settlement-events
+  previousRelease: 9.9.3
+  previousManifestDigest: sha256:release993
+  candidateRelease: 10.0.0-rc.4
+  candidateManifestDigest: sha256:release1000rc4
+  publicContracts:
+    - openapi/payments-v7.yaml
+    - protobuf/settlement/v18
+    - event-schema/SettlementCreated-v18.json
+    - cli/paymentsctl-v4
+    - configuration/schema-v7.json
+    - operational-metrics-contract-v3
+  supportedConsumers:
+    - payments-web-6.x
+    - settlement-worker-9.x
+    - partner-api-v7
+    - reporting-consumer-v18
+  decisionPolicySha: compat-policy-31
 ```
 
-Tím pripraví tri zmeny:
+Public API môže zahŕňať viac než HTTP endpoints. Event schemas, CLI flags, config keys, database extension interfaces, exit codes, metric names a default behavior môžu byť compatibility surface, ak consumers na nich závisia.
 
-### Zmena A — oprava duplicate race
+## 3. SemVer pravidlá
 
-Implementácia občas vytvorila dve objednávky pri súbežnom retry, hoci contract garantoval jednu. Fix obnovuje už deklarované správanie bez zmeny requestu, response alebo error semantics.
+Pre stable public API `1.0.0` a vyššie:
+
+- **PATCH** — backward-compatible bug fix, ktorý nemení intended public contract;
+- **MINOR** — backward-compatible functionality; existing supported consumers majú pokračovať bez povinnej zmeny;
+- **MAJOR** — incompatible public API change.
+
+Pre `0.y.z` SemVer povoľuje nestabilnejší model, ale organizácia stále potrebuje vlastnú compatibility policy. „Je to pre-1.0“ nie je ospravedlnenie pre nekomunikované breaking changes v production dependency.
+
+Pre-release identifiers ako `10.0.0-rc.4` majú nižšiu precedence než stable `10.0.0`. Build metadata ako `+build.1844` nemení precedence a nemá byť používaná ako náhrada content digestu.
+
+## 4. Public API inventory
+
+SemVer funguje iba ak existuje inventory toho, čo je public. Atlas rozlišuje:
 
 ```text
-3.10.0 → 3.10.1
-PATCH
+protocol shape
+→ endpoints, methods, fields, types, enums, events
+
+behavior contract
+→ defaults, ordering, retry, idempotency, error semantics
+
+operational contract
+→ config keys, CLI flags, exit codes, metrics a health semantics
+
+extension contract
+→ plugins, hooks, schemas a integration points
+
+support contract
+→ supported platforms, runtimes a dependency versions
 ```
 
-### Zmena B — nový optional `riskDecision` objekt
+Nie každý internal symbol je public. Naopak undocumented behavior môže byť de facto public, ak ho podporovaní consumers používajú a provider to dlhodobo toleruje. Consumer telemetry a support incidents pomáhajú inventory spresniť.
 
-Response dostane nové optional pole:
+## 5. Structural API diff
+
+OpenAPI diff môže odhaliť odstránený endpoint, required field alebo zmenu type-u:
+
+```bash
+oasdiff breaking \
+  contracts/previous/openapi.yaml \
+  contracts/candidate/openapi.yaml
+```
+
+Successful command bez findings preukazuje, že tool podľa svojej version a rules nenašiel podporované structural breaking changes. Nepreukazuje behavioral compatibility, correct examples, authorization semantics ani runtime implementation.
+
+Pre Protobuf:
+
+```bash
+buf breaking proto \
+  --against 'https://github.com/atlas/payments.git#branch=main,subdir=proto'
+```
+
+Tool môže odhaliť wire/source breaking changes podľa configured rules. Nepreukazuje, že event meaning, ordering alebo default behavior zostali kompatibilné.
+
+## 6. Behavioral compatibility
+
+Schema môže zostať rovnaká a behavior sa môže zlomiť. Príklady:
+
+- API začne vracať položky v inom ordering-u;
+- retryable error sa zmení na terminal;
+- timeout default klesne z 30 s na 5 s;
+- idempotency key scope sa zmení z tenant+operation na operation;
+- event vznikne pred DB commitom namiesto po commite;
+- config default povolí novú feature.
+
+Behavioral contract potrebuje executable tests nad previous consumers alebo recorded interactions. Atlas spúšťa previous stable client proti candidate serveru a candidate client proti previous stable serveru tam, kde podporuje mixed-version interval.
+
+```text
+old client → new server
+new client → old server
+old event consumer → new producer payload
+new consumer → historical payload corpus
+```
+
+Green compatibility test preukazuje tested scenarios a fixtures, nie všetkých external consumers. Risk decision zohľadňuje coverage a consumer inventory.
+
+## 7. Additive changes nemusia byť compatible
+
+Optional field môže zlomiť strict deserializer. Nová enum value môže zlomiť exhaustive switch. Nový event môže zvýšiť load alebo spustiť unknown handler. Nový response field môže ovplyvniť signature/canonicalization. `MINOR` preto nie je automaticky každá additive schema zmena.
+
+Provider má navrhovať tolerant readers a explicitné unknown-value semantics. Consumer contract tests overujú, že supported clients ignorujú alebo bezpečne spracujú additions.
+
+## 8. Dependency a platform compatibility
+
+Public contract zahŕňa supported runtime, OS, architecture, database alebo Kubernetes versions, ak release ich mení. Drop support pre Java 17 alebo PostgreSQL 14 je breaking pre consumerov, aj keď application API ostalo rovnaké.
+
+Release notes a machine-readable metadata majú uviesť:
 
 ```yaml
-riskDecision:
-  score: integer
-  modelVersion: string
+support:
+  operatingSystems:
+    - linux-amd64
+    - linux-arm64
+  database:
+    postgresql: ">=15 <18"
+  kubernetes: ">=1.32 <1.36"
+  clients:
+    payments-web: ">=6.4"
 ```
 
-Contract už vyžaduje ignorovať neznáme fields. Existujúci consumer preto naďalej spracuje `orderId` a `state`; nový consumer môže použiť novú capability.
+Range je intended contract. Actual compatibility stále potrebuje test evidence pre representative matrix.
+
+## 9. Deprecation lifecycle
+
+Breaking change sa nemá objaviť prvýkrát v MAJOR release bez migration pathu, ak ecosystem potrebuje koordináciu. Deprecation lifecycle:
 
 ```text
-3.10.1 → 3.11.0
-MINOR
+announce deprecated element
+→ publish replacement a migration guide
+→ instrument usage
+→ warning period
+→ consumer outreach
+→ removal eligibility
+→ MAJOR release
+→ old line support/retirement
 ```
 
-### Zmena C — nová hodnota `PENDING_REVIEW` v existujúcom `state`
+Deprecation bez usage visibility môže odstrániť skrytého consumera. Warning bez deadline-u sa stane permanentným debtom.
 
-Starý contract označuje enum ako closed. Existujúci mobilný client má exhaustívny switch bez fallbacku. Nová hodnota by ho mohla ukončiť alebo zahodiť order state.
+## 10. Version decision a automation
+
+Automation môže navrhnúť required bump podľa contract diffu a conventional metadata, ale human alebo policy authority musí riešiť behavioral a support semantics. Commit message `feat:` nie je dôkaz backward compatibility.
+
+Version gate môže vyhodnotiť:
+
+```json
+{
+  "declaredVersion": "9.10.0",
+  "minimumRequiredBump": "MAJOR",
+  "reasons": [
+    "removed event enum value SETTLEMENT_PENDING_REVIEW",
+    "changed idempotency scope",
+    "dropped PostgreSQL 14 support"
+  ]
+}
+```
+
+Gate odmietne under-versioned release. Over-versioning je menej nebezpečné pre compatibility, ale zvyšuje migration cost a oslabuje význam MAJOR signálu.
+
+## 11. SemVer a distributed systems
+
+Producer a consumer sa neupgradujú atomicky. Version decision musí počítať s mixed-version intervalom, retries, queued events a rollbackom. Aj keď new producer a new consumer tvoria compatible pár, rollout môže byť breaking, ak old consumer ešte spracúva backlog.
 
 ```text
-3.11.0 → 4.0.0
-MAJOR
+old producer + old consumer
+→ new tolerant consumer
+→ old aj new producer payloads
+→ producer switch
+→ backlog drain
+→ old consumer retirement
+→ contract cleanup v neskoršej MAJOR boundary
 ```
 
-Alternatívou je najprv v 3.x pridať nový optional field alebo versioned endpoint, migrovať consumerov, zmerať adopciu a až potom zmeniť closed `state` contract v 4.0.0.
+SemVer release label nenahrádza deployment compatibility plan.
 
-Tento scenár ukazuje jadro SemVer: additive syntax nie je automaticky MINOR a bug fix nie je automaticky PATCH. Rozhoduje public contract a observable kompatibilita.
+## 12. Connected incident `REL-PAY-68`
 
-## 3. Public API je boundary, nie iba function signature
+Atlas pridal enum value `PROVIDER_REVIEW` do `SettlementStatus`, zmenil idempotency scope a dropol PostgreSQL 14. Source diff bol označený `feat`, automation navrhla `9.10.0`. OpenAPI diff bol green, pretože enum bol v event schema a behavior idempotency nebol v OpenAPI.
 
-Public API Orders zahŕňa viac než OpenAPI schema:
-
-- endpointy, methods a fields;
-- required, optional a default hodnoty;
-- enum a union openness;
-- status, error a retry semantics;
-- idempotency a side effects;
-- authentication a authorization behavior;
-- rate limits a timeout contract;
-- event schemas a ordering;
-- configuration, environment variables a precedence;
-- CLI flags, stdout/stderr a exit codes;
-- container ports, signals a filesystem paths;
-- supported client, platform a protocol versions;
-- deklarované latency alebo capacity boundaries, ak sú integračným záväzkom.
-
-Interný detail sa môže stať de facto public contractom, ak ho producer dokumentuje, dlhodobo podporuje alebo vie, že na ňom závisia consumery. Preto sa contract inventarizuje pred release decisionom, nie až po incidente.
-
-## 4. Zmena sa klasifikuje podľa consumer observation
-
-Version bump workflow pre každú zmenu používa rovnaké otázky:
+Reusable pipeline navyše neexecutla jeden historical event shard. Release manifest s version `9.10.0` sa publikoval pod mutable multi-platform tagom.
 
 ```text
-čo consumer dnes smie poslať alebo očakávať?
-→ čo sa po zmene zmení v syntaxi, behavior-e alebo prevádzke?
-→ môže existujúci consumer pokračovať bez zmeny?
-→ aký dôkaz to podporuje?
+incomplete public-contract inventory
+→ structural HTTP diff green
+→ behavioral/event/platform changes nehodnotené
+→ MINOR verdict
+→ old consumers pokračovali bez migration
+→ runtime failures
 ```
 
-Veľký interný refactoring môže byť PATCH, ak zachová public contract. Jednoriadková zmena default timeoutu môže byť MAJOR, ak mení observable retry alebo failure behavior, na ktorom consumer oprávnene závisí.
+Old reporting consumer použil exhaustive enum mapping a posielal nové events do dead-letter queue. Client retries s old idempotency assumption vytvorili 31 duplicate provider effects. PostgreSQL 14 environment zlyhal pri migration syntax.
 
-## 5. Compatibility má viac dimenzií
+Root cause bol compatibility subject. SemVer policy sledovala iba HTTP schema a commit label, nie supported consumers a behavioral/platform contracts.
 
-Atlas review rozlišuje:
+## 13. Recovery a acceptance verdict
 
-- **Source compatibility —** existujúci source sa stále skompiluje.
-- **Binary/ABI compatibility —** existujúci binary sa načíta a linkuje.
-- **Schema compatibility —** existujúce správy alebo dáta sa dajú čítať a zapisovať.
-- **Behavior compatibility —** výsledky, defaults, errors a side effects zostávajú v contracte.
-- **Operational compatibility —** ports, signals, probes, config a resource assumptions zostávajú podporované.
-- **Security compatibility —** auth, permissions, crypto a trust assumptions sa nemenia nečakane.
-- **Data compatibility —** stará a nová verzia rozumejú spoločnému persistentnému stavu.
-- **Performance compatibility —** deklarované latency alebo throughput hranice zostávajú splnené.
+Containment zastaví rollout a producer emission novej value cez feature control, zachová failed payloads a reconciliuje duplicates. Recovery pripraví tolerant consumer, migration guide, new idempotency contract a PostgreSQL support decision. Release sa republikuje ako `10.0.0` s immutable manifestom; predchádzajúca chybná candidate version sa revokuje.
 
-Zmena B je schema-additive a behaviorálne kompatibilná, pretože contract prikazuje unknown-field tolerance. Zmena C je schema-additive, ale behaviorálne breaking pre closed enum consumerov.
-
-## 6. PATCH znamená opravu v rámci existujúceho contractu
-
-Pre stabilnú verziu od `1.0.0` PATCH increment komunikuje backward-compatible bug fix.
-
-Atlas duplicate race je PATCH, pretože:
+SemVer contract je prijatý iba vtedy, keď:
 
 ```text
-contract pred zmenou: jeden logical order na idempotency key
-chybná implementácia: občas dva orders
-nová implementácia: znovu spĺňa pôvodný contract
+public API inventory je explicitný
++ previous a candidate release subjects sú immutable
++ structural, behavioral, event a platform dimensions sa hodnotia
++ supported consumer matrix je známa
++ additive changes majú tolerant-reader evidence
++ declared bump spĺňa minimum policy
++ deprecation má usage, deadline a migration path
++ mixed-version deployment je kompatibilný
++ under-versioned release je forbidden
++ second consumer a historical backlog prejdú
 ```
 
-PATCH môže zahŕňať:
+## 14. Troubleshooting flow
 
-- opravu výpočtu podľa existujúcej špecifikácie;
-- interný refactoring;
-- memory leak fix;
-- security fix bez zmeny public contractu;
-- performance optimalizáciu v deklarovaných hraniciach.
-
-Ak bola chybná hodnota alebo behavior dlhodobo dokumentovaná ako contract, „oprava“ môže byť breaking. Producer nemôže spätne vyhlásiť consumer dependency za nelegitímnu iba preto, že implementácia bola pôvodne neúmyselná.
-
-## 7. MINOR pridáva capability bez poškodenia existujúcich consumerov
-
-MINOR increment pridáva backward-compatible functionality alebo označuje existujúce API za deprecated.
-
-Orders `riskDecision` je MINOR iba preto, že:
-
-- pole je optional;
-- starí consumery ho podľa contractu ignorujú;
-- existujúce fields nemenia význam;
-- auth, errors a side effects zostávajú rovnaké;
-- nový field nepridáva povinný call sequence.
-
-Additive change môže byť breaking, ak pridá:
-
-- enum hodnotu do closed enumu;
-- required interface method;
-- nový JSON field consumerovi, ktorý odmieta unknown fields a producer to toleroval;
-- event type bez unknown-event policy;
-- nový default-enabled behavior;
-- nový blocking authorization requirement;
-- field, ktorý mení signature alebo canonicalization.
-
-„Nič sme neodstránili“ nie je compatibility dôkaz.
-
-## 8. MAJOR signalizuje backward-incompatible contract
-
-MAJOR increment je potrebný, keď existujúci podporovaný consumer musí zmeniť implementáciu alebo assumptions, aby pokračoval.
-
-Pre Atlas by to zahŕňalo:
-
-- odstránenie endpointu alebo fieldu;
-- nový povinný request parameter;
-- zmenu významu `state`;
-- novú closed enum hodnotu;
-- zmenu idempotency semantics;
-- zmenu default auth alebo permission modelu;
-- nekompatibilný event/schema format;
-- odstránenie podporovaného client alebo platform version;
-- zmenu error classification, na ktorej závisí retry policy.
-
-MAJOR číslo iba oznamuje break. Nevytvára parallel support, migration guide, telemetry ani bezpečný cutover.
-
-## 9. `1.0.0` je prijatie zodpovednosti za stabilitu
-
-Version `1.0.0` definuje stabilný public API podľa SemVer policy. Neznamená bezchybný alebo feature-complete software. Znamená, že producer:
-
-- public contract pozná a dokumentuje;
-- breaking zmenu komunikuje MAJOR bumpom;
-- published versions nemení;
-- poskytuje migration a deprecation lifecycle primeraný produktu.
-
-Dlhodobé zotrvanie na `0.x` neodstraňuje consumer risk. Iba ho môže robiť menej čitateľným.
-
-## 10. `0.y.z` potrebuje lokálnu policy
-
-SemVer považuje `0.y.z` public API za nestabilný. Organizácia môže pridať vlastný contract:
+Pri „compatible“ release incidente sleduj:
 
 ```text
-0.MINOR.PATCH
-MINOR môže byť breaking
-PATCH zachováva compatibility v rámci jednej MINOR série
+declared public contracts
+→ previous/candidate artifact manifests
+→ structural diffs
+→ behavioral/default/error changes
+→ consumer/runtime/platform inventory
+→ compatibility tests a missing shards
+→ version decision policy
+→ rollout order a backlog
+→ actual consumer failures
 ```
 
-Consumer musí túto policy poznať. Nemá automaticky predpokladať, že všetky `0.x` updates sú bezpečné alebo že `0.8.4 → 0.8.5` je breaking.
+Competing hypotheses môžu byť undocumented contract, tool coverage gap, fixture gap, consumer strictness, support-range change, wrong release manifest, stale version decision alebo mixed-version sequencing. Version number samostatne nie je diagnostic evidence.
 
-## 11. Syntaktický formát a precedence sú referenčná vrstva
+## 15. Anti-patterny
 
-Core version má tri nezáporné integer časti bez leading zero:
+### Bump podľa veľkosti diffu
 
-```text
-3.11.0
-4.0.0
-```
+Compatibility závisí od observable contractu, nie počtu zmenených riadkov.
 
-Pre-release identifiers nasledujú za `-`:
+### `feat` automaticky znamená MINOR
 
-```text
-3.11.0-alpha.1
-3.11.0-beta.2
-3.11.0-rc.1
-```
+Commit label nepreukazuje backward compatibility.
 
-Build metadata nasledujú za `+`:
+### Additive field je vždy safe
 
-```text
-3.11.0-rc.1+build.18422.sha.8a71c9d
-```
+Strict consumers, enums, canonicalization a load môžu addition zlomiť.
 
-Pre-release má nižšiu precedence než final release s rovnakou core version:
+### OpenAPI ako celý public API
 
-```text
-3.11.0-rc.2 < 3.11.0
-```
+Events, behavior, config, CLI a platform support môžu byť rovnako záväzné.
 
-Build metadata precedence nemenia:
+### MAJOR bez migration lifecycle-u
 
-```text
-3.11.0+build.1
-3.11.0+build.2
-```
+Číslo komunikuje breaking change, ale nevyrieši koordináciu consumerov a backlogu.
 
-majú z pohľadu SemVer rovnakú precedence. Konkrétne bytes musí rozlíšiť artifact namespace a digest.
+## 16. Kontrolné otázky
 
-Po MINOR bump-e sa PATCH resetuje na nulu. Po MAJOR bump-e sa resetujú MINOR aj PATCH.
+1. Čo Semantic Versioning komunikuje a čo negarantuje?
+2. Ako sa definuje public API inventory?
+3. Prečo Git diff neurčuje version bump?
+4. Čo preukazuje structural API diff a čo nie?
+5. Ako sa testuje behavioral compatibility?
+6. Prečo optional field alebo enum addition môže byť breaking?
+7. Ako platform support vstupuje do SemVer?
+8. Čo musí obsahovať deprecation lifecycle?
+9. Prečo mixed-version interval mení compatibility verdict?
+10. Ktoré contract dimensions chýbali v `REL-PAY-68`?
+11. Ako sa blokuje under-versioned release?
+12. Prečo build metadata nenahrádza digest?
 
-## 12. Pre-release označuje candidate phase, nie kvalitu
+## Glossary impact
 
-Atlas môže publikovať:
+Relevantné pojmy: Semantic Versioning, public API inventory, observable compatibility, structural compatibility, behavioral compatibility, event compatibility, platform support contract, minimum required bump, pre-release identifier, build metadata, deprecation lifecycle, tolerant reader, mixed-version interval a under-versioned release.
 
-```text
-3.11.0-rc.1 → manifest M1
-3.11.0-rc.2 → manifest M2
-3.11.0      → alias na schválený M2
-```
+## Primárne zdroje
 
-Každý candidate je immutable. `rc.2` sa nesmie prepísať novými bytes.
-
-Označenie `rc` nepreukazuje test coverage, bezpečnosť ani readiness. Tie dokazujú evidence viazané na manifest M2.
-
-## 13. Producer decision potrebuje compatibility evidence
-
-Atlas release review pre zmeny A, B a C zbiera:
-
-- API/schema diff;
-- behavior contract tests;
-- old-client proti new-server test;
-- new-client proti old-server test podľa rollout modelu;
-- event replay a unknown-field tests;
-- configuration/default diff;
-- auth a permission diff;
-- supported platform matrix;
-- consumer inventory a telemetry;
-- database shared-state compatibility;
-- release notes a migration impact.
-
-Tool môže navrhnúť bump zo schema diffu alebo changelog fragmentu. Nevidí však vždy zmenu ordering, retries, defaults, rate limitu alebo side effects. Automatizácia je decision support, nie úplný oracle.
-
-## 14. Consumer test je dôležitejší než producer úmysel
-
-Producer Zmenu C považoval za „iba nový status“. Consumer test však ukázal:
-
-```text
-new server vráti PENDING_REVIEW
-→ old Android client exhaustive switch
-→ unhandled state exception
-→ order detail screen sa neotvorí
-```
-
-Tento dôkaz klasifikuje zmenu ako breaking pre podporovaného consumera bez ohľadu na malý diff.
-
-Consumer-driven contract tests, telemetry používaných fields a representative old-version fixtures pomáhajú odhaliť de facto contract, ktorý samotná producer schema neukazuje.
-
-## 15. Tolerantný reader contract musí byť explicitný
-
-Additive evolution funguje iba pri dohodnutých pravidlách:
-
-```text
-unknown JSON fields → ignore
-unknown enum values → explicit UNKNOWN/fallback alebo version negotiation
-missing optional field → stable default
-unknown event type → dead-letter/fallback podľa contractu, nie crash
-```
-
-Tolerantnosť nie je univerzálne „ignoruj všetko“. Security-critical field alebo unsupported command môže vyžadovať fail-closed behavior. Contract musí určiť, ktoré rozšírenia sú bezpečné a ktoré menia protocol capability.
-
-## 16. Version range je policy, lockfile je konkrétne rozhodnutie
-
-Orders SDK consumer môže deklarovať:
-
-```text
-policy range: >=3.10.0 <4.0.0
-resolved lock: 3.11.2
-artifact integrity: sha256:...
-```
-
-Range hovorí resolveru, ktoré budúce versions smie vybrať. Nehovorí, ktoré consumer reálne otestoval.
-
-Lockfile alebo resolved manifest zachová:
-
-- presnú direct a transitive version;
-- registry/source;
-- integrity identity;
-- platform markers;
-- resolution graph.
-
-Reproducible build používa konkrétny resolution. Update automation zámerne zmení lock, spustí tests a vytvorí reviewovateľný diff.
-
-## 17. Pins a ranges majú opačné riziká
-
-Široký kompatibilný range:
-
-- znižuje update friction;
-- prijíma fixes rýchlejšie;
-- zväčšuje priestor neotestovaných kombinácií;
-- dôveruje producer SemVer disciplíne.
-
-Presný pin:
-
-- zvyšuje reprodukovateľnosť;
-- obmedzuje náhodnú zmenu bez source diffu;
-- vyžaduje pravidelný update proces;
-- môže odkladať security fixes.
-
-Dôveryhodný consumer kombinuje deklarovaný range, lockfile, automatizované update PRs, contract tests a rollback/pinning možnosť.
-
-## 18. Deprecation vytvára compatibility window
-
-Atlas nemá odstrániť old `state` contract okamžite v 4.0.0 bez prípravy:
-
-```text
-3.11.0 pridá novú alternatívu
-→ 3.x označí starý contract za deprecated
-→ telemetry zmeria consumerov
-→ SDK a migration tooling podporia nový model
-→ support window umožní upgrade
-→ 4.0.0 odstráni starý contract
-→ post-migration monitoring potvrdí adoption
-```
-
-Deprecation record obsahuje:
-
-- presný deprecated contract;
-- replacement;
-- prvú deprecated version;
-- removal version alebo deadline;
-- migration guide;
-- ownera a support channel;
-- usage telemetry.
-
-Deprecation bez termínu vytvára permanentný compatibility dlh. Removal bez telemetry vytvára skrytý consumer incident.
-
-## 19. Parallel major versions majú explicitný support cost
-
-Atlas môže dočasne prevádzkovať:
-
-```text
-v3 API — aktívny stable a security fixes
-v4 API — nový contract a migrujúci consumers
-```
-
-Policy určuje:
-
-- support a EOL termíny;
-- ktoré fixes sa backportujú;
-- compatibility a test matrix;
-- routing alebo negotiation;
-- artifact retention;
-- dokumentáciu a consumer migration ownership.
-
-Viac major línií znižuje big-bang risk, ale zvyšuje maintenance, observability a patch-divergence náklady.
-
-## 20. Backport vytvára samostatnú release identity
-
-Duplicate race fix môže ísť do mainline 4.x aj podporovanej 3.x line:
-
-```text
-4.1.0 obsahuje fix v current architecture
-3.10.2 obsahuje backport pre v3 contract
-```
-
-Ide o dva source a artifact subjects. Každý potrebuje vlastné tests, provenance, digest a release notes. Forward-propagation kontrola zabraňuje, aby production hotfix zostal iba v starej branchi.
-
-## 21. Service artifact version nie je automaticky API version
-
-Orders môže nasadiť artifact build `18422` a stále poskytovať API v3 aj v4. Rozlišuj:
-
-```text
-application artifact version
-API alebo event contract version
-deployment revision
-release/exposure cohort
-database migration state
-```
-
-SemVer je vhodný pre deklarovaný public contract. Interné service deploye môžu používať monotónne release IDs, pokiaľ compatibility contracty zostávajú samostatne explicitné.
-
-## 22. Databáza a events majú vlastný compatibility lifecycle
-
-Application version `4.0.0` automaticky neznamená schema version `4.0.0`.
-
-Database transition potrebuje:
-
-```text
-expand
-→ old/new compatible code
-→ backfill a reconciliation
-→ consumer migration
-→ contract
-```
-
-Event contract musí zohľadniť stored messages, replay, old/new producers a consumers, unknown fields, ordering a retention window.
-
-MAJOR bump oznamuje application break. Neodstraňuje staré messages ani nevytvára bezpečný database rollback.
-
-## 23. Worked failure: „MINOR“ enum addition rozbila mobilných consumerov
-
-Atlas vydal `3.12.0` s `PENDING_REVIEW`, pretože schema diff označil zmenu za additive:
-
-```text
-producer schema validná
-→ release classified MINOR
-→ server rollout 100 %
-→ staré Android clients dostali novú hodnotu
-→ exhaustive switch vyhodil exception
-→ order tracking journey zlyhal
-```
-
-### Root cause
-
-Public contract nebol inventarizovaný ako closed enum a release gate nemal old-client/new-server compatibility test. Bump automation hodnotila syntaktický diff, nie behavior.
-
-### Náprava
-
-- incident release sa yankne alebo roll-forwardne podľa exposure a compatibility;
-- server dočasne nevracia novú hodnotu starým client capability cohorts;
-- old-client fixtures sa stanú required contract evidence;
-- enum openness sa explicitne dokumentuje;
-- nový state model sa rolloutne cez v4 contract alebo tolerantnú v3 alternatívu;
-- version decision record zachová dôvod, evidence a consumer impact.
-
-## 24. Worked failure: PATCH zmenil retry semantics
-
-Orders `3.10.2` mal „iba zvýšiť stabilitu“, no zmenil server timeout z 30 na 5 sekúnd a po timeout-e dokončil request na pozadí. SDK pri timeout-e retrylo bez idempotency key:
-
-```text
-kratší timeout
-→ consumer retry
-→ prvý request sa neskôr dokončil
-→ druhý request vytvoril ďalší order
-```
-
-### Root cause
-
-Tím posudzoval internú implementáciu, nie observable timeout a side-effect contract. Release note ani consumer tests zmenu nezachytili.
-
-### Náprava
-
-- timeout/error/idempotency semantics sa pridajú do public API inventory;
-- change sa klasifikuje ako breaking alebo sa implementácia upraví tak, aby zachovala contract;
-- SDK vynúti idempotency key;
-- old/new behavior contract test sa stane release gate;
-- incidentné side effects sa reconciliujú.
-
-## 25. Diagnostický postup pri nesprávnom version signále
-
-Keď PATCH alebo MINOR rozbije consumera:
-
-1. identifikuj presnú resolved version, artifact digest a release manifest;
-2. načítaj public contract platný pre predchádzajúcu version;
-3. porovnaj syntax, defaults, errors, timing, side effects a security behavior;
-4. urč affected compatibility dimension a consumer cohort;
-5. over range, lockfile a pre-release resolution rules;
-6. spusti old-consumer/new-producer a event/data compatibility fixtures;
-7. skontroluj de facto používanie cez telemetry a support evidence;
-8. rozhodni o abort-e, yank-u, revocation, compatibility shim-e alebo novej opravnej version;
-9. oprav bump policy, contract inventory a regression evidence;
-10. zachovaj migration a communication record pre affected consumerov.
-
-## 26. Referenčné pravidlá
-
-- SemVer sa aplikuje na explicitný public API.
-- PATCH obnovuje alebo opravuje behavior v rámci existujúceho contractu.
-- MINOR pridáva capability kompatibilnú s existujúcimi consumer assumptions.
-- MAJOR signalizuje backward-incompatible zmenu.
-- Additive schema diff nemusí byť kompatibilný.
-- Behavior, defaults, errors, security a operational assumptions sú súčasť compatibility.
-- `1.0.0` deklaruje stabilný contract; `0.x` potrebuje explicitnú lokálnu policy.
-- Pre-release označuje candidate ordering, nie quality verdict.
-- Build metadata nemenia SemVer precedence.
-- Published version je immutable a viazaná na artifact digest.
-- Range je selection policy; lockfile je konkrétny resolution.
-- Deprecation, telemetry a parallel support pripravujú bezpečný MAJOR transition.
-- API, artifact, deployment, event a database versions sú rozdielne identity.
-
-## 27. Časté omyly
-
-### „Malý diff je PATCH“
-
-Veľkosť implementácie nehovorí nič o observable compatibility.
-
-### „Pridanie fieldu alebo enum hodnoty je vždy MINOR“
-
-Závisí od unknown-field a unknown-value contractu existujúcich consumerov.
-
-### „MAJOR bump vyrieši migráciu“
-
-Iba oznamuje break. Consumer inventory, parallel support, data transition a rollout zostávajú samostatná práca.
-
-### „SemVer garantuje, že update je bezpečný“
-
-Je to producer signal, ktorý consumer overuje vlastnými tests a runtime evidence.
-
-### „Version range znamená, že všetky versions v ňom sú otestované“
-
-Range povoľuje resolution. Lock a CI evidence hovoria, čo bolo skutočne použité a overené.
-
-### „Service version a API version sú to isté“
-
-Jeden deployment môže podporovať viac contract versions a jedna contract version môže prežiť mnoho artifacts.
-
-## 28. Zhrnutie
-
-Atlas semantic-version decision model je:
-
-```text
-explicitný public API inventory
-→ candidate behavior delta
-→ syntax + behavior + operational + data compatibility
-→ old/new consumer evidence
-→ PATCH, MINOR alebo MAJOR
-→ immutable version viazaná na release manifest
-→ deprecation, parallel support a adoption telemetry
-```
-
-Duplicate-race fix patrí do `3.10.1`, optional tolerantné `riskDecision` do `3.11.0` a closed-enum zmena do `4.0.0` alebo do riadenej compatibility migrácie. Nasledujúca kapitola zoberie schválený `3.11.0` manifest a prevedie ho cez release state machine od candidate assembly po používateľskú expozíciu, validation a support.
+- [Semantic Versioning 2.0.0](https://semver.org/)
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Protocol Buffers — Updating a Message Type](https://protobuf.dev/programming-guides/proto3/#updating)
+- [Buf Breaking Change Detection](https://buf.build/docs/breaking/)
+- [Kubernetes API deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

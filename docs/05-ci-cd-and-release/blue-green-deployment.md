@@ -1,420 +1,262 @@
 # Blue-green deployment
 
-## Metadata
+Blue-green deployment pripraví novú application generation v oddelenom produkčne relevantnom targete a potom zmení autoritatívny routing pointer zo starej generation na novú. Runtime capacity môže byť oddelená, no database, queues, caches, sessions, secrets a external side effects často zostávajú spoločné. Blue-green preto neznamená dve úplne nezávislé produkcie; znamená dva explicitné application targets a riadený cutover medzi nimi.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Hlavná výhoda je rýchly routing rollback, pretože old target môže zostať pripravený. Táto výhoda platí iba dovtedy, kým old generation zostáva compatible s current shared state a nebola nevratne zmenená environment alebo data authority. Prepnutie DNS alebo load balanceru späť na blue nevráti database migration, vydané events ani provider side effects.
 
-Blue-green deployment pripraví novú application generation v oddelenom produkčne relevantnom targete a potom zmení autoritatívny routing pointer. Application runtime je oddelený, no databáza, queues, caches, sessions a external side effects často zostávajú spoločné.
+## 1. Dominantný dual-target model
 
 ```text
-blue active
-→ green provisioned s immutable release subjectom
-→ green overený cez produkčne relevantný path
-→ cutover transaction blue → green
-→ blue drain + green observation
-→ accept / routing rollback / roll-forward
+blue active a exact shared-state generation
+→ green provisioned z immutable release manifestu
+→ green validation bez user trafficu
+→ shared-state a cutover eligibility check
+→ compare-and-set routing transition blue → green
+→ effective dataplane read-back
+→ blue drain a green observation
+→ accept, route rollback alebo roll-forward
 → old target retention alebo retirement
 ```
 
-Hlavná výhoda je silná pre-cutover validácia a potenciálne rýchly návrat routingu. Hlavné obmedzenie je, že routing rollback nevracia mutable state.
+Cutover je samostatná state transition. New target readiness nepreukazuje, že route sa zmenila, že clients prestali používať cached blue endpoint alebo že long-lived sessions prešli na green.
 
-## 1. Nosný model: dva targety a jeden autoritatívny pointer
+## 2. Exact blue-green subject
 
-Blue-green má tri identity:
-
-```text
-blue target state
-+ green target state
-+ routing revision určujúca active target
+```yaml
+blueGreenSubject:
+  service: payments-api
+  environmentGeneration: prod-eu-1844
+  releaseManifestDigest: sha256:release1000rc4
+  blue:
+    targetId: payments-blue
+    release: payments-9.9.3
+    artifactDigest: sha256:pay993
+    configurationSha: 5f91420
+  green:
+    targetId: payments-green
+    release: payments-10.0.0-rc.4
+    artifactDigest: sha256:pay1000api
+    configurationSha: 71ac290
+  routing:
+    authority: trafficassignment/payments-api
+    currentGeneration: 1843
+    desiredGeneration: 1844
+  sharedState:
+    databaseContract: settlement-schema-v42-expand
+    eventContract: settlement-events-v18-compatible
+    sessionContract: session-v6-compatible
+  retention:
+    blueUntil: 2026-08-01T12:00:00Z
 ```
 
-Každý target má vlastný:
+Farba nie je identity. `payments-blue` môže byť po viacerých releases novšia alebo staršia generation. Subject musí vždy uviesť exact artifacts, configuration a shared-state contract.
 
-- artifact digest;
-- rendered config a secret references;
-- application capacity;
-- runtime a network identity;
-- readiness a telemetry dimensions;
-- worker/scheduler activation state.
+## 3. Environment parity a isolation
 
-Routing pointer určuje, kam idú nové requests alebo connections. Nehovorí však, ktorá farba stále spracúva staré connections, queues alebo background work.
+Green musí používať rovnaký production ingress, identity, admission, network, dependency a secret model, pokiaľ tieto dimensions ovplyvňujú risk. Validácia cez interný Pod IP nepreukazuje public TLS, load balancer headers ani workload identity.
 
-Z toho vyplýva hlavný trade-off:
+Oddelené majú byť application resources a mutable runtime state, ktorý nesmie preskočiť medzi targets. Shared dependencies musia byť explicitné. Ak blue a green používajú rovnakú consumer group, green shadow validation môže ukradnúť production messages. Ak používajú rovnaký session store s incompatible serialization, už samotný startup green môže poškodiť blue sessions.
 
-```text
-pre-cutover isolation + rýchly routing switch
-za cenu dvojitej capacity, shared-state koordinácie a ostrého cutover blast radiusu
+## 4. Provision green z immutable subjectu
+
+```bash
+kubectl -n payments set image deployment/payments-green \
+  api='registry.atlas.example/payments-api@sha256:pay1000api'
+
+kubectl -n payments annotate deployment/payments-green \
+  atlas.example/release-manifest='sha256:release1000rc4' \
+  atlas.example/config-sha='71ac290' --overwrite
+
+kubectl -n payments rollout status deployment/payments-green --timeout=10m
 ```
 
-## 2. Nosný scenár: Atlas Orders 3.11.0
+Rollout status preukazuje controller convergence. Nepreukazuje public-route behavior ani business correctness. Runtime digest sa číta z Pods a loaded configuration z application endpointu alebo telemetry.
 
-Atlas prevádzkuje Orders API v blue targete s release manifestom `M_prev`. Green target pripravuje manifest `M2`:
+## 5. Green validation bez autoritatívnych side effects
 
-```text
-green API digest D_api
-worker digest D_worker
-rendered config C17
-expanded database schema S_expand
-feature risk-decision = off
-routing candidate revision R42
+Green sa validuje cez production-relevant path, no test traffic musí byť identifikovateľný a side effects bounded. Read-only requests sú jednoduché. Write path potrebuje test tenant, provider sandbox alebo explicitnú dry-run/compensation semantics.
+
+```bash
+curl --fail-with-body \
+  --resolve payments-green.atlas.example:443:10.20.30.40 \
+  -H 'X-Test-Tenant: atlas-canary' \
+  -H 'Idempotency-Key: bg-green-rc4-001' \
+  https://payments-green.atlas.example/api/settlements/canary
 ```
 
-Plán:
+HTTP success preukazuje selected endpoint path a response. Nepreukazuje final authoritative settlement, absence duplicate provider effect ani route behavior pre bežných clients. Canary record sa koreluje s database, event a provider sandbox evidence.
+
+## 6. Shared-state compatibility gate
+
+Pred cutoverom sa overí, že blue aj green dokážu pracovať s current database, events, caches a sessions. Ak green startup spustil destructive migration, route rollback na blue môže byť invalidný.
+
+Compatibility matrix:
 
 ```text
-blue = 100 % active
-→ green provisioned bez customer trafficu
-→ green synthetics cez production ingress, TLS a auth
-→ green warm-up a capacity verification
-→ internal cohort na green
-→ cutover CAS: expected active blue, new active green
-→ green 100 % nových requests
-→ blue connection drain
-→ observation window
-→ blue warm standby počas recovery windowu
+blue reader ↔ current schema/events
+blue writer ↔ current schema/events
+green reader ↔ current schema/events
+green writer ↔ current schema/events
+blue/green session and cache formats
 ```
 
-Workers zostanú počas pre-cutover fázy aktívne iba v blue. Green worker preberie ownership samostatným fenced transitionom po application cutover-e.
+Blue-green nemení potrebu expand-contract modelu. Iba skracuje application routing transition.
 
-## 3. Green evidence musí patriť finálnemu runtime subjectu
+## 7. Compare-and-set cutover
 
-Pre-cutover verification je platná iba vtedy, keď testuje rovnaký subject, ktorý bude po switchi aktívny:
+Route transition má expected previous generation:
+
+```yaml
+apiVersion: delivery.atlas.example/v1
+kind: TrafficAssignment
+metadata:
+  name: payments-api
+spec:
+  expectedGeneration: 1843
+  desiredGeneration: 1844
+  activeTarget: payments-green
+  standbyTarget: payments-blue
+```
+
+```bash
+kubectl -n payments apply -f cutover.yaml
+kubectl -n payments get trafficassignment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,active:.status.activeTarget,effective:.status.effectiveTargets,conditions:.status.conditions}'
+```
+
+Controller read-back preukazuje desired/effective target podľa control plane-u. Nepreukazuje actual load-balancer dataplane alebo resolver/client caches. Access logs a synthetic clients musia potvrdiť green traffic a forbidden new blue admissions.
+
+## 8. DNS, connection a session lag
+
+Ak cutover používa DNS, resolver TTL a existing connections predlžujú mixed-target interval. Load balancer target switch môže byť rýchlejší, no keep-alive, WebSocket alebo session affinity stále držia blue connections.
 
 ```text
-M2
-+ C17
-+ production secret references
-+ production ingress/TLS/auth path
-+ S_expand
-+ planned traffic and worker policy
+route authority changed
+→ dataplane propagation
+→ resolver/cache expiration
+→ new connections select green
+→ old blue connections drain
 ```
 
-Ak sa pri cutover-e zmení config, feature flag, secret alebo route behavior, vznikol nový subject. Predchádzajúci green test ho nepreukazuje.
+Acceptance má merať actual target distribution, nie iba route resource status. Old target sa nevypína, kým active blue operations a connections neprejdú bezpečný threshold alebo explicitný deadline/reconciliation.
 
-Atlas preto zachová content-derived rendered-config digest a pre/post routing snapshot. Interný test cez pod IP, ktorý obíde ingress, TLS alebo authorization proxy, je iba component evidence, nie dôkaz finálneho production pathu.
+## 9. Unknown cutover outcome
 
-## 4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť
-
-Green nemusí byť fyzicky identický s blue, ale musí zachovať vlastnosti relevantné pre release risk:
-
-- rovnaký protocol a identity path;
-- porovnateľné resource limits a topology;
-- rovnaké policy a deployment templates;
-- production dependencies a quotas;
-- kompatibilný database/event/cache/session contract;
-- rovnaké observability semantics;
-- dostatočnú kapacitu pre plánovaný cutover.
-
-Green s jednou malou instance môže prejsť smoke, ale nepreukazuje schopnosť niesť plnú produkčnú záťaž. Green v inom network path-e nemusí odhaliť mTLS alebo authorization failure.
-
-## 5. Cutover je chránená transakcia
-
-Atlas neprepíše routing bez precondition:
+Timeout po route mutation môže znamenať, že cutover prebehol a response sa stratila. Blind retry s opačným assumption môže oscillovať target alebo prebiť novšiu generation. Pred ďalšou mutation sa číta route authority, dataplane a business cohort.
 
 ```text
-expected routing revision = R41
-expected active target = blue
-new routing revision = R42
-new active target = green
-release subject = M2 + C17
+cutover request timeout
+→ state UNKNOWN
+→ read desired/observed/effective route generation
+→ sample actual requests
+→ conclude blue / green / split / conflicting
+→ až potom retry alebo recovery
 ```
 
-Control plane použije compare-and-swap. Ak medzičasom niekto zmenil route alebo začal iný deployment, transition zlyhá namiesto prepísania novšieho state-u.
+## 10. Routing rollback a jeho limity
 
-Cutover record obsahuje:
+Route rollback je vhodný, keď blue je healthy a compatible s current shared state. Nie je vhodný, ak green už emitoval events, zmenil data semantics alebo provider state, ktoré blue nevie spracovať. Vtedy môže byť bezpečnejší roll-forward, feature disable alebo reconciliation.
 
-- old a new target identity;
-- routing mechanism a revision;
-- actor/workload identity;
-- čas začiatku a potvrdenia propagation;
-- traffic weights;
-- worker/scheduler ownership;
-- rollback relation.
+Blue retention má cost a security limit. Standby target potrebuje patched dependencies a valid credentials. Po retention window sa old resources retirujú až po potvrdení recovery alternative.
 
-Idempotentné opakovanie musí rozpoznať, či R42 už platí, či sa cutover nevykonal alebo či existuje konfliktujúci state.
+## 11. Connected incident `REL-PAY-69`
 
-## 6. Routing propagation nie je okamžitý globálny stav
-
-Po zmene pointera môžu requests stále smerovať na blue kvôli:
-
-- load-balancer propagation;
-- persistent HTTP connections;
-- WebSockets a streams;
-- session affinity;
-- service discovery cache;
-- DNS TTL a resolver cache;
-- regionálnemu traffic manageru.
-
-Preto Atlas odlišuje:
+Atlas pripravil green release s novou session serialization a expand migration, ale cache prefix neobsahoval release generation. Green pre-production validation zapísala session objects, ktoré blue nevedelo dekódovať. Cutover controller zmenil route generation 1844, no client timeout spôsobil, že pipeline transition zopakovala s pôvodným expected state.
 
 ```text
-new-request cutover
-→ blue dostáva minimum nových connections
-
-connection drain complete
-→ blue už nemá critical active work
+green validation nad shared cache
+→ blue session corruption
+→ cutover committed, acknowledgement lost
+→ blind retry
+→ route controller conflict a split targets
+→ clients s cached sessions medzi blue/green
 ```
 
-Cutover success sa nepotvrdzuje iba stavom control-plane objektu. Overuje sa skutočným requests-per-color a connection inventory.
+Dashboard ukazoval green Ready a route desired target green. Actual traffic bolo 72 % green, 28 % blue; blue vracalo session errors. 1 842 privileged sessions sa muselo zrušiť a znovu vytvoriť.
 
-## 7. Shared database určuje rollback window
+Root cause bol incomplete shared-state a unknown-outcome contract.
 
-Atlas používa jednu databázu. Pred cutoverom vykoná expand migration, ktorú číta blue aj green.
+## 12. Redesign a acceptance verdict
+
+Redesign pridá release-namespaced cache/session schema, pre-cutover compatibility test, compare-and-set route generations a read-back pred retry. Blue drain sa sleduje podľa active operations a actual traffic. Route rollback sa povoľuje iba pri current compatibility verdict-e.
+
+Blue-green deployment je prijatý iba vtedy, keď:
 
 ```text
-expand schema
-→ green deploy
-→ cutover
-→ green writes zostávajú blue-readable
-→ observation a rollback window
-→ blue retirement
-→ backfill/contract až neskôr
+blue/green artifacts a configs sú exact
++ green používa production-relevant path
++ validation side effects sú bounded
++ shared-state compatibility pre oba targets je potvrdená
++ cutover používa CAS generation
++ control-plane aj dataplane read-back sú green
++ blue connections/operations sú drained
++ unknown outcome sa nere-tryuje naslepo
++ rollback eligibility je current
++ second cutover/recovery rehearsal prejde
 ```
 
-Ak green začne zapisovať nekompatibilný format, návrat route na blue môže obnoviť traffic, ale blue nebude vedieť čítať nové rows. Routing rollback je bezpečný iba dovtedy, kým shared-state contract zostáva kompatibilný.
-
-Oddelené blue/green databázy nie sú automaticky jednoduchšie. Vyžadujú write synchronization, consistency point, replication lag, sequence coordination a failback. To je data migration systém, nie iba application deployment strategy.
-
-## 8. Workers a schedulers potrebujú samostatný ownership transition
-
-Dve API farby môžu byť read-compatible, no dva active schedulers môžu vykonať rovnakú mutáciu dvakrát.
-
-Atlas používa:
+## 13. Troubleshooting flow
 
 ```text
-blue worker active generation W41
-green worker ready but fenced
-→ application cutover R42
-→ worker ownership CAS W41 → W42
-→ blue worker drain
-→ green worker active
+blue/green release subjects
+→ shared data/cache/session state
+→ green readiness a canary
+→ route desired/observed generation
+→ load-balancer/DNS dataplane
+→ actual request/session cohorts
+→ blue drain
+→ rollback/roll-forward eligibility
 ```
 
-Ownership sa nevkladá do mutable application configu, ktorý obe farby môžu načítať nejednoznačne. Používa sa external lease/fencing generation.
+Competing hypotheses môžu byť green application failure, shared-state corruption, stale route generation, DNS cache, connection stickiness, split dataplane, wrong target health alebo invalid blue rollback. Farba a readiness label nie sú dostatočné evidence.
 
-Ak worker transition zlyhá, application traffic môže zostať na green, no background capability ostane paused. Release record musí tento partial state zobraziť namiesto jedného všeobecného `deployed` statusu.
+## 14. Anti-patterny
 
-## 9. Pre-cutover validation postupuje po observation boundaries
+### Dve deployments znamenajú úplnú izoláciu
 
-Atlas overuje green v poradí:
+Database, queues, caches a sessions často zostávajú shared.
 
-```text
-artifact/config identity
-→ startup a dependency connectivity
-→ production ingress/TLS/auth
-→ critical read/write synthetic
-→ old/new schema compatibility
-→ warm-up a capacity
-→ telemetry podľa color/digest
-→ rollback target blue stále healthy
-```
+### Green test cez interný Pod IP
 
-Poradie nie je náhodné. Nemá význam analyzovať business synthetic, ak request ešte nedosiahne green pre routing alebo auth chybu. Nemá význam označiť green za rollback-safe, ak blue už driftoval alebo stratil credentials.
+Obchádza public TLS, ingress, identity a routing boundaries.
 
-Verdict je `ready`, `not ready` alebo `inconclusive`. Chýbajúca color telemetry je `inconclusive`, pretože po cutover-e by nebolo možné pripísať failure správnej farbe.
+### Cutover success podľa API response
 
-## 10. Warm-up a capacity patria pred ostrý switch
+Timeout môže skrývať committed transition; read-back je povinný.
 
-Green potrebuje pred cutoverom:
+### Blue je vždy rollback target
 
-- JIT alebo rules-engine initialization;
-- cache prewarming;
-- connection pools;
-- discovery propagation;
-- autoscaler stabilization;
-- capacity test voči shared quotas.
+Po shared-state alebo external-effect zmene môže byť blue nekompatibilné.
 
-Warm-up requests musia byť side-effect safe. Atlas používa izolované synthetic identities a bounded replay bez skutočných customer mutations.
+### Okamžité vypnutie blue
 
-Dvojitá application capacity môže stále preťažiť shared DB alebo broker. Blue-green capacity model preto zahŕňa `blue + green` connections, consumers, targets a monitoring cardinality.
+Stráca fast recovery a môže prerušiť existing connections alebo operations.
 
-## 11. Worked failure: green sa testoval cez skratku, cutover rozbil authorization
+## 15. Kontrolné otázky
 
-Green smoke používal internú service adresu a service account s administrátorským scope-om.
+1. Čo blue-green oddeľuje a čo typicky zostáva shared?
+2. Čo tvorí exact dual-target subject?
+3. Prečo green validation musí používať production-relevant path?
+4. Ako sa testujú bounded write side effects?
+5. Prečo je shared-state compatibility potrebná pre oba targets?
+6. Čo preukazuje route controller read-back a čo nie?
+7. Ako DNS a keep-alive predlžujú cutover?
+8. Čo je unknown cutover outcome?
+9. Kedy routing rollback nie je bezpečný?
+10. Čo sa pokazilo v `REL-PAY-69`?
+11. Ako sa uzatvára blue drain?
+12. Čo musí overiť second cutover rehearsal?
 
-```text
-internal green smoke prejde
-→ production route sa prepne na green
-→ request ide cez ingress a mTLS identity proxy
-→ green config očakáva starý audience claim
-→ bežní users dostávajú 403
-→ process a interný health zostávajú zelené
-```
+## Glossary impact
 
-### Príčina
+Relevantné pojmy: blue-green deployment, dual-target subject, active target, standby target, production-relevant validation, shared-state compatibility, cutover generation, compare-and-set routing, dataplane propagation, split target, blue drain, route rollback eligibility a target retirement.
 
-Pre-cutover evidence obchádzala finálny network a authorization path. Green bol funkčný ako interný component, nie ako production runtime subject.
+## Primárne zdroje
 
-### Recovery
-
-Atlas vykonal routing rollback na blue, pretože green ešte nevytvoril nekompatibilné writes. Potom opravil audience config, vytvoril nový rendered-config digest a zopakoval synthetic cez production ingress s reprezentatívnou user identity.
-
-### Trvalá náprava
-
-```text
-production-path synthetic
-→ positive aj negative authorization fixtures
-→ config digest súčasť cutover subjectu
-→ approval invalidation pri config zmene
-→ color-specific auth telemetry
-```
-
-## 12. Worked failure: oba schedulery vytvorili duplicate side effects
-
-Pri cutover-e pipeline prepla application route, ale worker activation bol obyčajný boolean v confige. Blue načítal starú hodnotu z cache a green novú hodnotu.
-
-```text
-blue scheduler zostane active
-green scheduler sa aktivuje
-→ obaja vyberú rovnaký reconciliation batch
-→ external notification a accounting update sa vykonajú dvakrát
-→ routing rollback na blue nezruší už vykonané side effects
-```
-
-### Príčina
-
-Tím považoval farbu za úplný system ownership. V skutočnosti routing pointer riadil iba HTTP traffic; scheduler nemal external fencing ani single-owner invariant.
-
-### Dôsledok
-
-Application rollback nestačil. Atlas musel zastaviť oba schedulery, zvoliť jedného ownera, reconciliovať duplicate účtovné entries a kompenzovať notifications.
-
-### Trvalá náprava
-
-- worker ownership dostal samostatný CAS/fencing transition;
-- side effects používajú idempotency key;
-- release record zobrazuje application a worker state oddelene;
-- pre-cutover test simuluje blue/green scheduler overlap;
-- rollback plan obsahuje reconciliation, nie iba route switch.
-
-## 13. Kauzálny diagnostický walkthrough
-
-Symptom: po cutover-e rastie duplicate-order invariant, ale HTTP error rate ostáva normálna.
-
-### Krok 1 — identifikuj skutočný active state
-
-```text
-routing revision R42 → green
-blue requests klesajú, ale nie sú nulové
-worker generation W41 aj W42 hlásia active
-release subject M2 + C17
-```
-
-Tento obraz okamžite ukazuje, že application routing a worker ownership nie sú jedna os.
-
-### Krok 2 — formuluj konkurenčné hypotézy
-
-```text
-H1: green API vytvára duplicity pri retry
-H2: blue a green schedulers vykonávajú rovnakú prácu
-H3: client cohort posiela duplicate requests
-H4: regionálny broker redeliveruje správy
-```
-
-### Krok 3 — vyber observation points
-
-- idempotency key a request trace per color testujú H1/H3;
-- scheduler lease generation a batch ownership testujú H2;
-- broker delivery attempt a partition telemetry testujú H4;
-- duplicate side-effect timestamps voči scheduler runs ukazujú prvý divergence point.
-
-Atlas zistí, že každý duplicate pair má dve scheduler run identities a rovnaký batch ID, zatiaľ čo API request vznikol iba raz. H2 je podporená, H1 a H3 nie.
-
-### Krok 4 — zastav mutation boundary
-
-Najprv sa zastavia schedulery a vydá nová fencing generation. Routing rollback bez zastavenia workerov by nezastavil duplicate side effects.
-
-### Krok 5 — rozhodni recovery podľa state-u
-
-Pretože customer HTTP behavior green je zdravý, Atlas ponechá application route na green. Reconciliuje duplicate accounting records, aktivuje iba W42 a overí idempotency invariant. Binary rollback by nepriniesol hodnotu a mohol by pridať ďalšiu zmenu.
-
-### Krok 6 — over outcome a vráť learning
-
-Recovery je potvrdená nulovým rastom duplicate invariantu, jedným active lease ownerom a úspešnou reconciliation. Finding sa mení na external fencing control a mixed-color scheduler test.
-
-## 14. Routing rollback eligibility sa priebežne mení
-
-Blue je rollback candidate iba ak:
-
-```text
-blue artifact/config stále dôveryhodné
-+ blue runtime je ready a warm
-+ schema/data/events sú blue-compatible
-+ secrets a dependencies platia
-+ worker ownership možno bezpečne vrátiť
-+ green side effects sú kompatibilné alebo kompenzovateľné
-```
-
-Old target sa preto počas retention pravidelne health-checkuje. Target ponechaný bez trafficu môže stratiť credentials, network access alebo capacity a vytvoriť falošný pocit recovery.
-
-Po contract migration alebo nekompatibilnom backfille sa blue explicitne označí ako rollback-ineligible a recovery sa prepne na roll-forward model.
-
-## 15. Diagnostický runbook
-
-1. Urči routing revision, active target a skutočné traffic weights.
-2. Potvrď artifact/config identity oboch farieb a finálny release subject.
-3. Over routing propagation, persistent connections a requests per color.
-4. Porovnaj color-specific technical, functional a business evidence.
-5. Skontroluj shared DB, event, cache a session compatibility.
-6. Over samostatný worker/scheduler ownership a fencing generation.
-7. Nájdite prvý observation point, kde sa green od blue odlíšil.
-8. Rozlíš routing failure, green runtime failure, shared-state failure a external incident.
-9. Posúď routing rollback eligibility vrátane nových writes a side effects.
-10. Po recovery over business/data invariants a aktualizuj pre-cutover control.
-
-## 16. Referenčné pravidlá
-
-- Blue-green riadi dva targety a jeden autoritatívny routing pointer.
-- Application isolation neznamená izoláciu databázy, queues ani side effects.
-- Green evidence musí patriť finálnemu artifact/config/path subjectu.
-- Cutover je CAS-chránená, idempotentná a auditovaná transakcia.
-- Control-plane route success sa overuje skutočným trafficom per color.
-- Connection drain pokračuje po switchi nových requests.
-- Workers a schedulers potrebujú samostatný ownership transition.
-- Routing rollback nie je data rollback.
-- Old target zostáva recovery candidate iba pri priebežnej health a compatibility evidence.
-- Diagnostika odlišuje routing, runtime, shared state a ownership boundaries.
-
-## 17. Časté omyly
-
-### „Green je overený, lebo health endpoint prešiel“
-
-Health cez internú skratku nemusí testovať production ingress, identity ani customer journey.
-
-### „Switch route je okamžitý“
-
-Persistent connections, DNS a propagation vytvárajú dočasný dual-active request stav.
-
-### „Dve farby znamenajú dve oddelené databázy“
-
-Najčastejšie zostáva shared mutable state spoločný.
-
-### „Rollback je iba vrátenie pointera“
-
-Green writes alebo external side effects môžu spraviť blue nekompatibilným.
-
-### „Oba schedulery môžu krátko bežať“
-
-Bez fencing a idempotency môže krátky overlap vytvoriť trvalé duplicity.
-
-## 18. Zhrnutie
-
-Atlas blue-green lifecycle je:
-
-```text
-immutable blue a green identities
-→ green validation cez finálny production path
-→ warm-up a shared-capacity evidence
-→ CAS routing cutover
-→ samostatný worker ownership transition
-→ color-specific observation a connection drain
-→ accept alebo recovery podľa shared-state compatibility
-→ health-checked standby a riadené retirement
-```
-
-Blue-green poskytuje hodnotu vďaka oddelenému runtime targetu a rýchlemu routing controlu. Bez explicitného shared-state, worker ownership a rollback contractu však dve farby iba presunú nejasnosť z application fleet do dát a side effects.
+- [Kubernetes documentation — Services](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [Kubernetes documentation — Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [Gateway API documentation](https://gateway-api.sigs.k8s.io/)
+- [AWS Elastic Load Balancing documentation](https://docs.aws.amazon.com/elasticloadbalancing/)
+- [Google SRE — Reliable Product Launches at Scale](https://sre.google/workbook/launch-checklist/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

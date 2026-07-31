@@ -1,489 +1,317 @@
 # Environment a promotion
 
-## Metadata
+Environment je identifikovateľný runtime, policy a shared-state context, do ktorého sa nasadzuje release subject. Nie je to iba názov ako `dev`, `staging` alebo `production`. Exact environment zahŕňa account alebo cluster, Region, namespace, infrastructure generation, identity a network policies, dependency endpoints, secret references, data state, admission behavior, observability a deployment history.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Promotion je riadené rozhodnutie použiť ten istý immutable release manifest v ďalšom environment-e. Neznamená rebuild, zmenu tagu ani kopírovanie ručne zvolených files. Dôveryhodná promotion zachová artifact identity, pridá target-specific configuration a evidence a po deployment-e overí effective runtime aj business outcome.
 
-Environment je identifikovateľný runtime a policy context. Obsahuje artifacty, configuration, infrastructure, identities, secrets references, data/shared state, network, dependencies, observability a deployment history. Promotion je riadené rozhodnutie nasadiť ten istý immutable release manifest do konkrétneho environmentu bez rebuildu a overiť jeho effective runtime výsledok.
+## 1. Dominantný manifest-to-environment model
 
 ```text
 immutable release manifest
-+ versioned configuration/infrastructure
-+ resolved target environment identity
-+ current effective/shared state
-+ complete a fresh evidence
-+ promotion policy
-→ locked deployment transition
-→ post-deploy verification
-→ exposure, recovery alebo reconciliation
+→ exact target environment subject
+→ current effective a shared state
+→ environment-specific configuration render
+→ promotion policy a evidence freshness
+→ lock alebo compare-and-set transition
+→ deployment reconciliation
+→ live/runtime/business read-back
+→ promoted, paused, rejected alebo recovered verdict
 ```
 
-## 1. Cieľ kapitoly
+Promotion je bezpečná iba vtedy, keď source environment evidence patrí rovnakému artifactu a relevantné target assumptions zostali platné. Zmena admission policy, database contractu, secret generation alebo network path môže evidence invalidovať aj bez zmeny application image.
 
-Nosný model kapitoly je environment-promotion lifecycle:
+## 2. Exact environment subject
+
+Atlas Payments uchováva target identity ako machine-readable record:
+
+```yaml
+environmentSubject:
+  environmentId: prod-eu-payments
+  accountId: "482013771900"
+  region: eu-central-1
+  clusterUid: 9f041da2-1c20-4a31-9b4a-9c819f774402
+  namespace:
+    name: payments
+    uid: 0318337d-4e50-49aa-8470-97a6c44fe5a0
+  platformRelease: platform-2026.31
+  infrastructureStateSha: sha256:tfstate1844
+  admissionPolicySha: a18d2cf
+  workloadIdentityPolicySha: 12c6be0
+  databaseContract: settlement-schema-v42-expand
+  eventContract: settlement-events-v18-compatible
+  secretReferences:
+    providerCredential: pv-43
+  routeGeneration: 1843
+```
+
+Cluster name alebo kube context nie je stable identity. Context môže byť lokálne premenovaný a rovnaký názov môže ukazovať na iný API endpoint. Namespace name sa môže po delete/recreate opakovať; UID rozlišuje generation.
+
+## 3. Praktický environment read-back
+
+Pred promotion sa číta current target, nie cached dashboard:
+
+```bash
+kubectl config current-context
+kubectl get namespace kube-system -o jsonpath='{.metadata.uid}{"\n"}'
+kubectl get namespace payments -o jsonpath='{.metadata.uid}{"\n"}'
+kubectl -n platform-system get configmap platform-release \
+  -o jsonpath='{.data.release}{" "}{.metadata.resourceVersion}{"\n"}'
+```
+
+Výstup preukazuje current client context a observed objects na API serveri. Nepreukazuje, že user má oprávnenie na všetky promotion operations, že every node používa rovnakú platform generation ani že external dependencies zodpovedajú deklarovanému subjectu. Environment inventory kombinuje Kubernetes, cloud, database a provider read-backs.
+
+Cloud caller identity sa overí samostatne:
+
+```bash
+aws sts get-caller-identity --output json | jq '{Account,Arn}'
+```
+
+Tento output preukazuje principal pre konkrétny request. Nepreukazuje effective permissions, session policy ani správny Kubernetes workload identity mapping.
+
+## 4. Release manifest versus environment overlay
+
+Release manifest vlastní immutable artifact graph a cross-environment contracts. Environment overlay vlastní target-specific desired state: replica count, endpoints, secret references, quotas a policy bindings. Overlay nesmie meniť artifact bytes ani skryto rebuildovať application.
+
+```yaml
+promotionSubject:
+  releaseManifestDigest: sha256:release1000rc4
+  targetEnvironmentId: prod-eu-payments
+  targetEnvironmentGeneration: prod-eu-1844
+  overlaySha: 71ac290
+  renderedManifestDigest: sha256:render8841
+  policyBundleSha: 66cf902
+  evidenceBundleDigest: sha256:evidence1000rc4
+```
+
+Rendered manifest digest je dôležitý, pretože source overlay môže byť rovnaký a Helm/chart dependency alebo default generation sa môže zmeniť. Promotion record preto viaže inputs aj resolved output.
+
+## 5. Render, admission a live state
+
+Atlas vytvára render deterministicky:
+
+```bash
+helm dependency build deploy/chart
+helm template payments deploy/chart \
+  --namespace payments \
+  --values environments/prod-eu.yaml \
+  --set-string image.digest='sha256:pay1000api' \
+  > rendered.yaml
+
+sha256sum rendered.yaml
+kubectl apply --server-side --dry-run=server -f rendered.yaml -o yaml > admitted.yaml
+sha256sum admitted.yaml
+```
+
+Client render preukazuje output pre lokálne chart a values inputs. Server dry-run preukazuje validation a admission response v current API server generation. Ani jeden nepreukazuje live controller convergence. `admitted.yaml` sa má porovnať s expected critical fields a neskôr s live objectom.
+
+```bash
+kubectl diff --server-side -f rendered.yaml
+```
+
+`kubectl diff` ukazuje predicted differences podľa current API observation a admission. Nepreukazuje, že apply bude bez race condition; live state sa môže medzi diff a apply zmeniť.
+
+## 6. Promotion evidence a applicability
+
+Evidence sa nepromuje mechanicky podľa environment poradia. Každý dôkaz má subject a applicability boundary. Unit test je environment-independent, ak testuje immutable code. Staging identity test nemusí platiť pre production account. Performance evidence môže expirovať po zmene instance type alebo provider quota.
+
+Promotion gate vyhodnocuje:
 
 ```text
-target environment identity
-→ desired a effective state observation
-→ drift a compatibility classification
-→ artifact/config eligibility
-→ lock a preconditions
-→ deployment mutation
-→ readiness a functional verification
-→ release exposure
-→ deployment record
-→ rollback, roll-forward alebo reconciliation
+artifact evidence
++ rendered configuration evidence
++ shared-state compatibility evidence
++ target environment health/capacity
++ target-specific security/identity evidence
++ current incidents a error budget
++ recovery readiness
+→ promotion verdict
 ```
 
-Cieľom nie je memorovať názvy `dev`, `staging` a `production`. Cieľom je vedieť, ktoré runtime assumptions každý environment dokazuje, čo sa pri promotion reálne mení a ako sa zabráni zámene rovnakého artifactu za rovnaké správanie.
+Evidence bundle má uvádzať `validFor`, `notAfter`, target assumptions a invalidation conditions. Screenshot dashboardu bez query, time range, cohort a subjectu nie je reusable promotion evidence.
 
-## 2. Nosný scenár: Atlas Orders 3.10.1
+## 7. Environment lock a compare-and-set
 
-Predchádzajúca kapitola vytvorila release manifest:
+Dve promotions do rovnakého environmentu môžu vytvoriť interleaving. Lock nemá chrániť iba pipeline job; má chrániť environment transition a mať owner, lease duration a recovery.
+
+Kubernetes Lease môže reprezentovať bounded ownership:
+
+```yaml
+apiVersion: coordination.k8s.io/v1
+kind: Lease
+metadata:
+  name: payments-promotion
+  namespace: payments
+spec:
+  holderIdentity: release-payments-10.0-rc4
+  leaseDurationSeconds: 900
+  acquireTime: "2026-07-31T12:00:00Z"
+  renewTime: "2026-07-31T12:00:00Z"
+```
+
+Existencia Lease preukazuje desired lock record, nie automaticky correct mutual exclusion. Acquirer musí používať optimistic concurrency cez `resourceVersion`, renew lease a po expiry overiť, či predchádzajúca operation nezanechala partial state.
+
+Environment transition má expected previous generation:
 
 ```text
-R = {
-  orders-api digest A,
-  payment-worker digest B,
-  migration bundle digest M,
-  config schema S,
-  provenance a evidence references
-}
+current release = payments-9.9
+current route generation = 1843
+expected previous deployment revision = 280
+→ apply release 10.0-rc4 iba ak všetky hodnoty stále sedia
 ```
 
-Atlas má tri relevantné environmenty:
+Ak sa state zmenil, pipeline nemá prepisovať nový release starým planom.
+
+## 8. Promotion identity a short-lived credentials
+
+Promotion actor môže byť human approval authority, ale environment mutation má vykonať scoped workload identity. Credential subject má viazať repository, workflow, ref, environment a release operation.
 
 ```text
-ephemeral integration E1
-→ overuje wiring, PostgreSQL/broker contracts a migration rehearsal
-
-staging E2
-→ overuje deployment topology, identity federation, ingress a operational acceptance
-
-production E3
-→ reálny shared state, quotas, tenant skew a controlled exposure
+trusted promotion workflow
+→ OIDC workload assertion
+→ cloud role restricted na prod-eu-payments
+→ short session
+→ Kubernetes/environment mutation
+→ audit event
+→ expiry
 ```
 
-Promotion nemení A, B ani M. Mení assignment manifestu R k environmentu, configuration revision, effective deployment state a neskôr traffic exposure.
+Short lifetime znižuje exposure, ale broad role stále zostáva broad. Effective authorization sa testuje positive aj forbidden operations. Deployment identity smie meniť owned resources, no nesmie napríklad čítať unrelated tenant secrets alebo meniť cluster-wide admission policy.
 
-## 3. Environment identity
+## 9. Deployment record a effective-state closure
 
-Alias `production` nestačí. Atlas environment identity obsahuje:
+Promotion record sa neuzatvára po API apply. Musí korelovať desired, live, runtime, traffic a business states.
 
-- account/subscription a region;
-- cluster a namespace/runtime boundary;
-- stable environment ID;
-- infrastructure revision;
-- rendered configuration digest;
-- secret/identity references;
-- active release manifest a component digests;
-- schema/migration state;
-- feature-flag a traffic-policy revision;
-- protection level a ownera.
+```bash
+kubectl -n payments get deployment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,revision:.metadata.annotations["deployment.kubernetes.io/revision"],images:[.spec.template.spec.containers[].image]}'
 
-Deployment pred mutation overuje resolved stable ID. User-controlled názov nesmie byť jediným vstupom destructive deploy alebo teardown operácie.
+kubectl -n payments get pods -l app=payments-api \
+  -o jsonpath='{range .items[*]}{.metadata.uid}{" "}{.status.containerStatuses[0].imageID}{"\n"}{end}'
+```
 
-## 4. Desired state verzus effective state
+Deployment output preukazuje desired images a controller observation. Pod `imageID` preukazuje runtime-resolved content pre running containers. Nepreukazuje loaded feature flags, secret values alebo database schema. Application má publikovať release/config generation a capability canary musí potvrdiť business operation.
 
-Desired state je deklarovaný intent. Effective state je výsledok po platform defaults, controllers, mutations, runtime failures a out-of-band zásahoch.
+## 10. Drift a break-glass
+
+Manual patch alebo external controller môže meniť live state po promotion. Drift nie je iba difference; treba určiť field ownership a authority. HPA môže legitímne meniť replicas, admission pridáva sidecar a operator spravuje derived objects. Git/release system má vlastniť iba explicitné fields.
+
+Break-glass mutation má:
 
 ```text
-desired:
-manifest R
-replicas 4
-DB pool 80
-network deny-by-default
-
-observed effective:
-3 ready replicas
-manifest R na troch podoch, starý digest na jednom
-admission sidecar pridaný
-DB pool override 160 z UI configu
-platformová egress výnimka aktívna
+incident reason a approver
+→ short-lived scoped credential
+→ exact bounded change
+→ audit a evidence preservation
+→ authoritative source reconciliation
+→ effective-state validation
+→ credential revocation
 ```
 
-Promotion decision potrebuje obe vrstvy. Git diff alebo IaC plan nepreukazuje, čo environment skutočne vykonáva.
+„Neskôr to prepíšeme do Git-u“ bez reconciliation deadline-u vytvára druhý source of truth.
 
-## 5. Behavioral equivalence podľa rizika
+## 11. Connected incident `REL-PAY-67`
 
-Úplná parity stagingu a produkcie je často nepraktická. Potrebná je equivalence boundary, ktorú testujeme.
+Atlas schválil release `payments-10.0-rc4` podľa staging evidence. Promotion record obsahoval tag a environment name `production`, nie digest, cluster UID ani overlay SHA. Po staging teste platform tím zmenil admission policy a production namespace bol počas incident drill-u delete/recreate-nutý s novým UID.
 
-| Riziko | Potrebná equivalence |
-|---|---|
-| deployment a readiness | rovnaký orchestrator, probes, sidecars a routing |
-| identity/authorization | rovnaký federation a policy model |
-| migration locking | rovnaký DB engine/version a reprezentatívna distribúcia dát |
-| rolling compatibility | viac replík a mixed-version topology |
-| external provider quotas | reálny alebo contract-faithful limit model |
-| tenant-skew capacity | produkčný canary segment |
-
-Staging s jednou replikou nepreukazuje rolling update. Malý uniformný dataset nepreukazuje production query plan a lock behavior.
-
-## 6. Artifact, configuration a secrets
-
-Atlas oddeľuje:
+Súčasne LaunchPad portal priamo patchoval ConfigMap s route generation, zatiaľ čo release pipeline aplikovala Helm overlay. Promotion získala stale lock, pretože predošlý job timeoutol po mutation a lock record sa iba časovo uvoľnil.
 
 ```text
-release manifest R
-→ rovnaký vo všetkých environments
-
-rendered configuration K(E)
-→ environment-specific a versionovaná
-
-secret references I(E)
-→ environment-specific identity/version references
-
-traffic policy F(E)
-→ environment-specific exposure state
+staging evidence pre artifact A/env42
+→ production env sa zmenil na env43
+→ stale promotion plan
+→ direct portal writer + pipeline writer
+→ unknown previous transition
+→ apply a traffic mismatch
 ```
 
-Configuration je release input. Má schema, provenance, validation, compatibility, fail-open/fail-closed semantics, rollback state a audit. Secret values sa nepremiestňujú zo stagingu do produkcie; promotion nesie requirement/reference contract, nie hodnotu.
+Deployment Pods boli Ready, ale polovica cohorty používala route generation `1842` a druhá `1843`. 3 214 settlements skončilo v nesprávnom provider route a 96 operations vyžadovalo reconciliation.
 
-## 7. Promotion contract
+Root cause bol nepresný environment a promotion subject. Názov `production` skryl novú environment generation a viac writers.
 
-Atlas promotion subject nie je iba image digest. Je to deployment tuple:
+## 12. Recovery a acceptance verdict
+
+Containment zablokuje portal aj pipeline writers, zachová managedFields, Lease, rendered/admitted manifests, ConfigMap revisions a traffic logs. Recovery určí jednu authoritative environment generation, zosúladí overlay a runtime ConfigMap, vytvorí fresh promotion plan a prečíta application-loaded route generation.
+
+Environment/promotion contract je prijatý iba vtedy, keď:
 
 ```text
-release manifest R
-+ target environment ID E
-+ rendered config digest K
-+ infrastructure revision I
-+ shared-state compatibility snapshot D
-+ policy version P
+target identity obsahuje account/cluster/namespace generations
++ release manifest a overlay sú immutable
++ rendered a admitted outputs sú evidované
++ evidence applicability zodpovedá targetu
++ environment transition používa lock/CAS semantics
++ deployment identity je short-lived a scoped
++ live/runtime/traffic/business read-back korelujú
++ break-glass sa reconciliuje do authority
++ second writer je forbidden alebo explicitne field-scoped
++ druhá promotion neprepisuje novší state stale planom
 ```
 
-Promotion eligibility vyžaduje:
+## 13. Troubleshooting flow
 
-- immutable a dôveryhodný manifest;
-- complete/fresh evidence viazanú na R;
-- config kompatibilný so schema a artifactmi;
-- environment health a known drift;
-- database/event compatibility;
-- dostupnú deployment identity a lock;
-- recovery path;
-- neexpirovaný approval alebo automated decision.
-
-Zmena R, K, I, E alebo relevantného D invaliduje predchádzajúce rozhodnutie.
-
-## 8. Evidence freshness
-
-Evidence neexpiruje rovnako:
+Pri promotion incidente mapuj:
 
 ```text
-unit/build evidence pre immutable R
-→ platí, kým sa nemení subject alebo policy
-
-vulnerability evidence
-→ refresh po threat-database/policy zmene
-
-environment health a drift snapshot
-→ krátke pre-deploy okno
-
-approval
-→ platí iba pre R + K + E + strategy + risk snapshot
-
-canary evidence
-→ platí pre konkrétnu cohortu a rollout stage
+release manifest a evidence
+→ target account/cluster/namespace identity
+→ current infrastructure/policy/data generations
+→ overlay a rendered/admitted manifest
+→ lock/CAS a writers
+→ apply response a controller state
+→ runtime image/config/secret generation
+→ traffic a business outcome
 ```
 
-Expired evidence vedie k revalidation, pause alebo novému approval, nie k implicitnému passu.
+Competing hypotheses môžu byť wrong target, stale overlay, admission change, concurrent promotion, manual drift, portal writer, secret mismatch, shared-state incompatibility alebo unknown previous operation. Before recovery zachovaj managedFields a operation records; re-apply ich môže prepísať.
 
-## 9. Protected environment a identity
+## 14. Anti-patterny
 
-Protected production environment vynucuje server-side:
+### Environment definovaný iba názvom
 
-- povolené refs a release manifests;
-- deployment workflow identity;
-- environment-scoped short-lived role;
-- required policy/approval;
-- concurrency a deployment window;
-- secret access;
-- manual override a break-glass audit.
+Názov neodlišuje cluster, namespace alebo infrastructure generation.
 
-Build job nemá production permission. Deploy job číta schválený manifest a dostane krátkodobé práva iba pre environment E3. Job name ani runner label nie sú authorization controls.
+### Promotion ako rebuild
 
-## 10. Lock, lease a compare-and-swap
+Nové bytes nemajú validity predchádzajúceho evidence.
 
-Environment je shared mutable resource. Atlas deployment používa:
+### `kubectl diff` ako race-free plan
 
-```text
-acquire lease pre E + observed revision V
-→ prechecks
-→ compare current revision stále = V
-→ apply mutation
-→ heartbeat/renew lease
-→ verify
-→ record new revision V+1
-→ release lease
-```
+State sa môže medzi diff a apply zmeniť; transition potrebuje expected generation.
 
-Lease obsahuje owner/run ID, expiry, heartbeat a stale-lock recovery. Príliš krátka lease môže povoliť overlap počas platného deploymentu; neobmedzený lock môže po runner failure zablokovať environment.
+### Manual approval ako environment lock
 
-## 11. Deployment state machine
+Human decision nebráni súbežnej automatizácii ani external writerovi.
 
-```text
-requested
-→ target resolved
-→ eligibility verified
-→ lock acquired
-→ desired/effective state observed
-→ mutation applied
-→ rollout/readiness observing
-→ functional/business verification
-→ completed / paused / failed / inconclusive
-→ exposure decision
-→ recovery/reconciliation
-→ record and unlock
-```
+### Break-glass bez reconciliation
 
-`orchestrator success` nie je finálny verdict. Post-deploy oracle potvrdzuje správny digest/config, routing, critical journey, migration state, telemetry a business invariant.
+Live-only fix vytvára nový source of truth a neskôr môže byť nepozorovane prepísaný.
 
-## 12. Partial state a retry
+## 15. Kontrolné otázky
 
-Partial deployment môže znamenať:
-
-- mix starého a nového digestu;
-- migration commitnutú pred application failure;
-- config zmenený bez úspešného restartu;
-- routing prepnutý iba v regióne;
-- infra resource vytvorený bez identity bindingu.
-
-Retry najprv pozoruje effective state. Mutation je idempotentná alebo reconciliuje desired verzus observed stav. Slepé zopakovanie commandu pri unknown outcome môže zdvojiť migráciu, prepísať novší rollout alebo poškodiť data.
-
-## 13. Shared data a event state
-
-Database a queue sa nepromotionujú ako image. Atlas používa expand-contract:
-
-```text
-additive schema/event contract
-→ tolerant readers/writers
-→ deploy mixed-compatible versions
-→ bounded migration/backfill
-→ completeness a integrity verification
-→ switch behavior
-→ remove old consumers
-→ destructive cleanup neskôr
-```
-
-Rollback eligibility závisí od aktuálneho schema, data a retention state. Starý stateless API artifact môže byť dostupný, ale starý worker nemusí rozumieť eventom už v queue.
-
-## 14. Deployment verzus release exposure
-
-```text
-deploy R do production s flag off
-→ synthetic/internal validation
-→ internal tenant
-→ 5 % matched cohort
-→ broader rings
-→ 100 % release
-```
-
-Deployment record odpovedá, čo beží. Exposure record odpovedá, kto behavior používa. Oba záznamy sa korelujú cez environment, manifest, config/flag revision a čas.
-
-## 15. Environment drift a reconciliation
-
-Drift categories:
-
-- binary/release drift;
-- configuration drift;
-- infrastructure drift;
-- identity/secret drift;
-- policy/network drift;
-- data/schema drift;
-- observability drift.
-
-Lifecycle:
-
-```text
-desired state
-→ effective observation
-→ normalize expected platform defaults
-→ classify delta a risk
-→ block, reconcile alebo accept expiring exception
-→ verify a record
-```
-
-Blind auto-reconcile môže odstrániť emergency mitigation. Drift potrebuje ownera a context-aware policy.
-
-## 16. Worked failure: rovnaký artifact, odlišná production configuration
-
-Staging aj production používali digest A. Staging prešlo, ale production API saturovalo DB:
-
-```text
-staging config K1: concurrency 20, DB pool 80
-production hidden UI override K2: concurrency 120, DB pool 80
-→ rovnaké bytes
-→ production worker vytvoril connection contention
-→ latency a queue age rástli
-```
-
-### Root cause
-
-Tím považoval rovnaký artifact za rovnaký release input. UI override nebol vo versionovanej config provenance ani approval packet-e.
-
-### Náprava
-
-- rendered config má digest a source precedence report;
-- UI overrides sú zakázané alebo auditované ako revision;
-- promotion subject zahŕňa R + K + E;
-- config schema/policy kontroluje concurrency budget;
-- canary guardrails sledujú DB wait a queue age;
-- staging test používa production-relevantný config profile.
-
-## 17. Worked failure: vypršaná lease dovolila dva deploymenty
-
-Deployment A bol pomalý počas migration verification. Jeho lease vypršala, hoci runner pokračoval. Deployment B získal nový lock:
-
-```text
-A aplikuje manifest R1 a migration phase
-→ lease bez heartbeat vyprší
-→ B nasadí R2 a zapíše environment revision V2
-→ A dokončí a prepíše časť config/routingu na R1
-→ inventory ukazuje mixed, nejasný state
-```
-
-### Root cause
-
-Lock chránil iba začiatok jobu. Chýbal heartbeat, compare-and-swap pred ďalšou mutation a stale-owner fencing.
-
-### Náprava
-
-- lease sa obnovuje a mutation overuje fencing token;
-- environment revision používa compare-and-swap;
-- superseded deployment prestane mutovať po strate lease;
-- reconciliation obnoví manifest/config consistency;
-- deployment record zachová oba attempts a partial states;
-- post-deploy verification kontroluje všetky component digests a routing.
-
-## 18. Rollback, roll-forward a teardown
-
-Rollback je možný iba ak:
-
-- last-known-good artifacts stále existujú;
-- config a infrastructure sú kompatibilné;
-- database/event state rozumie starej verzii;
-- external side effects sú reverzibilné alebo reconciled;
-- traffic a flags možno bezpečne vrátiť.
-
-Inak Atlas použije flag-off, write freeze, containment, compatible roll-forward alebo data reconciliation.
-
-Ephemeral teardown je samostatná destructive state machine: stable ID, protection check, traffic stop, retention export, credential revocation, dependency-aware deletion, finalizer handling, lock cleanup a orphan verification. Production/shared environments sú denylisted z TTL cleanupu.
-
-## 19. Deployment record a inventory
-
-Deployment record zachová:
-
-```text
-R + K + I + E
-actor/workload identity
-policy/approval snapshot
-lock/lease/fencing identity
-observed pre-state
-mutation timeline
-post-state a verification
-exposure relation
-recovery relation
-```
-
-Inventory priebežne odpovedá, čo reálne beží. Neúspešné a partial attempts sú súčasťou histórie, nie iba pipeline logs na krátku retention.
-
-## 20. Diagnostický postup
-
-1. Potvrď stable environment ID a protection level.
-2. Porovnaj release manifest/component digests.
-3. Porovnaj rendered config digest a variable precedence.
-4. Over infrastructure, identity/secret a policy revisions.
-5. Zmeraj effective state: replicas, routing, sidecars a resource state.
-6. Skontroluj schema, migration, queue/backlog a event compatibility.
-7. Over lease owner, heartbeat, fencing token a environment revision.
-8. Rozlíš precheck rejection, partial apply, readiness, verification a cleanup failure.
-9. Vyber reconcile, rollback, roll-forward, flag-off alebo containment podľa shared stateu.
-10. Potvrď post-recovery technical, functional a data-integrity oracle.
-11. Aktualizuj drift/config/promotion control, ktorý failure prepustil.
-
-## 21. Referenčné pravidlá
-
-- Environment je runtime, data, identity a policy boundary, nie iba namespace.
-- Promotion presúva rovnaký immutable manifest bez rebuildu.
-- Promotion subject zahŕňa artifact, config, target a relevantný shared state.
-- Desired state sa musí porovnať s effective state.
-- Behavioral equivalence sa odvodzuje od konkrétneho rizika.
-- Config change má vlastný provenance a rollout lifecycle.
-- Protected environment sa vynucuje server-side.
-- Deployment identity je short-lived a environment-scoped.
-- Locks potrebujú lease, heartbeat, fencing a stale recovery.
-- Retry pozoruje partial state pred mutation.
-- Database/event compatibility určuje rollback eligibility.
-- Deployment a release exposure sú oddelené, ale korelované.
-- Drift sa klasifikuje pred reconciliation.
-- Deployment record obsahuje aj neúspešné attempts.
-
-## 22. Časté omyly
-
-### „Environment je namespace“
-
-Namespace nepopisuje config, identities, data, dependencies, policy ani history.
-
-### „Staging je menšia produkcia“
-
-Iba ak zachová boundaries relevantné pre konkrétny risk.
-
-### „Rovnaký digest znamená rovnaké správanie“
-
-Configuration, identity, data, topology a traffic môžu behavior zásadne zmeniť.
-
-### „Promotion znamená rebuild pre nový environment“
-
-Rebuild vytvára nový artifact a invaliduje pôvodnú evidence.
-
-### „Lock stačí bez lease a fencing“
-
-Runner failure alebo expiry môže povoliť súbežné mutations.
-
-### „Rollback je vždy dostupný“
-
-Shared mutable state môže starú verziu urobiť nekompatibilnou.
-
-## 23. Zhrnutie
-
-Dôveryhodná Atlas promotion je:
-
-```text
-stable target identity
-→ desired/effective state a drift snapshot
-→ immutable manifest + config/infra/shared-state subject
-→ complete/fresh eligibility
-→ scoped identity, lock a fencing
-→ state-aware deployment
-→ runtime verification a exposure
-→ deployment record
-→ compatible recovery alebo reconciliation
-```
-
-Environment nie je pasívny cieľ. Je meniaci sa runtime state, ktorého identita, compatibility a drift priamo určujú, či je promotion bezpečná.
-
-## 24. Kontrolné otázky
-
-1. Čo tvorí environment identity?
-2. Ako sa líši desired a effective state?
-3. Prečo sa behavioral equivalence viaže na risk?
-4. Čo tvorí Atlas promotion subject?
-5. Prečo rovnaký artifact nestačí bez config provenance?
-6. Ako evidence freshness závisí od typu signálu?
-7. Čo chráni protected environment?
-8. Prečo deployment potrebuje lease, heartbeat a fencing?
-9. Ako sa diagnostikuje partial deployment?
-10. Prečo database a queue určujú rollback eligibility?
-11. Aký je rozdiel medzi deploymentom a exposure?
-12. Ako drift lifecycle odlišuje platform defaults od nebezpečnej zmeny?
-13. Ako vznikol Atlas config failure medzi stagingom a production?
-14. Ako súbežné deploymenty vytvorili mixed state?
+1. Čo tvorí exact environment subject?
+2. Prečo namespace name nie je generation identity?
+3. Aký rozdiel je medzi release manifestom a environment overlayom?
+4. Čo preukazuje server-side dry-run a čo nie?
+5. Kedy target change invaliduje evidence?
+6. Ako Lease pomáha a čo negarantuje?
+7. Prečo promotion potrebuje compare-and-set semantics?
+8. Aké permissions má mať deployment identity?
+9. Ako sa overuje effective runtime state po apply?
+10. Ktorí writers sa rozchádzali v `REL-PAY-67`?
+11. Ako sa uzatvára break-glass mutation?
+12. Ako sa testuje forbidden stale-plan promotion?
 
 ## Glossary impact
 
-Relevantné pojmy: environment identity, desired state, effective state, behavioral equivalence, rendered configuration digest, promotion subject, promotion eligibility, protected environment, environment-scoped identity, deployment state machine, deployment lock, lease, fencing token, partial deployment, environment revision, environment drift, deployment record, rollback eligibility a release exposure.
+Relevantné pojmy: environment subject, cluster UID, namespace generation, release manifest, environment overlay, rendered manifest digest, admitted state, evidence applicability, promotion lock, compare-and-set transition, deployment identity, effective-state closure, field ownership, break-glass reconciliation a stale promotion plan.
+
+## Primárne zdroje
+
+- [Kubernetes documentation — Server-Side Apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/)
+- [Kubernetes API — Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
+- [Helm documentation](https://helm.sh/docs/)
+- [GitOps Principles](https://opengitops.dev/)
+- [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html)
+- [SLSA specification](https://slsa.dev/spec/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
