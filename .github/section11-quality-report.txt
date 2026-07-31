@@ -6,7 +6,7 @@ docs/11-cloud-and-aws/aws-organizations-accounts.md|words=1791|grade=B|strict=0/
 docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md|words=1888|grade=B|strict=0/1/0|prose_words=1007|bullet_words=115|bullet_share=0.102|list_first=2|exec_blocks=9|commands=15|explanations=18
 docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md|words=1724|grade=A|strict=0/0/0|prose_words=1224|bullet_words=97|bullet_share=0.073|list_first=2|exec_blocks=7|commands=17|explanations=18
 docs/11-cloud-and-aws/cloudops-hands-on-labs.md|words=1987|grade=A|strict=0/0/0|prose_words=985|bullet_words=132|bullet_share=0.118|list_first=2|exec_blocks=19|commands=27|explanations=16
-docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md|words=870|grade=D|strict=0/9/0|prose_words=416|bullet_words=84|bullet_share=0.168|list_first=2|exec_blocks=11|commands=24|explanations=3
+docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md|words=2124|grade=A|strict=0/0/0|prose_words=1520|bullet_words=95|bullet_share=0.059|list_first=2|exec_blocks=11|commands=25|explanations=20
 docs/11-cloud-and-aws/cloudwatch-cloudtrail.md|words=1409|grade=B|strict=0/1/0|prose_words=857|bullet_words=93|bullet_share=0.098|list_first=2|exec_blocks=11|commands=7|explanations=6
 docs/11-cloud-and-aws/cost-management-finops.md|words=1329|grade=B|strict=0/1/0|prose_words=701|bullet_words=103|bullet_share=0.128|list_first=2|exec_blocks=12|commands=6|explanations=1
 docs/11-cloud-and-aws/ec2-auto-scaling.md|words=1788|grade=B|strict=0/1/0|prose_words=1054|bullet_words=107|bullet_share=0.092|list_first=2|exec_blocks=15|commands=11|explanations=4
@@ -38,9 +38,7 @@ docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: strict 0/1/0
 docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/cloudops-hands-on-labs.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: strict 0/9/0
 docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md: only 416 prose words
 docs/11-cloud-and-aws/cloudwatch-cloudtrail.md: strict 0/1/0
 docs/11-cloud-and-aws/cloudwatch-cloudtrail.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/cost-management-finops.md: strict 0/1/0
