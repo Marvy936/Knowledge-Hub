@@ -180,12 +180,20 @@ Znak `$` zachová root context aj vtedy, keď sa call nachádza vo vnútri `with
 Vyrenderuj iba Deployment a pozri labels:
 
 ```bash
+helm lint ./atlas-payments
+
 helm template payments-dev ./atlas-payments \
   --show-only templates/deployment.yaml \
-  | yq '.metadata.labels'
+  > /tmp/named-template-deployment.yaml
+
+yq '.metadata.labels' /tmp/named-template-deployment.yaml
+
+helm template payments-dev ./atlas-payments \
+  --show-only templates/deployment.yaml \
+  --debug > /tmp/named-template-debug.txt
 ```
 
-Očakávaný output obsahuje stabilné release a component labels:
+`helm lint` najprv overí chart-level template a convention chyby. Druhý príkaz uloží presný rendered Deployment, takže `yq` číta semantic field path namiesto vizuálneho odhadu. `--debug` zachová širší render context pri failure-i; jeho úspech stále nepreukazuje API admission ani runtime. Očakávaný label output je:
 
 ```yaml
 app.kubernetes.io/name: atlas-payments
