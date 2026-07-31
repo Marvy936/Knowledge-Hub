@@ -124,6 +124,79 @@ Najčastejšie anti-patterny sú hook bez durable ID, exit 0 pred state verifica
 7. Ako delete policy, TTL a central logs spolu tvoria evidence contract?
 8. Ktoré forbidden outcomes musí recovery vylúčiť?
 
+## Executable lab: idempotentný `pre-upgrade` migration Job
+
+Hook Job nesmie používať samotnú Helm revision ako jediný idempotency key, pretože retry alebo rollback vytvára ďalšie release transitions. Operation identity má reprezentovať business schema transition, napríklad `payments-schema-s13`.
+
+Values definujú immutable operation subject:
+
+```yaml
+migration:
+  operationId: payments-schema-s13
+  image: ghcr.io/example/atlas-migrations@sha256:3333333333333333333333333333333333333333333333333333333333333333
+```
+
+Template `templates/hooks/schema-migrate.yaml`:
+
+```gotemplate
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "atlas-payments.fullname" . }}-schema-migrate
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-weight: "-10"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+image: {{ required "migration.image je povinný" .Values.migration.image | quote }}
+args:
+  - migrate
+  - --operation-id
+  - {{ required "migration.operationId je povinné" .Values.migration.operationId | quote }}
+  - --target-schema
+  - S13
+```
+
+Migration binary musí v databáze atomicky vytvoriť alebo načítať operation ledger row podľa `operationId`. Prvý attempt vykoná transition `S12 → S13`; ďalší attempt s rovnakým ID overí už dokončený výsledok a skončí bez druhého side effectu.
+
+Pred upgrade-om vyrenderuj iba hook:
+
+```bash
+helm template payments-prod ./atlas-payments \
+  -f values-prod.yaml \
+  --show-only templates/hooks/schema-migrate.yaml
+```
+
+Upgrade spusti s explicitným operation ID:
+
+```bash
+helm upgrade payments-prod ./atlas-payments \
+  -n payments \
+  -f values-prod.yaml \
+  --set migration.operationId=payments-schema-s13 \
+  --wait \
+  --timeout 10m
+```
+
+Počas incidentu nezisťuj hook iba cez `helm status`. Získaj rendered hook, Job state a log:
+
+```bash
+helm get hooks payments-prod -n payments
+kubectl get job -n payments -l app.kubernetes.io/instance=payments-prod -o wide
+kubectl logs -n payments job/payments-prod-atlas-payments-schema-migrate
+```
+
+Ak databáza ukazuje committed `payments-schema-s13`, ale Helm timeoutoval pred successful verdictom, slepý rollback ani nový operation ID nie sú bezpečné. Controlled retry s rovnakým ID musí skončiť ako no-op verification. Hook delete policy upratuje Kubernetes Job resource; nevracia databázový side effect.
+
+Negatívny test spustí migration image s rovnakým operation ID druhýkrát v test databáze. Počet ledger rows aj schema transition musí zostať jeden. Bez tohto second-operation testu je „Job success“ iba first-run evidence.
+
 ## Glossary impact
 
 Relevantné pojmy: Helm hook operation subject, rendered hook inventory, hook execution attempt, external side-effect commit, unknown hook outcome, durable operation ledger, hook fencing, hook readiness boundary, evidence-retention contract a hook recovery verdict.

@@ -176,6 +176,97 @@ Najčastejšie anti-patterny sú zamieňanie chart version, appVersion a release
 7. Kedy je rollback bezpečný a kedy je potrebný roll-forward alebo reconciliation?
 8. Ktoré positive a forbidden outcomes musia uzavrieť release acceptance?
 
+## Praktický slice: od `values.yaml` po konkrétny Deployment
+
+Nasledujúci minimálny slice ukazuje celý prechod od chart metadata cez values až po vyrenderovaný Kubernetes objekt. Nie je to pseudokód: rovnaké súbory možno uložiť do malého chartu a spustiť cez `helm lint` a `helm template`.
+
+`Chart.yaml` vytvorí package identitu:
+
+```yaml
+apiVersion: v2
+name: atlas-payments
+version: 0.2.0
+appVersion: "1.5.0"
+type: application
+```
+
+`values.yaml` vytvorí configuration contract. Image je viazaný digestom, takže release subject neodkazuje iba na mutable tag:
+
+```yaml
+replicaCount: 2
+image:
+  repository: ghcr.io/example/atlas-payments
+  digest: sha256:2222222222222222222222222222222222222222222222222222222222222222
+containerPort: 8080
+config:
+  logLevel: info
+```
+
+Template `templates/deployment.yaml` číta values a vytvára konkrétny Deployment:
+
+```gotemplate
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: payments-api
+image: "{{ .Values.image.repository }}@{{ required "image.digest je povinný" .Values.image.digest }}"
+ports:
+  - name: http
+    containerPort: {{ .Values.containerPort }}
+env:
+  - name: LOG_LEVEL
+    value: {{ .Values.config.logLevel | quote }}
+```
+
+Najprv vykonaj statickú kontrolu a potom vyrenderuj iba tento template:
+
+```bash
+helm lint ./atlas-payments
+
+helm template payments-dev ./atlas-payments \
+  --namespace payments-dev \
+  --show-only templates/deployment.yaml \
+  > /tmp/payments-deployment.yaml
+```
+
+Výstup musí obsahovať `replicas: 2`, image s exact digestom a `LOG_LEVEL` ako string. Overenie cez `yq` je presnejšie než vizuálne prezeranie veľkého manifestu:
+
+```bash
+yq '{replicas: .spec.replicas,
+     image: .spec.template.spec.containers[0].image,
+     logLevel: .spec.template.spec.containers[0].env[0].value}' \
+  /tmp/payments-deployment.yaml
+```
+
+Očakávaný tvar je:
+
+```yaml
+replicas: 2
+image: ghcr.io/example/atlas-payments@sha256:2222222222222222222222222222222222222222222222222222222222222222
+logLevel: info
+```
+
+Tento výsledok preukazuje chart loading, values merge a lokálny render. Nepreukazuje Kubernetes API compatibility, admission, image pull, rollout ani business funkčnosť. Ďalší boundary preto testuje server-side dry-run:
+
+```bash
+kubectl apply --server-side --dry-run=server \
+  -f /tmp/payments-deployment.yaml
+```
+
+Až tento príkaz zapojí aktuálne API discovery, schema, admission a oprávnenia volajúcej identity. Ani on však nespustí Deployment controller. Celý install, runtime a business journey je rozpracovaný v kapitole [Praktický Helm chart od prázdneho adresára po overený release](helm-chart-practical-walkthrough.md).
+
 ## Glossary impact
 
 Relevantné pojmy: Helm release subject, chart artifact generation, dependency lock generation, effective values, render generation, rendered-manifest digest, release revision, release mutation boundary, unknown Helm outcome, admitted/live/serving/process-loaded state, release acceptance, rollback eligibility a Helm decommission subject.
