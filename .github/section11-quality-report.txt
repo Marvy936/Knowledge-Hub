@@ -10,7 +10,7 @@ docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md|words=2124|grade=A|stri
 docs/11-cloud-and-aws/cloudwatch-cloudtrail.md|words=1409|grade=B|strict=0/1/0|prose_words=857|bullet_words=93|bullet_share=0.098|list_first=2|exec_blocks=11|commands=7|explanations=6
 docs/11-cloud-and-aws/cost-management-finops.md|words=1329|grade=B|strict=0/1/0|prose_words=701|bullet_words=103|bullet_share=0.128|list_first=2|exec_blocks=12|commands=6|explanations=1
 docs/11-cloud-and-aws/ec2-auto-scaling.md|words=1788|grade=B|strict=0/1/0|prose_words=1054|bullet_words=107|bullet_share=0.092|list_first=2|exec_blocks=15|commands=11|explanations=4
-docs/11-cloud-and-aws/ecs-eks.md|words=1932|grade=D|strict=0/8/0|prose_words=974|bullet_words=110|bullet_share=0.101|list_first=2|exec_blocks=18|commands=24|explanations=5
+docs/11-cloud-and-aws/ecs-eks.md|words=3437|grade=B|strict=0/0/0|prose_words=2281|bullet_words=134|bullet_share=0.055|list_first=2|exec_blocks=18|commands=29|explanations=15
 docs/11-cloud-and-aws/elastic-load-balancing.md|words=1983|grade=C|strict=0/2/0|prose_words=1316|bullet_words=95|bullet_share=0.067|list_first=2|exec_blocks=14|commands=12|explanations=8
 docs/11-cloud-and-aws/high-availability-disaster-recovery.md|words=1782|grade=A|strict=0/0/0|prose_words=1197|bullet_words=102|bullet_share=0.079|list_first=2|exec_blocks=6|commands=7|explanations=7
 docs/11-cloud-and-aws/iaas-paas-saas.md|words=1794|grade=A|strict=0/0/0|prose_words=1216|bullet_words=109|bullet_share=0.082|list_first=2|exec_blocks=4|commands=5|explanations=5
@@ -47,7 +47,6 @@ docs/11-cloud-and-aws/cost-management-finops.md: only 701 prose words
 docs/11-cloud-and-aws/cost-management-finops.md: command/evidence explanation is too thin
 docs/11-cloud-and-aws/ec2-auto-scaling.md: strict 0/1/0
 docs/11-cloud-and-aws/ec2-auto-scaling.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/ecs-eks.md: strict 0/8/0
 docs/11-cloud-and-aws/ecs-eks.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/elastic-load-balancing.md: strict 0/2/0
 docs/11-cloud-and-aws/elastic-load-balancing.md: 2 list-first conceptual sections
