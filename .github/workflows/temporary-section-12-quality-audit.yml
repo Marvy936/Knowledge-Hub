@@ -30,8 +30,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          path = Path('docs/12-observability/instrumentation-telemetry.md')
-          text = path.read_text(encoding='utf-8')
+          instrumentation = Path('docs/12-observability/instrumentation-telemetry.md')
+          text = instrumentation.read_text(encoding='utf-8')
           old = "## End-to-end lifecycle\n\n```text"
           new = (
               "## End-to-end lifecycle\n\n"
@@ -42,7 +42,32 @@ jobs:
               "```text"
           )
           if old in text:
-              path.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
+              instrumentation.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
+
+          golden = Path('docs/12-observability/golden-signals.md')
+          text = golden.read_text(encoding='utf-8')
+          lifecycle_old = "## Outcome-first lifecycle\n\n```text"
+          lifecycle_new = (
+              "## Outcome-first lifecycle\n\n"
+              "Golden Signals tvoria jeden verdict iba vtedy, keď všetky štyri používajú kompatibilnú operation population a time boundary. "
+              "Lifecycle preto najprv fixuje user journey a až potom oddeľuje demand, incorrect outcomes, end-to-end duration a čakajúcu prácu pred capacity cliffom. "
+              "Každá ďalšia query musí zostať spätne naviazaná na tento subject a nesmie zameniť logical operation za interný attempt.\n\n"
+              "```text"
+          )
+          if lifecycle_old in text:
+              text = text.replace(lifecycle_old, lifecycle_new, 1)
+
+          subject_old = "## Exact Golden Signals subject\n\n```yaml"
+          subject_new = (
+              "## Exact Golden Signals subject\n\n"
+              "Subject určuje spoločnú population, ktorú budú Latency, Traffic a Errors merať, a zároveň pomenúva resource boundaries relevantné pre Saturation. "
+              "Bez tejto väzby môže každý panel používať inú release, cohort alebo unit a spoločný dashboard nebude mať kauzálny význam. "
+              "Atlas preto zapisuje contract ako versionovaný, kontrolovateľný artefakt.\n\n"
+              "```yaml"
+          )
+          if subject_old in text:
+              text = text.replace(subject_old, subject_new, 1)
+          golden.write_text(text, encoding='utf-8', newline='\n')
           PY
       - name: Build Section 12 quality report
         shell: bash
