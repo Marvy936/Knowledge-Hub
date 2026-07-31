@@ -1,4 +1,4 @@
-name: Temporary section 10 and 11 materializer
+name: Temporary section 10 and 11 finalizer
 
 on:
   pull_request:
@@ -13,11 +13,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-sections-10-11-materializer-pr
+  group: temporary-sections-10-11-finalizer
   cancel-in-progress: false
 
 jobs:
-  materialize:
+  finalize:
     runs-on: self-hosted
     steps:
       - name: Checkout section 11 branch
@@ -31,52 +31,47 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Materialize both documentation branches
+      - name: Finalize section 11 and materialize section 10 labs
         shell: bash
         run: |
           set -euo pipefail
 
-          extract_python() {
-            local source_file="$1"
-            local destination="$2"
-            python - "$source_file" "$destination" <<'PY'
-          from pathlib import Path
-          import sys
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          source = Path(sys.argv[1])
-          destination = Path(sys.argv[2])
+          if [[ -f docs/11-cloud-and-aws/finops.md ]]; then
+            cp docs/11-cloud-and-aws/finops.md docs/11-cloud-and-aws/cost-management-finops.md
+            rm docs/11-cloud-and-aws/finops.md
+          fi
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+
+          rm -f .github/workflows/temporary-section-11-prose-practical-audit.yml
+          rm -f .github/workflows/temporary-section-11-full-practical-audit.yml
+
+          git add docs .github
+          git commit -m "docs(aws): finalize authoritative FinOps chapter and navigation"
+          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+
+          git fetch origin agent/section-10-practical-helm-examples
+          git checkout -B section-10-practical origin/agent/section-10-practical-helm-examples
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('.github/workflows/temporary-section-10-practical-completion.yml')
           text = source.read_text(encoding='utf-8')
           marker = "          python - <<'PY'\n"
           start = text.index(marker) + len(marker)
           end = text.index("\n          PY\n", start)
           lines = text[start:end].splitlines()
           script = "\n".join(line[10:] if line.startswith("          ") else line for line in lines)
-          destination.write_text(script + "\n", encoding='utf-8')
+          Path('/tmp/section10_practical.py').write_text(script + "\n", encoding='utf-8')
           PY
-          }
 
-          extract_python .github/workflows/temporary-cloudops-finops-rewrite.yml /tmp/section11_rewrite.py
-          python /tmp/section11_rewrite.py
-          python scripts/update_glossary.py --write
-          python scripts/update_navigation.py --write
-          python scripts/update_glossary.py --check
-          python scripts/update_navigation.py --check
-
-          rm -f .github/cloudops-finops-rewrite.trigger
-          rm -f .github/workflows/temporary-cloudops-finops-rewrite.yml
-          rm -f .github/workflows/temporary-section-11-full-practical-audit.yml
-          rm -f .github/workflows/temporary-section-11-prose-practical-audit.yml
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs .github
-          git commit -m "docs(aws): materialize prose-first practical closeout chapters"
-          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
-
-          git fetch origin agent/section-10-practical-helm-examples
-          git checkout -B section-10-practical origin/agent/section-10-practical-helm-examples
-
-          extract_python .github/workflows/temporary-section-10-practical-completion.yml /tmp/section10_practical.py
           python /tmp/section10_practical.py
           python scripts/update_glossary.py --write
           python scripts/update_navigation.py --write
