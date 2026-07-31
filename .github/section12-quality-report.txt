@@ -1,7 +1,7 @@
 status=failure
 
 docs/12-observability/alert-design-alert-fatigue.md|strict=32/35/8|prose=671|bullet_share=0.496|blocks=18|executable=0|explanations=1
-docs/12-observability/alertmanager.md|strict=39/37/11|prose=908|bullet_share=0.451|blocks=18|executable=1|explanations=3
+docs/12-observability/alertmanager.md|strict=0/1/0|prose=1050|bullet_share=0.095|blocks=14|executable=9|explanations=13
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
 docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bullet_share=0.450|blocks=21|executable=0|explanations=4
 docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
@@ -93,93 +93,7 @@ HIGH docs/12-observability/alert-design-alert-fatigue.md:456 [single-sentence-co
 HIGH docs/12-observability/alert-design-alert-fatigue.md:460 [single-sentence-concept] Duplicate engines bez autority — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/alert-design-alert-fatigue.md:464 [single-sentence-concept] Permanentná silence — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/alert-design-alert-fatigue.md:468 [single-sentence-concept] Alert bez forbidden action — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:12 [list-first-introduction] 1. Dominantný lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:61 [empty-section] 3. Rozdelenie zodpovedností — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:63 [no-prose-concept] Prometheus — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:63 [list-first-introduction] Prometheus — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:63 [outline-instead-of-explanation] Prometheus — 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:63 [bare-bullet-items] Prometheus — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyhodnocuje PromQL;`, `drží for a keep firing for state;`, `vytvára alert labels a annotations;`, `posiela firing a resolved updates Alertmanagerom.`.
-HIGH docs/12-observability/alertmanager.md:63 [thin-concept-section] Prometheus — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/alertmanager.md:70 [no-prose-concept] Alertmanager — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:70 [list-first-introduction] Alertmanager — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:70 [outline-instead-of-explanation] Alertmanager — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:70 [bare-bullet-items] Alertmanager — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuje a deduplikuje alerts;`, `aplikuje route tree;`, `zoskupuje alerts;`, `riadi notification timing;`.
-HIGH docs/12-observability/alertmanager.md:70 [thin-concept-section] Alertmanager — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:80 [list-first-introduction] Receiver a external workflow — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/12-observability/alertmanager.md:80 [bare-bullet-items] Receiver a external workflow — 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prijíma page, webhook, chat, email alebo ticket event;`, `musí potvrdiť delivery a byť monitorovaný samostatne.`.
-HIGH docs/12-observability/alertmanager.md:80 [thin-concept-section] Receiver a external workflow — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:88 [list-heavy-section] 4. Alert identity — 12 odrážok a iba 51 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:88 [bare-bullet-items] 4. Alert identity — 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname ;`, `service a operation;`, `environment;`, `region/cluster podľa incident boundary;`.
-MEDIUM docs/12-observability/alertmanager.md:88 [term-before-explanation] 4. Alert identity — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`
-CRITICAL docs/12-observability/alertmanager.md:112 [bare-bullet-items] 5. HA producer fan-out a deduplication — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exactly-once delivery;`, `výber „správnej“ source sample;`, `globálny consensus o business incidente;`, `ochranu pred odlišnými labels medzi replicas.`.
-HIGH docs/12-observability/alertmanager.md:134 [list-heavy-section] 6. Route-tree generation — 6 odrážok a iba 41 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:134 [bare-bullet-items] 6. Route-tree generation — 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad route zachytí alert pred špecifickou route;`, `missing owner label skončí v nesprávnom default receiveri;`, `regex matchuje širšiu population;`, `continue: true pošle neplánované duplicity;`.
-MEDIUM docs/12-observability/alertmanager.md:134 [short-concept-section] 6. Route-tree generation — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/alertmanager.md:179 [empty-section] 8. Notification timing — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/alertmanager.md:185 [single-sentence-concept] group interval — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:195 [single-sentence-concept] 9. Silence, mute interval a inhibition — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/alertmanager.md:233 [outline-instead-of-explanation] 10. Receiver a template generation — 12 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:233 [bare-bullet-items] 10. Receiver a template generation — 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user/business impact;`, `service, operation, environment a region;`, `group scope a firing count;`, `start a duration;`.
-MEDIUM docs/12-observability/alertmanager.md:233 [short-concept-section] 10. Receiver a template generation — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/12-observability/alertmanager.md:233 [term-before-explanation] 10. Receiver a template generation — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`
-HIGH docs/12-observability/alertmanager.md:257 [list-heavy-section] 11. Delivery, retries a unknown outcome — 6 odrážok a iba 41 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:257 [bare-bullet-items] 11. Delivery, retries a unknown outcome — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `acknowledged receiver success;`, `permanent validation/auth failure;`, `transient network/throttling failure;`, `timeout s neznámym receiver outcome-om;`.
-MEDIUM docs/12-observability/alertmanager.md:257 [short-concept-section] 11. Delivery, retries a unknown outcome — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/alertmanager.md:281 [outline-instead-of-explanation] 12. Resolved lifecycle — 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:281 [bare-bullet-items] 12. Resolved lifecycle — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `flapping rule;`, `label-set change;`, `no-data interpretovanom ako recovery;`, `producer replica divergence;`.
-MEDIUM docs/12-observability/alertmanager.md:281 [short-concept-section] 12. Resolved lifecycle — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-CRITICAL docs/12-observability/alertmanager.md:296 [bare-bullet-items] 13. High availability a state — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `silences;`, `notification log a dedup history;`, `loaded config a templates;`, `peer membership.`.
-CRITICAL docs/12-observability/alertmanager.md:311 [empty-section] 14. Worked failure: staging maintenance inhibuje production page — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:317 [empty-section] Target alert — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:329 [empty-section] Súbežný source alert — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:339 [empty-section] Effective inhibition generation AM-CFG-77 — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:351 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:351 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:351 [outline-instead-of-explanation] Competing hypotheses — 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:351 [bare-bullet-items] Competing hypotheses — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus alert neposlal Alertmanageru;`, `alert ešte čaká v group wait ;`, `route skončila vo fallback receiveri;`, `active silence target matchuje;`.
-HIGH docs/12-observability/alertmanager.md:351 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/alertmanager.md:351 [term-before-explanation] Competing hypotheses — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`
-HIGH docs/12-observability/alertmanager.md:362 [list-first-introduction] Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:391 [no-prose-concept] Containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:391 [list-first-introduction] Containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:391 [outline-instead-of-explanation] Containment — 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/alertmanager.md:391 [bare-bullet-items] Containment — 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `odstrániť alebo dočasne zúžiť chybnú inhibition generation;`, `manuálne deklarovať production incident a kontaktovať on-call;`, `nevypnúť všetku inhibition globálne bez kontroly alert stormu;`.
-HIGH docs/12-observability/alertmanager.md:391 [thin-concept-section] Containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/alertmanager.md:391 [term-before-explanation] Containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`
-CRITICAL docs/12-observability/alertmanager.md:399 [no-prose-concept] Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:399 [list-first-introduction] Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:399 [outline-instead-of-explanation] Authoritative recovery — 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/alertmanager.md:399 [bare-bullet-items] Authoritative recovery — 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pridať environment a region do equal scope-u;`, `vytvoriť fixture pairs pre same/different environment a region;`, `validovať config a runtime reload;`, `poslať controlled production canary alert;`.
-HIGH docs/12-observability/alertmanager.md:399 [thin-concept-section] Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/alertmanager.md:399 [term-before-explanation] Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`
-HIGH docs/12-observability/alertmanager.md:410 [single-sentence-concept] Alertmanager acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/alertmanager.md:410 [outline-instead-of-explanation] Alertmanager acceptance verdict — 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:410 [bare-bullet-items] Alertmanager acceptance verdict — 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production target nie je inhibovaný staging source alertom;`, `exact page smeruje na payments receiver;`, `fallback route zachytí missing-owner fixture;`, `canary vytvorí jedno external incident bez duplicate stormu;`.
-HIGH docs/12-observability/alertmanager.md:410 [thin-concept-section] Alertmanager acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/alertmanager.md:423 [single-sentence-concept] 15. End-to-end notification canary — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/alertmanager.md:441 [outline-instead-of-explanation] 16. Self-monitoring — 10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:441 [bare-bullet-items] 16. Self-monitoring — 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `received a active alerts;`, `notification attempts, failures a latency;`, `receiver response codes a throttling;`, `group count a notification volume;`.
-HIGH docs/12-observability/alertmanager.md:441 [thin-concept-section] 16. Self-monitoring — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/alertmanager.md:458 [empty-section] 17. Troubleshooting paths — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:460 [empty-section] Alert nie je v Alertmanageri — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/alertmanager.md:471 [empty-section] Alert je firing, notification neprišla — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/alertmanager.md:485 [single-sentence-concept] Duplicate notifications — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/alertmanager.md:485 [outline-instead-of-explanation] Duplicate notifications — 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:485 [bare-bullet-items] Duplicate notifications — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica label v alert identity;`, `inconsistent producer labels;`, `viac nezávislých Alertmanager clusters;`, `peer partition alebo cold state;`.
-HIGH docs/12-observability/alertmanager.md:485 [thin-concept-section] Duplicate notifications — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/alertmanager.md:485 [term-before-explanation] Duplicate notifications — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`
-HIGH docs/12-observability/alertmanager.md:502 [list-first-introduction] 18. Configuration a policy tests — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/alertmanager.md:502 [outline-instead-of-explanation] 18. Configuration a policy tests — 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/alertmanager.md:502 [bare-bullet-items] 18. Configuration a policy tests — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact route a inherited timing;`, `missing owner/default fallback;`, `continue behavior;`, `same/different inhibition scope;`.
-HIGH docs/12-observability/alertmanager.md:502 [thin-concept-section] 18. Configuration a policy tests — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/alertmanager.md:502 [term-before-explanation] 18. Configuration a policy tests — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `scope`
-HIGH docs/12-observability/alertmanager.md:523 [single-sentence-concept] Alertmanager ako rule evaluator — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:527 [single-sentence-concept] Dynamický text v labels — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:531 [single-sentence-concept] Inhibition bez environment/region scope-u — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:535 [single-sentence-concept] Silence bez ownera a expiry — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:539 [single-sentence-concept] Jeden Alertmanager za load balancerom ako HA — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:543 [single-sentence-concept] Receiver 2xx ako incident acceptance — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:547 [single-sentence-concept] Page bez user impactu a safe first action — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/12-observability/alertmanager.md:16 [list-first-introduction] End-to-end lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/cardinality.md:5 [single-sentence-concept] 1. Dominantný mentálny model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/12-observability/cardinality.md:58 [empty-section] 3. Volume, cardinality a churn — Sekcia nemá vysvetľovací obsah.
@@ -651,8 +565,6 @@ alert-design-alert-fatigue.md: bullet share 0.496
 alert-design-alert-fatigue.md: practical examples too thin
 alert-design-alert-fatigue.md: evidence explanation too thin (1)
 alertmanager.md: strict findings
-alertmanager.md: bullet share 0.451
-alertmanager.md: practical examples too thin
 cardinality.md: strict findings
 cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
