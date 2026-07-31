@@ -10,7 +10,7 @@ docs/13-security-and-identity/kerberos.md|strict=0/1/0|prose=1028|bullet_share=0
 docs/13-security-and-identity/ldap.md|strict=0/1/0|prose=1004|bullet_share=0.107|blocks=6|executable=2|explanations=9
 docs/13-security-and-identity/least-privilege.md|strict=0/0/0|prose=1033|bullet_share=0.111|blocks=6|executable=7|explanations=4
 docs/13-security-and-identity/oauth-2.md|strict=0/3/0|prose=1170|bullet_share=0.094|blocks=7|executable=3|explanations=10
-docs/13-security-and-identity/openid-connect.md|strict=12/22/5|prose=833|bullet_share=0.466|blocks=13|executable=0|explanations=9
+docs/13-security-and-identity/openid-connect.md|strict=0/2/0|prose=1192|bullet_share=0.088|blocks=5|executable=2|explanations=11
 docs/13-security-and-identity/policy-as-code.md|strict=18/29/10|prose=1075|bullet_share=0.444|blocks=14|executable=1|explanations=5
 docs/13-security-and-identity/saml.md|strict=16/23/8|prose=877|bullet_share=0.437|blocks=13|executable=0|explanations=3
 docs/13-security-and-identity/sbom.md|strict=27/31/17|prose=1374|bullet_share=0.431|blocks=6|executable=0|explanations=9
@@ -135,45 +135,8 @@ HIGH docs/13-security-and-identity/ldap.md:24 [list-first-introduction] Exact LD
 HIGH docs/13-security-and-identity/oauth-2.md:7 [list-first-introduction] Grant-to-resource lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/oauth-2.md:25 [single-sentence-concept] Exact OAuth subject SEC-PAY-48 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/oauth-2.md:25 [list-first-introduction] Exact OAuth subject SEC-PAY-48 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/openid-connect.md:25 [single-sentence-concept] 2. Exact OIDC subject — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/openid-connect.md:109 [outline-instead-of-explanation] 6. ID Token validation — 12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/openid-connect.md:109 [bare-bullet-items] 6. ID Token validation — 9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser prijme iba bounded JWT shape;`, `JOSE algorithm a key type sú na allowliste;`, `key pochádza iba z trusted issuer JWKS;`, `signature je validná;`.
-HIGH docs/13-security-and-identity/openid-connect.md:109 [thin-concept-section] 6. ID Token validation — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/openid-connect.md:109 [term-before-explanation] 6. ID Token validation — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWT`, `JOSE`, `policy`
-MEDIUM docs/13-security-and-identity/openid-connect.md:165 [short-concept-section] 9. Authentication assurance — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/openid-connect.md:165 [term-before-explanation] 9. Authentication assurance — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`
-HIGH docs/13-security-and-identity/openid-connect.md:189 [bare-bullet-items] 11. Worked failure — staging issuer accepted v production — 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `staging aj production identity provider;`, `OIDC ID Token signatures;`, `SAML XML signatures.`.
-CRITICAL docs/13-security-and-identity/openid-connect.md:226 [outline-instead-of-explanation] 12. Competing hypotheses a discriminating evidence — 13 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/openid-connect.md:226 [bare-bullet-items] 12. Competing hypotheses a discriminating evidence — 10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization code interception;`, `nonce alebo login-CSRF failure;`, `compromised production OP;`, `account-linking collision;`.
-MEDIUM docs/13-security-and-identity/openid-connect.md:226 [short-concept-section] 12. Competing hypotheses a discriminating evidence — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:226 [term-before-explanation] 12. Competing hypotheses a discriminating evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSRF`, `OP`, `JWKS`, `PKCE`, `FED-SIGN-07`
-CRITICAL docs/13-security-and-identity/openid-connect.md:249 [no-prose-concept] 13. Evidence-preserving containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:249 [list-first-introduction] 13. Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/openid-connect.md:249 [outline-instead-of-explanation] 13. Evidence-preserving containment — 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/openid-connect.md:249 [thin-concept-section] 13. Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:249 [term-before-explanation] 13. Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `RP`, `JWKS`, `ID`, `identity`
-CRITICAL docs/13-security-and-identity/openid-connect.md:258 [no-prose-concept] 14. Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:258 [list-first-introduction] 14. Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/openid-connect.md:258 [outline-instead-of-explanation] 14. Authoritative recovery — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/openid-connect.md:258 [bare-bullet-items] 14. Authoritative recovery — 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť samostatný OIDC signing key pre production OP;`, `odstrániť cross-environment a cross-protocol key reuse;`, `publikovať bounded JWKS overlap a následne odstrániť FED-SIGN-07 ;`, `identitu mapovať výhradne cez issuer + sub ;`.
-HIGH docs/13-security-and-identity/openid-connect.md:258 [thin-concept-section] 14. Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:258 [term-before-explanation] 14. Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `OP`, `JWKS`, `FED-SIGN-07`, `ID`, `JIT`, `RP`
-HIGH docs/13-security-and-identity/openid-connect.md:271 [single-sentence-concept] 15. Acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/openid-connect.md:271 [outline-instead-of-explanation] 15. Acceptance verdict — 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/openid-connect.md:271 [thin-concept-section] 15. Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:271 [term-before-explanation] 15. Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RP`, `FED-SIGN-07`, `JIT`, `scope`
-HIGH docs/13-security-and-identity/openid-connect.md:285 [list-first-introduction] 16. Troubleshooting flow — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/openid-connect.md:303 [no-prose-concept] 17. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/openid-connect.md:303 [list-first-introduction] 17. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/openid-connect.md:303 [outline-instead-of-explanation] 17. Earlier controls — 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/openid-connect.md:303 [bare-bullet-items] 17. Earlier controls — 5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `issuer allowlist a exact discovery consistency tests;`, `federation claim-authority registry;`, `no automatic privileged linking podľa emailu;`, `bounded JWKS refresh a rollover rehearsal;`.
-HIGH docs/13-security-and-identity/openid-connect.md:303 [thin-concept-section] 17. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/openid-connect.md:303 [term-before-explanation] 17. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JWKS`
-HIGH docs/13-security-and-identity/openid-connect.md:317 [single-sentence-concept] Signature validná, teda issuer je trusted — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/openid-connect.md:321 [single-sentence-concept] Email je identity — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/openid-connect.md:325 [single-sentence-concept] Group claim je admin role — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/openid-connect.md:329 [single-sentence-concept] ID Token je application session — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/openid-connect.md:333 [single-sentence-concept] Logout je global revocation — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/openid-connect.md:26 [single-sentence-concept] Exact OIDC subject SEC-PAY-49 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/openid-connect.md:26 [list-first-introduction] Exact OIDC subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/13-security-and-identity/policy-as-code.md:22 [outline-instead-of-explanation] 1. Policy intent — 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
 CRITICAL docs/13-security-and-identity/policy-as-code.md:22 [bare-bullet-items] 1. Policy intent — 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production scope;`, `exact principal, action a resource;`, `immutable image subject;`, `signer, issuer, workflow a builder identities;`.
 HIGH docs/13-security-and-identity/policy-as-code.md:22 [thin-concept-section] 1. Policy intent — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
@@ -663,8 +626,6 @@ kerberos.md: strict findings
 ldap.md: strict findings
 oauth-2.md: strict findings
 openid-connect.md: strict findings
-openid-connect.md: bullet share 0.466
-openid-connect.md: practical examples too thin
 policy-as-code.md: strict findings
 policy-as-code.md: bullet share 0.444
 policy-as-code.md: practical examples too thin
