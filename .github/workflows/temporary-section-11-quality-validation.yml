@@ -1,0 +1,184 @@
+name: Temporary Section 11 prose and practical quality validation
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-11-quality-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Section 11 branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize with main and generated documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-edit origin/main
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          if ! git diff --quiet; then
+            git add docs GLOSSARY.md
+            git commit -m "docs: synchronize Section 11 generated documentation"
+          fi
+          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+
+      - name: Run Section 11 quality gate
+        id: quality_gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+          python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path('docs/11-cloud-and-aws')
+          audit = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
+          stats = {
+              item['path']: item
+              for item in audit['files']
+              if item['path'].startswith('docs/11-cloud-and-aws/')
+          }
+          failures = []
+          report = []
+          fence_re = re.compile(r'^\s*```')
+          bullet_re = re.compile(r'^\s*(?:[-*+] |\d+\. )')
+          word_re = re.compile(r'[\wÀ-ž][\wÀ-ž+./:#-]*', re.UNICODE)
+          heading_re = re.compile(r'^##+\s+')
+          command_re = re.compile(r'(?m)^(?:aws|kubectl|terraform|helm|curl|dig|openssl|psql|mysql|redis-cli|jq|yq)\s+')
+          executable_fence_re = re.compile(r'```(?:bash|shell|hcl|terraform|yaml|yml|json|sql|policy|console)\n')
+          explain_re = re.compile(
+              r'(?i)(tento príkaz|príkaz preukazuje|výstup|očakávan|nepreukazuje|'
+              r'tento výsledok|znamená|overí|dokazuje iba|observation|dôkaz)'
+          )
+
+          for path in sorted(root.glob('*.md')):
+              if path.name == 'README.md':
+                  continue
+              rel = path.as_posix()
+              text = path.read_text(encoding='utf-8')
+              lines = text.splitlines()
+              in_fence = False
+              prose_words = 0
+              bullet_words = 0
+              bullet_lines = 0
+              prose_lines = 0
+              list_first_sections = 0
+              section_lines = []
+
+              def inspect_section(block):
+                  nonlocal list_first_sections
+                  meaningful = [line for line in block if line.strip()]
+                  if not meaningful:
+                      return
+                  first = meaningful[0]
+                  if bullet_re.match(first):
+                      prose_before_first_list = 0
+                      for line in meaningful:
+                          if bullet_re.match(line):
+                              break
+                          prose_before_first_list += len(word_re.findall(line))
+                      if prose_before_first_list < 25:
+                          list_first_sections += 1
+
+              for line in lines:
+                  if fence_re.match(line):
+                      in_fence = not in_fence
+                      continue
+                  if in_fence:
+                      continue
+                  if heading_re.match(line):
+                      inspect_section(section_lines)
+                      section_lines = []
+                      continue
+                  section_lines.append(line)
+                  if bullet_re.match(line):
+                      bullet_lines += 1
+                      bullet_words += len(word_re.findall(bullet_re.sub('', line, count=1)))
+                  elif line.strip() and not line.lstrip().startswith(('#', '|', '<!--', '---')):
+                      prose_lines += 1
+                      prose_words += len(word_re.findall(line))
+              inspect_section(section_lines)
+
+              total_explanatory_words = prose_words + bullet_words
+              bullet_share = bullet_words / total_explanatory_words if total_explanatory_words else 0
+              executable_blocks = len(executable_fence_re.findall(text))
+              commands = len(command_re.findall(text))
+              explanations = len(explain_re.findall(text))
+              item = stats.get(rel)
+              if item is None:
+                  failures.append(f'{rel}: missing from learning-depth audit')
+                  continue
+
+              report.append(
+                  f"{rel}|words={item['words']}|grade={item['grade']}|"
+                  f"strict={item['critical']}/{item['high']}/{item['medium']}|"
+                  f"prose_words={prose_words}|bullet_words={bullet_words}|"
+                  f"bullet_share={bullet_share:.3f}|list_first={list_first_sections}|"
+                  f"exec_blocks={executable_blocks}|commands={commands}|explanations={explanations}"
+              )
+
+              if item['critical'] or item['high'] or item['medium']:
+                  failures.append(
+                      f"{rel}: strict {item['critical']}/{item['high']}/{item['medium']}"
+                  )
+              if bullet_share > 0.34:
+                  failures.append(f'{rel}: bullet word share {bullet_share:.3f} exceeds 0.34')
+              if list_first_sections > 1:
+                  failures.append(f'{rel}: {list_first_sections} list-first conceptual sections')
+              if prose_words < 850:
+                  failures.append(f'{rel}: only {prose_words} prose words')
+              if executable_blocks < 1:
+                  failures.append(f'{rel}: no executable/configuration example block')
+              if commands < 2:
+                  failures.append(f'{rel}: fewer than two concrete commands')
+              if explanations < 3:
+                  failures.append(f'{rel}: command/evidence explanation is too thin')
+
+          status = 'success' if not failures else 'failure'
+          output = [f'status={status}', '', 'FILES'] + report + ['', 'FAILURES']
+          output.extend(failures or ['none'])
+          Path('.github/section11-quality-report.txt').write_text(
+              '\n'.join(output) + '\n', encoding='utf-8', newline='\n'
+          )
+          print('\n'.join(output))
+          PY
+
+      - name: Publish temporary quality report
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/section11-quality-report.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "ci(docs): record Section 11 quality report"
+            git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+          fi
+          test "$(head -n 1 .github/section11-quality-report.txt)" = 'status=success'
