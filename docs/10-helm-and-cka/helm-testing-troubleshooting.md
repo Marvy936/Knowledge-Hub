@@ -143,6 +143,86 @@ Najčastejšie anti-patterny sú defaults-only test, mutable artifact medzi test
 7. Prečo mounted credential generation nemusí byť loaded generation?
 8. Ako sa incident finding premení na skorší regression control?
 
+## Practical gate: od lint-u po runtime failure, ktorý readiness neodhalí
+
+Jedna zelená kontrola je slabý dôkaz. Praktický gate používa rovnaký chart artifact v niekoľkých vrstvách a na každej presne pomenuje, čo bolo overené.
+
+```bash
+helm lint ./atlas-payments
+
+helm template payments-dev ./atlas-payments \
+  -n payments-dev \
+  > /tmp/payments.yaml
+
+kubectl apply --server-side --dry-run=server \
+  -f /tmp/payments.yaml
+
+helm upgrade --install payments-dev ./atlas-payments \
+  -n payments-dev \
+  --create-namespace \
+  --wait \
+  --timeout 5m
+
+kubectl rollout status deployment/payments-dev-atlas-payments \
+  -n payments-dev --timeout=3m
+
+helm test payments-dev -n payments-dev --logs
+```
+
+`lint` kontroluje chart conventions a časť template problémov. `template` materializuje effective values. Server dry-run zapája API a admission. Upgrade vytvára release a controllers. Rollout status overuje Deployment readiness. Až Helm test alebo samostatný business canary overí cestu cez Service k aplikácii.
+
+Dobrý fault injection je chybný Service `targetPort`. Nasadiť ho možno bez zmeny Pod template-u:
+
+```bash
+helm upgrade payments-dev ./atlas-payments \
+  -n payments-dev \
+  --reuse-values \
+  --set service.targetPort=9999 \
+  --wait \
+  --timeout 3m
+```
+
+Helm upgrade a Deployment rollout môžu zostať zelené, pretože Pods sú ready a Service resource nemá vlastnú application readiness. Helm test, ktorý volá Service, má zlyhať. Diagnostika potom sleduje request path, nie náhodný restart:
+
+```bash
+helm test payments-dev -n payments-dev --logs
+
+kubectl get service payments-dev-atlas-payments \
+  -n payments-dev -o yaml
+
+kubectl get endpointslice -n payments-dev \
+  -l kubernetes.io/service-name=payments-dev-atlas-payments \
+  -o yaml
+
+kubectl get pods -n payments-dev \
+  -l app.kubernetes.io/instance=payments-dev \
+  -o custom-columns=NAME:.metadata.name,POD_IP:.status.podIP,PORT:.spec.containers[0].ports[0].containerPort
+
+kubectl run service-probe \
+  -n payments-dev \
+  --image=busybox:1.36 \
+  --restart=Never \
+  --rm -i \
+  -- wget -S -O- http://payments-dev-atlas-payments
+```
+
+Service YAML ukáže effective `targetPort: 9999`; EndpointSlice preukáže, že selector našiel Pod IPs, nie že na cieľovom porte niečo počúva. Pod output ukáže reálny container port. Probe cez Service lokalizuje failure medzi Service port mappingom a process listenerom.
+
+Recovery vráti approved port a zopakuje rovnaký gate:
+
+```bash
+helm upgrade payments-dev ./atlas-payments \
+  -n payments-dev \
+  --reuse-values \
+  --set service.targetPort=8080 \
+  --wait \
+  --timeout 3m
+
+helm test payments-dev -n payments-dev --logs
+```
+
+Second-operation test je dôležitý: zopakovaný upgrade s rovnakými values nesmie vytvoriť nový ReplicaSet, hook side effect ani configuration drift. Over ho cez `helm history`, ReplicaSet inventory a business request. Tým sa troubleshooting uzatvára stabilitou, nie iba jedným úspešným retryom.
+
 ## Glossary impact
 
 Relevantné pojmy: Helm evidence lifecycle, immutable chart test subject, expected evidence inventory, values matrix oracle, deterministic render evidence, upgrade-path test, cohort-aware Helm test, release/runtime evidence boundary, incident subject, recovery hierarchy a troubleshooting closure.

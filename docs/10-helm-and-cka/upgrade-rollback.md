@@ -127,6 +127,78 @@ Najčastejšie anti-patterny sú `--reuse-values` ako hidden authority, wait pov
 7. Ako CRD, PVC a concurrent writers menia rollback semantics?
 8. Ktoré business a forbidden outcomes uzatvárajú recovery?
 
+## Executable release transition: render diff, upgrade, history a rollback verdict
+
+Pred mutation treba materializovať current aj candidate generation. Najprv exportuj values a manifest aktuálneho release-u:
+
+```bash
+helm get values payments-prod -n payments --all \
+  > /tmp/payments-current-values.yaml
+
+helm get manifest payments-prod -n payments \
+  > /tmp/payments-current-manifest.yaml
+```
+
+Candidate vyrenderuj z presného chart source-u a production values:
+
+```bash
+helm template payments-prod ./atlas-payments \
+  -n payments \
+  -f values-prod.yaml \
+  > /tmp/payments-candidate-manifest.yaml
+
+diff -u /tmp/payments-current-manifest.yaml \
+        /tmp/payments-candidate-manifest.yaml || true
+```
+
+Textový diff nie je semantic Kubernetes diff, ale odhalí image, selectors, environment, hook a policy changes, ktoré by inak zostali skryté v jednom `helm upgrade` príkaze. Candidate následne pošli na server-side admission bez uloženia:
+
+```bash
+kubectl apply --server-side --dry-run=server \
+  -f /tmp/payments-candidate-manifest.yaml
+```
+
+Bounded upgrade:
+
+```bash
+helm upgrade --install payments-prod ./atlas-payments \
+  -n payments \
+  -f values-prod.yaml \
+  --atomic \
+  --wait \
+  --timeout 10m \
+  --history-max 20
+```
+
+`--wait` sleduje vybrané Kubernetes readiness conditions. `--atomic` po neúspechu požiada Helm o návrat na predchádzajúci release state. Ani jeden flag nevracia database migration, event publication alebo external provider call.
+
+Po upgrade-e prepoj Helm revision s live a business state-om:
+
+```bash
+helm history payments-prod -n payments
+helm status payments-prod -n payments
+kubectl rollout status deployment/payments-prod-atlas-payments \
+  -n payments --timeout=5m
+kubectl get pods -n payments \
+  -l app.kubernetes.io/instance=payments-prod \
+  -o custom-columns=NAME:.metadata.name,IMAGE:.spec.containers[0].image,READY:.status.containerStatuses[0].ready
+helm test payments-prod -n payments --logs
+```
+
+Ak candidate vytvoril nekompatibilný event alebo irreversible schema transition, technický rollback nemusí byť business-compatible. Pred rollbackom preto zodpovedz, či old image dokáže čítať current schema, spracovať nový event backlog a používať current credentials.
+
+Keď je rollback oprávnený, vyber exact revision z histórie:
+
+```bash
+helm history payments-prod -n payments
+helm rollback payments-prod 19 \
+  -n payments \
+  --wait \
+  --timeout 10m
+```
+
+Rollback vytvorí ďalšiu release revision; nevymaže historickú transition. Po ňom zopakuj rollout, `helm test`, loaded-configuration a business validation. Forbidden test musí preukázať, že nový event alebo schema state nespôsobí silent corruption v old consumerovi. Ak to preukázať nemožno, authoritative recovery je tolerantný roll-forward alebo restore/compensation, nie slepý rollback.
+
 ## Glossary impact
 
 Relevantné pojmy: Helm release transition subject, upgrade input closure, recovery eligibility gate, rollback compatibility matrix, technical rollback, business-compatible recovery, pending-operation unknown outcome, compensation, roll-forward a release transition closure.

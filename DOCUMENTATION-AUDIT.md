@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **311**
-- Audited conceptual sections: **10922**
-- Total words: **702,112**
-- Findings: **21598** (critical 6143, high 6988, medium 2671, low 5796)
-- File grades: A 40, B 23, C 0, D 248
+- Audited authoritative articles: **312**
+- Audited conceptual sections: **10951**
+- Total words: **706,728**
+- Findings: **21609** (critical 6143, high 6988, medium 2671, low 5807)
+- File grades: A 41, B 23, C 0, D 248
 
 ## Interpretation
 
@@ -271,30 +271,30 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| B | 28 | 0 | 0 | 0 | 21 | 1740 | `docs/10-helm-and-cka/cka-timed-labs.md` |
+| B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 1658 | `docs/14-sre-and-operations/blameless-postmortems.md` |
 | B | 21 | 0 | 0 | 0 | 13 | 1798 | `docs/14-sre-and-operations/incident-management.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2087 | `docs/14-sre-and-operations/operational-readiness.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| B | 20 | 0 | 0 | 0 | 16 | 2076 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
-| B | 18 | 0 | 0 | 0 | 15 | 1807 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1877 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
+| B | 16 | 0 | 0 | 0 | 15 | 2097 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 2260 | `docs/14-sre-and-operations/disaster-recovery.md` |
 | B | 16 | 0 | 0 | 0 | 15 | 1682 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1511 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
-| B | 15 | 0 | 0 | 0 | 14 | 1755 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1567 | `docs/14-sre-and-operations/error-budgets.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 2309 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
-| A | 14 | 0 | 0 | 0 | 14 | 1704 | `docs/10-helm-and-cka/hooks.md` |
+| A | 14 | 0 | 0 | 0 | 14 | 1980 | `docs/10-helm-and-cka/hooks.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 2112 | `docs/14-sre-and-operations/chaos-engineering.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1484 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1406 | `docs/16-gitops-and-platform-engineering/argo-cd.md` |
@@ -308,26 +308,27 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
-| A | 12 | 0 | 0 | 0 | 11 | 1740 | `docs/10-helm-and-cka/upgrade-rollback.md` |
+| A | 12 | 0 | 0 | 0 | 11 | 2416 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
+| A | 12 | 0 | 0 | 0 | 11 | 2051 | `docs/10-helm-and-cka/upgrade-rollback.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1707 | `docs/14-sre-and-operations/toil.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1818 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
-| A | 11 | 0 | 0 | 0 | 10 | 2128 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1795 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1801 | `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md` |
 | A | 11 | 0 | 0 | 0 | 11 | 1696 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
-| A | 10 | 0 | 0 | 0 | 10 | 1890 | `docs/10-helm-and-cka/named-templates.md` |
-| A | 10 | 0 | 0 | 0 | 9 | 1997 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
+| A | 10 | 0 | 0 | 0 | 10 | 2154 | `docs/10-helm-and-cka/named-templates.md` |
+| A | 10 | 0 | 0 | 0 | 9 | 2283 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 1562 | `docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md` |
 | A | 10 | 0 | 0 | 0 | 7 | 1702 | `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 1379 | `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 2375 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1841 | `docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md` |
+| A | 9 | 0 | 0 | 0 | 9 | 2240 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 2033 | `docs/14-sre-and-operations/capacity-planning.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1972 | `docs/14-sre-and-operations/reliability-availability-durability.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1289 | `docs/15-databases-and-distributed-systems/consistency-models.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1698 | `docs/15-databases-and-distributed-systems/rate-limiting.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1453 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
-| A | 8 | 0 | 0 | 0 | 8 | 1976 | `docs/10-helm-and-cka/chart-dependencies.md` |
+| A | 8 | 0 | 0 | 0 | 6 | 2037 | `docs/10-helm-and-cka/helm-chart-practical-walkthrough.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1588 | `docs/15-databases-and-distributed-systems/caching.md` |
 | A | 8 | 0 | 0 | 0 | 8 | 1794 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1136 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
@@ -14218,14 +14219,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | `bare-bullet-items` | 2374 | 449 | 0 | 0 | 2823 |
-| `example-not-explicit` | 0 | 0 | 0 | 2425 | 2425 |
+| `example-not-explicit` | 0 | 0 | 0 | 2430 | 2430 |
 | `outline-instead-of-explanation` | 2382 | 0 | 0 | 0 | 2382 |
 | `term-before-explanation` | 0 | 541 | 1778 | 0 | 2319 |
 | `single-sentence-concept` | 0 | 2278 | 0 | 0 | 2278 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2128 | 2128 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2131 | 2131 |
 | `thin-concept-section` | 0 | 2005 | 0 | 0 | 2005 |
 | `list-first-introduction` | 0 | 1280 | 0 | 0 | 1280 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1243 | 1243 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1246 | 1246 |
 | `short-concept-section` | 0 | 0 | 893 | 0 | 893 |
 | `no-prose-concept` | 750 | 0 | 0 | 0 | 750 |
 | `empty-section` | 637 | 0 | 0 | 0 | 637 |

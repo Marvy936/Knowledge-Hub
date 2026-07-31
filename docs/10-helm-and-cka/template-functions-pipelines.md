@@ -157,6 +157,83 @@ Najčastejšie anti-patterny sú pipeline bez vysvetliteľného type graphu, `de
 7. Ako `tpl` a `lookup` menia trust a reproducibility model?
 8. Ako preukážeš deterministic render a process-loaded correctness?
 
+## Executable lab: boolean `false`, `required`, pipeline a `toYaml`
+
+Najčastejšie template chyby nevznikajú na zložitej syntaxi, ale na nesprávnej interpretácii typu. V tomto labe má explicitné `false` znamenať vypnutú legacy funkcionalitu a nesmie byť nahradené defaultom.
+
+Do `values.yaml` vlož:
+
+```yaml
+config:
+  logLevel: info
+  legacyAuthorizerEnabled: false
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+```
+
+Template používa `required` pre povinný string, `ternary` pre explicitný boolean a `toYaml | nindent` pre vnorenú mapu:
+
+```gotemplate
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: api
+image: nginx:1.27-alpine
+env:
+  - name: LOG_LEVEL
+    value: {{ required "config.logLevel je povinné" .Values.config.logLevel | quote }}
+  - name: LEGACY_AUTHORIZER_ENABLED
+    value: {{ ternary "true" "false" .Values.config.legacyAuthorizerEnabled | quote }}
+resources:
+  {{- toYaml .Values.resources | nindent 12 }}
+```
+
+Render vykonaj s explicitným override-om `false`:
+
+```bash
+helm template payments-dev ./atlas-payments \
+  --set config.legacyAuthorizerEnabled=false \
+  --show-only templates/deployment.yaml \
+  > /tmp/functions.yaml
+
+yq '.spec.template.spec.containers[0].env[]
+    | select(.name == "LEGACY_AUTHORIZER_ENABLED")
+    | .value' /tmp/functions.yaml
+```
+
+Očakávaný výstup je string `false`. Ak template použije chybný výraz:
+
+```gotemplate
+value: {{ .Values.config.legacyAuthorizerEnabled | default true | quote }}
+```
+
+rovnaký test vráti `true`, pretože Sprig považuje boolean `false` za empty hodnotu pre potreby `default`. Helm syntax aj YAML môžu zostať úplne validné; zlyhá významový contract.
+
+Povinnú hodnotu otestuj jej odstránením:
+
+```bash
+helm template payments-dev ./atlas-payments \
+  --set config.logLevel=null \
+  --show-only templates/deployment.yaml
+```
+
+Render má skončiť chybou s textom `config.logLevel je povinné`. Tento negatívny test dokazuje, že `required` guard je zapojený. Nedokazuje, že povolená hodnota `info` je kompatibilná s konkrétnou application verziou; to patrí do runtime testu.
+
+Pipeline čítaj zľava doprava ako transformáciu hodnoty. Pri `toYaml .Values.resources | nindent 12` sa mapa najprv serializuje na YAML a potom sa každý riadok vloží pod `resources:` s dvanásťmi medzerami. Ak sa `nindent` vynechá alebo má nesprávnu hodnotu, výsledkom môže byť syntakticky neplatný manifest alebo field na nesprávnej úrovni.
+
 ## Glossary impact
 
 Relevantné pojmy: Helm typed transform graph, presence contract, empty semantics, default policy, effective value authority, merge copy boundary, serialization boundary, helper output shape, executable values, live lookup dependency, target capabilities a deterministic render verdict.
@@ -173,5 +250,5 @@ Relevantné pojmy: Helm typed transform graph, presence contract, empty semantic
 
 **Navigácia**
 
-[← Predchádzajúca: Helm chart, template, values a release](helm-chart-template-values-release.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Named templates →](named-templates.md)
+[← Predchádzajúca: Praktický Helm chart od prázdneho adresára po overený release](helm-chart-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Named templates →](named-templates.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

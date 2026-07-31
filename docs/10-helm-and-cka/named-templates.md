@@ -151,6 +151,66 @@ Najčastejšie anti-patterny sú generické global names, implicitná pseudo-sig
 9. Ktoré observations odhalia helper collision?
 10. Ako preukážeš stable resource identity medzi revisions?
 
+## Executable lab: helper s explicitným contextom
+
+Named template je globálne pomenovaný program. Pri väčšom charte je bezpečnejšie odovzdať mu presný context než predpokladať, že bodka vždy reprezentuje root chart object.
+
+V `templates/_helpers.tpl` definuj chart-prefixed helper:
+
+```gotemplate
+{{- define "atlas-payments.componentLabels" -}}
+app.kubernetes.io/name: {{ include "atlas-payments.name" .root }}
+app.kubernetes.io/instance: {{ .root.Release.Name }}
+app.kubernetes.io/component: {{ .component | quote }}
+{{- end -}}
+```
+
+V Deploymente ho zavolaj cez `include` a `dict`:
+
+```gotemplate
+metadata:
+  labels:
+    {{- include "atlas-payments.componentLabels"
+        (dict "root" $ "component" "api")
+        | nindent 4 }}
+```
+
+Znak `$` zachová root context aj vtedy, keď sa call nachádza vo vnútri `with` alebo `range`. `dict` robí vstupy helpera viditeľné: helper dostane root a component, nie nejasnú bodku s meniacim sa významom.
+
+Vyrenderuj iba Deployment a pozri labels:
+
+```bash
+helm lint ./atlas-payments
+
+helm template payments-dev ./atlas-payments \
+  --show-only templates/deployment.yaml \
+  > /tmp/named-template-deployment.yaml
+
+yq '.metadata.labels' /tmp/named-template-deployment.yaml
+
+helm template payments-dev ./atlas-payments \
+  --show-only templates/deployment.yaml \
+  --debug > /tmp/named-template-debug.txt
+```
+
+`helm lint` najprv overí chart-level template a convention chyby. Druhý príkaz uloží presný rendered Deployment, takže `yq` číta semantic field path namiesto vizuálneho odhadu. `--debug` zachová širší render context pri failure-i; jeho úspech stále nepreukazuje API admission ani runtime. Očakávaný label output je:
+
+```yaml
+app.kubernetes.io/name: atlas-payments
+app.kubernetes.io/instance: payments-dev
+app.kubernetes.io/component: api
+```
+
+`include` vracia text, takže ho možno ďalej poslať do pipeline a odsadiť cez `nindent`. Ak sa namiesto neho použije action `template`, output nemožno rovnakým spôsobom pipeline-nuť. To je praktický dôvod, prečo sa `include` často používa pri YAML fragments.
+
+Negatívny test zámerne zavolá helper bez `root`:
+
+```gotemplate
+{{ include "atlas-payments.componentLabels" (dict "component" "api") }}
+```
+
+Render má zlyhať pri prístupe k `.root.Release.Name`. Takýto failure je vhodnejší než tiché vyrenderovanie labels z nesprávneho contextu. Production helper možno ešte posilniť explicitným `required` guardom alebo predaním menšej typed mapy namiesto celého root objectu.
+
 ## Glossary impact
 
 Relevantné pojmy: Helm helper subject, global helper namespace, definition origin, helper pseudo-signature, output-shape contract, helper call graph, stable selector contract, helper collision, library-chart provider contract, helper-output digest a helper-driven identity migration.
