@@ -1,75 +1,208 @@
-name: Temporary NAT prose remediation
+name: Temporary section 10 and 11 quality audit
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - agent/sections-10-13-prose-first-revalidation
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: temporary-nat-prose-remediation
+  group: temporary-sections-10-11-quality-audit
   cancel-in-progress: false
 
 jobs:
-  remediate:
+  audit:
     runs-on: self-hosted
     steps:
-      - name: Checkout branch
+      - name: Checkout coordinator branch
         uses: actions/checkout@v4
         with:
           ref: agent/sections-10-13-prose-first-revalidation
           fetch-depth: 0
 
-      - name: Add explanatory prose before Terraform examples
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Audit section 10 and section 11
         shell: bash
         run: |
           set -euo pipefail
+
+          audit_branch() {
+            local branch="$1"
+            local section="$2"
+            git fetch origin "$branch"
+            git checkout -B audit-target "origin/$branch"
+            python scripts/audit_learning_depth.py \
+              --all-docs \
+              --report "/tmp/${section}-report.md" \
+              --json "/tmp/${section}-audit.json"
+          }
+
+          audit_branch agent/section-10-practical-helm-examples section10
+
           python - <<'PY'
+          import json
+          import re
           from pathlib import Path
 
-          path = Path('docs/11-cloud-and-aws/internet-gateway-nat-gateway.md')
-          text = path.read_text(encoding='utf-8')
+          root = Path('docs/10-helm-and-cka')
+          data = json.loads(Path('/tmp/section10-audit.json').read_text(encoding='utf-8'))
+          findings = [
+              item for item in data['findings']
+              if item['path'].startswith(str(root) + '/')
+              and item['severity'] in {'critical', 'high', 'medium'}
+          ]
 
-          old_igw = '''## 3. Praktický public subnet a IGW v Terraform-e
+          practical_languages = {'bash', 'sh', 'shell', 'yaml', 'yml', 'json', 'gotemplate', 'hcl', 'terraform', 'sql', 'python'}
+          command_re = re.compile(r'^\s*(helm|kubectl|yq|jq|curl|diff|grep|sha256sum|rm|git)\b')
+          failures = []
 
-```hcl
-'''
-          new_igw = '''## 3. Praktický public subnet a IGW v Terraform-e
+          print('SECTION 10 QUALITY AUDIT')
+          for path in sorted(root.glob('*.md')):
+              if path.name == 'README.md':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              fence_languages = [lang.lower() for lang in re.findall(r'^```([^\s`]*)', text, flags=re.MULTILINE)]
+              practical_fences = sum(lang in practical_languages for lang in fence_languages)
+              command_lines = sum(command_re.match(line) is not None for line in text.splitlines())
+              words = len(re.findall(r"[\wÀ-ž'-]+", text))
+              print(f'PRACTICAL {path} words={words} practical_fences={practical_fences} command_lines={command_lines}')
 
-Nasledujúci Terraform príklad oddeľuje štyri identity, ktoré sa často nesprávne zlúčia do pojmu „public subnet“: VPC-attached Internet Gateway, zonálny subnet, route table a explicitnú subnet association. Subnet dostane internet route, ale workload nedostane public IPv4 automaticky. Tento rozdiel je dôležitý, pretože route preukazuje iba možný next hop pre resource, ktorý už má vhodnú internet-routable address identity.
+              is_cka = path.name.startswith('cka-')
+              min_fences = 2 if is_cka else 3
+              min_commands = 4 if is_cka else 3
+              if practical_fences < min_fences:
+                  failures.append(f'{path}: practical_fences={practical_fences} < {min_fences}')
+              if command_lines < min_commands:
+                  failures.append(f'{path}: command_lines={command_lines} < {min_commands}')
 
-Po apply treba samostatne overiť IGW attachment, effective route-table association a public address konkrétneho ENI. Terraform state alebo úspešný apply nepreukazuje Security Group, listener ani application response.
+          for finding in findings:
+              print(
+                  'FINDING '
+                  f"path={finding['path']} severity={finding['severity']} "
+                  f"line={finding['line']} section={finding['section']} "
+                  f"rule={finding['rule']} detail={finding['detail']}"
+              )
 
-```hcl
-'''
-
-          old_nat = '''## 7. Zonal public NAT v Terraform-e
-
-```hcl
-'''
-          new_nat = '''## 7. Zonal public NAT v Terraform-e
-
-Zonal public NAT potrebuje tri navzájom viazané resources: Elastic IP ako external source identity, NAT Gateway umiestnenú v public subnet-e a default route z private application subnetu na exact NAT ID. Pre Multi-AZ design sa tento trojblok vytvára samostatne v každej accepted AZ. Zdieľanie jedného zonálneho NATu medzi všetkými subnets by síce fungovalo v normal state-e, ale vytvorilo by cross-AZ dependency a zlyhanie jednej egress zóny by zasiahlo celý workload.
-
-Príklad nižšie materializuje iba AZ-a. Jeho output preukazuje desired resource graph; až live route read-back, translated EIP observation a HTTPS canary z application subnetu preukážu effective egress path.
-
-```hcl
-'''
-
-          for old, new in ((old_igw, new_igw), (old_nat, new_nat)):
-              if old not in text:
-                  raise SystemExit(f'Anchor not found: {old!r}')
-              text = text.replace(old, new, 1)
-
-          path.write_text(text, encoding='utf-8', newline='\n')
+          failures.extend(
+              f"{item['path']}: {item['severity']} {item['rule']} in {item['section']}"
+              for item in findings
+          )
+          print(f'SECTION10_FAILURES={len(failures)}')
+          for failure in failures:
+              print(f'QUALITY_FAILURE {failure}')
+          if failures:
+              raise SystemExit(1)
           PY
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/11-cloud-and-aws/internet-gateway-nat-gateway.md
-          git rm .github/workflows/temporary-nat-prose-remediation.yml
-          git commit -m "docs(aws): explain IGW and zonal NAT resource graphs"
-          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+          audit_branch agent/sections-10-13-prose-first-revalidation section11
+
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path('docs/11-cloud-and-aws')
+          data = json.loads(Path('/tmp/section11-audit.json').read_text(encoding='utf-8'))
+          findings = [
+              item for item in data['findings']
+              if item['path'].startswith(str(root) + '/')
+              and item['severity'] in {'critical', 'high', 'medium'}
+          ]
+
+          readme = (root / 'README.md').read_text(encoding='utf-8')
+          authoritative = [
+              root / match
+              for match in re.findall(r'^\d+\.\s+\[[^\]]+\]\(([^)]+\.md)\)', readme, flags=re.MULTILINE)
+          ]
+          if len(authoritative) != 28:
+              raise SystemExit(f'Expected 28 authoritative Section 11 chapters, found {len(authoritative)}')
+
+          practical_languages = {'bash', 'sh', 'shell', 'yaml', 'yml', 'json', 'hcl', 'terraform', 'sql', 'python', 'powershell'}
+          command_re = re.compile(r'^\s*(aws|terraform|tofu|kubectl|curl|jq|yq|dig|openssl|psql|mysql|python|bash|pwsh)\b')
+          bullet_re = re.compile(r'^\s*(?:[-*+]\s+|\d+[.)]\s+)')
+          failures = []
+
+          print('SECTION 11 QUALITY AUDIT')
+          for index, path in enumerate(authoritative, start=1):
+              text = path.read_text(encoding='utf-8')
+              fence_languages = [lang.lower() for lang in re.findall(r'^```([^\s`]*)', text, flags=re.MULTILINE)]
+              practical_fences = sum(lang in practical_languages for lang in fence_languages)
+              command_lines = sum(command_re.match(line) is not None for line in text.splitlines())
+
+              in_code = False
+              in_navigation = False
+              prose_lines = 0
+              bullet_lines = 0
+              prose_words = 0
+              for raw in text.splitlines():
+                  stripped = raw.strip()
+                  if stripped == '<!-- KNOWLEDGE-NAVIGATION:START -->':
+                      in_navigation = True
+                      continue
+                  if stripped == '<!-- KNOWLEDGE-NAVIGATION:END -->':
+                      in_navigation = False
+                      continue
+                  if in_navigation:
+                      continue
+                  if stripped.startswith('```'):
+                      in_code = not in_code
+                      continue
+                  if in_code or not stripped or stripped.startswith('#') or stripped.startswith('|') or stripped == '---':
+                      continue
+                  if bullet_re.match(raw):
+                      bullet_lines += 1
+                      continue
+                  words = re.findall(r"[\wÀ-ž'-]+", stripped)
+                  if len(words) >= 5:
+                      prose_lines += 1
+                      prose_words += len(words)
+
+              denominator = prose_lines + bullet_lines
+              bullet_ratio = bullet_lines / denominator if denominator else 1.0
+              ratio_limit = 0.42 if index >= 25 else 0.30
+              prose_floor = 550 if index >= 25 else 750
+
+              print(
+                  f'NARRATIVE {index:02d} {path} prose_words={prose_words} '
+                  f'prose_lines={prose_lines} bullet_lines={bullet_lines} '
+                  f'bullet_ratio={bullet_ratio:.3f} practical_fences={practical_fences} '
+                  f'command_lines={command_lines}'
+              )
+
+              if bullet_ratio > ratio_limit:
+                  failures.append(f'{path}: bullet_ratio={bullet_ratio:.3f} > {ratio_limit:.2f}')
+              if prose_words < prose_floor:
+                  failures.append(f'{path}: prose_words={prose_words} < {prose_floor}')
+              if practical_fences < 2:
+                  failures.append(f'{path}: practical_fences={practical_fences} < 2')
+              if command_lines < 2:
+                  failures.append(f'{path}: command_lines={command_lines} < 2')
+
+          for finding in findings:
+              print(
+                  'FINDING '
+                  f"path={finding['path']} severity={finding['severity']} "
+                  f"line={finding['line']} section={finding['section']} "
+                  f"rule={finding['rule']} detail={finding['detail']}"
+              )
+
+          failures.extend(
+              f"{item['path']}: {item['severity']} {item['rule']} in {item['section']}"
+              for item in findings
+          )
+          print(f'SECTION11_FAILURES={len(failures)}')
+          for failure in failures:
+              print(f'QUALITY_FAILURE {failure}')
+          if failures:
+              raise SystemExit(1)
+          PY
