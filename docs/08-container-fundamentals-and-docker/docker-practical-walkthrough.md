@@ -1077,10 +1077,10 @@ services:
       - sh
       - -ec
       - |
-        payload="$(wget -qO- http://payments-api:8080/version)"
-        printf '%s\n' "$payload"
-        printf '%s\n' "$payload" | grep -F '"service":"payments-api"'
-        printf '%s\n' "$payload" | grep -F '"config_generation":"${CONFIG_GENERATION}"'
+        payload="$$(wget -qO- http://payments-api:8080/version)"
+        printf '%s\n' "$$payload"
+        printf '%s\n' "$$payload" | grep -F '"service":"payments-api"'
+        printf '%s\n' "$$payload" | grep -F '"config_generation":"${CONFIG_GENERATION}"'
     networks:
       - backend
     restart: "no"
@@ -1276,7 +1276,7 @@ jq -e '.[0]
   | .Config.User == "65532:65532"
   and .HostConfig.ReadonlyRootfs == true
   and (.HostConfig.CapDrop | index("ALL") != null)
-  and (.HostConfig.SecurityOpt | index("no-new-privileges:true") != null)
+  and any(.HostConfig.SecurityOpt[]; startswith("no-new-privileges"))
   and .HostConfig.PidsLimit == 100
   and .HostConfig.Memory == 134217728
   and (.NetworkSettings.Ports["8080/tcp"][0].HostIp == "127.0.0.1")
