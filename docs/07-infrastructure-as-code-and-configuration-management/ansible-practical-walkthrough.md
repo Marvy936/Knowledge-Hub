@@ -390,9 +390,7 @@ Handler success preukazuje systemd operation result. Nepreukazuje, že process n
 
     - name: Wait for local readiness after restart
       ansible.builtin.uri:
-        url: >-
-          {{ payments_health_scheme }}://{{ payments_health_host }}:
-          {{ payments_port }}{{ payments_health_path }}
+        url: "{{ payments_health_scheme }}://{{ payments_health_host }}:{{ payments_port }}{{ payments_health_path }}"
         method: GET
         status_code: 200
         return_content: true
@@ -403,9 +401,7 @@ Handler success preukazuje systemd operation result. Nepreukazuje, že process n
 
     - name: Verify process-loaded configuration generation
       ansible.builtin.uri:
-        url: >-
-          {{ payments_health_scheme }}://{{ payments_health_host }}:
-          {{ payments_port }}{{ payments_version_path }}
+        url: "{{ payments_health_scheme }}://{{ payments_health_host }}:{{ payments_port }}{{ payments_version_path }}"
         method: GET
         status_code: 200
         return_content: true
@@ -457,9 +453,7 @@ Handler success preukazuje systemd operation result. Nepreukazuje, že process n
 
 - name: Read current runtime generation
   ansible.builtin.uri:
-    url: >-
-      {{ payments_health_scheme }}://{{ payments_health_host }}:
-      {{ payments_port }}{{ payments_version_path }}
+    url: "{{ payments_health_scheme }}://{{ payments_health_host }}:{{ payments_port }}{{ payments_version_path }}"
     method: GET
     status_code: 200
     return_content: true

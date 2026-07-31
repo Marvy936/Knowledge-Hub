@@ -184,6 +184,11 @@ variable "private_subnets" {
     ])
     error_message = "Every private subnet must use a valid IPv4 CIDR."
   }
+
+  validation {
+    condition     = length(var.private_subnets) >= 2
+    error_message = "At least two private subnets are required."
+  }
 }
 
 variable "owner" {
@@ -279,12 +284,6 @@ resource "aws_vpc" "this" {
     Name = var.name
   })
 
-  lifecycle {
-    precondition {
-      condition     = length(var.private_subnets) >= 2
-      error_message = "The network requires at least two private subnets."
-    }
-  }
 }
 
 resource "aws_subnet" "private" {
@@ -532,7 +531,7 @@ run "reject_single_subnet" {
     }
   }
 
-  expect_failures = [module.network.aws_vpc.this]
+  expect_failures = [var.private_subnets]
 }
 ```
 

@@ -67,28 +67,6 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Apply walkthrough code corrections
-        if: github.event_name == 'pull_request' && github.head_ref == 'agent/sections-06-07-practical-walkthroughs' && github.actor != 'github-actions[bot]'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          branch="agent/sections-06-07-practical-walkthroughs"
-          git fetch origin main "$branch"
-          git checkout -B "$branch" "origin/$branch"
-
-          "$PYTHON_BIN" scripts/temporary_walkthrough_code_fixes.py
-          "$PYTHON_BIN" scripts/update_navigation.py --write
-
-          git show origin/main:.github/workflows/knowledge-navigation.yml > .github/workflows/knowledge-navigation.yml
-          rm -f scripts/temporary_walkthrough_code_fixes.py
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "docs: correct Terraform and Ansible walkthrough examples"
-          git push origin "HEAD:$branch"
-
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
