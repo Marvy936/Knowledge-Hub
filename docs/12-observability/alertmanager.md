@@ -15,6 +15,8 @@ Alerting je distributed delivery workflow. Každý krok potrebuje identity, retr
 
 ## End-to-end lifecycle
 
+Alertmanager nie je jednorazový forwarder, ale stateful notification workflow. Alert instance sa najprv deduplikuje a routuje, potom vstupuje do grouping a timing state-u a až receiver attempt môže vytvoriť external notification. Každý krok má inú proof boundary, preto sa celý delivery mechanizmus overuje v nasledujúcom poradí.
+
 ```text
 Prometheus rule evaluation
 → pending alebo firing alert instance

@@ -1,7 +1,7 @@
 status=failure
 
 docs/12-observability/alert-design-alert-fatigue.md|strict=32/35/8|prose=671|bullet_share=0.496|blocks=18|executable=0|explanations=1
-docs/12-observability/alertmanager.md|strict=0/1/0|prose=1050|bullet_share=0.095|blocks=14|executable=9|explanations=13
+docs/12-observability/alertmanager.md|strict=0/0/0|prose=1097|bullet_share=0.091|blocks=14|executable=9|explanations=13
 docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
 docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bullet_share=0.450|blocks=21|executable=0|explanations=4
 docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
@@ -13,7 +13,7 @@ docs/12-observability/loki.md|strict=32/28/8|prose=767|bullet_share=0.438|blocks
 docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bullet_share=0.144|blocks=13|executable=2|explanations=17
 docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
 docs/12-observability/opentelemetry.md|strict=30/25/14|prose=801|bullet_share=0.429|blocks=18|executable=0|explanations=4
-docs/12-observability/prometheus.md|strict=0/1/0|prose=1031|bullet_share=0.114|blocks=16|executable=11|explanations=21
+docs/12-observability/prometheus.md|strict=0/0/0|prose=1081|bullet_share=0.110|blocks=16|executable=11|explanations=22
 docs/12-observability/red-method.md|strict=0/0/0|prose=946|bullet_share=0.128|blocks=15|executable=12|explanations=9
 docs/12-observability/use-method.md|strict=0/0/0|prose=976|bullet_share=0.105|blocks=9|executable=3|explanations=13
 
@@ -93,7 +93,6 @@ HIGH docs/12-observability/alert-design-alert-fatigue.md:456 [single-sentence-co
 HIGH docs/12-observability/alert-design-alert-fatigue.md:460 [single-sentence-concept] Duplicate engines bez autority — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/alert-design-alert-fatigue.md:464 [single-sentence-concept] Permanentná silence — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/alert-design-alert-fatigue.md:468 [single-sentence-concept] Alert bez forbidden action — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/alertmanager.md:16 [list-first-introduction] End-to-end lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/12-observability/cardinality.md:5 [single-sentence-concept] 1. Dominantný mentálny model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/12-observability/cardinality.md:58 [empty-section] 3. Volume, cardinality a churn — Sekcia nemá vysvetľovací obsah.
@@ -555,14 +554,12 @@ HIGH docs/12-observability/opentelemetry.md:446 [single-sentence-concept] Tail s
 HIGH docs/12-observability/opentelemetry.md:450 [single-sentence-concept] Experimental component ako stabilný contract — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/opentelemetry.md:454 [single-sentence-concept] Všetky resource attributes ako labels — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/opentelemetry.md:458 [single-sentence-concept] Redaction po fan-out-e — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/prometheus.md:7 [list-first-introduction] End-to-end lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 FAILURES
 alert-design-alert-fatigue.md: strict findings
 alert-design-alert-fatigue.md: bullet share 0.496
 alert-design-alert-fatigue.md: practical examples too thin
 alert-design-alert-fatigue.md: evidence explanation too thin (1)
-alertmanager.md: strict findings
 cardinality.md: strict findings
 cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
@@ -585,4 +582,3 @@ loki.md: evidence explanation too thin (2)
 opentelemetry.md: strict findings
 opentelemetry.md: bullet share 0.429
 opentelemetry.md: practical examples too thin
-prometheus.md: strict findings

@@ -6,6 +6,8 @@ Prometheus nie je log store, trace backend ani automaticky globálny long-term m
 
 ## End-to-end lifecycle
 
+Prometheus verdict vzniká až po sérii odlišných control a data-path rozhodnutí. Discovery určí kandidáta, relabeling z neho vytvorí effective target, scrape prečíta exposition a TSDB až následne sprístupní samples query a rules. Úspech jednej boundary preto nesmie byť použitý ako dôkaz úplnosti nasledujúcej; lifecycle sa číta v tomto poradí.
+
 ```text
 measurement intent
 → versionovaný metric a label contract
