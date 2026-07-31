@@ -52,8 +52,8 @@ release:
   dockerfileSha256: sha256:dockerfile460
   contextInventorySha256: sha256:context460
   dockerfileFrontend: docker/dockerfile:1
-  buildkitVersion: v0.26.2
-  buildxVersion: v0.29.1
+  buildkitVersion: <recorded-buildkit-version>
+  buildxVersion: <recorded-buildx-version>
   targetPlatforms:
     - linux/amd64
     - linux/arm64
@@ -192,6 +192,8 @@ RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
       ./cmd/payments-api
 
 FROM ${RUNTIME_IMAGE} AS runtime
+ARG VERSION
+ARG VCS_REF
 
 LABEL org.opencontainers.image.title="Atlas Payments API" \
       org.opencontainers.image.version="${VERSION}" \
@@ -390,7 +392,7 @@ docker volume create atlas-payments-data
 docker run --rm \
   --user 0:0 \
   --mount type=volume,source=atlas-payments-data,target=/data \
-  "$RUNTIME_IMAGE" \
+  busybox:1.36.1@sha256:<verified-busybox-digest> \
   sh -c 'mkdir -p /data && chown -R 65532:65532 /data'
 
 docker create \
@@ -586,9 +588,9 @@ name: atlas-payments
 
 services:
   init-data:
-    image: gcr.io/distroless/static-debian12:nonroot@sha256:<verified-runtime-base-digest>
+    image: busybox:1.36.1@sha256:<verified-busybox-digest>
     user: "0:0"
-    entrypoint: ["/busybox/sh", "-ec"]
+    entrypoint: ["/bin/sh", "-ec"]
     command:
       - |
         mkdir -p /data
@@ -741,7 +743,7 @@ Service DNS path overíme verifier profile-om:
 docker compose \
   --env-file .env \
   --profile verify \
-  run --rm verifier
+  run --rm --no-deps verifier
 ```
 
 Host path a business persistence overíme samostatne:
