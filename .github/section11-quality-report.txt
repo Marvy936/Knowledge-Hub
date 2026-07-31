@@ -3,7 +3,7 @@ status=failure
 FILES
 docs/11-cloud-and-aws/aws-backup.md|words=1537|grade=C|strict=0/3/0|prose_words=915|bullet_words=95|bullet_share=0.094|list_first=2|exec_blocks=11|commands=11|explanations=6
 docs/11-cloud-and-aws/aws-organizations-accounts.md|words=1791|grade=B|strict=0/0/0|prose_words=1238|bullet_words=99|bullet_share=0.074|list_first=2|exec_blocks=11|commands=10|explanations=6
-docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md|words=873|grade=C|strict=0/6/0|prose_words=337|bullet_words=75|bullet_share=0.182|list_first=2|exec_blocks=5|commands=12|explanations=6
+docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md|words=1888|grade=B|strict=0/1/0|prose_words=1007|bullet_words=115|bullet_share=0.102|list_first=2|exec_blocks=9|commands=15|explanations=18
 docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md|words=1055|grade=C|strict=1/4/1|prose_words=582|bullet_words=142|bullet_share=0.196|list_first=2|exec_blocks=6|commands=13|explanations=15
 docs/11-cloud-and-aws/cloudops-hands-on-labs.md|words=937|grade=D|strict=3/8/0|prose_words=499|bullet_words=74|bullet_share=0.129|list_first=2|exec_blocks=13|commands=20|explanations=2
 docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md|words=870|grade=D|strict=0/9/0|prose_words=416|bullet_words=84|bullet_share=0.168|list_first=2|exec_blocks=11|commands=24|explanations=3
@@ -34,9 +34,8 @@ FAILURES
 docs/11-cloud-and-aws/aws-backup.md: strict 0/3/0
 docs/11-cloud-and-aws/aws-backup.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/aws-organizations-accounts.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: strict 0/6/0
+docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: strict 0/1/0
 docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: 2 list-first conceptual sections
-docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md: only 337 prose words
 docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: strict 1/4/1
 docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: 2 list-first conceptual sections
 docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md: only 582 prose words
