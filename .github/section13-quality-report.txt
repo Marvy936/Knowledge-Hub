@@ -2,7 +2,7 @@ status=failure
 
 docs/13-security-and-identity/active-directory.md|strict=20/28/5|prose=942|bullet_share=0.430|blocks=17|executable=0|explanations=7
 docs/13-security-and-identity/authentication-authorization-auditing.md|strict=34/39/17|prose=856|bullet_share=0.516|blocks=18|executable=0|explanations=8
-docs/13-security-and-identity/cia-triad.md|strict=18/25/7|prose=777|bullet_share=0.508|blocks=15|executable=0|explanations=13
+docs/13-security-and-identity/cia-triad.md|strict=0/0/0|prose=1058|bullet_share=0.109|blocks=6|executable=5|explanations=18
 docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=18/28/6|prose=1156|bullet_share=0.402|blocks=16|executable=1|explanations=10
 docs/13-security-and-identity/iam-rbac.md|strict=27/46/9|prose=904|bullet_share=0.480|blocks=20|executable=1|explanations=7
 docs/13-security-and-identity/image-signing.md|strict=20/24/12|prose=950|bullet_share=0.475|blocks=13|executable=0|explanations=12
@@ -164,56 +164,6 @@ HIGH docs/13-security-and-identity/authentication-authorization-auditing.md:502 
 HIGH docs/13-security-and-identity/authentication-authorization-auditing.md:506 [single-sentence-concept] Shared admin account — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/authentication-authorization-auditing.md:510 [single-sentence-concept] Audit iba successful actions — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/authentication-authorization-auditing.md:514 [single-sentence-concept] Audit iba na workload-e — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/cia-triad.md:31 [outline-instead-of-explanation] 2. Exact security subject — 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/cia-triad.md:31 [bare-bullet-items] 2. Exact security subject — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider client certificate a private key;`, `settlement routing policy;`, `worker capacity a queue progress;`, `final settlement correctness;`.
-HIGH docs/13-security-and-identity/cia-triad.md:31 [thin-concept-section] 2. Exact security subject — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/cia-triad.md:31 [term-before-explanation] 2. Exact security subject — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `workload`, `identity`
-HIGH docs/13-security-and-identity/cia-triad.md:62 [list-heavy-section] 3. Confidentiality — 13 odrážok a iba 64 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/cia-triad.md:62 [bare-bullet-items] 3. Confidentiality — 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítanie secretu alebo private key-u;`, `cross-tenant disclosure;`, `broad database alebo object-store read;`, `logovanie tokenu, PII alebo interného payloadu;`.
-CRITICAL docs/13-security-and-identity/cia-triad.md:96 [outline-instead-of-explanation] 4. Integrity — 15 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/cia-triad.md:96 [bare-bullet-items] 4. Integrity — 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenu routing policy alebo deployment konfigurácie;`, `modified artifact alebo dependency;`, `duplicate payment či message processing;`, `neautorizovaný policy alebo role assignment;`.
-MEDIUM docs/13-security-and-identity/cia-triad.md:96 [short-concept-section] 4. Integrity — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/cia-triad.md:96 [term-before-explanation] 4. Integrity — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`
-HIGH docs/13-security-and-identity/cia-triad.md:140 [list-heavy-section] 5. Availability — 8 odrážok a iba 68 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/cia-triad.md:140 [bare-bullet-items] 5. Availability — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fault isolation a redundancy;`, `capacity, quotas a rate limits;`, `failover a graceful degradation;`, `credential, key a DNS availability;`.
-HIGH docs/13-security-and-identity/cia-triad.md:179 [single-sentence-concept] 7. Threat, vulnerability, exposure, impact a risk — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/cia-triad.md:179 [outline-instead-of-explanation] 7. Threat, vulnerability, exposure, impact a risk — 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/cia-triad.md:179 [thin-concept-section] 7. Threat, vulnerability, exposure, impact a risk — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/cia-triad.md:179 [term-before-explanation] 7. Threat, vulnerability, exposure, impact a risk — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIA`
-HIGH docs/13-security-and-identity/cia-triad.md:224 [list-heavy-section] 9. Assurance a effective control state — 8 odrážok a iba 50 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/cia-triad.md:224 [bare-bullet-items] 9. Assurance a effective control state — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration a runtime read-back;`, `positive a negative authorization tests;`, `signature/provenance verification;`, `tenant-isolation test;`.
-CRITICAL docs/13-security-and-identity/cia-triad.md:252 [empty-section] 10. Worked incident: jedna stale access cesta narušila C, I aj A — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/cia-triad.md:280 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/cia-triad.md:280 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/cia-triad.md:280 [outline-instead-of-explanation] Competing hypotheses — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/cia-triad.md:280 [bare-bullet-items] Competing hypotheses — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider outage spôsobil settlement failure;`, `GitOps rollout načítal chybnú route generation;`, `external attacker zneužil application API;`, `compromised workload prečítal secret nezávisle od human identity;`.
-HIGH docs/13-security-and-identity/cia-triad.md:280 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/cia-triad.md:280 [term-before-explanation] Competing hypotheses — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`, `identity`
-HIGH docs/13-security-and-identity/cia-triad.md:290 [list-first-introduction] Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/cia-triad.md:326 [no-prose-concept] Evidence-preserving containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/cia-triad.md:326 [list-first-introduction] Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/cia-triad.md:326 [outline-instead-of-explanation] Evidence-preserving containment — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/cia-triad.md:326 [thin-concept-section] Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/cia-triad.md:326 [term-before-explanation] Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SESSION-771`
-HIGH docs/13-security-and-identity/cia-triad.md:336 [list-first-introduction] Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/cia-triad.md:351 [single-sentence-concept] Acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/cia-triad.md:351 [outline-instead-of-explanation] Acceptance verdict — 9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/cia-triad.md:351 [thin-concept-section] Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/cia-triad.md:351 [term-before-explanation] Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `workload`, `policy`, `identity`
-CRITICAL docs/13-security-and-identity/cia-triad.md:365 [no-prose-concept] 11. Earlier controls odvodené z incidentu — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/cia-triad.md:365 [list-first-introduction] 11. Earlier controls odvodené z incidentu — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/cia-triad.md:365 [outline-instead-of-explanation] 11. Earlier controls odvodené z incidentu — 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/cia-triad.md:365 [thin-concept-section] 11. Earlier controls odvodené z incidentu — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/cia-triad.md:365 [term-before-explanation] 11. Earlier controls odvodené z incidentu — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `CI`, `workload`, `policy`, `identity`
-CRITICAL docs/13-security-and-identity/cia-triad.md:377 [outline-instead-of-explanation] 12. Trade-offy medzi C, I a A — 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-MEDIUM docs/13-security-and-identity/cia-triad.md:377 [short-concept-section] 12. Trade-offy medzi C, I a A — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/cia-triad.md:389 [list-first-introduction] 13. Security incident troubleshooting cez CIA — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/cia-triad.md:409 [single-sentence-concept] CIA ako checkbox — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/cia-triad.md:413 [single-sentence-concept] Encryption = confidentiality solved — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/cia-triad.md:417 [single-sentence-concept] Uptime = availability — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/cia-triad.md:421 [single-sentence-concept] Control existence = assurance — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/cia-triad.md:425 [single-sentence-concept] Restore availability bez integrity reconciliation — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/cia-triad.md:429 [single-sentence-concept] Maximalizácia jednej osi — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [single-sentence-concept] 1. Dominantný asset-to-key-boundary lifecycle — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [list-first-introduction] 1. Dominantný asset-to-key-boundary lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [bare-bullet-items] 1. Dominantný asset-to-key-boundary lifecycle — 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo chráni cryptography?`, `Pred ktorým attackerom a na ktorej boundary?`.
@@ -1263,9 +1213,6 @@ active-directory.md: practical examples too thin
 authentication-authorization-auditing.md: strict findings
 authentication-authorization-auditing.md: bullet share 0.516
 authentication-authorization-auditing.md: practical examples too thin
-cia-triad.md: strict findings
-cia-triad.md: bullet share 0.508
-cia-triad.md: practical examples too thin
 encryption-at-rest-and-in-transit.md: strict findings
 encryption-at-rest-and-in-transit.md: bullet share 0.402
 encryption-at-rest-and-in-transit.md: practical examples too thin
