@@ -108,7 +108,7 @@ Native histograms môžu zmeniť representation a cardinality/cost model podľa 
 
 ## Loki stream cardinality
 
-Loki stream identity je complete indexed label set. Ephemeral Pod, container ID, trace ID alebo payment operation ID ako label vytvára veľa streams. Loki odporúča low-cardinality source labels a high-cardinality metadata držať ako structured metadata alebo log content. citeturn662053search0turn662053search1
+Loki stream identity je complete indexed label set. Ephemeral Pod, container ID, trace ID alebo payment operation ID ako label vytvára veľa streams. Loki odporúča low-cardinality source labels a high-cardinality metadata držať ako structured metadata alebo log content.
 
 Stream query:
 
@@ -132,7 +132,7 @@ logcli series \
 
 Výstup preukazuje matching stream label sets v selected tenant/range. Nepreukazuje active ingester memory alebo historical cardinality mimo range. Pri dynamic operation labeloch môže output byť obrovský; používa sa carefully scoped.
 
-Structured metadata umožňuje filter na high-cardinality metadata bez indexed stream explosion, ale metric LogQL query môže stále vytvoriť veľa output series, ak metadata zostanú v result labels. `keep`/`drop` stages a aggregation scope sú dôležité. citeturn662053search0
+Structured metadata umožňuje filter na high-cardinality metadata bez indexed stream explosion, ale metric LogQL query môže stále vytvoriť veľa output series, ak metadata zostanú v result labels. `keep`/`drop` stages a aggregation scope sú dôležité.
 
 ## Trace attributes a derived metrics
 
