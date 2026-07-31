@@ -9,7 +9,7 @@ docs/12-observability/golden-signals.md|strict=0/0/0|prose=1005|bullet_share=0.1
 docs/12-observability/grafana.md|strict=0/0/0|prose=949|bullet_share=0.133|blocks=10|executable=6|explanations=15
 docs/12-observability/instrumentation-telemetry.md|strict=0/0/0|prose=1071|bullet_share=0.104|blocks=9|executable=4|explanations=17
 docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
-docs/12-observability/loki.md|strict=32/28/8|prose=767|bullet_share=0.438|blocks=22|executable=3|explanations=2
+docs/12-observability/loki.md|strict=0/0/0|prose=987|bullet_share=0.126|blocks=11|executable=5|explanations=14
 docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bullet_share=0.144|blocks=13|executable=2|explanations=17
 docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
 docs/12-observability/opentelemetry.md|strict=30/25/14|prose=801|bullet_share=0.429|blocks=18|executable=0|explanations=4
@@ -359,74 +359,6 @@ HIGH docs/12-observability/jaeger-tempo.md:389 [single-sentence-concept] Trace-d
 HIGH docs/12-observability/jaeger-tempo.md:393 [single-sentence-concept] Raw URL, SQL alebo customer ID ako span name — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/jaeger-tempo.md:397 [single-sentence-concept] In-memory all-in-one ako production HA — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/jaeger-tempo.md:401 [single-sentence-concept] Recent lookup ako historical canary — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:7 [list-first-introduction] 1. Dominantný model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/12-observability/loki.md:51 [single-sentence-concept] 3. Oddelené stavy — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:51 [list-first-introduction] 3. Oddelené stavy — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:73 [outline-instead-of-explanation] 4. Stream identity — 11 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:73 [bare-bullet-items] 4. Stream identity — 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service;`, `environment;`, `region/cluster;`, `namespace;`.
-MEDIUM docs/12-observability/loki.md:73 [short-concept-section] 4. Stream identity — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/12-observability/loki.md:73 [term-before-explanation] 4. Stream identity — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `workload`
-CRITICAL docs/12-observability/loki.md:100 [empty-section] 5. Labels, structured metadata a body — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/loki.md:102 [single-sentence-concept] Labels — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:123 [list-first-introduction] 6. Write path — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:123 [outline-instead-of-explanation] 6. Write path — 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:123 [bare-bullet-items] 6. Write path — 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retryable throttling alebo temporary backend failure;`, `permanent invalid labels, timestamp alebo line size;`, `tenant/auth failure;`, `stream limit/cardinality failure.`.
-HIGH docs/12-observability/loki.md:123 [thin-concept-section] 6. Write path — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/loki.md:164 [empty-section] 8. Deployment modes — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/loki.md:176 [list-first-introduction] 9. Read path — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:192 [empty-section] 10. LogQL contract — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:194 [empty-section] Stream selector — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:200 [empty-section] Line filter — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:206 [empty-section] Structured parse — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:227 [bare-bullet-items] 11. Multi-tenancy a authorization — 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autentizovať clienta;`, `odvodiť alebo validovať tenant;`, `obmedziť povolené tenant values;`, `auditovať query a ingest identity;`.
-MEDIUM docs/12-observability/loki.md:227 [short-concept-section] 11. Multi-tenancy a authorization — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/12-observability/loki.md:227 [term-before-explanation] 11. Multi-tenancy a authorization — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`
-HIGH docs/12-observability/loki.md:241 [list-heavy-section] 12. Retention, compaction a object-store lifecycle — 7 odrážok a iba 52 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:241 [bare-bullet-items] 12. Retention, compaction a object-store lifecycle — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compaction a deletion backlog;`, `object-store delete actors a failures;`, `working disk;`, `schema periods;`.
-HIGH docs/12-observability/loki.md:267 [list-heavy-section] 13. Collectors a end-to-end canary — 7 odrážok a iba 37 slov súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:267 [bare-bullet-items] 13. Collectors a end-to-end canary — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source offset/inode;`, `multiline reconstruction;`, `parsing a redaction;`, `tenant a label mapping;`.
-MEDIUM docs/12-observability/loki.md:267 [short-concept-section] 13. Collectors a end-to-end canary — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/12-observability/loki.md:297 [single-sentence-concept] 14. Self-observability — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/loki.md:297 [outline-instead-of-explanation] 14. Self-observability — 12 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:297 [bare-bullet-items] 14. Self-observability — 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accepted a rejected bytes/lines;`, `rejection reason;`, `active streams a chunk utilization;`, `ingester memory/WAL/flush;`.
-HIGH docs/12-observability/loki.md:297 [thin-concept-section] 14. Self-observability — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/loki.md:297 [term-before-explanation] 14. Self-observability — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`
-CRITICAL docs/12-observability/loki.md:316 [empty-section] 15. Worked failure: 30-dňová retention, logy zmiznú po siedmich dňoch — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:322 [empty-section] Exact subject — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:336 [no-prose-concept] Competing hypotheses — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/loki.md:336 [list-first-introduction] Competing hypotheses — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:336 [outline-instead-of-explanation] Competing hypotheses — 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:336 [bare-bullet-items] Competing hypotheses — 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `collector vtedy nebežal alebo stratil offsets;`, `query používa nesprávny tenant, timezone alebo labels;`, `timestamp parser uložil entries mimo okna;`, `schema migration vytvorila nečitateľný period;`.
-HIGH docs/12-observability/loki.md:336 [thin-concept-section] Competing hypotheses — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/loki.md:336 [term-before-explanation] Competing hypotheses — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`
-HIGH docs/12-observability/loki.md:347 [single-sentence-concept] Discriminating evidence — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:347 [list-first-introduction] Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:372 [no-prose-concept] Containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/loki.md:372 [list-first-introduction] Containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:372 [outline-instead-of-explanation] Containment — 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:372 [bare-bullet-items] Containment — 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť alebo opraviť destructive object-store lifecycle rule;`, `označiť affected obdobie ako incomplete evidence;`, `nevymazávať index blocks ani „resetovať“ schema;`, `chrániť audit/security logs samostatnou retention boundary.`.
-HIGH docs/12-observability/loki.md:372 [thin-concept-section] Containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-CRITICAL docs/12-observability/loki.md:380 [no-prose-concept] Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/12-observability/loki.md:380 [list-first-introduction] Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/12-observability/loki.md:380 [outline-instead-of-explanation] Authoritative recovery — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/12-observability/loki.md:380 [bare-bullet-items] Authoritative recovery — 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `obnoviť presné object versions do očakávaných keys/prefixu;`, `overiť index/chunk readability na canary time slices;`, `pridať synthetic aged-log canary a object-existence audit;`, `testovať retention transition aj pri ďalšom schema period-e.`.
-HIGH docs/12-observability/loki.md:380 [thin-concept-section] Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/12-observability/loki.md:390 [single-sentence-concept] Loki acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/12-observability/loki.md:390 [outline-instead-of-explanation] Loki acceptance verdict — 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-CRITICAL docs/12-observability/loki.md:390 [bare-bullet-items] Loki acceptance verdict — 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recent aj historical path vracajú rovnaký canary event;`, `object lifecycle nemaže allowed chunks ani index;`, `po 30-dňovej hranici expirovaný canary nie je queryovateľný;`, `tenant isolation a KMS permissions zostávajú správne;`.
-HIGH docs/12-observability/loki.md:390 [thin-concept-section] Loki acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/12-observability/loki.md:390 [term-before-explanation] Loki acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`
-CRITICAL docs/12-observability/loki.md:402 [empty-section] 16. Troubleshooting model — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:404 [empty-section] Chýbajúce logy — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:417 [empty-section] Recent áno, historical nie — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:429 [empty-section] Historical áno, recent nie — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/12-observability/loki.md:439 [empty-section] Pomalý query — Sekcia nemá vysvetľovací obsah.
-HIGH docs/12-observability/loki.md:452 [single-sentence-concept] Request ID ako label — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:456 [single-sentence-concept] Broad 30-dňový selector bez bounded service labels — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:460 [single-sentence-concept] Object-store lifecycle mimo Loki retention authority — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:464 [single-sentence-concept] Recent query ako retention test — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:468 [single-sentence-concept] Collector success ako completeness proof — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/loki.md:472 [single-sentence-concept] Audit logs v rovnakom tenant/access boundary — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/opentelemetry.md:5 [single-sentence-concept] 1. Dominantný mentálny model — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/opentelemetry.md:5 [list-first-introduction] 1. Dominantný mentálny model — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/12-observability/opentelemetry.md:60 [empty-section] 3. API, SDK a zero-code instrumentation — Sekcia nemá vysvetľovací obsah.
@@ -515,9 +447,6 @@ fluent-bit.md: practical examples too thin
 jaeger-tempo.md: strict findings
 jaeger-tempo.md: bullet share 0.479
 jaeger-tempo.md: practical examples too thin
-loki.md: strict findings
-loki.md: bullet share 0.438
-loki.md: evidence explanation too thin (2)
 opentelemetry.md: strict findings
 opentelemetry.md: bullet share 0.429
 opentelemetry.md: practical examples too thin
