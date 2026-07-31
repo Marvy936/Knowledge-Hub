@@ -6,6 +6,8 @@ OpenTelemetry oddeľuje instrumentation od backendu, nie zodpovednosť za semant
 
 ## End-to-end signal lifecycle
 
+OpenTelemetry oddeľuje producer API, runtime SDK policy, transport a Collector processing, preto žiadny z týchto komponentov sám nepreukazuje end-to-end evidence. Signal musí zachovať operation semantics, resource identity a schema cez každú boundary a backend musí výsledok sprístupniť query. Lifecycle sa preto overuje v nasledujúcom poradí a pri každom kroku sa rozlišuje configured, loaded, accepted a queryable state.
+
 ```text
 business alebo operational otázka
 → exact signal requirement a schema generation

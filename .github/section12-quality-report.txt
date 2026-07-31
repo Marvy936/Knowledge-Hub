@@ -12,7 +12,7 @@ docs/12-observability/jaeger-tempo.md|strict=0/0/0|prose=959|bullet_share=0.117|
 docs/12-observability/loki.md|strict=0/0/0|prose=966|bullet_share=0.128|blocks=11|executable=5|explanations=14
 docs/12-observability/metrics-logs-traces-events.md|strict=0/0/0|prose=918|bullet_share=0.144|blocks=13|executable=2|explanations=17
 docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
-docs/12-observability/opentelemetry.md|strict=0/1/0|prose=927|bullet_share=0.115|blocks=10|executable=2|explanations=8
+docs/12-observability/opentelemetry.md|strict=0/0/0|prose=986|bullet_share=0.108|blocks=10|executable=2|explanations=9
 docs/12-observability/prometheus.md|strict=0/0/0|prose=1081|bullet_share=0.110|blocks=16|executable=11|explanations=22
 docs/12-observability/red-method.md|strict=0/0/0|prose=946|bullet_share=0.128|blocks=15|executable=12|explanations=9
 docs/12-observability/use-method.md|strict=0/0/0|prose=976|bullet_share=0.105|blocks=9|executable=3|explanations=13
@@ -173,7 +173,6 @@ HIGH docs/12-observability/cardinality.md:545 [single-sentence-concept] Kratšia
 HIGH docs/12-observability/cardinality.md:549 [single-sentence-concept] Broad drop bez dependency inventory — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:553 [single-sentence-concept] Všetky Kubernetes labels automaticky — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/12-observability/cardinality.md:557 [single-sentence-concept] High-cardinality field „pre istotu“ — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/12-observability/opentelemetry.md:7 [list-first-introduction] End-to-end signal lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 FAILURES
 alert-design-alert-fatigue.md: strict findings
@@ -184,4 +183,3 @@ cardinality.md: strict findings
 cardinality.md: bullet share 0.490
 cardinality.md: practical examples too thin
 cardinality.md: evidence explanation too thin (2)
-opentelemetry.md: strict findings
