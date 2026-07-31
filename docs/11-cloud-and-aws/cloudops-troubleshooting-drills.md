@@ -1,501 +1,308 @@
 # CloudOps troubleshooting drills
 
-CloudOps troubleshooting je schopnosť obnoviť požadovaný business outcome bez zničenia evidence, rozšírenia blast radiusu alebo vytvorenia skrytého secondary failure. Drill preto nie je zoznam príkazov pre jeden symptóm. Je to versionovaný incident experiment, ktorý začína exact subjectom a timeline, vytvára konkurenčné kauzálne hypotézy, používa diskriminačné observation points, vykonáva containment a authoritative recovery a končí overením pôvodného aj zakázaného outcome-u.
+Troubleshooting drill trénuje rozhodovanie pod časom a neistotou. Každý drill začína business symptomom, nie názvom služby. Kandidát musí zachovať evidence, vytvoriť competing hypotheses, vybrať observation, ktorá ich reálne rozlíši, vykonať bounded containment a uzavrieť recovery technickým aj business testom.
 
-## 1. Dominantný model: symptom-to-closure lifecycle
+Drill nie je demo príkazov. Príkaz je užitočný iba vtedy, keď je jasné, ktorý exact subject číta, aký výsledok sa očakáva pri jednotlivých hypotézach a čo output ešte nepreukazuje. Spoločný lifecycle je:
 
 ```text
-user/business symptom
-→ impact, scope a timeline
-→ exact account/Region/release/resource/data/flow subject
-→ recent-change correlation a volatile evidence preservation
-→ control/data/recovery path map
-→ competing causal hypotheses
-→ discriminating observations
+business symptom a exact subject
+→ preserve volatile evidence
+→ known healthy a first-divergent boundary
+→ competing hypotheses
+→ cheapest discriminating observation
 → evidence-preserving containment
-→ authoritative remediation alebo recovery
-→ controller/runtime/data reconvergence
-→ original, forbidden a adjacent-cohort validation
-→ recurrence control a incident closure
+→ authoritative recovery
+→ control-plane read-back
+→ runtime a business validation
+→ forbidden outcome a second clean run
 ```
 
-Rýchla zmena, ktorá odstráni symptom, nemusí byť oprava. Otvorenie Security Group na `0.0.0.0/0`, pridanie AdministratorAccess alebo blind restart môžu zmeniť failure signature, odstrániť dôkazy a vytvoriť väčší incident.
+## Drill protocol
 
-## 2. Exact incident subject
-
-Pred diagnostikou zapíš:
+Časový protokol vytvára tlak, ale neospravedlňuje blind mutation. Prvé minúty patria identite subjectu a dôkazu; remediation prichádza až po observation, ktorá zmenší hypothesis space.
 
 ```text
-incident/drill ID:
-expected-state generation:
-fault/change generation:
-AWS organization/account:
-Region a AZs:
-caller/session identity:
-workload/release/artifact:
-resource IDs/ARNs a configuration versions:
-data/business correlation ID:
-first symptom UTC:
-last known good UTC:
-affected a unaffected cohorts:
-recent deployments/policies/rotations/failovers:
-allowed outcomes:
-forbidden outcomes:
+T+0  → state symptom, business impact a exact subject
+T+2  → preserve volatile evidence a current generations
+T+5  → write 3–5 competing hypotheses
+T+8  → run the cheapest discriminating observation
+T+12 → contain blast radius without destroying evidence
+T+20 → apply authoritative and reversible recovery
+T+30 → verify technical, business and forbidden outcomes
+T+35 → repeat critical operation or record residual risk
 ```
 
-Názov ako `payments-api` nie je dostatočná identity. V jednom account-e môžu existovať starý a nový target group, viac launch-template versions, alias smerujúci na nový key, secret labels na rôznych versions alebo rovnaký stack name v inom Regione.
+Blind restart pred evidence je failure drillu, pokiaľ restart nie je nevyhnutný na zastavenie aktívneho poškodenia. Aj vtedy sa musí najprv zachytiť minimálny volatile context: caller, release, resource generation, recent events, relevant metrics a affected business identities.
 
-## 3. Impact a scope pred root cause
+## Drill A – ECS tasks zostávajú PENDING
 
-Najprv rozhodni:
+Desired count stúpne z 20 na 40, old tasks sú healthy a new tasks zostávajú `PENDING`. Known-good old cohort je zároveň serving capacity aj rollback boundary, preto sa nesmie zničiť pred vytvorením replacementu.
 
-- je dopad používateľský, business, security, recovery alebo iba control-plane warning;
-- je affected jeden resource, jedna generation, AZ, Region, account, tenant alebo všetci clients;
-- ktoré cohorts sú zdravé a môžu slúžiť ako control group;
-- či failure rastie, je stabilný alebo sa sám zotavuje;
-- či remediation automation už vykonáva ďalšie mutations.
+```bash
+aws ecs describe-services \
+  --cluster payments-prod \
+  --services payments-api \
+  --region eu-central-1 \
+  --query 'services[0].{Desired:desiredCount,Running:runningCount,Pending:pendingCount,Deployments:deployments,Events:events[0:10]}' \
+  --output yaml
 
-Containment priority vychádza z impactu a trendu, nie z prvého error message.
-
-## 4. Evidence preservation
-
-Volatile evidence zachovaj pred restartom, replacementom alebo rollbackom:
-
-- UTC timeline a request/correlation IDs;
-- CloudTrail actor/session/request/error details;
-- Auto Scaling, ECS/EKS, Lambda, RDS, Backup alebo CloudFormation events;
-- target health reasons a load-balancer logs;
-- CloudWatch metric identity, datapoints, alarm transitions a action history;
-- instance/container/process logs a exit reasons;
-- route tables, SG/NACL, endpoint a DNS state;
-- IAM/SCP/resource/KMS policies a exact versions;
-- launch template, AMI/image digest, user data a desired-state generation;
-- recovery point, secret version, staging labels alebo key identity;
-- recent deployment, patch, policy, rotation a cost anomaly events.
-
-Screenshot môže dopĺňať evidence, ale CLI/API JSON a IDs sú potrebné pre presné porovnanie generations.
-
-## 5. Path map
-
-Podľa symptómu nakresli relevantné vrstvy.
-
-### API/control path
-
-```text
-caller session
-→ authentication
-→ identity/resource/trust/SCP/boundary/KMS conditions
-→ service API
-→ admission/validation
-→ asynchronous controller
-→ realized resource
+aws ec2 describe-subnets \
+  --subnet-ids subnet-0paya subnet-0payb subnet-0payc \
+  --region eu-central-1 \
+  --query 'Subnets[].{Subnet:SubnetId,AZ:AvailabilityZoneId,Free:AvailableIpAddressCount}' \
+  --output table
 ```
 
-### Request/data path
+Service events lokalizujú scheduler alebo placement boundary. Ak event uvádza `RESOURCE:ENI`, container command, image process a application health check ešte nie sú first failure. Subnet output porovná address headroom medzi AZs, ale nepreukazuje ENI limits na instance type ani account quota.
 
-```text
-client
-→ DNS/cache
-→ route/gateway
-→ SG/NACL/WAF/listener
-→ target eligibility
-→ process
-→ dependency
-→ business commit a acknowledgement
+Containment zastaví nekontrolovaný scale-out a zachová old cohort. Recovery pridá approved subnet alebo compute/address capacity generation a spustí malý canary cohort. Positive acceptance vyžaduje správny task-definition digest, task role, target eligibility a request cez každú intended AZ. Forbidden outcome je termination old tasks pred serving replacementom; second operation zopakuje scale-out a potvrdí, že capacity boundary už nie je náhodne tesná.
+
+## Drill B – ALB targets sú healthy, no canary nedostáva traffic
+
+Oba target groups sú healthy, intended 10 % canary však prijíma nula requestov. Target health dokazuje iba health-check path z load balancer nodes na targets. Nedokazuje listener-rule match, priority, weighted forward action, stickiness ani client-visible DNS path.
+
+```bash
+aws elbv2 describe-rules \
+  --listener-arn "$LISTENER_ARN" \
+  --region eu-central-1 \
+  --query 'Rules[].{Priority:Priority,Conditions:Conditions,Actions:Actions}' \
+  --output yaml
+
+aws elbv2 describe-target-health \
+  --target-group-arn "$CANARY_TG" \
+  --region eu-central-1 \
+  --query 'TargetHealthDescriptions[].{Target:Target,State:TargetHealth.State,Reason:TargetHealth.Reason}' \
+  --output table
 ```
 
-### Deployment path
+Competing hypotheses zahŕňajú shadowing broad pravidlom s vyššou prioritou, host/path mismatch, weighted action na nesprávny target group, sticky cookie a chýbajúcu cohort telemetry. Rules output má určiť prvé matching pravidlo pre exact request, nie iba potvrdiť existenciu canary rule.
 
-```text
-source/IaC/release intent
-→ artifact/AMI/image generation
-→ launch/deployment configuration
-→ scheduler/controller
-→ compute/network/storage realization
-→ readiness/health
-→ traffic exposure
+Recovery mení ordered listener rule alebo weight po exact host/path teste. Targets sa nereštartujú, pretože sú healthy a problém je pred nimi. Acceptance používa requesty s explicitným Host headerom, response release identity a observed distribution. Forbidden test overí, že iný tenant alebo path nie je omylom routovaný na canary; druhá zmena weightu musí byť predvídateľná a vratná.
+
+## Drill C – RDS failover je green, ale vznikla duplicate payment
+
+Cluster sa promoted, nový writer prijíma connections, no provider ukazuje dve autorizácie pre jednu payment identity. Green database topology preukazuje technickú dostupnosť novej generation, nie outcome transakcie, ktorej acknowledgement sa stratilo počas failoveru.
+
+```bash
+aws rds describe-events \
+  --source-type db-cluster \
+  --source-identifier db-pay-prod-17 \
+  --duration 60 \
+  --region eu-central-1 \
+  --output table
+
+aws rds describe-db-clusters \
+  --db-cluster-identifier db-pay-prod-17 \
+  --region eu-central-1 \
+  --query 'DBClusters[0].{Status:Status,Endpoint:Endpoint,Members:DBClusterMembers}' \
+  --output yaml
 ```
 
-### Recovery path
+Potom sa porovná idempotency ledger, outbox, provider request IDs a client retry history pre exact payment. Timeout nie je dôkaz rollbacku. Ak database commit prežil a acknowledgement nie, blind replay vytvorí druhý external side effect.
 
-```text
-clean boundary
-→ recovery-point/key/access
-→ restore target
-→ dependencies/configuration
-→ integrity/reconciliation
-→ fencing
-→ cutover/failback
+Containment pozastaví automatic retry pre unknown outcomes a zachová transaction/provider evidence. Recovery reconciliuje podľa stable business identity, opraví provider idempotency key alebo retry contract a až potom obnoví processing. Acceptance je jeden provider aj ledger outcome, nulová unresolved cohort a no-op druhý reconciliation pass. Forbidden test vloží failover medzi commit a acknowledgement a musí zostať bez duplicate authorization.
+
+## Drill D – Lambda, SQS backlog a duplicate side effects
+
+Queue age rastie a niektoré messages vytvárajú duplicate settlement. Kandidát musí oddeliť backlog, throttling, visibility timeout, poison message a non-idempotent handler. Samotný `ApproximateNumberOfMessages` neukazuje, prečo message nie je dokončená.
+
+```bash
+aws lambda get-event-source-mapping \
+  --uuid "$MAPPING_UUID" \
+  --region eu-central-1
+
+aws lambda get-function-configuration \
+  --function-name payments-settle:live \
+  --region eu-central-1
+
+aws sqs get-queue-attributes \
+  --queue-url "$QUEUE_URL" \
+  --attribute-names VisibilityTimeout RedrivePolicy ApproximateNumberOfMessages ApproximateNumberOfMessagesNotVisible ApproximateAgeOfOldestMessage
 ```
 
-Hypotéza musí ukazovať, na ktorom prechode sa expected state prestal realizovať.
+Event-source mapping ukáže batch size, concurrency, state a failure-handling contract. Function configuration ukáže timeout, reserved concurrency a versioned environment. Queue attributes približujú backlog a visibility, ale sú eventually consistent a nepreukazujú business completion.
 
-## 6. Competing hypotheses
+Containment môže pozastaviť mapping alebo znížiť bounded concurrency, nie purge-nuť queue. Recovery zosúladí visibility s worst-case processingom, zavedie partial-batch failure handling a business idempotency. Replay používa manifest exact unresolved messages. Positive test vytvorí jedno settlement; forbidden test doručí rovnakú message druhýkrát bez druhého side effectu; second run preukáže, že queue age klesá bez skrytého DLQ rastu.
 
-Nevyberaj root cause podľa najvýraznejšieho symptómu. Vytvor malý, kvalitný set hypotéz:
+## Drill E – KMS AccessDenied po policy rolloute
 
-- jedna blízko symptómu;
-- jedna v upstream control/deployment path-e;
-- jedna v shared dependency alebo authorization boundary;
-- podľa incidentu jedna provider/capacity alebo stale-generation hypotéza.
+Po policy rolloute začnú iba niektoré Pods dostávať `AccessDenied`. Hypotézy zahŕňajú inú assumed-role session, stale static credential, key policy, identity policy, encryption context, endpoint policy a Organizations guardrail. Názov Kubernetes service accountu nie je dôkaz actual AWS principalu.
 
-Každá hypotéza potrebuje:
+```bash
+aws sts get-caller-identity
 
-```text
-cause
-→ failure mechanism
-→ predicted observations
-→ observation, ktorý ju odlíši
+aws kms describe-key \
+  --key-id "$KEY_ARN" \
+  --region eu-central-1 \
+  --query 'KeyMetadata.{Arn:Arn,State:KeyState,Usage:KeyUsage}'
+
+aws kms get-key-policy \
+  --key-id "$KEY_ARN" \
+  --policy-name default \
+  --region eu-central-1 \
+  --query Policy \
+  --output text | jq .
 ```
 
-Hypotéza bez falsifiable prediction je iba domnienka.
+Caller output fixuje account a role session pre affected runtime. Key metadata potvrdzuje exact key a state, ale úspešný `DescribeKey` nepreukazuje `Decrypt`. Key policy je len jedna authorization layer.
 
-## 7. Discriminating observation
+Ak affected Pod používa legacy environment key, wildcard allow v key policy je nesprávna recovery. Containment zastaví rollout mixed credential generations. Recovery odstráni stale credential source, obnoví workload identity a opraví iba prvú denying boundary. Positive test dešifruje non-production ciphertext s exact contextom; forbidden test použije nesprávny principal alebo context; druhá fresh session musí preukázať, že staré credentials už nemajú authority.
 
-Dobrá observation oddeľuje minimálne dve hypotézy.
+## Drill F – Hybrid path zlyháva iba v jednej AZ
 
-Príklady:
+Workload v jednej AZ nevie pripojiť `ledger.internal:5443`, zatiaľ čo ostatné AZs fungujú a Direct Connect dashboard je green. Green circuit a BGP session nepreukazujú round trip pre každý source prefix ani stateful firewall path.
 
-- target health `Connection timed out` podporuje network/listener path; HTTP `404` podporuje wrong health contract;
-- ASG activity `InsufficientInstanceCapacity` odlišuje zonal capacity od account quota;
-- `AccessDenied` s KMS eventom odlišuje image/volume key path od user-data failure;
-- Flow Logs `ACCEPT` plus application connection refusal posúva diagnosis za packet filter;
-- correct DNS authoritative answer, ale stale resolver cache vysvetľuje iba určitú client cohortu;
-- secret `AWSCURRENT` neodlišuje consumer-loaded state; per-process version fingerprint áno;
-- completed backup job neodlišuje clean a business-dirty point; reconciliation query áno.
-
-## 8. Containment pred repair
-
-Containment zastavuje rast dopadu a zachováva recovery options. Môže zahŕňať:
-
-- stop/cancel rollout, instance refresh alebo automation execution;
-- znížiť traffic na affected generation;
-- izolovať compromised principal alebo account;
-- zastaviť retry/consumer source pri duplicate side effects;
-- cordon/drain affected compute cohort;
-- chrániť clean recovery points a log archive;
-- freeze destructive cleanup alebo key deletion;
-- dočasne zvýšiť capacity iba ak neskryje root bottleneck.
-
-Containment nie je uzavretie. Po ňom musí nasledovať authoritative remediation a full validation.
-
-## 9. Authoritative remediation
-
-Preferuj opravu desired-state alebo source contractu:
-
-- správna launch template/AMI/image generation;
-- opravená route, policy, health contract alebo secret rotation state;
-- fixed IaC a nový bounded apply;
-- replacement z last-known-good artifactu;
-- restore z exact clean recovery manifestu;
-- idempotent reconciliation pri unknown business outcome.
-
-Ručná mutation jedného instance, tasku alebo policy bez source update vytvára drift a ďalší reconciliation ju môže prepísať.
-
-## 10. Worked composite incident: instance refresh, KMS a zero healthy targets
-
-### Business symptom
-
-O `10:04 UTC` Atlas Payments checkout začne vracať `503`. ALB dashboard ukazuje pokles healthy targets z dvoch na nulu. RDS je `available`, CPU je nízke a route/SG configuration sa podľa dashboardu nezmenila.
-
-### Exact subject
-
-```text
-incident: CAP-PAY-42-IR-20260728
-account: production-payments
-Region: eu-central-1
-service: payments-api
-release target: 5.8.0
-ASG: payments-api-prod
-instance refresh ID: ir-7f2
-source launch template: version 42
-source AMI: ami-payments-5.8.0
-AMI EBS snapshot encryption key: arn:aws:kms:...:key/image-key-prod
-last known good launch template: version 41
-last known good release: 5.7.3
-refresh preferences: min healthy 0 %, max healthy 100 %
-first refresh action: 09:59 UTC
-first client 503: 10:04 UTC
+```bash
+getent ahostsv4 ledger.internal
+nc -vz -w 3 ledger.internal 5443
+openssl s_client \
+  -connect ledger.internal:5443 \
+  -servername ledger.internal \
+  -brief </dev/null
 ```
 
-Version `42` bola vytvorená z image pipeline v samostatnom image-builder account-e. AMI bola zdieľaná, ale customer-managed KMS key policy/grant neumožnila Auto Scaling service-linked role v production account-e použiť encrypted snapshot pri launchi.
+DNS output ukazuje resolver-visible addresses. `nc` testuje TCP establishment, nie TLS identity alebo application authorization. `openssl` pridáva TLS handshake. Ďalší read-back musí identifikovať source ENI, subnet route association, AWS advertised prefix, on-prem received prefix a return firewall session.
 
-### Causal chain
+Containment odoberie affected AZ z novej placement generation bez vypnutia celého hybrid linku. Recovery zosúladí authoritative prefix inventory, BGP advertisements, return routes a firewall objects. Acceptance vykoná TCP, TLS a business request z každej production AZ. Forbidden test overí, že unauthorized source subnet zostáva blokovaný; failover na backup VPN musí prejsť a následný failback nesmie vytvoriť asymetrický path.
 
-```text
-instance refresh starts with min healthy 0 %
-→ controller môže terminate old healthy instance pred successful replacement
-→ launch template v42 requests AMI encrypted by shared customer KMS key
-→ production Auto Scaling/EC2 launch path nemá required key authorization
-→ replacement launch fails
-→ refresh continues/retries while old capacity is removed
-→ target group loses eligible targets
-→ ALB returns 503
+## Drill G – CloudFront vracia cross-tenant response
+
+Tenant B dostane response tenant-a a header ukazuje `X-Cache: Hit`. To je security incident, nie iba cache misconfiguration. Evidence sa musí zachovať skôr, než invalidation odstráni reprodukovateľný object.
+
+```bash
+curl -sS -D tenant-a.headers \
+  -H 'X-Tenant-ID: tenant-a' \
+  "$URL" -o tenant-a.body
+
+curl -sS -D tenant-b.headers \
+  -H 'X-Tenant-ID: tenant-b' \
+  "$URL" -o tenant-b.body
+
+aws cloudfront get-distribution-config \
+  --id "$DISTRIBUTION_ID"
+
+aws cloudfront get-cache-policy \
+  --id "$CACHE_POLICY_ID"
 ```
 
-KMS authorization failure je primárny launch defect. Unsafe refresh preferences sú failure amplifier, ktorý zmenil deployment failure na business outage.
+Dvojica requestov dokazuje user-visible collision iba vtedy, keď sa zachová request identity, headers a body hash. Distribution a cache policy read-back ukážu effective cache-key inputs a origin forwarding. `Hit` s absent tenant key podporuje shared-cache hypothesis; sám nepreukazuje, či origin tiež ignoruje tenant identity.
 
-### Competing hypotheses
+Containment prepne affected behavior na caching-disabled policy alebo izolovaný cache key a vykoná targeted invalidation. Origin sa nikdy neotvára public. Recovery versionuje tenant-aware cache a origin request policy. Acceptance používa A/B/A sequence, unique object markers a origin logs; forbidden test musí dokázať, že tenant B nikdy nedostane A content ani po warm cache.
 
-- **H1 — subnet IP exhaustion:** nové instances nemožno umiestniť; ASG activity má ukázať address/ENI capacity errors.
-- **H2 — zonal instance capacity shortage:** launch zlyháva pre selected instance type/AZ; activity má ukázať insufficient capacity.
-- **H3 — user-data/application readiness failure:** instance launchne, ale process alebo health check zlyhá; EC2 instances a logs majú existovať.
-- **H4 — SG/target-port regression:** instances bežia, ale ALB ich nevie dosiahnuť; target health a Flow Logs majú ukázať packet/connection failure.
-- **H5 — AMI/KMS authorization failure:** `RunInstances` alebo EBS volume creation zlyhá pred instance realization; ASG/CloudTrail/KMS evidence má ukázať exact key denial.
+## Drill H – Backup job je green, recovery point je nepoužiteľný
 
-### Discriminating observations
+Source backup job je `COMPLETED`, no isolated recovery Region nemá použiteľný recovery point. Hypotézy zahŕňajú failed copy job, retention deletion, unavailable KMS key, missing IAM authority, unsupported restore metadata a application-inconsistent snapshot.
 
-1. ASG activity history ukáže failed launches s KMS-related client error, nie subnet alebo capacity message.
-2. V affected časovom intervale nevzniknú nové EC2 instance IDs, čo oslabuje H3 a H4.
-3. CloudTrail koreluje `RunInstances`/KMS operation s production service-linked role a exact `image-key-prod`.
-4. Key policy povoľuje image-builder account, ale nie required production principal/service grant path.
-5. Existing version `41` instances pred termination zostávali healthy; route, SG, listener a process path boli funkčné.
-6. Instance refresh preferences vysvetľujú, prečo deployment failure odstránil starú capacity namiesto bezpečného zastavenia.
+```bash
+aws backup list-backup-jobs \
+  --by-backup-vault-name vault-pay-prod-8 \
+  --region eu-central-1
 
-H5 je root cause; unsafe refresh configuration je causal amplifier. H1–H4 sú diskriminované.
+aws backup list-copy-jobs \
+  --by-destination-vault-arn "$RECOVERY_VAULT_ARN" \
+  --region eu-west-1
 
-### Evidence-preserving containment
-
-1. cancel instance refresh `ir-7f2`;
-2. zastav ďalšiu deployment automation;
-3. zachovaj ASG activities, CloudTrail events, launch template versions, AMI/key policies a target-health timeline;
-4. nastav desired source späť na launch template version `41`;
-5. neotváraj SG, nepridávaj AdministratorAccess a nemeň KMS policy na broad `Principal: *`;
-6. obnov minimálnu healthy capacity z last-known-good generation a čakaj na target eligibility pred ďalším replacementom.
-
-Cancel refresh sám nemusí automaticky vrátiť už terminated capacity ani desired configuration. Containment preto explicitne obnovuje source generation a capacity.
-
-### Authoritative recovery
-
-```text
-launch template default/source → version 41
-→ launch replacement instances
-→ bootstrap/process readiness
-→ target health
-→ client business request
-→ stable cohort
+aws kms describe-key \
+  --key-id "$RECOVERY_KEY_ARN" \
+  --region eu-west-1
 ```
 
-Po obnove služby oprav samostatne version `42`:
+Source job status preukazuje iba source protection operation. Copy jobs a destination key určujú, či recovery account/Region má artifact aj cryptographic authority. Ani green copy nepreukazuje restore alebo application consistency.
 
-- uprav KMS key policy/grant podľa exact cross-account AMI/EBS service contractu;
-- over least-privilege principal a encryption context/constraints;
-- spusti one-instance canary ASG alebo isolated launch test;
-- potvrď EBS creation, boot, SSM access, process readiness a target health;
-- nastav safe refresh preferences, checkpoint/alarms a abort criteria;
-- až potom opakuj production refresh.
+Containment zachová latest clean source a destination points a zastaví retention action nad incident window. Recovery vyberie clean point, obnoví ho v clean-room boundary a vykoná schema, dependency a business validation. Closure zaznamená Recovery Point Actual a Recovery Time Actual. Forbidden test overí, že production principal nevie meniť recovery vault; druhý restore musí prejsť bez ad-hoc permission alebo manuálneho secretu.
 
-### Acceptance verdict
+## Drill I – CloudWatch alarm vytvára remediation loop
 
-Incident možno uzavrieť až keď:
+Alarm prechádza medzi `ALARM` a `OK` a opakovane spúšťa destructive automation. Vedúce hypotézy zahŕňajú dimension drift, missing-data semantics, delay medzi action a metric, duplicate EventBridge delivery a remediation bez idempotency.
 
-- checkout request cez production DNS/ALB uspeje;
-- minimálne dve healthy targets sú rozložené podľa designu;
-- release `5.7.3` recovery generation je stabilná alebo nový `5.8.0` canary prešiel full gate-om;
-- forbidden direct/public path na instances zostáva blokovaný;
-- KMS access je obmedzený na required principals a actions;
-- druhý controlled replacement prejde bez capacity loss;
-- alarm/abort mechanism zastaví zámerne chybný canary;
-- adjacent ASG/image cohorts používajú správny key-sharing contract;
-- timeline, root cause, amplifier a earlier controls sú zapísané.
+```bash
+aws cloudwatch describe-alarms \
+  --alarm-names ALARM-PAY-SUCCESS-18 \
+  --region eu-central-1
 
-## 11. Earlier controls odvodené z incidentu
+aws cloudwatch list-metrics \
+  --namespace Atlas/Payments \
+  --metric-name SuccessfulAuthorizations \
+  --region eu-central-1
 
-Tento failure neuzatvára iba policy patch. Potrebuje system controls:
-
-- image publication manifest obsahujúci AMI ID, Region, snapshot IDs a KMS key identity;
-- pre-production launch test z consumer accountu a consumer service-linked role pathu;
-- policy validation pre cross-account encrypted AMI sharing;
-- refresh guardrail zakazujúci nebezpečný `min healthy` pre critical service;
-- canary/checkpoint a target-health abort alarm;
-- automatic stop pri launch failures pred retirementom old cohorty;
-- last-known-good launch-template generation a tested recovery command;
-- business request validation, nie iba EC2 launch success.
-
-## 12. Validation layers
-
-### Original outcome
-
-Používateľ alebo workload opäť vykoná pôvodnú činnosť: checkout, DNS resolution, backup restore, SSM command alebo API call.
-
-### Forbidden outcome
-
-Oprava nevytvorila broad access, public exposure, duplicate payment, data loss, disabled audit alebo unbounded automation.
-
-### Adjacent cohort
-
-Over ďalšiu AZ, instance, account, Region, tenant alebo release generation. Single recovered resource môže byť výnimka.
-
-### Second operation/reconciliation
-
-Zopakuj relevantný controller cycle: ďalší ASG replacement, Lambda retry, ECS deployment, secret refresh, backup copy alebo CloudFormation update. Oprava, ktorá prežije iba prvý manual test, nie je stabilná.
-
-## 13. Drill construction contract
-
-Kvalitný drill obsahuje:
-
-```text
-known expected generation
-→ one injected primary fault
-→ optional one causal amplifier
-→ measurable business/technical symptom
-→ at least three plausible hypotheses
-→ preserved evidence path
-→ safe containment
-→ authoritative reset/recovery
-→ positive, forbidden and adjacent validation
-→ deterministic cleanup
+aws cloudwatch describe-alarm-history \
+  --alarm-name ALARM-PAY-SUCCESS-18 \
+  --region eu-central-1
 ```
 
-Po zvládnutí single-fault drillov možno pridať causal amplifier, napríklad wrong alarm remediation alebo unsafe rollout setting. Nepridávaj dve nezávislé náhodné chyby, ktoré nevytvárajú jeden vysvetliteľný incident chain.
+Alarm configuration ukáže metric identity, periods a `TreatMissingData`. Metric inventory odhalí competing dimension generations. History ukáže transition cadence a action timing. Žiadny z týchto outputov sám nepreukazuje business failure.
 
-## 14. Capability drill matrix
+Containment disable-ne iba destructive action alebo vloží precondition, nie celý monitoring. Recovery opraví metric contract, pridá telemetry-freshness signal a execution deduplication. Positive test simuluje reálny failure a očakáva jednu remediation. Forbidden test zastaví publisher pri healthy workload-e a nesmie spustiť destructive loop. Second operation musí zostať idempotentná.
 
-| Failure boundary | Representative drill | Discriminating evidence |
-|---|---|---|
-| Cross-account authorization | AssumeRole/KMS/resource policy denial | caller session, trust, SCP, key event |
-| Public/private packet path | IGW/NAT/route/SG/NACL/return failure | route selection, Flow Logs, listener evidence |
-| Target eligibility | ALB wrong port/path/SG/process bind | target health reason, local request, flow state |
-| Fleet realization | ASG quota/capacity/IP/AMI/bootstrap | ASG activity, instance existence, console output |
-| Signal-to-action | alarm dimension/EventBridge/Automation failure | exact series, transition, invocation and role |
-| Managed-node operations | SSM agent/endpoint/profile/target mismatch | node registration, endpoint path, execution manifest |
-| Storage/database | EBS AZ/performance, RDS connection/failover | service metrics plus guest/session evidence |
-| Backup/recovery | selection/KMS/copy/restore consistency | policy generation, point lineage, business validation |
-| DNS/edge | Route 53 TTL/health, CloudFront behavior/cache | authoritative answer, cache result, origin path |
-| Serverless/container | Lambda retry/VPC, ECS/EKS placement/identity | invocation/task/Pod generation and downstream outcome |
-| IaC/deployment | CloudFormation rollback/drift/PassRole | ordered stack events and realized resources |
-| Cost/capacity | NAT ports, logging growth, incident usage | usage dimensions, flow/log source, unit outcome |
-| Organization guardrail | SCP attachment/inheritance deny | policy version, OU path, request context |
+## Drill J – NAT egress timeouts
 
-Drill index s konkrétnymi zadaniami je oddelený v [troubleshooting/aws-cloudops](../../troubleshooting/aws-cloudops/README.md).
+Outbound requests začnú timeoutovať pri traffic spike a application retry rate rastie. Hypotézy zahŕňajú NAT port allocation pressure, destination concentration, downstream throttle, DNS change, connection leak a retry amplification. Pridanie ďalších application instances môže incident zhoršiť, pretože zvýši počet source connections.
 
-## 15. Time model
+```bash
+aws ec2 describe-nat-gateways \
+  --nat-gateway-ids "$NAT_ID" \
+  --region eu-central-1
 
-Meraj samostatne:
-
-- symptom-to-scope;
-- scope-to-hypotheses;
-- hypotheses-to-root-cause;
-- root-cause-to-containment;
-- containment-to-recovery;
-- recovery-to-validation;
-- cleanup/closure.
-
-Orientačné tréningové hranice:
-
-- simple resource/config drill: 8–10 minút;
-- multi-layer data path: 12–18 minút;
-- multi-account, backup alebo deployment incident: 20–30 minút;
-- composite business incident: 30–45 minút.
-
-Rýchly guess a restart môže zlepšiť repair time, ale zhoršiť diagnosis fidelity a recurrence risk. Score preto nesmie používať iba total time.
-
-## 16. Drill scoring
-
-| Oblasť | Body |
-|---|---:|
-| Exact subject, impact a timeline | 10 |
-| Evidence preservation | 10 |
-| Competing causal hypotheses | 15 |
-| Discriminating observation/root cause | 20 |
-| Safe containment | 10 |
-| Authoritative remediation/recovery | 15 |
-| Original/forbidden/adjacent validation | 15 |
-| Closure, earlier control a cleanup | 5 |
-
-AdministratorAccess, public-open rule alebo evidence-destroying reset môže scenár technicky „opraviť“, ale zlyhá safety a closure gate.
-
-## 17. Incident review record
-
-```text
-Incident/drill ID:
-Expected and fault generations:
-Account/Region/AZ:
-Business symptom/impact:
-First symptom/last known good UTC:
-Affected/unaffected cohorts:
-Exact release/resource/data/flow subject:
-Recent changes:
-Preserved evidence:
-Control/data/recovery path:
-Hypotheses and predictions:
-Discriminating observations:
-Root cause and causal amplifier:
-Containment:
-Authoritative recovery:
-Original outcome validation:
-Forbidden outcome validation:
-Adjacent/second-operation validation:
-Cleanup:
-Diagnosis/containment/recovery/validation time:
-Earlier controls:
-Residual risk/owner:
-Closure verdict:
+aws cloudwatch get-metric-data \
+  --metric-data-queries file://nat-metrics.json \
+  --start-time 2026-07-30T18:00:00Z \
+  --end-time 2026-07-30T19:00:00Z \
+  --region eu-central-1
 ```
 
-## 18. Anti-patterny
+NAT read-back fixuje state, subnet a addresses. Metric query musí porovnať `ErrorPortAllocation`, connection attempts, bytes a timeout window. Correlation s destination tuples, client pooling a retries rozlíši NAT pressure od downstream failure.
 
-### AdministratorAccess pri `AccessDenied`
+Containment obmedzí retries, zachová connection reuse a prípadne presmeruje bounded cohort na independent egress path. Recovery môže pridať NAT/address capacity, rozdeliť destinations alebo odstrániť zbytočný NAT použitím VPC endpointu, ale iba podľa root cause. Acceptance meria request success, latency, port-allocation errors a downstream health; scale-out replay nesmie znovu vyvolať amplification.
 
-Odstráni policy discrimination a zväčší blast radius.
+## Drill scorecard
 
-### `0.0.0.0/0` pri network failure
+Scorecard zachováva reasoning path, nie iba výsledok. Umožní rozlíšiť úspech spôsobený correct mechanismom od náhodného recovery po expirácii alebo residual state.
 
-Môže obísť SG symptom, ale nevyrieši route, listener, bind alebo return path.
+```yaml
+drillId: CLOUDOPS-DRILL-D
+subjectIdentifiedSeconds: 70
+evidencePreserved: true
+hypotheses:
+  - visibility timeout shorter than processing
+  - function throttling
+  - poison record
+firstObservation: event-source mapping plus queue attributes
+containmentBlastRadius: bounded
+recovery: passed
+positiveTest: one settlement
+forbiddenTest: duplicate event produced no second side effect
+secondRun: passed
+residualRisk: none
+```
 
-### Restart/replace pred evidence
+Drill prejde až po clean second run. Prvá recovery môže uspieť vďaka cache, manuálne zmenenému resource-u alebo náhodnému residual state-u. Opakovanie overuje, že mechanismus je reprodukovateľný a automation nevytvára ďalší side effect.
 
-Odstráni process state, logs, stopped reason alebo exact failed generation.
+## Drill rotation
 
-### Prvá hypotéza ako root cause
+Každý týždeň sa rotuje aspoň jeden drill z monitoring, reliability, deployment, security a networking domény. Mesačne sa kombinujú dva failure modes, napríklad CloudWatch dimension drift počas ECS rollout-u alebo RDS failover počas Secrets rotation s mixed consumers.
 
-Confirmation bias vedie k zbieraniu iba podporujúcich signálov.
+Combined drills sú dôležité, pretože production evidence sa neorganizuje podľa exam domén. Kandidát sa musí naučiť, že recent deployment môže byť korelovaný, ale nie automaticky causal, a že healthy service status nevylučuje identity, data alebo business failure v susednej boundary.
 
-### Console green ako business validation
+## Kontrolné otázky
 
-Resource status nepreukazuje request, transaction, restore consistency ani forbidden path.
+1. Kedy je restart prijateľný containment?
+2. Prečo first-divergent boundary mení poradie príkazov?
+3. Ako `RESOURCE:ENI` lokalizuje ECS failure?
+4. Ktorý dôkaz rozlišuje lost acknowledgement od rollbacku?
+5. Prečo sa SQS pri duplicate incidente nesmie purge-nuť?
+6. Čo actual caller odhaľuje v KMS drille?
+7. Prečo green Direct Connect neuzatvára hybrid path?
+8. Ako sa CloudFront cache leak contain-ne bez otvorenia originu?
+9. Prečo backup drill kontroluje copy, KMS aj restore?
+10. Čo preukazuje druhý clean run?
 
-### Ručný fix bez desired-state opravy
+## Oficiálna dokumentácia
 
-Controller alebo ďalší deployment obnoví defect.
-
-### Rollback bez compatibility a outcome kontroly
-
-Starý artifact môže byť nekompatibilný s novou schema, queue backlogom alebo provider state-om.
-
-### Restore priamo do production
-
-Obchádza isolation, clean-state validation, fencing a reconciliation.
-
-### Incident closed po symptom recovery
-
-Chýba adjacent cohort, second operation, earlier control a residual-risk decision.
-
-## 19. Kontrolné otázky
-
-1. Čo tvorí exact CloudOps incident subject?
-2. Prečo sa impact a scope určujú pred root cause?
-3. Aké evidence sa môže stratiť restartom alebo replacementom?
-4. Ako sa tvorí falsifiable causal hypothesis?
-5. Čo je discriminating observation?
-6. Ako sa líši containment od authoritative remediation?
-7. Prečo manual instance fix nie je stabilná recovery?
-8. Čo musí overiť forbidden-outcome test?
-9. Prečo je adjacent cohort a second operation súčasť closure?
-10. Ktoré earlier controls vyplývajú z instance-refresh/KMS incidentu?
-
-## Glossary impact
-
-Relevantné pojmy: CloudOps incident subject, symptom-to-closure lifecycle, impact/scope classification, recent-change correlation, volatile AWS evidence, control/data/recovery path map, causal CloudOps hypothesis, discriminating observation, evidence-preserving containment, authoritative cloud recovery, causal amplifier, reconvergence validation, forbidden-outcome validation, adjacent-cohort validation, second-operation verification, CloudOps closure verdict a earlier operational control.
-
-## Oficiálne zdroje
-
-- [SOA-C03 exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html)
 - [AWS re:Post Knowledge Center](https://repost.aws/knowledge-center/)
-- [Amazon EC2 Auto Scaling troubleshooting](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html)
-- [Share encrypted AMIs across accounts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-sharing.html)
-- [Amazon VPC troubleshooting](https://docs.aws.amazon.com/vpc/latest/userguide/troubleshooting.html)
-- [AWS Systems Manager troubleshooting](https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting.html)
+- [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/reference/)
+- [AWS Systems Manager Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html)
+- [Application Load Balancer target health](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
+- [Amazon EC2 Auto Scaling instance refresh](https://docs.aws.amazon.com/autoscaling/ec2/userguide/instance-refresh-overview.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

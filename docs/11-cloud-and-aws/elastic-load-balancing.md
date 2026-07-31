@@ -1,566 +1,398 @@
 # Elastic Load Balancing
 
-Elastic Load Balancing (ELB) vytvára managed traffic-distribution boundary medzi clients a meniacou sa množinou backend targets. Load balancer nie je jedna stabilná IP pred servermi a target group nie je iba zoznam instances. Reálny request outcome vznikne až vtedy, keď DNS dovedie clienta k správnemu load-balancer dataplane-u, listener prijme connection, TLS a listener rules vytvoria routing verdict, target group určí eligible cohort, selection algorithm vyberie target, backend connection prejde network controls a application vráti správny business response.
-
-Dominantný lifecycle:
+Elastic Load Balancing vytvára managed traffic-distribution boundary medzi clients a meniacou sa množinou backend targets. Load balancer nie je jedna stabilná IP pred servermi a target group nie je iba zoznam instances. Reálny request outcome vznikne až vtedy, keď DNS dovedie clienta k správnemu load-balancer dataplane-u, listener prijme connection, TLS a ordered rules vytvoria routing verdict, target group zostaví eligible cohort, backend connection prejde network controls a application vráti správny business response.
 
 ```text
-client business request
-→ DNS a load-balancer node selection
-→ viewer/client connection
-→ listener a TLS acceptance
-→ ordered listener-rule verdict
+client request
+→ DNS and load-balancer node
+→ listener and TLS
+→ ordered rule match
 → target-group generation
-→ registered + enabled + healthy target eligibility
-→ routing algorithm a zonal/cross-zone decision
+→ registered, enabled and healthy target set
+→ target selection
 → independent backend connection
 → application response
-→ load-balancer response a logs
-→ scale, drain, deployment alebo zonal recovery
-→ business a forbidden-outcome acceptance
+→ load-balancer response and logs
+→ business outcome
 ```
 
-Stav `Healthy` dokazuje iba konkrétny health-check contract. Nedokazuje, že správny listener rule vybral správnu release generation, že payment request prešiel exactly once ani že load balancer pri strate healthy targets traffic zastaví.
+Target `healthy` dokazuje iba konkrétny health-check contract. Nedokazuje, že správny listener rule vybral správnu release cohortu alebo že payment transaction skončila presne raz.
 
 ## 1. Exact traffic-distribution subject
 
-Atlas Payments používa parent subjects `CAP-PAY-42`, `NET-PAY-42` a `FLEET-PAY-42`. Load-balancing subject je `LB-PAY-42`:
+Atlas Payments používa load-balancing subject `LB-PAY-42`. Public hostname je `pay.example.com`, load balancer `alb-pay-public-17` v `eu-central-1` a enabled ingress subnets pokrývajú tri AZs. Load-balancer SG generation je `SG-LB-18`.
+
+HTTPS listener generation `LIS-24` používa certificate `CERT-11` a TLS policy `TLS-8`. Priority 10 matchuje `Host=pay.example.com` a path `/api/payments/*` a forwarduje 90 % na `tg-pay-v714`, 10 % na `tg-pay-v715`. Priority 20 matchuje `/api/*` a smeruje na stable group. Default action vracia fixed `404`.
+
+Target groups používajú HTTPS port `8443`. Readiness path je `/readyz`, success matcher `200`, unhealthy threshold 2, healthy threshold 3, deregistration delay 120 sekúnd a slow start 60 sekúnd. Business request je `P-884` a accepted outcome je jedna autorizácia a jeden durable ledger result.
+
+Incident evidence musí zachovať `Host`, path, method, client/request ID, listener/rule generation, target-group ARN, target ID/AZ, response headers, release generation a business transaction ID.
+
+## 2. Výber ELB typu mení routing a observation model
+
+Application Load Balancer ukončuje HTTP/HTTPS connection a vytvára novú backend connection. Vie routovať podľa hosta, pathu, methodu, headers, query alebo source IP. Je vhodný, keď verdict závisí od Layer 7 request representation.
+
+Network Load Balancer pracuje s TCP, TLS, UDP a ďalšími podporovanými transport flows. Je vhodný pre non-HTTP protocols, statické zonálne IP identities, PrivateLink a high-throughput connection workloads. Pri NLB treba presne poznať client-IP preservation a target type.
+
+Gateway Load Balancer transparentne vkladá appliance fleet cez GENEVE a route steering. Je vhodný pre firewall/inspection, nie pre HTTP path routing.
+
+Classic Load Balancer je staršia generation. Migrácia na ALB/NLB mení source identity, health, TLS, stickiness, logging a target semantics; nie je to rename.
+
+## 3. Regional service a zonálny dataplane
+
+ELB je regional service, ale data plane sa realizuje v enabled subnets/AZs. Multi-AZ load balancer nepreukazuje Multi-AZ application, ak targets alebo database zostávajú zonálne.
 
 ```text
-account = 100000000042
-Region = eu-central-1
-public hostname = pay.example.com
-load balancer = alb-pay-public-17
-scheme = internet-facing
-subnets = ingress-a / ingress-b / ingress-c
-load-balancer SG generation = SG-LB-18
-
-viewer connection =
-  client 203.0.113.77:ephemeral
-  → HTTPS pay.example.com:443
-
-listener generation = LIS-24
-certificate generation = CERT-11
-TLS policy generation = TLS-8
-
-ordered rules =
-  priority 10: Host=pay.example.com + Path=/api/payments/*
-               → weighted forward tg-pay-v714 90 / tg-pay-v715 10
-  priority 20: Host=pay.example.com + Path=/api/*
-               → tg-pay-v714
-  default: fixed 404
-
-target groups =
-  tg-pay-v714 / HTTPS:8443 / release 7.14.0
-  tg-pay-v715 / HTTPS:8443 / release 7.15.0
-
-health contract =
-  HTTPS /readyz
-  success matcher = 200
-  unhealthy threshold = 2
-  healthy threshold = 3
-  deregistration delay = 120 seconds
-  slow start = 60 seconds
-
-business request = payment P-884
-business outcome = authorize and persist payment exactly once
-forbidden outcomes =
-  direct client connection to target ENI
-  request routed to wrong host/path/release cohort
-  unhealthy target treated as safe merely because fail-open occurs
-  target terminated before request drain
-  canary evidence attributed to a cohort that did not receive the request
+regional ELB configuration
+→ enabled subnets and AZs
+→ zonal nodes and addresses
+→ target registration per AZ
+→ cross-zone or zonal selection
+→ target and dependency capacity
 ```
 
-Pri incidente treba zachovať presný request timestamp, `Host`, path, method, client/request ID, listener/rule generation, target-group ARN, target ID/AZ, release generation, load-balancer status, target status a business transaction ID. Bez toho možno analyzovať zdravý target alebo správnu rule, ktoré konkrétny request vôbec nepoužil.
+Ingress subnet potrebuje IP headroom pre managed scale a maintenance. IP-exhausted subnet môže obmedziť load-balancer capacity aj pri healthy targets.
 
-## 2. ELB typ vyberá observation a routing boundary
+## 4. Praktický ALB základ v Terraform-e
 
-### Application Load Balancer
+Terraform konfigurácia vytvorí front-door resources a ich vzájomné references, nie úspešný request. Po apply treba oddelene overiť listener, ordered rules, target registration, health-check contract, backend network path a application response, pretože každá z týchto vrstiev môže byť green alebo broken nezávisle.
 
-ALB ukončuje HTTP/HTTPS connection a vytvára novú connection k targetu. Rozumie application-layer údajom, preto môže routovať podľa host headera, pathu, methodu, headers, query strings alebo source-IP conditions. Podporuje redirects, fixed responses, weighted forwarding, authentication integrations, WebSockets, WAF a ďalšie HTTP capabilities.
+```hcl
+resource "aws_lb" "payments" {
+  name               = "alb-pay-public-17"
+  load_balancer_type = "application"
+  internal           = false
+  security_groups    = [aws_security_group.alb.id]
+  subnets = [
+    aws_subnet.public_a.id,
+    aws_subnet.public_b.id,
+    aws_subnet.public_c.id,
+  ]
 
-ALB je vhodný, keď routing verdict závisí od HTTP representation alebo application identity. Jeho hlavná prevádzková výhoda nie je iba „Layer 7“, ale schopnosť oddeliť:
+  enable_deletion_protection = true
+
+  access_logs {
+    bucket  = aws_s3_bucket.alb_logs.id
+    prefix  = "payments"
+    enabled = true
+  }
+
+  tags = {
+    Generation = "ALB-PAY-17"
+  }
+}
+
+resource "aws_lb_target_group" "v714" {
+  name        = "tg-pay-v714"
+  port        = 8443
+  protocol    = "HTTPS"
+  target_type = "instance"
+  vpc_id      = aws_vpc.payments.id
+
+  health_check {
+    enabled             = true
+    protocol            = "HTTPS"
+    path                = "/readyz"
+    matcher             = "200"
+    healthy_threshold   = 3
+    unhealthy_threshold = 2
+    interval            = 10
+    timeout             = 5
+  }
+
+  slow_start = 60
+
+  deregistration_delay = 120
+
+  tags = {
+    Release = "7.14.0"
+  }
+}
+```
+
+Terraform vytvorí desired ALB a target-group configuration. NePreukazuje, že certificate je validný, listener rules majú správnu precedence alebo targets prijímajú payment request. Tieto boundaries potrebujú live read-back a request test.
+
+## 5. HTTPS listener a ordered rules
+
+```hcl
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.payments.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = aws_acm_certificate.payments.arn
+
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "application/json"
+      message_body = "{\"error\":\"not_found\"}"
+      status_code  = "404"
+    }
+  }
+}
+
+resource "aws_lb_listener_rule" "payments_canary" {
+  listener_arn = aws_lb_listener.https.arn
+  priority     = 10
+
+  action {
+    type = "forward"
+
+    forward {
+      target_group {
+        arn    = aws_lb_target_group.v714.arn
+        weight = 90
+      }
+
+      target_group {
+        arn    = aws_lb_target_group.v715.arn
+        weight = 10
+      }
+    }
+  }
+
+  condition {
+    host_header {
+      values = ["pay.example.com"]
+    }
+  }
+
+  condition {
+    path_pattern {
+      values = ["/api/payments/*"]
+    }
+  }
+}
+```
+
+Listener rule priority je program order. Broad `/api/*` s nižším číslom by shadowoval presnejšiu payment rule. Weighted forward nie je presný request percentage pre malú sample; stickiness, retries a long-lived connections môžu observed distribution skresliť.
+
+## 6. Live ALB a listener read-back
+
+Live read-back porovnáva intended Terraform generation s effective AWS configuration. Výstup ukazuje, ktoré listeners, rules a target groups control plane eviduje; až request s presným Host, pathom a cohort telemetry dokáže, že dataplane vybral očakávaný backend.
+
+```bash
+aws elbv2 describe-load-balancers \
+  --names alb-pay-public-17 \
+  --region eu-central-1 \
+  --query 'LoadBalancers[0].{Arn:LoadBalancerArn,DNS:DNSName,Scheme:Scheme,State:State.Code,Type:Type,Subnets:AvailabilityZones[].{Zone:ZoneName,Subnet:SubnetId}}'
+```
+
+Listener inventory:
+
+```bash
+aws elbv2 describe-listeners \
+  --load-balancer-arn "$LOAD_BALANCER_ARN" \
+  --region eu-central-1 \
+  --query 'Listeners[].{Arn:ListenerArn,Port:Port,Protocol:Protocol,SslPolicy:SslPolicy,Certificates:Certificates}'
+```
+
+Ordered rules:
+
+```bash
+aws elbv2 describe-rules \
+  --listener-arn "$LISTENER_ARN" \
+  --region eu-central-1 \
+  --query 'Rules[].{Priority:Priority,Conditions:Conditions,Actions:Actions}'
+```
+
+Tieto commands preukazujú control-plane configuration. Nehovoria, ktorú rule použil konkrétny request. Na to treba request identity a logs/response cohort header.
+
+## 7. DNS a viewer TLS
+
+Application hostname typicky používa Route 53 alias na ELB DNS name. Resolved IPs sa môžu meniť a nesmú byť hard-coded.
+
+```bash
+dig pay.example.com A +short
+
+openssl s_client \
+  -connect pay.example.com:443 \
+  -servername pay.example.com \
+  -verify_return_error \
+  -brief </dev/null
+```
+
+DNS result je sample resolver cohorty. TLS success preukazuje viewer certificate a policy pre daný client. NePreukazuje backend TLS alebo target health.
+
+Certificate read-back:
+
+```bash
+aws acm describe-certificate \
+  --certificate-arn "$CERTIFICATE_ARN" \
+  --region eu-central-1 \
+  --query 'Certificate.{Status:Status,Domain:DomainName,SANs:SubjectAlternativeNames,NotAfter:NotAfter,InUseBy:InUseBy}'
+```
+
+## 8. Target group ako eligibility boundary
+
+Target group spája protocol, port, target type, health, deregistration, slow start a selection attributes. Rovnaká instance môže byť healthy v jednej target group a unhealthy v druhej.
+
+Targets:
+
+```bash
+aws elbv2 describe-target-health \
+  --target-group-arn "$TARGET_GROUP_ARN" \
+  --region eu-central-1 \
+  --query 'TargetHealthDescriptions[].{Target:Target.Id,Port:Target.Port,Az:Target.AvailabilityZone,State:TargetHealth.State,Reason:TargetHealth.Reason,Description:TargetHealth.Description}' \
+  --output table
+```
+
+`healthy` znamená, že configured health check prešiel podľa thresholds. Matcher `200` nevaliduje response body, tenant alebo payment workflow.
+
+## 9. Health oracle
+
+Readiness endpoint má odpovedať, či target môže bezpečne prijať nový request. Príliš plytký check môže vrátiť 200 bez configuration alebo credentialu. Príliš hlboký check závislý od shared database môže pri jej incidente vyradiť celý fleet a spustiť replacement storm.
+
+Rozlišuj:
 
 ```text
-viewer connection lifecycle
-od
-backend target connection lifecycle
+liveness: process nie je nenávratne zaseknutý
+readiness: target môže prijať new traffic
+business canary: konkrétna transaction je správna
 ```
 
-Client môže mať HTTP/2 alebo HTTP/3-facing behavior podľa podporovanej konfigurácie, zatiaľ čo backend používa iný protocol/version contract. Viewer TLS môže byť zdravé a backend TLS môže zlyhávať nezávisle.
+ALB health check je readiness oracle, nie business canary.
 
-### Network Load Balancer
+## 10. Backend network a TLS
 
-NLB distribuuje TCP, TLS, UDP a podporované transportné flows. Je vhodný pre non-HTTP protocols, statické zonálne IP/EIP requirements, vysoký connection throughput, PrivateLink provider services a TLS pass-through alebo termination.
+Viewer a backend sú dve connections. ALB SG potrebuje outbound k target portu a target SG inbound z ALB SG. Target subnet NACL musí povoliť backend connection a return path. Pri HTTPS target group-e application certificate/trust behavior má samostatný contract.
 
-Pri NLB je kritické poznať target type, protocol a client-IP preservation semantics. Application ACL alebo target SG navrhnutá podľa nesprávneho predpokladu o visible source address môže blokovať správny flow alebo otvoriť príliš široký scope. Long-lived connection zostáva na existujúcom targete; zmena healthy cohortu automaticky nepremiestni už otvorenú session.
+Direct target test z controlled VPC source:
 
-### Gateway Load Balancer
-
-GWLB transparentne vkladá appliance fleet do packet pathu cez GENEVE. Routing verdict vzniká kombináciou route-table steeringu, GWLB endpointu, appliance target groupu, flow affinity, health a symmetric return pathu. Je vhodný pre firewall, IDS/IPS a inspection appliances, nie pre application HTTP routing.
-
-### Classic Load Balancer
-
-CLB je staršia generation. Migrácia na ALB alebo NLB nie je rename. Mení health semantics, source identity, TLS, stickiness, logging, target registration a connection behavior; preto potrebuje explicitnú compatibility matrix a traffic canary.
-
-## 3. Regional service, zonálny dataplane
-
-ELB je regional service, ale load-balancer nodes a ENIs sa realizujú v enabled Availability Zones/subnets. Multi-AZ názov preto treba rozložiť:
-
-```text
-regional control plane
-→ enabled LB subnet/AZ inventory
-→ zonal LB nodes a addresses
-→ target registration v enabled AZ
-→ zonal alebo cross-zone selection
-→ target a dependency capacity
-→ failure a recovery behavior
+```bash
+curl --fail --show-error \
+  --resolve payments.internal:8443:10.42.16.27 \
+  https://payments.internal:8443/readyz
 ```
 
-Tri load-balancer subnets nevytvoria HA, ak application targets, NAT, EFS mount path, database writer alebo state zostávajú závislé od jednej AZ. Po zonal shift-e musia zostávajúce AZs absorbovať DNS/client distribution, target load, database connections aj downstream throughput.
+Direct test obchádza ALB listener/rule. Je užitočný na izoláciu backend, nie na user-path acceptance.
 
-Subnet IP headroom je súčasť load-balancer capacity. Managed nodes môžu pri scale alebo maintenance potrebovať ďalšie addresses. IP-exhausted ingress subnet môže obmedziť dataplane expansion aj pri healthy targets.
+## 11. Weighted canary s cohort evidence
 
-## 4. DNS dovedie clienta k service, nie k jednej nemennej IP
+Každá response má niesť bezpečný release header, napríklad `X-Atlas-Release: 7.15.0`, a logs musia viazať request ID na target/release.
 
-ELB poskytuje DNS name. Application hostname typicky používa Route 53 alias. Resolved addresses sa môžu meniť podľa zonal state, scalingu alebo maintenance, preto sa neukladajú ako statická application configuration.
-
-```text
-pay.example.com
-→ Route 53 alias
-→ current ELB DNS answers
-→ client/resolver cache
-→ selected zonal load-balancer node
+```bash
+for i in $(seq 1 50); do
+  curl -fsS -D - \
+    -o /dev/null \
+    -H 'Host: pay.example.com' \
+    "https://pay.example.com/api/payments/canary-$i" \
+    | awk -F': ' 'tolower($1)=="x-atlas-release" {print $2}'
+done | sort | uniq -c
 ```
 
-Jeden `dig` result nepreukazuje všetky adresy ani všetky client cohorts. Existing connections zostávajú otvorené aj po DNS zmene. Zonal recovery preto zahŕňa resolver TTL, application DNS cache, connection reuse a reconnect behavior.
+Tento experiment ukáže observed distribution pre fresh requests. Nejde o štatistickú garanciu 90/10 a nesmie vykonať real payment side effect. Canary endpoint musí byť bezpečný a non-mutating alebo používať test tenant.
 
-## 5. Listener je front-door protocol contract
+## 12. Slow start, stickiness a routing algorithm
 
-Listener definuje protocol, port, TLS policy/certificates a default action. Connection môže zlyhať ešte pred target selection:
+Slow start postupne pridáva traffic newly healthy targetu. Pomáha pri cache, JIT a pool warmup. Target musí byť funkčne ready ešte pred slow startom; slow start nezakryje chybný artifact.
 
-```text
-TCP path
-→ listener exists on expected port
-→ TLS SNI/certificate/security-policy match
-→ HTTP parse a limits
-→ rule evaluation
+Stickiness viaže clienta k targetu alebo target group-e podľa configured mechanismu. Môže skresliť canary a vytvoriť nerovnomerné load distribution. Stateful session iba v process memory zhoršuje replacement a failover.
+
+Selection algorithm môže byť round-robin, least outstanding requests alebo supported weighted-random/anomaly behavior podľa target-group capabilities. Algorithm neodstráni rozdielnu target capacity.
+
+## 13. Draining a deregistration delay
+
+Pri deployment alebo scale-in-e target prejde do `draining`; load balancer prestane posielať nové requests a čaká na existing connections podľa deregistration delay.
+
+```bash
+aws elbv2 deregister-targets \
+  --target-group-arn "$TARGET_GROUP_ARN" \
+  --targets Id=i-0123456789abcdef0,Port=8443 \
+  --region eu-central-1
 ```
 
-Pri HTTPS môže listener používať viac certificates. SNI a certificate selection musia pokryť alternate hostnames; default certificate nesmie maskovať chýbajúci SAN pre určitý client cohort. ACM status, Region, chain, expiry a listener attachment sú samostatné observation points.
+Command accepted nepreukazuje complete drain. Sleduj target state:
 
-TLS termination na load balanceri centralizuje certificate lifecycle. Backend môže byť HTTP, HTTPS alebo pass-through podľa ELB typu. Re-encryption chráni backend path, ale vyžaduje vlastný protocol a trust contract. Viewer handshake success nedokazuje backend TLS success.
-
-## 6. Ordered listener rules vytvárajú routing program
-
-ALB listener rules sa vyhodnocujú podľa priority. Prvá matching rule určí actions; default rule sa použije až keď žiadna custom rule nematchne.
-
-```text
-request Host/path/method/headers/query/source
-→ normalize podľa ALB semantics
-→ priority 1, 2, 3 ...
-→ first matching rule
-→ forward / redirect / fixed response / authentication
+```bash
+aws elbv2 describe-target-health \
+  --target-group-arn "$TARGET_GROUP_ARN" \
+  --targets Id=i-0123456789abcdef0,Port=8443 \
+  --region eu-central-1
 ```
 
-Broad rule s vyššou prioritou môže shadowovať presnejšiu canary rule. Všetky target groups môžu byť healthy a request napriek tomu smeruje do nesprávnej cohorty. Rule test preto musí používať skutočný `Host`, path, method a relevantné headers. `curl` na raw ALB hostname bez production Host headera nemusí testovať intended routing.
+Application termination grace musí byť dlhšia než request drain a background-work handoff. Force termination pred drain môže prerušiť transaction alebo vyvolať client retry s unknown outcome.
 
-Weighted forwarding rozdeľuje nové eligible requests medzi target groups podľa weights, ale nie je samo o sebe experiment contract. Stickiness, long-lived connections, client retries a malá sample size môžu skresliť observed percentage. Každý target response musí niesť release/cohort identity, aby metrics neboli pripísané iba podľa zamýšľanej konfigurácie.
+## 14. Fail-open a zonal behavior
 
-## 7. Target group je backend protocol a eligibility boundary
+Ak všetky registered targets v target group-e zlyhajú health, ELB service môže podľa konkrétneho typu a state-u fail-open a posielať traffic na unhealthy targets. To je availability mechanism, nie correctness guarantee.
 
-Target group definuje:
+Alarmy preto sledujú healthy host count, target errors, load-balancer errors a business SLI. `All targets unhealthy` nesmie byť interpretované ako bezpečný circuit breaker.
 
-```text
-target type
-+ protocol/port
-+ health-check contract
-+ deregistration delay
-+ routing algorithm/attributes
-+ cross-zone behavior
-+ slow start/stickiness
-→ eligible backend cohort
+Zonal failure test musí preukázať, že remaining target capacity, database a downstream zvládnu load. DNS a existing connections môžu predlžovať cohort transition.
+
+## 15. Access logs a request correlation
+
+ALB access log obsahuje timestamps, client/target tuple, request, ELB/target status, processing times, chosen target a trace fields podľa format-u. Log delivery do S3 je asynchronous a potrebuje bucket policy, encryption, retention a parser version.
+
+Praktický request:
+
+```bash
+REQUEST_ID="canary-$(date +%s)"
+
+curl --fail --show-error \
+  -H "X-Request-ID: $REQUEST_ID" \
+  -H 'Host: pay.example.com' \
+  https://pay.example.com/api/payments/health
 ```
 
-Target health je kontextová. Rovnaká instance môže byť healthy v jednej target group na `8443`, unhealthy v inej na `9443` a vôbec neregistrovaná v tretej. Target group musí byť v správnom VPC a target AZ musí byť enabled pre load balancer podľa service semantics.
+Application a proxy logs musia zachovať correlation ID. ALB access log nevie sám potvrdiť ledger result.
 
-Target types môžu byť instance, IP, Lambda alebo podporované service-specific targets. Instance target používa instance identity a port; IP target viaže health/routing na konkrétnu address identity. Replacement alebo container rescheduling preto potrebuje registration reconciliation, nie iba healthy EC2 state.
+CloudWatch metrics ako `RequestCount`, `HTTPCode_ELB_5XX_Count`, `HTTPCode_Target_5XX_Count`, `TargetResponseTime`, `HealthyHostCount` a `RejectedConnectionCount` sa interpretujú podľa load balancer/target group/AZ dimensions. `ELB 5XX` a `target 5XX` majú odlišné boundaries.
 
-## 8. Health check je explicitný oracle
+## 16. Worked incident: broad rule shadowuje canary
 
-Health check definuje protocol, port, path, timeout, interval, thresholds a success matcher. Jeho otázka má byť:
+Atlas zamýšľal poslať 10 % payment API requests na release 7.15.0. Obe target groups boli healthy a Terraform plan obsahoval expected weights. Business telemetry však ukazovala nula requests na new release.
 
-> Môže tento target teraz bezpečne prijať nový request patriaci k tejto target group?
+Hypotézy zahŕňali stickiness, small sample, target unhealthy, wrong alias/DNS, weighted-forward config, response header missing a rule precedence.
 
-Príliš plytký check vracia `200`, hoci application nemá configuration, credentials alebo mandatory dependency. Príliš hlboký check viazaný na každú optional dependency môže naraz vyradiť celý fleet pri degradácii, ktorú by application vedela obslúžiť fallbackom.
+`describe-rules` ukázalo, že priority 5 rule `Path=/api/* → tg-pay-v714` bola pridaná pri inom release. Canary payment rule mala priority 10. ALB používa prvú matching rule, takže broad priority 5 shadowovala payment rule. Target groups aj weights boli správne, ale nedosiahnuteľné pre relevantný request.
 
-Rozumné vrstvy:
+Containment nemenilo target health ani ASG. Tím zachoval listener rules, CloudTrail, access logs a response cohort evidence. Recovery presunula broad rule za payment-specific rule, nasadila zmenu cez canary a testovala exact `Host`, path a method.
 
-```text
-liveness = process sa nezasekol nenávratne
-readiness = target môže bezpečne prijať nový traffic
-business canary = konkrétna transaction/journey je správna
+Acceptance vyžadovala observed requests v oboch release cohorts, stable business SLI, request-to-release correlation a forbidden test, pri ktorom unknown host/path skončil default 404. Druhý deployment rule-order test zabránil návratu shadowing-u.
+
+## 17. Worked incident: target healthy, payment path zlyháva
+
+Iný failure mode vznikne, keď `/readyz` vracia 200, no target načítal stale credential. ALB správne považuje target za healthy, ale payment request dostane provider `401`.
+
+Root cause nie je ELB. Readiness oracle je príliš plytký alebo application credential-refresh contract zlyhal. Recovery musí opraviť runtime identity a business canary, nie zmeniť listener alebo health matcher na broad status range.
+
+## 18. Troubleshooting podľa prvej divergentnej boundary
+
+Ak DNS zlyhá, rieš Route 53/resolver. Ak TCP/TLS k listeneru zlyhá, rieš LB state, SG/NACL, certificate a policy. Ak listener vracia fixed/redirect response, analyzuj rule. Ak ELB vracia 502/503, analyzuj target eligibility, backend connection a capacity. Ak target vracia 5xx, pokračuj application a dependency. Ak HTTP success nesie wrong business data, analyzuj authorization, caching a transaction path.
+
+```bash
+curl -vk \
+  -H 'Host: pay.example.com' \
+  https://pay.example.com/api/payments/health
 ```
 
-ELB health check nie je business canary. Matcher `200` tiež neoveruje response body alebo tenant correctness. Thresholds vytvárajú detection a recovery delay; musia byť zosúladené so startupom, transient errors a failure objective.
-
-## 9. Fail-open je availability mechanism s correctness rizikom
-
-Ak ALB nemá dostatok healthy targets a v target group sú všetky registrované targets unhealthy, môže routovať na všetky targets bez ohľadu na health status. NLB má tiež fail-open hranice vrátane prázdnej alebo all-unhealthy target group podľa service behavioru.
-
-Causal model:
-
-```text
-health oracle označí celý cohort unhealthy
-→ load balancer nemá healthy selection set
-→ fail-open zabráni úplnému blackhole
-→ traffic vstúpi aj do unhealthy targets
-→ application môže vrátiť chybu, overload alebo nekorektný side effect
-```
-
-Fail-open preto nie je dôkaz recovery. Alarmy musia sledovať healthy-host count, all-unhealthy state, target errors a business outcomes. Health check sa nesmie používať ako jediný security alebo circuit-breaker mechanismus.
-
-## 10. Selection algorithm, slow start a anomaly mitigation
-
-Po vytvorení eligible setu vyberá load balancer target podľa podporovaného routing algorithmu a target-group attributes. ALB target groups môžu podporovať round robin, least outstanding requests a weighted-random behavior vrátane Automatic Target Weights/anomaly mitigation v podporovaných configurations.
-
-Algorithm nemení target capacity na rovnakú. Heterogénny fleet alebo mixed release môže mať rozdielne latency a concurrency limits. Selection evidence musí korelovať request count, outstanding work, target latency a errors podľa target/release/AZ.
-
-Slow start postupne zvyšuje traffic pre newly healthy target. Pomáha pri cache/JIT/pool warmup, ale target musí byť funkčný ešte pred vstupom do slow startu. Slow start nenahrádza readiness ani downstream capacity gate.
-
-## 11. Cross-zone a zonal affinity
-
-Cross-zone load balancing určuje, či zonálny load-balancer node môže routovať na targets v iných enabled AZs. Defaults a configurable scope sa líšia podľa ELB typu a target-group behavioru; live attributes sú authoritative.
-
-Cross-zone zapnuté:
-
-- lepšie využije nerovnomerne rozdelené healthy targets;
-- môže skryť chýbajúcu zonálnu capacity;
-- môže vytvoriť cross-AZ data path a dependency coupling.
-
-Cross-zone vypnuté:
-
-- zachová silnejšiu zonálnu affinity;
-- vyžaduje dostatočné healthy targets v každej traffic-serving AZ;
-- zonal shift zároveň odstráni load-balancer address aj target capacity danej AZ.
-
-Rozhodnutie musí byť súčasťou failure experimentu. „Targets sú spolu zdravé“ nestačí; treba overiť per-AZ eligible capacity pred a po strate jednej AZ.
-
-## 12. Dve connection vrstvy a source identity
-
-Pri ALB requeste existujú minimálne dve connections:
-
-```text
-A: viewer → ALB listener
-B: ALB node → application target
-```
-
-Connection A používa client source, listener port, ALB SG/NACL a viewer TLS. Connection B používa load-balancer node source semantics, target port, target SG/NACL a backend TLS/listener. Application client identity sa typicky prenáša v HTTP forwarding headers, ale network source backend connection nie je pôvodný client.
-
-Security contract:
-
-```text
-internet/client CIDR
-→ ALB SG :443
-→ application SG from ALB SG :8443
-```
-
-Target SG otvorená svetu obchádza load-balancer ingress boundary. Pri NLB treba overiť security-group support, target type a preserved-source semantics konkrétneho flowu; všeobecný ALB model sa naň nesmie preniesť mechanicky.
-
-NACL je stateless a musí povoliť service aj ephemeral return ports na LB a target subnet boundaries. `Connection refused` a timeout majú odlišnú dôkaznú hodnotu, ale middleboxes ich môžu meniť; preto sa korelujú s Flow Logs, packet evidence a target listenerom.
-
-## 13. Response ownership a status codes
-
-ALB access logs a metrics odlišujú load-balancer-generated a target-generated responses. Pri incidente sa sledujú minimálne:
-
-```text
-ELB status code
-+ target status code
-+ request-processing time
-+ target-processing time
-+ response-processing time
-+ matched rule a target identity
-+ target application trace
-```
-
-Praktická interpretácia:
-
-- `502` často znamená invalid/reset backend response, backend TLS/protocol mismatch alebo connection closure;
-- `503` často znamená chýbajúci usable target alebo load-balancer capacity/path problém;
-- `504` často znamená backend/network timeout alebo dependency latency.
-
-Status code nie je root cause. `504` zvýšený po release môže byť pomalý query, connection-pool starvation, NACL drop alebo response timeout. Timeout zvýš až po identifikácii operation budgetu; inak iba predĺži resource occupancy a retry amplification.
-
-## 14. Stickiness a long-lived sessions
-
-Stickiness viaže clienta k targetu podľa cookie alebo supported flow semantics. Môže byť oprávnená pre session affinity, ale vytvára:
-
-- nerovnomerné load distribution;
-- hotspoty pri long-lived clients;
-- mixed-release bias;
-- komplikovaný failover;
-- skrytý local session state.
-
-Externalizovaný session state zvyšuje zameniteľnosť targets. Stickiness sa nemá používať na maskovanie application state coupling. Canary verification musí vedieť, či client zostal na old cohort-e napriek weights.
-
-WebSocket, streaming a long-lived TCP connections sa nepresunú iba zmenou weights alebo health. Recovery závisí od disconnect, client reconnect a idempotent session resumption.
-
-## 15. Deregistration a drain sú koordinovaný state transition
-
-Keď sa target deregistruje, load balancer prestane posielať nové requests podľa service semantics a target zostáva v draining state počas deregistration delay. Bezpečné odstránenie vyžaduje koordináciu:
-
-```text
-mark target for removal
-→ stop new selection
-→ drain in-flight requests/connections
-→ application stops acquiring new background work
-→ business commit alebo checkpoint
-→ response/acknowledgement completion
-→ target deregistration complete
-→ ASG lifecycle completion
-→ process/instance termination
-```
-
-Ak ASG alebo process skončí pred drain completion, nastavený `120 s` delay nepomôže. Ak request vykonal external side effect a connection sa prerušila pred response, client retry vytvára unknown outcome. Load balancer lifecycle preto potrebuje application idempotency a reconciliation.
-
-Deregistration delay príliš dlhý môže spomaliť rollout a držať stale generation. Príliš krátky prerušuje legitimate long requests. Contract vychádza z maximum accepted request duration, client timeoutu, shutdown grace a business semantics.
-
-## 16. ASG, target registration a release transition
-
-ASG launch/terminate event mení target inventory. Serving capacity vzniká až po:
-
-```text
-instance ready
-→ target registered
-→ health thresholds passed
-→ optional slow start
-→ selected traffic
-→ business canary
-```
-
-Pri instance refresh sa musí zosúladiť minimum healthy percentage, ASG warmup, target health thresholds, deregistration delay a application shutdown. ASG `InService` a target `Healthy` sú rôzne gates.
-
-Weighted target groups umožňujú canary medzi release cohorts. Safe transition potrebuje immutable target/release identity, mixed-version data compatibility, subject-bound metrics, rollback criteria a old-cohort drain. Zmena weight bez overenia matched rule a actual target cohort je iba control-plane intent.
-
-## 17. Zonal shift a zonal recovery
-
-Application Recovery Controller môže pri podporovaných ALB/NLB configurations začať zonal shift, ktorý odstráni zonálny load-balancer address z service pathu. Úspech závisí od:
-
-```text
-remaining LB nodes
-+ remaining target capacity
-+ cross-zone attribute
-+ application/database/downstream headroom
-+ DNS/client reconnect
-+ state consistency
-→ surviving business throughput
-```
-
-Zonal shift nie je náhrada za Multi-AZ design. Pred shiftom treba overiť, či strata zonálnej target capacity pri vypnutom cross-zone nespôsobí ďalší overload. Po shift-e treba sledovať request distribution, healthy targets, errors, latency a business backlog; `shift active` nie je acceptance verdict.
-
-## 18. Access logs, metrics a request correlation
-
-Relevantná evidence:
-
-| Observation point | Rozlišuje |
-|---|---|
-| Route 53/resolver a ELB DNS answers | DNS/client cohort od backend failure |
-| listener/certificate configuration | TCP path od TLS/SNI failure |
-| matched rule/action | routing intent od actual verdictu |
-| target health reason code | registration/AZ/health failure class |
-| ALB/NLB access alebo connection logs | viewer, target, timings, status a TLS metadata |
-| CloudWatch healthy/unhealthy host count | partial cohort od all-unhealthy/fail-open state |
-| request/flow count per AZ/target | control-plane weights od actual selection |
-| target application trace | backend connection od business operation |
-| CloudTrail | kto zmenil listener/rule/TG/LB attributes |
-| payment idempotency ledger | transport error od duplicate/unknown business outcome |
-
-Logs môžu obsahovať URL/query/user-agent a identity-related metadata, preto bucket policy, encryption, retention a query access patria do security contractu. Log delivery nemusí byť okamžitá; incident používa request IDs a viac observation points.
-
-## 19. Connected failure — healthy fleet, shadowovaná canary rule
-
-### Symptóm
-
-Release `7.15.0` má dostať 10 % `/api/payments/*` trafficu. Deployment dashboard hlási obe target groups healthy a listener configuration deployed. Po 30 minútach však `tg-pay-v715` eviduje iba health checks, žiadne production requests. Release team napriek tomu pripisuje celkovú nízku error rate canary cohort-e a chce zvýšiť weight na 50 %.
-
-### Competing hypotheses
-
-1. Client requests používajú iný hostname alebo path.
-2. Route 53/DNS stále smeruje na starý ALB.
-3. Listener `443` používa inú generation alebo certificate.
-4. Canary rule nematchuje normalized path/method/header.
-5. Broad `/api/*` rule má vyššiu priority a shadowuje canary rule.
-6. Weighted forwarding je prebitý stickiness.
-7. `tg-pay-v715` targets nie sú enabled/eligible napriek health dashboardu.
-8. Cross-zone alebo AZ registration odstraňuje canary cohort z selection setu.
-9. Access logs/metrics používajú wrong load balancer alebo dimensions.
-10. Application neposiela release identity, takže requests sa nedajú priradiť.
-
-### Discriminating observations
-
-| Observation | Čo rozlišuje |
-|---|---|
-| production request `Host`, raw path a method | wrong client request od rule-order chyby |
-| Route 53 alias a ELB DNS/request ID | old distribution/LB od current listener |
-| listener rules s priorities a ARNs | intended order od effective routing programu |
-| access-log matched rule priority/target group | weight problem od shadowed rule |
-| request count per target group excluding health checks | actual canary exposure |
-| target response release header a trace | selected TG od actual application generation |
-| stickiness cookie cohort | weight selection od persistent affinity |
-| target health reason/AZ attributes | rule match od eligibility failure |
-| CloudTrail change timeline | authoring error od later drift |
-
-### Finding
-
-IaC renderer pridelil broad rule `Host=pay.example.com + Path=/api/*` priority `10` a presnejšej payment canary rule priority `20`. ALB vyhodnotil broad rule ako prvú, preto všetky requests smerovali do `tg-pay-v714`. Canary targets boli healthy, ale health traffic nepreukazoval production exposure. Dashboard agregoval load-balancer-wide business metrics a vytvoril false-green rollout verdict.
-
-### Evidence-preserving containment
-
-- zastaviť weight progression; nemeníť target health alebo SG rules;
-- exportovať listener rule generation, access logs, target-group counters a CloudTrail change;
-- zachovať current target cohorts a nepripisovať aggregate metrics canary release-u;
-- označiť predchádzajúci „10 % canary“ interval ako invalid experiment evidence;
-- overiť, že release `7.15.0` nevykonala žiadne production side effects.
-
-### Authoritative recovery
-
-1. Zaviesť explicitnú deterministic priority allocation, kde narrower payment rule predchádza broad `/api/*` rule.
-2. Vytvoriť novú listener generation, nie editovať audit identity bez provenance.
-3. Pred deployom vykonať rule-overlap analysis s concrete Host/path/method cases.
-4. Nasadiť configuration a overiť matched rule cez controlled requests.
-5. Potvrdiť target/release identity v response a trace.
-6. Obnoviť canary na malom weight-e so subject-bound technical, functional a business metrics.
-7. Vykonať forbidden tests: `/api/catalog/*` nesmie ísť do payment TG; unknown host dostane fixed `404`; target ENI nie je direct-reachable.
-8. Pokračovať až po dostatočnej sample size, nie iba po uplynutí času.
-
-### Acceptance verdict
-
-Load-balancing zmena je prijatá až keď:
-
-- production request matchuje intended listener rule generation;
-- observed target-group/release distribution zodpovedá canary contractu v tolerancii vysvetliteľnej stickiness/connections;
-- viewer aj backend TLS sú validné;
-- healthy target cohort má dostatočnú zonálnu capacity;
-- payment P-884 prejde exactly once;
-- wrong host/path/direct-target paths zostanú forbidden;
-- all-unhealthy fail-open alarm a runbook sú overené;
-- drain test dokončí in-flight request pred target termination.
-
-## 20. Troubleshooting model podľa failure boundary
-
-### Connection sa nevytvorí
-
-```text
-DNS/alias
-→ LB scheme a enabled AZ addresses
-→ route/IGW
-→ SG/NACL
-→ listener port
-→ viewer TLS/SNI
-```
-
-### Request ide na nesprávny backend
-
-```text
-Host/path/method/header/query
-→ listener generation
-→ ordered rules a first match
-→ weighted/sticky action
-→ target group identity
-→ target/release response identity
-```
-
-### Target je unhealthy
-
-```text
-registration a target type
-→ enabled AZ
-→ health protocol/port/path/matcher
-→ LB-to-target SG/NACL/route
-→ target listener/TLS
-→ readiness dependency
-→ thresholds a startup duration
-```
-
-### `502/503/504`
-
-```text
-ELB vs target status
-→ matched rule/target ID
-→ processing timings
-→ backend connection/TLS
-→ application/dependency trace
-→ capacity a timeout budget
-→ retry a business outcome
-```
-
-### Zonal incident
-
-```text
-per-AZ LB addresses
-→ per-AZ eligible targets
-→ cross-zone attribute
-→ remaining capacity/downstream envelope
-→ zonal shift
-→ DNS/reconnect behavior
-→ business throughput a forbidden bypass
-```
-
-## 21. Cost a consolidation trade-off
-
-Cost môže zahŕňať load-balancer hours, capacity units, processed bytes, new/active connections, rule evaluations podľa typu, public/cross-AZ transfer, logging, WAF, Shield a origin dependencies.
-
-Jeden shared ALB znižuje object count, ale spája certificate, rules, quotas, deployment cadence a incident blast radius viacerých applications. Dedicated ALB zvyšuje cost, no poskytuje jasnejšie ownership a failure isolation. Rozhodnutie má vychádzať z trust boundary, rule complexity, quota headroom a shared-change governance.
-
-Cross-zone môže zlepšiť utilization, ale vytvoriť transfer a skryté zonálne coupling. Slow start môže znížiť startup errors, ale predĺžiť time-to-full-capacity. Long deregistration delay chráni requests, ale spomaľuje replacement. Každý parameter je lifecycle trade-off, nie univerzálny best practice.
-
-## 22. Anti-patterny odvodené z modelu
-
-- **Health check na `/` bez oracle contractu** — homepage nepreukazuje payment readiness.
-- **All-healthy považované za správne routing** — listener rule môže posielať request do wrong cohortu.
-- **Aggregate LB metrics použité pre canary verdict** — evidence nie je viazaná na target/release subject.
-- **Broad rule s vyššou prioritou než specific rule** — first match shadowuje intended route.
-- **Target SG otvorená svetu** — obchádza load-balancer ingress boundary.
-- **Hard-coded resolved ELB IP** — DNS-backed dataplane identity sa mení.
-- **Fail-open ignorované** — all-unhealthy target group nemusí znamenať traffic stop.
-- **Slow start použitý namiesto readiness** — nefunkčný target dostane síce pomalšie, ale stále production traffic.
-- **Weight change bez stickiness/connection analýzy** — actual exposure sa líši od control-plane čísla.
-- **Deregistration delay bez shutdown koordinácie** — instance skončí pred drainom.
-- **Zonal shift bez remaining-capacity preflightu** — recovery action vytvorí overload.
-- **Jeden shared ALB bez owner/quota policy** — malá rule zmena má multi-application blast radius.
-
-## 23. Kontrolné otázky
-
-1. Prečo ALB request obsahuje dve samostatné connections?
-2. Kedy je vhodnejší ALB, NLB a GWLB?
-3. Čo presne dokazuje target state `Healthy`?
-4. Ako first-match rule evaluation môže zneplatniť canary experiment?
-5. Prečo weighted target groups negarantujú presné request percento?
-6. Čo je fail-open a prečo je zároveň availability aj correctness riziko?
-7. Ako sa slow start líši od readiness?
-8. Ktoré timeouts a lifecycle gates musia byť zosúladené pri drain-e?
-9. Ako odlíšiš ELB-generated a target-generated `5xx`?
-10. Čo mení cross-zone pri strate jednej AZ?
-11. Aké dôkazy viažu request na konkrétnu target/release generation?
-12. Aký acceptance verdict požaduješ pred zvýšením canary weightu?
-
-## Glossary impact
-
-Táto kapitola zavádza alebo spresňuje pojmy: traffic-distribution subject, viewer connection, backend target connection, listener generation, first-match routing verdict, target-group generation, target eligibility set, target health oracle, load-balancer fail-open, weighted-exposure evidence, zonal target capacity, drain completion, matched-rule evidence a load-balancing acceptance verdict.
+`-v` je diagnostický output a môže odhaliť citlivé headers; v production evidence sa používa opatrne a tokeny sa redigujú.
+
+## Kontrolné otázky
+
+1. Aký rozdiel je medzi viewer a backend connection?
+2. Prečo target `healthy` nie je business acceptance?
+3. Ako ordered listener rules vytvárajú routing program?
+4. Prečo weighted forwarding nie je presné percento pre malú sample?
+5. Ktorý response/log evidence viaže request na release cohort?
+6. Čo slow start rieši a čo nevyrieši?
+7. Ako deregistration delay súvisí s process termination?
+8. Čo znamená ELB fail-open risk?
+9. Ako odlíšiš ELB 5xx od target 5xx?
+10. Ktorý positive a forbidden test uzatvorí rule-precedence recovery?
 
 ## Oficiálna dokumentácia
 
-- [What is Elastic Load Balancing?](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
+- [Elastic Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
 - [Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
-- [Listeners for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html)
-- [Target groups for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html)
-- [Health checks for Application Load Balancer target groups](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
-- [Target group attributes for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/edit-target-group-attributes.html)
-- [Network Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html)
-- [Gateway Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html)
-- [Zonal shift for an Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/zonal-shift.html)
-- [Access logs for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html)
+- [Listeners and rules](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html)
+- [Target groups](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html)
+- [Health checks](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
+- [Access logs](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

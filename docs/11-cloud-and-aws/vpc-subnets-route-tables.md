@@ -1,391 +1,357 @@
 # VPC, subnets a route tables
 
-Amazon Virtual Private Cloud nie je iba CIDR blok. Je to regionálny routing a network-identity boundary, v ktorom AWS vytvára zonálne subnety, ENI identity, route-table associations, DNS behavior, gateway a endpoint paths. Prevádzkový výsledok vznikne až vtedy, keď presný source ENI a destination flow dostanú správnu adresu, route target, forward aj return path a následne prejdú security a application vrstvami.
-
-## Dominantný lifecycle
+Amazon VPC nie je iba CIDR blok okolo EC2 instances. Je to regionálna network-identity a routing boundary, v ktorej vznikajú zonálne subnety, ENIs, route-table associations, DNS behavior, gateways a private endpoints. Funkčný connection path vznikne až vtedy, keď presný source ENI dostane adresu, subnet používa očakávanú route table, longest-prefix rozhodnutie vyberie správny target, return path je symetrický podľa stateful dependencies a traffic prejde security aj application vrstvou.
 
 ```text
-network a business outcome contract
+business communication intent
 → account, Region a VPC generation
-→ CIDR/IPAM allocation
-→ zonálny subnet a ENI identity
+→ CIDR a zonálny subnet
+→ source ENI a private IP
 → effective route-table association
-→ longest-prefix route resolution
-→ gateway, endpoint alebo attachment target
+→ longest-prefix route selection
+→ gateway, endpoint alebo attachment
 → forward a return path
-→ security, DNS a application boundaries
-→ flow a business verification
-→ change, recovery alebo decommission
+→ SG, NACL, TLS a listener
+→ business request
 ```
 
-VPC route table určuje **kam** má packet smerovať. Sama nehovorí, či je traffic povolený Security Groupou, NACL, firewallom alebo application listenerom.
+Route table odpovedá iba na otázku, kam má packet smerovať. Nehovorí, či je traffic povolený alebo či destination application počúva.
 
-## Connected Atlas Payments subject
+## 1. Exact network-flow subject
 
-Atlas Payments presúva payment API do AWS subjectu `CAP-PAY-42`:
+Atlas Payments používa VPC subject `VPC-P42` v account-e `100000000042` a Regione `eu-central-1`. IPv4 CIDR je `10.42.0.0/16`. Application subnets sú `SUB-PA` v `euc1-az1` s `10.42.16.0/20`, `SUB-PB` v `euc1-az2` s `10.42.32.0/20` a `SUB-PC` v `euc1-az3` s `10.42.48.0/20`.
+
+Release `4.2.0` beží v Auto Scaling group `payments-api-prod`. Request `P-884` potrebuje HTTPS egress na artifact endpoint `203.0.113.42:443`. Pre každý incident sa zachová source ENI, private IP, subnet, AZ ID, route-table association, exact destination IP/port, route target, DNS answer, timestamp a business request ID.
+
+Bez source ENI a destination tuple možno správne analyzovať diagram a nesprávne vysvetliť live flow.
+
+## 2. VPC, subnet a ENI majú rozdielny scope
+
+VPC je regionálny resource. Subnet patrí do jednej Availability Zone. ENI je zonálna network identity s private addresses a Security Groups, ktorú používa EC2 alebo managed service.
+
+Multi-AZ application preto potrebuje viac než tri names:
 
 ```text
-AWS account: production-payments
-Region: eu-central-1
-VPC subject: VPC-P42
-IPv4 CIDR: 10.42.0.0/16
-
-private application subnets:
-  SUB-PA / AZ-a / 10.42.16.0/20
-  SUB-PB / AZ-b / 10.42.32.0/20
-  SUB-PC / AZ-c / 10.42.48.0/20
-
-expected route tables:
-  RT-PA → NAT-A
-  RT-PB → NAT-B
-  RT-PC → NAT-C
-
-workload:
-  ASG payments-api-prod
-  release 4.2.0
-  payment request P-884
+subnet v každej accepted AZ
+→ dostatočný IP headroom
+→ explicitná route-table association
+→ zonálne alebo regionálne gateway dependencies
+→ workload ENIs
+→ per-AZ connectivity a failure test
 ```
 
-Exact network-flow subject musí obsahovať minimálne:
+Jeden healthy subnet nepreukazuje ostatné. Managed service môže používať vlastné ENIs a spotrebovať address space počas failoveru alebo scale-outu.
 
-```text
-account a Region
-VPC ID a CIDR generation
-source ENI, private IP, subnet a AZ
-subnet route-table association
-route-table generation a selected route
-protocol, source/destination IP a port
-DNS answer generation, ak sa používa meno
-gateway/endpoint/attachment identity
-forward a return path
-request alebo transaction ID a timeline
+## 3. Public, private a isolated sú výsledky pathu
+
+Subnet nemá intrinsic field `public`. Public IPv4 path typicky potrebuje public alebo Elastic IP identity, default route na Internet Gateway a security/listener contract. Private subnet nemá priamy inbound internet path; outbound môže používať NAT, endpoint, proxy alebo hybrid route. Isolated subnet nemá general internet egress, ale môže komunikovať cez `local` route alebo explicitné private attachments.
+
+Názov `private-c` ani tag connectivity nevytvára. Rozhodujú live addresses a routes.
+
+## 4. CIDR a IPAM ako dlhodobý compatibility contract
+
+CIDR plán musí zahŕňať budúce accounts, Regions, hybrid prefixes, peering, Transit Gateway, IPv6 a service ENI demand. Overlap môže znemožniť jednoznačný route verdict alebo prinútiť architektúru používať translation a proxy layers.
+
+Machine-readable allocation:
+
+```yaml
+allocationId: IPAM-PAY-42
+vpc:
+  cidr: 10.42.0.0/16
+  region: eu-central-1
+subnets:
+  - name: application-a
+    azId: euc1-az1
+    cidr: 10.42.16.0/20
+    minimumFreeIps: 300
+  - name: application-b
+    azId: euc1-az2
+    cidr: 10.42.32.0/20
+    minimumFreeIps: 300
+  - name: application-c
+    azId: euc1-az3
+    cidr: 10.42.48.0/20
+    minimumFreeIps: 300
+reservedFor:
+  - rollout-surge
+  - az-failure-replacement
+  - load-balancer-enis
+  - interface-endpoints
+  - eks-pod-addresses
 ```
 
-Bez tejto identity sa ľahko analyzuje správny diagram, ale nesprávny live subnet alebo route table.
+`minimumFreeIps` je failure-mode requirement, nie iba monitoring threshold.
 
-## 1. VPC, subnet a ENI majú rozdielny scope
+## 5. Praktický VPC a subnet základ v Terraform-e
 
-VPC je regionálny resource. Subnet patrí presne do jednej Availability Zone. ENI je zonálna network identity priradená resource-u alebo managed service-u.
+```hcl
+resource "aws_vpc" "payments" {
+  cidr_block           = "10.42.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 
-Dôsledok:
+  tags = {
+    Name       = "payments-prod"
+    Generation = "VPC-P42"
+  }
+}
 
-```text
-Multi-AZ application intent
-→ subnet v každej používanej AZ
-→ IP headroom v každom subnet-e
-→ správna route-table association v každej AZ
-→ lokálne gateway/endpoint/capacity dependencies
-→ samostatné failure a recovery správanie každej cohorty
+locals {
+  application_subnets = {
+    a = { cidr = "10.42.16.0/20", az = "eu-central-1a" }
+    b = { cidr = "10.42.32.0/20", az = "eu-central-1b" }
+    c = { cidr = "10.42.48.0/20", az = "eu-central-1c" }
+  }
+}
+
+resource "aws_subnet" "application" {
+  for_each = local.application_subnets
+
+  vpc_id                  = aws_vpc.payments.id
+  cidr_block              = each.value.cidr
+  availability_zone       = each.value.az
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name       = "payments-app-${each.key}"
+    Tier       = "application"
+    Generation = "SUB-P42-${each.key}"
+  }
+}
 ```
 
-Jeden zdravý subnet nepreukazuje funkčnosť ostatných subnetov. Regionálny VPC tiež automaticky neposkytuje zonálnu redundanciu všetkým závislostiam.
+Tento code vytvorí VPC a tri private-address subnety. `map_public_ip_on_launch=false` nepreukazuje, že subnet nemá internet path; route table a instance addressing stále rozhodujú.
 
-## 2. Public, private a isolated sú výsledky pathu
+Pre cross-account placement je vhodnejšie mapovať stabilné AZ IDs na account-specific names, ako ukazuje predchádzajúca kapitola.
 
-Subnet nemá intrinsic field `public` alebo `private`.
+## 6. Route-table association je explicitná production dependency
 
-IPv4 public instance path typicky potrebuje:
+Každý subnet používa práve jednu subnet route table. Explicitná association vyberie custom table. Bez nej subnet dedí main route table. Jedna route table môže byť shared viacerými subnetmi a zmena má širší blast radius.
 
-```text
-public alebo Elastic IPv4 identity
-+ subnet route 0.0.0.0/0 → Internet Gateway
-+ Security Group a NACL contract
-+ listener a return path
+Terraform pre samostatnú application route table:
+
+```hcl
+resource "aws_route_table" "application" {
+  for_each = local.application_subnets
+  vpc_id   = aws_vpc.payments.id
+
+  tags = {
+    Name       = "payments-app-${each.key}"
+    Generation = "RT-P42-${each.key}"
+  }
+}
+
+resource "aws_route_table_association" "application" {
+  for_each = local.application_subnets
+
+  subnet_id      = aws_subnet.application[each.key].id
+  route_table_id = aws_route_table.application[each.key].id
+}
 ```
 
-Private subnet typicky nemá priamy inbound internet path. Outbound môže používať NAT Gateway, VPC endpoint, proxy/firewall alebo hybrid/transit path.
+Explicit association zabraňuje tomu, aby nový subnet potichu zdedil main route table. Terraform plan však nepreukazuje, že live association nebola manuálne zmenená; read-back zostáva potrebný.
 
-Isolated subnet nemá general internet egress. Stále môže komunikovať cez local route, endpoints alebo explicitnú private connectivity.
+## 7. Longest-prefix route selection
 
-Názov `private-c` connectivity nevytvorí. Rozhodujú live addresses, route associations a targets.
+Route je destination prefix a target. Ak viac routes matchuje destination, VPC používa najšpecifickejší prefix. `10.44.17.0/24` vyhrá nad `10.44.0.0/16`, ktorý vyhrá nad `0.0.0.0/0`.
 
-## 3. CIDR a IPAM sú dlhodobý compatibility contract
-
-CIDR plánovanie musí zahrnúť:
-
-- existujúce a budúce accounts, Regions a VPCs;
-- on-premises a partner prefixes;
-- VPC peering, Transit Gateway, VPN a Direct Connect;
-- IPv4 aj IPv6;
-- subnet growth a failover headroom;
-- EKS, load balancer, RDS, endpoint a managed-service ENI consumption;
-- ownership a allocation evidence v IPAM alebo ekvivalentnom source-of-truth.
-
-Prekrývajúci sa CIDR nie je iba estetický problém. Môže znemožniť jednoznačný route verdict alebo prinútiť architektúru používať NAT/proxy translation a zložitejšie recovery paths.
-
-## 4. Subnet capacity je ENI capacity
-
-Použiteľná IP capacity nie je rovná celej veľkosti CIDR. AWS časť adries rezervuje a ďalšie spotrebujú:
-
-- EC2 primary a secondary ENIs;
-- load balancer nodes;
-- NAT a interface endpoints;
-- EKS Pods pri VPC CNI modeli;
-- RDS a iné managed service ENIs;
-- blue/green, instance refresh a failover headroom.
-
-Mechanizmus failure:
+Príklad:
 
 ```text
-subnet free-IP headroom klesne
-→ controller alebo ASG požiada o nový ENI
-→ ENI/IP allocation zlyhá
-→ Pod, instance, endpoint alebo failover resource nevznikne
-→ desired capacity existuje iba na control plane
-→ serving capacity a recovery objective sa nesplní
+10.42.0.0/16   → local
+10.44.0.0/16   → Transit Gateway
+10.44.17.0/24  → inspection ENI
+0.0.0.0/0      → NAT Gateway
 ```
 
-Pre každý aktívny subnet preto sleduj usable/free IPs aj maximum concurrent replacementu.
+Flow na `10.44.17.20` použije inspection ENI. Flow na `10.44.18.20` použije Transit Gateway. Internet destination použije NAT.
 
-## 5. Effective route-table association
+Pri identickom prefixe môžu platiť ďalšie priority medzi static, prefix-list a propagated routes. Návrh nemá závisieť od nejasnej konkurencie rovnakých prefixes.
 
-Každý subnet používa jednu subnet route table.
+## 8. Live route a association read-back
 
-- explicitne asociovaný subnet používa zvolenú custom route table;
-- subnet bez explicitnej asociácie používa main route table;
-- jedna route table môže byť asociovaná s viacerými subnetmi;
-- zmena shared table môže mať multi-subnet blast radius.
+Najprv identifikuj source ENI:
 
-Production invariant:
-
-```text
-subnet identity
-→ explicitná expected route-table identity
-→ live association
-→ versionovaný route set
-→ tested forward a return paths
+```bash
+aws ec2 describe-network-interfaces \
+  --network-interface-ids eni-0pay42c \
+  --region eu-central-1 \
+  --query 'NetworkInterfaces[0].{Ip:PrivateIpAddress,Subnet:SubnetId,Vpc:VpcId,Groups:Groups[].GroupId,Status:Status}'
 ```
 
-Main route table inheritance je častý zdroj driftu pri nových subnetoch.
+Potom zisti explicitnú route-table association:
 
-## 6. Route resolution
-
-Route je dvojica:
-
-```text
-destination prefix alebo prefix list
-→ target
+```bash
+aws ec2 describe-route-tables \
+  --region eu-central-1 \
+  --filters Name=association.subnet-id,Values=subnet-0payc \
+  --query 'RouteTables[].{Id:RouteTableId,Associations:Associations,Routes:Routes}'
 ```
 
-Target môže byť napríklad `local`, IGW, NAT Gateway, Transit Gateway, peering connection, virtual private gateway, ENI, Gateway Load Balancer endpoint alebo egress-only IGW.
+Prázdny result neznamená, že subnet nemá route table. Znamená, že pravdepodobne používa main table. Zisti ju:
 
-AWS najprv používa longest-prefix match. Route pre `10.42.0.0/16` je špecifickejšia než `0.0.0.0/0`. Pri ďalších konfliktoch platia service-specific priority pravidlá, preto návrh nemá závisieť od nejasnej duplicity rovnakých prefixes.
-
-Route-table observation musí uviesť:
-
-```text
-exact destination IP
-all matching prefixes
-selected longest prefix
-target ID a stav
-route origin: local/static/propagated
-associated subnet
+```bash
+aws ec2 describe-route-tables \
+  --region eu-central-1 \
+  --filters Name=vpc-id,Values=vpc-0pay42 Name=association.main,Values=true
 ```
 
-## 7. Local route nie je security boundary
+Tieto commands preukazujú control-plane route state. Neoverujú actual packet traversal, SG/NACL ani return path.
 
-VPC obsahuje local route pre vlastné CIDRs. Umožňuje routing medzi subnetmi, ale traffic môže byť stále blokovaný SG, NACL, host firewallom, inspection pathom alebo application policy.
+## 9. Subnet IP capacity
 
-Rozdelenie subnetov samo osebe nevytvára least-privilege segmentation. Potrebuje workload a subnet policy model.
+AWS rezervuje časť addresses a ďalšie spotrebujú primary/secondary ENIs, load balancers, NAT, endpoints, RDS a EKS Pods. Free-IP observation:
 
-## 8. Internet, NAT a endpoint paths
+```bash
+aws ec2 describe-subnets \
+  --subnet-ids subnet-0paya subnet-0payb subnet-0payc \
+  --region eu-central-1 \
+  --query 'Subnets[].{Subnet:SubnetId,Az:AvailabilityZoneId,Cidr:CidrBlock,Free:AvailableIpAddressCount}' \
+  --output table
+```
 
-General IPv4 internet path môže smerovať na IGW alebo NAT Gateway podľa addressing a initiation modelu.
+Free count sa porovnáva s maximum concurrent replacementom a rollout surge. Desired Auto Scaling capacity môže rásť, kým ENI allocation zlyháva a serving capacity ostáva rovnaká.
 
-AWS service traffic nemusí používať internet/NAT:
+## 10. VPC endpoints menia DNS, route a policy path
 
-- gateway endpoints integrujú route tables pre podporované services;
-- interface endpoints vytvárajú private ENIs a DNS path cez PrivateLink;
-- endpoint policy, endpoint SG, subnet placement a private DNS tvoria samostatné controls.
+Gateway endpoints pre podporované services integrujú route tables. Interface endpoints vytvárajú ENIs v subnets, Security Groups a optional private DNS. Endpoint policy je ďalší authorization filter.
 
-Routing a DNS sú rozdielne failure domains. DNS môže resolve-nuť na private endpoint, zatiaľ čo SG alebo endpoint policy request odmietne. Naopak route môže byť správna, ale stale DNS odpoveď pošle clienta na inú generation.
-
-## 9. Peering, Transit Gateway a hybrid routes
-
-VPC peering je non-transitive. Obe strany potrebujú kompatibilné CIDRs, forward a return routes a security contract.
-
-Transit Gateway pridáva vlastné attachment a route-table vrstvy:
+Interface endpoint path:
 
 ```text
-VPC subnet route table
+service hostname
+→ private DNS answer
+→ endpoint ENI in selected AZ
+→ route/local VPC path
+→ endpoint SG
+→ endpoint policy
+→ target service authorization
+```
+
+DNS môže resolve-nuť na endpoint a request môže stále zlyhať na endpoint SG alebo policy. Endpoint `available` nepreukazuje application operation.
+
+Read-back:
+
+```bash
+aws ec2 describe-vpc-endpoints \
+  --region eu-central-1 \
+  --filters Name=vpc-id,Values=vpc-0pay42 \
+  --query 'VpcEndpoints[].{Id:VpcEndpointId,Service:ServiceName,Type:VpcEndpointType,State:State,PrivateDns:PrivateDnsEnabled,Subnets:SubnetIds}'
+```
+
+## 11. Peering, Transit Gateway a hybrid routing
+
+VPC peering nie je transitive. A↔B a B↔C nevytvoria A↔C. Obe strany potrebujú non-overlapping CIDRs, forward/return routes a security rules.
+
+Transit Gateway pridáva vlastný attachment a routing graph:
+
+```text
+source subnet route table
 → TGW attachment
-→ TGW route-table association/propagation
-→ target attachment
-→ destination VPC/on-prem route table
+→ TGW route-table association
+→ propagation alebo static route
+→ destination attachment
+→ destination subnet/on-prem route
 ```
 
-VPC a TGW route tables nie sú jedna tabuľka. Pri inspection VPC alebo firewall appliance treba navyše zachovať symmetric path podľa service designu.
+VPC route table a TGW route table sú odlišné observation points. Inspection architecture navyše potrebuje symmetric flow podľa stateful firewall modelu.
 
-## 10. Network identity a source/destination check
+## 12. Reachability Analyzer ako configuration-path experiment
 
-ENI nesie private IPs, SG associations, MAC, attachment, flow-log identity a ďalšie attributes. Instance lifecycle a ENI/IP lifecycle sa nemusia zhodovať.
+Reachability Analyzer môže modelovať, či configuration umožňuje path medzi supported source a destination resources. Vytvor path:
 
-Network appliance môže vyžadovať vypnutý EC2 source/destination check. Bez explicitného routing a hardening modelu však taká instance môže vytvoriť neplánovaný transit path.
+```bash
+PATH_ID=$(aws ec2 create-network-insights-path \
+  --source eni-0pay42c \
+  --destination eni-0artifact \
+  --protocol tcp \
+  --destination-port 443 \
+  --region eu-central-1 \
+  --query NetworkInsightsPath.NetworkInsightsPathId \
+  --output text)
 
-## 11. Worked incident — nový subnet používa main route table
+ANALYSIS_ID=$(aws ec2 start-network-insights-analysis \
+  --network-insights-path-id "$PATH_ID" \
+  --region eu-central-1 \
+  --query NetworkInsightsAnalysis.NetworkInsightsAnalysisId \
+  --output text)
 
-### Symptóm
+aws ec2 describe-network-insights-analyses \
+  --network-insights-analysis-ids "$ANALYSIS_ID" \
+  --region eu-central-1
+```
 
-Po pridaní zone C:
+Analysis vysvetľuje modeled configuration path a blocking component. Nevykonáva application TLS alebo business request a nemusí reprezentovať external device state mimo modeled AWS graphu.
+
+## 13. Runtime packet a application evidence
+
+Z affected workloadu:
+
+```bash
+getent ahostsv4 artifact.example.net
+nc -vz -w 3 artifact.example.net 443
+openssl s_client \
+  -connect artifact.example.net:443 \
+  -servername artifact.example.net \
+  -brief </dev/null
+```
+
+DNS, TCP a TLS sú tri rôzne verdicts. Až application request overí HTTP/auth/business layer.
+
+Flow Logs môžu ukázať source/destination tuple a ACCEPT/REJECT na capture interface. `ACCEPT` nepreukazuje remote response. `REJECT` nemusí bez ďalšej korelácie jednoznačne určiť SG alebo NACL.
+
+## 14. Worked incident: nový subnet zdedí main route table
+
+Po pridaní zone C sa instances v `SUB-PC` spustili a EC2 status checks boli green, no bootstrap a HTTPS calls timeoutovali iba v tejto AZ. Diagram aj tags tvrdili, že subnet používa `RT-PC → NAT-C`.
+
+Exact source bol `ENI-P42C`, IP `10.42.48.27`, subnet `SUB-PC`, destination `203.0.113.42:443` a instance generation `LT57/AMI57`.
+
+Hypotézy zahŕňali DNS, SG, NACL, NAT-C, IP exhaustion, route association, partner allowlist a application proxy. ENI aj IP existovali, DNS a SG boli rovnaké ako v healthy cohorts a NAT-C nemalo capacity error. `describe-route-tables` pre explicit subnet association vrátilo prázdny result. Main route table `RT-MAIN` smerovala default traffic na central transit attachment bez return pathu pre tento flow.
+
+Root cause bol chýbajúci `aws_route_table_association` pre nový subnet.
+
+Containment odobral `SUB-PC` z deployment/scale placementu a zachoval healthy AZ-a/AZ-b capacity. Recovery opravila IaC, explicitne asociovala `RT-PC`, overila route na NAT-C a spustila fresh DNS/TCP/TLS/bootstrap test z canary instance. Až potom sa subnet vrátil do fleet-u.
+
+Closure vyžadovala live association zodpovedajúcu IaC, allowed flow z každej AZ, forbidden inbound path a druhý scale-out bez driftu.
+
+## 15. Decommission a address reuse
+
+VPC alebo subnet sa neodstraňuje iba preto, že v ňom nie sú EC2 instances. Môže obsahovať endpoints, ENIs, load balancer nodes, peering/TGW attachments, route dependencies, DNS associations a retained evidence.
 
 ```text
-instances v SUB-PA a SUB-PB sú healthy
-instances v SUB-PC sa spustia
-EC2 status checks sú green
-bootstrap a HTTPS calls timeoutujú iba v AZ-c
-ASG replacementuje zone-C instances
+workload drain
+→ ENI and managed-resource inventory
+→ route and attachment removal
+→ DNS and security cleanup
+→ Flow Log/evidence retention
+→ IPAM release
+→ subnet/VPC deletion
 ```
 
-Diagram aj tagy hovoria, že `SUB-PC` je private application subnet s NAT-C.
-
-### Exact subject
-
-```text
-source ENI: ENI-P42C
-source subnet: SUB-PC
-source IP: 10.42.48.27
-expected route table: RT-PC
-actual effective route table: RT-MAIN
-flow: 10.42.48.27:any → artifact.example.net:443
-resolved destination IP: 203.0.113.42
-release: 4.2.0
-instance generation: LT57/AMI57
-```
-
-### Competing hypotheses
-
-1. DNS odpoveď v AZ-c je chybná.
-2. Application SG nemá outbound rule.
-3. Custom NACL blokuje return ephemeral ports.
-4. NAT-C alebo jeho IGW path je chybný.
-5. SUB-PC nemá voľné IPs a ENI je partial.
-6. SUB-PC používa nesprávnu route table.
-7. Third-party endpoint blokuje NAT-C EIP.
-8. Bootstrap process používa iný proxy alebo destination než očakávaný.
-
-### Discriminating observations
-
-- ENI a source IP existujú, takže nejde o IP-allocation failure.
-- DNS z affected instance vracia rovnakú destination IP ako v healthy AZs.
-- SG identity a rules sú rovnaké pre healthy aj affected cohortu.
-- Flow Logs ukazujú outbound attempts z `ENI-P42C`, ale žiadny expected NAT-C path.
-- Live subnet association ukazuje `SUB-PC → RT-MAIN`, nie `RT-PC`.
-- `RT-MAIN` má default route na central transit attachment, ktorý nemá return path pre tento egress flow.
-
-Toto pozorovanie odlišuje route-association failure od NAT, SG, NACL a application hypotheses.
-
-### Containment
-
-- zastav ďalší scale-out/refresh do SUB-PC alebo dočasne odober subnet z ASG placementu;
-- zachovaj affected instance, route-table association, Flow Logs, scaling activities a CloudTrail zmenu;
-- nesmeruj celý VPC naslepo cez inú default route;
-- zachovaj healthy capacity v AZ-a a AZ-b.
-
-### Authoritative recovery
-
-1. Oprav IaC/source-of-truth asociáciu `SUB-PC → RT-PC`.
-2. Aplikuj bounded route-association change.
-3. Over selected default route na NAT-C a NAT-C path na IGW.
-4. Spusť fresh HTTPS connection z affected subnetu.
-5. Vytvor jednu canary instance v AZ-c.
-6. Over bootstrap, target health a payment request `P-884`.
-7. Vráť SUB-PC do plnej fleet placement policy.
-
-### Closure verdict
-
-Incident je uzavretý až keď:
-
-- live association zodpovedá IaC;
-- allowed outbound flow funguje z každej AZ;
-- forbidden inbound flow ostáva blokovaný;
-- ASG zone-C cohorta je stabilná bez replacement loopu;
-- payment request prejde a nevznikne duplicate authorization;
-- nový subnet conformance test zachytí nesprávnu main-table inheritance.
-
-## 12. Ďalšie failure boundaries
-
-### CIDR overlap po pripojení acquired VPC
-
-Route target nevie jednoznačne reprezentovať oba rovnaké prefixes. Recovery môže vyžadovať readdressing, proxy alebo translation; samotné pridanie ďalšej route problém nevyrieši.
-
-### Peering funguje iba jedným smerom
-
-Forward route existuje, return route alebo security rule na druhej strane chýba. Stav peering connection `active` nepreukazuje bidirectional application flow.
-
-### Interface endpoint je healthy, ale client používa public service path
-
-Private DNS je disabled, client resolver používa stale/public answer alebo endpoint nie je dostupný v jeho AZ/subnet modeli. Over exact DNS answer a destination ENI.
-
-### Central inspection vytvorí asymmetric return path
-
-Forward packet ide cez firewall endpoint, return packet cez inú AZ alebo priame TGW route. Stateful appliance nevie flow spojiť a traffic dropne.
-
-### Subnet free-IP exhaustion blokuje failover
-
-Steady state funguje, ale blue/green, ASG refresh alebo RDS failover potrebuje nové ENIs. Capacity model musí zahŕňať failure a rollout headroom.
-
-## 13. Observation a control points
-
-Používaj kombináciu:
-
-- live subnet a route-table associations;
-- route inventory a route origin;
-- VPC Flow Logs s ENI/subnet/VPC identity;
-- Reachability Analyzer pre configuration path;
-- Network Access Analyzer pre policy paths;
-- CloudTrail pre control-plane zmeny;
-- DNS queries a exact answers;
-- application connect/TLS/request evidence;
-- source a return-path telemetry v hybrid alebo appliance layers.
-
-Flow Logs neobsahujú payload a `ACCEPT` nepreukazuje úspešný TLS alebo business request.
-
-## 14. Change a recovery controls
-
-- CIDR a subnet allocation riadi jeden authoritative IPAM/source-of-truth.
-- Každý production subnet má explicitnú route-table association.
-- Route-table changes majú blast-radius inventory a reverse-path validation.
-- Nová AZ/subnet generation prejde canary flow tests pred prijatím workloadov.
-- IaC policy kontroluje default routes, cross-AZ dependencies a zakázané broad transit paths.
-- Free-IP SLO zahŕňa rollout a failover headroom.
-- Central inspection má testovaný symmetric-path invariant.
-- Diagramy sa generujú alebo pravidelne porovnávajú s live inventory; nie sú autoritatívnym dôkazom samy osebe.
-
-## Referenčné rozlíšenia
-
-| Otázka | Autoritatívna vrstva |
-|---|---|
-| Akú IP identitu resource používa? | ENI/IP/subnet inventory |
-| Ktorá route table platí? | live subnet association |
-| Ktorá route sa vybrala? | destination + longest-prefix/priority rules |
-| Je path povolený? | SG, NACL, firewall a endpoint policies |
-| Resolve-nul sa správny endpoint? | resolver/DNS answer generation |
-| Prešiel reálny request? | connection, TLS, application a business evidence |
-| Je zmena trvalá? | IaC/source-of-truth a drift verification |
+Address prefix sa nesmie okamžite znovu použiť, ak stale routes, firewalls alebo DNS ešte odkazujú na starý ownership.
 
 ## Kontrolné otázky
 
-1. Prečo názov subnetu neurčuje, či je public alebo private?
-2. Aký je rozdiel medzi regionálnym VPC a zonálnym subnetom/ENI?
-3. Ako zistíš effective route table subnetu?
-4. Ako longest-prefix match ovplyvní konkrétnu destination IP?
-5. Prečo route reachability nie je security allow verdict?
-6. Ako IP exhaustion ovplyvní rollout alebo failover aj pri zdravom steady state-e?
-7. Ktoré vrstvy pridáva Transit Gateway alebo inspection VPC?
-8. Ako odlíšiš DNS failure od route alebo policy failure?
-9. Prečo treba vždy overiť return path?
-10. Aký conformance test by zabránil incidentu so SUB-PC?
-
-## Glossary impact
-
-Relevantné pojmy: VPC network-generation subject, subnet placement subject, ENI identity, effective route-table association, selected route subject, longest-prefix verdict, route origin, forward/return path, VPC endpoint path, subnet IP headroom, transit attachment subject a VPC flow acceptance verdict.
+1. Prečo route table sama nepreukazuje connectivity?
+2. Ako sa líši VPC, subnet a ENI scope?
+3. Čo robí subnet public alebo private v praxi?
+4. Ako zistíš effective route table pri chýbajúcej explicit association?
+5. Ako longest-prefix match vyberie route?
+6. Prečo free IP count patrí do rollout a failover gate-u?
+7. Ktoré vrstvy pridáva interface endpoint?
+8. Prečo VPC peering nie je transitive?
+9. Čo Reachability Analyzer preukazuje a čo nepreukazuje?
+10. Aký dôkaz uzavrie route-association incident?
 
 ## Oficiálna dokumentácia
 
-- [How Amazon VPC works](https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html)
+- [What is Amazon VPC?](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
 - [Subnet route tables](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-route-tables.html)
 - [Route priority](https://docs.aws.amazon.com/vpc/latest/userguide/route-tables-priority.html)
+- [VPC IP addressing](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html)
 - [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html)
+- [Reachability Analyzer](https://docs.aws.amazon.com/vpc/latest/reachability/what-is-reachability-analyzer.html)
+- [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

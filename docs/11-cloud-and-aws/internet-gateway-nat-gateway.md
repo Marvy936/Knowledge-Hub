@@ -1,155 +1,97 @@
 # Internet Gateway a NAT Gateway
 
-Internet Gateway a NAT Gateway riešia odlišné časti network pathu. IGW je internet route target pre VPC resources s vhodnou public alebo IPv6 identity. NAT Gateway prekladá addresses a udržiava connection state pre flows iniciované zo source networku. Ani jeden resource sám nevytvára application connectivity: výsledok závisí od addressing identity, subnet routes, NAT availability/connectivity mode, Security Groups, NACLs, destination behavior a return pathu.
-
-## Dominantný lifecycle
+Internet Gateway a NAT Gateway riešia odlišné časti network pathu. Internet Gateway je VPC attachment a route target pre internet traffic. NAT Gateway prekladá source alebo destination addresses podľa svojho connectivity modelu a drží connection state pre return traffic. Ani jeden resource sám nevytvára application connectivity.
 
 ```text
-internet alebo private-egress outcome
-→ source IP family, ENI a subnet identity
-→ effective default/service route
-→ IGW alebo NAT Gateway target
-→ NAT availability a connectivity mode
-→ address/port translation a connection tracking
-→ security a stateless return-path controls
-→ destination DNS/TLS/application behavior
-→ reverse translation a response
-→ metric, request a business verification
-→ scale, failover alebo recovery
+source ENI a IP family
+→ subnet route-table verdict
+→ Internet Gateway alebo NAT Gateway
+→ translation a connection state
+→ security a return-path controls
+→ destination DNS, TLS a application
+→ response and reverse translation
+→ business outcome
 ```
 
-## Connected Atlas Payments subject
+Ak application vidí timeout, problém môže byť pred NAT, v NAT capacity, na destination side alebo v samotnom client retry modeli. Preto egress incident potrebuje original aj translated flow identity.
 
-Atlas Payments release `4.2.0` beží v private subnets subjectu `CAP-PAY-42` a autorizuje platby cez partnera:
+## 1. Exact egress subject
 
-```text
-source fleet: ASG payments-api-prod
-source subnets: SUB-PA, SUB-PB, SUB-PC
-expected egress: AZ-local alebo regional managed NAT path
-partner FQDN: auth.psp.example
-observed destination: 203.0.113.42:443
-business request: P-884
-required property: one authorization, bounded latency
-```
+Atlas Payments release `4.2.0` beží v private subnets `SUB-PA`, `SUB-PB` a `SUB-PC`. Partner FQDN je `auth.psp.example`, observed destination `203.0.113.42:443` a sample business request `P-884`.
 
-Exact egress-flow subject musí obsahovať:
+Egress subject zahŕňa source instance alebo Pod, ENI, private IP, subnet, AZ ID, route table, selected NAT/IGW ID, NAT availability a connectivity mode, public/private translation address, original a translated 5-tuple, DNS answer, TLS peer, connection attempt, retry generation a idempotency key.
 
-```text
-source instance/ENI/private IP/subnet/AZ
-selected route table a route target
-IGW/NAT Gateway ID
-NAT availability mode: zonal alebo regional
-NAT connectivity type: public alebo private
-EIP/private address generation a AZ coverage
-original a translated 5-tuple
-connection/retry generation
-DNS answer, TLS peer a destination identity
-CloudWatch/Flow Log observation window
-transaction a idempotency key
-```
+Bez translated source identity nemožno odlíšiť NAT capacity od partner allowlistu alebo rate limitu.
 
-Bez original a translated tuple sa NAT failure ľahko zamieňa za remote rate limit, DNS, TLS alebo firewall problém.
+## 2. Internet Gateway boundary
 
-## 1. Internet Gateway boundary
+Internet Gateway sa attachne k VPC a môže byť route targetom. Attachment neznamená, že každý resource vo VPC je public.
 
-IGW je managed VPC attachment a route target. Attachment sám connectivity nevytvorí.
-
-Public IPv4 path typicky potrebuje:
+Public IPv4 inbound/outbound path typicky potrebuje:
 
 ```text
-resource public IPv4 alebo Elastic IP mapping
+instance ENI with public IPv4 or Elastic IP mapping
 + subnet route 0.0.0.0/0 → IGW
-+ SG/NACL/host policy
-+ listener a return path
++ Security Group and NACL allowance
++ process listener and application authorization
 ```
 
-Private IPv4 resource nezíska internet connectivity iba tým, že jeho subnet smeruje na IGW. Chýba mu internet-routable public IPv4 mapping.
+Private IPv4 resource nezíska internet connectivity iba default route-om na IGW, pretože nemá internet-routable public mapping. Pre private IPv4 egress sa používa NAT alebo iný proxy/inspection path.
 
-Pri IPv6 resource používa global unicast address. IGW môže poskytovať inbound/outbound path podľa routes a security controls. Egress-only IGW poskytuje outbound-initiated IPv6 model bez general unsolicited inbound pathu.
+Pri IPv6 môže resource používať global unicast address. Internet Gateway umožní inbound alebo outbound podľa routes a controls. Egress-only Internet Gateway poskytuje outbound-initiated IPv6 path bez general unsolicited inbound initiation.
 
-## 2. NAT Gateway má dve nezávislé klasifikácie
+## 3. Praktický public subnet a IGW v Terraform-e
 
-### Connectivity type
+Public subnet nevzniká názvom ani samotným Internet Gateway attachmentom. Terraform musí vytvoriť adresovanie a effective default route, no inbound a outbound connectivity sa prejaví až po priradení public identity, SG/NACL verdictoch, listeneri a return path-e.
 
-- **public NAT Gateway** — typický private-IPv4 internet egress; používa public EIP identity;
-- **private NAT Gateway** — private address translation pre VPC/on-premises/transit use cases, nie priamy internet egress cez IGW.
+```hcl
+resource "aws_internet_gateway" "payments" {
+  vpc_id = aws_vpc.payments.id
 
-### Availability mode
+  tags = {
+    Name       = "payments-prod"
+    Generation = "IGW-P42"
+  }
+}
 
-Aktuálne AWS API rozlišuje:
+resource "aws_subnet" "public_a" {
+  vpc_id                  = aws_vpc.payments.id
+  cidr_block              = "10.42.1.0/24"
+  availability_zone       = "eu-central-1a"
+  map_public_ip_on_launch = false
 
-- **zonal NAT Gateway** — managed redundancy a scale v jednej Availability Zone;
-- **regional NAT Gateway** — jedna logical NAT Gateway identity s multi-AZ coverage a per-AZ address handling podľa konfigurácie/auto-provision modelu.
+  tags = {
+    Name = "payments-public-a"
+  }
+}
 
-Availability mode a connectivity type sú rozdielne axes. `public` neznamená `regional`; `regional` neznamená private connectivity.
+resource "aws_route_table" "public_a" {
+  vpc_id = aws_vpc.payments.id
+}
 
-Pri návrhu over aj podporu konkrétneho Regionu, IaC providera a operations tooling-u.
+resource "aws_route" "public_a_internet" {
+  route_table_id         = aws_route_table.public_a.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.payments.id
+}
 
-## 3. Public NAT internet path
-
-Pri zonálnom modeli:
-
-```text
-private ENI v AZ-a
-→ private route table 0.0.0.0/0 → NAT-A
-→ NAT-A private/EIP translation
-→ NAT subnet route 0.0.0.0/0 → IGW
-→ internet destination
-→ IGW
-→ NAT-A reverse translation
-→ source ENI
+resource "aws_route_table_association" "public_a" {
+  subnet_id      = aws_subnet.public_a.id
+  route_table_id = aws_route_table.public_a.id
+}
 ```
 
-Pri regional modeli musí route a AZ-coverage contract smerovať traffic na regional NAT subject a musí byť jasné, ktoré EIPs/addresses reprezentujú jednotlivé AZ paths.
+`map_public_ip_on_launch=false` je úmyselné. Public subnet route umožňuje public-addressed resources používať IGW, ale neudeľuje automaticky public IP každému workloadu. NAT Gateway môže mať vlastný required address model podľa availability mode.
 
-External allowlist sa viaže na observed public source IP. Zmena EIP coverage, NAT mode alebo failover preto môže byť application compatibility zmena, nie iba infra detail.
+## 4. Public a private NAT sú connectivity typy
 
-## 4. NAT nie je inbound load balancer ani firewall
+Public NAT Gateway sa používa najmä pre private IPv4 internet egress a používa public source identity. Private NAT Gateway prekladá private addresses pre VPC, Transit Gateway alebo on-premises paths a nepoužíva sa na priamy internet egress cez IGW.
 
-NAT Gateway povoľuje return traffic pre connections iniciované zo source side. Nie je general inbound destination-port mapping, reverse proxy ani application load balancer.
+Connectivity type odpovedá, kam môže translated traffic smerovať. Availability mode odpovedá, v koľkých AZs a akým spôsobom NAT funguje. Tieto osi sa nesmú zamieňať.
 
-NAT Gateway tiež nie je policy firewall. Nemá Security Group. Traffic control vykonávajú source/destination SGs, NACLs, routes, endpoint policies, Network Firewall/proxy layers a application authentication.
+## 5. Zonal a regional NAT sú availability modely
 
-## 5. Address a port translation
-
-NAT path transformuje original connection subject:
-
-```text
-source-private-IP:source-port
-→ NAT public/private IP:translated-port
-→ destination-IP:destination-port
-```
-
-NAT musí vedieť reverse-mapovať response na pôvodný source flow. Capacity preto nie je iba bytes/second; zahŕňa concurrent connections, source-port availability, destination concentration a connection churn.
-
-Dôležitý distinction:
-
-```text
-veľa total connections rozložených medzi destinations
-≠
-veľa concurrent connections na rovnaký destination IP/port
-```
-
-Port-allocation pressure môže vzniknúť aj pri nízkom average bandwidth.
-
-## 6. Connection pooling, retries a idle timeouts
-
-Application behavior priamo mení NAT capacity:
-
-- pooling a keep-alive znižujú nové connection attempts;
-- short-lived connections zvyšujú source-port churn;
-- agresívne retries násobia rovnaký destination pressure;
-- DNS odpoveď sústreďujúca traffic na jeden IP zvyšuje tuple concentration;
-- NAT idle timeout môže ukončiť dlho neaktívne connections;
-- client musí správne rozlíšiť timeout, retry eligibility a idempotency.
-
-Scale-out workloadu môže NAT pressure zhoršiť, ak každá nová instance vytvorí vlastný connection pool alebo retry storm.
-
-## 7. Zonal a regional resilience
-
-### Zonal NAT design
-
-Tradičný resilient model používa NAT Gateway v každej aktívnej AZ a AZ-local private routes:
+Zonal NAT Gateway funguje v jednej Availability Zone. Tradičný resilient design vytvára jeden public NAT v každej aktívnej AZ a private subnety smerujú na AZ-local NAT.
 
 ```text
 SUB-PA → NAT-A
@@ -157,264 +99,229 @@ SUB-PB → NAT-B
 SUB-PC → NAT-C
 ```
 
-Znižuje cross-AZ dependency a transfer cost, ale zvyšuje počet resources a EIP identities.
+Regional NAT Gateway je jedna logical NAT identity s multi-AZ coverage. Môže automaticky rozširovať coverage podľa workload footprintu alebo používať explicitne spravovaný model. Regional NAT má vlastnú route table a pri public internet modeli nepotrebuje public subnet ako hosting boundary. Private NAT use cases naďalej používajú zonálny model podľa service supportu.
 
-### Regional NAT design
+Regional model zjednodušuje route identity, ale neodstraňuje EIP governance, AZ coverage, partner allowlists, expansion timing ani per-AZ observability.
 
-Regional NAT Gateway zjednodušuje logical management a poskytuje multi-AZ coverage. Stále potrebuje:
+## 6. Vytvorenie regional NAT cez AWS CLI
 
-- overenú AZ auto-provision alebo explicit coverage policy;
-- EIP governance a allowlist awareness;
-- per-AZ observation a capacity evidence;
-- route-table conformance;
-- failure a decommission runbook.
+```bash
+aws ec2 create-nat-gateway \
+  --vpc-id vpc-0pay42 \
+  --availability-mode regional \
+  --tag-specifications 'ResourceType=natgateway,Tags=[{Key=Name,Value=payments-egress},{Key=Generation,Value=NAT-P42-R1}]' \
+  --region eu-central-1
+```
 
-Regional resource neodstraňuje potrebu testovať každú source AZ cohortu.
+Command vytvorí regional NAT request. Result obsahuje NAT Gateway ID a state, ale `pending` alebo `available` nepreukazuje coverage všetkých workload AZs ani partner connectivity.
 
-## 8. VPC endpoints a private alternatives
+Read-back:
 
-General NAT path nie je potrebný pre každý AWS service call.
+```bash
+aws ec2 describe-nat-gateways \
+  --filter Name=tag:Generation,Values=NAT-P42-R1 \
+  --region eu-central-1 \
+  --query 'NatGateways[].{Id:NatGatewayId,State:State,Mode:AvailabilityMode,AutoZones:AutoProvisionZones,AutoIps:AutoScalingIps,Addresses:NatGatewayAddresses}'
+```
 
-- S3 a DynamoDB gateway endpoints integrujú route tables;
-- interface endpoints používajú ENIs, SGs, endpoint policy a private DNS;
-- proxy alebo central egress môže poskytovať explicitnú inspection a identity policy.
+Pri automatic mode treba sledovať, či NAT už expandoval do novej AZ. Po prvom workload ENI v novej AZ môže service expansion trvať; počas transition môže traffic dočasne použiť existing AZ path. Capacity a cutover test preto nesmie predpokladať okamžitú local coverage.
 
-Výber závisí od service coverage, hourly/data costu, AZ placementu, DNS, policy a operational ownershipu.
+## 7. Zonal public NAT v Terraform-e
 
-Endpoint môže odstrániť NAT dependency, ale pridá vlastnú endpoint policy, SG a DNS failure boundary.
+Zonálny NAT príklad vytvára translation resource a route target pre konkrétnu source cohortu. Neoveruje destination allowlist, source-port headroom, connection reuse ani AZ resilience, preto sa po apply číta route association, NAT address generation a runtime flow evidence.
 
-## 9. Stateless NACL a return ports
+```hcl
+resource "aws_eip" "nat_a" {
+  domain = "vpc"
 
-NAT Gateway nemá SG, ale NAT subnet a source subnet používajú NACLs. NACL je stateless, preto musí explicitne povoliť forward aj return directions vrátane relevantných ephemeral destination ports.
+  tags = {
+    Name       = "payments-nat-a"
+    Generation = "EIP-P42-A"
+  }
+}
 
-Rule `outbound TCP/443 allow` sama nestačí pre response packet smerujúci na client ephemeral port.
+resource "aws_nat_gateway" "a" {
+  allocation_id = aws_eip.nat_a.id
+  subnet_id     = aws_subnet.public_a.id
 
-Presný ephemeral range závisí od client OS/runtime a pathu; netreba kopírovať historický rozsah bez overenia actual source-port behavioru.
+  tags = {
+    Name       = "payments-nat-a"
+    Generation = "NAT-P42-A"
+  }
 
-## 10. Centralized egress a inspection
+  depends_on = [aws_internet_gateway.payments]
+}
 
-Multi-account environment môže smerovať traffic cez Transit Gateway, inspection VPC, Network Firewall/proxy a NAT.
+resource "aws_route" "application_a_internet" {
+  route_table_id         = aws_route_table.application["a"].id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.a.id
+}
+```
 
-Taký path pridáva:
+Tento code vytvorí zonal public NAT v public subnet-e. Pre tri-AZ resilience sa pattern opakuje s independent EIPs a AZ-local routes. Jediný NAT-A pre všetky private subnets vytvára cross-AZ dependency a transfer path.
+
+## 8. Address a port translation
+
+NAT transformuje connection tuple:
 
 ```text
-source VPC route
-→ TGW attachment/route table
-→ inspection endpoint/appliance
+10.42.16.27:53144
+→ 198.51.100.10:40217
+→ 203.0.113.42:443
+```
+
+Return packet musí byť mapovateľný späť na source flow. Capacity preto nie je iba Gbit/s. Dôležitý je počet concurrent connections, destination concentration, translated addresses, source ports a connection churn.
+
+Veľa connections rozdelených medzi veľa destination tuples má iné port pressure než rovnaký počet connections na jeden destination IP/port. Partner API s jednou VIP môže byť bottleneck aj pri nízkom byte throughput-e.
+
+## 9. Pooling, keep-alive a retries menia NAT demand
+
+HTTP connection pooling znižuje počet TCP/TLS handshakes a source-port churn. Vypnutie keep-alive môže zmeniť každý business request na novú connection. Timeout retry násobí pressure a pri unknown outcome-e môže vytvoriť duplicate provider authorization.
+
+Application capacity model musí obsahovať:
+
+```text
+business request rate
+× connection creation ratio
+× retry attempts
+× average connection lifetime
+→ NAT connection and port demand
+```
+
+Scale-out môže incident zhoršiť, ak každá nová instance vytvorí nový veľký pool alebo retry cohort.
+
+## 10. NAT nie je firewall ani inbound load balancer
+
+NAT Gateway nemá Security Group. Nie je reverse proxy a neposkytuje arbitrary inbound port forwarding. Return traffic je povolený iba v kontexte outbound-initiated connection state podľa service modelu.
+
+Policy enforcement vykonávajú source/destination SGs, subnet NACLs, route tables, endpoint policies, Network Firewall, proxy a application authentication. Zmena NAT resource-u neopraví KMS, TLS alebo HTTP authorization failure.
+
+## 11. Private alternatives k general NAT
+
+AWS service calls nemusia prechádzať cez internet NAT. Gateway endpoints pre S3 a DynamoDB integrujú route tables. Interface endpoints používajú ENIs, Security Groups, endpoint policies a private DNS. Central proxy alebo Network Firewall môže poskytnúť explicitnú egress inspection.
+
+Voľba sa robí podľa service supportu, policy, DNS, costu, AZ placementu a failure modelu. Endpoint odstráni NAT dependency pre konkrétnu service, ale pridá vlastnú identity a capacity boundary.
+
+## 12. NACL return path
+
+NAT Gateway nemá SG, no source a NAT subnets používajú NACLs. NACL je stateless. Outbound allow na destination TCP/443 nestačí, ak inbound return packet na client ephemeral destination port nie je povolený.
+
+Source port range sa overuje podľa runtime/OS, nie slepo kopíruje. Broad range môže byť potrebný, ale musí byť odvodený z actual behavioru a threat modelu.
+
+## 13. Centralized egress
+
+Multi-account architecture môže viesť traffic cez Transit Gateway, inspection VPC, Network Firewall alebo proxy a až potom NAT/IGW.
+
+```text
+spoke subnet route
+→ Transit Gateway attachment
+→ TGW route table
+→ inspection endpoint
+→ firewall state
 → NAT translation
-→ IGW
-→ symmetric reverse path
+→ Internet Gateway
+→ symmetric return path
 ```
 
-Stateful inspection vyžaduje compatible forward a return path. Centralizácia znižuje duplicitu, ale vytvára shared capacity, failure a change domain.
+Centralizácia znižuje duplicitu policy, ale vytvára shared throughput, route, inspection a operational failure domain. Stateful firewall potrebuje symetrický forward a return path.
 
-## 11. Observability contract
+## 14. Runtime diagnostika egressu
 
-NAT evidence zahŕňa:
+Z affected workloadu:
 
-- NAT Gateway state a availability mode;
-- AZ/address coverage;
-- `ActiveConnectionCount`;
-- `ErrorPortAllocation`;
-- `PacketsDropCount` a ďalšie relevantné metrics;
-- bytes/packets a connection attempts;
-- source/destination tuples vo Flow Logs;
-- route a EIP changes v CloudTrail;
-- DNS answers, TLS errors, partner rate-limit evidence;
-- application retry a connection-pool metrics;
-- transaction/idempotency outcomes.
-
-`ErrorPortAllocation > 0` je silný discriminating signal pre NAT source-port capacity. Samotný application timeout ho nepreukazuje.
-
-## 12. Worked incident — retry-amplified NAT port exhaustion
-
-### Symptóm
-
-Po release `4.2.0`:
-
-```text
-payment authorization latency rastie
-časť HTTPS calls timeoutuje
-EC2/ASG/target health ostáva green
-všetky source AZs sú affected
-remote PSP hlási iba mierne zvýšený load
+```bash
+getent ahostsv4 auth.psp.example
+nc -vz -w 3 auth.psp.example 443
+openssl s_client \
+  -connect auth.psp.example:443 \
+  -servername auth.psp.example \
+  -brief </dev/null
 ```
 
-Legacy topology smeruje všetky private subnety cez jeden zonal `NAT-A` a jednu allowlisted EIP.
+DNS success nepreukazuje TCP. TCP success nepreukazuje TLS. TLS success nepreukazuje application authorization alebo payment correctness.
 
-### Exact subject
+NAT state a addresses:
 
-```text
-release: 4.2.0
-source fleet: payments-api-prod
-source subnets: SUB-PA/SUB-PB/SUB-PC
-route target: NAT-A
-NAT mode: public + zonal
-public source identity: EIP-A
-flow: many private source ports → 203.0.113.42:443
-transaction sample: P-884
-client behavior: pooling disabled, 3 retries per timeout
+```bash
+aws ec2 describe-nat-gateways \
+  --nat-gateway-ids nat-0pay42 \
+  --region eu-central-1
 ```
 
-### Competing hypotheses
+Route read-back:
 
-1. Partner PSP rate-limit alebo outage.
-2. DNS vracia chybný alebo jediný unhealthy IP.
-3. SG/NACL blokuje časť return trafficu.
-4. Cross-AZ path alebo NAT-A AZ degradation.
-5. NAT port allocation exhaustion.
-6. TLS trust/certificate failure.
-7. Application thread/socket/file-descriptor exhaustion.
-8. Retry amplification vytvára duplicate authorizations.
+```bash
+aws ec2 describe-route-tables \
+  --filters Name=association.subnet-id,Values=subnet-0paya \
+  --region eu-central-1 \
+  --query 'RouteTables[0].Routes'
+```
 
-### Discriminating observations
+Metrics:
 
-- DNS a TLS handshake z low-rate canary requestu fungujú.
-- Flow Logs ukazujú vysokú concentration na jeden destination tuple.
-- `ActiveConnectionCount` prudko rastie.
-- `ErrorPortAllocation` je nenulové a časovo koreluje s timeoutmi.
-- Release diff ukazuje vypnutý HTTP connection pooling a agresívnejší retry policy.
-- Partner audit neukazuje úplný outage, ale vidí viac connection attempts než business requests.
+```bash
+aws cloudwatch get-metric-data \
+  --region eu-central-1 \
+  --metric-data-queries file://nat-metric-queries.json \
+  --start-time 2026-07-30T18:00:00Z \
+  --end-time 2026-07-30T19:00:00Z
+```
+
+`nat-metric-queries.json` môže čítať `ActiveConnectionCount`, `ErrorPortAllocation`, `PacketsDropCount` a bytes pre exact NAT Gateway. Nulový `ErrorPortAllocation` oslabuje port-exhaustion hypothesis, no nevylučuje destination alebo application failure.
+
+## 15. Worked incident: retry-amplified NAT port exhaustion
+
+Po release `4.2.0` rástla payment authorization latency a časť HTTPS calls timeoutovala. EC2, ASG a targets zostali green. Všetky private subnets používali jeden zonal `NAT-A` a jednu partner-allowlisted EIP.
+
+Hypotézy zahŕňali partner outage, DNS, NACL, NAT AZ degradation, port allocation, TLS, application socket exhaustion a duplicate retries.
+
+Low-rate canary dokončil DNS a TLS. Flow evidence ukázala concentration na `203.0.113.42:443`. `ActiveConnectionCount` prudko rástol a `ErrorPortAllocation` časovo koreloval s timeoutmi. Release diff ukázal vypnuté HTTP pooling a tri retries pre každý timeout. Partner videl viac connection attempts než business requests.
 
 Causal chain:
 
 ```text
 pooling disabled
-→ viac short-lived TCP/TLS connections
+→ more short-lived TCP/TLS connections
 → timeout retries ×3
 → destination-tuple concentration
-→ NAT source-port allocation pressure
+→ NAT port pressure
 → connection failures
-→ ďalšie retries
-→ latency a duplicate-risk amplification
+→ more retries
 ```
 
-### Containment
+Containment zastavil rollout a ďalší scale-out, obnovil pooling, znížil retry concurrency a aktivoval stable provider idempotency key. Tím zachoval NAT metrics, Flow Logs, release diff a provider audit.
 
-- zastav ďalší rollout alebo scale-out release-u 4.2.0;
-- obnov pooling a zníž retry concurrency/rate;
-- aktivuj idempotency gate na partner authorization operation;
-- zachovaj NAT metrics, Flow Logs, release diff a partner transaction audit;
-- neotváraj broad inbound ani nevymieňaj SG/NACL bez evidence.
+Recovery zaviedla bounded retries, tested connection pool a egress architecture s per-AZ zonal NAT alebo approved regional NAT. Nové public source identities sa koordinovali s partner allowlistom. Canary sledoval NAT metrics aj payment ledger.
 
-### Authoritative recovery
+Closure vyžadovala nulové port-allocation errors pri expected peak-u, bounded connection creation, jeden provider authorization pre `P-884`, fungujúci AZ-loss path a forbidden duplicate test.
 
-1. Oprav client connection pool a bounded retry policy.
-2. Over one-business-operation-to-one-idempotency-key contract.
-3. Vyhodnoť egress architecture:
-   - zonal NAT per AZ;
-   - regional NAT s overenou AZ/EIP coverage;
-   - ďalšie EIPs/capacity podľa service supportu;
-   - partner/DNS destination distribution;
-   - private endpoint/proxy, ak applicable.
-4. Koordinuj nové public source identities s partner allowlistom.
-5. Nasadi canary cohortu a sleduj connection metrics aj payment SLI.
+## 16. Egress architecture acceptance
 
-### Closure verdict
+Egress je accepted, keď každý source AZ má known path, translated identity je governance-managed, partner allowlists poznajú failure identities, metrics a Flow Logs sú dostupné, connection model spĺňa capacity a failure test a private AWS service calls nepoužívajú zbytočný general NAT.
 
-Recovery je prijatá až keď:
-
-- `ErrorPortAllocation` ostáva nulové pri peak test-e;
-- connection churn a retries sú v budgete;
-- request `P-884` a opakované samples majú bounded latency;
-- partner audit potvrdí presne jednu authorization per idempotency key;
-- každá AZ má funkčný expected egress path;
-- zakázaný unsolicited inbound path ostáva nedostupný;
-- regression test reprodukuje destination-concentration load.
-
-## 13. Ďalšie failure boundaries
-
-### Public NAT je umiestnený bez IGW pathu
-
-NAT resource môže existovať, ale jeho egress subnet nemá správnu default route na IGW alebo EIP/network-border-group contract. Private routes na taký NAT internet nevytvoria.
-
-### Private subnet smeruje priamo na IGW
-
-Resource bez public IPv4 mappingu nebude internet-routable. Route target a address identity musia byť kompatibilné.
-
-### Cross-AZ zonal NAT dependency
-
-NAT-A failure alebo route maintenance ovplyvní aj source AZ-b/AZ-c a môže vytvárať cross-AZ transfer cost.
-
-### Regional NAT nemá expected AZ coverage
-
-Auto-provision je disabled alebo explicit coverage neobsahuje novú AZ. Logical NAT resource existuje, ale affected subnet cohort nemá accepted path.
-
-### NACL povoľuje iba destination port 443
-
-Return packets smerujú na client ephemeral ports a sú stateless rule-setom odmietnuté.
-
-### AWS service calls používajú general NAT
-
-Chýba vhodný endpoint alebo private DNS/policy design. Cost a shared dependency rastú bez business potreby.
-
-### Remote allowlist nepozná novú EIP
-
-Network path a NAT metrics sú zdravé, ale partner odmietne translated source identity. Ide o external authorization boundary.
-
-## 14. Recovery hierarchy
-
-```text
-presná flow identita a observation
-→ application retry/pooling containment
-→ route/NAT/address correction
-→ bounded capacity alebo AZ-coverage expansion
-→ architecture change: regional/zonal/endpoints/proxy
-→ partner allowlist reconciliation
-→ business a forbidden-outcome verification
-```
-
-NAT delete/recreate alebo default-route zmena je vysoký-blast-radius zásah a nemá byť prvý troubleshooting krok.
-
-## 15. Earlier controls
-
-- versionovaný egress architecture a EIP inventory;
-- explicitný NAT availability/connectivity mode;
-- AZ route conformance tests;
-- connection pooling a retry budgets;
-- NAT metrics alarms vrátane `ErrorPortAllocation`;
-- destination concentration/load test;
-- partner allowlist change workflow;
-- endpoint substitution review pre AWS services;
-- synthetic outbound test z každej source AZ;
-- business idempotency nezávislá od network retry behavioru.
-
-## Referenčné rozlíšenia
-
-| Otázka | Observation |
-|---|---|
-| Má resource internet-routable identity? | public/EIP/IPv6 ENI attributes |
-| Ktorý gateway sa vybral? | effective route table a selected route |
-| Aký NAT model platí? | connectivity type + availability mode |
-| Ktorá source IP vidí partner? | NAT address/EIP a partner logs |
-| Je problém capacity? | connection a port-allocation metrics |
-| Je return path blokovaný? | NACL/Flow Logs/route observations |
-| Je request business-safe? | transaction a idempotency audit |
+`curl` z jednej instance je iba sample. Production test potrebuje každú AZ cohortu, expected concurrency a failure transition.
 
 ## Kontrolné otázky
 
-1. Prečo IGW attachment sám nevytvorí internet connectivity?
-2. Aký je rozdiel medzi public a private NAT connectivity type?
-3. Aký je rozdiel medzi zonal a regional NAT availability mode?
-4. Prečo NAT nie je inbound load balancer ani firewall?
-5. Ako connection pooling ovplyvňuje NAT port capacity?
-6. Čo presne znamená `ErrorPortAllocation`?
-7. Prečo môže scale-out NAT exhaustion zhoršiť?
-8. Ako NACL return rules ovplyvňujú outbound HTTPS flow?
-9. Kedy môže VPC endpoint nahradiť NAT path?
-10. Ako overíš recovery bez duplicate payment authorization?
-
-## Glossary impact
-
-Relevantné pojmy: internet-egress subject, IGW path subject, NAT connectivity type, NAT availability mode, zonal NAT Gateway, regional NAT Gateway, translated flow subject, NAT address generation, destination-tuple concentration, NAT port-allocation verdict, egress AZ coverage, partner allowlist boundary a egress recovery closure.
+1. Čo musí mať public IPv4 resource okrem route na IGW?
+2. Aký rozdiel je medzi public a private NAT?
+3. Aký rozdiel je medzi zonal a regional NAT?
+4. Prečo regional NAT neodstraňuje AZ-coverage test?
+5. Ako translation mení flow identity?
+6. Prečo pooling a retries ovplyvňujú NAT capacity?
+7. Ktorý metric podporuje port-allocation hypothesis?
+8. Prečo NAT Gateway nie je firewall?
+9. Kedy je VPC endpoint lepší než general NAT path?
+10. Aký business test uzavrie egress recovery?
 
 ## Oficiálna dokumentácia
 
 - [Internet gateways](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html)
 - [NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)
-- [CreateNatGateway API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateNatGateway.html)
-- [NAT gateway metrics](https://docs.aws.amazon.com/vpc/latest/userguide/metrics-dimensions-nat-gateway.html)
-- [Troubleshoot NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-troubleshooting.html)
+- [Regional NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html)
+- [NAT Gateway metrics](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway-cloudwatch.html)
+- [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

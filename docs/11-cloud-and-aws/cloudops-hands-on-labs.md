@@ -1,483 +1,455 @@
 # CloudOps hands-on labs
 
-SOA-C03 nie je hands-on performance exam, ale scenario reasoning bez operational experience ľahko zamieňa configured resource za effective capability. CloudOps lab preto nie je návod „klikni a vytvor“. Je to bounded experiment, ktorý začína explicitným outcome a failure hypothesis, vytvára versionovaný AWS subject, zachytáva observation evidence, vkladá kontrolovaný fault, vykonáva minimálnu remediation, overuje allowed aj forbidden outcomes a končí preukázaným cleanupom.
-
-## 1. Dominantný model: evidence-producing lab lifecycle
+Hands-on lab nie je zoznam príkazov na skopírovanie. Je to controlled experiment, v ktorom čitateľ vytvorí presný subject, zavedie jednu známu failure cause, zachová evidence, rozlíši hypotézy, vykoná minimálnu authoritative opravu a preukáže pôvodný aj zakázaný outcome. Každý lab sa vykonáva v sandbox account-e alebo inom explicitne izolovanom prostredí. Production account, reálne customer data a reálne payment credentials sú okamžité stop conditions.
 
 ```text
-learning/business outcome a failure hypothesis
-→ sandbox, identity, budget a expiry guardrails
-→ exact lab generation a expected resource manifest
-→ architecture/control/data/recovery path
-→ bounded provisioning
-→ baseline a evidence inventory
-→ controlled fault injection
-→ competing hypotheses a discriminating observations
-→ minimal remediation
-→ technical, security a business validation
-→ cleanup a cost-residue verification
-→ evidence review a replay decision
+lab manifest a cost/safety boundary
+→ identity, account a Region preflight
+→ reproducible baseline
+→ exact fault injection
+→ symptom a competing hypotheses
+→ discriminating commands a observations
+→ evidence-preserving containment
+→ authoritative recovery
+→ positive, forbidden a second-run validation
+→ dependency-aware cleanup a residual-resource proof
 ```
 
-Resource, ktorý po lab-e „funguje“, je iba časť výsledku. Plný lab outcome zahŕňa aj vysvetlený failure mechanism, zachovaný audit trail, forbidden-path test, odstránené resources a potvrdenie, že sa nevytvoril neočakávaný recurring cost.
+Príkaz má v lab-e hodnotu iba vtedy, keď je vysvetlené, čo jeho output dokazuje a čo ešte nedokazuje.
 
-## 2. Exact lab subject
+## 1. Lab manifest a preflight
 
-Pred provisioningom vytvor lab manifest:
+Každý lab začína versionovaným manifestom. Nasledujúci príklad používa fiktívny sandbox account a nízky cost limit:
+
+```yaml
+labId: AWS-LAB-001
+objective: Diagnose an IAM/KMS denial from the actual workload identity
+accountId: "111122223333"
+region: eu-central-1
+owner: marvy
+maximumDurationMinutes: 60
+budgetLimitUsd: 10
+requiredTags:
+  Lab: AWS-LAB-001
+  Owner: marvy
+  ExpiresAt: "2026-07-31T12:00:00Z"
+stopConditions:
+  - caller account does not equal 111122223333
+  - configured region does not equal eu-central-1
+  - a command references a production ARN
+  - a resource lacks the Lab and Owner tags
+cleanupRequired: true
+```
+
+Pred prvou mutation over identity a Region:
+
+```bash
+set -euo pipefail
+export AWS_REGION=eu-central-1
+export EXPECTED_ACCOUNT=111122223333
+
+ACTUAL_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+ACTUAL_ARN=$(aws sts get-caller-identity --query Arn --output text)
+CONFIGURED_REGION=$(aws configure get region || true)
+
+printf 'account=%s\ncaller=%s\nregion=%s\n' \
+  "$ACTUAL_ACCOUNT" "$ACTUAL_ARN" "$CONFIGURED_REGION"
+
+test "$ACTUAL_ACCOUNT" = "$EXPECTED_ACCOUNT"
+test "$CONFIGURED_REGION" = "$AWS_REGION"
+```
+
+`get-caller-identity` dokazuje identity použitú aktuálnym AWS CLI credential provider chainom. Neznamená, že application alebo iný shell používa rovnaké credentials. `test` commands premenia mismatch na hard failure.
+
+Evidence ukladaj do samostatného adresára:
+
+```bash
+export LAB_ID=AWS-LAB-001
+export EVIDENCE_DIR="$HOME/cloudops-labs/$LAB_ID/$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$EVIDENCE_DIR"
+aws sts get-caller-identity > "$EVIDENCE_DIR/caller.json"
+aws configure list > "$EVIDENCE_DIR/aws-config.txt"
+```
+
+Session tokens, secret values a plaintext KMS data do evidence nepatria.
+
+## 2. Lab 1 — IAM a KMS encryption-context boundary
+
+Cieľom je odlíšiť actual caller, IAM allow, key policy, key state a encryption context. Lab používa iba dočasný testovací plaintext.
+
+Vytvor sandbox key a zaznamenaj jeho immutable identity:
+
+```bash
+KEY_ID=$(aws kms create-key \
+  --description 'CloudOps AWS-LAB-001 temporary key' \
+  --tags TagKey=Lab,TagValue="$LAB_ID" TagKey=Owner,TagValue=marvy \
+  --region "$AWS_REGION" \
+  --query KeyMetadata.KeyId \
+  --output text)
+
+aws kms describe-key \
+  --key-id "$KEY_ID" \
+  --region "$AWS_REGION" \
+  --query 'KeyMetadata.{Arn:Arn,State:KeyState,Usage:KeyUsage,Origin:Origin}' \
+  --output yaml | tee "$EVIDENCE_DIR/key-baseline.yaml"
+```
+
+`Enabled` dokazuje, že key je v stave, ktorý umožňuje podporované cryptographic operations. Nedokazuje, že current caller má `Encrypt` alebo `Decrypt`.
+
+Positive round trip:
+
+```bash
+printf 'cloudops-lab-secret' > /tmp/cloudops-lab-secret.txt
+
+aws kms encrypt \
+  --key-id "$KEY_ID" \
+  --plaintext fileb:///tmp/cloudops-lab-secret.txt \
+  --encryption-context application=payments,purpose=lab \
+  --region "$AWS_REGION" \
+  --query CiphertextBlob \
+  --output text | base64 -d > /tmp/cloudops-lab-secret.bin
+
+aws kms decrypt \
+  --ciphertext-blob fileb:///tmp/cloudops-lab-secret.bin \
+  --encryption-context application=payments,purpose=lab \
+  --key-id "$KEY_ID" \
+  --region "$AWS_REGION" \
+  --query Plaintext \
+  --output text | base64 -d > /tmp/cloudops-lab-decrypted.txt
+
+cmp /tmp/cloudops-lab-secret.txt /tmp/cloudops-lab-decrypted.txt
+```
+
+Successful `cmp` dokazuje, že caller, key policy, key state a exact context dovolili round trip. Neznamená, že nesprávny context je odmietnutý.
+
+Forbidden experiment zmení `purpose`:
+
+```bash
+set +e
+aws kms decrypt \
+  --ciphertext-blob fileb:///tmp/cloudops-lab-secret.bin \
+  --encryption-context application=payments,purpose=reporting \
+  --key-id "$KEY_ID" \
+  --region "$AWS_REGION" \
+  > "$EVIDENCE_DIR/forbidden-decrypt.stdout" \
+  2> "$EVIDENCE_DIR/forbidden-decrypt.stderr"
+FORBIDDEN_RC=$?
+set -e
+
+test "$FORBIDDEN_RC" -ne 0
+```
+
+Forbidden decrypt musí zlyhať. Ak uspeje, nepridávaj ďalší allow. Najprv over, či policy viaže decrypt na encryption context a či test používa správny key ARN. Cleanup vykonaj až po dependency read-backu; samotný tag `Lab` nie je dostatočný dôkaz, že key nič iné nechráni.
+
+## 3. Lab 2 — Route, Security Group a Network ACL
+
+Použi dve malé SSM-managed test nodes v oddelených sandbox subnets. Destination počúva na TCP/8080. Security Groups flow povoľujú; injected fault zavedie scoped NACL deny pre return ephemeral ports.
+
+Najprv fixuj identities a live policy:
+
+```bash
+aws ec2 describe-network-interfaces \
+  --network-interface-ids "$SOURCE_ENI" "$DESTINATION_ENI" \
+  --region "$AWS_REGION" \
+  --query 'NetworkInterfaces[].{
+    Eni:NetworkInterfaceId,
+    Ip:PrivateIpAddress,
+    Subnet:SubnetId,
+    Groups:Groups[].GroupId
+  }' \
+  --output table
+
+aws ec2 describe-route-tables \
+  --filters Name=association.subnet-id,Values="$SOURCE_SUBNET" \
+  --region "$AWS_REGION" \
+  --output json > "$EVIDENCE_DIR/source-routes.json"
+
+aws ec2 describe-network-acls \
+  --filters Name=association.subnet-id,Values="$SOURCE_SUBNET" \
+  --region "$AWS_REGION" \
+  --output json > "$EVIDENCE_DIR/source-nacl.json"
+```
+
+Route-table query môže vrátiť prázdny result, keď subnet dedí main table. Prázdny output nie je dôkaz absencie routingu.
+
+Pred aj po fault injection spusti zo source node-u:
+
+```bash
+nc -vz -w 3 "$DESTINATION_IP" 8080
+curl --connect-timeout 3 -fsS "http://$DESTINATION_IP:8080/health"
+```
+
+Baseline musí uspieť. Po injected NACL deny očakávaj timeout pri zachovanom listeneri. Flow Logs alebo Reachability Analyzer pomôžu lokalizovať configuration boundary, ale application response musia stále overiť runtime commands.
+
+Recovery odstráni iba injected rule. Acceptance vyžaduje, že povolený source flow znovu funguje a unsolicited reverse connection ostáva odmietnutý. Broad `allow all` je forbidden remediation.
+
+## 4. Lab 3 — EC2 Auto Scaling a ALB generation mismatch
+
+Launch template version 1 binduje application na `0.0.0.0:8080`. Version 2 obsahuje chybný bind `127.0.0.1:8080`. Sandbox ASG dočasne referencuje `$Latest`. Po vytvorení version 2 zvýš desired capacity:
+
+```bash
+aws autoscaling set-desired-capacity \
+  --auto-scaling-group-name cloudops-lab-asg \
+  --desired-capacity 4 \
+  --honor-cooldown \
+  --region "$AWS_REGION"
+
+aws autoscaling describe-scaling-activities \
+  --auto-scaling-group-name cloudops-lab-asg \
+  --region "$AWS_REGION" \
+  --query 'Activities[0:10].{
+    Start:StartTime,
+    Status:StatusCode,
+    Description:Description
+  }' \
+  --output table
+
+aws elbv2 describe-target-health \
+  --target-group-arn "$TG_ARN" \
+  --region "$AWS_REGION" \
+  --query 'TargetHealthDescriptions[].{
+    Target:Target.Id,
+    State:TargetHealth.State,
+    Reason:TargetHealth.Reason
+  }' \
+  --output table
+```
+
+Očakávaná observation: EC2 launch uspeje, ale new targets sú unhealthy. To oslabuje quota a subnet-capacity hypotézu a presúva investigation do startup/listener/SG/health pathu.
+
+Na affected instance cez SSM porovnaj listener a local/private-IP requests:
+
+```bash
+aws ssm send-command \
+  --instance-ids "$AFFECTED_INSTANCE" \
+  --document-name AWS-RunShellScript \
+  --parameters 'commands=["ss -ltnp","curl -fsS http://127.0.0.1:8080/health"]' \
+  --region "$AWS_REGION"
+```
+
+Localhost success pri ALB failure smeruje na bind alebo network/listener boundary. Recovery pinne known-good numeric launch-template version a vytvorí corrected version 3. Acceptance potvrdí LT/AMI generation, target health, fresh request a ďalší scale-out, ktorý znova použije version 3.
+
+## 5. Lab 4 — RDS unknown commit outcome
+
+Použi sandbox PostgreSQL. Reálny Multi-AZ failover je voliteľný; response loss možno simulovať proxy-m, ktorý preruší connection po odoslaní commit-u.
+
+```sql
+create table payment_operation (
+  idempotency_key text primary key,
+  provider_request_id text unique,
+  state text not null,
+  updated_at timestamptz not null default now()
+);
+
+create table payment_outbox (
+  id bigserial primary key,
+  idempotency_key text not null unique,
+  payload jsonb not null,
+  published_at timestamptz
+);
+```
+
+Client vykoná transaction a fault injection preruší response po možnom durable commit-e. Pred retryom query-ni authoritative state:
+
+```sql
+select idempotency_key, provider_request_id, state, updated_at
+from payment_operation
+where idempotency_key = 'lab-payment-884';
+
+select id, idempotency_key, published_at
+from payment_outbox
+where idempotency_key = 'lab-payment-884';
+```
+
+Ak row existuje, blind replay je forbidden. Application má vrátiť alebo reconciliovať current outcome. Pri actual cluster lab-e možno failover request vykonať cez `aws rds failover-db-cluster`, no accepted API request nepreukazuje application reconnect ani exactly-once outcome.
+
+Acceptance vyžaduje jeden operation row, jeden outbox row, jeden provider idempotency outcome a second run bez ďalšieho side effectu.
+
+## 6. Lab 5 — CloudWatch dimension drift a remediation safety
+
+Vytvor metric `CloudOps/Lab / SuccessfulOperations` s dimensions `Environment=lab, Service=payments-api`. Alarm používa missing data ako breaching, ale action je najprv notification-only.
+
+```bash
+aws cloudwatch put-metric-data \
+  --namespace CloudOps/Lab \
+  --metric-data 'MetricName=SuccessfulOperations,Value=1,Unit=Count,Dimensions=[{Name=Environment,Value=lab},{Name=Service,Value=payments-api}]' \
+  --region "$AWS_REGION"
+
+aws cloudwatch list-metrics \
+  --namespace CloudOps/Lab \
+  --metric-name SuccessfulOperations \
+  --region "$AWS_REGION" \
+  --output json
+```
+
+Fault injection zmení publisher dimension na `Service=payments`. Starý alarm začne vidieť missing datapoints. Čítaj configuration a históriu:
+
+```bash
+aws cloudwatch describe-alarms \
+  --alarm-names cloudops-lab-success \
+  --region "$AWS_REGION" \
+  --output json > "$EVIDENCE_DIR/alarm.json"
+
+aws cloudwatch describe-alarm-history \
+  --alarm-name cloudops-lab-success \
+  --history-item-type StateUpdate \
+  --region "$AWS_REGION" \
+  --output json > "$EVIDENCE_DIR/alarm-history.json"
+```
+
+Business counter ostáva healthy. Recovery obnoví versionovaný metric contract alebo kompatibilne presunie publisher a alarm. Samostatný telemetry-freshness alarm odlíši missing publisher od nulového business outcome-u. Forbidden test zopakuje dimension drift a preukáže, že destructive automation sa nespustí.
+
+## 7. Lab 6 — SQS/Lambda duplicate delivery
+
+Queue visibility nastav na 30 sekúnd, function timeout na 60 sekúnd a handler nech spracúva 40 sekúnd. Message môže byť visible skôr než prvý attempt skončí.
+
+```bash
+aws sqs get-queue-attributes \
+  --queue-url "$QUEUE_URL" \
+  --attribute-names VisibilityTimeout ApproximateNumberOfMessages ApproximateNumberOfMessagesNotVisible RedrivePolicy \
+  --region "$AWS_REGION" \
+  --output json
+
+aws lambda get-event-source-mapping \
+  --uuid "$MAPPING_UUID" \
+  --region "$AWS_REGION" \
+  --query '{
+    State:State,
+    Function:FunctionArn,
+    BatchSize:BatchSize,
+    MaximumConcurrency:ScalingConfig.MaximumConcurrency,
+    LastResult:LastProcessingResult
+  }' \
+  --output yaml
+```
+
+Duplicate receive je očakávaný failure. Recovery predĺži visibility podľa worst-case processing a pridá atomic idempotency claim pred external side effectom. Partial batch response znižuje zbytočný replay valid records, ale nenahrádza idempotency.
+
+Acceptance odošle rovnaký business event dvakrát a očakáva jeden completion marker. Queue purge je forbidden, pretože by zničil unresolved work aj evidence.
+
+## 8. Lab 7 — AWS Backup clean-room restore
+
+Použi malý EBS volume alebo test database. Najprv vytvor backup a required copy, potom obnov resource do isolated subnet/accountu bez production egressu.
+
+```bash
+aws backup list-backup-jobs \
+  --by-backup-vault-name cloudops-lab-source \
+  --region eu-central-1 \
+  --output table
+
+aws backup list-copy-jobs \
+  --by-destination-vault-arn "$RECOVERY_VAULT_ARN" \
+  --region eu-west-1 \
+  --output table
+
+aws backup list-restore-jobs \
+  --region eu-west-1 \
+  --output table
+```
+
+Source backup `COMPLETED` nepreukazuje destination copy. Copy completion nepreukazuje KMS permission alebo restore metadata. Restore completion nepreukazuje mount, schema integrity ani application compatibility.
+
+Po restore mountni alebo query-ni exact resource, porovnaj checksum/schema generation a vykonaj read/write canary s lab identity. Forbidden test overí, že restored environment nemá production routes alebo credentials. RPO sa vypočíta z posledného validného business checkpointu, nie z job completion timestampu.
+
+## 9. Lab 8 — CloudFront cache-key isolation
+
+Použi non-sensitive origin, ktorý vracia `X-Tenant-ID` v body. Faulty cache policy header forwarduje originu, ale nezahrnie ho do cache key a používa positive TTL.
+
+```bash
+curl -sS -D "$EVIDENCE_DIR/tenant-a.headers" \
+  -H 'X-Tenant-ID: tenant-a' \
+  "$DISTRIBUTION_URL/object" \
+  -o "$EVIDENCE_DIR/tenant-a.body"
+
+curl -sS -D "$EVIDENCE_DIR/tenant-b.headers" \
+  -H 'X-Tenant-ID: tenant-b' \
+  "$DISTRIBUTION_URL/object" \
+  -o "$EVIDENCE_DIR/tenant-b.body"
+
+diff -u "$EVIDENCE_DIR/tenant-a.body" "$EVIDENCE_DIR/tenant-b.body" || true
+```
+
+Ak tenant-b dostane tenant-a representation a headers ukazujú cache hit, issue je cache identity, nie nový origin authorization request. Containment nastaví caching-disabled policy pre authenticated path a vykoná targeted invalidation. Public origin alebo removal authorization je forbidden remediation.
+
+Acceptance používa dve identities s rovnakým pathom a overí independent origin authorization alebo bezpečne odlišný cache key.
+
+## 10. Evidence pack a cleanup gate
+
+Každý lab uloží:
 
 ```text
-lab ID a generation:
-SOA-C03 domain/task:
-learning outcome:
-allowed outcomes:
-forbidden outcomes:
-failure hypothesis:
-AWS account/organization:
-Region a AZs:
-caller/session identity:
-IaC/CLI source commit:
-resource-name prefix:
-expected resource inventory:
-expected maximum duration:
-expected cost drivers a budget:
-ExpiresAt:
-evidence destinations:
-cleanup owner a procedure:
+manifest a UTC start time
+caller/account/Region evidence
+resource IDs a immutable generations
+baseline commands a outputs
+fault-injection diff
+symptom timeline
+hypotheses a discriminating observations
+containment action
+recovery diff
+positive a forbidden test outputs
+second-run result
+cleanup inventory
 ```
 
-Bez generation identity sa po viacerých pokusoch miešajú staré resources, CloudTrail events, metrics a costs. Potom nie je možné rozhodnúť, či evidence patrí k aktuálnej konfigurácii.
+Screenshot je doplnok, nie jediný authoritative artefakt. Command musí obsahovať exact Region a resource identity a output musí byť interpretovaný v texte.
 
-## 3. Sandbox a financial safety boundary
+Po odstránení lab resources vyhľadaj residual inventory podľa tags:
 
-Použi samostatný sandbox alebo training account bez production dát a production trust paths. Minimálny guardrail contract:
+```bash
+aws resourcegroupstaggingapi get-resources \
+  --tag-filters Key=Lab,Values="$LAB_ID" \
+  --region eu-central-1 \
+  --output json > "$EVIDENCE_DIR/residual-eu-central-1.json"
 
-- federated alebo temporary access s MFA;
-- explicitný account a Region v každom command-e alebo profile;
-- budget a billing notifications;
-- resource prefix a tags `Owner`, `Purpose`, `LabId`, `Generation`, `ExpiresAt`;
-- žiadne permanentné broad access keys;
-- žiadne production secrets, snapshots alebo customer datasets;
-- bounded service quotas a concurrency, ak ich lab môže spotrebovať;
-- vopred definovaný cleanup graph;
-- po lab-e cost a orphan-resource review.
-
-AWS Budget nie je real-time hard cap. Guardrail preto musí kombinovať budget signal, obmedzené permissions, quotas, TTL cleanup a priebežné sledovanie drahých resources ako NAT Gateway, RDS, load balancers, public IPv4, provisioned IOPS alebo cross-Region transfer.
-
-## 4. Preflight: cost a blast-radius estimate
-
-Pred spustením si polož:
-
-1. Ktoré resources účtujú za čas existence aj bez trafficu?
-2. Ktoré resources vytvárajú per-request, per-GB alebo cross-AZ/Region cost?
-3. Môže autoscaling, retry alebo log loop nekontrolovane rásť?
-4. Môže fault injection zablokovať cleanup identity alebo KMS key?
-5. Existuje recovery cesta bez broad administrator escalation?
-6. Ktoré resources prežijú parent stack deletion pre retention/deletion policy?
-
-Preflight výsledok je decision: spustiť, zmenšiť, nahradiť lacnejším emulovaným variantom alebo lab nevykonať v danom account-e.
-
-## 5. Architecture a evidence plan
-
-Pred provisioningom nakresli minimálne tri vrstvy:
-
-### Control plane
-
-```text
-caller/session
-→ API/IaC engine
-→ IAM/SCP/resource/KMS policies
-→ resource creation/update
-→ service events a CloudTrail
+aws resourcegroupstaggingapi get-resources \
+  --tag-filters Key=Lab,Values="$LAB_ID" \
+  --region eu-west-1 \
+  --output json > "$EVIDENCE_DIR/residual-eu-west-1.json"
 ```
 
-### Data plane
+Tagging API nepokrýva každý resource type. Doplň service-specific inventory pre použité služby. Lab končí až keď residual resources sú nulové alebo majú explicitný owner, dôvod a expiry.
 
-```text
-client/source
-→ DNS/route/security/listener
-→ workload process
-→ dependency/storage
-→ response/business outcome
+## 11. Opakovateľnosť a score
+
+Lab sa považuje za zvládnutý až po druhom čistom behu z baseline. Prvý úspech môže závisieť od stale cache alebo retained resource-u.
+
+```yaml
+result:
+  labId: AWS-LAB-006
+  run: 2
+  subjectIdentifiedSeconds: 54
+  firstObservation: queue-attributes-and-event-source-mapping
+  rootCause: visibility-timeout-shorter-than-processing
+  containment: event-source-mapping-paused
+  recovery: visibility-and-idempotency-fixed
+  positiveTest: one-completion-marker
+  forbiddenTest: duplicate-event-created-no-second-side-effect
+  cleanup: passed
 ```
 
-### Recovery a validation plane
-
-```text
-fault/failed generation
-→ containment
-→ last-known-good alebo authoritative desired state
-→ replacement/restore
-→ allowed outcome
-→ forbidden outcome
-→ adjacent cohort
-```
-
-Ku každému observation pointu priraď evidence command, log, metric alebo API field ešte pred fault injection. Inak sa po incidente ľahko zbiera iba to, čo podporuje prvú hypotézu.
-
-## 6. Baseline contract
-
-Fault možno vložiť až po preukázanom baseline-e. Baseline musí potvrdiť:
-
-- exact caller/account/Region;
-- expected resources a generations existujú;
-- control-plane operations fungujú;
-- data-plane request prejde;
-- telemetry a audit delivery sú queryable;
-- security negative tests zlyhávajú správnym spôsobom;
-- initial cost drivers zodpovedajú manifestu;
-- cleanup command bol aspoň dry-run alebo dependency-review spôsobom overený.
-
-Ak baseline nie je green, fault injection nemá jednoznačný causal význam.
-
-## 7. Fault injection contract
-
-Fault je jedna zámerná, versionovaná zmena s očakávaným mechanismom:
-
-```text
-fault ID:
-source generation:
-mutation:
-expected affected scope:
-expected user/business symptom:
-expected observation points:
-safety abort condition:
-reset/recovery path:
-```
-
-Začni jednou známou chybou. Náhodná kombinácia route, SG, IAM a application faults nevytvára kvalitný learning signal; vytvára neidentifikovateľný chaos.
-
-Bezpečné príklady:
-
-- zmeniť target-group health path na neexistujúcu cestu;
-- odstrániť jednu explicitnú route;
-- zúžiť Security Group source na nesprávnu SG;
-- zastaviť SSM Agent;
-- zmeniť metric dimension;
-- odobrať exact KMS permission v sandbox key policy;
-- zmeniť backup-selection tag;
-- nasadiť nekompatibilnú CloudFormation property a pozorovať rollback.
-
-## 8. Diagnosis discipline
-
-Po symptóme okamžite neresetuj lab. Najprv:
-
-1. potvrď timeline a affected cohort;
-2. zachovaj volatile evidence;
-3. pomenuj aspoň dve plausible hypotheses;
-4. vyber observation, ktorý ich odlíši;
-5. identifikuj exact failed boundary;
-6. až potom vykonaj najmenšiu bezpečnú remediation.
-
-Lab bez hypotéz trénuje command recall, nie troubleshooting.
-
-## 9. Worked composite lab: ALB/Auto Scaling health-generation mismatch
-
-### Learning outcome
-
-Atlas Payments status API má bežať ako immutable EC2 fleet za ALB v dvoch AZ. Kandidát musí preukázať launch-template/ASG/target-group lifecycle, telemetry, failure diagnosis, safe recovery a cleanup bez inbound SSH.
-
-### Exact subject
-
-```text
-lab ID: SOA-LAB-ALB-017
-generation: g3
-account: sandbox-cloudops
-Region: eu-central-1
-release: status-api 2.4.0
-AMI: ami-status-2.4.0
-launch template version: 7
-ASG: atlas-status-lab-g3
-ALB listener: HTTPS :443
-expected process port: 8080
-expected readiness path: /readyz
-ExpiresAt: same day + 4 hours
-```
-
-### Architecture
-
-```text
-client
-→ ALB listener/TLS
-→ target group port 8080
-→ EC2 process /readyz
-→ static in-memory status response
-
-operator
-→ federated session
-→ Systems Manager Session/Run Command
-→ no inbound SSH
-
-metrics/logs
-→ CloudWatch
-API changes
-→ CloudTrail
-```
-
-Použi pre-baked AMI alebo malý deterministic bootstrap. Aplikácia nesmie závisieť od production database ani providerov.
-
-### Baseline
-
-Preukáž:
-
-- dva healthy targets v dvoch AZ;
-- repeated HTTPS requests cez ALB vracajú release `2.4.0`;
-- direct internet access na instances neexistuje;
-- Session Manager funguje bez inbound management portu;
-- target response time a unhealthy-host metrics sú viditeľné;
-- CloudTrail obsahuje create/update operations;
-- ASG nahradí jednu zámerne terminated instance bez business interruption.
-
-### Fault generation
-
-Vytvor target-group configuration generation `tg-g4`, ktorá zmení health path z `/readyz` na `/healthz`. Aplikácia túto route neposkytuje.
-
-Očakávaný mechanismus:
-
-```text
-ALB health probe /healthz
-→ application 404
-→ target health transitions unhealthy
-→ ALB vyradí targets z eligibility
-→ client dostane 503
-→ ASG môže začať replacement loop podľa health integration
-```
-
-### Competing hypotheses
-
-- **H1 — application process nebeží:** vysvetľuje health failure aj client outage.
-- **H2 — target SG alebo port blokuje ALB:** vysvetľuje timeout health reason.
-- **H3 — health-path generation nezodpovedá application contractu:** vysvetľuje HTTP 404 pri lokálne funkčnom process-e.
-- **H4 — ALB listener alebo DNS smeruje na nesprávny target group:** vysvetľuje traffic na inú generation.
-
-### Discriminating evidence
-
-1. `describe-target-health` ukáže health reason spojený s response code, nie connection timeout;
-2. SSM `curl http://localhost:8080/readyz` vráti `200`;
-3. SSM `curl http://localhost:8080/healthz` vráti `404`;
-4. Security Group a Flow Logs neukazujú reject;
-5. listener rule ukazuje očakávaný target-group ARN;
-6. CloudTrail/config diff ukáže presnú zmenu health pathu.
-
-H3 je podporená; H1, H2 a H4 sú diskriminované.
-
-### Containment a recovery
-
-Ak ASG používa ELB health replacement, dočasne zastav destructive replacement loop alebo obnov dostatočnú healthy capacity podľa runbooku. Potom authoritative recovery vytvorí novú target-group configuration generation s `/readyz`; nejde o otvorenie SG, vypnutie health checks ani ručné označenie targets za zdravé.
-
-### Hard validation
-
-Allowed outcomes:
-
-- oba targets sa vrátia do `healthy`;
-- client requests vracajú `2.4.0`;
-- replacement instance prejde bootstrap aj readiness;
-- CloudWatch alarm sa vráti do očakávaného stavu;
-- druhý reconciliation/instance replacement nevytvorí regresiu.
-
-Forbidden outcomes:
-
-- instances nemajú public inbound path;
-- port 8080 nie je otvorený pre internet CIDR;
-- starý `/healthz` contract nie je skrytý broad success matcherom;
-- ASG neostáva v replacement loop-e;
-- neprežijú manuálne snowflake úpravy na instances.
-
-### Cleanup a cost closure
-
-Odstráň v dependency poradí ALB/listeners/target groups, ASG, launch template, instances, log groups podľa retention contractu, VPC endpoints alebo NAT resources vytvorené labom, IAM lab roles a test DNS records. Over:
-
-- žiadny running/stopped EC2 subject s `LabId`;
-- žiadny load balancer alebo target group;
-- žiadne unattached EBS volumes, EIPs alebo ENIs;
-- žiadne recurring alarms/subscriptions;
-- expected retained CloudTrail evidence;
-- nasledujúci cost dataset neobsahuje neočakávaný residue.
-
-## 10. Technical, security a business validation
-
-Lab validation má tri oddelené vrstvy.
-
-### Technical
-
-Resource/process/packet/API mechanizmus funguje: target je healthy, route je selected, backup sa decryptne, alarm transition nastane.
-
-### Security
-
-Povolený principal/path funguje a zakázaný principal/path zostáva denied. Least privilege sa netestuje iba čítaním policy JSON; potrebuje pozitívny a negatívny request.
-
-### Business alebo functional
-
-Pôvodný outcome je použiteľný: request vráti správnu release, restore zachová invariant, settlement nie je duplicate, DNS smeruje na správnu cohortu.
-
-Green AWS status bez business validation môže byť false positive.
-
-## 11. Cleanup ako súčasť experimentu
-
-Cleanup nie je administratívny dodatok. Je to posledná state transition:
-
-```text
-active lab subject
-→ dependency inventory
-→ retention/evidence decision
-→ ordered deletion
-→ asynchronous deletion observation
-→ orphan scan
-→ cost-residue observation
-→ closed lab generation
-```
-
-`delete-stack` alebo `terraform destroy` success nemusí znamenať nulový residue. Retained snapshots, log groups, ENIs, EIPs, S3 objects, KMS keys pending deletion alebo AWS Backup recovery points môžu zostať.
-
-## 12. Lab portfolio podľa capability boundary
-
-| Capability cluster | Representative lab | Povinný failure boundary |
-|---|---|---|
-| Identity a multi-account | AssumeRole, session conditions, KMS/resource policy | source allow vs target trust/guardrail |
-| VPC a egress | two-AZ private path, NAT/endpoints, Flow Logs | route/return path/AZ dependency |
-| Compute a delivery | launch template, ASG, ALB | launch vs readiness vs target eligibility |
-| Observability/remediation | metric/log/event → alarm/EventBridge → Automation | signal identity alebo action authorization |
-| Audit/governance | organization trail, Config, central archive | delivery policy/KMS/Region coverage |
-| Backup/recovery | protected resource → isolated restore | completed point vs clean business generation |
-| Systems Manager | Session/Run/Automation/Patch | managed-node eligibility a target manifest |
-| IaC | CloudFormation change set/update/rollback/drift | desired change vs realized runtime |
-| Storage/database | EBS/EFS/S3/RDS performance a recovery | service status vs guest/application state |
-| DNS/edge | Route 53/CloudFront behavior | authoritative answer/cache key/origin path |
-| Serverless/containers | Lambda/ECS/EKS deployment and scaling | invocation/placement vs downstream outcome |
-| FinOps | cost attribution/anomaly/remediation | estimated vs normalized realized savings |
-
-Každý lab nemusí pokryť všetky services. Portfolio ako celok však musí pokryť všetkých päť SOA-C03 domains a opakujúce sa cross-domain boundaries.
-
-## 13. Timed lab progression
-
-### Foundation drill — 30 až 45 minút
-
-Jeden resource/path, jeden fault, explicitný cleanup. Cieľom je evidence discipline.
-
-### Domain lab — 60 až 90 minút
-
-Viac components v jednej domain, technical aj negative validation.
-
-### Composite lab — 120 až 150 minút
-
-Aspoň tri domains, pre-existing baseline, unknown failure, bounded recovery a full cleanup. Kandidát nedostane krokový návod, iba outcome, constraints a access boundary.
-
-Time sa meria samostatne:
-
-```text
-plan
-provision
-baseline
-fault-to-diagnosis
-diagnosis-to-recovery
-validation
-cleanup
-```
-
-Rýchly repair po 40-minútovom neštruktúrovanom guessingu nie je dobrý výsledok.
-
-## 14. Lab scoring
-
-| Oblasť | Body |
-|---|---:|
-| Exact subject a safe plan | 10 |
-| Baseline a evidence inventory | 15 |
-| Correct failure mechanism | 20 |
-| Minimal containment/remediation | 15 |
-| Technical/business validation | 15 |
-| Security a forbidden outcomes | 10 |
-| Cleanup a cost closure | 10 |
-| Reproducible review record | 5 |
-
-Resource vytvorený správne, ale bez fault diagnosis, negative testu alebo cleanupu, nemôže dosiahnuť plný score.
-
-## 15. Lab review record
-
-```text
-Lab ID/generation:
-Date/account/Region:
-SOA-C03 domain/task:
-Outcome a forbidden outcomes:
-Manifest/IaC commit:
-Cost estimate/guardrails:
-Baseline evidence:
-Fault ID/mutation:
-Symptom/scope/timeline:
-Competing hypotheses:
-Discriminating observations:
-Root cause:
-Containment/remediation:
-Technical validation:
-Security/negative validation:
-Business validation:
-Cleanup inventory:
-Cost residue:
-Plan/provision/diagnose/repair/verify/cleanup time:
-Earlier control:
-Replay decision:
-```
-
-## 16. Praktická oblasť
-
-Konkrétne vykonávacie zadania, prerequisites a checklisty sú v [labs/aws-cloudops](../../labs/aws-cloudops/README.md). Táto kapitola definuje quality contract; lab index poskytuje jednotlivé scenáre.
-
-## 17. Anti-patterny
-
-### Tutorial completion ako lab success
-
-Postup podľa krokov nepreukazuje samostatné diagnosis ani recovery reasoning.
-
-### Fault pred baseline-om
-
-Nie je jasné, či symptóm vytvorila zámerná mutation alebo už existujúci defect.
-
-### AdministratorAccess ako training convenience
-
-Odstraňuje authorization boundary, ktorú má kandidát pochopiť, a zväčšuje blast radius.
-
-### Screenshot-only evidence
-
-Chýba exact subject, query, timestamps, fields a reproducibility.
-
-### Reset namiesto diagnosis
-
-Destroy/recreate alebo restart môže odstrániť root-cause evidence.
-
-### Positive test bez forbidden pathu
-
-Resource môže fungovať a zároveň byť verejne alebo broad-principal dostupný.
-
-### Cleanup podľa pamäti
-
-Asynchronous a retained resources sa ľahko prehliadnu. Potrebný je manifest-based orphan scan.
-
-### Budget ako jediný cost guardrail
-
-Billing data a actions majú oneskorenie; runaway usage môže vzniknúť skôr.
-
-## 18. Kontrolné otázky
-
-1. Čo tvorí exact lab subject?
-2. Prečo je baseline podmienkou fault injection?
-3. Ako sa líši tutorial od evidence-producing experimentu?
-4. Čo musí obsahovať fault contract?
-5. Prečo diagnosis potrebuje competing hypotheses?
-6. Ako sa líši technical, security a business validation?
-7. Čo je forbidden-outcome test?
-8. Prečo `destroy` success nemusí znamenať cleanup closure?
-9. Ako sa meria cost residue?
-10. Kedy je lab generation pripravená na uzavretie alebo replay?
-
-## Glossary impact
-
-Relevantné pojmy: CloudOps lab subject, lab generation, financial safety boundary, expected resource manifest, evidence plan, baseline contract, controlled fault generation, lab abort condition, discriminating lab observation, hard validation, forbidden-outcome test, cleanup graph, cleanup residue, cost closure, composite CloudOps lab a lab replay verdict.
-
-## Oficiálne zdroje
-
-- [SOA-C03 exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html)
-- [AWS Skill Builder](https://skillbuilder.aws/)
+## Kontrolné otázky
+
+1. Prečo sa account a Region overujú hard `test` commandom pred mutation?
+2. Čo KMS positive decrypt dokazuje a prečo potrebuje forbidden context test?
+3. Ako route, SG a NACL lab lokalizuje first blocking boundary bez allow-all opravy?
+4. Prečo EC2 `running` a ASG scale-out nepreukazujú serving capacity?
+5. Ako RDS lab rozlišuje rollback od unknown commit outcome-u?
+6. Prečo CloudWatch metric drift nesmie okamžite recyklovať fleet?
+7. Ako queue visibility mení duplicate-delivery mechanizmus?
+8. Prečo AWS Backup lab kontroluje source, copy, KMS, restore a business state oddelene?
+9. Ako CloudFront lab preukáže cache-key isolation?
+10. Čím sa dokazuje, že lab nezanechal chargeable alebo privileged resources?
+
+## Oficiálna dokumentácia
+
+- [AWS CLI v2 Command Reference](https://docs.aws.amazon.com/cli/latest/reference/)
+- [AWS Workshops](https://workshops.aws/)
 - [AWS Well-Architected Labs](https://www.wellarchitectedlabs.com/)
-- [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
-- [Tagging AWS resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
+- [AWS KMS encryption context](https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html)
+- [Amazon ECS service event messages](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-event-messages-list.html)
+- [Invoking Lambda functions from Amazon SQS](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
+- [AWS Backup restore testing](https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
