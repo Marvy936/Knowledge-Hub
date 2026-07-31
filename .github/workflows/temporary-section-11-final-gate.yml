@@ -1,0 +1,116 @@
+name: Temporary Section 11 final gate
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: temporary-section-11-final-gate
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout coordinator branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Section 11 strict and practical gates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python scripts/audit_learning_depth.py \
+            --all-docs \
+            --report /tmp/documentation-audit.md \
+            --json /tmp/documentation-audit.json
+
+          python - <<'PY'
+          from __future__ import annotations
+
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path("docs/11-cloud-and-aws")
+          readme = (root / "README.md").read_text(encoding="utf-8")
+          targets = re.findall(r"^\d+\.\s+\[[^]]+\]\(([^)#]+\.md)\)\s*$", readme, re.MULTILINE)
+          if len(targets) != 28:
+              raise SystemExit(f"Expected 28 authoritative chapters, found {len(targets)}")
+
+          audit = json.loads(Path("/tmp/documentation-audit.json").read_text(encoding="utf-8"))
+          prefix = "docs/11-cloud-and-aws/"
+          strict = [
+              finding
+              for finding in audit["findings"]
+              if finding["path"].startswith(prefix)
+              and finding["severity"] in {"critical", "high", "medium"}
+          ]
+
+          print("\nSection 11 strict findings:")
+          if strict:
+              for finding in strict:
+                  print(
+                      f"{finding['severity'].upper()} {finding['path']}:{finding['line']} "
+                      f"[{finding['rule']}] {finding['section']} — {finding['detail']}"
+                  )
+          else:
+              print("critical/high/medium = 0/0/0")
+
+          practical_languages = {
+              "bash", "sh", "shell", "json", "yaml", "yml", "hcl",
+              "terraform", "sql", "python", "powershell", "console"
+          }
+          explanation_markers = (
+              "príkaz", "výstup", "output", "preukazuje", "nepreukazuje",
+              "dokazuje", "potvrdzuje", "over", "read-back", "readback",
+              "mení", "vytvára", "zapisuje", "číta", "vracia", "failure"
+          )
+          practical_failures: list[str] = []
+
+          print("\nPractical artifact coverage:")
+          for target in targets:
+              path = root / target
+              text = path.read_text(encoding="utf-8")
+              matches = list(re.finditer(r"^```([A-Za-z0-9_+-]*)\s*$", text, re.MULTILINE))
+              practical = [m for m in matches if m.group(1).lower() in practical_languages]
+              explained = False
+              for match in practical:
+                  before = text[max(0, match.start() - 900):match.start()].lower()
+                  closing = text.find("```", match.end())
+                  after_start = closing + 3 if closing >= 0 else match.end()
+                  after = text[after_start:after_start + 1200].lower()
+                  if any(marker in before or marker in after for marker in explanation_markers):
+                      explained = True
+                      break
+
+              print(
+                  f"{target}: practical_blocks={len(practical)} "
+                  f"explained={'yes' if explained else 'no'}"
+              )
+              if not practical:
+                  practical_failures.append(f"{target}: no practical code/config/command block")
+              elif not explained:
+                  practical_failures.append(f"{target}: practical block lacks adjacent mechanism/read-back explanation")
+
+          if practical_failures:
+              print("\nPractical gate failures:")
+              for failure in practical_failures:
+                  print(f"- {failure}")
+
+          if strict or practical_failures:
+              raise SystemExit(1)
+          PY
