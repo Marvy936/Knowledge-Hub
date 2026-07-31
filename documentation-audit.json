@@ -1543,7 +1543,7 @@
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "title": "GitLab CI/CD syntax",
-      "words": 1345,
+      "words": 1351,
       "headings": 23,
       "sections": 23,
       "findings": 12,
@@ -1553,6 +1553,20 @@
       "low": 3,
       "score": 76,
       "grade": "D"
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "title": "Praktický GitLab pipeline od source change po overený deployment",
+      "words": 3182,
+      "headings": 26,
+      "sections": 26,
+      "findings": 21,
+      "critical": 1,
+      "high": 0,
+      "medium": 1,
+      "low": 19,
+      "score": 42,
+      "grade": "C"
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
@@ -1599,7 +1613,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "title": "Runners a executors",
-      "words": 1463,
+      "words": 1469,
       "headings": 24,
       "sections": 24,
       "findings": 18,
@@ -1641,7 +1655,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "title": "Ansible architecture",
-      "words": 1880,
+      "words": 1886,
       "headings": 23,
       "sections": 23,
       "findings": 41,
@@ -1655,7 +1669,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "title": "Ansible idempotencia",
-      "words": 1426,
+      "words": 1433,
       "headings": 30,
       "sections": 30,
       "findings": 55,
@@ -1665,6 +1679,20 @@
       "low": 1,
       "score": 478,
       "grade": "D"
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "title": "Praktický Ansible projekt od inventory po overený rolling configuration rollout",
+      "words": 3779,
+      "headings": 34,
+      "sections": 34,
+      "findings": 16,
+      "critical": 1,
+      "high": 5,
+      "medium": 0,
+      "low": 10,
+      "score": 65,
+      "grade": "C"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
@@ -1807,6 +1835,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "title": "Praktický Terraform projekt od prázdneho adresára po overený remote state",
+      "words": 3108,
+      "headings": 26,
+      "sections": 26,
+      "findings": 12,
+      "critical": 2,
+      "high": 3,
+      "medium": 1,
+      "low": 6,
+      "score": 57,
+      "grade": "C"
+    },
+    {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "title": "Terraform providers, resources a data sources",
       "words": 1933,
@@ -1837,7 +1879,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "title": "Terraform testing a policy",
-      "words": 2310,
+      "words": 2318,
       "headings": 38,
       "sections": 38,
       "findings": 51,
@@ -1851,7 +1893,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "title": "Terraform vs. Ansible",
-      "words": 1942,
+      "words": 1950,
       "headings": 38,
       "sections": 38,
       "findings": 46,
@@ -69000,6 +69042,195 @@
       "score": 8
     },
     {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "1. Výsledná štruktúra repository",
+      "line": 23,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "2. Malá aplikácia a jej runtime contract",
+      "line": 46,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "2. Malá aplikácia a jej runtime contract",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "4. Kubernetes Deployment template",
+      "line": 127,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "7. workflow: rules : ktorý pipeline vôbec vznikne",
+      "line": 487,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "7. workflow: rules : ktorý pipeline vôbec vznikne",
+      "line": 487,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "8. needs : dátový a execution graph",
+      "line": 503,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "9. JUnit report: test process verzus spracovaná evidence",
+      "line": 533,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "10. Trusted image build a runner boundary",
+      "line": 554,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "10. Trusted image build a runner boundary",
+      "line": 554,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "12. Registry verification: tag a digest musia ukazovať na rovnaký subject",
+      "line": 595,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "14. Server-side dry-run pred mutation",
+      "line": 622,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že rollout controller vytvorí ready Pods;`, `že image sa dá pull-núť;`, `že Service selector nájde backendy;`, `že aplikácia načíta správnu konfiguráciu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "14. Server-side dry-run pred mutation",
+      "line": 622,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "14. Server-side dry-run pred mutation",
+      "line": 622,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "15. resource group : serializácia environment mutation",
+      "line": 646,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "16. Rollout status a jeho proof boundary",
+      "line": 656,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "18. Staging a production používajú rovnaký artifact",
+      "line": 716,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "18. Staging a production používajú rovnaký artifact",
+      "line": 716,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "19. Čo uvidíme v merge-request pipeline",
+      "line": 734,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "21. Worked failure: zelený deployment job, nesprávny runtime image",
+      "line": 762,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
+      "section": "22. Worked failure: scanner job neexistuje",
+      "line": 778,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "1. Dominantný change-to-merge model",
       "line": 7,
@@ -70816,6 +71047,150 @@
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "4. Static inventory s logical a immutable identitou",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "11. Role tasks: complete rolling host transition",
+      "line": 319,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "12. Playbook s rolling batchom",
+      "line": 499,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "13. Inventory graph a host variables pred runom",
+      "line": 560,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "16. Check a diff prediction",
+      "line": 655,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "17. Získanie runtime credentialu",
+      "line": 679,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "17. Získanie runtime credentialu",
+      "line": 679,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "25. Worked failure: restart prešiel, rejoin zlyhal",
+      "line": 949,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `expected/resolved/attempted manifests testujú H1–H3;`, `callback/handler result a systemd start time testujú H5;`, `LB member inventory a backend identity testujú H7;`, `direct per-host request a timestamps testujú H8.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "28. Diagnostický walkthrough pri mixed fleet",
+      "line": 994,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H3`, `H4`, `H5`, `H6`, `LB`, `H7`, `H8`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
+      "section": "30. Acceptance checklist",
+      "line": 1058,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
@@ -74029,6 +74404,114 @@
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "2. versions.tf : toolchain a provider contract",
+      "line": 63,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "5. Root locals a module call",
+      "line": 217,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "7. Child module resources",
+      "line": 273,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "10. Prvý init a lockfile",
+      "line": 417,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "11. Formatting a validation",
+      "line": 449,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "16. Apply presne schváleného plánu",
+      "line": 668,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "17. State read-back",
+      "line": 698,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "24. Diagnostický walkthrough",
+      "line": 1009,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "24. Diagnostický walkthrough",
+      "line": 1009,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend config a lineage/serial testujú H1/H2;`, `Git diff a terraform state list testujú H3/H7;`, `CloudTrail/request IDs testujú H4/H5;`, `caller identity a provider debug metadata testujú H6;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "24. Diagnostický walkthrough",
+      "line": 1009,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "24. Diagnostický walkthrough",
+      "line": 1009,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
+      "section": "24. Diagnostický walkthrough",
+      "line": 1009,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `H3`, `H7`, `H4`, `H5`, `H6`, `identity`",
+      "score": 7
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",

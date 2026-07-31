@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **312**
-- Audited conceptual sections: **8622**
-- Total words: **644,429**
-- Findings: **14005** (critical 3454, high 4173, medium 1616, low 4762)
-- File grades: A 77, B 50, C 14, D 171
+- Audited authoritative articles: **315**
+- Audited conceptual sections: **8708**
+- Total words: **654,539**
+- Findings: **14054** (critical 3458, high 4181, medium 1618, low 4797)
+- File grades: A 77, B 50, C 17, D 171
 
 ## Interpretation
 
@@ -105,7 +105,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 501 | 22 | 26 | 6 | 12 | 2173 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 499 | 21 | 23 | 12 | 16 | 2288 | `docs/09-kubernetes/scheduling.md` |
 | D | 481 | 14 | 35 | 5 | 18 | 2406 | `docs/09-kubernetes/cni-networkpolicy.md` |
-| D | 478 | 15 | 37 | 2 | 1 | 1426 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
+| D | 478 | 15 | 37 | 2 | 1 | 1433 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | D | 476 | 22 | 23 | 6 | 10 | 1925 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
 | D | 475 | 16 | 31 | 5 | 18 | 2467 | `docs/09-kubernetes/requests-limits-qos.md` |
 | D | 473 | 25 | 14 | 10 | 22 | 2494 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
@@ -115,14 +115,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 430 | 18 | 16 | 12 | 35 | 2923 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 426 | 17 | 20 | 11 | 18 | 2145 | `docs/04-testing-and-quality/shift-left.md` |
 | D | 422 | 17 | 25 | 4 | 4 | 1930 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
-| D | 416 | 14 | 29 | 5 | 3 | 2310 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
+| D | 416 | 14 | 29 | 5 | 3 | 2318 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | D | 412 | 22 | 15 | 4 | 11 | 1874 | `docs/09-kubernetes/probes.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 408 | 5 | 39 | 9 | 5 | 2246 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | D | 403 | 15 | 24 | 6 | 13 | 2160 | `docs/02-networking-and-web/nat.md` |
 | D | 403 | 16 | 23 | 3 | 16 | 1920 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | D | 384 | 13 | 29 | 0 | 1 | 1488 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
-| D | 378 | 12 | 28 | 3 | 3 | 1942 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
+| D | 378 | 12 | 28 | 3 | 3 | 1950 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 363 | 12 | 27 | 2 | 0 | 1542 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | D | 361 | 15 | 15 | 7 | 32 | 2828 | `docs/04-testing-and-quality/verification-vs-validation.md` |
@@ -131,7 +131,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 312 | 12 | 16 | 7 | 9 | 2066 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 299 | 10 | 19 | 5 | 8 | 1906 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
-| D | 291 | 10 | 19 | 3 | 9 | 1880 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
+| D | 291 | 10 | 19 | 3 | 9 | 1886 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 285 | 12 | 17 | 2 | 2 | 1776 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | D | 277 | 10 | 18 | 3 | 5 | 1684 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
@@ -186,28 +186,31 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 90 | 0 | 9 | 0 | 11 | 1375 | `docs/06-gitlab/security-scanning.md` |
 | D | 86 | 1 | 8 | 1 | 5 | 1401 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 84 | 0 | 8 | 1 | 11 | 1488 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
-| D | 84 | 0 | 9 | 0 | 9 | 1463 | `docs/06-gitlab/runners-and-executors.md` |
+| D | 84 | 0 | 9 | 0 | 9 | 1469 | `docs/06-gitlab/runners-and-executors.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | D | 80 | 0 | 9 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 79 | 0 | 8 | 0 | 10 | 1303 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | D | 79 | 1 | 8 | 0 | 3 | 1460 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 76 | 0 | 8 | 0 | 9 | 1608 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
-| D | 76 | 0 | 9 | 0 | 3 | 1345 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
+| D | 76 | 0 | 9 | 0 | 3 | 1351 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 72 | 0 | 8 | 0 | 5 | 1261 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | C | 69 | 0 | 8 | 0 | 3 | 1408 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | C | 69 | 1 | 6 | 0 | 9 | 1683 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
 | C | 68 | 0 | 8 | 0 | 3 | 1268 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | C | 67 | 0 | 7 | 0 | 9 | 1557 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | C | 67 | 0 | 7 | 0 | 9 | 1637 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
+| C | 65 | 1 | 5 | 0 | 10 | 3779 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
 | C | 64 | 0 | 7 | 0 | 5 | 1277 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 64 | 0 | 7 | 0 | 7 | 1333 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | C | 61 | 0 | 7 | 0 | 4 | 1410 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1459 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1746 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
+| C | 57 | 2 | 3 | 1 | 6 | 3108 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 1816 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1603 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 1822 | `docs/05-ci-cd-and-release/continuous-integration.md` |
+| C | 42 | 1 | 0 | 1 | 19 | 3182 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
@@ -4388,6 +4391,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 251, `single-sentence-concept` — **Cleanup by tag only**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 255, `single-sentence-concept` — **Delete tag as revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md`
+
+- **CRITICAL** line 622, `bare-bullet-items` — **14. Server-side dry-run pred mutation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že rollout controller vytvorí ready Pods;`, `že image sa dá pull-núť;`, `že Service selector nájde backendy;`, `že aplikácia načíta správnu konfiguráciu;`.
+
 ### `docs/06-gitlab/projects-groups-permissions.md`
 
 - **CRITICAL** line 65, `bare-bullet-items` — **4. Effective membership graph**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct project membership;`, `inherited parent-group membership;`, `project alebo group sharing s inou group;`, `invited external user;`.
@@ -4504,6 +4511,15 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 346, `term-before-explanation` — **19. Competing hypotheses pri perpetual restartoch**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H4`, `H5`, `H6`, `H7`, `H8`
 - **HIGH** line 346, `thin-concept-section` — **19. Competing hypotheses pri perpetual restartoch**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 380, `thin-concept-section` — **21. Acceptance a forbidden paths**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
+### `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md`
+
+- **CRITICAL** line 994, `outline-instead-of-explanation` — **28. Diagnostický walkthrough pri mixed fleet**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **HIGH** line 319, `single-sentence-concept` — **11. Role tasks: complete rolling host transition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 994, `bare-bullet-items` — **28. Diagnostický walkthrough pri mixed fleet**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `expected/resolved/attempted manifests testujú H1–H3;`, `callback/handler result a systemd start time testujú H5;`, `LB member inventory a backend identity testujú H7;`, `direct per-host request a timestamps testujú H8.`.
+- **HIGH** line 994, `single-sentence-concept` — **28. Diagnostický walkthrough pri mixed fleet**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 994, `term-before-explanation` — **28. Diagnostický walkthrough pri mixed fleet**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H3`, `H4`, `H5`, `H6`, `LB`, `H7`, `H8`
+- **HIGH** line 994, `thin-concept-section` — **28. Diagnostický walkthrough pri mixed fleet**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/drift.md`
 
@@ -4806,6 +4822,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 375, `term-before-explanation` — **20. Competing hypotheses pri local/controller rozdiele**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `SBOM`, `H2`, `FQCN`, `H3`, `H4`, `H5`, `H7`
 - **HIGH** line 375, `thin-concept-section` — **20. Competing hypotheses pri local/controller rozdiele**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 396, `thin-concept-section` — **21. Evidence-preserving containment a recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
+### `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md`
+
+- **CRITICAL** line 1009, `bare-bullet-items` — **24. Diagnostický walkthrough**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend config a lineage/serial testujú H1/H2;`, `Git diff a terraform state list testujú H3/H7;`, `CloudTrail/request IDs testujú H4/H5;`, `caller identity a provider debug metadata testujú H6;`.
+- **CRITICAL** line 1009, `outline-instead-of-explanation` — **24. Diagnostický walkthrough**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **HIGH** line 449, `list-first-introduction` — **11. Formatting a validation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 698, `list-first-introduction` — **17. State read-back**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 1009, `term-before-explanation` — **24. Diagnostický walkthrough**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `H3`, `H7`, `H4`, `H5`, `H6`, `identity`
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md`
 
@@ -8525,16 +8549,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2090 | 2090 |
-| `bare-bullet-items` | 1408 | 225 | 0 | 0 | 1633 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1542 | 1542 |
-| `outline-instead-of-explanation` | 1444 | 0 | 0 | 0 | 1444 |
-| `term-before-explanation` | 0 | 323 | 1056 | 0 | 1379 |
-| `single-sentence-concept` | 0 | 1368 | 0 | 0 | 1368 |
-| `thin-concept-section` | 0 | 1205 | 0 | 0 | 1205 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1130 | 1130 |
-| `list-first-introduction` | 0 | 816 | 0 | 0 | 816 |
-| `short-concept-section` | 0 | 0 | 560 | 0 | 560 |
+| `example-not-explicit` | 0 | 0 | 0 | 2105 | 2105 |
+| `bare-bullet-items` | 1410 | 226 | 0 | 0 | 1636 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1554 | 1554 |
+| `outline-instead-of-explanation` | 1446 | 0 | 0 | 0 | 1446 |
+| `term-before-explanation` | 0 | 325 | 1056 | 0 | 1381 |
+| `single-sentence-concept` | 0 | 1370 | 0 | 0 | 1370 |
+| `thin-concept-section` | 0 | 1206 | 0 | 0 | 1206 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
+| `list-first-introduction` | 0 | 818 | 0 | 0 | 818 |
+| `short-concept-section` | 0 | 0 | 562 | 0 | 562 |
 | `no-prose-concept` | 349 | 0 | 0 | 0 | 349 |
 | `empty-section` | 253 | 0 | 0 | 0 | 253 |
 | `list-heavy-section` | 0 | 236 | 0 | 0 | 236 |
