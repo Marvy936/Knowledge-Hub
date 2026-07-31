@@ -3,7 +3,7 @@ status=failure
 docs/13-security-and-identity/active-directory.md|strict=0/1/0|prose=1041|bullet_share=0.117|blocks=6|executable=7|explanations=14
 docs/13-security-and-identity/authentication-authorization-auditing.md|strict=0/0/0|prose=1028|bullet_share=0.105|blocks=8|executable=6|explanations=8
 docs/13-security-and-identity/cia-triad.md|strict=0/0/0|prose=1058|bullet_share=0.109|blocks=6|executable=5|explanations=18
-docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=18/28/6|prose=1156|bullet_share=0.402|blocks=16|executable=1|explanations=10
+docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=0/3/0|prose=1297|bullet_share=0.093|blocks=5|executable=4|explanations=14
 docs/13-security-and-identity/iam-rbac.md|strict=0/0/0|prose=966|bullet_share=0.107|blocks=6|executable=7|explanations=7
 docs/13-security-and-identity/image-signing.md|strict=20/24/12|prose=950|bullet_share=0.475|blocks=13|executable=0|explanations=12
 docs/13-security-and-identity/kerberos.md|strict=0/1/0|prose=1028|bullet_share=0.099|blocks=6|executable=7|explanations=11
@@ -22,58 +22,9 @@ docs/13-security-and-identity/zero-trust.md|strict=26/34/13|prose=1219|bullet_sh
 
 STRICT FINDINGS
 HIGH docs/13-security-and-identity/active-directory.md:7 [list-first-introduction] Directory-change lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [single-sentence-concept] 1. Dominantný asset-to-key-boundary lifecycle — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [list-first-introduction] 1. Dominantný asset-to-key-boundary lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [bare-bullet-items] 1. Dominantný asset-to-key-boundary lifecycle — 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo chráni cryptography?`, `Pred ktorým attackerom a na ktorej boundary?`.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [thin-concept-section] 1. Dominantný asset-to-key-boundary lifecycle — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:28 [single-sentence-concept] 2. Exact cryptographic subject — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-MEDIUM docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:59 [short-concept-section] 3. Encryption, hashing, MAC a signature — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:59 [term-before-explanation] 3. Encryption, hashing, MAC a signature — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `KEM`
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:88 [outline-instead-of-explanation] 5. Threat model pred algoritmom — 16 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:88 [bare-bullet-items] 5. Threat model pred algoritmom — 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ukradnuté médium alebo snapshot;`, `leaked backup;`, `etcd/object-storage-only compromise;`, `nesprávna media disposal;`.
-MEDIUM docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:88 [short-concept-section] 5. Threat model pred algoritmom — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:88 [term-before-explanation] 5. Threat model pred algoritmom — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MITM`, `DNS`
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:133 [list-heavy-section] 7. Key separation — 6 odrážok a iba 43 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:133 [bare-bullet-items] 7. Key separation — 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment — staging, production;`, `tenant alebo data domain;`, `protocol a trust domain;`, `actor alebo workload scope;`.
-MEDIUM docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:133 [short-concept-section] 7. Key separation — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:133 [term-before-explanation] 7. Key separation — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `trust domain`, `workload`, `scope`
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:203 [empty-section] 11. At-rest layers — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:295 [outline-instead-of-explanation] 17. Competing hypotheses a discriminating evidence — 13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:295 [bare-bullet-items] 17. Competing hypotheses a discriminating evidence — 9 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `KMS master-key compromise;`, `etcd ciphertext decryptnutý offline;`, `TLS interception;`, `weak RSA algorithm;`.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:295 [thin-concept-section] 17. Competing hypotheses a discriminating evidence — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:295 [term-before-explanation] 17. Competing hypotheses a discriminating evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RSA`, `JWKS`, `SAML`
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:318 [no-prose-concept] 18. Evidence-preserving containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:318 [list-first-introduction] 18. Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:318 [outline-instead-of-explanation] 18. Evidence-preserving containment — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:318 [thin-concept-section] 18. Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:318 [term-before-explanation] 18. Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `KMS`, `API`, `UID`, `JWKS`, `OIDC`, `SAML`
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:328 [no-prose-concept] 19. Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:328 [list-first-introduction] 19. Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:328 [outline-instead-of-explanation] 19. Authoritative recovery — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:328 [bare-bullet-items] 19. Authoritative recovery — 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `overiť loaded signer generation na každej issuer replica;`, `overiť loaded verifier generation na každej RP/SP replica;`, `odstrániť old key z signing aj trust paths;`, `revoke-nuť sessions/artifacts z exposure interval-u;`.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:328 [thin-concept-section] 19. Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:328 [term-before-explanation] 19. Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `HSM`, `OIDC`, `JWKS`, `SAML`, `RP`, `SP`, `policy`
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:341 [no-prose-concept] 20. Acceptance verdict — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:341 [list-first-introduction] 20. Acceptance verdict — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:341 [outline-instead-of-explanation] 20. Acceptance verdict — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:341 [thin-concept-section] 20. Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:341 [term-before-explanation] 20. Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `API`, `FED-SIGN-07`, `OIDC`, `SAML`, `AAD`, `TLS`, `identity`
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:354 [empty-section] 21. Troubleshooting flow — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:356 [empty-section] Decrypt alebo verify failure — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:369 [empty-section] TLS failure — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:383 [empty-section] Kubernetes at-rest failure — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:403 [no-prose-concept] 23. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:403 [list-first-introduction] 23. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:403 [outline-instead-of-explanation] 23. Earlier controls — 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:403 [bare-bullet-items] 23. Earlier controls — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cryptographic inventory s ownerom, purpose a consumers;`, `independent keys per environment, tenant a protocol;`, `non-exportable private keys pre high-impact signing;`, `encryption context/AAD a nonce tests;`.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:403 [thin-concept-section] 23. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:403 [term-before-explanation] 23. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AAD`, `TLS`, `KMS`, `identity`, `policy`
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:417 [single-sentence-concept] Base64 je encryption — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:421 [single-sentence-concept] AES-256 checkbox — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:425 [single-sentence-concept] KMS/HSM vyrieši compromised application — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:429 [single-sentence-concept] TLS všade, hostname verification vypnuté — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:433 [single-sentence-concept] Jeden key pre viac purposes a environments — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:437 [single-sentence-concept] Key rotated = old trust odstránený — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [list-first-introduction] Asset-to-key-boundary lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:24 [single-sentence-concept] Exact cryptographic subject SEC-PAY-49 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:24 [list-first-introduction] Exact cryptographic subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 CRITICAL docs/13-security-and-identity/image-signing.md:22 [outline-instead-of-explanation] 1. Exact signing subject — 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
 CRITICAL docs/13-security-and-identity/image-signing.md:22 [bare-bullet-items] 1. Exact signing subject — 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a release unit;`, `OCI image index alebo platform manifest digest;`, `architecture a OS variant;`, `source revision a builder generation;`.
 HIGH docs/13-security-and-identity/image-signing.md:22 [thin-concept-section] 1. Exact signing subject — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
@@ -529,8 +480,6 @@ HIGH docs/13-security-and-identity/zero-trust.md:511 [single-sentence-concept] M
 FAILURES
 active-directory.md: strict findings
 encryption-at-rest-and-in-transit.md: strict findings
-encryption-at-rest-and-in-transit.md: bullet share 0.402
-encryption-at-rest-and-in-transit.md: practical examples too thin
 image-signing.md: strict findings
 image-signing.md: bullet share 0.475
 image-signing.md: practical examples too thin
