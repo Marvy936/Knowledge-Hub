@@ -1,4 +1,4 @@
-name: Temporary fix Section 11 checker
+name: Temporary Section 11 exact findings reporter
 
 on:
   push:
@@ -8,34 +8,52 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: temporary-section11-exact-findings-reporter
+  cancel-in-progress: true
+
 jobs:
-  fix:
+  report:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/sections-10-13-prose-first-revalidation
           fetch-depth: 0
-      - name: Repair checker state counter
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Write exact strict findings
         shell: bash
         run: |
           set -euo pipefail
+          python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          audit = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
+          findings = [
+              item for item in audit['findings']
+              if item['path'].startswith('docs/11-cloud-and-aws/')
+              and item['severity'] in {'critical', 'high', 'medium'}
+          ]
+          lines = [
+              f"{item['severity'].upper()}|{item['path']}|line={item['line']}|"
+              f"rule={item['rule']}|section={item['section']}|detail={item['detail']}"
+              for item in findings
+          ]
+          Path('.github/section11-strict-findings.txt').write_text(
+              '\n'.join(lines or ['none']) + '\n', encoding='utf-8', newline='\n'
+          )
+          PY
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('.github/workflows/temporary-section-11-quality-validation.yml')
-          text = path.read_text(encoding='utf-8')
-          text = text.replace('list_first_sections = 0', 'list_first_sections = [0]')
-          text = text.replace('                  nonlocal list_first_sections\n', '')
-          text = text.replace('list_first_sections += 1', 'list_first_sections[0] += 1')
-          text = text.replace('list_first_sections > 1', 'list_first_sections[0] > 1')
-          text = text.replace('{list_first_sections} list-first', '{list_first_sections[0]} list-first')
-          text = text.replace('list_first={list_first_sections}|', 'list_first={list_first_sections[0]}|')
-          path.write_text(text, encoding='utf-8', newline='\n')
-          PY
-          git add .github/workflows/temporary-section-11-quality-validation.yml
+          git add .github/section11-strict-findings.txt
           if ! git diff --cached --quiet; then
-            git commit -m "ci(docs): fix Section 11 quality checker state"
+            git commit -m "ci(docs): record exact Section 11 findings"
             git push origin HEAD:agent/sections-10-13-prose-first-revalidation
           fi
