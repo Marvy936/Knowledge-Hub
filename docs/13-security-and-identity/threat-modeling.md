@@ -90,7 +90,7 @@ Incident ukázal nepravdivé assumptions: runner bol persistentný, helper sprac
 
 ## Threat statements
 
-Použiteľný threat statement má actor, condition, action, asset a impact:
+Použiteľný threat statement má actor, condition, action, asset a impact. Tieto prvky vytvárajú kauzálnu vetu, z ktorej možno odvodiť presný control owner, observation point a forbidden negative test; samotný názov attack technique takýto engineering vstup neposkytuje.
 
 ```text
 Ak untrusted contributor vloží shell metacharacters do merged-PR title

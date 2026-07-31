@@ -27,6 +27,8 @@ Configured secret version, successful read a healthy secret store sú rozdielne 
 
 ## Exact secret subject SEC-PAY-49
 
+Secret subject musí spojiť value alebo key reference s účelom, target trustom, všetkými consumers a loaded generations. V incidente je toto rozlíšenie rozhodujúce, pretože jedna exportovateľná key mala štyri odlišné federation purposes a storage encryption tento coupling neodhalila.
+
 ```yaml
 incident: SEC-PAY-49
 secretId: FED-SIGN-07

@@ -1,4 +1,4 @@
-status=failure
+status=success
 
 docs/13-security-and-identity/active-directory.md|strict=0/0/0|prose=1082|bullet_share=0.113|blocks=6|executable=10|explanations=15
 docs/13-security-and-identity/authentication-authorization-auditing.md|strict=0/0/0|prose=1028|bullet_share=0.105|blocks=8|executable=6|explanations=8
@@ -14,18 +14,14 @@ docs/13-security-and-identity/openid-connect.md|strict=0/0/0|prose=1225|bullet_s
 docs/13-security-and-identity/policy-as-code.md|strict=0/0/0|prose=1036|bullet_share=0.084|blocks=5|executable=8|explanations=12
 docs/13-security-and-identity/saml.md|strict=0/0/0|prose=1101|bullet_share=0.118|blocks=5|executable=2|explanations=8
 docs/13-security-and-identity/sbom.md|strict=0/0/0|prose=1139|bullet_share=0.088|blocks=6|executable=6|explanations=11
-docs/13-security-and-identity/secrets-management.md|strict=0/1/0|prose=1202|bullet_share=0.087|blocks=6|executable=7|explanations=8
+docs/13-security-and-identity/secrets-management.md|strict=0/0/0|prose=1240|bullet_share=0.084|blocks=6|executable=7|explanations=8
 docs/13-security-and-identity/supply-chain-security.md|strict=0/0/0|prose=1162|bullet_share=0.080|blocks=4|executable=2|explanations=14
-docs/13-security-and-identity/threat-modeling.md|strict=0/1/0|prose=1088|bullet_share=0.097|blocks=6|executable=4|explanations=7
-docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=0/1/0|prose=1136|bullet_share=0.091|blocks=6|executable=5|explanations=12
+docs/13-security-and-identity/threat-modeling.md|strict=0/0/0|prose=1114|bullet_share=0.095|blocks=6|executable=4|explanations=8
+docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=0/0/0|prose=1172|bullet_share=0.089|blocks=6|executable=5|explanations=12
 docs/13-security-and-identity/zero-trust.md|strict=0/0/0|prose=1308|bullet_share=0.080|blocks=6|executable=7|explanations=7
 
 STRICT FINDINGS
-HIGH docs/13-security-and-identity/secrets-management.md:28 [list-first-introduction] Exact secret subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/threat-modeling.md:91 [single-sentence-concept] Threat statements — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:27 [list-first-introduction] Exact remediation subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+none
 
 FAILURES
-secrets-management.md: strict findings
-threat-modeling.md: strict findings
-vulnerability-and-patch-management.md: strict findings
+none
