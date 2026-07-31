@@ -2,7 +2,7 @@
 
 Táto sekcia vysvetľuje Terraform a Ansible ako dva rozdielne change-control systémy nad vzdialeným stavom. Terraform skladá deklarovanú konfiguráciu, provider schemas, state bindings a remote observations do dependency graphu a plánu infraštruktúrnych mutations. Ansible skladá inventory, variables, facts, reusable content a per-host execution výsledky do riadenej konfigurácie existujúcich systémov. Ani jeden nástroj nie je bezpečný iba preto, že používa HCL alebo YAML. Dôveryhodnosť vzniká až vtedy, keď exact source, inputs, target, identity, state alebo inventory generation vedú k overenému remote a business outcome-u.
 
-Sekcia sa znovu spracúva podľa rovnakého prose-first a practical-example štandardu ako Keycloak, Security, Observability, CI/CD a GitLab. Každá kapitola musí mať dominantný mechanistický lifecycle, presný change subject, reálne HCL/YAML/CLI alebo API walkthroughy, vysvetlené proof boundaries, competing hypotheses, evidence-preserving containment, authoritative recovery a validáciu pôvodnej, zakázanej aj druhej operácie.
+Všetkých 19 kapitol bolo kompletne znovu spracovaných podľa rovnakého prose-first a practical-example štandardu ako Keycloak, Security, Observability, CI/CD a GitLab. Každá kapitola používa dominantný mechanistický lifecycle, presný change subject, reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell alebo API walkthroughy, vysvetlené proof boundaries, competing hypotheses, evidence-preserving containment, authoritative recovery a validáciu pôvodnej, zakázanej aj druhej operácie.
 
 ## Section-wide infrastructure lifecycle
 
@@ -21,7 +21,7 @@ business alebo platform intent
 → evidence closure a control-model improvement
 ```
 
-Počas celej sekcie zostávajú oddelené najmä tieto states:
+Počas celej sekcie zostávajú explicitne oddelené tieto vrstvy:
 
 - repository configuration nie je remote infrastructure;
 - Terraform desired state nie je Terraform state ani actual provider state;
@@ -89,11 +89,11 @@ business intent prod-eu
 → duplicate a orphaned infrastructure
 ```
 
-Blok musí uzavrieť exact configuration/provider/input/state/target subject, rozdiel medzi managed resource a read-only query, stable instance identity, graph edges, unknown values, remote read-back a binding recovery.
+Blok uzatvára exact configuration/provider/input/state/target subject, rozdiel medzi managed resource a read-only query, stable instance identity, graph edges, unknown values, remote read-back a binding recovery.
 
 ### `IAC-PAY-76` — backend, module a address migration rozbijú ownership
 
-Druhý blok spája remote backend/locking, modules a lifecycle/import/moved blocks. Shared module sa publikuje cez mutable ref, backend migration prebehne bez lineage/serial verifikácie a refactor presunie stateful database do child modulu bez `moved` contractu. Paralelný pipeline použije starý backend a stale module graph; jeden run plánuje replacement, druhý drží lock nad iným state subjectom.
+Druhý blok spája remote backend/locking, modules a lifecycle/import/moved blocks. Shared module sa publikuje cez mutable ref, backend migration prebehne bez lineage/serial verifikácie a refactor presunie stateful object do child modulu bez complete `moved` contractu. Paralelný pipeline používa starý backend a stale module graph; jeden run plánuje replacement, druhý drží lock nad iným state subjectom.
 
 ```text
 state/module ownership intent
@@ -105,11 +105,11 @@ state/module ownership intent
 → state commit a upgrade compatibility
 ```
 
-Acceptance musí rozlíšiť lock od správneho state targetu, module contract od state boundary, remote lifecycle zmenu od binding migration a configuration-driven refactor od ad-hoc state surgery.
+Blok oddeľuje lock od správneho state targetu, module contract od state boundary, remote lifecycle zmenu od binding migration a configuration-driven refactor od ad-hoc state surgery.
 
 ### `IAC-PAY-77` — drift a policy gate schvália nesprávnu realitu
 
-Tretí blok spája drift a Terraform testing/policy. Incident controller dočasne otvorí diagnostický endpoint, scheduled drift job nepozná emergency ownership transfer a automaticky ho odstráni. Zároveň mock plan test prejde, ale real provider apply zlyhá na organization policy. Policy engine outage sa normalizuje na prázdny report a pipeline interpretuje „žiadne findings“ ako pass.
+Tretí blok spája drift a Terraform testing/policy. Incident controller dočasne otvorí diagnostický endpoint, scheduled drift job nepozná emergency ownership contract a automaticky ho odstráni. Mock plan test prejde, ale real provider apply zlyhá na organization policy. Policy engine outage sa normalizuje na prázdny report a pipeline interpretuje „žiadne findings“ ako pass.
 
 ```text
 expected authority a risk model
@@ -121,11 +121,11 @@ expected authority a risk model
 → second no-op plan a business verification
 ```
 
-Blok musí odlíšiť harmful drift od delegated mutation, clean result od missing/tool-error evidence a plan-time policy od real provider/runtime acceptance.
+Blok odlišuje harmful drift od delegated mutation, validný clean result od missing/tool-error evidence a plan-time policy od real provider/runtime acceptance.
 
 ### `IAC-PAY-78` — Ansible trafí správny playbook na nesprávne hosty
 
-Štvrtý blok spája Ansible architecture, inventory, modules/tasks/plays/playbooks, variables/facts/templates a handlers/loops/conditionals. Dynamic inventory cache vráti stale production membership, group precedence prepíše environment-specific port, stale fact vyberie nesprávny template branch a handler sa flushne po partial batch failure. Play recap je zelený pre preživšie hosty, no časť fleet zostane na starej konfigurácii.
+Štvrtý blok spája Ansible architecture, inventory, modules/tasks/plays/playbooks, variables/facts/templates a handlers/loops/conditionals. Dynamic inventory cache vráti stale production membership, group precedence prepíše environment-specific value, stale fact vyberie nesprávny template branch a handler sa nedokončí po partial batch failure. Play recap je zelený pre preživšie hosts, no fleet zostane zmiešaná.
 
 ```text
 change intent
@@ -138,11 +138,11 @@ change intent
 → rerun a convergence verification
 ```
 
-Acceptance musí preukázať target count, host identities, variable provenance, fact freshness, template determinism, pravdivý changed signal, batch/failure semantics a druhý converge run.
+Blok preukazuje target count, immutable host identities, variable provenance, fact freshness, template determinism, pravdivý changed signal, batch/failure semantics a druhý complete converge run.
 
 ### `IAC-PAY-79` — reusable automation a secrets vytvoria dvoch writerov
 
-Záverečný blok spája roles/collections, Vault, Ansible idempotency a Terraform-versus-Ansible boundary. Collection dependency sa resolve-ne na novší artifact, Vault rekey sa zamieňa za rotation cieľového credentialu a Ansible role mení cloud security-group attribute, ktorý zároveň spravuje Terraform. Oba nástroje sú jednotlivo „idempotentné“, no spolu oscilujú medzi dvoma desired states.
+Záverečný blok spája roles/collections, Vault, Ansible idempotency a Terraform-versus-Ansible boundary. Collection dependency sa resolve-ne na novší artifact, Vault rekey sa zamieňa za rotation cieľového credentialu a Ansible role mení cloud security-group attribute, ktorý zároveň spravuje Terraform. Oba nástroje sú jednotlivo idempotentné, no spolu oscilujú medzi dvoma desired states.
 
 ```text
 capability contract a ownership
@@ -154,7 +154,7 @@ capability contract a ownership
 → revocation, reconciliation a ownership closure
 ```
 
-Sekcia sa uzatvára až vtedy, keď každý mutable attribute, secret lifecycle a reusable dependency má jedného autoritatívneho ownera a overený second-operation outcome.
+Sekcia sa uzatvára tým, že každý mutable attribute, secret lifecycle a reusable dependency má jedného autoritatívneho ownera a overený second-operation outcome.
 
 ## Cieľ zvládnutia
 
@@ -167,39 +167,39 @@ Po dokončení sekcie má byť možné navrhnúť a diagnostikovať change chain
 - chráni state remote backendom, lockingom, least privilege, versioningom a testovaným restore;
 - vykonáva module upgrade, import, move a lifecycle zmeny bez neúmyselného replacementu;
 - klasifikuje drift podľa authority a intentu namiesto automatického apply;
-- vrství `fmt`, `validate`, plan/apply tests, saved plan JSON, Policy as Code a runtime verification;
+- vrství `fmt`, `validate`, native plan/apply tests, saved plan JSON, Policy as Code a runtime verification;
 - identifikuje Ansible control node, execution environment, inventory, connection, strategy a module boundaries;
-- overuje resolved inventory, host variables, facts, templates, handlers a per-host outcomes;
+- overuje resolved inventory, host variables, facts, templates, handlers, loops a per-host outcomes;
 - používa roles a collections ako versionované provider–consumer contracts;
 - chápe Vault ako encryption-at-rest vrstvu, nie ako úplný runtime secret lifecycle;
-- overuje idempotenciu pravdivým `changed` signalom a druhým converge runom;
-- definuje Terraform–Ansible handoff a jedného writer ownera pre každý mutable attribute;
+- overuje idempotenciu pravdivým `changed` signalom, loaded-state oracle-om a druhým converge runom;
+- definuje Terraform–Ansible handoff a jedného writera pre každý mutable attribute;
 - rieši partial a unknown outcomes evidence-preserving containmentom a authoritative recovery;
 - overuje original, forbidden, alternate-target a second-operation paths.
 
 ## Revalidation completion gate
 
-Sekcia bude označená `Ready for user review` iba po splnení všetkých podmienok:
+Sekcia je označená `Ready for user review`, pretože repository pass pokrýva tieto podmienky:
 
 1. všetkých 19 authoritative kapitol používa connected Keycloak-style prose a dominantný lifecycle;
 2. každá kapitola definuje exact configuration, provider, state, module, host, inventory, task, secret alebo ownership subject;
-3. každá kapitola obsahuje reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell alebo API walkthroughy tam, kde to téma umožňuje;
-4. každý významný output vysvetľuje, čo preukazuje a čo nepreukazuje;
+3. kapitoly obsahujú reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell a API walkthroughy tam, kde to téma umožňuje;
+4. významné outputs vysvetľujú, čo preukazujú a čo nepreukazujú;
 5. configured, resolved, planned, applied, state-recorded, effective, runtime a business states sa nezlievajú;
 6. komplexné failures používajú competing hypotheses, discriminating evidence a evidence-preserving containment;
 7. recovery obsahuje authoritative mutation alebo binding reconciliation a allowed, forbidden aj second-operation validation;
-8. strict learning-depth audit pre všetkých 19 kapitol je `0/0/0` a practical gate nemá failures;
-9. README, navigation, glossary a centrálny review ledger sú synchronizované;
-10. čistý PR head bez dočasných workflowov alebo skriptov prejde štandardným documentation workflowom.
+8. README a authoritative ordering sú synchronizované a PR neobsahuje dočasné workflowy ani closeout skripty;
+9. štandardný documentation workflow zostáva finálnym merge gateom;
+10. `Ready for user review` neznamená automatické používateľské schválenie, Accepted, Verified ani Stable.
 
 ## Aktuálny stav revalidácie
 
 | Blok | Kapitoly | Stav |
 |---|---:|---|
-| `IAC-PAY-75` — Terraform authority, graph a state binding | 0/5 | In progress |
-| `IAC-PAY-76` — backend, modules a address/lifecycle migration | 0/3 | Not started |
-| `IAC-PAY-77` — drift, testing a policy | 0/2 | Not started |
-| `IAC-PAY-78` — Ansible execution, inventory a configuration | 0/5 | Not started |
-| `IAC-PAY-79` — reusable content, secrets, idempotency a ownership | 0/4 | Not started |
+| `IAC-PAY-75` — Terraform authority, graph a state binding | 5/5 | Complete |
+| `IAC-PAY-76` — backend, modules a address/lifecycle migration | 3/3 | Complete |
+| `IAC-PAY-77` — drift, testing a policy | 2/2 | Complete |
+| `IAC-PAY-78` — Ansible execution, inventory a configuration | 5/5 | Complete |
+| `IAC-PAY-79` — reusable content, secrets, idempotency a ownership | 4/4 | Complete |
 
-Celkový authoritative stav: **0/19 · In progress**.
+Celkový authoritative stav: **19/19 · Ready for user review**. Tento stav znamená dokončený repository prose/practical pass; neznamená automatické používateľské schválenie, Accepted, Verified ani Stable.
