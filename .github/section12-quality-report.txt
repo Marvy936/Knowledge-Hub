@@ -1,0 +1,68 @@
+status=failure
+
+docs/12-observability/alert-design-alert-fatigue.md|strict=32/35/8|prose=671|bullet_share=0.496|blocks=18|executable=0|explanations=1
+docs/12-observability/alertmanager.md|strict=39/37/11|prose=908|bullet_share=0.451|blocks=18|executable=1|explanations=3
+docs/12-observability/cardinality.md|strict=33/38/9|prose=710|bullet_share=0.490|blocks=26|executable=0|explanations=2
+docs/12-observability/elasticsearch-opensearch.md|strict=27/32/4|prose=841|bullet_share=0.450|blocks=21|executable=0|explanations=4
+docs/12-observability/fluent-bit.md|strict=28/30/10|prose=859|bullet_share=0.441|blocks=19|executable=0|explanations=4
+docs/12-observability/golden-signals.md|strict=44/39/15|prose=681|bullet_share=0.499|blocks=15|executable=0|explanations=2
+docs/12-observability/grafana.md|strict=25/27/6|prose=838|bullet_share=0.413|blocks=19|executable=0|explanations=6
+docs/12-observability/instrumentation-telemetry.md|strict=23/32/11|prose=1335|bullet_share=0.327|blocks=15|executable=0|explanations=16
+docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
+docs/12-observability/loki.md|strict=32/28/8|prose=767|bullet_share=0.438|blocks=22|executable=3|explanations=2
+docs/12-observability/metrics-logs-traces-events.md|strict=15/25/4|prose=1161|bullet_share=0.277|blocks=13|executable=0|explanations=9
+docs/12-observability/monitoring-vs-observability.md|strict=15/22/8|prose=1192|bullet_share=0.318|blocks=15|executable=0|explanations=13
+docs/12-observability/opentelemetry.md|strict=30/25/14|prose=801|bullet_share=0.429|blocks=18|executable=0|explanations=4
+docs/12-observability/prometheus.md|strict=32/34/12|prose=1142|bullet_share=0.397|blocks=23|executable=1|explanations=8
+docs/12-observability/red-method.md|strict=24/26/7|prose=1261|bullet_share=0.285|blocks=22|executable=0|explanations=2
+docs/12-observability/use-method.md|strict=22/47/12|prose=745|bullet_share=0.482|blocks=11|executable=0|explanations=14
+
+FAILURES
+alert-design-alert-fatigue.md: strict findings
+alert-design-alert-fatigue.md: bullet share 0.496
+alert-design-alert-fatigue.md: practical examples too thin
+alert-design-alert-fatigue.md: evidence explanation too thin (1)
+alertmanager.md: strict findings
+alertmanager.md: bullet share 0.451
+alertmanager.md: practical examples too thin
+cardinality.md: strict findings
+cardinality.md: bullet share 0.490
+cardinality.md: practical examples too thin
+cardinality.md: evidence explanation too thin (2)
+elasticsearch-opensearch.md: strict findings
+elasticsearch-opensearch.md: bullet share 0.450
+elasticsearch-opensearch.md: practical examples too thin
+fluent-bit.md: strict findings
+fluent-bit.md: bullet share 0.441
+fluent-bit.md: practical examples too thin
+golden-signals.md: strict findings
+golden-signals.md: bullet share 0.499
+golden-signals.md: practical examples too thin
+golden-signals.md: evidence explanation too thin (2)
+grafana.md: strict findings
+grafana.md: bullet share 0.413
+grafana.md: practical examples too thin
+instrumentation-telemetry.md: strict findings
+instrumentation-telemetry.md: practical examples too thin
+jaeger-tempo.md: strict findings
+jaeger-tempo.md: bullet share 0.479
+jaeger-tempo.md: practical examples too thin
+loki.md: strict findings
+loki.md: bullet share 0.438
+loki.md: evidence explanation too thin (2)
+metrics-logs-traces-events.md: strict findings
+metrics-logs-traces-events.md: practical examples too thin
+monitoring-vs-observability.md: strict findings
+monitoring-vs-observability.md: practical examples too thin
+opentelemetry.md: strict findings
+opentelemetry.md: bullet share 0.429
+opentelemetry.md: practical examples too thin
+prometheus.md: strict findings
+prometheus.md: bullet share 0.397
+prometheus.md: practical examples too thin
+red-method.md: strict findings
+red-method.md: practical examples too thin
+red-method.md: evidence explanation too thin (2)
+use-method.md: strict findings
+use-method.md: bullet share 0.482
+use-method.md: practical examples too thin
