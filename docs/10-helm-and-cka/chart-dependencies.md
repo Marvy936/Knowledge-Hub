@@ -161,6 +161,74 @@ Najčastejšie anti-patterny sú independent component v application dependency,
 7. Ako preukážeš complete transitive graph a artifact trust?
 8. Čo uzatvára deterministic build a business acceptance?
 
+## Executable lab: `Chart.yaml`, `Chart.lock`, `update` a reprodukovateľný `build`
+
+Dependency declaration je range alebo exact-version intent. Reprodukovateľný build vznikne až vtedy, keď reviewnutý `Chart.lock` a packaged dependency archives zodpovedajú tomuto intentu.
+
+Parent `Chart.yaml` môže obsahovať interný library chart:
+
+```yaml
+apiVersion: v2
+name: atlas-payments
+version: 0.3.0
+dependencies:
+  - name: atlas-library
+    version: 1.6.3
+    repository: oci://registry.example.com/helm
+  - name: redis
+    version: 2.4.1
+    repository: oci://registry.example.com/helm
+    condition: redis.enabled
+```
+
+Values explicitne rozhodnú, či optional runtime dependency patrí do renderu:
+
+```yaml
+redis:
+  enabled: false
+```
+
+Pri vedomom dependency upgrade-e použi:
+
+```bash
+helm dependency update ./atlas-payments
+helm dependency list ./atlas-payments
+git diff -- atlas-payments/Chart.lock
+```
+
+`update` resolve-ne dependencies podľa `Chart.yaml`, stiahne packages do `charts/` a môže zmeniť `Chart.lock`. Preto patrí do samostatnej reviewnutej dependency-change operácie, nie do každého production build-u.
+
+V bežnom CI build-e odstráň lokálny cache adresár a obnov ho z locku:
+
+```bash
+rm -rf atlas-payments/charts
+helm dependency build ./atlas-payments
+sha256sum atlas-payments/charts/*.tgz
+```
+
+`build` používa existujúci `Chart.lock`; nemá potichu vyberať novšie compatible versions. Po príkaze musí platiť:
+
+```bash
+git diff --exit-code -- atlas-payments/Chart.lock
+```
+
+Ak sa lock zmenil, build nebol čistou materializáciou schváleného dependency graphu. Samotný nezmenený lock však stále nepreukazuje provenance alebo dôveryhodnosť stiahnutého package-u. CI má navyše uchovať digesty package archives, registry identity a prípadné signature/provenance verification podľa supply-chain contractu.
+
+Optional dependency test vykonaj dvakrát:
+
+```bash
+helm template payments-dev ./atlas-payments \
+  --set redis.enabled=false > /tmp/without-redis.yaml
+
+helm template payments-dev ./atlas-payments \
+  --set redis.enabled=true > /tmp/with-redis.yaml
+
+grep -n 'kind: StatefulSet' /tmp/without-redis.yaml || true
+grep -n 'kind: StatefulSet' /tmp/with-redis.yaml
+```
+
+Prvý render nesmie obsahovať Redis workload; druhý ho má obsahovať. Tento test preukazuje condition wiring v renderi. Nepreukazuje, že subchart je runtime kompatibilný s parent application, že storage class existuje alebo že upgrade zachová dáta.
+
 ## Glossary impact
 
 Relevantné pojmy: Helm dependency subject, declaration constraint, resolved chart artifact, dependency lock, packaged graph, transitive graph, dependency ownership test, global values contract, dependency enablement verdict, single-release failure domain, dependency upgrade generation a mirror-only reproducibility.
