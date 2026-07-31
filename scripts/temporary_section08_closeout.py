@@ -17,34 +17,35 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
 
 
 walkthrough = WALKTHROUGH.read_text(encoding="utf-8")
+backslash = chr(92)
 
 walkthrough = replace_once(
     walkthrough,
-    '[]byte(`{\\"status\\":\\"alive\\"}`)',
+    f'[]byte(`{{{backslash}"status{backslash}":{backslash}"alive{backslash}"}}`)',
     '[]byte(`{"status":"alive"}`)',
     "healthz JSON literal",
 )
 walkthrough = replace_once(
     walkthrough,
-    '[]byte(`{\\"status\\":\\"ready\\"}`)',
+    f'[]byte(`{{{backslash}"status{backslash}":{backslash}"ready{backslash}"}}`)',
     '[]byte(`{"status":"ready"}`)',
     "readyz JSON literal",
 )
 walkthrough = replace_once(
     walkthrough,
-    'strings.NewReader(`{\\"id\\":\\"pay-100\\",\\"amount\\":1250,\\"currency\\":\\"EUR\\"}`)',
+    f'strings.NewReader(`{{{backslash}"id{backslash}":{backslash}"pay-100{backslash}",{backslash}"amount{backslash}":1250,{backslash}"currency{backslash}":{backslash}"EUR{backslash}"}}`)',
     'strings.NewReader(`{"id":"pay-100","amount":1250,"currency":"EUR"}`)',
     "happy-path request body",
 )
 walkthrough = replace_once(
     walkthrough,
-    '`\\"id\\":\\"pay-100\\"`',
+    f'`{backslash}"id{backslash}":{backslash}"pay-100{backslash}"`',
     '`"id":"pay-100"`',
     "happy-path response assertion",
 )
 walkthrough = replace_once(
     walkthrough,
-    'strings.NewReader(`{\\"id\\":\\"pay-invalid\\",\\"amount\\":0,\\"currency\\":\\"EUR\\"}`)',
+    f'strings.NewReader(`{{{backslash}"id{backslash}":{backslash}"pay-invalid{backslash}",{backslash}"amount{backslash}":0,{backslash}"currency{backslash}":{backslash}"EUR{backslash}"}}`)',
     'strings.NewReader(`{"id":"pay-invalid","amount":0,"currency":"EUR"}`)',
     "forbidden request body",
 )
