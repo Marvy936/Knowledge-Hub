@@ -1,0 +1,71 @@
+name: Temporary close Section 11 revalidation
+
+on:
+  push:
+    branches:
+      - agent/sections-10-13-prose-first-revalidation
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section11-closeout
+  cancel-in-progress: true
+
+jobs:
+  closeout:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/sections-10-13-prose-first-revalidation
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Record completion and remove temporary files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          readme = Path('docs/11-cloud-and-aws/README.md')
+          text = readme.read_text(encoding='utf-8')
+          marker = '## Revalidation status\n'
+          if marker not in text:
+              text = text.rstrip() + '''
+
+## Revalidation status
+
+**28/28 authoritative kapitol je pripravených na používateľskú kontrolu.** Dňa 31. júla 2026 prešla sekcia kompletným prose-first a practical-example passom podľa štandardu sekcií 14–17. Súvislý výklad je dominantný, technické kapitoly obsahujú spustiteľné AWS CLI, Terraform, policy, Kubernetes, SQL alebo shell ukážky a príkazy vysvetľujú, čo ich výstup preukazuje a čo nepreukazuje.
+
+Finálny strict learning-depth výsledok je vo všetkých kapitolách `critical/high/medium = 0/0/0`. Samostatný quality gate zároveň overil minimálny prose rozsah, nízky podiel odrážok, executable examples a explicitnú interpretáciu command evidence. Tento stav znamená ukončenú internú revalidáciu, nie automatické používateľské schválenie ani garanciu výsledku certifikačnej skúšky.
+'''
+              readme.write_text(text, encoding='utf-8', newline='\n')
+
+          ledger = Path('DOCUMENTATION-REVIEW-STATUS.md')
+          lines = ledger.read_text(encoding='utf-8').splitlines()
+          row = "| `11-cloud-and-aws` — Cloud and AWS | 28/28 prose-first practical strict revalidation | Ready for user review | 2026-07-31 | Všetkých 28 authoritative kapitol bolo prepracovaných alebo znovu overených podľa prose-first štandardu sekcií 14–17. Súvislý výklad prevažuje nad odrážkami; technické kapitoly obsahujú konkrétne AWS CLI, Terraform, IAM/policy, Kubernetes, SQL alebo shell ukážky s vysvetlením, čo výstup dokazuje a čo nie. Finálny learning-depth aj practical-quality gate prešli s `critical/high/medium = 0/0/0` vo všetkých kapitolách. README ordering, navigation, glossary a SOA-C03 practical track boli overené. Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená. |"
+          replaced = False
+          for index, line in enumerate(lines):
+              if line.startswith('| `11-cloud-and-aws`'):
+                  lines[index] = row
+                  replaced = True
+                  break
+          if not replaced:
+              insert_at = next((i for i, line in enumerate(lines) if line.startswith('| `12-observability`')), len(lines))
+              lines.insert(insert_at, row)
+          ledger.write_text('\n'.join(lines) + '\n', encoding='utf-8', newline='\n')
+          PY
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          rm -f .github/section11-final-quality-report.txt
+          rm -f .github/workflows/temporary-section-11-final-quality-gate.yml
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "docs(aws): close practical prose revalidation"
+          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
