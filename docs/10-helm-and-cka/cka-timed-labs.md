@@ -133,6 +133,49 @@ Rozšírený vykonávací protokol a tréningové sety patria do [CKA labs](../.
 
 Výsledky z labov sa vracajú do learning loopu tejto kapitoly. Každý context, diagnosis alebo validation gap má viesť ku konkrétnemu targeted tasku, nie k mechanickému opakovaniu celého rovnakého setu.
 
+## Executable timed lab: bezpečný image rollout a Service verification
+
+Lab `CKA-WRK-21` dáva 12 minút na zmenu image Deploymentu `payments-api` v namespace `payments` bez zníženia available replicas pod dve. Najprv sa fixne context a current generation; príkazy ešte nič nemenia:
+
+```bash
+kubectl config current-context
+kubectl config view --minify
+kubectl -n payments get deployment payments-api -o wide
+kubectl -n payments get deployment payments-api -o yaml > /tmp/payments-before.yaml
+```
+
+Prvé dva príkazy chránia pred správnou zmenou v nesprávnom clustri. Live YAML zachová selector, strategy, image a generation pre neskorší forbidden-change diff. Samotné uloženie súboru nepreukazuje zdravie resource-u, preto sa ešte pred mutation overí current availability:
+
+```bash
+kubectl -n payments get deployment payments-api \
+  -o jsonpath='{.status.availableReplicas}{"/"}{.spec.replicas}{"\n"}'
+kubectl -n payments get pods \
+  -l app.kubernetes.io/name=payments-api -o wide
+```
+
+Candidate image sa nastaví exact digestom a controller transition sa sleduje oddelene od command exit code-u:
+
+```bash
+kubectl -n payments set image deployment/payments-api \
+  api=registry.example.com/payments-api@sha256:4444444444444444444444444444444444444444444444444444444444444444
+kubectl -n payments rollout status deployment/payments-api --timeout=4m
+kubectl -n payments get deployment payments-api \
+  -o jsonpath='{.spec.template.spec.containers[?(@.name=="api")].image}{"\n"}'
+```
+
+`set image` preukazuje iba accepted mutation. `rollout status` overí Deployment controller a readiness conditions; JSONPath potvrdí exact digest v live Pod template. Serving path sa testuje cez Service z izolovaného probe Podu:
+
+```bash
+kubectl -n payments get service,endpointslice \
+  -l app.kubernetes.io/name=payments-api
+kubectl -n payments run payments-probe \
+  --image=curlimages/curl:8.10.1 \
+  --restart=Never --rm -i \
+  -- curl -fsS http://payments-api:8080/ready
+```
+
+Nakoniec sa porovná zachovanie selectoru a strategy. Zakázaná skratka je zmazať affinity, probes alebo rollout constraints iba preto, aby nové Pody nabehli. Pri neúspechu sa číta new ReplicaSet, Events a Pod reason; nevykonáva sa ďalší nesúvisiaci patch. Task je uzavretý až po exact image, požadovanej availability, funkčnej Service ceste a diff-e bez forbidden changes.
+
 ## Glossary impact
 
 Relevantné pojmy: CKA exam subject, timed-lab generation, task subject, intake protocol, current-state observation, execution path, hard validation, forbidden outcome, score closure, skip-and-return trigger, unknown operation outcome, domain-weighted blueprint a targeted drill.
