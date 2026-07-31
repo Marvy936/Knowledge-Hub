@@ -1,661 +1,551 @@
 # Namespaces, cgroups a capabilities
 
-Linux container nevzniká jedným kernel prepínačom. Runtime vytvorí process subject a skladá jeho isolation z viacerých nezávislých mechanizmov:
+Linux container nevzniká jedným kernel prepínačom. Runtime vytvorí host process a jeho boundary poskladá z viacerých nezávislých mechanizmov. Namespaces menia, čo process vidí a v akom kernel context-e operuje. Cgroups určujú accounting, limits a scheduling pressure. UID/GID, capabilities, `no_new_privs`, seccomp, SELinux/AppArmor, devices a mount policy určujú, čo process smie vykonať nad konkrétnym objektom. Žiadna z týchto vrstiev samostatne netvorí plnú container isolation.
+
+Kapitola pokračuje incidentom `CTR-PAY-80`. Atlas Payments dostane memory limit 2 GiB, `pids.max=512` a minimum capabilities. Diagnostický variant však zdedí host network namespace, pridá `CAP_SYS_ADMIN` a bindne writable `/sys`. Aplikácia zároveň používa shell wrapper ako PID 1. Pri memory pressure container skončí, ale tím vidí iba exit code `137`; pri termination sa SIGTERM nedostane k serveru a host-level diagnostický container má podstatne širšiu authority než jeho image naznačuje.
+
+## 1. Dominantný policy-to-kernel-enforcement lifecycle
 
 ```text
-workload policy a host trust boundary
-→ process credentials a user mapping
-→ namespace views
-→ root filesystem a mounts
-→ cgroup placement a resource policy
-→ capability sets a no_new_privs
-→ seccomp, SELinux/AppArmor a device policy
-→ PID 1 start
-→ resource/security observations
-→ termination a cleanup
+workload a host threat model
+→ runtime process/user subject
+→ namespace create/join decisions
+→ rootfs a mount/device assembly
+→ cgroup placement a controller values
+→ capability/no_new_privs/seccomp/LSM policy
+→ exec PID 1
+→ kernel resource/security events
+→ signal/termination a cleanup
+→ forbidden operation a second-container verification
 ```
 
 Každá vrstva odpovedá na inú otázku:
 
-- namespaces: **čo process vidí a v akom kernel context-e?**
-- cgroups: **aké resources spotrebúva a aké hranice má?**
-- credentials/capabilities: **aké privilegované operácie smie žiadať?**
-- seccomp: **ktoré syscalls smie vôbec volať?**
-- SELinux/AppArmor a filesystem policy: **smie konkrétnu operáciu vykonať nad konkrétnym objektom?**
-
-Žiadny mechanizmus samostatne netvorí plnú container boundary. Defense in depth vzniká iba z ich konzistentnej kompozície.
-
-## 1. Atlas runtime-isolation subject
-
-Atlas Payments container `AP-313-07` má policy:
-
 ```text
-host/VM: node-17 / Linux 6.12
-runtime instance: AP-313-07
-process user in container: UID 10001
-host UID mapping: 2010001 podľa user namespace policy
-PID namespace: PNS-71
-mount namespace/rootfs: MNS-71 / image MAMD313
-network namespace: NNS-71
-cgroup path: /atlas/payments/AP-313-07
-CPU: weight 200, quota 200000/100000
-memory.high: 1536 MiB
-memory.max: 2048 MiB
-pids.max: 512
-capabilities: drop ALL, add NET_BIND_SERVICE
-no_new_privs: true
-seccomp profile: atlas-web-v4
-SELinux/AppArmor profile: atlas-payments-prod-v3
-writable mounts: /tmp tmpfs, /var/cache/atlas bounded volume
-host mounts/devices: none
+namespaces
+→ ktorý view globálneho kernel resource-u process dostane?
+
+cgroups
+→ koľko resource spotrebuje, ako sa účtuje a čo sa stane pri hranici?
+
+credentials/capabilities
+→ aké privileged kernel operations môže žiadať?
+
+seccomp
+→ ktoré syscalls a argument classes smie volať?
+
+SELinux/AppArmor
+→ smie tento process vykonať túto operation nad týmto objectom?
 ```
 
-Úspešný isolation outcome:
+OCI Linux runtime configuration tieto mechanizmy modeluje oddelene. Ak namespace type nie je v OCI confige uvedený, process môže inherit-nuť runtime namespace daného typu; preto „container“ label nepreukazuje, že každý namespace je nový. citeturn973841search0
 
-```text
-process vidí iba intended namespace resources
-+ nemá neplánované host access paths
-+ resource pressure je ohraničený a pozorovateľný
-+ potrebné privilegované operácie prejdú
-+ zakázané operácie zlyhajú na očakávanej policy vrstve
-+ PID 1 ukončí workload korektne
-+ teardown odstráni runtime state bez host side effects
+## 2. Exact kernel process subject
+
+```yaml
+isolationSubject:
+  containerId: 2d9f...
+  hostPid: 48291
+  namespacePid: 1
+  imageManifest: sha256:amd104
+  user:
+    containerUid: 10001
+    containerGid: 10001
+    hostUid: 2010001
+    userNamespace: user:[4026533001]
+  namespaces:
+    pid: pid:[4026533002]
+    mount: mnt:[4026533003]
+    network: net:[4026533004]
+    uts: uts:[4026533005]
+    ipc: ipc:[4026533006]
+    cgroup: cgroup:[4026533007]
+  cgroupPath: /system.slice/docker-2d9f.scope
+  capabilities:
+    bounding: [NET_BIND_SERVICE]
+    effective: [NET_BIND_SERVICE]
+  noNewPrivileges: true
+  seccomp: runtime-default
+  appArmor: atlas-payments
+  mountsGeneration: M44
 ```
 
-## 2. Process subject pred namespace-om
+Praktický host-side read-back:
 
-Kernel rozhoduje nad processom, nie abstraktným „containerom“. Relevantná identita zahŕňa:
+```bash
+container_pid="$(docker inspect -f '{{.State.Pid}}' atlas-payments)"
 
-```text
-host PID a namespace PID
-real/effective/saved UID/GID
-user namespace mapping
-capability sets
-no_new_privs
-seccomp mode/filter
-LSM label/profile
-cgroup membership
-mount a network namespace IDs
-open file descriptors a inherited handles
+printf 'host_pid=%s\n' "$container_pid"
+ls -l "/proc/$container_pid/ns/"
+cat "/proc/$container_pid/status"
+cat "/proc/$container_pid/cgroup"
+findmnt -N "$container_pid"
+nsenter -t "$container_pid" -n ip address
 ```
 
-Dva processes v rovnakom container image môžu mať odlišnú effective authority, ak sa líši runtime policy alebo inherited state.
+Namespace symlink inodes preukazujú namespace membership v čase observation. `status` ukazuje credentials/capability hex masks a seccomp mode. `cgroup` ukáže membership path. Nepreukazujú samy, že policy je bezpečná alebo že process nemá nebezpečný inherited file descriptor.
 
-## 3. Namespace lifecycle
+## 3. Namespace je view, nie automatická policy
 
-Namespace virtualizuje vybraný kernel view. Runtime typicky:
+Namespace obalí globálny kernel resource abstrakciou, takže members vidia vlastnú instance alebo zvolený shared context. Linux namespace typy zahŕňajú PID, mount, network, IPC, UTS, user, cgroup a time. citeturn973841search5turn973841search0
 
-```text
-create/join namespace
-→ place initial process
-→ configure namespace-specific resources
-→ exec workload
-→ destroy namespace po zániku posledného membera
+Samostatný network namespace stále môže mať route do production database. Samostatný mount namespace môže obsahovať writable host root mount. PID namespace môže byť zdieľaný s ďalším workloadom. Preto acceptance nekontroluje iba „namespace existuje“, ale aj jeho obsah a sharing contract.
+
+Porovnanie namespace membershipu:
+
+```bash
+readlink /proc/1/ns/net
+readlink "/proc/$container_pid/ns/net"
+readlink /proc/1/ns/mnt
+readlink "/proc/$container_pid/ns/mnt"
 ```
 
-Dôležité namespaces:
-
-| Namespace | Izolovaný view |
-|---|---|
-| PID | process IDs a process tree |
-| mount | mount table a propagation |
-| network | interfaces, routes, sockets a network stack |
-| IPC | System V IPC a POSIX queues |
-| UTS | hostname/domain name |
-| user | UID/GID mappings a capability scope |
-| cgroup | viditeľnosť cgroup hierarchy |
-| time | podporované clock offsets |
-
-Namespace nie je policy verdict. Samostatný network namespace môže mať route do production database. Mount namespace môže obsahovať writable host root. Isolation view musí byť spojený s explicitným connection a object policy modelom.
+Rovnaký inode znamená shared namespace instance pre daný type. Rozdielny inode preukazuje iný view, nie bezpečnú route alebo mount policy.
 
 ## 4. PID namespace a PID 1
 
-Initial process nového PID namespace-u vidí seba ako PID 1. Host ho vidí pod iným PID.
+Host môže process vidieť ako PID `48291`, zatiaľ čo v containeri je PID `1`.
 
-```text
-host PID 48291
-↔ namespace PID 1
+```bash
+docker top atlas-payments -eo pid,ppid,user,stat,args
+nsenter -t "$container_pid" -p -m ps -eo pid,ppid,user,stat,args
 ```
 
-PID 1 má špecifické lifecycle povinnosti:
+PID 1 má špeciálne signal semantics a zodpovednosť za orphaned children. Linux PID namespace init process môže ignorovať signals s default action, pokiaľ pre ne nemá handler; Docker preto ponúka `--init`, ktorý forwarduje signals a reaps child processes. citeturn973841search4turn973841search16
 
-- prijímať a forwardovať signals;
-- reaping orphaned children;
-- držať foreground lifecycle;
-- vracať pravdivý exit code;
-- neukončiť sa pred children bez riadenej policy.
-
-Shell wrapper bez `exec` môže zostať PID 1:
+Rizikový wrapper:
 
 ```sh
 #!/bin/sh
 /opt/atlas/bin/server
 ```
 
-`SIGTERM` dostane shell, ale application ho nemusí dostať. Lepšie:
+Shell zostane PID 1 a application je child. Bez `exec` alebo signal trap nemusí dostať SIGTERM.
+
+Správny jednoduchý wrapper:
 
 ```sh
 #!/bin/sh
-exec /opt/atlas/bin/server
+set -eu
+exec /opt/atlas/bin/server "$@"
 ```
 
-alebo minimal init, ak workload vytvára children a nevie ich reaping riešiť sám.
-
-Observation:
+Termination test:
 
 ```bash
-ps -eo pid,ppid,stat,comm
-cat /proc/1/status
+start="$(date +%s)"
+docker stop --time 30 atlas-payments
+end="$(date +%s)"
+printf 'stop_duration_seconds=%s\n' "$((end-start))"
 ```
+
+Graceful stop time a application logs preukazujú observed termination behavior. Nepreukazujú, že všetky in-flight transactions boli reconciled; to potrebuje business-side query.
 
 ## 5. Mount namespace a root filesystem
 
-Runtime pripraví merged image rootfs a namespace-specific mounts:
+Runtime skladá process filesystem view:
 
 ```text
-read-only image snapshot
-+ writable layer podľa policy
+unpacked read-only image snapshots
++ container writable snapshot
 + /proc, /dev, /sys masks
-+ volumes/bind mounts/tmpfs
-+ mount propagation flags
-→ process root filesystem view
++ named volumes, bind mounts a tmpfs
++ propagation a read-only flags
+→ mount namespace view
 ```
 
-Risk nie je iba „je rootfs writable“. Kritické sú paths, ktoré obchádzajú image boundary:
+Praktická inspection:
 
-- host `/` alebo `/etc` bind mount;
-- container runtime socket;
-- writable `/proc` alebo `/sys` subtree;
-- device nodes;
-- shared propagation, ktorá prenesie mount na host;
-- service-account alebo cloud credential paths;
-- unbounded temporary filesystem.
+```bash
+docker inspect atlas-payments \
+  --format '{{json .Mounts}}' | jq .
 
-Read-only rootfs znižuje mutation surface, ale workload potrebuje explicitné writable contracts:
+nsenter -t "$container_pid" -m findmnt -R /
+```
+
+Docker mount metadata preukazuje daemon-configured mounts. `findmnt` v namespace ukáže effective mount tree. Nepreukazuje application-level data ownership ani host path trust.
+
+High-risk paths:
 
 ```text
-/tmp → tmpfs, size 128 MiB
-/var/cache/atlas → ephemeral bounded volume
-uploads → object storage
-business data → managed database
+/var/run/docker.sock
+/
+/proc
+/sys
+/dev
+host credential directories
+container runtime state directories
 ```
 
-## 6. Network namespace
+Read-only rootfs znižuje mutation surface, ale workload potrebuje explicitné writable paths:
 
-Network namespace má vlastné interfaces, addresses, routes, neighbor state, sockets a port space.
+```yaml
+read_only: true
+tmpfs:
+  - /tmp:size=128m,mode=1777
+volumes:
+  - atlas-cache:/var/cache/atlas
+```
 
-Bridge model:
+## 6. Mount propagation
+
+Bind mount propagation určuje, či child/parent mount events prechádzajú medzi namespaces. Shared propagation môže umožniť, aby mount vytvorený v container context-e ovplyvnil host alebo opačne. Defaulty sa líšia podľa runtime a platformy; policy má používať private/slave semantics, pokiaľ explicitne nepotrebuje propagation.
+
+`findmnt -o TARGET,PROPAGATION` a `/proc/<pid>/mountinfo` sú relevantné evidence. Mount namespace manual popisuje peer groups a propagation behavior. citeturn973841search15
+
+## 7. Network namespace
+
+Network namespace izoluje interfaces, routes, firewall state, sockets a port space. Bežný bridge path:
 
 ```text
 container eth0
 ↔ veth pair
-↔ host-side veth
+↔ host veth
 ↔ bridge
 ↔ host routing/firewall/NAT
 ↔ external network
 ```
 
-`127.0.0.1` v containeri označuje container network namespace. Service bindnutá iba na loopback nemusí byť dostupná cez veth interface.
+```bash
+nsenter -t "$container_pid" -n ip -details address
+nsenter -t "$container_pid" -n ip route
+nsenter -t "$container_pid" -n ss -lntup
+ip link show type veth
+```
 
-Network namespace neurčuje povolený traffic sám. Reachability vzniká kombináciou:
+Network namespace docs potvrdzujú vlastnú network stack vrstvu vrátane devices a sockets. citeturn973841search20
 
-- interfaces a routes;
-- host forwarding/NAT;
-- firewall/network policy;
-- DNS/service discovery;
-- application bind address;
-- return path.
+Samostatný namespace nepreukazuje isolation od hosta. `--network host` ho odstráni; published ports a host firewall môžu stále sprístupniť service external clients.
 
-## 7. User namespace a credential mapping
+## 8. User namespace a UID mapping
 
-User namespace môže mapovať container UID 0 alebo UID 10001 na odlišný host UID range.
+User namespace umožňuje mapovať container UID/GID na iný host range:
 
 ```text
 container UID 0
 → host UID 2000000
 ```
 
-Process môže mať capabilities vo svojom user namespace, ale nie automaticky globálne host capabilities.
-
-Výhody:
-
-- znižuje dopad container root-u;
-- podporuje rootless runtime;
-- oddeľuje numeric IDs od host ownershipu.
-
-Failure boundaries:
-
-- bind-mounted host file nemá mapped ownership;
-- filesystem nepodporuje očakávané idmapped semantics;
-- device alebo network operácia vyžaduje authority v parent namespace;
-- rootless runtime nemôže vykonať privileged mount/network setup;
-- subordinate UID/GID ranges kolidujú alebo chýbajú.
-
-`root in container` preto nie je automaticky host root, ale mapping a namespace scope musia byť overené.
-
-## 8. Cgroup placement ako runtime identity
-
-Cgroup membership určuje resource accounting a controls. V cgroup v2 ide o unified hierarchy.
-
-```text
-runtime creates /atlas/payments/AP-313-07
-→ writes resource policy
-→ places process tree into cgroup
-→ child processes inherit membership
-→ kernel updates usage/events/pressure
-```
-
-Cgroup subject zahŕňa path alebo cgroup ID, parent policy, controller availability, limits, counters a process membership.
-
-Ak process unikne do inej cgroup alebo helper beží mimo policy, metrics a limits môžu byť falošne neúplné.
-
-## 9. CPU weight, quota a cpuset
-
-### CPU weight
-
-Relatívna priorita pri contention. Neznamená pevný počet CPU.
-
-### CPU quota
-
-Hard time budget v period:
-
-```text
-quota 200000 µs / period 100000 µs
-→ maximálne približne 2 CPU time v každej period
-```
-
-Burst workload môže byť throttled, aj keď iné host CPUs sú idle, pretože cgroup vyčerpala svoj period budget.
-
-### cpuset
-
-Obmedzuje povolené CPUs/NUMA nodes. Môže zlepšiť isolation alebo locality, ale príliš úzky set vytvorí contention.
+Process môže mať capabilities vo svojom user namespace bez rovnakej authority v initial user namespace. User namespaces sú základ rootless a user-remapping modelu. citeturn973841search21turn973841search12
 
 Observation:
 
 ```bash
-cat /sys/fs/cgroup/cpu.stat
-cat /proc/pressure/cpu
+cat "/proc/$container_pid/uid_map"
+cat "/proc/$container_pid/gid_map"
+stat -c '%u:%g %n' /host/path/used/by/container
 ```
 
-Sleduj `nr_throttled`, throttled time, runnable pressure a application latency spolu.
+Mapping preukazuje numeric translation. Nepreukazuje, že bind-mounted filesystem permissions, ACLs a idmapped mount semantics umožnia intended operation.
 
-## 10. Memory lifecycle
+## 9. Cgroup v2 subject
 
-Memory controller riadi anonymous memory, page cache a podľa konfigurácie swap a related accounting.
+Cgroup v2 používa unified hierarchy. Relevantné controller files môžu zahŕňať:
 
 ```text
-allocation/page cache rastie
-→ memory.high môže spustiť reclaim/throttling
-→ memory.max zabráni ďalšiemu rastu
-→ kernel vyberie process pre cgroup OOM
-→ process/container skončí
+cpu.max
+cpu.weight
+cpu.stat
+memory.current
+memory.high
+memory.max
+memory.events
+pids.current
+pids.max
+pids.events
+io.stat
+cgroup.procs
 ```
 
-`memory.max` nie je performance target. Workload môže byť veľmi pomalý pri reclaim-e ešte pred OOM.
+Kernel cgroup v2 dokumentácia definuje controller semantics a hierarchical accounting. citeturn973841search3
 
-Observation:
+Host read-back:
 
 ```bash
-cat /sys/fs/cgroup/memory.current
-cat /sys/fs/cgroup/memory.events
-cat /sys/fs/cgroup/memory.stat
-cat /proc/pressure/memory
+cgroup_rel="$(awk -F: '$1=="0" {print $3}' "/proc/$container_pid/cgroup")"
+cgroup_dir="/sys/fs/cgroup${cgroup_rel}"
+
+printf 'cgroup=%s\n' "$cgroup_dir"
+cat "$cgroup_dir/cgroup.procs"
+cat "$cgroup_dir/cpu.max"
+cat "$cgroup_dir/cpu.stat"
+cat "$cgroup_dir/memory.current"
+cat "$cgroup_dir/memory.max"
+cat "$cgroup_dir/memory.events"
+cat "$cgroup_dir/pids.current"
+cat "$cgroup_dir/pids.max"
 ```
 
-Rozlišuj:
+Tieto files preukazujú effective cgroup values a counters pre daný cgroup subject. Nepreukazujú business SLO ani complete historical pressure bez telemetry retention.
 
-- application leak;
-- legitimate burst;
-- page-cache pressure;
-- host-level pressure;
-- cgroup-local OOM;
-- kernel alebo external memory mimo očakávaného accountingu.
+## 10. CPU weight, quota a throttling
 
-## 11. PID a process limit
-
-`pids.max` ohraničuje processes a threads podľa kernel task modelu.
+`cpu.weight` je relative share pri contention. `cpu.max` môže nastaviť hard quota/period, napríklad:
 
 ```text
-worker/thread growth
-→ cgroup reaches pids.max
-→ clone/fork fails
-→ application vidí EAGAIN / Resource temporarily unavailable
+200000 100000
+→ približne maximum 2 CPU-seconds na 100 ms period
 ```
 
-Failure nemusí vyzerať ako security policy. Sleduj `pids.current`, `pids.max`, `pids.events` a application thread model.
+`cpu.stat` môže ukázať `nr_throttled` a `throttled_usec`. Rast pri application latency testuje CPU quota hypothesis. Neznamená automaticky, že limit je chybný; workload môže legitímne prekračovať dohodnutý budget.
 
-## 12. I/O a pressure
+Docker `--cpus=2` je high-level runtime input; effective kernel cgroup file je read-back. Docker resource documentation opisuje CPU limit semantics a dostupné controls. citeturn973841search14
 
-Cgroup I/O controls môžu riadiť weight alebo bandwidth/IOPS podľa device a kernel podpory. Workload môže mať dostatok CPU aj memory, ale trpieť:
+## 11. Memory high, max a OOM
 
-- block I/O throttling;
-- shared filesystem latency;
-- writeback congestion;
-- storage queue contention;
-- page-cache reclaim.
+```text
+memory.high
+→ pressure/reclaim/throttling boundary
 
-PSI ukazuje čas, keď tasks čakajú pre CPU, memory alebo I/O pressure. Je to observation, nie automatický root-cause verdict.
+memory.max
+→ hard upper limit
+```
 
-## 13. Capabilities ako rozdelené privileges
+Pri prekročení hard limitu môže kernel zabiť process v cgroup. `memory.events` rozlišuje counters ako `high`, `max`, `oom` a `oom_kill` podľa kernel version/semantics.
 
-Capabilities rozdeľujú časť tradičnej root authority, napríklad:
+```bash
+cat "$cgroup_dir/memory.events"
+journalctl -k --since '10 minutes ago' | grep -Ei 'oom|killed process|memory cgroup'
+```
 
-- `CAP_NET_BIND_SERVICE` pre low ports;
-- `CAP_CHOWN`;
-- `CAP_SETUID`;
-- `CAP_NET_ADMIN`;
-- `CAP_SYS_PTRACE`;
-- veľmi širokú `CAP_SYS_ADMIN`.
+Exit code `137` je compatible so SIGKILL, ale sám nepreukazuje OOM. Kernel/cgroup events odlíšia manual kill, daemon timeout a OOM.
+
+## 12. PID limits
+
+`pids.max` limituje počet kernel tasks v cgroup. Threads sa tiež počítajú podľa kernel task modelu.
+
+```text
+thread/process growth
+→ pids.current reaches pids.max
+→ clone/fork returns EAGAIN
+```
+
+Docker môže hlásiť `Resource temporarily unavailable`; Docker run reference uvádza failure pri PID limite. citeturn973841search16
+
+Application thread pool, process supervisors a sidecars musia byť započítané do limit designu.
+
+## 13. Capabilities
+
+Linux capabilities rozdeľujú časť tradičnej root authority. Capability sets zahŕňajú permitted, effective, inheritable, bounding a ambient. citeturn973841search12
 
 Minimum model:
 
 ```text
 drop ALL
-→ pridaj iba capability viazanú na konkrétnu potrebnú operation
-→ verify, že process ju má iba v required phase
+→ add only exact required capability
+→ verify forbidden operation still fails
 ```
 
-Non-root process môže mať capability. Root process môže mať veľmi úzky set. UID samotné nie je plný privilege model.
-
-## 14. Capability sets a exec transition
-
-Kernel pracuje so sets:
-
-- permitted;
-- effective;
-- inheritable;
-- bounding;
-- ambient.
-
-Execution môže transformovať authority podľa current sets, file capabilities, user namespace, securebits a `no_new_privs`.
-
-Observation:
+Docker example:
 
 ```bash
-grep '^Cap' /proc/<pid>/status
-capsh --print
+docker run --rm \
+  --cap-drop ALL \
+  --cap-add NET_BIND_SERVICE \
+  --user 10001:10001 \
+  registry.example/atlas/payments@sha256:amd104
 ```
 
-Bounding set je horná hranica, z ktorej process nemôže capability získať späť. Ambient capabilities môžu prežiť `execve` za definovaných podmienok.
+Process inspection:
 
-## 15. `no_new_privs`
+```bash
+grep '^Cap' "/proc/$container_pid/status"
+nsenter -t "$container_pid" -m -p capsh --print
+```
 
-`no_new_privs` zabezpečuje, že process a jeho descendants nezískajú nové privileges cez `execve`, napríklad setuid binary alebo file capabilities.
+Hex masks/capsh output preukazujú current capability sets. Nepreukazujú all effective authority because filesystem permissions, user namespace, open FDs, devices and LSM matter too.
+
+`CAP_SYS_ADMIN` je veľmi široká a často signalizuje, že workload boundary je zle navrhnutá.
+
+## 14. `no_new_privs`
+
+`no_new_privs` bráni processu a descendants získať nové privileges cez `execve`, napríklad setuid binary alebo file capabilities. Neodstraňuje už existujúce capabilities ani inherited file descriptors.
+
+```bash
+grep '^NoNewPrivs' "/proc/$container_pid/status"
+```
+
+Docker/OCI runtime policy má túto value explicitne viazať k workload class-e.
+
+## 15. Seccomp
+
+Seccomp filter hodnotí syscalls a môže allow, return errno, trap alebo kill. Povolený syscall môže stále zlyhať na capability, namespace, LSM alebo object permission.
+
+Practical evidence:
+
+```bash
+grep '^Seccomp' "/proc/$container_pid/status"
+journalctl -k --since '10 minutes ago' | grep -i seccomp
+```
+
+`EPERM` nie je automaticky seccomp proof. Audit record, syscall name/number, architecture a profile identity sú potrebné. Profile musí byť testovaný pre actual language runtime a features, nie genericky vypnutý pri prvom denial.
+
+## 16. SELinux a AppArmor
+
+LSM policy pridáva subject–object–operation decision.
+
+```bash
+cat "/proc/$container_pid/attr/current"
+docker inspect atlas-payments \
+  --format 'AppArmor={{.AppArmorProfile}} SecurityOpt={{json .HostConfig.SecurityOpt}}'
+
+ausearch -m AVC,USER_AVC -ts recent 2>/dev/null || true
+```
+
+Unix permissions môžu povoľovať write a SELinux ho odmietne. AppArmor môže zablokovať path/capability behavior. LSM vypnutie nie je root-cause fix; najprv treba overiť profile a volume labeling.
+
+## 17. Devices a runtime socket
+
+Device access otvára host kernel subsystem. Docker socket poskytuje daemon API, cez ktoré caller môže vytvoriť privileged container, mountnúť host paths a získať host-level authority.
+
+Forbidden runtime assertions:
+
+```bash
+docker inspect atlas-payments | jq -e '
+  .[0].HostConfig.Privileged == false
+  and (.[0].HostConfig.Binds // [] | all(contains("docker.sock") | not))
+  and (.[0].HostConfig.Devices // [] | length == 0)
+'
+```
+
+Tento check preukazuje listed Docker configuration fields. Nepreukazuje absence equivalent daemon access cez TCP socket alebo inherited host FD.
+
+## 18. Privileged a namespace-sharing collapse
+
+High-risk switches:
 
 ```text
-no_new_privs=true
-→ exec privileged file
-→ execution nesmie zvýšiť authority
+--privileged
+--pid=host
+--network=host
+--ipc=host
+--cgroupns=host
+broad --cap-add
+writable /proc or /sys
+host root bind mount
+runtime socket
 ```
 
-Neodstraňuje už existujúce capabilities, filesystem permissions ani inherited file descriptors. Je to jedna vrstva, nie kompletné confinement.
+Každý mení inú isolation layer. „Privileged“ nie je jedna capability; prakticky uvoľňuje viac runtime controls. Legitímne low-level workloady potrebujú dedicated node/VM boundary, exact device/capability inventory a stronger monitoring.
 
-## 16. Seccomp syscall boundary
+## 19. Worked incident `CTR-PAY-80`: diagnostics variant
 
-Seccomp filter rozhoduje, či process smie vykonať konkrétny syscall a za akých argumentových podmienok podľa profilu.
+Diagnostics container použil:
+
+```yaml
+network_mode: host
+privileged: true
+volumes:
+  - /sys:/sys
+  - /var/run/docker.sock:/var/run/docker.sock
+```
+
+Mechanizmus:
 
 ```text
-process invokes syscall
-→ seccomp filter verdict
-→ allow, errno, trap, kill alebo notification action
-→ ďalšie kernel permission checks
+host network view
++ broad capability/device access
++ writable kernel interface
++ daemon admin API
+→ container boundary no longer matches ordinary workload threat model
 ```
 
-Povolený syscall stále môže zlyhať na capability, LSM, namespace alebo filesystem policy.
+Recovery treats node as compromised:
 
-`EPERM` preto nie je automaticky seccomp. Potrebuješ audit/runtime evidence.
+1. cordon/isolate node;
+2. preserve container, daemon and kernel evidence;
+3. revoke node/workload credentials;
+4. rebuild node from trusted image;
+5. replace diagnostics with narrow read-only API;
+6. test policy rejection of host namespaces/socket/privileged mode.
 
-Profile musí zohľadniť:
+## 20. Worked incident: exit 137 misclassified
 
-- CPU architecture a syscall numbering;
-- application/runtime version;
-- language runtime behavior;
-- optional features;
-- debugging/observability operations;
-- default action a audit policy.
+Container stopped with code 137. Operator raised memory limit without evidence. Actual cause was daemon stop timeout followed by SIGKILL because shell PID 1 did not forward SIGTERM.
 
-## 17. SELinux/AppArmor object policy
-
-LSM policy hodnotí process label/profile, target object a operation.
+Competing evidence:
 
 ```text
-process label
-+ file/socket/device label alebo path policy
-+ requested operation
-→ allow/deny + audit evidence
+memory.events oom_kill unchanged
++ daemon stop event
++ application received no SIGTERM log
++ shell remains PID 1
+→ forced termination, not OOM
 ```
 
-Unix mode môže povoľovať write a SELinux ho stále odmietne. Naopak vypnutie LSM môže skryť nesprávny volume label alebo profile transition.
+Fix is exec-form process/init and graceful termination test, not arbitrary memory increase.
 
-Container policy potrebuje koordinovať runtime-generated labels, host policy, volume labeling, custom profile a audit retention.
-
-## 18. Devices a runtime socket
-
-Device node nie je obyčajný file. Otvára access k host kernel subsystemu.
-
-Samostatne posudzuj:
-
-- GPU;
-- block device;
-- KVM;
-- FUSE;
-- raw network interface;
-- USB/serial devices;
-- container runtime socket.
-
-Runtime socket často poskytuje právo vytvoriť ďalší container s širšou policy, čo môže byť ekvivalent host-admin capability.
-
-## 19. Privileged mode ako policy collapse
-
-Privileged mode môže:
-
-- pridať široké capabilities;
-- sprístupniť devices;
-- oslabiť seccomp;
-- zmeniť LSM confinement;
-- rozšíriť mount a kernel access.
-
-Nie je to riešenie pre „potrebujem bindovať port 80“. Mení trust boundary celého workloadu.
-
-Legitímne použitie potrebuje:
-
-- explicitný host-level capability dôvod;
-- dedicated nodes alebo sandbox;
-- narrow devices/mounts, ak je to možné;
-- short lifecycle;
-- workload identity a audit;
-- incident a cleanup model.
-
-## 20. Worked failure: host root mount zrušil mount isolation
-
-Support container mal samostatný PID a network namespace, no dostal writable bind mount `/host` na host `/` a `CAP_SYS_ADMIN`.
+## 21. Competing hypotheses pri `permission denied`
 
 ```text
-namespace skryje default host mount tree
-→ explicitný bind mount host root znova sprístupní
-→ broad capability umožní ďalšie mount/kernel operácie
-→ compromised process modifikuje host configuration
+H1: UID/GID or file mode/ACL
+H2: user namespace mapping
+H3: missing capability
+H4: no_new_privs/setuid transition
+H5: seccomp denial
+H6: SELinux/AppArmor denial
+H7: read-only mount/rootfs
+H8: device cgroup/runtime restriction
+H9: wrong namespace/path view
+H10: host filesystem feature mismatch
 ```
 
-Namespace fungoval správne. Runtime policy vytvorila explicitný bypass.
+Evidence order:
 
-## 21. Worked failure: host má voľnú memory, container je OOMKilled
+```bash
+id
+namei -om /target/path
+findmnt /target/path
+grep -E '^(Uid|Gid|Cap|NoNewPrivs|Seccomp)' "/proc/$container_pid/status"
+cat "/proc/$container_pid/attr/current"
+journalctl -k --since '10 minutes ago'
+```
 
-Atlas container používal `memory.max=2GiB`. Host mal 20 GiB voľných, ale application burst prekročil limit.
+Test lowest relevant layer first. Do not use `--privileged` as diagnosis because it changes many hypotheses simultaneously and destroys discrimination.
+
+## 22. Acceptance a forbidden paths
 
 ```text
-host capacity exists
-→ cgroup local limit je authoritative boundary
-→ allocation/reclaim fails v cgroup
-→ cgroup OOM vyberie Atlas process
-→ container skončí
+all namespace sharing decisions are explicit
++ host PID and namespace IDs are recorded
++ cgroup path/process membership is correct
++ CPU/memory/PID limits are effective and observable
++ capability set is minimal
++ no_new_privs/seccomp/LSM are active as designed
++ runtime socket/host root/devices are absent
++ PID 1 handles signals and reaps children
++ OOM and forced-kill paths are distinguishable
++ forbidden syscall/capability/mount tests fail
++ second container gets same effective policy
 ```
 
-Root cause sa nehľadá iba v host `free`. Treba cgroup path, `memory.events`, working set a application allocation timeline.
+## 23. Kontrolné otázky
 
-## 22. Worked failure: latency rastie pri idle host CPU
-
-Container mal quota 100 ms CPU per 100 ms period, teda približne 1 CPU. Request burst spustil štyri worker threads a quota sa vyčerpala v prvej časti period.
-
-```text
-threads consume budget
-→ cgroup throttled do ďalšej period
-→ host má iné idle cores
-→ request latency rastie
-```
-
-CPU percentage na hoste môže byť nízke. Diskriminačný dôkaz je `cpu.stat`, throttling events a latency correlation.
-
-## 23. Worked failure: graceful shutdown nefunguje
-
-Entrypoint shell bol PID 1 a nespúšťal application cez `exec`.
-
-```text
-runtime pošle SIGTERM PID 1
-→ shell signal neforwarduje
-→ application pokračuje
-→ grace period vyprší
-→ SIGKILL
-→ pending transaction sa nereconcile-ne
-```
-
-Oprava je správny PID 1 contract a termination test, nie iba dlhší timeout.
-
-## 24. Worked failure: rootless bind mount je permission denied
-
-Container UID 10001 bol mapovaný na host UID 2010001. Host directory vlastnil UID 10001 bez idmapped mountu.
-
-```text
-numeric ID v containeri ≠ effective host filesystem ID
-→ namespace mapping sa aplikuje
-→ host VFS permission check vidí UID 2010001
-→ access denied
-```
-
-`chmod 777` by skryl ownership model. Oprava je zosúladený UID mapping, idmapped mount alebo správny volume ownership lifecycle.
-
-## 25. Causal troubleshooting walkthrough: operácia vracia `Operation not permitted`
-
-Atlas potrebuje bindnúť port 443 a načítať mounted TLS key. Process končí s `EPERM`.
-
-### 1. Zafixuj process a policy subject
-
-Zaznamenaj:
-
-- host PID a namespace PID;
-- UID/GID a user namespace mappings;
-- capability sets a bounding set;
-- `no_new_privs`;
-- seccomp profile/version;
-- SELinux/AppArmor label/profile;
-- mount source, destination, flags a labels;
-- syscall/operation a target object;
-- cgroup membership a resource events;
-- runtime config digest.
-
-### 2. Súťažiace hypotézy
-
-1. Chýba `CAP_NET_BIND_SERVICE`.
-2. Capability bola v permitted, ale nie effective sete.
-3. Bounding set alebo `no_new_privs` zabránil exec transitionu.
-4. Seccomp blokuje socket alebo related syscall.
-5. SELinux/AppArmor odmieta bind alebo key read.
-6. TLS key permissions/UID mapping sú nesprávne.
-7. Mount je read-only, `noexec` alebo má wrong label.
-8. Port už používa iný process v rovnakom network namespace.
-9. Application binduje inú address alebo port než očakávané.
-10. Error text pochádza z inej operation, napríklad temp file write.
-
-### 3. Diskriminačné observation points
-
-- exact failing syscall/operation podľa runtime-safe tracing alebo application evidence;
-- `/proc/<pid>/status` capabilities a `NoNewPrivs`;
-- seccomp mode a audit events;
-- SELinux AVC/AppArmor denial;
-- `stat`, mountinfo a user namespace maps;
-- socket inventory v target network namespace;
-- runtime-generated OCI config;
-- application log s operation contextom.
-
-### 4. Containment
-
-Nezapínaj privileged mode, `seccomp=unconfined` ani globálne nevypínaj LSM. Zastav rollout a zachovaj policy/audit evidence.
-
-### 5. Recovery
-
-- capability gap → pridaj iba `NET_BIND_SERVICE` alebo používaj high port + proxy;
-- exec transition gap → oprav entrypoint/file capability model bez rozšírenia bounding setu;
-- seccomp denial → povoľ konkrétny required syscall po threat review;
-- LSM denial → oprav profile alebo object label;
-- user/mount permission → zosúlaď mapping, owner a mount flags;
-- port collision → oprav namespace/process lifecycle;
-- wrong operation → oprav application writable-path/config contract.
-
-### 6. Over pôvodný outcome
-
-Potvrď bind na intended interface, TLS key access, readiness request, forbidden syscall denial, non-root identity, exact capability set a graceful termination.
-
-### 7. Posuň control skôr
-
-Pridaj production-like runtime-policy integration test, generated OCI config inspection, LSM/seccomp audit fixture a capability allowlist policy.
-
-## 26. Isolation matrix
-
-| Vrstva | Primárny mechanizmus | Nezaručuje |
-|---|---|---|
-| view isolation | namespace | resource alebo privilege limit |
-| resource control | cgroup | filesystem alebo syscall authorization |
-| privilege decomposition | capabilities | object-specific policy |
-| privilege non-escalation | `no_new_privs` | odstránenie existujúcej authority |
-| syscall surface | seccomp | že povolená operation má permission |
-| object policy | SELinux/AppArmor | CPU, memory alebo PID isolation |
-| UID scope | user namespace | plnú VM boundary |
-| storage view | mount namespace | bezpečnosť explicitných host mounts |
-
-## 27. Referenčné pravidlá
-
-- Container je process subject s kompozitnou policy, nie jeden kernel objekt.
-- Namespace mení view, nie automaticky authorization alebo limit.
-- Explicitný host mount môže obísť očakávanú mount isolation.
-- PID 1 je lifecycle contract, nie iba prvý process.
-- Cgroup path a process membership sú súčasť runtime identity.
-- CPU quota môže throttliť workload pri idle host CPUs.
-- Host free memory neobchádza `memory.max`.
-- UID v user namespace sa musí mapovať na host filesystem identity.
-- Non-root neznamená bez capabilities; root neznamená automaticky všetky capabilities.
-- `no_new_privs` zabraňuje novému privilege gain-u, neodstraňuje existujúce privileges.
-- Seccomp, capabilities a LSM sú odlišné verdict layers.
-- Device alebo runtime-socket access zásadne mení host trust boundary.
-- Privileged mode je policy collapse, nie diagnostický nástroj.
-
-## 28. Kontrolné otázky
-
-1. Aký lifecycle vytvára container runtime z process a policy layers?
-2. Prečo namespace nie je access-control policy?
+1. Prečo namespace nie je automatický security verdict?
+2. Ako overíš, či container zdieľa host network alebo PID namespace?
 3. Aké povinnosti má PID 1?
-4. Ako mount namespace môže byť obídený explicitným bind mountom?
-5. Ako sa líši CPU weight, quota a cpuset?
-6. Prečo host free memory nevylučuje cgroup OOM?
-7. Ako user namespace mení filesystem permission identity?
-8. Čo znamenajú permitted, effective a bounding capability sets?
-9. Ako sa líši seccomp denial od LSM alebo capability denial?
-10. Aké observation points treba pred použitím privileged bypassu?
+4. Prečo read-only rootfs nestačí bez mount inventory?
+5. Čo user namespace mapping mení?
+6. Čo preukazuje cgroup membership a controller files?
+7. Ako sa CPU throttling líši od CPU shortage?
+8. Prečo exit 137 nie je automaticky OOM?
+9. Ako capability sets dopĺňajú UID model?
+10. Čo `no_new_privs` chráni a čo nie?
+11. Ako odlíšiš seccomp, LSM a filesystem denial?
+12. Prečo privileged mode nie je vhodný diagnostický experiment?
 
 ## Glossary impact
 
-Relevantné pojmy: runtime isolation subject, process authority subject, namespace lifecycle, namespace view, PID 1 contract, mount exposure path, user-namespace mapping, cgroup identity, CPU quota throttling, cgroup-local OOM, capability execution transition, capability bounding set, `no_new_privs`, seccomp verdict, LSM object policy, privileged-policy collapse a runtime-socket authority.
+Relevantné pojmy: Linux namespace, namespace inode, PID namespace, mount namespace, network namespace, user namespace, UID mapping, cgroup v2, CPU quota, memory.high, memory.max, OOM kill, pids.max, Linux capability, bounding set, ambient capability, no_new_privs, seccomp, SELinux, AppArmor, device access a privileged mode.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
-- [Linux namespaces](https://docs.kernel.org/admin-guide/namespaces/index.html)
-- [Control Group v2](https://docs.kernel.org/admin-guide/cgroup-v2.html)
+- [OCI Linux container configuration](https://github.com/opencontainers/runtime-spec/blob/main/config-linux.md)
+- [Linux namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html)
 - [Linux capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html)
-- [Seccomp](https://docs.kernel.org/userspace-api/seccomp_filter.html)
+- [Linux cgroup v2](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html)
+- [Docker resource constraints](https://docs.docker.com/engine/containers/resource_constraints/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Containers vs. virtual machines](containers-vs-virtual-machines.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: OCI image a runtime standards →](oci-image-runtime-standards.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
