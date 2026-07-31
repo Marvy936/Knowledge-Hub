@@ -1,0 +1,72 @@
+name: Temporary Section 12 prose and practical audit
+
+on:
+  push:
+    branches:
+      - agent/section-12-practical-prose-revalidation
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section12-quality-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-12-practical-prose-revalidation
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build initial quality report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          audit = {x['path']: x for x in json.loads(Path('/tmp/audit.json').read_text())['files']}
+          rows, failures = [], []
+          for path in sorted(Path('docs/12-observability').glob('*.md')):
+              if path.name == 'README.md':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              outside, fenced = [], False
+              for line in text.splitlines():
+                  if line.strip().startswith('```'):
+                      fenced = not fenced
+                      continue
+                  if not fenced:
+                      outside.append(line)
+              prose = sum(len(re.findall(r'[\wÀ-ž]+', line)) for line in outside if line.strip() and not re.match(r'\s*(?:[-*+] |\d+\. |#|\|)', line))
+              bullets = sum(len(re.findall(r'[\wÀ-ž]+', line)) for line in outside if re.match(r'\s*(?:[-*+] |\d+\. )', line))
+              share = bullets / max(1, prose + bullets)
+              blocks = len(re.findall(r'```(?:bash|shell|json|yaml|yml|hcl|terraform|sql|console|promql|logql|traceql|text|ini|toml|conf)\n', text))
+              executable = len(re.findall(r'(?m)^(?:curl|kubectl|promtool|amtool|logcli|otelcol|fluent-bit|jq|yq|rate\(|sum\(|histogram_quantile\(|count_over_time\(|\{[^\n]*\}|from\s+traces)', text))
+              explanations = len(re.findall(r'(?i)(tento príkaz|táto query|výstup|preukazuje|nepreukazuje|dokazuje|observation|dôkaz|read-back|výsledok query)', text))
+              item = audit[path.as_posix()]
+              rows.append(f'{path.as_posix()}|strict={item["critical"]}/{item["high"]}/{item["medium"]}|prose={prose}|bullet_share={share:.3f}|blocks={blocks}|executable={executable}|explanations={explanations}')
+              if item['critical'] or item['high'] or item['medium']:
+                  failures.append(f'{path.name}: strict findings')
+              if prose < 650:
+                  failures.append(f'{path.name}: only {prose} prose words')
+              if share > 0.34:
+                  failures.append(f'{path.name}: bullet share {share:.3f}')
+              if blocks < 2 or executable < 2:
+                  failures.append(f'{path.name}: practical examples too thin')
+              if explanations < 3:
+                  failures.append(f'{path.name}: evidence explanation too thin ({explanations})')
+          status = 'success' if not failures else 'failure'
+          Path('.github/section12-quality-report.txt').write_text('\n'.join([f'status={status}', '', *rows, '', 'FAILURES', *(failures or ['none'])]) + '\n', encoding='utf-8', newline='\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/section12-quality-report.txt
+          git commit -m "ci(docs): record initial Section 12 quality report"
+          git push origin HEAD:agent/section-12-practical-prose-revalidation
