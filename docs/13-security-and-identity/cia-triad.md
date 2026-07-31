@@ -1,461 +1,171 @@
 # CIA triáda
 
-CIA triáda — **Confidentiality, Integrity a Availability** — je model bezpečnostných cieľov nad konkrétnym assetom a business procesom. Nie je to zoznam troch produktových vlastností ani univerzálna priorita `C > I > A`. Použiteľný security návrh musí určiť, čo presne sa chráni, aká strata je neprijateľná, ktorý threat a vulnerability ju môžu spôsobiť, kde sa control presadzuje a aký dôkaz preukáže jeho účinnosť.
+CIA triáda — **Confidentiality, Integrity a Availability** — nie je zoznam troch všeobecných vlastností systému. Je to spôsob, ako pre konkrétny business proces pomenovať neprijateľné straty, priradiť ich k presnej trust boundary a následne dokázať, že ochranný mechanizmus funguje aj v runtime stave. Rovnaký asset môže mať odlišnú prioritu pre každú os: verejný release artifact má nízku požiadavku na confidentiality, ale veľmi vysokú požiadavku na integrity; incidentný audit môže vyžadovať vysokú integrity aj availability, hoci jeho čítanie zostáva striktne obmedzené.
 
-## 1. Dominantný lifecycle
+Preto sa CIA nehodnotí otázkou „máme encryption, backup a RBAC?“. Správna otázka znie: ktorý subject chránime, čo smie a nesmie nastať, ktorý principal alebo failure path môže cieľ porušiť, kde sa rozhodnutie presadzuje a aký read-back preukáže výsledok bez zamieňania configured, loaded a effective state-u.
+
+## Security-objective lifecycle
+
+Každá bezpečnostná požiadavka prechádza rovnakým kauzálnym reťazcom. Najprv vznikne business capability a presný asset; potom sa určia trust boundaries, threat a acceptable impact. Až následne sa vyberie control, nasadí sa jeho konkrétna generation a overí sa, či sa presadil na všetkých relevantných cestách.
 
 ```text
 business capability a chránený asset
 → exact security subject a trust boundaries
 → confidentiality, integrity a availability objectives
 → threat, vulnerability, exposure a impact
-→ risk a required assurance
-→ preventive, detective, response a recovery controls
-→ configured, loaded a effective control state
-→ security event alebo control test
-→ containment a authoritative recovery
-→ allowed, forbidden a residual-risk validation
-→ skorší control alebo architecture change
+→ required assurance a control owner
+→ configured control generation
+→ loaded a effective enforcement state
+→ allowed a forbidden runtime test
+→ audit evidence a business verdict
+→ containment, authoritative recovery a residual risk
 ```
 
-Tento lifecycle oddeľuje tri výroky, ktoré sa často zamieňajú:
+Tento model oddeľuje tri odlišné tvrdenia:
 
 ```text
-control je nakonfigurovaný
-≠ control sa presadil na skutočnej boundary
-≠ business asset je preukázateľne chránený
+control existuje v source/configuration
+≠ control bol načítaný správnym enforcement pointom
+≠ chránený business outcome je preukázateľne zachovaný
 ```
 
-Encryption enabled, role assignment, backup success alebo healthy identity provider sú iba čiastkové technické stavy. Security acceptance vzniká až vtedy, keď sa povolený outcome zachová, zakázaný outcome zlyhá a recovery obnoví dôveryhodný business stav.
+„Encryption enabled“, „role removed“, „backup successful“ alebo „identity provider healthy“ sú iba technické medzistavy. Security acceptance vznikne až vtedy, keď povolená operácia funguje, zakázaná operácia zlyhá, audit zachytí oba verdicty a recovery obnoví dôveryhodný business stav.
 
-## 2. Exact security subject
+## Exact subject SEC-PAY-47
 
-CIA sa nikdy nehodnotí iba pre názov služby. Pre connected Atlas Payments incident používame:
+Spoločný incident prvého bloku používa Atlas Payments final-settlement workflow. Subject nie je iba názov služby; zahŕňa identity graph, workload capability, konfiguráciu, secret generation aj business stav.
 
-```text
-security subject: SEC-PAY-47
-business capability: enterprise final settlement
-release generation: 7.24.0
+```yaml
+subject: SEC-PAY-47
+businessCapability: enterprise-final-settlement
+release: 7.24.0
 environment: production
-Region: eu-central-1
-Kubernetes cluster: atlas-prod-euc1
+region: eu-central-1
+cluster: atlas-prod-euc1
 namespace: payments-prod
-human principal: urn:atlas:human:7421
-IdP issuer: https://id.atlas.example
-active IdP group claim: prod-payment-operators
-Kubernetes binding: payments-prod-operators
-workload identity: system:serviceaccount:payments-prod:settlement-debug
-provider secret: provider-a-mtls generation 34
-routing config: SETTLEMENT-ROUTE-91
-audit generation: AUDIT-SEC-28
+humanPrincipal: urn:atlas:human:7421
+idpIssuer: https://id.atlas.example
+claimedGroup: prod-payment-operators
+kubernetesBinding: payments-prod-operators
+workloadPrincipal: system:serviceaccount:payments-prod:settlement-debug
+providerCredentialGeneration: 34
+approvedRouteGeneration: SETTLEMENT-ROUTE-91
+auditGeneration: AUDIT-SEC-28
 ```
 
-Chránené assets nie sú iba dáta. Subject zahŕňa:
+Tento manifest je evidence anchor. Preukazuje, ktoré identity a generations incident analyzuje; nepreukazuje, že IdP claim je aktuálny, binding je effective, workload secret skutočne použil alebo business settlement zlyhal. Každá z týchto hraníc potrebuje samostatný read-back.
 
-- provider client certificate a private key;
-- settlement routing policy;
-- worker capacity a queue progress;
-- final settlement correctness;
-- human a workload identity graph;
-- audit evidence potrebnú na reconstruction a recovery.
+## Confidentiality ako control nad čítaním aj použitím capability
 
-## 3. Confidentiality
+Confidentiality chráni informácie a capabilities pred neautorizovaným disclosure alebo použitím. Principal nemusí exportovať private key, aby porušil confidentiality. Ak dokáže vytvoriť Pod s privileged ServiceAccountom a nechať ho vykonať mTLS handshake, získal citlivú cryptographic capability aj bez zobrazenia key bytes.
 
-Confidentiality znamená, že informácie a capabilities sú sprístupnené iba autorizovaným principals za určených podmienok.
+Pre provider credential preto objective znie: iba schválený settlement workload smie získať alebo použiť generation 34; human principal ju nesmie čítať, mountnúť do arbitrary workloadu ani vyvolať neobmedzenú podpisovú operáciu. Encryption at rest chráni ciphertext v storage boundary, ale nebráni autorizovanému API serveru premietnuť secret do Podu, ktorý vytvoril príliš silný principal.
 
-Otázka:
+Praktický negative test sa vykonáva s presnou impersonovanou identitou:
 
-```text
-Kto smie asset čítať, odvodiť, exportovať alebo použiť
-v ktorom environment-e, tenant-e, čase a trust boundary?
+```bash
+kubectl auth can-i get secret/provider-a-mtls \
+  --namespace payments-prod \
+  --as=urn:atlas:human:7421
+
+kubectl auth can-i create pods \
+  --namespace payments-prod \
+  --as=urn:atlas:human:7421
 ```
 
-Confidentiality loss zahŕňa napríklad:
+Prvý príkaz testuje direct Secret authorization. Druhý odhaľuje indirect path: aj keď direct `get secrets` vráti `no`, `create pods` môže dovoliť výber ServiceAccountu, volume projection a následné použitie secretu. Výstup preukazuje Kubernetes authorization verdict pre zadaný request; nepreukazuje IdP session validity, admission-policy coverage ani to, že custom controller neponúka alternatívnu cestu.
 
-- prečítanie secretu alebo private key-u;
-- cross-tenant disclosure;
-- broad database alebo object-store read;
-- logovanie tokenu, PII alebo interného payloadu;
-- export dát do menej chráneného lifecycle-u;
-- použitie capability bez priameho zobrazenia jej hodnoty.
+## Integrity ako autorizovaná a overiteľná state transition
 
-Posledný bod je dôležitý. Principal nemusí prečítať private key, aby ju zneužil. Ak môže vyvolať neobmedzenú signing alebo decryption operáciu, získal citlivú capability.
+Integrity znamená, že dáta, konfigurácia a operácie zostanú správne, úplné a zmenené iba oprávneným mechanizmom nad správnou generation. Samotný hash dokazuje zhodu s konkrétnym obsahom, nie jeho dôveryhodný pôvod. Silnejší chain spája digest, signer alebo actor identity, provenance, policy decision, runtime read-back a business reconciliation.
 
-Typické controls:
+Pre routing config je authoritative source `SETTLEMENT-ROUTE-91`. Ak runtime ukazuje generation 92, integrity verdict nie je „ConfigMap existuje“, ale „loaded state sa odchýlil od signed source a neexistuje approved transition“. Policy môže explicitne odmietnuť workload, ktorý sa pokúsi používať iný ServiceAccount alebo neapproved route generation:
 
-- identity proofing, authentication a session assurance;
-- authorization, least privilege a tenant isolation;
-- encryption a key separation;
-- secret minimization a redaction;
-- network a workload boundaries;
-- data classification, retention a secure deletion;
-- immutable alebo oddelený audit prístupu.
+```rego
+package atlas.security.settlement
 
-Encryption sama nestačí. Po dešifrovaní v application memory môže broad principal, chybný object-level authorization alebo kompromitovaný workload stále získať plaintext.
+default allow := false
 
-## 4. Integrity
+allow if {
+  input.request.kind.kind == "Pod"
+  input.request.namespace == "payments-prod"
+  input.request.object.spec.serviceAccountName == "settlement-worker"
+  input.request.userInfo.username == "system:serviceaccount:gitops:payments-reconciler"
+  input.request.object.metadata.labels["atlas.example/route-generation"] == "SETTLEMENT-ROUTE-91"
+}
 
-Integrity znamená zachovanie správnosti, úplnosti, authenticity a povoleného poradia zmien dát, konfigurácie a operácií.
-
-Otázka:
-
-```text
-Ako preukážeme, že asset alebo state transition
-vytvoril oprávnený actor, správnym mechanizmom,
-nad správnou generáciou a bez neautorizovanej zmeny?
+deny contains msg if {
+  input.request.namespace == "payments-prod"
+  input.request.object.spec.serviceAccountName == "settlement-debug"
+  msg := "settlement-debug service account is forbidden in production"
+}
 ```
 
-Integrity loss zahŕňa:
+Táto Rego policy preukazuje intended decision logic. Nepreukazuje, že jej bundle bol publikovaný, konkrétny admission controller načítal správnu revision alebo všetky create/update paths prechádzajú týmto enforcement pointom. Acceptance preto vyžaduje loaded-policy identity, denied fixture a audit event s rovnakým policy revision ID.
 
-- zmenu routing policy alebo deployment konfigurácie;
-- modified artifact alebo dependency;
-- duplicate payment či message processing;
-- neautorizovaný policy alebo role assignment;
-- corrupted backup;
-- falšovanie alebo odstránenie audit evidence;
-- nesprávnu automatizovanú alebo agentickú action.
+## Availability ako dostupnosť správnej capability
 
-Hash preukazuje zhodu s konkrétnym obsahom, nie automaticky jeho dôveryhodný pôvod. Silnejší chain je:
+Availability nie je process uptime. Settlement API môže vracať HTTP `200`, no business capability je nedostupná, ak workers sú scale-nuté na nulu, provider credential generation je revoke-nutá bez pripraveného nástupcu, DNS smeruje na nesprávny endpoint alebo authorization path odmieta legitímneho operatora počas incidentu.
 
-```text
-content digest
-+ trusted signer identity
-+ provenance
-+ authorization policy
-+ runtime read-back
-+ business reconciliation
-```
+Objective pre Atlas Payments znie: validná enterprise settlement operácia sa musí dokončiť do 2.5 sekundy a platforma musí vedieť obnoviť poslednú dôveryhodnú routing generation do 15 minút. Availability control nesmie fail-open-nuť confidentiality alebo integrity. Break-glass prístup preto potrebuje presný scope, krátku lifetime, two-party approval, audit a automatickú revocation; „dočasný cluster-admin“ bez expiration je nový security incident.
 
-Typické controls:
+CIA objectives sa zapisujú ako odlišné acceptance conditions:
 
-- immutable a versionované sources;
-- signatures a provenance;
-- transactions, constraints a idempotency;
-- separation of duties;
-- policy review a admission;
-- reconciliation na authoritative state;
-- audit trail s actorom a policy revision;
-- restore a tamper validation.
-
-## 5. Availability
-
-Availability znamená, že autorizovaný používateľ alebo business proces môže capability použiť v požadovanom čase, kvalite a failure scope-e.
-
-Otázka:
-
-```text
-Je správny asset alebo business journey dostupný
-pre oprávnený cohort v rámci latency, freshness, RTO a RPO contractu?
-```
-
-Availability nie je iba process uptime. Služba môže vracať `200`, ale byť nepoužiteľná pre vysokú latency, stale data, nefunkčnú authentication cestu, vyčerpanú quota alebo chýbajúcu kritickú operation.
-
-Typické controls:
-
-- fault isolation a redundancy;
-- capacity, quotas a rate limits;
-- failover a graceful degradation;
-- credential, key a DNS availability;
-- tested backup/restore;
-- incident response a break-glass access;
-- dependency a queue recovery;
-- observability dostupná počas incidentu.
-
-Availability control nesmie automaticky fail-open-nuť confidentiality alebo integrity boundary. Núdzový bypass musí mať explicitný threat model, scope, expiration a audit.
-
-## 6. Security objectives a impact thresholds
-
-CIA objective musí byť merateľný a viazaný na asset. Príklad pre `SEC-PAY-47`:
-
-| Asset alebo process | Confidentiality objective | Integrity objective | Availability objective |
+| Asset alebo proces | Confidentiality | Integrity | Availability |
 |---|---|---|---|
-| Provider private key | nikdy exportovateľný mimo approved workload boundary | iba approved generation a rotation actor | signing/auth capability dostupná pre healthy settlement workers |
-| Settlement route config | čitateľná iba payment/platform owners | zmena iba cez signed GitOps release a approved policy | last-known-good generation obnoviteľná do 15 minút |
-| Final settlement | tenant data bez cross-tenant disclosure | exactly-once business outcome a reconciled provider state | 99.9 % valid settlements do 2.5 s |
-| Security audit | need-to-know query access | append-oriented, actor a policy revision zachované | critical events queryovateľné počas incidentu |
+| Provider credential | nesmie byť exportovaný ani použitý mimo approved workloadu | iba schválená generation a rotation actor | capability dostupná healthy workers bez fail-open bypassu |
+| Route config | need-to-know read | iba signed GitOps generation | last-known-good obnova do 15 minút |
+| Final settlement | bez cross-tenant disclosure | reconciled exactly-once business outcome | 99.9 % valid operations do 2.5 s |
+| Security audit | obmedzené query access | actor, delegated identity, policy revision a result zachované | critical events queryovateľné počas incidentu |
 
-Impact sa klasifikuje samostatne pre každú os. Public artifact môže mať low confidentiality, ale high integrity. Audit môže mať moderate confidentiality a high integrity aj availability.
+## Incident: jedna stale access cesta narušila všetky tri osi
 
-## 7. Threat, vulnerability, exposure, impact a risk
+Dňa 29. júla 2026 o 12:14 UTC začal settlement-completion SLO prudko páliť. Runtime ukázal 12 desired workers, ale 0 available; loaded route bola generation 92, zatiaľ čo Git obsahoval approved generation 91. Súčasne audit zaznamenal nový Pod `settlement-debug-7f91` a použitie provider credentialu workload principalom `system:serviceaccount:payments-prod:settlement-debug`.
 
-Tieto pojmy netvoria synonymá:
+Principal `urn:atlas:human:7421` bol ráno presunutý z Payments Operations do Finance Analytics. HR source zmenu evidoval správne, ale mover synchronizácia bola add-only. Direct group sa odstránila, no nested path `finance-emea → legacy-shared-operations → prod-payment-operators` zostala a existujúca WebAuthn browser session nebola revoke-nutá.
 
-- **threat** — actor, event alebo failure schopný spôsobiť škodu;
-- **vulnerability** — slabina, ktorú možno využiť;
-- **exposure** — konkrétna reachable alebo usable cesta k slabine;
-- **impact** — následok straty CIA vlastnosti;
-- **risk** — kombinácia pravdepodobnosti, podmienok, blast radiusu a impactu;
-- **control** — safeguard znižujúci pravdepodobnosť alebo následok;
-- **residual risk** — risk po zohľadnení effective controls.
+Hypotézy zahŕňali provider outage, chybný GitOps rollout, kompromitovaný workload, legitímny drill a stale human access. Diskriminačný dôkaz spojil session actor, nested group claim, ClusterRoleBinding, `create pods`, výber ServiceAccountu, následný Secret mount, config patch a scale-to-zero. Git source sa nezmenil. Root cause preto nebola authentication failure ani GitOps source; bola to incomplete mover reconciliation. Broad operator role vytvorila causal amplifier.
 
-Pre worked incident:
+Confidentiality bola porušená použitím provider private-key capability. Integrity bola porušená neapproved route generation. Availability bola porušená scale-to-zero a zastavením final settlement. Append-oriented audit zostal dostupný, takže bolo možné rekonštruovať human-to-workload delegation chain.
 
-```text
-threat: ukradnutá existujúca browser session
-vulnerability: mover workflow ponechal starú nested-group membership
-exposure: group claim mapovaný na broad Kubernetes operator binding
-amplifier: create Pod + výber privileged ServiceAccountu
-impact: secret disclosure + config mutation + settlement outage
-```
+## Evidence-preserving containment a authoritative recovery
 
-## 8. Control system
+Containment najprv zastaví ďalší impact bez zničenia identity a runtime evidence. Revoke-ne session a odvodené tokeny, suspenduje principal, zablokuje affected binding, izoluje malicious Pod a zachová IdP events, group graph, Kubernetes audit, Secret-access evidence, GitOps diff a settlement timeline. Broad restart control planes alebo okamžité zmazanie Podu by odstránili volatilný dôkaz bez odstránenia alternate access pathu.
 
-Robustná security architektúra nepoužíva iba prevention:
+Authoritative recovery potom odstráni príčinu a obnoví business state:
 
 ```text
-prevent
-→ obmedziť vznik alebo využitie failure pathu
-
-detect
-→ zachytiť zmenu, pokus alebo stratu evidence
-
-respond
-→ zastaviť pokračujúci impact a zachovať dôkaz
-
-recover
-→ obnoviť dôveryhodnú generation a reconciled business state
-
-learn
-→ odstrániť systémovú príčinu a skrátiť budúce exposure window
+complete entitlement reconciliation
+→ revoke stale sessions a workload descendants
+→ rotate provider generation 34 na 35
+→ restore signed route generation 91
+→ reconcile 12 settlement workers
+→ classify known a unknown provider outcomes
+→ reconcile ledger a provider state
+→ replace broad operator role JIT capability
+→ repeat negative a second-session tests
 ```
 
-Controls možno klasifikovať ako management, operational, technical alebo physical a podľa funkcie ako preventive, detective, corrective, recovery, deterrent či compensating. Kategória však nenahrádza exact boundary a ownera.
+Blind retry nie je prijateľný recovery krok. Operácie s unknown provider acknowledgementom sa musia najprv reconciliovať, inak availability remediation vytvorí integrity incident cez duplicate authorization.
 
-## 9. Assurance a effective control state
+Acceptance verdict vyžaduje, aby validná settlement operácia opäť prešla do 2.5 sekundy, generation 35 bola jediná akceptovaná provider credential, loaded route zodpovedala signed generation 91 a principal 7421 neuspel cez direct, nested, existing-session ani fresh-login path. Legitímny JIT operator musí stále vykonať presne povolenú recovery akciu; security control, ktorý zablokuje všetkých, nie je úspešná CIA ochrana.
 
-Assurance sú grounds for confidence, že security objectives sú v konkrétnej implementácii splnené.
+## Kontrolné otázky
 
-```text
-policy source existuje
-→ validná generation bola publikovaná
-→ controller alebo verifier ju načítal
-→ PEP ju presadzuje na každej relevantnej ceste
-→ allowed test funguje
-→ forbidden test zlyhá
-→ audit zachytí oba verdicts
-→ recovery test obnoví business outcome
-```
+1. Prečo encryption at rest nebráni zneužitiu secretu cez authorized Pod projection?
+2. Čo odlišuje configured, loaded a effective security control?
+3. Prečo direct `get secret = no` neuzatvára confidentiality verdict?
+4. Aké dôkazy spájajú content integrity s dôveryhodným pôvodom a runtime stavom?
+5. Prečo fail-open break-glass môže zlepšiť availability a súčasne zničiť C aj I?
+6. Ktorý dôkaz odlíšil stale entitlement od chybného GitOps source-u?
+7. Prečo recovery musí klasifikovať unknown provider outcomes pred retryom?
 
-Dôkazy môžu zahŕňať:
+## Referencie
 
-- configuration a runtime read-back;
-- positive a negative authorization tests;
-- signature/provenance verification;
-- tenant-isolation test;
-- restore rehearsal;
-- session revocation test;
-- audit canary;
-- incident history a recurrence controls.
-
-`Backups enabled` nie je restore assurance. `MFA required` nie je dôkaz, že stale privileged session bola revoke-nutá. `Role removed` nie je dôkaz, že nested group, token cache a workload credential už neumožňujú alternate path.
-
-## 10. Worked incident: jedna stale access cesta narušila C, I aj A
-
-### Symptom
-
-Dňa `2026-07-29` o `12:14 UTC` settlement-completion SLO začne prudko páliť. Súčasne security alert hlási čítanie `provider-a-mtls` secretu nezvyčajným Podom.
-
-```text
-final settlement failures: 8.2 %
-settlement workers desired/available: 12/0
-routing config loaded: SETTLEMENT-ROUTE-92
-approved source generation: SETTLEMENT-ROUTE-91
-new Pod: settlement-debug-7f91
-```
-
-### Recent identity change
-
-Principal `urn:atlas:human:7421` bol o 08:00 presunutý z Payments Operations do Finance Analytics. HR source zmenu zaznamenal správne, ale identity synchronizácia bola add-only:
-
-```text
-removed direct group: payments-oncall
-remaining nested path:
-finance-emea
-→ legacy-shared-operations
-→ prod-payment-operators
-```
-
-Existujúca browser session navyše ostala platná.
-
-### Competing hypotheses
-
-1. provider outage spôsobil settlement failure;
-2. GitOps rollout načítal chybnú route generation;
-3. external attacker zneužil application API;
-4. compromised workload prečítal secret nezávisle od human identity;
-5. ukradnutá human session využila stale effective access;
-6. audit event patrí legitimate incident drillu;
-7. controller omylom scale-nul workers pri autoscaling-u.
-
-### Discriminating evidence
-
-```text
-IdP authentication: WebAuthn success, session SESSION-771
-session actor: urn:atlas:human:7421
-HR mover state: Finance Analytics
-IdP token claim: prod-payment-operators stále present
-Kubernetes access path:
-  subject
-  → nested IdP group
-  → payments-prod-operators ClusterRoleBinding
-  → payments-prod-operator ClusterRole
-allowed actions:
-  create pods
-  select serviceAccountName settlement-debug
-  patch configmaps
-  patch deployments/scale
-Pod audit actor: urn:atlas:human:7421
-Pod workload principal: system:serviceaccount:payments-prod:settlement-debug
-secret read audit: workload principal
-config patch audit: human principal
-GitOps source: stále SETTLEMENT-ROUTE-91
-```
-
-Root cause je incomplete mover reconciliation. Broad operator role je causal amplifier. Authentication protocol fungoval; authorization a identity lifecycle už nereprezentovali aktuálnu pracovnú funkciu.
-
-### CIA impact
-
-**Confidentiality:** Pod získal provider client certificate a private-key capability.
-
-**Integrity:** actor patchol settlement route na neapproved generation `92`.
-
-**Availability:** actor znížil settlement workers na nulu a zastavil final completion.
-
-Audit platforma zostala dostupná a append-oriented, preto bolo možné prepojiť human actor, vytvorený workload a následné secret use.
-
-### Evidence-preserving containment
-
-1. zablokovať session `SESSION-771` a všetky odvodené tokens;
-2. suspendovať principal a odstrániť stale group path;
-3. zastaviť nové Pod creates a config mutations pre affected binding;
-4. izolovať malicious Pod bez mazania jeho metadata a runtime evidence;
-5. zachovať IdP events, group graph, Kubernetes audit, Secret access, GitOps diff a settlement timeline;
-6. nevymazať audit, nerestartovať všetky control planes a neudeliť broad emergency admin;
-7. zastaviť provider-side použitie compromised certificate podľa dohodnutého incident contractu.
-
-### Authoritative recovery
-
-```text
-revoke human sessions a stale entitlements
-→ rotate provider credential generation 34 → 35
-→ restore route config z signed source SETTLEMENT-ROUTE-91
-→ reconcile Deployment na 12 workers
-→ drain/reconcile pending settlement outcomes
-→ overiť provider a ledger state
-→ odstrániť broad operator role
-→ zaviesť JIT mediated capability
-```
-
-Recovery musí rozlíšiť payments, ktoré zlyhali pred provider callom, payments s known failure a unknown acknowledgement outcomes. Blind retry môže vytvoriť duplicate authorization a integrity incident.
-
-### Acceptance verdict
-
-Incident možno uzavrieť, keď:
-
-- valid enterprise settlement opäť prejde do 2.5 s;
-- unknown outcomes sú reconciled bez duplicate provider authorization;
-- generation `35` je jediná prijímaná provider credential;
-- loaded route je zhodná so signed source generation `91`;
-- principal `7421` nedokáže create Pod, read Secret, patch config ani scale Deployment;
-- stará session, nový login a alternate nested-group path sú odmietnuté;
-- legitimate JIT operator dokáže vykonať iba approved requeue/diagnostic task;
-- audit chain zachová human actora, delegated workload, actions a policy revisions;
-- druhý identity sync a druhý Kubernetes authorization test neobnovia stale access.
-
-## 11. Earlier controls odvodené z incidentu
-
-- mover reconciliation musí byť remove-before-add alebo transactional podľa entitlement graphu;
-- entitlement source potrebuje complete desired state, nie add-only sync;
-- privileged group change musí revoke-nuť sessions a short-lived claims;
-- Kubernetes role engineering musí považovať workload creation za indirect escalation boundary;
-- production support má používať mediated JIT capability, nie standing Pod/Secret access;
-- policy CI musí testovať forbidden nested-group paths;
-- session a entitlement canary má overiť leaver/mover revocation;
-- audit musí korelovať human actor → delegated workload → downstream use;
-- provider credentials musia byť rotation-ready a scoped na workload identity.
-
-## 12. Trade-offy medzi C, I a A
-
-Security decision často posilní jednu os a oslabí inú:
-
-- strict deny môže chrániť confidentiality, ale znížiť availability bez break-glass modelu;
-- replication zvyšuje availability, ale rozmnožuje confidentiality exposure a replikuje logical corruption;
-- immutable retention chráni audit integrity, ale komplikuje privacy deletion;
-- encryption chráni data at rest, ale strata key-u môže zničiť availability;
-- broad emergency access môže obnoviť službu, ale poškodiť confidentiality, integrity a accountability.
-
-Trade-off musí byť explicitný, bounded a validovaný. „Security first“ nie je ospravedlnenie pre nefunkčný systém; „availability first“ nie je ospravedlnenie pre fail-open nad citlivým assetom.
-
-## 13. Security incident troubleshooting cez CIA
-
-```text
-business symptom a timeline
-→ exact asset/process/security subject
-→ narušená C, I a A vlastnosť
-→ affected a unaffected cohorts
-→ active threat a remaining exposure
-→ volatile evidence
-→ competing hypotheses
-→ containment bez zničenia dôkazu
-→ authoritative identity/data/config recovery
-→ allowed, forbidden a adjacent validation
-→ residual risk a closure
-```
-
-Neuzatváraj incident po obnovení availability. Compromised credential môže po scale-up-e stále čítať dáta alebo meniť state.
-
-## 14. Anti-patterny
-
-### CIA ako checkbox
-
-Tri písmená sa uvedú v dokumente bez assets, impactu, controls a evidence.
-
-### Encryption = confidentiality solved
-
-Ignoruje plaintext use, authorization, exporty a key-use capabilities.
-
-### Uptime = availability
-
-Ignoruje latency, correctness, identity path, freshness a cohort-specific failure.
-
-### Control existence = assurance
-
-Configured policy alebo backup nie je effective-state ani recovery dôkaz.
-
-### Restore availability bez integrity reconciliation
-
-Služba sa spustí, ale spracuje unknown alebo stale business state nesprávne.
-
-### Maximalizácia jednej osi
-
-Broad fail-open, permanent lockout alebo nekonečná retention môžu poškodiť ostatné security a business objectives.
-
-## 15. Kontrolné otázky
-
-1. Čo tvorí exact CIA security subject?
-2. Prečo je CIA vlastnosť vždy viazaná na asset a outcome?
-3. Ako sa líši threat, vulnerability, exposure, impact a risk?
-4. Prečo configured control nie je assurance?
-5. Ako confidentiality zahŕňa aj použitie capability bez exportu secretu?
-6. Ako integrity súvisí s identity, provenance a reconciliation?
-7. Prečo availability nie je iba uptime?
-8. Ako môže jeden stale entitlement narušiť všetky tri osi?
-9. Čo musí zachovať evidence-preserving containment?
-10. Prečo sa credential incident neuzatvára po obnovení služby?
-11. Aké forbidden outcomes musí recovery testovať?
-12. Ktoré earlier controls vyplývajú z incidentu `SEC-PAY-47`?
-
-## Glossary impact
-
-Relevantné pojmy: CIA security subject, confidentiality objective, integrity objective, availability objective, asset-impact matrix, capability confidentiality, control generation, effective security control, security assurance verdict, residual-risk verdict, evidence-preserving security containment, authoritative security recovery, identity-to-workload audit chain a CIA acceptance verdict.
-
-## Primárne zdroje
-
-- [NIST — Confidentiality, Integrity and Availability](https://csrc.nist.gov/glossary/term/confidentiality_integrity_availability)
-- [NIST — Information Security](https://csrc.nist.gov/glossary/term/information_security)
-- [NIST — Security Control](https://csrc.nist.gov/glossary/term/security_control)
-- [NIST — Security Assurance](https://csrc.nist.gov/glossary/term/security_assurance)
-- [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [NIST SP 800-53 Security and Privacy Controls](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final)
+- [Kubernetes authorization](https://kubernetes.io/docs/reference/access-authn-authz/authorization/)
+- [Open Policy Agent policy language](https://www.openpolicyagent.org/docs/latest/policy-language/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
