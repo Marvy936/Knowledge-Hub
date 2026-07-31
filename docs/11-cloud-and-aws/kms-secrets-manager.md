@@ -1,46 +1,46 @@
 # KMS a Secrets Manager
 
-AWS Key Management Service riadi cryptographic key resources, key material a authorization pre cryptographic operations. AWS Secrets Manager riadi versionované secret values, staging labels, retrieval, replication a rotation credentials v target systéme. Veta „secret je zašifrovaný“ preto nestačí.
+AWS Key Management Service riadi cryptographic key resources, key material a authorization pre cryptographic operations. AWS Secrets Manager riadi versionované secret values, staging labels, retrieval, replication a rotation credentials v target systéme. Veta „secret je zašifrovaný“ preto nestačí: treba vedieť, ktorý key a material generation chránia hodnotu, ktorý principal môže vykonať operáciu, ktorá secret version je current, čo target systém akceptuje a čo konkrétny process skutočne načítal.
 
 ```text
-protected-value or credential intent
-→ exact KMS key, secret, target and consumer
-→ authorization and key state
-→ cryptographic or secret retrieval operation
+protected-value alebo credential intent
+→ exact KMS key, secret, target a consumer
+→ authorization a key state
+→ cryptographic alebo secret retrieval operation
 → target credential mutation
-→ secret version and staging-label transition
-→ consumer refresh and loaded state
+→ secret version a staging-label transition
+→ consumer refresh a loaded state
 → old generation revocation
-→ business validation and audit
+→ business validation a audit
 ```
 
-KMS decrypt success nepreukazuje, že application načítala správnu secret version. `AWSCURRENT` nepreukazuje, že target service credentials fungujú ani že warm processes opustili old generation.
+KMS decrypt success nepreukazuje, že application načítala správnu secret version. Label `AWSCURRENT` nepreukazuje, že target credentials fungujú ani že warm processes a connection pools opustili predchádzajúcu generation.
 
 ## 1. Exact protected-value subject
 
-Atlas Payments používa KMS key `key-pay-17`, logical generation `KMS-PAY-17`, material generation `MAT-9`, alias `alias/prod/payments-secrets`, key policy `KPOL-31` a grant set `GRANTSET-12`.
+Atlas Payments používa KMS key `key-pay-17`, logical generation `KMS-PAY-17`, material generation `MAT-9`, alias `alias/prod/payments-secrets`, key policy `KPOL-31` a grant set `GRANTSET-12`. Key ARN je authoritative cryptographic identity; alias je mutable lookup pointer a nesmie nahradiť ARN v incident evidence alebo migration inventory.
 
 Secret `prod/payments/provider` má `AWSCURRENT=v42`, `AWSPREVIOUS=v41` a rotation candidate `v43/AWSPENDING`. Rotation model používa alternating users `atlas-pay-a` a `atlas-pay-b`. Target credential generation je `CRED-42` a consumers sú ECS API, Lambda settlement worker a reconciliation process.
 
-Forbidden outcomes sú key administrator automatically able to decrypt, alias remap treated as re-encryption, current label pointing to invalid target credential, old credential revoked before consumer refresh and key deletion destroying retained recovery points.
+Forbidden outcomes zahŕňajú key administrator automaticky schopného decryptovať payload, alias remap interpretovaný ako re-encryption, current label ukazujúci na neplatný target credential, old credential revoked pred consumer refresh a key deletion, ktorá zničí retained recovery points.
 
-## 2. Logical key, key material, secret version and loaded state
+## 2. Logical key, key material, secret version a loaded state
 
-KMS key resource has stable ARN, policy, state, usage, aliases, grants and key-material history. Key material generation can rotate while key ARN remains unchanged. Secret version is immutable value identified by version ID; staging label is mutable pointer. Consumer-loaded state is value held by process, cache or connection pool.
+KMS key resource má stabilný ARN, policy, state, usage, aliases, grants a históriu key materialu. Material generation sa môže zmeniť, zatiaľ čo key ARN ostáva rovnaký. Secret version je immutable value identifikovaná version ID; staging label je mutable pointer medzi versions. Consumer-loaded state je hodnota držaná processom, cache alebo connection poolom.
 
 ```text
-which key ARN authorized operation?
-which material generation protected ciphertext?
-which secret version has AWSCURRENT?
-which credential is accepted by target?
-which version is loaded by this process and socket?
+ktorý key ARN autorizoval operáciu?
+ktorý material generation chránil ciphertext?
+ktorá secret version nesie AWSCURRENT?
+ktorý credential akceptuje target?
+ktorú version drží tento process a socket?
 ```
 
-These are separate questions.
+Tieto otázky majú rozdielne authoritative systems. KMS odpovie na key a cryptographic operation, Secrets Manager na version a labels, target audit na accepted credentials a process telemetry na loaded version. Ich zamieňanie vytvára rotation incidenty, v ktorých je control plane green, ale workload autentifikácia zlyháva.
 
 ## 3. Envelope encryption
 
-KMS usually protects data keys rather than large payload directly.
+KMS zvyčajne nechráni veľký payload priamym `Encrypt` callom. Vytvorí data key, vráti jeho plaintext pre lokálnu symetrickú operáciu a encrypted copy na uloženie vedľa ciphertextu. Plaintext data key musí mať krátky lifetime a encrypted data key musí zostať viazaný na rovnaký encryption context ako payload.
 
 ```text
 GenerateDataKey
@@ -53,13 +53,14 @@ Decrypt encrypted data key
 → local payload decryption
 ```
 
-Python example:
+Nasledujúci príklad ukazuje mechanizmus, nie production-ready key-management framework. Dvanásťbajtový nonce vzniká cez cryptographically secure random source; `AESGCM.generate_key` slúži na AES keys a nie na 96-bitové nonces.
 
 ```python
 from __future__ import annotations
 
 import base64
 import json
+import os
 
 import boto3
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -82,9 +83,10 @@ plaintext_key = bytearray(response["Plaintext"])
 encrypted_key = response["CiphertextBlob"]
 
 try:
-    nonce = AESGCM.generate_key(bit_length=96)[:12]
+    nonce = os.urandom(12)
     cipher = AESGCM(bytes(plaintext_key))
-    ciphertext = cipher.encrypt(nonce, b"example-secret", json.dumps(context, sort_keys=True).encode())
+    associated_data = json.dumps(context, sort_keys=True).encode()
+    ciphertext = cipher.encrypt(nonce, b"example-secret", associated_data)
 finally:
     for i in range(len(plaintext_key)):
         plaintext_key[i] = 0
@@ -97,19 +99,19 @@ record = {
 }
 ```
 
-Example is educational; production code should use AWS Encryption SDK or reviewed cryptographic library and stronger memory/process handling. Encryption context is non-secret and may appear in audit surfaces.
+Production code má používať AWS Encryption SDK alebo iný reviewed cryptographic framework, pretože memory zeroing v managed runtime nie je úplná garancia a record format potrebuje authentication, versioning a error handling. Encryption context nie je secret a môže sa objaviť v CloudTrail; nesmie preto obsahovať password, token alebo osobné údaje.
 
-## 4. Key policy and identity policy
+## 4. Key policy, IAM a effective authorization
 
-Terraform key and alias:
+KMS authorization sa nedá odvodiť iba z jednej identity policy. Key policy musí priamo povoliť principal alebo vytvoriť account-level delegation path do IAM. Permissions boundary, session policy, SCP alebo RCP, grants, encryption-context conditions, key state a VPC endpoint policy môžu request ďalej obmedziť.
 
 ```hcl
 resource "aws_kms_key" "payments" {
-  description         = "Atlas Payments secret protection"
-  enable_key_rotation = true
+  description             = "Atlas Payments secret protection"
+  enable_key_rotation     = true
   rotation_period_in_days = 180
   deletion_window_in_days = 30
-  policy = data.aws_iam_policy_document.payments_kms.json
+  policy                  = data.aws_iam_policy_document.payments_kms.json
 
   tags = {
     Generation = "KMS-PAY-17"
@@ -122,30 +124,34 @@ resource "aws_kms_alias" "payments" {
 }
 ```
 
-Key policy must allow account/IAM delegation or direct principals according to design. Identity policy alone cannot bypass missing key-policy path. Permissions boundary, session policy, SCP/RCP, grant constraints, key state and VPC endpoint policy can further restrict request.
-
-Live read-back:
+Terraform plan a apply vytvoria desired key resource a alias mapping. Effective read-back musí používať key ARN a actual caller context:
 
 ```bash
+aws sts get-caller-identity
+
 aws kms describe-key \
   --key-id arn:aws:kms:eu-central-1:100000000042:key/key-pay-17 \
-  --region eu-central-1
+  --region eu-central-1 \
+  --query 'KeyMetadata.{Arn:Arn,State:KeyState,Usage:KeyUsage,Origin:Origin,MultiRegion:MultiRegion}' \
+  --output yaml
 
 aws kms get-key-policy \
   --key-id arn:aws:kms:eu-central-1:100000000042:key/key-pay-17 \
   --policy-name default \
-  --region eu-central-1
+  --region eu-central-1 \
+  --query Policy \
+  --output text | jq .
 
 aws kms list-grants \
   --key-id arn:aws:kms:eu-central-1:100000000042:key/key-pay-17 \
   --region eu-central-1
 ```
 
-Alias is mutable pointer and must not replace key ARN in audit evidence.
+`DescribeKey` preukazuje identity a state, nie permission na decrypt. Policy a grants ukazujú configured authorization paths, ale effective verdict stále závisí od caller session a request context. Alias read-back je užitočný pre lookup, nie ako dôkaz, ktorý logical key historicky chránil ciphertext.
 
-## 5. Encryption context as authorization binding
+## 5. Encryption context ako authorization binding
 
-Positive test with non-production ciphertext:
+Encryption context sa cryptographically viaže k ciphertextu a zároveň môže byť použitý v KMS policy conditions. Positive test preto musí použiť exact context a forbidden test zmeniť tenant, environment alebo purpose bez zmeny ciphertextu.
 
 ```bash
 aws kms decrypt \
@@ -157,7 +163,7 @@ aws kms decrypt \
   --output text >/dev/null
 ```
 
-Forbidden context:
+Forbidden context používa rovnaký ciphertext, ale iný purpose:
 
 ```bash
 aws kms decrypt \
@@ -167,29 +173,30 @@ aws kms decrypt \
   --region eu-central-1
 ```
 
-Second request must fail. Ciphertext copy to another tenant or purpose is unusable without exact context.
+Druhý request musí zlyhať. Úspech prvého callu dokazuje cryptographic a authorization path pre test principal, nie to, že production application používa rovnakú role session alebo context. Runtime test sa preto vykoná aj z workload identity a CloudTrail sa skontroluje bez logovania plaintextu.
 
-## 6. KMS rotation is not data re-encryption
+## 6. KMS key-material rotation nie je re-encryption
 
-Automatic or on-demand material rotation keeps key ID/ARN and old material required for decrypt. Existing ciphertext and encrypted data keys are not rewritten. Alias remap to new logical key also does not re-encrypt data.
+Automatic alebo on-demand rotation mení current key material v rámci rovnakého logical KMS key resource-u. Key ID, ARN, policy a application reference ostávajú rovnaké. AWS KMS pri decrypt operácii vyberie material, ktorý pôvodne ciphertext chránil; existujúce ciphertexts ani data keys sa neprepisujú.
 
-Logical-key migration:
+Alias remap na nový logical key je odlišná operácia. Mení, kam alias ukazuje, ale staré ciphertexts zostávajú viazané na pôvodný key ARN. Manual logical-key migration preto potrebuje inventory a service-specific copy alebo re-encryption lifecycle:
 
 ```text
-create new key and policy
-→ authorize consumers/services
-→ copy or re-encrypt according to service contract
-→ read-back and decrypt validation
+create replacement key a policy
+→ authorize exact consumers a AWS services
+→ copy alebo re-encrypt podľa resource contractu
+→ read-back new key identity
+→ decrypt/restore validation
 → inventory closure
-→ disable old key observation window
-→ deletion decision only after recovery proof
+→ disable old key počas observation window
+→ schedule deletion až po recovery approval
 ```
 
-Key disable or deletion is recovery decision. Before it, inventory S3/EBS/RDS/backups/secrets, cross-account consumers and dormant archives.
+Key disable alebo deletion je recovery decision. Pred ním sa inventarizujú S3 objects, EBS snapshots, RDS resources, backups, secrets, cross-account consumers a dormant archives. Absencia recent `Decrypt` eventov nepreukazuje, že quarterly restore alebo legal archive starý key nepotrebuje.
 
-## 7. Secrets Manager resource and versions
+## 7. Secrets Manager resource, versions a staging labels
 
-Terraform secret:
+Secret resource drží metadata, KMS key reference, policies, rotation configuration, replicas a version map. Každá secret value má immutable version ID. Labels `AWSCURRENT`, `AWSPREVIOUS` a `AWSPENDING` sú mutable staging pointers; presun labelu nemení target credential ani process cache.
 
 ```hcl
 resource "aws_secretsmanager_secret" "provider" {
@@ -204,7 +211,7 @@ resource "aws_secretsmanager_secret" "provider" {
 }
 ```
 
-Bootstrap secret version should come from controlled pipeline, not plaintext Terraform state. Example CLI for a test secret:
+Bootstrap value má prísť z controlled secret pipeline, nie z plaintext Terraform variables alebo state-u. Nasledujúci CLI príklad je vhodný pre testovací secret a používa idempotency token:
 
 ```bash
 aws secretsmanager put-secret-value \
@@ -215,36 +222,39 @@ aws secretsmanager put-secret-value \
   --region eu-central-1
 ```
 
-Secret values do not belong in command history. Production uses secure file descriptor/pipeline and redaction.
-
-Version inventory without values:
+Secret value nemá byť command-line argumentom ani súčasťou shell history. Version inventory sa číta bez hodnoty:
 
 ```bash
 aws secretsmanager list-secret-version-ids \
   --secret-id prod/payments/provider \
   --include-deprecated \
-  --region eu-central-1
+  --region eu-central-1 \
+  --output table
 ```
 
-## 8. Rotation coordinates store, target and consumers
+Tento output preukazuje version-to-label mapu. Nehovorí, či candidate funguje v target systéme alebo ktorú version držia bežiace consumers.
+
+## 8. Rotation koordinuje store, target a consumers
+
+Rotation je distribuovaná business operácia medzi troma authorities. Secrets Manager riadi version a labels, target systém riadi platnosť credentials a consumers držia loaded values a sessions. Úspech jednej vrstvy nesmie byť interpretovaný ako úspech celého lifecycle-u.
 
 ```text
 create candidate secret version
-→ set AWSPENDING
-→ create or update target credential
-→ authenticate candidate and verify privilege
+→ attach AWSPENDING
+→ create alebo update target credential
+→ authenticate candidate a verify privilege
 → move AWSCURRENT
-→ consumers refresh values and connections
+→ consumers refresh values a connections
 → observe mixed cohort
 → revoke old target credential
 → forbidden old-credential test
 ```
 
-Lambda rotation steps are commonly `createSecret`, `setSecret`, `testSecret`, `finishSecret`; each must be idempotent because retries can occur.
+Lambda rotation steps sú typicky `createSecret`, `setSecret`, `testSecret` a `finishSecret`. Každý step musí byť idempotentný, pretože retry môže znova doručiť rovnaký token a stage. Single-user rotation mení jedno credential a môže okamžite zlomiť stale consumers. Alternating-users model pripraví neaktívnu identity a poskytne overlap window, ale vyžaduje privilege equivalence, loaded-version telemetry a explicitné retirement pravidlo.
 
-Single-user rotation replaces one credential and can break stale consumers immediately. Alternating users prepare inactive identity and provide overlap window, but require privilege equivalence and explicit old-user retirement.
+## 9. Rotation schedule, execution a read-back
 
-## 9. Rotation configuration
+Rotation schedule určuje, kedy môže workflow začať a aké má duration window. Nie je to acceptance oracle. Successful invocation môže skončiť s validným labelom, ale nefunkčným target credentialom alebo stale consumers.
 
 ```hcl
 resource "aws_secretsmanager_secret_rotation" "provider" {
@@ -258,22 +268,21 @@ resource "aws_secretsmanager_secret_rotation" "provider" {
 }
 ```
 
-Rotation schedule is not acceptance. Workflow must verify target and consumer-loaded state.
-
-Read-back:
+Read-back oddelí rotation configuration, labels a regional replicas:
 
 ```bash
 aws secretsmanager describe-secret \
   --secret-id prod/payments/provider \
   --region eu-central-1 \
-  --query '{Arn:ARN,KmsKeyId:KmsKeyId,RotationEnabled:RotationEnabled,Rules:RotationRules,VersionIdsToStages:VersionIdsToStages,Replicas:ReplicationStatus}'
+  --query '{Arn:ARN,KmsKeyId:KmsKeyId,RotationEnabled:RotationEnabled,Rules:RotationRules,VersionIdsToStages:VersionIdsToStages,Replicas:ReplicationStatus}' \
+  --output yaml
 ```
 
-## 10. Runtime retrieval and cache
+`RotationEnabled=true` dokazuje iba configuration. `AWSCURRENT=v43` dokazuje pointer transition. Target login s v43, process telemetry a forbidden login s v42 dokazujú operational completion. Ďalšia canary rotation alebo retry rovnakého rotation tokenu musí zostať idempotentný.
 
-Application should not call Secrets Manager for every request and should not cache forever. Cache contract defines max TTL, jitter, refresh on authentication failure, single-flight refresh, behavior during service outage, loaded version telemetry and connection-pool eviction.
+## 10. Runtime retrieval, cache a connection lifetime
 
-Python retrieval skeleton:
+Application nemá volať Secrets Manager pri každom requeste, ale nesmie cache držať bez hranice. Cache contract definuje TTL, jitter, single-flight refresh, refresh pri authentication failure, behavior počas Secrets Manager outage, loaded-version telemetry a connection-pool eviction.
 
 ```python
 from __future__ import annotations
@@ -310,13 +319,15 @@ def provider_credentials() -> tuple[dict[str, str], str]:
     return _cache["value"], str(_cache["version"])
 ```
 
-Telemetry may log version ID, cache age and process/task identity, never secret value. Authentication failure should invalidate cache and connection pool in bounded manner.
+Ukážka demonštruje bounded cache a version telemetry, nie kompletný production client. V praxi sa má použiť AWS-supported caching component alebo reviewed wrapper s metrics, error handling a secure memory modelom. Telemetry môže logovať version ID, cache age a task/Pod identity, nikdy secret value.
 
-## 11. Cross-account and multi-Region
+Refresh secretu ešte nemusí ukončiť staré database alebo provider sessions. Authentication failure má invalidovať cache aj relevantný connection pool v bounded režime, aby tisíce requestov nevytvorili refresh stampede.
 
-Cross-account secret retrieval needs caller identity allow, secret resource policy, customer-managed KMS key policy and no explicit deny. AWS managed `aws/secretsmanager` key is not general cross-account key contract.
+## 11. Cross-account a multi-Region hranice
 
-Secret replication creates regional secret replica, not target database user, application failover or immediate consumer refresh. Each Region has its KMS and endpoint dependencies.
+Cross-account retrieval potrebuje caller identity allow, secret resource policy, customer-managed KMS key policy a absenciu explicit deny v Organizations alebo endpoint policy. AWS managed `aws/secretsmanager` key nie je všeobecný cross-account cryptographic contract pre customer-designed sharing.
+
+Secret replication vytvorí regional secret replica a version propagation path. Nevytvorí regional database user, provider credential, application failover ani okamžitý consumer refresh. Každý Region má vlastný endpoint, KMS dependency, target credential a runtime generation.
 
 ```bash
 aws secretsmanager replicate-secret-to-regions \
@@ -325,52 +336,54 @@ aws secretsmanager replicate-secret-to-regions \
   --region eu-central-1
 ```
 
-DR manifest binds replica version to regional target credential and application generation.
+DR manifest musí preto viazať replica version na regional target credential a application release. Recovery test načíta replica secret, autentifikuje sa k regional targetu a vykoná business operation; green replication status sám nestačí.
 
 ## 12. Worked incident: rotation split-brain
 
-Rotation `ROT-14` prepared `v43` for `atlas-pay-b`. Candidate authenticated and workflow moved `AWSCURRENT` from v42 to v43. Team waited fixed ten minutes and disabled old `atlas-pay-a`.
+Rotation `ROT-14` pripravila v43 pre `atlas-pay-b`. Candidate authentication prešla a workflow presunul `AWSCURRENT` z v42 na v43. Tím potom čakal fixných desať minút a deaktivoval starý `atlas-pay-a`.
 
-New ECS tasks worked. Older tasks and some warm Lambda environments still held v42; some processes loaded v43 but connection pools retained old sessions. Secrets Manager showed rotation succeeded.
+New ECS tasks fungovali, ale older tasks a warm Lambda environments držali v42. Časť processov načítala v43, no ich connection pools stále používali sessions vytvorené so starým credentialom. Secrets Manager ukazoval successful rotation, pretože jeho store a labels boli konzistentné.
 
-On-call moved `AWSCURRENT` back to v42, making incident worse because target already rejected `atlas-pay-a`. Store pointer and target truth diverged.
+On-call presunul `AWSCURRENT` späť na v42, čím incident zhoršil: target už `atlas-pay-a` odmietal. Store pointer a target authority sa rozišli. CloudTrail `GetSecretValue`, process version telemetry a target authentication audit ukázali consumer-refresh failure, nie KMS alebo candidate-value failure.
 
-Evidence from `GetSecretValue` CloudTrail, process version telemetry and target audit showed consumer-refresh failure, not KMS or candidate-value failure.
+Containment zastavil rotation retries a ďalšie label changes, ponechal `atlas-pay-b` ako target authority a izoloval consumers, ktoré nevedeli preukázať loaded version. Recovery vrátila `AWSCURRENT` na v43, recyklovala stale cohorts vo vlnách, evictovala connection pools a reconciliovala payment attempts. Old credential sa revoked až po nulovom počte v42 consumers.
 
-Containment stopped rotation retries and label changes, kept `atlas-pay-b` authoritative, set current to v43 and isolated consumers unable to prove loaded version. Recovery recycled stale cohorts in waves, evicted pools, reconciled payment attempts and revoked old credential only after zero v42 consumers remained.
+Acceptance vyžadovala všetky approved consumers na v43, target accepting new a rejecting old identity, nulový duplicate settlement a successful next canary rotation s loaded-state gate. Second operation zopakovala refresh a pool eviction bez ďalšieho side effectu.
 
-Acceptance required all approved consumers on v43, target accepting new and rejecting old identity, no duplicate settlement and successful next canary rotation using consumer-loaded-state gate.
+## 13. Key retirement ako recovery-sensitive operácia
 
-## 13. Key retirement
+Key retirement začína zastavením nových encrypt uses, nie okamžitým disable alebo deletion. Inventory musí pokryť active resources, snapshots, backup copies, cross-account integrations a dormant archives. Každý subject potrebuje replacement key alebo preukázanú decrypt/restore cestu.
 
 ```text
 block new encrypt uses
-→ inventory ciphertext and service resources
-→ migrate or prove decrypt under replacement
-→ validate backups and dormant restore
+→ inventory ciphertext a service resources
+→ migrate alebo prove decrypt under replacement
+→ validate backups a dormant restore
 → disable key
-→ observe errors and rollback window
-→ schedule deletion only after approval
+→ observe errors počas rollback window
+→ schedule deletion až po approval
 ```
 
-Absence of recent CloudTrail decrypt does not prove quarterly restore or archive dependency does not exist.
+Disable je reverzibilný observation gate; scheduled deletion má časové okno, ale po dokončení je cryptographic loss nezvratný. Absencia recent CloudTrail decryptov nie je closure, pretože quarterly restore alebo legal archive sa v bežnom observation window nemusí objaviť. Forbidden test musí preukázať, že žiadny approved recovery point nezávisí od retiring key.
 
-## 14. Troubleshooting order
+## 14. Troubleshooting podľa prvej rozhodujúcej boundary
 
-KMS AccessDenied: actual caller/session → key ARN/Region/state → key policy → IAM/boundary/SCP → grants → context → endpoint policy. Secret timeout: DNS/route/NAT/endpoint/SG → SDK timeout. Old credential: secret stages → loaded version → pool/session lifetime → target accepted principals.
+Pri KMS `AccessDenied` sa najprv fixuje actual caller a session, key ARN, Region a key state. Potom sa analyzuje key policy, IAM a boundary/SCP/RCP layers, grants, encryption context a endpoint policy. Broad allow bez tejto postupnosti môže nechať pôvodný deny nedotknutý a zároveň zväčšiť privilege surface.
+
+Pri Secrets Manager timeoute sa oddeľuje DNS, route, NAT alebo VPC endpoint, security policy a SDK timeout od authorization alebo value problému. Pri old credential incidente sa porovná version-to-label map, process-loaded version, cache age, pool/session lifetime a target accepted principals. Recovery sa uzatvára až positive retrieval/authentication testom, forbidden old-generation testom a fresh-process second operation.
 
 ## Kontrolné otázky
 
-1. What is the difference between key resource and material generation?
-2. Why does key rotation not re-encrypt existing data?
-3. How does encryption context bind ciphertext?
-4. Why is alias not audit identity?
-5. Which three systems must secret rotation coordinate?
-6. What does AWSCURRENT prove and not prove?
-7. Why can fixed rotation delay be unsafe?
-8. What telemetry proves consumer-loaded version?
-9. How does regional replica differ from regional target credential?
-10. Which forbidden test closes rotation recovery?
+1. Aký je rozdiel medzi key resource a material generation?
+2. Prečo key rotation nere-encryptuje existujúce dáta?
+3. Ako encryption context viaže ciphertext k účelu alebo tenantovi?
+4. Prečo alias nie je dostatočná audit identity?
+5. Ktoré tri authorities musí secret rotation koordinovať?
+6. Čo `AWSCURRENT` dokazuje a čo nedokazuje?
+7. Prečo je fixed delay pred revocation nebezpečný?
+8. Ktorá telemetry preukazuje consumer-loaded version?
+9. Ako sa regional secret replica líši od regional target credentialu?
+10. Ktorý forbidden test uzatvára rotation recovery?
 
 ## Oficiálna dokumentácia
 
@@ -378,8 +391,10 @@ KMS AccessDenied: actual caller/session → key ARN/Region/state → key policy 
 - [KMS key policies](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
 - [KMS grants](https://docs.aws.amazon.com/kms/latest/developerguide/grants.html)
 - [Rotate KMS keys](https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html)
+- [List KMS key rotations](https://docs.aws.amazon.com/kms/latest/developerguide/list-rotations.html)
 - [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
 - [Rotate secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)
+- [Alternating users rotation](https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_rotation-alternating.html)
 - [Secrets Manager caching](https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_cache-python.html)
 - [Replicate secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/replicate-secrets.html)
 
