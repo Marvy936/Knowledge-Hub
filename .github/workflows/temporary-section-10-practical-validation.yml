@@ -43,6 +43,7 @@ jobs:
           fi
 
       - name: Validate prose depth and executable examples
+        id: practical_gate
         shell: bash
         run: |
           set -euo pipefail
@@ -123,3 +124,17 @@ jobs:
                   print(f'- {failure}')
               raise SystemExit(1)
           PY
+
+      - name: Publish temporary validation verdict
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          printf 'status=%s\ncommit=%s\n' '${{ job.status }}' "$(git rev-parse HEAD)" > .github/section10-practical-validation-result.txt
+          git add .github/section10-practical-validation-result.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "ci(docs): record Section 10 practical validation"
+            git push origin HEAD:agent/section-10-practical-helm-examples
+          fi
