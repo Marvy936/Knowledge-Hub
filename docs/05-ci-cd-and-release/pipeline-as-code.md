@@ -1,547 +1,385 @@
 # Pipeline as Code
 
-## Metadata
+Pipeline as Code spravuje delivery workflow ako versionovaný privilegovaný software systém. YAML alebo DSL uložené v repository sú iba source intent. Skutočný runtime behavior vznikne až po spracovaní includes, reusable workflows, inheritance, parameters, defaults, conditions, matrix expansion, permission policy a runner selection. Review jedného source file-u preto nepreukazuje, čo platforma naozaj spustí.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Pipeline code má vysokú autoritu. Môže čítať source, spúšťať untrusted commands, vydávať workload identity, publikovať artifacts, meniť environmenty a mazať resources. Jeho lifecycle potrebuje rovnakú disciplínu ako application code: ownership, tests, immutable dependencies, staged rollout, observability, rollback a incident response.
 
-Pipeline as Code spravuje delivery workflow ako privilegovaný software systém. Source YAML alebo DSL je iba vstup. Skutočné runtime správanie vznikne až po includes, template resolution, parameter binding, inheritance, policy evaluation a graph construction. Dôveryhodný model preto hodnotí resolved pipeline graph, jeho permissions, runner boundaries, artifacts a deployment paths — nie iba jednotlivé source fragmenty.
+## 1. Dominantný source-to-execution model
 
 ```text
-versionované source fragments
-→ include/template resolution
-→ typed input a variable binding
-→ render/merge/inheritance
-→ resolved configuration digest
-→ policy na effective graph-e
-→ trusted a untrusted execution boundaries
-→ jobs, artifacts, gates a deployments
-→ runtime evidence
-→ pipeline-change rollout a rollback
+versionované pipeline source fragments
+→ include/reusable dependency resolution
+→ typed inputs, secrets a variable binding
+→ inheritance, merge a condition evaluation
+→ resolved workflow configuration
+→ policy nad effective graphom a permissions
+→ pipeline execution a artifacts
+→ runtime evidence a deployment side effects
+→ pipeline-change acceptance
+→ rollback, deprecation a dependency upgrade
 ```
 
-## 1. Cieľ kapitoly
+Chyba môže vzniknúť ešte pred job execution. Mutable include sa môže zmeniť, default input môže získať inú hodnotu, child workflow môže pridať privilege a expression môže vyradiť security job. Source diff musí preto viesť k resolved-graph diffu.
 
-Nosný model kapitoly je pipeline-compiler-and-trust lifecycle:
+## 2. Exact pipeline-definition subject
+
+Atlas Payments eviduje pipeline generation:
+
+```yaml
+pipelineDefinitionSubject:
+  repository: atlas/payments
+  rootWorkflow:
+    path: .github/workflows/release.yml
+    sha: 18ab442
+  dependencies:
+    - repository: atlas/platform-ci
+      path: .github/workflows/build.yml
+      sha: 4d10f77
+    - repository: atlas/platform-ci
+      path: .github/actions/publish/action.yml
+      sha: b11f20a
+  inputSchemaSha: c21de91
+  policyBundleSha: 66cf902
+  runnerPolicySha: a11ce92
+  resolvedGraphDigest: sha256:dag1000
+  expectedPermissionSets:
+    build:
+      contents: read
+      id-token: write
+      packages: write
+    deploy:
+      contents: read
+      id-token: write
+```
+
+Mutable references ako `@main` alebo `@v4` môžu byť convenient locator, ale nie immutable execution identity. Ak provider podporuje verified publisher a protected major tag, risk je nižší, no exact reproducibility stále vyžaduje resolved commit SHA v evidence.
+
+## 3. Source syntax versus resolved configuration
+
+Pipeline source môže vyzerať bezpečne:
+
+```yaml
+jobs:
+  release:
+    uses: atlas/platform-ci/.github/workflows/release.yml@main
+    with:
+      environment: production
+```
+
+Runtime behavior však závisí od current `main`, defaults a nested actions. Dôveryhodný model pinne dependency:
+
+```yaml
+jobs:
+  release:
+    uses: atlas/platform-ci/.github/workflows/release.yml@4d10f77f4cd2c1a7e35a52c734b40403f1109de7
+    with:
+      environment: production
+```
+
+Pinned SHA preukazuje source identity dependency. Nepreukazuje, že nested Docker images, package installs alebo scripts sú tiež pinned. Dependency inventory musí pokračovať cez celý execution graph.
+
+## 4. Typed inputs a configuration contract
+
+Untyped strings vytvárajú nejednoznačné behavior. Input `deploy: "false"` môže byť v niektorom expression jazyku truthy. Environment name môže byť použitý v path alebo role name bez allowlistu. Reusable workflow má definovať schema, defaults a invariants.
+
+```yaml
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      canary-percent:
+        required: false
+        type: number
+        default: 2
+      deploy:
+        required: true
+        type: boolean
+```
+
+Source typing znižuje chyby, ale platform-specific coercion a expression semantics sa musia testovať. Domain validation stále potrebuje allowlist:
+
+```bash
+case "$ENVIRONMENT" in
+  staging|production) ;;
+  *) echo "unsupported environment: $ENVIRONMENT" >&2; exit 2 ;;
+esac
+
+python - <<'PY'
+import os
+p = float(os.environ['CANARY_PERCENT'])
+if not 0 <= p <= 10:
+    raise SystemExit('canary percent outside approved bound')
+PY
+```
+
+Úspešný validation step preukazuje hodnoty v jednom jobe. Nepreukazuje, že downstream reusable workflow nepoužije iný default alebo shadow variable s vyššou precedence.
+
+## 5. Variable a secret precedence
+
+Pipeline hodnoty môžu pochádzať z repository, organization, environment, workflow inputs, job environmentu, secret store-u a runtime outputs. Rovnaký názov vo viacerých scopes môže vytvoriť hidden override.
 
 ```text
-pipeline change
-→ source a dependency identity
-→ parse/schema/include resolution
-→ resolved graph a effective permissions
-→ policy enforcement mimo nedôveryhodnej zmeny
-→ self-validation a sandbox execution
-→ canary rollout pipeline verzie
-→ production execution evidence
-→ rollback/migration a learning
+platform defaults
+→ organization variables
+→ repository variables
+→ environment variables/secrets
+→ workflow inputs
+→ job/step environment
+→ runtime output
 ```
 
-Cieľom nie je písať kratší YAML. Cieľom je vedieť, čo platforma skutočne vykoná, aké authority workflow získava a ako sa bezpečne mení systém, ktorý kontroluje build, signing a deployment ostatného kódu.
+Presná precedence je platform-specific a musí byť overená z official docs aj praktickým testom. Critical values nemajú byť identifikované iba názvom. Release record má uložiť non-secret resolved values a references/versions secretov bez expozície samotných secretov.
 
-## 2. Nosný scenár: Atlas delivery template 4.2
+## 6. Resolved graph a permission inspection
 
-Atlas platform tím pripravuje reusable template 4.2 pre Orders 3.10.1. Zmena:
+Pipeline review potrebuje machine-readable resolved model. Ak platforma neposkytuje kompletný export, repository môže vytvoriť vlastný compiler alebo test harness pre allowed subset.
 
-- pridáva release-manifest fan-in;
-- mení build image;
-- zavádza OIDC production deployment;
-- generuje jobs podľa affected components;
-- vynucuje required security a migration gates;
-- mení cache namespace a artifact outputs.
+Source lint:
 
-Application repository obsahuje entrypoint:
+```bash
+actionlint .github/workflows/*.yml
+```
+
+Lint preukazuje syntaktické a časť semantic issues podľa tool version. Nepreukazuje runtime permissions, remote include content ani behavior shell scripts.
+
+Repository môže exportovať graph contract:
+
+```json
+{
+  "jobs": {
+    "build": {
+      "needs": ["validate"],
+      "runnerClass": "trusted-build",
+      "permissions": ["contents:read", "id-token:write", "packages:write"]
+    },
+    "deploy": {
+      "needs": ["gate"],
+      "runnerClass": "protected-deploy",
+      "permissions": ["contents:read", "id-token:write"]
+    }
+  }
+}
+```
+
+Policy check:
+
+```bash
+opa eval --data policy/pipeline.rego --input resolved-graph.json 'data.pipeline.deny'
+```
+
+Empty deny set preukazuje súlad s loaded policy a provided graph. Nepreukazuje, že export obsahuje všetky hidden platform behaviors alebo že runtime scheduler presadí runner class. Runtime evidence sa porovná s graph contractom.
+
+## 7. Pipeline dependency a supply-chain boundary
+
+Reusable workflow, action, container image, package installer a downloaded binary sú code dependencies. Každá môže zmeniť execution alebo exfiltrovať credentials.
+
+Dôveryhodná dependency policy zahŕňa:
+
+- immutable source revision;
+- trusted repository a ownership;
+- reviewed update process;
+- checksum alebo signature pre binaries;
+- digest-pinned container images;
+- network allowlist a minimal install surface;
+- transitive dependency inventory;
+- deprecation a emergency revocation.
+
+Command ako `curl URL | sh` spája network retrieval a privileged execution bez integrity boundary. Lepší model download-ne versioned artifact, overí checksum/signature a až potom vykoná.
+
+```bash
+curl --fail --location --output tool.tar.gz "$TOOL_URL"
+echo "$TOOL_SHA256  tool.tar.gz" | sha256sum --check -
+tar -xzf tool.tar.gz
+```
+
+Checksum match preukazuje expected bytes. Nepreukazuje, že expected checksum pochádza z trusted release authority.
+
+## 8. Trust separation v jednom workflowe
+
+Pipeline file môže obsahovať untrusted verification aj protected deployment, ale jobs musia mať oddelené execution a credential boundaries. Output z untrusted jobu sa nesmie interpretovať ako command alebo path bez validation.
 
 ```text
-atlas-orders/.ci/pipeline.yml
-→ include platform template @ immutable revision T
-→ bind service manifest a inputs
-→ organization policy revision P
-→ resolved pipeline graph G
+untrusted PR job
+→ produces bounded report/artifact
+→ trusted verifier checks schema, digest a policy
+→ protected release job consumes immutable subject
 ```
 
-Review musí overiť G, nie iba lokálny entrypoint alebo template source samostatne.
+`pull_request_target`-style event, ktorý používa target workflow s privileged secrets, je bezpečný iba vtedy, keď nevykoná untrusted PR code. Checkout PR SHA a následný shell execution ruší boundary.
 
-## 3. Pipeline source verzus runtime graph
+## 9. Pipeline tests
 
-Pipeline source môže pochádzať z:
-
-- application repository;
-- central template repository;
-- reusable workflow registry;
-- dynamic generatora;
-- organization policy a platform defaults;
-- UI/project/environment variables.
-
-Runtime graph vzniká kombináciou všetkých vrstiev. Dve pipeline s rovnakým application commitom môžu mať odlišné správanie, ak sa zmení floating template, runner image, policy alebo hidden variable.
-
-## 4. Compiler phases
+Pipeline change potrebuje vrstvené tests:
 
 ```text
-parse
-→ syntax dátového formátu
-
-schema validation
-→ povolené fields, types a references
-
-include resolution
-→ pinované templates/actions/workflows
-
-parameter binding
-→ typed inputs, defaults, event metadata
-
-render/merge
-→ inheritance, overrides, matrix a generated config
-
-policy evaluation
-→ permissions, runners, required jobs a environments
-
-graph construction
-→ DAG, outputs, conditions a failure propagation
-
-runtime
-→ scheduling, credentials, job execution a side effects
+syntax/lint
+→ schema a type tests
+→ resolved graph snapshot/diff
+→ policy tests nad permissions/runners/deploy paths
+→ component tests scripts/actions
+→ sandbox execution
+→ failure injection
+→ staged adoption
 ```
 
-Platný YAML dokazuje iba parse. Neplatný alebo nebezpečný resolved graph môže vzniknúť až v neskoršej fáze.
+Snapshot resolved graphu nie je jediný oracle; legitimate dependency update môže graph zmeniť. Review musí vysvetliť význam diffu.
 
-## 5. Resolved configuration ako audit artifact
+Príklad property test môže overiť, že žiadny fork event nevytvorí job s production role:
 
-Resolved configuration obsahuje:
+```rego
+package pipeline
 
-- všetky jobs a dependency edges;
-- effective conditions a triggers;
-- runner/executor requirements;
-- container/action/template digests;
-- effective token a secret permissions;
-- environment targets;
-- artifacts, reports a caches;
-- timeouts, retries, cancellation a cleanup;
-- template/policy revisions.
+deny contains msg if {
+  input.event.trustClass == "untrusted-fork"
+  some job
+  job := input.jobs[_]
+  job.environment == "production"
+  msg := sprintf("fork event reaches production job %s", [job.name])
+}
+```
 
-Atlas vytvorí digest:
+Policy testuje model, nie runtime. Acceptance potrebuje aj sandbox forbidden-path test.
+
+## 10. Pipeline change rollout
+
+Zmena shared reusable workflowu môže ovplyvniť stovky repositories. Major tag update bez consumer inventory vytvára fleet-wide blast radius. Pipeline platform product používa release channels alebo rings:
 
 ```text
-workflow source revisions
-+ include/template revisions
-+ typed non-secret inputs
-+ variable source identities
-+ policy revision
-→ resolved config digest G
+workflow candidate SHA
+→ contract tests
+→ internal canary repositories
+→ low-risk consumer ring
+→ broader adoption
+→ default ref update
+→ old generation support window
+→ retirement
 ```
 
-Secret values sa neukladajú do manifestu; zachovávajú sa reference/version identities.
+Consumers majú možnosť pinning-u a rollbacku. Platform sleduje resolved adoption, nie iba source search. Repository môže referencovať wrapper, ktorý ďalej volá starú generation.
 
-## 6. Bootstrap trust paradox
+## 11. Runtime read-back a audit
 
-Pipeline kontroluje kód, ale branch môže meniť pipeline. Treba určiť, ktorá authority validuje zmenu validátora.
-
-Atlas oddeľuje:
+Po execution sa porovná intended graph s actual jobs, runner identities a permissions. Pipeline record zachová:
 
 ```text
-untrusted branch path
-→ branch code a pipeline návrh
-→ read-only verification bez production secrets
-→ resolved-config/static/sandbox evidence
-
-trusted delivery path
-→ protected main/release workflow
-→ overí artifact, policy a resolved graph
-→ short-lived environment identity
-→ signing a deployment
+trigger subject
++ root/dependency SHAs
++ resolved graph digest
++ actual job inventory
++ runner/executor identities
++ issued workload identities
++ artifact/report subjects
++ gate decisions
++ environment mutations
 ```
 
-Branch pipeline nesmie sama rozhodnúť, že je trusted, vybrať privileged runner alebo odstrániť required organization policy.
+Cloud audit log môže potvrdiť, ktorá federated role vykonala deployment. Nepreukazuje, že role získala správny workflow subject, ak trust policy neobsahuje relevantné claims alebo logs ich nezachovávajú.
 
-## 7. Workflow revision semantics
+## 12. Connected incident `REL-PAY-67`
 
-Pri pull requeste môže platforma použiť:
-
-- source-branch workflow;
-- target-branch workflow;
-- synthetic merge workflow;
-- trusted wrapper, ktorý vykoná branch scripts ako data/code input.
-
-Atlas používa trusted wrapper pre security-critical orchestration. Source branch môže testovať novú pipeline definíciu v sandboxe, ale production authority ostáva mimo jej trust domainu.
-
-Run evidence zaznamenáva source aj effective workflow revision.
-
-## 8. Typed inputs a variable provenance
-
-Každý input má:
-
-- typ a required/default semantics;
-- allowlist alebo range;
-- sensitivity a redaction;
-- precedence a source identity;
-- environment/ref scope;
-- validation pred použitím.
+Atlas root workflow používal reusable release workflow cez `@main`. Review diff v application repository menil iba `canary-percent: 2`. Po approval platform tím zmenil reusable workflow: pridal prefix cache restore, rozšíril `id-token: write` na workflow level a deployment condition z `refs/heads/main` na expression, ktorá bola true aj pre protected tag vytvorený fork-driven automation.
 
 ```text
-organization default
-→ project config
-→ environment overlay
-→ workflow typed input
-→ job-local derived value
+reviewed root workflow SHA
++ mutable reusable ref
+→ resolved graph drift po review
+→ broader OIDC capability
+→ poisoned cache restore
+→ protected artifact publication
+→ production deployment
 ```
 
-Hidden UI override bez provenance môže zmeniť runner, artifact name alebo deployment target bez repository diffu. Atlas resolved metadata ukazuje source každej non-secret effective value.
+Application PR approval nevidelo zmenu effective graphu. Runtime logs ukázali expected root SHA, pretože reusable dependency SHA sa nezachovávala v release recorde.
 
-## 9. Permission graph
+Root cause nebol iba mutable ref. Pipeline source review sa zamieňal za resolved execution review a transitive dependency generation nebola súčasťou subjectu.
 
-Pipeline review zahŕňa authority flow:
+## 13. Recovery a acceptance verdict
+
+Containment zablokuje mutable workflow ref, revokuje affected workload sessions, zastaví artifacts/promotions a zachová actual job/identity/cache records. Recovery pinne last-known-good reusable SHA, vytvorí resolved graph, spustí sandbox forbidden tests a cold rebuild affected candidates.
+
+Pipeline as Code contract je prijatý iba vtedy, keď:
 
 ```text
-verify job
-→ read source, no secrets
-
-build job
-→ read pinned dependencies, publish candidate artifact
-
-sign/fan-in job
-→ read verified artifacts/evidence, signing authority
-
-deploy job
-→ read eligible manifest, environment-scoped role
+root aj transitive workflow/action dependencies sú immutable
++ inputs majú type a domain validation
++ variable/secret precedence je známa
++ resolved graph a permissions sú reviewovateľné
++ policy testuje trusted/untrusted/deploy paths
++ runtime job/runner/identity inventory sa koreluje
++ shared workflow update používa staged rollout
++ rollback na previous workflow generation je testovaný
++ untrusted event nemôže dosiahnuť production capability
++ second consumer používa rovnaký contract bez hidden override
 ```
 
-Jedna job, ktorá vykoná untrusted build, podpis a production deploy, spája nezlučiteľné trust boundaries.
+## 14. Troubleshooting flow
 
-Permission diff zahŕňa repository token, registry, signing, cloud IAM, network, runner pool, environment secrets a approval bypass.
-
-## 10. Runner selection je policy decision
-
-Pipeline as Code určuje executor a runner pool. Atlas policy hodnotí:
-
-- hosted/self-hosted a ephemeral/persistent model;
-- shell/container/VM/Kubernetes isolation;
-- privileged mode, host mounts a Docker socket;
-- network reachability;
-- permitted repositories a trigger classes;
-- architecture a build image;
-- cleanup a attestation.
-
-Label `trusted` nie je security boundary. Authorization, separated pools a environment policy musia vynútiť, kto môže pool použiť.
-
-## 11. External dependencies a immutable pinning
-
-Pipeline dependency môže bežať s plnými permissions jobu:
-
-- action/plugin;
-- reusable workflow;
-- central template;
-- container/runner image;
-- downloaded binary alebo script;
-- remote API/tool.
-
-Runtime references sú pinované immutable identity: commit SHA, artifact digest, checksum alebo signed internal version. Floating branch, `latest` alebo mutable major tag môžu zmeniť delivery behavior bez repository diffu.
-
-`curl URL | shell` nemá stable content identity ani independent verification. Bezpečný flow stiahne pinovanú verziu, overí checksum/signature, uloží provenance a spustí ju s minimálnymi permissions.
-
-## 12. Template contract
-
-Reusable template 4.2 deklaruje:
+Pri pipeline behavior, ktorý nezodpovedá source diffu, sleduj:
 
 ```text
-inputs:
-- component_manifest
-- build_profile
-- deployment_strategy
-
-outputs:
-- release_manifest_digest
-- evidence_manifest_digest
-
-permissions:
-- verification scope
-- artifact publication scope
-
-failure semantics:
-- required, advisory, incomplete
+root workflow SHA
+→ includes/reusable/action revisions
+→ inputs, defaults a variable precedence
+→ conditions/matrix/inheritance
+→ resolved graph a permissions
+→ runner/executor selection
+→ runtime jobs a issued identities
+→ artifacts, gates a deployments
 ```
 
-Breaking change je aj zmena defaultu, permission requirementu, artifact namingu, outputu alebo failure semantics. Template potrebuje versioning, compatibility fixtures, migration guide, deprecation a rollback version.
+Competing hypotheses zahŕňajú mutable dependency, default change, variable shadowing, expression coercion, matrix expansion, policy gap, runtime runner mismatch alebo stale platform cache. Fetch source file-u samostatne nestačí; treba exact resolved generations.
 
-## 13. Include a override semantics
+## 15. Anti-patterny
 
-Resolver musí určiť:
+### „YAML je reviewnutý, pipeline je bezpečná“
 
-- allowed sources a immutable revisions;
-- authentication a failure behavior;
-- recursion/cycle limits;
-- merge order;
-- map/array/null semantics;
-- fields, ktoré child môže iba zužovať;
-- či required jobs možno odstrániť.
+Runtime behavior závisí od dependencies, inputs, policy a platform evaluation.
 
-Hlboká inheritance skrýva effective behavior. Resolved preview a policy nad výsledkom sú povinné.
+### Reusable workflow cez mutable branch
 
-## 14. Dynamic generation
+Review a execution môžu používať iný source.
 
-Atlas generator číta component manifest a dependency graph a vytvára affected jobs:
+### Workflow-level broad permissions
 
-```text
-candidate/base SHA
-+ graph revision
-+ changed components
-→ generated pipeline Gc
-```
+Každý job zdedí capability, aj keď ju potrebuje iba publication alebo deployment.
 
-Generated graph evidence obsahuje:
+### String inputs bez domain validation
 
-- analyzovaný component set;
-- zvolený base/candidate;
-- graph version;
-- generated a skipped jobs s dôvodmi;
-- required global gates;
-- producers/consumers artifact edges;
-- acyclicity a matrix limits;
-- digest generated configu.
+Type coercion, path injection alebo unsupported environment môže zmeniť control flow.
 
-Generator je compiler a trust boundary. User-controlled názvy a paths sa validujú ako structured data, nie raw YAML alebo shell.
+### Shared workflow big-bang update
 
-## 15. Policy na resolved graph-e
+Jedna chyba zasiahne všetkých consumers bez bounded evidence a rollbacku.
 
-Organization policy vynucuje:
+## 16. Kontrolné otázky
 
-- povolené runner pools a images;
-- minimálne permissions;
-- required security/provenance jobs;
-- protected deployment entrypoints;
-- cache trust boundaries;
-- timeout/cleanup requirements;
-- zákaz privileged/unpinned dependencies.
-
-Policy sa aplikuje na resolved graph G/Gc mimo repository, ktoré kontroluje. Source-level scan môže prehliadnuť job odstránený override-om alebo permission pridanú template-om.
-
-## 16. Pipeline testing
-
-Atlas používa vrstvy:
-
-```text
-source syntax/schema
-→ include a resolved-config tests
-→ policy allow/deny fixtures
-→ template contract tests
-→ generator unit/completeness tests
-→ sandbox CI project
-→ canary repositories
-→ staged organization rollout
-```
-
-Failure tests pokrývajú missing include, registry outage, invalid secret reference, runner termination, partial artifact upload, cancellation a cleanup.
-
-## 17. Self-validation
-
-Neplatná nová pipeline nemusí vedieť spustiť vlastnú validáciu. Atlas používa target-branch trusted validator:
-
-```text
-PR obsahuje pipeline change
-→ trusted existing workflow načíta branch config ako data
-→ parse/render/policy/sandbox tests
-→ required status nezávislý od novej config schopnosti spustiť sa
-```
-
-Tak sa zabráni tomu, aby rozbitý alebo zámerne vypnutý workflow odstránil vlastný required check.
-
-## 18. Pipeline change rollout
-
-Central template 4.2 sa rolloutuje ako produkt:
-
-```text
-static/unit/contract evidence
-→ sandbox repository
-→ canary services
-→ representative compatibility matrix
-→ opt-in cohort
-→ staged default rollout
-→ deprecation 4.1
-```
-
-Sleduje failure classes, duration/queue, permissions, artifact reproducibility, support incidents a rollback frequency.
-
-Mutable central template prepnutý naraz pre všetky repositories je organization-wide single point of failure.
-
-## 19. Worked failure: floating template zmenil production permissions
-
-Atlas repositories používali include `platform-template@v4`, kde `v4` bol mutable branch. Platform tím pridal debug upload a širší cloud permission:
-
-```text
-application repository bez diffu
-→ ďalší run resolve-ol nový v4 content
-→ deploy job získal širšiu role
-→ debug artifact obsahoval rendered secret reference metadata
-→ delivery behavior sa zmenil bez lokálneho review
-```
-
-### Root cause
-
-Runtime dependency nebola immutable pinovaná a resolved-config/permission diff sa neuchovával ako required evidence.
-
-### Náprava
-
-- repositories pinujú immutable template revision;
-- update bot vytvára reviewovateľný version bump;
-- resolved config digest a permission diff sú artifacts;
-- template rollout používa canary repositories;
-- environment policy limituje maximálne permissions nezávisle od template-u;
-- debug outputs majú schema a redaction controls.
-
-## 20. Worked failure: generated graph odstránil required migration gate
-
-Generator vyhodnotil zmenu v `db/schema/` ako dokumentáciu, pretože dependency graph neobsahoval rename edge:
-
-```text
-PR zmenil migration file rename + content
-→ generator nevytvoril migration-validation job
-→ source-level policy videla required rule v template
-→ resolved graph job neobsahoval
-→ release manifest bol publikovaný bez migration evidence
-```
-
-### Root cause
-
-Policy sa aplikovala na source template, nie na generated resolved graph. Generator nemal completeness manifest ani conservative fallback pre unknown rename.
-
-### Náprava
-
-- generated graph sa uloží a digestuje;
-- organization policy kontroluje required jobs na resolved graph-e;
-- generator deklaruje analyzed/skipped components;
-- rename/root/unknown zmeny spúšťajú širší fallback;
-- fan-in očakáva migration evidence podľa release manifestu;
-- incident pridá graph contract regression fixture.
-
-## 21. Pipeline rollback a runtime effects
-
-Rollback template-u alebo YAML neodstráni artifacts, deployments, migrations ani credentials, ktoré predchádzajúca verzia už vytvorila.
-
-Pipeline rollback plan obsahuje:
-
-- predchádzajúcu workflow/template revision;
-- input/output a artifact compatibility;
-- behavior rozbehnutých runs;
-- emergency pin/freeze;
-- cleanup/reconciliation už vykonaných side effects;
-- migration guide pre consumers.
-
-## 22. Reprodukovateľnosť a audit
-
-Pre každý run Atlas uchová:
-
-```text
-application candidate SHA
-workflow/source revisions
-resolved config digest
-include/action/image digests
-policy revision a verdicts
-effective permissions
-runner/executor identity
-input a variable provenance
-artifact/evidence digests
-deployment a approval records
-attempt/cancel/cleanup history
-```
-
-Pipeline as Code je predpoklad reprodukovateľnosti. Floating dependencies, hidden UI state a mutable runners ju môžu stále zničiť.
-
-## 23. Diagnostický postup
-
-1. Potvrď application, workflow a target revisions.
-2. Načítaj resolved config artifact a digest.
-3. Porovnaj include/template/action/image immutable identities.
-4. Skontroluj typed inputs, precedence a hidden overrides.
-5. Porovnaj effective permissions, secret scopes, runner a network.
-6. Over DAG, conditions, generated jobs a required gate completeness.
-7. Zisti, či organization policy bežala na resolved graph-e.
-8. Porovnaj aktuálnu pipeline version s canary/rollout cohortou.
-9. Pri rollbacku analyzuj už vykonané runtime side effects.
-10. Oprav source, template contract, generator alebo external policy a pridaj regression fixture.
-
-## 24. Referenčné pravidlá
-
-- Pipeline source nie je runtime pipeline.
-- Resolved graph a effective permissions sú autoritatívny review subject.
-- Resolved config má immutable digest a retention.
-- Branch nemôže meniť enforcement root, ktorý ju kontroluje.
-- Trusted deployment entrypoint je oddelený od untrusted validation.
-- Inputs sú typed a variable provenance je viditeľná.
-- Permissions sa deklarujú minimálne per job.
-- Runner selection je security decision.
-- External dependencies sa pinujú immutable identity.
-- Template má explicitný compatibility a failure contract.
-- Dynamic generator dokazuje graph completeness.
-- Central policy sa aplikuje na resolved graph mimo repository.
-- Pipeline zmeny sa self-validujú a canary rolloutujú.
-- Pipeline rollback neruší automaticky runtime side effects.
-
-## 25. Časté omyly
-
-### „Pipeline as Code znamená YAML v Gite“
-
-Bez resolved graphu, dependency pinning-u a runtime evidence zostáva veľká časť behavioru skrytá.
-
-### „Source review ukazuje všetky permissions“
-
-Template, inheritance, UI variable alebo policy mutation môžu zmeniť effective authority.
-
-### „Branch musí mať production secrets, aby otestovala deploy“
-
-Deployment contract možno overiť v sandboxe; privileged entrypoint patrí trusted boundary.
-
-### „Central template znižuje všetko riziko“
-
-Znižuje drift, ale zvyšuje globálny blast radius chyby.
-
-### „Generated pipeline je iba optimalizácia“
-
-Je to compiler, ktorý rozhoduje, ktoré controls existujú.
-
-### „Rollback YAML-u vráti systém“
-
-Už vykonané mutations zostávajú a potrebujú samostatnú recovery.
-
-## 26. Zhrnutie
-
-Dôveryhodný Atlas Pipeline as Code model je:
-
-```text
-versioned pipeline source a immutable dependencies
-→ parse/include/bind/render
-→ resolved graph digest
-→ external policy nad effective permissions a jobs
-→ trusted/untrusted execution separation
-→ self-validation a sandbox
-→ canary rollout pipeline zmeny
-→ runtime evidence
-→ version rollback + side-effect reconciliation
-```
-
-Pipeline as Code spravuje privilegovaný program. Bez kontroly resolved graphu môže syntakticky správny YAML stále odstrániť gate, rozšíriť credentials alebo zmeniť release bytes bez viditeľného application diffu.
-
-## 27. Kontrolné otázky
-
-1. Prečo source YAML nie je runtime pipeline?
-2. Aké compiler phases vedú k resolved graphu?
-3. Čo obsahuje resolved configuration digest?
-4. Čo je bootstrap trust paradox?
-5. Ako trusted wrapper oddeľuje branch validation od deployment authority?
-6. Prečo variable provenance ovplyvňuje reprodukovateľnosť?
-7. Čo má obsahovať permission diff?
-8. Prečo runner selection patrí do security policy?
-9. Ako sa pinujú external actions a templates?
-10. Čo tvorí template compatibility contract?
-11. Prečo sa policy aplikuje na resolved graph?
-12. Ako generator dokazuje completeness?
-13. Ako sa pipeline change self-validuje?
-14. Prečo central template potrebuje canary rollout?
-15. Ako floating template zmenil Atlas permissions bez repo diffu?
-16. Prečo migration gate zmizol z generated graphu?
-17. Prečo pipeline rollback neruší deployment side effects?
+1. Prečo source YAML nie je complete pipeline behavior?
+2. Čo tvorí exact pipeline-definition subject?
+3. Prečo pinning root workflow nestačí bez transitive inventory?
+4. Aký rozdiel je medzi type validation a domain validation?
+5. Ako variable precedence vytvára hidden override?
+6. Čo preukazuje lint a čo nepreukazuje?
+7. Ako policy nad resolved graphom dopĺňa source review?
+8. Prečo `curl | sh` oslabuje integrity boundary?
+9. Ako sa oddeľuje untrusted output od trusted deployment?
+10. Čo sa zmenilo bez application diffu v `REL-PAY-67`?
+11. Ako sa rolloutuje shared pipeline change?
+12. Ako sa testuje forbidden fork-to-production graph?
 
 ## Glossary impact
 
-Relevantné pojmy: Pipeline as Code, pipeline compiler, source workflow, resolved pipeline configuration, resolved config digest, bootstrap trust paradox, trusted deployment entrypoint, workflow revision semantics, typed pipeline input, variable provenance, permission graph, immutable dependency pinning, template contract, include/override semantics, dynamic pipeline generator, generated graph completeness, external resolved-graph policy, pipeline self-validation, pipeline canary rollout a pipeline rollback.
+Relevantné pojmy: Pipeline as Code, pipeline-definition subject, resolved workflow graph, reusable workflow generation, transitive pipeline dependency, typed workflow input, variable precedence, hidden override, permission graph, pipeline policy, sandbox execution, pipeline rollout ring, runtime graph read-back a workflow generation rollback.
+
+## Primárne zdroje
+
+- [GitHub Actions — Reusing workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
+- [GitHub Actions — Workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+- [GitHub Actions — Security hardening](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+- [GitLab CI/CD YAML syntax reference](https://docs.gitlab.com/ci/yaml/)
+- [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/)
+- [SLSA specification](https://slsa.dev/spec/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
