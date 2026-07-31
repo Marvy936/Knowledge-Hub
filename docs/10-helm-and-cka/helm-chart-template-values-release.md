@@ -194,5 +194,5 @@ Relevantné pojmy: Helm release subject, chart artifact generation, dependency l
 
 **Navigácia**
 
-[← Predchádzajúca: Kubernetes troubleshooting](../09-kubernetes/kubernetes-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Template functions a pipelines →](template-functions-pipelines.md)
+[← Predchádzajúca: Kubernetes troubleshooting](../09-kubernetes/kubernetes-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Helm chart od prázdneho adresára po overený release →](helm-chart-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

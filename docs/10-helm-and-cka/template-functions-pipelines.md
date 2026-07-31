@@ -173,5 +173,5 @@ Relevantné pojmy: Helm typed transform graph, presence contract, empty semantic
 
 **Navigácia**
 
-[← Predchádzajúca: Helm chart, template, values a release](helm-chart-template-values-release.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Named templates →](named-templates.md)
+[← Predchádzajúca: Praktický Helm chart od prázdneho adresára po overený release](helm-chart-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Named templates →](named-templates.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
