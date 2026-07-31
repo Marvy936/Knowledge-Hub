@@ -447,5 +447,5 @@ Backup job `Completed` je input do restore experimentu, nie recovery verdict.
 
 **Navigácia**
 
-[← Predchádzajúca: Elastic Load Balancing](elastic-load-balancing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Amazon RDS →](rds.md)
+[← Predchádzajúca: Elastic Load Balancing](elastic-load-balancing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RDS →](rds.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

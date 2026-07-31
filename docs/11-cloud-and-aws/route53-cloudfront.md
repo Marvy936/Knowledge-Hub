@@ -431,5 +431,5 @@ Edge recovery je prijatá až keď authoritative DNS odpoveď smeruje na approve
 
 **Navigácia**
 
-[← Predchádzajúca: Amazon RDS](rds.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Lambda →](lambda.md)
+[← Predchádzajúca: RDS](rds.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Lambda →](lambda.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

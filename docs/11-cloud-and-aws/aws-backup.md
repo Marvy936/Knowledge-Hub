@@ -341,5 +341,5 @@ validation complete
 
 **Navigácia**
 
-[← Predchádzajúca: KMS a Secrets Manager](kms-secrets-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Well-Architected Framework →](well-architected-framework.md)
+[← Predchádzajúca: KMS a Secrets Manager](kms-secrets-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Well-Architected Framework →](well-architected-framework.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

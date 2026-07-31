@@ -519,5 +519,5 @@ Decision compares total operational ownership, upgrades, identity, networking, s
 
 **Navigácia**
 
-[← Predchádzajúca: AWS Lambda](lambda.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CloudWatch a CloudTrail →](cloudwatch-cloudtrail.md)
+[← Predchádzajúca: Lambda](lambda.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CloudWatch a CloudTrail →](cloudwatch-cloudtrail.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

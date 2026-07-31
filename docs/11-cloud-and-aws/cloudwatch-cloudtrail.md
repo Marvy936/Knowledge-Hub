@@ -334,5 +334,5 @@ A screenshot without query, time and cohort identity is weak evidence.
 
 **Navigácia**
 
-[← Predchádzajúca: ECS a EKS](ecs-eks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Systems Manager →](systems-manager.md)
+[← Predchádzajúca: ECS a EKS](ecs-eks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Systems Manager →](systems-manager.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

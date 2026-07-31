@@ -388,5 +388,5 @@ KMS AccessDenied: actual caller/session → key ARN/Region/state → key policy 
 
 **Navigácia**
 
-[← Predchádzajúca: AWS Systems Manager](systems-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Backup →](aws-backup.md)
+[← Predchádzajúca: Systems Manager](systems-manager.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AWS Backup →](aws-backup.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
