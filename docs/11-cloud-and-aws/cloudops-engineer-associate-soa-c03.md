@@ -1,37 +1,33 @@
 # AWS Certified CloudOps Engineer – Associate (SOA-C03)
 
-AWS Certified CloudOps Engineer – Associate neoveruje schopnosť zapamätať si názvy služieb. Skúša, či kandidát vie z neúplného prevádzkového symptómu vytvoriť exact subject, lokalizovať prvú divergentnú boundary, vybrať najlepší AWS-native evidence source, navrhnúť bounded remediation a overiť výsledok bez zväčšenia incidentu.
+AWS Certified CloudOps Engineer – Associate neoveruje iba schopnosť zapamätať si názvy služieb. Skúša, či kandidát vie z neúplného prevádzkového symptómu vytvoriť exact subject, lokalizovať prvú divergentnú boundary, vybrať najlepší AWS-native evidence source, navrhnúť bounded remediation a overiť výsledok bez zväčšenia incidentu.
 
-Aktuálny SOA-C03 blueprint rozdeľuje hodnotené úlohy do piatich domén:
+K 31. júlu 2026 má SOA-C03 päť content domains. Monitoring, Logging, Analysis, Remediation and Performance Optimization má 22 %, Reliability and Business Continuity 22 %, Deployment, Provisioning and Automation 22 %, Security and Compliance 16 % a Networking and Content Delivery 18 % scored contentu. Oficiálny exam guide je versionovaný dokument; pred skúškou sa musí overiť jeho aktuálna revision, pretože AWS môže meniť skills aj in-scope služby.
 
-| Doména | Váha |
-|---|---:|
-| Monitoring, Logging, and Remediation | 22 % |
-| Reliability and Business Continuity | 22 % |
-| Deployment, Provisioning, and Automation | 22 % |
-| Security and Compliance | 16 % |
-| Networking and Content Delivery | 18 % |
-
-Váha neurčuje poradie učenia. Networking, IAM, observability a recovery sa v scenári často prekrývajú. Kandidát preto potrebuje spoločný reasoning model.
-
-## 1. Exam reasoning lifecycle
+Váha neurčuje poradie učenia ani diagnostiky. Networking, IAM, observability, deployment a recovery sa v reálnom scenári prekrývajú. Kandidát preto potrebuje spoločný reasoning lifecycle:
 
 ```text
-business or technical symptom
-→ exact account, Region, resource and generation
+business alebo technical symptom
+→ exact account, Region, resource, principal a generation
+→ required outcome a hard constraints
 → managed-service responsibility boundary
+→ known healthy a first divergent boundary
 → competing hypotheses
-→ cheapest discriminating observation
-→ immediate containment when required
+→ najlacnejšia discriminating observation
+→ evidence-preserving containment
 → authoritative remediation
-→ technical and business verification
+→ technical, business a forbidden validation
 ```
 
-Prvá otázka nie je „ktorá služba sa hodí?“, ale „čo presne zlyhalo a čo už vieme, že funguje?“. Ak TLS handshake prejde, route a TCP path pravdepodobne nie sú primary failure. Ak ECS task zostáva `PENDING`, application logiku ešte nemá zmysel analyzovať.
+## Exam reasoning lifecycle
 
-## 2. Subject card pre každú otázku
+Prvá otázka nie je „ktorá AWS služba sa hodí?“, ale „čo presne zlyhalo a čo už vieme, že funguje?“. Ak TLS handshake prejde, DNS, route a TCP path pravdepodobne nie sú primary failure. Ak ECS task zostáva `PENDING`, application process ešte nevznikol a jeho logiku nemá zmysel analyzovať.
 
-Pri čítaní scenára si v hlave vyplň krátku kartu:
+Lifecycle zároveň oddeľuje observation od mutation. Read-only API call má zmenšiť hypothesis space. Containment má chrániť business outcome a dôkaz. Remediation má meniť authoritative boundary, nie náhodný symptom. Acceptance musí obsahovať runtime alebo business oracle; control-plane status je iba čiastkový verdict.
+
+## Subject card pre každú otázku
+
+Pri čítaní scenára si vytvor krátku kartu. Jej úlohou je zabrániť odpovedi nad nesprávnym accountom, Regionom, resource-om alebo generation.
 
 ```yaml
 service: payments-api
@@ -48,47 +44,50 @@ unknown:
   - subnet IP headroom
   - task execution role
 requiredOutcome: restore serving capacity without interrupting old cohort
+forbiddenOutcome: terminate healthy old tasks before replacement capacity serves
 ```
 
-Takáto karta odfiltruje odpovede, ktoré riešia inú generation alebo inú vrstvu.
+Táto karta odfiltruje riešenia, ktoré menia application health check, hoci scheduler ešte task nespustil. Zároveň fixuje safety boundary: old cohort zostáva healthy capacity a nesmie byť zničený iba preto, aby sa deployment „pohol“.
 
-## 3. Monitoring, Logging, and Remediation
+## Domain 1: Monitoring, Logging, Analysis, Remediation and Performance Optimization
 
-Doména skúša CloudWatch metrics, logs, alarms, EventBridge, CloudTrail, Systems Manager a automatizovanú remediation. Treba odlíšiť symptom od evidence pipeline failure.
-
-Praktický command chain:
+Doména testuje CloudWatch metrics, logs, alarms, EventBridge, CloudTrail, Systems Manager a performance observations. Kandidát musí rozlíšiť reálny service failure od chyby telemetry identity, ingestion, query alebo alarm evaluation.
 
 ```bash
 aws cloudwatch describe-alarms \
   --alarm-names ALARM-PAY-SUCCESS-18 \
-  --region eu-central-1
+  --region eu-central-1 \
+  --query 'MetricAlarms[0].{State:StateValue,Metric:MetricName,Dimensions:Dimensions,Missing:TreatMissingData}'
 
 aws cloudwatch describe-alarm-history \
   --alarm-name ALARM-PAY-SUCCESS-18 \
+  --history-item-type StateUpdate \
   --region eu-central-1
 
 aws cloudtrail lookup-events \
-  --lookup-attributes AttributeKey=EventName,AttributeValue=UpdateService \
+  --lookup-attributes AttributeKey=EventName,AttributeValue=PutMetricAlarm \
   --start-time 2026-07-30T10:00:00Z \
   --end-time 2026-07-30T11:00:00Z \
   --region eu-central-1
 ```
 
-Alarm state preukazuje vyhodnotenie metric/query contractu. CloudTrail preukazuje accepted API operation a caller session. Ani jeden dôkaz sám nepreukazuje runtime convergence alebo business recovery.
+Prvý príkaz číta exact alarm contract. Druhý ukazuje state transitions a dôvod vyhodnotenia. CloudTrail viaže zmenu configuration na caller session a timestamp. Ani jeden výsledok sám nepreukazuje payment failure alebo recovery. Business logs, current metric publication a synthetic transaction musia overiť, či sa opravil iba alarm alebo aj používateľský outcome.
 
-Pri automatizovanej remediation hľadaj idempotency, target scope, max concurrency, cooldown a postcondition. Odpoveď „restartuj všetky instances“ je zlá, ak zničí evidence alebo healthy capacity.
+Pri automatizovanej remediation sleduj target scope, idempotency, max concurrency, cooldown, retry contract a postcondition. Odpoveď „restartuj všetky instances“ je nesprávna, ak zničí healthy capacity alebo diagnostický dôkaz. Správna remediation má byť viazaná na exact alarm generation a musí po mutation vykonať read-back aj workload check.
 
-## 4. Reliability and Business Continuity
+## Domain 2: Reliability and Business Continuity
 
-Táto doména zahŕňa Multi-AZ, backups, failover, quotas, scaling, RTO/RPO a recovery testing. Kandidát musí vedieť, že replication, HA a backup riešia odlišné failures.
+Táto doména zahŕňa Multi-AZ, scaling, quotas, backup, restore, failover, RTO/RPO a recovery testing. Kandidát musí rozlišovať availability, replication a historical recovery. Každý mechanizmus chráni inú failure class.
 
 ```bash
 aws ec2 describe-subnets \
   --filters Name=tag:Application,Values=payments \
   --region eu-central-1 \
-  --query 'Subnets[].{Az:AvailabilityZoneId,Free:AvailableIpAddressCount}'
+  --query 'Subnets[].{Subnet:SubnetId,Az:AvailabilityZoneId,Free:AvailableIpAddressCount}'
 
-aws backup list-restore-jobs --region eu-west-1
+aws backup list-restore-jobs \
+  --by-status COMPLETED \
+  --region eu-west-1
 
 aws rds describe-events \
   --source-type db-cluster \
@@ -97,26 +96,25 @@ aws rds describe-events \
   --region eu-central-1
 ```
 
-`MultiAZ=true` nepreukazuje application reconnect. Backup `COMPLETED` nepreukazuje restore. Scale-out policy nepreukazuje subnet alebo downstream capacity.
+Subnet output preukazuje address headroom, nie EC2 alebo downstream capacity. Backup restore status preukazuje vytvorenie restore resource-u, nie application recoverability. RDS events vysvetľujú service transitions, ale nepreukazujú reconnect správanie klientov ani výsledok in-flight transactions.
 
-## 5. Deployment, Provisioning, and Automation
+Typický distractor použije Multi-AZ failover na logical deletion. Standby však môže chybnú zmenu korektne replikovať. Správny recovery path používa clean PITR alebo backup generation, isolated validation, reconciliation a controlled cutover. Acceptance meria Recovery Point Actual, Recovery Time Actual a business invariants, nie iba `available`.
 
-Doména spája CloudFormation/IaC, launch templates, Auto Scaling, ECS/Lambda deployments, Systems Manager a immutable artifacts.
+## Domain 3: Deployment, Provisioning and Automation
 
-Rozlišuj:
+Doména spája CloudFormation a IaC, launch templates, Auto Scaling, ECS, Lambda, Systems Manager a immutable artifacts. Kľúčom je rozlíšiť source intent, API acceptance, controller convergence, runtime generation a business acceptance.
 
 ```text
-source template
-→ rendered/processed template
-→ API acceptance
+source template alebo release intent
+→ rendered/processed input
+→ accepted API mutation
 → controller convergence
-→ runtime generation
+→ admitted runtime resources
+→ serving workload
 → business acceptance
 ```
 
-CloudFormation stack `UPDATE_COMPLETE` môže koexistovať s application regression. Lambda alias rollback nevráti external side effects. Instance refresh bez pinned launch-template version môže miešať generations.
-
-Praktický read-back:
+CloudFormation `UPDATE_COMPLETE` môže koexistovať s application regression. Lambda alias rollback zmení traffic pointer, ale nevráti external side effects. Instance refresh bez pinned launch-template version môže miešať generations.
 
 ```bash
 aws autoscaling describe-instance-refreshes \
@@ -126,7 +124,8 @@ aws autoscaling describe-instance-refreshes \
 aws ecs describe-services \
   --cluster payments-prod \
   --services payments-api \
-  --region eu-central-1
+  --region eu-central-1 \
+  --query 'services[0].{Desired:desiredCount,Running:runningCount,Deployments:deployments,Events:events[0:5]}'
 
 aws lambda get-alias \
   --function-name payments-settle \
@@ -134,91 +133,105 @@ aws lambda get-alias \
   --region eu-central-1
 ```
 
-## 6. Security and Compliance
+Každý príkaz číta iný controller subject. Instance refresh ukazuje replacement progress a failure reason. ECS service ukazuje task cohorts a rollout events. Lambda alias ukazuje effective traffic target. Po read-backu musí nasledovať runtime probe cez intended network path a business request s traceable identity.
 
-Security otázky často kombinujú actual caller, IAM evaluation, KMS, Secrets Manager, logging, encryption a Organizations guardrails.
+## Domain 4: Security and Compliance
+
+Security otázky kombinujú actual caller, IAM evaluation, KMS, Secrets Manager, Organizations guardrails, logging a data protection. Authorization verdict nevzniká iba z identity policy. Môže ho ovplyvniť permissions boundary, session policy, resource policy, SCP alebo RCP, KMS key policy, endpoint policy a explicit deny.
 
 ```bash
 aws sts get-caller-identity
-aws kms describe-key --key-id "$KEY_ARN" --region eu-central-1
-aws organizations list-parents --child-id 100000000042
+
+aws kms describe-key \
+  --key-id "$KEY_ARN" \
+  --region eu-central-1 \
+  --query 'KeyMetadata.{Arn:Arn,State:KeyState,Usage:KeyUsage}'
+
+aws organizations list-parents \
+  --child-id 100000000042
 ```
 
-Najprv over actual principal/session. Identity policy allow nemusí prekonať boundary, SCP, key policy alebo explicit deny. Encryption at rest nepreukazuje least-privilege decrypt ani recovery key availability.
+`get-caller-identity` fixuje actual role session a account. KMS read-back overuje exact key a state, ale úspešný `DescribeKey` nepreukazuje `Decrypt`. Organizations parent určuje OU context, z ktorého môžu prichádzať guardrails. Správna odpoveď hľadá prvú authorization boundary, nie broad allow pridávaný naslepo.
 
-Compliance odpoveď musí zachovať evidence, retention a separation of duties. Vypnutie loggingu kvôli costu alebo otvorenie S3 bucketu kvôli CloudFront 403 je typicky nesprávna remediation.
+Compliance remediation musí zachovať evidence, retention a separation of duties. Vypnutie loggingu kvôli costu alebo otvorenie S3 bucketu kvôli CloudFront 403 odstráni symptom za cenu väčšieho security incidentu. Positive test musí byť doplnený forbidden testom, ktorý preukáže, že nepovolený principal alebo context zostáva odmietnutý.
 
-## 7. Networking and Content Delivery
+## Domain 5: Networking and Content Delivery
 
-Doména skúša VPC, subnets, routes, SG/NACL, NAT, endpoints, hybrid connectivity, Route 53, ELB a CloudFront.
-
-Reasoning order:
+Doména skúša VPC, subnets, routes, security groups, NACLs, NAT, endpoints, hybrid connectivity, Route 53, load balancers a CloudFront. Diagnostika má rešpektovať packet a request path:
 
 ```text
-DNS
-→ route and address identity
-→ stateful/stateless policy
-→ gateway or endpoint
-→ TCP/TLS
-→ listener/rule/cache behavior
-→ application
+DNS a selected address
+→ effective route
+→ stateful a stateless policy
+→ gateway, endpoint alebo attachment
+→ TCP a TLS
+→ listener, rule alebo cache behavior
+→ application outcome
 ```
 
-`REJECT` vo Flow Logs lokalizuje network policy boundary; `ACCEPT` nepreukazuje listener. ALB target `healthy` nepreukazuje správnu listener rule. CloudFront `Hit` môže byť security incident, ak cache key ignoruje tenant identity.
+`REJECT` vo VPC Flow Logs lokalizuje určitú network boundary; `ACCEPT` nepreukazuje listener alebo application response. ALB target `healthy` nepreukazuje, že intended listener rule routuje na správny target group. CloudFront `Hit` môže byť performance success alebo security incident, ak cache key ignoruje tenant identity.
 
-## 8. Eliminačné pravidlá
+```bash
+dig pay.example.com A
 
-Pri odpovediach odmietni riešenie, ktoré:
+aws ec2 describe-route-tables \
+  --filters Name=association.subnet-id,Values=subnet-0payc \
+  --region eu-central-1
 
-- mení veľa vrstiev naraz bez diskriminačného dôkazu;
-- zvyšuje privileges alebo public exposure, aby zmizol symptom;
-- používa dashboard alebo control-plane status ako jediný business oracle;
-- navrhuje destructive replay bez idempotency a reconciliation;
-- predpokladá, že managed service vlastní customer configuration alebo application semantics;
-- ignoruje exact account, Region, resource generation alebo time window.
+aws elbv2 describe-target-health \
+  --target-group-arn "$TG_ARN" \
+  --region eu-central-1
+```
 
-## 9. Timed question workflow
+DNS output dokazuje resolver-visible answer. Route-table output dokazuje configured next-hop candidates, nie return path. Target health ukazuje load-balancer health-check verdict a reason code. Správna exam odpoveď vyberá observation point, ktorý najlacnejšie rozlíši vedúce hypotheses pri zachovaní healthy trafficu.
 
-Na jednu otázku používaj tri prechody. Prvý do 20 sekúnd identifikuje subject a requirement. Druhý do 40 sekúnd porovná odpovede podľa boundary a blast radiusu. Tretí overí, že zvolená odpoveď obsahuje evidence alebo validation a nerieši iba symptom.
+## Eliminačné pravidlá
 
-Pri dlhom scenári si označ:
+Eliminačné pravidlá nie sú zoznamom magických slov. Každé odstraňuje answer pattern, ktorý porušuje operational reasoning.
+
+Odpoveď, ktorá mení viac vrstiev naraz bez discriminating evidence, zväčšuje blast radius a skrýva root cause. Odpoveď, ktorá pridáva wildcard privileges alebo public exposure, rieši authorization symptom vytvorením väčšieho security problému. Dashboard alebo control-plane status nemožno použiť ako jediný business oracle, pretože meria iba určitú observation boundary.
+
+Destructive replay bez idempotency a reconciliation je nebezpečný pri unknown transaction outcome. Managed service nepreberá zákaznícku zodpovednosť za application semantics, data classification alebo customer configuration. Answer, ktorý ignoruje exact account, Region, principal, resource generation alebo time window, rieši neurčitý systém a musí byť vyradený.
+
+## Timed question workflow
+
+Na jednu otázku používaj tri prechody. Prvý do približne 20 sekúnd identifikuje subject, required outcome a hard constraint. Druhý lokalizuje first-divergent boundary a porovná answer choices podľa evidence a blast radiusu. Tretí overí, či vybraná odpoveď obsahuje read-back, runtime validation alebo bezpečný ďalší observation point.
 
 ```text
 SYMPTOM
 RECENT CHANGE
 KNOWN HEALTHY
 HARD CONSTRAINT
+FIRST DIVERGENT BOUNDARY
 BEST NEXT OBSERVATION OR ACTION
 ```
 
-Ak otázka žiada „MOST operationally efficient“, vyber managed/native mechanismus len vtedy, keď spĺňa correctness a scope. Efficiency nikdy neospravedlňuje nesprávnu boundary.
+Formulácia `MOST operationally efficient` neznamená najkratší príkaz. AWS-native managed mechanismus je efektívny iba vtedy, keď rieši správnu boundary a spĺňa correctness, security a recovery constraints. Automatický restart celej fleet-y môže byť jednoduchý na vykonanie a zároveň operationally najhorší.
 
-## 10. Mini-scenario
+## Worked mini-scenario: ECS tasks zostávajú PENDING
 
-Po deployment-e nové ECS tasks zostávajú `PENDING`. Old tasks sú healthy, CPU hostov je 40 % a service event obsahuje `RESOURCE:ENI`.
-
-Najlepšia ďalšia observation nie je zvýšiť CPU alebo meniť application health check. `RESOURCE:ENI` lokalizuje placement/network capacity pred process startupom. Over subnet free IPs a ENI density:
+Po deployment-e nové ECS tasks zostávajú `PENDING`. Old tasks sú healthy, host CPU je približne 40 % a service event obsahuje `RESOURCE:ENI`. Tento reason lokalizuje failure pred application process startupom. Meniť application health check alebo reštartovať old cohort preto nerieši prvú divergentnú boundary.
 
 ```bash
+aws ecs describe-services \
+  --cluster payments-prod \
+  --services payments-api \
+  --region eu-central-1 \
+  --query 'services[0].events[0:10]'
+
 aws ec2 describe-subnets \
   --subnet-ids subnet-0paya subnet-0payb subnet-0payc \
-  --query 'Subnets[].{Subnet:SubnetId,Free:AvailableIpAddressCount}'
+  --region eu-central-1 \
+  --query 'Subnets[].{Subnet:SubnetId,Az:AvailabilityZoneId,Free:AvailableIpAddressCount}'
 ```
 
-Po nájdení IP exhaustion sa recovery vykoná novou subnet/address generation a controlled rolloutom. Application restart by healthy capacity iba znížil.
+Prvý read-back potvrdí scheduler reason a časový vzťah k deploymentu. Druhý porovná subnet headroom medzi AZs. Ak je first boundary IP exhaustion, recovery pridá approved subnet alebo address generation a spustí controlled canary rollout. Acceptance overí task definition digest, task role, target health, per-AZ serving a payment canary. Forbidden outcome je strata old healthy capacity pred pripravenosťou replacementu.
 
-## 11. Praktická príprava
+## Praktická príprava
 
-Každý service topic sa uč v štyroch vrstvách:
+Každý service topic sa uč v štyroch vrstvách: mechanizmus a scope, konkrétna configuration, observation commands a failure/recovery experiment. Definícia NAT Gateway nestačí, ak nevieš vysvetliť route dependency, source-port pressure, telemetry a recovery. CLI syntax nestačí, ak nevieš povedať, čo output dokazuje a čo stále zostáva neznáme.
 
-```text
-mechanism and scope
-→ configuration example
-→ observation commands
-→ failure and recovery experiment
-```
-
-Ak poznáš len definíciu NAT Gateway, nevieš riešiť port exhaustion. Ak poznáš iba CLI command, ale nie business boundary, nevieš určiť, či output incident uzatvára.
+Príprava preto spája túto syllabus kapitolu s timed reasoning, hands-on labs a troubleshooting drills. Topic sa považuje za zvládnutý až vtedy, keď kandidát vie správny command nielen rozpoznať, ale interpretovať output, zvoliť bounded mutation a vykonať positive, recovery, forbidden a second-operation validation.
 
 ## Kontrolné otázky
 
@@ -229,14 +242,15 @@ Ak poznáš len definíciu NAT Gateway, nevieš riešiť port exhaustion. Ak poz
 5. Kedy je rollback iba code pointer a nie business rollback?
 6. Prečo actual caller identity predchádza policy analýze?
 7. Čo CloudFront cache hit preukazuje a aké riziko môže skrývať?
-8. Ako časové tri prechody znižujú náhodné tipovanie?
-9. Ktoré answer patterns treba okamžite odmietnuť?
-10. Ako sa topic premení z teórie na praktickú prípravu?
+8. Ako tri timed prechody znižujú náhodné tipovanie?
+9. Ktoré answer patterns treba vyradiť a prečo?
+10. Ako sa service topic premení z teórie na practical readiness?
 
 ## Oficiálna dokumentácia
 
 - [AWS Certified CloudOps Engineer – Associate](https://aws.amazon.com/certification/certified-cloudops-engineer-associate/)
-- [SOA-C03 Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/examguides/cloudops-associate-03.html)
+- [SOA-C03 Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03.html)
+- [SOA-C03 revisions](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-revisions.html)
 - [AWS Certification exam preparation](https://aws.amazon.com/certification/certification-prep/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
