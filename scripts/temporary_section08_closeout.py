@@ -20,44 +20,44 @@ walkthrough = WALKTHROUGH.read_text(encoding="utf-8")
 
 walkthrough = replace_once(
     walkthrough,
-    r'[]byte(`{\"status\":\"alive\"}`)',
-    r'[]byte(`{"status":"alive"}`)',
+    '[]byte(`{\\"status\\":\\"alive\\"}`)',
+    '[]byte(`{"status":"alive"}`)',
     "healthz JSON literal",
 )
 walkthrough = replace_once(
     walkthrough,
-    r'[]byte(`{\"status\":\"ready\"}`)',
-    r'[]byte(`{"status":"ready"}`)',
+    '[]byte(`{\\"status\\":\\"ready\\"}`)',
+    '[]byte(`{"status":"ready"}`)',
     "readyz JSON literal",
 )
 walkthrough = replace_once(
     walkthrough,
-    r'strings.NewReader(`{\"id\":\"pay-100\",\"amount\":1250,\"currency\":\"EUR\"}`)',
-    r'strings.NewReader(`{"id":"pay-100","amount":1250,"currency":"EUR"}`)',
+    'strings.NewReader(`{\\"id\\":\\"pay-100\\",\\"amount\\":1250,\\"currency\\":\\"EUR\\"}`)',
+    'strings.NewReader(`{"id":"pay-100","amount":1250,"currency":"EUR"}`)',
     "happy-path request body",
 )
 walkthrough = replace_once(
     walkthrough,
-    r'`\"id\":\"pay-100\"`',
-    r'`"id":"pay-100"`',
+    '`\\"id\\":\\"pay-100\\"`',
+    '`"id":"pay-100"`',
     "happy-path response assertion",
 )
 walkthrough = replace_once(
     walkthrough,
-    r'strings.NewReader(`{\"id\":\"pay-invalid\",\"amount\":0,\"currency\":\"EUR\"}`)',
-    r'strings.NewReader(`{"id":"pay-invalid","amount":0,"currency":"EUR"}`)',
+    'strings.NewReader(`{\\"id\\":\\"pay-invalid\\",\\"amount\\":0,\\"currency\\":\\"EUR\\"}`)',
+    'strings.NewReader(`{"id":"pay-invalid","amount":0,"currency":"EUR"}`)',
     "forbidden request body",
 )
 
 old_verifier = '''        payload="$(wget -qO- http://payments-api:8080/version)"
         printf '%s\\n' "$payload"
-        printf '%s\\n' "$payload" | grep -F '\"service\":\"payments-api\"'
-        printf '%s\\n' "$payload" | grep -F '\"config_generation\":\"${CONFIG_GENERATION}\"'
+        printf '%s\\n' "$payload" | grep -F '"service":"payments-api"'
+        printf '%s\\n' "$payload" | grep -F '"config_generation":"${CONFIG_GENERATION}"'
 '''
 new_verifier = '''        payload="$$(wget -qO- http://payments-api:8080/version)"
         printf '%s\\n' "$$payload"
-        printf '%s\\n' "$$payload" | grep -F '\"service\":\"payments-api\"'
-        printf '%s\\n' "$$payload" | grep -F '\"config_generation\":\"${CONFIG_GENERATION}\"'
+        printf '%s\\n' "$$payload" | grep -F '"service":"payments-api"'
+        printf '%s\\n' "$$payload" | grep -F '"config_generation":"${CONFIG_GENERATION}"'
 '''
 walkthrough = replace_once(
     walkthrough,
