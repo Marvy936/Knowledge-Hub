@@ -1,470 +1,176 @@
 # SBOM
 
-Software Bill of Materials — SBOM — je machine-readable inventory components a relationships viazaný na konkrétny software subject. Poskytuje transparency, nie automatický security verdict. Operational hodnota vzniká iba vtedy, keď document správne opisuje exact artifact, explicitne uvádza lifecycle stage a completeness, zachováva relationships a je prepojený s runtime inventory a remediation workflowom.
+Software Bill of Materials — SBOM — je machine-readable inventory components a relationships viazaný na konkrétny software subject. Poskytuje transparency, nie automatický security verdict. Operational hodnota vzniká iba vtedy, keď document správne opisuje exact artifact, explicitne uvádza lifecycle stage a generation method, zachováva component relationships a je prepojený s runtime inventory, vulnerability decisions a remediation workflowom.
+
+Podpísaná SBOM môže byť neúplná. SBOM pre source lockfile môže byť správna pre source stage a zároveň nesprávna ako final-container inventory. Package name/version bez package identity a artifact digestu môže mapovať na nesprávny advisory. „Máme SBOM“ preto nie je acceptance condition.
+
+## Subject-to-remediation lifecycle
 
 ```text
 immutable software subject
-→ generation stage, method a evidence authority
+→ lifecycle stage, generation method a evidence authority
 → component identities a relationships
 → completeness, accuracy a confidence
-→ signature alebo attestation
-→ registry distribution a promotion
-→ schema validation, ingestion a normalization
-→ vulnerability, VEX, license a supply-chain decisions
-→ deployed a rollback mapping
-→ remediation a fixed-runtime verification
+→ SBOM format a signed/attested publication
+→ ingestion, normalization a correlation
+→ vulnerability, VEX, license a policy decisions
+→ deployed/rollback runtime mapping
+→ remediation a fixed-artifact verification
+→ retention, update a second-generation validation
 ```
 
-SBOM file, ktorý existuje, ale nepatrí správnemu subjectu alebo nevidí final artifact, je false assurance.
+Každá SBOM musí odpovedať: čo presne inventarizuje, kedy vznikla, ktorý nástroj/authority ju vytvoril, ktoré paths a package types pokrýva a čo zámerne nepokrýva.
 
-## 1. Exact SBOM subject
+## Exact SBOM subject SEC-PAY-50
 
-SBOM musí odpovedať, ktoré bytes alebo system snapshot opisuje.
-
-Strong subject identity môže obsahovať:
-
-- OCI image index alebo platform manifest digest;
-- package archive hash;
-- firmware alebo VM image digest;
-- source repository a exact revision pre source SBOM;
-- product release a architecture;
-- supplier, Package URL a distribution qualifiers;
-- release alebo deployment snapshot pre continuously changing service.
-
-```text
-product name + version
-→ human/release identity
-
-cryptographic digest
-→ concrete content identity
+```yaml
+incident: SEC-PAY-50
+release: payments-7.24.0
+sourceRevision: a81f2e9
+artifactIndex: sha256:pay7240
+platformArtifact: sha256:pay7240-arm
+sbomFormat: CycloneDX-1.7
+sbomDigest: sha256:sbom884
+observedMethod: source-lockfile-scan
+claimedSubject: sha256:pay7240
+requiredMethod: final-filesystem-plus-build-toolchain
+missingComponent: settlement-debug.jar
+builderComponent: atlas-build-helper@2.4.1
+runtimeCluster: atlas-prod-euc1
 ```
 
-Mutable tag alebo filename nestačí. Ak sa tag `payments:7.24` presunie, SBOM viazaný iba na tag stratí jednoznačný subject.
+Subject ukazuje core defect: document bol vytvorený zo source lockfile-u, ale označený digestom final artifactu. Signature zabezpečila integrity tohto nepravdivého claimu.
 
-## 2. Lifecycle stage
+## Lifecycle stages
 
-Nie každý BOM odpovedá na rovnakú otázku.
+Source SBOM inventarizuje declared dependencies v repository alebo lockfiles. Build SBOM pridáva toolchain, compiler, plugins a materials. Final-artifact SBOM analyzuje skutočný filesystem/package graph výsledného image alebo binary. Runtime inventory mapuje deployed digest a loaded modules/processes. Žiadna stage automaticky nenahrádza ostatné.
 
-**Source SBOM** opisuje declared alebo resolved source dependencies. Vidí manifests, lockfiles a vendored source, ale nemusí zachytiť build environment alebo injected final content.
+Source SBOM môže zachytiť dependency intent, ale vynechať OS packages z base image, files skopírované počas build-u, generated artifacts, statically linked libraries alebo injected payload. Final image scan môže vynechať build toolchain, ktorý artifact kompromitoval. Preto policy potrebuje stage-specific evidence inventory.
 
-**Build-input alebo builder BOM** opisuje toolchain, runner image, compiler, actions, build helpers a ďalšie inputs, ktoré môžu ovplyvniť output, hoci nie sú v runtime artifacte.
+## Generovanie final-artifact SBOM
 
-**Build SBOM** vzniká počas build graphu a môže spájať resolved inputs s outputs.
+```bash
+syft registry.atlas.example/payments@sha256:pay7240-arm \
+  -o cyclonedx-json=/tmp/pay7240-arm.cdx.json
 
-**Analyzed alebo final-artifact SBOM** vzniká inspection final package, binary alebo image filesystemu. Je authoritative pre to, čo generator dokáže z final bytes identifikovať.
-
-**Runtime inventory** opisuje exact digests a variants, ktoré skutočne bežia. Nie je náhradou immutable release SBOM-u, ale spája composition s ownerom a environmentom.
-
-Tieto pohľady sa dopĺňajú:
-
-```text
-source SBOM
-+ builder/toolchain BOM
-+ final-artifact SBOM
-+ provenance
-+ runtime digest inventory
-→ vysvetliteľný source-to-runtime composition chain
+jq '{bomFormat, specVersion, serialNumber, metadata: .metadata.component, components: (.components | length)}' \
+  /tmp/pay7240-arm.cdx.json
 ```
 
-## 3. Producer, distributor a consumer
+Prvý command preukazuje, že konkrétna Syft generation analyzovala platform artifact a vytvorila CycloneDX document. Druhý zobrazuje metadata a count. Nepreukazujú complete detection všetkých custom/JAR/native components, correct package versions, benign contents ani runtime deployment.
 
-**Producer** generuje SBOM a deklaruje subject, lifecycle stage, method, tool a coverage limitations.
+Targeted check injected file/componentu:
 
-**Distributor** prenáša document alebo attestation spolu s artifactom a zachová subject binding, integrity a access policy.
-
-**Consumer** validuje schema, signer, subject, semantics a quality a používa data na konkrétny decision.
-
-Syntakticky validný document nemusí byť complete ani accurate. Validná signature dokazuje publisher authority a integrity documentu, nie správnosť detection výsledkov.
-
-## 4. Minimum production contract
-
-Praktický contract zahŕňa:
-
-- SBOM document identity a specification version;
-- primary subject a immutable digest;
-- creator, tool version, configuration a timestamp;
-- lifecycle stage a generation method;
-- component identifiers, versions, suppliers/origins a hashes;
-- dependency, containment a build relationships;
-- architecture, distro a other qualifiers;
-- explicit unknowns, completeness a detection confidence;
-- signature alebo attestation authority;
-- distribution, update a retention semantics.
-
-Unknown sa nemá nahradiť guessed value. Vymyslený version alebo supplier zhoršuje matching viac než explicitná neistota.
-
-## 5. SPDX 3.0.1
-
-SPDX 3.0.1 je current system-oriented SPDX specification. Používa Core Profile a ďalšie profiles pre Software, Security, Build, Licensing, Dataset/AI a ďalšie domains.
-
-Graph relationships umožňujú rozlíšiť:
-
-- package alebo file obsiahnutý v artifacte;
-- dependency potrebnú za runtime;
-- build input alebo tool;
-- output konkrétnej build instance;
-- vulnerability a affected status;
-- declared a concluded licensing evidence.
-
-Consumer musí deklarovať podporovanú version, serialization a profiles. Tvrdenie `podporujeme SPDX` je neúplné, ak tool rozumie iba SPDX 2.3 a producer posiela SPDX 3.0.1 s Build a Security profilmi.
-
-## 6. CycloneDX 1.7
-
-CycloneDX 1.7 je current stable CycloneDX BOM specification a ECMA-424, 2nd Edition. Modeluje metadata, components, services, dependencies, compositions, formulation, vulnerabilities, cryptographic assets, AI a ďalšie transparency data.
-
-Primary component v metadata určuje hlavný subject. `bom-ref` je lokálna graph identity, nie globálny package identifier.
-
-Component v liste automaticky neznamená runtime dependency alebo reachability. Dependency graph, scope, compositions a formulation určujú vzťah k subjectu.
-
-Consumer validuje exact `specVersion` a serialization. Lossy conversion medzi SPDX a CycloneDX musí byť viditeľná.
-
-## 7. Component identity
-
-Name a version nie sú globálne unikátne. Robustná identity kombinuje:
-
-```text
-ecosystem/package type
-+ namespace
-+ name
-+ version
-+ qualifiers, napríklad distro alebo architecture
-+ supplier/origin
-+ content digest
+```bash
+jq -e '.components[]? | select(
+  (.name == "settlement-debug") or
+  (.properties[]?.value? | contains("settlement-debug.jar"))
+)' /tmp/pay7240-arm.cdx.json
 ```
 
-Package URL štandardizuje ecosystem identity. CPE môže pomôcť pri product-level advisories. Vendor backport a distribution revision môžu znamenať, že upstream-looking old version je fixed.
+Finding preukazuje, že component alebo property je v documente. No-match nepreukazuje absence file-u v artifacte; scanner ho mohol neidentifikovať. Filesystem inventory alebo allowlisted artifact layout je ďalší control.
 
-Hash musí uvádzať scope. Hash package archive-u, extracted directory, executable file-u a OCI manifestu nie sú porovnateľné subjecty.
+## SPDX a CycloneDX
 
-Purl ani hash nie sú provenance. Nehovoria, kto bytes vytvoril a cez aký build process.
+SPDX a CycloneDX sú štandardné formats s odlišným modelom a ecosystems. Oba vedia opisovať components/packages, relationships, hashes, licenses a external references; detail a extensions sa líšia podľa version. Conversion medzi formats môže stratiť semantics, preto source format/version zostáva súčasťou evidence.
 
-## 8. Relationships a scope
+Format compliance znamená validnú schema, nie complete inventory. Parser success nepreukazuje, že `metadata.component` zodpovedá artifact digestu alebo že dependency relationships sú správne.
 
-Flat component list nevysvetľuje, prečo component súvisí so subjectom.
+## Component identity
 
-Relevantné semantics zahŕňajú:
+Package URL identifikuje ecosystem, namespace, name, version a qualifiers. CPE sa používa v niektorých vulnerability sources, ale matching je často ambiguous. Cryptographic hashes identifikujú exact files/artifacts. Supplier, namespace a download/source location pomáhajú odlíšiť homonyms.
 
-- contains alebo bundled — component je fyzicky súčasťou artifactu;
-- depends on — execution alebo build graph dependency;
-- generated/built from — output vznikol z inputu;
-- uses tool — compiler alebo helper ovplyvnil build;
-- variant of — architecture alebo distribution variant;
-- distributed as — rovnaký software v inom artifact representation.
+Version string môže byť vendor-backported alebo generated. Component bez version/hash má nižšiu decision confidence. SBOM ingestion má zachovať original fields a confidence, nie agresívne normalizovať rozdielne packages do jednej identity.
 
-Direct, transitive, optional, test-only, build-only a runtime scopes majú odlišný risk význam.
+## Relationships a dependency graph
 
-Build helper nemusí patriť do runtime SBOM-u, ale musí byť viditeľný v builder/toolchain BOM-e alebo provenance. Injected JAR vo final image patrí do final-artifact SBOM-u bez ohľadu na to, či bol v source manifest-e.
+Flat component list neukazuje, prečo component existuje ani ktorý root artifact ho obsahuje. Relationships ako `DEPENDS_ON`, `CONTAINS`, `GENERATED_FROM`, `BUILD_TOOL_OF` alebo format-specific equivalents podporujú blast-radius a remediation analysis.
 
-## 9. Vendored, static a generated content
+Transitive dependency môže vstúpiť cez plugin alebo base image. Build helper môže artifact meniť bez toho, aby bol runtime component. Separate builder/toolchain BOM preto dopĺňa final-artifact SBOM. Incident `SEC-PAY-50` ukázal, že vulnerable helper bol causal, hoci production image ho nemusela obsahovať.
 
-Manifest-based generator nemusí vidieť:
+## Completeness a accuracy
 
-- source skopírovaný do repository;
-- manually downloaded JAR alebo binary;
-- statically linked library;
-- generated bundle;
-- build-time injected plugin;
-- code pridaný do final stage mimo language resolvera.
+Completeness sa hodnotí voči expected inventory. Tím definuje package ecosystems, filesystem paths, base image, application bundles, language locks, statically linked components, generated files a build tools. Scanner coverage report a known fixture pomáhajú overiť detection.
 
-Coverage preto často kombinuje resolver, build graph, package database, file/binary analysis a manual curation pre critical content.
+Praktický fixture môže do canary artifactu vložiť known packages/files a očakávať ich v SBOM. Úspech nepreukazuje coverage všetkých formats, ale odhalí regressions nástroja alebo configu.
 
-Removal dependency zo source branchu nemení už vytvorený binary. SBOM musí patriť outputu, nie iba current source state-u.
+Accuracy zahŕňa správny name/version/supplier/hash a relationship. False component identity môže spôsobiť false vulnerability alebo zmeškaný fix. Dismissal sa viaže na exact component identity a evidence generation.
 
-## 10. Containers a multi-platform artifacts
+## Signing a attestation
 
-OCI image index môže odkazovať na viac platform manifests s rozdielnymi packages a binaries.
+SBOM sa publikuje ako OCI referrer alebo iný immutable related artifact a podpisuje/attestuje. Signature chráni document integrity a authority. Subject binding musí potvrdiť, že SBOM opisuje exact digest, nie tag alebo iný platform manifest.
 
-Bezpečný model používa:
+```bash
+cosign attest \
+  --predicate /tmp/pay7240-arm.cdx.json \
+  --type cyclonedx \
+  registry.atlas.example/payments@sha256:pay7240-arm
 
-- release-level record viazaný na index digest;
-- platform-specific final-artifact SBOM pre každý manifest digest;
-- architecture a OS qualifiers;
-- relationship index → platform variants;
-- runtime inventory resolved platform digestu pre každý workload.
-
-Aggregate list bez platform identity môže vytvoriť false finding alebo vynechať arm64-only affected component.
-
-Base-image relationship pomáha zistiť, ktoré products treba rebuildnúť po fixed base release. Multi-stage build má odlišovať build tools od final runtime contentu.
-
-## 11. Completeness, accuracy a freshness
-
-**Completeness** opisuje, do akej miery document pokrýva intended subject, ecosystems, dependency depth a relationship graph.
-
-**Accuracy** opisuje, či records správne identifikujú skutočný content.
-
-**Freshness SBOM-u** znamená, že document zodpovedá konkrétnemu artifactu alebo snapshotu. **Freshness vulnerability assessmentu** znamená, že inventory bol nedávno porovnaný s aktuálnymi advisories.
-
-Immutable artifact SBOM sa nemení pri novej CVE. Mení sa external vulnerability knowledge a VEX alebo local assessment.
-
-Absencia componentu nie je dôkaz neprítomnosti, ak completeness je unknown alebo ecosystem unsupported.
-
-## 12. Determinism a semantic diff
-
-Rovnaký artifact a rovnaká generator configuration majú vytvoriť semanticky rovnaký inventory. Raw bytes môžu obsahovať timestamp, random document ID alebo ordering differences.
-
-Semantic diff porovnáva:
-
-- component added/removed;
-- version alebo digest change;
-- dependency path a scope change;
-- supplier/origin correction;
-- completeness alebo method change;
-- generator-only metadata change.
-
-Tool upgrade, ktorý nájde viac contentu, je evidence-generation change, nie automaticky software composition change.
-
-## 13. Vulnerability matching a VEX
-
-Vulnerability platforma porovnáva component identities s advisories a zachová:
-
-- matched identifier a record;
-- advisory source a affected range;
-- matching method a confidence;
-- affected subject digests;
-- deployed environments a owners;
-- fix alebo mitigation;
-- VEX alebo local exploitability state.
-
-SBOM dokazuje inventory claim, nie exploitation.
-
-VEX vyjadruje vulnerability status konkrétneho product subjectu, napríklad affected, not affected, fixed alebo under investigation. `not affected` potrebuje authority a technical justification. `Fixed` musí byť viazané na exact product version alebo digest.
-
-Supplier-signed VEX nie je automaticky authoritative pre organization risk. Consumer hodnotí issuer, scope, evidence a current deployment.
-
-## 14. Signing a attestation
-
-SBOM možno podpísať ako document alebo publikovať ako attestation s artifact subjectom.
-
-Consumer overuje:
-
-- exact subject digest;
-- signer identity a issuer;
-- signer authorization pre product;
-- predicate alebo document format/version;
-- generation method a tool podľa policy;
-- integrity a schema;
-- completeness/quality requirements.
-
-Validná signature nemôže zmeniť source-only SBOM na final-artifact SBOM. Podpisuje claim; neopravuje jeho semantics.
-
-## 15. OCI distribution a promotion
-
-SBOM, provenance a signatures môžu byť related OCI artifacts viazané na subject digest. Registry Referrers API pomáha consumerovi related manifests objaviť.
-
-```text
-image digest
-├─ platform SBOM
-├─ provenance
-├─ release signature
-└─ vulnerability/VEX attestation
+cosign verify-attestation \
+  --type cyclonedx \
+  --certificate-identity-regexp '^https://github.com/Marvy936/atlas-payments/.github/workflows/release.yml@refs/heads/main$' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  registry.atlas.example/payments@sha256:pay7240-arm
 ```
 
-Referrers discovery neposkytuje trust samo osebe. Consumer stále validuje descriptor, subject, artifact type, issuer a claims.
+Verification preukazuje signed attestation subject a authorized identity podľa policy. Nepreukazuje generation method, completeness, scanner trust alebo absence malicious component. Predicate metadata musí obsahovať tool/version/method/stage a policy ich semantic-ky kontroluje.
 
-Promotion alebo replication musí preniesť image aj required related artifacts. Copy iba layers a manifestu môže nechať production registry bez SBOM a provenance.
+## Vulnerability correlation a VEX
 
-## 16. Ingestion a normalization
+SBOM poskytuje component inventory pre vulnerability matching. VEX vyjadruje status, napríklad affected, not affected, fixed alebo under investigation, s justification a scope. VEX nie je scanner suppression; je signed/owned statement viazaný na exact product/component/vulnerability a evidence.
 
-SBOM platforma spracúva untrusted documents. Potrebuje:
+`not affected` pre unreachable code môže byť validné, ale zmena configuration alebo feature môže reachability zmeniť. VEX má expiry/update trigger a nesmie sa automaticky dediť na nový digest bez compatibility proof.
 
-- payload, depth a graph-size limits;
-- schema a version validation;
-- safe XML/JSON processing;
-- signature a subject verification;
-- tenant isolation a access control;
-- preservation raw documentu;
-- transformation lineage;
-- explicit lossy mappings a unknown fields.
+## License a policy decisions
 
-Normalization nesmie ticho premeniť build tool na runtime dependency alebo zahodiť architecture qualifier. Incident responder potrebuje rozlíšiť source claim od normalized derivation.
+SBOM môže obsahovať declared/concluded license a copyright data. License policy potrebuje context distribúcie a linking/use; string match nie je právny verdict. Unknown license je inventory gap, nie automaticky prohibited component.
 
-## 17. Deployment mapping
+Policy môže vyžadovať SBOM presence, allowed format/version, exact subject, authorized generator, minimum coverage a no forbidden license/risk. Existence-only gate podporuje prázdnu alebo source-only SBOM.
 
-Operational query je reverse graph:
+## Runtime a rollback mapping
 
-```text
-component alebo vulnerability
-→ SBOM subject digests
-→ running a rollback artifacts
-→ workload, environment a tenant
-→ owner
-→ remediation a verification
+SBOM musí byť prepojiteľná s deployed digestom. Cluster read-back:
+
+```bash
+kubectl get pods -A -o json \
+  | jq -r '.items[] | .metadata.namespace as $ns | .metadata.name as $pod | .status.containerStatuses[]? | [$ns,$pod,.imageID] | @tsv'
 ```
 
-Tag-based inventory je nepresný. Kubernetes a registry evidence majú zachytiť resolved platform digest.
+Výstup preukazuje reported runtime imageIDs. Nepreukazuje host integrity, loaded libraries ani SBOM availability. Inventory service následne mapuje each digest na SBOM/provenance/signature a ownera.
 
-Rollback catalog, scale templates a dormant release channels patria do exposure inventory. Critical component sa môže vrátiť aj po odstránení current Pods.
+Rollback manifests a cached artifacts musia mať rovnakú evidence. Fixed production digest nepomôže, ak autoscaler, disaster recovery alebo rollback stále môže nasadiť vulnerable old digest.
 
-## 18. Worked incident `SEC-PAY-50`
+## Incident SEC-PAY-50
 
-Release `7.24.0` vytvorila image `sha256:pay7240`. Pipeline publikovala signed CycloneDX 1.7 SBOM s matching subject digestom. Security dashboard preto zobrazil `SBOM present` a admission gate prešiel.
+Signed CycloneDX SBOM bola vytvorená zo source lockfile-u a spätne označená final digestom. Neobsahovala `settlement-debug.jar`, pretože file vznikol post-test injectionom na runneri. Neobsahovala ani builder helper ako toolchain component. Admission kontrolovalo iba prítomnosť signed SBOM.
 
-Document však vznikol zo source lockfile-u pred final packagingom. Pipeline po build-e iba doplnila final image digest ako subject. SBOM neanalyzovala final filesystem a neuviedla lifecycle stage ani incomplete coverage.
+Root cause nebola chyba CycloneDX formatu. Bola to nesprávna lifecycle stage, method a evidence claim. Shared compromised pipeline vytvorila artifact aj evidence, takže signature iba chránila neúplný document.
 
-Vulnerable builder `sha256:builder17` obsahoval `atlas-build-helper 2.4.1`. Crafted metadata zneužila helper a pridala `settlement-debug.jar` do final image po tests. Helper správne nepatril medzi runtime components aplikácie, ale mal byť viditeľný v builder/toolchain inventory. Injected JAR mal byť viditeľný vo final-artifact SBOM-e.
+## Containment, recovery a acceptance
 
-### Competing hypotheses
+Containment zachová original SBOM, scanner metadata a final artifact pre forensic comparison a zablokuje affected digests. Document sa neopravuje in place; new trusted rebuild dostane new artifact a new evidence.
 
-1. **Component v artifacte nie je.** Scanner alebo incident report je chybný.
-2. **SBOM patrí inému digestu.** Subject binding alebo promotion sa rozpadli.
-3. **Registry alebo normalizer related artifact stratil.** Generation bola správna, consumption nie.
-4. **Generator nepodporoval embedded JAR.** Coverage limitation nebola deklarovaná.
-5. **Pipeline vydávala source inventory za final-artifact SBOM.** Document semantics boli nesprávne.
+Recovery generuje separate source, builder/toolchain a platform-specific final-artifact SBOMs cez controlled authorities. Final filesystem scan a artifact layout policy zachytia injected files. Admission overí exact platform subject, generator/method/stage a minimum expected components.
 
-### Discriminating evidence
+Acceptance vyžaduje, aby `settlement-debug.jar` bol v compromised artifact inventory alebo explicitnom filesystem evidence, absent v clean rebuild-e, builder helper 2.4.3 bol v toolchain BOM, runtime digest mapoval na correct SBOM a old digest bol denied. Negative fixture s known injected component musí gate zastaviť. Druhá platform build generation musí vytvoriť samostatnú, správne viazanú SBOM.
 
-- OCI referrer existoval a subject bol `sha256:pay7240`;
-- signature a schema boli validné;
-- raw document aj normalized graph injected JAR neobsahovali;
-- final filesystem a independent binary scanner JAR našli;
-- source lockfile ho neobsahoval;
-- generator metadata ukázali source manifest mode, nie image analysis;
-- builder-image inventory obsahoval vulnerable helper;
-- production promotion referrer nestratila, takže root cause bol generation contract.
+## Kontrolné otázky
 
-SBOM nebola missing. Bola subject-bound, signed a syntakticky validná, ale semanticky neúplná a nesprávne označená.
+1. Prečo source SBOM nie je final-artifact SBOM?
+2. Čo podpis SBOM preukazuje a čo nepreukazuje?
+3. Ako Package URL, CPE a hash riešia odlišné identity potreby?
+4. Prečo relationships zvyšujú remediation hodnotu?
+5. Ako sa VEX líši od scanner suppression?
+6. Prečo runtime mapping musí zahŕňať platform digest a rollback paths?
+7. Ktorý defect v SEC-PAY-50 bol method/stage problem, nie format problem?
 
-## 19. Evidence-preserving containment
+## Referencie
 
-- preserve-nuť raw SBOM, signature, provenance, generator logs a normalized representation;
-- quarantine-nuť `sha256:pay7240` a affected builder outputs;
-- zablokovať existence-only SBOM gate;
-- mapovať digest na running a rollback deployments;
-- spustiť independent final-binary/image analysis bez prepísania pôvodného evidence;
-- zachovať tool version a configuration pre reprodukciu coverage gapu;
-- nevydať retroaktívne upravenú SBOM pod rovnakou document identity bez lineage.
-
-## 20. Authoritative recovery
-
-1. zachovať source SBOM ako source-stage evidence s correct metadata;
-2. vytvoriť builder/toolchain BOM pre pinned builder digest;
-3. generovať platform-specific SBOM z každého final OCI manifest filesystemu;
-4. vytvoriť release-level relationship k image index digestu;
-5. pridať binary/JAR coverage a seeded detection fixture;
-6. vydať signed attestations z approved evidence authority;
-7. overiť subject, stage, completeness a semantic diff v CI;
-8. zachovať referrers pri promotion a vykonať destination read-back;
-9. ingestovať raw aj normalized documents s transformation lineage;
-10. mapovať new digest na runtime a odstrániť old digest z rollback paths;
-11. re-evaluovať historical artifacts vytvorené rovnakou chybnou generator configuration.
-
-## 21. Acceptance verdict
-
-SBOM remediation je uzavretá, keď:
-
-- source, builder a final-artifact inventories sú explicitne oddelené;
-- final SBOM subject sa zhoduje s platform manifest digestom;
-- seeded embedded JAR je v final SBOM-e detected a správne related;
-- build-only helper nie je nesprávne označený ako runtime component, ale zostáva v builder inventory;
-- completeness a unsupported paths sú explicitné;
-- wrong subject, wrong stage a unknown completeness policy odmietne;
-- promotion zachová SBOM, provenance a signature referrers;
-- normalization zachová purl, architecture, scope a original relationships;
-- runtime mapping nájde všetky current aj rollback digests;
-- old `sha256:pay7240` už nie je deployable ani running;
-- druhý release vytvorí semanticky stabilný inventory a allowed business flow funguje.
-
-## 22. CI/CD a quality gates
-
-Gate nemá kontrolovať iba `sbom.json exists`. Pre critical release overuje:
-
-- primary subject digest;
-- required format/version/profile;
-- lifecycle stage a generator method;
-- supported ecosystem coverage;
-- component identity quality;
-- relationship a architecture completeness;
-- approved signer/evidence authority;
-- semantic diff a unexpected high-risk components;
-- destination distribution a runtime mapping.
-
-Exception má exact subject, ownera, expiry a plan na coverage gap. Permanentné `allow unknown completeness` ruší transparency control.
-
-## 23. Procurement, SaaS a extended BOMs
-
-Supplier contract môže definovať format/version, subject granularity, cadence, VEX process, retrieval channel a incident notification.
-
-`SBOM available` bez väzby na konkrétny build alebo continuously deployed SaaS snapshot má nízku operational hodnotu.
-
-CBOM inventarizuje cryptographic assets a pomáha crypto agility. AI BOM môže zachytiť models, datasets, frameworks a dependencies. Inventory však automaticky nehodnotí model behavior, safety alebo legal status data.
-
-Zbieraj iba metadata, pre ktoré existuje owner a decision workflow.
-
-## 24. Earlier controls
-
-- required immutable digest subject;
-- explicit source/build/final/runtime stage;
-- separate builder/toolchain BOM;
-- platform-specific final image analysis;
-- seeded components pre coverage canary;
-- completeness, accuracy a confidence policy;
-- semantic diff namiesto raw JSON diffu;
-- signed attestations s approved generation authority;
-- registry referrers promotion/read-back test;
-- raw document a normalization lineage;
-- continuous advisory/VEX re-evaluation;
-- digest-to-runtime a rollback mapping;
-- wrong-stage a unknown-completeness negative tests.
-
-## 25. Anti-patterny
-
-### Checkbox SBOM
-
-Document existuje, ale nikto nevaliduje subject, quality ani consumer use.
-
-### Subject bez digestu
-
-Product name alebo tag neidentifikuje bytes.
-
-### Source inventory vydávaný za final artifact
-
-Build-added, generated a injected content chýba.
-
-### Flat list bez relationships
-
-Consumer nevie scope, containment ani dependency path.
-
-### Unknown interpretované ako absent
-
-Coverage gap sa mení na false negative.
-
-### Validná signature znamená complete SBOM
-
-Signature chráni claim, nie accuracy generatora.
-
-### Inventory bez runtime mappingu
-
-Organization vie, čo buildla, ale nie čo beží alebo sa môže rollbacknúť.
-
-## 26. Kontrolné otázky
-
-1. Čo tvorí exact SBOM subject?
-2. Ako sa source, builder, build a final-artifact SBOM líšia?
-3. Čo producer, distributor a consumer dokazujú?
-4. Prečo SPDX version/profile a CycloneDX specVersion patria do contractu?
-5. Ako purl, CPE a digest riešia odlišné identity problémy?
-6. Prečo relationships a dependency scope menia vulnerability verdict?
-7. Ako modelovať builder helper oproti runtime componentu?
-8. Ako multi-platform OCI release viaže SBOMs na variants?
-9. Ako sa completeness, accuracy a freshness líšia?
-10. Prečo VEX nie je náhrada SBOM-u?
-11. Čo podpis SBOM-u dokazuje a čo nie?
-12. Čo musí overiť SBOM acceptance verdict?
-
-## Glossary impact
-
-Relevantné pojmy: SBOM decision subject, lifecycle-stage declaration, builder/toolchain BOM, final-artifact SBOM, evidence-generation method, component-identity confidence, relationship completeness, semantic SBOM generation, subject-bound attestation, promotion preservation, normalization lineage, digest-to-runtime mapping, SBOM acceptance verdict a coverage recurrence.
-
-## Primárne zdroje
-
-- [SPDX Specification 3.0.1](https://spdx.github.io/spdx-spec/)
-- [SPDX 3.0.1 conformance and profiles](https://spdx.github.io/spdx-spec/v3.0.1/conformance/)
-- [CycloneDX Specification Overview](https://cyclonedx.org/specification/overview/)
-- [CycloneDX 1.7 JSON Reference](https://cyclonedx.org/docs/1.7/json/)
-- [Package URL specification](https://github.com/package-url/purl-spec)
-- [NTIA Minimum Elements for an SBOM](https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom)
-- [CISA SBOM Resources Library](https://www.cisa.gov/topics/cyber-threats-and-advisories/sbom/sbomresourceslibrary)
-- [OCI Distribution Specification — Referrers API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md)
+- [SPDX specification](https://spdx.dev/specifications/)
+- [CycloneDX specification](https://cyclonedx.org/specification/overview/)
+- [CISA SBOM resources](https://www.cisa.gov/sbom)
+- [Syft documentation](https://github.com/anchore/syft)
+- [VEX overview](https://www.cisa.gov/resources-tools/resources/minimum-requirements-vulnerability-exploitability-exchange-vex)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
