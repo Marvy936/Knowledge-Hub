@@ -11,7 +11,7 @@ docs/13-security-and-identity/ldap.md|strict=0/1/0|prose=1004|bullet_share=0.107
 docs/13-security-and-identity/least-privilege.md|strict=0/0/0|prose=1033|bullet_share=0.111|blocks=6|executable=7|explanations=4
 docs/13-security-and-identity/oauth-2.md|strict=0/3/0|prose=1170|bullet_share=0.094|blocks=7|executable=3|explanations=10
 docs/13-security-and-identity/openid-connect.md|strict=0/2/0|prose=1192|bullet_share=0.088|blocks=5|executable=2|explanations=11
-docs/13-security-and-identity/policy-as-code.md|strict=18/29/10|prose=1075|bullet_share=0.444|blocks=14|executable=1|explanations=5
+docs/13-security-and-identity/policy-as-code.md|strict=0/2/0|prose=1005|bullet_share=0.086|blocks=5|executable=8|explanations=12
 docs/13-security-and-identity/saml.md|strict=0/2/0|prose=1037|bullet_share=0.125|blocks=5|executable=2|explanations=8
 docs/13-security-and-identity/sbom.md|strict=0/3/0|prose=1075|bullet_share=0.093|blocks=6|executable=6|explanations=11
 docs/13-security-and-identity/secrets-management.md|strict=0/2/0|prose=1175|bullet_share=0.088|blocks=6|executable=7|explanations=8
@@ -35,63 +35,8 @@ HIGH docs/13-security-and-identity/oauth-2.md:25 [single-sentence-concept] Exact
 HIGH docs/13-security-and-identity/oauth-2.md:25 [list-first-introduction] Exact OAuth subject SEC-PAY-48 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/openid-connect.md:26 [single-sentence-concept] Exact OIDC subject SEC-PAY-49 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/openid-connect.md:26 [list-first-introduction] Exact OIDC subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:22 [outline-instead-of-explanation] 1. Policy intent — 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:22 [bare-bullet-items] 1. Policy intent — 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production scope;`, `exact principal, action a resource;`, `immutable image subject;`, `signer, issuer, workflow a builder identities;`.
-HIGH docs/13-security-and-identity/policy-as-code.md:22 [thin-concept-section] 1. Policy intent — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:22 [term-before-explanation] 1. Policy intent — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`, `enforcement`
-HIGH docs/13-security-and-identity/policy-as-code.md:48 [single-sentence-concept] 2. Exact policy decision subject — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:48 [outline-instead-of-explanation] 2. Exact policy decision subject — 11 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:48 [bare-bullet-items] 2. Exact policy decision subject — 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request alebo object generation;`, `caller identity a delegation;`, `requested action a resource;`, `environment, tenant a classification;`.
-HIGH docs/13-security-and-identity/policy-as-code.md:48 [thin-concept-section] 2. Exact policy decision subject — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/policy-as-code.md:48 [term-before-explanation] 2. Exact policy decision subject — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `PDP`, `PEP`, `delegation`, `resource`, `freshness`, `scope`, `enforcement`
-CRITICAL docs/13-security-and-identity/policy-as-code.md:108 [outline-instead-of-explanation] 5. Input a supporting-data contract — 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:108 [bare-bullet-items] 5. Input a supporting-data contract — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a version;`, `source identity a integrity;`, `freshness a loaded revision;`, `missing, empty a unknown semantics;`.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:108 [short-concept-section] 5. Input a supporting-data contract — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:108 [term-before-explanation] 5. Input a supporting-data contract — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`
-CRITICAL docs/13-security-and-identity/policy-as-code.md:156 [outline-instead-of-explanation] 7. Defaults a combining semantics — 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:156 [bare-bullet-items] 7. Defaults a combining semantics — 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `default deny odmietne neexplicitne povolený high-risk request;`, `deny overrides zablokuje operation pri jednom mandatory deny;`, `all must pass vyžaduje úspech všetkých applicable controls;`, `advisory + enforcing oddeľuje warning od blocking resultu.`.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:156 [short-concept-section] 7. Defaults a combining semantics — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/policy-as-code.md:215 [single-sentence-concept] 11. Policy testing — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:215 [outline-instead-of-explanation] 11. Policy testing — 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:215 [bare-bullet-items] 11. Policy testing — 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed examples;`, `forbidden examples;`, `missing a malformed inputs;`, `boundary a normalization cases;`.
-HIGH docs/13-security-and-identity/policy-as-code.md:215 [thin-concept-section] 11. Policy testing — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:215 [term-before-explanation] 11. Policy testing — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PEP`, `PDP`, `enforcement`
-HIGH docs/13-security-and-identity/policy-as-code.md:244 [list-first-introduction] 12. Shift-left, request-time enforcement a background audit — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/policy-as-code.md:287 [list-heavy-section] 15. Exceptions a break-glass — 6 odrážok a iba 46 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:287 [bare-bullet-items] 15. Exceptions a break-glass — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy ID a exact subject/resource;`, `owner, approver a dôvod;`, `start a expiration;`, `compensating controls;`.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:287 [term-before-explanation] 15. Exceptions a break-glass — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`
-HIGH docs/13-security-and-identity/policy-as-code.md:302 [list-heavy-section] 16. Worked incident SEC-PAY-51 — 7 odrážok a iba 45 slov súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/policy-as-code.md:302 [bare-bullet-items] 16. Worked incident SEC-PAY-51 — 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `old revision kontrolovala iba broad OIDC issuer/repository regex;`, `verification cache bola keyed podľa repository:tag:namespace ;`, `webhook používal failurePolicy: Ignore počas 23-sekundového timeout wi`, `arm64 Pods vznikli bez exact subject verdictu.`.
-HIGH docs/13-security-and-identity/policy-as-code.md:302 [term-before-explanation] 16. Worked incident SEC-PAY-51 — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDP`, `POL-IMG-17`, `POL-IMG-16`, `OIDC`, `CRD`, `scope`
-HIGH docs/13-security-and-identity/policy-as-code.md:331 [single-sentence-concept] 17. Discriminating evidence — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:331 [list-first-introduction] 17. Discriminating evidence — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:331 [outline-instead-of-explanation] 17. Discriminating evidence — 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/policy-as-code.md:331 [bare-bullet-items] 17. Discriminating evidence — 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `input neobsahoval sha256:pay7240-arm ;`, `cache hit pre tag vznikol pred quarantine generation;`, `controller ServiceAccount bol exempted z webhook match condition;`, `počas timeout-u vznikol admission allow bez decision ID.`.
-HIGH docs/13-security-and-identity/policy-as-code.md:331 [thin-concept-section] 17. Discriminating evidence — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:331 [term-before-explanation] 17. Discriminating evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDP`, `ID`
-HIGH docs/13-security-and-identity/policy-as-code.md:343 [single-sentence-concept] 18. Containment a authoritative recovery — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:343 [outline-instead-of-explanation] 18. Containment a authoritative recovery — 15 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:343 [bare-bullet-items] 18. Containment a authoritative recovery — 12 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `freeze policy publication aj release deployments;`, `odstrániť not-ready PDPs z trafficu;`, `quarantine affected digests;`, `zablokovať custom-controller reconciliation bez mazania evidence.`.
-HIGH docs/13-security-and-identity/policy-as-code.md:343 [thin-concept-section] 18. Containment a authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:343 [term-before-explanation] 18. Containment a authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `POL-IMG-18`, `policy`, `workload`
-HIGH docs/13-security-and-identity/policy-as-code.md:368 [single-sentence-concept] 19. Policy acceptance verdict — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:368 [outline-instead-of-explanation] 19. Policy acceptance verdict — 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/policy-as-code.md:368 [bare-bullet-items] 19. Policy acceptance verdict — 6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `intent má ownera a testovateľný contract;`, `exact request/resource/digest vstupuje do decisionu;`, `structured result sa presadí bez straty obligations;`, `cache a exceptions rešpektujú revocation;`.
-HIGH docs/13-security-and-identity/policy-as-code.md:368 [thin-concept-section] 19. Policy acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:368 [term-before-explanation] 19. Policy acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `policy`, `resource`
-HIGH docs/13-security-and-identity/policy-as-code.md:385 [list-first-introduction] 20. Troubleshooting flow — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:404 [no-prose-concept] 21. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/policy-as-code.md:404 [list-first-introduction] 21. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:404 [outline-instead-of-explanation] 21. Earlier controls — 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/policy-as-code.md:404 [bare-bullet-items] 21. Earlier controls — 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy intent s explicitným enforcement contractom;`, `immutable signed bundles;`, `active-generation readiness telemetry;`, `schemas pre input, data a structured decisions;`.
-HIGH docs/13-security-and-identity/policy-as-code.md:404 [thin-concept-section] 21. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/policy-as-code.md:404 [term-before-explanation] 21. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `enforcement`
-HIGH docs/13-security-and-identity/policy-as-code.md:422 [single-sentence-concept] Policy file equals control — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:426 [single-sentence-concept] Green unit tests — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:430 [single-sentence-concept] Mutable branch distribution — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:434 [single-sentence-concept] Cache bez revision a digestu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:438 [single-sentence-concept] Permanent audit mode — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:442 [single-sentence-concept] Global exception alebo fail-open — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/policy-as-code.md:24 [single-sentence-concept] Exact policy subject SEC-PAY-51 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/policy-as-code.md:24 [list-first-introduction] Exact policy subject SEC-PAY-51 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/saml.md:7 [list-first-introduction] Metadata-to-session lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/saml.md:25 [list-first-introduction] Exact SAML subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/sbom.md:7 [single-sentence-concept] Subject-to-remediation lifecycle — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
@@ -188,8 +133,6 @@ ldap.md: strict findings
 oauth-2.md: strict findings
 openid-connect.md: strict findings
 policy-as-code.md: strict findings
-policy-as-code.md: bullet share 0.444
-policy-as-code.md: practical examples too thin
 saml.md: strict findings
 sbom.md: strict findings
 secrets-management.md: strict findings
