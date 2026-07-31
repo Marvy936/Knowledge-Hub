@@ -6,6 +6,8 @@ Podpis chráni authenticity a integrity subjectu od signing momentu. Nehovorí, 
 
 ## Subject-to-runtime trust lifecycle
 
+Signature verdict má význam iba vtedy, keď sa zachová exact OCI subject od podpisu až po platform digest zvolený runtime-om. Lifecycle preto oddeľuje signing identity, registry publication, consumer policy, cache a runtime read-back.
+
 ```text
 release intent a exact OCI subject
 → signing authority a issuance context
@@ -22,6 +24,8 @@ release intent a exact OCI subject
 Tag, index digest, platform manifest digest a config/layer digests sú odlišné identities. Policy, ktorá overí ľubovoľný podpis v repository, nemusí chrániť artifact vybraný runtime-om.
 
 ## Exact signing subject SEC-PAY-51
+
+Subject rozlišuje index, amd64 a arm64 manifests, signer identity, policy generation a cache key. Toto rozlíšenie je nevyhnutné, aby validný podpis jedného platform artifactu nemohol autorizovať iný runtime digest.
 
 ```yaml
 incident: SEC-PAY-51

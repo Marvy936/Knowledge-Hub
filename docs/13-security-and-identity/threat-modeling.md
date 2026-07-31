@@ -6,6 +6,8 @@ Model musí byť dostatočne presný na rozhodnutie. „Attacker kompromituje CI
 
 ## Objective-to-negative-test lifecycle
 
+Threat model je engineering control iba vtedy, keď chránený outcome vedie ku konkrétnemu attack pathu, requirementu a negative testu. Lifecycle ukazuje, ako sa architecture assumptions menia na falsifikovateľné dôkazy a residual-risk rozhodnutie.
+
 ```text
 business/security objective
 → exact system generation a scope
@@ -22,6 +24,8 @@ business/security objective
 Threat model nie je jednorazový dokument pri design review. Mení sa pri architecture, identity, data flow, dependency, deployment, trust alebo incident change-i. Model bez update triggera sa stáva historickou ilustráciou.
 
 ## Exact model subject SEC-PAY-50
+
+Model subject fixuje source, builder, output a trust boundaries jednej release generation. To umožňuje rozlíšiť source-level controls od post-review a post-test mutation paths na persistentnom runneri.
 
 ```yaml
 apiVersion: security.atlas.example/v1

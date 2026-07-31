@@ -23,6 +23,8 @@ LDAP je protocol boundary, nie konkrétny product. OpenLDAP, Active Directory Do
 
 ## Exact LDAP subject
 
+LDAP result je platný iba pre konkrétny endpoint, Bind identity, query a replica generation. Subject preto zachováva exact base, scope, filter, projection a porovnávané replicas, aby sa freshness dala reprodukovať.
+
 ```yaml
 incident: SEC-PAY-48
 client: settlement-approval-api

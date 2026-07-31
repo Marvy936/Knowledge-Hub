@@ -23,6 +23,8 @@ AS, TGS a application exchange sú odlišné boundaries. KDC môže vydať TGT, 
 
 ## Exact Kerberos subject
 
+Kerberos evidence musí byť viazaná na client principal, selected KDC, ticket issue time, service principal a key generation. Inak nemožno odlíšiť starú credential cache od fresh ticketu vydaného zo stale directory replica.
+
 ```yaml
 incident: SEC-PAY-48
 realm: CORP.ATLAS.EXAMPLE

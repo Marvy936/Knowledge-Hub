@@ -25,6 +25,8 @@ login alebo step-up intent
 
 ## Exact OIDC subject SEC-PAY-49
 
+OIDC trust sa musí viazať na exact issuer, client, redirect, subject identity a signing-key purpose. Subject explicitne oddeľuje staging a production, aby shared key alebo email collision nemohli nahradiť issuer-bound identity.
+
 ```yaml
 incident: SEC-PAY-49
 productionIssuer: https://id.atlas.example/realms/production

@@ -6,6 +6,8 @@ Podpísaný artifact môže byť malicious, ak signer autorizoval compromised bu
 
 ## Source-to-runtime trust lifecycle
 
+Supply-chain assurance vzniká iba vtedy, keď sa source, builder, evidence authority, artifact graph a runtime digest dajú spojiť jedným immutable subjectom. Lifecycle oddeľuje tieto trust transitions, aby podpis alebo provenance nemohli zakryť compromised builder.
+
 ```text
 release intent a trust policy
 → exact source revision a source controls
@@ -22,6 +24,8 @@ release intent a trust policy
 Každá boundary môže zmeniť trust. Protected branch nepreukazuje builder integrity. Build success nepreukazuje publication. Registry tag nepreukazuje digest. Admission allow nepreukazuje, že runtime vybral signed platform manifest.
 
 ## Exact release subject SEC-PAY-50
+
+Release subject pomenúva source, build definition, dependency graph, builder, index, platform manifests, evidence authority a runtime. Bez neho by tag alebo source revision neumožnili quarantine všetkých outputs z compromised execution window.
 
 ```yaml
 release: payments-7.24.0

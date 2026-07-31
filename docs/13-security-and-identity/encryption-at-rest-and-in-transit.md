@@ -6,6 +6,8 @@ At-rest encryption môže chrániť ukradnutý disk alebo leaked backup. TLS mô
 
 ## Asset-to-key-boundary lifecycle
 
+Cryptographic control sa hodnotí podľa assetu, attackera a plaintext boundary, nie podľa samotnej existencie key-u alebo TLS session. Lifecycle ukazuje, kde sa rozhoduje o algorithm-e, key authority, consumer validation a bezpečnom vyradení starej cesty.
+
 ```text
 asset, business use a threat model
 → exact data state: rest, transit alebo use
@@ -22,6 +24,8 @@ asset, business use a threat model
 „KMS key enabled“ nepreukazuje, že application používa intended key. „TLS handshake successful“ nepreukazuje hostname, client identity ani application authorization. „Encrypted backup“ nepreukazuje dostupnosť decrypt key-u počas restore.
 
 ## Exact cryptographic subject SEC-PAY-49
+
+Subject spája jeden key s jeho environmentmi, protocols, storage a runtime plaintext boundary. Bez tejto identity by validná storage encryption mohla maskovať cross-purpose reuse a exportovateľný private key v consumer workload-e.
 
 ```yaml
 incident: SEC-PAY-49

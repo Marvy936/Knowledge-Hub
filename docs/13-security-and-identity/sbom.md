@@ -6,6 +6,8 @@ Podpísaná SBOM môže byť neúplná. SBOM pre source lockfile môže byť spr
 
 ## Subject-to-remediation lifecycle
 
+SBOM má operational hodnotu až vtedy, keď opisuje exact immutable artifact a deklaruje stage, method a evidence authority. Lifecycle preto vedie od generation cez completeness a correlation až po deployed digest a verified remediation.
+
 ```text
 immutable software subject
 → lifecycle stage, generation method a evidence authority
@@ -22,6 +24,8 @@ immutable software subject
 Každá SBOM musí odpovedať: čo presne inventarizuje, kedy vznikla, ktorý nástroj/authority ju vytvoril, ktoré paths a package types pokrýva a čo zámerne nepokrýva.
 
 ## Exact SBOM subject SEC-PAY-50
+
+Subject oddeľuje source revision, index, platform artifact, SBOM digest a generation method. Toto rozlíšenie odhaľuje document, ktorý je validný ako source inventory, ale nepravdivo sa vydáva za final-filesystem evidence.
 
 ```yaml
 incident: SEC-PAY-50

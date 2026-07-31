@@ -6,6 +6,8 @@ AD DS preto treba chápať ako versionovaný identity state distribuovaný cez D
 
 ## Directory-change lifecycle
 
+Directory change je bezpečnostne účinný až vtedy, keď sa jeho presná attribute generation dostane na replicas, ktoré clients skutočne používajú, a staré sessions sa zneplatnia. Nasledujúci lifecycle preto oddeľuje local commit, replication, replica selection a downstream authorization ako samostatné dôkazné hranice.
+
 ```text
 authoritative identity alebo policy change
 → exact forest/domain/object/DC generation

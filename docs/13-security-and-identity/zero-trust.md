@@ -6,6 +6,8 @@ Zero Trust nie je synonymum MFA, VPN replacement, service mesh ani microsegmenta
 
 ## Resource-access lifecycle
 
+Zero Trust rozhodnutie je časovo bounded verdict nad exact principalom, action, resource a current contextom. Lifecycle preto oddeľuje identity assurance, posture, enforcement coverage, continuous re-evaluation a revocation existing sessions.
+
 ```text
 business operation a protected resource
 → human/workload/device identities a assurance
@@ -22,6 +24,8 @@ business operation a protected resource
 Authentication vytvorí principal. Zero Trust decision stále potrebuje current eligibility a resource context. Network location je signal, nie authority. Session issuance je začiatok, nie koniec access lifecycle-u.
 
 ## Exact access subject SEC-PAY-51
+
+Access subject spája human a workload identity, device posture, policy generation, bypass path a exact runtime digest. Toto rozlíšenie ukazuje, že validná authentication a internal network location nepreukazujú current resource authorization.
 
 ```yaml
 incident: SEC-PAY-51

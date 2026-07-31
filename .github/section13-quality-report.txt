@@ -1,71 +1,31 @@
 status=failure
 
-docs/13-security-and-identity/active-directory.md|strict=0/1/0|prose=1041|bullet_share=0.117|blocks=6|executable=7|explanations=14
+docs/13-security-and-identity/active-directory.md|strict=0/0/0|prose=1082|bullet_share=0.113|blocks=6|executable=10|explanations=15
 docs/13-security-and-identity/authentication-authorization-auditing.md|strict=0/0/0|prose=1028|bullet_share=0.105|blocks=8|executable=6|explanations=8
 docs/13-security-and-identity/cia-triad.md|strict=0/0/0|prose=1058|bullet_share=0.109|blocks=6|executable=5|explanations=18
-docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=0/3/0|prose=1297|bullet_share=0.093|blocks=5|executable=4|explanations=14
+docs/13-security-and-identity/encryption-at-rest-and-in-transit.md|strict=0/0/0|prose=1366|bullet_share=0.089|blocks=5|executable=4|explanations=14
 docs/13-security-and-identity/iam-rbac.md|strict=0/0/0|prose=966|bullet_share=0.107|blocks=6|executable=7|explanations=7
-docs/13-security-and-identity/image-signing.md|strict=0/3/0|prose=994|bullet_share=0.085|blocks=7|executable=5|explanations=10
-docs/13-security-and-identity/kerberos.md|strict=0/1/0|prose=1028|bullet_share=0.099|blocks=6|executable=7|explanations=11
-docs/13-security-and-identity/ldap.md|strict=0/1/0|prose=1004|bullet_share=0.107|blocks=6|executable=2|explanations=9
+docs/13-security-and-identity/image-signing.md|strict=0/0/0|prose=1058|bullet_share=0.080|blocks=7|executable=6|explanations=11
+docs/13-security-and-identity/kerberos.md|strict=0/0/0|prose=1060|bullet_share=0.096|blocks=6|executable=7|explanations=11
+docs/13-security-and-identity/ldap.md|strict=0/0/0|prose=1034|bullet_share=0.104|blocks=6|executable=3|explanations=9
 docs/13-security-and-identity/least-privilege.md|strict=0/0/0|prose=1033|bullet_share=0.111|blocks=6|executable=7|explanations=4
-docs/13-security-and-identity/oauth-2.md|strict=0/3/0|prose=1170|bullet_share=0.094|blocks=7|executable=3|explanations=10
-docs/13-security-and-identity/openid-connect.md|strict=0/2/0|prose=1192|bullet_share=0.088|blocks=5|executable=2|explanations=11
-docs/13-security-and-identity/policy-as-code.md|strict=0/2/0|prose=1005|bullet_share=0.086|blocks=5|executable=8|explanations=12
-docs/13-security-and-identity/saml.md|strict=0/2/0|prose=1037|bullet_share=0.125|blocks=5|executable=2|explanations=8
-docs/13-security-and-identity/sbom.md|strict=0/3/0|prose=1075|bullet_share=0.093|blocks=6|executable=6|explanations=11
-docs/13-security-and-identity/secrets-management.md|strict=0/2/0|prose=1175|bullet_share=0.088|blocks=6|executable=7|explanations=8
-docs/13-security-and-identity/supply-chain-security.md|strict=0/2/0|prose=1096|bullet_share=0.084|blocks=4|executable=2|explanations=14
-docs/13-security-and-identity/threat-modeling.md|strict=0/3/0|prose=1026|bullet_share=0.102|blocks=6|executable=4|explanations=6
-docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=0/1/0|prose=1104|bullet_share=0.094|blocks=6|executable=5|explanations=12
-docs/13-security-and-identity/zero-trust.md|strict=0/2/0|prose=1247|bullet_share=0.084|blocks=6|executable=7|explanations=7
+docs/13-security-and-identity/oauth-2.md|strict=0/0/0|prose=1236|bullet_share=0.089|blocks=7|executable=3|explanations=10
+docs/13-security-and-identity/openid-connect.md|strict=0/0/0|prose=1225|bullet_share=0.086|blocks=5|executable=2|explanations=11
+docs/13-security-and-identity/policy-as-code.md|strict=0/0/0|prose=1036|bullet_share=0.084|blocks=5|executable=8|explanations=12
+docs/13-security-and-identity/saml.md|strict=0/0/0|prose=1101|bullet_share=0.118|blocks=5|executable=2|explanations=8
+docs/13-security-and-identity/sbom.md|strict=0/0/0|prose=1139|bullet_share=0.088|blocks=6|executable=6|explanations=11
+docs/13-security-and-identity/secrets-management.md|strict=0/1/0|prose=1202|bullet_share=0.087|blocks=6|executable=7|explanations=8
+docs/13-security-and-identity/supply-chain-security.md|strict=0/0/0|prose=1162|bullet_share=0.080|blocks=4|executable=2|explanations=14
+docs/13-security-and-identity/threat-modeling.md|strict=0/1/0|prose=1088|bullet_share=0.097|blocks=6|executable=4|explanations=7
+docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=0/1/0|prose=1136|bullet_share=0.091|blocks=6|executable=5|explanations=12
+docs/13-security-and-identity/zero-trust.md|strict=0/0/0|prose=1308|bullet_share=0.080|blocks=6|executable=7|explanations=7
 
 STRICT FINDINGS
-HIGH docs/13-security-and-identity/active-directory.md:7 [list-first-introduction] Directory-change lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:7 [list-first-introduction] Asset-to-key-boundary lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:24 [single-sentence-concept] Exact cryptographic subject SEC-PAY-49 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/encryption-at-rest-and-in-transit.md:24 [list-first-introduction] Exact cryptographic subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/image-signing.md:7 [list-first-introduction] Subject-to-runtime trust lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/image-signing.md:24 [single-sentence-concept] Exact signing subject SEC-PAY-51 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/image-signing.md:24 [list-first-introduction] Exact signing subject SEC-PAY-51 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/kerberos.md:24 [list-first-introduction] Exact Kerberos subject — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/ldap.md:24 [list-first-introduction] Exact LDAP subject — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/oauth-2.md:7 [list-first-introduction] Grant-to-resource lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/oauth-2.md:25 [single-sentence-concept] Exact OAuth subject SEC-PAY-48 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/oauth-2.md:25 [list-first-introduction] Exact OAuth subject SEC-PAY-48 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/openid-connect.md:26 [single-sentence-concept] Exact OIDC subject SEC-PAY-49 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/openid-connect.md:26 [list-first-introduction] Exact OIDC subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/policy-as-code.md:24 [single-sentence-concept] Exact policy subject SEC-PAY-51 — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/policy-as-code.md:24 [list-first-introduction] Exact policy subject SEC-PAY-51 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/saml.md:7 [list-first-introduction] Metadata-to-session lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/saml.md:25 [list-first-introduction] Exact SAML subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/sbom.md:7 [single-sentence-concept] Subject-to-remediation lifecycle — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/sbom.md:7 [list-first-introduction] Subject-to-remediation lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/sbom.md:24 [list-first-introduction] Exact SBOM subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/secrets-management.md:7 [list-first-introduction] Capability-to-revocation lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/secrets-management.md:26 [list-first-introduction] Exact secret subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/supply-chain-security.md:7 [list-first-introduction] Source-to-runtime trust lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/supply-chain-security.md:24 [list-first-introduction] Exact release subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/threat-modeling.md:7 [list-first-introduction] Objective-to-negative-test lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/threat-modeling.md:24 [list-first-introduction] Exact model subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/threat-modeling.md:87 [single-sentence-concept] Threat statements — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:25 [list-first-introduction] Exact remediation subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/zero-trust.md:7 [list-first-introduction] Resource-access lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-HIGH docs/13-security-and-identity/zero-trust.md:24 [list-first-introduction] Exact access subject SEC-PAY-51 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/13-security-and-identity/secrets-management.md:28 [list-first-introduction] Exact secret subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/13-security-and-identity/threat-modeling.md:91 [single-sentence-concept] Threat statements — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/vulnerability-and-patch-management.md:27 [list-first-introduction] Exact remediation subject SEC-PAY-50 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 FAILURES
-active-directory.md: strict findings
-encryption-at-rest-and-in-transit.md: strict findings
-image-signing.md: strict findings
-kerberos.md: strict findings
-ldap.md: strict findings
-oauth-2.md: strict findings
-openid-connect.md: strict findings
-policy-as-code.md: strict findings
-saml.md: strict findings
-sbom.md: strict findings
 secrets-management.md: strict findings
-supply-chain-security.md: strict findings
 threat-modeling.md: strict findings
 vulnerability-and-patch-management.md: strict findings
-zero-trust.md: strict findings

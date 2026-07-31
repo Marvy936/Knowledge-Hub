@@ -6,6 +6,8 @@ OAuth sa nemá opisovať iba ako „login cez Google“ alebo ako JWT mechanizmu
 
 ## Grant-to-resource lifecycle
 
+OAuth grant je iba prechod k obmedzenej capability; konečný verdict vzniká až na Resource Serveri nad exact resource a current contextom. Lifecycle preto oddeľuje transaction binding, token generation, token validation a local business authorization.
+
 ```text
 protected operation a delegation intent
 → issuer, client a resource registration
@@ -23,6 +25,8 @@ protected operation a delegation intent
 Úspech na token endpoint-e nie je resource access verdict. Platná signature nie je správny audience. Scope nie je object ownership. Revoked refresh token neznamená automaticky zrušenie všetkých už vydaných access tokens a application sessions.
 
 ## Exact OAuth subject SEC-PAY-48
+
+Subject viaže protocol transaction na issuer, client, resource server, audience, scope, identity input generation a descendant tokens. Toto umožňuje rozlíšiť protocol-correct flow od authorization rozhodnutia založeného na stale directory state-e.
 
 ```yaml
 issuer: https://id.atlas.example

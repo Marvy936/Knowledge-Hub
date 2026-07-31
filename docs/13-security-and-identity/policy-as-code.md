@@ -23,6 +23,8 @@ Policy môže rozhodovať pri CI, registry promotion, API admission, runtime req
 
 ## Exact policy subject SEC-PAY-51
 
+Policy subject spája intended generation, loaded generation, input schema, cache a každý enforcement path. Bez tejto väzby môže správna rule rozhodovať nad neúplným inputom alebo zostať mimo custom-controller side effectu.
+
 ```yaml
 incident: SEC-PAY-51
 policyIntent: production may run only exact trusted multi-platform digests

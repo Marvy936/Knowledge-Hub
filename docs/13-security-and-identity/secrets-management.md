@@ -6,6 +6,8 @@ Secret je hodnotný preto, že ho cieľový systém akceptuje. Private signing k
 
 ## Capability-to-revocation lifecycle
 
+Secret lifecycle sa nekončí storage readom ani vytvorením novej version. Musí sledovať target trust, consumer-loaded generation, sessions a všetky descendants až po preukázanú revocation starej capability.
+
 ```text
 business purpose a target trust
 → exact secret subject, owner a consumers

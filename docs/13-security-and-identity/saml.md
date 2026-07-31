@@ -6,6 +6,8 @@ SAML signature nepotvrdzuje, že „používateľ je dôveryhodný“. Potvrdzuj
 
 ## Metadata-to-session lifecycle
 
+SAML session je dôveryhodná iba vtedy, keď metadata, signed XML node a pending transaction opisujú rovnaký issuer, SP a ACS boundary. Lifecycle preto oddeľuje key trust, XML validation, semantic checks a local session creation.
+
 ```text
 federation contract a metadata generation
 → IdP/SP entity IDs, endpoints, bindings a keys
@@ -23,6 +25,8 @@ federation contract a metadata generation
 Valid XML, trusted certificate a HTTP success sú iba medzistavy. Acceptance vznikne až vtedy, keď SP spracuje presne signed node určený pre jeho entity a transaction a následne vykoná local authorization.
 
 ## Exact SAML subject SEC-PAY-49
+
+Subject viaže Response a Assertion na exact entity IDs, ACS, request ID, metadata generation a key purpose. Tým bráni tomu, aby certificate thumbprint alebo shared ACS nahradili production federation contract.
 
 ```yaml
 incident: SEC-PAY-49
