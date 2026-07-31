@@ -1,55 +1,102 @@
 # Handlers, loops a conditionals
 
-Conditionals, loops a handlers nevytvárajú tri oddelené syntax features. Spolu určujú per-host control-flow state machine: či je operácia eligible, nad ktorými items sa vykoná, ako sa agreguje `changed` signal a kedy sa z queued notification stane runtime transition.
+Conditionals, loops a handlers nie sú tri nesúvisiace syntax features. Spolu vytvárajú per-host control-flow state machine: condition určí eligibility, loop vytvorí item inventory a per-item operations, `changed` signal agreguje mutation evidence a handler z queued notification vykoná runtime reload alebo restart. Ak je input type, item completeness alebo changed signal chybný, handler môže správne vykonať nesprávnu reakciu alebo sa nevykonať vôbec.
 
-Hlavný model:
+Kapitola uzatvára incident `IAC-PAY-78`. Atlas Payments spravuje sadu proxy virtual-host configurations. Dynamic inventory vráti string `"false"`, ktorý condition vyhodnotí ako truthy a povolí admin listener. Iný host zlyhá na treťom loop iteme po tom, čo prvé dva files zmenil; host sa vyradí pred handler phase. Na ďalšom hoste retry zopakuje non-idempotentný delegated POST a vytvorí duplicate deployment record. Všetky failures vznikajú z neuzavretého per-host/item/handler lifecycle-u.
+
+## 1. Dominantný eligibility-to-runtime lifecycle
 
 ```text
-validated host inputs a facts
-→ task condition
+validated host/item inputs a fresh facts
+→ condition eligibility decision
 → stable item inventory
 → per-item operation a result
 → aggregate changed/failed/skipped state
-→ handler notification queue
+→ handler topic notification queue
 → handler synchronization point
-→ runtime verification
-→ recovery alebo convergence closure
+→ runtime transition
+→ per-host loaded-state verification
+→ partial-item recovery a second-run convergence
 ```
 
-Ak condition, item inventory alebo changed signal nie je dôveryhodný, handler môže správne vykonať nesprávnu reakciu alebo sa nevykonať vôbec.
-
-## 1. Atlas scenár: virtual-host rollout
-
-Atlas Payments spravuje na každom proxy hoste sadu virtual-host konfigurácií:
+## 2. Condition je policy decision
 
 ```yaml
-atlas_virtual_hosts:
-  - name: payments-api
-    enabled: true
-    port: 8443
-  - name: payments-admin
-    enabled: false
-    port: 9443
-  - name: payments-metrics
-    enabled: true
-    port: 9100
+when:
+  - atlas_environment == 'prod-eu'
+  - vhost.enabled | bool
+  - ansible_facts.os_family == 'Debian'
 ```
 
-Playbook má:
+Condition subject zahŕňa:
 
-1. validovať všetky items;
-2. renderovať iba enabled virtual hosts;
-3. odstrániť disabled konfigurácie;
-4. reloadnúť proxy iba pri reálnej content zmene;
-5. overiť, že process načítal presnú očakávanú sadu listenerov.
+```text
+host identity
+effective variable values a types
+fact/registered-result freshness
+current loop item
+include/role scope
+filter/test implementation
+```
+
+Condition false znamená `skipped`, nie automaticky correct. Neplatný alebo chýbajúci critical input má zlyhať preflight assertionom namiesto tichého skipu.
+
+Oficiálna dokumentácia umožňuje conditions nad variables, facts a registered results a odporúča default empty iterator pri optional loop inpute. To je execution mechanism; risk-significant missing collection však nemá byť ticho konvertovaná na empty set. citeturn329472search7
+
+## 3. Boolean a type contract
+
+Rizikový input:
 
 ```yaml
-- name: Validate virtual-host contract
+atlas_admin_enabled: "false"
+```
+
+Riziková condition:
+
+```yaml
+when: atlas_admin_enabled
+```
+
+Non-empty string môže byť truthy. Bezpečný pattern:
+
+```yaml
+- name: Validate admin flag type and value
   ansible.builtin.assert:
     that:
-      - atlas_virtual_hosts | map(attribute='name') | list | unique | length == atlas_virtual_hosts | length
-      - atlas_virtual_hosts | map(attribute='port') | map('int') | min > 0
+      - atlas_admin_enabled is boolean
 
+- name: Render admin listener
+  ansible.builtin.template:
+    src: admin.conf.j2
+    dest: /etc/atlas/vhosts/admin.conf
+  when: atlas_admin_enabled
+```
+
+Ak source plugin poskytuje strings, normalizuj a validuj pri boundary. Filter `| bool` znižuje ambiguity, ale nemá ticho prijať arbitrary text bez allowed-value contractu.
+
+## 4. Facts a registered results v conditions
+
+```yaml
+- name: Read migration status
+  ansible.builtin.command:
+    argv: [/opt/atlas/bin/migration-status, --json]
+  register: migration_status
+  changed_when: false
+  failed_when: migration_status.rc not in [0, 3]
+
+- name: Run migration
+  atlas.database.migrate:
+    release: "{{ atlas_release_version }}"
+  when:
+    - migration_status is succeeded
+    - migration_status.rc == 3
+```
+
+Skipped alebo failed registered result nemusí mať rovnaké fields. Downstream conditions musia rozlíšiť undefined, skipped, failed a success paths.
+
+## 5. Loop je item inventory, nie transakcia
+
+```yaml
 - name: Render enabled virtual hosts
   ansible.builtin.template:
     src: vhost.conf.j2
@@ -63,105 +110,57 @@ Playbook má:
   notify: Atlas proxy configuration changed
 ```
 
-Jeden host môže mať v tom istom tasku changed, skipped aj failed items. Handler correctness preto závisí od celého item result setu, nie iba od top-level zelenej farby.
-
-## 2. Condition je eligibility decision
-
-`when` sa vyhodnocuje pre konkrétny host a pri loop-e pre konkrétny item:
-
-```yaml
-when:
-  - atlas_environment == 'production'
-  - vhost.enabled | bool
-  - ansible_facts.os_family == 'Debian'
-```
-
-Condition subject zahŕňa:
+Execution:
 
 ```text
-host identity
-variable values a types
-fact/registered-result freshness
-current item
-include/role scope
-controller runtime a filter/test implementation
+host × item A
+host × item B
+host × item C
 ```
 
-Complex condition má byť pomenovaná a testovaná. Dlhá inline expression skrýva business policy v task syntaxe.
+Ak C zlyhá, A a B už mohli mutovať target. Loop neposkytuje rollback. Pred mutation sa validuje celý item set.
+
+## 6. Complete item preflight
 
 ```yaml
-atlas_should_render_vhost: >-
-  {{ vhost.enabled | bool
-     and atlas_environment in ['stage', 'production']
-     and vhost.port | int > 0 }}
+- name: Validate virtual-host inventory
+  ansible.builtin.assert:
+    that:
+      - atlas_virtual_hosts is sequence
+      - atlas_virtual_hosts | length > 0
+      - atlas_virtual_hosts | map(attribute='name') | list | unique | length == atlas_virtual_hosts | length
+      - atlas_virtual_hosts | map(attribute='port') | map('int') | min > 0
+      - atlas_virtual_hosts | map(attribute='port') | map('int') | max < 65536
+    fail_msg: Virtual-host inventory is incomplete or invalid
 ```
 
-Pre kritické rozhodnutia je lepší explicitný preflight assertion než tiché skipnutie nevalidnej hodnoty.
+Assertion preukazuje listed invariants pre effective item set. Nepreukazuje port availability, parser success ani absence external config files.
 
-## 3. Boolean a type semantics
+## 7. Stable item identity
 
-Hodnota môže prísť ako YAML boolean, string z inventory pluginu alebo extra var. Text `"false"` nie je bezpečné považovať za správne typed boolean bez normalizácie.
-
-```yaml
-when: atlas_feature_enabled | bool
-```
-
-Filter znižuje ambiguity, ale stále treba validovať allowed source a type contract. Invalid text nemá byť ticho konvertovaný na production decision.
-
-## 4. Facts a registered results v conditions
-
-Fact-based branch:
-
-```yaml
-when: ansible_facts.distribution_major_version | int >= 9
-```
-
-Registered-result branch:
-
-```yaml
-- name: Read migration status
-  ansible.builtin.command: /opt/atlas/bin/migration-status --json
-  register: migration_status
-  changed_when: false
-  failed_when: migration_status.rc not in [0, 3]
-
-- name: Run required migration
-  ansible.builtin.command: /opt/atlas/bin/migrate
-  when: migration_status.rc == 3
-```
-
-Condition musí rozlíšiť successful, failed, skipped a undefined result paths. Parsing voľného stdout textu je krehkejší než explicitný exit-code alebo JSON contract.
-
-## 5. Loop je item inventory, nie transakcia
-
-Loop vytvorí sériu per-item operations na každom hoste:
+Item `name` je destination identity:
 
 ```text
-host × item inventory
-→ item 1 result
-→ item 2 result
-→ item 3 result
+payments-api → /etc/atlas/vhosts/payments-api.conf
 ```
 
-Ak item 3 zlyhá, items 1 a 2 už mohli zmeniť target. Loop neposkytuje automatický rollback.
-
-Pred mutation validuj celý item set:
-
-- uniqueness identity keys;
-- required fields a types;
-- stable ordering tam, kde má význam;
-- forbidden combinations;
-- expected item count;
-- side-effect a retry semantics.
-
-Ak module podporuje list argument atomickejšie alebo efektívnejšie, preferuj ho pred task loop-om. Semantics však treba overiť v module contracte.
-
-## 6. `loop_control` a nested execution
-
-Explicitný `loop_var` chráni pred collision:
+Duplicate alebo mutable name môže prepísať iný artifact. Item inventory manifest:
 
 ```yaml
-- name: Configure Atlas regions
+- name: Build expected vhost manifest
+  ansible.builtin.set_fact:
+    atlas_expected_vhosts: >-
+      {{ atlas_virtual_hosts
+         | selectattr('enabled', 'equalto', true)
+         | map(attribute='name')
+         | sort
+         | list }}
+```
+
+## 8. Nested loops a `loop_var`
+
+```yaml
+- name: Configure regions
   ansible.builtin.include_tasks: region.yml
   loop: "{{ atlas_regions }}"
   loop_control:
@@ -169,285 +168,368 @@ Explicitný `loop_var` chráni pred collision:
     label: "{{ atlas_region.name }}"
 ```
 
-Implicitný `item` v nested includes môže prepísať outer context a aplikovať inner operation na nesprávny region alebo host group.
+Implicitný `item` v outer aj inner loop-e môže prepísať context. Named loop vars sú contract, nie iba readability.
 
-`label` zlepšuje output, ale nechráni secret. Full item môže zostať v registered result alebo callback evente.
+`label` obmedzí zobrazený label, ale full item môže zostať v registered results/callbacks. Nie je to secret protection.
 
-## 7. Registered loop result
-
-Registered loop task vracia per-item `results`:
+## 9. Registered loop result
 
 ```yaml
-- name: Verify Atlas endpoints
+- name: Verify endpoints
   ansible.builtin.uri:
     url: "{{ endpoint.url }}"
+    validate_certs: true
+    return_content: true
   loop: "{{ atlas_endpoints }}"
   loop_control:
     loop_var: endpoint
-  register: atlas_endpoint_checks
+  register: endpoint_checks
   changed_when: false
 ```
 
-Downstream logic musí pre každý result rozlíšiť:
-
-```text
-item identity
-attempt count
-changed
-failed
-skipped
-module-specific status
-last observed state
-```
-
-Top-level result nesmie nahradiť per-item completeness decision.
-
-## 8. Loop a retry sú odlišné mechanizmy
-
-Business loop spracúva viac predmetov. `until` retry opakuje jednu operation pre transient condition:
+Per-item evaluation:
 
 ```yaml
-- name: Wait for loaded configuration version
+- name: Assert every endpoint succeeded
+  ansible.builtin.assert:
+    that:
+      - item.status == 200
+      - item.json.release == atlas_release_version
+  loop: "{{ endpoint_checks.results }}"
+  loop_control:
+    label: "{{ item.endpoint.url | default('unknown') }}"
+```
+
+Top-level task status nemá nahradiť per-item completeness a identity.
+
+## 10. Retry verzus business loop
+
+`loop` spracúva viac items. `until` opakuje jednu operation pri transient condition:
+
+```yaml
+- name: Wait for loaded configuration
   ansible.builtin.uri:
     url: https://127.0.0.1:8443/runtime
     return_content: true
+    validate_certs: true
   register: runtime_result
-  until: runtime_result.json.config_version == atlas_release_version
+  until:
+    - runtime_result.status == 200
+    - runtime_result.json.config_version == atlas_release_version
   retries: 12
   delay: 5
   changed_when: false
 ```
 
-Retry contract potrebuje:
+Retry contract:
 
-- maximum attempts alebo total timeout;
-- classification transient vs. permanent failure;
-- idempotent operation alebo idempotency key;
-- last observation a request ID evidence;
-- abort a recovery path.
+```text
+transient condition
+bounded attempts/time
+idempotent read alebo mutation identity
+last observation evidence
+permanent-failure classification
+recovery path
+```
 
-Retry non-idempotent POST-u môže vytvoriť duplicate remote objects, ak prvý request uspel a response sa stratila.
+## 11. Non-idempotent retry a unknown outcome
 
-## 9. Handler ako queued runtime transition
+Delegated POST:
 
-Handler sa notify-ne iba keď notifying task reportuje `changed: true`:
+```yaml
+- name: Create deployment record
+  ansible.builtin.uri:
+    url: https://deployments.example/api/deployments
+    method: POST
+    body_format: json
+    body:
+      release: "{{ atlas_release_version }}"
+      cohort: "{{ ansible_play_batch }}"
+    headers:
+      Idempotency-Key: "{{ atlas_run_id }}-{{ atlas_batch_id }}"
+    status_code: [200, 201]
+```
+
+Bez idempotency key môže response timeout po successful commit vyvolať duplicate pri retry. Unknown outcome sa najprv queryuje podľa request ID/idempotency key.
+
+## 12. Handler ako queued runtime transition
 
 ```yaml
 handlers:
-  - name: Reload Atlas proxy process
+  - name: Reload Atlas proxy
     ansible.builtin.service:
       name: atlas-proxy
       state: reloaded
     listen: Atlas proxy configuration changed
 ```
 
-Handler lifecycle:
+Lifecycle:
 
 ```text
-task detects real state delta
-→ task mutates artifact
-→ changed signal
-→ notification topic queued per host
-→ later handler synchronization point
-→ runtime reload/restart
-→ health a loaded-state verification
+task pozoruje content delta
+→ artifact mutation
+→ changed=true
+→ topic queued per host
+→ handler phase alebo flush
+→ reload/restart
+→ loaded-state verification
 ```
 
-Viac notifications sa typicky deduplikuje do jedného handler executionu pre host a phase. Handler order vyplýva z resolved definition orderu, nie z poradia notify statements.
+Viac notifications sa deduplikuje podľa handler semantics. Handler order nevyplýva jednoducho z poradia notify statements.
 
-## 10. Handler timing a `flush_handlers`
-
-Handler sa štandardne nevykoná okamžite. Downstream task pred handler phase môže vidieť nový file, ale starý process state.
-
-Keď existuje tvrdá dependency:
-
-```text
-render config
-→ reload process
-→ smoke test nového runtime
-```
-
-použi explicitný synchronization point:
-
-```yaml
-- name: Apply pending Atlas handlers
-  ansible.builtin.meta: flush_handlers
-```
-
-Nadmerné flushovanie ruší batching a zvyšuje restart frequency. Každý flush má mať jasnú post-handler oracle.
-
-## 11. Worked failure: partial loop mutation bez handler transitionu
-
-Host má tri virtual hosts. Prvé dva templates sa úspešne zmenia. Tretí item má missing `port` a task zlyhá pred handler phase.
-
-```text
-item A changed
-→ item B changed
-→ item C failed
-→ host vypadne z ďalšieho execution pathu
-→ queued reload sa nevykoná
-→ files sú čiastočne nové, process stále používa starý runtime
-```
-
-Recovery musí porovnať desired item inventory, files na disku a loaded process state. Možnosti sú doplniť missing input a roll-forwardnúť celý host alebo obnoviť prior complete artifact set. Spustiť handler naslepo môže načítať neúplnú konfiguráciu.
-
-Skorší control: pre-validácia celého item setu a staging directory s complete-set validation pred atomickým activation switchom.
-
-## 12. Worked failure: string boolean aktivoval disabled feature
-
-Dynamic inventory vráti:
-
-```yaml
-atlas_admin_enabled: "false"
-```
-
-Condition používa priamo value bez validation:
-
-```yaml
-when: atlas_admin_enabled
-```
-
-Non-empty string sa správa truthy:
-
-```text
-text "false"
-→ condition je true
-→ admin listener sa vyrenderuje
-→ handler reloadne proxy
-→ production exposure vznikne bez intended approval
-```
-
-Fix zahŕňa typed source contract, explicitnú normalizáciu, preflight assertion a post-reload exposure verification.
-
-## 13. Worked failure: retry vytvoril duplicate shared operation
-
-Delegovaný task registruje hosty do external deployment API. Prvý POST uspel, ale response timeoutla. `until` task request zopakuje bez idempotency key.
-
-```text
-remote mutation commitla
-→ client nepozná outcome
-→ retry vytvorí druhý deployment record
-→ dva controllers pokračujú v rovnakom rolloute
-```
-
-Unknown outcome sa najprv overuje cez request ID alebo remote query. Retry je bezpečný iba pri idempotentnej operation alebo server-side deduplication identity.
-
-## 14. Handler failures a `force_handlers`
-
-Ak host neskôr zlyhá, queued handler nemusí prebehnúť. `force_handlers` môže vynútiť execution, ale nie je univerzálny repair mechanism.
-
-Handler smie bežať po partial failure iba ak sú splnené jeho preconditions. Reload neúplného config setu môže zhoršiť incident. Bezpečnejší model používa block/rescue a explicitne klasifikuje:
-
-```text
-artifact set complete a valid → reload
-artifact set incomplete → revert alebo isolate
-runtime transition unknown → observe pred retry
-```
-
-## 15. Notification topics a reusable contract
-
-`listen` topic oddeľuje caller od interného handler názvu:
+## 13. `listen` topic ako reusable event contract
 
 ```yaml
 notify: Atlas proxy configuration changed
 ```
 
-Topic je reusable event contract. Potrebuje namespacing, stable meaning a dokumentáciu. Generic topic `restart service` môže kolidovať medzi roles alebo spustiť viac handlers, než caller očakáva.
+Topic oddeľuje caller od interného handler name. Musí mať stable, namespaced meaning. Generic `restart service` môže kolidovať medzi roles alebo spustiť viac handlers, než caller očakáva.
 
-Handler condition má byť jednoduchá. Variable context sa môže medzi notify a handler phase zmeniť alebo nemusí existovať na každom path-e.
+## 14. Handler timing a `flush_handlers`
 
-## 16. Causal troubleshooting walkthrough: files sú nové, ale nie všetky hosts používajú nový runtime
+Ak smoke test potrebuje nový loaded state:
 
-### 1. Zafixuj control-flow subject
+```yaml
+- name: Render configurations
+  ansible.builtin.template:
+    # ...
+  notify: Atlas proxy configuration changed
 
-Zaznamenaj host IDs, effective inputs a types, fact generation, task/include path, item inventory digest, per-item results, changed signals, handler topic/definition, batch a run ID.
+- name: Flush pending handlers before verification
+  ansible.builtin.meta: flush_handlers
 
-### 2. Súťažiace hypotézy
+- name: Verify listeners
+  ansible.builtin.command:
+    argv: [/usr/sbin/atlas-proxy, --runtime-listeners, --json]
+  register: listeners
+  changed_when: false
+```
 
-1. Condition skipla task pre časť hosts alebo items.
-2. String/undefined type zmenil boolean decision.
-3. Nested loop prepísal `item` a zmenil destination.
-4. Item failure nastal po partial mutations.
-5. Custom `changed_when` reportoval false no-change.
-6. Handler nebol loaded alebo topic kolidoval.
-7. Host zlyhal pred handler phase.
-8. `flush_handlers` prebehol pred complete artifact setom.
-9. Runtime verifier číta stale proces alebo nesprávny endpoint.
+`flush_handlers` je synchronization point. Môže vykonať všetky pending handlers a meniť restart frequency/failure timing. Každý flush má mať jasný dependency dôvod.
 
-### 3. Diskriminačné observation points
+## 15. Partial item failure pred handler phase
 
-- redacted condition inputs a exact type;
-- per-host/per-item registered `results`;
-- destination inventory a checksums;
-- skipped/failed sequence timeline;
-- changed result a notify event;
-- resolved handler definitions a execution events;
-- process start/reload time a loaded config version;
-- batch/flush timeline.
+Items A a B zmenia files, item C zlyhá pre missing port:
 
-### 4. Containment
+```text
+A changed
+→ B changed
+→ C failed
+→ host vypadne
+→ queued reload nemusí prebehnúť
+→ disk partial-new, process old
+```
 
-Pozastav ďalšie batches a hosts bez complete runtime verification odstráň z trafficu. Nevykonávaj globálny forced reload bez validácie artifact setu.
+Spustiť handler naslepo môže načítať incomplete configuration. Recovery najprv validuje complete artifact set.
 
-### 5. Recovery
+Silnejší deployment model:
 
-- condition/type error → oprav contract a rerun complete item inventory;
-- nested loop collision → použij named loop vars a audit destinations;
-- partial item set → complete roll-forward alebo restore prior set;
-- false changed signal → oprav result contract a vykonaj bounded handler transition;
-- handler resolution problem → oprav topic/load path a testuj role integration;
-- stale verifier → použi process-level observation.
+```text
+render všetky files do staging directory
+→ validate complete directory
+→ atomic symlink/directory switch
+→ reload
+→ runtime verify
+```
 
-### 6. Over pôvodný outcome
+## 16. Complete-set staging example
 
-Potvrď expected item inventory, artifact checksums, loaded listeners/config version a second-run convergence na každom expected hoste.
+```yaml
+- name: Create staging directory
+  ansible.builtin.file:
+    path: "/var/lib/atlas/vhosts-{{ atlas_release_version }}"
+    state: directory
+    owner: root
+    group: atlas
+    mode: '0750'
 
-### 7. Posuň control skôr
+- name: Render all enabled vhosts to staging
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: "/var/lib/atlas/vhosts-{{ atlas_release_version }}/{{ vhost.name }}.conf"
+    mode: '0640'
+  loop: "{{ atlas_virtual_hosts }}"
+  loop_control:
+    loop_var: vhost
+  when: vhost.enabled | bool
 
-Pridaj typed condition fixtures, complete item pre-validation, per-item evidence, handler integration test a fleet-level loaded-state gate.
+- name: Validate complete staged configuration
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/atlas-proxy
+      - --check-directory
+      - "/var/lib/atlas/vhosts-{{ atlas_release_version }}"
+  changed_when: false
 
-## 17. Referenčné pravidlá
+- name: Activate staged configuration
+  ansible.builtin.file:
+    src: "/var/lib/atlas/vhosts-{{ atlas_release_version }}"
+    dest: /etc/atlas/vhosts-active
+    state: link
+    force: true
+  notify: Atlas proxy configuration changed
+```
 
-- Condition je host/item eligibility decision s typed input subjectom.
-- Fact alebo registered result musí byť dostupný a fresh na každom path-e.
-- Loop je per-item execution, nie transakcia.
-- Nested loops používajú explicitné `loop_var`.
-- Registered loop result sa hodnotí po items, nie iba top-level.
-- Retry potrebuje transient classification a idempotency.
-- `changed` je vstup do handler state machine.
-- Handler je queued runtime transition, nie okamžitý side effect.
-- `flush_handlers` je synchronization point s explicitnou dependency.
-- `force_handlers` nevaliduje partial state.
-- Complete success zahŕňa artifact aj loaded runtime state.
+Symlink switch atomicity závisí od filesystem a module behavioru. Runtime stále musí verify-nuť loaded listeners.
 
-## 18. Kontrolné otázky
+## 17. False `changed` signal
 
-1. Čo tvorí conditional decision subject?
-2. Prečo string `"false"` môže aktivovať task?
-3. Čo sa stane pri failure uprostred loop-u?
-4. Ako sa líši business loop od retry loop-u?
-5. Prečo retry potrebuje idempotency key pri remote POST-e?
-6. Kedy sa handler notify-ne?
-7. Prečo nový file ešte neznamená nový runtime?
-8. Kedy je `flush_handlers` správny synchronization point?
-9. Prečo `force_handlers` môže byť po partial failure nebezpečný?
-10. Aké evidence dokazujú complete item a runtime convergence?
+Custom task mutuje files, ale `changed_when: false` odstráni noise:
+
+```text
+mutation complete
+→ changed=false
+→ no notification
+→ old process state
+```
+
+Opačný failure: task vždy reports changed a service sa reštartuje pri každom run-e. Správny changed signal pochádza z state-aware comparison.
+
+## 18. Handler failure a forced handlers
+
+`force_handlers` môže spustiť notified handlers aj po neskoršom failure, ale nepreukazuje, že artifacts sú complete a valid. Reload partial config setu môže incident zhoršiť.
+
+Rozhodovací contract:
+
+```text
+complete validated artifact set
+→ handler allowed
+
+incomplete/unknown artifact set
+→ isolate, restore alebo complete roll-forward
+```
+
+## 19. Worked incident: string boolean otvoril admin listener
+
+```yaml
+atlas_admin_enabled: "false"
+```
+
+Condition bez type validation ho vyhodnotila truthy:
+
+```text
+admin template rendered
+→ changed notification
+→ proxy reload
+→ production admin exposure
+```
+
+Recovery odstráni listener, overí network exposure, opraví inventory typing/preflight a pridá forbidden string-boolean fixture.
+
+## 20. Worked incident: duplicate deployment POST
+
+Prvý POST commitol, response sa stratila a retry bez idempotency identity vytvoril druhý deployment record. Dvaja controllers začali spravovať rovnakú cohortu.
+
+Recovery:
+
+1. zastaviť rollout controllers;
+2. zachovať request IDs a API audit;
+3. určiť authoritative deployment record;
+4. cancel/close duplicate;
+5. reconcile host cohort;
+6. pridať idempotency key a unknown-outcome query.
+
+## 21. Competing hypotheses pri files-new/process-old
+
+```text
+H1: condition skipla niektoré items
+H2: item input type bol chybný
+H3: partial loop failure
+H4: changed=false zabránil notification
+H5: handler topic nebol resolved
+H6: host failed pred handler phase
+H7: flush prebehol príliš skoro
+H8: process číta iný active directory
+H9: verifier číta stale endpoint
+```
+
+Dôkazy:
+
+- condition inputs/types a per-item results H1–H3;
+- changed/notify events H4/H5;
+- host task timeline H6/H7;
+- active symlink/open files/process config H8;
+- direct process observation H9.
+
+## 22. Evidence-preserving containment a recovery
+
+```text
+pause ďalšie batches
+→ preserve per-item results, file manifest a handler events
+→ remove unverified host from traffic
+→ classify partial artifact set
+→ restore prior set alebo complete roll-forward
+→ run handler only after complete validation
+→ verify loaded listeners/version
+→ verify expected endpoint inventory
+→ second converge run
+```
+
+## 23. Acceptance a forbidden paths
+
+```text
+condition inputs sú typed a validated
++ missing critical list nie je empty no-op
++ item identities sú unique/stable
++ per-item results sú complete
++ retries sú bounded a idempotent
++ changed signal koreluje s mutation
++ handler topic/definition/execution sú auditovateľné
++ partial artifact set sa nereloadne
++ string "false" fixture je odmietnutá
++ duplicate POST fixture sa deduplikuje
++ second run je converged
++ loaded runtime inventory zodpovedá expected setu
+```
+
+## 24. Anti-patterny
+
+### „Skipped znamená, že task nebol potrebný“
+
+Môže znamenať chybný condition input alebo missing fact.
+
+### „Loop je all-or-nothing“
+
+Pred failure mohli viaceré items mutovať target.
+
+### „Retry vyrieši timeout“
+
+Pri unknown non-idempotent mutation môže vytvoriť duplicate.
+
+### „Handler sa spustí hneď“
+
+Je queued do synchronization pointu.
+
+### „`force_handlers` dokončí partial rollout“
+
+Môže načítať incomplete artifact set.
+
+## 25. Kontrolné otázky
+
+1. Čo tvorí condition subject?
+2. Prečo string `"false"` môže byť nebezpečný?
+3. Ako sa validuje complete item inventory?
+4. Prečo loop nie je transakcia?
+5. Aký rozdiel je medzi loop a retry?
+6. Kedy retry potrebuje idempotency key?
+7. Ako `changed` ovplyvňuje handler state machine?
+8. Čo `listen` topic poskytuje?
+9. Kedy je `flush_handlers` potrebný?
+10. Prečo forced handler nemusí byť bezpečný po failure?
+11. Ako complete-set staging znižuje partial configuration risk?
+12. Ako sa dokazuje loaded runtime state a second-run convergence?
 
 ## Glossary impact
 
-Relevantné pojmy: control-flow subject, conditional eligibility, typed condition input, item inventory, per-item result, partial loop mutation, retry contract, unknown retry outcome, changed aggregation, handler notification queue, handler synchronization point, notification topic contract, forced-handler risk a loaded-runtime convergence.
+Relevantné pojmy: Ansible conditional, eligibility decision, boolean normalization, loop, item identity, loop_var, registered loop result, retry, until, idempotency key, handler, notification topic, listen, flush_handlers, force_handlers, partial item state, staged artifact set a loaded-state verification.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
 - [Conditionals](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_conditionals.html)
 - [Loops](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_loops.html)
-- [Handlers: running operations on change](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_handlers.html)
-- [Error handling in playbooks](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
+- [Handlers](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_handlers.html)
+- [Error handling](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_error_handling.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Variables, facts a templates](variables-facts-templates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Roles a collections →](roles-and-collections.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
