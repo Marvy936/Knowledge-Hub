@@ -301,5 +301,5 @@ Acceptance vyžaduje stabilný new-series/stream rate, head/ingester memory reco
 
 **Navigácia**
 
-[← Predchádzajúca: Alert design a alert fatigue](alert-design-alert-fatigue.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CI/CD, delivery a governance →](../13-cicd-delivery-governance/README.md)
+[← Predchádzajúca: Alert design a alert fatigue](alert-design-alert-fatigue.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CIA triáda →](../13-security-and-identity/cia-triad.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
