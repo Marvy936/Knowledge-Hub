@@ -21,7 +21,7 @@ system alebo business event
 → evidence and recovery closure
 ```
 
-HTTP `200` z `_bulk` neznamená, že všetky items uspeli. Bulk response obsahuje top-level `errors` a per-item status/error. Client musí vyhodnotiť každý item a retryovať iba eligible failures s idempotentnou document identity. citeturn662053search6turn662053search23turn662053search46
+HTTP `200` z `_bulk` neznamená, že všetky items uspeli. Bulk response obsahuje top-level `errors` a per-item status/error. Client musí vyhodnotiť každý item a retryovať iba eligible failures s idempotentnou document identity.
 
 ## Exact search subject
 
@@ -45,7 +45,7 @@ Pri OpenSearch by subject uvádzal OpenSearch distribution/version, Index State 
 
 ## Component a index templates
 
-Elasticsearch data stream potrebuje matching index template s `data_stream` objectom. OpenSearch používa rovnaký základný concept, ale current API a lifecycle features sa viažu na jeho dokumentáciu. citeturn662053search4turn662053search10turn662053search36turn662053search41
+Elasticsearch data stream potrebuje matching index template s `data_stream` objectom. OpenSearch používa rovnaký základný concept, ale current API a lifecycle features sa viažu na jeho dokumentáciu.
 
 Component template pre log mapping:
 
@@ -74,7 +74,7 @@ curl -fsS -X PUT "$SEARCH_URL/_component_template/atlas-payments-log-fields-v12"
   }'
 ```
 
-Command preukazuje accepted component-template update v target clusteri. Neaplikuje mapping spätne na existujúce backing indexes. Component templates sa použijú pri vytvorení nových indexes/data stream backing indexes. citeturn662053search37
+Command preukazuje accepted component-template update v target clusteri. Neaplikuje mapping spätne na existujúce backing indexes. Component templates sa použijú pri vytvorení nových indexes/data stream backing indexes.
 
 Index template:
 
@@ -97,7 +97,7 @@ curl -fsS -X PUT "$SEARCH_URL/_index_template/logs-atlas-payments-v12" \
   }'
 ```
 
-Template priority a overlapping patterns môžu zmeniť effective result. Pred rolloutom sa používa template simulation podľa produktu. OpenSearch poskytuje simulate index template API; Elasticsearch má equivalent simulation surfaces v current API. citeturn662053search40
+Template priority a overlapping patterns môžu zmeniť effective result. Pred rolloutom sa používa template simulation podľa produktu. OpenSearch poskytuje simulate index template API; Elasticsearch má equivalent simulation surfaces v current API.
 
 ```bash
 curl -fsS -X POST "$SEARCH_URL/_index_template/_simulate_index/logs-atlas-payments-production" \
@@ -110,7 +110,7 @@ Výstup preukazuje template resolution pre synthetic index name. Nepreukazuje ma
 
 ## Data stream a backing indexes
 
-Data stream poskytuje stable write/search name nad generation backing indexes. Writes smerujú na current write index, searches na všetky relevantné backing indexes. citeturn662053search8turn662053search41
+Data stream poskytuje stable write/search name nad generation backing indexes. Writes smerujú na current write index, searches na všetky relevantné backing indexes.
 
 ```bash
 curl -fsS -X PUT \
@@ -125,7 +125,7 @@ curl -fsS \
 
 Create command preukazuje data-stream creation podľa matching template. Read-back ukáže backing index generations a current metadata. Nepreukazuje document mapping correctness alebo search freshness.
 
-Rollover vytvorí nový backing index, na ktorý sa aplikujú current templates. Mapping change preto často potrebuje template update plus rollover. In-place mapping update podporuje iba compatible additions; existing field type nemožno bezpečne zmeniť na incompatible type bez nového index/data stream generation a reindex/migration. citeturn662053search14turn662053search17
+Rollover vytvorí nový backing index, na ktorý sa aplikujú current templates. Mapping change preto často potrebuje template update plus rollover. In-place mapping update podporuje iba compatible additions; existing field type nemožno bezpečne zmeniť na incompatible type bez nového index/data stream generation a reindex/migration.
 
 ## Bulk ingest a per-item acknowledgement
 
