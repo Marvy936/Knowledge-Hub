@@ -11,7 +11,7 @@ docs/12-observability/instrumentation-telemetry.md|strict=23/32/11|prose=1335|bu
 docs/12-observability/jaeger-tempo.md|strict=22/26/7|prose=669|bullet_share=0.479|blocks=18|executable=0|explanations=3
 docs/12-observability/loki.md|strict=32/28/8|prose=767|bullet_share=0.438|blocks=22|executable=3|explanations=2
 docs/12-observability/metrics-logs-traces-events.md|strict=15/25/4|prose=1161|bullet_share=0.277|blocks=13|executable=0|explanations=9
-docs/12-observability/monitoring-vs-observability.md|strict=15/22/8|prose=1192|bullet_share=0.318|blocks=15|executable=0|explanations=13
+docs/12-observability/monitoring-vs-observability.md|strict=0/0/0|prose=1059|bullet_share=0.108|blocks=10|executable=7|explanations=15
 docs/12-observability/opentelemetry.md|strict=30/25/14|prose=801|bullet_share=0.429|blocks=18|executable=0|explanations=4
 docs/12-observability/prometheus.md|strict=32/34/12|prose=1142|bullet_share=0.397|blocks=23|executable=1|explanations=8
 docs/12-observability/red-method.md|strict=24/26/7|prose=1261|bullet_share=0.285|blocks=22|executable=0|explanations=2
@@ -52,8 +52,6 @@ loki.md: bullet share 0.438
 loki.md: evidence explanation too thin (2)
 metrics-logs-traces-events.md: strict findings
 metrics-logs-traces-events.md: practical examples too thin
-monitoring-vs-observability.md: strict findings
-monitoring-vs-observability.md: practical examples too thin
 opentelemetry.md: strict findings
 opentelemetry.md: bullet share 0.429
 opentelemetry.md: practical examples too thin
