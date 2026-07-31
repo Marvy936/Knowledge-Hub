@@ -1,519 +1,354 @@
 # Continuous Deployment
 
-## Metadata
+Continuous Deployment je release model, v ktorom každý exact release candidate, ktorý splní automatizovanú promotion policy, pokračuje bez rutinného manuálneho approvalu do produkčného deploymentu, bounded exposure a následného acceptance alebo recovery rozhodnutia. Automatizácia sa netýka iba spustenia `deploy` commandu. Musí automatizovať eligibility, preconditions, state transitions, observation windows, verdict, containment a lifecycle closure.
 
-- Status: Learning
-- Level: L2
-- Domain: CI/CD and Release Engineering
+Odstránenie approval tlačidla samo osebe nie je Continuous Deployment. Ak evidence nie je complete, target environment generation nie je známa, canary cohort nie je stabilný alebo recovery vyžaduje improvizáciu, automatizácia iba skracuje čas od defectu k incidentu. Dôveryhodný model automatizuje bezpečné rozhodnutie nad exact subjectom.
 
-Continuous Deployment je delivery model, v ktorom každý artifact spĺňajúci automatizovanú promotion policy pokračuje bez rutinného manuálneho release approvalu do produkčného rollout-u a následnej produkčnej validácie.
+## 1. Dominantný policy-to-production model
 
-```text
-promotable immutable artifact
-→ complete a fresh evidence
-→ risk a environment policy
-→ bounded production exposure
-→ technical + functional + business oracle
-→ promote / pause / abort / recover
-→ post-promotion observation
-→ policy a test learning
-```
-
-Continuous Deployment nie je „po zelenom CI pošli 100 % trafficu“. Automatizuje rozhodnutie aj bezpečné state transitions. Ak mainline, deployability, observability alebo recovery nie sú dôveryhodné, odstránenie approval tlačidla iba zrýchli incident.
-
-## 1. Cieľ kapitoly
-
-Nosný model kapitoly je policy-driven rollout lifecycle:
+Continuous Deployment nadväzuje na Continuous Delivery. Candidate už musí mať immutable artifacts, environment-compatible configuration a preukázanú recovery eligibility. Deployment control loop potom rozhoduje, či a ako candidate vstúpi do produkcie.
 
 ```text
-promotable candidate
+promotable release candidate
 → evidence completeness a freshness
-→ change-risk classification
-→ target-health a incident policy
-→ deployment bez alebo s obmedzenou exposure
-→ matched canary/control evidence
-→ viacstavové rollout rozhodnutie
-→ rollback, roll-forward, flag-off alebo containment
+→ change-risk a target-health classification
+→ production deployment bez alebo s minimálnou exposure
+→ stable cohort a traffic/feature assignment
+→ technical, functional a business observations
+→ promote, pause, abort alebo contain verdict
+→ rollback, roll-forward, flag-off, compensation alebo restore
 → delayed-failure watch
-→ audit a zlepšenie policy
+→ old-generation retirement a policy learning
 ```
 
-Manuálny approval je nahradený explicitnou, verzovanou a vysvetliteľnou policy. Rozhodnutie nezmizne; stáva sa automatizovaným a auditovateľným.
+Rozhodnutie nie je iba `true/false`. `PAUSE` znamená zachovať state a zbierať ďalší dôkaz; `ABORT` zastavuje ďalšiu exposure a spúšťa recovery; `INCONCLUSIVE` znamená, že observation contract nebol splnený a nesmie sa ticho premeniť na pass.
 
-## 2. Nosný scenár: Atlas Orders 3.10.0
+## 2. Exact deployment-decision subject
 
-Continuous Delivery označilo tieto artifacts ako promotable:
+Automatický controller potrebuje jeden subject spájajúci release, target a observed cohort:
+
+```yaml
+deploymentDecisionSubject:
+  releaseId: payments-10.0-rc.4
+  releaseManifestDigest: sha256:release1000rc4
+  artifactDigest: sha256:pay1000api
+  configurationSha: 71ac290
+  policyBundleSha: 66cf902
+  target:
+    clusterUid: 9f041da2
+    namespace: payments
+    environmentGeneration: prod-eu-1844
+  rollout:
+    controller: payments-api
+    revision: 281
+    strategyGeneration: canary-v12
+    cohortKey: account_id
+    canaryPopulation: 0.02
+  evidenceWindow:
+    start: 2026-07-31T12:00:00Z
+    duration: 15m
+    minLogicalOperations: 10000
+  recoveryReference: recovery-payments-10.0-rc4
+```
+
+Artifact digest bez `configurationSha` nevysvetľuje behavior. Namespace názov bez cluster UID nevysvetľuje target. Percento bez cohort key nevysvetľuje, kto bol vystavený. Observation window bez minimálneho počtu logical operations môže skončiť green iba preto, že canary nedostala reprezentatívny traffic.
+
+## 3. Eligibility pred production mutation
+
+Automatické rozhodnutie má fail-closed pre missing required evidence. Atlas najprv validuje release manifest:
+
+```bash
+jq -e '
+  .status == "promotable" and
+  .artifacts.api.indexDigest == "sha256:pay1000api" and
+  (.evidence.required | sort) == (.evidence.passed | sort) and
+  .exceptions.active == []
+' release-candidate.json
+```
+
+Exit code `0` preukazuje, že JSON spĺňa tieto predicates. Nepreukazuje autenticitu súboru ani freshness target environmentu. Manifest preto musí byť podpísaný alebo pochádzať z trusted evidence store a target generation sa musí prečítať tesne pred mutation.
+
+```bash
+cluster_uid="$(kubectl get namespace kube-system -o jsonpath='{.metadata.uid}')"
+policy_sha="$(kubectl -n platform-system get configmap release-policy \
+  -o jsonpath='{.metadata.annotations.atlas\.example/policy-sha}')"
+printf 'cluster_uid=%s\npolicy_sha=%s\n' "$cluster_uid" "$policy_sha"
+```
+
+Tieto hodnoty preukazujú observed cluster a ConfigMap annotation. Nepreukazujú, že policy engine skutočne načítal annotation generation. Loaded policy revision potrebuje vlastný runtime read-back alebo decision log.
+
+## 4. Change-risk a target-health policy
+
+Automatizácia môže meniť rollout podľa risku, ale klasifikácia musí byť explicitná. Database contract change, authentication change alebo nový external side effect potrebuje silnejší observation contract než textová úprava UI.
+
+Policy kombinuje napríklad:
+
+- release subject a changed components;
+- schema/event/API compatibility classification;
+- security a identity impact;
+- blast radius a reversibility;
+- current incident state, error-budget consumption a capacity headroom;
+- evidence confidence a known exceptions;
+- recovery readiness.
+
+Policy output má byť structured:
+
+```json
+{
+  "decision": "ALLOW_BOUNDED",
+  "maxExposure": 0.02,
+  "requiredWindow": "15m",
+  "minimumLogicalOperations": 10000,
+  "requiredSignals": [
+    "settlement_completion_ratio",
+    "duplicate_provider_effects",
+    "p95_end_to_end_duration",
+    "provider_reconciliation_backlog"
+  ],
+  "recoveryMode": "ROLL_FORWARD_OR_FLAG_OFF"
+}
+```
+
+Structured output umožňuje audit a test. Stále však nepreukazuje, že rollout controller presadil presne tento verdict; deployment record musí korelovať policy decision ID s actual transition.
+
+## 5. Deployment a exposure sú samostatné control planes
+
+Nové Pods môžu existovať bez user trafficu. Naopak feature flag môže vystaviť nový behavior na starej application generation. Continuous Deployment preto sleduje application, traffic, feature a data axes oddelene.
 
 ```text
-orders-api digest A
-payment-worker digest B
-migration bundle M
-config revision K
-feature-flag revision F
-promotion evidence E
+artifact/config deployment
+→ runtime cohort available
+→ readiness a dependency eligibility
+→ traffic assignment
+→ feature assignment
+→ business operation
 ```
 
-Atlas chce automaticky nasadiť release, ktorý mení event `priority`, retry behavior a PostgreSQL index. Automatický systém musí rozhodnúť:
+Controller nemá označiť release za exposed iba preto, že ReplicaSet je Ready. Musí prečítať route, load balancer alebo service-mesh generation a overiť stable assignment.
 
-- či E patrí A/B/M/K/F a je stále fresh;
-- aké riziko má database/event/retry zmena;
-- či production nie je v incidente alebo bez error budgetu;
-- akú cohortu a observation window použiť;
-- či technical, functional a business signals umožňujú promotion;
-- či je rollback kompatibilný s current schema a messages;
-- čo robiť pri incomplete alebo delayed signále.
+```bash
+kubectl -n payments get deployment payments-api \
+  -o jsonpath='{.metadata.generation}{" "}{.status.observedGeneration}{" "}{.status.updatedReplicas}{"\n"}'
 
-## 3. Vzťah CI, Delivery a Deployment
+kubectl -n payments get pods -l app=payments-api,release=payments-10.0-rc4 \
+  -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.containerStatuses[0].imageID}{"\n"}{end}'
+```
+
+Output preukazuje controller observation a runtime image IDs pre vybrané Pods. Nepreukazuje percento trafficu ani feature evaluation. Tie potrebujú route read-back a telemetry s release/cohort identity.
+
+## 6. Observation contract
+
+Automation nesmie vyberať ľubovoľné green dashboards. Pred rolloutom má definovať population, denominator, window, freshness a allowed missing-data behavior.
+
+Atlas používa logical settlement outcome namiesto HTTP attempt success. Príklad Prometheus query cez HTTP API:
+
+```bash
+query='sum(rate(settlement_completed_total{release="payments-10.0-rc4",cohort="canary"}[5m])) / sum(rate(settlement_started_total{release="payments-10.0-rc4",cohort="canary"}[5m]))'
+
+curl --fail --get \
+  --data-urlencode "query=$query" \
+  https://prometheus.atlas.example/api/v1/query | jq .
+```
+
+Query result preukazuje ratio z uložených time series pre zvolený label set a evaluation time. Nepreukazuje, že instrumentation pokrýva všetky logical operations, že labels nie sú dropnuté ani že completion event je authoritative business state. Controller má kontrolovať telemetry freshness a korelovať vybranú vzorku s database/provider evidence.
+
+Missing data sa klasifikuje podľa príčiny. Nízky traffic môže vyžadovať dlhšie window; telemetry outage musí viesť k `INCONCLUSIVE` alebo `PAUSE`, nie automatickému successu.
+
+## 7. Promotion state machine
+
+Automatický rollout má explicitné states:
 
 ```text
-Continuous Integration
-→ dôveryhodný candidate sa bezpečne integruje
-
-Continuous Delivery
-→ artifact zostáva trvalo deployable a promotable
-
-Continuous Deployment
-→ production promotion a rollout sa vykonajú automaticky podľa policy
+ELIGIBLE
+→ DEPLOYING_NO_TRAFFIC
+→ CANARY_READY
+→ OBSERVING
+→ PROMOTING
+→ FULLY_EXPOSED
+→ DELAYED_WATCH
+→ ACCEPTED
 ```
 
-Continuous Deployment nemôže kompenzovať broken main, rebuildy medzi environments ani ručný deployment state.
-
-## 4. Rollout state machine
-
-Atlas používa explicitné stavy:
+Failure transitions:
 
 ```text
-candidate
-→ evidence-complete
-→ policy-eligible
-→ deployed, 0 % exposure
-→ synthetic/internal validation
-→ canary cohort
-→ wider cohorts
-→ fully promoted
-→ post-promotion watch
+OBSERVING → PAUSED_INCONCLUSIVE
+OBSERVING → ABORTING
+PROMOTING → UNKNOWN_TRANSITION
+ANY → CONTAINED_INCIDENT
 ```
 
-Alternatívne transitions:
+Každý transition má idempotency key, expected previous generation a postcondition. Traffic mutation s timeoutom môže byť unknown outcome: retry bez read-back môže aplikovať ďalší step alebo prepnúť nesprávnu route generation.
+
+## 8. Bounded traffic transition a read-back
+
+Príklad declarative route mutation používa generation pre compare-and-set semantics:
+
+```yaml
+apiVersion: delivery.atlas.example/v1
+kind: TrafficAssignment
+metadata:
+  name: payments-api
+spec:
+  expectedGeneration: 1843
+  desiredGeneration: 1844
+  stableRelease: payments-9.9
+  canaryRelease: payments-10.0-rc4
+  canaryWeight: 2
+```
+
+Po apply controller číta authoritative resource:
+
+```bash
+kubectl -n payments apply -f traffic-assignment.yaml
+kubectl -n payments get trafficassignment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,effective:.status.effectiveWeights,conditions:.status.conditions}'
+```
+
+Rovnosť desired/observed generation a effective weight preukazuje controller verdict. Nepreukazuje actual dataplane distribution. Access logs alebo request telemetry musia potvrdiť observed cohort share a stabilitu assignment key-u.
+
+## 9. Recovery bez human approval neznamená blind rollback
+
+Automatic recovery môže byť rýchla, ale musí rešpektovať per-layer eligibility. Application rollback nemusí byť možný po contract migration alebo po emitovaní nového eventu. Feature disable môže zastaviť nový path bez zmeny Pods. External unknown outcomes môžu vyžadovať reconciliation namiesto retry.
+
+Recovery policy môže vybrať:
 
 ```text
-incomplete evidence → wait/revalidate
-policy denied       → stop
-invalid cohort      → rebuild rollout setup
-inconclusive signal → pause/escalate
-critical guardrail  → abort/contain
-incompatible state  → roll-forward alebo feature disable
+flag-off
+→ behavior je oddelený a old path zostáva compatible
+
+traffic rollback
+→ old cohort je healthy a shared state compatible
+
+application rollback
+→ binary/config/data/event contracts umožňujú návrat
+
+roll-forward
+→ defect má bounded opravu a rollback by bol riskantnejší
+
+compensation/reconciliation
+→ external side effect alebo unknown outcome už existuje
 ```
 
-Každý transition je previazaný na artifact/config/flag identity, policy version, rollout stage, metrics a actor alebo automation identity.
+Automation musí pred akciou zachovať volatile evidence. Rýchly rollback bez route, generation a business-operation records môže skryť duplicate alebo lost effects.
 
-## 5. Promotion policy
+## 10. Delayed failures a acceptance
 
-Atlas policy vyhodnocuje:
+Full exposure nie je okamžitá closure. Memory leak, cache eviction, credential expiry alebo backlog age sa môžu prejaviť po dlhšom čase. Release preto prejde delayed watch a closure až po splnení ďalších conditions.
 
-- artifact signature, provenance a SBOM;
-- complete required test/security evidence;
-- source a protected-ref status;
-- change risk classification;
-- database, event, IAM a network impact;
-- target environment health;
-- incident a maintenance stav;
-- SLO/error-budget burn;
-- rollout capacity a window;
-- previous cohort výsledok;
-- rollback/roll-forward readiness.
+Acceptance kombinuje:
 
-Policy je versionovaná, reviewovaná, testovaná cez allow aj deny fixtures a má expirovateľnú exception cestu.
+- exact production artifact/config generations;
+- exposure a feature generations;
+- technical SLO a capacity;
+- business completion a correctness;
+- forbidden duplicate/lost/cross-tenant outcomes;
+- reconciliation backlog;
+- second operation a adjacent cohort;
+- old-generation retirement.
 
-## 6. Evidence completeness a freshness
+## 11. Connected incident `REL-PAY-66`
 
-Automatický verdict musí potvrdiť:
+Atlas automatic deployment prijal release `payments-10.0-rc4`, pretože CI a staging statuses boli zelené. Policy čítala mutable tag a neoverila digest ani changed production environment generation. Rollout controller nasadil `sha256:pay1000b`, zatiaľ čo staging evidence patrilo `sha256:pay1000a`.
+
+Canary dashboard sledoval HTTP 2xx a process latency. Provider TLS sidecar z novej admission generation vracal `202 Accepted`, no final settlement completion zlyhávalo po async handoffe. Po 12 minútach controller zvýšil traffic z 2 % na 100 %.
 
 ```text
-candidate identity
-+ artifact/config/flag revisions
-+ expected required controls
-+ actual reports a shards
-+ tool execution status
-+ evidence timestamp a expiry
-+ target/policy freshness
-→ eligible / incomplete / stale / denied
+wrong release/evidence subject
+→ bounded deployment
+→ incomplete observation contract
+→ automatic promotion
+→ 38 % final completion regression
+→ provider retry amplification
 ```
 
-Scanner timeout, missing shard alebo unavailable telemetry nie sú úspech. Správny výsledok je `incomplete`, `wait` alebo `pause` podľa fázy.
+4 186 settlements ostalo v unknown alebo retry state-e. 119 provider operations vyžadovalo reconciliation. Automatizácia fungovala podľa implementovanej policy; policy však chránila nesprávny outcome.
 
-Ak artifact dlho čakal, base-image advisory, production config alebo policy sa mohli zmeniť. Freshness je risk contract, nie dekoratívny timestamp.
+## 12. Redesign a acceptance verdict
 
-## 7. Change-risk classification
+Redesign viaže decision na release manifest digest, target generation a logical business signals. Admission policy change invaliduje staging evidence a vyžaduje nový bounded validation path. Canary používa stable `account_id` assignment, minimum logical operations a final settlement state. Promotion zastaví telemetry freshness failure.
 
-Atlas risk model zahŕňa:
-
-- business criticality;
-- database a event schema zmenu;
-- external financial side effects;
-- IAM/network/secrets impact;
-- rollback complexity;
-- test a contract evidence;
-- novelty a incident history;
-- tenant a region blast radius;
-- current SLO/error-budget stav.
-
-Výsledok ovplyvňuje rollout:
+Continuous Deployment je prijatý iba vtedy, keď:
 
 ```text
-low risk
-→ krátky internal + small canary
-
-medium risk
-→ stratifikovaná cohorta a dlhšie guardrails
-
-high risk
-→ protected window alebo explicitný human decision
+promotable manifest je immutable a authenticated
++ target generation je fresh
++ policy output je versionovaný a korelovaný s transition
++ deployment, traffic, feature a data axes sú explicitné
++ canary population je stabilná a dostatočná
++ business aj forbidden signals sú authoritative
++ missing telemetry vedie k bounded state-u
++ unknown route outcome sa read-backne pred retry
++ recovery eligibility je per-layer
++ delayed watch a second operation prejdú
 ```
 
-Continuous Deployment môže byť povolený iba pre subset zmien. Risk-based boundary je legitímna súčasť modelu.
+## 13. Troubleshooting flow
 
-## 8. Deployment verzus release
-
-Automatický deployment môže nasadiť kód s nulovou expozíciou:
+Pri false promotion postupuj:
 
 ```text
-A/B/M deployed
-→ F off alebo 0 % traffic
-→ startup, migration a synthetics
-→ internal tenant
-→ production cohort
+release/policy/target subject
+→ eligibility decision
+→ deployment desired a observed state
+→ runtime cohort
+→ route/feature effective generation
+→ telemetry population a freshness
+→ business authority
+→ decision transition
+→ recovery side effects
 ```
 
-Feature flag alebo routing oddelí technical deployment od business releaseu. Tento state však potrebuje provenance, fail-open/fail-closed semantics, audit, ownera a cleanup deadline.
+Competing hypotheses zahŕňajú wrong artifact, stale policy, target drift, unstable cohort, telemetry gap, invalid denominator, dependency-only failure, shared-state incompatibility a unknown transition. Containment má zmraziť ďalšie transitions, nie zničiť evidence okamžitým redeployom.
 
-Flag nie je authorization boundary a nevypína automaticky všetky shared-resource alebo migration effects.
+## 14. Anti-patterny
 
-## 9. Cohort design a progressive exposure
+### Green CI rovno na 100 % trafficu
 
-Atlas nepoužíva percento ako jedinú definíciu cohorty. Segmentuje podľa:
+CI preukazuje integračný candidate, nie produkčný behavior v current environment a data generation.
 
-- tenant size;
-- region a latency profile;
-- client version;
-- operation mix;
-- data volume;
-- payment provider route.
+### Automatický rollback pre každé zlyhanie
 
-Rollout:
+Rollback môže byť nekompatibilný so schema, events alebo external effects. Recovery potrebuje eligibility model.
 
-```text
-0 % user traffic
-→ internal tenant
-→ small-tenant canary
-→ large-tenant canary
-→ 25 % matched production
-→ 50 % capacity stage
-→ 100 %
-```
+### Missing data ako success
 
-Každá fáza má sample, duration, promote threshold, abort threshold, signal latency a recovery action.
+Telemetry outage alebo neprítomná cohorta nevytvára dôkaz bezpečnosti.
 
-## 10. Canary analysis
+### Readiness ako business oracle
 
-Kompozitný oracle zahŕňa:
+Ready Pod môže vykonávať nesprávny business outcome alebo používať zlú dependency generation.
 
-### Technical
+### Percento bez stable assignment
 
-- error a retry-rate delta;
-- p95/p99 latency;
-- DB pool waits a locks;
-- queue depth a oldest-message age;
-- restart, CPU a memory saturation;
-- dependency errors.
+Per-request random canary mieša users a operations medzi cohorts a komplikuje diagnosis aj causality.
 
-### Functional
+## 15. Kontrolné otázky
 
-- tenant isolation;
-- event deserialization;
-- idempotent payment outcome;
-- migration/backfill integrity;
-- audit a correlation completeness.
-
-### Business
-
-- order completion;
-- payment confirmation;
-- abandonment a repeat attempts;
-- segment-specific degradation.
-
-Verdict môže byť `promote`, `pause`, `abort`, `inconclusive` alebo `invalid`. Inconclusive nie je pass.
-
-## 11. Control group a attribution
-
-Canary sa porovnáva so starou verziou v podobných podmienkach. Telemetry obsahuje:
-
-```text
-artifact digest
-+ deployment/config/flag revision
-+ cohort a assignment rule
-+ region/tenant segment
-+ rollout stage
-+ timestamp
-```
-
-Ak canary obsahuje prevažne malých tenantov a control veľkých, rozdiel nemožno pripísať verzii. Invalid cohort setup musí zastaviť automatický analysis.
-
-## 12. Signal latency a delayed failures
-
-Rôzne failure mechanizmy majú iné okná:
-
-- routing/startup: sekundy;
-- retry amplification a queue growth: minúty;
-- backfill alebo large-tenant completion: desiatky minút;
-- memory leak, settlement, retention alebo cost: hodiny až dni.
-
-Krátky canary nemôže preukázať delayed behavior. Atlas kombinuje immediate rollout guardrails, post-promotion watch, reconciliation a incident/roll-forward proces.
-
-Automatický rollback je vhodný najmä pre rýchly, presný a reverzibilný failure.
-
-## 13. Recovery policy
-
-Atlas rozhoduje:
-
-```text
-reverzibilný artifact/config failure
-→ rollback
-
-feature behavior bez shared-state mutation
-→ flag off alebo traffic shift
-
-schema/event/external side effect nekompatibilný
-→ roll-forward, containment alebo reconciliation
-```
-
-Rollback preconditions:
-
-- stará verzia rozumie aktuálnej schema a messages;
-- rollout rollbacku je overený;
-- signal má nízky false-positive rate;
-- návrat znižuje user impact.
-
-Database, event retention a financial side effects môžu urobiť automatický rollback nebezpečným.
-
-## 14. Deployment oscillation
-
-Príliš citlivý alebo hlučný signal môže vytvoriť:
-
-```text
-deploy
-→ krátky alert spike
-→ rollback
-→ metrics sa stabilizujú
-→ systém znovu deployne candidate
-→ opakovaný alert
-```
-
-Ochrany:
-
-- hysteresis;
-- oddelené promote a abort thresholds;
-- minimálna observation window;
-- cooldown po recovery;
-- limit automatic attempts;
-- korelácia viacerých signálov;
-- human escalation pri opakovaní.
-
-Automation nesmie sama oscilovať medzi stavmi bez limitu.
-
-## 15. Human-in-the-loop
-
-Continuous Deployment odstraňuje rutinný mechanický approval, nie ľudské vlastníctvo. Ľudia:
-
-- navrhujú a reviewujú policy;
-- kalibrujú thresholds;
-- riešia `pause`, `inconclusive` a high-risk zmenu;
-- rozhodujú pri incompatible state;
-- reagujú na incident;
-- schvaľujú expirovateľné exceptions;
-- analyzujú false promotion a false rollback.
-
-Override je auditovaný, scoped a časovo obmedzený.
-
-## 16. Worked failure: incomplete security evidence bolo fail-open
-
-Dependency scanner timeoutoval. Pipeline wrapper vrátil exit code 0, pretože scan bol označený ako „best effort“:
-
-```text
-scanner nevytvoril report
-→ aggregator videl nulový počet findings
-→ policy vyhodnotila candidate ako eligible
-→ automatic rollout pokračoval
-→ produkcia dostala reachable vulnerable package
-```
-
-### Root cause
-
-Systém zamieňal „žiadny report“ za „žiadne findings“. Evidence manifest nevyžadoval scanner execution status a policy nemala `incomplete` state.
-
-### Náprava
-
-- expected-control manifest a report completeness check;
-- samostatné states `pass`, `finding`, `incomplete`, `tool_failure`;
-- high-risk dependency control je fail-closed alebo pause;
-- scanner outage má ownera a exception workflow;
-- eligibility record viaže policy na konkrétny complete evidence bundle.
-
-## 17. Worked failure: automatický rollback zhoršil incident
-
-Atlas rollout pridal additive event field, nový consumer začal zapisovať nový `payment_state` a backfill už časť dát konvertoval. Canary guardrail detegoval latency spike a systém automaticky obnovil starý worker:
-
-```text
-new worker zapísal nový state
-→ automatic rollback na old worker
-→ old worker nový state nepoznal
-→ messages išli do poison queue
-→ retries zvýšili backlog
-→ rollout controller opakovane deployoval a rollbackoval
-```
-
-### Root cause
-
-Rollback eligibility kontrolovala iba dostupnosť starého image. Nekontrolovala data/event compatibility ani hysteresis. Latency spike navyše pochádzal z globálneho provider incidentu, nie z canary verzie.
-
-### Náprava
-
-- rollback compatibility matrix pre schema, events a data state;
-- matched control group a attribution;
-- `pause` namiesto rollbacku pri nejednoznačnom signále;
-- cooldown a limit recovery attempts;
-- feature disable a roll-forward path;
-- poison-queue/replay guardrails a reconciliation.
-
-## 18. Audit trail
-
-Pre každý rollout Atlas uchová:
-
-- artifact/source/config/flag identity;
-- evidence bundle a policy version;
-- risk classification;
-- target environment a deployment identity;
-- cohort assignments;
-- metrics, decisions a state transitions;
-- pause, abort a override events;
-- recovery outcome;
-- post-promotion validation.
-
-Audit má vysvetliť nielen čo sa stalo, ale prečo policy promotion povolila alebo zastavila.
-
-## 19. Metriky
-
-Atlas sleduje:
-
-- commit-to-production lead time;
-- deployment frequency a batch size;
-- change fail rate;
-- canary pause/abort/invalid rate;
-- mean exposure before detection;
-- false promotion a false rollback rate;
-- rollback/roll-forward time;
-- delayed regression rate;
-- rollout duration a queue time;
-- stale flags a exceptions;
-- percent rolloutov s complete version-level telemetry.
-
-Viac deploymentov bez nízkeho dopadu a rýchlej recovery nie je úspech.
-
-## 20. Diagnostický postup
-
-Pri zastavenom alebo chybnom rolloute:
-
-1. Potvrď artifact, config, flag, policy a cohort identity.
-2. Over complete a fresh pre-deploy evidence.
-3. Skontroluj target health, incident a error-budget stav.
-4. Rozlíš deployment execution od canary oracle failure.
-5. Over cohort comparability, sample a telemetry completeness.
-6. Nájdite prvý observation point, kde sa candidate od controlu odlíšil.
-7. Posúď shared-state a rollback compatibility.
-8. Vyber pause, rollback, roll-forward, flag-off alebo containment.
-9. Over recovery cez technical, functional aj data/business oracle.
-10. Zachovaj rollout timeline a policy explanation.
-11. Oprav policy, telemetry, tests alebo architecture a revaliduj.
-
-## 21. Referenčné pravidlá
-
-- Continuous Deployment automatizuje policy decision a rollout, nie iba deploy command.
-- Evidence musí byť complete, fresh a viazané na presný candidate.
-- Risk classification mení rollout a môže vyžadovať human boundary.
-- Deployment a business release možno oddeliť.
-- Cohorty musia reprezentovať relevantné workload segmenty.
-- Canary verdict zahŕňa technical, functional aj business oracle.
-- `Inconclusive` a `invalid` nie sú pass.
-- Observation window vychádza zo signal latency.
-- Automatic rollback potrebuje state compatibility a hysteresis.
-- Telemetry failure blokuje alebo pause-ne promotion.
-- Human override má ownera, scope, audit a expiry.
-- Findings sa vracajú do policy, tests a recovery modelu.
-
-## 22. Časté omyly
-
-### „Green CI znamená automaticky 100 % production“
-
-Chýba production risk, cohort a runtime validation.
-
-### „Žiadne findings znamenajú security pass“
-
-Iba ak sa všetky required controls skutočne vykonali a reporty sú complete.
-
-### „5 % trafficu je bezpečný canary“
-
-Percento bez reprezentatívnej cohorty a guardrails môže byť slepé.
-
-### „Každý alert má spustiť rollback“
-
-Noise, globálny incident alebo incompatible state môžu rollbackom zhoršiť dopad.
-
-### „Feature flag odstráni deployment risk“
-
-Shared resources, migrations a startup paths môžu pôsobiť aj pri flag off.
-
-### „Automatizácia odstraňuje ľudskú zodpovednosť“
-
-Ľudia vlastnia policy, exceptions, incidenty a learning loop.
-
-## 23. Zhrnutie
-
-Bezpečné Continuous Deployment pre Atlas je:
-
-```text
-promotable artifact
-→ complete/fresh evidence
-→ risk-aware policy
-→ controlled deployment a exposure
-→ matched production oracle
-→ promote/pause/abort/inconclusive
-→ compatible recovery
-→ delayed watch
-→ audit a policy learning
-```
-
-Automatizácia je bezpečná iba vtedy, keď systém pozná aj stavy, v ktorých nevie rozhodnúť alebo sa nemôže bezpečne vrátiť.
-
-## 24. Kontrolné otázky
-
-1. Čo presne automatizuje Continuous Deployment?
-2. Prečo nestačí zelené CI?
-3. Aké states má rollout state machine?
-4. Ako evidence completeness a freshness ovplyvňujú eligibility?
-5. Ako risk classification mení rollout?
-6. Prečo deployment nemusí znamenať okamžitý release?
-7. Ako sa navrhuje reprezentatívna cohorta?
-8. Aké vrstvy má canary oracle?
-9. Prečo `inconclusive` nie je pass?
-10. Ako signal latency určuje observation window?
-11. Prečo fail-open scanner vytvoril false promotion?
-12. Prečo automatický rollback zhoršil mixed-state incident?
-13. Čo bráni deployment oscillation?
-14. Akú úlohu má človek v automatickom systéme?
+1. Čo navyše automatizuje Continuous Deployment oproti Continuous Delivery?
+2. Čo tvorí exact deployment-decision subject?
+3. Prečo policy JSON samostatne nepreukazuje enforcement?
+4. Aký je rozdiel medzi deploymentom a exposure?
+5. Prečo je logical operation vhodnejší denominator než HTTP attempt?
+6. Ako sa klasifikuje missing telemetry?
+7. Čo znamená unknown traffic-transition outcome?
+8. Kedy je flag-off bezpečnejší než binary rollback?
+9. Prečo automatic controller v `REL-PAY-66` urobil chybný, ale policy-compliant verdict?
+10. Čo musí delayed watch zachytiť?
+11. Ako sa overuje forbidden duplicate outcome?
+12. Ktoré states má mať production rollout state machine?
 
 ## Glossary impact
 
-Relevantné pojmy: Continuous Deployment, automated promotion, promotion policy, rollout state machine, evidence completeness, evidence freshness, change-risk classification, progressive exposure, matched cohort, canary analysis, inconclusive result, automatic rollback, rollback compatibility, deployment oscillation, human override a delayed failure.
+Relevantné pojmy: deployment-decision subject, promotable manifest, bounded exposure, stable cohort, observation contract, minimum logical operations, missing-data policy, rollout state machine, unknown transition, effective traffic generation, per-layer recovery eligibility, delayed-failure watch a automatic acceptance verdict.
+
+## Primárne zdroje
+
+- [Continuous Delivery](https://continuousdelivery.com/)
+- [Kubernetes documentation — Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [Argo Rollouts documentation](https://argo-rollouts.readthedocs.io/)
+- [Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/)
+- [Google SRE Workbook — Canarying Releases](https://sre.google/workbook/canarying-releases/)
+- [OpenFeature specification](https://openfeature.dev/specification/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
