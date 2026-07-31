@@ -30,6 +30,8 @@ Secondary metrics sú cost per 1 000 authorization requests, idle non-production
 
 ## 2. Allocation before optimization
 
+Allocation je data-quality a ownership boundary. Každý dollar musí byť priraditeľný workloadu, environmentu alebo explicitnému shared-cost pravidlu; inak optimalizačné rozhodnutie presunie účet medzi tímami namiesto odstránenia waste-u. Tagy sú iba jeden vstup a musia sa kombinovať s account structure, cost categories, resource IDs a pravidlami pre support, transfer a central services.
+
 Without allocation, teams optimize what is visible, not what they own. Allocation combines account structure, cost categories, tags, resource IDs and shared-cost rules.
 
 Required tags:
@@ -57,6 +59,8 @@ Cost Explorer APIs are global endpoints commonly called in `us-east-1`; billing 
 
 ## 3. Cost and usage query
 
+Cost Explorer query je versionovaný finančný experiment. Pred spustením sa fixuje inclusive/exclusive time window, metric, filter, grouping a currency context, pretože rovnaký workload môže pri `UnblendedCost`, `AmortizedCost` a net-effective pohľade vytvoriť odlišné čísla, ktoré odpovedajú na odlišné otázky.
+
 Monthly workload cost by service:
 
 ```bash
@@ -77,6 +81,8 @@ aws ce get-cost-and-usage \
 `AmortizedCost` distributes upfront/recurring commitment cost across usage period. `UnblendedCost` answers a different question. Query must record metric, time boundary, currency, credits/refunds and shared-cost treatment.
 
 ## 4. Data Exports and Athena model
+
+Detailný export umožní spojiť charge s resource, usage type, commitment a tag generation. Táto granularita však zvyšuje riziko double-countingu a schema driftu, preto query patrí do version controlu a jej total sa pravidelne reconciliuje s billing summary alebo invoice boundary.
 
 For detailed analysis use AWS Data Exports or Cost and Usage Report delivery to S3, then query with Athena/warehouse.
 
@@ -100,6 +106,8 @@ order by 1, 2;
 Column names depend on export schema and Athena table normalization. Query must avoid double-counting mutually exclusive effective-cost fields. Version schema and reconciliation to invoice totals.
 
 ## 5. Budget as decision threshold
+
+Budget je rozhodovací threshold nad forecastom alebo actual costom, nie automatická klasifikácia waste-u. Rovnaké prekročenie môže znamenať business rast, incidentný retry storm, obnovovací test alebo neplánovaný resource; notification preto musí viesť k vlastníkovi a investigation runbooku, nie k slepému vypnutiu production capacity.
 
 Terraform budget:
 
@@ -146,6 +154,8 @@ aws budgets describe-budget \
 ```
 
 ## 6. Cost anomaly detection
+
+Anomaly detector porovnáva observed spend s očakávaným patternom a vytvára kandidáta na investigation. Nevidí business intent ani release semantics, takže jeho impact sa musí korelovať s usage quantity, deploymentom, retries, data transferom a successful business units.
 
 Anomaly monitor observes cost segments and anomaly subscription routes alerts.
 
@@ -232,6 +242,8 @@ Rightsizing evidence combines utilization distributions, performance SLO, failur
 
 ## 9. Cost Optimization Hub and recommendations
 
+Recommendation je modelovaný návrh vytvorený z historického utilization a pricing contextu. Pred implementáciou treba prečítať exact resource generation, assumptions a estimated savings a potom overiť, že proposed size alebo deletion zachová p99 latency, AZ-loss headroom, deployment surge a recovery objective.
+
 Cost Optimization Hub aggregates supported rightsizing, idle-resource and commitment recommendations across accounts/Regions.
 
 ```bash
@@ -243,6 +255,8 @@ aws cost-optimization-hub list-recommendations \
 Recommendation savings is modeled estimate. Before implementation verify resource generation, workload owner, performance and reliability constraints, migration cost and commitment coverage. After change measure realized spend and unit cost.
 
 ## 10. Commitments
+
+Commitment premieňa časť budúcej flexibility na zľavu, preto sa nakupuje až nad stabilným residual usage po odstránení waste-u. Rozhodnutie musí modelovať coverage, utilization, migration roadmap a downside overcommitmentu; purchase recommendation sama nepozná budúcu architektonickú zmenu ani business neistotu.
 
 Savings Plans and Reserved Instances exchange flexibility for discounted committed usage. Decision requires stable baseline after removing waste, forecast confidence, service/Region/instance flexibility needs and risk appetite.
 
