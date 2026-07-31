@@ -31,15 +31,15 @@ jobs:
           import re
           from pathlib import Path
 
-          path = Path('docs/12-observability/opentelemetry.md')
+          path = Path('docs/12-observability/alert-design-alert-fatigue.md')
           text = path.read_text(encoding='utf-8')
-          old = "## End-to-end signal lifecycle\n\n```text"
+          old = "## Query unit tests\n\n```yaml"
           new = (
-              "## End-to-end signal lifecycle\n\n"
-              "OpenTelemetry oddeľuje producer API, runtime SDK policy, transport a Collector processing, preto žiadny z týchto komponentov sám nepreukazuje end-to-end evidence. "
-              "Signal musí zachovať operation semantics, resource identity a schema cez každú boundary a backend musí výsledok sprístupniť query. "
-              "Lifecycle sa preto overuje v nasledujúcom poradí a pri každom kroku sa rozlišuje configured, loaded, accepted a queryable state.\n\n"
-              "```text"
+              "## Query unit tests\n\n"
+              "Rule fixture overuje deterministic state transition nad známymi input series: či condition zostane pending dostatočne dlho, ktoré labels vytvoria alert identity a či expected alert vznikne v presnom evaluation time. "
+              "Úspešný unit test nepreukazuje producer completeness, rule deployment ani notification delivery; tie zostávajú samostatnými runtime gates. "
+              "Nasledujúca fixture preto testuje iba expression a alert-state contract.\n\n"
+              "```yaml"
           )
           if old in text:
               path.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
