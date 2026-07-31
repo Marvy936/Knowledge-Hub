@@ -1,6 +1,9 @@
-name: Temporary section 11 structural remediation
+name: Temporary section 10 practical materializer
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - agent/sections-10-13-prose-first-revalidation
@@ -10,119 +13,63 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-section-11-structural-remediation
+  group: temporary-section-10-practical-materializer-direct
   cancel-in-progress: false
 
 jobs:
-  remediate:
+  materialize:
     runs-on: self-hosted
     steps:
-      - name: Checkout branch
+      - name: Checkout coordinator branch
         uses: actions/checkout@v4
         with:
           ref: agent/sections-10-13-prose-first-revalidation
           fetch-depth: 0
 
-      - name: Add connected prose at reported weak sections
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Materialize section 10 branch
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/audit_learning_depth.py \
-            --all-docs \
-            --report /tmp/full-report.md \
-            --json /tmp/audit.json
-
-          python - <<'PY'
-          import json
-          import re
-          from pathlib import Path
-
-          data = json.loads(Path('/tmp/audit.json').read_text())
-          root = 'docs/11-cloud-and-aws/'
-          actionable_rules = {
-              'code-first-section',
-              'single-sentence-concept',
-              'empty-section',
-              'list-heavy-section',
-              'bare-bullet-items',
-              'bare-numbered-items',
-          }
-          findings = [
-              item for item in data['findings']
-              if item['path'].startswith(root)
-              and item['severity'] in {'critical', 'high', 'medium'}
-              and item['rule'] in actionable_rules
-          ]
-
-          grouped = {}
-          for finding in findings:
-              grouped.setdefault(finding['path'], {})[finding['section']] = finding
-
-          changed = []
-          for raw_path, sections in grouped.items():
-              path = Path(raw_path)
-              text = path.read_text(encoding='utf-8')
-              lines = text.splitlines()
-              chapter = lines[0].lstrip('# ').strip() if lines else path.stem
-
-              for section, finding in sorted(
-                  sections.items(),
-                  key=lambda item: item[1]['line'],
-                  reverse=True,
-              ):
-                  marker = f'<!-- STRICT-PROSE:{section} -->'
-                  if marker in text:
-                      continue
-
-                  heading_index = None
-                  for index, line in enumerate(lines):
-                      if re.match(r'^#{2,6}\s+', line) and line.lstrip('# ').strip() == section:
-                          heading_index = index
-                          break
-                  if heading_index is None:
-                      continue
-
-                  normalized = section.rstrip(':').strip()
-                  intro = (
-                      marker
-                      + '\n\n'
-                      + f'V kapitole **{chapter}** sa časť „{normalized}“ posudzuje ako súčasť jedného '
-                        'prevádzkového contractu, nie ako izolovaný príkaz, code block alebo zoznam. '
-                        'Jej vstupom je exact resource a generation identity, výsledkom je pozorovateľný '
-                        'state transition a rozhodujúce je, či tento transition podporuje požadovaný '
-                        'application alebo business outcome.\n\n'
-                      + 'Nasledujúce položky alebo príkazy preto treba čítať v poradí: čo materializujú, '
-                        'ktorú boundary ich výstup preukazuje, ktorú boundary ešte nepreukazuje a aký '
-                        'positive aj forbidden test uzatvorí zmenu. Samotný úspešný API response, exit '
-                        'code alebo resource status zostáva medzivýsledkom, kým nie je overený effective '
-                        'runtime state a relevantný business invariant.'
-                  )
-
-                  insert_at = heading_index + 1
-                  lines[insert_at:insert_at] = ['', *intro.splitlines(), '']
-
-              new_text = '\n'.join(lines).rstrip() + '\n'
-              if new_text != text:
-                  path.write_text(new_text, encoding='utf-8', newline='\n')
-                  changed.append(raw_path)
-
-          Path('.github/section11-remediation-summary.txt').write_text(
-              f'actionable_findings={len(findings)}\nchanged_files={len(changed)}\n'
-              + '\n'.join(changed) + '\n',
-              encoding='utf-8',
-          )
-          PY
-
-          python scripts/update_navigation.py --write
-
-          rm -f .github/section11-audit-report.txt
-          rm -f .github/section11-audit-report.trigger
-          rm -f .github/section11-cleanup.trigger
-          rm -f .github/section11-full-audit.trigger
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/11-cloud-and-aws .github/section11-remediation-summary.txt .github
-          git rm .github/workflows/temporary-section-11-structural-remediation.yml
-          git commit -m "docs(aws): remediate strict prose and list findings"
-          git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+
+          git fetch origin agent/section-10-practical-helm-examples
+          git checkout -B section-10-practical origin/agent/section-10-practical-helm-examples
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('.github/workflows/temporary-section-10-practical-completion.yml')
+          text = source.read_text(encoding='utf-8')
+          marker = "          python - <<'PY'\n"
+          start = text.index(marker) + len(marker)
+          end = text.index("\n          PY\n", start)
+          lines = text[start:end].splitlines()
+          script = "\n".join(line[10:] if line.startswith("          ") else line for line in lines)
+          Path('/tmp/section10_practical.py').write_text(script + "\n", encoding='utf-8')
+          PY
+
+          python /tmp/section10_practical.py
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+
+          rm -f .github/workflows/temporary-section-10-practical-completion.yml
+          rm -f .github/section10-practical-run.txt
+          rm -f .github/section10-practical-completion.trigger
+
+          git add docs .github
+          if git diff --cached --quiet; then
+            echo "Section 10 practical examples are already materialized."
+            exit 0
+          fi
+
+          git commit -m "docs(helm): materialize focused executable examples"
+          git push origin HEAD:agent/section-10-practical-helm-examples
