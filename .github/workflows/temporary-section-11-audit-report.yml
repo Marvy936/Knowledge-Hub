@@ -1,6 +1,9 @@
-name: Temporary section 11 audit report
+name: Temporary section 10 practical materializer
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - agent/sections-10-13-prose-first-revalidation
@@ -10,66 +13,64 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-section-11-audit-report
+  group: temporary-section-10-practical-materializer
   cancel-in-progress: false
 
 jobs:
-  report:
+  materialize:
     runs-on: self-hosted
     steps:
-      - name: Checkout branch
+      - name: Checkout coordinator branch
         uses: actions/checkout@v4
         with:
           ref: agent/sections-10-13-prose-first-revalidation
           fetch-depth: 0
 
-      - name: Generate concise report
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Materialize focused Helm examples
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/audit_learning_depth.py \
-            --all-docs \
-            --report /tmp/full-report.md \
-            --json /tmp/audit.json
-
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          data = json.loads(Path('/tmp/audit.json').read_text())
-          root = 'docs/11-cloud-and-aws/'
-          files = sorted(
-              item for item in data['files']
-              if item['path'].startswith(root) and not item['path'].endswith('/README.md')
-          , key=lambda item: item['path'])
-          findings = [
-              item for item in data['findings']
-              if item['path'].startswith(root)
-              and item['severity'] in {'critical', 'high', 'medium'}
-          ]
-
-          lines = ['SECTION 11 AUDIT', f'files={len(files)}', '']
-          for item in files:
-              lines.append(
-                  f"FILE {item['path']} words={item['words']} grade={item['grade']} "
-                  f"critical={item['critical']} high={item['high']} medium={item['medium']} low={item['low']}"
-              )
-          lines.append('')
-          for finding in findings:
-              lines.append(
-                  'FINDING '
-                  f"path={finding['path']} severity={finding['severity']} "
-                  f"line={finding['line']} section={finding['section']} "
-                  f"rule={finding['rule']} detail={finding['detail']}"
-              )
-          lines.append('')
-          lines.append(f'TOTAL_FINDINGS={len(findings)}')
-          Path('.github/section11-audit-report.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
-          PY
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/section11-audit-report.txt
-          git rm .github/workflows/temporary-section-11-audit-report.yml
-          git commit -m "chore(aws): persist section 11 strict audit report"
+
+          rm -f .github/workflows/temporary-section-11-audit-report.yml
+          rm -f .github/section11-audit-report.trigger
+          git add .github
+          git commit -m "ci(docs): remove temporary section 11 report runner"
           git push origin HEAD:agent/sections-10-13-prose-first-revalidation
+
+          git fetch origin agent/section-10-practical-helm-examples
+          git checkout -B section-10-practical origin/agent/section-10-practical-helm-examples
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('.github/workflows/temporary-section-10-practical-completion.yml')
+          text = source.read_text(encoding='utf-8')
+          marker = "          python - <<'PY'\n"
+          start = text.index(marker) + len(marker)
+          end = text.index("\n          PY\n", start)
+          lines = text[start:end].splitlines()
+          script = "\n".join(line[10:] if line.startswith("          ") else line for line in lines)
+          Path('/tmp/section10_practical.py').write_text(script + "\n", encoding='utf-8')
+          PY
+
+          python /tmp/section10_practical.py
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+
+          rm -f .github/workflows/temporary-section-10-practical-completion.yml
+          rm -f .github/section10-practical-run.txt
+          rm -f .github/section10-practical-completion.trigger
+
+          git add docs .github
+          git commit -m "docs(helm): materialize focused executable examples"
+          git push origin HEAD:agent/section-10-practical-helm-examples
