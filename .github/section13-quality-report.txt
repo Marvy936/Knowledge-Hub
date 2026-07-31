@@ -14,7 +14,7 @@ docs/13-security-and-identity/openid-connect.md|strict=0/2/0|prose=1192|bullet_s
 docs/13-security-and-identity/policy-as-code.md|strict=18/29/10|prose=1075|bullet_share=0.444|blocks=14|executable=1|explanations=5
 docs/13-security-and-identity/saml.md|strict=0/2/0|prose=1037|bullet_share=0.125|blocks=5|executable=2|explanations=8
 docs/13-security-and-identity/sbom.md|strict=27/31/17|prose=1374|bullet_share=0.431|blocks=6|executable=0|explanations=9
-docs/13-security-and-identity/secrets-management.md|strict=17/23/5|prose=1202|bullet_share=0.368|blocks=14|executable=0|explanations=8
+docs/13-security-and-identity/secrets-management.md|strict=0/2/0|prose=1175|bullet_share=0.088|blocks=6|executable=7|explanations=8
 docs/13-security-and-identity/supply-chain-security.md|strict=20/32/9|prose=1200|bullet_share=0.448|blocks=8|executable=0|explanations=7
 docs/13-security-and-identity/threat-modeling.md|strict=22/30/19|prose=1187|bullet_share=0.436|blocks=9|executable=0|explanations=4
 docs/13-security-and-identity/vulnerability-and-patch-management.md|strict=13/24/10|prose=926|bullet_share=0.489|blocks=8|executable=1|explanations=13
@@ -271,51 +271,8 @@ HIGH docs/13-security-and-identity/sbom.md:423 [single-sentence-concept] Flat li
 HIGH docs/13-security-and-identity/sbom.md:427 [single-sentence-concept] Unknown interpretované ako absent — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/sbom.md:431 [single-sentence-concept] Validná signature znamená complete SBOM — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/sbom.md:435 [single-sentence-concept] Inventory bez runtime mappingu — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/secrets-management.md:24 [single-sentence-concept] 2. Exact secret subject — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/secrets-management.md:71 [list-heavy-section] 4. Classification podľa semantics — 10 odrážok a iba 35 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/secrets-management.md:71 [bare-bullet-items] 4. Classification podľa semantics — 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target system a accepted operations;`, `ownera a consumers;`, `environment, tenant a purpose;`, `lifetime, cryptoperiod a maximum stale interval;`.
-MEDIUM docs/13-security-and-identity/secrets-management.md:71 [short-concept-section] 4. Classification podľa semantics — Konceptuálna sekcia má menej než 45 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:107 [list-heavy-section] 6. Secret zero a bootstrap identity — 6 odrážok a iba 45 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/secrets-management.md:107 [bare-bullet-items] 6. Secret zero a bootstrap identity — 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes projected ServiceAccount token s exact audience;`, `cloud workload identity;`, `CI OIDC identity viazaná na repository/workflow/environment;`, `SPIFFE alebo platform-issued mTLS identity;`.
-MEDIUM docs/13-security-and-identity/secrets-management.md:107 [term-before-explanation] 6. Secret zero a bootstrap identity — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `OIDC`, `SPIFFE`
-CRITICAL docs/13-security-and-identity/secrets-management.md:136 [empty-section] 8. Delivery a loaded state — Sekcia nemá vysvetľovací obsah.
-HIGH docs/13-security-and-identity/secrets-management.md:207 [list-heavy-section] 12. Kubernetes Secret boundary — 7 odrážok a iba 49 slov súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/secrets-management.md:207 [bare-bullet-items] 12. Kubernetes Secret boundary — 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `get , list alebo watch Secrets;`, `permission vytvoriť Pod, ktorý Secret mountne;`, `výber privileged ServiceAccountu;`, `pods/exec , debug alebo ephemeral containers;`.
-MEDIUM docs/13-security-and-identity/secrets-management.md:207 [term-before-explanation] 12. Kubernetes Secret boundary — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CSI`
-CRITICAL docs/13-security-and-identity/secrets-management.md:293 [outline-instead-of-explanation] 17. Competing hypotheses a discriminating evidence — 14 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/secrets-management.md:293 [bare-bullet-items] 17. Competing hypotheses a discriminating evidence — 11 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `etcd storage leak;`, `CI/Git/image leakage;`, `direct Secret API read;`, `node compromise;`.
-HIGH docs/13-security-and-identity/secrets-management.md:293 [thin-concept-section] 17. Competing hypotheses a discriminating evidence — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:293 [term-before-explanation] 17. Competing hypotheses a discriminating evidence — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `API`, `KMS`, `HSM`, `FED-SIGN-07`, `OIDC`, `SAML`
-CRITICAL docs/13-security-and-identity/secrets-management.md:317 [no-prose-concept] 18. Evidence-preserving containment — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:317 [list-first-introduction] 18. Evidence-preserving containment — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/secrets-management.md:317 [outline-instead-of-explanation] 18. Evidence-preserving containment — 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/secrets-management.md:317 [bare-bullet-items] 18. Evidence-preserving containment — 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `quarantine affected ServiceAccount a Pods;`, `zastaviť nové signing operations keyom FED-SIGN-07 ;`, `revoke-nuť sessions a tokens/assertions z exposure interval-u;`, `nevymazať Secret pred inventory všetkých copies a consumers.`.
-HIGH docs/13-security-and-identity/secrets-management.md:317 [thin-concept-section] 18. Evidence-preserving containment — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/secrets-management.md:317 [term-before-explanation] 18. Evidence-preserving containment — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FED-SIGN-07`, `UID`, `identity`
-CRITICAL docs/13-security-and-identity/secrets-management.md:327 [no-prose-concept] 19. Authoritative recovery — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:327 [list-first-introduction] 19. Authoritative recovery — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/secrets-management.md:327 [outline-instead-of-explanation] 19. Authoritative recovery — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/secrets-management.md:327 [bare-bullet-items] 19. Authoritative recovery — 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť štyri samostatné key subjects: staging/prod × OIDC/SAML;`, `používať non-exportable KMS/HSM signing operations, ak platforma podpo`, `oddeliť namespaces, ServiceAccounts, policies a trust metadata;`, `publikovať new public keys/certificates s bounded overlapom;`.
-HIGH docs/13-security-and-identity/secrets-management.md:327 [thin-concept-section] 19. Authoritative recovery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:327 [term-before-explanation] 19. Authoritative recovery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SAML`, `KMS`, `HSM`, `FED-SIGN-07`, `policy`
-CRITICAL docs/13-security-and-identity/secrets-management.md:340 [no-prose-concept] 20. Acceptance verdict — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:340 [list-first-introduction] 20. Acceptance verdict — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/secrets-management.md:340 [outline-instead-of-explanation] 20. Acceptance verdict — 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-HIGH docs/13-security-and-identity/secrets-management.md:340 [bare-bullet-items] 20. Acceptance verdict — 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `staging workload nedokáže použiť production signing capability;`, `old FED-SIGN-07 signature je odmietnutá všetkými production verifiers;`, `new key podpisuje iba intended issuer/protocol artifacts;`, `provider/KMS outage má testovaný bounded behavior;`.
-HIGH docs/13-security-and-identity/secrets-management.md:340 [thin-concept-section] 20. Acceptance verdict — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:340 [term-before-explanation] 20. Acceptance verdict — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OIDC`, `SAML`, `FED-SIGN-07`, `KMS`, `workload`, `policy`
-CRITICAL docs/13-security-and-identity/secrets-management.md:353 [empty-section] 21. Troubleshooting flow — Sekcia nemá vysvetľovací obsah.
-CRITICAL docs/13-security-and-identity/secrets-management.md:368 [no-prose-concept] 22. Earlier controls — Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-HIGH docs/13-security-and-identity/secrets-management.md:368 [list-first-introduction] 22. Earlier controls — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-CRITICAL docs/13-security-and-identity/secrets-management.md:368 [outline-instead-of-explanation] 22. Earlier controls — 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-CRITICAL docs/13-security-and-identity/secrets-management.md:368 [bare-bullet-items] 22. Earlier controls — 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no cross-environment alebo cross-protocol key reuse;`, `workload identity namiesto shared bootstrap secretu;`, `indirect Kubernetes privilege analysis;`, `non-exportable signing keys;`.
-HIGH docs/13-security-and-identity/secrets-management.md:368 [thin-concept-section] 22. Earlier controls — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-MEDIUM docs/13-security-and-identity/secrets-management.md:368 [term-before-explanation] 22. Earlier controls — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`
-HIGH docs/13-security-and-identity/secrets-management.md:382 [single-sentence-concept] Secret je encrypted, teda bezpečný — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/secrets-management.md:386 [single-sentence-concept] Nemá get secrets , teda Secret neprečíta — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/secrets-management.md:390 [single-sentence-concept] Source version bola zmenená, teda rotation je hotová — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/secrets-management.md:394 [single-sentence-concept] Jeden key pre viac purposes — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-HIGH docs/13-security-and-identity/secrets-management.md:398 [single-sentence-concept] Secret odstránený zo store-u = revoked — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+HIGH docs/13-security-and-identity/secrets-management.md:7 [list-first-introduction] Capability-to-revocation lifecycle — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+HIGH docs/13-security-and-identity/secrets-management.md:26 [list-first-introduction] Exact secret subject SEC-PAY-49 — Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 HIGH docs/13-security-and-identity/supply-chain-security.md:22 [single-sentence-concept] 1. Tri otázky dôvery — Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 HIGH docs/13-security-and-identity/supply-chain-security.md:22 [thin-concept-section] 1. Tri otázky dôvery — Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 MEDIUM docs/13-security-and-identity/supply-chain-security.md:22 [term-before-explanation] 1. Tri otázky dôvery — Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`
@@ -589,8 +546,6 @@ sbom.md: strict findings
 sbom.md: bullet share 0.431
 sbom.md: practical examples too thin
 secrets-management.md: strict findings
-secrets-management.md: bullet share 0.368
-secrets-management.md: practical examples too thin
 supply-chain-security.md: strict findings
 supply-chain-security.md: bullet share 0.448
 supply-chain-security.md: practical examples too thin
