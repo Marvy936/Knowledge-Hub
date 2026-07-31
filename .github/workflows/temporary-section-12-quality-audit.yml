@@ -1,4 +1,4 @@
-name: Temporary Section 12 prose and practical audit
+name: Temporary Section 12 closeout
 
 on:
   push:
@@ -9,11 +9,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-section12-quality-audit
+  group: temporary-section12-closeout
   cancel-in-progress: true
 
 jobs:
-  audit:
+  closeout:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
@@ -23,100 +23,104 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Apply exact local remediation
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import re
-          from pathlib import Path
-
-          path = Path('docs/12-observability/alert-design-alert-fatigue.md')
-          text = path.read_text(encoding='utf-8')
-          old = "## Query unit tests\n\n```yaml"
-          new = (
-              "## Query unit tests\n\n"
-              "Rule fixture overuje deterministic state transition nad známymi input series: či condition zostane pending dostatočne dlho, ktoré labels vytvoria alert identity a či expected alert vznikne v presnom evaluation time. "
-              "Úspešný unit test nepreukazuje producer completeness, rule deployment ani notification delivery; tie zostávajú samostatnými runtime gates. "
-              "Nasledujúca fixture preto testuje iba expression a alert-state contract.\n\n"
-              "```yaml"
-          )
-          if old in text:
-              path.write_text(text.replace(old, new, 1), encoding='utf-8', newline='\n')
-
-          citation_pattern = re.compile(r'\s*cite[^]+')
-          for doc in Path('docs/12-observability').glob('*.md'):
-              source = doc.read_text(encoding='utf-8')
-              cleaned = citation_pattern.sub('', source)
-              if cleaned != source:
-                  doc.write_text(cleaned, encoding='utf-8', newline='\n')
-          PY
-      - name: Build Section 12 quality report
-        shell: bash
-        run: |
-          set -euo pipefail
-          python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
-          python - <<'PY'
-          import json, re
-          from pathlib import Path
-
-          raw = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
-          audit = {x['path']: x for x in raw['files']}
-          strict_findings = [
-              finding
-              for finding in raw['findings']
-              if finding['path'].startswith('docs/12-observability/')
-              and finding['severity'] in {'critical', 'high', 'medium'}
-          ]
-
-          rows, failures = [], []
-          for path in sorted(Path('docs/12-observability').glob('*.md')):
-              if path.name == 'README.md':
-                  continue
-              text = path.read_text(encoding='utf-8')
-              outside, fenced = [], False
-              for line in text.splitlines():
-                  if line.strip().startswith('```'):
-                      fenced = not fenced
-                      continue
-                  if not fenced:
-                      outside.append(line)
-              prose = sum(len(re.findall(r'[\wÀ-ž]+', line)) for line in outside if line.strip() and not re.match(r'\s*(?:[-*+] |\d+\. |#|\|)', line))
-              bullets = sum(len(re.findall(r'[\wÀ-ž]+', line)) for line in outside if re.match(r'\s*(?:[-*+] |\d+\. )', line))
-              share = bullets / max(1, prose + bullets)
-              blocks = len(re.findall(r'```(?:bash|shell|python|json|yaml|yml|hcl|terraform|sql|console|promql|logql|traceql|text|ini|toml|conf)\n', text))
-              executable = len(re.findall(r'(?m)^(?:curl|kubectl|promtool|amtool|logcli|otelcol|fluent-bit|jq|yq|rate\(|sum\(|histogram_quantile\(|count_over_time\(|\{[^\n]*\}|from\s+traces)', text))
-              explanations = len(re.findall(r'(?i)(tento príkaz|táto query|výstup|preukazuje|nepreukazuje|dokazuje|observation|dôkaz|read-back|výsledok query)', text))
-              item = audit[path.as_posix()]
-              rows.append(f'{path.as_posix()}|strict={item["critical"]}/{item["high"]}/{item["medium"]}|prose={prose}|bullet_share={share:.3f}|blocks={blocks}|executable={executable}|explanations={explanations}')
-              if item['critical'] or item['high'] or item['medium']:
-                  failures.append(f'{path.name}: strict findings')
-              if prose < 650:
-                  failures.append(f'{path.name}: only {prose} prose words')
-              if share > 0.34:
-                  failures.append(f'{path.name}: bullet share {share:.3f}')
-              if blocks < 2 or executable < 2:
-                  failures.append(f'{path.name}: practical examples too thin')
-              if explanations < 3:
-                  failures.append(f'{path.name}: evidence explanation too thin ({explanations})')
-
-          exact = [
-              f"{finding['severity'].upper()} {finding['path']}:{finding['line']} [{finding['rule']}] {finding['section']} — {finding['detail']}"
-              for finding in strict_findings
-          ]
-          status = 'success' if not failures else 'failure'
-          output = [f'status={status}', '', *rows, '', 'STRICT FINDINGS', *(exact or ['none']), '', 'FAILURES', *(failures or ['none'])]
-          Path('.github/section12-quality-report.txt').write_text('\n'.join(output) + '\n', encoding='utf-8', newline='\n')
-          print('\n'.join(output))
-          PY
-      - name: Publish remediation and report
+      - name: Finalize metadata, validate and remove temporary gate
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/12-observability .github/section12-quality-report.txt
+
+          python - <<'PY'
+          from pathlib import Path
+
+          readme = Path('docs/12-observability/README.md')
+          text = readme.read_text(encoding='utf-8')
+          old_gate = """1. všetkých 16 authoritative kapitol má dominantný lifecycle a exact subject;
+2. každý komplexný failure používa competing hypotheses a discriminating evidence;
+3. configured/loaded, emitted/accepted/durable/queryable a technical/business boundaries sú konzistentné;
+4. recovery obsahuje original, forbidden a relevantnú adjacent-cohort alebo second-operation validation;
+5. navigation chain funguje od CloudOps troubleshooting po CIA triádu;
+6. section glossary je synchronizovaný do `GLOSSARY.md`;
+7. learning-depth audit artifacts sú prázdne;
+8. current product facts sú overené proti official primary documentation.
+"""
+          new_gate = """1. všetkých 16 authoritative kapitol má dominantný lifecycle a exact subject;
+2. každý komplexný failure používa competing hypotheses a discriminating evidence;
+3. configured/loaded, emitted/accepted/durable/queryable a technical/business boundaries sú konzistentné;
+4. recovery obsahuje original, forbidden a relevantnú adjacent-cohort alebo second-operation validation;
+5. každá technická kapitola obsahuje executable query, príkaz alebo konfiguráciu naviazanú na konkrétny operational outcome;
+6. každý executable artifact vysvetľuje vstup, interný mechanizmus, read-back, proof boundary a failure alebo recovery path;
+7. navigation chain funguje od CloudOps troubleshooting po CIA triádu;
+8. section glossary je synchronizovaný do `GLOSSARY.md`;
+9. learning-depth audit artifacts sú prázdne;
+10. current product facts sú overené proti official primary documentation.
+"""
+          if old_gate in text:
+              text = text.replace(old_gate, new_gate, 1)
+
+          summary = """Finálny prose/practical gate overil všetkých 16 kapitol samostatne. Každá dosiahla `critical/high/medium = 0/0/0`, obsahuje najmenej dva executable PromQL, LogQL, TraceQL, CLI alebo configuration príklady a vysvetľuje, čo ich output preukazuje aj čo ešte nepreukazuje. Súvislý prose rozsah je 918–1 199 slov na kapitolu a bullet-word share zostáva medzi 9.1 % a 14.9 %, takže zoznamy nenesú hlavnú učebnú záťaž.
+
+"""
+          marker = "## Stav\n"
+          if summary not in text and marker in text:
+              text = text.replace(marker, summary + marker, 1)
+          text = text.replace('Strict revalidation complete', 'Prose/practical revalidation complete')
+          readme.write_text(text, encoding='utf-8', newline='\n')
+
+          ledger = Path('DOCUMENTATION-REVIEW-STATUS.md')
+          text = ledger.read_text(encoding='utf-8')
+          text = text.replace(
+              '| `12-observability` — Observability | 16/16 strict revalidation | Ready for user review | 2026-07-29 |',
+              '| `12-observability` — Observability | 16/16 prose/practical strict revalidation | Ready for user review | 2026-07-31 |',
+              1,
+          )
+          old_close = (
+              'Section README teraz zaznamenáva celý evidence-to-action learning chain a completion gate. '
+              'Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená. |'
+          )
+          new_close = (
+              'Section README teraz zaznamenáva celý evidence-to-action learning chain a completion gate. '
+              'Doplňujúci praktický pass z 2026-07-31 odstránil bullet-first výklad a doplnil executable PromQL, LogQL, TraceQL, CLI, YAML/JSON a configuration walkthroughy vo všetkých 16 kapitolách. '
+              'Finálny section-only gate potvrdil `critical/high/medium = 0/0/0`, 918–1 199 prose slov, bullet share 9.1–14.9 %, najmenej dva executable príklady a vysvetlené proof boundaries v každej kapitole. '
+              'Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená. |'
+          )
+          if old_close in text:
+              text = text.replace(old_close, new_close, 1)
+          ledger.write_text(text, encoding='utf-8', newline='\n')
+          PY
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+          python scripts/audit_learning_depth.py --all-docs --report /tmp/audit.md --json /tmp/audit.json
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          audit = json.loads(Path('/tmp/audit.json').read_text(encoding='utf-8'))
+          findings = [
+              item for item in audit['findings']
+              if item['path'].startswith('docs/12-observability/')
+              and item['severity'] in {'critical', 'high', 'medium'}
+          ]
+          if findings:
+              for item in findings:
+                  print(f"{item['severity']} {item['path']}:{item['line']} {item['rule']} {item['detail']}")
+              raise SystemExit('Section 12 strict findings remain')
+
+          for path in Path('docs/12-observability').glob('*.md'):
+              if 'cite' in path.read_text(encoding='utf-8'):
+                  raise SystemExit(f'Transient citation token remains in {path}')
+          PY
+
+          git rm --ignore-unmatch \
+            .github/section12-quality-report.txt \
+            .github/workflows/temporary-section-12-quality-audit.yml
+
+          git add DOCUMENTATION-REVIEW-STATUS.md docs/12-observability README.md GLOSSARY.md glossary .github
           if ! git diff --cached --quiet; then
-            git commit -m "docs(observability): apply exact Section 12 remediation"
+            git commit -m "docs(observability): finalize practical revalidation closeout"
             git push origin HEAD:agent/section-12-practical-prose-revalidation
           fi
