@@ -1,8 +1,38 @@
 # Infrastructure as Code and Configuration Management
 
-Táto sekcia vysvetľuje deklaratívnu správu infraštruktúry a konfigurácie ako versionovaný, auditovateľný a obnoviteľný change-control systém. Prvá časť pokrýva Terraform execution model, state, modules, bezpečné refaktoringy, drift management, testing a Policy as Code. Druhá časť aplikuje rovnaké princípy na Ansible control node, inventory, playbooks, variables, templates, reusable content, secrets a idempotentnú konfiguráciu.
+Táto sekcia vysvetľuje Terraform a Ansible ako dva rozdielne change-control systémy nad vzdialeným stavom. Terraform skladá deklarovanú konfiguráciu, provider schemas, state bindings a remote observations do dependency graphu a plánu infraštruktúrnych mutations. Ansible skladá inventory, variables, facts, reusable content a per-host execution výsledky do riadenej konfigurácie existujúcich systémov. Ani jeden nástroj nie je bezpečný iba preto, že používa HCL alebo YAML. Dôveryhodnosť vzniká až vtedy, keď exact source, inputs, target, identity, state alebo inventory generation vedú k overenému remote a business outcome-u.
 
-Cieľom nie je memorovať HCL alebo YAML syntax ani cloud-specific resources. Dôležité je rozumieť desired state, provider a connection boundaries, dependency graphu, resource a host identity, state, inventory, blast radiusu, driftu, reusable contracts, testovateľnosti a bezpečnému execution lifecycle.
+Sekcia sa znovu spracúva podľa rovnakého prose-first a practical-example štandardu ako Keycloak, Security, Observability, CI/CD a GitLab. Každá kapitola musí mať dominantný mechanistický lifecycle, presný change subject, reálne HCL/YAML/CLI alebo API walkthroughy, vysvetlené proof boundaries, competing hypotheses, evidence-preserving containment, authoritative recovery a validáciu pôvodnej, zakázanej aj druhej operácie.
+
+## Section-wide infrastructure lifecycle
+
+```text
+business alebo platform intent
+→ exact ownership a mutable attribute boundary
+→ versionovaný Terraform/Ansible source
+→ pinned toolchain, providers, modules, collections a execution environment
+→ resolved inputs, variables, inventory a target identity
+→ Terraform graph/state subject alebo Ansible host/task subject
+→ plan/check/diff a policy evidence
+→ serialized scoped mutation
+→ remote read-back, state/inventory evidence a runtime verification
+→ drift, partial/unknown outcome a recovery
+→ forbidden-path a second-operation validation
+→ evidence closure a control-model improvement
+```
+
+Počas celej sekcie zostávajú oddelené najmä tieto states:
+
+- repository configuration nie je remote infrastructure;
+- Terraform desired state nie je Terraform state ani actual provider state;
+- state lock nie je ownership ani dôkaz, že neexistuje druhý writer;
+- plan je predikcia nad konkrétnym state/target subjectom, nie všeobecné povolenie aplikovať branch;
+- successful provider response nemusí znamenať úspešný state commit;
+- Ansible inventory source nie je resolved host graph;
+- `changed: false` nie je automaticky pravdivý dôkaz idempotencie;
+- encrypted Vault file nie je runtime secret management ani revocation;
+- Terraform a Ansible nesmú byť súčasne authoritative writerom toho istého mutable attribute bez explicitného contractu;
+- technický apply alebo playbook success nepreukazuje správny business outcome.
 
 ## Predpoklady
 
@@ -16,7 +46,7 @@ Odporúča sa najprv dokončiť:
 - [CI/CD and Release Engineering](../05-ci-cd-and-release/README.md),
 - [GitLab](../06-gitlab/README.md).
 
-## Odporúčané poradie
+## Authoritative poradie — aktívne kapitoly
 
 1. [Infrastructure as Code principles](infrastructure-as-code-principles.md)
 2. [Terraform providers, resources a data sources](terraform-providers-resources-data-sources.md)
@@ -38,103 +68,138 @@ Odporúča sa najprv dokončiť:
 18. [Ansible idempotencia](ansible-idempotency.md)
 19. [Terraform vs. Ansible](terraform-vs-ansible.md)
 
-Po tejto sekcii nasleduje [Container Fundamentals and Docker](../08-container-fundamentals-and-docker/README.md). Terraform resource lifecycle, Ansible host configuration, Linux namespaces/cgroups a artifact/registry princípy tam vytvoria základ pre pochopenie images, containers, runtime a Docker build/deployment modelu.
+Po tejto sekcii nasleduje [Container Fundamentals and Docker](../08-container-fundamentals-and-docker/README.md). IaC ownership, state, immutable dependencies, Linux configuration a execution-environment model tam vytvoria základ pre image, container, runtime a registry lifecycle.
+
+## Connected learning scenarios
+
+### `IAC-PAY-75` — nesprávny Terraform subject vytvorí druhú produkčnú infraštruktúru
+
+Prvý blok spája IaC authority, providers/resources/data sources, values, expressions/dependency graph a Terraform state. Atlas Payments chce zmeniť `prod-eu`, ale pipeline načíta nesprávny backend key, default provider smeruje do iného regionu, data source vyberá mutable „latest“ image a subnet identity je odvodená z nestabilného list indexu. Plan nad prázdnym state-om vyzerá ako legitímny create a apply vytvorí druhú sieť skôr, než zlyhá state commit.
+
+```text
+business intent prod-eu
+→ source a variable set
+→ nesprávny backend/state subject
+→ default provider v inom regione
+→ mutable data-source result
+→ unstable resource keys
+→ create graph nad prázdnym state-om
+→ remote objects vzniknú
+→ state write zlyhá
+→ duplicate a orphaned infrastructure
+```
+
+Blok musí uzavrieť exact configuration/provider/input/state/target subject, rozdiel medzi managed resource a read-only query, stable instance identity, graph edges, unknown values, remote read-back a binding recovery.
+
+### `IAC-PAY-76` — backend, module a address migration rozbijú ownership
+
+Druhý blok spája remote backend/locking, modules a lifecycle/import/moved blocks. Shared module sa publikuje cez mutable ref, backend migration prebehne bez lineage/serial verifikácie a refactor presunie stateful database do child modulu bez `moved` contractu. Paralelný pipeline použije starý backend a stale module graph; jeden run plánuje replacement, druhý drží lock nad iným state subjectom.
+
+```text
+state/module ownership intent
+→ backend a module source resolution
+→ lineage/serial a lock
+→ old a new configuration addresses
+→ import/move/lifecycle decision
+→ remote mutation alebo binding-only transition
+→ state commit a upgrade compatibility
+```
+
+Acceptance musí rozlíšiť lock od správneho state targetu, module contract od state boundary, remote lifecycle zmenu od binding migration a configuration-driven refactor od ad-hoc state surgery.
+
+### `IAC-PAY-77` — drift a policy gate schvália nesprávnu realitu
+
+Tretí blok spája drift a Terraform testing/policy. Incident controller dočasne otvorí diagnostický endpoint, scheduled drift job nepozná emergency ownership transfer a automaticky ho odstráni. Zároveň mock plan test prejde, ale real provider apply zlyhá na organization policy. Policy engine outage sa normalizuje na prázdny report a pipeline interpretuje „žiadne findings“ ako pass.
+
+```text
+expected authority a risk model
+→ observed configuration/state/remote delta
+→ drift classification
+→ static, plan, apply a runtime evidence
+→ policy verdict alebo missing evidence
+→ reconciliation, adoption, exception alebo containment
+→ second no-op plan a business verification
+```
+
+Blok musí odlíšiť harmful drift od delegated mutation, clean result od missing/tool-error evidence a plan-time policy od real provider/runtime acceptance.
+
+### `IAC-PAY-78` — Ansible trafí správny playbook na nesprávne hosty
+
+Štvrtý blok spája Ansible architecture, inventory, modules/tasks/plays/playbooks, variables/facts/templates a handlers/loops/conditionals. Dynamic inventory cache vráti stale production membership, group precedence prepíše environment-specific port, stale fact vyberie nesprávny template branch a handler sa flushne po partial batch failure. Play recap je zelený pre preživšie hosty, no časť fleet zostane na starej konfigurácii.
+
+```text
+change intent
+→ inventory sources a cache generation
+→ resolved host graph a variables
+→ play/task/module execution subject
+→ per-host changed/failed/unreachable/skipped evidence
+→ handler a batch transition
+→ service/runtime read-back
+→ rerun a convergence verification
+```
+
+Acceptance musí preukázať target count, host identities, variable provenance, fact freshness, template determinism, pravdivý changed signal, batch/failure semantics a druhý converge run.
+
+### `IAC-PAY-79` — reusable automation a secrets vytvoria dvoch writerov
+
+Záverečný blok spája roles/collections, Vault, Ansible idempotency a Terraform-versus-Ansible boundary. Collection dependency sa resolve-ne na novší artifact, Vault rekey sa zamieňa za rotation cieľového credentialu a Ansible role mení cloud security-group attribute, ktorý zároveň spravuje Terraform. Oba nástroje sú jednotlivo „idempotentné“, no spolu oscilujú medzi dvoma desired states.
+
+```text
+capability contract a ownership
+→ immutable role/collection/execution-environment graph
+→ encrypted secret source a runtime credential acquisition
+→ Terraform resource writer alebo Ansible configuration writer
+→ converge/read-back
+→ second run a cross-tool drift
+→ revocation, reconciliation a ownership closure
+```
+
+Sekcia sa uzatvára až vtedy, keď každý mutable attribute, secret lifecycle a reusable dependency má jedného autoritatívneho ownera a overený second-operation outcome.
 
 ## Cieľ zvládnutia
 
-Po dokončení sekcie má byť možné:
+Po dokončení sekcie má byť možné navrhnúť a diagnostikovať change chain, ktorý:
 
-- vysvetliť Infrastructure as Code ako change-control a reconciliation model, nie iba automatizačný skript,
-- rozlíšiť deklaratívny a imperatívny prístup, desired state, actual state a Terraformom známy state,
-- vysvetliť idempotenciu, reproducibility, drift, blast radius a authoritative source,
-- navrhnúť version-control, review, plan, policy, apply a verification workflow,
-- rozdeliť infraštruktúru na state boundaries podľa ownershipu, lifecycle, security a failure domain,
-- rozlíšiť Terraform Core, provider, backend a remote platform responsibilities,
-- deklarovať a bezpečne versionovať provider requirements, configurations, aliases a dependency lock file,
-- rozlíšiť managed resource a read-only data source,
-- vysvetliť resource address, remote identity, computed values a replacement behavior,
-- používať implicitné dependencies a rozpoznať prípady, keď je legitímny explicitný `depends_on`,
-- navrhnúť variables s presnými type constraints, validation, null semantics a bezpečným sensitive handlingom,
-- používať locals na pomenovanie interných expressions bez skrytia neprimeranej business logiky,
-- publikovať stabilné module outputs bez coupling-u na celý provider resource object,
-- vysvetliť Terraform expressions, unknown values, plan-time a apply-time hodnoty,
-- používať conditionals, `for` expressions, functions, dynamic blocks, `count` a `for_each` s vedomým identity modelom,
-- diagnostikovať dependency graph, cycles, nečakanú serializáciu a graph-shaping unknown values,
-- vysvetliť účel Terraform state, resource bindings, lineage, serial a state snapshots,
-- bezpečne používať inspection a state-surgery príkazy s backupom, lockom a následným planom,
-- navrhnúť state backup a recovery postup vrátane testovaného restore,
-- rozlíšiť local a remote backend, remote state storage a remote execution,
-- vysvetliť backend initialization, migration, partial configuration a environment isolation,
-- navrhnúť state locking, CI concurrency, force-unlock a network-partition recovery model,
-- chrániť state pomocou least privilege, short-lived identity, encryption, versioning, retention a auditu,
-- vysvetliť root a child module, module source, contract, composition a registry model,
-- navrhnúť typované module inputs, stabilné outputs, provider mappings a compatibility policy,
-- vybrať primeranú module boundary podľa capability, ownershipu, lifecycle a blast radiusu,
-- versionovať a bezpečne upgradovať reusable modules bez mutable source dependencies,
-- používať `count` a `for_each` na module calls so stabilnou instance identitou,
-- testovať examples, module releases a podporované upgrade paths,
-- správne aplikovať `create_before_destroy`, `prevent_destroy`, `ignore_changes` a `replace_triggered_by`,
-- rozlíšiť configuration-driven import od CLI state mutation a vykonať bezpečný post-import review,
-- používať `moved` blocks na versionovaný refaktoring resource a module addresses,
-- rozlíšiť `moved` block od `terraform state mv` a zachovať podporovanú moved history,
-- klasifikovať remote, configuration, state, provider a dependency drift,
-- používať refresh-only workflow bez automatického adoptovania nesprávneho remote stavu,
-- navrhnúť scheduled drift detection, classification, ownership a reconciliation proces,
-- odlíšiť drift od unmanaged infrastructure a state recovery incidentu,
-- vrstviť `fmt`, `validate`, static analysis, native tests, integration tests a post-apply verification,
-- používať `.tftest.hcl` plan/apply runs, assertions, mocks a izolované test environments,
-- vytvoriť module upgrade testy a reprezentatívnu Terraform/provider version matrix,
-- pracovať s immutable saved planom a machine-readable plan JSON ako policy evidence,
-- navrhnúť Policy as Code rules, advisory/mandatory gates, exceptions a policy tests,
-- prepojiť delivery tests s continuous validation, drift detection a security rescanning,
-- vysvetliť Ansible control node, managed node, agentless execution, inventory, modules, plugins a collections,
-- rozlíšiť action, connection, strategy, callback a inventory plugin responsibilities,
-- navrhnúť bezpečný connection, privilege-escalation, concurrency, batch a execution-environment model,
-- diagnostikovať unreachable host, module/runtime failure, incorrect targeting a non-idempotent change reporting,
-- vytvoriť static alebo dynamic inventory so stabilnou host identity, groups a explicitným variable ownershipom,
-- používať inventory patterns, `--limit`, cache a constructed groups bez neúmyselného rozšírenia target scope-u,
-- overovať resolved inventory graph, host variables, target count a environment isolation pred produkčným runom,
-- rozlíšiť module, action plugin, task, play a playbook a interpretovať per-host `changed`, `failed`, `skipped` a `unreachable` výsledky,
-- používať FQCN, structured arguments, registers, `changed_when`, `failed_when`, blocks, delegation a controlled error handling,
-- rozlíšiť static imports a dynamic includes a navrhnúť check/diff, tags, batching a idempotency verification workflow,
-- vysvetliť variable sources, scope a precedence a vytvoriť stabilný role/inventory variable contract,
-- používať facts, fact cache, magic variables a registered values s explicitným freshness a coupling modelom,
-- vytvárať deterministické Jinja templates s validáciou, bezpečnou serializáciou, atomic update a secret-aware loggingom,
-- používať `when`, tests, loops, `loop_control`, retry/`until` a registered loop results bez skrytého partial state-u,
-- navrhnúť handlers, notifications, `listen` topics, deduplication a flush/failure správanie podľa správneho changed signal-u,
-- navrhnúť Ansible role contract, namespaced variables, defaults, handlers, dependencies a supported platform matrix,
-- rozlíšiť role od collection a bezpečne versionovať collection artifacts, dependencies a execution environments,
-- používať FQCN, immutable collection versions a supply-chain review pre external automation content,
-- vysvetliť, čo Ansible Vault chráni a prečo encryption at rest nenahrádza runtime secret management,
-- navrhnúť vault IDs, password sources, `no_log`, diff protection, rotation a break-glass lifecycle,
-- rozlíšiť encryption-key rekey od rotation cieľového credentialu,
-- vytvárať idempotentné modules/tasks/templates a pravdivý `changed` signal bez skrývania side effects,
-- overiť idempotenciu cez druhý converge run a diagnostikovať recurring change, partial failure a ownership conflict,
-- rozlíšiť idempotenciu, convergence a reproducibility,
-- porovnať Terraform resource lifecycle/state/graph model s Ansible inventory/task/configuration modelom,
-- definovať provisioning/configuration boundary a jedného authoritative writera pre každý mutable attribute,
-- navrhnúť hybridný Terraform–Ansible pipeline, inventory contract, readiness gate a recovery workflow.
+- identifikuje exact Terraform configuration, provider, module, variables, backend, state lineage/serial a target;
+- rozlišuje managed resource, data source, remote object, resource address a state binding;
+- používa typed variables, validations, stable locals a minimálny output contract;
+- vysvetľuje unknown values, implicitné dependencies, `for_each` identity a replacement graph;
+- chráni state remote backendom, lockingom, least privilege, versioningom a testovaným restore;
+- vykonáva module upgrade, import, move a lifecycle zmeny bez neúmyselného replacementu;
+- klasifikuje drift podľa authority a intentu namiesto automatického apply;
+- vrství `fmt`, `validate`, plan/apply tests, saved plan JSON, Policy as Code a runtime verification;
+- identifikuje Ansible control node, execution environment, inventory, connection, strategy a module boundaries;
+- overuje resolved inventory, host variables, facts, templates, handlers a per-host outcomes;
+- používa roles a collections ako versionované provider–consumer contracts;
+- chápe Vault ako encryption-at-rest vrstvu, nie ako úplný runtime secret lifecycle;
+- overuje idempotenciu pravdivým `changed` signalom a druhým converge runom;
+- definuje Terraform–Ansible handoff a jedného writer ownera pre každý mutable attribute;
+- rieši partial a unknown outcomes evidence-preserving containmentom a authoritative recovery;
+- overuje original, forbidden, alternate-target a second-operation paths.
 
-## Stav
+## Revalidation completion gate
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Infrastructure as Code principles | Learning | L2 |
-| Terraform providers, resources a data sources | Learning | L2 |
-| Variables, locals a outputs | Learning | L2 |
-| Expressions a dependency graph | Learning | L2 |
-| Terraform state | Learning | L2 |
-| Remote backend a state locking | Learning | L2 |
-| Modules | Learning | L2 |
-| Lifecycle, import a moved blocks | Learning | L2 |
-| Drift | Learning | L2 |
-| Terraform testing a policy | Learning | L2 |
-| Ansible architecture | Learning | L2 |
-| Inventory | Learning | L2 |
-| Modules, tasks, plays a playbooks | Learning | L2 |
-| Variables, facts a templates | Learning | L2 |
-| Handlers, loops a conditionals | Learning | L2 |
-| Roles a collections | Learning | L2 |
-| Vault | Learning | L2 |
-| Ansible idempotencia | Learning | L2 |
-| Terraform vs. Ansible | Learning | L2 |
+Sekcia bude označená `Ready for user review` iba po splnení všetkých podmienok:
+
+1. všetkých 19 authoritative kapitol používa connected Keycloak-style prose a dominantný lifecycle;
+2. každá kapitola definuje exact configuration, provider, state, module, host, inventory, task, secret alebo ownership subject;
+3. každá kapitola obsahuje reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell alebo API walkthroughy tam, kde to téma umožňuje;
+4. každý významný output vysvetľuje, čo preukazuje a čo nepreukazuje;
+5. configured, resolved, planned, applied, state-recorded, effective, runtime a business states sa nezlievajú;
+6. komplexné failures používajú competing hypotheses, discriminating evidence a evidence-preserving containment;
+7. recovery obsahuje authoritative mutation alebo binding reconciliation a allowed, forbidden aj second-operation validation;
+8. strict learning-depth audit pre všetkých 19 kapitol je `0/0/0` a practical gate nemá failures;
+9. README, navigation, glossary a centrálny review ledger sú synchronizované;
+10. čistý PR head bez dočasných workflowov alebo skriptov prejde štandardným documentation workflowom.
+
+## Aktuálny stav revalidácie
+
+| Blok | Kapitoly | Stav |
+|---|---:|---|
+| `IAC-PAY-75` — Terraform authority, graph a state binding | 0/5 | In progress |
+| `IAC-PAY-76` — backend, modules a address/lifecycle migration | 0/3 | Not started |
+| `IAC-PAY-77` — drift, testing a policy | 0/2 | Not started |
+| `IAC-PAY-78` — Ansible execution, inventory a configuration | 0/5 | Not started |
+| `IAC-PAY-79` — reusable content, secrets, idempotency a ownership | 0/4 | Not started |
+
+Celkový authoritative stav: **0/19 · In progress**.
