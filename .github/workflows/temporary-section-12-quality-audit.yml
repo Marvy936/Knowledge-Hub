@@ -28,6 +28,7 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import re
           from pathlib import Path
 
           def replace_once(path: Path, old: str, new: str) -> None:
@@ -81,6 +82,13 @@ jobs:
               "Každý krok má inú proof boundary, preto sa celý delivery mechanizmus overuje v nasledujúcom poradí.\n\n"
               "```text",
           )
+
+          citation_pattern = re.compile(r'\s*cite[^]+')
+          for path in Path('docs/12-observability').glob('*.md'):
+              text = path.read_text(encoding='utf-8')
+              cleaned = citation_pattern.sub('', text)
+              if cleaned != text:
+                  path.write_text(cleaned, encoding='utf-8', newline='\n')
           PY
       - name: Build Section 12 quality report
         shell: bash
