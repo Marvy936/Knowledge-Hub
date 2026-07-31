@@ -88,11 +88,10 @@ jobs:
               bullet_words = 0
               bullet_lines = 0
               prose_lines = 0
-              list_first_sections = 0
+              list_first_sections = [0]
               section_lines = []
 
               def inspect_section(block):
-                  nonlocal list_first_sections
                   meaningful = [line for line in block if line.strip()]
                   if not meaningful:
                       return
@@ -104,7 +103,7 @@ jobs:
                               break
                           prose_before_first_list += len(word_re.findall(line))
                       if prose_before_first_list < 25:
-                          list_first_sections += 1
+                          list_first_sections[0] += 1
 
               for line in lines:
                   if fence_re.match(line):
@@ -139,7 +138,7 @@ jobs:
                   f"{rel}|words={item['words']}|grade={item['grade']}|"
                   f"strict={item['critical']}/{item['high']}/{item['medium']}|"
                   f"prose_words={prose_words}|bullet_words={bullet_words}|"
-                  f"bullet_share={bullet_share:.3f}|list_first={list_first_sections}|"
+                  f"bullet_share={bullet_share:.3f}|list_first={list_first_sections[0]}|"
                   f"exec_blocks={executable_blocks}|commands={commands}|explanations={explanations}"
               )
 
@@ -149,8 +148,8 @@ jobs:
                   )
               if bullet_share > 0.34:
                   failures.append(f'{rel}: bullet word share {bullet_share:.3f} exceeds 0.34')
-              if list_first_sections > 1:
-                  failures.append(f'{rel}: {list_first_sections} list-first conceptual sections')
+              if list_first_sections[0] > 1:
+                  failures.append(f'{rel}: {list_first_sections[0]} list-first conceptual sections')
               if prose_words < 850:
                   failures.append(f'{rel}: only {prose_words} prose words')
               if executable_blocks < 1:
