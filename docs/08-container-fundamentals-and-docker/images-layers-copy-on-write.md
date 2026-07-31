@@ -1,723 +1,487 @@
 # Images, layers a copy-on-write
 
-Container image je immutable content graph zložený z metadata a ordered filesystem changesets. Runtime z tohto graphu vytvorí read-only snapshot a nad neho pridá writable state konkrétnej container instance.
+Container image je immutable content graph z ordered filesystem changesets a image metadata. Runtime z tohto graphu vytvorí read-only snapshot a nad neho pridá writable state konkrétnej container instance. Merged filesystem, ktorý process vidí, preto nevystihuje, kde bytes fyzicky vznikli, či zostávajú v staršom layer blob-e, či ich prekryl mount alebo či zaniknú pri recreate. Copy-on-write je storage optimization a runtime mutation model, nie persistence alebo secret-deletion guarantee.
 
-Dominantný lifecycle:
+Kapitola uzatvára incident `CTR-PAY-80`. Atlas build najprv skopíruje package-manager token, stiahne dependencies a v ďalšom Dockerfile kroku token odstráni. Final merged image token neukazuje, ale starší layer ho stále obsahuje. Runtime zároveň zapisuje reconciliation ledger do writable layeru. Pri node replacement-e sa ledger stratí, zatiaľ čo secret blob ostáva dostupný v registry/cache. Jedna chyba teda prežila delete a druhá neprežila recreate.
+
+## 1. Dominantný source-to-runtime-filesystem lifecycle
 
 ```text
-source a pinned build inputs
-→ ordered filesystem changesets
-→ content-addressed image manifest/config
-→ registry a local content cache
-→ unpacked read-only snapshot
-→ per-container writable layer
-→ merged filesystem reads/writes/deletes
-→ explicit persistence handoff
-→ replacement, reference tracking a garbage collection
+source, base digest a build inputs
+→ ordered build filesystem/config transitions
+→ content-addressed config a layer descriptors
+→ registry/local content store
+→ unpacked committed snapshot chain
+→ per-container active writable snapshot
+→ merged reads, copy-up, writes a whiteouts
+→ explicit volume/tmpfs/persistent-data handoff
+→ replacement, evidence capture a garbage collection
 ```
 
-Tento model vysvetľuje naraz:
+## 2. Exact image a runtime storage subject
 
-- prečo viac containers zdieľa image bytes;
-- prečo prvý write do lower-layer file-u môže byť drahý;
-- prečo neskoršie `rm` neodstráni secret zo staršieho layeru;
-- prečo runtime mutation nie je súčasť image identity;
-- prečo dáta vo writable layeri zaniknú pri replacement-e;
-- prečo delete tagu nemusí okamžite uvoľniť disk.
+```yaml
+filesystemSubject:
+  image:
+    platformManifest: sha256:amd104
+    configDigest: sha256:cfg104
+    layers:
+      - sha256:base17
+      - sha256:runtime22
+      - sha256:deps31
+      - sha256:app44
+  localStore:
+    engineHost: worker-node-17
+    imageStoreMode: containerd-snapshotter
+    snapshotter: overlayfs
+    committedSnapshot: snap-771
+  container:
+    id: 2d9f...
+    writableSnapshot: active-902
+    readOnlyRootfs: true
+  mounts:
+    - destination: /tmp
+      type: tmpfs
+    - destination: /var/cache/atlas
+      type: volume
+      source: atlas-cache-10-4
+  persistentBusinessData:
+    owner: managed-postgresql/db17
+```
 
-## 1. Atlas image a runtime-state subject
+Image digest neidentifikuje writable layer, volumes, bind mounts ani tmpfs content.
 
-Atlas Payments release `3.13.0` používa platform manifest `MAMD313`:
+## 3. Layer je changeset
+
+Layer nie je celý filesystem. Obsahuje additions, modifications, metadata changes, links a deletion markers oproti previous view.
 
 ```text
-image config: CAMD313
 layer B17: base userspace
-layer R22: language/runtime dependencies
-layer D31: application dependency artifacts
-layer A44: application binary and static assets
-layer C09: default configuration metadata
+→ layer R22: runtime libraries
+→ layer D31: dependencies
+→ layer A44: application binary
+→ final merged image rootfs
 ```
 
-Runtime container `AP-313-07` pridá:
+Poradie je súčasť identity. Rovnaké blobs v inom poradí môžu vytvoriť iný rootfs a manifest digest.
+
+## 4. Compressed blob digest verzus diff ID
+
+Registry descriptor typicky identifikuje compressed layer bytes. Image config `rootfs.diff_ids` identifikuje uncompressed changesets.
 
 ```text
-snapshot/rootfs: SNAP-771
-writable layer: UPPER-771
-runtime config generation: C44
-persistent business data: managed PostgreSQL DB17
-cache path: /var/cache/atlas → bounded ephemeral volume
-upload path: object storage
-/tmp: tmpfs
+compressed tar+compression bytes
+→ distribution digest
+
+decompressed tar stream
+→ diff ID
 ```
 
-Úspešný outcome:
+Rovnaký uncompressed changeset môže mať odlišný distribution digest pri inom compression encodingu. Forensics musí vedieť, ktorú identity porovnáva.
 
-```text
-manifest a ordered layers zodpovedajú schválenému image subjectu
-+ unpacked rootfs je integrity-verified
-+ runtime mutations sú iba v explicitne ephemeral paths
-+ business data má external persistent owner
-+ replacement container reprodukuje application state z image + runtime config
-+ secrets nie sú v žiadnom image layeri ani build metadata
-+ GC neodstráni referenced content a odstráni skutočne orphaned content
-```
-
-## 2. Image, snapshot a container sú odlišné subjects
-
-### Image subject
-
-Content-addressed artifact:
-
-```text
-manifest
-→ config
-→ ordered layer descriptors
-```
-
-### Local snapshot subject
-
-Runtime-specific unpacked representation image layers:
-
-```text
-verified blobs
-→ decompression
-→ apply changesets
-→ snapshot/snapshot-chain identity
-```
-
-### Container runtime subject
-
-```text
-read-only snapshot
-+ writable upper layer
-+ mounts/volumes/tmpfs
-+ process/network/security config
-→ running container instance
-```
-
-Image digest preto neidentifikuje runtime writable state, mounted secrets ani external volumes.
-
-## 3. Filesystem layer ako changeset
-
-Layer nie je plný filesystem. Reprezentuje rozdiel oproti predchádzajúcemu view:
-
-- added files/directories;
-- modified file content;
-- metadata changes;
-- ownership a permissions;
-- links;
-- whiteouts pre deletion;
-- opaque-directory semantics podľa format contractu.
-
-Ordered application:
-
-```text
-B17
-→ apply R22
-→ apply D31
-→ apply A44
-→ apply C09
-→ final image rootfs view
-```
-
-Poradie je súčasť identity. Rovnaké layer blobs v inom poradí môžu vytvoriť iný filesystem a manifest.
-
-## 4. Content-addressed storage
-
-Descriptor digest viaže exact bytes. Registry a runtime môžu deduplikovať shared content:
+## 5. Content-addressed deduplication
 
 ```text
 Image X ─┐
-         ├→ shared layer B17
+         ├→ shared base layer B17
 Image Y ─┘
 ```
 
-Výhody:
+Content addressing umožňuje integrity verification, deduplication, immutable references a reference-aware garbage collection. Digest však nepreukazuje bezpečnosť alebo trusted origin.
 
-- integrity verification;
-- immutable references;
-- deduplication;
-- cache reuse;
-- promotion exact contentu;
-- reference-based GC.
+Deletion jedného tagu nemusí uvoľniť layer, ak ho stále referencuje iný manifest, running/stopped snapshot, lease alebo build cache.
 
-Content digest nehovorí, či layer je bezpečný, podporovaný alebo pochádza z trusted build-u. To rieši provenance, policy, scan a release evidence.
+## 6. Merged filesystem view
 
-## 5. Merged filesystem view
-
-Overlay/snapshot implementation prezentuje processu jeden path tree z viacerých vrstiev.
-
-Zjednodušený lookup:
+Overlay/snapshot model processu prezentuje jeden path tree:
 
 ```text
-read /app/config.yml
-→ pozri writable upper layer
-→ ak path nie je prítomný, hľadaj v najvyššom lower layeri
-→ pokračuj smerom k base layeru
-→ rešpektuj whiteout/opaque markers
+read path
+→ active writable layer
+→ highest lower layer containing path
+→ older layers
+→ respect whiteout/opaque markers
 ```
 
-Pri overlay-style modeli sa často rozlišuje:
+Konkrétna implementation môže používať overlayfs snapshotter, klasický `overlay2`, block snapshot alebo platform-specific driver. Docker dokumentácia rozlišuje storage drivers a containerd snapshotters; current installation sa preto diagnostikuje cez `docker info`, nie podľa historického predpokladu. citeturn888444search0turn888444search23
 
-- `lowerdir` — read-only layer/snapshot chain;
-- `upperdir` — per-container writable state;
-- `workdir` — interná filesystem operation state;
-- `merged` — view pre container process.
+```bash
+docker info --format '{{json .DriverStatus}}'
+docker info | grep -E 'Storage Driver|containerd image store'
+```
 
-Konkrétna implementácia môže byť overlayfs, native snapshotter, block-based snapshotter alebo platform-specific model. Semantic contract je dôležitejší než názov drivera.
+Output preukazuje daemon-reported storage implementation, nie complete filesystem health.
 
-## 6. Copy-on-write a copy-up
+## 7. Copy-up pri prvom write
 
-Read lower-layer file-u môže byť zdieľaný. Pri prvom write runtime nemôže meniť immutable lower content:
+Lower layer je immutable. Pri write do lower file-u runtime vytvorí upper copy:
 
 ```text
-open lower file for write
-→ copy-up file/metadata do upper layeru
-→ vykonaj mutation nad upper copy
-→ ďalšie reads vidia upper version
+open lower /app/data.bin for write
+→ copy-up content/metadata
+→ mutate upper copy
+→ subsequent reads see upper version
 ```
 
 Dôsledky:
 
-- prvý write môže mať vyššiu latency;
-- veľký file sa môže skopírovať celý aj pri malej zmene podľa filesystem semantics;
-- upper-layer disk usage môže prudko narásť;
-- zdieľaný page cache a storage behavior závisí od implementation;
-- runtime mutation zostáva lokálna konkrétnej instance.
+- prvý write môže byť drahý;
+- veľký file sa môže copy-upnúť celý;
+- upper disk usage môže prudko rásť;
+- runtime state je private pre container instance;
+- write-heavy database vo writable layeri má zlý performance/recovery model.
 
-Database alebo write-heavy workload vo writable layeri môže trpieť performance a recovery problémami aj vtedy, keď technicky funguje.
+Aj `chmod`, `chown` alebo xattr change môže vyvolať metadata/full copy-up podľa implementation.
 
-## 7. Metadata copy-up
+## 8. Whiteouts a delete illusion
 
-Zmena ownershipu, mode, xattr alebo inej metadata môže tiež vyvolať copy-up podľa implementation.
-
-```text
-chmod/chown lower file
-→ upper representation vznikne
-→ container už používa private copy
-```
-
-Pri diagnostike disk growth nestačí hľadať iba explicitné application writes. Package manager, permission-fixing init script alebo log rotation môže modifikovať veľké množstvo lower paths.
-
-## 8. Deletion a whiteouts
-
-Immutable lower file sa fyzicky neodstráni z historického layeru. Novšia vrstva vytvorí marker, ktorý ho skryje v merged view.
+Ak lower layer obsahuje `/root/token`, neskorší layer ho nemôže z historical contentu vymazať. Vytvorí deletion marker:
 
 ```text
-layer N: /root/token.txt exists
-layer N+1: whiteout /root/token.txt
-merged view: file absent
-historical layer N: bytes stále existujú
+layer N: token bytes exist
+layer N+1: whiteout hides path
+merged rootfs: token absent
+historical blob N: token bytes remain
 ```
 
-Preto:
+Rizikový Dockerfile:
 
 ```dockerfile
-RUN copy-secret
-RUN use-secret && rm secret
+COPY package-token /run/package-token
+RUN install-dependencies --token-file /run/package-token
+RUN rm -f /run/package-token
 ```
 
-môže zachovať secret v prvom layeri. Bezpečný build používa secret mount, ktorý nevstupuje do layer changesetu, a po exposure credential rotuje.
+Token je v `COPY` layeri. Bezpečný BuildKit secret mount nevkladá secret do layer changesetu:
+
+```dockerfile
+# syntax=docker/dockerfile:1
+RUN --mount=type=secret,id=package_token \
+    install-dependencies --token-file /run/secrets/package_token
+```
+
+Ak secret už vstúpil do build contextu/layeru/cache/logu, treba ho rotovať. Rebuild s `rm` starý credential nerevokuje.
 
 ## 9. Opaque directories
 
-Ak novšia vrstva nahradí celý directory view, opaque marker môže skryť children z lower layers. To ovplyvňuje:
+Opaque marker môže skryť lower-directory children. Naivné rozbalenie všetkých tarov bez OCI whiteout semantics nevytvorí správny final rootfs. To je relevantné pri custom scanners, archive exporte a snapshot migration.
 
-- extraction semantics;
-- diff/forensics;
-- migration medzi snapshotters;
-- image-size interpretation;
-- unexpected missing files.
+## 10. Dockerfile instruction a successor state
 
-Consumer musí aplikovať OCI changeset semantics, nie iba naivne rozbaliť tar archívy do jedného directory bez whiteout handlingu.
-
-## 10. Build instruction a layer boundary
-
-Build engine vytvára cache a filesystem transitions podľa instruction graphu. Nie každá instruction musí vytvoriť non-empty filesystem layer, ale každá môže meniť image config alebo history.
-
-Dôležitý model:
+Build instruction vytvára filesystem a/alebo image-config transition:
 
 ```text
-build instruction
-+ current rootfs/config state
+prior rootfs/config
++ instruction
 + resolved inputs
-→ successor filesystem/config state
-→ cache record a artifact evidence
+→ successor rootfs/config
+→ cache record
 ```
 
-Layer boundary ovplyvňuje:
+`ENV`, `USER`, `ENTRYPOINT` môžu meniť config bez veľkého filesystem layeru. `RUN`, `COPY`, `ADD` typicky menia rootfs. Build history nie je complete oracle pre obsah layers alebo secrets.
 
-- čo zostane v history;
-- čo je zdieľateľné;
-- cache invalidation;
-- secret exposure;
-- final size;
-- forensic reconstruction.
+## 11. Layer ordering a cache reuse
 
-## 11. Layer ordering a cache chain
+Efficient deterministic pattern:
 
-Stabilné inputs sa často spracujú skôr než volatile source:
-
-```text
-base digest
-→ package metadata/lock files
-→ dependency install
-→ application source
-→ build artifact
+```dockerfile
+COPY package-lock.json package.json ./
+RUN npm ci --omit=dev
+COPY src/ ./src/
+RUN npm run build
 ```
 
-Ak sa `COPY . .` vykoná pred dependency install, zmena jedného source file-u invaliduje celý downstream dependency layer.
+Lockfiles sa menia menej často než source, takže dependency cache sa znovu použije. Correctness však vyžaduje, aby cache key pokrýval všetky relevantné inputs. Hidden environment, mutable package index alebo undeclared generated file môže vytvoriť stale artifact.
 
-Optimalizácia však nesmie meniť correctness. Layer ordering musí stále zachovať:
+Cache miss má znížiť výkon, nie zmeniť výsledok. Controlled no-cache rebuild overuje clean-room correctness:
 
-- exact dependency inputs;
-- complete source/artifact handoff;
-- security updates;
-- clean-build reproducibility;
-- final runtime content.
-
-## 12. Cache nie je source of truth
-
-Build cache je memoizácia predchádzajúcej transition, nie autoritatívny dependency store ani dôkaz správnosti.
-
-Riziká:
-
-- mutable package indexes;
-- unpinned base tag;
-- stale external download;
-- cache key bez hidden inputu;
-- cross-branch alebo cross-tenant poisoning;
-- platform-specific record reuse;
-- secret-bearing cache export;
-- local cache maskujúca missing dependency.
-
-Dôveryhodný build potrebuje clean-room alebo controlled-cache verification:
-
-```text
-exact source + locks + base digest + toolchain
-→ build bez correctness dependence na local cache
-→ compare expected artifact/runtime outcome
+```bash
+docker buildx build --no-cache --pull \
+  --platform linux/amd64 \
+  --tag atlas/payments:clean-test .
 ```
 
-## 13. Image config a history nie sú filesystem oracle
+`--no-cache` ignoruje instruction cache, ale network dependencies môžu byť stále mutable. Reproducibility potrebuje pinned inputs a local/verified dependency sources.
 
-Image config/history pomáhajú vysvetliť build, ale nemusia úplne ukázať:
+## 12. Runtime writable layer
 
-- obsah každého layeru;
-- files odstránené neskôr;
-- secret v tar/xattr;
-- generated package content;
-- final effective runtime mounts;
-- provenance skutočného source-u.
+Writable snapshot môže obsahovať:
 
-Forensics používa kombináciu:
-
-```text
-manifest/config/history
-+ exact layer extraction
-+ merged rootfs analysis
-+ SBOM
-+ provenance
-+ runtime writable diff
-```
-
-## 14. Writable container layer
-
-Upper layer zachytáva runtime rootfs mutations:
-
-- application-generated files;
-- package install vykonaný za behu;
-- logs bez external sinku;
-- caches;
+- logs;
+- temporary files;
+- package install/hotfix;
+- application cache;
 - downloaded plugins;
-- attacker changes;
-- permission fixes;
-- temporary files.
+- attacker artifacts;
+- business data omylom.
 
-Je typicky viazaná na container instance. Restart tej istej instance ju môže zachovať podľa platformy, ale remove/recreate ju spravidla stratí.
-
-Preto runtime identity potrebuje rozlišovať:
-
-```text
-restart existing instance
-≠ replace with new instance from image
+```bash
+docker diff atlas-payments
 ```
 
-## 15. Persistence classification
+Output ukáže added/changed/deleted paths podľa Docker diff modelu. Nepreukazuje bytes, process-open deleted files, mounted volume changes ani all xattr/metadata semantics.
 
-Každý writable path má dostať triedu:
+Restart existing container môže writable layer zachovať. `docker rm` a recreate z image ju odstránia.
+
+## 13. Path classification
+
+Každý writable path:
 
 ### Ephemeral
 
-Môže zaniknúť pri replacement-e:
+Môže zaniknúť:
 
-- `/tmp`;
-- rebuildable cache;
-- transient sockets;
-- scratch workspace.
+```text
+/tmp
+bounded scratch
+rebuildable cache
+```
 
-### Persistent business state
+### Persistent business data
 
-Musí mať external owner:
+Má external identity, backup a restore:
 
-- database records;
-- uploads;
-- durable queues;
-- audit trail;
-- customer-generated content.
+```text
+database
+uploads
+durable queue
+audit records
+```
 
-### Configuration/secret state
+### Reproducible configuration/secret
 
-Má byť znovu injektovateľný z versionovaného alebo secret-management source-u, nie manuálne zachovaný z old containeru.
+Musí byť znovu injektovateľný z versionovaného config alebo secret authority.
 
 ### Incident evidence
 
-Logs, traces a relevant runtime metadata sa musia exportovať pred zánikom instance.
+Musí byť exportované mimo disposable instance pred delete.
 
-## 16. Volumes a mounts obchádzajú image layer model
+## 14. Mount obscuring
 
-Mounted path prekryje image content na rovnakom destination path-e:
-
-```text
-image obsahuje /var/lib/atlas/default.db
-→ volume mount na /var/lib/atlas
-→ process vidí volume content
-→ image file je obscured
-```
-
-Volume alebo bind mount má vlastný lifecycle, ownership, backup, security label a performance model. Image digest neidentifikuje mounted content.
-
-To je dôvod, prečo „funguje v image inspection, chýba v runtime“ môže byť mount-obscuring problém, nie broken layer.
-
-## 17. Read-only root filesystem
-
-Read-only rootfs zabraňuje writes do root snapshotu/writable layeru podľa runtime implementation a policy.
-
-Výhody:
-
-- odhaľuje implicitné write assumptions;
-- znižuje persistence runtime mutation a malware;
-- približuje runtime k immutable artifactu;
-- zjednodušuje diff a recovery model.
-
-Workload potrebuje explicitné writable paths s:
-
-- ownerom;
-- size limitom;
-- persistence class;
-- cleanup policy;
-- permissions/labels;
-- backup podľa potreby.
-
-## 18. Runtime mutation a snowflake container
-
-Interactive package install alebo hot edit:
+Mount na destination prekryje image content:
 
 ```text
-image MAMD313
-+ local upper-layer mutation P1
-→ effective runtime ≠ declared artifact
+image: /var/lib/atlas/default.db exists
+volume mounted at /var/lib/atlas
+process sees volume content, image file hidden
 ```
 
-Dôsledky:
+„File je v image inspect/exporte, ale runtime ho nevidí“ môže byť mount issue, nie broken layer.
 
-- replacement odstráni opravu;
-- ďalšia instance ju nemá;
-- image scan/SBOM ju nemusí vidieť;
-- incident evidence je viazaná na jednu instance;
-- rollout je nekonzistentný.
+```bash
+docker inspect atlas-payments --format '{{json .Mounts}}' | jq .
+container_pid="$(docker inspect -f '{{.State.Pid}}' atlas-payments)"
+nsenter -t "$container_pid" -m findmnt -R /var/lib/atlas
+```
 
-Recovery path je rebuild successor image-u a redeploy, nie export náhodného upper layeru ako neauditovaný nový baseline.
+## 15. Read-only root filesystem
 
-## 19. Layer size a effective disk usage
+```bash
+docker run --read-only \
+  --tmpfs /tmp:size=128m,mode=1777 \
+  --mount type=volume,src=atlas-cache,dst=/var/cache/atlas \
+  registry.example/atlas/payments@sha256:amd104
+```
+
+Read-only rootfs znižuje implicitné runtime mutations. Nepreukazuje, že mounts sú read-only, volume neobsahuje executable malware alebo application nepotrebuje unmodeled writable path.
+
+## 16. Snowflake container
+
+```bash
+docker exec atlas-payments sh -c 'apk add curl && vi /app/config'
+```
+
+Effective runtime sa odchýli od image digestu. Replacement fix stratí, druhá replica ho nemá a image SBOM/scan ho nevidia.
+
+Authoritative recovery:
+
+```text
+capture evidence
+→ source/Dockerfile/config fix
+→ rebuild/test/scan/sign
+→ publish new digest
+→ recreate
+→ verify second instance
+```
+
+`docker commit` môže byť forensic snapshot, ale nie automaticky trusted release artifact.
+
+## 17. Image size verzus disk reclaim
 
 Rozlišuj:
 
 ```text
-compressed registry transfer size
-uncompressed layer size
-shared local content size
-snapshot filesystem usage
-per-container upper usage
+compressed registry size
+uncompressed content size
+shared layer bytes
+committed snapshot usage
+active writable usage
 volume usage
 build cache
 metadata/inodes
 ```
 
-CLI „image size“ nemusí byť množstvo disku uvoľnené pri deletion. Shared layer zostane, ak ho používa iný manifest, snapshot alebo build cache.
+```bash
+docker system df -v
+docker ps --size
+df -h
+df -i
+```
 
-## 20. Reference graph a garbage collection
+CLI estimates a filesystem metrics testujú rozdielne subjects. `docker system df` nemusí presne predpovedať reclaim pri current leases/shared snapshots.
 
-GC nemá začínať od tagov, ale od reachable content graphu:
+## 18. Reference graph a GC
+
+Safe GC:
 
 ```text
-retained manifests/indexes
+retained image/index manifests
 → referenced config/layer blobs
-→ running/stopped container snapshots
+→ container snapshots
 → leases/pins
 → build cache records
 → related artifacts podľa policy
-```
-
-Safe GC lifecycle:
-
-```text
-mark retained roots
-→ traverse references
-→ protect active uploads/leases
 → identify unreachable content
-→ delete according to retention
-→ verify runtime/recovery invariants
+→ delete with fencing
 ```
 
-Race medzi pull/create a GC môže poškodiť runtime, ak implementation nemá správne leases/fencing.
+`docker system prune` je destructive policy, nie diagnosis. Pred incidentným prune zachovaj images, containers, snapshots a build-cache evidence.
 
-## 21. Base image ako inherited supply chain
+## 19. Base image inheritance
 
-Base layer chain prináša:
-
-- userspace packages;
-- libc a loader;
-- CA certificates;
-- timezone data;
-- users/groups;
-- package metadata;
-- vulnerabilities;
-- support lifecycle.
-
-Tag base image-u je mutable input. Reproducible subject používa digest a explicitnú update policy.
-
-Menší image môže znížiť surface a transfer, ale nie je automaticky bezpečnejší. Chýbajúce CA, user data alebo observability môžu spôsobiť runtime alebo incident-response failure.
-
-## 22. Scratch a distroless runtime
-
-Minimal runtime musí explicitne obsahovať alebo externým contractom poskytovať:
-
-- executable/interpreter;
-- dynamic libraries;
-- CA certificates;
-- timezone/locale podľa potreby;
-- user/group identity metadata;
-- DNS/runtime dependencies;
-- debugging strategy.
-
-Debugging nemusí znamenať shell v production image. Môže používať ephemeral debug workload, host tools, core dumps podľa policy alebo observability endpoints.
-
-## 23. Multi-stage handoff
-
-Multi-stage build oddeľuje build rootfs od final runtime rootfs:
-
-```text
-builder stage
-→ compile/test artifact
-→ narrow verified copy
-→ final runtime stage
-```
-
-Narrow handoff znižuje pravdepodobnosť, že final image obsahuje:
-
-- compiler/toolchain;
-- source tree;
-- package cache;
-- credentials;
-- test outputs;
-- unrelated build dependencies.
-
-Final image provenance musí stále dokazovať, že copied artifact pochádza z testovaného graphu.
-
-## 24. Worked failure: secret bol odstránený, ale stále bol v image
-
-Build vykonal:
+Base digest prináša packages, libc/loader, CA certificates, users/groups, timezone data a vulnerabilities. Mutable base tag znamená, že rovnaký Dockerfile commit môže vytvoriť nový image.
 
 ```dockerfile
-COPY .npmrc /root/.npmrc
-RUN npm ci
-RUN rm /root/.npmrc
+FROM debian:bookworm@sha256:exact-base
 ```
 
-Mechanizmus:
+Digest pinning poskytuje reproducibility, ale security updates sa neobjavia samé. Dependency automation musí vedome navrhnúť nový digest a spustiť testy.
+
+## 20. Minimal images
+
+Scratch/distroless znižujú runtime content, ale musia explicitne riešiť:
+
+- dynamic libraries/interpreter;
+- CA certs;
+- timezone/locale;
+- user identity files;
+- DNS/runtime dependencies;
+- debugging/evidence strategy.
+
+Menšia size nie je automaticky menší effective attack surface, ak container beží privileged alebo mountuje host socket.
+
+## 21. Worked incident `CTR-PAY-80`: secret removed but retained
 
 ```text
-COPY vytvorí layer s plaintext tokenom
-→ npm install použije token
-→ neskorší layer pridá whiteout
-→ merged view token neukazuje
-→ starší layer bytes zostávajú pullnuteľné
+COPY token creates layer L1
+→ dependency install creates L2
+→ rm token creates whiteout L3
+→ merged view clean
+→ registry blob L1 still contains credential
 ```
 
-Required response:
+Recovery:
 
-- credential okamžite revoke/rotate;
-- odstrániť secret z build contextu a history;
-- rebuildnúť image z clean graphu so secret mountom;
-- verify všetky layers a metadata;
-- redeploy successor digest;
-- riešiť registry retention/history podľa incident policy.
+1. revoke token;
+2. remove it from build context/history;
+3. rebuild with secret mount;
+4. publish new digest;
+5. remove/expire affected registry/cache artifacts podľa policy;
+6. scan layer archives a build logs;
+7. test forbidden secret-in-layer fixture.
 
-## 25. Worked failure: malá runtime zmena skopírovala veľký lower file
+## 22. Worked incident: reconciliation ledger lost
 
-Atlas process aktualizoval jeden field v 4 GiB local database file uloženom v image lower layeri.
+Application zapisovala pending external settlement IDs do `/var/lib/atlas/pending` v writable layeri.
 
 ```text
-first write
-→ copy-up celého file-u podľa storage semantics
-→ upper usage narastie o približne 4 GiB
-→ write latency a node disk pressure
+container replace
+→ upper snapshot deleted
+→ external provider side effects remain
+→ local reconciliation knowledge lost
 ```
 
-Image nemá obsahovať mutable production database. Dáta patria do explicitného persistent storage s vhodným filesystem a backup modelom.
+Recovery rekonštruuje ledger z authoritative database/events/provider query a vykoná idempotentnú reconciliation. Path sa presunie do durable owned store.
 
-## 26. Worked failure: replacement odstránil pending state
+## 23. Worked incident: disk growth after chmod
 
-Worker ukladal durable retry ledger do `/var/lib/atlas/retry.db` vo writable layeri.
+Startup script recursive `chown -R` nad veľkou lower-layer directory vyvolal copy-up množstva files. Application nič explicitne nezapisovala, ale upper usage explodovala.
+
+Evidence:
+
+- `docker diff`/snapshot usage;
+- process audit;
+- layer directory size;
+- startup script;
+- storage driver metrics.
+
+Fix nastaví ownership pri build-e cez `COPY --chown` alebo správne volume permissions.
+
+## 24. Competing hypotheses pri missing file
 
 ```text
-container healthy
-→ node drain/replacement
-→ old upper layer deleted
-→ successor container starts from clean image
-→ retry identity a pending work zmiznú
+H1: file nikdy nebol v selected platform manifest-e
+H2: later whiteout/opaque directory ho skryla
+H3: mount obscures path
+H4: runtime mutation removed it
+H5: wrong working directory/path
+H6: UID/LSM makes it inaccessible, nie missing
+H7: pull/unpack snapshot incomplete/corrupt
 ```
 
-Chyba nie je v CoW. Je v nesprávnej persistence classification. Recovery potrebuje business reconciliation a external durable ledger.
+Evidence:
 
-## 27. Worked failure: delete tagu neuvoľnil disk
+```bash
+docker image inspect exact-digest
+docker history --no-trunc exact-digest
+docker inspect container
+docker diff container
+nsenter -t "$container_pid" -m findmnt -R /target
+```
 
-Operator odstránil `payments:3.12.0`, ale bytes zostali.
+Layer extraction/content analysis testuje H1/H2, mounts H3, diff H4, process/config H5, permissions/audit H6 and snapshot/daemon errors H7.
 
-Possible references:
-
-- iný tag/index odkazuje na rovnaké manifests;
-- running/stopped container má snapshot lease;
-- build cache používa layers;
-- retention drží untagged manifest;
-- related artifact graph alebo replication policy drží subject;
-- GC ešte neprebehlo.
-
-Tag je pointer, nie storage allocation unit.
-
-## 28. Worked failure: cache maskovala missing build input
-
-Lokálny build prešiel, pretože dependency layer bol v cache. Clean CI worker zlyhal, lebo private package už nebolo dostupné a lock/artifact mirror contract bol neúplný.
+## 25. Acceptance a forbidden paths
 
 ```text
-cache hit preskočí network resolution
-→ local build green
-→ clean build potrebuje chýbajúci external input
-→ reproducibility claim zlyhá
+image/layer/snapshot/writable/volume identities sú oddelené
++ secrets nevstupujú do build context/layers/cache
++ runtime rootfs is read-only where feasible
++ writable paths have explicit classes and limits
++ business data survive recreate through external owner
++ no interactive snowflake mutation is required
++ base image is digest-pinned with update lifecycle
++ GC preserves referenced runtime/evidence content
++ secret-delete fixture still detects historical layer
++ second container reproduces same app state without old upper layer
 ```
 
-Cache nesmie byť jediná kópia release dependency.
+## 26. Kontrolné otázky
 
-## 29. Causal troubleshooting walkthrough: scanner stále nachádza zrušený secret
-
-Tím odstránil secret zo source-u aj final merged filesystemu, ale scanner stále reportuje token v image digest-e.
-
-### 1. Zafixuj image a scan subject
-
-Zaznamenaj:
-
-- source/build revision a build context inventory;
-- exact manifest/config/layer digests;
-- base image digest;
-- build args, secret mounts a provenance;
-- scanner version, scope a finding location;
-- registry/source/cache copies;
-- successor vs. old deployment digests;
-- credential revocation status.
-
-### 2. Súťažiace hypotézy
-
-1. Secret zostal v staršom filesystem layeri a je iba whiteoutnutý.
-2. Secret je v image config/history/build argument metadata.
-3. Secret je v archive/package/cache file-e vo final layeri.
-4. Base image už obsahovala matching value alebo test fixture.
-5. Build context zahŕňal editor backup, `.env` alebo Git history artifact.
-6. Scanner analyzuje starý digest alebo registry mirror cache.
-7. Multi-platform index obsahuje neopravený variant.
-8. Related SBOM/provenance artifact obsahuje sensitive value.
-9. Finding je false positive alebo secret-like test data.
-10. Runtime upper layer alebo volume, nie image, obsahuje secret.
-
-### 3. Diskriminačné observation points
-
-- inspect index a všetky platform manifests;
-- extract/search každý exact layer, vrátane deleted paths;
-- inspect config/history a annotations;
-- inventory build context a final filesystem archives;
-- compare scanner subject digest a deployment digest;
-- inspect base image chain;
-- inspect referrer artifacts podľa access policy;
-- separate image, runtime upper a mounted-volume scans;
-- provider audit potvrdzujúci revocation.
-
-### 4. Containment
-
-Považuj credential za kompromitovaný, obmedz pull/deploy old digestu a zachovaj incident evidence. Samotné „scanner finding možno zmizne po GC“ nie je containment.
-
-### 5. Recovery
-
-- historical layer → clean rebuild bez secretu a bez reuse kontaminovaného stage/layeru;
-- metadata → odstráň sensitive build args/annotations a rebuild;
-- archived file/build context → zúž context a `.dockerignore`, odstráň artifact;
-- base image → vyber fixed base digest;
-- platform gap → rebuild všetky required variants a successor index;
-- stale scan subject → oprav correlation a rescan exact running manifests;
-- runtime/volume exposure → rotate secret a oprav runtime injection/cleanup path;
-- false positive → dokumentuj subject-bound suppression bez zobrazenia secretu.
-
-### 6. Over pôvodný outcome
-
-Potvrď revocation starej hodnoty, layer-by-layer clean successor image, complete platform inventory, trusted provenance, exact production redeploy a absence secretu v image, runtime logs/artifacts a persistent mounts podľa scope-u.
-
-### 7. Posuň control skôr
-
-Pridaj build-context allowlist, secret mounts, layer-aware scanning pred publication, multi-platform completeness, source-to-deployed-digest correlation a mandatory credential revocation workflow.
-
-## 30. Referenčné pravidlá
-
-- Image, unpacked snapshot a runtime container sú odlišné subjects.
-- Layer je ordered filesystem changeset, nie celý filesystem.
-- Digest umožňuje integrity a deduplication, nie trust verdict.
-- Merged read používa najvyššiu visible path verziu a rešpektuje whiteouts.
-- First write do lower file-u môže vyvolať copy-up a veľký disk/latency cost.
-- Deletion v novšom layeri neodstráni bytes zo staršieho layeru.
-- Build cache je performance optimization, nie source of truth.
-- Image history nie je úplný filesystem alebo security audit.
-- Writable layer je per-instance runtime state, nie durable business storage.
-- Mount môže prekryť image content a má vlastný lifecycle.
-- Read-only rootfs potrebuje explicitné writable-path contracts.
-- Runtime mutation vytvára snowflake container mimo image identity.
-- Tag deletion nie je blob deletion; GC sleduje reference graph.
-- Secret exposure v layeri vyžaduje clean rebuild aj credential revocation.
-
-## 31. Kontrolné otázky
-
-1. Ako sa líši image subject, snapshot subject a container runtime subject?
-2. Prečo poradie filesystem changesets ovplyvňuje final rootfs?
-3. Ako funguje merged lookup a copy-up?
-4. Prečo metadata operation môže zvýšiť upper-layer usage?
-5. Ako whiteout skryje, ale neodstráni lower bytes?
-6. Prečo cache nemôže byť jediný dependency source?
-7. Ktoré writable paths môžu byť ephemeral a ktoré potrebujú external ownera?
-8. Ako volume mount môže skryť image content?
-9. Prečo delete tagu nemusí uvoľniť disk?
-10. Aké observation points potvrdia secret v layeri, metadata, runtime upper alebo volume?
+1. Prečo layer nie je full filesystem?
+2. Ako sa distribution digest líši od diff ID?
+3. Čo copy-up znamená pre performance a disk?
+4. Prečo `rm` v neskoršom layeri neodstráni secret?
+5. Čo `docker diff` preukazuje a čo nie?
+6. Ako mount obscures image content?
+7. Prečo writable layer nie je business storage?
+8. Čo read-only rootfs chráni a čo nechráni?
+9. Prečo snowflake hotfix nie je release?
+10. Prečo tag deletion nemusí reclaim-nuť layer bytes?
+11. Ako base digest pinning súvisí so security updates?
+12. Ako sa testuje forbidden secret layer a second-container persistence path?
 
 ## Glossary impact
 
-Relevantné pojmy: image content subject, snapshot subject, writable-layer subject, filesystem changeset, ordered layer chain, merged filesystem lookup, copy-on-write, copy-up, metadata copy-up, whiteout, opaque directory, build transition, cache correctness boundary, runtime mutation, snowflake container, persistence classification, mount obscuring, reference graph, snapshot lease a layer-aware secret incident.
+Relevantné pojmy: image layer, changeset, descriptor digest, diff ID, content-addressed storage, merged filesystem, copy-on-write, copy-up, whiteout, opaque directory, snapshotter, committed snapshot, active writable layer, mount obscuring, read-only rootfs, snowflake container, build cache a garbage collection.
 
-## Oficiálna dokumentácia
+## Primárne zdroje
 
 - [OCI Image Specification](https://github.com/opencontainers/image-spec)
 - [Docker storage drivers](https://docs.docker.com/engine/storage/drivers/)
-- [Images and layers](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/)
+- [Docker OverlayFS storage driver](https://docs.docker.com/engine/storage/drivers/overlayfs-driver/)
+- [Docker volumes](https://docs.docker.com/engine/storage/volumes/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: OCI image a runtime standards](oci-image-runtime-standards.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Registries →](registries.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
