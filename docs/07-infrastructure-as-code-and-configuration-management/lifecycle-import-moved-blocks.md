@@ -1,256 +1,373 @@
 # Lifecycle, import a moved blocks
 
-Terraform lifecycle controls, import a `moved` blocks riešia tri odlišné zmeny:
+Terraform lifecycle controls, import a `moved` blocks riešia tri odlišné transition classes:
 
 ```text
-remote lifecycle transition
-ownership adoption
-configuration address transition
+remote object lifecycle transition
+ownership adoption existujúceho objectu
+configuration address transition pri rovnakom objecte
 ```
 
-Ich spoločným subjectom je resource instance identity a binding. Nesprávne použitý lifecycle rule môže skryť drift; nesprávny import môže prevziať cudzí objekt; rename bez `moved` mappingu môže zmeniť čisto konfiguračný refaktor na remote destroy/create.
+Všetky pracujú s resource identity, ale menia inú vrstvu. `create_before_destroy` mení poradie remote replacementu. Import vytvára nový state binding k existujúcemu remote ID. `moved` mení address binding pri rovnakom remote objekte. Ich zámennosť môže z čisto konfiguračného refaktoru vytvoriť produkčný destroy/create alebo prevziať cudzí objekt do nesprávneho state-u.
 
-Dominantný model:
+Kapitola uzatvára incident `IAC-PAY-76`. Atlas presúva produkčnú VPC a load balancer do reusable module-u a súčasne adoptuje manuálne vytvorený log bucket. Module release chýba complete moved chain, operátor importuje bucket cez default provider do test accountu a `create_before_destroy` sa použije ako univerzálny „bezpečný“ fix pre plánované replacements. Výsledkom sú nové remote objekty namiesto zachovania existujúcich bindings.
+
+## 1. Dominantný identity-transition lifecycle
 
 ```text
-current address, binding a remote owner
-→ klasifikácia zamýšľanej transition
-→ lifecycle/import/move plan
-→ identity a destructive-risk review
-→ chránená state alebo remote mutation
-→ nový binding a actual-state verification
-→ recovery a migration closure
+current configuration address
++ current state binding
++ provider target a remote ID
++ current owner
+→ klasifikácia transition class
+→ lifecycle/import/move contract
+→ plan a destructive-risk review
+→ remote mutation alebo binding-only mutation
+→ successor state snapshot
+→ remote/runtime verification
+→ rollback alebo migration closure
 ```
 
-## 1. Atlas scenár: refaktoring a adopcia produkčného storage
-
-Atlas Payments má produkčný log bucket spravovaný manuálne. Súčasne presúva sieťové resources z root module-u do reusable `network` module-u.
-
-Sú to dve odlišné operácie:
+Prvá otázka nie je „ktorý príkaz použiť“, ale:
 
 ```text
-bucket existuje mimo Terraform ownershipu
-→ import/adoption do novej resource address-y
-
-VPC už je spravovaná starou address-ou
-→ moved mapping na novú address-u
+Má sa zmeniť remote object, ownership binding alebo iba configuration address?
 ```
 
-Import vytvára nový binding k existujúcemu remote objektu. `moved` zachováva existujúci binding pri zmene configuration address-y. Ani jedna operácia sama osebe nemení remote behavior; následný plan však môže odhaliť configuration rozdiel, ktorý by remote objekt zmenil alebo nahradil.
+## 2. Tri transition classes
 
-## 2. Resource lifecycle a replacement subject
+### Remote lifecycle change
 
-Terraform porovná configuration, state binding, provider schema a remote observations. Výsledok pre resource môže byť:
+```text
+same management address
+→ provider update alebo replacement
+→ remote object môže dostať nové ID
+```
+
+### Ownership adoption
+
+```text
+existujúci remote object bez current bindingu
+→ import
+→ nová Terraform address/remote-ID väzba
+```
+
+### Address refactor
+
+```text
+existujúci binding na old address
+→ moved mapping
+→ rovnaký remote ID na new address
+```
+
+Import ani `moved` samy osebe negarantujú no-op remote outcome. Následný plan môže odhaliť configuration mismatch, provider normalization alebo lifecycle rule, ktorá stále navrhne update/replacement.
+
+## 3. Replacement je identity a availability event
+
+Plan môže pre resource ukázať:
 
 ```text
 no-op
-in-place update
-replace: destroy → create
-replace: create → destroy
+update in-place
 create
 destroy
+replace destroy→create
+replace create→destroy
 ```
 
-Replacement nie je iba syntaktická značka `-/+`. Môže meniť:
+Replacement môže zmeniť:
 
-- remote object ID;
-- IP/DNS alebo endpoint;
-- data a encryption identity;
+- remote ID;
+- IP, DNS alebo endpoint;
 - attached policies;
-- dependency graph a routing;
-- availability a rollback možnosti.
+- data alebo encryption identity;
+- sessions a traffic;
+- downstream references;
+- rollback možnosti.
 
-Pred apply treba identifikovať, **prečo** replacement vznikol: provider replace-only field, instance key zmena, address refactor bez move, explicitný trigger alebo provider upgrade.
+Praktické čítanie plan JSON:
 
-## 3. `create_before_destroy` ako operation ordering
+```bash
+terraform show -json tfplan > tfplan.json
+jq -r '
+  .resource_changes[]
+  | select(.change.actions | index("delete"))
+  | [.address, (.change.actions|join(",")), (.change.replace_paths // [])]
+  | @json
+' tfplan.json
+```
 
-Default replacement často znamená:
+Výstup preukazuje addresses a actions, ktoré plan artifact obsahuje. Nepreukazuje, že plan je fresh voči current state alebo že provider remote operation bude úspešná. Replacement reason sa musí spojiť s exact provider/module/state subjectom.
+
+## 4. `create_before_destroy` mení poradie, nie risk model
+
+```hcl
+resource "aws_launch_template" "api" {
+  name_prefix = "atlas-payments-api-"
+  image_id    = var.ami_id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+```
+
+Default replacement môže byť:
 
 ```text
 destroy old
 → create new
 ```
 
-`create_before_destroy` žiada:
+S `create_before_destroy`:
 
 ```text
 create new
-→ pripraviť dependents/cutover
+→ downstream cutover
 → destroy old
 ```
 
-Je bezpečný iba ak môžu objekty koexistovať a existuje explicitný cutover model. Limity:
-
-- unique name alebo singleton constraint;
-- quota a dočasná extra capacity;
-- shared IP, data alebo identity;
-- downstream references;
-- sessions, traffic a DNS propagation;
-- provider/API behavior.
-
-Rule negarantuje zero downtime. Iba mení operation graph.
-
-## 4. Worked failure: `create_before_destroy` narazil na unique name
-
-Atlas menil encryption configuration storage bucketu. Provider vyžadoval replacement a tím pridal `create_before_destroy`.
+Rule negarantuje zero downtime. Musia byť splnené preconditions:
 
 ```text
-new bucket má rovnaký globálne unique name
-→ create new zlyhá
-→ old bucket ostáva
-→ apply je partial/failed
-→ migrácia dát ani cutover sa nezačali
+objekty môžu koexistovať
++ naming umožňuje druhú identity
++ quota má dočasnú kapacitu
++ data alebo endpoint sa dá migrovať
++ downstream cutover je explicitný
++ old object sa môže bezpečne retire-nuť
 ```
 
-Príčina nie je poradie samo osebe, ale nemožnosť súbežnej identity. Bezpečná stratégia potrebuje nový generated name, data copy, verification, consumer cutover a až potom retirement starého objektu.
+## 5. Worked failure: unique name znemožnil create-first
 
-## 5. `prevent_destroy` ako plan guard
-
-`prevent_destroy` blokuje planovanú deštrukciu, kým je rule prítomná v configuration. Je to lokálny change-control guard, nie úplná data protection.
-
-Nechráni pred:
-
-- manuálnym remote deletion;
-- kompromitovanou cloud identity;
-- odstránením celého resource blocku a následným planom;
-- provider-side data loss pri in-place update;
-- state corruption alebo wrong backendom.
-
-Používaj ho spolu s provider-side deletion protection, backups, scoped identity a explicitným high-risk workflowom.
-
-Ak rule blokuje change, najprv vysvetli, prečo plan obsahuje destroy/replace. Odstránenie rule bez tejto analýzy ruší posledný guard bez pochopenia rizika.
-
-## 6. `ignore_changes` ako ownership contract
-
-`ignore_changes` hovorí, že Terraform nemá pri update reconciliation riadiť vybrané attributes.
-
-Legitímny model:
+Atlas menil object, ktorého provider vyžadoval replacement, ale remote API povoľovalo iba jedno globálne unique meno.
 
 ```text
-Terraform vlastní resource
-external controller vlastní explicitný attribute X
-→ ignore_changes[X]
-→ monitoring overuje controller ownership
+create_before_destroy
+→ create new so starým menom
+→ API odmietne duplicate name
+→ old object ostane
+→ apply partial/failed
 ```
 
-Bez ownera a observation pointu rule iba skrýva drift. Security-significant field môže zostať nesprávny bez viditeľného planu.
+Rule nezhoršila data stav, ale nevytvorila bezpečný rollout. Správny design potrebuje nový generated name, data copy alebo dual-running strategy, consumer cutover a následný retirement.
 
-Každý ignored attribute má mať:
-
-- authoritative writera;
-- dôvod;
-- runtime monitoring;
-- expiry alebo review;
-- incident/recovery postup.
-
-`ignore_changes = all` prakticky odoberá Terraformu update ownership a má byť výnimočné.
-
-## 7. `replace_triggered_by` ako explicitný lifecycle edge
-
-`replace_triggered_by` vyjadruje, že resource identity alebo implementation musí byť obnovená pri zmene iného managed subjectu:
+## 6. `prevent_destroy` ako lokálny plan guard
 
 ```hcl
-lifecycle {
-  replace_triggered_by = [terraform_data.image_revision]
+resource "aws_db_instance" "payments" {
+  # ...
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 ```
 
-Je vhodný napríklad pre immutable compute viazaný na image revision. Trigger má reprezentovať skutočnú incompatibility alebo rotation boundary. Ak sa naviaže na hlučnú či mutable hodnotu, každý plan môže spôsobovať replacement.
+`prevent_destroy` blokuje plánovanú destroy/replacement action, kým rule existuje v configuration a resource je prítomný. Nechráni pred:
 
-## 8. Preconditions a postconditions
+- manuálnym cloud deletion;
+- compromised provider identity;
+- odstránením resource blocku spolu s rule;
+- data loss počas in-place update;
+- wrong backend alebo state corruption;
+- provider-side failure.
 
-Precondition blokuje operáciu pri nesplnenom predpoklade. Postcondition kontroluje providerom pozorovaný výsledok resource-u.
+Je to posledný local guard, nie kompletná data protection. Kritické resources potrebujú provider deletion protection, backups, restore testy a high-risk approval.
 
-```text
-precondition
-→ mutation
-→ provider read
-→ postcondition
+Ak guard blokuje change, najprv vysvetli prečo plan obsahuje destroy. Odstránenie rule bez analýzy iba vypne alarm.
+
+## 7. `ignore_changes` ako explicitný ownership handoff
+
+```hcl
+resource "aws_ecs_service" "api" {
+  desired_count = 6
+
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+}
 ```
 
-Postcondition nie je kompletná runtime validation. Provider attribute `status = active` nemusí dokazovať traffic, data integrity ani business outcome. Kritické zmeny stále potrebujú nezávislý verification krok.
-
-## 9. Import je ownership adoption
-
-Import spája existujúci remote objekt s Terraform address-ou:
+Legitímny contract:
 
 ```text
-remote object ID
-+ destination resource address
-+ provider target identity
-→ new state binding
+Terraform vlastní service object
+→ autoscaler vlastní desired_count
+→ ignore_changes deleguje update reconciliation
+→ runtime monitoring a bounds overujú autoscaler
 ```
 
-Import sám nevytvorí správnu configuration. Neurčí, či Terraform smie meniť všetky attributes, či objekt nespravuje iný system ani či prvý plan nebude deštruktívny.
+Bez ownera, monitoringu a recovery rule iba skryje drift. Každý ignored attribute má mať:
 
-Adoption contract musí potvrdiť:
+- authoritative writera;
+- dôvod delegácie;
+- acceptable bounds;
+- monitoring;
+- review alebo expiry;
+- incidentný recovery path.
 
-- remote owner a dôvod transferu;
-- presný account/region/provider alias;
-- remote object ID;
-- destination address a instance key;
-- configuration completeness;
-- shared/external writers;
-- post-import plan a rollback.
+`ignore_changes = all` prakticky odoberá Terraformu update ownership a vyžaduje veľmi silný dôvod.
 
-## 10. Configuration-driven import
+## 8. `replace_triggered_by` ako identity edge
 
-Versionovaný import block je reviewovateľný:
+```hcl
+resource "terraform_data" "image_revision" {
+  input = var.image_digest
+}
+
+resource "example_immutable_runtime" "api" {
+  image = var.image_digest
+
+  lifecycle {
+    replace_triggered_by = [terraform_data.image_revision]
+  }
+}
+```
+
+Trigger je vhodný, keď upstream change skutočne invaliduje object identity. Mutable timestamp alebo noisy data source by vytvárali replacement pri každom plan-e.
+
+Review musí vysvetliť:
+
+```text
+ktorý subject sa zmenil
+→ prečo existing object nie je kompatibilný
+→ prečo in-place update nestačí
+→ ako sa overí cutover a old-object retirement
+```
+
+## 9. Preconditions a postconditions
+
+```hcl
+resource "aws_db_instance" "payments" {
+  # ...
+
+  lifecycle {
+    precondition {
+      condition     = var.backup_retention_days >= 14
+      error_message = "Production database requires at least 14 days retention."
+    }
+
+    postcondition {
+      condition     = self.storage_encrypted
+      error_message = "Provider returned an unencrypted database."
+    }
+  }
+}
+```
+
+Precondition overuje known assumption pred operation. Postcondition overuje attribute dostupný po provider evaluation/read. Nepreukazuje application connectivity, restore capability ani business transaction. Tie vyžadujú runtime oracle.
+
+## 10. Import je ownership adoption
+
+Configuration-driven import:
 
 ```hcl
 import {
   to = aws_s3_bucket.logs
   id = "company-prod-logs"
 }
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "company-prod-logs"
+}
 ```
 
-Výhody:
-
-- mapping je súčasť change proposal-u;
-- môže prejsť plan/policy workflowom;
-- viac imports sa dá koordinovať;
-- zostáva auditovateľná intent history.
-
-CLI import je okamžitá state mutation. Je vhodný pre riadenú recovery alebo workflowy, ktoré import blocks nepoužívajú, ale potrebuje freeze writers, backup a následný plan.
-
-## 11. Worked failure: import prevzal správny názov v nesprávnom account-e
-
-Atlas chcel importovať `company-prod-logs`. Operátor použil default provider namiesto `aws.production`. Rovnaký názov existoval v test account-e.
+Import vytvorí binding:
 
 ```text
-import command uspeje
-→ state binding ukazuje test bucket
-→ production configuration obsahuje production policies
-→ post-import apply mení test objekt
-→ skutočný production bucket ostáva unmanaged
+Terraform address
++ provider configuration
++ remote ID
+→ state ownership record
 ```
 
-Názov a úspešný import nedokazujú target identity. Import subject musí zahŕňať provider configuration address, account, region a remote ID. Post-import verification musí potvrdiť actual production object.
+Nevytvorí automaticky úplnú configuration a nepotvrdí, že Terraform má prevziať všetky attributes. Post-import plan je authority reconciliation medzi manual reality a novým desired state-om.
 
-## 12. Post-import plan je ownership reconciliation
+## 11. Import subject
 
-Prvý plan po importe môže ukázať:
+Pred adoption zaznamenaj:
 
-- no-op;
-- provider normalization;
-- in-place changes;
-- replacement;
-- odstránenie existujúcich nested rules;
-- security alebo encryption rozdiel;
-- attributes spravované iným controllerom.
+```yaml
+importSubject:
+  destinationAddress: aws_s3_bucket.logs
+  providerConfiguration: aws.production
+  targetAccount: "771100001234"
+  region: eu-central-1
+  remoteId: company-prod-logs
+  currentOwner: platform-operations
+  newOwner: payments-iac
+  otherWriters:
+    - bucket-lifecycle-controller
+  stateLineage: 37fd...
+  stateSerial: 231
+```
 
-Rozhodnutie:
+Názov resource-u alebo úspešný import command nepreukazuje target identity. Rovnaké meno môže existovať v inom account context-e alebo provider query môže mať odlišnú semantics.
+
+## 12. CLI import verzus import block
+
+```bash
+terraform import aws_s3_bucket.logs company-prod-logs
+```
+
+CLI import vykoná okamžitú state mutation. Je vhodný pre recovery alebo legacy workflow, ale vyžaduje freeze writers, backup, exact backend/provider subject a fresh plan.
+
+Import block:
+
+- je versionovaný;
+- prejde reviewom;
+- môže byť súčasťou plan/policy evidence;
+- koordinuje viac imports;
+- zachová intent history.
+
+Pre plánovanú adoption je configuration-driven import preferovaný.
+
+## 13. Worked failure: import do nesprávneho accountu
+
+Atlas chcel importovať `company-prod-logs`. Operátor použil default provider, ktorý smeroval do test accountu, kde existoval bucket s rovnakým názvom.
 
 ```text
-adopt remote value do configuration
-revert remote object k approved desired state
+CLI import success
+→ state binding = test object
+→ production desired policies apply na test bucket
+→ skutočný prod bucket zostáva unmanaged
+```
+
+Recovery:
+
+1. freeze writers;
+2. backup state;
+3. overiť remote IDs, account a audit timeline;
+4. odstrániť chybný binding bez mazania remote test objectu;
+5. použiť explicitný production provider mapping;
+6. importovať správny object;
+7. fresh plan a remote/runtime verification.
+
+## 14. Post-import plan je povinný decision point
+
+Po importe môže plan ukázať:
+
+```text
+no-op
+provider normalization
+in-place update
+replacement
+odstránenie nested rules
+security/encryption mismatch
+external-writer conflict
+```
+
+Prvý post-import plan sa neapplyuje automaticky. Tím rozhodne:
+
+```text
+adoptovať remote value do configuration
+revertovať remote object k approved desired state
 rozdeliť attribute ownership
-zrušiť chybný binding/import
+zrušiť nesprávny import
 ```
 
-Prvý post-import plan sa nesmie automaticky applynuť. Je to moment, keď sa manual reality stretne s novým authoritative modelom.
-
-## 13. `moved` block ako versionovaný binding transition
+## 15. `moved` block zachováva binding pri refaktore
 
 ```hcl
 moved {
@@ -259,231 +376,209 @@ moved {
 }
 ```
 
-`moved` hovorí:
+Semantics:
 
 ```text
-old address a remote binding
-→ same remote object
-→ new address
+old address binding
+→ same remote ID
+→ new address binding
 ```
 
-Terraform môže potom zmeniť state mapping bez remote destroy/create iba kvôli refaktoringu. Kompatibilita závisí od resource type, instance identity a presných module paths.
+Bez mappingu Terraform vidí old address removed a new address added. Výsledkom môže byť destroy/create aj pri identickom resource configuration.
 
-## 14. Address refactoring nie je kozmetika
+## 16. Premenovanie `for_each` keya
 
-Bez `moved` mappingu Terraform vidí:
-
-```text
-old address removed
-new address added
-→ destroy old + create new
+```hcl
+moved {
+  from = aws_subnet.private["az_a"]
+  to   = module.network.aws_subnet.private["primary_a"]
+}
 ```
 
-Aj keď HCL blocks opisujú rovnaký objekt, state identity je address-based. Premenovanie resource labelu, module callu alebo `count` indexu na `for_each` key môže byť deštruktívna change bez migration contractu.
+Move musí presne pokryť module path aj instance key. Migration z `count` indexov na `for_each` keys často potrebuje mapping pre každú instance.
 
-## 15. Worked failure: rename security group bez moved mappingu
+```hcl
+moved {
+  from = aws_subnet.private[0]
+  to   = module.network.aws_subnet.private["az_a"]
+}
 
-Atlas premenoval:
-
-```text
-aws_security_group.web
-→ aws_security_group.application
+moved {
+  from = aws_subnet.private[1]
+  to   = module.network.aws_subnet.private["az_b"]
+}
 ```
 
-Plan navrhol vytvoriť novú group a zmazať starú. Starú group však používali external workloads mimo Terraform graphu.
-
-```text
-configuration refactor
-→ new remote security group
-→ managed attachments sa presunú
-→ old group delete zlyhá alebo odpojí external consumers
-```
-
-Príčina bola chýbajúca address migration a neúplný consumer inventory. `moved` block zachová remote ID; external dependency inventory overí, že refaktor nemení effective authorization.
-
-## 16. `moved` verzus `state mv`
+## 17. `moved` verzus `terraform state mv`
 
 ### `moved` block
 
 - versionovaný a reviewovateľný;
-- opakovateľný pre viac states/environments;
-- vhodný pre reusable module consumers;
-- umožňuje retained upgrade path.
+- opakovateľný naprieč environments;
+- vhodný pre reusable module releases;
+- podporuje neskorých consumers;
+- je súčasťou plan evidence.
 
 ### `terraform state mv`
 
-- okamžitá mutation konkrétneho state-u;
-- potrebuje exact backend, lock a backup;
-- nepropaguje sa automaticky ďalším environments;
-- vhodný pre recovery alebo legacy migration.
+- okamžitá mutation jedného state subjectu;
+- vyžaduje lock a backup;
+- nie je automaticky reprodukovaná inde;
+- vhodná pre recovery alebo jednorazovú legacy migration.
 
-Bežný refaktoring patrí do configuration-driven `moved` history. Ručná surgery v každom state-e vytvára divergentný migration stav.
+Plánovaný refactor patrí do code. Manuálna surgery v každom environment-e vytvára divergentnú migration history.
 
-## 17. Moved history a supported upgrade paths
+## 18. Retained moved chain
 
-Consumer môže preskočiť viac module releases:
+Consumer môže preskočiť releases:
 
 ```text
-2.8.0 → 3.5.0
+module 2.8.0 → 3.5.1
 ```
 
-Ak latest release zachováva iba move z `3.4.0`, staršia address nemá chain a consumer uvidí destroy/create.
+Ak latest module zachováva iba move z `3.4.0`, staršie addresses sa nepreložia. Support policy musí definovať minimum supported source version a retained moved chain.
 
-Retention policy musí definovať:
-
-- najstaršiu podporovanú source version;
-- celý moved chain pre supported upgrades;
-- fixture states;
-- breaking release moment;
-- deprecation a retirement komunikáciu.
-
-## 18. Lifecycle a state recovery
-
-Lifecycle, import a move zmeny môžu meniť remote object, state binding alebo oboje. Recovery preto nemôže byť iba Git revert.
-
-Zachovaj:
+Upgrade fixture matrix:
 
 ```text
-prior configuration a module versions
-prior state snapshot
-old/new address a remote-ID manifest
-reviewed plan
-provider target identity
-mutation logs
+2.8.x → 3.5.1
+3.0.x → 3.5.1
+3.4.x → 3.5.1
+```
+
+Každý fixture plan musí rozlíšiť moves od replacements.
+
+## 19. Worked incident `IAC-PAY-76`: refactor bez complete moved chainu
+
+Atlas presunul:
+
+```text
+aws_lb.api
+→ module.service.module.edge.aws_lb.api
+```
+
+Release obsahovala iba move do `module.service.aws_lb.api`, nie druhý nested step.
+
+```text
+partial moved chain
+→ old address sa preloží iba čiastočne
+→ final address vyzerá ako nový object
+→ plan replacement load balancera
+→ endpoint a external attachments sú ohrozené
+```
+
+`create_before_destroy` by vytvoril nový load balancer, ale business intent bol zachovať remote ID. Správna oprava je complete address chain a consumer inventory, nie rollout strategy.
+
+## 20. Recovery a reverse change
+
+Po binding mutation nemusí Git revert stačiť. Ak state už používa new address a source sa vráti na old address, plan opäť uvidí identity mismatch.
+
+Recovery package obsahuje:
+
+```text
+old/new source revisions
+old/new state snapshots
+address mapping manifest
+remote-ID inventory
+provider target
+plan artifacts
 runtime verification
+reverse moved/forward-fix decision
 ```
 
-Po state move môže Git revert obnoviť staré HCL addresses, ale state už používa nové. Recovery potrebuje explicitný reverse mapping alebo forward fix.
+Často je bezpečnejší forward fix s explicitným mappingom než slepý source revert.
 
-## 19. Kauzálny diagnostický walkthrough
+## 21. Competing hypotheses pri mass replacement plane
 
-Symptom: po presune resources do `module.network` plán ukazuje 32 destroy/create operácií, hoci remote infraštruktúra sa nemá meniť.
-
-### Krok 1 — stabilizuj subject
+Symptom: refactor do `module.network` plánuje 32 replacements.
 
 ```text
-configuration C61
-state L-prod/S231
-old root addresses
-new module.network addresses
-provider aws.production/account 7711
-module upgrade 4.1.0 → 5.0.0
+H1: moved blocks chýbajú
+H2: module paths sú nesprávne
+H3: for_each keys sa zmenili
+H4: resource type/provider schema bráni move
+H5: provider upgrade vyžaduje skutočný replacement
+H6: state fixture má odlišné addresses
+H7: duplicate binding vznikol po manuálnej surgery
+H8: replace_triggered_by nezávisle vyžaduje replacement
 ```
 
-### Krok 2 — konkurenčné hypotézy
+Dôkazy:
+
+```bash
+terraform state list | sort > state-addresses.txt
+terraform show -json tfplan > tfplan.json
+jq -r '.resource_changes[] | [.address, (.change.actions|join(","))] | @tsv' tfplan.json
+```
+
+Address manifest testuje H1–H3/H6/H7, type/provider metadata H4/H5 a lifecycle-expanded plan H8.
+
+## 22. Acceptance a forbidden paths
+
+Transition blok je prijatý, keď:
 
 ```text
-H1: moved blocks chýbajú alebo používajú nesprávne module paths
-H2: for_each keys sa zmenili počas refaktoringu
-H3: resource type/schema zmena znemožňuje move
-H4: provider upgrade spôsobuje skutočný replacement
-H5: state používa staršie/odlišné addresses než migration fixtures
-H6: import alebo state surgery vytvorili duplicate binding
-H7: lifecycle trigger nezávisle vyžaduje replacement
+každá change je klasifikovaná ako remote lifecycle, adoption alebo address move
++ replacement reasons sú explicitné
++ lifecycle rules majú owner a preconditions
++ import používa správny provider/account/remote ID
++ post-import plan je reviewed
++ moved chain pokrýva supported old versions
++ remote IDs sa pri pure refactore nezmenia
++ wrong-account import fixture je odmietnutý
++ missing-move fixture je destructive-plan gateom odmietnutý
++ second plan je no-op
 ```
 
-### Krok 3 — diskriminačné observation points
+## 23. Anti-patterny
 
-- state list a old/new address manifest testujú H1/H5/H6;
-- instance key diff testuje H2;
-- type/provider schema a replacement reasons testujú H3/H4;
-- lifecycle-expanded plan testuje H7;
-- remote-ID mapping overuje, či ide o rovnaké objekty.
+### „`create_before_destroy` je univerzálny zero-downtime switch“
 
-Atlas zistí, že moved mappings pokrývajú VPC a subnets, ale nie module instances vytvorené cez staré numeric `count` addresses. H1/H2 vysvetľujú zvyšné replacements.
+Mení poradie replacementu; nerieši unique names, data, quotas ani cutover.
 
-### Krok 4 — containment a oprava
+### „`prevent_destroy` je backup“
 
-Apply sa zastaví. Tím doplní presný chain z indexových addresses na stabilné keys. Nepoužije `create_before_destroy` ako maskovanie identity chyby; to by vytvorilo nové remote objekty namiesto zachovania bindings.
+Je to plan guard, nie provider-side ani data recovery protection.
 
-### Krok 5 — over outcome
+### „`ignore_changes` odstráni noise“
 
-Nový plan musí ukázať moves/no-op pre všetky intended objects. Po apply sa overí:
+Bez explicitného external ownera skryje ownership konflikt.
 
-- rovnaký remote-ID inventory;
-- nový state serial a nové addresses;
-- nulové orphaned/duplicate resources;
-- nezmenený routing, security a runtime health.
+### „Import úspešne prešiel, objekt je správny“
 
-### Krok 6 — skorší control
+Import success nepreukazuje account, region, ownership ani configuration compatibility.
 
-Finding sa mení na state-address fixture test, automated destructive-plan gate a povinný migration manifest pri module major release.
+### „Rename resource labelu je kozmetika“
 
-## 20. Diagnostický runbook
+State identity je address-based. Bez move môže vzniknúť destroy/create.
 
-1. Urči current address, provider target, remote ID a ownera.
-2. Klasifikuj zmenu ako remote lifecycle, adoption alebo address transition.
-3. Pri replacement-e zisti presný trigger a co-existence constraints.
-4. Pri import-e over provider target, ID, configuration completeness a existujúcich writers.
-5. Pri move porovnaj state addresses, instance keys a full moved chain.
-6. Zastav apply pri nečakanom destroy/replace.
-7. Použi versionovaný mapping pred environment-specific surgery.
-8. Zachovaj prior snapshot a recovery manifest.
-9. Over state bindings aj effective runtime outcome.
-10. Aktualizuj ownership, upgrade fixtures a destructive-change controls.
+## 24. Kontrolné otázky
 
-## 21. Referenčné pravidlá
+1. Aké tri transition classes riešia lifecycle, import a moved blocks?
+2. Prečo replacement nie je iba syntax `-/+`?
+3. Kedy je `create_before_destroy` reálne vykonateľný?
+4. Čo `prevent_destroy` chráni a čo nechráni?
+5. Kedy je `ignore_changes` legitímny ownership contract?
+6. Čo precondition a postcondition preukazujú?
+7. Prečo import nevytvorí automaticky správnu configuration?
+8. Aký rozdiel je medzi import blockom a CLI importom?
+9. Čo `moved` block mení a čo nemení?
+10. Prečo je `moved` vhodnejší než opakovaný `state mv`?
+11. Ako sa testuje retained moved history?
+12. Prečo Git revert po state transition nemusí stačiť?
 
-- Lifecycle rule mení operation semantics, nie ownership realitu.
-- `create_before_destroy` negarantuje co-existence ani zero downtime.
-- `prevent_destroy` je plan guard, nie úplná data protection.
-- `ignore_changes` potrebuje explicitného authoritative writera a monitoring.
-- Import je ownership adoption, nie iba technické načítanie ID.
-- Post-import plan je povinná reconciliation boundary.
-- `moved` zachováva binding pri address refaktoringu.
-- Address a instance key sú state identity.
-- `state mv` je konkrétna surgery, nie reusable migration contract.
-- Git revert sám nemusí obnoviť state mapping alebo remote object.
-- Supported module upgrades potrebujú retained moved history.
+## Glossary impact
 
-## 22. Časté omyly
+Relevantné pojmy: Terraform lifecycle, replacement, `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, precondition, postcondition, import, adoption, `moved` block, address transition, `state mv`, retained moved chain, migration fixture a destructive-plan gate.
 
-### „`create_before_destroy` vyrieši každý výpadok“
+## Primárne zdroje
 
-Objekty nemusia môcť koexistovať a traffic/data cutover zostáva samostatný problém.
-
-### „`ignore_changes` opravuje drift“
-
-Iba ho odstráni z Terraform reconciliation; bez ownership contractu ho skrýva.
-
-### „Import znamená, že configuration je správna“
-
-Import vytvorí binding. Až post-import plan ukáže rozdiel medzi code a remote objectom.
-
-### „Rename resource je iba refaktor“
-
-Bez `moved` mappingu je to odstránenie starej address-y a pridanie novej.
-
-### „Git rollback vráti neúspešný move“
-
-State address transition už mohla prebehnúť a potrebuje vlastný recovery mapping.
-
-## Zhrnutie
-
-Dôveryhodný lifecycle/adoption/refactor model je:
-
-```text
-identified current binding a owner
-→ presne klasifikovaná transition
-→ reviewed lifecycle/import/move plan
-→ protected mutation
-→ verified new binding a remote outcome
-→ retained migration a recovery evidence
-```
-
-Terraform lifecycle troubleshooting sa nekončí pridaním meta-argumentu. Musí preukázať, či problém patrí remote operation poradiu, ownership adoptionu alebo state address identity.
-
-## Oficiálna dokumentácia
-
-- [Meta-arguments](https://developer.hashicorp.com/terraform/language/meta-arguments)
+- [Terraform lifecycle meta-argument](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle)
+- [Terraform import](https://developer.hashicorp.com/terraform/language/import)
 - [Import block reference](https://developer.hashicorp.com/terraform/language/block/import)
-- [Moved block reference](https://developer.hashicorp.com/terraform/language/block/moved)
-- [Manage resource lifecycle](https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle)
+- [Refactor Terraform resources](https://developer.hashicorp.com/terraform/language/modules/develop/refactoring)
+- [Move Terraform state](https://developer.hashicorp.com/terraform/cli/state/move)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
----
-
-**Navigácia**
-
 [← Predchádzajúca: Modules](modules.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Drift →](drift.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
