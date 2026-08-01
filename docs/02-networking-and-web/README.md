@@ -1,19 +1,31 @@
 # Networking and Web Fundamentals
 
-Táto sekcia rozširuje Linux packet-path základ na všeobecné sieťové modely, adresovanie, routing, transportné a aplikačné protokoly. Cieľom je vedieť sledovať request od lokálneho socketu cez link, routované siete, middleboxes, TLS a aplikačný server.
+Táto sekcia vysvetľuje sieť ako jednu súvislú cestu requestu, nie ako zbierku izolovaných protokolov. Celým výkladom prechádza klient z pobočky Atlas, ktorý odosiela `POST /v1/orders` na `https://api.atlas.example`. Request musí získať adresu cez DNS, nájsť lokálny next hop, prejsť routovanou sieťou, firewallom a NAT-om, vytvoriť transportné spojenie, overiť TLS identitu, prejsť load balancerom a reverse proxy a napokon vytvoriť objednávku `ord-8421`.
 
-## Predpoklady
+Spoločný scenár používa dokumentačné adresy, aby sa nedali zameniť za reálnu produkčnú konfiguráciu:
 
-Odporúča sa najprv dokončiť [Linux and Systems](../01-linux-and-systems/README.md), najmä Linux networking, namespaces, cgroups a performance troubleshooting.
+```text
+klient:              10.24.8.37
+lokálny gateway:     10.24.8.1
+recursive DNS:       10.24.0.53
+API IPv4 VIP:        203.0.113.40
+API IPv6 VIP:        2001:db8:100::40
+reverse proxy:       10.50.0.10
+orders-api backendy: 10.60.1.21:8080 a 10.60.1.22:8080
+hostname:             api.atlas.example
+request ID:           req-7f31
+```
 
-## Odporúčané poradie
+Cieľom nie je memorovať sedem OSI vrstiev alebo zoznam portov. Čitateľ má vedieť určiť, ktorý packet, flow, connection, TLS session alebo HTTP request práve sleduje, kde je jeho authoritative observation point a čo daný dôkaz ešte nepreukazuje. DNS odpoveď nepreukazuje route, úspešný TCP handshake nepreukazuje TLS identitu, HTTP `200` nepreukazuje správny business outcome a zelený backend health check nepreukazuje, že request prešiel rovnakou cestou ako používateľ.
+
+## Authoritative poradie kapitol
 
 1. [OSI a TCP/IP model](osi-and-tcp-ip-model.md)
 2. [Ethernet, MAC a ARP](ethernet-mac-arp.md)
 3. [IPv4, IPv6 a subnetting](ipv4-ipv6-subnetting.md)
 4. [Routing a default gateway](routing-and-default-gateway.md)
 5. [TCP a UDP](tcp-and-udp.md)
-6. [Ports a sockets](ports-and-sockets.md)
+6. [Porty a sockety](ports-and-sockets.md)
 7. [DNS](dns.md)
 8. [DHCP](dhcp.md)
 9. [NAT](nat.md)
@@ -21,61 +33,61 @@ Odporúča sa najprv dokončiť [Linux and Systems](../01-linux-and-systems/READ
 11. [Proxy a reverse proxy](proxy-and-reverse-proxy.md)
 12. [Load balancing](load-balancing.md)
 13. [HTTP](http.md)
-14. [HTTPS, TLS, certificates a PKI](https-tls-certificates-pki.md)
-15. [REST APIs a WebSockets](rest-apis-and-websockets.md)
-16. [Network troubleshooting](network-troubleshooting.md)
+14. [HTTPS, TLS, certifikáty a PKI](https-tls-certificates-pki.md)
+15. [REST API a WebSockety](rest-apis-and-websockets.md)
+16. [Praktický sieťový projekt od namespace po HTTPS request](networking-practical-walkthrough.md)
+17. [Network troubleshooting](network-troubleshooting.md)
 
-Po tejto sekcii nasleduje Git and Automation Basics. Sieťové fundamenty sa neskôr znovu použijú pri kontajneroch, Kubernetes Services a Ingress, cloud networkingu, observability, service meshoch a security controls.
+Poradie sleduje reálnu cestu komunikácie. Najprv sa vytvorí analytická mapa vrstiev a lokálny Ethernet hop. Potom sa vyrieši adresovanie a route, transport a socket state, name resolution a dynamická konfigurácia hosta. NAT a firewall ukážu, ako middlebox mení alebo povoľuje flow. Proxy, load balancer, HTTP a TLS vysvetlia aplikačnú cestu a trust boundaries. REST a WebSocket kapitola uzavrie aplikačný kontrakt a dlhodobý channel. Praktický walkthrough všetky vrstvy zostaví a troubleshooting ich použije pri jednom preserve-first incidente.
 
-## Cieľ zvládnutia
+## Výkladový štandard
 
-Po dokončení sekcie má byť možné:
+Každá kapitola najprv položí konkrétnu otázku z rovnakého requestu a až potom vysvetlí protokol alebo mechanizmus. CLI, packet fields, konfigurácia a HTTP ukážky sú vložené priamo pri kroku, ktorý objasňujú. Po každom pozorovaní je uvedené, čo dôkaz potvrdzuje a kde sa jeho platnosť končí.
 
-- používať OSI/TCP-IP model ako diagnostickú mapu bez mechanického zjednodušovania,
-- vysvetliť Ethernet frame forwarding, VLAN broadcast domains a ARP neighbor resolution,
-- počítať IPv4 prefixes a navrhovať sumarizovateľný address plan,
-- rozlíšiť IPv4 a IPv6 addressing, NDP, SLAAC a dual-stack failure modes,
-- interpretovať routing table, longest-prefix match, default route a policy routing,
-- analyzovať forward a return path vrátane asymetrie,
-- vysvetliť TCP handshake, reliability, flow a congestion control,
-- rozlíšiť TCP byte stream od UDP datagram semantics,
-- rozlíšiť port, listening socket, accepted socket a konkrétny network flow,
-- diagnostikovať bind address, ephemeral port exhaustion, listen queues a namespace-local sockets,
-- sledovať DNS resolution od stub resolvera cez recursive cache po authoritative zone,
-- interpretovať TTL, negative caching, split-horizon DNS, DNSSEC a transport cez UDP/TCP,
-- analyzovať DHCP lease lifecycle, relay, options, address conflicts a DHCPv6/SLAAC interakciu,
-- sledovať SNAT, DNAT, PAT a conntrack state vrátane return pathu a port exhaustion,
-- rozlíšiť NAT od firewall policy,
-- navrhnúť stateful alebo stateless firewall rules s least privilege a bezpečným rolloutom,
-- vysvetliť rozdiel medzi forward proxy, reverse proxy, L4 proxy a L7 proxy,
-- diagnostikovať proxy routing, forwarding headers, buffering, timeouts, retries a connection pools,
-- porovnať DNS, L4, L7 a client-side load balancing,
-- navrhnúť health checks, connection draining, affinity a retry budgets,
-- interpretovať HTTP methods, status codes, headers, caching a conditional requests,
-- rozlíšiť HTTP/1.1, HTTP/2 a HTTP/3 transportné a multiplexing vlastnosti,
-- vysvetliť TLS handshake, SNI, ALPN, certificate chain, trust store a certificate lifecycle,
-- navrhnúť bezpečný TLS termination, re-encryption alebo passthrough model,
-- navrhovať resource-oriented API s idempotency, concurrency control, pagination a compatibility policy,
-- prevádzkovať WebSocket connections s heartbeat, backpressure, reconnect a draining semantics,
-- viesť end-to-end network troubleshooting od používateľského symptómu po overenú nápravu.
+Odrážky zostávajú iba pri krátkom inventári fields, stavov alebo acceptance podmienok. Hlavný výklad nesú súvislé odseky a jeden priebežný scenár. Incidenty používajú presnú flow identity, čas, direction a observation points; nekončia neurčitým záverom „bol problém v sieti“.
+
+Sekcia dôsledne rozlišuje tieto identity:
+
+```text
+hostname a DNS answer
+≠ IP packet a route
+≠ transportný flow
+≠ socket a process
+≠ TLS peer identity
+≠ HTTP request
+≠ business operácia
+```
+
+Proxy alebo NAT môže medzi dvoma bodmi vytvoriť nové flow identities. HTTP/2 môže niesť viac request streams v jednom TCP spojení. Retry môže vytvoriť viac HTTP requestov pre jednu používateľskú operáciu. Pri diagnostike sa preto vždy viaže dôkaz na presný objekt a čas.
+
+## Praktický walkthrough
+
+Praktická kapitola vytvorí laboratórium na jednom Linux hoste:
+
+```text
+client namespace
+→ client LAN bridge
+→ edge router a firewall namespace
+→ DNAT na TLS listener
+→ HAProxy reverse proxy a load balancer
+→ app network
+→ dva Python orders-api backendy
+```
+
+Samostatný DNS namespace bude odpovedať na `api.atlas.test`. Lokálna CA podpíše serverový certifikát a klient vykoná HTTPS `POST`. Verification script skontroluje DNS, route, ARP, TCP/TLS, round-robin backends a business response. Potom sa reprodukuje backend, ktorého health zostáva zelený pri zlyhanom business path-e, a firewall allow pravidlo napísané pre nesprávnu pre-NAT identitu. Packet capture a nftables trace ukážu prvý chýbajúci transition.
+
+Lab vyžaduje Linux s oprávnením `root` a nástroje `iproute2`, `nftables`, `dnsmasq`, `haproxy`, `openssl`, `curl`, `tcpdump`, `jq` a `python3`. Repository workflow overuje dokumentáciu a konzistenciu príkazov, ale lab nespúšťa proti kernelu. Skutočné `Verified` vyžaduje vykonanie positive aj failure paths na podporovanom Linux hoste.
+
+## Čo má čitateľ po sekcii vedieť
+
+Čitateľ má vedieť sledovať request od application callu po business výsledok a v každom kroku pomenovať source, destination, protocol, direction a state. Má rozumieť tomu, prečo sa MAC adresa mení po routovanom hope, ako longest-prefix match a source selection vytvoria route, prečo TCP reliability nie je aplikačná exactly-once garancia a prečo UDP neznamená „bez stavu“ v celej infraštruktúre.
+
+Má vedieť odlíšiť stub resolver, recursive cache a authoritative server; vysvetliť TTL, negative caching a split-horizon DNS; sledovať DHCP lease a jeho options; diagnostikovať original a translated NAT tuple; čítať stateful firewall decision na správnom hooku a direction.
+
+Na aplikačnej vrstve má vedieť rozlíšiť forward proxy, reverse proxy, L4 a L7 load balancing, TLS termination a re-encryption. Má rozumieť HTTP method semantics, caching, conditional requests, idempotency keys, API compatibility, WebSocket reconnectu a backpressure.
+
+Pri incidente má začať presným používateľským symptómom, zachovať volatile evidence, rozložiť path na testovateľné transitions a vybrať observation point s najvyššou diskriminačnou hodnotou. Oprava sa uzatvára až overením pôvodného requestu, zakázaného flowu a business side effectu.
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| OSI a TCP/IP model | Learning | L2 |
-| Ethernet, MAC a ARP | Learning | L2 |
-| IPv4, IPv6 a subnetting | Learning | L2 |
-| Routing a default gateway | Learning | L2 |
-| TCP a UDP | Learning | L2 |
-| Ports a sockets | Learning | L2 |
-| DNS | Learning | L2 |
-| DHCP | Learning | L2 |
-| NAT | Learning | L2 |
-| Firewally | Learning | L2 |
-| Proxy a reverse proxy | Learning | L2 |
-| Load balancing | Learning | L2 |
-| HTTP | Learning | L2 |
-| HTTPS, TLS, certificates a PKI | Learning | L2 |
-| REST APIs a WebSockets | Learning | L2 |
-| Network troubleshooting | Learning | L2 |
+Všetkých sedemnásť kapitol je po rewritingu pripravených na používateľskú kontrolu. Stav `Ready for user review` neznamená, že boli commands vykonané v každej platforme alebo že používateľ obsah akceptoval. Praktický lab a platformovo špecifické správanie zostávajú oddelenou runtime validation hranicou.
