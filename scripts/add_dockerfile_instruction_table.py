@@ -56,24 +56,8 @@ Nasledujúca tabuľka slúži ako mapa celej Dockerfile syntaxe. Detailné sprá
 text = text.replace(anchor, table + anchor, 1)
 path.write_text(text, encoding="utf-8")
 
-workflow_path = REPO / ".github/workflows/knowledge-navigation.yml"
-workflow = workflow_path.read_text(encoding="utf-8")
-step = """
-      - name: Add Dockerfile instruction table
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: |
-          set -euo pipefail
-          "$PYTHON_BIN" scripts/add_dockerfile_instruction_table.py
-
-"""
-if workflow.count(step) != 1:
-    raise RuntimeError("Temporary workflow step not found exactly once")
-workflow_path.write_text(workflow.replace(step, "", 1), encoding="utf-8")
-Path(__file__).unlink()
-
 run("git", "config", "user.name", "github-actions[bot]")
 run("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
-run("git", "add", "docs/08-container-fundamentals-and-docker/dockerfile.md", ".github/workflows/knowledge-navigation.yml", "scripts")
+run("git", "add", "docs/08-container-fundamentals-and-docker/dockerfile.md")
 run("git", "commit", "-m", "docs(docker): add Dockerfile instruction reference table")
 run("git", "push", "origin", f"HEAD:{BRANCH}")
