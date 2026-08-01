@@ -249,3 +249,11 @@ Job riadi Pod completions a retries. CronJob vytvára Jobs podľa plánovaných 
 - [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
 - [CronJobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)
 - [Automatic Cleanup for Finished Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DaemonSet](daemonset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ConfigMap a Secret →](configmap-secret.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

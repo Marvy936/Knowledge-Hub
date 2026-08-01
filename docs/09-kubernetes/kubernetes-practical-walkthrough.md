@@ -46,7 +46,9 @@ atlas-payments-kubernetes/
 ├── overlays/
 │   ├── broken-selector/
 │   │   └── kustomization.yaml
-│   └── broken-readiness/
+│   ├── broken-readiness/
+│   │   └── kustomization.yaml
+│   └── hpa/
 │       └── kustomization.yaml
 └── scripts/
     └── verify.sh
@@ -525,7 +527,30 @@ spec:
 
 HPA vyžaduje resource metrics pipeline. Ak metrics-server alebo ekvivalent nie je dostupný, workload môže bežať, ale HPA nebude mať aktívny metric. Deployment requests tvoria denominator CPU utilization, preto ich zmena vyžaduje HPA revalidation.
 
-HPA môže meniť replicas nad šesť. Verification script preto nepredpokladá vždy presne šesť Podov; porovnáva desired a ready state.
+HPA zámerne nevkladáme do základného `kustomization.yaml`. Základný walkthrough najprv overí statický šesť-replikový rollout a no-op druhý apply. Autoscaler a deklaratívny manager tak počas hlavného flowu nebojujú o `.spec.replicas`.
+
+### HPA overlay bez konfliktu writera
+
+Vytvor `overlays/hpa/kustomization.yaml`:
+
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../..
+  - ../../hpa.yaml
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: payments-api
+    patch: |-
+      - op: remove
+        path: /spec/replicas
+```
+
+Tento overlay odstráni statický replica field ešte pred prijatím Deploymentu a pridá HPA. Použi ho od prvého apply v samostatnom autoscaling lab-e. Neprepínaj už bežiaci statický production flow na HPA bez samostatného ownership a capacity plánu; odstránenie field-u, HPA reconciliation, quota a rollout môžu vytvoriť prechodnú zmenu kapacity.
 
 ## 11. Kustomization
 
@@ -542,12 +567,11 @@ resources:
   - service.yaml
   - pdb.yaml
   - networkpolicy.yaml
-  - hpa.yaml
 commonLabels:
   app.kubernetes.io/managed-by: atlas-kustomize
 ```
 
-Secret vzor nie je medzi resources. Pred apply musí Secret existovať z externého flowu.
+Secret vzor ani `hpa.yaml` nie sú medzi základnými resources. Pred apply musí Secret existovať z externého flowu. HPA sa používa iba cez samostatný overlay, ktorý zároveň odstráni statické vlastníctvo `.spec.replicas`.
 
 `commonLabels` doplní management label. Pri použití Kustomize transformerov vždy skontroluj rendered selectors; plošné label transformácie môžu meniť selector semantics podľa verzie a configuration.
 
@@ -1102,26 +1126,42 @@ kubectl rollout status deployment/payments-api \
 
 Recovery sa neuzatvára iba stavom Running. Musí prejsť readiness, EndpointSlice a Service request.
 
-## 26. HPA observation
+## 26. Voliteľný HPA flow
+
+Základný walkthrough používa statických šesť replík a HPA nevytvára. Autoscaling test vykonaj v samostatnom lab-e od prvého apply cez HPA overlay:
+
+```bash
+kubectl apply \
+  --server-side \
+  --field-manager=atlas-kubernetes-walkthrough \
+  -k overlays/hpa
+```
+
+Overlay odstráni `.spec.replicas` zo zdrojového Deploymentu a vytvorí HPA, takže aktuálny replica count vlastní autoscaler namiesto deklaratívneho managera. Over:
 
 ```bash
 kubectl get hpa payments-api -n production
 kubectl describe hpa payments-api -n production
+kubectl get deployment payments-api -n production \
+  -o jsonpath='{.spec.replicas}{"
+"}'
 ```
 
-Ak resource metrics pipeline neexistuje, HPA condition môže ukázať metric error. Deployment a Service môžu stále fungovať na `minReplicas`. V produkcii je to degraded autoscaling capability a potrebuje alert.
+Ak resource metrics pipeline neexistuje, HPA condition môže ukázať metric error. V takom prostredí nepovažuj autoscaling za overený. HPA, quota, Node capacity, Deployment rollout a readiness tvoria jeden scale chain.
 
-Nevytváraj umelý CPU load v production clustri bez guardrails. V lab-e možno použiť bounded load generator a sledovať celý chain:
+Nevytváraj umelý CPU load v production clustri bez guardrails. V reprezentatívnom lab-e sleduj celý prechod:
 
 ```text
 metric rastie
 → HPA desired replicas
 → Deployment scale
-→ nové Pods
-→ scheduler/Nodes
-→ readiness
+→ nové Pod objekty
+→ scheduling a Node capacity
+→ runtime a readiness
 → Service capacity
 ```
+
+Po autoscaling lab-e odstráň HPA a znovu aplikuj základný model iba vtedy, keď je tento ownership prechod súčasťou explicitného test plánu.
 
 ## 27. Forbidden security test
 
@@ -1171,7 +1211,13 @@ Pri reálnom incidente by sa doplnili logs, audit, Node/runtime, CNI a metrics p
 
 ## 29. Cleanup
 
-Najprv odstráň resources z Kustomize modelu:
+Ak si použil autoscaling overlay, odstráň HPA osobitne:
+
+```bash
+kubectl delete -f hpa.yaml --ignore-not-found
+```
+
+Potom odstráň resources zo základného Kustomize modelu:
 
 ```bash
 kubectl delete -k .
@@ -1233,3 +1279,11 @@ Tieto outcomes potrebujú samostatné testy a prostredie.
 - [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 - [Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
 - [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Logging, metrics a events](logging-metrics-events.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubernetes troubleshooting →](kubernetes-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

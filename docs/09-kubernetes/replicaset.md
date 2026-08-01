@@ -140,3 +140,11 @@ ReplicaSet udržiava počet Podov jednej template revision. Zameniteľnosť repl
 - [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
 - [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Pod](pod.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Deployment →](deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

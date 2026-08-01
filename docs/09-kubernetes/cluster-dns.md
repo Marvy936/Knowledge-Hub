@@ -235,3 +235,11 @@ Cluster DNS je query path cez Pod resolver config, search/ndots, cluster DNS Ser
 - [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 - [Customizing DNS Service](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)
 - [Using NodeLocal DNSCache](https://kubernetes.io/docs/tasks/administer-cluster/nodelocaldns/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ingress a Gateway API](ingress-gateway-api.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CNI a NetworkPolicy →](cni-networkpolicy.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

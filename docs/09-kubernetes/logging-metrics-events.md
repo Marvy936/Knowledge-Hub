@@ -281,3 +281,11 @@ Logs opisujú process events, metrics merajú časové rady, Events sumarizujú 
 - [Resource Metrics Pipeline](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 - [Kubernetes Events](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 - [Auditing](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Upgrades](upgrades.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický Kubernetes projekt od manifestov po overený rollout →](kubernetes-practical-walkthrough.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

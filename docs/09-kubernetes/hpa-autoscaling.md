@@ -253,3 +253,11 @@ HPA je controller scale subresource-u. Jeho rozhodnutie závisí od metric contr
 - [Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
 - [HorizontalPodAutoscaler Walkthrough](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [Resource Metrics Pipeline](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Taints, tolerations, affinity a topology](taints-tolerations-affinity-topology.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RBAC →](rbac.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

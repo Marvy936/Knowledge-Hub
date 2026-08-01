@@ -288,3 +288,11 @@ Kubernetes upgrade je viacvrstvový transition: API, etcd, control plane, webhoo
 - [Upgrading kubeadm clusters](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
 - [Safely Drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: etcd backup a restore](etcd-backup-restore.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Logging, metrics a events →](logging-metrics-events.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -272,3 +272,11 @@ RBAC spája autentizovaný subject, verb, API group, resource, subresource a sco
 - [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 - [Authorization Overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/)
 - [Auditing](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: HPA a autoscaling](hpa-autoscaling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: SecurityContext a Pod Security →](securitycontext-pod-security.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

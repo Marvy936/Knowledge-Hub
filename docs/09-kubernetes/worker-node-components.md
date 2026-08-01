@@ -243,3 +243,11 @@ Scheduler končí Node assignmentom. Od tohto bodu kubelet, CRI runtime, CNI, CS
 - [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/)
 - [Debugging Kubernetes Nodes with crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
 - [Node-pressure Eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Control plane components](control-plane-components.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Pod →](pod.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -219,3 +219,11 @@ Service poskytuje stabilný frontend contract. EndpointSlice materializuje konkr
 - [Services, Load Balancing, and Networking](https://kubernetes.io/docs/concepts/services-networking/service/)
 - [EndpointSlices](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/)
 - [Virtual IPs and Service Proxies](https://kubernetes.io/docs/reference/networking/virtual-ips/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ServiceAccount](serviceaccount.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ingress a Gateway API →](ingress-gateway-api.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

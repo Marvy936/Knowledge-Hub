@@ -218,3 +218,11 @@ ServiceAccount identifikuje workload v Kubernetes. Bound token je krátkodobý b
 - [Configure Service Accounts for Pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
 - [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 - [Bound Service Account Token Volume](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ConfigMap a Secret](configmap-secret.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Service a EndpointSlice →](service-endpointslice.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

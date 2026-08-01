@@ -265,3 +265,11 @@ SecurityContext skladá effective process a filesystem authority. Pod Security A
 - [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/)
 - [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/)
 - [Seccomp and Kubernetes](https://kubernetes.io/docs/tutorials/security/seccomp/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: RBAC](rbac.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ResourceQuota a LimitRange →](resourcequota-limitrange.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

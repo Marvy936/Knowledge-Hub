@@ -290,3 +290,11 @@ Etcd snapshot obnovuje Kubernetes API keyspace, nie celý produkčný systém. B
 - [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 - [Disaster recovery for etcd clusters](https://etcd.io/docs/)
 - [Encrypting Confidential Data at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cluster installation a lifecycle](cluster-installation-lifecycle.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Upgrades →](upgrades.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

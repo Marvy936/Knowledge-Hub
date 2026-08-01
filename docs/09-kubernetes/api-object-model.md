@@ -248,3 +248,11 @@ Kubernetes objekt nie je iba YAML dokument. Je to serverom prijatá a versionova
 - [Server-Side Apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/)
 - [Owners and Dependents](https://kubernetes.io/docs/concepts/overview/working-with-objects/owners-dependents/)
 - [Finalizers](https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Kubernetes architecture](kubernetes-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Desired state a reconciliation loops →](desired-state-reconciliation-loops.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

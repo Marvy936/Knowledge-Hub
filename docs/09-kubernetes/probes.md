@@ -228,3 +228,11 @@ Startup, liveness a readiness odpovedajú na rozdielne otázky. Startup chráni 
 
 - [Configure Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 - [Pod Lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Requests, limits a QoS](requests-limits-qos.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Taints, tolerations, affinity a topology →](taints-tolerations-affinity-topology.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

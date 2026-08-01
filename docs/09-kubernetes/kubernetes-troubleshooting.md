@@ -488,3 +488,11 @@ Kubernetes incident rieš od používateľského symptómu k presnému cluster, 
 - [Debugging Kubernetes Nodes with crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
 - [Services, Load Balancing, and Networking](https://kubernetes.io/docs/concepts/services-networking/service/)
 - [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Praktický Kubernetes projekt od manifestov po overený rollout](kubernetes-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Helm chart, template, values a release →](../10-helm-and-cka/helm-chart-template-values-release.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

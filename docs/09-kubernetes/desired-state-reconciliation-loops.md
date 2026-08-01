@@ -224,3 +224,11 @@ Kubernetes desired state je uložený v API. Controllers ho opakovane pozorujú 
 - [API Concepts: Efficient detection of changes](https://kubernetes.io/docs/reference/using-api/api-concepts/)
 - [Server-Side Apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/)
 - [Finalizers](https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: API a object model](api-object-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Control plane components →](control-plane-components.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

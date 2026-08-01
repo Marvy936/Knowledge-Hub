@@ -167,3 +167,11 @@ DaemonSet realizuje capability coverage nad množinou Nodes. Jeho desired count 
 - [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
 - [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 - [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: StatefulSet](statefulset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Job a CronJob →](job-cronjob.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -259,3 +259,11 @@ StatefulSet poskytuje stabilné ordinal identity, controlled ordering a per-repl
 - [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 - [Storage Classes](https://kubernetes.io/docs/concepts/storage/storage-classes/)
 - [Force Delete StatefulSet Pods](https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Deployment](deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DaemonSet →](daemonset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

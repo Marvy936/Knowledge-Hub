@@ -219,3 +219,11 @@ ResourceQuota obmedzuje namespace súčty a object counts. LimitRange mení aleb
 - [Resource Quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/)
 - [Limit Ranges](https://kubernetes.io/docs/concepts/policy/limit-range/)
 - [Configure Memory and CPU Quotas for a Namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: SecurityContext a Pod Security](securitycontext-pod-security.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cluster installation a lifecycle →](cluster-installation-lifecycle.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -213,3 +213,11 @@ API server prijíma a chráni requests. Etcd drží autoritatívny cluster state
 - [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)
 - [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 - [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Desired state a reconciliation loops](desired-state-reconciliation-loops.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Worker node components →](worker-node-components.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

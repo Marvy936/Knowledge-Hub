@@ -259,3 +259,11 @@ Ingress a Gateway API opisujú routing intent. Controller ho musí prijať, vyre
 - [Ingress Controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 - [Gateway API](https://gateway-api.sigs.k8s.io/)
 - [Gateway API Concepts](https://gateway-api.sigs.k8s.io/concepts/api-overview/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Service a EndpointSlice](service-endpointslice.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cluster DNS →](cluster-dns.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

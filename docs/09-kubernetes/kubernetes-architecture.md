@@ -188,3 +188,11 @@ Pri návrhu aj incidente preto vždy sleduj konkrétny objekt, jeho UID a genera
 - [Kubernetes API concepts](https://kubernetes.io/docs/reference/using-api/api-concepts/)
 - [Kubernetes controllers](https://kubernetes.io/docs/concepts/architecture/controller/)
 - [Scheduling, Preemption and Eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Docker troubleshooting](../08-container-fundamentals-and-docker/docker-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: API a object model →](api-object-model.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

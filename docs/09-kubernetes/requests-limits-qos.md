@@ -246,3 +246,11 @@ Requests riadia scheduling a relatívne resource entitlement. Limits ohraničuj�
 - [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 - [Pod Quality of Service Classes](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/)
 - [Node-pressure Eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Scheduling](scheduling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Probes →](probes.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

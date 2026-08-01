@@ -264,3 +264,11 @@ Scheduler vyberá Node z množiny, ktorá spĺňa všetky hard constraints, a sc
 - [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
 - [Pod Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 - [Pod Priority and Preemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Volumes, PV, PVC a StorageClass](volumes-pv-pvc-storageclass.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Requests, limits a QoS →](requests-limits-qos.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

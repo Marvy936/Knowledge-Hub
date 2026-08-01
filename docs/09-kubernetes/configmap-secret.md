@@ -211,3 +211,11 @@ ConfigMap a Secret sú source objekty. Efektívny výsledok vzniká až cez Pod 
 - [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [Distribute Credentials Securely Using Secrets](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/)
 - [Encrypting Confidential Data at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Job a CronJob](job-cronjob.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ServiceAccount →](serviceaccount.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

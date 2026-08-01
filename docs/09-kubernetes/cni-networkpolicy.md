@@ -246,3 +246,11 @@ CNI vytvára Pod network a host dataplane. NetworkPolicy vyjadruje povolené L3/
 - [Cluster Networking](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
 - [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 - [CNI Specification](https://www.cni.dev/docs/spec/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cluster DNS](cluster-dns.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Volumes, PV, PVC a StorageClass →](volumes-pv-pvc-storageclass.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

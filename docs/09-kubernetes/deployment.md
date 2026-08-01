@@ -249,3 +249,11 @@ Deployment je controller výmeny Pod template revízií cez ReplicaSets. Rolling
 - [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Performing a Rolling Update](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/)
 - [Pod Lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ReplicaSet](replicaset.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: StatefulSet →](statefulset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

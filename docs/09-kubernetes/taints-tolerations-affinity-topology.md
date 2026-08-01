@@ -238,3 +238,11 @@ Taints/tolerations riadia odpudzovanie a výnimky. Node affinity vyberá Node vl
 - [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
 - [Pod Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 - [Safely Drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Probes](probes.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: HPA a autoscaling →](hpa-autoscaling.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

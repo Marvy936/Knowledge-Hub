@@ -268,3 +268,11 @@ PVC je namespaced request, PV cluster resource a StorageClass provisioning polic
 - [Storage Classes](https://kubernetes.io/docs/concepts/storage/storage-classes/)
 - [Volume Snapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)
 - [CSI Volume Cloning](https://kubernetes.io/docs/concepts/storage/volume-pvc-datasource/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CNI a NetworkPolicy](cni-networkpolicy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Scheduling →](scheduling.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -286,3 +286,11 @@ Pod je jedna plánovateľná a nahraditeľná runtime replika. Spája template s
 - [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 - [Container Lifecycle Hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/)
 - [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Worker node components](worker-node-components.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ReplicaSet →](replicaset.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

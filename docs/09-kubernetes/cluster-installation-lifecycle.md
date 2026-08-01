@@ -244,3 +244,11 @@ Cluster lifecycle zahŕňa control-plane endpoint, etcd, PKI, Nodes, runtime, CN
 - [Highly Available Topology Options](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/)
 - [PKI certificates and requirements](https://kubernetes.io/docs/setup/best-practices/certificates/)
 - [Safely Drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ResourceQuota a LimitRange](resourcequota-limitrange.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: etcd backup a restore →](etcd-backup-restore.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
