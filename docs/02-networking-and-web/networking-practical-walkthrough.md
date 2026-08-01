@@ -45,6 +45,10 @@ proxy upstream:
 
 ## 2. Predpoklady a adresár
 
+Lab potrebuje Linux kernel s network namespaces, veth, bridge a nftables podporou. Príkazy `ip netns`, `ip link` a `nft` menia kernelový network state a vyžadujú `root` alebo ekvivalentné capabilities; nejde iba o inštaláciu CLI balíkov. Lab preto patrí do izolovanej VM alebo disposable hosta, nie na produkčný router ani na workstation s nezdokumentovanými namespaces.
+
+Pred prvým spustením sa skontroluje, že mená všetkých namespaces, bridges a `/etc/netns/net-client` nepatria inému experimentu. `cleanup.sh` vlastní iba explicitne pomenované resources. Úspešný package install preukazuje dostupnosť binaries, nie kernel features, permissions ani to, že porty a mená nie sú obsadené. Tieto predpoklady overí až setup preflight a následný runtime read-back.
+
 Na Debian/Ubuntu systéme možno nástroje pripraviť:
 
 ```bash
@@ -79,6 +83,8 @@ atlas-network-lab/
 ├── run/
 └── logs/
 ```
+
+Súbory `orders_api.py`, `dnsmasq.conf`, `haproxy.cfg.template` a shell skripty sú versionovateľný source labu. Adresár `run/` obsahuje generated effective configuration a PID references pre aktuálne spustenie; `logs/` obsahuje runtime evidence. PID file sám nepreukazuje živý ani správny process a generated HAProxy config nepreukazuje, že ho worker načítal. Preto sa po setup-e kontrolujú namespaces, listeners, process command lines, effective nftables ruleset a reálny HTTPS request.
 
 ## 3. Backend aplikácia
 
@@ -374,6 +380,11 @@ table inet atlas_filter {
       ip daddr 10.50.0.10 tcp dport 443 ct state new accept
   }
 
+  chain forward {
+    type filter hook forward priority filter; policy drop;
+    ct state established,related accept
+  }
+
   chain output {
     type filter hook output priority filter; policy accept;
   }
@@ -443,6 +454,14 @@ run_client curl --noproxy '*' --silent --show-error \
   --cacert "$CA" \
   https://api.atlas.test/healthz | jq -e '.status == "ok"' >/dev/null
 
+echo "== Forbidden direct backend path =="
+if run_client curl --noproxy '*' --silent --show-error \
+  --connect-timeout 1 --max-time 2 \
+  http://10.60.1.21:8080/healthz >/dev/null; then
+  echo "Direct client-to-backend path must remain blocked" >&2
+  exit 1
+fi
+
 echo "== Two business requests =="
 declare -A backends=()
 
@@ -468,7 +487,9 @@ done
 echo "Verification passed"
 ```
 
-Skript overuje DNS, route, neighbor resolution, TLS identity a business response. Dva requests očakávajú oba round-robin backends. Toto je vhodné iba pre čistý lab bez ďalších connections; production test nemá predpokladať presné poradie load-balancer assignmentu.
+Skript overuje DNS, route, neighbor resolution, TLS identity, zakázaný direct-backend path a business response. `jq -e` vracia non-zero, ak JSON podmienka neplatí; v kombinácii so `set -Eeuo pipefail` tak zlyhá celý verification, nie iba posledný formatter. Negatívny `curl` je zámerne vložený do `if`, takže očakávaný non-zero exit status neukončí skript, ale úspešné priame spojenie sa zmení na explicitný failure.
+
+Dva business requests očakávajú oba round-robin backends. To je deterministický oracle iba v čistom lab-e bez ďalších connections, retries alebo HTTP/2 multiplexingu. Production test má zbierať backend identity cez dostatočnú vzorku a nesmie predpokladať presné poradie assignmentu. Zelený verification tiež nepreukazuje distribuovanú idempotency, pretože ukážkový store je process-local.
 
 ## 8. Cleanup
 
@@ -506,6 +527,17 @@ rm -f "$ROOT"/run/*.pid "$ROOT"/run/haproxy.cfg
 
 $quiet || echo "Lab removed"
 ```
+
+Cleanup používa `|| true`, aby zostal opakovateľný aj po partial setup-e. Text `Lab removed` preto oznamuje dokončenie pokusov, nie dokázanú absenciu každého resource-u. Po cleanup-e sa vykoná read-back:
+
+```bash
+ip netns list | grep -E '^(net-client|net-dns|net-edge|net-app1|net-app2)( |$)' && exit 1 || true
+ip -brief link | grep -E 'br-atlas-(client|app)' && exit 1 || true
+pgrep -af 'dnsmasq|orders_api.py|haproxy' || true
+test ! -e /etc/netns/net-client/resolv.conf
+```
+
+Prvé dva commands musia nemať match. `pgrep` je iba investigation hint, pretože host môže legitímne prevádzkovať iný dnsmasq alebo HAProxy; PID a command line sa porovnajú s files v `run/`. Ak zostal lab process alebo namespace, cleanup nie je úspešný a ďalší setup by mohol pracovať so stale state-om.
 
 Nastav executable bits:
 
@@ -751,22 +783,14 @@ sudo ./cleanup.sh
 
 Acceptance labu zahŕňa viac než zelený `verify.sh`:
 
-```text
-DNS odpoveď pochádza z net-dns
-route smeruje public VIP cez 10.24.8.1
-neighbor mapping existuje pre edge
-DNAT mení destination na 10.50.0.10
-firewall povoľuje iba očakávaný client path
-TLS certifikát platí pre api.atlas.test
-HAProxy používa oba healthy backendy
-business POST vracia orderId a backend identity
-broken app2 je korelovaný s 503
-nesprávny firewall rule má nulový match po DNAT
-recovery obnoví positive path
-cleanup odstráni namespaces, bridges a procesy
-```
+- **Source a resolved state:** DNS odpoveď pochádza z `net-dns`, route smeruje VIP cez `10.24.8.1` a neighbor mapping patrí edge namespace-u. Každý read-back sa vykonáva v rovnakom namespace ako klient.
+- **Dataplane transition:** capture a nftables trace ukážu DNAT z `203.0.113.40:443` na `10.50.0.10:443`. Firewall povoľuje client-to-proxy path, ale nový forbidden test potvrdí, že client nemôže volať `10.60.1.21:8080` priamo.
+- **TLS a application outcome:** certifikát platí pre `api.atlas.test`; business POST vráti `orderId`, request hash a backend identity. Dve operácie prejdú cez oba healthy backends bez tvrdenia, že jeden HTTP status sám dokazuje celý pool.
+- **Failure discrimination:** broken `app2` sa koreluje s `503` pri stále zelenom health endpoint-e. Nesprávne firewall rule má po DNAT nulový match a trace ukáže skutočnú translated identity.
+- **Recovery a second run:** oba recovery skripty spustia celý `verify.sh`. Po recovery sa verification vykoná ešte raz bez opätovného setup-u; tým sa testuje ďalšia operácia nad existujúcim state-om a odhalí jednorazový alebo stale-connection úspech.
+- **Cleanup closure:** po `cleanup.sh` read-back nepotvrdí žiadny vlastnený namespace, bridge, PID ani resolver file. Až táto absencia uzatvára lab lifecycle.
 
-Lab nepreukazuje production capacity, HA, DNSSEC, internet routing, certificate revocation ani distribuovanú idempotency. Jeho účelom je urobiť jednotlivé network identities a observation points viditeľné na jednom hoste.
+Lab nepreukazuje production capacity, HA, DNSSEC, internet routing, certificate revocation ani distribuovanú idempotency. Jeho účelom je urobiť jednotlivé network identities a observation points viditeľné na jednom hoste a nacvičiť positive, forbidden, failure, recovery a second-operation paths.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

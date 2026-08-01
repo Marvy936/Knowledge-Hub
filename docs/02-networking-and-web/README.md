@@ -78,4 +78,6 @@ Pri incidente má začať presným používateľským symptómom, zachovať vola
 
 ## Stav
 
-Všetkých sedemnásť kapitol je po rewritingu pripravených na používateľskú kontrolu. Stav `Ready for user review` neznamená, že boli commands vykonané v každej platforme alebo že používateľ obsah akceptoval. Praktický lab a platformovo špecifické správanie zostávajú oddelenou runtime validation hranicou.
+Všetkých sedemnásť kapitol prešlo chapter-by-chapter explanation-depth passom. Štrnásť kapitol už spĺňalo aktuálny mechanistický štandard a zostalo obsahovo nezmenených; nebol do nich pridávaný redundantný text iba kvôli auditnému skóre. Cielené doplnenia sa sústredili na load-balancer attempt identity, REST/WebSocket operation a reconnect semantics, praktický lab privilege/exit/forbidden/cleanup contract a troubleshooting hypotheses, PMTU terminology a second-operation verification.
+
+Sekcia je pripravená na používateľskú kontrolu. Stav `Ready for user review` neznamená, že boli commands vykonané na každej platforme alebo že používateľ obsah akceptoval. Repository workflow overuje synchronizáciu, navigation a heuristickú learning depth; praktický lab, packet behavior a platformovo špecifické semantics zostávajú oddelenou runtime validation hranicou.

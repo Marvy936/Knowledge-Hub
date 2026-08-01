@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **327**
-- Audited conceptual sections: **6760**
-- Total words: **611,348**
-- Findings: **6851** (critical 853, high 1415, medium 538, low 4045)
+- Audited conceptual sections: **6762**
+- Total words: **612,932**
+- Findings: **6860** (critical 853, high 1414, medium 536, low 4057)
 - File grades: A 112, B 94, C 32, D 89
 
 ## Interpretation
@@ -132,7 +132,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 53 | 0 | 6 | 0 | 4 | 2266 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
-| C | 48 | 0 | 3 | 3 | 10 | 1889 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
 | C | 44 | 1 | 2 | 0 | 11 | 1647 | `docs/03-git-and-automation/powershell-fundamentals.md` |
@@ -140,6 +139,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 42 | 1 | 0 | 1 | 19 | 3182 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
+| C | 39 | 0 | 2 | 1 | 16 | 2555 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | C | 39 | 0 | 3 | 0 | 10 | 2411 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | C | 37 | 1 | 2 | 0 | 8 | 1568 | `docs/06-gitlab/gitlab-troubleshooting.md` |
@@ -174,6 +174,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 16 | 2087 | `docs/14-sre-and-operations/operational-readiness.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| B | 20 | 0 | 2 | 0 | 5 | 2965 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
+| B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 1 | 1 | 6 | 2300 | `docs/03-git-and-automation/bash-automation.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1844 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | B | 20 | 0 | 1 | 0 | 8 | 1592 | `docs/09-kubernetes/upgrades.md` |
@@ -189,8 +191,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
-| B | 18 | 0 | 2 | 0 | 2 | 2460 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
-| B | 18 | 0 | 0 | 0 | 12 | 994 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
+| B | 18 | 0 | 0 | 0 | 13 | 1113 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 18 | 0 | 1 | 0 | 6 | 1213 | `docs/03-git-and-automation/merge-conflicts.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 1779 | `docs/08-container-fundamentals-and-docker/build-context-layer-cache.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 2410 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
@@ -198,7 +199,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 15 | 1331 | `docs/13-security-and-identity/sbom.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
-| B | 17 | 0 | 0 | 0 | 12 | 926 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 1887 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | B | 17 | 0 | 1 | 0 | 5 | 1262 | `docs/09-kubernetes/job-cronjob.md` |
@@ -2677,14 +2677,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/02-networking-and-web/network-troubleshooting.md`
 
-- **HIGH** line 135, `bare-bullet-items` — **5. Competing hypotheses**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Client alebo proxy má request-body size limit.`, `Edge proxy bufferuje veľký request a prekročí timeout.`, `Backend číta body pomaly alebo čaká na dependency.`.
-- **HIGH** line 135, `list-heavy-section` — **5. Competing hypotheses**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 292, `term-before-explanation` — **13. Autoritatívna oprava**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `ICMP`, `TCP`, `MSS`, `policy`
+- **HIGH** line 305, `list-heavy-section` — **14. Verification po oprave**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 305, `term-before-explanation` — **14. Verification po oprave**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GET`, `POST`, `ID`, `identity`, `policy`
 
 ### `docs/02-networking-and-web/networking-practical-walkthrough.md`
 
-- **HIGH** line 46, `single-sentence-concept` — **2. Predpoklady a adresár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 473, `single-sentence-concept` — **8. Cleanup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 776, `list-heavy-section` — **13. Cleanup a acceptance**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 776, `term-before-explanation` — **13. Cleanup a acceptance**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VIP`, `DNAT`, `TLS`, `POST`, `HTTP`, `PID`, `identity`
 
 ### `docs/03-git-and-automation/bash-automation.md`
 
@@ -3046,17 +3045,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1876 | 1876 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1155 | 1155 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1014 | 1014 |
-| `single-sentence-concept` | 0 | 572 | 0 | 0 | 572 |
-| `term-before-explanation` | 0 | 71 | 364 | 0 | 435 |
+| `example-not-explicit` | 0 | 0 | 0 | 1880 | 1880 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1156 | 1156 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1021 | 1021 |
+| `single-sentence-concept` | 0 | 570 | 0 | 0 | 570 |
+| `term-before-explanation` | 0 | 72 | 363 | 0 | 435 |
 | `outline-instead-of-explanation` | 393 | 0 | 0 | 0 | 393 |
-| `bare-bullet-items` | 325 | 42 | 0 | 0 | 367 |
+| `bare-bullet-items` | 325 | 41 | 0 | 0 | 366 |
 | `list-first-introduction` | 0 | 337 | 0 | 0 | 337 |
 | `thin-concept-section` | 0 | 311 | 0 | 0 | 311 |
-| `short-concept-section` | 0 | 0 | 174 | 0 | 174 |
-| `list-heavy-section` | 0 | 82 | 0 | 0 | 82 |
+| `short-concept-section` | 0 | 0 | 173 | 0 | 173 |
+| `list-heavy-section` | 0 | 83 | 0 | 0 | 83 |
 | `empty-section` | 76 | 0 | 0 | 0 | 76 |
 | `no-prose-concept` | 59 | 0 | 0 | 0 | 59 |
 
