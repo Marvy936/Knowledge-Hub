@@ -91,6 +91,8 @@ String `cmd="python3 ..."; $cmd` je chybný parser model. Shell znovu rozdelí w
 
 ## Argument parser
 
+Argument parser premieňa raw positional parameters na explicitný internal state skriptu. Musí spotrebovať presný počet arguments, odlíšiť flag od option s hodnotou a zastaviť sa na `--`, za ktorým už tokens neinterpretuje ako vlastné options. Parser success dokazuje iba syntakticky rozpoznaný CLI contract; existencia file-u, allowed environment a business constraints sa overujú až v ďalšej validačnej vrstve.
+
 ```bash
 while (($#)); do
   case $1 in

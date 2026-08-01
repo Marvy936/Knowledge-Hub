@@ -31,6 +31,8 @@ Keď automatizácia potrebuje schema validation, typed state, viac krokov, retri
 
 ## CLI boundary
 
+CLI boundary prevádza process argument vector na syntakticky rozpoznaný command model a určuje, ktoré chyby patria callerovi. `argparse` môže potvrdiť prítomnosť options a vybrať subcommand, ale path ešte nie je canonical subject a string hodnota ešte nie je validný domain limit. Parser output sa preto odovzdá samostatnej resolution a validation vrstve namiesto priamej mutation.
+
 ```python
 from __future__ import annotations
 
@@ -59,6 +61,8 @@ Parser rieši syntax a required arguments. Domain validation patrí do samostatn
 
 ## Typed immutable model
 
+Typed domain model oddeľuje external representation od state-u, nad ktorým planning a verification skutočne rozhodujú. Loader musí najprv odmietnuť unknown fields, konvertovať hodnoty a overiť invariants; až potom vytvorí model. `frozen=True` chráni pred bežnou neskoršou assignment mutation, ale nenahrádza runtime validation ani deep immutability nested structures.
+
 ```python
 from dataclasses import dataclass
 
@@ -74,6 +78,8 @@ class OrdersConfig:
 Frozen dataclass obmedzí náhodnú mutation po validation. Parser explicitne mapuje external keys a odmieta unknown alebo missing fields podľa contractu. Type hints nie sú runtime validation; treba vykonať checks.
 
 ## Canonical fingerprint
+
+Fingerprint má identifikovať presne definovaný semantic subject, nie náhodnú textovú presentation. Automation najprv zostaví canonical representation so stabilným field setom, orderingom, encodingom a number semantics a až potom hashne výsledné bytes. Rovnaký digest dokazuje zhodu podľa tohto canonicalization contractu; nedokazuje pravdivosť inputu ani runtime aplikovanie state-u.
 
 ```python
 import hashlib
@@ -109,6 +115,8 @@ Plan obsahuje:
 Apply musí znovu načítať config aj state a porovnať oba fingerprints. Ak sa medzi planom a apply zmenil ktorýkoľvek vstup, plan je stale a mutation sa odmietne. To je optimistická concurrency control hranica.
 
 ## Atomic local write
+
+Atomic local write oddeľuje prípravu nového obsahu od okamihu, keď sa stane viditeľným pod production pathname. Temporary file sa vytvorí na rovnakom filesysteme, úplne zapíše a flushne; `os.replace` potom jednou pathname transition nahradí target. Tento model bráni readers vidieť partial serialization, ale jeho crash durability, ownership, mode a následné runtime načítanie zostávajú samostatnými contracts.
 
 ```python
 import os
@@ -206,6 +214,8 @@ Long-running automation reaguje na SIGINT/SIGTERM. Pri lokálnej atomic mutation
 „Rollback“ nie je automatický univerzálny krok. Ak downstream side effect prebehol, slepé inverse volanie môže zhoršiť stav. Recovery sa riadi domain contractom.
 
 ## Mechanický rozbor Python automation ukážok
+
+Nasledujúce rozbory spájajú skrátené ukážky s reálnym Python execution modelom. Pri každom vzore sledujú vznik objektu alebo file descriptoru, ownership a exception boundary, presnú mutation a read-back, ktorý výsledok potvrdzuje. Zároveň pomenúvajú to, čo lokálne úspešné volanie nepreukazuje pri concurrent writerovi, power loss, remote API alebo novej tool generation.
 
 ### Parser vytvára syntaktický model, nie validný domain object
 

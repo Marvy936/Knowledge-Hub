@@ -44,6 +44,8 @@ Výstup `Format-Table` už nie je vhodný ako input pre business processing. Aut
 
 ## Parameter contract
 
+Parameter contract je prvá boundary medzi callerom a automatizáciou. PowerShell binding priradí named alebo positional values, vykoná deklarované type conversions a validation attributes a až potom vstúpi do body skriptu. Táto fáza môže odmietnuť chýbajúci alebo syntakticky neplatný input, ale nepreukazuje, že file, remote subject alebo runtime precondition zostanú platné v okamihu mutation.
+
 ```powershell
 [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
 param(
@@ -107,6 +109,8 @@ Globálne `$ErrorActionPreference = 'Stop'` môže byť vhodné, ale script mus�
 
 ## Native processes
 
+Native executable nevytvára PowerShell error record rovnakým mechanizmom ako cmdlet. PowerShell spustí process, prepojí jeho standard streams a po ukončení sprístupní process exit code cez `$LASTEXITCODE`. Wrapper preto musí bezprostredne zachytiť command-specific code a samostatne rozhodnúť, či znamená success, očakávaný rozdiel alebo tool failure.
+
 ```powershell
 & git diff --quiet
 $gitExit = $LASTEXITCODE
@@ -163,6 +167,8 @@ PowerShell remoting posiela serialized representations, nie živé objects s pln
 Remote mutation potrebuje target identity, authentication, session configuration, timeout a verification na remote hoste. Successful command submission nepreukazuje desired runtime state.
 
 ## Mechanický rozbor kľúčových PowerShell vzorov
+
+Nasledujúce rozbory sledujú každý vzor od parameter bindingu alebo object emission cez pipeline, error a serialization boundary až po mutation a read-back. Cieľom nie je zopakovať syntax, ale ukázať, ktorý runtime objekt alebo stream vznikne, čo môže ďalší krok skutočne použiť a kde sa úspešný PowerShell command ešte nesmie zameniť za verified outcome.
 
 ### Object pipeline nie je vizuálna tabuľka
 

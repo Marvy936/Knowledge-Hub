@@ -160,6 +160,8 @@ Regex je vhodný na lokálny text pattern, log line alebo striktne definovaný f
 
 ## Mechanický rozbor parserov, serializácie a regex hraníc
 
+Nasledujúce rozbory sledujú bytes cez decoding, parser a effective type model až po schema/domain validation, controlled serialization a platform read-back. Regex príklady sú zámerne vedené oddelene: engine pracuje nad textovým patternom a nevlastní syntax tree structured dokumentu. Každý rozbor preto pomenúva parser generation, vstupný subject, stratené informácie a failure, ktorý samotný parse success ešte nevylučuje.
+
 ### Duplicate-key rejection v JSON
 
 ```python

@@ -787,16 +787,16 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "title": "Bash automation",
-      "words": 2300,
+      "words": 2356,
       "headings": 20,
       "sections": 20,
-      "findings": 8,
+      "findings": 9,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 1,
-      "low": 6,
-      "score": 20,
-      "grade": "B"
+      "low": 8,
+      "score": 14,
+      "grade": "A"
     },
     {
       "path": "docs/03-git-and-automation/branching-strategies.md",
@@ -843,30 +843,30 @@
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
       "title": "Commit, branch, tag a HEAD",
-      "words": 1196,
+      "words": 1248,
       "headings": 9,
       "sections": 9,
-      "findings": 3,
+      "findings": 4,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 2,
-      "score": 10,
-      "grade": "B"
+      "low": 4,
+      "score": 4,
+      "grade": "A"
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "title": "Praktický Git a automation projekt od prázdneho adresára po overený apply",
-      "words": 3195,
+      "words": 3585,
       "headings": 20,
       "sections": 20,
-      "findings": 14,
+      "findings": 18,
       "critical": 0,
-      "high": 9,
+      "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 77,
-      "grade": "D"
+      "low": 18,
+      "score": 20,
+      "grade": "B"
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
@@ -899,16 +899,16 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "title": "Konflikty",
-      "words": 1213,
+      "words": 1264,
       "headings": 10,
       "sections": 10,
-      "findings": 7,
+      "findings": 6,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 6,
-      "score": 18,
-      "grade": "B"
+      "score": 10,
+      "grade": "A"
     },
     {
       "path": "docs/03-git-and-automation/monorepo-vs-multirepo.md",
@@ -927,44 +927,44 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "title": "PowerShell fundamentals",
-      "words": 1647,
+      "words": 1797,
       "headings": 20,
       "sections": 20,
       "findings": 14,
-      "critical": 1,
-      "high": 2,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
-      "low": 11,
-      "score": 44,
-      "grade": "C"
+      "low": 14,
+      "score": 19,
+      "grade": "B"
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "title": "Python for automation",
-      "words": 1897,
+      "words": 2147,
       "headings": 21,
       "sections": 21,
-      "findings": 14,
-      "critical": 1,
-      "high": 4,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 54,
-      "grade": "C"
+      "low": 16,
+      "score": 18,
+      "grade": "B"
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "title": "Reset, revert a restore",
-      "words": 1367,
+      "words": 1412,
       "headings": 15,
       "sections": 15,
-      "findings": 9,
+      "findings": 8,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 8,
-      "score": 21,
-      "grade": "B"
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/03-git-and-automation/working-tree-staging-repository.md",
@@ -983,16 +983,16 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "title": "YAML, JSON a regular expressions",
-      "words": 1766,
+      "words": 1821,
       "headings": 20,
       "sections": 20,
       "findings": 14,
-      "critical": 1,
+      "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 13,
-      "score": 31,
-      "grade": "C"
+      "low": 14,
+      "score": 21,
+      "grade": "B"
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
@@ -22242,15 +22242,24 @@
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "Argument parser",
       "line": 92,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/bash-automation.md",
+      "section": "Argument parser",
+      "line": 92,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "Čo robí set -Eeuo pipefail",
-      "line": 211,
+      "line": 213,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22259,7 +22268,7 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "Čo robí set -Eeuo pipefail",
-      "line": 211,
+      "line": 213,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ERR`, `EXIT`, `PIPESTATUS`",
@@ -22268,7 +22277,7 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "Arrays zachovávajú argument boundaries",
-      "line": 247,
+      "line": 249,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22277,7 +22286,7 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "Argument parser krok po kroku",
-      "line": 265,
+      "line": 267,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22286,7 +22295,7 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "File lock a descriptor 9",
-      "line": 343,
+      "line": 345,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22295,7 +22304,7 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "File lock a descriptor 9",
-      "line": 343,
+      "line": 345,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22304,7 +22313,7 @@
     {
       "path": "docs/03-git-and-automation/bash-automation.md",
       "section": "Signals a child process",
-      "line": 408,
+      "line": 410,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22440,15 +22449,24 @@
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
       "section": "Reflog ako lokálny pohyb refs",
       "line": 124,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
+      "section": "Reflog ako lokálny pohyb refs",
+      "line": 124,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
       "section": "Mechanický walkthrough: ref pohyby a read-back po každom príkaze",
-      "line": 133,
+      "line": 135,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22457,7 +22475,7 @@
     {
       "path": "docs/03-git-and-automation/commit-branch-tag-head.md",
       "section": "Zhrnutie",
-      "line": 212,
+      "line": 214,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22485,42 +22503,60 @@
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "3. Dve samostatné clones",
       "line": 105,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "4. Alice vytvorí feature branch a object evidence",
-      "line": 127,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "4. Alice vytvorí feature branch a object evidence",
-      "line": 127,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "6. Alice dostane non-fast-forward a najprv pozoruje",
-      "line": 219,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 223,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
+      "section": "6. Alice dostane non-fast-forward a najprv pozoruje",
+      "line": 223,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
+      "section": "6. Alice dostane non-fast-forward a najprv pozoruje",
+      "line": 223,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "7. Rebase a conflict inputs",
-      "line": 243,
+      "line": 249,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22529,7 +22565,7 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "7. Rebase a conflict inputs",
-      "line": 243,
+      "line": 249,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22538,16 +22574,25 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "8. Annotated release tag",
-      "line": 311,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 317,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
+      "section": "8. Annotated release tag",
+      "line": 317,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "10. Automation tool",
-      "line": 361,
+      "line": 369,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22556,38 +22601,47 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "14. Commit automation change",
-      "line": 890,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 898,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "14. Commit automation change",
-      "line": 890,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 898,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "16. Druhý no-op run",
-      "line": 934,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 944,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
+      "section": "16. Druhý no-op run",
+      "line": 944,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "17. Stale-plan failure",
-      "line": 943,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 955,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-object-model.md",
@@ -22762,17 +22816,8 @@
     },
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
-      "section": "Three-way merge",
-      "line": 35,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/merge-conflicts.md",
       "section": "Resolution je nový obsah",
-      "line": 64,
+      "line": 66,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22781,7 +22826,7 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "section": "Rename a delete conflicts",
-      "line": 76,
+      "line": 78,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22790,7 +22835,7 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "section": "Mechanický conflict-resolution walkthrough",
-      "line": 134,
+      "line": 136,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22799,7 +22844,7 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "section": "Incident: konflikt bol „vyriešený“ výberom ours",
-      "line": 206,
+      "line": 208,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22808,7 +22853,7 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "section": "Incident: konflikt bol „vyriešený“ výberom ours",
-      "line": 206,
+      "line": 208,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22817,7 +22862,7 @@
     {
       "path": "docs/03-git-and-automation/merge-conflicts.md",
       "section": "Zhrnutie",
-      "line": 217,
+      "line": 219,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22863,15 +22908,24 @@
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Parameter contract",
       "line": 45,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
+      "section": "Parameter contract",
+      "line": 45,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Success output a ďalšie streams",
-      "line": 63,
+      "line": 65,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22880,16 +22934,16 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Native processes",
-      "line": 108,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "ShouldProcess , -WhatIf a dry-run hranica",
-      "line": 126,
+      "line": 130,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22898,7 +22952,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Remoting a serialization boundary",
-      "line": 159,
+      "line": 163,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22906,17 +22960,8 @@
     },
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
-      "section": "Mechanický rozbor kľúčových PowerShell vzorov",
-      "line": 165,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Object pipeline nie je vizuálna tabuľka",
-      "line": 167,
+      "line": 173,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22925,7 +22970,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Advanced parameter binding",
-      "line": 189,
+      "line": 195,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22934,7 +22979,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Advanced parameter binding",
-      "line": 189,
+      "line": 195,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22943,7 +22988,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Terminating a non-terminating error",
-      "line": 228,
+      "line": 234,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22952,7 +22997,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Terminating a non-terminating error",
-      "line": 228,
+      "line": 234,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22961,7 +23006,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "ShouldProcess a nested mutations",
-      "line": 275,
+      "line": 281,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22970,7 +23015,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "JSON serialization a depth",
-      "line": 287,
+      "line": 293,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22979,7 +23024,7 @@
     {
       "path": "docs/03-git-and-automation/powershell-fundamentals.md",
       "section": "Atomic file mutation",
-      "line": 298,
+      "line": 304,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22989,42 +23034,69 @@
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "CLI boundary",
       "line": 32,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Typed immutable model",
-      "line": 60,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 62,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "Typed immutable model",
+      "line": 62,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Canonical fingerprint",
-      "line": 76,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 80,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "Canonical fingerprint",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Atomic local write",
-      "line": 111,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/python-for-automation.md",
+      "section": "Atomic local write",
+      "line": 117,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "HTTP clients, timeout a retry",
-      "line": 141,
+      "line": 149,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23033,7 +23105,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Graceful cancellation",
-      "line": 202,
+      "line": 210,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23041,17 +23113,8 @@
     },
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
-      "section": "Mechanický rozbor Python automation ukážok",
-      "line": 208,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Parser vytvára syntaktický model, nie validný domain object",
-      "line": 210,
+      "line": 220,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23060,7 +23123,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Parser vytvára syntaktický model, nie validný domain object",
-      "line": 210,
+      "line": 220,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23069,7 +23132,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Canonical fingerprint krok po kroku",
-      "line": 238,
+      "line": 248,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23078,7 +23141,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Canonical fingerprint krok po kroku",
-      "line": 238,
+      "line": 248,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23087,7 +23150,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Atomic write detailne",
-      "line": 264,
+      "line": 274,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23096,7 +23159,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Retry a unknown outcome",
-      "line": 310,
+      "line": 320,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23105,7 +23168,7 @@
     {
       "path": "docs/03-git-and-automation/python-for-automation.md",
       "section": "Incident: retry vytvorí dvojitý rollout",
-      "line": 346,
+      "line": 356,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23140,17 +23203,8 @@
     },
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
-      "section": "Odstageovanie",
-      "line": 178,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "section": "Soft/mixed/hard reset na commit",
-      "line": 186,
+      "line": 188,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23159,7 +23213,7 @@
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "section": "Incident: shared main bol hard-resetnutý a force-pushnutý",
-      "line": 252,
+      "line": 254,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23168,7 +23222,7 @@
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "section": "Incident: shared main bol hard-resetnutý a force-pushnutý",
-      "line": 252,
+      "line": 254,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23177,7 +23231,7 @@
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "section": "Zhrnutie",
-      "line": 258,
+      "line": 260,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23186,7 +23240,7 @@
     {
       "path": "docs/03-git-and-automation/reset-revert-restore.md",
       "section": "Zhrnutie",
-      "line": 258,
+      "line": 260,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23295,15 +23349,15 @@
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Mechanický rozbor parserov, serializácie a regex hraníc",
       "line": 161,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Duplicate-key rejection v JSON",
-      "line": 163,
+      "line": 165,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23312,7 +23366,7 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Controlled serialization",
-      "line": 230,
+      "line": 232,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23321,7 +23375,7 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Regex full match a escaping",
-      "line": 246,
+      "line": 248,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23330,7 +23384,7 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Prečo sed YAML edit nevie, čo mení",
-      "line": 279,
+      "line": 281,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23339,7 +23393,7 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Prečo sed YAML edit nevie, čo mení",
-      "line": 279,
+      "line": 281,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23348,7 +23402,7 @@
     {
       "path": "docs/03-git-and-automation/yaml-json-regular-expressions.md",
       "section": "Zhrnutie",
-      "line": 303,
+      "line": 305,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

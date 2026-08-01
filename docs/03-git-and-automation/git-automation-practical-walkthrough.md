@@ -104,6 +104,8 @@ Bare repository nemá working tree. Jeho authoritative viditeľný state sú obj
 
 ## 3. Dve samostatné clones
 
+Clone vytvorí dve nezávislé local object databases, working trees, local branches a remote-tracking refs, hoci oba repositories začínajú z rovnakého remote snapshotu. Konfigurácia identity mení iba author/committer metadata budúcich commitov v danom clone. Po clone sa preto overí local `HEAD`, upstream binding a `origin/main`; existencia dvoch adresárov sama nepreukazuje rovnaký ref state.
+
 ```bash
 git clone origin.git alice
 git clone origin.git bob
@@ -125,6 +127,8 @@ git -C bob rev-parse HEAD
 Obe local `main` a oba `origin/main` začínajú na rovnakom commite. Od tejto chvíle sa však repositories vyvíjajú nezávisle.
 
 ## 4. Alice vytvorí feature branch a object evidence
+
+Alice najprv vytvorí nový movable ref na aktuálnom commite; Git nekopíruje file history ani object database. Následná editácia mení working tree, `hash-object -w` vytvorí content-addressed blob bez priradenia pathname a `git add` až potom zapíše blob identity do indexu pod konkrétnym pathom. Read-back po každom kroku odlišuje file content, loose alebo packed object, index entry a commit snapshot.
 
 ```bash
 cd alice
@@ -218,6 +222,8 @@ Remote `main` teraz obsahuje Bobov commit. Alice local remote-tracking ref to e�
 
 ## 6. Alice dostane non-fast-forward a najprv pozoruje
 
+Alice local `main` a remote `main` teraz obsahujú rozdielne descendant commits. Non-fast-forward rejection je server-side ochrana pred presunutím remote refu na commit, ktorý by zahodil Bobovu viditeľnú históriu. Pred akoukoľvek integráciou Alice fetchne nové objects a aktualizuje iba local remote-tracking ref; graph a left/right comparison potom ukážu presné commits na každej strane bez mutation working history.
+
 ```bash
 cd ../alice
 git switch main
@@ -309,6 +315,8 @@ git push origin main
 ```
 
 ## 8. Annotated release tag
+
+Release tag vytvára stabilné meno pre presný schválený commit, ale annotated tag nie je iba ďalší branch-like ref. Git vytvorí samostatný tag object s target object ID, type, taggerom, časom a message a `refs/tags/v4.2.1` ukáže na tento tag object. `git show` preto musí potvrdiť tag metadata aj dereferenced commit; push následne publikuje object a tag ref bez presúvania branchu alebo working tree.
 
 ```bash
 git tag -a v4.2.1 -m 'Atlas Orders 4.2.1'
@@ -889,6 +897,8 @@ Tests pokrývajú prvý apply, druhý no-op apply, stale desired plan a unknown 
 
 ## 14. Commit automation change
 
+Automation source, schemas, wrappers a tests tvoria jeden review subject a musia byť uložené v jednom konzistentnom commit snapshot-e. Staging read-back pred commitom potvrdí exact files a whitespace validity; po pushi sa local `HEAD`, local `origin/main` a remote branch porovnajú na rovnaký object ID. Clean working tree bez tejto ref identity by nepreukazoval, že publikovaný remote obsahuje testovanú generation.
+
 ```bash
 git add tools scripts tests schemas config .gitignore
 git diff --cached --check
@@ -933,6 +943,8 @@ python3 tools/atlasctl.py verify \
 
 ## 16. Druhý no-op run
 
+Druhý run používa rovnaký desired fingerprint, znovu observe-ne current state a musí vytvoriť prázdnu delta. Dry-run a apply sa vykonajú ako dve samostatné operations, aby sa potvrdilo, že planner aj mutator rozpoznajú converged state. No-op sa dokazuje `changed: false`, rovnakým state fingerprintom a absenciou write-u, nie iba exit codeom nula.
+
 ```bash
 ./scripts/release.sh --dry-run
 ./scripts/release.sh
@@ -941,6 +953,8 @@ python3 tools/atlasctl.py verify \
 Plan má `changed: false` a apply nevykoná write. Idempotencia sa neposudzuje iba podľa exit code-u; plan a state fingerprint musia zostať rovnaké.
 
 ## 17. Stale-plan failure
+
+Stale-plan test vytvorí plan nad konkrétnou desired a observed generation a potom zámerne zmení jeden z jeho preconditions. Apply musí pred mutation znovu načítať oba subjects, porovnať fingerprinty a skončiť stabilným precondition exit codeom. Test je úspešný iba vtedy, keď odmietnutie zachová pôvodný runtime state a nový plan by už obsahoval zmenený intent.
 
 Vytvor plan:
 
