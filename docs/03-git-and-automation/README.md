@@ -1,12 +1,66 @@
 # Git and Automation Basics
 
-Táto sekcia vysvetľuje Git od content-addressable object database cez working tree, refs a distribuovanú synchronizáciu až po integráciu histórie, konflikty a repository stratégie. Následne rozširuje základ o praktickú automatizáciu v Bash, PowerShelli a Pythone a o bezpečnú prácu s YAML, JSON a regular expressions. Cieľom nie je memorovať príkazy, ale vedieť predvídať zmenu stavu, definovať stabilný kontrakt automatizácie a diagnostikovať zlyhanie na správnej vrstve.
+Táto sekcia sleduje jednu zmenu od prvého upraveného riadku až po bezpečne vykonanú automatizáciu. Atlas tím pripravuje change `ORD-8421`, ktorý do služby `orders-api` pridáva konfiguračný limit `maxOrderAmount`. Zmena sa najprv objaví vo working tree, potom sa vyberie do indexu, uloží do content-addressed Git objektov, spojí s históriou cez commit a branch a nakoniec sa synchronizuje s remote repository. Druhá polovica sekcie ten istý change premení na automatizačný kontrakt `observe → plan → apply → verify`, ktorý pracuje so structured data, stabilnými exit codes, lockom, dry-runom a recovery hranicou.
 
-## Predpoklady
+Cieľom nie je memorovať názvy Git príkazov ani syntaktické triky troch jazykov. Čitateľ má vedieť určiť, ktorý stav práve mení: working tree, index, local object database, ref, remote-tracking ref, remote branch, runtime state alebo automatizačný plan. Každý príkaz je vysvetlený spolu s tým, čo mení, čo nemení a aký read-back dokáže jeho výsledok.
 
-Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md), [Linux and Systems](../01-linux-and-systems/README.md) a [Networking and Web Fundamentals](../02-networking-and-web/README.md). Pre remote operácie sú dôležité najmä SSH, HTTPS/TLS, authentication a troubleshooting princípy. Pre automation blok sú potrebné process, filesystem, environment, exit-status a structured-data fundamenty.
+## Spoločný scenár
 
-## Odporúčané poradie
+Sekcia používa repository `atlas-orders-delivery`:
+
+```text
+atlas-orders-delivery/
+├── config/
+│   └── orders.yaml
+├── schemas/
+│   └── orders.schema.json
+├── scripts/
+│   ├── release.sh
+│   └── Release-Orders.ps1
+├── tools/
+│   └── atlasctl.py
+├── state/
+│   └── dev.json
+└── tests/
+    └── test_atlasctl.py
+```
+
+Konfiguračný change prechádza týmto reťazcom:
+
+```text
+editor buffer
+→ working tree
+→ index
+→ blob a tree objects
+→ commit
+→ feature branch
+→ remote-tracking a remote branch
+→ review a integration
+→ release tag
+→ automation plan
+→ locked apply
+→ runtime state
+→ verification a second no-op run
+```
+
+Sekcia dôsledne rozlišuje tieto identity:
+
+```text
+file content
+≠ blob object
+≠ pathname v tree objekte
+≠ commit snapshot
+≠ branch ref
+≠ remote-tracking ref
+≠ remote branch
+≠ release tag
+≠ automation plan
+≠ applied runtime state
+```
+
+Dva commits môžu obsahovať rovnaký file content, ale mať odlišných parents alebo metadata. Dve branches môžu ukazovať na rovnaký commit. `origin/main` nie je živý pohľad na server; je to lokálny remote-tracking ref aktualizovaný fetchom. Zelený skript exit code nepreukazuje správny runtime outcome, ak nástroj neoveril stav, ktorý mal zmeniť.
+
+## Authoritative poradie kapitol
 
 1. [Git object model](git-object-model.md)
 2. [Working tree, staging area a repository](working-tree-staging-repository.md)
@@ -22,47 +76,40 @@ Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md
 12. [PowerShell fundamentals](powershell-fundamentals.md)
 13. [Python for automation](python-for-automation.md)
 14. [YAML, JSON a regular expressions](yaml-json-regular-expressions.md)
+15. [Praktický Git a automation projekt od prázdneho adresára po overený apply](git-automation-practical-walkthrough.md)
 
-Po tejto sekcii nasleduje Testing and Software Quality. Git a automation mechanizmy sa tam použijú pri test execution, quality gates, fixtures, test data a CI integrácii.
+Prvých desať kapitol vysvetľuje Git ako databázu immutable objektov a systém pohyblivých refs. Ďalšie štyri kapitoly zostavia rovnaký automatizačný contract v Bash, PowerShelli a Pythone a vysvetlia hranice structured data a regexov. Záverečný walkthrough vytvorí bare remote, dve clones, divergence, konflikt, recovery, annotated release tag a executable plan/apply/verify nástroj.
 
-## Cieľ zvládnutia
+## Výkladový štandard
 
-Po dokončení sekcie má byť možné:
+Každá kapitola začína konkrétnou zmenou alebo incidentom, nie slovníkovou definíciou. Príkazy sú vložené priamo pri stave, ktorý menia. Po každom dôležitom kroku nasleduje read-back cez `git status`, `git diff`, `git ls-files`, `git cat-file`, `git show-ref`, `git reflog`, JSON output alebo runtime verification.
 
-- vysvetliť blob, tree, commit a tag objects a cestu ref → commit → tree → blob,
-- rozlíšiť working tree, index a repository a vedome pripravovať commit cez partial staging,
-- interpretovať branch, tag, HEAD, detached HEAD, remote-tracking ref a reflog,
-- vysvetliť clone, fetch, pull, push, refspec, upstream a non-fast-forward update,
-- porovnať merge, rebase, squash merge a history rewrite vrátane ich auditných dôsledkov,
-- bezpečne zvoliť medzi restore, reset a revert,
-- používať cherry-pick a stash bez zamieňania patch replayu za ancestry integráciu,
-- riešiť textové, rename, binary aj semantic conflicts a overiť výsledok tests a diffom,
-- navrhnúť branching strategy podľa release cadence, CI capability, compliance a počtu podporovaných verzií,
-- technicky obhájiť monorepo, multirepo alebo hybridný model podľa change coupling, ownership a build topology,
-- navrhnúť Bash skript s bezpečným quotingom, arrays, error handlingom, cleanupom, lockingom a idempotentnými mutations,
-- rozlíšiť PowerShell object pipeline, success/error streams, terminating a non-terminating errors a native process exit codes,
-- vytvoriť testovateľný Python CLI nástroj s explicitnými dependencies, timeouts, retries, loggingom a graceful shutdown,
-- zvoliť medzi Bash, PowerShellom a Pythonom podľa complexity, platformy a požadovaného dátového modelu,
-- bezpečne parsovať, validovať a serializovať YAML a JSON s explicitným encodingom a schema kontraktom,
-- navrhovať regexy s vedomím dialectu, anchors, escaping vrstiev, Unicode semantics a ReDoS rizika,
-- oddeľovať plan, apply, verify a recovery fázu automatizácie,
-- definovať stabilné vstupy, výstupy, exit codes, dry-run, observability a security boundaries automatizačného nástroja.
+Odrážky zostávajú iba pri krátkom inventári states, acceptance podmienok alebo porovnaní. Hlavný výklad nesú súvislé odseky. Pri history rewrite sa vždy pomenúva collaboration boundary. Pri automatizácii sa oddelí source configuration, observed state, plan subject, mutation outcome a verified state.
+
+## Praktický walkthrough
+
+Praktická kapitola používa iba lokálny filesystem a Git; nepotrebuje externý hosting. Vytvorí:
+
+```text
+bare origin repository
+→ seed repository
+→ clone alice
+→ clone bob
+→ dve paralelné changes
+→ rejected non-fast-forward push
+→ fetch a rebase conflict
+→ semantic resolution a test
+→ annotated release tag
+→ accidental reset a reflog recovery
+→ Python plan/apply/verify tool
+→ Bash wrapper
+→ PowerShell wrapper
+→ stale-plan failure
+→ second no-op apply
+```
+
+Python a Bash ukážky sú executable na Linuxe. PowerShell ukážka je syntakticky a mechanisticky auditovaná, ale repository workflow ju nevykonáva, pokiaľ runner nemá `pwsh`. Praktický nástroj používa JSON-compatible YAML subset, takže ho dokáže bezpečne načítať štandardná Python `json` knižnica bez externých dependencies; kapitola zároveň vysvetlí, že všeobecné YAML vyžaduje skutočný YAML parser.
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Git object model | Learning | L2 |
-| Working tree, staging area a repository | Learning | L2 |
-| Commit, branch, tag a HEAD | Learning | L2 |
-| Clone, fetch, pull a push | Learning | L2 |
-| Merge a rebase | Learning | L2 |
-| Reset, revert a restore | Learning | L2 |
-| Cherry-pick a stash | Learning | L2 |
-| Konflikty | Learning | L2 |
-| Branching strategies | Learning | L2 |
-| Monorepo vs. multirepo | Learning | L2 |
-| Bash automation | Learning | L2 |
-| PowerShell fundamentals | Learning | L2 |
-| Python for automation | Learning | L2 |
-| YAML, JSON a regular expressions | Learning | L2 |
+Všetkých pätnásť kapitol je po full prose rewritingu pripravených na používateľskú kontrolu. `Ready for user review` neznamená automatické používateľské schválenie ani overenie každého príkazu na každej platforme. Git/Python/Bash practical flow má samostatnú executable validation hranicu; PowerShell a hosting-specific protection rules zostávajú platformovou hranicou.

@@ -424,5 +424,5 @@ Relevantné pojmy: verification, validation, test oracle, requirement traceabili
 
 **Navigácia**
 
-[← Predchádzajúca: YAML, JSON a regular expressions](../03-git-and-automation/yaml-json-regular-expressions.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Test pyramid →](test-pyramid.md)
+[← Predchádzajúca: Praktický Git a automation projekt od prázdneho adresára po overený apply](../03-git-and-automation/git-automation-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Test pyramid →](test-pyramid.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
