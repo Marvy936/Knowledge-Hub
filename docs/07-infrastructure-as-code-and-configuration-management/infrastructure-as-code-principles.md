@@ -6,6 +6,8 @@ Kapitola používa incident `IAC-PAY-75`. Atlas Payments pripravuje zmenu produk
 
 ## 1. Dominantný intent-to-outcome lifecycle
 
+Lifecycle je kauzálny reťazec od business intentu po vzdialený a business outcome. Každý prechod má vlastný subject a dôkaz: source revision nie je resolved input, saved plan nie je remote mutation a provider success nie je state commit. Diagram preto slúži ako kontrolný model pre plánovanie, incident aj recovery, nie ako zoznam fáz, ktoré možno uzavrieť jedným zeleným pipeline statusom.
+
 ```text
 business alebo platform intent
 → exact ownership a mutable attribute boundary
@@ -246,6 +248,12 @@ Slepý retry môže vytvoriť duplicate NAT gateway, druhú DNS mutation alebo o
 
 ## 9. State boundary je zároveň blast-radius boundary
 
+State boundary určuje, ktoré remote bindings sa plánujú, zamykajú, zapisujú a obnovujú ako jedna change-control jednotka. Všetky resources v jednom state-e zdieľajú writer queue a lock, apply identity, dependency graph, saved-plan freshness, backup/restore históriu a incidentný blast radius. Zlyhanie backend write-u alebo chybná provider identity preto môže naraz ovplyvniť celý tento subject.
+
+Module boundary je odlišná: organizuje reusable code a interface, ale jeho resources sa stále rozvinú do state-u caller root module-u. Samostatný state vzniká až samostatným root module-om, backend keyom, identity/policy a recovery lifecycle-om.
+
+Atlas oddeľuje network, shared data platform a application runtime vtedy, keď majú rozdielne ownership, security domain, cadence alebo recovery objective. Príliš veľký state vyžaduje široké permissions, predlžuje lock a zväčšuje recovery unit. Príliš malé states vytvárajú implicitné cross-state dependencies a stale outputs. Boundary je teda architecture decision nad couplingom a failure domainom, nie stylistické rozdelenie adresárov.
+
 Jeden Terraform state zdieľa:
 
 - lock a writer queue;
@@ -260,6 +268,23 @@ Samostatný module nie je automaticky samostatný state. Module je code/interfac
 Atlas oddeľuje network, shared data platform a application runtime vtedy, keď majú rozdielny ownership, security domain, cadence a recovery. Nerozdeľuje ich iba preto, aby mal viac adresárov. Príliš veľký state vytvára široké permissions a lock contention; príliš malé states vytvárajú krehké cross-state contracts.
 
 ## 10. Worked incident `IAC-PAY-75`
+
+Atlas pipeline mala meniť `prod-eu`, ale partial backend configuration zvolila `payments/prod-eu/platform-v2.tfstate` namiesto autoritatívneho `payments/prod-eu/platform.tfstate`. Nový key obsahoval prázdny state a default provider zdedil region `eu-west-1`, hoci intended target bol `eu-central-1`.
+
+```text
+správny source revision
++ nesprávny backend key
++ validná production identity
++ nesprávny default region
+→ create graph nad prázdnym binding modelom
+→ druhá VPC vznikne v eu-west-1
+→ backend write zlyhá po remote create
+→ job skončí failed bez state bindingu
+```
+
+HCL validation dokazovala iba syntaktický a schema contract. Platné credentials dokazovali, že caller smel mutovať effective account, nie že išlo o intended target. Absencia destroy actions nehovorila nič o duplicate create a úspešný cloud request neuzavrel state transition. Finálny failed job bol preto compatible s remote mutation, ktorá už prebehla.
+
+Root cause bol chybný IaC subject: backend, region a predecessor state sa nezhodovali s approved intentom. Recovery musela najprv zastaviť writers, zachovať request IDs a state evidence, inventarizovať obe VPC a až potom rozhodnúť o importe, odstránení alebo kompenzácii.
 
 Atlas pipeline mala aplikovať zmenu v `prod-eu`. Partial backend configuration však použila key:
 
@@ -328,6 +353,12 @@ State lineage/serial a backend key testujú H1/H2. Git diff a resource addresses
 
 ## 12. Authoritative recovery
 
+Recovery nezačína ďalším apply. Najprv sa zmrazia všetci writers pre oba možné backend/state subjects a zachová sa source revision, saved plan, provider logs, request IDs, caller identity a recovery state snapshot. Read-only observations potom potvrdia backend key, lineage/serial, account/region a remote inventory.
+
+Ak remote objekt vznikol a intended configuration ho má vlastniť, vytvorí sa explicitný binding recovery cez import alebo obnovenie správneho successor snapshotu. Ak vznikol v nesprávnom targete, owner rozhodne o bezpečnom cleanup-e až po kontrole dát, dependencies a trafficu. Ručná state surgery bez remote a ownership inventory je zakázaná, pretože môže iba presunúť neznalosť do ďalšieho snapshotu.
+
+Po oprave sa vytvorí nový plan nad autoritatívnym backendom a exact provider targetom. Acceptance vyžaduje očakávaný remote object, správny state binding, runtime capability, forbidden duplicate/wrong-region path a druhý no-op plan. Recovery je uzavretá až vtedy, keď nová operation prežije nový state serial bez ad-hoc patchu.
+
 Atlas recovery postupuje bez okamžitého destroy:
 
 1. zastaví všetky applies nad oboma candidate backend keys;
@@ -384,9 +415,13 @@ Git je authoritative pre desired declaration. Remote API a state sú nevyhnutné
 
 ### „Plan nemá destroy, takže je bezpečný“
 
+Absencia destroy action eliminuje iba jednu triedu mutation. Create môže vytvoriť duplicate databázu, verejný endpoint alebo objekt v nesprávnom account-e; update môže rozšíriť IAM alebo network exposure. Risk review preto hodnotí exact addresses, target identity, replacement paths a attribute-level effect, nie iba summary counter.
+
 Duplicate create, privilege expansion, wrong-region mutation alebo stateful replacement môžu byť kritické bez destroy countu.
 
 ### „Apply failed, teda sa nič nezmenilo“
+
+Terraform apply nie je jedna ACID transakcia. Provider request mohol byť prijatý, remote objekt mohol vzniknúť a až state commit alebo runtime verification mohli zlyhať. Failed status preto spúšťa reconciliation cez request IDs, remote inventory a state serial; slepý retry je forbidden path.
 
 Remote mutation môže uspieť pred timeoutom alebo state-write failure.
 

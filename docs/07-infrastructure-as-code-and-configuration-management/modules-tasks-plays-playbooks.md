@@ -6,6 +6,8 @@ Kapitola pokračuje incidentom `IAC-PAY-78`. Atlas Payments rollout odstráni cu
 
 ## 1. Dominantný intent-to-per-host-transition lifecycle
 
+Lifecycle sa číta ako rozklad jedného rollout intentu na host-scoped state machines. Play vyberie target a policy, task vytvorí per-host invocation, module vráti structured result a handler/rescue mení ďalší flow. Fleet verdict vzniká až po agregácii complete per-host postconditions a runtime observation.
+
 ```text
 run intent a resolved target manifest
 → play target, privilege, strategy a batch policy
@@ -122,6 +124,24 @@ cloud/API account a region
 ```
 
 ## 6. Play ako target a execution policy
+
+Play viaže host pattern na celý execution contract. Určuje, či sa zbierajú facts, akou connection a privilege identity sa tasks vykonajú, aká strategy/batch policy sa použije a ktoré variables, roles, pre/tasks, post/tasks a handlers tvoria content graph.
+
+```yaml
+- name: Roll out payments configuration
+  hosts: payments_app:&production:!maintenance
+  gather_facts: true
+  become: true
+  serial: 2
+  max_fail_percentage: 0
+  any_errors_fatal: true
+  roles:
+    - atlas.payments.runtime
+```
+
+`serial: 2` iba rozdelí target set. Readiness gate musí byť explicitný a failure thresholds sa interpretujú nad current batchom a resolved host countom. Broad `become: true` rozširuje privilege na celý play, preto sa pri mixed tasks preferuje užší block/task scope.
+
+Review subject obsahuje resolved host manifest aj effective play policy. Rovnaký YAML s iným inventory alebo `--limit` nie je rovnaký rollout.
 
 ```yaml
 - name: Roll out payments configuration
@@ -318,6 +338,12 @@ Shared migration patrí do samostatného singleton playu alebo external coordina
 
 ## 13. Delegation a shared API fan-out
 
+Delegated task sa stále instancuje pre každý inventory host. Dvanásť hosts preto môže vytvoriť dvanásť controller-side API calls, aj keď všetky menia jeden shared listener alebo deployment object.
+
+Ak API podporuje host-scoped idempotent member operation, každý call používa immutable host ID a stable idempotency key. Pri shared manifest-e sa items najprv agregujú do jednej reviewed mutation. `throttle`, `serial` alebo samostatný orchestration play obmedzujú concurrency, ale nenahrádzajú server-side operation identity.
+
+External controller je vhodný, keď shared object potrebuje vlastný reconciliation lifecycle. Evidence vždy oddeľuje inventory host, controller credential/account a remote object identity; `delegate_to: localhost` nie je distributed lock.
+
 Dvanásť inventory hosts vytvorí dvanásť delegated task instances. Ak všetky menia jeden load-balancer listener, môžu konfliktovať.
 
 Riešenia:
@@ -369,6 +395,12 @@ Skorší control je state-aware module alebo checksum comparison, nie manuálne 
 
 ## 17. Competing hypotheses pri mixed runtime
 
+H1/H2 sledujú content eligibility: condition, dynamic include alebo tags mohli preskočiť task, prerequisite či handler definition. H3/H4 porovnávajú actual file mutation, `changed` result, notification a handler execution. H5 skúma partial state po failure/rescue.
+
+H6 overuje exact verifier host manifest a endpoint, H7 porovnáva process command line/loaded path s destination file-om a H8 porovnáva expected a resolved inventory. Per-host event timeline spája tieto observations s jedným run ID.
+
+Takto sa odlíši omitted host od false-changed, handler failure alebo stale observation. Aggregate process status bez per-host subjectu nedokáže žiadnu z hypotéz potvrdiť.
+
 Symptom: playbook success, dva hosts používajú starú runtime version.
 
 ```text
@@ -392,6 +424,12 @@ Dôkazy:
 
 ## 18. Evidence-preserving containment a recovery
 
+Ďalšie batches sa pozastavia a zachová sa target manifest, task path, vars fingerprints, per-host results, file checksums a notifications. Unverified hosts sa odstránia z trafficu a klasifikujú ako skipped, false-changed, handler-failed, rescued-partial alebo omitted.
+
+Recovery je najmenšia operation, ktorá uzavrie konkrétny host transition: dokončenie prerequisite, obnova file-u, explicitný handler alebo oprava inventory. Host sa vracia do trafficu až po loaded version a LB health.
+
+Full-fleet business journey a second complete converge run dokazujú, že targeted recovery nevytvorila alternate workflow a že všetky expected hosts dosiahli rovnaký successor subject.
+
 1. pozastaviť ďalšie batches;
 2. zachovať run events, target manifest, vars fingerprints a file checksums;
 3. odstrániť unverified hosts z trafficu;
@@ -403,6 +441,12 @@ Dôkazy:
 9. spustiť complete second converge run.
 
 ## 19. Acceptance a forbidden paths
+
+Execution acceptance vyžaduje pinned module/collection identity, known task path, complete per-host results a pravdivý `changed` signal. Config mutation musí byť korelovaná s handler executionom a loaded process generation; rescued alebo ignored failure nesmie byť complete success.
+
+Forbidden tests pokrývajú `--tags config` bez prerequisite, false `changed_when`, wrong delegated account, handler failure, rescue-as-pass a `run_once` migration bez external locku. Každý musí zlyhať pred fleet closure.
+
+Po positive batch flow nasleduje second full run bez unintended mutation a business verifier cez serving path.
 
 Execution blok je prijatý, keď:
 

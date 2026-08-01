@@ -6,6 +6,8 @@ Kapitola uzatvára incident `IAC-PAY-78`. Atlas Payments spravuje sadu proxy vir
 
 ## 1. Dominantný eligibility-to-runtime lifecycle
 
+Lifecycle je per-host a per-item state machine. Condition rozhoduje eligibility nad typed inputs, loop vytvára complete item inventory, každý item vracia vlastný mutation verdict a handler je až následný synchronization transition do loaded runtime-u. Failure v strede loopu preto môže zanechať partial artifacts bez handlera.
+
 ```text
 validated host/item inputs a fresh facts
 → condition eligibility decision
@@ -418,6 +420,12 @@ Recovery odstráni listener, overí network exposure, opraví inventory typing/p
 
 ## 20. Worked incident: duplicate deployment POST
 
+Prvý delegated POST vytvoril deployment record a server ho commitol, ale response sa stratila. Controller vyhodnotil timeout ako `not applied` a retry bez stabilnej idempotency identity vytvoril druhý record; dva rollout controllers začali spravovať rovnakú cohortu.
+
+Containment zastaví oba controllers a zachová request IDs, audit events, body hash a cohort membership. Remote API sa queryuje podľa immutable run/cohort identity a owner vyberie authoritative record; duplicate sa cancelne až po kontrole, ktorý controller vykonal side effects.
+
+Recovery pridá server-side idempotency key stabilný cez retries jednej logical operation a unknown-outcome lookup pred opakovaním. Acceptance simuluje lost response a musí skončiť presne jedným deployment recordom a jednou active cohort authority.
+
 Prvý POST commitol, response sa stratila a retry bez idempotency identity vytvoril druhý deployment record. Dvaja controllers začali spravovať rovnakú cohortu.
 
 Recovery:
@@ -430,6 +438,12 @@ Recovery:
 6. pridať idempotency key a unknown-outcome query.
 
 ## 21. Competing hypotheses pri files-new/process-old
+
+H1–H3 skúmajú eligibility a item completeness: condition mohla skipnúť items, input type mohol byť chybný alebo loop skončil partial failureom. Per-item results a expected item manifest určia, ktoré artifacts vznikli.
+
+H4/H5 porovnávajú actual mutation, `changed` signal, notification topic a resolved handler definition. H6/H7 čítajú host task timeline a synchronization point, aby odlíšili host failure pred handler phase od príliš skorého flushu.
+
+H8 porovná active symlink, open files a process-loaded config; H9 overuje direct process observation a cache timestamps. Recovery sa vyberá až po zistení, či je problém v artifact set-e, notification alebo observation path-e.
 
 ```text
 H1: condition skipla niektoré items
@@ -501,6 +515,8 @@ Pri unknown non-idempotent mutation môže vytvoriť duplicate.
 Je queued do synchronization pointu.
 
 ### „`force_handlers` dokončí partial rollout“
+
+`force_handlers` môže vykonať queued handler aj po neskoršom task failure, ale nepreukazuje, že celý artifact set je complete a valid. Reload partial directory môže incident zhoršiť. Handler je povolený až po complete-set validation; inak sa host izoluje a vykoná restore alebo reviewed roll-forward.
 
 Môže načítať incomplete artifact set.
 

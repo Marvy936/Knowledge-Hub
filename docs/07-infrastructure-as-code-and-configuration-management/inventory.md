@@ -86,6 +86,20 @@ Logical alias môže zostať stabilný pri IP change. IP sama je slabá identity
 
 ## 5. Worked failure: recyklovaná IP
 
+Static inventory stále mapoval `payments-app-b2` na `10.40.12.44`, hoci pôvodný production host bol odstránený a IP neskôr dostal test host v peered networke. Vypnuté host-key checking odstránilo posledný independent identity control, takže platný automation credential zasiahol nesprávny asset.
+
+```text
+stale logical mapping
++ recyklovaná IP
++ credential accepted na test hoste
++ bez host identity verification
+→ production play vykoná správne tasks na nesprávnom objecte
+```
+
+Containment zastaví run a zachová inventory source, resolved hostvars, SSH handshake/host-key evidence a cloud audit. Cloud instance ID, account/region a host certificate sa porovnajú s expected manifestom; až potom sa odstráni stale entry a obnoví authoritative dynamic mapping.
+
+Recovery auditne mutation test hosta a pridá forbidden fixture s rovnakou IP, ale odlišným immutable asset ID/host keyom. Play musí zlyhať pred prvou mutáciou.
+
 Static inventory stále mapuje `payments-app-b2` na `10.40.12.44`. Pôvodný production host bol odstránený a IP neskôr dostal test host v peered networke. Host-key checking bolo vypnuté.
 
 ```text
@@ -211,6 +225,12 @@ all:
 Static entry potrebuje ownera, review a retirement. Dobrý model používa dynamic source pre ephemeral fleet a static source iba pre explicitné stabilné exceptions, ktoré sa pravidelne porovnávajú s asset inventory.
 
 ## 10. Source order a duplicate identities
+
+Viac inventory sources môže publikovať rovnaký `inventory_hostname`. Ansible ich zloží podľa load a precedence rules, ale výsledný host record môže spájať logical name z jedného source-u, `ansible_host` z druhého a environment/role z tretieho.
+
+Gate preto porovná duplicate logical names s immutable instance IDs, connection addresses, environment, role a source ownerom. Odlišný instance ID alebo target environment je hard conflict; rovnaká hodnota z dvoch sources je stále ownership ambiguity, ktorú treba odstrániť.
+
+Critical semantics sa nesmú spoliehať na alphabetic filename order. Resolved host record sa publikuje s provenance a forbidden fixture zámerne vytvorí konflikt, ktorý musí pre-run validation odmietnuť.
 
 Directory:
 
@@ -346,6 +366,8 @@ Stale cache môže obsahovať terminated hosts, vynechať replacements, zachova�
 
 ## 16. Constructed groups a missing metadata
 
+Constructed group rule je policy nad raw metadata. Missing field nesmie byť ticho interpretovaný ako production alebo iná privileged cohorta; unknown values patria do quarantine group a mutation run sa zastaví, kým source alebo asset owner metadata neopraví.
+
 Rizikový rule:
 
 ```text
@@ -403,6 +425,8 @@ Local tasks používajú controller filesystem, network a credentials. `localhos
 
 ## 20. Worked incident: stale cache vynechala dva hosts
 
+Tento incident vznikol ešte pred prvou task invocation. Green results na desiatich hosts preto nehovoria nič o dvoch omitted assets. Recovery musí zachovať cache generation aj direct API result a viazať targeted rerun na exact replacement IDs.
+
 Cloud replacement vytvoril nové instance IDs, ale cache ostala stará. Pattern vybral desať healthy old/current entries a play skončil success.
 
 ```text
@@ -423,6 +447,12 @@ Recovery:
 7. full-fleet second run.
 
 ## 21. Competing hypotheses pri chýbajúcom hoste
+
+H1/H2 porovnávajú direct source API s cached inventory a určujú, či asset chýba už v authority response alebo iba v stale cache. H3 testuje raw metadata a filter logic; H4 porovná resolved inventory s `--list-hosts`, aby odhalil pattern alebo `--limit` exclusion.
+
+H5 hľadá duplicate `inventory_hostname` a porovnáva immutable instance IDs. H6 číta group graph a quarantine/maintenance membership. H7 read-backne caller account/region a plugin target, pretože presný filter v nesprávnom account-e môže legitímne vrátiť nulu.
+
+Každá hypotéza má iný first divergent transition. Až po jeho potvrdení sa refreshuje cache, opravuje metadata, pattern alebo source identity; blind rerun nad rovnakým inventory subjectom je forbidden.
 
 ```text
 H1: source API ho nevrátil

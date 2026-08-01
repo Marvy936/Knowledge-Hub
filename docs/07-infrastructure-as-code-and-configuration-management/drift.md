@@ -6,6 +6,23 @@ Kapitola otvára incident `IAC-PAY-77`. Počas platobného incidentu security en
 
 ## 1. Dominantný observation-to-reconciliation lifecycle
 
+Drift lifecycle začína subject verification, pretože diff nad nesprávnym backendom alebo targetom nie je evidence o production. Authoritative configuration a attribute ownership sa porovnajú s presným state lineage/serialom a current provider observation.
+
+```text
+authoritative configuration a ownership contract
++ exact backend/state/provider target
++ current remote observation
+→ subject-verified difference
+→ origin, intent, risk a writer classification
+→ revert | adopt | transfer ownership | remove management | recover state
+→ fresh reviewed plan
+→ bounded transition
+→ state, remote, runtime a business verification
+→ second plan a exception closure
+```
+
+Detector musí pomenovať resource address/remote ID, writer, authorization/expiry a authoritative layer pre každý changed attribute. Až táto klasifikácia rozhodne, či sa rozdiel revertuje, adoptuje, deleguje alebo rieši ako lost binding. Automatický apply bez nej môže odstrániť incident containment alebo legitimizovať attacker mutation.
+
 ```text
 authoritative configuration a ownership contract
 + exact backend/state/provider target
@@ -107,6 +124,8 @@ refresh-only plan
 Refresh-only apply neaktualizuje desired configuration. Ak remote autoscaling minimum je `10`, state po refresh-only môže poznať `10`, ale configuration stále požaduje `6`; ďalší normálny plan navrhne návrat na `6`.
 
 ## 5. Drift taxonomy podľa mechanizmu
+
+Taxonómia oddeľuje podobný plan diff podľa príčiny a správnej recovery. Remote drift, configuration divergence, binding drift, provider interpretation, dependency drift, delegated mutation a unmanaged asset majú odlišného ownera aj bezpečný next step; spoločný symbol `~` alebo `+` ich nerozlišuje.
 
 ### Remote drift
 
@@ -303,6 +322,12 @@ Resource-count threshold je pomocný sanity check, nie úplný inventory proof. 
 
 ## 12. Provider noise a signal integrity
 
+Perpetual diff môže vzniknúť zo server-side defaultov, unordered fields modelovaných ako list, transient timestamps, eventual consistency, provider normalization, mutable external data alebo unstable generated values. Každý mechanizmus má inú opravu: canonical configuration, správny set/list model, bounded read-after-write retry, provider fix/upgrade alebo immutable dependency pinning.
+
+Noise nie je iba ergonomický problém. Keď reviewer rutinne ignoruje stovky známych diffs, znižuje sa pravdepodobnosť odhalenia novej IAM alebo network expansion. Suppression preto potrebuje ownera a independent guardrail; široké `ignore_changes` iba odstraňuje evidence.
+
+Signal integrity sa overí tak, že rovnaký successor state vytvorí druhý no-op plan a zároveň external writer test stále vyvolá alert. Cieľom nie je nulový počet riadkov za každú cenu, ale vysoká diskriminačná hodnota každého zostávajúceho diffu.
+
 Perpetual diff môže vzniknúť z:
 
 - server-side defaults;
@@ -398,6 +423,8 @@ Containment zastaví auto-apply. `ignore_changes` sa nepridá, kým nie je znám
 
 ## 16. Authoritative recovery incidentu `IAC-PAY-77`
 
+Recovery musí najprv obnoviť incidentnú authority a až potom normálnu Terraform reconciliation. Scheduled auto-apply zostáva pozastavený, kým sa neuzavrie, či dočasná WAF rule bude adoptovaná alebo reviewed revertovaná; inak by rovnaký mechanismus znova odstránil containment.
+
 Atlas recovery:
 
 1. pozastaví scheduled auto-apply pre affected state;
@@ -411,6 +438,8 @@ Atlas recovery:
 9. otestuje, že neznámy manual change nie je automaticky adoptovaný ani revertovaný bez klasifikácie.
 
 ## 17. Acceptance a forbidden paths
+
+Drift acceptance testuje tri triedy rozdielu: harmful unauthorized mutation, authorized expiring override a provider noise. Systém ich musí rozlíšiť a nesmie automaticky adoptovať ani revertovať unknown writer. Po closure fresh aj druhý plan potvrdia successor state bez potlačenia budúcej detekcie.
 
 Drift blok je prijatý, keď:
 

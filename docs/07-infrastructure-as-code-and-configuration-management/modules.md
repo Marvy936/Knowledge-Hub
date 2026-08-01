@@ -22,6 +22,12 @@ Dobrý module znižuje počet nebezpečných rozhodnutí, ktoré musí robiť ka
 
 ## 2. Root module verzus child module
 
+Root module je deployment a state owner. Vyberá backend/state subject, environment composition, provider configurations a credentials, top-level inputs, apply identity, queue, recovery a acceptance lifecycle. Jeho repository a pipeline preto určujú, nad akým remote subjectom sa reusable code vykoná.
+
+Child module poskytuje versionovanú capability cez inputs, outputs, required providers, resources a migration semantics. Caller ho instancuje `module` blockom a jeho resources sa rozvinú do caller graphu a state-u, napríklad `module.payments_service.aws_lb.api`.
+
+Child module teda automaticky nedostáva vlastný lock, permissions ani blast-radius isolation. Samostatná state boundary vzniká iba samostatným root module-om, backendom a execution lifecycle-om. Module boundary rieši code/interface coupling; root/state boundary rieši ownership a failure domain.
+
 Root module vlastní:
 
 - backend a state subject;
@@ -245,6 +251,12 @@ Module-wide `depends_on` môže vytvoriť false uncertainty a odložiť reads un
 
 ## 9. Module boundary podľa capability a coupling-u
 
+Primeraný module reprezentuje jednu koherentnú capability so známym ownerom, spoločným lifecycle-om a release cadence. Jeho public contract má stabilné inputs/outputs, zvládnuteľný state space a jasnú policy alebo abstraction hodnotu.
+
+Mega-module pre celý account mieša nezávislé security domains a vytvára široký upgrade blast radius. Extrémne tenký wrapper iba premenúva provider arguments a zvyšuje nesting bez stabilizácie behavioru. Počet `.tf` files preto nie je boundary criterion.
+
+Boundary sa vyberá podľa change coupling-u, ownershipu, failure/recovery jednotky a support lifecycle-u. Consumer musí vedieť capability otestovať a upgradovať bez neúmyselného prebratia unrelated resources.
+
 Primeraný module má:
 
 - jednu koherentnú capability;
@@ -279,6 +291,12 @@ module.service["orders"]
 Key je state identity. Premenovanie `payments` na `payments-api` môže vyzerať ako odstránenie jednej module instance a vytvorenie druhej. Použi stable identifier a versionovaný `moved` contract.
 
 ## 11. Versioning ako compatibility promise
+
+Module version je promise o caller contracte a existing-state transitione. Nový optional input s bezpečným defaultom, nový output alebo interný refactor s úplným `moved` chainom môžu byť kompatibilné, ak nemenia effective identity, exposure ani behavior existujúcich callerov.
+
+Zmena default/null semantics, provider requirements, instance keys alebo resource addresses je risk-significant. Rovnako breaking môže byť nový replacement/destroy behavior alebo privilege/exposure expansion, aj keď HCL caller zostane syntakticky platný.
+
+Semantic version label je deklarácia, nie dôkaz. Dôveryhodný release publikuje compatibility matrix a consumer upgrade test nad reprezentatívnym state-om. Plan musí vysvetliť migrations a runtime canary musí potvrdiť capability; druhý no-op plan uzatvára stabilitu successor verzie.
 
 Kompatibilné zmeny môžu byť:
 

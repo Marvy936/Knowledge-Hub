@@ -318,6 +318,8 @@ Handler success preukazuje systemd operation result. Nepreukazuje, že process n
 
 ## 11. Role tasks: complete rolling host transition
 
+Role task graph musí uzavrieť celý host transition: drain, package/config mutation, complete validation, handler, loaded-state check a návrat do trafficu. Jedna správna template task nie je rolling rollout; nasledujúci blok sa preto číta ako transaction-like workflow s explicitnými partial outcomes.
+
 `roles/payments_runtime/tasks/main.yml`:
 
 ```yaml
@@ -992,6 +994,12 @@ Playbook je správny, ale target set má jeden host. `expected_payments_host_cou
 Pri legitímnom targeted recovery musí byť expected scope explicitne zmenený a schválený, nie obídený odstránením assertionu.
 
 ## 28. Diagnostický walkthrough pri mixed fleet
+
+Diagnostika najprv porovná expected, resolved a attempted host manifests. Tým testuje H1–H3: omitted inventory host, pattern/limit exclusion alebo connection failure. Per-host variable fingerprints a rendered checksums testujú H4, teda odlišný effective config.
+
+Callback events, notification/handler result a systemd process start time testujú H5/H6: file mohol byť nový, ale handler neprebehol alebo host skončil partial. Load-balancer member inventory a backend identity testujú H7, pretože healthy host nemusí byť serving cohortou.
+
+Direct per-host request a timestamps testujú H8 a odlišujú stale aggregated verifier od reálneho loaded state-u. Recovery sa viaže na prvý divergentný transition a targeted manifest; full-fleet second converge a business journey potom uzatvoria mixed-state incident.
 
 Symptom: external `/version` vracia dve config generations.
 

@@ -6,6 +6,8 @@ Kapitola uzatvára incident `IAC-PAY-79`. Terraform vlastní production security
 
 ## 1. Dominantný capability-to-combined-outcome lifecycle
 
+Combined lifecycle oddeľuje resource provisioning, readiness a host convergence. Handoff medzi nástrojmi je versionovaný capability contract; ani Terraform output, ani Ansible inventory nesmú implicitne prenášať interný state layout alebo shared writer authority.
+
 ```text
 business/platform capability intent
 → inventory objektov a mutable attributes
@@ -22,6 +24,12 @@ business/platform capability intent
 ```
 
 ## 2. Dva odlišné state stroje
+
+Terraform skladá configuration, provider target, persistent address-to-remote bindings a refresh observations do dependency graphu a saved planu. Jeho dominantný problém je resource lifecycle: create, update, replacement, destruction, state commit a binding recovery.
+
+Ansible pri každom run-e skladá playbook/execution environment, resolved inventory, variables/facts a ordered per-host tasks. Jeho dominantný problém je fleet configuration a orchestration: eligibility, module results, handlers, partial batches a loaded-runtime convergence.
+
+Nástroje sa môžu dotýkať rovnakého API, ale nesmú implicitne vlastniť rovnaký mutable attribute. Handoff musí pomenovať producer generation, stable object/host identities, readiness a consumer schema. Second Terraform plan aj second Ansible run potom overia, že boundary neosciluje.
 
 ### Terraform
 
@@ -247,6 +255,20 @@ Generator je executable dependency a potrebuje versioning/tests. Output sa porov
 
 ## 10. Readiness ako samostatný state
 
+Terraform apply success môže potvrdiť existenciu VM a state binding, ale nie cloud-init completion, stabilný host certificate, management route, SSH identity, required Python/runtime ani bezpečnosť konfigurácie. Tieto conditions vznikajú po resource creation a často ich vlastní bootstrap alebo platform controller.
+
+```text
+resource created
+→ boot/cloud-init complete
+→ management identity published
+→ route/firewall verified
+→ host-key/certificate verified
+→ bootstrap capability probe
+→ contract status ready
+```
+
+Readiness je versionovaný state v host contracte s timestampom/generation a bounded observationom. Fixed sleep iba odhaduje čas; nepreukazuje condition a pri failure nezachová dôvod. Ansible inventory prijíma iba hosts z ready generation a forbidden test odmietne exists-but-not-ready VM.
+
 Terraform apply success môže znamenať, že VM exists. Neznamená:
 
 - cloud-init complete;
@@ -442,6 +464,8 @@ Recovery najprv overí boot/identity/network. Resource replacement je až výsle
 
 ## 19. Worked incident: image a runtime package dual ownership
 
+Tento incident ukazuje attribute-level dual ownership. Immutable image a runtime package manager môžu byť oba idempotentné, ale každý deklaruje inú package version; fleet potom prestane zodpovedať image identity a replacement znovu vráti staršiu verziu.
+
 Image build obsahuje package 3.13.0. Runtime role používa `state: latest` a aktualizuje na 3.13.1.
 
 ```text
@@ -475,6 +499,12 @@ inventory current owner a consumers
 Odstránenie Terraform resource/attribute bez explicitného handoffu môže spôsobiť destroy alebo unmanaged object. Pridanie Ansible tasku bez odobratia Terraform ownershipu vytvorí oscillation.
 
 ## 21. Competing hypotheses pri Terraform green / Ansible unreachable
+
+H1/H2/H8 porovnávajú VM lifecycle, cloud-init/bootstrap logs a readiness assertion. H3/H9 čítajú host contract generation, management address, environment a immutable instance ID. H4 porovná inventory cache s producer contractom.
+
+H5 testuje route/firewall z controller networku, H6 host key/certificate a H7 connection/become credential. H10 oddeľuje controller-wide network incident od host-specific failure pomocou alternate known-good targetu.
+
+Terraform green je iba premise, že jeho state/remote transition skončil podľa vlastného oracle-u. Recovery sa vyberá podľa first divergent boundary; VM replacement je zakázaný, kým evidence nepotvrdí resource lifecycle defect.
 
 ```text
 H1: resource exists, bootstrap incomplete
@@ -514,6 +544,12 @@ pause contract publication/Ansible rollout
 ```
 
 ## 23. Acceptance a forbidden paths
+
+Combined acceptance vyžaduje jedného authoritative writera pre každý mutable attribute, no shared implicit state layout a explicitný readiness handoff. Host contract musí byť schema-validný, fresh a obsahovať unique immutable IDs; Ansible resolved inventory sa s ním zhoduje.
+
+Forbidden tests pokrývajú second writer security-group mutation, consumer závislý od Terraform address layoutu, exists-but-not-ready host a package version spravovanú image aj Ansible role-om. Starému writerovi sa po handoffe revokuje permission a test potvrdí odmietnutie.
+
+Closure zahŕňa Terraform second no-op plan, Ansible second no-change run a combined business transaction cez current serving cohort.
 
 ```text
 každý mutable attribute má one writer

@@ -102,6 +102,14 @@ SUPERSEDED
 
 ## 4. Najlacnejšie vrstvy
 
+Najlacnejšie checks poskytujú rýchlu spätnú väzbu, ale každá vrstva má úzky oracle. Formatting overuje canonical presentation podľa pinned Terraform CLI. `terraform validate` overuje configuration consistency voči dostupným module a provider schemas a JSON output umožní machine-readable verdict.
+
+Validation však nekontaktuje production authority: nepreukazuje credentials, organization policy, quotas, remote API behavior, apply-time unknowns, eventual consistency, runtime connectivity, data migration ani cleanup. Tieto otázky patria plan, apply a runtime vrstvám.
+
+Static analyzer môže nájsť public exposure, unpinned dependency alebo secret pattern, ale report je platný iba so scanner version/rulesetom, complete scanned inventory, parse/unsupported statusom a findings/baseline subjectom. Nula findings bez coverage je `MISSING_OR_INVALID_EVIDENCE`, nie pass.
+
+Portfólio preto postupuje od lacných parser/schema checks cez plan assertions a policy k isolated apply-u a independent runtime oracle-u. Vyššia vrstva nenahrádza nižšiu; odpovedá na inú otázku.
+
 ### Formatting
 
 ```bash
@@ -280,6 +288,12 @@ mock/plan test
 ```
 
 ## 8. Apply/integration tests
+
+Apply test vytvára reálne resources a môže pozorovať provider CRUD, IAM, organization policy, quota, API normalization a eventual consistency. Musí však bežať v explicitne izolovanom account-e alebo projecte s short-lived identity a unikátnym run namespace-om.
+
+Cost, network a resource limits ohraničujú blast radius. Každý resource dostane immutable run labels, TTL a cleanup ownera; pri cleanup failure sa zachová state a remote inventory namiesto označenia jobu za úplne úspešný. Parallel runs nesmú zdieľať names ani state subject.
+
+Provider output ako `available` je iba platform-visible condition. Po apply nasleduje independent application or network oracle a potom cleanup read-back. Test verdict preto rozlišuje capability pass, cleanup incomplete a external dependency outage.
 
 Apply test vytvorí reálne resources:
 
@@ -592,6 +606,8 @@ Rovnosť IDs preukazuje completeness len vtedy, keď každý received artifact p
 
 ## 20. Competing hypotheses pri „green“ pipeline a failed production apply
 
+Green pre-production pipeline a failed production apply môžu znamenať chýbajúcu real-policy coverage, odlišnú identity, quota, stale saved plan alebo neplatný/missing report. Každá hypotéza sa viaže na konkrétny subject a discriminating evidence; „testy prešli“ nie je jedna univerzálna premise.
+
 ```text
 H1: production variables/target sa líšia od test fixture
 H2: mock neobsahuje organization policy
@@ -615,6 +631,8 @@ Rerun bez zachovania first-attempt evidence môže zničiť najlepší dôkaz.
 
 ## 21. Authoritative recovery incidentu `IAC-PAY-77`
 
+Recovery najprv preklasifikuje každý gate result na `PASS`, `VIOLATION`, `TOOL_OR_INFRA_FAILURE`, `MISSING_OR_SKIPPED`, `STALE_SUBJECT` alebo `INVALID_REPORT`. Chýbajúci policy output sa nesmie normalizovať na prázdny clean report a fix sa musí overiť nad exact production-equivalent identity a policy bundle.
+
 Atlas:
 
 1. zastaví production apply;
@@ -630,6 +648,8 @@ Atlas:
 11. overí runtime, second no-op plan a drift registration.
 
 ## 22. Acceptance a forbidden paths
+
+Testing acceptance zahŕňa happy path, forbidden configuration, tool/report failure a cleanup failure. Gate musí odmietnuť missing evidence rovnako spoľahlivo ako policy violation a druhá operation musí potvrdiť, že fixed artifact a policy generation zostali stabilné.
 
 Testing/policy blok je prijatý, keď:
 

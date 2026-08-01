@@ -72,6 +72,12 @@ Rovnaký `payments.yml` nie je rovnaký run, ak sa zmení collection, inventory 
 
 ## 3. Control node ako privilegovaná boundary
 
+Control node alebo automation controller resolve-ne `ansible.cfg`, execution runtime, inventory, variables, content paths a host pattern a následne vytvára per-host task contexts. Otvára connections alebo vykonáva local/API actions a zhromažďuje results, notifications a callback evidence. Preto je súčasne compilerom execution graphu, credential brokerom a často sieťovým pivotom k veľkej časti fleet-u.
+
+Immutable execution-environment digest stabilizuje `ansible-core`, Python/system libraries a helper tools. Pinned collections stabilizujú modules a plugins; read-only source checkout bráni jobu prepísať approved content. Short-lived credentials, restricted egress a oddelené untrusted-validation/production-execution pools obmedzujú blast radius. Audit callback musí zachovať per-host/task identity bez vypísania secrets.
+
+Tieto controls sa overujú cez effective image digest, collection manifest, plugin/search paths, resulting target identity a forbidden egress/credential probes. Samotný controller job status nepreukazuje, že runtime graph alebo credential boundary boli tie, ktoré reviewer schválil.
+
 Control node alebo automation controller:
 
 ```text
@@ -121,6 +127,12 @@ action alebo module na controlleri
 `delegate_to: localhost` mení execution a credential boundary. Production host pattern nepreukazuje production cloud account pre delegated task.
 
 ## 5. Content graph: playbook, play, task, module, plugin
+
+Playbook je ordered orchestration viacerých plays. Každý play viaže host pattern na variables, privilege, strategy, batch a failure policy. Task potom vytvára samostatnú invocation pre každý eligible host a volá module/action alebo mení control flow.
+
+Module implementuje observation a bounded mutation unit a vracia structured result. Action plugin môže časť logiky vykonať na controlleri, connection plugin určuje transport, inventory plugin vytvára target graph a callback plugin spracúva evidence. Collection všetky tieto executable prvky distribuuje ako versionovaný artifact.
+
+FQCN, napríklad `ansible.builtin.template`, znižuje namespace ambiguity, ale neidentifikuje exact collection bytes ani execution environment. Run subject preto zachováva FQCN spolu s collection/image digestom a per-host dynamic include pathom. Vďaka tomu možno odlíšiť rovnaký YAML s odlišným plugin behaviorom.
 
 - **Playbook** je ordered collection plays.
 - **Play** viaže host pattern na tasks, variables, privilege, strategy a failure policy.
@@ -250,6 +262,23 @@ Globálne `become: true` rozširuje privilege na všetky tasks. Preferuj úzky t
 Host-key checking je target identity control. Jeho vypnutie môže umožniť mutation nesprávneho hosta aj s platným credentialom.
 
 ## 10. Strategy, forks a serial
+
+`strategy` určuje, ako hosts postupujú ordered tasks a či rýchlejší host môže predbehnúť ostatných. `forks` obmedzuje controller concurrency naprieč hosts, `serial` rozdeľuje play na rollout batches a `throttle` môže ešte užšie obmedziť konkrétnu task alebo block.
+
+```yaml
+- name: Rolling configuration rollout
+  hosts: payments_app:&production
+  serial: 4
+  max_fail_percentage: 0
+  tasks:
+    - name: Configure host
+      ansible.builtin.include_role:
+        name: atlas.payments.runtime
+```
+
+`serial: 4` definuje intended batch size, ale nevytvára readiness gate. Playbook musí po každom batchi overiť loaded version, local health, load-balancer membership a capacity pred pokračovaním. `forks` ani `throttle` nenahrádzajú external API idempotency alebo distributed lock.
+
+Evidence preto obsahuje expected batch manifest, attempted/converged hosts a synchronization point medzi batches. Partial batch alebo host removed from play nie je úspešný rollout iba preto, že ďalšie hosts skončili green.
 
 - **strategy** určuje, ako hosts postupujú tasks;
 - **forks** obmedzuje controller concurrency;
@@ -424,6 +453,12 @@ API task musí pred mutation read-backnúť account/region a používať environ
 
 ## 18. Competing hypotheses pri mixed fleet
 
+Symptóm „controller job success, dva hosts používajú starú konfiguráciu“ môže vzniknúť pred executionom, počas task/handler flowu alebo až v serving vrstve. H1–H3 testujú target completeness: host mohol chýbať v resolved inventory, byť vylúčený patternom/limitom alebo skončiť connection failureom, ktorý workflow nesprávne ignoroval.
+
+H4/H5 testujú configuration transition. Variable precedence mohla vyrenderovať staré bytes alebo file change neviedol k handler executionu. Per-host vars, rendered checksum, notification event, process PID/start time a loaded config version tieto možnosti rozlíšia.
+
+H6/H7 testujú observation path. Load balancer môže stále routovať old backend alebo verifier môže čítať stale cache/jediný host. LB member inventory, backend identity, direct per-host request a timestamps preto dopĺňajú controller recap. Hypotéza je prijatá iba vtedy, keď predpovie konkrétny rozdiel medzi týmito observation points.
+
 Symptom: controller job success, ale dva hosts používajú starú konfiguráciu.
 
 ```text
@@ -446,6 +481,12 @@ Dôkazy:
 
 ## 19. Evidence-preserving containment a recovery
 
+Atlas najprv zastaví ďalší batch a zachová inventory JSON, execution-environment manifest, run events, per-host results, rendered checksums a handler notifications. Z expected/resolved/attempted/converged manifestov vytvorí presný mixed-state inventory a unverified hosts odoberie z trafficu.
+
+Recovery opraví prvý divergentný transition: cache/target contract, variable source, connection, handler alebo serving membership. Targeted rerun používa reviewed immutable host manifest a nesmie sa opierať o rovnaký stale dynamic query. Host sa vracia do trafficu až po process, endpoint a LB health verification.
+
+Closure tvorí fleet-level business journey a complete second converge run nad fresh inventory. `changed=0` je prijaté iba pri complete host coverage, správnej loaded generation a nulovom residual recovery sete.
+
 Atlas:
 
 1. zastaví ďalší batch;
@@ -459,6 +500,12 @@ Atlas:
 9. potvrdí `changed=0` pre managed config tasks a complete host coverage.
 
 ## 20. Acceptance a forbidden paths
+
+Architecture acceptance viaže pinned execution environment a collections na complete target a runtime evidence. Expected a resolved host manifests sa musia zhodovať, per-host effective identity/variables musia byť auditovateľné a delegated API task musí read-backnúť target account/region. Serial batch má explicitný health gate a handler completion sa overuje cez process generation.
+
+Forbidden fixtures zahŕňajú undersized inventory, wrong controller API identity, unsupported check-mode task, missing handler a omitted host. Každý musí skončiť `INCOMPLETE` alebo failure, nie success bez task attempts.
+
+Po positive rollout-e nasleduje full-fleet second run a payment journey. Tým sa dokazuje convergence aj to, že green controller recap patrí správnej serving cohort-e.
 
 Architecture blok je prijatý, keď:
 

@@ -6,6 +6,8 @@ Kapitola pokračuje incidentom `IAC-PAY-79`. Database credential unikne do CI lo
 
 ## 1. Dominantný secret-to-revocation lifecycle
 
+Vault lifecycle nezačína ciphertextom, ale logical credentialom, ownerom a consumer inventory. Encryption chráni repository state; po decryption vzniká nový plaintext exposure graph a po publication musí nasledovať process reload, target-side revocation a forbidden-old-credential test.
+
 ```text
 logical secret intent, owner a consumer inventory
 → target credential epoch creation
@@ -46,6 +48,12 @@ secretSubject:
 Bez logical ID, epoch a consumer inventory nemožno dokázať, čo sa rotuje, kto to používa a kedy je bezpečné starú hodnotu zrušiť.
 
 ## 3. Čo Vault chráni a čo nechráni
+
+Vault šifruje variable alebo file content at rest v repository a automation artifacts. Tým obmedzuje náhodné čítanie source-u bez Vault password materialu. Nechráni však plaintext po autorizovanom dešifrovaní.
+
+Controller memory, temporary files, rendered target files, module arguments, registered results, validator stderr, callbacks a debug logs sú samostatné exposure boundaries. Malicious collection/plugin s decrypt accessom môže value exfiltrovať a credential uniknutý pred encryption zostáva kompromitovaný.
+
+Vault zároveň nevykonáva target credential lifecycle. Rekey mení wrapper key, nie database password alebo API token. Old credential bez provider-side revocation môže fungovať aj po perfektnom re-encryption. Dôkaz preto oddeľuje repository confidentiality, runtime plaintext confidentiality a revocation completion.
 
 Vault vytvára:
 
@@ -105,6 +113,12 @@ atlas_payments_database_password: "{{ vault_atlas_payments_database_password }}"
 oddeľuje consumer interface od storage implementation.
 
 ## 5. Vault ID
+
+Vault ID v headeri, napríklad `prod-database`, je routing label, ktorý vyberá password source pri decryption. Nie je samostatnou authorization policy, logical secret identity ani credential epoch.
+
+Vault domains sa navrhujú podľa environmentu, ownera, consumer scope-u, rotation lifecycle-u, blast radiusu a decryption authorization. Jeden password pre dev a prod znamená, že compromise jednej boundary umožní decrypt druhej.
+
+Execution subject preto zachováva vault ID aj workload identity a logical secret/epoch. Forbidden test musí potvrdiť, že non-production controller alebo untrusted source nedokáže použiť production password client.
 
 Header môže obsahovať label:
 

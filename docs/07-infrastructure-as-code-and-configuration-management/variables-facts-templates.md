@@ -307,6 +307,12 @@ Checksum preukazuje bytes na destination path v čase stat tasku. Nepreukazuje, 
 
 ## 16. Worked failure: stale extra var smeruje do staging DB
 
+Recovery job template ponechal `atlas_database_endpoint: db.stage.internal:5432` ako extra var. Extra var mala vyššiu precedence než production inventory, template bola syntakticky validná a process sa úspešne pripojil do staging databázy. Parser ani service health preto chybu neodhalili.
+
+Containment odoberie affected hosts z trafficu a zachová job metadata, variable provenance, rendered files, process environment/command line a database audit. Security/data owner posúdi cross-environment access skôr, než sa logs alebo sessions odstránia.
+
+Autoritatívna oprava odstráni stale override, definuje allowed source policy pre endpoint a pridá assertion `database_environment == prod-eu`. Host sa re-renderuje, handler reloadne process a runtime endpoint aj DB identity probe potvrdia production target. Forbidden fixture so staging extra-varom musí zlyhať pred file mutation.
+
 Recovery job template ponechal:
 
 ```yaml
@@ -383,6 +389,12 @@ Preukazuje local process response a allowlisted runtime fields. Nepreukazuje loa
 
 ## 20. Competing hypotheses pri wrong endpoint na jednom hoste
 
+H1/H3 porovnávajú inventory host/group provenance a duplicate membership. H2 číta controller job metadata a explicitné extra vars. H4 overuje fact timestamp a branch, ktorá z factu odvodila endpoint.
+
+H5/H6 auditujú `hostvars` selection a lookup path/credential, pretože controller mohol načítať správny key z nesprávneho environment store-u. H7 porovná destination file s process command line a loaded runtime fields. H8 používa filesystem audit timeline na odhalenie druhého writera po run-e.
+
+Každý dôkaz je host-scoped a časovo korelovaný. Až po potvrdení source-u sa opravuje precedence, cache, lookup alebo writer ownership; jednoduché re-renderovanie môže nesprávnu hodnotu iba zopakovať.
+
 ```text
 H1: host/group variable override
 H2: stale extra var
@@ -404,6 +416,10 @@ Dôkazy:
 - filesystem audit timeline H8.
 
 ## 21. Recovery a acceptance
+
+Host zostáva mimo trafficu, kým sa nezachová a nevyhodnotí run/value/fact/template evidence a neurčí prvý nesprávny source alebo stale observation. Oprava mení autoritatívnu value, cache alebo lookup contract, potom vykoná deterministic render, parser validation a handler transition.
+
+Loaded config endpoint musí potvrdiť release aj environment a fleet manifest musí ukázať complete coverage. Second no-change run dokazuje stabilitu template inputs a absenciu second writera. Acceptance zároveň vyžaduje, aby extra-var wrong endpoint a timestamp fixture skončili failureom alebo no-op podľa explicitného contractu.
 
 ```text
 host removed from traffic

@@ -105,6 +105,24 @@ Object conversion môže zahodiť extra attributes, ktoré contract nepozná. Ca
 
 ## 4. Required values a bezpečné defaults
 
+Variable bez `default` vyžaduje explicitný caller intent. To je správny contract pre hodnoty, ktoré určujú production capacity, exposure, data retention alebo management identity.
+
+```hcl
+variable "replicas" {
+  description = "Desired production service capacity."
+  type        = number
+
+  validation {
+    condition     = var.replicas >= 2 && var.replicas <= 30
+    error_message = "replicas must be between 2 and 30."
+  }
+}
+```
+
+Default je bezpečný iba vtedy, keď má rovnaký význam pre všetkých podporovaných callerov a jeho použitie neoslabuje security, availability ani compliance. Nesmie neočakávane meniť resource identity a musí byť pokrytý contract testom. Zmena defaultu je interface change s vlastnou compatibility policy, pretože caller bez source diffu môže dostať nový effective behavior.
+
+Development convenience, napríklad `replicas = 1`, preto nepatrí do shared production module-u. Ak caller vynechá risk-significant hodnotu, plan má zlyhať namiesto tichého doplnenia lacného alebo menej bezpečného variantu.
+
 Variable bez `default` vyžaduje explicitný caller intent:
 
 ```hcl
@@ -277,6 +295,26 @@ Digest preukazuje integritu manifestu. Manifest preukazuje iba hodnoty, ktoré w
 
 ## 10. Sensitive nie je encryption ani revocation
 
+`sensitive = true` je presentation control v Terraform value propagation. Obmedzí bežné CLI zobrazenie, ale secret môže zostať v state-e alebo saved plane, provider ho môže zalogovať a oprávnený caller ho môže explicitne exportovať. Nechráni job memory, filesystem, artifacts ani backend recovery copies.
+
+```hcl
+variable "bootstrap_token" {
+  type      = string
+  sensitive = true
+}
+```
+
+Flag tiež neurčuje lifetime a po exposure nevykoná provider-side revocation. Secret material preto vytvára citlivú boundary naprieč backendom, planom, logs a runnerom. Preferovaný interface prenáša secret-manager reference a workload získava krátkodobú hodnotu cez vlastnú identity.
+
+```hcl
+variable "secret_ref" {
+  type        = string
+  description = "Runtime secret-manager reference, not secret material."
+}
+```
+
+Ak Terraform musí secret spravovať, lifecycle zahŕňa target revocation, consumer reload a old-credential forbidden test; redaction v CLI nie je closure.
+
 ```hcl
 variable "bootstrap_token" {
   type      = string
@@ -305,6 +343,28 @@ variable "secret_ref" {
 Workload získa secret až cez workload identity. Keď provider musí secret material spravovať, backend, plan artifacts, logs a recovery copies sa považujú za citlivú boundary.
 
 ## 11. Locals ako normalizácia, nie druhý input systém
+
+Locals transformujú už resolved inputs do canonical interného modelu. Sú vhodné na stabilné naming, opakované expressions, normalizáciu collections, derived tags a dočasný compatibility adapter medzi versionovanými input shapes.
+
+```hcl
+locals {
+  canonical_name = "atlas-payments-${var.environment}"
+  common_tags = {
+    Application = "payments"
+    Environment = var.environment
+    ManagedBy   = "terraform"
+  }
+  normalized_subnets = {
+    for key, subnet in var.subnets : key => {
+      name = "${local.canonical_name}-${key}"
+      cidr = subnet.cidr
+      zone = subnet.zone
+    }
+  }
+}
+```
+
+Local nemá vytvárať skrytý druhý policy alebo input systém. Keď nested conditionals menia počet, keys alebo identity resources, ide o graph decision, ktorý potrebuje explicitný contract test a resolved-key evidence. Ak taká logika rastie, vhodnejšia je menšia capability boundary alebo verejný typed input než ďalšia neviditeľná transformácia.
 
 ```hcl
 locals {
@@ -337,6 +397,8 @@ Locals sú vhodné pre:
 Local nemá skrývať business decision tree, ktorý reviewer nevie vysvetliť. Ak local obsahuje veľa nested conditionals a mení počet/identity resources, potrebuje samostatný contract test alebo menší module boundary.
 
 ## 12. Stable keys sú management identity
+
+`for_each` key nie je len label v source. Stáva sa súčasťou resource address-y v state-e, a preto jeho zmena môže znamenať ownership migration alebo replacement. Pred nasledujúcim HCL príkladom treba najprv rozhodnúť, ktorá business identity má prežiť display-name a ordering changes.
 
 ```hcl
 resource "aws_subnet" "private" {
@@ -425,6 +487,12 @@ Output reference prenáša hodnotu aj dependency edge. Consumer nemusí čítať
 Cross-state contract je silnejší, keď producer publikuje úzky endpoint, parameter alebo registry record s ownerom a freshness semantics. Priamy access k remote state-u môže sprístupniť viac sensitive informácií, než consumer potrebuje.
 
 ## 16. Interface versioning
+
+Module interface sa verzuje podľa effective behavioru a state identity, nie iba podľa syntaktickej kompatibility. Nový optional input s naozaj bezpečným defaultom, nový output alebo interná local transformácia bez zmeny external semantics môžu byť backward-compatible. Aj pri nich sa však testuje existing-state upgrade.
+
+Premenovanie inputu/outputu, zmena type constraintu, default alebo `null` semantics, collection keys či sensitive behavioru je breaking alebo risk-significant transition. Rovnako nebezpečná je zmena immutable digest inputu na mutable tag, pretože mení release identity bez caller source diffu.
+
+Version label je iba deklarácia autora. Dôkaz compatibility poskytuje consumer upgrade plan nad reprezentatívnym existing state-om, forbidden fixtures a druhý no-op plan. Support contract musí povedať, z ktorých verzií je upgrade podporovaný a aká migration je potrebná.
 
 Backward-compatible zmeny typicky zahŕňajú:
 
@@ -522,6 +590,8 @@ terraform show -json tfplan | jq '.resource_changes[] | select(.address|contains
 Environment inventory testuje H2, source/module diff H3/H4, plan JSON effective arguments H1/H5 a workspace/backend identity H6. Logs nesmú vypisovať secret values.
 
 ## 20. Acceptance a forbidden paths
+
+Acceptance spája interface contract s graph a secret behaviorom. Nestačí, že happy-path plan prejde; musí sa preukázať odmietnutie chýbajúceho production intentu, mutable release identity a nebezpečného secret exportu. Druhý plan potom overí stabilitu effective inputs a management keys.
 
 Value-contract blok je prijatý, keď:
 

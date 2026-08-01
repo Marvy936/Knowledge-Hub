@@ -448,6 +448,8 @@ Lockfile digest patrí do plan subjectu.
 
 ## 11. Formatting a validation
 
+Formatting a validation sú preflight checks nad source a resolved schemas. Nevytvárajú cloud plan ani remote operation, preto ich úspech nemožno preniesť na authorization, quota alebo runtime. Nasledujúce commands sa čítajú ako dva odlišné verdicts a ich outputs sa uchovávajú oddelene.
+
 ```bash
 terraform fmt -check -recursive
 terraform validate -json > validate.json
@@ -696,6 +698,8 @@ Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 Tento verdict preukazuje, že Terraform dokončil svoj apply flow a zapísal successor state podľa backend semantics. Nepreukazuje aplikačnú použiteľnosť siete ani absenciu external driftu po apply.
 
 ## 17. State read-back
+
+Po apply sa state číta ako successor knowledge snapshot, nie ako náhrada cloud verification. Read-back musí potvrdiť lineage/serial, expected addresses, provider association a immutable remote IDs a následne ich porovnať s AWS API a runtime capability.
 
 ```bash
 terraform state list
@@ -1007,6 +1011,12 @@ terraform import module.network.aws_vpc.this vpc-0123456789abcdef0
 Úspešný import preukazuje vytvorenie state bindingu. Nepreukazuje, že configuration opisuje všetky remote attributes správne; preto musí nasledovať fresh plan.
 
 ## 24. Diagnostický walkthrough
+
+Diagnostika začína presným symptómom a immutable operation subjectom. H1/H2 testujú, či pipeline zvolila správny backend, workspace, lineage a serial. H3 a H7 porovnávajú configuration addresses so state inventory, aby odlíšili chýbajúci `moved` contract od lost bindingu.
+
+CloudTrail alebo ekvivalentné request IDs testujú H4/H5: remote create mohol uspieť pred timeoutom alebo objekt mohol vytvoriť iný writer. Caller identity, provider alias/region a debug metadata bez secrets testujú H6, teda wrong target configuration. Každá observation má timestamp a account/region context.
+
+Až po tomto rozlíšení sa vyberie recovery: backend correction, import, moved transition, remote cleanup alebo state restore. Slepý `terraform apply`, `state rm`, `force-unlock` alebo `-target` sú zakázané, kým nie je známy first divergent transition. Closure vyžaduje remote/state binding, runtime test, forbidden wrong-target fixture a druhý no-op plan.
 
 Symptom: second plan navrhuje vytvoriť ďalšiu VPC.
 
