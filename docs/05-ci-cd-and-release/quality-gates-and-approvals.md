@@ -272,7 +272,7 @@ Gate môže byť technicky dostupný a organizačne nefunkčný. Sledujú sa:
 
 Cieľ nie je maximalizovať deny rate. Gate má rýchlo a presne blokovať relevantný risk a poskytovať actionable reason.
 
-## Doplnenie výkladu: gate je rozhodovacia policy nad evidence
+## Ako gate a approval rozhodujú nad presným subjectom
 
 Quality gate nie je test. Je to policy, ktorá z viacerých evidence items vytvorí decision, či subject môže pokračovať do ďalšieho stavu.
 

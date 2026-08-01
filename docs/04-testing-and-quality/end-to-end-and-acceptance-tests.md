@@ -296,7 +296,7 @@ Operational Acceptance Testing overuje, či je release prevádzkovateľný:
 
 Funkčne správny systém bez diagnostiky a recovery nie je prijateľný pre produkciu.
 
-## Doplnenie výkladu: čo znamená „od konca po koniec“
+## Ako ohraničiť end-to-end a acceptance dôkaz
 
 End-to-end test musí pomenovať, kde jeho „end“ začína a kde končí. Pre browser workflow môže byť začiatkom používateľský click a koncom potvrdený business stav v backend-e. Pre event pipeline môže byť začiatkom prijatý event a koncom materializovaný read model. Bez tejto definície môže test nazývaný E2E v skutočnosti obísť identity, gateway alebo databázu.
 

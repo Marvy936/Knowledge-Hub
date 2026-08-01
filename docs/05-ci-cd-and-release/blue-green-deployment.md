@@ -158,7 +158,7 @@ Route rollback je vhodný, keď blue je healthy a compatible s current shared st
 
 Blue retention má cost a security limit. Standby target potrebuje patched dependencies a valid credentials. Po retention window sa old resources retirujú až po potvrdení recovery alternative.
 
-## Doplnenie výkladu: dve environments a samostatný traffic switch
+## Ako funguje blue-green prepnutie
 
 Blue-green udržiava dve samostatné application generations. Jedna obsluhuje production traffic, druhá je candidate. Deployment a exposure sú oddelené transitions.
 

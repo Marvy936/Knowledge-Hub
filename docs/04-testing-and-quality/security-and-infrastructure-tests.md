@@ -375,7 +375,7 @@ Manifest a runtime evidence sa porovnávajú pre:
 
 `runAsNonRoot: true` nie je dôkaz, ak workload v skutočnosti neštartuje alebo admission policy nie je enforced.
 
-## Doplnenie výkladu: threat, control a tri úrovne evidence
+## Ako spojiť threat, control a security evidence
 
 Security test má začínať **threatom alebo abuse case-om**, nie iba zoznamom scannerov. Threat opisuje, kto alebo čo môže vykonať nežiaducu akciu, cez akú hranicu a s akým dopadom. Control je mechanizmus, ktorý má akciu zabrániť, obmedziť alebo zaznamenať.
 

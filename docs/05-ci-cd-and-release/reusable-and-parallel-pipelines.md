@@ -215,7 +215,7 @@ consumer grants minimum capability
 
 Provider update je supply-chain change. Compromise platform-ci repository môže zasiahnuť všetkých consumers, preto sú potrebné branch protection, signed reviews, pinning a staged adoption.
 
-## Doplnenie výkladu: fan-out, shard manifest a fan-in
+## Ako fungujú fan-out, shardy a fan-in
 
 Parallel pipeline rozdelí prácu na viac jobs alebo matrix combinations. **Fan-out** vytvorí shards; **fan-in** zhromaždí ich outputs a rozhodne o complete výsledku.
 

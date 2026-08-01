@@ -153,7 +153,7 @@ kubectl -n payments get deployment payments-api \
 
 Condition preukazuje controller interpretation. Nepreukazuje business acceptance ani že `rollout undo` je data-compatible. Previous ReplicaSet môže existovať, ale old version nemusí vedieť čítať current state.
 
-## Doplnenie výkladu: surge, unavailable a dve súbežné cohorts
+## Ako funguje rolling update počas mixed-version intervalu
 
 Rolling update postupne nahrádza staré replicas novými. Počas transition existujú minimálne dve cohorts s odlišnou generation.
 

@@ -359,14 +359,11 @@ Finding má obsahovať:
 
 Reviewer najprv overí, či model obsahuje reálny execution path. Potom posúdi, či path porušuje contract. Finding bez build contextu a evidence pathu je slabý vstup do blocking rozhodnutia.
 
-## Doplnenie výkladu: parser, pravidlo a statický verdict
+## Ako interpretovať statický nález
 
 Statická analýza pracuje bez vykonania cieľového programu. Nástroj najprv načíta source alebo bytecode, vytvorí tokeny, syntax tree, type graph alebo control/data-flow model a potom vyhodnotí pravidlá. Rozdiel medzi formatterom, linterom, type checkerom a analyzátorom je najmä v hĺbke modelu.
 
-- **formatter** mení alebo kontroluje prezentáciu source podľa deterministických pravidiel;
-- **linter** hľadá syntaktické, štýlové a vybrané correctness patterny;
-- **type checker** overuje kompatibilitu typov a kontraktov;
-- **SAST/data-flow analyzátor** sleduje možné cesty dát alebo control flow, napríklad source-to-sink tok.
+Do tejto hranice patria **formatter** mení alebo kontroluje prezentáciu source podľa deterministických pravidiel, **linter** hľadá syntaktické, štýlové a vybrané correctness patterny, **type checker** overuje kompatibilitu typov a kontraktov a **SAST/data-flow analyzátor** sleduje možné cesty dát alebo control flow, napríklad source-to-sink tok.
 
 Príkazy:
 

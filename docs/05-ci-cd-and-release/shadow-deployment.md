@@ -151,7 +151,7 @@ Load safety sa overí aj na primary dependencies. Read-only shadow queries môž
 
 Shadow evidence pomáha pri parser rewrite, migration logic, routing decision alebo new stack parity. Nepreukazuje user-perceived behavior, client interaction, browser state ani write correctness, ak writes sú stubbed. Promotion gate má presne uviesť, ktoré risks shadow pokrýva a ktoré zostávajú na canary alebo test environment.
 
-## Doplnenie výkladu: duplikovaný traffic bez authoritative side effectu
+## Ako shadow deployment kopíruje traffic bez business side effects
 
 Shadow deployment posiela kópiu production inputu candidate systému, ale primary response používateľovi pochádza zo súčasnej active path. Cieľom je pozorovať behavior pri realistickom trafficu bez exposure výsledku.
 

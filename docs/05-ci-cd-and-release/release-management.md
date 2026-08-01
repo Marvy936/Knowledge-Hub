@@ -248,7 +248,7 @@ what was exposed
 
 Tag delete alebo UI status `failed` nevráti external side effects a neodstráni already issued events.
 
-## Doplnenie výkladu: release candidate, release record a lifecycle
+## Ako sa candidate zmení na podporovaný release
 
 Release management koordinuje technickú release identity, komunikáciu, support a recovery. **Release candidate** je konkrétna potenciálna release jednotka určená na finálne overenie; nie je to pohyblivá branch alebo priečinok `latest`.
 

@@ -209,7 +209,7 @@ Continuous Delivery garantuje, že candidate možno bezpečne nasadiť. Continuo
 
 Organizácia môže mať Continuous Delivery a manuálne business timing rozhodnutie. Ak však produkčný deploy vyžaduje ručný shell postup, rebuild alebo ručné DB kroky, nejde o Continuous Delivery bez ohľadu na existenciu pipeline.
 
-## Doplnenie výkladu: čo znamená deployable a prečo delivery nekončí buildom
+## Ako sa artifact stane pripraveným na release
 
 Continuous Delivery udržiava systém v stave, v ktorom je možné vydať overenú release jednotku na požiadanie. Slovo **deployable** neznamená iba „artifact existuje“. Znamená, že artifact má známu identitu, complete evidence, kompatibilnú konfiguráciu a pripravenú deployment/recovery cestu.
 

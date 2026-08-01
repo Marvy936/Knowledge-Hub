@@ -171,7 +171,7 @@ post-destructive migration
 
 Old artifact retention bez compatible data state nie je rollback readiness.
 
-## Doplnenie výkladu: recreate ako explicitná downtime state machine
+## Ako funguje recreate deployment state machine
 
 Recreate deployment najprv ukončí starú generation a až potom spustí novú. Výhodou je, že sa nemiešajú dve aplikačné verzie. Nevýhodou je obdobie bez dostupnej capacity.
 

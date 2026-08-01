@@ -385,15 +385,9 @@ client odoslal request
 
 Double, ktorý každý timeout modeluje ako nulový side effect, učí aplikáciu nebezpečnú semantics. Správny simulator potrebuje query-by-idempotency-key alebo následnú reconciliation path.
 
-## Doplnenie výkladu: rozdiel medzi stubom, fake-om, mockom a spy
+## Ako vybrať test double bez skreslenia testu
 
-Test double je náhradná implementácia dependency používaná v teste. Jednotlivé názvy opisujú odlišný účel:
-
-- **stub** vracia pripravené odpovede; test sa pýta na výsledok subjectu;
-- **fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository;
-- **mock** obsahuje očakávania na interakcie a test verifikuje, že boli splnené;
-- **spy** zaznamenáva volania reálnej alebo náhradnej implementácie na neskoršie assertions;
-- **dummy** iba vypĺňa parameter a test ho nepoužíva.
+Test double je náhradná implementácia dependency používaná v teste. Jednotlivé názvy opisujú odlišný účel **stub** vracia pripravené odpovede; test sa pýta na výsledok subjectu, **fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository, **mock** obsahuje očakávania na interakcie a test verifikuje, že boli splnené, **spy** zaznamenáva volania reálnej alebo náhradnej implementácie na neskoršie assertions a **dummy** iba vypĺňa parameter a test ho nepoužíva.
 
 Stub príklad:
 

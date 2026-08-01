@@ -195,7 +195,7 @@ deployment
 
 Container executor nie je automatická hard security boundary. Privileged mounts, shared host kernel, persistent workspace, Docker socket a broad egress môžu spojiť untrusted job s ďalšími runs. Runner sa klasifikuje podľa identity, persistence, networku a oprávnení, nie iba podľa executor labelu.
 
-## Doplnenie výkladu: integration candidate a stale evidence
+## Ako vzniká dôveryhodný integration candidate
 
 Continuous Integration neznamená iba to, že sa po pushi spustí test job. Jej hlavným subjectom je **integration candidate**: presný snapshot, ktorý vznikne spojením navrhovanej zmeny s aktuálnym cieľovým stavom.
 

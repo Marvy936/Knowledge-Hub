@@ -34,11 +34,11 @@ Každá kapitola začína priamo výkladom testovacieho typu, techniky alebo str
 
 Konkrétne testy, konfigurácia, výsledky a failure artifacts sa objavujú pri rozhodnutí, ktoré podporujú. Výklad pokračuje od všeobecného mechanizmu cez experiment alebo test contract k Atlas incidentu, diagnosis, recovery a skoršiemu controlu. Inventáre, matice a checklisty zostávajú iba tam, kde presne porovnávajú scope, evidence alebo acceptance podmienky.
 
-## Rozšírený výklad pojmov, kódu a výsledkov
+## Výklad je integrovaný priamo do kapitol
 
-Všetkých pätnásť kapitol teraz pri kľúčových pojmoch a ukážkach explicitne vysvetľuje, čo daný pojem znamená, prečo sa používa, aký subject a scope kontrola zahŕňa, ako sa príkaz alebo test vyhodnotí a čo jeho PASS/FAIL výsledok preukazuje alebo nepreukazuje. Doplnenia zachovávajú pôvodný prose flow, incidenty a príklady; nepridávajú paralelný syllabus.
+Pojmy, príkazy a výsledky už nie sú vložené ako osobitný definíciový dodatok. Každá kapitola ich vysvetľuje v súvislom toku od testovaného rizika a mechanizmu cez setup, vykonanie a oracle až po interpretáciu PASS, FAIL, ERROR alebo MISSING výsledku. Odrážky zostávajú iba pri skutočnom porovnaní variantov alebo pri presne ohraničenom inventári; nenesú hlavný výklad.
 
-Sekcia osobitne rozoberá oracle a false verdicty, test scope a fidelity, unit/integration/component boundaries, API contract semantics, E2E a acceptance hranice, smoke a regression účel, workload a percentily, security threat/control evidence, static-analysis model, coverage denominator a mutation testing, test doubles, flakiness a test data, shift-left/right a chaos hypothesis/steady state/fault injection.
+Testovací kód, konfigurácia a metriky sú preto zasadené priamo do odsekov, ktoré vysvetľujú, čo sa pri ich vykonaní deje, aký subject a scope pokrývajú a kde končí dôkazná hodnota výsledku.
 
 ## Čo má čitateľ po sekcii vedieť
 

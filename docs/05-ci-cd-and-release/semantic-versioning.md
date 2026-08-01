@@ -204,7 +204,7 @@ old producer + old consumer
 
 SemVer release label nenahrádza deployment compatibility plan.
 
-## Doplnenie výkladu: SemVer je contract o kompatibilite, nie dôkaz kvality
+## Ako čítať Semantic Versioning ako compatibility contract
 
 Semantic Versioning zapisuje verziu ako `MAJOR.MINOR.PATCH` pre software s definovaným **public API**. Public API nie je iba HTTP endpoint. Môže zahŕňať package symbols, CLI flags, config schema, event payloads alebo behavior, na ktorý sa consumers spoliehajú.
 

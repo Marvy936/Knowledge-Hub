@@ -149,7 +149,7 @@ Recovery môže vrátiť iba affected ring, zatiaľ čo previous ring zostane na
 
 Membership rollback nesmie presunúť in-flight operations medzi releases bez reconciliation. Account-level release pinning môže byť potrebné do ukončenia workflowu.
 
-## Doplnenie výkladu: ring ako stabilná risk cohorta
+## Ako stabilné rings riadia expozíciu release-u
 
 Ring deployment rozdeľuje populáciu do postupných cohort podľa rizika a reprezentatívnosti. Ring 0 môže byť interný tím, ďalší vybraní tenants a posledný všeobecná populácia.
 

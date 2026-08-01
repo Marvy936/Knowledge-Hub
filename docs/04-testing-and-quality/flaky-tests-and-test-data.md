@@ -169,7 +169,7 @@ HTTP `202` nie je dôkaz finálneho exportu. Oracle musí pomenovať konkrétny 
 
 Ak timeout nastane, artifacts majú ukázať posledný dosiahnutý míľnik. To odlíši chýbajúci event, worker backlog, storage failure a pomalý read model.
 
-## Doplnenie výkladu: nondeterminizmus, seed a first-attempt evidence
+## Ako rozlíšiť flaky test od skutočného defectu
 
 Flaky test dáva pri nezmenenom relevantnom subjecte rozdielne verdicty. Príčina môže byť v produkte, teste alebo prostredí. Označenie „flaky“ preto nie je diagnóza; je to pozorovanie nestability.
 

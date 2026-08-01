@@ -756,7 +756,7 @@ Nie. Produkcia a rollback môžu obsahovať viac verzií naraz.
 
 Nie. Nepokrýva ordering, delivery, idempotency ani business invariants.
 
-## Doplnenie výkladu: contract nie je iba JSON schema
+## Ako čítať API contract a runtime dôkaz
 
 **Contract** je dohoda medzi producerom a consumerom o tom, ako sa rozhranie používa. Môže zahŕňať endpoint, method, status codes, headers, authentication, schema, význam polí, error model, ordering, idempotenciu a compatibility pravidlá. JSON Schema alebo OpenAPI zachytí významnú časť tvaru, ale nemusí vyjadriť všetky behaviorálne semantics.
 

@@ -241,7 +241,7 @@ pipeline creates resource with run/candidate labels
 
 Job success bez potvrdenia critical cleanup-u môže byť `SUCCEEDED_WITH_RESIDUAL_RISK`, nie čistý pass.
 
-## Doplnenie výkladu: pipeline graph, job isolation a runner
+## Ako sa pipeline mení na reálne procesy na runneri
 
 **Pipeline** je jedna konkrétna execution instance vytvorená z versionovanej definície a eventu. **Stage** je logická skupina alebo ordering barrier. **Job** je jednotka execution s vlastnými commands, environmentom a výsledkom. **Runner** je agent, ktorý job prijme a spustí cez executor, napríklad shell, container alebo VM.
 

@@ -434,7 +434,7 @@ Testy poskytujú dôkaz v konkrétnom scope a prostredí. Reziduálne riziko, ne
 11. Čo znamená provenance testovacieho dôkazu?
 12. Ako rozlíšiš chybný produkt od chybného testu alebo kontraktu?
 
-## Doplnenie výkladu: oracle, verdict a hranica dôkazu
+## Ako sa z pozorovania stane testovací verdikt
 
 Pojem **test oracle** je dôležitý preto, že samotné vykonanie testu ešte nevytvára rozhodnutie. Test runner vie spustiť kód, zachytiť návratovú hodnotu alebo odmerať čas, ale až oracle určí, ktoré pozorovanie sa považuje za správne. Oracle môže byť jednoduchý assertion, schéma, invariant, referenčný model, business pravidlo alebo prevádzkový limit.
 

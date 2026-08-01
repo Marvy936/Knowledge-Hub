@@ -217,7 +217,7 @@ choose permanent variant
 
 Zmazanie flagu pred code cleanup môže poslať application na default, ktorý nemusí byť chosen variant. Cleanup ordering je súčasť lifecycle-u.
 
-## Doplnenie výkladu: flag evaluation je samostatný runtime control plane
+## Ako feature flag vytvára samostatný runtime control plane
 
 Feature flag oddeľuje deployment bytes od behavior exposure. Aplikácia pri rozhodovacom bode vyhodnotí key, targeting context a flag generation.
 
@@ -232,12 +232,7 @@ source default
 
 Configured value v dashboarde nemusí byť loaded value v process-e. SDK polling, streaming outage alebo cache TTL môže udržať starú generation. Runtime telemetry má publikovať flag key/variant/generation bez citlivých attributes.
 
-Typy flags:
-
-- release flag dočasne skrýva novú funkcionalitu;
-- experiment flag prideľuje variants;
-- operational kill switch vypína rizikový path;
-- permission/entitlement flag riadi produktový access, no nemá nahrádzať security authorization.
+Typy flags release flag dočasne skrýva novú funkcionalitu, experiment flag prideľuje variants, operational kill switch vypína rizikový path a permission/entitlement flag riadi produktový access, no nemá nahrádzať security authorization.
 
 Fail-open alebo fail-closed behavior pri nedostupnom flag service je business a safety rozhodnutie. Kill switch pre nebezpečný write path môže failnúť closed; read-only cosmetic feature možno defaultovať inak.
 

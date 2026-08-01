@@ -261,7 +261,7 @@ Observability sa navrhuje pred incidentom. Atlas definuje:
 
 Component tests môžu overiť, že telemetry vzniká a obsahuje potrebné fields. Až produkcia však ukáže, či signál vedie k rýchlej diagnóze pri reálnom trafficu a cardinality.
 
-## Doplnenie výkladu: skorší feedback nie je presun všetkého do unit testov
+## Ako presunúť feedback skôr bez straty fidelity
 
 Shift-left znamená dostať relevantný feedback bližšie k momentu, keď vzniká rozhodnutie alebo chyba. „Left“ je metafora časovej osi delivery. Neznamená to, že všetky production, integration alebo security kontroly sa majú nahradiť statickým checkom.
 
@@ -276,13 +276,7 @@ neskorý drahý failure
 
 Ak produkčný incident spôsobila chýbajúca database column, skorší control môže byť migration compatibility test v CI. Runtime smoke však zostáva, pretože CI nepreukáže správny target database ani oprávnenia.
 
-Príklady shift-left:
-
-- threat modeling pred implementáciou namiesto iba penetračného testu na konci;
-- schema/contract review pred consumer deploymentom;
-- local formatter, linter a unit test pred remote pipeline;
-- Terraform plan policy pred apply;
-- ephemeral integration environment pred production rolloutom.
+Príklady shift-left threat modeling pred implementáciou namiesto iba penetračného testu na konci, schema/contract review pred consumer deploymentom, local formatter, linter a unit test pred remote pipeline, Terraform plan policy pred apply a ephemeral integration environment pred production rolloutom.
 
 Každý skorší model má fidelity limit. Mockovaný provider nedokáže potvrdiť reálnu TLS alebo quota policy. Preto sa shift-left kombinuje so shift-right, nie stavia proti nemu.
 

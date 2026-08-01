@@ -185,7 +185,7 @@ full desired/effective exposure
 + evidence and decision record retained
 ```
 
-## Doplnenie výkladu: viac control planes a postupný verdict
+## Ako progressive delivery spája rollout a evidence
 
 Progressive delivery automatizuje alebo riadi postupné exposure podľa evidence. Môže kombinovať deployment cohorts, traffic weights, rings a feature flags. Každá os má vlastnú generation.
 

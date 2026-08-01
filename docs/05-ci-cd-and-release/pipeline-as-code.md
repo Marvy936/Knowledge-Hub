@@ -277,7 +277,7 @@ trigger subject
 
 Cloud audit log môže potvrdiť, ktorá federated role vykonala deployment. Nepreukazuje, že role získala správny workflow subject, ak trust policy neobsahuje relevantné claims alebo logs ich nezachovávajú.
 
-## Doplnenie výkladu: source YAML nie je resolved pipeline
+## Ako sa source pipeline zmení na resolved execution graph
 
 Pipeline as Code ukladá workflow definition do versionovaného source-u, ale execution systém najprv vykoná ďalšie kroky: načíta includes/templates, aplikuje inheritance/defaults, vyhodnotí rules a vytvorí resolved graph.
 

@@ -169,7 +169,7 @@ freeze exposure generation
 → verify stable and forbidden outcomes
 ```
 
-## Doplnenie výkladu: stabilná cohorta, baseline a analysis oracle
+## Ako vyhodnocovať canary cohortu
 
 Canary vystaví novú generation obmedzenej časti trafficu alebo users a porovná outcome s baseline. Percento trafficu samo o sebe nevytvára kvalitný experiment.
 

@@ -208,7 +208,7 @@ incident reason a approver
 
 „Neskôr to prepíšeme do Git-u“ bez reconciliation deadline-u vytvára druhý source of truth.
 
-## Doplnenie výkladu: environment identity a build-once promotion
+## Ako funguje immutable promotion medzi prostrediami
 
 Environment nie je iba názov `dev`, `staging` alebo `prod`. Je to konkrétny target subject:
 

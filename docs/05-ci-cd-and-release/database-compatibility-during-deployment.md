@@ -210,7 +210,7 @@ WHERE version = '42';
 
 Journal output sa porovná s actual catalog. Journal row môže existovať pred/po partial operation podľa tool behavior. Blind rerun bez engine-aware read-back môže zlyhať alebo poškodiť state.
 
-## Doplnenie výkladu: expand/contract a mixed-version window
+## Ako expand/contract chráni mixed-version databázu
 
 Počas rolling alebo progressive deploymentu stará a nová application version často používajú rovnakú databázu. Schema zmena preto musí byť kompatibilná počas **mixed-version window**.
 

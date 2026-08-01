@@ -331,7 +331,7 @@ Odstránenie faultu nie je koniec experimentu. Atlas sleduje:
 
 Systém môže po fault-e vyzerať healthy, ale backlog drain môže znovu saturovať DB alebo provider. Recovery phase potrebuje vlastný oracle a abort criteria.
 
-## Doplnenie výkladu: hypothesis, steady state a fault injection
+## Ako zostaviť riadený chaos experiment
 
 Chaos testing je riadený experiment nad odolnosťou systému. Nejde o náhodné vypínanie komponentov. Experiment začína **hypotézou**: konkrétnym tvrdením o observable business alebo service outcome-e počas definovaného zlyhania.
 

@@ -193,7 +193,7 @@ workflow-generated commit
 
 Broad rule „ignore bot commits“ môže skryť legitímnu supply-chain mutation. Lepšie je rozlišovať operation type, changed paths a expected automation identity.
 
-## Doplnenie výkladu: trigger, artifact a cache sú tri odlišné kontrakty
+## Ako odlíšiť trigger, artifact a cache
 
 **Trigger** určuje, prečo a s akým security contextom pipeline vznikla. Push, pull request, tag, schedule, API call a upstream pipeline môžu mať odlišné permissions a vstupy. Rovnaký YAML preto nemusí vytvoriť rovnaký graph.
 

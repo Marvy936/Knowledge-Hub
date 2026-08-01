@@ -143,7 +143,7 @@ SEGMENTED_ROLLOUT
 
 Po ship-e sa treatment stane novým defaultom cez versionovaný flag/release transition. Experiment artifacts a stale branches sa odstránia; inak permanentná experiment complexity zvyšuje risk.
 
-## Doplnenie výkladu: experiment, randomizácia a kauzálny výsledok
+## Ako A/B test oddeľuje release safety od causal inference
 
 A/B test je experiment určený na odhad kauzálneho vplyvu variantu na outcome. Nie je to iba rollout na dve verzie.
 

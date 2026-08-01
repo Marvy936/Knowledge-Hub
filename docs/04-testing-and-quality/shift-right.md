@@ -312,17 +312,11 @@ memory leak, retention alebo billing side effect
 
 Automatická promotion po krátkom technickom okne môže prehliadnuť business alebo delayed-state failure. Observation window sa odvodzuje z mechanizmu, nie z univerzálneho časovača.
 
-## Doplnenie výkladu: kontrolované učenie z reálneho runtime
+## Ako získavať produkčný dôkaz bezpečne
 
 Shift-right používa post-deployment a production-like evidence, pretože niektoré vlastnosti vzniknú až v reálnom trafficu, topológii, dátach a závislostiach. Neznamená to testovať nebezpečné hypotézy priamo na všetkých používateľoch.
 
-Typické mechanizmy:
-
-- synthetic transaction pravidelne vykonáva bezpečnú známu cestu;
-- canary alebo ring vystaví novú generation malej stabilnej cohorte;
-- feature flag oddelí deployment od behavior exposure;
-- runtime verification číta loaded version, config a business outcome;
-- production telemetry odhaľuje neznáme kombinácie a dlhodobé trendy.
+Typické mechanizmy synthetic transaction pravidelne vykonáva bezpečnú známu cestu, canary alebo ring vystaví novú generation malej stabilnej cohorte, feature flag oddelí deployment od behavior exposure, runtime verification číta loaded version, config a business outcome a production telemetry odhaľuje neznáme kombinácie a dlhodobé trendy.
 
 Synthetic request potrebuje stabilnú operation identity a cleanup. Ak vytvára reálne objednávky bez označenia, znečisťuje business dáta. Ak používa úplne obídenú test route, nemusí reprezentovať user path.
 

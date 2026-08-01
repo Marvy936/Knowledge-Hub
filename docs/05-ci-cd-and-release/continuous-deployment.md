@@ -246,7 +246,7 @@ Acceptance kombinuje:
 - second operation a adjacent cohort;
 - old-generation retirement.
 
-## Doplnenie výkladu: automatický release ako uzavretý feedback loop
+## Ako funguje automatický production feedback loop
 
 Continuous Deployment automaticky posúva každú zmenu, ktorá splní policy, až do production exposure. Nejde iba o odstránenie approval tlačidla. Automatizácia musí vytvoriť uzavretý control loop:
 

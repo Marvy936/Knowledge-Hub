@@ -209,7 +209,7 @@ Automatický rollback je bezpečný iba vtedy, keď:
 - rollback nezväčší incident;
 - rozhodnutie je auditované.
 
-## Doplnenie výkladu: smoke je výber rizík, regression je účel
+## Ako rozdeliť smoke a regression kontrolu
 
 **Smoke test** je malá sada rýchlych kontrol, ktorá zisťuje, či má zmysel pokračovať v hlbšom testovaní alebo exposure. Názov pochádza z hardvérového „zapni a over, či sa z toho nedymí“; v softvéri však smoke nemá byť iba process-alive check.
 

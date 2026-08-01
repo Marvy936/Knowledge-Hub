@@ -199,7 +199,7 @@ Ak dva buildy publikujú rovnaký logical version s odlišným digestom, vzniká
 
 Reproducible build môže vytvoriť rovnaké bytes, ale nie každý artifact format je deterministický bez explicitných timestamp, ordering a compression controls. Non-identical rebuild neznamená automaticky compromise; znamená, že digest identity je jediná presná authority a reproducibility assumptions treba overiť.
 
-## Doplnenie výkladu: checksum, hash, digest, signature a provenance
+## Ako checksum, digest, podpis a provenance chránia artifact
 
 **Hash function** vezme ľubovoľné bytes a deterministicky z nich vypočíta hodnotu pevnej dĺžky. SHA-256 vytvára 256-bitový výsledok, ktorý sa zvyčajne zapisuje ako 64 hexadecimálnych znakov. Malá zmena vstupu vytvorí odlišný hash.
 

@@ -683,7 +683,7 @@ Nie. Proces môže počúvať, ale ešte nemať migrácie, leadera alebo použit
 
 Nie. Rerun iba vytvoril nový attempt a môže odstrániť pôvodný dôkaz.
 
-## Doplnenie výkladu: subject, process boundary a reálna dependency
+## Ako určiť hranicu unit, integration a component testu
 
 Rozdiel medzi unit, integration a component testom sa nedá spoľahlivo určiť podľa názvu frameworku. Rozhoduje **system under test**, teda presný subject, ktorý test vykonáva, a hranice, ktoré sú reálne alebo nahradené.
 

@@ -340,7 +340,7 @@ Mutant je killed, ak test odhalí zmenu. Surviving mutant môže znamenať slab�
 
 Pre Atlas je mutation testing vhodné na authorization a retry state machine. Nie je potrebné plošne pre celý repository pri každom PR; môže bežať nad changed critical code alebo periodicky.
 
-## Doplnenie výkladu: denominator coverage a význam gate-u
+## Ako čítať coverage a quality gate
 
 Coverage je pomer pozorovaných programových prvkov k zvolenému denominatoru. **Line coverage** sleduje vykonané riadky, **branch coverage** výsledky podmienok, **function coverage** volané funkcie a **condition coverage** jednotlivé boolean časti. Hodnota 80 % bez uvedenia typu, scope a exclusions je neúplná.
 

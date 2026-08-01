@@ -391,17 +391,11 @@ pôvodný demand
 
 Testuj max attempts, retryable errors, backoff/jitter, retry budget, idempotency a deadline propagation. Recovery nesmie vytvoriť oneskorené duplicity.
 
-## Doplnenie výkladu: workload, percentile a saturation
+## Ako čítať workload, percentily a saturation
 
 Performance test nie je „pošli veľa requestov a pozri priemer“. Je to kontrolovaný experiment s definovaným workloadom a oraclom.
 
-Základné pojmy:
-
-- **latency** je čas jednej operácie od zvoleného začiatku po zvolený koniec;
-- **throughput** je počet dokončených operácií za jednotku času;
-- **concurrency** je počet operácií rozpracovaných naraz;
-- **saturation** znamená, že resource alebo queue už nemá voľnú kapacitu a práca čaká;
-- **error rate** musí mať explicitný denominator, napríklad failed logical orders / all logical orders.
+Do tejto hranice patria **latency** je čas jednej operácie od zvoleného začiatku po zvolený koniec, **throughput** je počet dokončených operácií za jednotku času, **concurrency** je počet operácií rozpracovaných naraz, **saturation** znamená, že resource alebo queue už nemá voľnú kapacitu a práca čaká a **error rate** musí mať explicitný denominator, napríklad failed logical orders / all logical orders.
 
 Pri percentile `p95` zoradíme pozorované latencies a hľadáme hranicu, pod ktorou skončilo približne 95 % operácií. Neznamená to „95 % času bol systém taký rýchly“ ani „najhorších 5 % malo presne túto hodnotu“. Pri malom sample je percentile nestabilný; pri zmiešaných cohorts môže skryť problém jednej route alebo AZ.
 

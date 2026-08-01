@@ -179,7 +179,7 @@ recovery does not reintroduce defect
 
 Second operation odhaľuje stale cache, session alebo idempotency state, ktoré first canary po recovery nemusí zachytiť.
 
-## Doplnenie výkladu: recovery sa rozhoduje po vrstvách
+## Ako vybrať rollback, roll-forward, compensation alebo restore
 
 Rollback znamená návrat určitej vrstvy na staršiu generation. Roll-forward znamená nasadenie novej opravy. Ani jeden pojem sám nehovorí, čo sa stalo s dátami, eventmi alebo external side effects.
 

@@ -400,7 +400,7 @@ Počet testov nie je dostatočná metrika. Sleduj vlastnosti feedback systému:
 
 Metriky majú viesť k zmene scope, isolation alebo ownershipu, nie k penalizácii tímu za červený test.
 
-## Doplnenie výkladu: čo pyramída skutočne optimalizuje
+## Ako vybrať správny test scope
 
 Test pyramid nie je predpis na pevný počet unit, integration a E2E testov. Je to model **feedback economics**: čím väčší scope test spúšťa, tým viac reálnych hraníc môže overiť, ale spravidla rastie čas, cena setupu, počet failure príčin a náročnosť diagnostiky.
 
