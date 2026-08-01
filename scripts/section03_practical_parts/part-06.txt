@@ -1,0 +1,109 @@
+```
+
+Plan obsahuje desired aj observed fingerprint. Apply odmietne stale config aj state.
+
+## 11. Bash wrapper
+
+Vytvor `scripts/release.sh`:
+
+```bash
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+CONFIG="$ROOT/config/orders.yaml"
+STATE="$ROOT/state/dev.json"
+DRY_RUN=0
+
+while (($#)); do
+  case $1 in
+    --config)
+      (($# >= 2)) || { echo 'missing value for --config' >&2; exit 2; }
+      CONFIG=$2
+      shift 2
+      ;;
+    --state)
+      (($# >= 2)) || { echo 'missing value for --state' >&2; exit 2; }
+      STATE=$2
+      shift 2
+      ;;
+    --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    *)
+      printf 'unknown argument: %s\n' "$1" >&2
+      exit 2
+      ;;
+  esac
+done
+
+if ! git -C "$ROOT" diff --quiet || ! git -C "$ROOT" diff --cached --quiet; then
+  echo 'repository has tracked changes; commit or stash them first' >&2
+  exit 3
+fi
+
+TMP_DIR=$(mktemp -d)
+cleanup() {
+  rc=$?
+  rm -rf -- "$TMP_DIR"
+  exit "$rc"
+}
+trap cleanup EXIT INT TERM
+
+PLAN="$TMP_DIR/plan.json"
+python3 "$ROOT/tools/atlasctl.py" plan \
+  --config "$CONFIG" \
+  --state "$STATE" >"$PLAN"
+
+if ((DRY_RUN)); then
+  cat "$PLAN"
+  exit 0
+fi
+
+python3 "$ROOT/tools/atlasctl.py" apply \
+  --config "$CONFIG" \
+  --state "$STATE" \
+  --plan "$PLAN" >&2
+
+python3 "$ROOT/tools/atlasctl.py" verify \
+  --config "$CONFIG" \
+  --state "$STATE"
+```
+
+Nastav executable bit:
+
+```bash
+chmod +x tools/atlasctl.py scripts/release.sh
+```
+
+Wrapper odmietne tracked dirty tree. Untracked runtime state je povolený, pretože `state/dev.json` sa v tomto lab-e commitovať nebude. V reálnom systéme by runtime state typicky žil mimo source repository úplne.
+
+## 12. PowerShell wrapper
+
+Vytvor `scripts/Release-Orders.ps1`:
+
+```powershell
+[CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
+param(
+    [string]$ConfigPath = (Join-Path $PSScriptRoot '..\config\orders.yaml'),
+    [string]$StatePath = (Join-Path $PSScriptRoot '..\state\dev.json')
+)
+
+$ErrorActionPreference = 'Stop'
+$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$Tool = Join-Path $Root 'tools\atlasctl.py'
+$Plan = Join-Path ([System.IO.Path]::GetTempPath()) ("atlas-plan-{0}.json" -f [guid]::NewGuid())
+
+try {
+    & git -C $Root diff --quiet
+    if ($LASTEXITCODE -eq 1) { throw 'Repository has unstaged tracked changes.' }
+    if ($LASTEXITCODE -ne 0) { throw "git diff failed: $LASTEXITCODE" }
+
+    & git -C $Root diff --cached --quiet
+    if ($LASTEXITCODE -eq 1) { throw 'Repository has staged changes.' }
+    if ($LASTEXITCODE -ne 0) { throw "git diff --cached failed: $LASTEXITCODE" }
+
+    & python $Tool plan --config $ConfigPath --state $StatePath |
+        Set-Content -LiteralPath $Plan -Encoding utf8NoBOM
+    if ($LASTEXITCODE -ne 0) { throw "plan failed: $LASTEXITCODE" }
