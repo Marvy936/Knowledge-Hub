@@ -391,6 +391,62 @@ pôvodný demand
 
 Testuj max attempts, retryable errors, backoff/jitter, retry budget, idempotency a deadline propagation. Recovery nesmie vytvoriť oneskorené duplicity.
 
+## Doplnenie výkladu: workload, percentile a saturation
+
+Performance test nie je „pošli veľa requestov a pozri priemer“. Je to kontrolovaný experiment s definovaným workloadom a oraclom.
+
+Základné pojmy:
+
+- **latency** je čas jednej operácie od zvoleného začiatku po zvolený koniec;
+- **throughput** je počet dokončených operácií za jednotku času;
+- **concurrency** je počet operácií rozpracovaných naraz;
+- **saturation** znamená, že resource alebo queue už nemá voľnú kapacitu a práca čaká;
+- **error rate** musí mať explicitný denominator, napríklad failed logical orders / all logical orders.
+
+Pri percentile `p95` zoradíme pozorované latencies a hľadáme hranicu, pod ktorou skončilo približne 95 % operácií. Neznamená to „95 % času bol systém taký rýchly“ ani „najhorších 5 % malo presne túto hodnotu“. Pri malom sample je percentile nestabilný; pri zmiešaných cohorts môže skryť problém jednej route alebo AZ.
+
+Workload model musí popísať:
+
+```text
+arrival rate alebo počet virtuálnych používateľov
+request mix
+payload distribution
+session/think time
+warm-up
+trvanie steady window
+cache state
+external dependency behavior
+```
+
+**Load test** overuje očakávaný alebo peak workload. **Stress test** zvyšuje tlak za očakávanú hranicu a sleduje failure mode a recovery. **Spike test** skúma náhly skok. **Soak test** trvá dlho a hľadá leak, backlog alebo postupnú degradáciu.
+
+Ukážka s k6:
+
+```javascript
+export const options = {
+  scenarios: {
+    orders: {
+      executor: 'constant-arrival-rate',
+      rate: 100,
+      timeUnit: '1s',
+      duration: '10m',
+      preAllocatedVUs: 50,
+      maxVUs: 300,
+    },
+  },
+  thresholds: {
+    http_req_failed: ['rate<0.01'],
+    http_req_duration: ['p(95)<400'],
+  },
+};
+```
+
+`constant-arrival-rate` sa snaží začínať 100 iterations za sekundu. VUs sú workers potrební na udržanie arrival rate; ak operácie spomalia a `maxVUs` nestačí, generator nedokáže vytvoriť požadovaný workload. Threshold je oracle, nie samotné meranie. `p(95)<400` platí pre metriku a tags zahrnuté v query; môže miešať rôzne endpointy, ak ich nerozdelíme.
+
+Pozor na **coordinated omission**: closed-loop generator čaká na dokončenie pomalého requestu a počas stall-u neposiela ďalšie. Tým vynechá operácie, ktoré by v reálnom arrival modeli čakali, a nameria príliš dobrú latency. Arrival-rate model alebo korekcia histogramu lepšie reprezentuje frontu.
+
+Performance verdict musí spojiť client measurements so server-side CPU, memory, queue, pool, database waits a errors. Rýchly client result bez potvrdenia dokončeného business outcome-u môže merať iba accepted request, nie celú operáciu.
+
 ## 19. Worked failure: closed model skryl overload
 
 Pôvodný Atlas test používal 300 virtual users. Pri spomalení každý user čakal na response, takže generovaný request rate klesol:

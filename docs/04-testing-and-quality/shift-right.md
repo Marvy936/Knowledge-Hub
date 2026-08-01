@@ -312,6 +312,38 @@ memory leak, retention alebo billing side effect
 
 Automatická promotion po krátkom technickom okne môže prehliadnuť business alebo delayed-state failure. Observation window sa odvodzuje z mechanizmu, nie z univerzálneho časovača.
 
+## Doplnenie výkladu: kontrolované učenie z reálneho runtime
+
+Shift-right používa post-deployment a production-like evidence, pretože niektoré vlastnosti vzniknú až v reálnom trafficu, topológii, dátach a závislostiach. Neznamená to testovať nebezpečné hypotézy priamo na všetkých používateľoch.
+
+Typické mechanizmy:
+
+- synthetic transaction pravidelne vykonáva bezpečnú známu cestu;
+- canary alebo ring vystaví novú generation malej stabilnej cohorte;
+- feature flag oddelí deployment od behavior exposure;
+- runtime verification číta loaded version, config a business outcome;
+- production telemetry odhaľuje neznáme kombinácie a dlhodobé trendy.
+
+Synthetic request potrebuje stabilnú operation identity a cleanup. Ak vytvára reálne objednávky bez označenia, znečisťuje business dáta. Ak používa úplne obídenú test route, nemusí reprezentovať user path.
+
+Canary verdict musí porovnávať compatible cohorts:
+
+```text
+nová a stará generation
++ rovnaký región, tenant class a request mix
++ stabilné assignment pravidlo
++ dostatočné observation window
++ technical aj business metrics
+```
+
+Zelené CPU a HTTP 5xx môžu prehliadnuť nesprávne ceny alebo duplicate side effects. Preto shift-right oracle zahŕňa final business completion a forbidden outcomes.
+
+Feature flag je runtime control plane. Source default, remote flag value, targeting rules, SDK cache a loaded process state môžu byť odlišné generations. Test „flag je off v UI“ nepreukazuje, že všetky processes správanie vypli. Read-back a telemetry majú publikovať effective generation bez secretov.
+
+Experiment musí mať blast radius, ownera, abort podmienku a recovery. Pozorovanie production failure bez vopred pripravenej akcie nie je bezpečný shift-right. Rovnako monitoring bez rozhodovacieho contractu iba zhromažďuje dáta.
+
+Shift-right dôkaz je časovo ohraničený. Canary prešiel pri určitej záťaži a dependency state; nepreukazuje správanie pri budúcom peak-u alebo inom regióne. Výsledok sa viaže na cohort, interval, release a configuration generation.
+
 ## 15. Worked failure: technický canary bol zelený, journey zlyhal
 
 Atlas canary mal normálnu API latency, error rate aj worker health. Veľká časť používateľov v pomalšom regióne však export nestiahla:

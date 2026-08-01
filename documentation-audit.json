@@ -997,9 +997,9 @@
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
       "title": "Chaos testing",
-      "words": 2604,
-      "headings": 37,
-      "sections": 37,
+      "words": 2896,
+      "headings": 38,
+      "sections": 38,
       "findings": 87,
       "critical": 25,
       "high": 25,
@@ -1011,37 +1011,37 @@
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
       "title": "Code coverage a quality gates",
-      "words": 2789,
-      "headings": 48,
-      "sections": 48,
-      "findings": 89,
+      "words": 3075,
+      "headings": 49,
+      "sections": 49,
+      "findings": 90,
       "critical": 32,
       "high": 25,
       "medium": 15,
-      "low": 17,
-      "score": 660,
+      "low": 18,
+      "score": 662,
       "grade": "D"
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
       "title": "Contract a API tests",
-      "words": 2712,
-      "headings": 48,
-      "sections": 48,
-      "findings": 135,
+      "words": 3018,
+      "headings": 49,
+      "sections": 49,
+      "findings": 136,
       "critical": 50,
       "high": 46,
       "medium": 19,
-      "low": 20,
-      "score": 1055,
+      "low": 21,
+      "score": 1056,
       "grade": "D"
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
       "title": "End-to-end a acceptance tests",
-      "words": 2104,
-      "headings": 32,
-      "sections": 32,
+      "words": 2451,
+      "headings": 33,
+      "sections": 33,
       "findings": 84,
       "critical": 24,
       "high": 27,
@@ -1053,9 +1053,9 @@
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
       "title": "Flaky tests a test data",
-      "words": 2738,
-      "headings": 55,
-      "sections": 55,
+      "words": 3012,
+      "headings": 56,
+      "sections": 56,
       "findings": 116,
       "critical": 45,
       "high": 39,
@@ -1067,9 +1067,9 @@
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
       "title": "Mocks, stubs a fakes",
-      "words": 2676,
-      "headings": 49,
-      "sections": 49,
+      "words": 2950,
+      "headings": 50,
+      "sections": 50,
       "findings": 82,
       "critical": 30,
       "high": 27,
@@ -1081,9 +1081,9 @@
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "title": "Performance, load a stress tests",
-      "words": 2313,
-      "headings": 42,
-      "sections": 42,
+      "words": 2654,
+      "headings": 43,
+      "sections": 43,
       "findings": 99,
       "critical": 33,
       "high": 34,
@@ -1095,9 +1095,9 @@
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
       "title": "Security a infrastructure tests",
-      "words": 2407,
-      "headings": 47,
-      "sections": 47,
+      "words": 2693,
+      "headings": 48,
+      "sections": 48,
       "findings": 100,
       "critical": 31,
       "high": 47,
@@ -1109,37 +1109,37 @@
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
       "title": "Shift-left",
-      "words": 2272,
-      "headings": 33,
-      "sections": 33,
-      "findings": 64,
+      "words": 2505,
+      "headings": 34,
+      "sections": 34,
+      "findings": 65,
       "critical": 17,
-      "high": 19,
+      "high": 20,
       "medium": 11,
       "low": 17,
-      "score": 417,
+      "score": 425,
       "grade": "D"
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
       "title": "Shift-right",
-      "words": 2290,
-      "headings": 38,
-      "sections": 38,
-      "findings": 92,
+      "words": 2548,
+      "headings": 39,
+      "sections": 39,
+      "findings": 93,
       "critical": 30,
-      "high": 34,
+      "high": 35,
       "medium": 10,
       "low": 18,
-      "score": 684,
+      "score": 692,
       "grade": "D"
     },
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "title": "Smoke a regression tests",
-      "words": 2027,
-      "headings": 35,
-      "sections": 35,
+      "words": 2316,
+      "headings": 36,
+      "sections": 36,
       "findings": 87,
       "critical": 28,
       "high": 35,
@@ -1151,23 +1151,23 @@
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
       "title": "Static analysis, linting a type checking",
-      "words": 2982,
-      "headings": 45,
-      "sections": 45,
-      "findings": 75,
+      "words": 3257,
+      "headings": 46,
+      "sections": 46,
+      "findings": 77,
       "critical": 23,
-      "high": 17,
+      "high": 18,
       "medium": 15,
-      "low": 20,
-      "score": 495,
+      "low": 21,
+      "score": 504,
       "grade": "D"
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "title": "Test pyramid",
-      "words": 3125,
-      "headings": 40,
-      "sections": 40,
+      "words": 3441,
+      "headings": 41,
+      "sections": 41,
       "findings": 75,
       "critical": 15,
       "high": 14,
@@ -1179,9 +1179,9 @@
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
       "title": "Unit, integration a component tests",
-      "words": 2894,
-      "headings": 42,
-      "sections": 42,
+      "words": 3251,
+      "headings": 43,
+      "sections": 43,
       "findings": 117,
       "critical": 38,
       "high": 35,
@@ -1193,9 +1193,9 @@
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
       "title": "Verification vs. validation",
-      "words": 3032,
-      "headings": 36,
-      "sections": 36,
+      "words": 3356,
+      "headings": 37,
+      "sections": 37,
       "findings": 63,
       "critical": 12,
       "high": 12,
@@ -26982,6 +26982,15 @@
       "score": 8
     },
     {
+      "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
+      "section": "Doplnenie výkladu: denominator coverage a význam gate-u",
+      "line": 665,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
       "section": "3. Interface ako distribuovaná dohoda",
       "line": 113,
@@ -28195,6 +28204,15 @@
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
+      "section": "Doplnenie výkladu: contract nie je iba JSON schema",
+      "line": 759,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
@@ -31619,7 +31637,7 @@
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
       "section": "26. Zhrnutie",
-      "line": 554,
+      "line": 610,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -33102,6 +33120,15 @@
       "score": 8
     },
     {
+      "path": "docs/04-testing-and-quality/shift-left.md",
+      "section": "Doplnenie výkladu: skorší feedback nie je presun všetkého do unit testov",
+      "line": 434,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `schema/contract review pred consumer deploymentom;`, `Terraform plan policy pred apply;`, `ephemeral integration environment pred production rolloutom.`.",
+      "score": 8
+    },
+    {
       "path": "docs/04-testing-and-quality/shift-right.md",
       "section": "2. Nosný scenár: Atlas Orders 3.9.2",
       "line": 49,
@@ -33930,6 +33957,15 @@
       "score": 8
     },
     {
+      "path": "docs/04-testing-and-quality/shift-right.md",
+      "section": "Doplnenie výkladu: kontrolované učenie z reálneho runtime",
+      "line": 472,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `synthetic transaction pravidelne vykonáva bezpečnú známu cestu;`, `feature flag oddelí deployment od behavior exposure;`, `production telemetry odhaľuje neznáme kombinácie a dlhodobé trendy.`.",
+      "score": 8
+    },
+    {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "2. Nosný scenár: Atlas Orders 3.9.0",
       "line": 62,
@@ -34247,7 +34283,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "12. Incident-to-regression lifecycle",
-      "line": 261,
+      "line": 303,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34256,7 +34292,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "12. Incident-to-regression lifecycle",
-      "line": 261,
+      "line": 303,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
@@ -34265,7 +34301,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "12. Incident-to-regression lifecycle",
-      "line": 261,
+      "line": 303,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reprodukuje failure automatizovaným testom;`, `potvrdí, že test pred fixom zlyhá správnym mechanizmom;`, `implementuje nápravu;`, `overí opravený behavior a susedné invariants;`.",
@@ -34274,7 +34310,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "12. Incident-to-regression lifecycle",
-      "line": 261,
+      "line": 303,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34283,7 +34319,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "12. Incident-to-regression lifecycle",
-      "line": 261,
+      "line": 303,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34292,7 +34328,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "12. Incident-to-regression lifecycle",
-      "line": 261,
+      "line": 303,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -34301,7 +34337,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "13. Atlas duplicate-order regresia",
-      "line": 275,
+      "line": 317,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34310,7 +34346,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "14. Risk-based regression selection",
-      "line": 308,
+      "line": 350,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
@@ -34319,7 +34355,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "14. Risk-based regression selection",
-      "line": 308,
+      "line": 350,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency graphu;`, `changed files a generated artifacts;`, `shared schemas a configuration;`, `ownership boundaries;`.",
@@ -34328,7 +34364,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "14. Risk-based regression selection",
-      "line": 308,
+      "line": 350,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34337,7 +34373,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "Root cause",
-      "line": 344,
+      "line": 386,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34346,7 +34382,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "Náprava",
-      "line": 348,
+      "line": 390,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -34355,7 +34391,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "Náprava",
-      "line": 348,
+      "line": 390,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34364,7 +34400,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "Náprava",
-      "line": 348,
+      "line": 390,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -34373,7 +34409,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "Náprava",
-      "line": 348,
+      "line": 390,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema artifact má explicitných consumers;`, `generator/toolchain zmena invaliduje selection cache;`, `periodic full run meria selection misses;`, `escaped failure sa pridá ako regression fixture.`.",
@@ -34382,7 +34418,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "Náprava",
-      "line": 348,
+      "line": 390,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34391,7 +34427,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "16. Baseline regression",
-      "line": 356,
+      "line": 398,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
@@ -34400,7 +34436,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "16. Baseline regression",
-      "line": 356,
+      "line": 398,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoritatívny toolchain a environment;`, `väzba na artifact a version;`, `comparison algorithm a tolerancia;`, `owner a review;`.",
@@ -34409,7 +34445,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "16. Baseline regression",
-      "line": 356,
+      "line": 398,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -34418,7 +34454,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "16. Baseline regression",
-      "line": 356,
+      "line": 398,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34427,7 +34463,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "17. Regression lanes",
-      "line": 370,
+      "line": 412,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34436,7 +34472,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "17. Regression lanes",
-      "line": 370,
+      "line": 412,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34445,7 +34481,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "18. First-attempt evidence a quarantine",
-      "line": 400,
+      "line": 442,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
@@ -34454,7 +34490,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "18. First-attempt evidence a quarantine",
-      "line": 400,
+      "line": 442,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt status;`, `všetky retries a ich signatures;`, `worker, environment a artifact identity;`, `klasifikáciu product/test/environment;`.",
@@ -34463,7 +34499,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "18. First-attempt evidence a quarantine",
-      "line": 400,
+      "line": 442,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34472,7 +34508,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "18. First-attempt evidence a quarantine",
-      "line": 400,
+      "line": 442,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34481,7 +34517,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "18. First-attempt evidence a quarantine",
-      "line": 400,
+      "line": 442,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -34490,7 +34526,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "19. Suite health a retirement",
-      "line": 413,
+      "line": 455,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
@@ -34499,7 +34535,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "19. Suite health a retirement",
-      "line": 413,
+      "line": 455,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt pass rate;`, `flaky/retry rate;`, `p50/p95 duration a queue time;`, `failure localization time;`.",
@@ -34508,7 +34544,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "19. Suite health a retirement",
-      "line": 413,
+      "line": 455,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34517,7 +34553,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "19. Suite health a retirement",
-      "line": 413,
+      "line": 455,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34526,7 +34562,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "19. Suite health a retirement",
-      "line": 413,
+      "line": 455,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34535,7 +34571,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34544,7 +34580,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "19 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
@@ -34553,7 +34589,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "16 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest a deployment revision;`, `observation point a posledný úspešný krok;`, `DNS/TLS/route metadata;`, `request, correlation a trace ID;`.",
@@ -34562,7 +34598,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34571,7 +34607,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34580,7 +34616,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34589,7 +34625,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "20. Failure artifacts a diagnostika",
-      "line": 429,
+      "line": 471,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `ID`, `identity`, `scope`",
@@ -34598,7 +34634,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -34607,7 +34643,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -34616,7 +34652,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -34625,7 +34661,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Smoke je krátky survivability gate, nie full regression.`, `Smoke testuje konkrétny immutable artifact.`, `Observation point musí zodpovedať chránenej client ceste.`, `/health nie je náhrada business smoke-u.`.",
@@ -34634,7 +34670,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -34643,7 +34679,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -34652,7 +34688,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -34661,7 +34697,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "21. Referenčné pravidlá",
-      "line": 459,
+      "line": 501,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -34670,7 +34706,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "22. Časté omyly",
-      "line": 474,
+      "line": 516,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -34679,7 +34715,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "„Readiness green znamená deployment green“",
-      "line": 480,
+      "line": 522,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34688,7 +34724,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "„Rerun prešiel, môžeme pokračovať“",
-      "line": 492,
+      "line": 534,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34697,7 +34733,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "„Baseline zmena je iba test maintenance“",
-      "line": 496,
+      "line": 538,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -34706,7 +34742,7 @@
     {
       "path": "docs/04-testing-and-quality/smoke-and-regression-tests.md",
       "section": "23. Zhrnutie",
-      "line": 500,
+      "line": 542,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35388,6 +35424,24 @@
       "score": 8
     },
     {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Doplnenie výkladu: parser, pravidlo a statický verdict",
+      "line": 601,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `linter hľadá syntaktické, štýlové a vybrané correctness patterny;`, `type checker overuje kompatibilitu typov a kontraktov;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Doplnenie výkladu: parser, pravidlo a statický verdict",
+      "line": 601,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "1. Definícia",
       "line": 46,
@@ -35894,7 +35948,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -35903,7 +35957,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
@@ -35912,7 +35966,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký failure mode a dopad test pokrýva?`, `Aký najnižší scope ho spoľahlivo odhalí?`, `Ktoré boundaries musia byť reálne?`, `Aký oracle potvrdí význam výsledku?`.",
@@ -35921,7 +35975,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -35930,7 +35984,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -35939,7 +35993,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -35948,7 +36002,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -35957,7 +36011,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "25. Rozhodovací rámec pre nový test",
-      "line": 425,
+      "line": 471,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -35966,7 +36020,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -35975,7 +36029,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -35984,7 +36038,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -35993,7 +36047,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritické failure modes majú identifikovateľný dôkaz;`, `reálne boundaries majú integration alebo contract testy;`, `E2E suite je malá, kritická a diagnostikovateľná;`, `test data sú izolované a cleanup je spoľahlivý;`.",
@@ -36002,7 +36056,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -36011,7 +36065,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -36020,7 +36074,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -36029,7 +36083,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -36038,7 +36092,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "26. Kontrolný checklist portfólia",
-      "line": 442,
+      "line": 488,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`, `scope`",
@@ -36047,7 +36101,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "27. Časté omyly",
-      "line": 455,
+      "line": 501,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -36056,7 +36110,7 @@
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
       "section": "29. Zhrnutie",
-      "line": 492,
+      "line": 538,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -37676,7 +37730,7 @@
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
       "section": "25. Zhrnutie",
-      "line": 437,
+      "line": 477,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

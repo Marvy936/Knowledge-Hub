@@ -400,6 +400,52 @@ Počet testov nie je dostatočná metrika. Sleduj vlastnosti feedback systému:
 
 Metriky majú viesť k zmene scope, isolation alebo ownershipu, nie k penalizácii tímu za červený test.
 
+## Doplnenie výkladu: čo pyramída skutočne optimalizuje
+
+Test pyramid nie je predpis na pevný počet unit, integration a E2E testov. Je to model **feedback economics**: čím väčší scope test spúšťa, tým viac reálnych hraníc môže overiť, ale spravidla rastie čas, cena setupu, počet failure príčin a náročnosť diagnostiky.
+
+Pojem **scope** označuje časť systému zahrnutú do jedného testu. Unit test môže spustiť jednu funkciu v jednom procese. Integration test môže pridať reálnu databázu. E2E test môže zahrnúť browser, API gateway, služby, broker a databázu. Väčší scope nie je automaticky lepší; prináša vyššiu **fidelity**, teda podobnosť testovacieho prostredia s reálnym systémom, ale zároveň viac neznámych.
+
+Prakticky si každý test predstav ako kombináciu:
+
+```text
+subject
++ zahrnuté hranice
++ nahradené hranice
++ setup cost
++ execution time
++ oracle
++ failure localization
+```
+
+Napríklad test objednávky môže mať tri podoby:
+
+```text
+unit:
+pricing function + in-memory inputs
+
+integration:
+orders repository + reálna PostgreSQL schema
+
+E2E:
+HTTP request + identity + orders service + database + event broker
+```
+
+Unit test rýchlo vysvetlí chybu vo výpočte. Integration test odhalí chybný SQL typ alebo transaction behavior. E2E test odhalí, že route, credentials alebo serialization medzi komponentmi nefungujú. Žiadna vrstva nenahrádza ostatné, pretože každá pozoruje iný failure mode.
+
+Pyramída sa pokazí, keď sa všetko overuje cez hornú vrstvu. Jeden E2E failure potom môže znamenať defect v UI, DNS, identity, API, databáze, test data alebo samotnom teste. Naopak príliš veľa izolovaných unit testov môže vytvoriť zelenú suite nad systémom, ktorého komponenty sa nevedia spojiť.
+
+Pri návrhu testu preto nezačínaj otázkou „na ktorú vrstvu patrí?“, ale:
+
+```text
+Aké riziko chceme zachytiť?
+Ktorá najnižšia vrstva ho dokáže pozorovať s dostatočnou fidelity?
+Ktoré reálne hranice musia zostať v teste?
+Aký failure artifact umožní rýchlu diagnózu?
+```
+
+**Test diamond**, **trophy** alebo iné tvary nie sú konkurenčné pravdy. Vyjadrujú inú architektúru, tooling a rizikový profil. Frontend s lacnými component tests môže mať viac strednej vrstvy. Data pipeline môže potrebovať viac integration testov. Dôležitá je výsledná feedback latency a pokrytie failure modes, nie vizuálny pomer.
+
 ## 24. Anti-patterny
 
 ### Pyramída ako percentuálna kvóta

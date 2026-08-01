@@ -683,6 +683,47 @@ Nie. Proces môže počúvať, ale ešte nemať migrácie, leadera alebo použit
 
 Nie. Rerun iba vytvoril nový attempt a môže odstrániť pôvodný dôkaz.
 
+## Doplnenie výkladu: subject, process boundary a reálna dependency
+
+Rozdiel medzi unit, integration a component testom sa nedá spoľahlivo určiť podľa názvu frameworku. Rozhoduje **system under test**, teda presný subject, ktorý test vykonáva, a hranice, ktoré sú reálne alebo nahradené.
+
+**Unit test** drží subject úzky a kontroluje jeho dependencies. Unit nemusí znamenať jednu metódu; môže to byť malá coherent business jednotka. Dôležité je, že failure sa dá lokalizovať bez štartu databázy, siete alebo ďalšieho procesu.
+
+```python
+def test_discount_is_not_applied_below_threshold():
+    policy = DiscountPolicy(threshold=1000, percent=10)
+    assert policy.apply(900) == 900
+```
+
+Test vytvorí objekt s explicitnými vstupmi a overí jedno business pravidlo. Neoveruje serializáciu, databázu ani konfiguráciu aplikácie. Jeho hodnota je rýchla a presná diagnóza logiky.
+
+**Integration test** ponechá aspoň jednu významnú reálnu hranicu. Pri databáze nejde iba o to, že query „nejako prejde“. Test overuje driver, schema, constraints, transaction isolation, encoding a mapping medzi aplikačným a databázovým modelom.
+
+```text
+application repository code
+→ database driver
+→ reálna database engine
+→ migration generation
+→ read-back a invariant
+```
+
+Ak test používa SQLite namiesto produkčnej PostgreSQL, ide stále o dynamický test, ale fidelity voči SQL dialektu, locking-u a typom je obmedzená. Toto obmedzenie musí byť viditeľné vo verdicte.
+
+**Component test** spustí väčší komponent cez jeho verejnú hranicu, často ako samostatný process alebo container, no externé dependencies nahradí kontrolovanými implementáciami. Napríklad Orders API môže bežať s reálnym HTTP serverom a databázou, ale provider platieb je fake server.
+
+Rozlišuj tiež **in-process** a **out-of-process** boundary. Priame volanie controller function neoveruje HTTP routing, middleware a serialization. Request cez socket na reálny server ich už zahŕňa, aj keď oba testy používajú rovnaký jazyk.
+
+Setup a cleanup sú súčasťou dôkazu. Transaction rollback po každom teste znižuje kontamináciu, ale môže skryť behavior, ktorý nastáva až pri commit-e. Container vytvorený pre suite môže zrýchliť testy, no shared state môže spôsobiť order dependency. Preto má test explicitne uviesť:
+
+```text
+čo sa vytvára pre každý test
+čo sa zdieľa v suite
+ako sa generuje jedinečná identita dát
+ako sa overí cleanup
+```
+
+Ak test prejde s fake dependency, preukazuje správanie voči contractu fake-u. Nepreukazuje, že fake presne reprezentuje reálnu dependency. Túto medzeru uzatvára contract test alebo samostatný integration test s reálnym systémom.
+
 ## 27. Zhrnutie
 
 Atlas `CreateOrder` potrebuje tri odlišné vrstvy dôkazu:

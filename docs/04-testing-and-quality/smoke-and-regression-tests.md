@@ -209,6 +209,48 @@ Automatický rollback je bezpečný iba vtedy, keď:
 - rollback nezväčší incident;
 - rozhodnutie je auditované.
 
+## Doplnenie výkladu: smoke je výber rizík, regression je účel
+
+**Smoke test** je malá sada rýchlych kontrol, ktorá zisťuje, či má zmysel pokračovať v hlbšom testovaní alebo exposure. Názov pochádza z hardvérového „zapni a over, či sa z toho nedymí“; v softvéri však smoke nemá byť iba process-alive check.
+
+Dobrá smoke sada vyberá niekoľko kritických capabilities:
+
+```text
+artifact sa spustil
++ správna version/config generation je načítaná
++ request prejde reálnou cestou
++ kritická dependency je použiteľná
++ jedna bezpečná business operácia skončí správne
+```
+
+Príkaz:
+
+```bash
+curl --fail --silent --show-error \
+  http://payments.staging.example/ready
+```
+
+preukazuje iba to, že HTTP request dostal 2xx/3xx podľa `curl --fail` contractu a transport nezlyhal. Nepreukazuje správny image digest, database write ani business outcome. Preto sa k nemu často pridá version endpoint a idempotentný synthetic request.
+
+**Regression test** nie je samostatná technická vrstva. Je to test, ktorého účelom je zabrániť návratu už známeho defectu alebo porušenia contractu. Regression test môže byť unit, integration, contract alebo E2E. Po incidente sa má vytvoriť na najnižšej vrstve, ktorá defect spoľahlivo reprodukuje, a podľa rizika aj na vyššej hranici.
+
+Príklad životného cyklu:
+
+```text
+incident: duplicate payment pri timeout retry
+→ minimal reproducible test
+→ server-side idempotency fix
+→ unit test deduplication logiky
+→ integration test transaction/constraint
+→ E2E forbidden test s timeout-after-commit
+```
+
+Prvý test lokalizuje logiku, posledný overuje celú nebezpečnú cestu. „Pridali sme regression test“ bez pomenovania reprodukovaného failure mode-u je slabý closure.
+
+Smoke sada musí byť stabilná a malá, ale nie nemenná. Keď sa zmení architektúra alebo kritická business cesta, smoke inventory sa upraví. Zároveň sa nemá zväčšiť na kompletnú regression suite, inak stratí rýchly rozhodovací význam.
+
+Pri failure smoke testu pipeline alebo rollout zvyčajne zastaví ďalší krok. To je gate policy, nie vlastnosť samotného testu. Výsledok potrebuje artifact, environment, configuration, timestamp a correlation evidence; inak nie je jasné, čo vlastne zlyhalo.
+
 ## 10. Worked failure: readiness bola zelená
 
 Atlas rollout hlásil všetky pods ako ready. Interný smoke tiež prešiel:
