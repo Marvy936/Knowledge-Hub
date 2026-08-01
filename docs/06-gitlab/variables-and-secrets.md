@@ -136,19 +136,17 @@ Validation preukazuje allowlisted string in one job. Nepreukazuje that downstrea
 
 ## 10. Secret exposure paths
 
-Secret exposure path je každé miesto, kde sa capability presunie mimo pôvodný provider alebo bounded process. Každý path má inú retention a observation boundary:
+Secret exposure path je každé miesto, kde sa capability presunie mimo pôvodný provider alebo bounded process. Každý path má inú retention, access a observation boundary, preto nemožno vykonať jednu univerzálnu kontrolu „secret nie je v logu“.
 
-- **Command echo a debug tracing** môžu zapísať raw alebo expanded value do durable job logu. Masking závisí od podporovaného formátu a nemusí zachytiť transformáciu.
-- **Process arguments a `/proc`** sprístupňujú hodnotu iným procesom alebo host administratorovi počas execution window-u. Preferované sú file descriptor, stdin alebo provider-native helper s krátkou lifetime.
-- **Files, workspace, cache a artifacts** vytvárajú kópie s vlastným access a retention lifecycle-om. Cleanup jobu nemusí odstrániť distributed cache alebo už uploadnutý artifact.
-- **Docker build args, layers a image history** môžu secret zabudovať do immutable image graphu. Build secret mount musí byť non-persistent a výsledný image sa kontroluje na leaked material.
-- **Environment dumps a crash reports** zbierajú široký process context a môžu opustiť GitLab cez observability alebo support systémy. Redaction sa vykonáva pred export boundary.
-- **Child processes a service containers** dedia environment, files alebo network capability a môžu prežiť hlavný script. Process tree a runtime teardown sú preto súčasťou acceptance.
-- **Network exfiltration** nepotrebuje log ani file; untrusted tool môže secret okamžite odoslať. High-value job používa restricted egress a pinned tooling.
-- **Transformed values** ako base64, URL encoding alebo rozdelené substringy nemusia byť masked. Masking je accidental-disclosure control, nie data-loss prevention.
-- **Generated manifests, Terraform plans a diagnostic bundles** môžu vložiť resolved secret do ďalšieho artifactu s dlhšou retention. Každý generator potrebuje explicitný sensitive-data contract.
+Command echo, debug tracing, process arguments a `/proc` vystavujú value počas execution window-u alebo ju zapisujú do durable job logu. Masking závisí od podporovaného formátu a nemusí zachytiť encoding alebo rozdelenie hodnoty. Preferovaný interface používa stdin, file descriptor alebo provider-native helper a diagnostiku smeruje do oddeleného streamu bez secret data.
 
-Jobs handling high-value capability používajú trusted reviewed code, ephemeral runtime, bounded egress a short-lived credential. Acceptance zahŕňa aj search v artifacts/cache/logoch a target-side revocation, nie iba absenciu plain textu v jednom job logu.
+Files, workspace, cache, artifacts, Docker layers a image history vytvárajú kópie s vlastným lifecycle-om. Cleanup hlavného jobu nemusí odstrániť distributed cache ani už uploadnutý artifact a build argument môže zostať v immutable image graph-e. Secret mount preto nesmie persistovať do výslednej vrstvy a output graph sa kontroluje pred publication.
+
+Environment dumps, crash reports, child processes a service containers rozširujú consumer graph mimo hlavný script. Child môže zdediť environment alebo file a prežiť cancellation, zatiaľ čo diagnostic bundle môže odísť do observability alebo support systému. Acceptance sleduje process tree, runtime teardown a redaction pred export boundary.
+
+Network exfiltration nepotrebuje log ani file; untrusted tool môže capability okamžite odoslať. High-value job preto používa pinned reviewed tooling, restricted egress a ephemeral runtime. Generated manifests, Terraform plans a ďalšie diagnostic artifacts majú explicitný sensitive-data contract, pretože resolved secret môžu uchovať dlhšie než pôvodný credential.
+
+Jobs handling high-value capability získavajú short-lived target-scoped credential až po trust decisione. Closure zahŕňa search v artifacts, cache a logs, target-side revocation a old-credential forbidden test, nie iba absenciu plain textu v jednom job logu.
 
 ## 11. Rotation and loaded state
 
@@ -167,6 +165,8 @@ new secret version created
 Changing GitLab variable alone may leave target credential and long-running consumers unchanged. Environment variables loaded at process start require redeploy/restart. Connection pools and tokens can retain old descendants.
 
 ## 12. Revocation after exposure
+
+Revocation je response na možnú capability compromise, nie kozmetická úprava GitLab variable. Najprv sa zachová evidence a zastaví ďalšie vydávanie alebo používanie credentialu, potom sa ruší authority na target systéme a až následne sa čistia kópie a reloadujú consumers. Poradie chráni forenzný subject a zároveň skracuje exploitation window.
 
 When secret may be exposed:
 
@@ -221,6 +221,8 @@ source/scope/precedence and generation are exact
 ```
 
 ## 15. Troubleshooting flow
+
+Secret incident sa sleduje od key/purpose k autoritatívnemu providerovi a všetkým GitLab definitions, nie od jednej runtime value. Po resolution sa skúma eligibility, injection/exposure, external trust a resulting sessions a napokon loaded consumer generation. Takto sa odlíši variable shadowing od leak-u, broad federation alebo neúplnej rotácie.
 
 ```text
 key/purpose/authority

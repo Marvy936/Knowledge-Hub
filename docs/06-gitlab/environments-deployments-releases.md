@@ -74,6 +74,8 @@ YAML declares environment association. It does not prove protected-environment m
 
 ## 4. Deployment record API
 
+Deployment API je GitLab-side read-back workflow recordu. Query musí byť viazaná na exact project a environment locator a výsledok sa koreluje s pipeline, deployable jobom a release manifestom. API status nepreukazuje controller ani runtime outcome, ale umožní zistiť, ktorý request a actor GitLab považuje za deployment.
+
 ```bash
 curl --fail --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
   "$GITLAB_URL/api/v4/projects/481/deployments?environment=production%2Feu-central-1" \
@@ -119,6 +121,8 @@ Approval should bind artifact digest, target generation and requested transition
 Manual job is not approval evidence if any eligible operator can run it without policy. Emergency path has separate incident-scoped capability and closure.
 
 ## 8. Runtime read-back
+
+Runtime read-back sa vykonáva až po potvrdení target contextu, aby presný output nepatril nesprávnemu clusteru alebo namespace-u. Najprv sa číta desired/controller state Deploymentu a potom per-Pod resolved image identity. Tieto outputs stále nepreukazujú serving route ani business behavior, preto na ne nadväzuje traffic a capability canary.
 
 ```bash
 kubectl -n payments get deployment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,images:[.spec.template.spec.containers[].image],release:.metadata.annotations["atlas.example/release-manifest"]}'

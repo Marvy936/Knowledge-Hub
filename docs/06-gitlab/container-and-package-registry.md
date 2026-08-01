@@ -24,6 +24,8 @@ Successful `push` response does not prove complete multi-platform graph, evidenc
 
 ## 2. Exact registry subject
 
+Registry subject musí pomenovať celý content graph a producer, nie iba repository a tag. Pri OCI image sa rozlišuje index digest, per-platform manifesty a evidence referrers; pri package subjecte coordinate dopĺňa checksum a publication job. Nasledujúci YAML je release identity envelope, podľa ktorého sa overuje publication, promotion aj runtime consumption.
+
 ```yaml
 registrySubject:
   projectId: 481
@@ -65,6 +67,8 @@ printf '%s' "$CI_REGISTRY_PASSWORD" | docker login \
 Successful login proves credential accepted for registry endpoint. It does not prove minimum scopes, token lifetime or allowed repositories. Publication attempt and registry audit/API read-back verify effective capability.
 
 ## 4. Multi-platform build and push
+
+Multi-platform publication vytvára OCI index, ktorý odkazuje na samostatné manifesty pre jednotlivé platformy. Jeden úspešný build command preto môže skončiť partial graphom: index alebo jeden manifest môže chýbať, prípadne evidence nemusí byť naviazaná na rovnaký subject. Po push-i sa vždy číta index digest a enumerujú platform descriptors.
 
 ```bash
 docker buildx build \
@@ -218,6 +222,8 @@ publication identity is trusted and scoped
 ```
 
 ## 15. Troubleshooting flow
+
+Registry investigation začína locatorom, ale okamžite prechádza na immutable digests a mapping history. Následne sa overí producer identity, complete platform/package graph, evidence, mirrors a runtime image IDs; až potom retention alebo revocation verdict. Tento ordering odlíši mutable tag od incomplete publication, mirror lagu alebo runtime cache.
 
 ```text
 release/version locator

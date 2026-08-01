@@ -1557,30 +1557,30 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "title": "Container a package registry",
-      "words": 1573,
+      "words": 1716,
       "headings": 24,
       "sections": 24,
-      "findings": 10,
+      "findings": 9,
       "critical": 0,
-      "high": 4,
+      "high": 0,
       "medium": 0,
-      "low": 6,
-      "score": 40,
-      "grade": "C"
+      "low": 9,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "title": "Environments, deployments a releases",
-      "words": 1625,
+      "words": 1717,
       "headings": 23,
       "sections": 23,
-      "findings": 16,
+      "findings": 17,
       "critical": 0,
-      "high": 2,
+      "high": 0,
       "medium": 0,
-      "low": 14,
-      "score": 36,
-      "grade": "C"
+      "low": 17,
+      "score": 23,
+      "grade": "B"
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
@@ -1697,16 +1697,16 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "title": "Variables a secrets",
-      "words": 1864,
+      "words": 1951,
       "headings": 24,
       "sections": 24,
-      "findings": 17,
+      "findings": 15,
       "critical": 0,
-      "high": 4,
-      "medium": 1,
-      "low": 12,
-      "score": 50,
-      "grade": "C"
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 18,
+      "grade": "B"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
@@ -39234,15 +39234,15 @@
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "2. Exact registry subject",
       "line": 25,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "3. Publication identity",
-      "line": 53,
+      "line": 55,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39251,16 +39251,16 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "4. Multi-platform build and push",
-      "line": 67,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "9. Runtime consumption",
-      "line": 144,
+      "line": 148,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39269,7 +39269,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "11. Retention and cleanup",
-      "line": 161,
+      "line": 165,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39278,7 +39278,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "13. Connected incident GL-PAY-74",
-      "line": 185,
+      "line": 189,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39287,7 +39287,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "13. Connected incident GL-PAY-74",
-      "line": 185,
+      "line": 189,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39296,20 +39296,11 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "15. Troubleshooting flow",
-      "line": 220,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "15. Troubleshooting flow",
-      "line": 220,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 224,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
@@ -39351,15 +39342,24 @@
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "4. Deployment record API",
       "line": 75,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "4. Deployment record API",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "5. Direct deployment versus GitOps request",
-      "line": 85,
+      "line": 87,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39368,7 +39368,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "5. Direct deployment versus GitOps request",
-      "line": 85,
+      "line": 87,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39377,7 +39377,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "6. Outdated deployment prevention and concurrency",
-      "line": 103,
+      "line": 105,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39386,7 +39386,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "6. Outdated deployment prevention and concurrency",
-      "line": 103,
+      "line": 105,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39395,16 +39395,16 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "8. Runtime read-back",
-      "line": 121,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "9. Review apps",
-      "line": 132,
+      "line": 136,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39413,7 +39413,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 168,
+      "line": 172,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39422,7 +39422,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 168,
+      "line": 172,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39431,7 +39431,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 168,
+      "line": 172,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -39440,7 +39440,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "14. Troubleshooting flow",
-      "line": 204,
+      "line": 208,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39449,7 +39449,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "14. Troubleshooting flow",
-      "line": 204,
+      "line": 208,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40404,15 +40404,6 @@
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "10. Secret exposure paths",
       "line": 137,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 57 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "10. Secret exposure paths",
-      "line": 137,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40429,21 +40420,12 @@
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "10. Secret exposure paths",
-      "line": 137,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "12. Revocation after exposure",
-      "line": 169,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
@@ -40458,19 +40440,19 @@
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "15. Troubleshooting flow",
       "line": 223,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "15. Troubleshooting flow",
       "line": 223,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
