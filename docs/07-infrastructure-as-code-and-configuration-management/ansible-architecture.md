@@ -41,7 +41,6 @@ Posledná kategória je kritická: host vynechaný inventory resolverom sa neobj
 
 Táto podsekcia definuje presný Ansible run, host alebo item subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome. Až complete per-host coverage, pravdivý result a runtime/business read-back ukáže, že ďalší command alebo YAML patrí správnemu objektu.
 
-
 ```yaml
 ansibleRunSubject:
   repository: atlas/configuration
@@ -94,13 +93,9 @@ načíta ansible.cfg a runtime
 
 Control node má často prístup k SSH keys, Vault password source-u, cloud credentials, inventory API a množstvu produkčných hosts. Kompromitovaný execution image, collection plugin alebo checkout preto môže zasiahnuť celý target scope.
 
-
 Contract eviduje immutable execution environment digest, pinned collections, read-only source checkout, short-lived credentials, restricted network egress a oddelené untrusted validation a production execution pools.
 
-Ďalej sleduje audit callback a log redaction.
-
-Všetky prvky patria jednej generation a authority boundary; chýbajúci prvok robí verdict neúplným.
-
+Dopĺňa ho audit callback a log redaction.
 
 ## 4. Managed node a API target
 
@@ -135,13 +130,11 @@ Module implementuje observation a bounded mutation unit a vracia structured resu
 
 FQCN, napríklad `ansible.builtin.template`, znižuje namespace ambiguity, ale neidentifikuje exact collection bytes ani execution environment. Run subject preto zachováva FQCN spolu s collection/image digestom a per-host dynamic include pathom. Vďaka tomu možno odlíšiť rovnaký YAML s odlišným plugin behaviorom.
 
-
 Playbook je ordered collection plays. Play viaže host pattern na tasks, variables, privilege, strategy a failure policy. Task volá module/action alebo riadi flow. Module implementuje observation a mutation unit.
 
 Action plugin môže vykonať časť logiky na controlleri. Connection plugin určuje transport. Inventory plugin vytvára host graph. Callback plugin spracúva výsledky.
 
 Collection distribuuje modules, plugins, roles a ďalší content.
-
 
 Používaj FQCN:
 
@@ -279,11 +272,7 @@ Host-key checking je target identity control. Jeho vypnutie môže umožniť mut
 
 Evidence preto obsahuje expected batch manifest, attempted/converged hosts a synchronization point medzi batches. Partial batch alebo host removed from play nie je úspešný rollout iba preto, že ďalšie hosts skončili green.
 
-
-Execution contract zahŕňa strategy určuje, ako hosts postupujú tasks, forks obmedzuje controller concurrency, serial určuje rollout batch a throttle môže obmedziť konkrétnu task concurrency.
-
-Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
-
+Strategy určuje, ako hosts postupujú tasks, forks obmedzuje controller concurrency, serial určuje rollout batch a throttle môže obmedziť konkrétnu task concurrency.
 
 ```yaml
 - name: Rolling configuration rollout
@@ -327,7 +316,6 @@ Output preukazuje command result v danom remote execution context-e. Nepreukazuj
 
 Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 - name: Render configuration
   ansible.builtin.template:
@@ -359,7 +347,6 @@ file content/version
 ## 13. Failure a coverage model
 
 Nasledujúci model opisuje prechody jedného Ansible run, host alebo item subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 UNREACHABLE
@@ -443,7 +430,6 @@ Recovery pinne image digest, obnoví known-good collection release, overí affec
 
 Incident sa rekonštruuje ako causal chain nad jedným Ansible run, host alebo item subject. Observations určujú prvý divergentný bod v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 - name: Register batch in load balancer
   vendor.cloud.target:
@@ -480,11 +466,9 @@ H6: service reštartoval, ale load balancer stále routuje starý backend
 H7: post-run verifier číta stale cache
 ```
 
-
-Discriminating evidence porovnáva expected/resolved/recap manifests testujú H1–H3, per-host vars a rendered checksum H4, notifications/handler results/process start time H5, LB target health/version endpoint H6 a direct host query a cache timestamps H7.
+Expected/resolved/recap manifests testujú H1–H3, per-host vars a rendered checksum H4, notifications/handler results/process start time H5, LB target health/version endpoint H6 a direct host query a cache timestamps H7.
 
 Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
-
 
 ## 19. Evidence-preserving containment a recovery
 
@@ -494,13 +478,9 @@ Recovery opraví prvý divergentný transition: cache/target contract, variable 
 
 Closure tvorí fleet-level business journey a complete second converge run nad fresh inventory. `changed=0` je prijaté iba pri complete host coverage, správnej loaded generation a nulovom residual recovery sete.
 
+Recovery workflow zastaví ďalší batch, zachová inventory JSON, run events, per-host results a rendered checksums, identifikuje omitted, failed a mixed-state hosts, odoberie unhealthy hosts z trafficu, opraví inventory cache a variable contract a vykoná targeted recovery s explicitným `--limit` nad reviewed host manifestom.
 
-Recovery postupuje cez zastaví ďalší batch, zachová inventory JSON, run events, per-host results a rendered checksums, identifikuje omitted, failed a mixed-state hosts, odoberie unhealthy hosts z trafficu, opraví inventory cache a variable contract a vykoná targeted recovery s explicitným `--limit` nad reviewed host manifestom.
-
-Ďalej sleduje overí process, endpoint a business journey, spustí full-fleet second converge run a potvrdí `changed=0` pre managed config tasks a complete host coverage.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Následne sa overí process, endpoint a business journey, spustí full-fleet second converge run a potvrdí `changed=0` pre managed config tasks a complete host coverage.
 
 ## 20. Acceptance a forbidden paths
 
@@ -525,11 +505,7 @@ execution environment a collections sú pinned
 + runtime payment journey prejde
 ```
 
-
 Acceptance matrix pokrýva undersized inventory, staging controller credential pri production play, mutable execution tag, unsupported check-mode task interpretovaný ako pass a handler skipped po config mutation.
-
-Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú security, ownership alebo recovery hranicu.
-
 
 ## 21. Kontrolné otázky
 

@@ -1046,11 +1046,7 @@ H6: AWS CLI a provider používajú iný account/region
 H7: state binding bol ručne odstránený
 ```
 
-
-Terraform transition sleduje backend config a lineage/serial testujú H1/H2, Git diff a `terraform state list` testujú H3/H7, CloudTrail/request IDs testujú H4/H5, caller identity a provider debug metadata testujú H6 a tags, timestamps a remote IDs spájajú objekt s konkrétnym runom.
-
-Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
-
+Backend config a lineage/serial testujú H1/H2, Git diff a `terraform state list` testujú H3/H7, CloudTrail/request IDs testujú H4/H5, caller identity a provider debug metadata testujú H6 a tags, timestamps a remote IDs spájajú objekt s konkrétnym runom.
 
 Až po potvrdení hypotézy zvoľ import, state restore, configuration repair alebo odstránenie unmanaged duplicate objektu.
 

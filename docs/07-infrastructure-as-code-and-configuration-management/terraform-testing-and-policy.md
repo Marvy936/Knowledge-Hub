@@ -8,7 +8,6 @@ Kapitola uzatvára incident `IAC-PAY-77`. Atlas Payments vydáva module `payment
 
 Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 ```text
 exact change subject a risk class
 → expected evidence inventory
@@ -29,7 +28,6 @@ Každá vrstva odpovedá na inú otázku. Rýchlejší test nesmie predstierať 
 ## 2. Exact Terraform evidence subject
 
 Táto podsekcia definuje presný Terraform configuration, state a remote-resource subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inputs a graph cez provider API mutation až po state binding. Až exact provider target, remote/state reconciliation a druhý no-op plan ukáže, že ďalší command alebo YAML patrí správnemu objektu.
-
 
 ```yaml
 evidenceSubject:
@@ -120,7 +118,6 @@ Portfólio preto postupuje od lacných parser/schema checks cez plan assertions 
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 ```bash
 terraform fmt -check -recursive
 ```
@@ -131,7 +128,6 @@ Preukazuje canonical formatting podľa použitej Terraform CLI. Nepreukazuje syn
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 ```bash
 terraform init -backend=false -input=false
 terraform validate -json > validate.json
@@ -139,13 +135,9 @@ terraform validate -json > validate.json
 
 Validation kontroluje configuration consistency voči dostupným module/provider schemas. JSON output umožní machine-readable spracovanie.
 
+Transition eviduje credentials a authorization, cloud quotas a organization policy, remote API behavior, apply-time unknown values, eventual consistency a runtime connectivity.
 
-Terraform transition sleduje credentials a authorization, cloud quotas a organization policy, remote API behavior, apply-time unknown values, eventual consistency a runtime connectivity.
-
-Ďalej sleduje data migration a cleanup.
-
-Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
-
+Dopĺňa ho data migration a cleanup.
 
 ### Static analysis
 
@@ -165,7 +157,6 @@ Successful scanner process nie je automaticky validný report. „Nula findings�
 ## 5. Invarianty priamo v Terraform contracte
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
-
 
 ```hcl
 variable "database" {
@@ -211,7 +202,6 @@ Precondition overuje known assumption pred operation. Postcondition overuje prov
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
 
-
 Test files používajú `*.tftest.hcl` alebo `*.tftest.json` a spúšťajú sa:
 
 ```bash
@@ -223,7 +213,6 @@ Test subject obsahuje fixture, module/provider versions, run command, variables,
 ### Plan test
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
-
 
 ```hcl
 run "production_plan" {
@@ -253,7 +242,6 @@ Plan test je vhodný pre input behavior, resource inventory, stable keys, output
 ### Forbidden fixture
 
 Acceptance uzatvára celý Terraform configuration, state a remote-resource subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je exact provider target, remote/state reconciliation a druhý no-op plan.
-
 
 ```hcl
 run "reject_unencrypted_production" {
@@ -338,13 +326,9 @@ run "provider_apply" {
 
 Dokáže pozorovať provider CRUD, organization policy, IAM, API normalization a eventual consistency. Potrebuje:
 
+Transition eviduje isolated account/project, short-lived identity, unique run namespace, network/resource/cost limits, TTL a cleanup ownera.
 
-Terraform transition sleduje isolated account/project, short-lived identity, unique run namespace, network/resource/cost limits, TTL a cleanup ownera.
-
-Ďalej sleduje preserved state pri cleanup failure.
-
-Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
-
+Dopĺňa ho preserved state pri cleanup failure.
 
 Provider output `available` stále nepreukazuje application transaction.
 
@@ -371,7 +355,6 @@ Výstup `ok` preukazuje, že verifier sa pripojil cez TLS, vykonal write/read v 
 ## 10. Upgrade test nad existujúcim state-om
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
-
 
 ```text
 apply module 4.2.4
@@ -422,7 +405,6 @@ Tento assertion preukazuje expected action v exact plan artifacte. Je krehký, a
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 Functional assertions môžu prejsť a destroy zlyhať:
 
 ```text
@@ -435,11 +417,7 @@ apply pass
 
 Celkový verdict je `CLEANUP_INCOMPLETE`.
 
-
-Terraform transition sleduje state a remote IDs, logs/request IDs, ownera, TTL a janitor task, network/exposure containment a manual recovery path.
-
-Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
-
+Transition eviduje state a remote IDs, logs/request IDs, ownera, TTL a janitor task, network/exposure containment a manual recovery path.
 
 „Tests passed“ bez cleanup closure nie je úspešný ephemeral integration test.
 
@@ -447,14 +425,9 @@ Každý prvok sa viaže na rovnakú configuration, state a provider generation, 
 
 Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
 
+Recovery workflow eventual consistency, API throttling, shared target, mutable data source, name collision a provider incident.
 
-
-Recovery postupuje cez eventual consistency, API throttling, shared target, mutable data source, name collision a provider incident.
-
-Ďalej sleduje residue po cleanup failure a fixed sleep.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Dopĺňa ho residue po cleanup failure a fixed sleep.
 
 Preferuj condition-based polling:
 
@@ -620,7 +593,6 @@ valid report schema a producer identity
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
 
-
 ```bash
 jq -e '
   (.expected | sort) as $expected
@@ -637,7 +609,6 @@ Green pre-production pipeline a failed production apply môžu znamenať chýbaj
 
 Hypotézy sú navzájom konkurenčné vysvetlenia rovnakého symptómu. Každá musí predpovedať konkrétny observation result a zároveň výsledok, ktorý ju oslabí; inak nejde o discriminating test. Dôkazy sa viažu na rovnaký Terraform configuration, state a remote-resource subject a finálny verdict potvrdí exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 Green pre-production pipeline a failed production apply môžu znamenať chýbajúcu real-policy coverage, odlišnú identity, quota, stale saved plan alebo neplatný/missing report. Každá hypotéza sa viaže na konkrétny subject a discriminating evidence; „testy prešli“ nie je jedna univerzálna premise.
 
 ```text
@@ -651,11 +622,9 @@ H7: test cleanup residue ovplyvnilo quota/name
 H8: credentials alebo external service sa zmenili
 ```
 
-
-Discriminating evidence porovnáva subject manifests testujú H1/H3/H6, expected evidence inventory H4, policy producer/validity H5, real-provider audit H2/H8 a cleanup/state inventory H7.
+Subject manifests testujú H1/H3/H6, expected evidence inventory H4, policy producer/validity H5, real-provider audit H2/H8 a cleanup/state inventory H7.
 
 Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
-
 
 Rerun bez zachovania first-attempt evidence môže zničiť najlepší dôkaz.
 
@@ -665,23 +634,17 @@ Recovery najprv preklasifikuje každý gate result na `PASS`, `VIOLATION`, `TOOL
 
 Incident sa rekonštruuje ako causal chain nad jedným Terraform configuration, state a remote-resource subject. Observations určujú prvý divergentný bod v reťazci resolved inputs a graph cez provider API mutation až po state binding; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 Recovery najprv preklasifikuje každý gate result na `PASS`, `VIOLATION`, `TOOL_OR_INFRA_FAILURE`, `MISSING_OR_SKIPPED`, `STALE_SUBJECT` alebo `INVALID_REPORT`. Chýbajúci policy output sa nesmie normalizovať na prázdny clean report a fix sa musí overiť nad exact production-equivalent identity a policy bundle.
 
+Recovery workflow zastaví production apply, zachová plan, test/policy reports a first-attempt logs, označí verdict `INVALID_REPORT + MISSING_UPGRADE_EVIDENCE`, opraví policy wrapper tak, aby bundle outage nebol clean, pridá upgrade fixture `4.2.4 → 4.3.0` a moved mapping a spustí real-provider apply v izolovanom account-e s KMS policy.
 
-Recovery postupuje cez zastaví production apply, zachová plan, test/policy reports a first-attempt logs, označí verdict `INVALID_REPORT + MISSING_UPGRADE_EVIDENCE`, opraví policy wrapper tak, aby bundle outage nebol clean, pridá upgrade fixture `4.2.4 → 4.3.0` a moved mapping a spustí real-provider apply v izolovanom account-e s KMS policy.
-
-Ďalej sleduje vykoná runtime DB transaction, uzavrie cleanup a overí resource inventory, vytvorí nový production saved plan, aplikuje presne jeho digest a overí runtime, second no-op plan a drift registration.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Dopĺňa ho vykoná runtime DB transaction, uzavrie cleanup a overí resource inventory, vytvorí nový production saved plan, aplikuje presne jeho digest a overí runtime, second no-op plan a drift registration.
 
 ## 22. Acceptance a forbidden paths
 
 Testing acceptance zahŕňa happy path, forbidden configuration, tool/report failure a cleanup failure. Gate musí odmietnuť missing evidence rovnako spoľahlivo ako policy violation a druhá operation musí potvrdiť, že fixed artifact a policy generation zostali stabilné.
 
 Acceptance uzatvára celý Terraform configuration, state a remote-resource subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je exact provider target, remote/state reconciliation a druhý no-op plan.
-
 
 Testing acceptance zahŕňa happy path, forbidden configuration, tool/report failure a cleanup failure. Gate musí odmietnuť missing evidence rovnako spoľahlivo ako policy violation a druhá operation musí potvrdiť, že fixed artifact a policy generation zostali stabilné.
 
@@ -701,13 +664,9 @@ expected evidence inventory je explicitné
 + second plan je no-op
 ```
 
-
 Acceptance matrix pokrýva unencrypted production input, missing upgrade mapping, public IPv4 aj IPv6 exposure, missing/empty policy report, expired exception a regenerated plan digest.
 
-Ďalej sleduje cleanup-incomplete run.
-
-Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú security, ownership alebo recovery hranicu.
-
+Dopĺňa ho cleanup-incomplete run.
 
 ## 23. Anti-patterny
 
@@ -715,13 +674,11 @@ Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú securit
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 Validate nevolá production API ani business oracle.
 
 ### „Mock test je zelený, provider bude fungovať“
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
-
 
 Mock pokrýva iba namodelovaný behavior.
 
@@ -729,13 +686,11 @@ Mock pokrýva iba namodelovaný behavior.
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-
 Potrebujeme validný, complete a subject-bound report.
 
 ### „Assertions prešli, cleanup nie je súčasť testu“
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
-
 
 Zanechaný resource je test failure a operational risk.
 
@@ -743,13 +698,11 @@ Zanechaný resource je test failure a operational risk.
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
 
-
 Fail behavior je explicitná risk policy s fallbackom, nie tichý empty report.
 
 ### „Apply znovu vypočíta rovnaký plan“
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
-
 
 Nový plan je nový decision subject.
 

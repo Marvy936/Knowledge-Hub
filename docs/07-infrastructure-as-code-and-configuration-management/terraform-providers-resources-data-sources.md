@@ -36,13 +36,9 @@ provider source a version constraint
 → downstream dependency a runtime verification
 ```
 
+Provider requirement určuje, ktorý plugin family konfigurácia používa, Dependency lock identifikuje konkrétnu selected version a package checksums, Provider configuration určuje effective endpoint, account, region a credentials, Resource address určuje Terraform ownership identity, Remote ID určuje objekt v externom systéme a State binding spája Terraform address s remote ID.
 
-Terraform transition sleduje Provider requirement určuje, ktorý plugin family konfigurácia používa, Dependency lock identifikuje konkrétnu selected version a package checksums, Provider configuration určuje effective endpoint, account, region a credentials, Resource address určuje Terraform ownership identity, Remote ID určuje objekt v externom systéme a State binding spája Terraform address s remote ID.
-
-Ďalej sleduje Data source iba číta hodnotu; lifecycle objektu nevlastní.
-
-Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
-
+Dopĺňa ho Data source iba číta hodnotu; lifecycle objektu nevlastní.
 
 Syntakticky platná HCL konfigurácia môže zasiahnuť nesprávny account alebo region, ak effective provider configuration nie je tá, ktorú reviewer predpokladal.
 
@@ -389,13 +385,9 @@ root pozná aws.replica
 
 Root cause nebol cloud outage ani permission failure. Effective provider mapping sa nezhodoval s intended targetom.
 
+Recovery workflow zastaviť ďalšiu replication promotion, identifikovať oba buckets podľa accountu, regionu, ARN a object inventory, overiť, či nesprávny bucket obsahuje dáta, vytvoriť explicitný alias contract, zvoliť copy/import/recreate podľa data state-u a aktualizovať consumers.
 
-Recovery postupuje cez zastaviť ďalšiu replication promotion, identifikovať oba buckets podľa accountu, regionu, ARN a object inventory, overiť, či nesprávny bucket obsahuje dáta, vytvoriť explicitný alias contract, zvoliť copy/import/recreate podľa data state-u a aktualizovať consumers.
-
-Ďalej sleduje overiť správny state binding a replication journey a až potom odstrániť nesprávny object.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Dopĺňa ho overiť správny state binding a replication journey a až potom odstrániť nesprávny object.
 
 ## 13. Worked incident: mutable data source zmenil release
 
@@ -458,7 +450,6 @@ Forbidden test má zámerne prehodiť provider mapping v disposable fixture a po
 ### „Provider constraint stačí, lock file netreba“
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
-
 
 Constraint povoľuje rozsah; lock identifikuje konkrétnu selection a checksums.
 

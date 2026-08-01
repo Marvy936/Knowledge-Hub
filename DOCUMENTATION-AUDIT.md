@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **638,460**
-- Findings: **6524** (critical 660, high 908, medium 470, low 4486)
-- File grades: A 125, B 110, C 32, D 60
+- Total words: **637,259**
+- Findings: **6533** (critical 660, high 908, medium 470, low 4495)
+- File grades: A 125, B 109, C 33, D 60
 
 ## Interpretation
 
@@ -99,26 +99,26 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 53 | 0 | 6 | 0 | 4 | 2266 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
-| C | 48 | 0 | 0 | 0 | 37 | 2861 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
-| C | 48 | 0 | 0 | 0 | 35 | 3348 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
+| C | 49 | 0 | 0 | 0 | 35 | 3321 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
+| C | 48 | 0 | 0 | 0 | 37 | 2819 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
+| C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
-| C | 44 | 0 | 0 | 0 | 32 | 3903 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
-| C | 43 | 0 | 0 | 0 | 31 | 2860 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
+| C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
+| C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
-| C | 41 | 0 | 0 | 0 | 29 | 3329 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
+| C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
-| C | 39 | 0 | 0 | 0 | 29 | 3094 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 39 | 0 | 3 | 0 | 10 | 2411 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
-| C | 38 | 0 | 0 | 0 | 28 | 2920 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
-| C | 36 | 0 | 0 | 0 | 28 | 2768 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
-| C | 35 | 0 | 0 | 0 | 26 | 2909 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
-| B | 34 | 0 | 0 | 0 | 25 | 2595 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
+| C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
+| C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
+| C | 37 | 0 | 0 | 0 | 25 | 2671 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
+| C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
+| B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
-| B | 33 | 0 | 0 | 0 | 27 | 2656 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
-| B | 33 | 0 | 0 | 0 | 23 | 2744 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
+| B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 33 | 0 | 1 | 0 | 22 | 2086 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 31 | 0 | 2 | 0 | 11 | 1612 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
@@ -129,12 +129,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
-| B | 24 | 0 | 0 | 0 | 17 | 2972 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
+| B | 24 | 0 | 0 | 0 | 17 | 2890 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
-| B | 23 | 0 | 0 | 0 | 20 | 2718 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
+| B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | B | 23 | 0 | 0 | 0 | 19 | 1927 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
 | B | 23 | 0 | 1 | 0 | 10 | 1241 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 3437 | `docs/11-cloud-and-aws/ecs-eks.md` |
@@ -157,6 +157,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
+| B | 20 | 0 | 0 | 0 | 15 | 2817 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1844 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | B | 20 | 0 | 1 | 0 | 8 | 1592 | `docs/09-kubernetes/upgrades.md` |
 | B | 20 | 0 | 0 | 0 | 12 | 1304 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
@@ -176,14 +177,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 13 | 1113 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 2147 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1951 | `docs/06-gitlab/variables-and-secrets.md` |
-| B | 18 | 0 | 0 | 0 | 14 | 2885 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 1779 | `docs/08-container-fundamentals-and-docker/build-context-layer-cache.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 2410 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1521 | `docs/12-observability/opentelemetry.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1331 | `docs/13-security-and-identity/sbom.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
-| B | 17 | 0 | 0 | 0 | 13 | 2826 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
+| B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 1887 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | B | 17 | 0 | 1 | 0 | 5 | 1262 | `docs/09-kubernetes/job-cronjob.md` |
@@ -197,8 +197,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
-| B | 16 | 0 | 0 | 0 | 12 | 2671 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
-| B | 16 | 0 | 0 | 0 | 12 | 2415 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
+| B | 16 | 0 | 0 | 0 | 12 | 2628 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
+| B | 16 | 0 | 0 | 0 | 12 | 2379 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 1713 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | B | 16 | 0 | 1 | 0 | 6 | 1351 | `docs/09-kubernetes/deployment.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 1327 | `docs/09-kubernetes/securitycontext-pod-security.md` |
@@ -225,7 +225,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 12 | 2309 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
-| A | 14 | 0 | 0 | 0 | 11 | 2557 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
+| A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | A | 14 | 0 | 0 | 0 | 14 | 1980 | `docs/10-helm-and-cka/hooks.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 1794 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
@@ -237,7 +237,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 10 | 888 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | A | 13 | 0 | 0 | 0 | 8 | 1412 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1600 | `docs/06-gitlab/protected-branches-and-environments.md` |
-| A | 13 | 0 | 0 | 0 | 9 | 3946 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
+| A | 13 | 0 | 0 | 0 | 9 | 3923 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
 | B | 13 | 0 | 1 | 0 | 3 | 1195 | `docs/09-kubernetes/scheduling.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 1987 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1459 | `docs/12-observability/alert-design-alert-fatigue.md` |
@@ -297,7 +297,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 6 | 874 | `docs/02-networking-and-web/dhcp.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 825 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 1189 | `docs/03-git-and-automation/branching-strategies.md` |
-| A | 9 | 0 | 0 | 0 | 9 | 3329 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md` |
+| A | 9 | 0 | 0 | 0 | 9 | 3308 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md` |
 | A | 9 | 0 | 0 | 0 | 5 | 1187 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 2240 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 2131 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
@@ -2218,8 +2218,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | `example-not-explicit` | 0 | 0 | 0 | 2090 | 2090 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1279 | 1279 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1117 | 1117 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1289 | 1289 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1116 | 1116 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
 | `single-sentence-concept` | 0 | 357 | 0 | 0 | 357 |
 | `outline-instead-of-explanation` | 316 | 0 | 0 | 0 | 316 |

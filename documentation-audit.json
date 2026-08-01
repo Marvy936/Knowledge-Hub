@@ -1711,21 +1711,21 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "title": "Ansible architecture",
-      "words": 2885,
+      "words": 2817,
       "headings": 23,
       "sections": 23,
-      "findings": 14,
+      "findings": 15,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 14,
-      "score": 18,
+      "low": 15,
+      "score": 20,
       "grade": "B"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "title": "Ansible idempotencia",
-      "words": 2860,
+      "words": 2788,
       "headings": 30,
       "sections": 30,
       "findings": 31,
@@ -1739,7 +1739,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
       "title": "Praktický Ansible projekt od inventory po overený rolling configuration rollout",
-      "words": 3946,
+      "words": 3923,
       "headings": 34,
       "sections": 34,
       "findings": 9,
@@ -1767,7 +1767,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "title": "Drift",
-      "words": 2972,
+      "words": 2890,
       "headings": 39,
       "sections": 39,
       "findings": 17,
@@ -1781,7 +1781,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "title": "Expressions a dependency graph",
-      "words": 2557,
+      "words": 2498,
       "headings": 24,
       "sections": 24,
       "findings": 11,
@@ -1795,7 +1795,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "title": "Handlers, loops a conditionals",
-      "words": 2920,
+      "words": 2905,
       "headings": 32,
       "sections": 32,
       "findings": 28,
@@ -1809,7 +1809,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
       "title": "Infrastructure as Code principles",
-      "words": 2671,
+      "words": 2628,
       "headings": 22,
       "sections": 22,
       "findings": 12,
@@ -1823,7 +1823,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "title": "Inventory",
-      "words": 2656,
+      "words": 2590,
       "headings": 25,
       "sections": 25,
       "findings": 27,
@@ -1837,21 +1837,21 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "title": "Lifecycle, import a moved blocks",
-      "words": 3329,
+      "words": 3201,
       "headings": 36,
       "sections": 36,
-      "findings": 29,
+      "findings": 31,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 29,
-      "score": 41,
+      "low": 31,
+      "score": 45,
       "grade": "C"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "title": "Modules, tasks, plays a playbooks",
-      "words": 2718,
+      "words": 2657,
       "headings": 22,
       "sections": 22,
       "findings": 20,
@@ -1865,21 +1865,21 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "title": "Modules",
-      "words": 2909,
+      "words": 2858,
       "headings": 30,
       "sections": 30,
-      "findings": 26,
+      "findings": 27,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 26,
-      "score": 35,
+      "low": 27,
+      "score": 37,
       "grade": "C"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "title": "Remote backend a state locking",
-      "words": 2595,
+      "words": 2546,
       "headings": 31,
       "sections": 31,
       "findings": 25,
@@ -1893,7 +1893,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "title": "Roles a collections",
-      "words": 2861,
+      "words": 2819,
       "headings": 31,
       "sections": 31,
       "findings": 37,
@@ -1907,7 +1907,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
       "title": "Praktický Terraform projekt od prázdneho adresára po overený remote state",
-      "words": 3329,
+      "words": 3308,
       "headings": 26,
       "sections": 26,
       "findings": 9,
@@ -1921,7 +1921,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "title": "Terraform providers, resources a data sources",
-      "words": 2415,
+      "words": 2379,
       "headings": 24,
       "sections": 24,
       "findings": 12,
@@ -1935,29 +1935,29 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "title": "Terraform state",
-      "words": 3094,
+      "words": 2980,
       "headings": 33,
       "sections": 33,
-      "findings": 29,
+      "findings": 30,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 29,
-      "score": 39,
+      "low": 30,
+      "score": 41,
       "grade": "C"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "title": "Terraform testing a policy",
-      "words": 3903,
+      "words": 3799,
       "headings": 38,
       "sections": 38,
-      "findings": 32,
+      "findings": 34,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 32,
-      "score": 44,
+      "low": 34,
+      "score": 48,
       "grade": "C"
     },
     {
@@ -1977,7 +1977,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "title": "Terraform vs. Ansible",
-      "words": 3348,
+      "words": 3321,
       "headings": 38,
       "sections": 38,
       "findings": 35,
@@ -1985,13 +1985,13 @@
       "high": 0,
       "medium": 0,
       "low": 35,
-      "score": 48,
+      "score": 49,
       "grade": "C"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "title": "Variables, facts a templates",
-      "words": 2768,
+      "words": 2753,
       "headings": 24,
       "sections": 24,
       "findings": 28,
@@ -2005,7 +2005,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "title": "Variables, locals a outputs",
-      "words": 2826,
+      "words": 2774,
       "headings": 23,
       "sections": 23,
       "findings": 13,
@@ -2019,16 +2019,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "title": "Vault",
-      "words": 2744,
+      "words": 2671,
       "headings": 32,
       "sections": 32,
-      "findings": 23,
+      "findings": 25,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 23,
-      "score": 33,
-      "grade": "B"
+      "low": 25,
+      "score": 37,
+      "grade": "C"
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/build-context-layer-cache.md",
@@ -40475,7 +40475,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "3. Control node ako privilegovaná boundary",
-      "line": 76,
+      "line": 75,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40484,7 +40484,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "3. Control node ako privilegovaná boundary",
-      "line": 76,
+      "line": 75,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40493,7 +40493,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "7. Inventory resolution pred execution",
-      "line": 191,
+      "line": 184,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40502,7 +40502,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "8. Variable context per host",
-      "line": 224,
+      "line": 217,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40511,7 +40511,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "10. Strategy, forks a serial",
-      "line": 263,
+      "line": 256,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "10. Strategy, forks a serial",
+      "line": 256,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40520,7 +40529,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "11. Structured result a truthfulness",
-      "line": 302,
+      "line": 291,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40529,7 +40538,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "13. Failure a coverage model",
-      "line": 359,
+      "line": 347,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40538,7 +40547,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "13. Failure a coverage model",
-      "line": 359,
+      "line": 347,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40547,7 +40556,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "17. Worked incident: delegated API task v nesprávnom účte",
-      "line": 442,
+      "line": 429,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40556,7 +40565,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "18. Competing hypotheses pri mixed fleet",
-      "line": 463,
+      "line": 449,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40565,7 +40574,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "19. Evidence-preserving containment a recovery",
-      "line": 489,
+      "line": 473,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40574,7 +40583,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "20. Acceptance a forbidden paths",
-      "line": 505,
+      "line": 485,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40601,7 +40610,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "4. Fresh current-state observation",
-      "line": 74,
+      "line": 73,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40610,7 +40619,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "4. Fresh current-state observation",
-      "line": 74,
+      "line": 73,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40618,8 +40627,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "6. Command guards sú slabý observation model",
-      "line": 121,
+      "section": "5. State-aware module contract",
+      "line": 87,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40628,7 +40637,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "6. Command guards sú slabý observation model",
-      "line": 121,
+      "line": 115,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "6. Command guards sú slabý observation model",
+      "line": 115,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40637,7 +40655,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "8. Truthful result",
-      "line": 163,
+      "line": 156,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40646,7 +40664,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "8. Truthful result",
-      "line": 163,
+      "line": 156,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40655,7 +40673,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "8. Truthful result",
-      "line": 163,
+      "line": 156,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40664,7 +40682,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "9. Deterministic artifacts",
-      "line": 192,
+      "line": 184,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40673,7 +40691,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "9. Deterministic artifacts",
-      "line": 192,
+      "line": 184,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40682,7 +40700,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "11. External API idempotency",
-      "line": 244,
+      "line": 230,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40691,7 +40709,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "11. External API idempotency",
-      "line": 244,
+      "line": 230,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40700,7 +40718,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "13. Worked failure: duplicate registration",
-      "line": 287,
+      "line": 271,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40709,16 +40727,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "14. Partial failure a resumability",
-      "line": 300,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "14. Partial failure a resumability",
-      "line": 300,
+      "line": 279,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40727,7 +40736,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "15. Multi-writer oscillation",
-      "line": 323,
+      "line": 298,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40736,7 +40745,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "15. Multi-writer oscillation",
-      "line": 323,
+      "line": 298,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40745,7 +40754,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "16. Second-run acceptance",
-      "line": 344,
+      "line": 318,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40754,7 +40763,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "19. Competing hypotheses pri perpetual restartoch",
-      "line": 398,
+      "line": 371,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40763,7 +40772,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "20. Evidence-preserving containment a recovery",
-      "line": 423,
+      "line": 394,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40772,7 +40781,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "20. Evidence-preserving containment a recovery",
-      "line": 423,
+      "line": 394,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40781,7 +40790,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "21. Acceptance a forbidden paths",
-      "line": 440,
+      "line": 410,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40790,7 +40799,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "21. Acceptance a forbidden paths",
-      "line": 440,
+      "line": 410,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40799,7 +40808,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "21. Acceptance a forbidden paths",
-      "line": 440,
+      "line": 410,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40808,7 +40817,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "„Použil som Ansible module, takže task je idempotentný“",
-      "line": 470,
+      "line": 436,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40817,7 +40826,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "„ changed=0 znamená správny stav“",
-      "line": 477,
+      "line": 442,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40826,7 +40835,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "„ changed=0 znamená správny stav“",
-      "line": 477,
+      "line": 442,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40835,7 +40844,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "„ creates dokazuje completion“",
-      "line": 484,
+      "line": 448,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40844,7 +40853,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "„ creates dokazuje completion“",
-      "line": 484,
+      "line": 448,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40853,7 +40862,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "section": "„Retry je bezpečný pri timeout-e“",
-      "line": 491,
+      "line": 454,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40934,7 +40943,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
       "section": "30. Acceptance checklist",
-      "line": 1063,
+      "line": 1059,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41051,7 +41060,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "3. Desired, known a actual state",
-      "line": 75,
+      "line": 71,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41060,7 +41069,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "4. Refresh nie je remediation",
-      "line": 108,
+      "line": 103,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41069,7 +41078,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "Provider interpretation drift",
-      "line": 152,
+      "line": 147,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41078,7 +41087,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "Dependency drift",
-      "line": 159,
+      "line": 153,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41087,7 +41096,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "8. Worked incident: automatic revert odstránil containment",
-      "line": 223,
+      "line": 216,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41096,7 +41105,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "10. Shared ownership a ignore changes",
-      "line": 279,
+      "line": 271,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41105,7 +41114,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "10. Shared ownership a ignore changes",
-      "line": 279,
+      "line": 271,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41114,7 +41123,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "12. Provider noise a signal integrity",
-      "line": 337,
+      "line": 328,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41123,7 +41132,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "Compensate alebo restore",
-      "line": 393,
+      "line": 379,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41132,7 +41141,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "Compensate alebo restore",
-      "line": 393,
+      "line": 379,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41141,7 +41150,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "15. Causal troubleshooting: rovnaký diff po každom apply",
-      "line": 415,
+      "line": 400,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "15. Causal troubleshooting: rovnaký diff po každom apply",
+      "line": 400,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41150,7 +41168,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "15. Causal troubleshooting: rovnaký diff po každom apply",
-      "line": 415,
+      "line": 400,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41158,8 +41176,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "16. Authoritative recovery incidentu IAC-PAY-77",
-      "line": 443,
+      "section": "17. Acceptance a forbidden paths",
+      "line": 435,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41168,16 +41186,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "17. Acceptance a forbidden paths",
-      "line": 460,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "17. Acceptance a forbidden paths",
-      "line": 460,
+      "line": 435,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41186,7 +41195,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "„Exit code 0 znamená čistú produkciu“",
-      "line": 498,
+      "line": 468,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41204,7 +41213,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "5. Unknown values a hranica plan-time rozhodovania",
-      "line": 113,
+      "line": 112,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41213,7 +41222,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "6. for each ako identity contract",
-      "line": 165,
+      "line": 160,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41222,7 +41231,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "6. for each ako identity contract",
-      "line": 165,
+      "line": 160,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41231,7 +41240,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "6. for each ako identity contract",
-      "line": 165,
+      "line": 160,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41240,7 +41249,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "7. count a indexová identity",
-      "line": 196,
+      "line": 190,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41249,7 +41258,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "9. Conditional expressions a null",
-      "line": 244,
+      "line": 238,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41258,7 +41267,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "11. Dynamic blocks a schema-driven repetition",
-      "line": 291,
+      "line": 285,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41267,7 +41276,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "12. Implicitný dependency edge",
-      "line": 315,
+      "line": 309,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41276,7 +41285,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "13. Explicitný depends on",
-      "line": 339,
+      "line": 332,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41285,7 +41294,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "section": "17. Cycles ako architecture signal",
-      "line": 435,
+      "line": 424,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41330,7 +41339,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "6. Complete item preflight",
-      "line": 131,
+      "line": 129,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41339,7 +41348,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "6. Complete item preflight",
-      "line": 131,
+      "line": 129,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41348,7 +41357,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "6. Complete item preflight",
-      "line": 131,
+      "line": 129,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41357,7 +41366,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "7. Stable item identity",
-      "line": 150,
+      "line": 147,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41366,7 +41375,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "7. Stable item identity",
-      "line": 150,
+      "line": 147,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41375,7 +41384,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "7. Stable item identity",
-      "line": 150,
+      "line": 147,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41384,7 +41393,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "9. Registered loop result",
-      "line": 189,
+      "line": 185,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41393,7 +41402,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "9. Registered loop result",
-      "line": 189,
+      "line": 185,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41402,7 +41411,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "10. Retry verzus business loop",
-      "line": 222,
+      "line": 217,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41411,7 +41420,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "12. Handler ako queued runtime transition",
-      "line": 275,
+      "line": 269,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41420,7 +41429,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "13. listen topic ako reusable event contract",
-      "line": 303,
+      "line": 296,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41429,7 +41438,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "13. listen topic ako reusable event contract",
-      "line": 303,
+      "line": 296,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41438,7 +41447,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "16. Complete-set staging example",
-      "line": 361,
+      "line": 353,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41447,7 +41456,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "16. Complete-set staging example",
-      "line": 361,
+      "line": 353,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41456,7 +41465,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "19. Worked incident: string boolean otvoril admin listener",
-      "line": 431,
+      "line": 422,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41465,7 +41474,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "20. Worked incident: duplicate deployment POST",
-      "line": 451,
+      "line": 441,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41474,7 +41483,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "20. Worked incident: duplicate deployment POST",
-      "line": 451,
+      "line": 441,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41483,7 +41492,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "21. Competing hypotheses pri files-new/process-old",
-      "line": 467,
+      "line": 453,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41492,7 +41501,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 493,
+      "line": 477,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41501,7 +41510,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 493,
+      "line": 477,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41510,7 +41519,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "„Skipped znamená, že task nebol potrebný“",
-      "line": 532,
+      "line": 514,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41519,7 +41528,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "„Skipped znamená, že task nebol potrebný“",
-      "line": 532,
+      "line": 514,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41528,7 +41537,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "„Loop je all-or-nothing“",
-      "line": 539,
+      "line": 520,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41537,7 +41546,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "section": "„Loop je all-or-nothing“",
-      "line": 539,
+      "line": 520,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41609,7 +41618,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
       "section": "11. Competing hypotheses a diskriminačné dôkazy",
-      "line": 320,
+      "line": 312,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41618,7 +41627,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
       "section": "11. Competing hypotheses a diskriminačné dôkazy",
-      "line": 320,
+      "line": 312,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41627,7 +41636,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
       "section": "11. Competing hypotheses a diskriminačné dôkazy",
-      "line": 320,
+      "line": 312,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41636,7 +41645,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
       "section": "„Plan nemá destroy, takže je bezpečný“",
-      "line": 407,
+      "line": 395,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41645,7 +41654,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
       "section": "„Apply failed, teda sa nič nezmenilo“",
-      "line": 413,
+      "line": 401,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41663,7 +41672,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "2. Exact inventory resolution subject",
-      "line": 28,
+      "line": 27,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41672,7 +41681,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "2. Exact inventory resolution subject",
-      "line": 28,
+      "line": 27,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41681,7 +41690,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "3. Inventory source verzus resolved inventory",
-      "line": 57,
+      "line": 55,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41690,7 +41699,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "3. Inventory source verzus resolved inventory",
-      "line": 57,
+      "line": 55,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41699,7 +41708,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "4. Stable logical a immutable remote identity",
-      "line": 74,
+      "line": 72,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41708,7 +41717,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "4. Stable logical a immutable remote identity",
-      "line": 74,
+      "line": 72,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41717,7 +41726,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "5. Worked failure: recyklovaná IP",
-      "line": 96,
+      "line": 93,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41726,7 +41735,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "6. Groups ako membership a variable graph",
-      "line": 130,
+      "line": 123,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41735,7 +41744,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "9. Static inventory ako vlastnená exception",
-      "line": 220,
+      "line": 213,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41744,7 +41753,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "9. Static inventory ako vlastnená exception",
-      "line": 220,
+      "line": 213,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41753,7 +41762,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "10. Source order a duplicate identities",
-      "line": 237,
+      "line": 229,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41762,7 +41771,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "10. Source order a duplicate identities",
-      "line": 237,
+      "line": 229,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41771,7 +41780,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "11. Connection variables sú execution controls",
-      "line": 268,
+      "line": 256,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41780,7 +41789,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "11. Connection variables sú execution controls",
-      "line": 268,
+      "line": 256,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41789,7 +41798,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "11. Connection variables sú execution controls",
-      "line": 268,
+      "line": 256,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41798,7 +41807,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "13. Expected target manifest",
-      "line": 310,
+      "line": 297,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41807,7 +41816,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "13. Expected target manifest",
-      "line": 310,
+      "line": 297,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41816,7 +41825,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "16. Constructed groups a missing metadata",
-      "line": 383,
+      "line": 369,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41825,7 +41834,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "17. Variable conflicts v inventory",
-      "line": 402,
+      "line": 384,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41834,7 +41843,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "17. Variable conflicts v inventory",
-      "line": 402,
+      "line": 384,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41843,7 +41852,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "17. Variable conflicts v inventory",
-      "line": 402,
+      "line": 384,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41852,7 +41861,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "19. Localhost boundary",
-      "line": 430,
+      "line": 411,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41861,7 +41870,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "19. Localhost boundary",
-      "line": 430,
+      "line": 411,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41870,7 +41879,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "20. Worked incident: stale cache vynechala dva hosts",
-      "line": 445,
+      "line": 425,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41879,7 +41888,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "21. Competing hypotheses pri chýbajúcom hoste",
-      "line": 466,
+      "line": 442,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41888,7 +41897,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 490,
+      "line": 464,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41915,7 +41924,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "2. Tri transition classes",
-      "line": 40,
+      "line": 39,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41924,7 +41933,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "Address refactor",
-      "line": 72,
+      "line": 69,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41933,7 +41942,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "4. create before destroy mení poradie, nie risk model",
-      "line": 126,
+      "line": 118,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41942,16 +41951,25 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "4. create before destroy mení poradie, nie risk model",
-      "line": 126,
+      "line": 118,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "6. prevent destroy ako lokálny plan guard",
+      "line": 173,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "7. ignore changes ako explicitný ownership handoff",
-      "line": 206,
+      "line": 193,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41960,7 +41978,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "8. replace triggered by ako identity edge",
-      "line": 240,
+      "line": 222,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41969,7 +41987,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "8. replace triggered by ako identity edge",
-      "line": 240,
+      "line": 222,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41978,7 +41996,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "8. replace triggered by ako identity edge",
-      "line": 240,
+      "line": 222,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41987,7 +42005,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "9. Preconditions a postconditions",
-      "line": 270,
+      "line": 251,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41996,7 +42014,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "9. Preconditions a postconditions",
-      "line": 270,
+      "line": 251,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42005,7 +42023,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "12. CLI import verzus import block",
-      "line": 342,
+      "line": 322,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42014,16 +42032,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "13. Worked failure: import do nesprávneho accountu",
-      "line": 361,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "13. Worked failure: import do nesprávneho accountu",
-      "line": 361,
+      "line": 336,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42032,7 +42041,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "14. Post-import plan je povinný decision point",
-      "line": 382,
+      "line": 353,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42041,7 +42050,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "15. moved block zachováva binding pri refaktore",
-      "line": 408,
+      "line": 378,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42050,7 +42059,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "15. moved block zachováva binding pri refaktore",
-      "line": 408,
+      "line": 378,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42059,7 +42068,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "16. Premenovanie for each keya",
-      "line": 430,
+      "line": 399,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42068,7 +42077,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "16. Premenovanie for each keya",
-      "line": 430,
+      "line": 399,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42077,7 +42086,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "16. Premenovanie for each keya",
-      "line": 430,
+      "line": 399,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42086,7 +42095,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "moved block",
-      "line": 461,
+      "line": 428,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "moved block",
+      "line": 428,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42095,7 +42113,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "terraform state mv",
-      "line": 476,
+      "line": 438,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "terraform state mv",
+      "line": 438,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42104,7 +42131,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 573,
+      "line": 531,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42113,7 +42140,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ create before destroy je univerzálny zero-downtime switch“",
-      "line": 595,
+      "line": 552,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42122,7 +42149,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ create before destroy je univerzálny zero-downtime switch“",
-      "line": 595,
+      "line": 552,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42131,7 +42158,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ prevent destroy je backup“",
-      "line": 602,
+      "line": 558,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42140,7 +42167,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ prevent destroy je backup“",
-      "line": 602,
+      "line": 558,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42149,7 +42176,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„Import úspešne prešiel, objekt je správny“",
-      "line": 616,
+      "line": 570,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42185,7 +42212,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "6. Play ako target a execution policy",
-      "line": 129,
+      "line": 128,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42194,7 +42221,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "7. Playbook ako orchestration medzi capabilities",
-      "line": 172,
+      "line": 167,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42203,7 +42230,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "7. Playbook ako orchestration medzi capabilities",
-      "line": 172,
+      "line": 167,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42212,7 +42239,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "7. Playbook ako orchestration medzi capabilities",
-      "line": 172,
+      "line": 167,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42221,7 +42248,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "8. Kompletný rolling example",
-      "line": 192,
+      "line": 186,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42230,7 +42257,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "8. Kompletný rolling example",
-      "line": 192,
+      "line": 186,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42239,7 +42266,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "8. Kompletný rolling example",
-      "line": 192,
+      "line": 186,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42248,7 +42275,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "10. Blocks, rescue a always",
-      "line": 274,
+      "line": 267,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42257,7 +42284,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "10. Blocks, rescue a always",
-      "line": 274,
+      "line": 267,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42266,7 +42293,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "11. Tags ako selection, nie dependency graph",
-      "line": 311,
+      "line": 303,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42275,7 +42302,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "12. run once nie je distributed lock",
-      "line": 331,
+      "line": 322,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42284,7 +42311,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "12. run once nie je distributed lock",
-      "line": 331,
+      "line": 322,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42293,7 +42320,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "13. Delegation a shared API fan-out",
-      "line": 355,
+      "line": 345,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42302,7 +42329,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "17. Competing hypotheses pri mixed runtime",
-      "line": 410,
+      "line": 396,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42311,7 +42338,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "18. Evidence-preserving containment a recovery",
-      "line": 437,
+      "line": 421,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42320,7 +42347,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "18. Evidence-preserving containment a recovery",
-      "line": 437,
+      "line": 421,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42329,7 +42356,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "section": "19. Acceptance a forbidden paths",
-      "line": 453,
+      "line": 433,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42356,7 +42383,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "3. Module source je executable dependency",
-      "line": 67,
+      "line": 62,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42365,7 +42392,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "4. Public contract modulu",
-      "line": 104,
+      "line": 99,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42374,7 +42401,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "4. Public contract modulu",
-      "line": 104,
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42383,7 +42410,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "4. Public contract modulu",
-      "line": 104,
+      "line": 99,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42392,7 +42419,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "8. Module composition a dependencies",
-      "line": 228,
+      "line": 222,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42401,7 +42428,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "8. Module composition a dependencies",
-      "line": 228,
+      "line": 222,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42410,7 +42437,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "9. Module boundary podľa capability a coupling-u",
-      "line": 258,
+      "line": 251,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42419,7 +42446,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "10. Module instance identity",
-      "line": 276,
+      "line": 265,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42428,7 +42455,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "10. Module instance identity",
-      "line": 276,
+      "line": 265,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42437,7 +42464,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "11. Versioning ako compatibility promise",
-      "line": 299,
+      "line": 287,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42446,7 +42473,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "15. Upgrade lifecycle",
-      "line": 370,
+      "line": 354,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42455,7 +42482,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "17. Module testing portfolio",
-      "line": 409,
+      "line": 390,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42464,7 +42491,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "18. Consumer inventory",
-      "line": 452,
+      "line": 432,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "18. Consumer inventory",
+      "line": 432,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42473,7 +42509,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "18. Consumer inventory",
-      "line": 452,
+      "line": 432,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42482,7 +42518,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "21. Acceptance a forbidden paths",
-      "line": 511,
+      "line": 486,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42491,7 +42527,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Module je state boundary“",
-      "line": 533,
+      "line": 507,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42500,7 +42536,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Module je state boundary“",
-      "line": 533,
+      "line": 507,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42509,7 +42545,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Wrapper okolo resource je automaticky abstraction“",
-      "line": 540,
+      "line": 513,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42518,7 +42554,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Wrapper okolo resource je automaticky abstraction“",
-      "line": 540,
+      "line": 513,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42527,7 +42563,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Version number zaručuje SemVer compatibility“",
-      "line": 547,
+      "line": 519,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42536,7 +42572,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Version number zaručuje SemVer compatibility“",
-      "line": 547,
+      "line": 519,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42545,7 +42581,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Module môže konfigurovať vlastný production provider“",
-      "line": 554,
+      "line": 525,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42554,7 +42590,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Module môže konfigurovať vlastný production provider“",
-      "line": 554,
+      "line": 525,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42563,7 +42599,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "section": "„Môžeme odstrániť staré moved blocks po jednom release“",
-      "line": 561,
+      "line": 531,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42590,7 +42626,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "2. Backend verzus provider",
-      "line": 31,
+      "line": 27,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42599,7 +42635,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "3. Backend initialization je subject selection",
-      "line": 55,
+      "line": 51,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42608,7 +42644,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "3. Backend initialization je subject selection",
-      "line": 55,
+      "line": 51,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42617,7 +42653,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "5. Lock ako writer lease",
-      "line": 108,
+      "line": 104,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42626,7 +42662,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "5. Lock ako writer lease",
-      "line": 108,
+      "line": 104,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42635,7 +42671,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "7. Multi-writer race nad jedným state-om",
-      "line": 144,
+      "line": 135,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42644,7 +42680,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "7. Multi-writer race nad jedným state-om",
-      "line": 144,
+      "line": 135,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42653,7 +42689,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "8. Dvaja writers nad dvoma backendmi",
-      "line": 166,
+      "line": 156,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42662,7 +42698,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "9. Force unlock neukončuje writera",
-      "line": 190,
+      "line": 176,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42671,7 +42707,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "9. Force unlock neukončuje writera",
-      "line": 190,
+      "line": 176,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42680,7 +42716,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "9. Force unlock neukončuje writera",
-      "line": 190,
+      "line": 176,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42689,7 +42725,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "Worked failure",
-      "line": 212,
+      "line": 197,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42698,7 +42734,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "12. Praktický backend identity gate",
-      "line": 265,
+      "line": 250,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42707,7 +42743,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "12. Praktický backend identity gate",
-      "line": 265,
+      "line": 250,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42716,7 +42752,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "20. Competing hypotheses pri stale locku",
-      "line": 396,
+      "line": 380,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42725,7 +42761,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "21. Acceptance a forbidden paths",
-      "line": 420,
+      "line": 402,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42734,7 +42770,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Remote state automaticky znamená locking“",
-      "line": 442,
+      "line": 423,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42743,7 +42779,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Remote state automaticky znamená locking“",
-      "line": 442,
+      "line": 423,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42752,7 +42788,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Force unlock je bezpečný, keď job zmizol z UI“",
-      "line": 453,
+      "line": 433,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42761,7 +42797,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Force unlock je bezpečný, keď job zmizol z UI“",
-      "line": 453,
+      "line": 433,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42770,7 +42806,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Migrácia skončila po úspešnom copy“",
-      "line": 460,
+      "line": 439,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42779,7 +42815,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Migrácia skončila po úspešnom copy“",
-      "line": 460,
+      "line": 439,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42788,7 +42824,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "section": "„Versioning v rovnakom bucket-e je kompletný backup“",
-      "line": 467,
+      "line": 445,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42797,7 +42833,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "3. Role public contract",
-      "line": 42,
+      "line": 38,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42806,7 +42842,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "3. Role public contract",
-      "line": 42,
+      "line": 38,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42815,7 +42851,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "4. Defaults verzus role vars",
-      "line": 74,
+      "line": 69,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42824,7 +42860,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "4. Defaults verzus role vars",
-      "line": 74,
+      "line": 69,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42833,7 +42869,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "6. Role structure ako lifecycle, nie cieľ",
-      "line": 112,
+      "line": 106,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42842,7 +42878,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "6. Role structure ako lifecycle, nie cieľ",
-      "line": 112,
+      "line": 106,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42851,7 +42887,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "7. Static a dynamic role reuse",
-      "line": 146,
+      "line": 139,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42860,7 +42896,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "7. Static a dynamic role reuse",
-      "line": 146,
+      "line": 139,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42869,7 +42905,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "7. Static a dynamic role reuse",
-      "line": 146,
+      "line": 139,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42878,7 +42914,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "8. Handler topic ako public API",
-      "line": 166,
+      "line": 158,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42887,7 +42923,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "11. Artifact subject",
-      "line": 236,
+      "line": 227,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42896,7 +42932,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "11. Artifact subject",
-      "line": 236,
+      "line": 227,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42905,7 +42941,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "11. Artifact subject",
-      "line": 236,
+      "line": 227,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42914,7 +42950,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "12. Requirements a pinning",
-      "line": 258,
+      "line": 248,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42923,7 +42959,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "12. Requirements a pinning",
-      "line": 258,
+      "line": 248,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42932,7 +42968,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "12. Requirements a pinning",
-      "line": 258,
+      "line": 248,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42941,7 +42977,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "14. Execution environment manifest",
-      "line": 303,
+      "line": 292,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42950,7 +42986,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "14. Execution environment manifest",
-      "line": 303,
+      "line": 292,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42959,7 +42995,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "14. Execution environment manifest",
-      "line": 303,
+      "line": 292,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42968,7 +43004,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "15. Supply-chain review",
-      "line": 317,
+      "line": 305,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42977,7 +43013,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "15. Supply-chain review",
-      "line": 317,
+      "line": 305,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42986,7 +43022,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "16. Role a collection test lifecycle",
-      "line": 335,
+      "line": 319,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42995,7 +43031,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "16. Role a collection test lifecycle",
-      "line": 335,
+      "line": 319,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43004,7 +43040,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "17. Compatibility policy",
-      "line": 365,
+      "line": 348,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43013,7 +43049,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "17. Compatibility policy",
-      "line": 365,
+      "line": 348,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43022,7 +43058,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "18. Consumer inventory",
-      "line": 383,
+      "line": 364,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43031,7 +43067,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "18. Consumer inventory",
-      "line": 383,
+      "line": 364,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43040,7 +43076,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "20. Competing hypotheses pri local/controller rozdiele",
-      "line": 416,
+      "line": 396,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43049,7 +43085,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "20. Competing hypotheses pri local/controller rozdiele",
-      "line": 416,
+      "line": 396,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43058,7 +43094,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "21. Evidence-preserving containment a recovery",
-      "line": 440,
+      "line": 418,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43067,7 +43103,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "21. Evidence-preserving containment a recovery",
-      "line": 440,
+      "line": 418,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43076,7 +43112,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "„Role je iba folder structure“",
-      "line": 474,
+      "line": 447,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43085,7 +43121,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "„Role je iba folder structure“",
-      "line": 474,
+      "line": 447,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43094,7 +43130,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "„FQCN pinne version“",
-      "line": 481,
+      "line": 453,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43103,7 +43139,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "„FQCN pinne version“",
-      "line": 481,
+      "line": 453,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43112,7 +43148,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "„Broad range automaticky prijíma kompatibilné minor releases“",
-      "line": 488,
+      "line": 459,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43121,7 +43157,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
       "section": "„Broad range automaticky prijíma kompatibilné minor releases“",
-      "line": 488,
+      "line": 459,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43211,7 +43247,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "2. Terraform Core verzus provider responsibility",
-      "line": 49,
+      "line": 45,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43220,7 +43256,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "3. Requirement, selected version a lock file",
-      "line": 75,
+      "line": 71,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43229,7 +43265,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "4. Provider configuration je target identity",
-      "line": 114,
+      "line": 110,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43238,7 +43274,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "6. Managed resource: address, remote ID a binding",
-      "line": 193,
+      "line": 189,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43247,7 +43283,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "6. Managed resource: address, remote ID a binding",
-      "line": 193,
+      "line": 189,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43256,7 +43292,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "7. Arguments, attributes a unknown values",
-      "line": 235,
+      "line": 231,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43265,7 +43301,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "8. Data source je read contract, nie lifecycle ownership",
-      "line": 253,
+      "line": 249,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43274,7 +43310,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "10. Stable instance identity: for each verzus count",
-      "line": 322,
+      "line": 318,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43283,7 +43319,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "12. Worked incident: alias sa nepreniesol",
-      "line": 364,
+      "line": 360,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43292,7 +43328,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "„Provider constraint stačí, lock file netreba“",
-      "line": 458,
+      "line": 450,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43301,7 +43337,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "„Provider constraint stačí, lock file netreba“",
-      "line": 458,
+      "line": 450,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43310,7 +43346,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "section": "„Data source nič nemení, takže je bez rizika“",
-      "line": 471,
+      "line": 462,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43337,7 +43373,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "3. Desired, known a actual state",
-      "line": 75,
+      "line": 74,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43346,7 +43382,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "4. State snapshot, lineage a serial",
-      "line": 122,
+      "line": 117,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43355,7 +43391,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "4. State snapshot, lineage a serial",
-      "line": 122,
+      "line": 117,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43364,7 +43400,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "4. State snapshot, lineage a serial",
-      "line": 122,
+      "line": 117,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43373,7 +43409,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "9. Evidence-preserving containment",
-      "line": 249,
+      "line": 240,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43382,7 +43418,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "9. Evidence-preserving containment",
-      "line": 249,
+      "line": 240,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43391,7 +43427,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "10. State inspection commands",
-      "line": 263,
+      "line": 250,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "10. State inspection commands",
+      "line": 250,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43400,7 +43445,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "10. State inspection commands",
-      "line": 263,
+      "line": 250,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43409,7 +43454,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "11. State mutation commands menia management model",
-      "line": 293,
+      "line": 275,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43418,7 +43463,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "11. State mutation commands menia management model",
-      "line": 293,
+      "line": 275,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43427,7 +43472,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "state mv",
-      "line": 308,
+      "line": 289,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43436,7 +43481,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "state mv",
-      "line": 308,
+      "line": 289,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43445,7 +43490,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "state rm",
-      "line": 321,
+      "line": 301,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43454,7 +43499,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "state rm",
-      "line": 321,
+      "line": 301,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43463,7 +43508,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "12. State surgery protocol",
-      "line": 336,
+      "line": 315,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43472,7 +43517,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "12. State surgery protocol",
-      "line": 336,
+      "line": 315,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43481,7 +43526,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "15. State boundaries a blast radius",
-      "line": 390,
+      "line": 368,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43490,7 +43535,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "17. State obsahuje citlivé údaje",
-      "line": 448,
+      "line": 421,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43499,7 +43544,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "17. State obsahuje citlivé údaje",
-      "line": 448,
+      "line": 421,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43508,7 +43553,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "19. Worked incident: starý restore vrátil neplatné addresses",
-      "line": 479,
+      "line": 447,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43517,7 +43562,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "21. Authoritative recovery incidentu IAC-PAY-75",
-      "line": 518,
+      "line": 486,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43526,7 +43571,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "21. Authoritative recovery incidentu IAC-PAY-75",
-      "line": 518,
+      "line": 486,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43535,7 +43580,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "„State je cache, môžeme ho zmazať a znovu objaviť“",
-      "line": 554,
+      "line": 521,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43544,7 +43589,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "„State je cache, môžeme ho zmazať a znovu objaviť“",
-      "line": 554,
+      "line": 521,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43553,7 +43598,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "„Failed apply nič nezmenil“",
-      "line": 561,
+      "line": 527,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43562,7 +43607,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "„Failed apply nič nezmenil“",
-      "line": 561,
+      "line": 527,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43571,7 +43616,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "section": "„Najnovší timestamp je správny backup“",
-      "line": 568,
+      "line": 533,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43598,7 +43643,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "2. Exact Terraform evidence subject",
-      "line": 29,
+      "line": 28,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43607,7 +43652,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "2. Exact Terraform evidence subject",
-      "line": 29,
+      "line": 28,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43616,7 +43661,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "2. Exact Terraform evidence subject",
-      "line": 29,
+      "line": 28,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43625,7 +43670,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "4. Najlacnejšie vrstvy",
-      "line": 109,
+      "line": 107,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43634,7 +43679,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Formatting",
-      "line": 119,
+      "line": 117,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43643,7 +43688,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Formatting",
-      "line": 119,
+      "line": 117,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43652,7 +43697,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Validation",
-      "line": 130,
+      "line": 127,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Validation",
+      "line": 127,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43661,7 +43715,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Validation",
-      "line": 130,
+      "line": 127,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43670,7 +43724,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "5. Invarianty priamo v Terraform contracte",
-      "line": 165,
+      "line": 157,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43679,7 +43733,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "5. Invarianty priamo v Terraform contracte",
-      "line": 165,
+      "line": 157,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -43688,7 +43742,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "6. Native Terraform tests",
-      "line": 210,
+      "line": 201,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43697,7 +43751,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Plan test",
-      "line": 223,
+      "line": 213,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43706,7 +43760,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Plan test",
-      "line": 223,
+      "line": 213,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43715,7 +43769,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Forbidden fixture",
-      "line": 253,
+      "line": 242,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43724,7 +43778,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "Forbidden fixture",
-      "line": 253,
+      "line": 242,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43733,7 +43787,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "10. Upgrade test nad existujúcim state-om",
-      "line": 371,
+      "line": 355,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43742,7 +43796,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "10. Upgrade test nad existujúcim state-om",
-      "line": 371,
+      "line": 355,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43751,7 +43805,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "12. Cleanup je súčasť verdictu",
-      "line": 421,
+      "line": 404,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "12. Cleanup je súčasť verdictu",
+      "line": 404,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43760,7 +43823,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "19. Expected-versus-received evidence fan-in",
-      "line": 619,
+      "line": 592,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43769,7 +43832,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "19. Expected-versus-received evidence fan-in",
-      "line": 619,
+      "line": 592,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43778,7 +43841,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "21. Authoritative recovery incidentu IAC-PAY-77",
-      "line": 662,
+      "line": 631,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43787,7 +43850,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 679,
+      "line": 643,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43796,7 +43859,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 679,
+      "line": 643,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43805,7 +43868,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„ validate prešlo, infra je správna“",
-      "line": 714,
+      "line": 673,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43814,7 +43877,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„ validate prešlo, infra je správna“",
-      "line": 714,
+      "line": 673,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43823,7 +43886,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Scanner job success znamená clean“",
-      "line": 728,
+      "line": 685,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43832,7 +43895,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Scanner job success znamená clean“",
-      "line": 728,
+      "line": 685,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43841,7 +43904,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Policy engine nefungoval, preto dočasne povoľme všetko“",
-      "line": 742,
+      "line": 697,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43850,7 +43913,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Apply znovu vypočíta rovnaký plan“",
-      "line": 749,
+      "line": 703,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43859,7 +43922,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Apply znovu vypočíta rovnaký plan“",
-      "line": 749,
+      "line": 703,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43967,7 +44030,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Ansible",
-      "line": 53,
+      "line": 52,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43976,7 +44039,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Ansible",
-      "line": 53,
+      "line": 52,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43985,7 +44048,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "3. Ownership na úrovni objektu alebo atribútu",
-      "line": 70,
+      "line": 68,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43994,7 +44057,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "3. Ownership na úrovni objektu alebo atribútu",
-      "line": 70,
+      "line": 68,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44003,7 +44066,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "4. Tool selection podľa lifecycle-u",
-      "line": 107,
+      "line": 104,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44012,7 +44075,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "5. Terraform-owned platform example",
-      "line": 134,
+      "line": 130,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44021,7 +44084,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "5. Terraform-owned platform example",
-      "line": 134,
+      "line": 130,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44030,7 +44093,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "6. Ansible-owned host configuration example",
-      "line": 158,
+      "line": 153,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44039,7 +44102,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "6. Ansible-owned host configuration example",
-      "line": 158,
+      "line": 153,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44048,7 +44111,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "9. Inventory generation z contractu",
-      "line": 237,
+      "line": 231,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44057,7 +44120,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "10. Readiness ako samostatný state",
-      "line": 277,
+      "line": 270,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44066,25 +44129,25 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "11. Bootstrap boundary",
-      "line": 315,
+      "line": 306,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "11. Bootstrap boundary",
-      "line": 315,
+      "line": 306,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "13. Combined pipeline",
-      "line": 353,
+      "line": 340,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44093,7 +44156,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "15. Failure boundaries",
-      "line": 403,
+      "line": 388,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44102,7 +44165,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Terraform boundary",
-      "line": 408,
+      "line": 392,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44111,7 +44174,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Terraform boundary",
-      "line": 408,
+      "line": 392,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44120,7 +44183,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Contract boundary",
-      "line": 415,
+      "line": 398,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44129,7 +44192,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Contract boundary",
-      "line": 415,
+      "line": 398,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44138,7 +44201,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Ansible boundary",
-      "line": 422,
+      "line": 404,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44147,7 +44210,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "Ansible boundary",
-      "line": 422,
+      "line": 404,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44156,7 +44219,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "19. Worked incident: image a runtime package dual ownership",
-      "line": 501,
+      "line": 482,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44165,7 +44228,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "21. Competing hypotheses pri Terraform green / Ansible unreachable",
-      "line": 537,
+      "line": 518,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44174,7 +44237,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 564,
+      "line": 543,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44183,7 +44246,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "23. Acceptance a forbidden paths",
-      "line": 582,
+      "line": 560,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44192,7 +44255,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "23. Acceptance a forbidden paths",
-      "line": 582,
+      "line": 560,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44201,7 +44264,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "„Terraform robí infra, Ansible config — tým je boundary hotová“",
-      "line": 612,
+      "line": 586,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44210,7 +44273,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "„Ansible môže dočasne opraviť cloud resource“",
-      "line": 619,
+      "line": 592,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44219,7 +44282,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "„Terraform apply success znamená host ready“",
-      "line": 633,
+      "line": 604,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44228,7 +44291,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "„Terraform apply success znamená host ready“",
-      "line": 633,
+      "line": 604,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44237,7 +44300,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "section": "„Provisioner je jednoduchší než Ansible“",
-      "line": 640,
+      "line": 610,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44264,7 +44327,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "2. Exact host configuration subject",
-      "line": 28,
+      "line": 27,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44273,7 +44336,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "2. Exact host configuration subject",
-      "line": 28,
+      "line": 27,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44282,7 +44345,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "2. Exact host configuration subject",
-      "line": 28,
+      "line": 27,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44291,7 +44354,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "3. Variable contract",
-      "line": 60,
+      "line": 58,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44300,7 +44363,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "5. Preflight validation pred side effects",
-      "line": 109,
+      "line": 106,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44309,7 +44372,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "5. Preflight validation pred side effects",
-      "line": 109,
+      "line": 106,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44318,7 +44381,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "6. Redacted effective-value manifest",
-      "line": 130,
+      "line": 126,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44327,7 +44390,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "6. Redacted effective-value manifest",
-      "line": 130,
+      "line": 126,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44336,7 +44399,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "7. Facts ako observations",
-      "line": 157,
+      "line": 152,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44345,7 +44408,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "8. Fact cache a freshness contract",
-      "line": 172,
+      "line": 167,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44354,7 +44417,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "8. Fact cache a freshness contract",
-      "line": 172,
+      "line": 167,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44363,7 +44426,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "10. Registered values",
-      "line": 212,
+      "line": 206,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44372,7 +44435,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "11. set fact a derived values",
-      "line": 232,
+      "line": 225,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44381,7 +44444,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "11. set fact a derived values",
-      "line": 232,
+      "line": 225,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44390,7 +44453,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "13. Deterministic template rendering",
-      "line": 264,
+      "line": 256,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44399,7 +44462,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "13. Deterministic template rendering",
-      "line": 264,
+      "line": 256,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44408,7 +44471,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "13. Deterministic template rendering",
-      "line": 264,
+      "line": 256,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44417,7 +44480,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "14. Template task a validation",
-      "line": 289,
+      "line": 280,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44426,7 +44489,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "14. Template task a validation",
-      "line": 289,
+      "line": 280,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44435,7 +44498,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "15. Rendered artifact checksum",
-      "line": 320,
+      "line": 310,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44444,7 +44507,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "15. Rendered artifact checksum",
-      "line": 320,
+      "line": 310,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44453,7 +44516,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "16. Worked failure: stale extra var smeruje do staging DB",
-      "line": 341,
+      "line": 330,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44462,7 +44525,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "17. Worked failure: timestamp spôsobí restart loop",
-      "line": 370,
+      "line": 355,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44471,7 +44534,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "19. Loaded artifact verification",
-      "line": 405,
+      "line": 389,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44480,7 +44543,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "20. Competing hypotheses pri wrong endpoint na jednom hoste",
-      "line": 426,
+      "line": 409,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44489,7 +44552,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "section": "21. Recovery a acceptance",
-      "line": 451,
+      "line": 432,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44507,7 +44570,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "6. null , empty a omission nie sú to isté",
-      "line": 172,
+      "line": 165,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44516,7 +44579,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "6. null , empty a omission nie sú to isté",
-      "line": 172,
+      "line": 165,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44525,7 +44588,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "7. Validation chráni domain invariant",
-      "line": 204,
+      "line": 197,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44534,7 +44597,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "7. Validation chráni domain invariant",
-      "line": 204,
+      "line": 197,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44543,7 +44606,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "7. Validation chráni domain invariant",
-      "line": 204,
+      "line": 197,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44552,7 +44615,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "8. Root variable sources a precedence",
-      "line": 251,
+      "line": 243,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44561,7 +44624,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "9. Effective input manifest",
-      "line": 278,
+      "line": 270,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44570,7 +44633,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "10. Sensitive nie je encryption ani revocation",
-      "line": 298,
+      "line": 290,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44579,7 +44642,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "11. Locals ako normalizácia, nie druhý input systém",
-      "line": 346,
+      "line": 334,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44588,7 +44651,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "12. Stable keys sú management identity",
-      "line": 398,
+      "line": 382,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44597,7 +44660,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "12. Stable keys sú management identity",
-      "line": 398,
+      "line": 382,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44606,7 +44669,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "section": "16. Interface versioning",
-      "line": 488,
+      "line": 472,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44633,7 +44696,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "3. Čo Vault chráni a čo nechráni",
-      "line": 53,
+      "line": 52,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44642,7 +44705,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "8. Plaintext path",
-      "line": 171,
+      "line": 162,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44651,7 +44714,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "Vault rekey",
-      "line": 228,
+      "line": 217,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44660,7 +44723,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "Target credential rotation",
-      "line": 242,
+      "line": 230,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44669,7 +44732,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "12. Consumer rollout",
-      "line": 279,
+      "line": 261,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44678,7 +44741,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "12. Consumer rollout",
-      "line": 279,
+      "line": 261,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44687,7 +44750,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "12. Consumer rollout",
-      "line": 279,
+      "line": 261,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44696,7 +44759,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "13. Runtime verification",
-      "line": 298,
+      "line": 279,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44705,7 +44768,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "13. Runtime verification",
-      "line": 298,
+      "line": 279,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44714,7 +44777,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "13. Runtime verification",
-      "line": 298,
+      "line": 279,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44723,7 +44786,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "17. Temporary files a cleanup",
-      "line": 360,
+      "line": 339,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
+      "section": "17. Temporary files a cleanup",
+      "line": 339,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44732,7 +44804,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "17. Temporary files a cleanup",
-      "line": 360,
+      "line": 339,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44741,7 +44813,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "19. Competing hypotheses pri partial fleet rotation",
-      "line": 400,
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
+      "section": "19. Competing hypotheses pri partial fleet rotation",
+      "line": 374,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44750,7 +44831,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "20. Evidence-preserving containment a recovery",
-      "line": 422,
+      "line": 393,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44759,7 +44840,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Vault vyriešil secrets management“",
-      "line": 462,
+      "line": 431,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44768,7 +44849,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Rekey je rotation“",
-      "line": 469,
+      "line": 437,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44777,7 +44858,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Rekey je rotation“",
-      "line": 469,
+      "line": 437,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44786,7 +44867,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„ no log zabráni všetkým leakom“",
-      "line": 476,
+      "line": 443,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44795,7 +44876,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„ no log zabráni všetkým leakom“",
-      "line": 476,
+      "line": 443,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44804,7 +44885,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Nový secret funguje, môžeme skončiť“",
-      "line": 483,
+      "line": 449,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44813,7 +44894,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Vault password môže byť v image“",
-      "line": 490,
+      "line": 455,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

@@ -54,7 +54,6 @@ production host stabilne používa staging DB
 
 Táto podsekcia definuje presný Ansible run, host alebo item subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome. Až complete per-host coverage, pravdivý result a runtime/business read-back ukáže, že ďalší command alebo YAML patrí správnemu objektu.
 
-
 ```yaml
 convergenceSubject:
   sourceRevision: 42ad9c1
@@ -74,7 +73,6 @@ convergenceSubject:
 ## 4. Fresh current-state observation
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 stable target identity
@@ -112,16 +110,11 @@ Module name preto nie je idempotency proof. First/second run sa dopĺňa indepen
 
 Module typicky pozoruje current state a mutuje iba rozdiel. Názov modulu však nie je dôkaz. Pre konkrétnu version/platformu treba poznať:
 
-
-Contract eviduje ktoré attributes pozoruje, čo znamená `changed`, check-mode podporu, normalization, side effects a failure/unknown outcome semantics.
-
-Všetky prvky patria jednej generation a authority boundary; chýbajúci prvok robí verdict neúplným.
-
+Contract eviduje, ktoré attributes pozoruje, čo znamená `changed`, check-mode podporu, normalization, side effects a failure/unknown outcome semantics.
 
 ## 6. Command guards sú slabý observation model
 
 Nasledujúci model opisuje prechody jedného Ansible run, host alebo item subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```yaml
 - name: Initialize database
@@ -164,7 +157,6 @@ Recovery odstráni marker ako authority, zistí actual schema ledger, dokončí 
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 Read-only task:
 
 ```yaml
@@ -193,7 +185,6 @@ Custom reconciler:
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```text
 template digest
 + effective values
@@ -203,20 +194,15 @@ template digest
 → artifact digest C44
 ```
 
+Nondeterminism alebo noise môže pochádzať z timestampu, random value, unordered serialization, mutable lookup/tag, newline/whitespace drift a rotating secret bez explicitnej epoch.
 
-Nondeterminism alebo noise môže pochádzať z timestamp, random value, unordered serialization, mutable lookup/tag, newline/whitespace drift a rotating secret bez explicitnej epoch.
-
-Ďalej sleduje application, ktorá file prepíše.
-
-Canonical inputs, stable serialization a druhý no-op run musia odlíšiť presentation rozdiel od skutočnej mutation.
-
+Dopĺňa ho application, ktorá file prepíše.
 
 Timestamp nepatrí do desired configu bez functional dôvodu.
 
 ## 10. Artifact verzus loaded runtime
 
 Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 file before != C44
@@ -245,7 +231,6 @@ File checksum bez process observation nepreukazuje convergence.
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
 
-
 Non-idempotent POST potrebuje business-operation identity:
 
 ```yaml
@@ -267,7 +252,6 @@ Idempotency key má zostať rovnaký pre retries tej istej logical operation, ni
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
 
-
 ```text
 request commitol na serveri
 → response sa stratila
@@ -288,14 +272,9 @@ Blind retry môže vytvoriť duplicate.
 
 Incident sa rekonštruuje ako causal chain nad jedným Ansible run, host alebo item subject. Observations určujú prvý divergentný bod v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 Prvý load-balancer POST uspel, response timeoutla a retry bez keya vytvoril druhý record.
 
-
-Recovery postupuje cez zachovať request/audit IDs, query remote registrations podľa immutable host ID, vybrať authoritative record, odstrániť duplicate, pridať server-side idempotency identity a verify-nuť exactly one healthy registration.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Recovery workflow zachovať request/audit IDs, query remote registrations podľa immutable host ID, vybrať authoritative record, odstrániť duplicate, pridať server-side idempotency identity a verify-nuť exactly one healthy registration.
 
 ## 14. Partial failure a resumability
 
@@ -314,16 +293,11 @@ package updated
 
 Nasledujúci run musí pozorovať mixed state a pokračovať bezpečne. Nemá predpokladať all-applied ani all-rolled-back.
 
-
-Recovery postupuje cez stable artifact/remote identities, pre-validation, per-step postconditions, explicit partial verdict, recoverable handler a bounded cleanup.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Recovery workflow stable artifact/remote identities, pre-validation, per-step postconditions, explicit partial verdict, recoverable handler a bounded cleanup.
 
 ## 15. Multi-writer oscillation
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 Ansible run A desired replicas=6
@@ -344,7 +318,6 @@ Systém nekonverguje, pretože chýba jeden authoritative writer a serialized ch
 ## 16. Second-run acceptance
 
 Acceptance uzatvára celý Ansible run, host alebo item subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 first complete converge
@@ -414,16 +387,13 @@ H7: druhý automation writer
 H8: false changed result
 ```
 
-
-Discriminating evidence porovnáva exact before/after checksums/diff H1–H4, module version/current-state output H5, filesystem audit H6/H7 a result vs actual mutation H8.
+Discriminating evidence zahŕňa exact before/after checksums/diff H1–H4, module version/current-state output H5, filesystem audit H6/H7 a result vs actual mutation H8.
 
 Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
-
 
 ## 20. Evidence-preserving containment a recovery
 
 Containment zastaví ďalšie writers alebo batches a zachová volatile evidence; ešte nemení autoritatívny intent. Recovery opraví prvý chybný transition v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a každý krok read-backne pred ďalšou mutation. Closure nastane až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 pause scheduled runs
@@ -459,11 +429,7 @@ run subject je immutable a complete
 + competing writer fixture je odmietnutý
 ```
 
-
 Acceptance matrix pokrýva marker pred completion, mutating task s `changed_when: false`, timestamp template, duplicate POST retry, omitted host a two-writer opposing values.
-
-Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú security, ownership alebo recovery hranicu.
-
 
 ## 22. Anti-patterny
 
@@ -471,13 +437,11 @@ Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú securit
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
 
-
 Behavior závisí od module/version/platform a observation modelu.
 
 ### „`changed=0` znamená správny stav“
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 Môže byť stabilne nesprávny alebo neúplný.
 
@@ -485,20 +449,17 @@ Môže byť stabilne nesprávny alebo neúplný.
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 Dokazuje iba marker existence.
 
 ### „Retry je bezpečný pri timeout-e“
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
 
-
 Nie pri unknown non-idempotent write outcome-e.
 
 ### „Dva idempotentné runy sa nebudú biť“
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
-
 
 S odlišným desired state-om vytvoria oscillation.
 

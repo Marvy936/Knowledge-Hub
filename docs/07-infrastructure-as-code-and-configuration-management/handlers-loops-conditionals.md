@@ -80,7 +80,6 @@ Ak source plugin poskytuje strings, normalizuj a validuj pri boundary. Filter `|
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 - name: Read migration status
   ansible.builtin.command:
@@ -102,7 +101,6 @@ Skipped alebo failed registered result nemusí mať rovnaké fields. Downstream 
 ## 5. Loop je item inventory, nie transakcia
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```yaml
 - name: Render enabled virtual hosts
@@ -132,7 +130,6 @@ Ak C zlyhá, A a B už mohli mutovať target. Loop neposkytuje rollback. Pred mu
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 - name: Validate virtual-host inventory
   ansible.builtin.assert:
@@ -150,7 +147,6 @@ Assertion preukazuje listed invariants pre effective item set. Nepreukazuje port
 ## 7. Stable item identity
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 Item `name` je destination identity:
 
@@ -190,7 +186,6 @@ Implicitný `item` v outer aj inner loop-e môže prepísať context. Named loop
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 - name: Verify endpoints
   ansible.builtin.uri:
@@ -222,7 +217,6 @@ Top-level task status nemá nahradiť per-item completeness a identity.
 ## 10. Retry verzus business loop
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
-
 
 `loop` spracúva viac items. `until` opakuje jednu operation pri transient condition:
 
@@ -276,7 +270,6 @@ Bez idempotency key môže response timeout po successful commit vyvolať duplic
 
 Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 handlers:
   - name: Reload Atlas proxy
@@ -303,7 +296,6 @@ Viac notifications sa deduplikuje podľa handler semantics. Handler order nevypl
 ## 13. `listen` topic ako reusable event contract
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```yaml
 notify: Atlas proxy configuration changed
@@ -361,7 +353,6 @@ render všetky files do staging directory
 ## 16. Complete-set staging example
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```yaml
 - name: Create staging directory
@@ -432,7 +423,6 @@ incomplete/unknown artifact set
 
 Incident sa rekonštruuje ako causal chain nad jedným Ansible run, host alebo item subject. Observations určujú prvý divergentný bod v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 ```yaml
 atlas_admin_enabled: "false"
 ```
@@ -458,11 +448,7 @@ Recovery pridá server-side idempotency key stabilný cez retries jednej logical
 
 Prvý POST commitol, response sa stratila a retry bez idempotency identity vytvoril druhý deployment record. Dvaja controllers začali spravovať rovnakú cohortu.
 
-
-Recovery postupuje cez zastaviť rollout controllers, zachovať request IDs a API audit, určiť authoritative deployment record, cancel/close duplicate, reconcile host cohort a pridať idempotency key a unknown-outcome query.
-
-Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
-
+Recovery workflow zastaviť rollout controllers, zachovať request IDs a API audit, určiť authoritative deployment record, cancel/close duplicate, reconcile host cohort a pridať idempotency key a unknown-outcome query.
 
 ## 21. Competing hypotheses pri files-new/process-old
 
@@ -484,16 +470,13 @@ H8: process číta iný active directory
 H9: verifier číta stale endpoint
 ```
 
-
-Discriminating evidence porovnáva condition inputs/types a per-item results H1–H3, changed/notify events H4/H5, host task timeline H6/H7, active symlink/open files/process config H8 a direct process observation H9.
+Discriminating evidence zahŕňa condition inputs/types a per-item results H1–H3, changed/notify events H4/H5, host task timeline H6/H7, active symlink/open files/process config H8 a direct process observation H9.
 
 Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
-
 
 ## 22. Evidence-preserving containment a recovery
 
 Containment zastaví ďalšie writers alebo batches a zachová volatile evidence; ešte nemení autoritatívny intent. Recovery opraví prvý chybný transition v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a každý krok read-backne pred ďalšou mutation. Closure nastane až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 pause ďalšie batches
@@ -510,7 +493,6 @@ pause ďalšie batches
 ## 23. Acceptance a forbidden paths
 
 Acceptance uzatvára celý Ansible run, host alebo item subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 ```text
 condition inputs sú typed a validated
@@ -533,13 +515,11 @@ condition inputs sú typed a validated
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-
 Môže znamenať chybný condition input alebo missing fact.
 
 ### „Loop je all-or-nothing“
 
 Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 Pred failure mohli viaceré items mutovať target.
 
@@ -547,13 +527,11 @@ Pred failure mohli viaceré items mutovať target.
 
 Timeout alebo stratená odpoveď nehovoria, či vzdialený side effect prebehol. Operation preto potrebuje stabilný identifier, status lookup alebo server-side deduplication a retry musí použiť rovnaký subject. Bez toho nevzniká complete per-host coverage, pravdivý result a runtime/business read-back, ale riziko duplicate state-u.
 
-
 Pri unknown non-idempotent mutation môže vytvoriť duplicate.
 
 ### „Handler sa spustí hneď“
 
 Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
-
 
 Je queued do synchronization pointu.
 

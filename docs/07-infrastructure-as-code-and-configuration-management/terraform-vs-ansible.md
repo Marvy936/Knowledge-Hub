@@ -35,7 +35,6 @@ Nástroje sa môžu dotýkať rovnakého API, ale nesmú implicitne vlastniť ro
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 ```text
 configuration
 + provider target
@@ -54,7 +53,6 @@ Terraform je silný tam, kde stabilná resource identity, lifecycle a persistent
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 ```text
 playbook a execution environment
 + resolved inventory
@@ -70,7 +68,6 @@ Ansible je silný tam, kde hlavný problém tvorí configuration hostov/devices 
 ## 3. Ownership na úrovni objektu alebo atribútu
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 Boundary „Terraform infra, Ansible config“ je iba začiatok. Potrebujeme presnú maticu:
 
@@ -108,7 +105,6 @@ ownership:
 
 Nasledujúci model opisuje prechody jedného Terraform-to-Ansible capability subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resource a state transition cez readiness contract až po per-host convergence a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí single-writer ownership, fresh handoff evidence a combined business test.
 
-
 Terraform je prirodzený, keď potrebujeme:
 
 ```text
@@ -135,7 +131,6 @@ To, že cloud resource možno vytvoriť Ansible module-om alebo file zapísať T
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 ```hcl
 resource "aws_instance" "payments" {
   for_each = var.instances
@@ -158,7 +153,6 @@ Terraform owns instance identity, image and network bindings. It does not need t
 ## 6. Ansible-owned host configuration example
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 ```yaml
 - name: Configure Payments runtime
@@ -238,7 +232,6 @@ Preukazuje listed JSON invariants. Nepreukazuje SSH connectivity, host-key ident
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 ```python
 #!/usr/bin/env python3
 import json
@@ -292,11 +285,9 @@ Readiness je versionovaný state v host contracte s timestampom/generation a bou
 
 Terraform apply success môže znamenať, že VM exists. Neznamená:
 
-
 Handoff contract zahŕňa cloud-init complete, host certificate ready, management route functional, SSH identity stable, required Python/runtime available a host safe for configuration.
 
 Producer a consumer musia čítať rovnakú generation bez implicitného zdieľania interného state layoutu.
-
 
 Readiness chain:
 
@@ -314,11 +305,7 @@ Fixed sleep nie je readiness proof. Použi bounded condition-based observation a
 
 ## 11. Bootstrap boundary
 
-
 Contract eviduje trusted management identity/channel, CA/host certificate, minimum Python/runtime, inventory registration a base security pre first connection.
-
-Všetky prvky patria jednej generation a authority boundary; chýbajúci prvok robí verdict neúplným.
-
 
 Application configuration nemá zostať v one-shot user data bez re-run a observation modelu.
 
@@ -354,7 +341,6 @@ Nie sú ekvivalenty. Check mode nemusí podporovať task alebo downstream regist
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 ```text
 1. build/test immutable machine image
 2. Terraform fmt/validate/test
@@ -377,7 +363,6 @@ Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability su
 ## 14. Combined evidence manifest
 
 Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
-
 
 ```yaml
 combinedReleaseEvidence:
@@ -404,11 +389,9 @@ Každá field má vlastný producer a proof boundary.
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 ### Terraform boundary
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 Partial remote mutation, unknown API outcome, state-write failure alebo resource exists-but-not-ready.
 
@@ -416,13 +399,11 @@ Partial remote mutation, unknown API outcome, state-write failure alebo resource
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 Stale host, wrong address/environment, schema mismatch, incorrect readiness, missing host.
 
 ### Ansible boundary
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 Partial fleet, file without handler, package/config mismatch, secret epoch mismatch, external API duplicate.
 
@@ -555,16 +536,13 @@ H9: stale destroyed host identity
 H10: controller network issue
 ```
 
-
-Discriminating evidence porovnáva remote VM lifecycle/bootstrap logs H1/H2/H8, contract fields/generation H2/H3/H9, inventory resolution/cache H4, flow/connectivity H5/H10, host identity H6 a auth logs H7.
+Discriminating evidence zahŕňa remote VM lifecycle/bootstrap logs H1/H2/H8, contract fields/generation H2/H3/H9, inventory resolution/cache H4, flow/connectivity H5/H10, host identity H6 a auth logs H7.
 
 Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
-
 
 ## 22. Evidence-preserving containment a recovery
 
 Containment zastaví ďalšie writers alebo batches a zachová volatile evidence; ešte nemení autoritatívny intent. Recovery opraví prvý chybný transition v reťazci resource a state transition cez readiness contract až po per-host convergence a každý krok read-backne pred ďalšou mutation. Closure nastane až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 ```text
 pause contract publication/Ansible rollout
@@ -601,11 +579,7 @@ každý mutable attribute má one writer
 + business transaction passes
 ```
 
-
 Acceptance matrix pokrýva Ansible direct mutation Terraform-owned SG rule, contract with `readiness != ready`, empty inventory from internal state refactor, runtime package `latest` against image-owned package a old writer still authorized after ownership transfer.
-
-Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú security, ownership alebo recovery hranicu.
-
 
 ## 24. Anti-patterny
 
@@ -613,13 +587,11 @@ Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú securit
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 Treba presný object/attribute ownership.
 
 ### „Ansible môže dočasne opraviť cloud resource“
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 Bez emergency ownership contractu vytvorí druhého writera.
 
@@ -627,20 +599,17 @@ Bez emergency ownership contractu vytvorí druhého writera.
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 Vytvára sensitive a interný-layout coupling.
 
 ### „Terraform apply success znamená host ready“
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
 
-
 Resource existence, bootstrap a management readiness sú odlišné states.
 
 ### „Provisioner je jednoduchší než Ansible“
 
 Táto podsekcia vysvetľuje konkrétnu časť Terraform-to-Ansible capability subject. Source deklarácia sa nesmie zameniť za effective reťazec resource a state transition cez readiness contract až po per-host convergence; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po single-writer ownership, fresh handoff evidence a combined business test.
-
 
 Side effect nemá samostatný lifecycle/binding/recovery model.
 
