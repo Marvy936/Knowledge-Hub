@@ -310,6 +310,10 @@ Oprava skopírovala certificate bundle z trusted stage-u alebo použila distrole
 
 ## 16. Praktický graph pre `payments-api`
 
+Praktický graph používa shared `source` stage ako immutable predecessor pre samostatné `test` a `build` branches. `TARGETOS` a `TARGETARCH` viažu compiled artifact na requested platform, `debug` stage pridáva diagnostické tools iba pre controlled troubleshooting a `runtime` stage zostáva minimálny non-root release artifact. Stage name je build-graph identity, nie automatická security boundary.
+
+Pipeline má najprv vykonať `test` target, potom buildnúť a inspectovať artifact pre každú platformu a až nakoniec publikovať runtime manifests a index. `COPY --from=build` preukazuje artifact handoff v jednom graph-e, ale source SHA, Dockerfile digest, builder a cache trust a final manifest digest musia zostať korelované. Runtime acceptance dopĺňa process start, TLS alebo network dependency a business endpoint.
+
 ```dockerfile
 # syntax=docker/dockerfile:1
 

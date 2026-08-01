@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **637,024**
-- Findings: **6534** (critical 660, high 908, medium 470, low 4496)
-- File grades: A 125, B 109, C 33, D 60
+- Total words: **638,095**
+- Findings: **6539** (critical 660, high 895, medium 470, low 4514)
+- File grades: A 126, B 110, C 31, D 60
 
 ## Interpretation
 
@@ -88,7 +88,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 67 | 0 | 7 | 0 | 9 | 1869 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | C | 64 | 0 | 7 | 0 | 5 | 1468 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 63 | 0 | 7 | 0 | 6 | 1655 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
-| C | 62 | 0 | 6 | 0 | 12 | 3535 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | D | 62 | 3 | 1 | 1 | 11 | 1385 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
@@ -110,7 +109,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
-| C | 39 | 0 | 3 | 0 | 10 | 2411 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
@@ -119,18 +117,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
-| B | 33 | 0 | 1 | 0 | 22 | 2086 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
-| B | 31 | 0 | 2 | 0 | 11 | 1612 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
+| B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 26 | 0 | 2 | 0 | 6 | 1305 | `docs/09-kubernetes/hpa-autoscaling.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2890 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
+| B | 24 | 0 | 0 | 0 | 21 | 4079 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
@@ -167,7 +165,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
-| B | 19 | 0 | 1 | 0 | 10 | 2091 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
 | B | 19 | 0 | 1 | 0 | 8 | 1084 | `docs/09-kubernetes/configmap-secret.md` |
 | B | 19 | 0 | 0 | 0 | 16 | 2103 | `docs/11-cloud-and-aws/cost-management-finops.md` |
@@ -178,12 +175,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 16 | 2147 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1951 | `docs/06-gitlab/variables-and-secrets.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 1779 | `docs/08-container-fundamentals-and-docker/build-context-layer-cache.md` |
+| B | 18 | 0 | 0 | 0 | 13 | 2606 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 2410 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1521 | `docs/12-observability/opentelemetry.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1331 | `docs/13-security-and-identity/sbom.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
+| B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 1887 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | B | 17 | 0 | 1 | 0 | 5 | 1262 | `docs/09-kubernetes/job-cronjob.md` |
@@ -238,6 +237,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 8 | 1412 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1600 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | A | 13 | 0 | 0 | 0 | 9 | 3923 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
+| A | 13 | 0 | 0 | 0 | 12 | 2192 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | B | 13 | 0 | 1 | 0 | 3 | 1195 | `docs/09-kubernetes/scheduling.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 1987 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1459 | `docs/12-observability/alert-design-alert-fatigue.md` |
@@ -2114,34 +2114,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/08-container-fundamentals-and-docker/buildkit-buildx.md`
-
-- **HIGH** line 374, `single-sentence-concept` — **19. Od build requestu po overený digest**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/08-container-fundamentals-and-docker/docker-compose.md`
-
-- **HIGH** line 134, `list-first-introduction` — **5. Celý payments-api model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md`
-
-- **HIGH** line 627, `list-first-introduction` — **10. Container najprv vytvor, až potom spusti**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 711, `list-first-introduction` — **12. Host-published path a loaded configuration**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 729, `list-first-introduction` — **13. Business zápis do volume-u**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 750, `list-first-introduction` — **14. Graceful stop**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 795, `single-sentence-concept` — **16. Compose environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 940, `list-first-introduction` — **19. Spustenie Compose application**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/08-container-fundamentals-and-docker/dockerfile.md`
-
-- **HIGH** line 337, `list-first-introduction` — **15. STOPSIGNAL**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 355, `list-first-introduction` — **16. Kompletný multi-stage Dockerfile**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 355, `single-sentence-concept` — **16. Kompletný multi-stage Dockerfile**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/08-container-fundamentals-and-docker/multi-stage-builds.md`
-
-- **HIGH** line 311, `list-first-introduction` — **16. Praktický graph pre payments-api**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 311, `single-sentence-concept` — **16. Praktický graph pre payments-api**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
 ### `docs/09-kubernetes/cluster-installation-lifecycle.md`
 
 - **HIGH** line 138, `single-sentence-concept` — **Capability gate pre nový Node**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
@@ -2217,16 +2189,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2090 | 2090 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1289 | 1289 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1117 | 1117 |
+| `example-not-explicit` | 0 | 0 | 0 | 2097 | 2097 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1290 | 1290 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1127 | 1127 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
-| `single-sentence-concept` | 0 | 357 | 0 | 0 | 357 |
+| `single-sentence-concept` | 0 | 353 | 0 | 0 | 353 |
 | `outline-instead-of-explanation` | 316 | 0 | 0 | 0 | 316 |
 | `bare-bullet-items` | 239 | 33 | 0 | 0 | 272 |
 | `thin-concept-section` | 0 | 244 | 0 | 0 | 244 |
-| `list-first-introduction` | 0 | 153 | 0 | 0 | 153 |
 | `short-concept-section` | 0 | 0 | 150 | 0 | 150 |
+| `list-first-introduction` | 0 | 144 | 0 | 0 | 144 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 49 | 0 | 0 | 0 | 49 |
