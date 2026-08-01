@@ -1,829 +1,608 @@
 # Docker troubleshooting
 
-Docker troubleshooting nie je postupné skúšanie príkazov, kým symptom zmizne. Je to riadené dokazovanie nad presným artifactom, runtime generation, Docker contextom, data identity a request flowom. Restart, recreate alebo prune môžu zmeniť state a odstrániť evidence; bez subject identity potom nevieš, čo sa opravilo ani či sa incident vráti.
+Docker troubleshooting nie je séria náhodných restartov, rebuildov a `prune` príkazov. Je to hľadanie prvej vrstvy, na ktorej sa očakávaný stav prestal zhodovať s pozorovaným stavom. Docker request prechádza cez client context, Engine API, image resolution, container create configuration, storage a network preparation, OCI runtime, hlavný process, healthcheck a napokon application alebo business path. Každá vrstva má vlastné evidence a vlastnú failure semantics.
 
-Dominantný diagnostický lifecycle je:
+Najväčšou chybou pri incidente býva zničenie dôkazov skôr, než sa určí subject. `docker restart` zmení časovú os a process state. Recreate odstráni pôvodný PID, network endpoint a writable layer. `docker compose down` odstráni project resources. `prune` môže odstrániť image, build cache alebo volume potrebné na reprodukciu a recovery.
 
-```text
-user alebo business symptom
-→ impact, scope a časová os
-→ exact release/runtime/data/flow subject
-→ preservation volatile evidence
-→ competing causal hypotheses
-→ discriminating observation points a bezpečné testy
-→ containment
-→ recovery cez authoritative source/artifact/state
-→ overenie pôvodného outcome-u aj forbidden outcomes
-→ skorší control a incident closure
-```
+Budeme používať jeden referenčný incident: `payments-api` je podľa Dockeru running a healthy, ale klient nevie vytvoriť payment. Tento symptom môže mať príčinu v network bind-e, volume permissions, starej configuration generation, inom image digeste alebo external dependency. Cieľom je hypotézy rozlíšiť, nie ich všetky naraz „opraviť“.
 
-Tento model spája daemon, container process, image, Compose model, mounts, network, cgroups, registry aj BuildKit. Jednotlivé commands sú observation tools, nie diagnostická metóda.
+## 1. Najprv urči Docker context a daemon
 
-## 1. Atlas incident
-
-Atlas Payments nasadil release `3.10.0`. Päť minút po rollout-e:
-
-- časť payment requests vracala `502`;
-- niektoré retries vytvorili vysokú latency;
-- `docker compose ps` ukazoval všetky services ako `Up` a `healthy`;
-- restart API dočasne znížil chyby;
-- problém sa objavoval iba na jednom z dvoch Docker hosts;
-- host mal dostatok voľnej RAM aj diskovej kapacity podľa základného dashboardu.
-
-Slabý postup by bol:
-
-```text
-restart containers
-→ docker system prune
-→ zvýšiť memory limit
-→ použiť host network
-```
-
-Taký postup mení viac boundaries naraz a ničí evidence. Správny postup najprv stabilizuje identity a hypotézy.
-
-## 2. Definuj pôvodný outcome
-
-Pred technickou diagnózou musí byť jasné, čo malo fungovať.
-
-Pre Atlas incident:
-
-```text
-external client
-→ production host port/TLS proxy
-→ payments API generation G310
-→ production configuration epoch CE-310
-→ database data ID PAYMENTS-PROD
-→ one payment authorization exactly once
-→ response do 800 ms
-```
-
-Forbidden outcomes:
-
-- traffic na staging dependency;
-- duplicate authorization;
-- write zo starej container generation;
-- použitie iného image digestu;
-- broad admin-port exposure;
-- strata payment ledgeru pri recreate.
-
-Troubleshooting sa nekončí tým, že container beží. Končí potvrdením tohto end-to-end outcome-u.
-
-## 3. Zafixuj incident subject
-
-Minimálny incident subject zahŕňa:
-
-```text
-časové okno a request/correlation IDs
-Docker context, Engine host a project identity
-Compose source set a resolved-model digest
-service a container IDs, create times a config hashes
-image index/platform manifest digest
-entrypoint, command, UID a healthcheck generation
-process-loaded configuration a secret epochs
-mount source, data ID, schema a writer epoch
-network/endpoint/DNS/publication generation
-cgroup identity, limits, counters a pressure events
-registry/build provenance a poslednú deployment zmenu
-external dependency identities a business audit
-```
-
-Bez týchto údajov môžu dva tímy hovoriť o „rovnakom containeri“, hoci sledujú rozdielne hosts, projects, image digests alebo generations.
-
-## 4. Najprv scope a timeline
-
-Scope pomáha zredukovať hypotézy:
-
-| Scope | Pravdepodobnejšie boundaries |
-|---|---|
-| jedna request class | application path, data, dependency alebo config |
-| jedna container generation | runtime config, mount, process alebo local pressure |
-| jeden host | daemon, kernel, storage, network, node policy |
-| jeden image digest na všetkých hosts | artifact, image config, dependency closure |
-| iba jedna platform | platform manifest, binary, loader, node capability |
-| iba po recreate | data attachment, config snapshot, endpoint generation |
-| iba pri load-e | cgroup, conntrack, ports, backlog, downstream saturation |
-| local funguje, remote nie | publication, firewall, route, TLS/client path |
-
-Timeline musí spájať:
-
-- deploy a recreate events;
-- health transitions;
-- first failed request;
-- OOM/throttle/network/storage events;
-- configuration alebo secret rotation;
-- registry pull/tag changes;
-- operator actions.
-
-```bash
-docker events --since 1h
-docker inspect <container>
-docker logs --timestamps --since 1h <container>
-journalctl -u docker.service --since "1 hour ago"
-journalctl -k --since "1 hour ago"
-```
-
-Events majú krátku retention a nemusia tvoriť úplný audit. Pri kritických workloads ich streamuj centrálne.
-
-## 5. Preserve evidence pred mutation
-
-Pred restartom, delete, recreate alebo prune zachovaj podľa incidentu:
+Prvý príkaz nemá byť restart. Najprv zisti, ktorý daemon pozoruješ:
 
 ```bash
 docker context show
+docker context inspect
 docker version
 docker info
-docker ps -a --no-trunc
-docker inspect <container>
-docker logs --timestamps --tail=1000 <container>
-docker events --since 1h
-docker stats --no-stream
-docker system df -v
-docker compose config
-docker compose ps -a
-docker compose images
 ```
 
-Host evidence môže zahŕňať:
+Rovnaké meno `payments-api` môže existovať v local Docker Desktop, test remote hoste aj production Engine-i. Screenshot z nesprávneho contextu je platný dôkaz o inom systéme.
+
+Zachovaj daemon identity, Engine verziu, OS, architecture, rootless/rootful model a Docker data root. Pri remote contextoch zaznamenaj endpoint a transport. Pri Docker Desktop navyše ber do úvahy vnútornú Linux VM.
+
+## 2. Zafixuj container a image identity
+
+Container name je mutable user-facing reference. Potrebujeme container ID, create timestamp a image ID:
 
 ```bash
-df -h
-df -i
-cat /proc/pressure/cpu
-cat /proc/pressure/memory
-cat /proc/pressure/io
-ss -s
-ip route
-ip link
+container_id="$(docker inspect payments-api --format '{{.Id}}')"
+image_id="$(docker inspect payments-api --format '{{.Image}}')"
+
+printf 'container=%s\nimage=%s\n' "$container_id" "$image_id"
 ```
 
-A podľa oprávnení:
-
-- daemon a containerd logs;
-- cgroup counters a events;
-- OOM records;
-- firewall/NAT counters;
-- conntrack state;
-- packet captures;
-- volume/backend metadata;
-- registry manifest read-back;
-- application metrics, traces a downstream audit.
-
-Evidence môže obsahovať secrets, tokens, environment values alebo osobné dáta. Rediguj ju, obmedz access a nastav retention. Incident artifact nesmie vytvoriť ďalší security incident.
-
-## 6. Nepredpokladaj správny Docker context
-
-Docker CLI môže byť lokálny, ale aktívny context môže smerovať na remote Engine.
+Zachovaj celý inspect:
 
 ```bash
-docker context ls
-docker context show
-docker info --format '{{.Name}}'
-printf '%s\n' "$DOCKER_HOST"
+mkdir -p incident
+docker inspect "$container_id" > incident/container-inspect.json
+docker image inspect "$image_id" > incident/image-inspect.json
 ```
 
-Context identity musí zahŕňať:
+Ak deployment používa registry reference, zachovaj aj index a platform manifest digest. Local image ID a registry digest nie sú vždy tá istá user-facing hodnota. Pri multi-platform image-i node spustí konkrétny platform manifest.
 
-- context name;
-- endpoint/host identity;
-- expected environment;
-- TLS/SSH trust subject;
-- Engine version;
-- Compose project.
+```bash
+docker buildx imagetools inspect \
+  registry.example.com/atlas/payments-api@sha256:<index-digest>
+```
 
-### Failure boundary
+## 3. Vytvor časovú os
 
-Operator inspectoval local host, zatiaľ čo deployment bežal na remote Engine. Local disk, networks a volumes boli zdravé, no incident existoval na inom node-e. Diagnostické commands boli správne, observation subject bol nesprávny.
+Docker events poskytujú mutation a lifecycle udalosti:
 
-## 7. Oddeľ management plane od workload plane
+```bash
+docker events \
+  --since '30m' \
+  --until '0s' \
+  > incident/docker-events.log
+```
 
-Docker Engine API môže zlyhávať, hoci existujúce container processes stále bežia. Opačne môže daemon odpovedať, hoci application je nefunkčná.
+Container timestamps:
 
-Rozlišuj:
+```bash
+jq '.[0].State | {
+  Status,
+  Running,
+  OOMKilled,
+  Dead,
+  ExitCode,
+  Error,
+  StartedAt,
+  FinishedAt,
+  Health
+}' incident/container-inspect.json
+```
+
+Application logs:
+
+```bash
+docker logs --timestamps "$container_id" \
+  > incident/container.log 2>&1
+```
+
+Časová os má spojiť posledný image pull, create, start, health transitions, configuration zmenu a prvý business symptom. Bez času sa ľahko koreluje request s inou container generation.
+
+## 4. Rozlíš create, start, running, healthy a serving
+
+Docker state nie je jeden boolean. Container môže zostať v stave `created`, ak process ešte nebol spustený. Môže byť `running`, hoci health je `unhealthy`. Môže byť healthy podľa local endpointu a nedostupný cez host port. Môže úspešne servovať `/healthz`, ale zlyhávať pri payment write.
 
 ```text
-Docker client/API connectivity
-daemon object state
-containerd task a shim state
-OCI runtime process state
-application health/readiness
-external business outcome
+created
+→ process start request
+→ running
+→ health starting
+→ healthy alebo unhealthy
+→ application serving path
+→ business outcome
 ```
 
-`Cannot connect to the Docker daemon` môže znamenať:
-
-- daemon down;
-- wrong context alebo `DOCKER_HOST`;
-- socket permissions;
-- remote SSH/TLS failure;
-- Docker Desktop backend down;
-- daemon startup/configuration failure.
-
-World-writable Docker socket nie je bezpečná oprava. Docker API access je prakticky host-admin authority.
-
-## 8. Container object nie je application outcome
+Pozri stručný stav:
 
 ```bash
-docker inspect --format '{{json .State}}' <container>
-docker top <container>
-docker events --filter container=<container>
+docker ps -a --filter id="$container_id"
+docker inspect "$container_id" \
+  --format 'status={{.State.Status}} health={{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}} exit={{.State.ExitCode}}'
 ```
 
-Oddeľ:
+Keď `docker ps` ukazuje running, nevylučuje network, storage ani configuration problém.
 
-- object existuje;
-- task/process beží;
-- PID 1 je správny;
-- process načítal správnu konfiguráciu;
-- healthcheck je validný;
-- inštancia je ready;
-- request path a business operation fungujú.
-
-`running + healthy` môže stále používať nesprávnu DB, stale secret epoch alebo shallow healthcheck.
-
-`Exited (0)` môže byť správny one-shot job alebo service, ktorej command sa okamžite úspešne skončil. Exit code bez command purpose nestačí.
-
-## 9. Exit, signal a restart evidence
-
-Bežné signals/exit patterns:
-
-- `0` — úspešný process outcome podľa application contractu;
-- `126` — command sa nedá vykonať;
-- `127` — command/interpreter sa nenašiel;
-- `137` — process dostal `SIGKILL`, ale príčina môže byť cgroup OOM, host OOM, forced stop alebo operator;
-- `143` — typicky `SIGTERM`;
-- application-specific non-zero — potrebuje application context.
-
-Pri restart loop-e koreluj:
+## 5. Effective command a PID 1
 
 ```bash
-docker inspect <container>
-docker logs --timestamps <container>
-docker events --filter container=<container>
-journalctl -k --since "30 min ago"
+docker inspect "$container_id" | jq '.[0] | {
+  Path,
+  Args,
+  Entrypoint: .Config.Entrypoint,
+  Cmd: .Config.Cmd,
+  User: .Config.User,
+  WorkingDir: .Config.WorkingDir
+}'
+
+docker top "$container_id" -eo pid,ppid,user,stat,args
 ```
 
-Hypotézy môžu zahŕňať:
+Porovnaj image defaults s container overrides. `--entrypoint`, Compose `command`, `user` alebo wrapper script môžu zmeniť runtime bez zmeny image digestu.
 
-- missing config/secret;
-- invalid command alebo loader;
-- migration race;
-- permission/LSM denial;
-- OOM alebo PID limit;
-- dependency failure;
-- health remediation loop;
-- signal/PID 1 defect.
+Ak process okamžite exitol, logs a `.State.Error` môžu odhaliť invalid command, permission alebo loader chybu. Ak process daemonizuje a PID 1 skončí, container sa ukončí, hoci child process krátko prežil.
 
-Dočasné zastavenie restart policy môže zachovať failure evidence, ale je to containment mutation a musí byť zaznamenaná.
+## 6. Interpretácia exit codes
 
-## 10. Actual runtime configuration vs. desired model
+Exit code je observation, nie úplná príčina.
 
-`docker inspect` poskytuje create-time container configuration. `docker compose config` poskytuje resolved desired model. Application môže mať ešte tretí state: process-loaded configuration.
+Exit `0` znamená, že process oznámil úspešné ukončenie. Pri long-running service však môže byť nečakaný exit `0` stále incident.
 
-Porovnaj:
+Exit `1` je application-defined general failure. Potrebuje logs.
+
+Exit `126` často znamená, že command bol nájdený, ale nebolo možné ho vykonať. Môže ísť o permissions, noexec mount alebo policy denial.
+
+Exit `127` často znamená command alebo interpreter not found v shell context-e.
+
+Exit `137` zodpovedá ukončeniu signalom 9, ale nemusí automaticky znamenať OOM. Skontroluj `.State.OOMKilled`, cgroup memory events a operator actions.
+
+Exit `143` zodpovedá `SIGTERM` pri procesoch, ktoré signal nepreložia na vlastný clean exit. Môže byť očakávaný pri stop lifecycle.
+
+Pri signal exit-e používaj:
 
 ```text
-versionovaný Compose/Dockerfile source
-→ resolved Compose model
-→ Engine container create config
-→ mounts a environment delivered procesu
-→ process-loaded effective state
+exit = 128 + signal number
 ```
 
-Observation points:
+ako orientačné pravidlo, ale vždy koreluj runtime state a logs.
+
+## 7. OOM a resource pressure
 
 ```bash
-docker compose config
-docker inspect <container>
-docker compose images
-docker compose ps -a
+docker inspect "$container_id" \
+  --format 'oom={{.State.OOMKilled}} exit={{.State.ExitCode}}'
+docker stats --no-stream "$container_id"
 ```
 
-Pri environment a secrets nevypisuj celý obsah do incident logu. Použi redacted manifest, config checksum, logical endpoint a epoch markers.
+Current stats po reštarte nemusia ukazovať pressure pred pôvodným OOM. Potrebné sú historické metrics alebo host cgroup evidence.
 
-### Failure boundary
-
-`.env` bol aktualizovaný, ale container nebol recreated. Desired source ukazoval novú value, Engine object a process stále používali starú. Restart processu v rovnakom containeri by starý create-time environment nezmenil.
-
-## 11. Image a runtime dependency subject
-
-Pri startup failure over:
-
-- exact index/platform manifest digest;
-- effective entrypoint a command;
-- executable permissions;
-- architecture;
-- shebang/interpreter;
-- dynamic loader a libraries;
-- runtime user a working directory;
-- certificates/NSS/timezone files;
-- writable paths;
-- healthcheck executable.
-
-`exec format error` môže vzniknúť pre:
-
-- wrong architecture;
-- invalid shebang;
-- CRLF script;
-- missing interpreter;
-- corrupted executable.
-
-`no such file or directory`, hoci binary existuje, často znamená chýbajúci dynamic loader alebo shebang interpreter.
+Skontroluj effective limits:
 
 ```bash
-file ./binary
-readelf -l ./binary
-ldd ./binary
+jq '.[0].HostConfig | {
+  Memory,
+  MemoryReservation,
+  MemorySwap,
+  NanoCpus,
+  CpuQuota,
+  CpuPeriod,
+  PidsLimit
+}' incident/container-inspect.json
 ```
 
-Minimal/distroless image nemusí mať shell. Použi `docker top`, inspect, debug toolbox alebo host namespace tooling podľa security policy; nepridávaj permanentný debug toolchain do production artifactu iba kvôli incidentu.
+Pri memory incidente vytvor hypotézy: application leak, legitímny traffic burst, príliš nízky limit, page-cache pressure, host memory pressure alebo sidecar/debug process v rovnakej cgroup. Recovery môže byť limit increase ako containment, ale trvalá oprava potrebuje load a allocation dôkaz.
 
-## 12. Mount a data identity
+## 8. Environment a loaded configuration
 
-Mount troubleshooting nezačína otázkou „existuje volume?“, ale:
+Engine environment:
+
+```bash
+docker inspect "$container_id" \
+  --format '{{json .Config.Env}}' | jq .
+```
+
+Compose resolved environment:
+
+```bash
+docker compose --env-file .env config --environment
+docker compose --env-file .env config > incident/compose-resolved.yaml
+```
+
+Application loaded state:
+
+```bash
+curl -fsS http://127.0.0.1:18080/version | jq .
+```
+
+Ak desired generation je `cfg-101`, inspect aj `/version` ukazujú `cfg-100`, pravdepodobne sa vykonal restart namiesto recreate alebo sa použil iný env source. Ak inspect ukazuje `cfg-101`, ale application hlási `cfg-100`, parser hodnotu ignoroval, application reload zlyhal alebo request smeruje na inú generation.
+
+Nikdy nevypisuj celý environment do ticketu bez redakcie; môže obsahovať secrets.
+
+## 9. Mounts a data identity
+
+```bash
+docker inspect "$container_id" | jq '.[0].Mounts'
+```
+
+Pri payment write failure si zaznamenaj source volume name alebo bind path, destination, read/write mode a propagation. Volume metadata:
+
+```bash
+docker volume inspect atlas-payments-data \
+  > incident/volume-inspect.json
+```
+
+Competing hypotheses pri `permission denied`:
 
 ```text
-Ktorý logical data subject je pripojený?
-Kto má writer authority?
-Je schema compatible?
-Ktorý daemon/project resolve-ol source?
+runtime UID/GID nemá filesystem access
+mount je read-only
+root filesystem je read-only a DATA_PATH smeruje mimo volume-u
+SELinux/AppArmor odmieta operáciu
+user namespace mapping mení host ownership
+mount zakryl očakávaný directory
+filesystem je full alebo bez inodes
 ```
+
+Distroless image nemusí mať `ls` alebo `stat`. Použi controlled helper s rovnakým volume-om:
 
 ```bash
-docker inspect --format '{{json .Mounts}}' <container>
-docker volume inspect <volume>
+docker run --rm \
+  --mount type=volume,source=atlas-payments-data,target=/data,readonly \
+  busybox:1.36.1 \
+  sh -c 'id; ls -ldn /data; ls -lan /data | head'
 ```
 
-Hypotézy:
+Read-only helper zachová dáta. Ak potrebuješ opravu ownershipu, najprv vytvor manifest a backup a až potom vykonaj bounded mutation.
 
-- mount obscuring skryl image files;
-- relative bind source sa resolve-ol na inom hoste/path-e;
-- project rename vytvoril nový empty volume;
-- wrong environment volume bol pripojený;
-- UID/GID/user namespace/LSM denial;
-- read-only alebo noexec policy;
-- stale writer nebol fenced;
-- dáta boli iba vo writable layeri;
-- `down -v` alebo prune odstránil authoritative object.
+## 10. Disk a inode exhaustion
 
-Recovery musí overiť data ID, schema, writer epoch, business records a clean restore; nestačí, že directory nie je prázdny.
-
-## 13. Resource pressure má viac boundaries
-
-```bash
-docker stats --no-stream
-journalctl -k --since "30 min ago"
-cat /proc/pressure/cpu
-cat /proc/pressure/memory
-cat /proc/pressure/io
-df -h
-df -i
-```
-
-Rozlišuj:
-
-- cgroup memory limit vs. host OOM;
-- CPU usage vs. throttling;
-- memory working set vs. reclaim pressure;
-- disk bytes vs. inode exhaustion;
-- filesystem quota vs. host capacity;
-- application I/O wait vs. backend latency;
-- PID limit vs. host process capacity;
-- open files, sockets a ephemeral ports;
-- container logs vs. volume vs. image/cache usage.
-
-### Failure boundary: „host má voľnú RAM“
-
-Container mal 512 MiB cgroup limit a application heap target 480 MiB. Krátky native buffer spike vyvolal cgroup OOM, hoci host mal 16 GiB free.
-
-```text
-host capacity je dostupná
-→ cgroup boundary ju workloadu nepovoľuje
-→ process dostane SIGKILL
-→ restart dočasne obnoví service
-```
-
-Zvýšenie limitu môže byť containment, nie root-cause closure. Treba overiť memory profile, heap contract, concurrency a host capacity planning.
-
-## 14. Disk, content stores a logs
-
-Docker disk spotrebúvajú odlišné owners:
-
-- image/content blobs;
-- unpacked snapshots;
-- writable layers;
-- named volumes;
-- BuildKit cache;
-- temporary pull/build/export data;
-- container logs;
-- plugin data.
+Docker host môže zaplniť images, build cache, container writable layers, logs alebo volumes.
 
 ```bash
 docker system df -v
-docker buildx du
 df -h
 df -i
 ```
 
-`docker system prune` nemusí riešiť growing application volume ani external logging path. Môže však odstrániť rollback images, stopped evidence, cache alebo volumes podľa options.
+`no space left on device` môže znamenať vyčerpané bytes alebo inodes. `docker image prune` nepomôže, ak disk vlastní veľký named volume alebo log file. `docker volume prune` môže zničiť dáta.
 
-Pred cleanupom definuj:
+Najprv identifikuj ownera. Pri log growth skontroluj logging driver a rotation. Pri build cache použi builder-specific inventory a retention. Pri writable layer pozri `docker ps -a --size`.
 
-- object owner;
-- active/rollback reference inventory;
-- persistent data classification;
-- backup/restore evidence;
-- active build/pull leases;
-- expected reclaimed bytes/inodes;
-- recovery postup.
+## 11. Image pull a platform chyby
 
-## 15. Network diagnosis sleduje flow
-
-Network symptom fixni na flow subject:
-
-```text
-source namespace/address/port
-→ DNS answer a endpoint generation
-→ route/interface
-→ veth/bridge alebo host namespace
-→ pre-NAT tuple
-→ publication/forwarding/firewall verdict
-→ post-NAT destination
-→ listener a readiness
-→ reverse path/conntrack
-→ client-visible response
-```
-
-Začni od listenera, nie od firewallu:
+Ak container nevznikol, application logs nemusia existovať. Pri pull probléme skontroluj exact reference:
 
 ```bash
-docker exec <container> ss -lntup
-docker port <container>
-docker inspect <container>
-docker network inspect <network>
-ss -lntp
+docker pull registry.example.com/atlas/payments-api@sha256:<digest>
 ```
 
-Potom over DNS, route, NAT/firewall, upstream policy a client path.
-
-### Failure boundaries
-
-- application počúva iba na container `127.0.0.1`;
-- mapping zamieňa host a container port;
-- port je publikovaný iba na host loopbacku;
-- host `INPUT` je čistý, no traffic ide forwarding/NAT pathom;
-- service names sú v rozdielnych Compose projects/networks;
-- endpoint IP bola recyklovaná, application drží stale connection;
-- conntrack alebo ephemeral ports sú vyčerpané;
-- MTU/PMTUD spôsobuje iba large-payload failure;
-- IPv4 a IPv6 exposure sa líšia.
-
-Host network alebo privileged mode nie sú diagnostika. Odstraňujú boundaries a môžu symptom zakryť.
-
-## 16. Registry a pull path
-
-Image pull failure môže vzniknúť v:
-
-```text
-reference resolution
-→ authentication/authorization
-→ index/platform selection
-→ manifest/config/layer reachability
-→ TLS/proxy/DNS path
-→ local content/snapshot import
-→ runtime compatibility
-```
-
-Over immutable reference:
+Rozlišuj TLS, DNS, authentication, authorization, manifest unknown, blob unknown a platform selection.
 
 ```bash
-docker pull registry.example.com/atlas/payments@sha256:<digest>
-docker image inspect <reference>
-docker manifest inspect <reference>
+docker buildx imagetools inspect IMAGE
 ```
 
-Hypotézy:
+`no matching manifest for linux/arm64` znamená, že index nemá vhodný platform descriptor. `exec format error` znamená, že manifest sa vybral a process exec našiel binary nekompatibilný s runtime architecture alebo formátom.
 
-- wrong repository/reference;
-- tag presunutý na iný digest;
-- missing platform manifest;
-- incomplete replication alebo GC;
-- auth scope;
-- CA/proxy/DNS failure;
-- stale mirror;
-- local snapshot/content corruption;
-- artifact je pullable, ale platform runtime je incompatible.
-
-## 17. Build incident je samostatný subject
-
-Pri BuildKit/Buildx failure rozlišuj:
-
-```text
-builder selection
-→ context/frontend translation
-→ source/base pull
-→ graph node execution
-→ cache import/reuse
-→ platform scheduling/emulation
-→ secret/SSH/entitlement
-→ exporter/push
-→ attestation/publication read-back
-```
+`no such file or directory` pri existujúcom executable môže znamenať chýbajúci shebang interpreter alebo ELF loader. Image export a binary inspection pomôžu:
 
 ```bash
-docker buildx ls
-docker buildx inspect --bootstrap
-docker buildx build --progress=plain .
-docker buildx du
+id="$(docker create IMAGE)"
+docker export "$id" > incident/rootfs.tar
+docker rm "$id"
 ```
 
-Build success bez exporteru neznamená publikovaný image. Cache hit nemusí byť fresh ani trusted. Clean build failure odhaľuje skrytý input dependency. Multi-platform success potrebuje per-platform runtime evidence.
+Analyzuj artifact v trusted debug prostredí.
 
-## 18. Compose incident je project reconciliation incident
+## 12. Network cesta sa diagnostikuje po krokoch
 
-Fixni:
-
-- exact Docker context;
-- project name;
-- Compose file/include/override/profile inventory;
-- resolved-model digest;
-- external/managed resource ownership;
-- image digests;
-- container generations;
-- network/volume identities;
-- one-shot operation IDs;
-- orphan inventory.
+Zachovaj network config:
 
 ```bash
-docker compose config
-docker compose config --environment
-docker compose ps -a
-docker compose images
-docker compose top
-docker compose logs --timestamps --tail=500
+docker inspect "$container_id" | jq '.[0].NetworkSettings'
+docker network inspect atlas-payments_backend \
+  > incident/network-inspect.json
+docker port "$container_id"
 ```
 
-`depends_on` rieši create/start ordering podľa zvoleného condition, nie permanentnú dependency dostupnosť. `up` je bounded reconciliation command, nie continuous controller. `down -v` a `--remove-orphans` potrebujú destructive-scope review.
-
-## 19. Competing hypotheses pre Atlas incident
-
-Po zafixovaní subjectu vznikli tieto hypotézy:
-
-1. host B beží na inom image platform manifest digeste;
-2. host B má stale container s predchádzajúcou configuration epoch;
-3. API process je healthy, ale proxy smeruje na stale endpoint;
-4. connection pool používa recyklovanú DB IP;
-5. cgroup CPU throttling spôsobuje timeouty;
-6. conntrack table alebo ephemeral ports sú pod pressure;
-7. volume obsahuje nesprávny retry-ledger data subject;
-8. healthcheck overuje iba local PID/endpoint;
-9. Docker daemon je pomalý, ale workload plane je zdravý;
-10. external DB/cache dependency má incident nezávislý od Dockeru;
-11. restart dočasne pomáha, pretože resetuje connection pool, nie preto, že opravuje artifact;
-12. klienti retryujú non-idempotent payment operation.
-
-Hypotézy sú užitočné iba vtedy, keď každá má diskriminačný observation point.
-
-## 20. Discriminating observations
-
-| Hypotéza | Dôkaz, ktorý ju odlíši |
-|---|---|
-| wrong image digest | Engine inspect, registry manifest, deployed digest inventory |
-| stale config | source/resolved/create/process-loaded generation comparison |
-| stale endpoint | DNS answer, network endpoint ID, proxy upstream generation |
-| CPU throttle | cgroup `cpu.stat`, pressure a request latency correlation |
-| conntrack/ports | conntrack counters, socket summary, new vs. existing flow behavior |
-| wrong data | mount source, data ID, schema, writer epoch, DB audit |
-| shallow health | exact health command/history vs. external request oracle |
-| daemon-only issue | API latency/logs vs. existing process and direct workload checks |
-| external dependency | downstream SLI/audit from non-container clients |
-| retry amplification | request IDs, client retry policy, duplicate authorization audit |
-
-Nesprávna diagnóza často vznikne, keď tím sleduje iba supportujúci dôkaz a nehľadá observation point, ktorý konkurenčnú hypotézu vyvráti.
-
-## 21. Atlas finding
-
-Na hoste B bol správny image digest aj configuration epoch. Application listener a healthcheck fungovali. Packet capture a conntrack counters ukázali, že nové outbound DB connections zlyhávali pri vysokej concurrency, zatiaľ čo existujúce connections fungovali.
-
-Cgroup CPU ani memory pressure neboli príčinou. Host mal vyčerpaný ephemeral port/NAT tuple pri agresívnych retries po krátkom DB incidente.
+Potom rozliš tri paths:
 
 ```text
-DB latency spike
-→ application otvorí mnoho nových retries bez dostatočného backoffu
-→ host ephemeral/NAT capacity sa vyčerpá
-→ nové spojenia zlyhávajú
-→ healthcheck používa existujúce local path a zostáva green
-→ clients retryujú a incident zosilňujú
-→ restart vyčistí connection pool a dočasne zníži pressure
+container-local health
+service DNS z iného containeru
+host-published port
 ```
 
-Docker bol observation a resource boundary, ale primárny causal loop vznikol v application retry a connection lifecycle-e.
+Local check:
 
-## 22. Containment
+```bash
+docker exec "$container_id" \
+  /usr/local/bin/payments-api healthcheck
+```
 
-Containment má znížiť dopad bez straty evidence:
+Service DNS:
 
-- vyraď host B alebo affected containers z trafficu;
-- obmedz client/application retry rate a concurrency;
-- zastav non-idempotent side effects pri neistej deduplikácii;
-- zachovaj conntrack/socket/cgroup/process evidence;
-- nevykonávaj broad prune ani host-network bypass;
-- neotváraj firewall broadly;
-- chráň payment ledger a downstream audit;
-- podľa potreby zvýš capacity iba ako dočasný, zaznamenaný control.
+```bash
+docker run --rm \
+  --network atlas-payments_backend \
+  curlimages/curl:8.10.1 \
+  curl -v http://payments-api:8080/readyz
+```
 
-## 23. Recovery
+Host path:
 
-Recovery opravila authoritative sources:
+```bash
+curl -v http://127.0.0.1:18080/readyz
+```
 
-1. bounded exponential backoff a jitter;
-2. connection pool limits;
-3. idempotency key pre authorization;
-4. circuit breaker/degradation pri DB pressure;
-5. host ephemeral/conntrack capacity upravenú podľa meraného load modelu;
-6. nový immutable image digest;
-7. staged replacement containers;
-8. synthetic aj real business-path verification.
+Ak local prejde a oba external paths zlyhajú, skontroluj application bind address. Ak service DNS prejde a host zlyhá, sústreď sa na published port a host firewall. Ak DNS zlyhá, over network membership a alias. Ak TCP connect prejde, ale väčšie requesty timeoutujú, analyzuj MTU, proxy a application timeouty.
 
-Ručná zmena v bežiacom containeri alebo hoste nesmie zostať jediným zdrojom pravdy.
+## 13. DNS
 
-## 24. Over pôvodný outcome
+V debug containeri:
 
-Po recovery bolo overené:
+```bash
+cat /etc/resolv.conf
+getent hosts payments-api
+getent hosts database.example.internal
+```
 
-- exact release, configuration, data a endpoint generation;
-- normalizované new-connection success rate;
-- žiadne conntrack/ephemeral exhaustion;
-- payment authorization exactly once;
-- latency pod 800 ms;
-- graceful behavior pri opakovanom DB latency experimente;
-- forbidden staging access absent;
-- starý image digest odstránený z active deployment inventory;
-- replacement container nemení data ani configuration subject.
+DNS result môže obsahovať IPv4 aj IPv6. Otestuj exact family:
 
-„Error rate klesol“ by nebolo dostatočné closure.
+```bash
+curl -4 -v URL
+curl -6 -v URL
+```
 
-## 25. Posuň control skôr
+DNS success iba mapuje meno na address. Neoveruje route, firewall, listener ani TLS. Pri intermittent DNS probléme zachovaj timestamps, query name, response records, TTL a network namespace.
 
-Incident viedol k týmto controls:
+## 14. Healthcheck diagnosis
 
-- deployment manifest s image/config/data/endpoint generations;
-- host network-capacity SLO a conntrack alerts;
-- retry budget a idempotency contract tests;
-- external readiness/business synthetic;
-- cgroup, socket a network evidence v incident bundle;
-- controlled failure test DB latency;
-- explicitné rollback a containment playbooky;
-- zákaz destructive commands bez inventory/approval;
-- centralizované Docker events a daemon/kernel correlation.
+Health definition:
 
-## 26. Controlled reproduction
+```bash
+docker inspect "$container_id" \
+  --format '{{json .Config.Healthcheck}}' | jq .
+```
 
-Reproduction musí zachovať relevantný subject:
+Health history:
+
+```bash
+docker inspect "$container_id" \
+  --format '{{json .State.Health.Log}}' | jq .
+```
+
+Výstup health commandu môže obsahovať presnú chybu. Skontroluj timeout a start period. Check môže zlyhávať, pretože v image-i chýba shell alebo `curl`, nie preto, že application nie je ready.
+
+Naopak green health môže byť príliš plytký. Ak testuje iba `/healthz`, volume write alebo database dependency môže byť chybná. Health oracle sa posudzuje podľa intended serving contractu.
+
+## 15. Compose problémy začínajú resolved modelom
+
+```bash
+docker compose version
+docker compose --env-file .env config --environment
+docker compose --env-file .env config > incident/compose-resolved.yaml
+docker compose --env-file .env ps --all
+docker compose --env-file .env logs --timestamps --no-color \
+  > incident/compose.log
+```
+
+Source `compose.yaml` nemusí byť effective model. Overrides, profiles, shell environment a project name môžu zmeniť image, ports, mounts aj security options.
+
+Zisti project identity:
+
+```bash
+docker compose ls
+docker inspect "$(docker compose ps -q api)" \
+  --format '{{json .Config.Labels}}' | jq .
+```
+
+Dve jobs s rovnakým project name môžu navzájom ovplyvniť resources. Zmena project name môže pripojiť nový project-scoped volume.
+
+## 16. Build failure diagnosis
+
+Pri BuildKit failure použi plain progress:
+
+```bash
+docker buildx build --progress=plain . 2>&1 \
+  | tee incident/build.log
+```
+
+Zachovaj:
+
+```bash
+docker buildx inspect --bootstrap > incident/builder.txt
+sha256sum Dockerfile .dockerignore > incident/build-files.sha256
+```
+
+Hľadaj prvý failing graph node. Summary `failed to solve` nie je root cause. Dependency download timeout, compiler error, missing context file, cache import failure a registry exporter authorization sú samostatné vrstvy.
+
+Pri podozrivom cache behavior vytvor clean builder:
+
+```bash
+docker buildx create \
+  --name incident-clean \
+  --driver docker-container \
+  --use
+
+docker buildx inspect incident-clean --bootstrap
+
+docker buildx build \
+  --builder incident-clean \
+  --no-cache \
+  --progress=plain \
+  .
+```
+
+Nepoužívaj `--no-cache` ako trvalú opravu, kým nevieš, ktorý input alebo cached result bol nesprávny.
+
+## 17. Daemon a host layer
+
+Keď CLI nevie kontaktovať daemon:
+
+```bash
+docker version
+```
+
+môže ukázať client informácie a server error. Na native Linux hoste:
+
+```bash
+systemctl status docker
+journalctl -u docker --since '30 minutes ago'
+systemctl status containerd
+journalctl -u containerd --since '30 minutes ago'
+```
+
+Host kernel evidence:
+
+```bash
+dmesg --ctime | tail -n 200
+journalctl -k --since '30 minutes ago'
+```
+
+Hľadaj OOM, filesystem, device, network, LSM a runtime errors. Reštart daemonu môže zastaviť alebo ovplyvniť workloads podľa konfigurácie a zničí časť volatile evidence. Najprv zachovaj logs a scope impactu.
+
+## 18. Incident walkthrough: healthy API, payment write zlyháva
+
+Symptom:
 
 ```text
-pin image/platform digest
-→ export redacted resolved runtime config
-→ použiť rovnaký kernel/runtime/platform class
-→ vytvoriť izolovaný data subject alebo snapshot clone
-→ reprodukovať rovnaký flow/load/dependency condition
-→ meniť jednu hypotézu naraz
-→ zaznamenať before/after evidence
+Docker status: running
+Docker health: healthy
+GET /version: 200
+POST /payments: 503 alebo permission denied
 ```
 
-„Po rebuild-e to funguje“ nie je root cause, pokiaľ nevieš, ktorý input, cache, artifact alebo runtime state sa zmenil.
+Najprv zafixujeme subject:
 
-## 27. Remediation hierarchy
+```bash
+container_id="$(docker compose ps -q api)"
+docker inspect "$container_id" > incident/api.json
+docker logs --timestamps "$container_id" > incident/api.log 2>&1
+docker volume inspect atlas-payments-data > incident/volume.json
+```
 
-Preferované poradie:
+Competing hypotheses sú: nesprávny UID/GID volume-u, read-only mount, DATA_PATH mimo volume-u, LSM denial, full filesystem alebo request smerujúci na inú container generation.
+
+`docker inspect` ukáže UID `65532`, writable volume target a `DATA_PATH`. Logs ukážu `open data file: permission denied`. Read-only helper ukáže root directory `0:0` mode `0700`. Tým sa hypotézy výrazne zúžia na ownership.
+
+Containment zastaví nové payment writes alebo presmeruje traffic na zdravú cohortu. Pred chown sa vytvorí backup a inventory. Bounded initializer opraví iba application directory:
+
+```bash
+docker run --rm \
+  --user 0:0 \
+  --mount type=volume,source=atlas-payments-data,target=/data \
+  busybox:1.36.1 \
+  sh -ec 'chown 65532:65532 /data && chmod 0750 /data'
+```
+
+Recovery nie je hotová pri green health. Zopakuje sa pôvodný POST, GET a recreate persistence test. Forbidden test potvrdí, že process stále nevie zapisovať mimo volume-u a nezískal broad privileges.
+
+Skorší control je explicitný initializer, readiness write test a CI/Compose assertion nad runtime UID a volume identity.
+
+## 19. Incident walkthrough: local health je green, host port timeoutuje
+
+Subject evidence ukáže:
 
 ```text
-contain impact
-→ opraviť versionovaný source/config/policy
-→ vytvoriť nový immutable artifact alebo state generation
-→ overiť artifact a recovery eligibility
-→ nahradiť runtime instance
-→ overiť pôvodný business outcome
-→ uzavrieť adjacent risk a prevention
+healthcheck URL: 127.0.0.1:8080
+LISTEN_ADDRESS: 127.0.0.1:8080
+published port: 127.0.0.1:18080 → 8080/tcp
 ```
 
-Ručná live oprava môže byť núdzový containment alebo diagnostický experiment. Musí byť zaznamenaná, reprodukovaná v authoritative source a následne odstránená replacementom.
+Local healthcheck prejde, pretože používa loopback v rovnakom namespace. Host packet smeruje na container interface address a listener tam nie je.
 
-## 28. Observation matrix
+Service DNS test z iného containeru tiež zlyhá. Port mapping a firewall môžu byť správne.
 
-| Boundary | Hlavná identita | Typické observations |
-|---|---|---|
-| Client/context | context, endpoint, caller | `docker context`, client/server version |
-| Engine | daemon host/config/generation | daemon logs, API latency, events |
-| Container object/task | object ID, task, PID | inspect, top, exit/restart timeline |
-| Artifact | index/platform digest | registry read-back, image config/history |
-| Runtime config | resolved/create/loaded generation | Compose config, inspect, redacted app config |
-| Process | PID 1, command, signals | logs, top, stop test, traces |
-| Cgroup/host | cgroup ID a node | counters, PSI, OOM, limits |
-| Storage | data ID, mount/writer epoch | mount/volume/backend inspect, audit |
-| Network | flow/endpoint/publication generation | sockets, DNS, routes, counters, capture |
-| Build | build/builder/cache/output subject | Buildx inspect, plain progress, registry/evidence |
-| Business | request/operation ID | SLI, downstream audit, exact-once invariant |
+Recovery vytvorí nový container s `LISTEN_ADDRESS=:8080`. Po zmene sa overia všetky tri paths: local health, service DNS a host port. Restart starého containeru by nepomohol, pretože environment je create-time state.
 
-Matrix pomáha vybrať observation points. Nie je náhradou hypotéz.
+Skorší control je runtime integration test z oddeleného network namespace-u a explicitný host-published smoke test.
 
-## 29. Deštruktívne anti-patterny
+## 20. Unknown outcomes a retry
 
-### Restart ako prvý krok
+Niektoré Docker operácie môžu timeoutnúť po tom, čo mutation prebehla. Registry push, remote Engine create alebo Compose up môže mať unknown outcome.
 
-Môže vyčistiť pool, cache, pressure alebo transient state a odstrániť príčinné evidence.
+Blind retry môže vytvoriť duplicate container, prepísať tag alebo zmiešať project generations. Najprv read-backni authoritative state:
 
-### `docker system prune -a --volumes`
+```bash
+docker ps -a --filter label=com.docker.compose.project=atlas-payments
+docker buildx imagetools inspect IMAGE_REF
+docker compose ps --all
+```
 
-Môže odstrániť rollback artifacts, stopped incident evidence, cache a persistent data.
+Idempotentný retry potrebuje stable name alebo idempotency model a kontrolu existujúceho state-u. Pri external business side effecte Docker retry semantics nestačia; aplikácia potrebuje vlastný idempotency key a reconciliation.
 
-### `chmod 777`, privileged alebo host network
+## 21. Kedy použiť restart, recreate, rebuild alebo host replacement
 
-Obchádzajú identity/security/network boundary a maskujú root cause.
+Restart je vhodný, keď process alebo transient dependency potrebuje nový štart a create configuration aj image zostávajú správne.
 
-### `docker exec` a permanentná live mutation
+Recreate je potrebný pri zmene environment, mounts, ports, security options alebo image reference containeru.
 
-Vytvára neversionovaný drift, ktorý zmizne pri replacement-e.
+Rebuild je potrebný, keď sa mení source, dependency, Dockerfile, base image alebo runtime artifact.
 
-### Diagnostika iba z application logs
-
-Ignoruje daemon, kernel, cgroups, storage, network a deployment subject.
-
-### Mutable tag pri reprodukcii
-
-Rovnaký názov môže označovať iný artifact.
-
-### Dump celého environmentu
-
-Môže zverejniť secrets a rozšíriť incident.
-
-### Cleanup pred restore/ownership kontrolou
-
-Existencia snapshotu alebo volume-u nepreukazuje clean restore.
-
-## 30. Praktický incident checklist
+Host replacement je potrebný pri kernel, runtime, storage driver alebo node compromise a pri neobnoviteľnom host drift-e.
 
 ```text
-[ ] Pôvodný user/business outcome a forbidden outcomes
-[ ] Impact, scope a presná timeline
-[ ] Docker context, Engine host a Compose project
-[ ] Image index/platform digest a container generation
-[ ] Resolved/create/process-loaded configuration generation
-[ ] Data ID, schema, mount a writer epoch
-[ ] Endpoint/DNS/publication/flow generation
-[ ] Process, exit, health a signal evidence
-[ ] Cgroup limits, counters, PSI a kernel events
-[ ] Disk bytes, inodes, logs, volumes a build cache owners
-[ ] Registry/build provenance a posledná zmena
-[ ] Aspoň dve konkurenčné hypotézy
-[ ] Diskriminačný observation point pre každú hypotézu
-[ ] Evidence uložená pred restart/delete/prune
-[ ] Containment nepoškodzuje dáta ani evidence
-[ ] Recovery je v authoritative source/artifact/state
-[ ] Pôvodný outcome aj forbidden outcomes overené
-[ ] Skorší control, owner a follow-up closure
+process state problém
+→ restart môže stačiť
+
+container config problém
+→ recreate
+
+image/artifact problém
+→ rebuild + recreate
+
+host/kernel problém
+→ drain a replace host
 ```
 
-## 31. Prechod ku Kubernetes
+Rozhodnutie sa robí podľa prvej chybnej authority vrstvy, nie podľa najľahšie dostupného príkazu.
 
-Docker troubleshooting učí identifikovať artifact, process, cgroup, mount, flow, health a runtime generation na jednom Engine hoste. Kubernetes pridáva ďalšie reconciliation a identity vrstvy:
+## 22. Evidence pred deštruktívnou operáciou
+
+Minimálny incident bundle:
+
+```bash
+docker context inspect > incident/context.json
+docker version > incident/docker-version.txt
+docker info > incident/docker-info.txt
+
+docker inspect CONTAINER > incident/container.json
+docker image inspect IMAGE > incident/image.json
+docker logs --timestamps CONTAINER > incident/container.log 2>&1
+docker diff CONTAINER > incident/container-diff.txt
+docker events --since 30m --until 0s > incident/events.log
+
+docker network inspect NETWORK > incident/network.json
+docker volume inspect VOLUME > incident/volume.json
+docker system df -v > incident/system-df.txt
+```
+
+Bundle môže obsahovať secrets v inspect alebo logs. Pred zdieľaním sa rediguje a chráni podľa incident policy.
+
+Až potom sa rozhodne o stop, restart, recreate, rm, down alebo prune.
+
+## 23. Closure po oprave
+
+Incident sa neuzatvára vetou „container je green“. Potrebujeme overiť pôvodný outcome, forbidden outcome, adjacent cohort a druhú operáciu.
+
+Pre `payments-api`:
 
 ```text
-API desired state
-→ controllers a scheduler
-→ node/kubelet/CRI
-→ Pod sandbox a containers
-→ Services/endpoints/network policy
-→ volumes a storage controllers
-→ probes a rollout state
+/version ukazuje správny image a config generation
+/readyz je green
+service DNS funguje
+host port funguje
+POST a GET payment prejdú
+payment prežije recreate
+process zostáva non-root a bez capabilities
+zakázaný write mimo volume-u zlyhá
+susedné services alebo platformy nie sú poškodené
+druhý Compose up nevytvorí neočakávaný drift
 ```
 
-Základná metóda zostáva rovnaká: zafixovať subject, rozlíšiť desired a effective state, sledovať observation points a overiť pôvodný workload outcome. Mení sa počet control planes a reconciliation owners.
+Nakoniec sa control posunie skôr: Dockerfile check, resolved Compose policy, platform smoke test, volume initializer, loaded configuration telemetry alebo incident alert podľa root cause.
 
-## 32. Kontrolné otázky
+## Čo si z kapitoly odniesť
 
-1. Prečo symptom alebo container name nestačí ako incident subject?
-2. Ktoré evidence sú volatile a treba ich zachovať pred restartom?
-3. Ako sa líši Engine object, runtime process, health a business outcome?
-4. Prečo exit code `137` nepreukazuje konkrétnu OOM príčinu?
-5. Ako odlíšiš desired, container create a process-loaded configuration?
-6. Prečo host free memory nevylučuje cgroup OOM?
-7. Aký flow model použiješ pri nefunkčnom published porte?
-8. Prečo clean build failure znamená neúplný input contract?
-9. Čo robí observation point diskriminačným?
-10. Ako overíš, že recovery odstránila príčinu, nie iba symptom?
+Docker incident sa diagnostikuje od exact contextu, containeru, image-u, configuration a data identity. Running, healthy a correct business outcome sú odlišné states. Evidence sa zachová pred restartom, recreate alebo cleanupom.
 
-## Glossary impact
+Pri každom symptóme sleduj vrstvu: client a daemon, image pull, create configuration, storage, network, runtime exec, process, health alebo application. Exit code, log alebo inspect field je observation, nie automatický root-cause verdict. Oprava sa aplikuje na authoritative vrstvu a overí sa pôvodnou aj forbidden cestou. Náhodný restart môže symptom dočasne skryť, ale nevytvára dôveryhodnú closure.
 
-Relevantné pojmy: Docker incident subject, original outcome contract, forbidden outcome, volatile evidence inventory, management-plane/workload-plane split, container generation, hypothesis evidence matrix, discriminating observation point, Docker containment subject, authoritative remediation, subject-preserving reproduction, incident closure verdict a Docker-to-Kubernetes diagnostic bridge.
+## Primárne zdroje
 
-## Oficiálna dokumentácia
-
-- [Troubleshoot the Docker daemon](https://docs.docker.com/engine/daemon/troubleshoot/)
-- [Read daemon logs](https://docs.docker.com/engine/daemon/logs/)
-- [Docker logging](https://docs.docker.com/engine/logging/)
-- [`docker system df`](https://docs.docker.com/reference/cli/docker/system/df/)
-- [`docker events`](https://docs.docker.com/reference/cli/docker/system/events/)
-- [Docker Desktop troubleshooting](https://docs.docker.com/desktop/troubleshoot-and-support/troubleshoot/)
+- [Docker Engine CLI reference](https://docs.docker.com/reference/cli/docker/)
+- [Docker container inspect](https://docs.docker.com/reference/cli/docker/inspect/)
+- [Docker events](https://docs.docker.com/reference/cli/docker/system/events/)
+- [Runtime metrics](https://docs.docker.com/engine/containers/runmetrics/)
+- [Docker networking](https://docs.docker.com/engine/network/)
+- [Docker storage](https://docs.docker.com/engine/storage/)
+- [BuildKit](https://docs.docker.com/build/buildkit/)
+- [Compose troubleshooting](https://docs.docker.com/compose/support-and-feedback/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
