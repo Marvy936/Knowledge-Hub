@@ -662,6 +662,43 @@ Waiver povoľuje risk decision napriek známemu failure; evidence ostáva failur
 
 Hlučné a pomalé gates zvyšujú bypassy, batch size a lead time.
 
+## Doplnenie výkladu: denominator coverage a význam gate-u
+
+Coverage je pomer pozorovaných programových prvkov k zvolenému denominatoru. **Line coverage** sleduje vykonané riadky, **branch coverage** výsledky podmienok, **function coverage** volané funkcie a **condition coverage** jednotlivé boolean časti. Hodnota 80 % bez uvedenia typu, scope a exclusions je neúplná.
+
+Príklad:
+
+```python
+def classify(amount: int) -> str:
+    if amount <= 0:
+        return "invalid"
+    if amount > 1000:
+        return "review"
+    return "accepted"
+```
+
+Jeden test s `amount=100` vykoná väčšinu riadkov, ale neoverí `invalid` ani `review` branch. Vysoká line coverage preto nemusí znamenať silný oracle. Test môže riadok vykonať bez assertion na jeho výsledok.
+
+Coverage report odpovedá „čo testy vykonali“, nie „čo správne overili“. Chýbajúca coverage je užitočná mapa nepozorovaného kódu; prítomná coverage nie je dôkaz correctness.
+
+**Mutation testing** skúša silu testov tak, že nástroj úmyselne zmení program, napríklad `>` na `>=` alebo odstráni volanie, a sleduje, či testy zlyhajú. Preživší mutant naznačuje slabý alebo chýbajúci oracle, ale nie každý mutant je významný alebo neekvivalentný.
+
+Quality gate je policy decision nad evidence:
+
+```text
+coverage delta
++ blocking findings
++ test results
++ risk/ownership pravidlá
+→ allow alebo block transition
+```
+
+Gate `coverage >= 80 %` môže motivovať bezcenné testy alebo trestať generated code. Lepší gate môže sledovať coverage zmeneného rizikového kódu, branch coverage a zakázaný pokles, pričom kritické paths majú explicitné tests nezávisle od percenta.
+
+Pri pull requeste rozlišuj absolute a differential gate. Absolute gate hodnotí celý repository. Differential gate hodnotí novú zmenu. Oba potrebujú stabilný baseline; ak sa base branch medzitým zmenila, porovnanie sa môže stať stale.
+
+Gate failure neznamená automaticky product defect. Môže ísť o missing report, parser error alebo policy service outage. Fail-open prekladá chýbajúce evidence na PASS a je nebezpečný pri required controls. Pipeline má odlíšiť `FAIL`, `ERROR` a `MISSING`, aby owner vedel, či opraviť kód, test alebo evidence path.
+
 ## 35. Zhrnutie
 
 Atlas coverage a gate chain je:

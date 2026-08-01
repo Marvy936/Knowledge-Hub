@@ -756,6 +756,62 @@ Nie. Produkcia a rollback môžu obsahovať viac verzií naraz.
 
 Nie. Nepokrýva ordering, delivery, idempotency ani business invariants.
 
+## Doplnenie výkladu: contract nie je iba JSON schema
+
+**Contract** je dohoda medzi producerom a consumerom o tom, ako sa rozhranie používa. Môže zahŕňať endpoint, method, status codes, headers, authentication, schema, význam polí, error model, ordering, idempotenciu a compatibility pravidlá. JSON Schema alebo OpenAPI zachytí významnú časť tvaru, ale nemusí vyjadriť všetky behaviorálne semantics.
+
+Pri HTTP requeste rozlišuj:
+
+```text
+request contract
+→ method, path, headers, identity, body
+
+response contract
+→ status, headers, body schema, business semantics
+
+interaction contract
+→ retries, idempotency, ordering, side effects, timeout behavior
+```
+
+Jednoduchý API test môže vyzerať takto:
+
+```bash
+response_file=$(mktemp)
+status=$(curl --silent --show-error \
+  --output "$response_file" \
+  --write-out '%{http_code}' \
+  --header 'Content-Type: application/json' \
+  --data '{"orderId":"ord-42","amount":500}' \
+  http://127.0.0.1:8080/orders)
+
+test "$status" = '201'
+jq -e '.orderId == "ord-42" and .status == "accepted"' "$response_file"
+```
+
+`curl --output` oddelí body od statusu. `--write-out` vráti HTTP status ako text; samotný exit code `curl` opisuje transport/tool failure, nie business status. `test` overí status `201` a `jq -e` vytvorí nenulový exit pri nepravdivom výraze. Tento test stále neoveruje počet databázových zápisov, audit event ani správanie pri opakovaní rovnakého `orderId`.
+
+**Provider contract test** overuje, že provider dokáže splniť publikovaný contract. **Consumer-driven contract test** začína interakciami, ktoré konkrétny consumer potrebuje, a provider ich verifikuje proti vlastnej implementácii. Tým sa znižuje riziko, že producer zmení pole, ktoré síce považuje za nepodstatné, ale consumer ho používa.
+
+Contract test nie je plný E2E test. Môže overiť kompatibilitu bez nasadenia všetkých služieb. Je rýchlejší a presnejší, ale nemusí zachytiť gateway rewrite, reálnu identity policy alebo environment routing.
+
+Pri compatibility rozlišuj:
+
+```text
+syntactic compatibility
+→ dokument sa dá parse-nuť
+
+structural compatibility
+→ povinné polia a typy sedia
+
+semantic compatibility
+→ rovnaké hodnoty znamenajú rovnakú vec
+
+operational compatibility
+→ timeout, retry, ordering a side effects zostávajú použiteľné
+```
+
+Pridanie optional field je často backward compatible, ale zmena jeho významu nemusí byť. Preto contract evidence potrebuje exact producer version, consumer version, contract generation a verifier result.
+
 ## 27. Zhrnutie
 
 Pre Atlas `CreateOrder` je dôveryhodný interface chain:

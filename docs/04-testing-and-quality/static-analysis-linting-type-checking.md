@@ -598,6 +598,39 @@ Je to chýbajúci dôkaz. Gate potrebuje explicitnú unknown policy.
 
 Stale dependency graph alebo config change môže vyžadovať whole-repo reanalysis.
 
+## Doplnenie výkladu: parser, pravidlo a statický verdict
+
+Statická analýza pracuje bez vykonania cieľového programu. Nástroj najprv načíta source alebo bytecode, vytvorí tokeny, syntax tree, type graph alebo control/data-flow model a potom vyhodnotí pravidlá. Rozdiel medzi formatterom, linterom, type checkerom a analyzátorom je najmä v hĺbke modelu.
+
+- **formatter** mení alebo kontroluje prezentáciu source podľa deterministických pravidiel;
+- **linter** hľadá syntaktické, štýlové a vybrané correctness patterny;
+- **type checker** overuje kompatibilitu typov a kontraktov;
+- **SAST/data-flow analyzátor** sleduje možné cesty dát alebo control flow, napríklad source-to-sink tok.
+
+Príkazy:
+
+```bash
+ruff check .
+mypy src/
+```
+
+Exit code `0` typicky znamená, že zapnuté rules pre analyzované files nevytvorili blocking finding. Neznamená to, že program je bez defectov. Výsledok závisí od configu, excluded paths, rule versions, type stubs a suppressions.
+
+Type hint:
+
+```python
+def total(amounts: list[int]) -> int:
+    return sum(amounts)
+```
+
+pomáha checkeru odhaliť caller, ktorý odovzdá `list[str]`. Runtime Python však annotations sám nevynucuje. Ak data prichádzajú z JSON, treba ich parse-nuť a validovať; zelený type checker nepreukazuje runtime typ external inputu.
+
+Suppression ako `# noqa`, `//nolint` alebo `# type: ignore` je zmena policy. Má byť úzka, viazaná na konkrétny rule a odôvodnenie. Globálne vypnutie pravidla môže vytvoriť false-green. Audit preto sleduje nielen počet findings, ale aj config generation, exclusions a trend suppressions.
+
+Statický finding môže byť false positive, pretože analyzátor nemá celý runtime kontext. Oprava však nemá automaticky znamenať suppression. Najprv sa potvrdí path, input controllability a sink semantics. False negative vznikne, ak pravidlo daný pattern nemodeluje, file sa neanalyzuje alebo dynamické správanie uniká statickému modelu.
+
+Static checks sú vhodné skoro v feedback chain-e, pretože sú rýchle a reprodukovateľné. Dynamic testy ich dopĺňajú tam, kde rozhoduje runtime configuration, concurrency, dependency alebo business outcome.
+
 ## 32. Zhrnutie
 
 Atlas statická evidence chain je:

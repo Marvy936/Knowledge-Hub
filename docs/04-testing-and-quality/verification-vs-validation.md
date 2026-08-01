@@ -434,6 +434,46 @@ Testy poskytujú dôkaz v konkrétnom scope a prostredí. Reziduálne riziko, ne
 11. Čo znamená provenance testovacieho dôkazu?
 12. Ako rozlíšiš chybný produkt od chybného testu alebo kontraktu?
 
+## Doplnenie výkladu: oracle, verdict a hranica dôkazu
+
+Pojem **test oracle** je dôležitý preto, že samotné vykonanie testu ešte nevytvára rozhodnutie. Test runner vie spustiť kód, zachytiť návratovú hodnotu alebo odmerať čas, ale až oracle určí, ktoré pozorovanie sa považuje za správne. Oracle môže byť jednoduchý assertion, schéma, invariant, referenčný model, business pravidlo alebo prevádzkový limit.
+
+Pri jednoduchom deterministickom teste je oracle priamo viditeľný:
+
+```python
+result = calculate_total([100, 250], tax_rate=0.20)
+assert result == 420
+```
+
+Prvý riadok vytvorí **observed result**. Druhý riadok porovná pozorovanie s očakávanou hodnotou `420`. Ak assertion prejde, dôkaz platí iba pre túto implementáciu, tento vstup, túto konfiguráciu a tento výpočet. Nepreukazuje správnosť všetkých vstupov ani to, že sadzba `0.20` zodpovedá reálnemu business pravidlu. Prvá otázka patrí verification; druhá môže vyžadovať validation s vlastníkom domény.
+
+Oracle môže byť chybný dvoma základnými spôsobmi. **False positive** v testovacom kontexte znamená, že kontrola nahlási problém, hoci požadované správanie je správne. **False negative** znamená, že test prejde, hoci defect existuje. Napríklad assertion iba na HTTP `200` je slabý oracle: endpoint môže vrátiť `200`, ale uložiť nesprávnu sumu, vynechať audit event alebo vykonať side effect dvakrát.
+
+Silnejší oracle preto rozkladá výsledok:
+
+```text
+transport outcome
++ response schema
++ business values
++ persisted state
++ počet side effects
++ authorization boundary
++ audit evidence
+```
+
+Nie každý test musí kontrolovať všetky vrstvy. Musí však jasne povedať, ktorú z nich kontroluje. Verification verdict `PASS` teda znamená „pozorovanie sa zhodovalo s týmto konkrétnym oraclom“, nie „systém je všeobecne správny“.
+
+Validation pridáva otázku reprezentatívnosti. Aj dokonale implementovaný test môže používať nereálny workflow, používateľskú skupinu alebo workload. Preto sa pri validation vždy pýtaj:
+
+```text
+Kto systém používa?
+Aký cieľ sa snaží dosiahnuť?
+V akom prostredí a pod akými obmedzeniami?
+Aká metrika opisuje úspešný výsledok pre používateľa alebo business?
+```
+
+Dôkaz má na konci uvádzať subject a scope. Veta „testy prešli“ je neúplná. Presnejší verdict je napríklad: „Contract testy pre commit `abc123`, schema generation 7 a mockovaného providera prešli; reálny provider, produkčná konfigurácia a business completion neboli týmto testom overené.“
+
 ## 25. Zhrnutie
 
 Verification overuje správnosť voči explicitnému kontraktu; validation overuje správnosť zvoleného výsledku v reálnom kontexte. Dôveryhodná testovacia stratégia prepája potrebu, riziko, control, test oracle, environment a rozhodnutie a otvorene uvádza scope aj slepé miesta dôkazu.
