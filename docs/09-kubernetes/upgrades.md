@@ -6,6 +6,10 @@ V Atlas clustri upgradeujeme z podporovanej current generation na nasledujúcu s
 
 ## Presný current a target inventory
 
+Upgrade subject nie je iba Kubernetes minor version. Current inventory zahŕňa control-plane a Node versions, kubelet alebo runtime, API resources a stored versions, CRDs a conversion webhooks, admission webhooks, CNI, CSI, DNS a metrics add-ons a jednotlivé Node image generations. Target inventory pinne ich kompatibilné successor versions a podporovaný version-skew path.
+
+Pred mutation sa inventory viaže na konkrétny cluster UID a cohorty. Discovery, deprecated API scan, webhook reachability a add-on compatibility rozhodnú, či je target vôbec admissible. Po každom kroku sa porovná API alebo control-plane health, controller progress, Node capability canary a workload a business outcomes; zelený control plane nepreukazuje, že nová Node alebo dataplane generation je pripravená.
+
 Pred plánom treba zaznamenať:
 
 ```text

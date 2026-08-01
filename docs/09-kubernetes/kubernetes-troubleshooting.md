@@ -232,6 +232,8 @@ Ak dependency zlyháva, rozhodni, či readiness contract správne odpojuje Pod a
 
 ## Service nemá endpoints
 
+Service object je iba stabilná virtuálna identita a port contract. Backend inventory vzniká až v EndpointSlice objects, ktoré controller skladá z Podov zodpovedajúcich selectoru a z ich readiness state-u. Diagnostika preto musí porovnať Service selector a port mapping s konkrétnymi Pod labels, Pod UID a ready condition; samotná existencia Service nepreukazuje, že existuje jediný routovateľný backend.
+
 ```bash
 kubectl get service payments-api -n production -o yaml
 kubectl get endpointslices -n production \
@@ -363,6 +365,8 @@ majú metrics/traces rovnakú medzeru?
 Chýbajúce telemetry je vlastný failure. Nemusí byť root cause application incidentu.
 
 ## Detailný incident: green cluster, intermittent 502 po Node upgrade-e
+
+Incident je vedený ako porovnanie dvoch Node generations pri rovnakom application image a configuration generation. Cieľom nie je hľadať prvý červený status, ale zafixovať failing request, backend Pod UID a Node UID, nájsť prvý rozdiel medzi zdravou a chybnou cohortou a oddeliť application, Service, CNI a telemetry failures. Až tento causal chain určí bezpečný containment a replacement boundary.
 
 ### Symptom
 

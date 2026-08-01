@@ -2327,44 +2327,44 @@
     {
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "title": "Cluster installation a lifecycle",
-      "words": 1319,
+      "words": 1429,
       "headings": 19,
       "sections": 19,
       "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 22,
+      "low": 10,
+      "score": 15,
       "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "title": "CNI a NetworkPolicy",
-      "words": 1241,
+      "words": 1332,
       "headings": 18,
       "sections": 18,
       "findings": 11,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 10,
-      "score": 23,
+      "low": 11,
+      "score": 16,
       "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/configmap-secret.md",
       "title": "ConfigMap a Secret",
-      "words": 1084,
+      "words": 1186,
       "headings": 15,
       "sections": 15,
-      "findings": 9,
+      "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 8,
-      "score": 19,
-      "grade": "B"
+      "low": 10,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/control-plane-components.md",
@@ -2397,30 +2397,30 @@
     {
       "path": "docs/09-kubernetes/deployment.md",
       "title": "Deployment",
-      "words": 1351,
+      "words": 1457,
       "headings": 17,
       "sections": 17,
       "findings": 7,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 6,
-      "score": 16,
-      "grade": "B"
+      "low": 7,
+      "score": 9,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
       "title": "Desired state a reconciliation loops",
-      "words": 1385,
+      "words": 1517,
       "headings": 16,
       "sections": 16,
-      "findings": 16,
-      "critical": 3,
-      "high": 1,
-      "medium": 1,
-      "low": 11,
-      "score": 62,
-      "grade": "D"
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/etcd-backup-restore.md",
@@ -2439,16 +2439,16 @@
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "title": "HPA a autoscaling",
-      "words": 1305,
+      "words": 1472,
       "headings": 20,
       "sections": 20,
-      "findings": 8,
+      "findings": 7,
       "critical": 0,
-      "high": 2,
+      "high": 0,
       "medium": 0,
-      "low": 6,
-      "score": 26,
-      "grade": "B"
+      "low": 7,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/ingress-gateway-api.md",
@@ -2467,16 +2467,16 @@
     {
       "path": "docs/09-kubernetes/job-cronjob.md",
       "title": "Job a CronJob",
-      "words": 1262,
+      "words": 1359,
       "headings": 19,
       "sections": 19,
-      "findings": 6,
+      "findings": 5,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 5,
-      "score": 17,
-      "grade": "B"
+      "score": 9,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/kubernetes-architecture.md",
@@ -2495,30 +2495,30 @@
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "title": "Praktický Kubernetes projekt od manifestov po overený rollout",
-      "words": 3604,
+      "words": 3965,
       "headings": 36,
       "sections": 36,
-      "findings": 12,
+      "findings": 15,
       "critical": 0,
-      "high": 4,
+      "high": 0,
       "medium": 0,
-      "low": 8,
-      "score": 41,
-      "grade": "C"
+      "low": 15,
+      "score": 17,
+      "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "title": "Kubernetes troubleshooting",
-      "words": 2542,
+      "words": 2656,
       "headings": 34,
       "sections": 34,
-      "findings": 15,
-      "critical": 1,
-      "high": 1,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
-      "low": 13,
-      "score": 39,
-      "grade": "C"
+      "low": 16,
+      "score": 23,
+      "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/logging-metrics-events.md",
@@ -2551,30 +2551,30 @@
     {
       "path": "docs/09-kubernetes/probes.md",
       "title": "Probes",
-      "words": 1291,
+      "words": 1378,
       "headings": 20,
       "sections": 20,
-      "findings": 9,
+      "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 8,
-      "score": 22,
+      "low": 10,
+      "score": 16,
       "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/rbac.md",
       "title": "RBAC",
-      "words": 1215,
+      "words": 1344,
       "headings": 20,
       "sections": 20,
-      "findings": 9,
-      "critical": 2,
-      "high": 2,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 47,
-      "grade": "C"
+      "low": 7,
+      "score": 9,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/replicaset.md",
@@ -2593,44 +2593,44 @@
     {
       "path": "docs/09-kubernetes/requests-limits-qos.md",
       "title": "Requests, limits a QoS",
-      "words": 1336,
+      "words": 1427,
       "headings": 23,
       "sections": 23,
       "findings": 9,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 8,
-      "score": 22,
+      "low": 9,
+      "score": 15,
       "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "title": "ResourceQuota a LimitRange",
-      "words": 1099,
+      "words": 1328,
       "headings": 19,
       "sections": 19,
-      "findings": 8,
+      "findings": 7,
       "critical": 0,
-      "high": 3,
+      "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 34,
-      "grade": "B"
+      "low": 7,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/scheduling.md",
       "title": "Scheduling",
-      "words": 1195,
+      "words": 1285,
       "headings": 19,
       "sections": 19,
       "findings": 4,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 3,
-      "score": 13,
-      "grade": "B"
+      "low": 4,
+      "score": 6,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/securitycontext-pod-security.md",
@@ -2691,30 +2691,30 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "title": "Taints, tolerations, affinity a topology",
-      "words": 1145,
+      "words": 1233,
       "headings": 17,
       "sections": 17,
       "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 22,
+      "low": 10,
+      "score": 15,
       "grade": "B"
     },
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "title": "Upgrades",
-      "words": 1592,
+      "words": 1700,
       "headings": 22,
       "sections": 22,
-      "findings": 9,
+      "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 8,
-      "score": 20,
-      "grade": "B"
+      "low": 10,
+      "score": 14,
+      "grade": "A"
     },
     {
       "path": "docs/09-kubernetes/volumes-pv-pvc-storageclass.md",
@@ -47802,15 +47802,15 @@
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "section": "Capability gate pre nový Node",
       "line": 138,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "section": "Add-ons ako samostatné releases",
-      "line": 161,
+      "line": 165,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47819,7 +47819,7 @@
     {
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "section": "Incident: cluster bol Ready, ale DNS nefungovalo",
-      "line": 213,
+      "line": 217,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47828,7 +47828,7 @@
     {
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "section": "Incident: certifikáty boli obnovené iba na jednom control-plane Node-e",
-      "line": 225,
+      "line": 229,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47837,7 +47837,7 @@
     {
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "section": "Incident: fail-closed webhook zablokoval vlastnú opravu",
-      "line": 231,
+      "line": 235,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47846,7 +47846,7 @@
     {
       "path": "docs/09-kubernetes/cluster-installation-lifecycle.md",
       "section": "Model, ktorý si treba odniesť",
-      "line": 237,
+      "line": 241,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47874,15 +47874,15 @@
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Povolenie databázového egressu",
       "line": 108,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "NetworkPolicy nemá deny logiku pre všetko",
-      "line": 159,
+      "line": 163,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47891,7 +47891,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "NetworkPolicy nemá deny logiku pre všetko",
-      "line": 159,
+      "line": 163,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47900,7 +47900,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Readiness a policy rollout",
-      "line": 169,
+      "line": 173,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47909,7 +47909,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Testovanie z controlled Pods",
-      "line": 185,
+      "line": 189,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47918,7 +47918,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Incident: policy vyzerala správne, no povoľovala celý namespace",
-      "line": 222,
+      "line": 226,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47927,7 +47927,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Incident: policy vyzerala správne, no povoľovala celý namespace",
-      "line": 222,
+      "line": 226,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47936,7 +47936,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Incident: NetworkPolicy blokovala iba veľké DNS odpovede",
-      "line": 228,
+      "line": 232,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47945,7 +47945,7 @@
     {
       "path": "docs/09-kubernetes/cni-networkpolicy.md",
       "section": "Incident: iba cross-Node traffic zlyhával",
-      "line": 234,
+      "line": 238,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47991,15 +47991,24 @@
       "path": "docs/09-kubernetes/configmap-secret.md",
       "section": "Deployment rollout cez explicitnú generáciu",
       "line": 125,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/configmap-secret.md",
+      "section": "Deployment rollout cez explicitnú generáciu",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/configmap-secret.md",
       "section": "Incident: Secret rotation vytvorila split generation",
-      "line": 192,
+      "line": 196,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48008,7 +48017,7 @@
     {
       "path": "docs/09-kubernetes/configmap-secret.md",
       "section": "Incident: Secret unikol cez debug output",
-      "line": 198,
+      "line": 202,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48017,7 +48026,7 @@
     {
       "path": "docs/09-kubernetes/configmap-secret.md",
       "section": "Incident: Secret unikol cez debug output",
-      "line": 198,
+      "line": 202,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48026,7 +48035,7 @@
     {
       "path": "docs/09-kubernetes/configmap-secret.md",
       "section": "Model, ktorý si treba odniesť",
-      "line": 204,
+      "line": 208,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48189,15 +48198,15 @@
       "path": "docs/09-kubernetes/deployment.md",
       "section": "Rollout evidence po vrstvách",
       "line": 182,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/deployment.md",
       "section": "Terminating Pods a reálna kapacita",
-      "line": 217,
+      "line": 221,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48206,7 +48215,7 @@
     {
       "path": "docs/09-kubernetes/deployment.md",
       "section": "Incident: rollout sa zastavil bez chyby v aplikácii",
-      "line": 231,
+      "line": 235,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48215,7 +48224,7 @@
     {
       "path": "docs/09-kubernetes/deployment.md",
       "section": "Incident: rollout sa zastavil bez chyby v aplikácii",
-      "line": 231,
+      "line": 235,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48224,7 +48233,7 @@
     {
       "path": "docs/09-kubernetes/deployment.md",
       "section": "Incident: rollback obnovil Pods, ale nie business kompatibilitu",
-      "line": 237,
+      "line": 241,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48268,35 +48277,8 @@
     },
     {
       "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Resync nie je náhrada za správny watch model",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac rovnakých eventov,`, `iba poslednú z viacerých rýchlych zmien,`, `delete tombstone namiesto plného objektu,`, `stale cache snapshot,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Resync nie je náhrada za správny watch model",
-      "line": 135,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Resync nie je náhrada za správny watch model",
-      "line": 135,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
       "section": "Incident: ručný Pod bol stále vracaný späť",
-      "line": 189,
+      "line": 183,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48305,6 +48287,15 @@
     {
       "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
       "section": "Incident: blind retry vytvoril dva external resources",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
+      "section": "Ako čítať reconcile pri troubleshootingu",
       "line": 197,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -48314,61 +48305,16 @@
     {
       "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
       "section": "Ako čítať reconcile pri troubleshootingu",
-      "line": 203,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Ako čítať reconcile pri troubleshootingu",
-      "line": 203,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Ako čítať reconcile pri troubleshootingu",
-      "line": 203,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký desired state je aktuálne persistovaný?`, `Ktorý controller vlastní ďalší transition?`, `Spracoval aktuálnu generation?`, `Aký dependent object alebo external effect mal vzniknúť?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Ako čítať reconcile pri troubleshootingu",
-      "line": 203,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Ako čítať reconcile pri troubleshootingu",
-      "line": 203,
+      "line": 197,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
-      "section": "Ako čítať reconcile pri troubleshootingu",
-      "line": 203,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/09-kubernetes/desired-state-reconciliation-loops.md",
       "section": "Model, ktorý si treba odniesť",
-      "line": 217,
+      "line": 203,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48513,15 +48459,15 @@
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "Základný HPA",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "CPU utilization závisí od requestu",
-      "line": 33,
+      "line": 37,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -48530,25 +48476,16 @@
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "Scale-down safety",
-      "line": 203,
+      "line": 207,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
-    },
-    {
-      "path": "docs/09-kubernetes/hpa-autoscaling.md",
-      "section": "Observácia HPA",
-      "line": 211,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
     },
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "Incident: zníženie CPU requestu zdvojnásobilo repliky",
-      "line": 223,
+      "line": 231,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48557,7 +48494,7 @@
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "Incident: stale external metric spôsobila oscillation",
-      "line": 235,
+      "line": 243,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48566,7 +48503,7 @@
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "Incident: stale external metric spôsobila oscillation",
-      "line": 235,
+      "line": 243,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48575,7 +48512,7 @@
     {
       "path": "docs/09-kubernetes/hpa-autoscaling.md",
       "section": "Incident: scale-down prerušil payment",
-      "line": 241,
+      "line": 249,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48655,17 +48592,8 @@
     },
     {
       "path": "docs/09-kubernetes/job-cronjob.md",
-      "section": "Pozorovanie a logs",
-      "line": 212,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/09-kubernetes/job-cronjob.md",
       "section": "Incident: CronJob spustil rovnaký batch dvakrát",
-      "line": 223,
+      "line": 227,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48674,7 +48602,7 @@
     {
       "path": "docs/09-kubernetes/job-cronjob.md",
       "section": "Incident: Job bol Complete, ale export nebol prijatý",
-      "line": 231,
+      "line": 235,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48828,15 +48756,24 @@
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "6. Deployment: jedna úplná Pod template",
       "line": 167,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
+      "section": "6. Deployment: jedna úplná Pod template",
+      "line": 167,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "9. NetworkPolicy",
-      "line": 385,
+      "line": 389,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48845,7 +48782,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "9. NetworkPolicy",
-      "line": 385,
+      "line": 389,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -48854,7 +48791,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "11. Kustomization",
-      "line": 555,
+      "line": 559,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48863,25 +48800,34 @@
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "17. Diff",
-      "line": 805,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 809,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
+      "section": "17. Diff",
+      "line": 809,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "18. Apply",
-      "line": 818,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 826,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "20. Read-back effective runtime-u",
-      "line": 854,
+      "line": 866,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48890,7 +48836,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "26. Voliteľný HPA flow",
-      "line": 1129,
+      "line": 1141,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -48899,11 +48845,20 @@
     {
       "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
       "section": "30. Čo walkthrough dokázal",
-      "line": 1240,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 1252,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/09-kubernetes/kubernetes-practical-walkthrough.md",
+      "section": "30. Čo walkthrough dokázal",
+      "line": 1252,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
@@ -48963,24 +48918,33 @@
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Service nemá endpoints",
       "line": 233,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
+      "section": "Service nemá endpoints",
+      "line": 233,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Detailný incident: green cluster, intermittent 502 po Node upgrade-e",
-      "line": 365,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Symptom",
-      "line": 367,
+      "line": 371,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -48989,7 +48953,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Konkurenčné hypotézy",
-      "line": 389,
+      "line": 393,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -48998,7 +48962,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Rozdelenie application a network hypotéz",
-      "line": 395,
+      "line": 399,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49007,7 +48971,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Root cause",
-      "line": 401,
+      "line": 405,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49016,7 +48980,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Containment",
-      "line": 407,
+      "line": 411,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49025,7 +48989,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Remediation podľa chybnej vrstvy",
-      "line": 450,
+      "line": 454,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49034,7 +48998,7 @@
     {
       "path": "docs/09-kubernetes/kubernetes-troubleshooting.md",
       "section": "Remediation podľa chybnej vrstvy",
-      "line": 450,
+      "line": 454,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49296,15 +49260,24 @@
       "path": "docs/09-kubernetes/probes.md",
       "section": "Conditions a EndpointSlice",
       "line": 169,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/probes.md",
+      "section": "Conditions a EndpointSlice",
+      "line": 169,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/probes.md",
       "section": "Incident: CPU throttling vyzeral ako liveness failure",
-      "line": 211,
+      "line": 215,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49313,7 +49286,7 @@
     {
       "path": "docs/09-kubernetes/probes.md",
       "section": "Incident: CPU throttling vyzeral ako liveness failure",
-      "line": 211,
+      "line": 215,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49322,7 +49295,7 @@
     {
       "path": "docs/09-kubernetes/probes.md",
       "section": "Model, ktorý si treba odniesť",
-      "line": 223,
+      "line": 227,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49341,15 +49314,24 @@
       "path": "docs/09-kubernetes/rbac.md",
       "section": "Kontrola permissions",
       "line": 142,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/rbac.md",
+      "section": "Kontrola permissions",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/rbac.md",
       "section": "bind a escalate",
-      "line": 164,
+      "line": 166,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49358,43 +49340,16 @@
     {
       "path": "docs/09-kubernetes/rbac.md",
       "section": "Workload creation ako nepriama authority",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/09-kubernetes/rbac.md",
-      "section": "Workload creation ako nepriama authority",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vybrať povolený ServiceAccount,`, `mountnúť dostupný Secret,`, `použiť hostPath alebo privileged context, ak admission dovolí,`, `spustiť image s vlastným kódom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/09-kubernetes/rbac.md",
-      "section": "Workload creation ako nepriama authority",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/09-kubernetes/rbac.md",
-      "section": "Workload creation ako nepriama authority",
-      "line": 188,
+      "line": 190,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/rbac.md",
       "section": "Incident: read-only rola umožnila čítať Secrets",
-      "line": 248,
+      "line": 244,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49403,7 +49358,7 @@
     {
       "path": "docs/09-kubernetes/rbac.md",
       "section": "Incident: CI nemalo RBAC admin, ale eskalovalo cez Deployment",
-      "line": 254,
+      "line": 250,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49476,15 +49431,15 @@
       "path": "docs/09-kubernetes/requests-limits-qos.md",
       "section": "QoS classes",
       "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/requests-limits-qos.md",
       "section": "Init containers a scheduling",
-      "line": 133,
+      "line": 137,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49493,7 +49448,7 @@
     {
       "path": "docs/09-kubernetes/requests-limits-qos.md",
       "section": "Incident: CPU limit vytvoril latency bez errors",
-      "line": 222,
+      "line": 226,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49502,7 +49457,7 @@
     {
       "path": "docs/09-kubernetes/requests-limits-qos.md",
       "section": "Incident: OOM vyzeral ako liveness problém",
-      "line": 228,
+      "line": 232,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49511,7 +49466,7 @@
     {
       "path": "docs/09-kubernetes/requests-limits-qos.md",
       "section": "Model, ktorý si treba odniesť",
-      "line": 240,
+      "line": 244,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49519,35 +49474,26 @@
     },
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
-      "section": "ResourceQuota pre compute",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/09-kubernetes/resourcequota-limitrange.md",
-      "section": "LimitRange defaults",
-      "line": 77,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "LimitRange pre PVC",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "section": "LimitRange pre PVC",
-      "line": 116,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 124,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "section": "Quota a controller-created objects",
-      "line": 159,
+      "line": 171,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49556,7 +49502,7 @@
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "section": "Namespace tenancy",
-      "line": 173,
+      "line": 185,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49565,7 +49511,7 @@
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "section": "Aktualizácia quota",
-      "line": 179,
+      "line": 191,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49574,7 +49520,7 @@
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "section": "Incident: LimitRange potichu pridala CPU limit",
-      "line": 195,
+      "line": 207,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49583,7 +49529,7 @@
     {
       "path": "docs/09-kubernetes/resourcequota-limitrange.md",
       "section": "Incident: HPA desired=30, ready=12",
-      "line": 207,
+      "line": 219,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49611,15 +49557,15 @@
       "path": "docs/09-kubernetes/scheduling.md",
       "section": "Events a unschedulable message",
       "line": 209,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/scheduling.md",
       "section": "Incident: rollout surge sa nedal schedulovať",
-      "line": 239,
+      "line": 243,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49962,15 +49908,15 @@
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Toleration v Pode",
       "line": 17,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "NoExecute a tolerationSeconds",
-      "line": 38,
+      "line": 42,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49979,7 +49925,7 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Node affinity",
-      "line": 53,
+      "line": 57,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -49988,7 +49934,7 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Pod anti-affinity",
-      "line": 85,
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -49997,7 +49943,7 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Pod anti-affinity",
-      "line": 85,
+      "line": 89,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50006,7 +49952,7 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Incident: hard anti-affinity zablokovala opravu incidentu",
-      "line": 213,
+      "line": 217,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50015,7 +49961,7 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Incident: toleration otvorila workload na infra Nodes",
-      "line": 219,
+      "line": 223,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50024,7 +49970,7 @@
     {
       "path": "docs/09-kubernetes/taints-tolerations-affinity-topology.md",
       "section": "Model, ktorý si treba odniesť",
-      "line": 231,
+      "line": 235,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50034,15 +49980,24 @@
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Presný current a target inventory",
       "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/09-kubernetes/upgrades.md",
+      "section": "Presný current a target inventory",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Version skew",
-      "line": 32,
+      "line": 36,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50051,7 +50006,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "API deprecation a removal",
-      "line": 40,
+      "line": 44,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50060,7 +50015,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "API deprecation a removal",
-      "line": 40,
+      "line": 44,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50069,7 +50024,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Backup a recovery gate",
-      "line": 97,
+      "line": 101,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50078,7 +50033,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Health a capacity gate",
-      "line": 105,
+      "line": 109,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50087,7 +50042,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Add-ons",
-      "line": 147,
+      "line": 151,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50096,7 +50051,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Incident: webhook zablokoval Node replacement",
-      "line": 269,
+      "line": 273,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50105,7 +50060,7 @@
     {
       "path": "docs/09-kubernetes/upgrades.md",
       "section": "Incident: observability bola slepá iba na novej Node generácii",
-      "line": 275,
+      "line": 279,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

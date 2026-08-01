@@ -124,6 +124,10 @@ Immutable Kubernetes Secret stále potrebuje credential rotation. Immutable znam
 
 ## Deployment rollout cez explicitnú generáciu
 
+Zmena ConfigMap alebo Secret objectu sama osebe nemení Deployment Pod template a preto nevytvorí nový ReplicaSet. Explicitná configuration generation alebo checksum annotation prenesie source zmenu do `.spec.template.metadata`, čím sa zmení Pod-template hash a controller vytvorí novú revision. Hodnota annotation musí byť deterministicky odvodená z presne schváleného config alebo secret subjectu, nie z mutable názvu bez epochy.
+
+Rollout evidence potom spája source resourceVersion alebo digest, Deployment generation, nový ReplicaSet UID, Pod UIDs a process-loaded generation. Nový Pod s annotation `C53` ešte nepreukazuje, že volume projection alebo environment obsahuje správne bytes a že aplikácia ich načítala; to uzatvára runtime endpoint alebo bezpečný metadata read-back.
+
 ```yaml
 spec:
   template:

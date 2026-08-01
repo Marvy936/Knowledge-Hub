@@ -208,6 +208,10 @@ Pri diagnostike sa neoplatí hádať iba podľa defaultov z dokumentácie. Zacho
 
 ## Events a unschedulable message
 
+Scheduler vytvára alebo aktualizuje PodScheduled condition a Event s dôvodom, prečo žiadna Node neprešla filteringom alebo scoring neviedol k bindu. Message je agregované vysvetlenie pre daný scheduling attempt; treba ho čítať spolu s exact Pod UID a spec, aktuálnym Node inventory a scheduler profilem.
+
+Events sú časovo obmedzené a môžu sa agregovať, preto sa pri incidente zachovajú skôr než zmiznú. `0/20 nodes are available` nie je automatický dôvod pridať Nodes: affinity, taint, topology, volume binding, host ports, quota alebo resource request môžu vytvárať constraints, ktoré nová nesprávna Node group nevyrieši.
+
 ```bash
 kubectl describe pod -n production <pod-name>
 ```

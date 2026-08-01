@@ -107,6 +107,10 @@ Namespace labels musia byť chránené. Ak tenant môže svojvoľne pridať labe
 
 ## Povolenie databázového egressu
 
+Egress policy sa vyhodnocuje pre source Pods vybrané `podSelectorom`; destination namespace a Pod selectory následne určujú, ku ktorým endpointom a portom smie traffic odísť. Povolenie databázy preto musí viazať source workload identity, destination namespace identity, database Pod labels, protokol a port. Samotný DNS názov nie je NetworkPolicy subject.
+
+Po aplikovaní treba overiť allowed flow z konkrétneho `payments-api` Pod UID a forbidden flow z neoznačeného Podu alebo na susedný port. Ak databáza stojí mimo Pod networku, treba samostatne modelovať `ipBlock`, NAT a provider implementation; YAML acceptance bez dataplane testu nepreukazuje effective egress.
+
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

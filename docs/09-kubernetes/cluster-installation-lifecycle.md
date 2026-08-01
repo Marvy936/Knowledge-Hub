@@ -137,6 +137,10 @@ Node `Ready=True` neznamená, že critical DaemonSets, CNI policy, CSI, DNS a te
 
 ## Capability gate pre nový Node
 
+`Ready=True` potvrdzuje, že kubelet reportuje základnú Node pripravenosť; nepreukazuje funkčný CNI dataplane, CSI attach alebo mount, DNS path, registry pull, Service translation ani policy enforcement. Nová Node generation preto zostáva za bootstrap taintom, kým capability canary s presným Pod a Node UID neoverí image pull, Pod sandbox, same-Node aj cross-Node traffic, Service alebo DNS request, storage operáciu a požadované security controls.
+
+Gate sa otvára až pre cohortu s rovnakým image, kubelet alebo runtime a add-on generation. Zlyhanie canary zastaví ďalšie untaintovanie alebo rollout Node poolu a zachová Node-local logs, routes, mounts a runtime evidence. Tým sa `Ready` používa ako jeden signal v širšom acceptance contracte, nie ako platform verdict.
+
 Atlas necháva nový Node tainted:
 
 ```text
