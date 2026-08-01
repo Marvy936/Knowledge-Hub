@@ -1,674 +1,395 @@
 # OCI image a runtime standards
 
-Open Container Initiative (OCI) nedefinuje jeden container produkt. Definuje oddelené interoperability contracts pre tri rôzne transitions:
+Open Container Initiative nevytvára jeden container engine ani jeden príkazový riadok. Definuje spoločné formáty a rozhrania, vďaka ktorým môže image vytvorený jedným build nástrojom uložiť registry, stiahnuť iný runtime a spustiť low-level OCI runtime. Najdôležitejšie je pochopiť, že „OCI image“ a „OCI runtime“ označujú dve rozdielne vrstvy.
 
-- **Image Specification** — ako sa popíše content-addressed image graph;
-- **Distribution Specification** — ako sa manifests a blobs publikujú a získavajú cez registry API;
-- **Runtime Specification** — ako sa prepared root filesystem a runtime configuration zmenia na izolovaný process lifecycle.
+Image Specification opisuje, ako sa aplikačný filesystem a jeho metadata ukladajú do content-addressed graphu. Distribution Specification opisuje, ako klient komunikuje s registry pri pushi a pulle manifestov a blobs. Runtime Specification opisuje bundle, z ktorého low-level runtime vytvorí a spustí proces. Medzi image-om v registry a bežiacim procesom preto prebieha niekoľko transformácií.
 
-Dominantný end-to-end model:
+Budeme sledovať `payments-api` od publikovaného image reference až po proces. Tým sa ukáže, kde vzniká index digest, platform manifest, image config, layers, runtime bundle a konečná process configuration.
+
+## 1. Jeden reference, viac objektov
+
+Produkcia môže používať reference:
 
 ```text
-source a build subject
-→ OCI image graph
-→ registry publication
-→ immutable reference a platform selection
-→ trust/referrer verification
-→ pull a content validation
-→ unpacked snapshot/rootfs
-→ generated OCI runtime bundle
-→ low-level runtime create/start
-→ process a deployment evidence
+registry.example.com/atlas/payments-api@sha256:<index-digest>
 ```
 
-„OCI-compatible“ na jednej hranici negarantuje úspech na všetkých ďalších hraniciach. Registry môže artifact uložiť, hoci neobsahuje správnu platformu. Runtime môže bundle spustiť, hoci application nie je ready. Digest môže dokazovať content identity, ale nie dôveryhodnosť autora.
-
-## 1. Atlas OCI release subject
-
-Atlas Payments release `3.13.0` publikuje multi-platform image:
+Na prvý pohľad ide o jeden image. V registry však digest môže označovať image index, ktorý odkazuje na viac platform-specific manifestov:
 
 ```text
-repository: registry.atlas.example/payments
-human tag: 3.13.0
-image index digest: IDX313
-linux/amd64 manifest: MAMD313
-linux/arm64 manifest: MARM313
-amd64 config descriptor: CAMD313
-arm64 config descriptor: CARM313
-amd64 layer descriptors: L-A1, L-A2, L-A3
-arm64 layer descriptors: L-R1, L-R2, L-R3
-SBOM subject: IDX313
-signature/provenance subject: IDX313
-builder subject: BUILD-882
-source revision: S417
+image index
+├── linux/amd64 manifest
+└── linux/arm64 manifest
 ```
 
-Production deployment na `linux/amd64` node musí dokázať:
+Každý platform manifest následne odkazuje na image config a na ordered zoznam filesystem layers:
 
 ```text
-approved index IDX313
-→ selected manifest MAMD313
-→ verified descriptors a blobs
-→ trusted signature/provenance pre správny subject
-→ unpacked rootfs z MAMD313
-→ runtime bundle RB-991
-→ process subject AP-313-07
-→ deployment record obsahuje IDX313 aj MAMD313
+platform manifest
+├── config descriptor → image config blob
+├── layer descriptor 1 → compressed layer blob
+├── layer descriptor 2 → compressed layer blob
+└── layer descriptor 3 → compressed layer blob
 ```
 
-Index digest a platform manifest digest majú odlišný význam. Jeden identifikuje platform inventory; druhý konkrétny runnable variant.
+Descriptor obsahuje najmä media type, digest a size. Digest identifikuje presné bytes cieľového objektu. Registry alebo runtime môže objekt stiahnuť a vypočítať jeho hash. Ak sa bytes nezhodujú s descriptor digestom, objekt nie je ten, ktorý manifest deklaroval.
 
-## 2. Špecifikácie ako oddelené contracts
+## 2. Content-addressing a význam digestu
 
-### OCI Image Specification
-
-Definuje content graph:
+Digest je content identity, nie ľudská verzia. Pri SHA-256 vyzerá napríklad takto:
 
 ```text
-image index, ak je multi-platform
-→ platform manifest
-→ image configuration
-→ ordered filesystem layer descriptors
+sha256:9dd27c99f4f78d9d8b7c...
 ```
 
-### OCI Distribution Specification
+Zmena jedného bajtu vytvorí iný digest. Vďaka tomu môže registry deduplikovať blobs, klient overiť integritu a release manifest odkazovať na immutable content.
 
-Definuje registry interactions pre:
-
-- blob upload/download;
-- manifest push/pull;
-- tag resolution;
-- content existence a upload sessions;
-- repository scoping;
-- related artifact discovery podľa podporovaného referrer modelu.
-
-### OCI Runtime Specification
-
-Definuje runtime bundle a low-level lifecycle:
+Tag `1.4.2` funguje inak. Je to pomenovaný pointer v repository. Registry policy môže jeho prepísanie zakázať, ale samotný tag formát nie je content-addressed. Preto:
 
 ```text
-bundle directory
+payments-api:1.4.2
+```
+
+môže v jednom čase ukazovať na index digest `D1` a po prepísaní na `D2`. Reference s `@sha256:...` ukazuje na konkrétny manifest alebo index.
+
+Digest však nepreukazuje bezpečnosť ani funkčnosť obsahu. Preukazuje iba identitu bytes. Zraniteľný, chybný alebo nesprávne nakonfigurovaný image má rovnako stabilný digest ako dobrý image.
+
+## 3. Image index a platform selection
+
+Multi-platform image používa image index, v Docker terminológii často nazývaný aj manifest list. Index obsahuje descriptors pre dostupné platform manifests. Descriptor môže niesť platform metadata, napríklad OS, architecture a variant.
+
+Zjednodušený index:
+
+```json
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:<amd64-manifest>",
+      "size": 1234,
+      "platform": {
+        "os": "linux",
+        "architecture": "amd64"
+      }
+    },
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:<arm64-manifest>",
+      "size": 1240,
+      "platform": {
+        "os": "linux",
+        "architecture": "arm64",
+        "variant": "v8"
+      }
+    }
+  ]
+}
+```
+
+Keď Linux amd64 node pullne index, runtime vyberie amd64 manifest. Arm64 node vyberie arm64 manifest. Oba nodes môžu používať rovnaký index digest, ale skutočne spustené platform manifests, configs a layers sú odlišné.
+
+Preto musí multi-platform release evidence rozlišovať index a platform artifacts. Scan iba amd64 manifestu nepreukazuje stav arm64 image-u. Smoke test pod emuláciou nemusí nahradiť native runtime test, ak aplikácia používa architecture-specific libraries alebo kernel features.
+
+Registry read-back možno vykonať cez Buildx:
+
+```bash
+docker buildx imagetools inspect \
+  registry.example.com/atlas/payments-api:1.4.2
+```
+
+Raw index:
+
+```bash
+docker buildx imagetools inspect \
+  registry.example.com/atlas/payments-api:1.4.2 \
+  --raw > image-index.json
+```
+
+A platform inventory:
+
+```bash
+jq -r '.manifests[] | [.platform.os, .platform.architecture, .digest] | @tsv' \
+  image-index.json
+```
+
+Tento výstup dokazuje registry-visible index generation v čase read-backu. Ak production reference používa mutable tag, neskôr môže tag ukazovať na iný index.
+
+## 4. Platform manifest
+
+Platform manifest spája image config s filesystem layers. Zjednodušená podoba:
+
+```json
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "digest": "sha256:<config-digest>",
+    "size": 1920
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "digest": "sha256:<layer-1>",
+      "size": 3120000
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "digest": "sha256:<layer-2>",
+      "size": 8200000
+    }
+  ]
+}
+```
+
+Poradie layers je významové. Runtime alebo snapshotter ich aplikuje od prvého po posledný. Neskoršia layer môže pridať, zmeniť alebo odstrániť path vytvorený skoršou layer.
+
+Manifest nie je filesystem sám. Je to graph metadata. Ak chýba blob, descriptor ukazuje na neexistujúci content alebo registry nemá oprávnenie blob poskytnúť, pull zlyhá aj pri platnom JSON manifeste.
+
+## 5. Image config
+
+Image config obsahuje runtime defaults a root filesystem metadata. Môže niesť environment variables, usera, working directory, entrypoint, command, exposed ports, labels a históriu build krokov.
+
+```json
+{
+  "architecture": "amd64",
+  "os": "linux",
+  "config": {
+    "User": "65532:65532",
+    "Env": [
+      "LISTEN_ADDRESS=:8080",
+      "LOG_LEVEL=info"
+    ],
+    "Entrypoint": [
+      "/usr/local/bin/payments-api"
+    ],
+    "Cmd": [
+      "serve"
+    ],
+    "WorkingDir": "/home/nonroot"
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:<uncompressed-layer-1>",
+      "sha256:<uncompressed-layer-2>"
+    ]
+  }
+}
+```
+
+Manifest descriptors typicky identifikujú compressed blobs. `rootfs.diff_ids` identifikujú uncompressed filesystem changesets. Preto compressed layer digest a DiffID nemusia byť rovnaké.
+
+Image config je default contract, nie konečný runtime verdict. Docker alebo Compose môže prepísať usera, command, environment a working directory. Mount môže zakryť path, ktorý je v image filesysteme. Security options, cgroup limity a network configuration sa do image configu bežne neukladajú; patria runtime create requestu.
+
+## 6. Filesystem layers a whiteouts
+
+Layer je tar archive filesystem changesetu. Nejde o kompletnú kópiu root filesystemu. Jedna layer môže pridať `/usr/local/bin/payments-api`, ďalšia pridať certificate bundle a ďalšia zmeniť configuration template.
+
+Odstránenie súboru z predchádzajúcej layer sa reprezentuje whiteout záznamom. Staré bytes môžu stále existovať v skoršej layer, hoci výsledný merged filesystem path neukazuje. To je dôvod, prečo secret skopírovaný do image-u a odstránený v neskoršom `RUN` kroku nemusí byť skutočne odstránený z image history.
+
+Bezpečný build preto nepoužíva tento model:
+
+```dockerfile
+COPY private-key.pem /tmp/private-key.pem
+RUN sign-artifact /tmp/private-key.pem && rm /tmp/private-key.pem
+```
+
+Private key sa dostane do layer vytvorenej `COPY`. Neskoršie odstránenie iba zmení výsledný filesystem view. BuildKit secret mount drží secret mimo image layer:
+
+```dockerfile
+RUN --mount=type=secret,id=signing_key \
+    sign-artifact /run/secrets/signing_key
+```
+
+Aj tu treba auditovať output build programu. Secret mount zabráni automatickému zahrnutiu secret file-u do layer, ale škodlivý script môže secret skopírovať do outputu alebo odoslať po sieti.
+
+## 7. OCI image layout
+
+OCI Image Specification definuje aj filesystem layout, v ktorom možno image graph uložiť mimo registry. Typická štruktúra:
+
+```text
+oci-layout
+index.json
+blobs/
+└── sha256/
+    ├── <index-or-manifest-content>
+    ├── <config-content>
+    └── <layer-content>
+```
+
+`oci-layout` deklaruje verziu layoutu. `index.json` je vstupný index do uložených artifacts. `blobs` obsahuje content-addressed objekty.
+
+Takýto layout je užitočný pri air-gapped transporte, lokálnej analýze alebo interoperability testoch. Samotné skopírovanie adresára však ešte nepreukazuje, že všetky referencované blobs sú prítomné, že artifact bol podpísaný alebo že cieľový runtime podporuje deklarovanú platformu a media types.
+
+## 8. Distribution Specification a registry komunikácia
+
+Registry nie je iba webový adresár so súbormi. Implementuje API pre repository content. Klient typicky overí existenciu blobs, uploadne chýbajúce blobs a napokon publikuje manifest alebo index.
+
+Zjednodušený push:
+
+```text
+resolve repository a authorization scope
+→ over alebo uploadni config blob
+→ over alebo uploadni layer blobs
+→ PUT platform manifest
+→ PUT image index alebo tag association
+→ read-back digestu
+```
+
+Blobs sú content-addressed a možno ich deduplikovať. Tag mutation je samostatná repository operácia. Ak push request timeoutne po tom, čo registry mutation vykonala, výsledok je unknown. Blind retry nemusí poškodiť immutable blob content, ale môže zmeniť tag alebo vytvoriť nejasný release record.
+
+Správna reakcia je read-back:
+
+```bash
+docker buildx imagetools inspect \
+  registry.example.com/atlas/payments-api:1.4.2
+```
+
+A porovnanie observed digestu s digestom, ktorý release pipeline očakáva.
+
+## 9. Runtime Specification a OCI bundle
+
+Runtime Specification začína bližšie k procesu. Low-level runtime, napríklad `runc`, dostane bundle. Bundle typicky obsahuje `config.json` a root filesystem directory.
+
+```text
+bundle/
 ├── config.json
 └── rootfs/
-
-create
-→ created
-→ start
-→ running
-→ signal/exit
-→ stopped
-→ delete
 ```
 
-Container engine alebo orchestrator spája contracts, ale pridáva vlastné networking, snapshots, metadata, restart, sandbox a scheduling behavior.
+`config.json` opisuje proces a isolation nastavenia. Zjednodušený fragment:
 
-## 3. Descriptor ako graph edge
+```json
+{
+  "ociVersion": "1.2.0",
+  "process": {
+    "terminal": false,
+    "user": {
+      "uid": 65532,
+      "gid": 65532
+    },
+    "args": [
+      "/usr/local/bin/payments-api",
+      "serve"
+    ],
+    "cwd": "/home/nonroot",
+    "env": [
+      "LISTEN_ADDRESS=:8080"
+    ]
+  },
+  "root": {
+    "path": "rootfs",
+    "readonly": true
+  },
+  "linux": {
+    "namespaces": [
+      {"type": "pid"},
+      {"type": "mount"},
+      {"type": "network"}
+    ]
+  }
+}
+```
 
-OCI descriptor neobsahuje samotný content. Popisuje edge na content:
+Toto nie je image config. Je to konkrétnejší runtime request. Vyššia vrstva, napríklad Docker Engine a containerd, musí image rozbaliť, pripraviť snapshot, spojiť image defaults s runtime overrides, pripojiť mounts a sieť a vytvoriť bundle alebo ekvivalentný low-level runtime input.
+
+## 10. Docker Engine, containerd a `runc`
+
+Pri Docker Engine lifecycle možno vrstvy zjednodušiť takto:
 
 ```text
-mediaType
-digest
-size
-optional platform
-optional annotations
-optional URLs alebo artifact metadata podľa contextu
+Docker CLI
+→ Docker Engine API a dockerd
+→ image, network, volume a container object management
+→ containerd
+→ snapshot a runtime task lifecycle
+→ runtime shim
+→ OCI runtime, napríklad runc
+→ Linux process
 ```
 
-Consumer vykoná:
+Presné interné komponenty a zodpovednosti sa môžu meniť medzi verziami, ale architektonická hranica zostáva užitočná. Docker CLI nie je runtime. Registry nie je runtime. `runc` typicky nerieši image pull, service discovery ani dlhodobé API management. Dostane pripravený bundle a vykoná create/start/delete operácie nad procesom podľa OCI Runtime Specification.
+
+Pri chybe preto záleží na vrstve. `manifest unknown` vzniká pred process create. `no matching manifest` vzniká pri platform resolution. Chýbajúci dynamic loader sa prejaví až pri exec procesu. Seccomp denial vzniká počas syscall execution. Všetky chyby môžu byť používateľom vnímané ako „container sa nespustil“, ale ich dôkazy a opravy sú rozdielne.
+
+## 11. Attestations nie sú obyčajné filesystem layers
+
+Moderný build môže publikovať provenance a SBOM attestations. Tieto artifacts sa môžu pripojiť k image indexu alebo manifestu pomocou ďalších manifest objects a annotations. Neznamená to, že SBOM je súbor v root filesysteme containeru.
+
+```bash
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --provenance=mode=max \
+  --sbom=true \
+  --push \
+  -t registry.example.com/atlas/payments-api:1.4.2 .
+```
+
+Po publikovaní treba overiť, ku ktorému subject digestu attestations patria. Tag-based scanner alebo podpis, ktorý sa neskôr nekoreluje s deployed digestom, nevytvára dôveryhodnú supply-chain väzbu.
+
+## 12. Incident: amd64 bol overený, arm64 nebol
+
+Atlas publikoval `payments-api:1.4.2` ako multi-platform index. Pipeline spustila testy a scanner nad lokálnym amd64 image-om. Potom Buildx vytvoril amd64 aj arm64 platform branches a publikoval jeden index.
+
+Na arm64 node container skončil s `exec format error`. Registry a index boli validné. Index správne uvádzal arm64 manifest, ale build stage skopíroval amd64 binary aj do arm64 runtime stage-u pre chybný cache key.
 
 ```text
-read descriptor
-→ fetch bytes
-→ over size a digest
-→ interpretuj podľa mediaType
+source test na amd64
+→ amd64 runtime image overený
+→ multi-platform build vytvorí index
+→ arm64 manifest obsahuje amd64 binary
+→ registry digesty a media types sú validné
+→ arm64 kernel odmietne exec
 ```
 
-Digest chráni content identity a integrity počas prenosu. Media type hovorí, akú semantic formu bytes majú.
+Digest integrity fungovala presne: identifikovala nesprávny artifact bez jeho zmeny. Chýbala semantic a platform validation.
 
-Ak registry vráti bytes s iným digestom alebo size, consumer ich musí odmietnuť. Ak media type nie je podporovaný, content môže byť kryptograficky správny a stále nepoužiteľný.
+Recovery vytvorila nový index digest. Pipeline pridala per-platform binary inspection, native arm64 smoke test a väzbu test reportu na platform manifest digest. Starý tag sa prestal používať v produkcii; deployment prešiel na immutable index digest.
 
-## 4. Tag, digest a resolution subject
+## 13. Praktická diagnostika image graphu
 
-Tag je mutable pointer:
+Pri image incidente najprv zisti, či reference ukazuje na index alebo priamo na platform manifest. Potom rozlíš index digest, selected manifest digest, config digest a layer digests.
 
-```text
-payments:3.13.0
-→ dnes IDX313
-→ po prepísaní môže ukazovať na IDX314
+```bash
+docker buildx imagetools inspect IMAGE
+
+docker buildx imagetools inspect IMAGE --raw \
+  | jq .
 ```
 
-Digest reference je immutable content identity:
+Lokálne image metadata:
 
-```text
-payments@sha256:IDX313
+```bash
+docker image inspect IMAGE
 ```
 
-Bezpečný deployment subject zaznamenáva:
+Filesystem history:
 
-```text
-registry/repository identity
-tag iba ako human context
-resolved index alebo manifest digest
-resolution time
-client/platform selection
-trust-policy verdict
+```bash
+docker image history --no-trunc IMAGE
 ```
 
-Approval nad tagom, ktorý sa pred deployom znova resolve-ne bez immutability controlu, nemusí schváliť skutočne spustený content.
+Tieto nástroje odpovedajú na rozdielne otázky. Registry inspect ukazuje registry-visible graph. `docker image inspect` ukazuje object v konkrétnom local image store-i. History približuje build layer metadata, ale nemusí rekonštruovať všetky BuildKit interné operácie ani attestations.
 
-## 5. Image index a platform selection
+Ak runtime hlási `no such file or directory` pri existujúcom binary, skontroluj nielen path, ale aj shebang interpreter alebo ELF dynamic loader. Kernel môže nájsť executable file, no nenájsť loader uvedený v binary headeri. To je runtime compatibility problém, nie chýbajúci manifest.
 
-Image index odkazuje na manifests pre platform variants:
+## Čo si z kapitoly odniesť
 
-```text
-IDX313
-├── MAMD313: os=linux, architecture=amd64
-└── MARM313: os=linux, architecture=arm64, variant=v8
-```
+OCI image nie je jeden tarball a OCI runtime nie je registry client. Image graph sa skladá z descriptorov, indexov, platform manifestov, image configu a filesystem layers. Distribution API prenáša a publikuje tieto content-addressed objekty. Runtime Specification opisuje konkrétny process bundle a isolation konfiguráciu.
 
-Pull client vyberá variant podľa:
+Index digest, platform manifest digest, config digest a layer digest označujú rozdielne objekty. Tag je pointer, nie content identity. Platný digest dokazuje integritu a identitu bytes, nie funkčnosť, bezpečnosť alebo kompatibilitu. Dôveryhodný release preto viaže testy, scan, SBOM, provenance a deployment na správny index a všetky očakávané platform manifests.
 
-- operating system;
-- architecture;
-- architecture variant;
-- explicitného platform override-u;
-- client/runtime implementation.
+## Primárne zdroje
 
-Platform match nie je úplný application compatibility contract. Manifest `linux/amd64` môže stále vyžadovať:
-
-- novší kernel;
-- konkrétny CPU instruction set;
-- glibc alebo other runtime assumptions;
-- device;
-- seccomp/LSM allowance;
-- filesystem feature.
-
-## 6. Platform manifest
-
-Platform manifest spája:
-
-```text
-one image config descriptor
-+ ordered filesystem layer descriptors
-```
-
-Manifest digest identifikuje presnú kombináciu configu a layer references. Zmena poradia layers alebo config descriptoru mení manifest digest.
-
-Production record by mal zachovať platform manifest, pretože:
-
-- vulnerability evidence môže byť platform-specific;
-- amd64 a arm64 variants môžu obsahovať iné packages;
-- runtime reálne unpackuje konkrétny manifest, nie abstraktný tag;
-- incident response potrebuje presný content inventory.
-
-## 7. Image configuration
-
-Image config obsahuje runtime defaults a filesystem-chain metadata:
-
-- OS a architecture;
-- environment defaults;
-- entrypoint a command;
-- working directory;
-- user;
-- labels;
-- exposed-port metadata;
-- rootfs diff IDs;
-- build history.
-
-Config nie je deployment runtime config. Engine ho kombinuje s CLI/orchestrator overrides, mounts, secrets, network a security policy.
-
-```text
-image config defaults
-+ deployment overrides
-+ platform policy
-→ generated runtime config.json
-```
-
-Preto image `USER 10001` môže byť runtime override-nutý na UID 0. Image metadata nie je jediný effective-state oracle.
-
-## 8. Layers, blob digest a diff ID
-
-Filesystem layer je changeset. Distribution pracuje typicky s compressed blobom:
-
-```text
-compressed bytes
-→ distribution digest
-```
-
-Po decompressii vznikne uncompressed changeset:
-
-```text
-uncompressed tar stream
-→ diff ID
-```
-
-Rovnaký filesystem changeset môže mať odlišné compressed blobs pri inom compression formáte alebo encodingu. Preto:
-
-```text
-blob digest ≠ automaticky diff ID
-```
-
-Image config `rootfs.diff_ids` viaže ordered uncompressed changesets. Manifest viaže distribuované compressed layer blobs.
-
-## 9. Image ako content-addressed graph
-
-Image nie je jeden opaque tar file:
-
-```text
-index descriptor
-→ manifest descriptor
-→ config descriptor
-→ layer descriptors
-```
-
-Výhody graph modelu:
-
-- deduplication shared blobs;
-- integrity verification;
-- platform inventory;
-- immutable promotion;
-- attachment related artifacts;
-- independent caching a transfer.
-
-Failure jednej graph edge je lokalizovateľný:
-
-- missing manifest;
-- unsupported media type;
-- missing layer blob;
-- digest mismatch;
-- config/layer chain mismatch;
-- wrong platform descriptor.
-
-## 10. Registry publication lifecycle
-
-Atlas publication:
-
-```text
-build exact variants
-→ calculate descriptors/digests
-→ upload missing blobs
-→ push platform manifests
-→ push image index IDX313
-→ attach signature, provenance a SBOM
-→ verify registry read-back
-→ publish immutable release record
-```
-
-Blob existence neznamená, že manifest je publikovaný. Manifest push success neznamená, že related artifacts sú discoverable. Tag update neznamená, že downstream cache prestala používať starý digest.
-
-Post-publication verification má čítať artifact z registry cez rovnaký trust a API path ako consumer.
-
-## 11. Registry authorization boundary
-
-Distribution API authorization sa často líši podľa operation:
-
-- pull blob/manifest;
-- push blob;
-- push/delete manifest;
-- mutate tag;
-- mount blob medzi repositories;
-- read related artifacts;
-- garbage collection/admin operations.
-
-Identity, ktorá smie pullovať production image, nemusí smieť prepísať tag alebo mazať manifest. Repository scope je súčasť artifact identity a access boundary.
-
-Cross-repository copy nesmie predpokladať, že digest alebo referrer graph sa automaticky zachová bez verification.
-
-## 12. Trust artifacts a subject binding
-
-OCI distribution model môže ukladať:
-
-- signatures;
-- provenance attestations;
-- SBOM;
-- vulnerability reports;
-- policy bundles;
-- non-image artifacts.
-
-Related artifact musí byť viazaný na presný subject digest:
-
-```text
-signature/provenance/SBOM
-→ subject IDX313 alebo MAMD313
-```
-
-Rozhodnutie, či signovať index alebo platform manifest, ovplyvňuje trust semantics. Index signature môže pokrývať platform inventory. Platform signature môže explicitne pokrývať konkrétny variant. Policy musí povedať, čo požaduje.
-
-Digest sám nedokazuje:
-
-- kto content vytvoril;
-- z akého source-u;
-- že build bol trusted;
-- že scan bol complete;
-- že artifact je schválený pre production.
-
-## 13. Pull a local content verification
-
-Consumer lifecycle:
-
-```text
-resolve immutable subject
-→ fetch index/manifest
-→ select platform
-→ verify trust policy
-→ fetch config a layers
-→ verify digest/size/media types
-→ cache content
-→ unpack snapshot/rootfs
-```
-
-Cache hit nesmie obísť digest alebo trust semantics. Local bytes musia zodpovedať descriptoru a deployment recordu.
-
-Pull success znamená, že distribution a content verification prešli. Neznamená, že unpack, runtime bundle alebo application start uspejú.
-
-## 14. Unpack a snapshot transition
-
-Engine alebo high-level runtime zmení layers na root filesystem snapshot:
-
-```text
-fetch ordered layers
-→ decompress
-→ verify diff chain podľa implementation
-→ apply filesystem changesets/whiteouts
-→ create snapshot/rootfs
-→ attach writable layer pri runtime
-```
-
-Failure môže vzniknúť pri:
-
-- corrupt layer;
-- unsupported compression;
-- invalid tar/path semantics;
-- insufficient disk/inodes;
-- snapshotter/kernel incompatibility;
-- ownership/xattr/LSM handling;
-- platform filesystem assumptions.
-
-Distribution success preto nie je unpack success.
-
-## 15. Runtime bundle generation
-
-OCI runtime bundle obsahuje:
-
-```text
-rootfs/
-config.json
-```
-
-`config.json` opisuje napríklad:
-
-- process arguments a environment;
-- cwd a user;
-- root filesystem;
-- mounts;
-- namespaces;
-- capabilities;
-- resources;
-- hostname;
-- hooks;
-- platform-specific security controls.
-
-Engine syntetizuje bundle z image configu a runtime/deployment policy. Bundle subject má obsahovať image manifest, runtime overrides, mount/network references, security profile a generated config digest.
-
-## 16. Low-level runtime lifecycle
-
-Low-level runtime pracuje s bundle a container ID:
-
-```text
-create
-→ priprav isolation a process state bez spustenia user processu
-
-start
-→ spusti user process
-
-state
-→ vráti runtime identity a status
-
-kill
-→ doručí signal
-
-delete
-→ odstráni stopped runtime state
-```
-
-Vyššia vrstva rieši image management, networking, snapshots, restart policy a orchestration. OCI Runtime Specification neštandardizuje celý Docker alebo Kubernetes behavior.
-
-## 17. Runtime hooks
-
-Hooks sú host-side extension body spustené v definovaných lifecycle fázach. Môžu konfigurovať networking, devices alebo policy, ale predstavujú privileged executable supply chain.
-
-Hook contract potrebuje:
-
-```text
-executable digest a owner
-invocation phase
-host/namespace context
-input environment
-privileges
-bounded timeout
-failure semantics
-audit evidence
-```
-
-Nedôveryhodný image alebo runtime input nesmie svojvoľne určovať privileged host hook.
-
-## 18. Deployment evidence
-
-Dôveryhodný deployment record má spájať:
-
-```text
-source/build subject
-index digest
-platform manifest digest
-config/layer graph
-signature/provenance/SBOM verdict
-registry/repository
-node platform
-runtime bundle/config digest
-container/process identity
-runtime/application verification
-```
-
-Bez platform manifestu incident nevie presne určiť packages. Bez bundle subjectu nevie dokázať effective user, capabilities alebo mounts. Bez runtime oracle nevie, či application skutočne fungovala.
-
-## 19. Worked failure: tag sa zmenil medzi approval a deployom
-
-Security review schválil `payments:3.13.0`, ktorý vtedy ukazoval na `IDX313`. Release pipeline neskôr znova resolve-la tag po jeho prepísaní na `IDX314`.
-
-```text
-approval je viazaný na mutable tag
-→ tag sa zmení
-→ deploy pullne nový index
-→ spustený content nemá schválenú evidence
-```
-
-Recovery je containment deploymentu, identifikácia reálneho platform manifestu, trust/scan verification a redeploy exact approved digestu. Skorší control je subject-bound approval a immutable tag policy.
-
-## 20. Worked failure: multi-platform tag nemal arm64 variant
-
-Index obsahoval iba `linux/amd64`, ale release metadata tvrdili „multi-platform“.
-
-```text
-amd64 test prejde
-→ tag/index sa publikuje
-→ arm64 node resolve-ne platform
-→ no matching manifest
-```
-
-Expected platform inventory musí byť vopred definovaný a post-publish overený:
-
-```text
-expected: linux/amd64 + linux/arm64/v8
-actual: linux/amd64
-→ incomplete publication, nie success
-```
-
-## 21. Worked failure: registry copy stratila signatures a SBOM
-
-Promotion workflow kopíroval iba index, manifests a layer blobs do production registry. Referrer artifacts neboli prenesené.
-
-```text
-runnable image digest existuje v destination
-→ trust metadata graph chýba
-→ runtime pull uspeje
-→ production policy nemá required provenance/SBOM evidence
-```
-
-Copy success musí porovnať complete expected artifact graph, nie iba runnable manifests.
-
-## 22. Worked failure: index digest sa zamieňal s platform digestom
-
-Vulnerability scanner skenoval amd64 manifest `MAMD313`, ale deployment record obsahoval iba `IDX313`. Incident query nenašla zraniteľný digest medzi running containers.
-
-```text
-scan subject = platform manifest
-→ deployment subject = index
-→ correlation nemá explicitný edge
-→ vulnerable runtime sa javí ako nezasiahnutý
-```
-
-Record musí zachovať index-to-selected-manifest relationship.
-
-## 23. Worked failure: registry prijala image, runtime ju nespustil
-
-Manifest a blobs boli validné OCI content, ale config deklaroval `linux/amd64` binary používajúci CPU instruction nepodporovanú node-om.
-
-```text
-registry overí storage/content contract
-→ pull a digest verification prejde
-→ runtime exec binary
-→ CPU/kernel platform contract zlyhá
-```
-
-OCI distribution compliance negarantuje application/platform compatibility.
-
-## 24. Causal troubleshooting walkthrough: registry image prijme, runtime skončí pred process startom
-
-Atlas push je green. Node pullne image, ale container zostane v create error a user process sa nespustí.
-
-### 1. Zafixuj artifact-to-runtime subject
-
-Zaznamenaj:
-
-- registry a repository;
-- tag resolution result;
-- index a selected platform manifest digest;
-- config/layer descriptors, sizes a media types;
-- signature/referrer verdict;
-- node OS/architecture/variant a kernel/runtime/snapshotter;
-- unpacked snapshot ID;
-- generated bundle/config digest;
-- low-level runtime error a lifecycle state;
-- host storage, xattr, LSM a audit evidence.
-
-### 2. Súťažiace hypotézy
-
-1. Client vybral nesprávny platform manifest.
-2. Index neobsahuje required variant.
-3. Runtime nepodporuje layer compression alebo media type.
-4. Blob je missing/corrupt napriek stale registry metadata.
-5. Snapshotter nevie aplikovať layer ownership/xattrs/whiteouts.
-6. Node nemá disk/inodes.
-7. Generated bundle obsahuje invalid mount alebo namespace config.
-8. Seccomp/LSM/hook zlyhá počas create.
-9. Config entrypoint alebo working directory path chýba.
-10. Binary architecture/libc/kernel feature je incompatible.
-11. Related trust artifact chýba a policy blokuje create.
-12. Image je validná, ale vyšší engine record/cache je stale.
-
-### 3. Diskriminačné observation points
-
-- inspect index a platform descriptors;
-- verify exact blob fetch, size a digest;
-- inspect media types a compression;
-- unpack/snapshotter events a filesystem evidence;
-- node disk/inode/overlay capability;
-- generated `config.json` a bundle rootfs;
-- runtime hook, seccomp a LSM audit logs;
-- exact executable format/interpreter/dependencies;
-- trust-policy subject a referrer inventory;
-- low-level runtime state vs. engine status.
-
-### 4. Containment
-
-Pozastav rollout a zachovaj exact registry subject, local content store, failed snapshot/bundle metadata a node logs. Neprepínaj na mutable `latest` ani nevypínaj trust/security policy.
-
-### 5. Recovery
-
-- platform inventory gap → rebuild/publish required variant a successor index;
-- media/compression mismatch → publish podporovaný format alebo upgrade runtime po testovaní;
-- corrupt/missing content → republish z trusted build subjectu a verify read-back;
-- snapshotter/storage gap → oprav node/runtime capability alebo presuň workload;
-- invalid bundle → oprav engine/deployment runtime config;
-- LSM/hook denial → uprav narrow policy/executable contract;
-- missing executable/interpreter → oprav image build;
-- CPU/kernel incompatibility → publish compatible variant a rozšír platform metadata/policy;
-- trust graph gap → prenes/rebuildni subject-bound artifacts pred deployom.
-
-### 6. Over pôvodný outcome
-
-Exact selected manifest musí prejsť pull, digest verification, trust policy, unpack, runtime create/start, application readiness, termination a deployment-record correlation na reprezentatívnej platforme.
-
-### 7. Posuň control skôr
-
-Pridaj expected platform/artifact graph gate, clean-node pull/unpack test, generated-bundle inspection a runtime compatibility matrix pred publication/promotion.
-
-## 25. Čo OCI negarantuje
-
-OCI compliance sama negarantuje:
-
-- application compatibility s host kernelom/CPU;
-- rovnaký network alebo storage model;
-- rovnaké security defaults;
-- rovnakú restart policy;
-- rovnaký hook behavior;
-- support všetkých optional media types/compressions;
-- dôveryhodný source alebo builder;
-- complete SBOM/vulnerability evidence;
-- application readiness.
-
-Interoperability contract je úmyselne užší než celý platform behavior.
-
-## 26. Referenčné pravidlá
-
-- OCI Image, Distribution a Runtime Specification pokrývajú odlišné transitions.
-- Descriptor je content edge definovaný media type, digestom a size.
-- Tag je mutable pointer; digest je content identity.
-- Index digest a selected platform manifest digest majú odlišný význam.
-- Platform match OS/architecture nie je celý compatibility contract.
-- Manifest odkazuje na config a ordered distributed layer blobs.
-- Blob digest a uncompressed diff ID nie sú automaticky rovnaké.
-- Registry publication success nie je complete artifact-graph verification.
-- Related signatures/SBOM/provenance musia byť viazané na presný subject.
-- Pull success nie je unpack alebo runtime success.
-- Image config defaults nie sú effective runtime `config.json`.
-- Low-level runtime neimplementuje celý engine/orchestrator lifecycle.
-- OCI digest dokazuje content identity, nie autora, bezpečnosť alebo readiness.
-
-## 27. Kontrolné otázky
-
-1. Aké transitions pokrývajú tri hlavné OCI specifications?
-2. Čo identifikuje descriptor a ako sa content overí?
-3. Ako sa líši tag, index digest a platform manifest digest?
-4. Čo obsahuje platform manifest a čo image config?
-5. Ako sa líši distribution blob digest a diff ID?
-6. Ako sa image graph zmení na runtime bundle?
-7. Čo robí low-level runtime a čo pridáva container engine?
-8. Prečo registry acceptance negarantuje runtime compatibility?
-9. Ako sa related signatures a SBOM viažu na subject?
-10. Aké observation points lokalizujú failure medzi distribution, unpack a runtime create boundary?
-
-## Glossary impact
-
-Relevantné pojmy: OCI release subject, artifact-to-process supply chain, OCI descriptor, platform inventory, image index digest, selected platform manifest, image configuration subject, distribution blob digest, diff ID, complete artifact graph, subject-bound referrer, pull verification boundary, unpack/snapshot transition, runtime bundle subject, low-level runtime lifecycle a OCI compatibility boundary.
-
-## Oficiálna dokumentácia
-
-- [Open Container Initiative](https://opencontainers.org/)
 - [OCI Image Specification](https://github.com/opencontainers/image-spec)
 - [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec)
 - [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec)
+- [Docker image digests](https://docs.docker.com/dhi/core-concepts/digests/)
+- [Buildx imagetools inspect](https://docs.docker.com/reference/cli/docker/buildx/imagetools/inspect/)
+- [Image attestations](https://docs.docker.com/build/metadata/attestations/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

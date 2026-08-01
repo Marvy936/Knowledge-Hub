@@ -1,599 +1,257 @@
 # Containers vs. virtual machines
 
-Container a virtual machine sú dve odlišné odpovede na otázku, **kde má byť runtime isolation boundary**. Virtual machine dostane virtualizovaný hardware a vlastný guest kernel. Linux container zostáva skupinou host procesov, ktoré zdieľajú host kernel, ale dostanú izolované views, resource controls a security policy.
+Container a virtual machine neriešia presne ten istý problém rovnakým spôsobom. Obe technológie vytvárajú prostredie, v ktorom môže bežať aplikácia, ale hranicu izolácie umiestňujú na iné miesto. Virtual machine dostane virtualizovaný hardware a vlastný guest kernel. Linux container zostáva skupinou procesov na hostiteľskom kerneli, ktorým runtime pripraví oddelený pohľad na procesy, sieť, filesystem, používateľov a zdroje.
 
-Rozhodnutie preto nemá začínať zoznamom výhod a nevýhod. Má sledovať celý workload lifecycle:
+Tento rozdiel je podstatnejší než bežné porovnanie typu „container je ľahší a VM bezpečnejšia“. Pri návrhu platformy potrebujeme vedieť, čo sa izoluje, čo sa stále zdieľa, kde sa nachádza persistentný stav, kto patchuje jednotlivé vrstvy a čo presne prežije reštart alebo náhradu runtime inštancie.
 
-```text
-workload intent a threat model
-→ vybraná isolation boundary
-→ immutable machine/image subject
-→ runtime instance creation
-→ resource, network, storage a identity attachment
-→ process start a readiness
-→ observation a policy enforcement
-→ patch, replacement alebo in-place recovery
-→ persistent-state a incident closure
-```
+Budeme sledovať službu `payments-api`. V lokálnom prostredí ju vývojár spúšťa ako container. V cloude beží container na Linux worker VM. Databáza je mimo oboch vrstiev ako samostatná managed služba. Tento model je bežný, pretože VM vytvára infraštruktúrnu a kernelovú hranicu a container poskytuje menšiu, rýchlo nahraditeľnú aplikačnú jednotku.
 
-Container ani VM nie sú samy osebe application architecture. Obe sú execution boundaries, ktoré musia byť zosúladené s identity, persistence, networking, security a recovery modelom workloadu.
+## 1. Jeden workload, viac vrstiev
 
-## 1. Atlas workload subject
-
-Atlas Payments release `3.13.0` beží v cloud modeli:
+Produkčný request prejde cez viac vrstiev, než naznačuje jednoduchá veta „aplikácia beží v Dockeri“:
 
 ```text
-physical cloud host
+fyzický cloud host
 → hypervisor
-→ worker VM node-17
-→ Linux guest kernel 6.12
+→ worker VM
+→ guest Linux kernel
 → container runtime
-→ Atlas Payments container AP-313-07
+→ container filesystem, namespaces a cgroups
+→ payments-api process
+→ databáza a ďalšie externé služby
 ```
 
-Rekonštruovateľný runtime subject obsahuje:
+Každá vrstva má vlastnú identitu a vlastný lifecycle. Worker VM môže byť vytvorená z machine image `node-os-2026.08.1`, zatiaľ čo aplikácia používa image digest `sha256:payments460`. Container môže byť odstránený a znovu vytvorený bez zmeny VM. VM môže byť nahradená bez zmeny aplikačného image-u. Databáza môže prežiť obidve operácie.
 
-```text
-service: Atlas Payments
-release: 3.13.0
-image index digest: IDX313
-platform manifest: linux/amd64 MAMD313
-worker VM identity: i-node-17
-VM image: node-os-2026.07.2
-host/guest kernel: 6.12.x
-container runtime configuration: RC882
-container instance: AP-313-07
-runtime config generation: C44
-secret epoch: SE02
-persistent data owner: managed PostgreSQL cluster DB17
-network endpoint: payments.prod.example
-resource policy: 2 CPU / 2 GiB / pids 512
-isolation class: internal trusted service
+Keď incident report povie iba „payments container nefungoval“, stále nevieme, či bol problém v aplikačnom binary, image filesysteme, runtime konfigurácii, guest kerneli, hypervisore, sieti alebo databáze. Preto sa pri troubleshooting-u identifikuje aspoň image digest, container ID, VM alebo node identity, kernel a runtime verzia, loaded configuration generation a persistentný data owner.
+
+## 2. Čo je obyčajný process
+
+Aplikácia sa nakoniec vždy vykonáva ako process. Process má vlastný virtual address space, file descriptors, threads, credentials a execution state. Bez ďalšej izolácie však vidí rovnaký host process tree, rovnaký network stack, rovnaký mount tree a rovnaký resource pool ako ostatné procesy.
+
+Na bežnom Linux hoste si to možno predstaviť takto:
+
+```bash
+ps -eo pid,ppid,user,cmd
+ip address
+mount
+cat /proc/self/cgroup
 ```
 
-Úspešný outcome nie je iba „container je running“ alebo „VM je powered on“. Úspech znamená:
+Tieto príkazy ukážu pohľad aktuálneho procesu na hostiteľský systém. Container runtime nemení skutočnosť, že aplikácia je process. Mení prostredie, ktoré jej kernel ukazuje, a pravidlá, podľa ktorých môže spotrebúvať zdroje alebo volať privilegované operácie.
+
+## 3. Ako vznikne Linux container
+
+Pri vytvorení containeru runtime skombinuje image root filesystem s runtime konfiguráciou. Kernel následne vytvorí alebo pripojí namespaces, zaradí process do cgroups, nastaví credentials, capabilities, seccomp a prípadnú SELinux alebo AppArmor policy a pripojí volumes a network interfaces.
+
+Zjednodušený tok vyzerá takto:
 
 ```text
-správny artifact beží na kompatibilnej platforme
-+ zvolená isolation boundary zodpovedá threat modelu
-+ process je ready a reachable
-+ limits neporušujú workload SLO
-+ business data prežijú replacement runtime instance
-+ patch a recovery zachovajú identity a audit
+image manifest a layers
++ runtime environment, command a user
++ mounts a writable layer
++ network namespace a interface
++ cgroup limits
++ capabilities, seccomp a LSM policy
+→ exec hlavného procesu
 ```
 
-## 2. Process, container a VM
+V containere preto nebootuje druhý Linux kernel. Binary volá syscalls do kernelu hostiteľskej Linux vrstvy. To vysvetľuje aj jednu dôležitú hranicu prenositeľnosti: image balí userspace, nie celý operačný systém. Linux image potrebuje Linux kernel a kompatibilnú CPU architektúru. Docker Desktop na Windows alebo macOS preto pre Linux containers používa Linux VM alebo inú Linuxovú virtualizačnú vrstvu.
 
-### Bežný host process
+Prakticky možno zistiť, že proces z containeru stále existuje na hoste:
 
-Process má vlastný virtual address space, file descriptors a execution state, ale bez ďalších controls zdieľa host kernel, mount tree, network stack, process view a resource pool.
-
-### Linux container
-
-Container runtime vytvorí process alebo process group a zostaví jeho execution context:
-
-```text
-image root filesystem
-+ namespaces
-+ cgroup placement
-+ credentials/capabilities
-+ seccomp a LSM policy
-+ mounts, devices a networking
-+ entrypoint
-→ isolated host process tree
+```bash
+docker run --rm --name process-demo alpine:3.22 sleep 300
 ```
 
-Z pohľadu kernelu sú to stále host processes. Container image typicky neprináša kernel, bootloader ani vlastný virtual hardware.
+V druhom termináli:
 
-### Virtual machine
+```bash
+docker inspect process-demo --format '{{.State.Pid}}'
+ps -fp "$(docker inspect process-demo --format '{{.State.Pid}}')"
+```
 
-Hypervisor poskytne virtual hardware:
+Hostiteľ vidí skutočný PID procesu. Process vo vlastnom PID namespace môže pritom vidieť sám seba ako PID 1. Obe pozorovania sú správne; patria inému namespace pohľadu.
+
+## 4. Ako vznikne virtual machine
+
+Virtual machine začína o vrstvu nižšie. Hypervisor poskytne virtual CPU, memory, disk, network interface a ďalšie zariadenia. Guest firmware alebo bootloader načíta guest kernel, kernel inicializuje userspace a init systém spustí služby.
 
 ```text
-physical CPU/memory/devices
-→ hypervisor isolation
-→ virtual CPU, memory, disk a NIC
+physical CPU, memory a devices
+→ hypervisor
+→ virtual hardware
 → guest kernel boot
-→ guest userspace a services
-→ application process
+→ init a system services
+→ application alebo container runtime
 ```
 
-Guest môže používať inú kernel verziu alebo OS family než host, ak to podporuje hypervisor a architecture.
+VM môže mať inú kernel verziu a často aj inú OS family než hostiteľ, pokiaľ to podporuje architektúra a hypervisor. Kompromitovaná aplikácia sa najprv nachádza v guest OS. Na priamy zásah hypervisora alebo inej VM musí útočník prekonať ďalšiu virtualizačnú hranicu.
 
-## 3. Isolation boundary ako hlavný rozdiel
+To neznamená, že VM je automaticky bezpečná. Guest OS môže byť nepatchovaný, cloud identity príliš široká, virtual disk verejne dostupný a management plane zle chránený. Rozdiel je v tom, že VM pridáva samostatný guest kernel a hypervisor boundary, zatiaľ čo containers na jednom node zdieľajú kernel.
 
-### Container boundary
+## 5. Prečo sa containers často spúšťajú vo VMs
 
-Container zdieľa kernel s ostatnými containers a host procesmi. Izolácia závisí od koordinácie:
-
-- namespaces;
-- cgroups;
-- user a process credentials;
-- capability sets;
-- seccomp;
-- SELinux alebo AppArmor;
-- mount/device policy;
-- runtime a host hardening.
-
-Kernel vulnerability, privileged mode, runtime socket alebo writable host mount môže boundary výrazne oslabiť.
-
-### VM boundary
-
-VM pridáva guest-kernel a hypervisor boundary. Kompromitovaná aplikácia najprv zasiahne guest OS; pre priamy zásah hosta alebo inej VM musí útočník prekonať ďalšiu virtualization boundary.
-
-VM však nie je automaticky bezpečná. Guest image, hypervisor, virtual devices, management plane, identities a network stále potrebujú hardening.
-
-### Dôsledok
+Pri cloudovom nasadení nejde zvyčajne o rozhodnutie „VM alebo container“. Používajú sa obe vrstvy:
 
 ```text
-shared-kernel container
-→ menší overhead a rýchlejší lifecycle
-→ väčší spoločný kernel blast radius
-
-VM s guest kernelom
-→ silnejšia a samostatnejšia boundary
-→ vyšší per-instance overhead a širší OS lifecycle
-```
-
-## 4. Containers vo VMs
-
-Cloud platforms často kombinujú obe vrstvy:
-
-```text
-hypervisor/VM
-→ izoluje node alebo tenant failure domain
+VM
+→ node a kernel failure domain
 
 container
-→ balí a spúšťa application workload
+→ aplikačný artifact a replaceable process unit
 ```
 
-Atlas používa VM node ako infrastructure a kernel boundary a container ako replaceable application unit. To však znamená dva patch a observation lifecycles:
+Atlas Payments používa worker VM ako infraštruktúrny node. Na nej beží Docker Engine alebo Kubernetes container runtime. `payments-api` je container, ktorý možno rýchlo nahradiť pri novom release. Keď však treba opraviť kernel vulnerability alebo container runtime, platforma drain-ne workloady a nahradí celú worker VM.
 
-- cloud host/hypervisor;
-- worker VM guest OS/kernel;
-- container runtime;
-- application image a config;
-- application process.
+Tento model vytvára dva oddelené patch lifecycles. Rebuild aplikačného image-u aktualizuje binary a userspace libraries, ale neopraví guest kernel. Nová VM image opraví kernel a runtime, ale môže znovu spustiť starý zraniteľný aplikačný image. Bez inventára oboch vrstiev môže dashboard ukazovať „všetky nodes patched“, hoci produkcia stále používa zraniteľný image digest.
 
-Green container health nepreukazuje zdravý node kernel. Green VM state nepreukazuje application readiness.
+## 6. Image nie je bežiaci container
 
-## 5. Packaging identity
+Container image je nemenný alebo aspoň content-addressed aplikačný template. Obsahuje filesystem layers a image configuration, napríklad defaultného používateľa, environment, working directory, entrypoint a command.
 
-### VM image
-
-Machine image typicky obsahuje bootovateľný systém:
-
-- kernel alebo boot artifacts;
-- guest userspace;
-- init a system services;
-- drivers a agents;
-- application alebo container runtime podľa modelu.
-
-### Container image
-
-Container image obsahuje application userspace artifact a runtime defaults:
-
-- executable a libraries;
-- filesystem layers;
-- user;
-- environment defaults;
-- entrypoint a command;
-- labels a platform metadata.
-
-Image je template. Runtime container je:
-
-```text
-exact image manifest
-+ runtime config
-+ mounts/secrets/network/limits
-+ process state
-+ writable layer
+```bash
+docker image inspect registry.example.com/atlas/payments-api@sha256:<digest>
 ```
 
-Preto dve containers z rovnakého image digestu môžu mať odlišný effective runtime state.
+Výstup opisuje image. Neopisuje všetky runtime overrides. Pri spustení môže operator zmeniť používateľa, command, environment, mounts, ports, limits a security options:
 
-## 6. Kernel compatibility a portability
-
-Container image štandardizuje userspace artifact, nie celý machine environment.
-
-Runtime compatibility závisí od:
-
-- OS/kernel family;
-- CPU architecture a variant;
-- required syscalls a kernel features;
-- filesystem a mount semantics;
-- security profiles;
-- devices;
-- networking a storage capabilities;
-- runtime configuration.
-
-Linux image na Windows alebo macOS typicky beží cez Linux VM alebo inú compatible virtualization vrstvu:
-
-```text
-Windows/macOS
-→ Linux VM alebo sandbox
-→ Linux kernel
-→ container runtime
-→ Linux container
+```bash
+docker run --rm \
+  --user 65532:65532 \
+  --read-only \
+  --memory 256m \
+  --env LOG_LEVEL=debug \
+  registry.example.com/atlas/payments-api@sha256:<digest>
 ```
 
-„Runs anywhere“ znamená iba prenositeľnosť v rámci podporovaného platform contractu.
+Dva containers z rovnakého digestu preto môžu mať odlišné správanie. Jeden môže mať správny volume a druhý zapisovať iba do dočasnej writable layer. Jeden môže bežať ako non-root a druhý byť prepísaný na root. Image identity je nevyhnutná, ale sama nestačí na rekonštrukciu runtime-u.
 
-## 7. Runtime creation a startup
+## 7. Rýchlejší štart nie je automaticky readiness
 
-VM startup:
+Container sa typicky vytvára rýchlejšie než boot celej VM. Runtime nemusí inicializovať virtual hardware, guest kernel ani plný init systém. Pripraví filesystem snapshot, namespaces, cgroups, mounts a sieť a vykoná entrypoint.
+
+To však ešte neznamená, že služba je pripravená prijímať traffic. `payments-api` po štarte načíta konfiguráciu, otvorí database pool, overí schema compatibility a začne počúvať na porte. Process môže existovať, ale readiness endpoint ešte vracia chybu.
+
+Preto treba rozlišovať:
 
 ```text
-virtual hardware
-→ guest firmware/boot
-→ guest kernel
-→ init a system services
-→ application
+container created
+→ process started
+→ process alive
+→ application ready
+→ service reachable
+→ business operation úspešná
 ```
 
-Container startup:
+`docker ps` dokazuje najmä stav hlavného procesu z pohľadu Engine-u. Healthcheck môže dokazovať lokálnu aplikačnú podmienku. Až reálny request cez publikovaný port alebo service network dokazuje konkrétnu serving path.
 
-```text
-resolve/unpack image
-→ prepare snapshot/rootfs
-→ create namespaces a cgroups
-→ attach mounts/network/security policy
-→ exec entrypoint
+## 8. Resources: cgroup limit a virtual hardware nie sú to isté
+
+Container používa cgroups na accounting a obmedzenie CPU, memory, PID alebo I/O zdrojov. Napríklad:
+
+```bash
+docker run --rm \
+  --cpus 0.50 \
+  --memory 256m \
+  --pids-limit 128 \
+  registry.example.com/atlas/payments-api@sha256:<digest>
 ```
 
-Container môže začať rýchlejšie, ale process start nie je readiness. Atlas po starte ešte:
+Tieto flags nevytvárajú fyzický procesor ani garantovaný diskový výkon. Nastavia cgroup policy v rámci hostiteľského systému. Pri memory limite môže kernel procesy v cgroup ukončiť. Pri CPU kvóte môže aplikácia trpieť throttlingom. I/O a network môžu zostať zdieľané s ostatnými workloadmi na node.
 
-- načíta secret epoch;
-- otvorí database pool;
-- vykoná compatibility check;
-- zahreje cache;
-- začne počúvať;
-- prejde readiness transaction.
+VM dostane virtual CPUs a virtual memory, ale aj tam môže hypervisor používať overcommit a workload môže pozorovať CPU steal alebo storage contention. Pri pomalej aplikácii preto nestačí pozerať iba container metrics. Treba korelovať aplikačnú latenciu, cgroup throttling alebo OOM, tlak v guest kerneli a stav VM alebo fyzickej infraštruktúry.
 
-Runtime state preto rozlišuj:
+## 9. Persistence musí mať vlastného ownera
+
+Container writable layer je viazaná na konkrétny container object. Keď sa container odstráni, jeho writable layer sa bežne odstráni s ním. Je vhodná pre dočasné súbory, cache alebo replaceable generated state. Nenahraditeľné business dáta tam nemajú zostať bez explicitného rozhodnutia.
+
+Atlas Payments zapisuje transakcie do PostgreSQL a lokálny export buffer do named volume-u. To umožňuje nahradiť aplikačný container bez straty dát:
 
 ```text
-created
-started
-alive
-ready
-serving
-healthy under load
-terminating
-deleted
+container generation C1
+→ mount volume V1
+→ zápis dát
+→ odstránenie C1
+→ container generation C2
+→ mount rovnakého V1
+→ dáta zostávajú
 ```
 
-## 8. Resource model
+Volume však nie je automaticky backup. Stále treba riešiť ownership, filesystem permissions, host failure, corruption, snapshot consistency, restore a prípadných viacerých writers. Podobne ani virtual disk VM nie je automaticky application-consistent databázový backup. Persistence potrebuje samostatný lifecycle bez ohľadu na to, či aplikácia beží v containere alebo priamo vo VM.
 
-Container zdieľa host resources a cgroups riadia accounting a limits. VM má virtual CPUs a memory, ale host/hypervisor môže používať overcommit a shared I/O.
+## 10. Bezpečnostný rozdiel sa prejaví pri zlom runtime nastavení
 
-Atlas container policy:
+Shared-kernel model môže byť dostatočný pre veľké množstvo interných služieb, pokiaľ sú containers spustené s úzkymi oprávneniami a host je správne hardenovaný. Hranica sa však dramaticky oslabí pri privileged mode, host namespace-och, runtime socket mounte alebo writable host filesystem mounte.
 
-```text
-CPU weight: relative scheduling priority
-CPU quota: maximum time budget
-memory.max: 2 GiB
-pids.max: 512
-I/O/network: shared node resources
+Nasledujúci príkaz by bol z pohľadu izolácie extrémne rizikový:
+
+```bash
+docker run --rm -it \
+  --privileged \
+  --pid host \
+  --mount type=bind,src=/,dst=/host \
+  --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+  alpine:3.22 sh
 ```
 
-Limit nie je rezervácia. Workload s memory limitom stále môže trpieť CPU alebo I/O contention. VM s 4 vCPU stále môže trpieť hypervisor steal alebo noisy-neighbor storage latency.
+Takýto workload má prístup k hostiteľským procesom, filesystemu, zariadeniam a Docker API. Označenie „container“ už neposkytuje rozumnú bezpečnostnú garanciu. Kompromitácia aplikácie sa môže zmeniť na kompromitáciu node-u a všetkých workloadov, ktoré s ním zdieľajú kernel.
 
-Observation musí korelovať vrstvy:
+Pri citlivom multi-tenant workload-e môže byť vhodná dedicated VM, microVM alebo sandboxed runtime aj vtedy, keď sa aplikácia naďalej distribuuje ako OCI image. Packaging a isolation boundary sú dve samostatné rozhodnutia.
 
-```text
-application latency
-↔ container cgroup throttling/OOM
-↔ guest kernel pressure
-↔ VM scheduling/steal
-↔ physical host/storage/network
-```
+## 11. Praktické rozhodnutie pre Atlas Payments
 
-## 9. Process lifecycle a PID 1
+Pre bežnú internú verziu `payments-api` zvolí Atlas container na worker VM. Aplikácia je stateless voči hlavnej databáze, rýchlo sa nahrádza a nepotrebuje vlastný kernel. Runtime policy zakazuje privileged mode, Docker socket a host namespaces, používa non-root usera, read-only root filesystem, explicitné volumes a resource limits.
 
-Container runtime sleduje hlavný process. Ak PID 1 skončí, container lifecycle sa typicky ukončí.
+Pre support nástroj, ktorý potrebuje analyzovať kernel crash dumps a host devices, by rovnaká boundary nestačila. Nástroj by dostal dedicated VM alebo úzko navrhnutý node-level workflow s presne obmedzenými mounts a capabilities. Dôvodom nie je, že VM je vždy „lepšia“, ale že požadované oprávnenia by z container boundary spravili iba formálne označenie.
 
-PID 1 potrebuje:
+Rozhodovací proces preto začína otázkami: Aký je threat model? Ktoré zdroje sa musia zdieľať? Aké oprávnenia potrebuje workload? Kde sú business dáta? Ako sa patchuje kernel a userspace? Aký blast radius je akceptovateľný? Až potom má zmysel hovoriť o hustote, rýchlosti štartu alebo prevádzkových nákladoch.
 
-- prijímať a forwardovať termination signals;
-- zbierať child processes;
-- ukončiť sa predvídateľným exit code-om;
-- neoddeľovať daemon od lifecycle ownera.
+## 12. Incident: dáta zmizli pri úplne korektnom replacement-e
 
-VM má init systém spravujúci viac nezávislých services. Container nemusí mať iba jeden process, ale potrebuje jeden jasný lifecycle contract.
-
-## 10. Network identity
-
-VM typicky dostane stabilnejšiu virtual NIC identity. Container môže dostať krátkodobú network namespace a ephemeral IP.
-
-Stable service identity preto nemá byť jedna container IP:
+Atlas export worker zapisoval pending reconciliation records do `/var/lib/atlas/pending`, ale path nebola volume. Počas výmeny node-u platforma odstránila starý container a vytvorila nový z rovnakého image digestu.
 
 ```text
-container instances
-→ service discovery/load balancer
-→ stable service endpoint
-```
-
-Atlas DNS a load balancer smerujú na verified ready instances. Replacement container môže mať inú IP, ale musí zachovať service release a endpoint contract.
-
-## 11. Persistence boundary
-
-Container writable layer je viazaná na runtime instance. Je vhodná pre:
-
-- temporary files;
-- caches;
-- ephemeral runtime state;
-- replaceable generated data.
-
-Nenahraditeľné dáta patria mimo nej:
-
-- managed database;
-- persistent volume;
-- object storage;
-- external state service;
-- explicitný backup/recovery systém.
-
-Stateful application môže bežať v containeri. „Ephemeral container“ znamená, že runtime instance nie je jediný vlastník business dát.
-
-VM disk môže prežiť guest reboot, ale tiež potrebuje explicitný lifecycle. Machine snapshot nie je automaticky application-consistent database backup.
-
-## 12. Configuration a immutable replacement
-
-Container model preferuje:
-
-```text
-source/config change
-→ build exact image
-→ test/scan/sign
-→ deploy new runtime instances
-→ verify
-→ remove old instances
-```
-
-Interactive patch v running containeri vytvorí snowflake state:
-
-- zmena nie je v image digest-e;
-- replacement ju odstráni;
-- image scanner ju nevidí;
-- recovery je neauditovateľný.
-
-VM môže používať image replacement alebo in-place patching. Obe stratégie potrebujú explicitnú ownership a rollback policy.
-
-## 13. Patching dvoch vrstiev
-
-Container rebuild opraví userspace packages v image. Neopraví host/guest kernel, ktorý container zdieľa.
-
-Atlas patch lifecycle:
-
-```text
-application/base-image vulnerability
-→ rebuild MAMD313 successor
-→ redeploy containers
-
-kernel/runtime vulnerability
-→ patch alebo replace worker VM image
-→ drain workloads
-→ create new node
-→ reschedule exact application images
-```
-
-Ak sa patchne iba application image, kernel risk môže zostať. Ak sa patchne iba node, vulnerable image môže byť znova spustený.
-
-## 14. Security a blast radius
-
-Container risk rastie pri:
-
-- privileged mode;
-- broad capabilities;
-- host PID/network namespace;
-- runtime socket mount;
-- writable host root mount;
-- raw device access;
-- unconfined seccomp/LSM;
-- shared sensitive workloads na jednom kernel boundary.
-
-VM risk zahŕňa:
-
-- guest compromise;
-- virtual-device alebo hypervisor vulnerability;
-- management-plane compromise;
-- shared storage/network;
-- stale guest OS;
-- broad cloud identity.
-
-Citlivý multi-tenant workload môže potrebovať dedicated VM, microVM alebo sandboxed runtime aj vtedy, keď application packaging zostáva container-based.
-
-## 15. Worked failure: privileged container zrušil očakávanú boundary
-
-Atlas support tool potreboval čítať host logs. Tím použil:
-
-```text
-privileged container
-+ host root filesystem mounted writable
-+ container runtime socket mounted
-```
-
-Predpoklad bol „stále je to container, takže host je izolovaný“.
-
-Mechanizmus:
-
-```text
-workload dostane široké kernel capabilities a devices
-→ vidí host filesystem
-→ runtime socket umožní vytvárať ďalšie privileged workloads
-→ container compromise sa mení na node compromise
-→ všetky workloads na node zdieľajú blast radius
-```
-
-Správny návrh používa narrow read-only log path, dedicated identity, minimum capabilities, oddelený support workflow alebo dedicated node podľa rizika.
-
-## 16. Worked failure: business dáta boli vo writable layeri
-
-Atlas export worker zapisoval pending reconciliation records do `/var/lib/atlas/pending`. Path nebola volume.
-
-```text
-container AP-313-07 spracuje 8 000 records
+worker zapíše 8 000 pending records do writable layer
 → node drain odstráni container
-→ writable layer sa odstráni
-→ nový container nemá pending ledger
-→ export a database stav sa rozídu
+→ writable layer zanikne
+→ nový container začína z čistého image-u
+→ databáza a exportný systém sa rozídu
 ```
 
-Container replacement fungoval presne podľa lifecycle-u. Chyba bola v persistence contracte.
+Container runtime sa nesprával chybne. Presne vykonal požadovaný replacement. Chyba bola v architektúre dát: nenahraditeľný stav bol uložený do vrstvy, ktorej lifecycle bol kratší než lifecycle business operácie.
 
-Recovery vyžaduje reconstruct/reconcile records zo zdrojového systému. Skorší control je explicitný data inventory, persistent owner a replacement test.
+Recovery musela rekonštruovať pending records z autoritatívnej databázy a externého export systému. Trvalá oprava presunula ledger do databázy a replacement test začal overovať, že rozpracovaná operácia prežije odstránenie containeru aj node-u.
 
-## 17. Worked failure: running sa zamieňalo s ready
+## 13. Ako túto kapitolu použiť pri troubleshooting-u
 
-Container process sa spustil za dve sekundy, ale database migration compatibility check trval 40 sekúnd. Load balancer pridal instance ihneď po process start-e.
+Keď aplikácia funguje ako systemd service vo VM, ale v containere zlyhá, nezačínaj všeobecným tvrdením, že „Docker má problém“. Najprv porovnaj konkrétne runtime rozdiely:
 
-```text
-process exists
-→ platform označí instance available
-→ traffic príde pred dependency readiness
-→ requests zlyhávajú
+```bash
+docker image inspect IMAGE
+docker inspect CONTAINER
+docker logs --timestamps CONTAINER
+docker top CONTAINER -eo pid,ppid,user,args
+docker stats --no-stream CONTAINER
 ```
 
-Readiness musí testovať používateľsky významný precondition, nie iba PID existenciu.
+Skontroluj používateľa, command, environment, mounts, read-only filesystem, capabilities, seccomp alebo LSM denial, CPU architektúru a dynamic loader. Binary môže byť správny, ale nemá write access k volume-u. Process môže bežať, ale počúva iba na container loopbacku. Image môže byť `linux/amd64`, zatiaľ čo runtime node je `arm64`.
 
-## 18. Worked failure: VM image a container image mali rozdielnych owners bez contractu
+Kľúčové je nájsť prvú vrstvu, na ktorej sa očakávaný a pozorovaný stav rozídu. Container, VM, image, process, network endpoint a persistentné dáta nie sú jedna identita a nemajú rovnaký lifecycle.
 
-Worker VM image obsahovala runtime version R7. Application image vyžadovala runtime/kernel feature R8, ale scheduler kontroloval iba CPU architecture.
+## Čo si z kapitoly odniesť
 
-```text
-image manifest je linux/amd64
-→ node je tiež amd64
-→ deployment prejde platform selection
-→ required kernel/runtime feature chýba
-→ process zlyhá pri štarte
-```
+Container je izolovaný hostiteľský process alebo skupina procesov, nie malá VM. VM pridáva virtual hardware, guest kernel a hypervisor boundary. V praxi sa často kombinujú: VM vytvára node a kernel failure domain, container predstavuje menšiu aplikačnú jednotku.
 
-Platform contract potrebuje viac než OS/architecture: podporovaný kernel, runtime features a security policy.
+Image nie je bežiaci container, `running` nie je `ready` a writable layer nie je persistentný data store. Rebuild image-u nepatchuje kernel a výmena VM neaktualizuje aplikačný artifact. Správny návrh preto musí oddeliť packaging, runtime isolation, persistence, networking, patching a recovery.
 
-## 19. Causal troubleshooting walkthrough: application funguje vo VM, ale nie v containeri
+## Primárne zdroje
 
-Atlas binary funguje ako systemd service v testovacej VM. Rovnaký binary v containeri skončí po štarte s `permission denied` a health endpoint nevznikne.
-
-### 1. Zafixuj runtime subject
-
-Zaznamenaj:
-
-- image index a platform manifest digest;
-- container config, user, entrypoint a arguments;
-- host/guest kernel a runtime version;
-- namespace, cgroup, capability, seccomp a LSM profile;
-- mounts, ownership a read-only flags;
-- effective environment/secrets;
-- network a port binding;
-- process exit code, audit events a runtime logs.
-
-### 2. Súťažiace hypotézy
-
-1. Binary alebo interpreter nemá execute permission.
-2. Dynamic library alebo loader chýba v image.
-3. Process beží pod iným UID/GID a nevie čítať config.
-4. Root filesystem je read-only a aplikácia zapisuje do implicitného pathu.
-5. Capability potrebná na bind alebo syscall bola odstránená.
-6. Seccomp blokuje syscall.
-7. SELinux/AppArmor blokuje file alebo socket operation.
-8. Architecture alebo libc nie je compatible.
-9. Entrypoint shell neforwarduje argumenty alebo signal.
-10. Service počúva iba na `127.0.0.1` v container namespace.
-11. Resource limit ukončí process pred readiness.
-12. Mounted config/secret má inú hodnotu než VM file.
-
-### 3. Diskriminačné observation points
-
-- exact image filesystem a dynamic linker inspection;
-- `stat`, UID/GID a mount flags;
-- `/proc/<pid>/status` capability sets;
-- seccomp/LSM audit denials;
-- runtime spec/config;
-- process syscall/exit evidence podľa policy;
-- socket bind address v container network namespace;
-- cgroup memory/CPU/PID events;
-- redacted effective config digest;
-- porovnanie VM a container execution identities.
-
-### 4. Containment
-
-Nezapínaj privileged mode ani globálne nevypínaj SELinux/AppArmor. Zastav rollout a zachovaj failed container metadata, image digest a host audit logs.
-
-### 5. Recovery
-
-- missing library/interpreter → oprav image build a rebuildni exact artifact;
-- UID/permissions → nastav explicitný user a file ownership;
-- writable-path assumption → pridaj bounded writable mount alebo oprav application path;
-- capability gap → pridaj iba potrebnú capability;
-- seccomp/LSM denial → uprav narrow policy podľa konkrétnej operation;
-- bind address → počúvaj na intended interface a zachovaj network policy;
-- resource failure → oprav limit alebo application usage podľa evidence;
-- config mismatch → zosúlaď versionovaný runtime contract.
-
-### 6. Over pôvodný outcome
-
-Nový image/runtime subject musí prejsť process start, readiness, business transaction, graceful termination, replacement a second-instance test bez privileged bypassu.
-
-### 7. Posuň control skôr
-
-Pridaj containerized integration test s production-like user, read-only rootfs, seccomp/LSM, resource limits, mounted config a readiness oracle.
-
-## 20. Rozhodovací rámec
-
-Vyber boundary podľa otázok:
-
-1. Potrebuje workload vlastný kernel alebo inú OS family?
-2. Aký tenant a kernel blast radius je prijateľný?
-3. Aké capabilities, devices a host mounts potrebuje?
-4. Je application pripravená na process-oriented replacement?
-5. Kde je authoritative persistent state?
-6. Aký startup a readiness čas potrebuje?
-7. Kto patchuje application userspace, runtime, guest kernel a hypervisor?
-8. Aký node/workload identity a attestation model je potrebný?
-9. Ako sa budú zbierať logs po zániku instance?
-10. Potrebuje workload container vo VM, dedicated VM, microVM alebo sandbox?
-
-## 21. Referenčné pravidlá
-
-- Container je izolovaný host process model, nie mini-VM.
-- VM virtualizuje hardware a prináša guest kernel boundary.
-- Containers vo VMs kombinujú dve boundaries a dva patch lifecycles.
-- Image identity a runtime effective state sú odlišné subjects.
-- OS/architecture compatibility nie je celý platform contract.
-- Process started nie je workload ready.
-- Resource limit nie je automaticky rezervácia ani SLO.
-- Stable service endpoint nemá závisieť od jednej ephemeral container IP.
-- Writable layer nie je jediný persistent-state owner.
-- Runtime patch v containeri vytvára snowflake state.
-- Container rebuild neopraví host kernel.
-- Privileged mode, runtime socket a host mounts zásadne menia trust boundary.
-- Recovery začína identitou failure vrstvy, nie automatickým zvýšením privileges.
-
-## 22. Kontrolné otázky
-
-1. Kde leží hlavná isolation boundary containeru a VM?
-2. Prečo container image typicky neobsahuje kernel?
-3. Aké dva lifecycles vzniknú pri containers vo VMs?
-4. Ako sa líši image subject a runtime container subject?
-5. Prečo `running` nie je to isté ako `ready`?
-6. Prečo memory alebo CPU limit nie je garantovaná rezervácia?
-7. Kde majú byť dáta, ktoré musia prežiť replacement?
-8. Prečo privileged container môže znamenať node compromise?
-9. Ako sa líši patchovanie image a worker kernelu?
-10. Aké observation points odlíšia filesystem, privilege, platform a resource failure?
-
-## Glossary impact
-
-Relevantné pojmy: workload isolation subject, container boundary, VM boundary, shared-kernel blast radius, guest-kernel boundary, runtime container subject, platform compatibility contract, process readiness boundary, container replacement lifecycle, writable-layer persistence failure, layered patch lifecycle, privileged-boundary collapse, microVM a sandboxed runtime.
-
-## Oficiálna dokumentácia
-
-- [What is Docker](https://docs.docker.com/get-started/docker-overview/)
-- [What is a container](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/)
-- [Open Container Initiative](https://opencontainers.org/about/overview/)
-- [OCI Runtime Specification](https://specs.opencontainers.org/runtime-spec/)
-- [Linux namespaces](https://docs.kernel.org/admin-guide/namespaces/index.html)
-- [Linux cgroup v2](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html)
+- [Docker overview](https://docs.docker.com/get-started/docker-overview/)
+- [Docker Engine security](https://docs.docker.com/engine/security/)
+- [Running containers](https://docs.docker.com/engine/containers/run/)
+- [Resource constraints](https://docs.docker.com/engine/containers/resource_constraints/)
+- [Rootless mode](https://docs.docker.com/engine/security/rootless/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

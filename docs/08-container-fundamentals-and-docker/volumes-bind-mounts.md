@@ -1,576 +1,382 @@
 # Volumes a bind mounts
 
-Docker mount nie je iba cesta pridaná do containeru. Je to runtime prepojenie medzi **source data identity** a pathom v mount namespace-e procesu. Nesprávny source, daemon context, project name, ownership alebo cleanup command môže pripojiť prázdne dáta, staging dáta alebo zmazať jedinú production kópiu.
+Docker mount spája konkrétny storage source s pathom v mount namespace-e containeru. Z pohľadu aplikácie môže named volume aj bind mount vyzerať ako obyčajný adresár. Z prevádzkového pohľadu však majú úplne inú identitu, portability, ownership a cleanup lifecycle.
 
-Dominantný lifecycle:
+Named volume spravuje Docker Engine a referencuje sa menom. Bind mount referencuje konkrétny host path. Tmpfs nemá persistentný diskový source. Pri incidente preto nestačí vedieť, že aplikácia zapisuje do `/var/lib/atlas-payments`. Musíme vedieť, čo je na tento path skutočne mountnuté na konkrétnom Docker daemone.
 
-```text
-data intent a persistence classification
-→ mount source identity a lifecycle owner
-→ daemon/project/host resolution
-→ source preflight
-→ attach a mount-namespace publication
-→ UID/GID, LSM, propagation a read/write policy
-→ initialization alebo schema transition
-→ runtime I/O a durability verification
-→ backup/restore evidence
-→ detach, replacement, retention alebo cleanup
-```
+Budeme pracovať s `payments-api`, ktorá beží ako UID `65532` a zapisuje JSONL ledger do `/var/lib/atlas-payments/payments.jsonl`.
 
-`volume`, `bind` a `tmpfs` sú rozdielne source a lifecycle modely. Ich syntax sama o sebe nedokazuje správne dáta, bezpečný access ani obnoviteľnosť.
+## 1. `--mount` ukazuje celý contract
 
-## 1. Atlas scenár
-
-Atlas Payments používa:
-
-```text
-application image: payments-api@sha256:I44
-Docker project: atlas-payments-prod
-container service: api
-persistent data ID: PAYMENTS-LEDGER-PROD
-volume object: atlas-payments-prod_ledger-data
-volume generation: G18
-mount target: /var/lib/atlas/ledger
-writer epoch: W203
-runtime UID:GID: 10001:10001
-backup lineage: B77
-```
-
-Ďalšie mounts:
-
-```text
-read-only config bind:
-/srv/atlas-payments/config/app.yaml
-→ /etc/atlas/app.yaml
-
-runtime tmpfs:
-/run/atlas
-```
-
-Úspech neznamená iba to, že `Mounts` existujú v `docker inspect`. Potrebné je potvrdiť:
-
-- správny logical data ID a generation;
-- správny daemon, host a Compose project;
-- správny volume alebo host source;
-- správny target path bez neplánovaného obscuring-u;
-- process má iba potrebný read/write access;
-- application skutočne zapisuje do očakávaného data setu;
-- backup a restore patria rovnakej data lineage;
-- replacement containeru zachová dáta;
-- cleanup neodstráni authoritative state.
-
-## 2. Persistence classification
-
-Každý writable path klasifikuj pred deploymentom:
-
-```text
-ephemeral runtime state
-persistent business state
-re-injectable configuration alebo secret
-incident/audit evidence
-host integration capability
-```
-
-Príklady:
-
-| Path | Trieda | Typický source |
-|---|---|---|
-| `/tmp` | ephemeral | writable layer alebo bounded tmpfs |
-| `/var/lib/atlas/ledger` | persistent business state | named/external volume |
-| `/etc/atlas/app.yaml` | re-injectable config | read-only bind/config mechanism |
-| `/run/secrets/db` | secret | tmpfs alebo secret delivery |
-| `/var/run/docker.sock` | host-control capability | spravidla nesprístupňovať |
-
-Writable container layer je naviazaná na konkrétnu container instance. Preto nemá byť jediným authoritative storage pre business state alebo incident evidence, ktoré musia prežiť replacement.
-
-## 3. Mount subject
-
-Pred create operáciou vytvor mount subject:
-
-```text
-mount type
-source logical identity
-source physical identity alebo host path
-Docker daemon/context
-host/node identity
-Compose project/resource name
-destination path
-read/write mode
-UID/GID a user-namespace mapping
-LSM label/profile
-propagation mode
-expected data generation/schema
-backup/retention owner
-```
-
-Rovnaký text `ledger-data:/var/lib/atlas/ledger` môže ukazovať na iný object, ak sa zmení project name, daemon endpoint alebo external volume mapping.
-
-## 4. Named volume lifecycle
-
-Named volume má explicitnú Docker object identity:
+Docker podporuje short `-v` syntax aj explicitnejší `--mount`. Pre výklad a automation je `--mount` čitateľnejší:
 
 ```bash
-docker volume create atlas-ledger-data
-
-docker run \
-  --mount type=volume,src=atlas-ledger-data,dst=/var/lib/atlas/ledger \
-  payments-api@sha256:I44
+docker run --rm \
+  --mount type=volume,source=payments-data,target=/var/lib/atlas-payments \
+  IMAGE
 ```
 
-Volume:
+Príkaz explicitne hovorí, že source je Docker volume `payments-data` a target je path v containere.
 
-- má lifecycle oddelený od containeru;
-- môže prežiť `docker rm`;
-- môže používať local alebo external driver;
-- nie je automaticky replicated, encrypted alebo backed up;
-- nepodporuje automaticky safe multi-writer access.
+Bind mount:
 
-Pre intentional persistence preferuj named alebo explicitne external volume. Anonymous volume má durable bytes, ale slabšiu owner a cleanup identitu.
+```bash
+docker run --rm \
+  --mount type=bind,source="$PWD/local-data",target=/var/lib/atlas-payments \
+  IMAGE
+```
 
-## 5. Compose project a volume identity
+Tu je source konkrétny path na hoste Docker daemonu. Pri remote Docker contexte to nemusí byť filesystem laptopu, z ktorého sa CLI spustilo. Je to filesystem remote hosta.
 
-Compose typicky vytvorí meno z projektu a logical volume key:
+## 2. Named volume identity
+
+Vytvor volume:
+
+```bash
+docker volume create payments-data
+```
+
+Inspect:
+
+```bash
+docker volume inspect payments-data
+```
+
+Výstup ukáže driver, mountpoint alebo driver options, labels a scope. Mountpoint pri local driveri je implementačný detail spravovaný Dockerom. Aplikácia ani bežná automation sa nemajú viazať na internú host cestu pod Docker data rootom.
+
+Volume možno pripojiť viacerým containers:
+
+```bash
+docker run --rm \
+  --mount type=volume,source=payments-data,target=/data \
+  alpine:3.22 \
+  sh -c 'echo pay-100 > /data/ledger.txt'
+
+docker run --rm \
+  --mount type=volume,source=payments-data,target=/data,readonly \
+  alpine:3.22 \
+  cat /data/ledger.txt
+```
+
+Druhý container používa rovnaký source object. Read-only mount chráni pred zmenou z tohto containeru, ale prvý writer alebo host administrator dáta stále môže meniť.
+
+## 3. Anonymous volume
+
+Dockerfile môže deklarovať:
+
+```dockerfile
+VOLUME ["/var/lib/atlas-payments"]
+```
+
+Ak runtime nepriradí named source, Docker môže vytvoriť anonymous volume s generovaným menom. Dáta prežijú container removal podľa konkrétneho cleanup príkazu, ale identity sa spravuje ťažšie.
+
+```bash
+docker inspect CONTAINER | jq '.[0].Mounts'
+```
+
+ukáže skutočné volume name. Anonymous volumes môžu zostať orphaned a zaberať disk. Pre business dáta je explicitné meno alebo orchestrator-managed persistent identity čitateľnejšia.
+
+Dockerfile `VOLUME` navyše nevie určiť production driver, backup policy alebo access mode. Tieto rozhodnutia patria deployment vrstve.
+
+## 4. Bind mount a host coupling
+
+Bind mount používa presný host path. Je vhodný pri local development:
+
+```bash
+docker run --rm \
+  --mount type=bind,source="$PWD/config",target=/etc/atlas,readonly \
+  IMAGE
+```
+
+Aplikácia okamžite vidí zmenu host config file-u. To je pohodlné, ale production image a runtime sa stávajú závislé od host layoutu a file semantics.
+
+Pri remote daemon-e:
+
+```bash
+docker context use remote-prod
+docker run --mount type=bind,source=/srv/payments,target=/data IMAGE
+```
+
+`/srv/payments` sa hľadá na `remote-prod`, nie na client hoste. Neexistujúci source môže spôsobiť chybu alebo pri legacy `-v` syntax vzniknúť ako prázdny directory podľa použitia, čo môže zakryť chybu.
+
+Preto je `--mount` preferované: pri chýbajúcom bind source typicky zlyhá explicitne.
+
+## 5. Read-only a recursive semantics
+
+Bind alebo volume možno mountnúť read-only:
+
+```bash
+--mount type=bind,source="$PWD/config",target=/etc/atlas,readonly
+```
+
+Read-only sa týka mountu z pohľadu containeru. Host process s oprávnením môže source meniť a container zmenu uvidí.
+
+Pri bind mountoch s nested mounts závisí recursive správanie a read-only enforcement od kernel a Docker možností. Broad host tree s nested mounts môže do containeru preniesť viac objects, než review očakáva.
+
+Mount source preto má byť čo najužší. Namiesto `/srv` mountni `/srv/atlas/payments/config.yaml`, ak aplikácia potrebuje jeden file.
+
+## 6. Mount obscuring
+
+Mount zakryje image content v target path-e. Ak image obsahuje default configuration:
 
 ```text
-<project>_<volume-key>
+/etc/atlas/config.yaml
 ```
+
+a runtime mountne directory na `/etc/atlas`, process vidí obsah mount source-u. Default file z image-u je zakrytý.
+
+```bash
+docker inspect CONTAINER --format '{{json .Mounts}}' | jq .
+```
+
+Pri diagnostike porovnaj image bez mountu:
+
+```bash
+id="$(docker create IMAGE)"
+docker export "$id" | tar -tf - | grep 'etc/atlas/config.yaml'
+docker rm "$id"
+```
+
+Ak file je v image-i, ale nie v running containere, mount obscuring je silná hypotéza.
+
+## 7. Volume copy-up pri prvom použití
+
+Pri prázdnom Docker volume mountnutom na non-empty image directory môže Docker podľa volume semantics skopírovať existujúci directory content do volume-u. To je pohodlné pre default data, ale môže byť prekvapivé a pri veľkom obsahu pomalé.
+
+Option `volume-nocopy` môže copy-up potlačiť:
+
+```bash
+--mount type=volume,source=payments-data,target=/var/lib/atlas-payments,volume-nocopy
+```
+
+Aplikácia potom musí volume inicializovať explicitne. Explicitný initializer je čitateľnejší, keď potrebujeme schema version, ownership a idempotentný migration contract.
+
+## 8. UID/GID a permissions
+
+Docker volume nemá automaticky application user ownership. `payments-api` ako UID `65532` potrebuje write access.
+
+Initializer:
+
+```bash
+docker run --rm \
+  --user 0:0 \
+  --mount type=volume,source=payments-data,target=/data \
+  busybox:1.36.1 \
+  sh -ec 'mkdir -p /data && chown 65532:65532 /data && chmod 0750 /data'
+```
+
+Potom application container:
+
+```bash
+docker run --rm \
+  --user 65532:65532 \
+  --mount type=volume,source=payments-data,target=/var/lib/atlas-payments \
+  IMAGE
+```
+
+Pri bind mountoch ownership pochádza z host filesystemu. Docker Desktop môže používať translation alebo file-sharing mechanizmus, ktorý sa správa inak než native Linux. Produkčný test má preto prebehnúť na reprezentatívnom filesysteme.
+
+## 9. SELinux labels
+
+Na SELinux hoste môže bind mount zlyhať aj pri správnych Unix permissions. Docker short syntax podporuje `:z` alebo `:Z` relabel semantics pre vybrané use cases:
+
+```bash
+docker run --rm \
+  -v "$PWD/local-data:/data:Z" \
+  IMAGE
+```
+
+`Z` typicky nastaví private label pre jeden container, zatiaľ čo `z` umožňuje shared content podľa Docker/SELinux modelu. Relabel broad alebo system path môže byť nebezpečný. Nepoužívaj ho naslepo na `/home`, `/var` alebo host root.
+
+Pri denial analyzuj audit log a konkrétne labels namiesto vypnutia SELinux.
+
+## 10. Bind propagation
+
+Mount propagation určuje, či mounts vytvorené pod source alebo target pathom prechádzajú medzi hostom a containerom. Default private semantics sú bezpečnejšie pre bežné applications.
+
+Shared propagation je potrebná pre niektoré low-level storage alebo container-in-container tools, ale rozširuje host interaction. `payments-api` ju nepotrebuje.
+
+Ak workload žiada `rshared` iba preto, že bez toho „volume nefunguje“, treba najprv pochopiť, ktoré nested mounts chce prenášať a prečo.
+
+## 11. Compose volume names
+
+Compose bez explicitného name vytvára project-scoped volume:
 
 ```yaml
 services:
   api:
-    image: payments-api@sha256:I44
     volumes:
-      - ledger-data:/var/lib/atlas/ledger
+      - payments-data:/var/lib/atlas-payments
 
 volumes:
-  ledger-data:
+  payments-data: {}
 ```
 
-Zmena project name môže vytvoriť nový prázdny volume bez zmeny YAML:
+Pri project name `atlas-dev` môže vzniknúť `atlas-dev_payments-data`. Zmena project name vytvorí iný volume a aplikácia uvidí prázdne dáta.
 
-```text
-atlas-payments-prod_ledger-data
-atlas-payments_ledger-data
-```
-
-Pre production persistent state je často vhodné explicitné meno alebo external ownership:
+Ak data identity má zostať stabilná naprieč project rename, nastav explicitné meno:
 
 ```yaml
 volumes:
-  ledger-data:
+  payments-data:
+    name: atlas-payments-data
+```
+
+To zároveň znamená, že viac Compose projects môže používať rovnaký volume. Ownership a collision sa musia riadiť vedome.
+
+External volume:
+
+```yaml
+volumes:
+  payments-data:
     external: true
-    name: atlas-payments-prod-ledger
+    name: atlas-payments-data
 ```
 
-`external: true` znamená, že Compose object nevytvára ani plne nevlastní. Deployment musí vykonať data-ID, schema, permission a backup preflight.
+Compose ho nevytvorí a očakáva, že existuje. To je vhodné, keď storage lifecycle vlastní iný provisioning systém.
 
-## 6. Bind mount lifecycle
+## 12. Bind mount v Compose
 
-Bind mount publikuje existujúci filesystem object z Docker daemon hosta:
+Long syntax:
+
+```yaml
+services:
+  api:
+    volumes:
+      - type: bind
+        source: ./config
+        target: /etc/atlas
+        read_only: true
+      - type: volume
+        source: payments-data
+        target: /var/lib/atlas-payments
+```
+
+Relative bind source sa interpretuje podľa Compose project/file pravidiel. Pri remote deployment a non-local platforms nemusí byť supported rovnako. `docker compose config` ukáže resolved paths a model:
 
 ```bash
-docker run \
-  --mount type=bind,src=/srv/atlas/config/app.yaml,dst=/etc/atlas/app.yaml,readonly \
-  payments-api@sha256:I44
+docker compose config > compose-resolved.yaml
 ```
 
-Source sa vyhodnocuje na hoste, kde beží daemon, nie nevyhnutne na stroji s CLI. Pri remote context-e alebo Docker Desktop-e preto existujú tri odlišné path subjects:
+Pred `up` skontroluj, že source path a volume name zodpovedajú očakávanému daemon hostu.
 
-```text
-client path
-Docker daemon/VM path
-container destination path
-```
+## 13. Backup volume-u
 
-Bind mount je vhodný, keď je host path zámerná časť contractu. Znižuje však portability a prenáša host ownership, ACL, labels, case sensitivity, file-sharing a backup semantics do workloadu.
-
-## 7. `--mount` a `-v`
-
-Explicitná forma:
+Pre jednoduchý zastavený file workload:
 
 ```bash
-docker run --mount type=bind,src=/srv/atlas/config,dst=/etc/atlas,readonly image
+mkdir -p backups
+
+docker run --rm \
+  --mount type=volume,source=payments-data,target=/data,readonly \
+  --mount type=bind,source="$PWD/backups",target=/backup \
+  alpine:3.22 \
+  tar -C /data -czf /backup/payments-data.tgz .
 ```
 
-Krátka forma:
+Restore do nového volume-u:
 
 ```bash
-docker run -v /srv/atlas/config:/etc/atlas:ro image
+docker volume create payments-data-restore
+
+docker run --rm \
+  --mount type=volume,source=payments-data-restore,target=/data \
+  --mount type=bind,source="$PWD/backups",target=/backup,readonly \
+  alpine:3.22 \
+  tar -C /data -xzf /backup/payments-data.tgz
 ```
 
-Pre automation preferuj `--mount`, pretože type, source, destination a policy sú čitateľnejšie. Pri chýbajúcom bind source môže krátka syntax podľa workflowu vytvoriť directory a maskovať typo; explicitný preflight má zlyhať skôr.
+Potom spusti aplikáciu s restore volume-om a over business read. Tar exit code nie je recovery acceptance.
 
-## 8. Mount obscuring
+Pri database files používaj database-native backup alebo coordinated snapshot.
 
-Mount na existujúci image path prekryje lower image content:
+## 14. Cleanup
 
-```text
-image obsahuje /etc/atlas/default.yaml
-→ bind/volume sa mountne na /etc/atlas
-→ process vidí iba mounted filesystem
-→ image file stále existuje v image layers, ale nie v runtime view
-```
-
-To môže spôsobiť:
-
-- „zmiznutú“ default configuration;
-- prázdny web root;
-- missing migrations;
-- použitie starého contentu z volume-u;
-- rozdiel medzi image smoke testom a runtime behaviorom.
-
-Inspectuj merged mount view a source content. Nekopíruj image defaults do volume implicitne ako neversionovaný migration mechanizmus.
-
-## 9. Initialization a schema transition
-
-Prázdny volume potrebuje explicitný initialization contract:
-
-```text
-verify data ID/generation
-→ acquire single-writer authority
-→ initialize alebo migrate
-→ commit schema/epoch ledger
-→ verify invariant
-→ start application writer
-```
-
-Initialization nesmie závisieť iba od `directory is empty`. Prázdny directory môže znamenať wrong volume, failed mount alebo nesprávny project.
-
-Migration potrebuje:
-
-- stable migration IDs;
-- concurrency control;
-- idempotent alebo resumable semantics;
-- old/new image compatibility;
-- failure evidence;
-- rollback alebo roll-forward postup.
-
-## 10. UID, GID a effective access
-
-Kernel rozhoduje podľa numeric credentials a filesystem metadata:
-
-```text
-container process UID/GID
-+ user namespace mapping
-+ source inode owner/mode/ACL
-+ read-only mount flag
-+ SELinux/AppArmor policy
-→ allow alebo deny
-```
-
-Image môže deklarovať `USER 10001`, ale volume môže vlastniť UID `999` alebo root. `chmod 777` maskuje identity problém a rozširuje write authority.
-
-Správna oprava začína identifikáciou:
-
-- effective runtime UID/GID;
-- host a mapped IDs;
-- exact denied inode a operation;
-- ACL/mode;
-- LSM denial;
-- read-only a propagation flags.
-
-## 11. SELinux, AppArmor a labels
-
-Unix permissions nie sú jediný access verdict. Na SELinux hoste bind source potrebuje správny label a sharing contract. Relabel option nesmie svojvoľne meniť shared host content.
-
-Pri diagnostike odlišuj:
-
-```text
-path je visible v mount namespace-e?
-Unix credentials povoľujú operation?
-LSM policy povoľuje operation?
-filesystem alebo mount je read-only?
-```
-
-## 12. Read-only nie je harmless
-
-Read-only mount zabráni bežnému zápisu do source, ale process môže stále:
-
-- čítať a exfiltrovať secrets;
-- používať mounted Unix socket;
-- volať API s credentials v súbore;
-- analyzovať host configuration;
-- zneužiť device alebo control interface.
-
-Security posudzuj podľa authority source-u. Read-only Docker socket stále poskytuje API operations, ktoré socket server dovolí; filesystem flag nie je application-level authorization proxy.
-
-## 13. tmpfs
-
-Tmpfs je memory-backed ephemeral filesystem:
+Container removal named volume štandardne neodstráni:
 
 ```bash
-docker run \
-  --mount type=tmpfs,dst=/run/atlas,tmpfs-size=64m \
-  payments-api@sha256:I44
+docker rm -f payments-api
+docker volume inspect payments-data
 ```
 
-Používa sa pre bounded runtime scratch alebo krátkodobý plaintext podľa threat modelu. Potrebuje:
-
-- size limit;
-- memory-accounting pochopenie;
-- ownership/mode;
-- cleanup contract;
-- posúdenie swapu, dumpov a host compromise.
-
-Tmpfs nie je persistentný a nie je automaticky „secret-safe“.
-
-## 14. Mount propagation a host coupling
-
-Propagation určuje, či nested mount events prechádzajú boundary. Režimy ako `rshared` alebo `rslave` patria k úzkym storage/tooling use cases.
-
-Široká propagation môže sprístupniť nové host mounts workloadu alebo umožniť workloadu ovplyvniť host mount topology. Default nemeň bez explicitného event-flow modelu.
-
-## 15. Shared volume a writer authority
-
-Docker môže pripojiť volume k viacerým containers. To nedokazuje, že application alebo filesystem podporuje concurrent writers.
-
-Potrebný model:
-
-```text
-persistent data ID
-→ active writer lease/epoch
-→ storage attach a fencing
-→ application lock/cluster semantics
-→ write audit
-```
-
-Bez fencing-u môže po network partitione starý aj nový container zapisovať do rovnakého data setu. Shared filesystem nezmení single-node databázu na cluster.
-
-## 16. Backup a restore
-
-Volume existence nie je backup. Backup subject obsahuje:
-
-```text
-data ID a generation
-writer/migration epoch
-backup type a consistency model
-source volume/backend identity
-application quiesce/checkpoint evidence
-encryption a access
-retention/off-host location
-restore target a software version
-integrity a business-verification verdict
-RPO/RTO
-```
-
-Hot copy live database directory nemusí byť application-consistent. Snapshot je recovery point iba po úspešnom clean restore teste.
-
-## 17. Cleanup a destructive scope
-
-Príkazy:
+Explicitné odstránenie:
 
 ```bash
-docker volume rm atlas-ledger-data
-docker volume prune
-docker compose down -v
+docker volume rm payments-data
 ```
 
-môžu odstrániť durable state. Pred operáciou vytvor retention inventory:
-
-- Docker daemon/context;
-- project a environment;
-- volume ID/name/driver;
-- attached containers;
-- logical data ID;
-- last backup/restore verdict;
-- rollback/support dependency;
-- lifecycle owner a approval.
-
-„Unused by running container“ neznamená „safe to delete“.
-
-## 18. Worked failure: zmena project name vytvorila prázdnu databázu
-
-Pipeline predtým používala project `atlas-payments-prod`. Nová automation odviedla project name z directory `deploy`, takže Compose vytvoril `deploy_ledger-data`.
-
-```text
-YAML volume key je rovnaký
-→ physical volume name sa zmení s projectom
-→ nový prázdny volume sa mountne na database path
-→ mount prekryje image directory
-→ database inicializuje nový prázdny cluster
-→ application vyzerá healthy, ale business dáta chýbajú
-```
-
-Root cause nie je „Docker zmazal volume“. Starý volume stále existuje, ale nový workload dostal inú data identity.
-
-Recovery:
-
-1. zastav writes a odstráň novú instance z trafficu;
-2. identifikuj oba physical volumes a ich data IDs;
-3. potvrď, že starý volume je konzistentný a nebol concurrent writer;
-4. oprav explicitný project/external volume contract;
-5. pripoj správny volume v read-only alebo recovery režime podľa potreby;
-6. verify schema, writer epoch a business records;
-7. až potom obnov traffic;
-8. nový prázdny volume odstráň iba po retention rozhodnutí.
-
-## 19. Worked failure: read-only socket poskytol host-control path
-
-Monitoring container dostal:
-
-```text
-/var/run/docker.sock → /var/run/docker.sock:ro
-```
-
-Tím predpokladal, že read-only mount povoľuje iba inspection. Unix socket však nie je obyčajný file content. Process mohol odosielať API requests daemonu a vytvoriť privileged container s host-root mountom.
-
-```text
-filesystem write flag je read-only
-→ connect/write semantics socketu zostávajú použiteľné
-→ daemon vykoná host-privileged API operation
-```
-
-Oprava vyžaduje odstránenie raw socketu, úzko autorizovaný proxy/exporter alebo iný telemetry path a audit všetkých operations vykonaných cez socket.
-
-## 20. Worked failure: `down -v` zmazal authoritative state
-
-CI cleanup použil rovnaký Compose project name ako persistent integration environment a vykonal:
+Compose:
 
 ```bash
-docker compose down -v
+docker compose down
 ```
 
-Compose odstránil project-owned volume. Backup bol crash-consistent a nikdy neprešiel restore testom.
+ponechá named volumes, zatiaľ čo:
 
-Failure chain:
-
-```text
-project identity collision
-→ cleanup scope zahŕňa shared volume
-→ `-v` autorizuje deletion
-→ jediný data set zmizne
-→ neoverený backup komplikuje recovery
+```bash
+docker compose down --volumes
 ```
 
-Controls:
+ich odstráni. Pred destructive command over data owner, backup a active consumers.
 
-- collision-safe project names;
-- external persistent volumes;
-- destructive command policy;
-- data-ID labels a preflight;
-- tested restore evidence;
-- oddelenie ephemeral test state-u od long-lived environmentu.
+## 15. Incident: staging mountlo production directory
 
-## 21. Causal walkthrough: application po recreate vidí prázdne dáta
+Compose override používal environment interpolation:
 
-### Symptóm
-
-Po `docker compose up -d --force-recreate` je API healthy, ale ledger je prázdny.
-
-### Zafixuj subject
-
-Zaznamenaj:
-
-```text
-Docker context/daemon/host
-Compose project a resolved model
-container ID a image digest
-mount type/source/destination
-physical volume ID/name/driver
-persistent data ID/generation
-UID/GID/LSM
-schema a writer epoch
-backup lineage
+```yaml
+volumes:
+  - type: bind
+    source: ${PAYMENTS_DATA_DIR}
+    target: /var/lib/atlas-payments
 ```
 
-### Competing hypotheses
+Staging shell mal zdedenú premennú `PAYMENTS_DATA_DIR=/srv/payments-prod`. Staging container dostal write access k production files.
 
-1. nový project name vytvoril nový volume;
-2. anonymous volume nahradil named volume;
-3. external volume name smeruje na staging;
-4. bind source sa vyhodnotil na remote daemone a je prázdny;
-5. mount prekryl image alebo expected subdirectory;
-6. application píše do iného pathu;
-7. permission failure aktivoval fallback local storage;
-8. initialization job prebehol nad wrong data ID;
-9. starý volume bol odstránený cleanupom;
-10. restore/migration vytvorili novú generation.
+`docker compose config` by ukázal resolved source, ale pipeline ho nekontrolovala. Incident vznikol ešte pred application startom.
 
-### Discriminating observation points
+Oprava odstránila broad host bind, prešla na environment-specific named volumes a pridala policy, ktorá odmietla host paths mimo staging rootu. Production data dostali samostatný owner a backup flow.
 
-- `docker context show`, daemon identity;
-- `docker compose config` a project name;
-- `docker inspect` container `Mounts`;
-- `docker volume inspect` source, labels a driver;
-- filesystem UUID/data-ID marker/schema ledger;
-- mount table z process namespace-u;
-- effective UID/GID a LSM audit;
-- application open files a configured data path;
-- Engine events a volume create/remove timeline;
-- backup/restore audit.
+## 16. Incident: opravou permissions sa zmenil cudzí dataset
 
-### Containment
+Initializer používal:
 
-Zastav writes a traffic. Nevytváraj ďalší volume ani nespúšťaj automatickú initialization. Zachovaj oba old/new data subjects a logs.
+```sh
+chown -R 65532:65532 /data
+```
 
-### Recovery
+Volume bol omylom shared s analytics exporterom. Recursive chown zmenil ownership miliónov files a druhá aplikácia stratila access.
 
-- wrong project/name → oprav explicitné mapping a reattach správny source;
-- remote bind path → presuň config/data do supported source alebo oprav daemon-host path;
-- wrong environment volume → vykonaj environment/data-ID preflight a pripoj correct data set;
-- permission/LSM → oprav konkrétny identity/policy contract;
-- cleanup deletion → obnov z posledného clean-restore-capable backupu;
-- split writer → fence-ni stale writer, reconcile records a zvýš writer epoch.
+Recovery obnovila ownership z manifestu a zastavila writers. Trvalá oprava rozdelila volumes podľa ownera a initializer menil iba konkrétny application directory. Volume sharing sa stalo explicitným interface contractom.
 
-### Over pôvodný outcome
+## 17. Systematický mount troubleshooting
 
-Potvrď správny data ID/generation, schema, writer epoch, business record count a write/read transaction. Následný container replacement musí pripojiť rovnaký data subject bez reinitialization.
+Pri chybe najprv identifikuj actual mount:
 
-### Posuň control skôr
+```bash
+docker inspect CONTAINER | jq '.[0].Mounts'
+docker volume inspect VOLUME
+docker context show
+```
 
-Pridaj explicitný project name, external/named volume contract, data-ID preflight, no-fallback storage policy, destructive cleanup guard a pravidelný clean restore test.
+Potom over source na správnom daemon hoste, target path, read-only flag, UID/GID, mode, ACL, SELinux/AppArmor a available capacity.
 
-## 22. Referenčný mount katalóg
+Competing hypotheses pri prázdnom adresári sú často: nový volume, iný Compose project name, bind na nesprávny host path, mount obscuring alebo initializer, ktorý pracoval s iným source objectom.
 
-| Typ | Source ownership | Persistence | Hlavná failure boundary |
-|---|---|---|---|
-| Writable layer | container instance | typicky ephemeral | strata pri replacement-e |
-| Named volume | Docker/driver object | oddelená od containeru | wrong project/source, orphan cleanup |
-| External volume | iný lifecycle owner | podľa backendu | wrong environment/data ID |
-| Bind mount | daemon host path | host lifecycle | path/context, permissions, host exposure |
-| tmpfs | runtime memory filesystem | ephemeral | memory pressure, plaintext exposure |
-| Socket/device bind | host capability endpoint | podľa hosta | authority escalation |
+Pred recreate alebo cleanup zachovaj inspect a volume metadata. Nový container môže dostať inú mount identity a skryť pôvodnú chybu.
 
-Katalóg sumarizuje source model. Bez data identity, writer a recovery contractu však neurčuje correctness.
+## Čo si z kapitoly odniesť
 
-## 23. Praktické controls
+Named volume je Docker-managed data object. Bind mount je prepojenie na konkrétny host path. Anonymous volume má generovanú identity a horšie sa spravuje. Mount target môže zakryť image content.
 
-- klasifikuj každý writable path;
-- používaj explicitný daemon/context a Compose project;
-- preferuj named/external volume pre intentional state;
-- labeluj volume logical data ID, environment a ownerom;
-- vykonaj data-ID/schema/writer preflight pred mutation;
-- používaj narrow read-only bindy, ale posudzuj authority source-u;
-- nepoužívaj anonymous volumes pre kritické dáta;
-- nepoužívaj `chmod 777` ako diagnózu;
-- testuj replacement, backup aj clean restore;
-- chráň `down -v`, prune a volume remove policy;
-- odstráň raw runtime socket mounts;
-- audituj project/volume collisions v CI.
+Pri každom mounte treba poznať source, daemon context, target, read/write mode, UID/GID, labels, lifecycle a cleanup ownera. Compose project name ovplyvňuje generated volume names. Backup sa overuje restore testom a `down --volumes` alebo `volume prune` sú data-destructive operácie, nie bežná údržba bez inventory.
 
-## 24. Kontrolné otázky
+## Primárne zdroje
 
-1. Prečo mount source identity zahŕňa aj daemon a Compose project?
-2. Ako sa líši named volume, external volume a bind mount lifecycle?
-3. Čo spôsobuje mount obscuring?
-4. Prečo prázdny directory nie je dostatočný initialization signal?
-5. Ako vzniká permission verdict pri user namespaces a LSM?
-6. Prečo read-only socket mount nemusí byť bezpečný?
-7. Čo je writer epoch a prečo shared volume potrebuje fencing?
-8. Prečo volume existence nie je backup evidence?
-9. Ako môže zmena project name vytvoriť zdanlivo stratené dáta?
-10. Aké dôkazy musíš zhromaždiť pred `down -v` alebo prune?
-
-## Glossary impact
-
-Relevantné pojmy: Docker mount subject, mount source identity, Compose volume identity, persistent data preflight, mount obscuring, bind-source resolution boundary, effective mount access verdict, volume initialization subject, destructive volume cleanup subject, socket capability mount a replacement persistence proof.
-
-## Oficiálna dokumentácia
-
-- [Docker storage](https://docs.docker.com/engine/storage/)
-- [Volumes](https://docs.docker.com/engine/storage/volumes/)
+- [Docker volumes](https://docs.docker.com/engine/storage/volumes/)
 - [Bind mounts](https://docs.docker.com/engine/storage/bind-mounts/)
+- [Storage overview](https://docs.docker.com/engine/storage/)
 - [Compose volumes](https://docs.docker.com/reference/compose-file/volumes/)
+- [Compose `down`](https://docs.docker.com/reference/cli/docker/compose/down/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

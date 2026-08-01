@@ -1,513 +1,435 @@
 # Docker architecture
 
-Docker nie je jeden process ani synonymum pre container. Je to control a runtime stack, v ktorom klient odošle požiadavku privilegovanému Engine API, daemon vytvorí alebo zmení Docker objects, containerd spravuje task a snapshot lifecycle a OCI runtime vytvorí konkrétny Linux process.
+Docker nie je jeden process ani jedno binary. Je to client-server platforma, ktorá spravuje images, containers, networks, volumes a build alebo runtime operácie cez API. Keď používateľ zadá `docker run`, CLI nevytvorí Linux namespaces priamo. Odošle request Docker Engine-u. Engine resolve-ne image, vytvorí Docker container object, pripraví storage a network, deleguje low-level task lifecycle cez containerd a OCI runtime a napokon sleduje hlavný process.
 
-Najdôležitejší mentálny model tejto kapitoly je:
+Tento rozklad je dôležitý pri troubleshooting-u. Chyba môže vzniknúť ešte v klientovi, pri výbere Docker contextu, v API spojení, v image pull flowe, pri create operácii, v containerd snapshotter-i, pri OCI runtime create alebo až po úspešnom exec aplikácie. Všetky sa môžu používateľovi javiť ako „Docker nejde“, ale každá vrstva má iné dôkazy a inú recovery.
 
-```text
-operator intent a Docker context
-→ immutable API operation subject
-→ daemon authorization a object-state transition
-→ image, snapshot, network a storage príprava
-→ containerd task a runtime shim
-→ OCI runtime create/start
-→ process, readiness a events
-→ object/task/runtime reconciliation
-→ stop, remove, recovery alebo cleanup
+Budeme sledovať príkaz:
+
+```bash
+docker run --detach \
+  --name payments-api \
+  --publish 127.0.0.1:18080:8080 \
+  atlas/payments-api:1.0.0
 ```
 
-Tento chain vysvetľuje, prečo úspech CLI príkazu nie je automaticky úspech aplikácie, prečo timeout neznamená, že operácia neprebehla, a prečo `docker ps` nie je úplný diagnostický obraz.
+## 1. Docker CLI je API klient
 
-## 1. Jeden Atlas workload cez celý Docker stack
-
-Atlas Payments nasadzuje image:
+`docker` CLI spracuje arguments, načíta context a configuration a zavolá Docker Engine API. Samotný CLI nemusí bežať na rovnakom hoste ako daemon.
 
 ```text
-registry.atlas.example/payments/api@sha256:9f3...
+shell
+→ docker CLI
+→ selected Docker context
+→ transport: Unix socket, named pipe, SSH alebo TCP/TLS
+→ Docker Engine API
 ```
 
-Release workflow chce vytvoriť container:
-
-```text
-name: atlas-payments-api-r42
-host port: 8443
-container port: 8080
-volume: atlas-payments-config-r42
-network: atlas-payments-prod
-```
-
-Operation subject obsahuje minimálne:
-
-- Docker context a daemon endpoint,
-- workload identity a authorization identity,
-- requested image digest,
-- container name a labels,
-- runtime command a environment contract,
-- mount, network a port-publication contract,
-- resource a security policy,
-- request/run correlation ID.
-
-Tento subject musí zostať rozpoznateľný aj vtedy, keď klient stratí response. Bez neho nevieš bezpečne rozlíšiť „request sa nikdy nedostal k daemonu“ od „container už beží a iba sa stratilo potvrdenie“.
-
-## 2. Docker CLI a context: prvá identity boundary
-
-Docker CLI:
-
-1. parsuje command,
-2. načíta environment a Docker context,
-3. vyberie Engine endpoint,
-4. zostaví API request,
-5. odošle ho,
-6. zobrazí response alebo stream events/logov.
-
-CLI nevytvára Linux namespaces ani cgroups. Rozhodujúce je, ku ktorému daemonu hovorí.
+Aktuálny context:
 
 ```bash
 docker context show
 docker context inspect
-docker version
+```
+
+Toto je prvá kontrola pri incidente, keď príkaz vracia neočakávané containers alebo images. Používateľ môže byť pripojený k Docker Desktop VM, remote serveru alebo test daemonu namiesto production hosta.
+
+```bash
 docker info
 ```
 
-### Failure boundary: správny command, nesprávny daemon
+Výstup kombinuje client a server informácie. Pri vzdialenom daemone server sekcia opisuje remote Engine, nie laptop, na ktorom sa vykonal CLI.
 
-Operator chce odstrániť lokálny test container:
+## 2. Transport a daemon authority
 
-```bash
-docker rm -f atlas-payments-api-r42
-```
-
-Aktívny context však smeruje na production host. Syntax aj autorizácia sú správne, preto Docker vykoná presne nesprávnu operáciu na nesprávnom subjecte.
-
-Príčina nie je v `docker rm`. Príčina je neoverená target identity.
-
-Kontrolný model pred deštruktívnou operáciou:
-
-```text
-command intent
-→ expected environment
-→ resolved context/endpoint
-→ daemon identity
-→ object identity
-→ mutation
-```
-
-## 3. Engine API a daemon: authoritative object manager
-
-Docker Engine API je versionované HTTP API dostupné napríklad cez Unix socket, named pipe, SSH context alebo chránený TCP endpoint.
-
-Linux default:
+Na Linuxe CLI často komunikuje cez Unix socket:
 
 ```text
 /var/run/docker.sock
 ```
 
-`dockerd` je authoritative manager Docker object metadata a orchestration requestov. Spravuje alebo koordinuje:
+Socket nie je obyčajný application endpoint. Engine môže vytvárať containers, mountovať host paths, meniť networks a spravovať volumes. Používateľ alebo process s broad accessom k socketu môže často získať host-level authority.
 
-- images a registry pull/push,
-- containers a ich desired lifecycle,
-- networks a endpoints,
-- volumes a mounts,
-- port publication,
-- logs a events podľa drivera,
-- build requests,
-- komunikáciu s containerd.
+Preto:
 
-Access k daemonu je host-admin-like authority. Klient s možnosťou vytvoriť privileged container alebo host bind mount často dokáže ovládnuť host.
-
-### Security consequence
-
-Mount Docker socketu do application containeru nie je obyčajné „sprístupnenie API“. Je to prenesenie širokej daemon authority cez novú trust boundary.
-
-## 4. `docker run` ako koordinovaná state transition
-
-`docker run` je z pohľadu používateľa jeden command, ale z pohľadu systému ide o viac prechodov:
-
-```text
-resolve image
-→ create container metadata
-→ prepare snapshot/rootfs
-→ validate a attach mounts
-→ allocate network endpoint
-→ install port publication
-→ create containerd task
-→ create runtime bundle
-→ OCI runtime create
-→ OCI runtime start
-→ observe PID 1
-→ report events/status
+```bash
+ls -l /var/run/docker.sock
 ```
 
-Približne zodpovedá:
+nie je iba diagnostika connectivity. Ukazuje aj security boundary. Členstvo v skupine `docker` sa typicky považuje za privilegovaný host access.
 
-```text
-docker create
-+
-docker start
+Remote TCP API musí používať authentication a TLS alebo bezpečný SSH context. Verejne dostupný neautentizovaný Docker API endpoint je kritické zlyhanie.
+
+## 3. `dockerd` spravuje Docker objects
+
+Docker daemon prijíma API requests a spravuje higher-level objects: images, containers, networks, volumes, plugins a ich metadata. Container object vznikne už pri `docker create`, ešte pred spustením procesu.
+
+```bash
+docker create \
+  --name payments-api \
+  --publish 127.0.0.1:18080:8080 \
+  atlas/payments-api:1.0.0
 ```
 
-Každý prechod má vlastnú failure boundary. Container object môže existovať v stave `created`, aj keď process nikdy nezačal. Network endpoint alebo mount môže byť pripravený skôr než task. Process môže bežať, aj keď klient nedostal response.
+Po úspešnom create:
 
-## 5. Image, content a snapshot vrstva
-
-Daemon alebo containerd image store rieši:
-
-- reference resolution,
-- registry pull,
-- manifest a layer verification,
-- content storage,
-- unpacked snapshots,
-- leases a garbage collection.
-
-Image digest identifikuje distribution content. Runtime snapshot je lokálna unpacked reprezentácia. Container writable layer je ďalšia instance-specific vrstva.
-
-Preto tieto identity nesmieš zamieňať:
-
-```text
-registry digest
-≠ local content record
-≠ unpacked snapshot
-≠ container writable snapshot
+```bash
+docker inspect payments-api
 ```
 
-### Failure boundary: disk full počas prípravy snapshotu
+ukáže image reference, effective command, environment, host config, mounts a network settings. `.State.Status` bude `created`. Žiadny application PID ešte nemusí existovať.
 
-Manifest a časť layers môžu byť stiahnuté, ale unpack alebo writable snapshot zlyhá na kapacite či inodoch. Výsledkom môže byť:
+Táto separácia je praktická. Pred mutation process state-u možno overiť, či Engine vytvoril container s očakávaným userom, read-only root filesystemom, limitmi a mounts.
 
-- lokálny image record,
-- partial alebo nepoužitý content,
-- container object v `created` alebo error stave,
-- žiadny runtime process.
+## 4. Image resolution a local image store
 
-Blind `docker system prune` nie je diagnostika. Najprv treba určiť, ktoré references, leases, snapshots, containers a build caches držia content.
-
-## 6. Network a storage object lifecycle
-
-Docker network a volume nie sú properties jedného processu. Sú to samostatné objects s vlastnou identitou a lifecycle-om.
-
-Pri create/start flow daemon typicky:
-
-- resolveuje network object,
-- vytvorí endpoint a IP/DNS identity,
-- pripraví forwarding a port publication,
-- resolveuje volume alebo bind source,
-- validuje mount target a options,
-- odovzdá mounts do runtime configuration.
-
-Zmazanie containeru preto automaticky nemusí zmazať:
-
-- image,
-- named volume,
-- custom network,
-- external logs,
-- registry content.
-
-Cleanup musí vychádzať z ownership modelu, nie z predpokladu, že všetko je súčasť containeru.
-
-## 7. containerd, task a runtime shim
-
-Docker Engine deleguje low-level container lifecycle na containerd.
-
-Dôležité identity:
-
-- **container metadata** — desired a configured runtime object,
-- **task** — bežiaci alebo ukončený process lifecycle v containerd,
-- **runtime shim** — process udržiavajúci runtime/task communication a exit state,
-- **OCI runtime invocation** — create/start/delete operácia nad runtime bundle,
-- **application PID 1** — reálny workload process.
-
-`dockerd`, containerd, shim a application process majú rozdielne failure modes.
-
-### Failure boundary: management plane zlyhá, workload beží
-
-Ak `dockerd` prestane odpovedať, už spustený task nemusí okamžite skončiť. Application môže ďalej obsluhovať traffic, zatiaľ čo:
-
-- `docker ps` nefunguje,
-- nové create/stop operácie zlyhávajú,
-- operator nevie získať Engine-level state,
-- containerd a shim stále držia process.
-
-Recovery nesmie automaticky killnúť workload iba preto, že control API je nedostupné.
-
-## 8. OCI runtime: z configuration na process
-
-Low-level OCI runtime dostane bundle s rootfs a `config.json` a vykoná približne:
-
-1. vytvorí alebo pripojí namespaces,
-2. nastaví UID/GID a credentials,
-3. pripojí rootfs a mounts,
-4. aplikuje cgroups,
-5. aplikuje capabilities, `no_new_privs`, seccomp a LSM context,
-6. pripraví environment, working directory a process args,
-7. vytvorí container process,
-8. spustí PID 1.
-
-Failure `OCI runtime create failed` preto môže byť spôsobený napríklad:
-
-- neexistujúcim executable alebo interpreterom,
-- chybným mountom,
-- UID/GID alebo permission contractom,
-- seccomp/LSM denial,
-- unsupported cgroup alebo namespace feature,
-- architecture/runtime incompatibility,
-- invalid runtime configuration.
-
-Jedna generická error veta je iba surface symptom. Diagnostika musí pokračovať k runtime bundle, daemon/containerd logom a host kernel evidence.
-
-## 9. Running nie je ready ani correct
-
-Docker state `running` znamená najmä, že task a PID 1 existujú. Neznamená, že:
-
-- application počúva na správnom porte,
-- dependencies sú dostupné,
-- mounted data majú správnu identitu,
-- healthcheck je kvalitný,
-- workload prijíma production traffic,
-- business transaction funguje.
-
-Potrebný evidence chain:
+Ak image nie je lokálne dostupný alebo pull policy vyžaduje registry access, Engine resolve-ne reference a stiahne potrebné manifests, config a layers.
 
 ```text
-Docker object running
-→ process identity a command
-→ socket/listener
-→ dependency readiness
-→ health result
-→ external request
-→ business/runtime outcome
+repository:tag alebo repository@digest
+→ registry authentication
+→ index/manifest resolution
+→ platform selection
+→ blob download a digest verification
+→ unpack do snapshotter/storage drivera
 ```
 
-## 10. Events a observation points
+Pull možno vykonať samostatne:
 
-Žiadna jednotlivá command output vrstva nestačí.
+```bash
+docker pull registry.example.com/atlas/payments-api@sha256:<digest>
+```
 
-### Client a target identity
+`docker image ls` zobrazuje user-facing image inventory, ale pri multi-platform a content store modeloch nemusí jedna tabuľka vysvetliť celý graph. `docker image inspect` a registry read-back odpovedajú na presnejšie otázky.
+
+Pull failure nastáva pred application startom. Preto pri `manifest unknown`, TLS alebo authorization chybe application logs nebudú užitočné.
+
+## 5. Container create skladá image defaults a runtime overrides
+
+Image config môže definovať:
+
+```text
+USER
+ENV
+WORKDIR
+ENTRYPOINT
+CMD
+HEALTHCHECK
+```
+
+Create request pridá alebo prepíše runtime state:
+
+```text
+name
+mounts
+ports
+network membership
+resource limits
+capabilities a security options
+restart policy
+runtime environment a command overrides
+```
+
+Výsledok možno chápať ako:
+
+```text
+image config
++ docker create/run options
++ daemon defaults a platform capabilities
+→ effective container configuration
+```
+
+Preto sa pri audite nečíta iba Dockerfile. Read-backuje sa `docker inspect` konkrétneho container ID.
+
+## 6. Storage preparation
+
+Pred process startom runtime pripraví root filesystem. Image layers sa použijú ako read-only lower snapshots a container dostane writable layer. Engine pripojí named volumes, bind mounts a tmpfs podľa create configuration.
+
+```text
+image layers
+→ unpacked snapshot
+→ container writable layer
+→ mount namespace
+→ volumes, bind mounts a tmpfs
+```
+
+Chyba môže vzniknúť pri chýbajúcom host path-e, unsupported mount option, volume pluginu, disk exhaustion alebo permission policy. Application process sa nemusí vôbec spustiť.
+
+Storage stav:
+
+```bash
+docker inspect payments-api | jq '.[0].Mounts'
+docker system df -v
+```
+
+## 7. Network preparation
+
+Engine pripojí container do jednej alebo viacerých networks. Pri bridge modeli vytvorí alebo použije network endpoint, veth pair, address assignment a port publishing rules.
+
+```text
+Docker network object
+→ endpoint a IP assignment
+→ network namespace interface
+→ routes a DNS configuration
+→ host publishing/NAT
+```
+
+`docker network inspect NETWORK` ukazuje Engine-level desired a observed endpoint inventory. Neoveruje, že process počúva ani že host firewall alebo remote path funguje.
+
+Port collision môže zablokovať start alebo create podľa platformy:
+
+```text
+Bind for 127.0.0.1:18080 failed: port is already allocated
+```
+
+V takom prípade image a application nemusia mať žiadny problém. Host port je už vlastnený iným listenerom alebo Docker objectom.
+
+## 8. containerd a task lifecycle
+
+Docker Engine používa containerd pre nižší container lifecycle, image content a snapshot alebo task management podľa verzie a konfigurácie. containerd nie je náhrada Docker CLI user experience; poskytuje nižšie primitives.
+
+Zjednodušený tok:
+
+```text
+dockerd container start request
+→ containerd task create
+→ snapshot/rootfs a runtime specification
+→ runtime shim
+→ OCI runtime create/start
+```
+
+Runtime shim pomáha udržať stdio a process lifecycle oddelený od dlhodobej dostupnosti centrálneho daemon processu. Presná implementácia sa vyvíja, preto pri low-level diagnostike treba poznať konkrétnu Engine a containerd verziu.
+
+```bash
+docker version
+docker info
+```
+
+Host administrátor môže navyše kontrolovať systemd services a logs:
+
+```bash
+systemctl status docker
+journalctl -u docker --since '30 minutes ago'
+systemctl status containerd
+journalctl -u containerd --since '30 minutes ago'
+```
+
+Na Docker Desktop sú tieto komponenty vo vnútornej VM a diagnostika sa líši.
+
+## 9. OCI runtime vytvorí process
+
+Low-level OCI runtime, často `runc`, dostane pripravený rootfs a runtime configuration. Vytvorí namespaces, cgroups a process credentials, aplikuje capabilities, seccomp a mounts a vykoná entrypoint.
+
+```text
+OCI bundle/config
+→ runtime create
+→ namespaces a cgroups
+→ mounts a security policy
+→ execve entrypoint
+→ process PID 1
+```
+
+Chyby ako nesprávna architektúra, chýbajúci dynamic loader, neplatný executable permission alebo seccomp/LSM denial sa prejavia v tejto alebo bezprostredne nasledujúcej vrstve.
+
+`exec format error` smeruje na binary alebo platform mismatch. `no such file or directory` môže znamenať chýbajúci executable, shebang interpreter alebo ELF loader. `permission denied` môže vzniknúť z mode bits, read-only mountu, capabilities alebo LSM.
+
+## 10. Start, attach a detached mode
+
+`docker start` spustí process v už vytvorenom container objecte:
+
+```bash
+docker start payments-api
+```
+
+Detached mode znamená, že CLI nečaká pripojený k foreground stdio. Neznamená, že application beží na pozadí pomocou vlastného daemonization modelu. Hlavný process musí zostať foreground PID 1 z pohľadu container lifecycle-u.
+
+Process stav:
+
+```bash
+docker ps -a --filter name=payments-api
+docker inspect payments-api --format '{{json .State}}' | jq .
+docker top payments-api -eo pid,ppid,user,args
+```
+
+Engine môže úspešne prijať start a process môže o milisekundu neskôr exitnúť. Preto API success nie je application readiness.
+
+## 11. Logs a stdio
+
+Docker zachytáva stdout a stderr hlavného procesu podľa logging drivera. Aplikácia má logovať do stdout/stderr namiesto zapisovania jediných logs do container writable layer.
+
+```bash
+docker logs --timestamps payments-api
+```
+
+Logging driver môže ukladať lokálne files, používať journald alebo odosielať do external systému. `docker logs` nemusí fungovať rovnako pri každom driveri.
+
+Log success nepreukazuje, že log bol doručený do central observability. Local daemon môže log prijať, ale forwarding pipeline môže zlyhať.
+
+## 12. Healthcheck ako Engine-managed state
+
+Ak image alebo runtime config definuje healthcheck, Engine pravidelne spúšťa command a udržiava health state oddelene od process state.
+
+```bash
+docker inspect payments-api \
+  --format '{{json .State.Health}}' | jq .
+```
+
+Process môže byť `running` a health `starting` alebo `unhealthy`. Healthcheck command beží v container namespaces a filesystem view. Môže overovať local endpoint, ale nepreukazuje host-published port alebo external dependency path, pokiaľ to explicitne netestuje.
+
+Health history je bounded a nemá byť jediným incident archívom. Relevantné failures treba dostať do central telemetry.
+
+## 13. Stop a signal lifecycle
+
+`docker stop` pošle configured stop signal, štandardne `SIGTERM`, a čaká grace period. Ak process neskončí, runtime použije `SIGKILL`.
+
+```bash
+docker stop --time 15 payments-api
+```
+
+Aplikácia ako PID 1 musí signal spracovať. Shell-form entrypoint môže signal zachytiť alebo neforwardovať.
+
+Po stop-e:
+
+```bash
+docker inspect payments-api \
+  --format 'status={{.State.Status}} exit={{.State.ExitCode}} finished={{.State.FinishedAt}}'
+```
+
+Exit code `0` dokazuje process-level ukončenie. Neoveruje dokončenie business transakcií alebo flush persistentného state-u.
+
+## 14. Restart nie je recreate
+
+`docker restart` zastaví a znovu spustí rovnaký container object. Používa rovnaký image ID, mounts, environment a host config.
+
+```bash
+docker restart payments-api
+```
+
+Ak bol image tag medzitým prepísaný alebo environment file zmenený, restart tieto zmeny automaticky neaplikuje. Potrebný je nový container create alebo Compose reconciliation.
+
+```text
+restart
+→ rovnaká container generation a config
+
+recreate
+→ nový container object z nového effective modelu
+```
+
+Toto rozlíšenie je častou príčinou „nasadil som nový image, ale aplikácia je stále stará“.
+
+## 15. Delete a cleanup
+
+`docker rm` odstráni container object a writable layer. Named volumes sa štandardne neodstránia, pokiaľ to príkaz explicitne nepožiada alebo nejde o anonymous volume s vhodnou voľbou.
+
+```bash
+docker rm payments-api
+```
+
+Pred odstránením incident containeru zachovaj:
+
+```bash
+docker inspect payments-api > incident-inspect.json
+docker logs --timestamps payments-api > incident.log 2>&1
+docker diff payments-api > incident-filesystem-diff.txt
+```
+
+Recreate môže odstrániť pôvodný namespace, PID, writable layer a network endpoint a tým zničiť root-cause evidence.
+
+## 16. Docker Desktop
+
+Docker Desktop na Windows a macOS poskytuje Docker API a UX, ale Linux containers typicky bežia vo vnútornej Linux VM. Host filesystem mounts, networking a resource limity preto prechádzajú ďalšou virtualizačnou vrstvou.
+
+```text
+Windows/macOS host
+→ Docker Desktop backend
+→ Linux VM
+→ dockerd/containerd/runtime
+→ Linux container
+```
+
+Path performance, file permissions, localhost routing a available memory sa môžu líšiť od native Linux Engine-u. Tvrdenie „funguje to v Dockeri na notebooku“ preto nepreukazuje identické host kernel a filesystem semantics v produkcii.
+
+## 17. Rootful a rootless Engine
+
+Rootful Engine má broad host authority potrebnú na namespaces, mounts, networks a devices. Rootless mode spúšťa daemon a containers bez host root privileges pomocou user namespaces a userspace alebo obmedzených networking mechanizmov.
+
+Rootless znižuje dopad daemon alebo runtime compromise, ale nie je plne transparentný. Low ports, cgroups, overlay networking, devices a storage drivers môžu mať odlišné možnosti podľa host konfigurácie.
+
+Pri troubleshooting-u vždy zaznamenaj, či client komunikuje s rootful alebo rootless daemonom a aký context používa.
+
+## 18. Incident: príkaz odstránil nesprávne production containers
+
+Operator chcel vyčistiť lokálny test daemon. Jeho active Docker context však smeroval cez SSH na production node. Príkaz:
+
+```bash
+docker container prune -f
+```
+
+odstránil zastavené production incident containers, ktoré obsahovali filesystem a log evidence.
+
+CLI fungoval správne a daemon vykonal autorizovanú požiadavku. Chyba bola v context identity a destructive-operation gate.
+
+Oprava zaviedla výrazné context names, shell prompt s active contextom, production read-only access pre bežných operatorov a wrapper, ktorý pred prune vyžaduje explicitný daemon hostname a resource manifest.
+
+## 19. Incident: restart nezaviedol nový image
+
+Pipeline pushla `payments-api:1.0.1`. Operator na hoste vykonal:
+
+```bash
+docker pull atlas/payments-api:1.0.1
+docker restart payments-api
+```
+
+Container po restarte stále používal starý image ID, pretože restart nemení container create configuration. `docker inspect payments-api --format '{{.Image}}'` ukázal starý digest.
+
+Recovery vytvorila nový container z nového digestu a pripojila rovnaký volume. Automation prešla na Compose `up` alebo orchestrator rollout, ktorý porovná desired image a vytvorí novú generation.
+
+## 20. Systematický Docker troubleshooting
+
+Pri všeobecnom symptóme „Docker command zlyhal“ postupuj v poradí:
+
+```text
+CLI syntax a local config
+→ active context a transport
+→ Engine API availability a version
+→ daemon authorization
+→ image resolution a local store
+→ container create configuration
+→ storage a network preparation
+→ containerd/runtime create
+→ process start a exit
+→ health a application path
+```
+
+Základný evidence set:
 
 ```bash
 docker context show
 docker version
 docker info
+docker image inspect IMAGE
+docker inspect CONTAINER
+docker logs --timestamps CONTAINER
+docker events --since 30m
 ```
 
-### Docker object state
+Na hoste doplň daemon a kernel logs. Najprv zisti, či zlyhal request, object mutation, process create alebo application outcome. Až potom rozhoduj o retry, restart, recreate, daemon remediation alebo host replacement.
 
-```bash
-docker ps -a
-docker inspect atlas-payments-api-r42
-docker events --since 10m
-```
+## Čo si z kapitoly odniesť
 
-### Runtime outcome
+Docker CLI je klient Docker Engine API. `dockerd` spravuje higher-level Docker objects a používa containerd a OCI runtime pre nižší process lifecycle. Image pull, container create, start, health, stop, restart a delete sú odlišné transitions.
 
-```bash
-docker logs atlas-payments-api-r42
-docker stats atlas-payments-api-r42
-docker exec atlas-payments-api-r42 <diagnostic-command>
-```
+Container object môže existovať bez procesu. API success nie je readiness. Restart používa rovnakú config generation, zatiaľ čo recreate vytvára nový object. Docker context určuje, ktorý daemon príkaz mení, a access k daemonu je privilegovaná boundary. Pri troubleshooting-u sleduj request cez jednotlivé vrstvy namiesto všeobecného „Docker nefunguje“.
 
-### Host a lower layers
+## Primárne zdroje
 
-- daemon service logs,
-- containerd a runtime logs,
-- process tree a sockets,
-- kernel OOM a LSM audit,
-- cgroup events a pressure,
-- filesystem bytes/inodes,
-- network rules a conntrack,
-- mount a device state.
-
-Observation point treba vybrať podľa hypotézy. `docker logs` nevysvetlí prečo OCI runtime nevedel pripojiť mount. Host `df` sám nevysvetlí, ktorý reference graph drží Docker content.
-
-## 11. Causal walkthrough: timeout, retry a obsadený port
-
-### Symptóm
-
-Pipeline spustí:
-
-```bash
-docker run -d \
-  --name atlas-payments-api-r42 \
-  -p 8443:8080 \
-  registry.atlas.example/payments/api@sha256:9f3...
-```
-
-CLI po network timeoute skončí chybou. Automatický retry potom hlási, že container name alebo port už existuje.
-
-### Competing hypotheses
-
-1. prvý API request sa nikdy nedostal k daemonu;
-2. daemon vytvoril iba container metadata;
-3. network endpoint a port boli alokované, task však nezačal;
-4. task a process bežia, stratila sa iba response;
-5. retry smeruje na iný Docker context;
-6. rovnaký port používa nesúvisiaci workload;
-7. starý partial object z predchádzajúceho release-u nebol odstránený.
-
-### Discriminating observation points
-
-Najprv zachovaj operation subject:
-
-```text
-context
-endpoint
-container name
-image digest
-release label
-requested port
-pipeline run ID
-```
-
-Potom over:
-
-```bash
-docker context show
-docker ps -a --filter name=atlas-payments-api-r42
-docker inspect atlas-payments-api-r42
-docker events --since <operation-start>
-```
-
-Ďalej podľa state-u:
-
-- daemon log: prijatý create/start request,
-- image digest: presný pulled subject,
-- network inspect: endpoint a port mapping,
-- host `ss`: listener na 8443,
-- application logs a health: skutočný runtime outcome,
-- containerd/task evidence: process existuje aj pri Engine probléme.
-
-### Finding
-
-Daemon vytvoril object, endpoint aj task; application už beží. Response sa stratila po úspešnom start-e. Retry nebol bezpečný, pretože pipeline interpretovala transport timeout ako „operácia neprebehla“.
-
-### Containment a recovery
-
-1. zastav ďalšie retries;
-2. potvrď exact image digest a runtime configuration;
-3. adoptuj existujúci container ako výsledok operácie, ak zodpovedá subjectu;
-4. over readiness a external request;
-5. zapíš výsledný container ID a deployment evidence;
-6. odstráň iba objects, ktoré patria k neúspešnému subjectu.
-
-Ak object existuje iba v partial stave, odstráň ho až po inventári network, mount a task side effects a následne vytvor nový operation subject.
-
-### Skoršie controls
-
-- deterministic container name alebo label viazaný na release/run,
-- explicitný context a endpoint v pipeline,
-- post-timeout reconciliation pred retry,
-- request/deployment correlation ID,
-- create a start ako pozorovateľné state transitions,
-- runtime postcondition namiesto dôvery v CLI exit code.
-
-## 12. Daemon restart a live restore
-
-Daemon configuration change alebo upgrade môže vyžadovať restart. Dopad na existujúce tasks závisí od platformy a konfigurácie, napríklad live-restore behavioru.
-
-Pred zmenou zaznamenaj:
-
-- daemon a containerd versions,
-- active containers a criticality,
-- restart a rollback config,
-- expected task survival behavior,
-- post-restart object/task reconciliation,
-- logging a network/storage continuity.
-
-Po restarte nestačí, že daemon service je `active`. Over:
-
-```text
-Engine API dostupné
-→ containers znovu inventarizované
-→ tasks/processes správne korelované
-→ network a storage stále funkčné
-→ application outcome zachovaný
-```
-
-## 13. Docker Desktop ako ďalšia boundary
-
-Na Windows a macOS Docker Desktop typicky vkladá medzi host UI/CLI a Linux Engine ďalšiu VM alebo virtualizačnú vrstvu.
-
-To mení observation points:
-
-```text
-host CLI/context
-→ Desktop service a VM
-→ Linux dockerd/containerd
-→ container process
-```
-
-Bind mounts, `localhost`, networking, credentials a filesystem performance môžu prechádzať Desktop-specific translation vrstvou. Diagnostika preto musí určiť, či problém vzniká:
-
-- na hoste,
-- v Desktop VM/service,
-- v Engine,
-- v container runtime,
-- v aplikácii.
-
-## 14. Rootful, rootless a authority model
-
-Rootful daemon poskytuje širokú kompatibilitu, ale jeho kompromitácia alebo socket exposure má veľký blast radius.
-
-Rootless Docker znižuje host-root authority použitím user namespaces a unprivileged helpers, ale nemení tieto fakty:
-
-- application môže byť zraniteľná,
-- host kernel zostáva shared dependency,
-- user-level credentials a data môžu byť citlivé,
-- networking/storage behavior môže byť odlišný,
-- rootless nie je automaticky tenant-grade sandbox.
-
-Security rozhodnutie sa robí podľa threat modelu a effective authority, nie iba podľa labelu `rootless`.
-
-## 15. Referenčný object a lifecycle katalóg
-
-| Object alebo vrstva | Authoritative identity | Typický lifecycle | Hlavné failure dôkazy |
-|---|---|---|---|
-| Docker context | context name + endpoint + TLS/SSH metadata | select/update/remove | `docker context inspect`, connection logs |
-| Image | repository digest + local content | pull/tag/remove/GC | manifest/content/snapshot evidence |
-| Container object | container ID + name + labels | create/start/stop/remove | Engine events, inspect, daemon log |
-| Task/process | containerd namespace/task ID + PID | create/start/exit/delete | task/shim/runtime/host process evidence |
-| Network endpoint | network ID + endpoint/container ID | allocate/connect/disconnect | network inspect, veth/firewall/conntrack |
-| Volume/mount | volume/data identity + mount target | create/attach/mount/detach/remove | mount, filesystem, driver/backend evidence |
-| Build cache | builder/cache record subject | import/use/export/GC | build progress, cache refs, builder storage |
-
-Katalóg pomáha pomenovať objekty, ale diagnóza musí stále sledovať konkrétny operation lifecycle.
-
-## 16. Praktické controls
-
-- explicitne pinuj Docker context pre automation;
-- chráň socket a remote API ako host-admin boundary;
-- používaj exact image digest a release labels;
-- oddeľ trusted production runtime od untrusted builds;
-- koreluj Engine events, container ID, task a application outcome;
-- pri timeoute najprv reconcile state, až potom retry;
-- nemaž ručne obsah z Docker data rootu;
-- používaj `prune` iba s ownership a retention inventárom;
-- validuj daemon config a restart behavior pred production zmenou;
-- odlišuj `running`, healthy, ready a business-correct stav.
-
-## 17. Kontrolné otázky
-
-1. Prečo Docker CLI nie je vrstva, ktorá priamo vytvára container process?
-2. Čo musí obsahovať Docker API operation subject?
-3. Prečo môže CLI timeout nasledovať po úspešnom vytvorení containeru?
-4. Aký je rozdiel medzi Docker container objectom a containerd taskom?
-5. Čo vykonáva OCI runtime?
-6. Prečo `running` neznamená ready?
-7. Ktoré objects môžu prežiť odstránenie containeru?
-8. Prečo je Docker socket host-admin-like authority?
-9. Ako sa mení diagnostika pri Docker Desktop?
-10. Prečo sa pred retry musí vykonať state reconciliation?
-
-## Glossary impact
-
-Relevantné pojmy: Docker API operation subject, Docker context identity, Docker object state transition, container task subject, runtime shim, object-task reconciliation, unknown Docker operation outcome, daemon authority boundary, Docker Desktop boundary a live-restore verification.
-
-## Oficiálna dokumentácia
-
-- [Docker Engine](https://docs.docker.com/engine/)
-- [Docker overview and architecture](https://docs.docker.com/get-started/docker-overview/)
+- [Docker Engine overview](https://docs.docker.com/engine/)
+- [Docker architecture overview](https://docs.docker.com/get-started/docker-overview/)
+- [Docker contexts](https://docs.docker.com/engine/manage-resources/contexts/)
 - [Docker Engine API](https://docs.docker.com/reference/api/engine/)
-- [Alternative container runtimes](https://docs.docker.com/engine/daemon/alternative-runtimes/)
-- [Docker daemon configuration](https://docs.docker.com/engine/daemon/)
+- [Rootless mode](https://docs.docker.com/engine/security/rootless/)
+- [containerd](https://containerd.io/)
+- [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

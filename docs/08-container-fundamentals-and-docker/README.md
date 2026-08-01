@@ -1,22 +1,16 @@
 # Container Fundamentals and Docker
 
-Táto sekcia vysvetľuje containers od Linux process isolation a OCI standards až po Docker Engine, images, networking, storage, security, Dockerfile, Compose, BuildKit a systematické troubleshooting. Cieľom nie je memorovať Docker CLI príkazy, ale rozumieť kernel, artifact, build, runtime, distribution, configuration, data a recovery modelu.
+Táto sekcia vysvetľuje container platformu ako jeden súvislý systém. Začína obyčajným Linux procesom a otázkou, čo presne oddeľuje container od virtual machine. Potom postupne pridáva namespaces, cgroups, capabilities, OCI image graph, filesystem layers, registry, sieť, storage a security. Až na tomto základe prechádza ku konkrétnemu Docker Engine-u, Dockerfile-u, BuildKitu, Compose a systematickému troubleshooting-u.
 
-Containers nadväzujú na Linux namespaces, cgroups, capabilities, networking, filesystems, artifact versioning, registries, CI/CD a Infrastructure as Code. Docker je konkrétna platforma a toolchain nad širšími container a OCI princípmi. Sekcia preto oddeľuje source, build graph, image/index/config/layers, registry digest, Engine object, kernel-backed process boundary, mounted data, network flow, health verdict a business outcome.
+Cieľom nie je memorovať desiatky CLI príkazov. Čitateľ má po sekcii rozumieť tomu, ako sa source zmena stane build graphom, image indexom a platform manifestom, ako Docker Engine z image-u a runtime konfigurácie vytvorí process a prečo `running`, `healthy`, `reachable` a správny business outcome nie sú rovnaké stavy.
 
-Pôvodných 18 prose-first kapitol zostáva authoritative. Praktická remediation pridáva jeden celý executable Docker projekt, pretože samostatné Dockerfile, Compose, BuildKit a troubleshooting snippets nepreukazujú, že čitateľ vie zostaviť a overiť celý source-to-runtime lifecycle.
+Celá sekcia používa jeden priebežný scenár `payments-api`. Rovnaká služba sa objavuje pri vysvetľovaní PID 1, non-root runtime-u, volume ownershipu, network bindu, image digestu, multi-platform build-u, loaded configuration generation aj incident recovery. Kód a príkazy preto nie sú izolované recepty. Každý príklad nadväzuje na rovnaký artifact, process, data a request lifecycle.
 
 ## Predpoklady
 
-Odporúča sa najprv dokončiť:
+Sekcia nadväzuje najmä na [Linux and Systems](../01-linux-and-systems/README.md), [Networking and Web Fundamentals](../02-networking-and-web/README.md), [CI/CD and Release Engineering](../05-ci-cd-and-release/README.md), [GitLab](../06-gitlab/README.md) a [Infrastructure as Code and Configuration Management](../07-infrastructure-as-code-and-configuration-management/README.md). Linux kapitoly poskytujú process, filesystem, permission a network základ. CI/CD a GitLab vysvetľujú immutable artifact, evidence a promotion. IaC a Ansible pripravujú desired-state, ownership a runtime-verification model.
 
-- [Linux and Systems](../01-linux-and-systems/README.md),
-- [Networking and Web Fundamentals](../02-networking-and-web/README.md),
-- [CI/CD and Release Engineering](../05-ci-cd-and-release/README.md),
-- [GitLab](../06-gitlab/README.md),
-- [Infrastructure as Code and Configuration Management](../07-infrastructure-as-code-and-configuration-management/README.md).
-
-## Authoritative poradie — aktívne kapitoly
+## Authoritative poradie kapitol
 
 1. [Containers vs. virtual machines](containers-vs-virtual-machines.md)
 2. [Namespaces, cgroups a capabilities](namespaces-cgroups-capabilities.md)
@@ -38,110 +32,46 @@ Odporúča sa najprv dokončiť:
 18. [Praktický Docker projekt od prázdneho adresára po overený Compose runtime](docker-practical-walkthrough.md)
 19. [Docker troubleshooting](docker-troubleshooting.md)
 
-Po tejto sekcii nasleduje Kubernetes. Docker a OCI model poskytujú základ pre pochopenie Pod sandboxu, container runtime interface, image pullu, probes, Services, volumes, security contextu a node-level troubleshooting.
+Poradie je zámerné. Prvé dve kapitoly vysvetlia runtime isolation. OCI, layers a registry potom vytvoria artifact a distribution model. Network, storage a security ukážu, čo sa k image-u pripája až pri runtime. Docker-specific blok následne prejde od Engine API cez Dockerfile a build graph po Compose application. Praktický walkthrough všetko spojí a troubleshooting kapitola ukáže, ako sa rovnaký model používa pri incidente.
 
-## Hlavný praktický walkthrough
+Po tejto sekcii nasleduje Kubernetes. Docker a OCI pojmy sa tam objavia vo väčšom control-plane modeli ako Pod sandbox, container runtime interface, image pull, probes, Services, volumes, security context a node-level diagnosis.
 
-Kapitola [Praktický Docker projekt od prázdneho adresára po overený Compose runtime](docker-practical-walkthrough.md) ide rovnakým detailným walkthrough štýlom ako praktická Helm kapitola. Od prázdneho adresára vytvorí minimálnu Go HTTP aplikáciu, unit a forbidden-path test, `.dockerignore`, celý multi-stage Dockerfile, samostatný BuildKit test target, lokálny runtime image, network, named volume a hardenovaný non-root container. Každý súbor a každý významný príkaz je vložený priamo do výkladu a bezprostredne vysvetlený: čo je jeho vstup, čo zmení, aký output očakávame a čo zelený výsledok ešte nedokazuje.
+## Výkladový štandard sekcie
 
-Druhá polovica kapitoly skladá celý `compose.yaml`, najprv kontroluje resolved model cez `docker compose config`, potom overuje container-local health, Compose DNS, host-published port a volume-backed business write/read. Nasleduje recreate a druhý nezmenený run, configuration-driven replacement, zámerne chybný bind na container loopback, volume-permission failure, evidence-preserving diagnostika, recovery, multi-platform publication, image-index read-back, digest-pinned consumption a bezpečný cleanup. Aplikačný kód bol lokálne formátovaný a overený cez `go test`; Docker a registry commands zostávajú dokumentačne auditované príklady, kým sa nespustia proti reálnemu Engine-u a registry.
+Všetkých devätnásť kapitol bolo kompletne prepísaných do rovnakého plynulého štýlu ako Keycloak a CI/CD. Kapitola najprv stanoví konkrétny problém, potom vysvetlí mechanizmus na priebežnom Atlas scenári, vloží príkaz alebo konfiguráciu priamo tam, kde ju čitateľ potrebuje, a bezprostredne vysvetlí, čo výstup dokazuje a čo ešte nie. Odrážky zostávajú iba pri krátkom inventári alebo acceptance zozname; nenahrádzajú hlavný výklad.
 
-## Practical-example acceptance contract
+Príklady sú navzájom prepojené. `payments-api` beží ako non-root UID `65532`, počúva na porte `8080`, publikuje `/healthz`, `/readyz` a `/version`, používa configuration generation a zapisuje jednoduchý ledger do named volume-u. Vďaka tomu možno na jednom workload-e porovnať image config s container configom, local health so service DNS a host portom, container replacement s volume persistence a amd64 image s multi-platform indexom.
 
-Sekcia sa nepovažuje za prakticky hotovú iba preto, že jednotlivé kapitoly obsahujú Docker CLI alebo YAML snippets. Čitateľ musí vedieť prejsť jeden celý projekt od source inputs po verified runtime a vysvetliť identity a authority boundaries medzi Dockerfile-om, BuildKit builderom, image digestom, Docker contextom, container configom, volume-om, networkom a Compose projectom.
+Každý významný command sa interpretuje v troch rovinách: aký objekt číta alebo mení, aký výsledok očakávame a kde končí dôkazová hranica. `docker image inspect` číta image metadata, nie effective container security options. `docker ps` číta Engine process state, nie readiness. `docker compose config` vytvára resolved model, nie runtime objects. `docker compose up --wait` čaká na running alebo health podmienky, ale nenahrádza payment POST/GET a persistence test.
 
-Každý významný command musí odpovedať na tri otázky: aký subject číta alebo mení, aký output očakávame a akú hranicu output skutočne dokazuje. `docker buildx build --target test` dokazuje executed test graph, nie final runtime image; `image inspect` dokazuje image metadata, nie effective container config; `docker ps` dokazuje Engine process state, nie readiness; `compose config` dokazuje resolved model, nie mutation; `compose up --wait` dokazuje bounded running/health verdict, nie persistentný business outcome; POST/GET po recreate dokazuje konkrétnu data persistence path, nie backup/restore alebo host-failure recovery.
+## Praktický walkthrough
 
-## Cieľ zvládnutia
+Kapitola [Praktický Docker projekt od prázdneho adresára po overený Compose runtime](docker-practical-walkthrough.md) vytvorí celý malý projekt. Začína Go source-om a unit testom, pokračuje cez `.dockerignore`, multi-stage Dockerfile a explicitný BuildKit test target a vytvorí lokálny runtime image. Následne image inspectne, exportuje jeho root filesystem, vytvorí network a volume, pripraví ownership, skontroluje container ešte pred štartom a až potom overí PID 1, health, host port a business write/read.
 
-Po dokončení sekcie má byť možné:
+Druhá polovica vytvorí celý Compose model so službami `init-data`, `api` a `verifier`. Najprv sa kontroluje interpolation a resolved YAML. Potom sa oddelene overí container-local health, Compose DNS, host-published path a volume-backed payment. Walkthrough ukáže no-op druhý run, configuration-driven recreate, persistence cez novú container generation, zámerne chybný loopback bind a volume-permission incident. Záver publikuje multi-platform image, read-backne index a platform manifests a prejde na digest-pinned consumption.
 
-- vysvetliť container ako izolovaný process alebo skupinu procesov, nie ako malú VM,
-- porovnať shared-kernel container model s hardware virtualization a guest-kernel modelom VM,
-- rozlíšiť isolation, density, startup, portability, patching a recovery trade-offy,
-- vysvetliť namespaces ako virtualizované views, cgroups ako resource-control hierarchy a capabilities ako jemnejší privilege model,
-- rozlíšiť PID, mount, network, user a cgroup namespace a ich security limity,
-- diagnostikovať PID 1, signal forwarding, CPU throttling, cgroup OOM, PID exhaustion a capability/seccomp/LSM denials,
-- vysvetliť OCI Image, Runtime a Distribution Specification ako samostatné interoperability contracts,
-- rozlíšiť descriptor, manifest, image config, image index, layers, runtime bundle a low-level runtime,
-- pracovať s tagom ako mutable pointerom a digestom ako immutable content identity,
-- vysvetliť multi-platform image a rozdiel medzi index digestom a platform-specific manifest digestom,
-- vysvetliť layered filesystem, copy-on-write, copy-up, whiteouts a per-container writable layer,
-- navrhnúť image build ordering, cache a persistence model bez runtime mutation a secret leakage v layers,
-- rozlíšiť registry, repository, manifest, blob, tag a digest reference,
-- navrhnúť registry authentication, scoped authorization, immutability, retention, replication, garbage collection a air-gapped promotion,
-- zachovať signatures, SBOM a provenance artifacts pri promotion alebo mirroringu,
-- vysvetliť network namespace, veth pair, bridge, routes, NAT, port publishing a DNS/service-discovery model,
-- diagnostikovať bind address, firewall/NAT, MTU, conntrack, IPv4/IPv6 a return-path failures,
-- rozlíšiť writable layer, volume, bind mount, tmpfs, local/block/network/object storage a ich lifecycle,
-- navrhnúť stateful container workload s explicitnou data identity, access mode, initialization, backup, restore a fencing policy,
-- vysvetliť rozdiel medzi crash-consistent snapshotom a application-consistent backupom,
-- navrhnúť defense-in-depth container security baseline od source/build/registry až po runtime a host,
-- používať non-root/rootless model, capability drop, seccomp, SELinux/AppArmor, read-only root filesystem, resource limits a network segmentation,
-- chrániť runtime socket, devices, secrets a workload identities a vykonať bezpečný rebuild/replace patch lifecycle,
-- rozhodnúť, kedy shared-kernel boundary nestačí a workload potrebuje VM, microVM alebo sandboxed runtime,
-- vysvetliť Docker client-server architecture, Docker contexts, Engine API, `dockerd`, containerd, runtime shim a OCI runtime responsibilities,
-- popísať `docker run` lifecycle od image resolution cez snapshot, network a mounts až po PID 1,
-- chrániť Docker socket, remote API a daemon host ako privilegovanú platformovú boundary,
-- rozlíšiť Docker Engine, Docker Desktop, rootful a rootless execution model,
-- navrhnúť Dockerfile s kontrolovaným base image-om, non-root runtime, správnym `ENTRYPOINT`/`CMD`, signals a metadata,
-- rozlíšiť build-time `RUN`/`ARG`/secret mounts od runtime `CMD`/`ENTRYPOINT`/`ENV`,
-- používať `COPY`, ownership, permissions, package installation a image labels bez secret leakage a nejasnej reproducibility,
-- vysvetliť build context, context root, `.dockerignore`, named contexts a Git context trust boundary,
-- navrhnúť instruction ordering, layer cache, cache mounts a external cache bez correctness dependency alebo cache poisoning,
-- diagnostikovať cache invalidation a vytvoriť clean-room build/reproducibility kontrolu,
-- používať multi-stage builds na oddelenie build, test, artifact, development a final runtime stages,
-- preukázať, že release image pochádza z testovaného graphu a obsahuje iba narrow runtime artifacts,
-- diagnostikovať dynamic linker, architecture, `scratch`/distroless a multi-platform build problémy,
-- rozlíšiť Docker named/anonymous volume, bind mount a tmpfs podľa ownershipu, portability a persistence modelu,
-- riešiť mount obscuring, UID/GID, user namespaces, SELinux/AppArmor labels, bind propagation a Docker Desktop file sharing,
-- navrhnúť volume backup, migration, access-mode, fencing a cleanup lifecycle,
-- rozlíšiť Docker network driver, user-defined bridge, embedded DNS, network alias a host network mode,
-- vysvetliť `HOST_PORT:CONTAINER_PORT`, bind address a rozdiel medzi `EXPOSE` a publishingom,
-- diagnostikovať Docker bridge, firewall/NAT, port collision, MTU, conntrack, DNS a IPv4/IPv6 connectivity,
-- rozlíšiť image `ENV`, runtime environment, Compose interpolation, `environment`, `env_file` a CLI override,
-- navrhnúť required/default/empty configuration semantics a zabrániť secret leakage cez environment a inspection,
-- vysvetliť Docker health status, timing parameters, health history a rozdiel medzi process state a application health,
-- odlíšiť liveness, readiness, startup a dependency health a nepreceňovať jeden Docker healthcheck,
-- používať Compose `depends_on` conditions bez zámieny startup ordering za runtime resilience,
-- vysvetliť Compose project, service, resource naming, default network a reconciliation pri `docker compose up`,
-- navrhnúť Compose model s explicitnými images, networks, volumes, configs, secrets, profiles a health dependencies,
-- kontrolovať resolved model cez `docker compose config` vrátane merge, include, extends a environment precedence,
-- chrániť Compose trust boundary pred privileged containers, host mounts, Docker socketom a nedôveryhodnými remote includes,
-- vysvetliť BuildKit graph execution, Dockerfile frontend, builder instance, node, driver a output exporter,
-- rozlíšiť `docker`, `docker-container`, Kubernetes a remote builder modely,
-- navrhnúť multi-platform build cez emulation, native nodes alebo cross-compilation,
-- používať `--load`, `--push`, external cache, secrets, SSH forwarding, provenance a SBOM s explicitným trust modelom,
-- oddeliť untrusted, protected a release builders a zabrániť cache poisoning alebo credential leakage,
-- diagnostikovať Docker po vrstvách od client/contextu cez daemon, runtime, process, storage, network až po host kernel,
-- zachovať evidence pred restartom, delete alebo prune operáciou,
-- interpretovať container state, exit codes, OOMKilled, health, events, logs a resolved inspect configuration,
-- diagnostikovať disk/inode exhaustion, image pull/platform failure, dynamic linker, permissions, mounts, DNS, MTU a published ports,
-- vytvoriť controlled reproduction a odstrániť root cause cez versionovaný rebuild/recreate workflow namiesto ručného container driftu.
+Go source z praktickej kapitoly bol formátovaný cez `gofmt` a úspešne spustený cez `go test` na dostupnom Go 1.23.2 toolchaine po dočasnom znížení `go` directive na 1.23 pre lokálnu syntax a test kontrolu. Dokumentovaný project contract zostáva Go 1.25. Docker, Compose, Buildx a registry príkazy sú syntakticky a mechanisticky auditované, ale repository documentation workflow ich nespúšťa proti reálnemu Docker Engine-u alebo registry.
 
-## Revalidation completion gate
+## Čo má čitateľ po sekcii vedieť
 
-Sekcia je `Ready for user review`, keď:
+Po dokončení má vedieť vysvetliť container ako kernel-backed process boundary a porovnať ho s guest-kernel a hypervisor hranicou VM. Má rozumieť namespaces, cgroups, capabilities, seccomp a LSM ako rozdielnym vrstvám, nie ako synonymám. Má vedieť čítať OCI index, platform manifest, config a layers a vysvetliť rozdiel medzi tagom, digestom a deployed platform artifactom.
 
-1. všetkých 18 concept kapitol zostáva prose-first a mechanisticky konzistentných;
-2. praktický walkthrough je zaradený do authoritative ordering a navigation chainu;
-3. walkthrough obsahuje kompletný source, test, Dockerfile, Compose model a verification scripts;
-4. build, image, container, network, mount, health, Compose a business states sa nezlievajú;
-5. examples používajú explicitný non-root user, read-only root, bounded writable paths, capability drop a resource limits;
-6. test stage, local runtime, multi-platform publication a digest read-back majú samostatné verdicts;
-7. business údaj prežije container aj Compose recreate v rovnakom data subjecte;
-8. second `compose up` a configuration update rozlišujú no-op reconciliation od controlled replacementu;
-9. failure walkthroughs používajú competing hypotheses, discriminating commands, containment a recovery;
-10. navigation, ledger a learning-depth audit prejdú bez dočasných workflowov alebo closeout skriptov v merge diff-e.
+V build časti má vedieť navrhnúť Dockerfile s kontrolovanými bases, zúženým contextom, zmysluplnou cache hranicou, explicitným test targetom a úzkym runtime stage-om. Má rozlíšiť `--load`, `--push`, local artifact export, external cache, provenance a SBOM a vedieť, prečo multi-platform metadata musí zodpovedať skutočnému binary.
 
-## Aktuálny stav revalidácie
+V runtime časti má vedieť read-backnúť effective usera, command, environment, mounts, ports, limits a security options. Má rozlíšiť writable layer, named volume, bind mount a tmpfs, navrhnúť UID/GID, backup a restore contract a vysvetliť mount obscuring. Pri networku má vedieť sledovať packet od application bindu cez namespace, bridge, DNS a port publishing až po return path.
+
+V Compose časti má rozumieť project identity, interpolation, multiple files, profiles, `depends_on`, health conditions, networks a volumes ako resolved application modelu. Má vedieť, kedy `up` vykoná no-op, kedy recreatne container a prečo `restart` neaplikuje nové environment alebo image inputs.
+
+Pri incidente má vedieť zachovať context, inspect, image, events, logs, network, volume a disk evidence pred destructive operáciou. Má vedieť odlíšiť pull, create, runtime exec, process, health, network, storage a business failure a zvoliť restart, recreate, rebuild alebo host replacement podľa prvej chybnej vrstvy.
+
+## Stav revalidácie
 
 | Blok | Kapitoly | Stav |
 |---|---:|---|
-| Container/OCI/kernel, images, registry, network, storage a security | 8/8 | Complete |
+| Linux container boundary, OCI, images a registry | 5/5 | Complete |
+| Network, storage a security runtime model | 3/3 | Complete |
 | Docker Engine, Dockerfile, context/cache a multi-stage build | 4/4 | Complete |
-| Mounts, networking, configuration/health a Compose | 4/4 | Complete |
-| BuildKit/Buildx a troubleshooting | 2/2 | Complete |
-| End-to-end Docker practical walkthrough | 1/1 | Complete |
+| Mounts, networking, environment/health a Compose | 4/4 | Complete |
+| BuildKit/Buildx, practical walkthrough a troubleshooting | 3/3 | Complete |
 
-Celkový authoritative stav: **19/19 · Ready for user review**. Tento stav znamená dokončený repository prose/practical pass; neznamená automatické používateľské schválenie, Accepted, Verified ani Stable. Príkazy boli technicky a syntakticky auditované proti aktuálnemu Docker CLI/Compose/Buildx contractu, ale neboli v tomto repository workflowe spustené proti reálnemu Docker Engine-u alebo registry.
+Celkový authoritative stav je **19/19 · Ready for user review**. Znamená to dokončený full-section prose, code-example a navigation pass. Neznamená automaticky používateľské `Accepted`, reálne Docker `Verified` ani produkčné `Stable`. Tieto vyššie stavy vyžadujú používateľskú kontrolu a samostatné vykonanie príkladov v reprezentatívnom Docker a registry prostredí.
