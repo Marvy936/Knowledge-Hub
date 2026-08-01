@@ -34,7 +34,7 @@ practical = practical_path.read_text(encoding="utf-8")
 
 practical = replace_once(
     practical,
-    """│   ├── broken-readiness/\n│   │   └── kustomization.yaml\n└── scripts/\n""",
+    """│   └── broken-readiness/\n│       └── kustomization.yaml\n└── scripts/\n""",
     """│   ├── broken-readiness/\n│   │   └── kustomization.yaml\n│   └── hpa/\n│       └── kustomization.yaml\n└── scripts/\n""",
     "project tree HPA overlay",
 )
