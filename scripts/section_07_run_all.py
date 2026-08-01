@@ -128,5 +128,6 @@ run_script(
 write_compact_findings()
 execute(ROOT / "scripts" / "section_07_closeout.py")
 execute(ROOT / "scripts" / "section_07_language_cleanup.py")
+execute(ROOT / "scripts" / "section_07_deduplicate.py")
 
-print("Combined additive-only Section 07 pass, prose closeout and language cleanup applied.")
+print("Combined additive-only Section 07 pass, prose closeout, language cleanup and deduplication applied.")
