@@ -67,8 +67,15 @@ Odporúča sa najprv dokončiť:
 21. [Progressive delivery](progressive-delivery.md)
 22. [Rollback a roll-forward](rollback-and-roll-forward.md)
 23. [Databázová kompatibilita počas deploymentu](database-compatibility-during-deployment.md)
+24. [Praktický CI/CD projekt od source change po overený production release](ci-cd-practical-walkthrough.md)
 
 Po tejto sekcii nasleduje GitLab, kde sa všeobecné release princípy premietnu do projects, merge requests, protected branches/environments, GitLab CI/CD, runners, registries a security evidence.
+
+## Hlavný praktický walkthrough
+
+[Praktický CI/CD projekt od source change po overený production release](ci-cd-practical-walkthrough.md) vytvára vendor-neutral executable flow nad malou Python aplikáciou. Zachová exact commit/tree a build-script identity, spustí unit a forbidden test, vytvorí deterministic tar artifact pomenovaný SHA-256 digestom, publikuje release manifest a staging evidence a promovuje tie isté bytes do production. Candidate deployment, canary, atomický active-generation switch a business verification sú oddelené transitions.
+
+Walkthrough obsahuje aj dve failure paths. Neoverený rebuild nedokáže použiť approval viazané na pôvodný digest a lost response po traffic switchi sa rieši read-backom active/candidate generation a ledgeru, nie blind retryom. Kapitola tak spája CI, delivery, deployment, progressive exposure a recovery bez závislosti od konkrétneho CI produktu.
 
 ## Connected learning scenarios
 
@@ -192,7 +199,7 @@ Po dokončení sekcie má byť možné navrhnúť release chain, ktorý:
 
 Sekcia bude označená `Ready for user review` iba po splnení všetkých podmienok:
 
-1. všetkých 23 authoritative kapitol používa Keycloak-style connected prose a dominantný lifecycle;
+1. všetkých 24 authoritative kapitol používa Keycloak-style connected prose a dominantný lifecycle;
 2. každá kapitola definuje exact source, artifact, release, deployment, cohort, data alebo recovery subject;
 3. každá kapitola obsahuje aspoň dva reálne executable príkazy, konfigurácie alebo query walkthroughy tam, kde to téma umožňuje;
 4. každý významný output vysvetľuje, čo preukazuje a čo nepreukazuje;
@@ -205,13 +212,4 @@ Sekcia bude označená `Ready for user review` iba po splnení všetkých podmie
 
 ## Aktuálny stav revalidácie
 
-| Blok | Kapitoly | Stav |
-|---|---:|---|
-| `REL-PAY-66` — integration, delivery, deployment a pipeline runtime | 0/4 | In progress |
-| `REL-PAY-67` — triggers, artifacts, environments, gates a Pipeline as Code | 0/4 | Not started |
-| `REL-PAY-68` — reusable pipelines, versions a release management | 0/4 | Not started |
-| `REL-PAY-69` — deployment strategies | 0/4 | Not started |
-| `REL-PAY-70` — experiments a runtime exposure controls | 0/4 | Not started |
-| `REL-PAY-71` — progressive delivery, recovery a data compatibility | 0/3 | Not started |
-
-Celkový authoritative stav: **0/23 · In progress**.
+Všetkých 24 authoritative kapitol vrátane end-to-end CI/CD walkthroughu je pripravených na používateľskú kontrolu. Stav neznamená automatické používateľské schválenie ani runtime overenie každého deployment targetu.

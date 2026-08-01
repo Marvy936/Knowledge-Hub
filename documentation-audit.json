@@ -1261,6 +1261,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "title": "Praktický CI/CD projekt od source change po overený production release",
+      "words": 1718,
+      "headings": 11,
+      "sections": 11,
+      "findings": 5,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 5,
+      "score": 7,
+      "grade": "A"
+    },
+    {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "title": "Continuous Delivery",
       "words": 1746,
@@ -1305,7 +1319,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "title": "Databázová kompatibilita počas deploymentu",
-      "words": 1608,
+      "words": 1614,
       "headings": 23,
       "sections": 23,
       "findings": 17,
@@ -1597,6 +1611,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "title": "GitLab troubleshooting",
+      "words": 1568,
+      "headings": 12,
+      "sections": 12,
+      "findings": 11,
+      "critical": 1,
+      "high": 2,
+      "medium": 0,
+      "low": 8,
+      "score": 37,
+      "grade": "C"
+    },
+    {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "title": "Merge requests a approvals",
       "words": 1303,
@@ -1613,7 +1641,7 @@
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
       "title": "Projects, groups a permissions",
-      "words": 1460,
+      "words": 1466,
       "headings": 22,
       "sections": 22,
       "findings": 12,
@@ -1655,7 +1683,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "title": "Security scanning",
-      "words": 1375,
+      "words": 1373,
       "headings": 25,
       "sections": 25,
       "findings": 20,
@@ -1683,7 +1711,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "title": "Ansible architecture",
-      "words": 1886,
+      "words": 1878,
       "headings": 23,
       "sections": 23,
       "findings": 41,
@@ -1711,7 +1739,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
       "title": "Praktický Ansible projekt od inventory po overený rolling configuration rollout",
-      "words": 3779,
+      "words": 3778,
       "headings": 34,
       "sections": 34,
       "findings": 16,
@@ -1721,6 +1749,20 @@
       "low": 10,
       "score": 65,
       "grade": "C"
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "title": "Ansible troubleshooting",
+      "words": 1711,
+      "headings": 17,
+      "sections": 17,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 16,
+      "grade": "B"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
@@ -1919,9 +1961,23 @@
       "grade": "D"
     },
     {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "title": "Terraform troubleshooting",
+      "words": 1427,
+      "headings": 13,
+      "sections": 13,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 8,
+      "grade": "A"
+    },
+    {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "title": "Terraform vs. Ansible",
-      "words": 1950,
+      "words": 1942,
       "headings": 38,
       "sections": 38,
       "findings": 46,
@@ -37733,6 +37789,51 @@
       "score": 8
     },
     {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "section": "Build vytvára immutable artifact a subject manifest",
+      "line": 132,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "section": "Staging acceptance a promotion evidence",
+      "line": 277,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "section": "Failure walkthrough: rebuild po schválení",
+      "line": 347,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "section": "Failure walkthrough: unknown deployment outcome",
+      "line": 361,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "section": "Cleanup a acceptance",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "1. Dominantný artifact-to-deployability model",
       "line": 7,
@@ -41378,6 +41479,105 @@
       "score": 2
     },
     {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "Incident subject a minimálny evidence manifest",
+      "line": 20,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "1. Pipeline sa nevytvoril alebo vznikol dvakrát",
+      "line": 47,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "2. Job je pending",
+      "line": 67,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "5. Includes, extends , defaults a variables vytvorili iný job",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "6. Cache alebo artifact je stale, chýba alebo patrí inému subjectu",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "8. Deployment record je úspešný, runtime nie",
+      "line": 168,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "9. Security scanning je zelený, ale evidence je neúplná",
+      "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "10. Preserve-first troubleshooting walkthrough",
+      "line": 206,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "10. Preserve-first troubleshooting walkthrough",
+      "line": 206,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ulož project/pipeline/job/deployment IDs a UTC timeline.`, `Over build producer a artifact/image digest, nie tag.`, `Over, ktorý pipeline a job vytvoril deployment record.`, `Read-backni target identity a live runtime digest.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "10. Preserve-first troubleshooting walkthrough",
+      "line": 206,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `SHA`, `ID`, `identity`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
+      "section": "Recovery a closure",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "1. Dominantný change-to-merge model",
       "line": 7,
@@ -43338,6 +43538,105 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "3. Variable má neočakávanú hodnotu",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "4. Facts sú stale alebo chýbajú",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "5. Host je UNREACHABLE",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "9. Handler nebežal alebo bežal neskoro",
+      "line": 209,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "10. Check mode klame alebo modul ho nepodporuje",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "10. Check mode klame alebo modul ho nepodporuje",
+      "line": 220,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "12. Idempotencia a false changed=0",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "13. Role alebo collection sa zmenila",
+      "line": 266,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "14. Vault decryptuje, ale runtime credential je nesprávny",
+      "line": 277,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "Connected incident: playbook je zelený, polovica fleet beží starú konfiguráciu",
+      "line": 295,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md",
+      "section": "Connected incident: playbook je zelený, polovica fleet beží starú konfiguráciu",
+      "line": 295,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
@@ -47739,6 +48038,69 @@
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "2. Provider alebo module sa resolve-ol inak",
+      "line": 81,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "5. Lock timeout alebo stale lock",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "7. State obsahuje nesprávny binding",
+      "line": 198,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "8. Drift a refresh",
+      "line": 214,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "8. Drift a refresh",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "9. -target a ďalšie skratky",
+      "line": 234,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md",
+      "section": "Acceptance po recovery",
+      "line": 278,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",

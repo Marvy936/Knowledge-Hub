@@ -1087,5 +1087,5 @@ Týmto spôsobom sa Terraform neučí ako séria príkazov `init`, `plan`, `appl
 
 **Navigácia**
 
-[← Predchádzajúca: Terraform testing a policy](terraform-testing-and-policy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible architecture →](ansible-architecture.md)
+[← Predchádzajúca: Terraform testing a policy](terraform-testing-and-policy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform troubleshooting →](terraform-troubleshooting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
