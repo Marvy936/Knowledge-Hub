@@ -7,36 +7,16 @@ LEDGER = ROOT / "DOCUMENTATION-REVIEW-STATUS.md"
 AUDIT = ROOT / "DOCUMENTATION-AUDIT.md"
 
 REQUIREMENTS = {
-    "helm-chart-template-values-release.md": [
-        "Chart.yaml", "values.yaml", "helm lint", "helm template", "helm upgrade", "helm get", "kubectl",
-    ],
-    "helm-chart-practical-walkthrough.md": [
-        "values.schema.json", "_helpers.tpl", "helm lint", "helm template", "dry-run=server", "helm upgrade", "helm test", "helm package",
-    ],
-    "template-functions-pipelines.md": [
-        "default", "required", "hasKey", "toYaml", "nindent", "tpl", "lookup", "helm template",
-    ],
-    "named-templates.md": [
-        "_helpers.tpl", "define", "include", "dict", "nindent", "helm lint", "helm template", "yq",
-    ],
-    "chart-dependencies.md": [
-        "Chart.yaml", "Chart.lock", "helm dependency update", "helm dependency build", "helm dependency list", "helm template",
-    ],
-    "hooks.md": [
-        "helm.sh/hook", "hook-delete-policy", "kind: Job", "operationId", "helm template", "helm upgrade", "helm get hooks",
-    ],
-    "upgrade-rollback.md": [
-        "helm get values", "helm get manifest", "helm template", "dry-run=server", "helm upgrade", "helm history", "helm rollback",
-    ],
-    "helm-testing-troubleshooting.md": [
-        "helm lint", "helm template", "helm test", "helm status", "helm history", "helm get", "kubectl get endpointslice",
-    ],
-    "cka-timed-labs.md": [
-        "kubectl config current-context", "kubectl", "--dry-run=client", "rollout status", "forbidden",
-    ],
-    "cka-troubleshooting-drills.md": [
-        "kubectl", "EndpointSlice", "Node", "cordon", "forbidden", "recovery",
-    ],
+    "helm-chart-template-values-release.md": ["Chart.yaml", "values.yaml", "helm lint", "helm template", "helm upgrade", "helm get", "kubectl"],
+    "helm-chart-practical-walkthrough.md": ["values.schema.json", "_helpers.tpl", "helm lint", "helm template", "dry-run=server", "helm upgrade", "helm test", "helm package"],
+    "template-functions-pipelines.md": ["default", "required", "hasKey", "toYaml", "nindent", "tpl", "lookup", "helm template"],
+    "named-templates.md": ["_helpers.tpl", "define", "include", "dict", "nindent", "helm lint", "helm template", "yq"],
+    "chart-dependencies.md": ["Chart.yaml", "Chart.lock", "helm dependency update", "helm dependency build", "helm dependency list", "helm template"],
+    "hooks.md": ["helm.sh/hook", "hook-delete-policy", "kind: Job", "operationId", "helm template", "helm upgrade", "helm get hooks"],
+    "upgrade-rollback.md": ["helm get values", "helm get manifest", "helm template", "dry-run=server", "helm upgrade", "helm history", "helm rollback"],
+    "helm-testing-troubleshooting.md": ["helm lint", "helm template", "helm test", "helm status", "helm history", "helm get", "kubectl get endpointslice"],
+    "cka-timed-labs.md": ["kubectl config current-context", "kubectl", "--dry-run=client", "rollout status", "forbidden"],
+    "cka-troubleshooting-drills.md": ["kubectl", "EndpointSlice", "Node", "cordon", "forbidden", "recovery"],
 }
 
 
@@ -76,3 +56,4 @@ replace_prefixed_line(
 )
 
 print("Section 10 executable-surface gate passed for 10/10 chapters and status was finalized.")
+# Explicit trigger after workflow registration.
