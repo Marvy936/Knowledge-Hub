@@ -159,6 +159,8 @@ Sekcia bude `Ready for user review` iba vtedy, keď:
 
 ## Aktuálny stav revalidácie
 
+Step 2 chapter-by-chapter explanation-depth pass zachoval všetkých dvanásť existujúcich lifecycle a incident modelov a doplnil chýbajúce prose transitions. Každý code-first lifecycle/exact-subject/troubleshooting blok teraz najprv vysvetľuje, čo je subject, ako sa mení state a čo nasledujúci diagram alebo YAML dokazuje. Bare inventories pre effective access, secret exposure, artifact/cache authority, registry retention, dry-run hranicu a preserve-first troubleshooting boli nahradené mechanistickým výkladom; jednovetové anti-patterny teraz uvádzajú failure mechanism, dôsledok a acceptance boundary.
+
 | Blok | Kapitoly | Stav |
 |---|---:|---|
 | `GL-PAY-72` — access, merge a protected boundaries | 3/3 | Complete |

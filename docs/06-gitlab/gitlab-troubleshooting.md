@@ -205,16 +205,13 @@ Finding closure potrebuje fixed artifact a deployed-runtime correlation. Dismiss
 
 ## 10. Preserve-first troubleshooting walkthrough
 
-Pre incident „green pipeline, old production image“ postupuj:
+Pri incidente „green pipeline, old production image“ sa najprv vytvorí immutable evidence envelope. Project ID, pipeline ID, job ID a deployment ID identifikujú GitLab records; UTC timeline umožní zoradiť source push, pipeline creation, artifact publication, deployment request a runtime observation bez lokálnych timezone nejasností. Tieto identifikátory sa uložia skôr, než retry alebo cleanup zmenia volatile state.
 
-1. Ulož project/pipeline/job/deployment IDs a UTC timeline.
-2. Zisti pipeline source, candidate SHA a resolved job inventory.
-3. Over build producer a artifact/image digest, nie tag.
-4. Over, ktorý pipeline a job vytvoril deployment record.
-5. Read-backni target identity a live runtime digest.
-6. Porovnaj route/serving cohort s workload generation.
-7. Vykonaj business probe so stabilným request ID.
-8. Až potom zvoľ retry, redeploy toho istého digestu, rollout recovery alebo nový release.
+Potom sa určí execution subject. Pipeline source odlíši push, merge request, tag, schedule alebo parent/child context; candidate SHA pomenúva testovaný integrated commit a resolved job inventory ukáže aj jobs, ktoré chýbajú. Build producer sa viaže na artifact alebo OCI digest, nie na mutable tag, aby sa dalo preukázať, ktoré bytes scanner a deploy job skutočne použili.
+
+Deployment record sa následne koreluje s producer pipeline/jobom a release manifestom. Na authoritative targete sa read-backne cluster/account/namespace identity, desired workload image a runtime `imageID`. Route a serving cohort sa porovnajú s workload generation, pretože healthy nový Deployment nemusí byť cohortou, ktorá prijíma používateľský traffic.
+
+Až potom sa vykoná business probe so stabilným request ID alebo operation ID. Probe musí overiť client response aj durable business outcome a nesmie pri unknown outcome slepo vytvoriť druhú mutáciu. Podľa prvého divergentného transitionu sa zvolí retry bezpečnej read operation, redeploy toho istého immutable digestu, controller/rollout recovery alebo nový release; voľba nie je založená iba na zelenom alebo červenom UI statuse.
 
 Príklad causal chainu:
 

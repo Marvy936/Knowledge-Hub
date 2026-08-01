@@ -6,6 +6,8 @@ Artifact a report tiež nie sú to isté. Generic artifact môže byť archive p
 
 ## 1. Dominantný job-output model
 
+Model má dve vetvy s odlišnou autoritou. Artifact/report branch prenáša identifikované bytes alebo evidence, ktoré downstream consumer musí overiť; cache branch prenáša odstrániteľný performance state, ktorého miss alebo eviction nesmie zmeniť correctness. Nasledujúci diagram preto nie je iba workflow, ale trust a retention contract.
+
 ```text
 exact pipeline/job/artifact subject
 → output creation and local validation
@@ -25,6 +27,8 @@ job inputs/trust namespace
 ```
 
 ## 2. Exact output subject
+
+Output sa nedá identifikovať iba filename-om. Exact subject viaže bytes alebo report na project, pipeline, producer job, candidate SHA, digest, schema a retention class, aby consumer vedel odmietnuť output z iného execution contextu. YAML nižšie je lineage envelope pre build aj evidence outputs.
 
 ```yaml
 outputSubject:
@@ -53,6 +57,8 @@ Pipeline/job IDs, candidate a artifact digest spájajú bytes/evidence s executi
 
 ## 3. Artifact creation and checksum
 
+Creation step najprv stabilizuje bytes a potom vytvorí samostatný integrity claim. Deterministic archive znižuje rozdiely spôsobené časom a ownership metadata; checksum následne umožní producerovi aj consumerovi porovnať presný byte stream. Ani jeden krok však sám nedokazuje, z akého source-u artifact vznikol alebo kto manifest autorizoval.
+
 ```bash
 tar --sort=name --mtime='UTC 1970-01-01' \
   --owner=0 --group=0 --numeric-owner \
@@ -64,6 +70,8 @@ sha256sum --check dist/payments-api.tar.gz.sha256
 Checksum match preukazuje local byte equality. Nepreukazuje source/build provenance, safe archive paths ani GitLab upload/storage integrity. Consumer rechecks checksum from trusted manifest.
 
 ## 4. Artifact declaration and transfer
+
+GitLab YAML deklaruje, ktoré paths má producer uploadnúť a ktorý consumer ich má cez DAG dostať. Toto je transfer intent, nie read-back uploadu ani autentifikácia obsahu. Consumer preto kontroluje producer identity, checksum/provenance a vlastný expected candidate pred použitím artifactu.
 
 ```yaml
 build:
@@ -206,6 +214,8 @@ outputs carry exact pipeline/job/candidate/artifact subject
 
 ## 14. Troubleshooting flow
 
+Artifact incident sa lokalizuje po jednom transitione: vznik lokálneho outputu, upload, platform processing, retention/access a downstream download. Cache sa analyzuje oddelene podľa key-u, writer trustu a restore pathu, pretože cache hit nie je lineage evidence. Takýto ordering odlíši missing report od cache poisoning alebo expirovaného artifactu.
+
 ```text
 producer job subject
 → local output/checksum
@@ -223,23 +233,23 @@ Competing hypotheses include upload failure, invalid report, wrong artifact name
 
 ### Cache as job output
 
-Cache is best-effort and not authoritative transfer.
+Cache je best-effort performance state s eviction a fallback semantics. Neposkytuje required hand-off, retention ani producer lineage, preto correctness nesmie závisieť od cache hitu. Required output sa prenáša artifactom alebo registry subjectom a testuje sa cold run.
 
 ### Generic artifact as processed report proof
 
-GitLab may not parse or expose it as expected evidence.
+Generic archive môže obsahovať file s názvom reportu, ale GitLab ho nemusí parse-nuť podľa report schema ani pripojiť k MR/security evidence. Upload acknowledgement preto nie je processing verdict. Gate kontroluje report declaration, schema, ingestion status a expected producer identity.
 
 ### Missing analyzer report equals zero findings
 
-Absence means incomplete coverage.
+Chýbajúci report neobsahuje tvrdenie „zero findings“; znamená, že očakávané pozorovanie nevzniklo. Analyzer mohol byť omitted rules, crashnúť alebo zlyhať pred uploadom. Fan-in porovnáva static expected inventory s valid received reports a pri rozdiele vracia `INCOMPLETE`.
 
 ### Release asset linked to expiring job artifact
 
-Support/recovery loses immutable bytes.
+Expiring job artifact môže zmiznúť počas support alebo incident window-u a jeho URL nie je immutable release identity. Release manifest má odkazovať na durable package/container/object subject s vlastnou retention a checksum/provenance. Job artifact môže zostať krátkodobou evidence kópiou, nie jediným release byte source-om.
 
 ### Broad cache fallback across trust classes
 
-Enables supply-chain poisoning.
+Fallback key, ktorý prepája fork alebo untrusted MR writera s protected build consumerom, mení cache na supply-chain bridge. Privileged job môže restore-núť generated code alebo executable state, ktoré nikdy nevytvoril trusted producer. Cache namespace, writer policy a consumer validation musia zachovať jednosmerný trust.
 
 ## 16. Kontrolné otázky
 

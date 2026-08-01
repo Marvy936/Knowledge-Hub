@@ -6,6 +6,8 @@ Tag alebo package version je human/dependency locator. OCI digest alebo package 
 
 ## 1. Dominantný build-to-runtime registry model
 
+Registry lifecycle oddeľuje publication request, immutable content graph, evidence binding, promotion a runtime resolution. Tag alebo version môže meniť mapovanie, zatiaľ čo digest/checksum identifikuje bytes; preto sa každý transition overuje nad content subjectom a producer identity. Diagram nižšie ukazuje, kde môže úspešný push zostať iba partial publication.
+
 ```text
 trusted build and exact candidate
 → immutable package/image bytes
@@ -158,15 +160,11 @@ CI should use explicit registry URL and credentials scoped read-only for depende
 
 ## 11. Retention and cleanup
 
-Cleanup policy must not delete:
+Cleanup policy rozhoduje nad reachability a lifecycle subjectom, nie iba nad vekom tagu. **Supported release artifacts** zostávajú dostupné počas support window-u, pretože rollback, reprodukcia a zákaznícka diagnostika potrebujú presné bytes. **Deployed digests** sa chránia podľa runtime inventory; tag môže byť odstránený, hoci Pods alebo iný platform consumer stále používa digest.
 
-- supported release artifacts;
-- deployed digests;
-- last-known-good recovery subjects;
-- artifacts under incident/legal hold;
-- evidence referenced by release manifest.
+**Last-known-good recovery subjects** zostávajú, kým nie je otestovaný náhradný recovery candidate. **Incident alebo legal hold** dočasne prepisuje bežnú retention, pretože registry events, manifests a evidence môžu byť forenzným subjectom. **Evidence referenced by release manifestom** sa maže až spolu s release lifecycle-om; oddelené odstránenie SBOM, provenance alebo signature bundle by zneplatnilo neskorší verification.
 
-Tag-based cleanup can delete untagged but deployed digests if runtime uses digest and tag was removed. Runtime inventory and release catalog must protect content.
+Tag-only cleanup môže zmazať untagged, ale nasadený digest alebo platform manifest, ktorý stále referencuje OCI index. Safe collector preto vytvorí protect set z release catalogu, runtime image IDs, mirrors, support policy a holds, potom vykoná preview, deletion a post-delete read-back. Cleanup success neznamená iba HTTP delete acknowledgement, ale aj zachovanie všetkých protected subjects a odstránenie intended unreachable contentu.
 
 ## 12. Revocation
 
@@ -238,23 +236,23 @@ Competing hypotheses include mutable tag, incomplete index, wrong package versio
 
 ### Mutable release tag
 
-Same version can mean different bytes and evidence.
+Mutable tag umožňuje, aby rovnaká verzia časom pomenovala iný index alebo package bytes. Predchádzajúce tests, signatures a deployment records sa potom viažu na neurčitý locator. Release publication používa write-once version policy a environmenty referencujú immutable digest.
 
 ### Successful push as complete publication
 
-Platforms/referrers may be missing.
+Push acknowledgement môže potvrdiť iba prijatie časti uploadov alebo manifestu. Multi-platform descriptors, referrers, SBOM, provenance alebo mirror replication môžu chýbať. Publication closure enumeruje celý graph, overí evidence binding a vykoná fresh registry read-back.
 
 ### Rebuild per environment
 
-Staging evidence no longer applies to production bytes.
+Rebuild pre staging a production vytvára odlišné content subjects aj pri rovnakom source SHA. Staging evidence potom neplatí pre production bytes a environment-specific dependency drift sa skryje za rovnakú verziu. Build-once promotion kopíruje alebo referencuje exact digest a samostatne mení iba environment configuration.
 
 ### Cleanup by tag only
 
-Untagged deployed digest may be deleted.
+Tag inventory neobsahuje všetky runtime alebo release references. Digest môže byť nasadený priamo, zrkadlený alebo držaný ako recovery subject aj po odstránení tagu. Cleanup protect set sa preto skladá z runtime, release, support a hold evidence, nie iba z current tags.
 
 ### Delete tag as revocation
 
-Running/mirrored content remains usable.
+Odstránenie tagu zruší jeden locator, ale deployed digest, mirror a local node cache zostávajú použiteľné. Revocation je samostatný policy record, ktorý blokuje nové promotion/admission a spúšťa runtime inventory a redeployment. Closure nastane až po odstránení alebo izolovaní všetkých affected cohorts.
 
 ## 17. Kontrolné otázky
 

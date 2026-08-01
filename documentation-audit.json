@@ -1543,170 +1543,170 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "title": "Artifacts a cache",
-      "words": 1202,
+      "words": 1588,
       "headings": 23,
       "sections": 23,
-      "findings": 18,
-      "critical": 1,
-      "high": 10,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
-      "low": 7,
-      "score": 103,
-      "grade": "D"
+      "low": 11,
+      "score": 16,
+      "grade": "B"
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "title": "Container a package registry",
-      "words": 1249,
+      "words": 1573,
       "headings": 24,
       "sections": 24,
-      "findings": 19,
-      "critical": 2,
-      "high": 11,
-      "medium": 1,
-      "low": 5,
-      "score": 124,
-      "grade": "D"
+      "findings": 10,
+      "critical": 0,
+      "high": 4,
+      "medium": 0,
+      "low": 6,
+      "score": 40,
+      "grade": "C"
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "title": "Environments, deployments a releases",
-      "words": 1292,
+      "words": 1625,
       "headings": 23,
       "sections": 23,
-      "findings": 21,
+      "findings": 16,
       "critical": 0,
-      "high": 13,
+      "high": 2,
       "medium": 0,
-      "low": 8,
-      "score": 116,
-      "grade": "D"
+      "low": 14,
+      "score": 36,
+      "grade": "C"
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "title": "GitLab CI/CD syntax",
-      "words": 1351,
+      "words": 1642,
       "headings": 23,
       "sections": 23,
-      "findings": 12,
+      "findings": 9,
       "critical": 0,
-      "high": 9,
+      "high": 0,
       "medium": 0,
-      "low": 3,
-      "score": 76,
-      "grade": "D"
+      "low": 9,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "title": "Praktický GitLab pipeline od source change po overený deployment",
-      "words": 3182,
+      "words": 3260,
       "headings": 26,
       "sections": 26,
-      "findings": 21,
-      "critical": 1,
+      "findings": 18,
+      "critical": 0,
       "high": 0,
-      "medium": 1,
-      "low": 19,
-      "score": 42,
-      "grade": "C"
+      "medium": 0,
+      "low": 18,
+      "score": 25,
+      "grade": "B"
     },
     {
       "path": "docs/06-gitlab/gitlab-troubleshooting.md",
       "title": "GitLab troubleshooting",
-      "words": 1568,
+      "words": 1706,
       "headings": 12,
       "sections": 12,
-      "findings": 11,
-      "critical": 1,
-      "high": 2,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
       "low": 8,
-      "score": 37,
-      "grade": "C"
+      "score": 10,
+      "grade": "A"
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "title": "Merge requests a approvals",
-      "words": 1303,
-      "headings": 22,
-      "sections": 22,
-      "findings": 18,
-      "critical": 0,
-      "high": 8,
-      "medium": 0,
-      "low": 10,
-      "score": 79,
-      "grade": "D"
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "title": "Projects, groups a permissions",
-      "words": 1466,
-      "headings": 22,
-      "sections": 22,
-      "findings": 12,
-      "critical": 1,
-      "high": 8,
-      "medium": 0,
-      "low": 3,
-      "score": 79,
-      "grade": "D"
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "title": "Protected branches a environments",
-      "words": 1333,
+      "words": 1635,
       "headings": 22,
       "sections": 22,
       "findings": 14,
       "critical": 0,
-      "high": 7,
+      "high": 0,
       "medium": 0,
-      "low": 7,
-      "score": 64,
-      "grade": "C"
+      "low": 14,
+      "score": 20,
+      "grade": "B"
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "title": "Projects, groups a permissions",
+      "words": 1963,
+      "headings": 22,
+      "sections": 22,
+      "findings": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 6,
+      "score": 7,
+      "grade": "A"
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "title": "Protected branches a environments",
+      "words": 1600,
+      "headings": 22,
+      "sections": 22,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "title": "Runners a executors",
-      "words": 1469,
+      "words": 1774,
       "headings": 24,
       "sections": 24,
-      "findings": 18,
+      "findings": 14,
       "critical": 0,
-      "high": 9,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 84,
-      "grade": "D"
+      "low": 14,
+      "score": 19,
+      "grade": "B"
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "title": "Security scanning",
-      "words": 1373,
+      "words": 1669,
       "headings": 25,
       "sections": 25,
-      "findings": 20,
+      "findings": 16,
       "critical": 0,
-      "high": 9,
+      "high": 0,
       "medium": 0,
-      "low": 11,
-      "score": 90,
-      "grade": "D"
+      "low": 16,
+      "score": 24,
+      "grade": "B"
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "title": "Variables a secrets",
-      "words": 1406,
+      "words": 1864,
       "headings": 24,
       "sections": 24,
-      "findings": 24,
-      "critical": 2,
-      "high": 13,
-      "medium": 0,
-      "low": 9,
-      "score": 139,
-      "grade": "D"
+      "findings": 17,
+      "critical": 0,
+      "high": 4,
+      "medium": 1,
+      "low": 12,
+      "score": 50,
+      "grade": "C"
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
@@ -39124,44 +39124,35 @@
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "1. Dominantný job-output model",
-      "line": 7,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "2. Exact output subject",
-      "line": 27,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "3. Artifact creation and checksum",
-      "line": 54,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 29,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "4. Artifact declaration and transfer",
-      "line": 66,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/artifacts-and-cache.md",
+      "section": "4. Artifact declaration and transfer",
+      "line": 72,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "5. Report artifacts and processing",
-      "line": 92,
+      "line": 100,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39170,7 +39161,7 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "5. Report artifacts and processing",
-      "line": 92,
+      "line": 100,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39179,7 +39170,7 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "6. Artifact access and trust",
-      "line": 108,
+      "line": 116,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39188,7 +39179,7 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "7. Retention and release authority",
-      "line": 114,
+      "line": 122,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39197,7 +39188,7 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "11. needs and artifact lineage",
-      "line": 159,
+      "line": 167,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39206,7 +39197,7 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 174,
+      "line": 182,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39215,7 +39206,7 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 174,
+      "line": 182,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39224,88 +39215,25 @@
     {
       "path": "docs/06-gitlab/artifacts-and-cache.md",
       "section": "14. Troubleshooting flow",
-      "line": 207,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "14. Troubleshooting flow",
-      "line": 207,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Cache as job output",
-      "line": 224,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Generic artifact as processed report proof",
-      "line": 228,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Missing analyzer report equals zero findings",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Release asset linked to expiring job artifact",
-      "line": 236,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/artifacts-and-cache.md",
-      "section": "Broad cache fallback across trust classes",
-      "line": 240,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "1. Dominantný build-to-runtime registry model",
       "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "1. Dominantný build-to-runtime registry model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "2. Exact registry subject",
-      "line": 23,
+      "line": 25,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -39314,7 +39242,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "3. Publication identity",
-      "line": 51,
+      "line": 53,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39323,7 +39251,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "4. Multi-platform build and push",
-      "line": 65,
+      "line": 67,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -39332,7 +39260,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "9. Runtime consumption",
-      "line": 142,
+      "line": 144,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39341,34 +39269,16 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "11. Retention and cleanup",
-      "line": 159,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
+      "line": 161,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Retention and cleanup",
-      "line": 159,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `supported release artifacts;`, `deployed digests;`, `last-known-good recovery subjects;`, `artifacts under incident/legal hold;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Retention and cleanup",
-      "line": 159,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "11. Retention and cleanup",
-      "line": 159,
+      "section": "13. Connected incident GL-PAY-74",
+      "line": 185,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39377,16 +39287,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "13. Connected incident GL-PAY-74",
-      "line": 187,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "13. Connected incident GL-PAY-74",
-      "line": 187,
+      "line": 185,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39395,7 +39296,7 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "15. Troubleshooting flow",
-      "line": 222,
+      "line": 220,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39404,97 +39305,52 @@
     {
       "path": "docs/06-gitlab/container-and-package-registry.md",
       "section": "15. Troubleshooting flow",
-      "line": 222,
+      "line": 220,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "Mutable release tag",
-      "line": 239,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "Successful push as complete publication",
-      "line": 243,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "Rebuild per environment",
-      "line": 247,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "Cleanup by tag only",
-      "line": 251,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/container-and-package-registry.md",
-      "section": "Delete tag as revocation",
-      "line": 255,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "1. Dominantný request-to-runtime model",
       "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "1. Dominantný request-to-runtime model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "2. Exact environment/deployment subject",
-      "line": 23,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 25,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "3. Environment declaration",
-      "line": 53,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/environments-deployments-releases.md",
+      "section": "3. Environment declaration",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "4. Deployment record API",
-      "line": 69,
+      "line": 75,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -39503,7 +39359,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "5. Direct deployment versus GitOps request",
-      "line": 79,
+      "line": 85,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39512,7 +39368,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "5. Direct deployment versus GitOps request",
-      "line": 79,
+      "line": 85,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39521,7 +39377,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "6. Outdated deployment prevention and concurrency",
-      "line": 97,
+      "line": 103,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39530,7 +39386,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "6. Outdated deployment prevention and concurrency",
-      "line": 97,
+      "line": 103,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39539,7 +39395,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "8. Runtime read-back",
-      "line": 115,
+      "line": 121,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -39548,7 +39404,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "9. Review apps",
-      "line": 126,
+      "line": 132,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39557,7 +39413,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 162,
+      "line": 168,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39566,7 +39422,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 162,
+      "line": 168,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39575,7 +39431,7 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "12. Connected incident GL-PAY-74",
-      "line": 162,
+      "line": 168,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -39584,88 +39440,61 @@
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "14. Troubleshooting flow",
-      "line": 198,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 204,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/environments-deployments-releases.md",
       "section": "14. Troubleshooting flow",
-      "line": 198,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Deployment job success equals production success",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "GitLab environment name as exact target identity",
-      "line": 219,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Release linked to expiring artifact",
-      "line": 223,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Environment stopped before cleanup proof",
-      "line": 227,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/environments-deployments-releases.md",
-      "section": "Fixed branch equals fixed production",
-      "line": 231,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 204,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "1. Dominantný source-to-job model",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "1. Dominantný source-to-job model",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "2. Exact pipeline configuration subject",
-      "line": 24,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
+      "section": "2. Exact pipeline configuration subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "3. Includes a immutable dependencies",
-      "line": 54,
+      "line": 58,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -39674,7 +39503,7 @@
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "9. Variables a precedence",
-      "line": 162,
+      "line": 166,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39683,7 +39512,7 @@
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "12. Connected incident GL-PAY-73",
-      "line": 186,
+      "line": 190,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39692,65 +39521,20 @@
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "14. Troubleshooting flow",
-      "line": 219,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 223,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
       "section": "14. Troubleshooting flow",
-      "line": 219,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": ".gitlab-ci.yml diff ako whole graph review",
-      "line": 236,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "Broad final when: always",
-      "line": 240,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "Security job iba podľa narrow changes",
-      "line": 244,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "Mutable include",
-      "line": 248,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-ci-cd-syntax.md",
-      "section": "Latest successful pipeline bez subject checku",
-      "line": 252,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 223,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
@@ -39853,35 +39637,8 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
-      "section": "14. Server-side dry-run pred mutation",
-      "line": 622,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že rollout controller vytvorí ready Pods;`, `že image sa dá pull-núť;`, `že Service selector nájde backendy;`, `že aplikácia načíta správnu konfiguráciu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
-      "section": "14. Server-side dry-run pred mutation",
-      "line": 622,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
-      "section": "14. Server-side dry-run pred mutation",
-      "line": 622,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "15. resource group : serializácia environment mutation",
-      "line": 646,
+      "line": 642,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39890,7 +39647,7 @@
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "16. Rollout status a jeho proof boundary",
-      "line": 656,
+      "line": 652,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39899,7 +39656,7 @@
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "18. Staging a production používajú rovnaký artifact",
-      "line": 716,
+      "line": 712,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39908,7 +39665,7 @@
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "18. Staging a production používajú rovnaký artifact",
-      "line": 716,
+      "line": 712,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39917,7 +39674,7 @@
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "19. Čo uvidíme v merge-request pipeline",
-      "line": 734,
+      "line": 730,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -39926,7 +39683,7 @@
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "21. Worked failure: zelený deployment job, nesprávny runtime image",
-      "line": 762,
+      "line": 758,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39935,7 +39692,7 @@
     {
       "path": "docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md",
       "section": "22. Worked failure: scanner job neexistuje",
-      "line": 778,
+      "line": 774,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40006,35 +39763,8 @@
     },
     {
       "path": "docs/06-gitlab/gitlab-troubleshooting.md",
-      "section": "10. Preserve-first troubleshooting walkthrough",
-      "line": 206,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
-      "section": "10. Preserve-first troubleshooting walkthrough",
-      "line": 206,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ulož project/pipeline/job/deployment IDs a UTC timeline.`, `Over build producer a artifact/image digest, nie tag.`, `Over, ktorý pipeline a job vytvoril deployment record.`, `Read-backni target identity a live runtime digest.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
-      "section": "10. Preserve-first troubleshooting walkthrough",
-      "line": 206,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `SHA`, `ID`, `identity`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/gitlab-troubleshooting.md",
       "section": "Recovery a closure",
-      "line": 232,
+      "line": 229,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40044,24 +39774,33 @@
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "1. Dominantný change-to-merge model",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "2. Exact merge-decision subject",
-      "line": 24,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "2. Exact merge-decision subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "3. Practical MR API read-back",
-      "line": 51,
+      "line": 55,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40070,7 +39809,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "4. Reviewer, approver a Code Owner",
-      "line": 71,
+      "line": 75,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40079,7 +39818,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "4. Reviewer, approver a Code Owner",
-      "line": 71,
+      "line": 75,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40088,7 +39827,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "5. Approval freshness",
-      "line": 77,
+      "line": 81,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40097,7 +39836,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "7. Discussions a review evidence",
-      "line": 96,
+      "line": 100,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40106,7 +39845,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "7. Discussions a review evidence",
-      "line": 96,
+      "line": 100,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40115,7 +39854,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "8. Merge methods",
-      "line": 102,
+      "line": 106,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40124,7 +39863,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "10. Exceptions a emergency merge",
-      "line": 114,
+      "line": 118,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40133,7 +39872,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "11. Connected incident GL-PAY-72",
-      "line": 120,
+      "line": 124,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40142,7 +39881,7 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "11. Connected incident GL-PAY-72",
-      "line": 120,
+      "line": 124,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40151,88 +39890,34 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "section": "13. Troubleshooting flow",
-      "line": 156,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Approval ako permanentný branch property",
-      "line": 173,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Reviewer rovná sa approver",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Branch pipeline ako merge result",
-      "line": 181,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Code Owners file bez enforcement testu",
-      "line": 185,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Emergency direct push bez reconciliation",
-      "line": 189,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
       "section": "2. Exact namespace subject",
       "line": 21,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "4. Effective membership graph",
-      "line": 65,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 63 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "4. Effective membership graph",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct project membership;`, `inherited parent-group membership;`, `project alebo group sharing s inou group;`, `invited external user;`.",
-      "score": 12
+      "section": "2. Exact namespace subject",
+      "line": 21,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
       "section": "5. Built-in a custom roles",
-      "line": 91,
+      "line": 93,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40241,7 +39926,7 @@
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
       "section": "7. Token capability",
-      "line": 125,
+      "line": 127,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40250,7 +39935,7 @@
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
       "section": "9. Access review",
-      "line": 155,
+      "line": 157,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40258,71 +39943,44 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "13. Troubleshooting flow",
-      "line": 210,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Project member list ako celý access inventory",
-      "line": 226,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Broad parent Maintainer pre convenience",
-      "line": 230,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Shared bot user",
-      "line": 234,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Token bez expiry",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
       "section": "Transfer bez before/after authority diffu",
-      "line": 242,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 246,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "2. Exact protection subject",
       "line": 23,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "2. Exact protection subject",
+      "line": 23,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "2. Exact protection subject",
+      "line": 23,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "3. Protected branch semantics",
-      "line": 50,
+      "line": 52,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40331,7 +39989,7 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "4. Protected tags",
-      "line": 66,
+      "line": 68,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40340,7 +39998,7 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "5. Protected environment",
-      "line": 72,
+      "line": 74,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40349,7 +40007,7 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "5. Protected environment",
-      "line": 72,
+      "line": 74,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40358,7 +40016,7 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "5. Protected environment",
-      "line": 72,
+      "line": 74,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40367,7 +40025,7 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "7. Deployment identity",
-      "line": 105,
+      "line": 107,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40376,7 +40034,7 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "11. Connected incident GL-PAY-72",
-      "line": 155,
+      "line": 157,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40385,79 +40043,43 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "section": "13. Troubleshooting flow",
-      "line": 190,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Maintainer push ako no-bypass policy",
-      "line": 207,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Protected tag ako immutable release",
-      "line": 211,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Production kubeconfig v variable",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Environment protection podľa nesprávneho mena",
-      "line": 219,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Review app status stopped ako cleanup proof",
-      "line": 223,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "1. Dominantný job-to-cleanup model",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/runners-and-executors.md",
+      "section": "1. Dominantný job-to-cleanup model",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "2. Exact runner execution subject",
-      "line": 24,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "3. Runner scope a tags",
-      "line": 49,
+      "line": 53,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40466,7 +40088,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "4. Executor comparison",
-      "line": 65,
+      "line": 69,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40475,7 +40097,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "5. Ephemeral versus persistent",
-      "line": 77,
+      "line": 81,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40484,7 +40106,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "8. Resource limits a overload",
-      "line": 120,
+      "line": 124,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40493,7 +40115,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "9. Workload identity",
-      "line": 141,
+      "line": 145,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40502,7 +40124,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "10. Network a metadata boundaries",
-      "line": 151,
+      "line": 155,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40511,7 +40133,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "11. Cache, artifacts a helper images",
-      "line": 157,
+      "line": 161,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40520,7 +40142,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "13. Connected incident GL-PAY-73",
-      "line": 175,
+      "line": 179,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40529,7 +40151,7 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "13. Connected incident GL-PAY-73",
-      "line": 175,
+      "line": 179,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40538,88 +40160,61 @@
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "15. Troubleshooting flow",
-      "line": 209,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "15. Troubleshooting flow",
-      "line": 209,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Container executor equals secure isolation",
-      "line": 226,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Protected runner equals trusted code",
-      "line": 230,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
       "section": "Shared shell runner",
-      "line": 234,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Static cloud credentials on runner",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/runners-and-executors.md",
-      "section": "Job success equals cleanup success",
-      "line": 242,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 240,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "1. Dominantný attack-surface-to-runtime model",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "1. Dominantný attack-surface-to-runtime model",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "2. Exact scan subject",
-      "line": 24,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "2. Exact scan subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "4. Analyzer and report generation",
-      "line": 82,
+      "line": 86,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40628,7 +40223,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "8. Secret detection and revocation",
-      "line": 124,
+      "line": 128,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40637,7 +40232,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "9. IaC and configuration scanning",
-      "line": 140,
+      "line": 144,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40646,7 +40241,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "9. IaC and configuration scanning",
-      "line": 140,
+      "line": 144,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40655,7 +40250,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "10. DAST and API coverage",
-      "line": 146,
+      "line": 150,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40664,7 +40259,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "10. DAST and API coverage",
-      "line": 146,
+      "line": 150,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40673,7 +40268,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "11. Vulnerability decision",
-      "line": 152,
+      "line": 156,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40682,7 +40277,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "12. Merge and deployment policies",
-      "line": 158,
+      "line": 162,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40691,7 +40286,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "14. Connected incident GL-PAY-74",
-      "line": 180,
+      "line": 184,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40700,7 +40295,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "14. Connected incident GL-PAY-74",
-      "line": 180,
+      "line": 184,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40709,7 +40304,7 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "14. Connected incident GL-PAY-74",
-      "line": 180,
+      "line": 184,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40718,106 +40313,25 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "16. Troubleshooting flow",
-      "line": 214,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "16. Troubleshooting flow",
-      "line": 214,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Successful analyzer job equals valid evidence",
-      "line": 231,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "No report equals no findings",
-      "line": 235,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Source scan equals artifact scan",
-      "line": 239,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Secret removed from Git equals revoked",
-      "line": 243,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Fixed main equals fixed production",
-      "line": 247,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 218,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "1. Dominantný value-to-capability model",
       "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "1. Dominantný value-to-capability model",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "2. Exact variable/secret subject",
-      "line": 23,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "3. Variable sources a precedence",
-      "line": 50,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "3. Variable sources a precedence",
-      "line": 50,
+      "line": 25,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40826,7 +40340,25 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "3. Variable sources a precedence",
-      "line": 50,
+      "line": 54,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "3. Variable sources a precedence",
+      "line": 54,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "3. Variable sources a precedence",
+      "line": 54,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40835,7 +40367,7 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "4. Masked, hidden a protected",
-      "line": 64,
+      "line": 68,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40844,7 +40376,7 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "6. ID tokens a workload federation",
-      "line": 80,
+      "line": 84,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40853,7 +40385,7 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "6. ID tokens a workload federation",
-      "line": 80,
+      "line": 84,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40862,7 +40394,7 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "9. User-controlled variables",
-      "line": 120,
+      "line": 124,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40871,52 +40403,43 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "10. Secret exposure paths",
-      "line": 133,
+      "line": 137,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 57 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "10. Secret exposure paths",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "10. Secret exposure paths",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command echo and debug tracing;`, `process arguments and /proc ;`, `files/workspace/cache/artifacts;`, `Docker build args/layers/history;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "10. Secret exposure paths",
-      "line": 133,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "10. Secret exposure paths",
-      "line": 133,
+      "line": 137,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "10. Secret exposure paths",
+      "line": 137,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/variables-and-secrets.md",
+      "section": "10. Secret exposure paths",
+      "line": 137,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
+      "score": 4
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "12. Revocation after exposure",
-      "line": 165,
+      "line": 169,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40925,7 +40448,7 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "13. Connected incident GL-PAY-73",
-      "line": 182,
+      "line": 186,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40934,7 +40457,7 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "15. Troubleshooting flow",
-      "line": 219,
+      "line": 223,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40943,55 +40466,10 @@
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
       "section": "15. Troubleshooting flow",
-      "line": 219,
+      "line": 223,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Masked equals secure",
-      "line": 236,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Static production secret in group variable",
-      "line": 240,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "ID token equals least privilege",
-      "line": 244,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Rotation only in GitLab UI",
-      "line": 248,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/variables-and-secrets.md",
-      "section": "Secret in cache/artifact for job transfer",
-      "line": 252,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {

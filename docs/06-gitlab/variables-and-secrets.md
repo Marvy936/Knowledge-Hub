@@ -6,6 +6,8 @@ Secret nie je iba string uložený v GitLab. Je to capability k external systemu
 
 ## 1. Dominantný value-to-capability model
 
+Model sleduje value od autoritatívneho source-u po capability, ktorú job alebo application reálne použije. GitLab variable record, resolved job value, file/process exposure, external session a loaded consumer generation sú odlišné states s vlastným ownerom a revocation mechanizmom. Bez tohto rozlíšenia sa „rotácia“ môže skončiť iba zmenou jedného UI field-u.
+
 ```text
 configuration alebo capability intent
 → exact variable/secret subject and authority
@@ -21,6 +23,8 @@ configuration alebo capability intent
 Configured variable, resolved job value, loaded application value a external target credential sú rozdielne states.
 
 ## 2. Exact variable/secret subject
+
+Exact subject musí pomenovať purpose, authoritative provider, GitLab distribution reference, generation, consumers a target credential. Samotný key name je mutable a môže byť shadowovaný v inom scope. YAML nižšie umožní korelovať resolved job metadata s provider auditom a consumer-loaded state-om bez vypísania secret value.
 
 ```yaml
 secretSubject:
@@ -132,19 +136,19 @@ Validation preukazuje allowlisted string in one job. Nepreukazuje that downstrea
 
 ## 10. Secret exposure paths
 
-Secrets môžu uniknúť cez:
+Secret exposure path je každé miesto, kde sa capability presunie mimo pôvodný provider alebo bounded process. Každý path má inú retention a observation boundary:
 
-- command echo and debug tracing;
-- process arguments and `/proc`;
-- files/workspace/cache/artifacts;
-- Docker build args/layers/history;
-- environment dumps and crash reports;
-- child processes and service containers;
-- network exfiltration;
-- transformed values not masked;
-- generated manifests or Terraform plans.
+- **Command echo a debug tracing** môžu zapísať raw alebo expanded value do durable job logu. Masking závisí od podporovaného formátu a nemusí zachytiť transformáciu.
+- **Process arguments a `/proc`** sprístupňujú hodnotu iným procesom alebo host administratorovi počas execution window-u. Preferované sú file descriptor, stdin alebo provider-native helper s krátkou lifetime.
+- **Files, workspace, cache a artifacts** vytvárajú kópie s vlastným access a retention lifecycle-om. Cleanup jobu nemusí odstrániť distributed cache alebo už uploadnutý artifact.
+- **Docker build args, layers a image history** môžu secret zabudovať do immutable image graphu. Build secret mount musí byť non-persistent a výsledný image sa kontroluje na leaked material.
+- **Environment dumps a crash reports** zbierajú široký process context a môžu opustiť GitLab cez observability alebo support systémy. Redaction sa vykonáva pred export boundary.
+- **Child processes a service containers** dedia environment, files alebo network capability a môžu prežiť hlavný script. Process tree a runtime teardown sú preto súčasťou acceptance.
+- **Network exfiltration** nepotrebuje log ani file; untrusted tool môže secret okamžite odoslať. High-value job používa restricted egress a pinned tooling.
+- **Transformed values** ako base64, URL encoding alebo rozdelené substringy nemusia byť masked. Masking je accidental-disclosure control, nie data-loss prevention.
+- **Generated manifests, Terraform plans a diagnostic bundles** môžu vložiť resolved secret do ďalšieho artifactu s dlhšou retention. Každý generator potrebuje explicitný sensitive-data contract.
 
-Jobs handling high-value secret use restricted egress, ephemeral runtime and no untrusted source-controlled tools.
+Jobs handling high-value capability používajú trusted reviewed code, ephemeral runtime, bounded egress a short-lived credential. Acceptance zahŕňa aj search v artifacts/cache/logoch a target-side revocation, nie iba absenciu plain textu v jednom job logu.
 
 ## 11. Rotation and loaded state
 
@@ -235,23 +239,23 @@ Competing hypotheses include variable shadowing, environment-scope mismatch, pro
 
 ### Masked equals secure
 
-Redaction is not isolation, least privilege or revocation.
+Masking je best-effort redaction pre podporované log patterns. Neizoluje process, neobmedzuje egress, neskracuje lifetime a po úniku nič nerevokuje. Bezpečný verdict stojí na trusted job boundary, least privilege, short lifetime a target-side audit/revocation.
 
 ### Static production secret in group variable
 
-Broad descendant scope and long lifetime increase blast radius.
+Group variable môže byť distribuovaná do veľkého descendant graphu a prežiť zmenu vlastníctva projektu. Long-lived production value tak získava broad blast radius a nejasný consumer inventory. Preferovaná je external authority a job-time federation viazaná na exact project, ref a environment.
 
 ### ID token equals least privilege
 
-External trust policy may issue broad capability.
+ID token je podpísané tvrdenie o job context-e, nie samotný least-privilege verdict. External trust policy môže akceptovať príliš broad issuer, audience alebo namespace claims a vydať silnú session. Acceptance preto číta resulting principal a testuje forbidden project/ref/environment combination.
 
 ### Rotation only in GitLab UI
 
-Target credential and loaded consumers may stay old.
+Zmena GitLab variable reference nemusí zmeniť target credential, existujúce sessions ani value načítanú v dlhodobom procese. Rotation lifecycle pokračuje provider revokáciou, redeploy/reloadom consumerov a old-credential forbidden testom. Až druhá operácia s novou generation uzatvára transition.
 
 ### Secret in cache/artifact for job transfer
 
-Creates durable uncontrolled copies.
+Cache a artifact vytvárajú durable, downloadovateľnú kópiu mimo secret managera. Ich access, retention a mirror lifecycle sa líšia od credential TTL a cleanup jobu. Medzi jobs sa prenáša iba non-secret reference alebo sa credential znovu získa cez short-lived identity.
 
 ## 17. Kontrolné otázky
 

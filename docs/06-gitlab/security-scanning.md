@@ -6,6 +6,8 @@ GitLab security scanning je evidence a risk-decision systém. Scanner sám o seb
 
 ## 1. Dominantný attack-surface-to-runtime model
 
+Security verdict vzniká až po spojení coverage a subject identity. Najprv sa z attack surface-u odvodí, ktoré analyzers a layers sú povinné; potom sa overí execution, report processing, risk decision a napokon nasadenie fixed artifactu alebo revokácia credentialu. Diagram preto oddeľuje „scanner bežal“ od „affected runtime je napravený“.
+
 ```text
 attack surface and change-risk model
 → exact source/artifact/configuration/deployed subjects
@@ -22,6 +24,8 @@ attack surface and change-risk model
 Different scanners answer different questions. SAST does not scan container packages, dependency scan does not prove runtime reachability, secret detection does not revoke leaked key and DAST does not cover every authenticated workflow.
 
 ## 2. Exact scan subject
+
+Scan subject musí uviesť, či evidence patrí source candidate-u, build artifactu, configuration generation alebo deployed runtime-u. Tieto subjects sa môžu líšiť aj v jednej pipeline a jeden čistý layer nepreukazuje ostatné. YAML nižšie spája expected analyzers, artifact/platform digests a deployed targets s policy generation.
 
 ```yaml
 scanSubject:
@@ -213,6 +217,8 @@ attack surface and expected analyzers are explicit
 
 ## 16. Troubleshooting flow
 
+Pri chýbajúcom alebo podozrivo čistom security verdicte sa najprv porovná expected a actual analyzer inventory. Potom sa pre každý analyzer sleduje execution, report schema/upload/ingestion a exact scanned subject; až následne sa hodnotí finding decision a deployment closure. Tento postup odlíši zero findings od zero evidence.
+
 ```text
 expected analyzer inventory
 → job/rules/runner execution
@@ -230,23 +236,23 @@ Competing hypotheses include job absent, tool failure, invalid report, unsupport
 
 ### Successful analyzer job equals valid evidence
 
-Report may be missing/invalid/unprocessed.
+Analyzer process môže skončiť nula, hoci report nevznikol, je prázdny, schema-invalidný alebo ho GitLab nespracoval. Job status je iba execution verdict. Evidence gate kontroluje expected report, producer/scanner generation, schema, subject a ingestion status.
 
 ### No report equals no findings
 
-It is incomplete coverage.
+Absencia reportu neobsahuje žiadne bezpečnostné tvrdenie. Job mohol byť omitted rules, zlyhať pred artifact uploadom alebo scanovať unsupported target. Verdict je `INCOMPLETE`, kým expected inventory nemá validný report alebo explicitne schválený non-applicable dôvod.
 
 ### Source scan equals artifact scan
 
-Build can add packages/generated content.
+Build môže pridať OS packages, generated code, vendored binaries alebo configuration, ktoré source analyzer nevidí. Artifact scan musí používať exact immutable digest a pri multi-platform image pokryť každý supported manifest. Lineage potom spája source a artifact evidence bez ich zámeny.
 
 ### Secret removed from Git equals revoked
 
-Target credential and copies remain.
+Odstránenie secretu z current Git tree nezneplatní provider key, sessions ani kópie v history, artifacts, cache a logs. Najprv sa revokuje target capability, potom sa rotujú consumers a vykoná old-key forbidden test. History cleanup rieši distribúciu kópie, nie revocation.
 
 ### Fixed main equals fixed production
 
-Runtime may still use vulnerable digest.
+Default branch môže obsahovať opravu, zatiaľ čo production stále beží na starom digest-e alebo config generation. Remediation potrebuje fixed immutable artifact, deployment/controller convergence, runtime read-back a odstránenie vulnerable cohortu. Dashboard source status bez tejto korelácie je false closure.
 
 ## 18. Kontrolné otázky
 
