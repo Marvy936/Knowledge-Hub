@@ -3,7 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SECTION_DIR = ROOT / "docs" / "07-infrastructure-as-code-and-configuration-management"
 
 TERRAFORM_REPLACE = '''def replace_section(name: str, heading: str, body: str) -> None:
     text = read(name)
@@ -60,41 +59,6 @@ def run_script(
     exec(code, namespace)
 
 
-def write_compact_findings() -> None:
-    audit = (ROOT / "DOCUMENTATION-AUDIT.md").read_text(encoding="utf-8")
-    prefix = "### `docs/07-infrastructure-as-code-and-configuration-management/"
-    sections: list[str] = []
-    current: list[str] = []
-    collecting = False
-
-    for line in audit.splitlines():
-        if line.startswith(prefix):
-            if current:
-                sections.append("\n".join(current).rstrip())
-            current = [line]
-            collecting = True
-            continue
-        if collecting and line.startswith("### `"):
-            sections.append("\n".join(current).rstrip())
-            current = []
-            collecting = False
-        if collecting:
-            current.append(line)
-
-    if current:
-        sections.append("\n".join(current).rstrip())
-
-    output = (
-        "# Temporary Section 07 critical/high findings\n\n"
-        "> Generated from DOCUMENTATION-AUDIT.md for closeout; remove before final PR.\n\n"
-        + "\n\n".join(sections)
-        + "\n"
-    )
-    (SECTION_DIR / "SECTION-07-FINDINGS-TEMP.md").write_text(
-        output, encoding="utf-8", newline="\n"
-    )
-
-
 # Both authored passes are executed with additive-only section semantics.
 run_script(
     ROOT / "scripts" / "section_07_terraform_depth.py",
@@ -119,6 +83,5 @@ run_script(
         ),
     },
 )
-write_compact_findings()
 
 print("Combined additive-only Section 07 explanation-depth pass applied.")
