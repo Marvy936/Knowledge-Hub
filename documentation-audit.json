@@ -675,30 +675,30 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "title": "Network troubleshooting",
-      "words": 2555,
-      "headings": 16,
-      "sections": 16,
-      "findings": 19,
+      "words": 2736,
+      "headings": 22,
+      "sections": 22,
+      "findings": 16,
       "critical": 0,
-      "high": 2,
-      "medium": 1,
+      "high": 0,
+      "medium": 0,
       "low": 16,
-      "score": 39,
-      "grade": "C"
+      "score": 21,
+      "grade": "B"
     },
     {
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
       "title": "Praktický sieťový projekt od namespace po HTTPS request",
-      "words": 2965,
-      "headings": 13,
-      "sections": 13,
-      "findings": 7,
+      "words": 3162,
+      "headings": 19,
+      "sections": 19,
+      "findings": 6,
       "critical": 0,
-      "high": 2,
+      "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 20,
-      "grade": "B"
+      "low": 6,
+      "score": 7,
+      "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
@@ -21691,26 +21691,17 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "14. Verification po oprave",
-      "line": 305,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
+      "section": "Proxy, backend a client correlation",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "14. Verification po oprave",
-      "line": 305,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "14. Verification po oprave",
-      "line": 305,
+      "section": "Second operation a recovery generation",
+      "line": 329,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -21718,26 +21709,8 @@
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "14. Verification po oprave",
-      "line": 305,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "14. Verification po oprave",
-      "line": 305,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GET`, `POST`, `ID`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Zhrnutie",
-      "line": 339,
+      "line": 356,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -21783,15 +21756,6 @@
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
       "section": "13. Cleanup a acceptance",
       "line": 776,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 56 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
-      "section": "13. Cleanup a acceptance",
-      "line": 776,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -21799,12 +21763,12 @@
     },
     {
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
-      "section": "13. Cleanup a acceptance",
-      "line": 776,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VIP`, `DNAT`, `TLS`, `POST`, `HTTP`, `PID`, `identity`",
-      "score": 7
+      "section": "Recovery a second run",
+      "line": 802,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",

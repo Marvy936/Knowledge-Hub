@@ -781,16 +781,33 @@ Po skončení:
 sudo ./cleanup.sh
 ```
 
-Acceptance labu zahŕňa viac než zelený `verify.sh`:
+Acceptance labu zahŕňa viac než zelený `verify.sh`. Virtual IP address (VIP) je klientom používaná service destination `203.0.113.40`. Destination Network Address Translation (DNAT) túto destination preloží na interný TLS listener `10.50.0.10:443`. TLS je samostatný cryptographic channel a Process ID (PID) je iba lokálny identifikátor bežiaceho procesu; ani jedno z toho samo osebe nepreukazuje HTTP business outcome.
 
-- **Source a resolved state:** DNS odpoveď pochádza z `net-dns`, route smeruje VIP cez `10.24.8.1` a neighbor mapping patrí edge namespace-u. Každý read-back sa vykonáva v rovnakom namespace ako klient.
-- **Dataplane transition:** capture a nftables trace ukážu DNAT z `203.0.113.40:443` na `10.50.0.10:443`. Firewall povoľuje client-to-proxy path, ale nový forbidden test potvrdí, že client nemôže volať `10.60.1.21:8080` priamo.
-- **TLS a application outcome:** certifikát platí pre `api.atlas.test`; business POST vráti `orderId`, request hash a backend identity. Dve operácie prejdú cez oba healthy backends bez tvrdenia, že jeden HTTP status sám dokazuje celý pool.
-- **Failure discrimination:** broken `app2` sa koreluje s `503` pri stále zelenom health endpoint-e. Nesprávne firewall rule má po DNAT nulový match a trace ukáže skutočnú translated identity.
-- **Recovery a second run:** oba recovery skripty spustia celý `verify.sh`. Po recovery sa verification vykoná ešte raz bez opätovného setup-u; tým sa testuje ďalšia operácia nad existujúcim state-om a odhalí jednorazový alebo stale-connection úspech.
-- **Cleanup closure:** po `cleanup.sh` read-back nepotvrdí žiadny vlastnený namespace, bridge, PID ani resolver file. Až táto absencia uzatvára lab lifecycle.
+### Source a resolved state
 
-Lab nepreukazuje production capacity, HA, DNSSEC, internet routing, certificate revocation ani distribuovanú idempotency. Jeho účelom je urobiť jednotlivé network identities a observation points viditeľné na jednom hoste a nacvičiť positive, forbidden, failure, recovery a second-operation paths.
+DNS odpoveď musí pochádzať z namespace-u `net-dns`, route musí smerovať VIP cez gateway `10.24.8.1` a neighbor mapping musí patriť edge namespace-u. Každý read-back sa vykonáva v rovnakom network namespace ako klient, pretože hostový route alebo resolver state môže byť pravdivý pre inú sieťovú realitu. Úspešný DNS lookup sa nepovažuje za dôkaz routingu ani listenera.
+
+### Dataplane transition a forbidden path
+
+Packet capture a nftables trace musia ukázať DNAT z verejného VIP `203.0.113.40:443` na interný listener `10.50.0.10:443`. Firewall povoľuje client-to-proxy path, ale explicitný forbidden test potvrdí, že klient nemôže volať backend `10.60.1.21:8080` priamo. Očakávaný non-zero exit status tohto testu je úspechom negative pathu; všeobecný timeout bez potvrdeného forward-policy verdictu by bol nejednoznačný.
+
+### TLS a business outcome
+
+Client musí overiť certifikát pre hostname `api.atlas.test` a následný HTTP `POST /v1/orders` musí vrátiť `orderId`, request hash a backend identity. TLS success dokazuje peer identity a chránený channel, nie vytvorenie objednávky. Dve nezávislé operácie prejdú cez oba healthy backendy, pričom sa nepredpokladá, že jediný HTTP status alebo jedna warmed connection dokazujú celý pool.
+
+### Failure discrimination
+
+Po aktivovaní chyby na `app2` zostane health endpoint zelený, ale business request priradený tomuto backendu vráti HTTP `503`. HAProxy log spojí failure s konkrétnym backend assignmentom. Pri firewall failure má pravidlo napísané pre pôvodnú pre-DNAT destination nulový counter a nftables trace ukáže translated identity, nad ktorou filter v skutočnosti rozhoduje.
+
+### Recovery a second run
+
+Oba recovery skripty spustia celý `verify.sh`, čím sa overí pôvodný positive path aj forbidden direct-backend path. Po recovery sa verification vykoná ešte raz bez nového setup-u a s novými operation keys. Druhý run odhalí jednorazový úspech spôsobený stale connection, predchádzajúcim load-balancer assignmentom alebo process-local deduplication state-om.
+
+### Cleanup closure
+
+Po `cleanup.sh` sa samostatne overí neprítomnosť všetkých vlastnených namespaces, bridges, PID files, procesov a resolver configuration. Textový výstup `Lab removed` iba oznamuje, že cleanup kroky dobehli; až negatívny read-back uzatvára lifecycle. Ak niektorý resource zostal, ďalší setup sa nesmie považovať za čistú novú generation.
+
+Lab nepreukazuje production capacity, high availability, DNSSEC, internet routing, certificate revocation ani distribuovanú idempotency. Jeho účelom je urobiť jednotlivé network identities a observation points viditeľné na jednom hoste a nacvičiť positive, forbidden, failure, recovery a second-operation paths.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

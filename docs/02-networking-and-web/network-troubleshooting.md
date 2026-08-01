@@ -304,14 +304,31 @@ Trvalá oprava preto zladí viac states, nie iba jeden command:
 
 ## 14. Verification po oprave
 
-Overenie sa viaže na pôvodný symptom a používa viac nezávislých acceptance paths:
+Overenie sa viaže na pôvodný symptóm a používa viac nezávislých acceptance paths. Positive path je povolená používateľská operácia, ktorú mala oprava obnoviť. Negative path je flow, ktorý musí zostať zakázaný. Adjacent cohort je susedná skupina hostov, address family alebo tunnel generation, ktorá nebola pôvodne chybná, ale mohla byť opravou nechtiac ovplyvnená.
 
-- **Positive application path:** malý `GET` aj veľký `POST` prejdú z pôvodne chybnej pobočky. POST používa novú operation identity a backend store potvrdí jeden durable outcome; client response a backend commit sa overujú oddelene.
-- **Transport recovery:** capture už neukazuje opakované retransmissions rovnakého sequence range-u a latency/throughput zostávajú v definovanom limite. ICMP/ICMPv6 feedback sa pri controlled oversized probe objaví na očakávaných observation points alebo counters.
-- **Proxy a backend correlation:** rovnaký request ID sa nájde na edge aj backend-e a response sa vráti pôvodnému clientovi. Samotný backend log bez client completion nie je postačujúci.
-- **Negative security path:** zakázaný inbound flow a priame obídenie proxy zostávajú blocked. Oprava MTU alebo ICMP policy nesmie rozšíriť všeobecnú reachability.
-- **Adjacent cohorts:** zdravé pobočky, IPv4/IPv6 family a reprezentatívne tunnel generations nemajú regresiu. Tým sa odhalí oprava viazaná iba na jeden host alebo jednu cache.
-- **Second-operation a recovery path:** po skončení prvého requestu sa vykoná ďalší veľký POST s novým keyom, potom controlled failover alebo replacement edge-u. Obe operácie musia prejsť bez ručného runtime patchu; tým sa dokazuje, že oprava prežila nový state generation.
+### Positive application path
+
+Z pôvodne chybnej pobočky musí prejsť malý `GET`, teda read-only HTTP request, aj veľký `POST`, teda mutating request s request body. POST používa novú operation identity a idempotency key. Backend store potvrdí presne jeden durable outcome, zatiaľ čo client response sa overí samostatne; tým sa nezamieňa úspešný commit za úspešné doručenie odpovede.
+
+### Transport recovery
+
+Packet capture už nesmie ukazovať opakované retransmissions rovnakého TCP sequence range-u a latency aj throughput musia zostať v definovanom limite. Controlled oversized probe zároveň vyvolá očakávaný ICMP alebo ICMPv6 PMTU feedback na správnych observation points, prípadne zvýši presne určené counters. Samotná absencia timeoutu bez tohto transportného read-backu by nevysvetlila, prečo oprava funguje.
+
+### Proxy, backend a client correlation
+
+Rovnaký request ID sa musí objaviť na edge proxy aj na backend-e a odpoveď sa musí vrátiť pôvodnému clientovi. Request ID je korelačná identita konkrétneho pokusu, nie automaticky durable business operation. Samotný backend log preto nie je postačujúci: môže dokazovať prijatie alebo spracovanie requestu, ale nie client completion.
+
+### Negative security path
+
+Zakázaný inbound flow a priame obídenie reverse proxy zostávajú blocked. Firewall policy po zmene povoľuje iba PMTU feedback a presne definovaný service path; nesmie vytvoriť všeobecnú ICMP alebo application reachability. Negative test sa vykoná z reprezentatívneho nedôveryhodného source-u a jeho očakávané odmietnutie sa odlíši od náhodného timeoutu.
+
+### Adjacent cohorts
+
+Zdravé pobočky, obe používané address families a reprezentatívne tunnel generations nesmú mať regresiu. Tento test odhalí opravu viazanú iba na jeden host, jednu cache alebo active edge. Porovnáva sa rovnaký operation contract a rovnaké observation boundaries, nie iba všeobecný ping.
+
+### Second operation a recovery generation
+
+Po skončení prvého requestu sa vykoná druhý veľký POST s novým idempotency keyom, aby sa preukázalo, že systém nefungoval iba vďaka stale connection alebo jednorazovému cache state-u. Následne sa vykoná controlled failover alebo replacement edge-u a rovnaký positive aj negative contract sa zopakuje bez ručného runtime patchu. Tým sa dokazuje, že oprava prežila novú configuration a process generation.
 
 Large-payload synthetic sa pridá do branch capability canary. Monitoring sleduje PMTU-related drops, retransmissions, ICMP feedback a tunnel generation coverage, aby sa rovnaká odchýlka zistila skôr než používateľským timeoutom.
 
