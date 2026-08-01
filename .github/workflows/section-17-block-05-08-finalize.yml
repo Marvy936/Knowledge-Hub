@@ -1,0 +1,70 @@
+name: Keycloak block 05-08 finalization
+
+on:
+  push:
+    branches:
+      - agent/section-17-keycloak-continuation
+    paths:
+      - scripts/section_17_block_05_08_finalize.py
+      - .github/workflows/section-17-block-05-08-finalize.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/section_17_block_05_08_finalize.py
+      - .github/workflows/section-17-block-05-08-finalize.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: section-17-block-05-08-finalization
+  cancel-in-progress: true
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-17-keycloak-continuation
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Evaluate finalization gate
+        run: python scripts/section_17_block_05_08_finalize.py
+      - name: Commit result or cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          REPORT='docs/17-keycloak-and-identity-platform/SECTION-17-BLOCK-05-08-FINALIZATION.md'
+          if grep -qx 'PASS' "$REPORT"; then
+            rm -f \
+              .github/workflows/section-17-block-05-08.yml \
+              .github/workflows/section-17-block-05-08-diagnostic.yml \
+              .github/workflows/section-17-block-05-08-activation.yml \
+              .github/workflows/section-17-block-05-08-finalize.yml \
+              scripts/section_17_block_05_08.py \
+              scripts/section_17_block_05_08_diagnostic.py \
+              scripts/section_17_block_05_08_activate.py \
+              scripts/section_17_block_05_08_finalize.py \
+              docs/17-keycloak-and-identity-platform/SECTION-17-BLOCK-05-08-GATE.md \
+              "$REPORT"
+            MESSAGE='chore: clean Keycloak block 05-08 tooling'
+          else
+            MESSAGE='chore: record Keycloak block 05-08 finalization failures'
+          fi
+
+          git add -A
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'No finalization changes to commit.'
+            exit 0
+          fi
+          git commit -m "$MESSAGE"
+          git pull --rebase origin agent/section-17-keycloak-continuation
+          git push origin HEAD:agent/section-17-keycloak-continuation
