@@ -4577,20 +4577,6 @@
       "low": 10,
       "score": 10,
       "grade": "A"
-    },
-    {
-      "path": "docs/SECTION-10-CLOSEOUT-TRIGGER.md",
-      "title": "Temporary Section 10 closeout trigger",
-      "words": 41,
-      "headings": 0,
-      "sections": 0,
-      "findings": 0,
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "low": 0,
-      "score": 0,
-      "grade": "A"
     }
   ],
   "findings": [
