@@ -5,8 +5,8 @@
 ## Summary
 
 - Audited authoritative articles: **319**
-- Audited conceptual sections: **6587**
-- Total words: **575,740**
+- Audited conceptual sections: **6588**
+- Total words: **576,322**
 - Findings: **6959** (critical 938, high 1495, medium 575, low 3951)
 - File grades: A 110, B 91, C 24, D 94
 
@@ -138,7 +138,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
 | C | 42 | 1 | 0 | 1 | 19 | 3182 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
-| C | 39 | 0 | 3 | 0 | 10 | 1829 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
+| C | 39 | 0 | 3 | 0 | 10 | 2411 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | C | 36 | 0 | 4 | 0 | 3 | 1133 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
@@ -3126,9 +3126,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/08-container-fundamentals-and-docker/dockerfile.md`
 
-- **HIGH** line 309, `list-first-introduction` — **15. STOPSIGNAL**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 327, `list-first-introduction` — **16. Kompletný multi-stage Dockerfile**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 327, `single-sentence-concept` — **16. Kompletný multi-stage Dockerfile**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 337, `list-first-introduction` — **15. STOPSIGNAL**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 355, `list-first-introduction` — **16. Kompletný multi-stage Dockerfile**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 355, `single-sentence-concept` — **16. Kompletný multi-stage Dockerfile**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/08-container-fundamentals-and-docker/multi-stage-builds.md`
 

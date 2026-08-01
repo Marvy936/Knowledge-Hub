@@ -2131,9 +2131,9 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "title": "Dockerfile",
-      "words": 1829,
-      "headings": 21,
-      "sections": 21,
+      "words": 2411,
+      "headings": 22,
+      "sections": 22,
       "findings": 13,
       "critical": 0,
       "high": 3,
@@ -50704,7 +50704,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "2. ARG pred FROM a base image",
-      "line": 21,
+      "line": 49,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50713,7 +50713,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "3. FROM vytvára stage graph",
-      "line": 44,
+      "line": 72,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50722,7 +50722,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "3. FROM vytvára stage graph",
-      "line": 44,
+      "line": 72,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50731,7 +50731,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "5. COPY a build context",
-      "line": 87,
+      "line": 115,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50740,7 +50740,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "8. BuildKit mounts",
-      "line": 163,
+      "line": 191,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50749,7 +50749,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "13. HEALTHCHECK",
-      "line": 259,
+      "line": 287,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50758,7 +50758,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "13. HEALTHCHECK",
-      "line": 259,
+      "line": 287,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50767,7 +50767,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "15. STOPSIGNAL",
-      "line": 309,
+      "line": 337,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -50776,7 +50776,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "16. Kompletný multi-stage Dockerfile",
-      "line": 327,
+      "line": 355,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -50785,7 +50785,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "16. Kompletný multi-stage Dockerfile",
-      "line": 327,
+      "line": 355,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -50794,7 +50794,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "18. Incident: test stage existoval, ale nikdy nebežal",
-      "line": 438,
+      "line": 466,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50803,7 +50803,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 462,
+      "line": 490,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50812,7 +50812,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 462,
+      "line": 490,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
