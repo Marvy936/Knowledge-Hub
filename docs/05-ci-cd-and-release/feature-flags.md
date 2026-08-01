@@ -217,6 +217,34 @@ choose permanent variant
 
 Zmazanie flagu pred code cleanup môže poslať application na default, ktorý nemusí byť chosen variant. Cleanup ordering je súčasť lifecycle-u.
 
+## Doplnenie výkladu: flag evaluation je samostatný runtime control plane
+
+Feature flag oddeľuje deployment bytes od behavior exposure. Aplikácia pri rozhodovacom bode vyhodnotí key, targeting context a flag generation.
+
+```text
+source default
++ remote flag state
++ targeting rules
++ SDK cache
++ user/tenant attributes
+→ effective variant
+```
+
+Configured value v dashboarde nemusí byť loaded value v process-e. SDK polling, streaming outage alebo cache TTL môže udržať starú generation. Runtime telemetry má publikovať flag key/variant/generation bez citlivých attributes.
+
+Typy flags:
+
+- release flag dočasne skrýva novú funkcionalitu;
+- experiment flag prideľuje variants;
+- operational kill switch vypína rizikový path;
+- permission/entitlement flag riadi produktový access, no nemá nahrádzať security authorization.
+
+Fail-open alebo fail-closed behavior pri nedostupnom flag service je business a safety rozhodnutie. Kill switch pre nebezpečný write path môže failnúť closed; read-only cosmetic feature možno defaultovať inak.
+
+Flags vytvárajú kombinatorický stav. Testovať všetky combinations nie je možné, preto sa obmedzuje počet súčasných flags a definujú forbidden combinations.
+
+Flag má ownera a retirement date. Po plnom rolloute sa stará branch a config odstránia. Long-lived stale flags komplikujú reasoning a môžu náhodne znovu aktivovať nepodporovaný code path.
+
 ## 13. Connected incident `REL-PAY-70`
 
 Atlas nasadil new settlement path dark. Flag authority mala generation 882 s 2 % ring1 targetingom. Polovica Pods však stratila streaming connection a používala cached generation 879, kde emergency override povoľoval feature všetkým enterprise accounts. SDK failure mode bol last-known-good a healthcheck sledoval iba provider connection, nie loaded generation.

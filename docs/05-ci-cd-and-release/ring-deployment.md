@@ -149,6 +149,28 @@ Recovery môže vrátiť iba affected ring, zatiaľ čo previous ring zostane na
 
 Membership rollback nesmie presunúť in-flight operations medzi releases bez reconciliation. Account-level release pinning môže byť potrebné do ukončenia workflowu.
 
+## Doplnenie výkladu: ring ako stabilná risk cohorta
+
+Ring deployment rozdeľuje populáciu do postupných cohort podľa rizika a reprezentatívnosti. Ring 0 môže byť interný tím, ďalší vybraní tenants a posledný všeobecná populácia.
+
+Membership musí byť stabilné a auditovateľné. Ak sa users medzi rings presúvajú počas observation window, evidence sa mieša. Assignment môže používať tenant ID, account allowlist alebo region.
+
+Rings nie sú iba percentá. Každý ring môže mať iný risk profil, support readiness a rollback capability. Interní users nemusia reprezentovať high-volume alebo regulated tenants, preto postupnosť zahŕňa rozmanité cohorts.
+
+Promotion contract:
+
+```text
+ring subject a size
+→ minimum observation/sample
+→ technical a business criteria
+→ explicit promotion
+→ next ring
+```
+
+Failure v jednom ring-u zastaví ďalšie exposure. Recovery musí znížiť membership alebo disable behavior pre exact cohort a overiť, že membership cache sa aktualizovala.
+
+Ring deployment sa môže kombinovať s canary, ale pojmy sa neprekrývajú úplne. Canary často hodnotí novú generation na malej traffic vzorke; rings sú dlhodobejšie named cohorts s ownershipom a support modelom.
+
 ## 11. Connected incident `REL-PAY-70`
 
 Atlas ring program mal membership v LaunchPad portali a application feature store. Počas ring 1 observation support tím presunul problematické accounts späť do ring 0 cez portal; feature store cache však zmenu načítala iba v polovici instances. Dashboard generoval denominator z current membership, takže failed accounts zmizli z ring 1 historical population.

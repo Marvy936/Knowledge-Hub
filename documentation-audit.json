@@ -1207,9 +1207,9 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "title": "A/B testing",
-      "words": 1261,
-      "headings": 22,
-      "sections": 22,
+      "words": 1434,
+      "headings": 23,
+      "sections": 23,
       "findings": 13,
       "critical": 0,
       "high": 8,
@@ -1221,23 +1221,23 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "title": "Artifact versioning",
-      "words": 1410,
-      "headings": 23,
-      "sections": 23,
-      "findings": 11,
+      "words": 1667,
+      "headings": 24,
+      "sections": 24,
+      "findings": 12,
       "critical": 0,
       "high": 7,
       "medium": 0,
-      "low": 4,
-      "score": 61,
+      "low": 5,
+      "score": 62,
       "grade": "C"
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "title": "Blue-green deployment",
-      "words": 1341,
-      "headings": 22,
-      "sections": 22,
+      "words": 1516,
+      "headings": 23,
+      "sections": 23,
       "findings": 15,
       "critical": 0,
       "high": 9,
@@ -1249,9 +1249,9 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "title": "Canary deployment",
-      "words": 1401,
-      "headings": 22,
-      "sections": 22,
+      "words": 1580,
+      "headings": 23,
+      "sections": 23,
       "findings": 15,
       "critical": 1,
       "high": 8,
@@ -1263,37 +1263,37 @@
     {
       "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
       "title": "Praktický CI/CD projekt od source change po overený production release",
-      "words": 1718,
-      "headings": 11,
-      "sections": 11,
-      "findings": 5,
+      "words": 1923,
+      "headings": 12,
+      "sections": 12,
+      "findings": 6,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 7,
+      "low": 6,
+      "score": 8,
       "grade": "A"
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "title": "Continuous Delivery",
-      "words": 1746,
-      "headings": 22,
-      "sections": 22,
-      "findings": 19,
+      "words": 1947,
+      "headings": 23,
+      "sections": 23,
+      "findings": 20,
       "critical": 0,
       "high": 5,
       "medium": 0,
-      "low": 14,
-      "score": 57,
+      "low": 15,
+      "score": 58,
       "grade": "C"
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-deployment.md",
       "title": "Continuous Deployment",
-      "words": 1731,
-      "headings": 22,
-      "sections": 22,
+      "words": 1930,
+      "headings": 23,
+      "sections": 23,
       "findings": 22,
       "critical": 2,
       "high": 6,
@@ -1305,9 +1305,9 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "title": "Continuous Integration",
-      "words": 1822,
-      "headings": 21,
-      "sections": 21,
+      "words": 2071,
+      "headings": 22,
+      "sections": 22,
       "findings": 20,
       "critical": 0,
       "high": 4,
@@ -1319,9 +1319,9 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "title": "Databázová kompatibilita počas deploymentu",
-      "words": 1614,
-      "headings": 23,
-      "sections": 23,
+      "words": 1798,
+      "headings": 24,
+      "sections": 24,
       "findings": 17,
       "critical": 0,
       "high": 8,
@@ -1333,51 +1333,51 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "title": "Environment a promotion",
-      "words": 1603,
-      "headings": 22,
-      "sections": 22,
-      "findings": 16,
+      "words": 1774,
+      "headings": 23,
+      "sections": 23,
+      "findings": 17,
       "critical": 0,
       "high": 5,
       "medium": 0,
-      "low": 11,
-      "score": 54,
+      "low": 12,
+      "score": 55,
       "grade": "C"
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "title": "Feature flags",
-      "words": 1408,
-      "headings": 24,
-      "sections": 24,
-      "findings": 11,
-      "critical": 0,
+      "words": 1584,
+      "headings": 25,
+      "sections": 25,
+      "findings": 13,
+      "critical": 1,
       "high": 8,
       "medium": 0,
-      "low": 3,
-      "score": 69,
-      "grade": "C"
+      "low": 4,
+      "score": 82,
+      "grade": "D"
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "title": "Pipeline as Code",
-      "words": 1683,
-      "headings": 23,
-      "sections": 23,
-      "findings": 16,
+      "words": 1867,
+      "headings": 24,
+      "sections": 24,
+      "findings": 18,
       "critical": 1,
       "high": 6,
       "medium": 0,
-      "low": 9,
-      "score": 69,
-      "grade": "C"
+      "low": 11,
+      "score": 71,
+      "grade": "D"
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "title": "Pipeline, stage, job a runner",
-      "words": 1816,
-      "headings": 22,
-      "sections": 22,
+      "words": 2027,
+      "headings": 23,
+      "sections": 23,
       "findings": 17,
       "critical": 0,
       "high": 5,
@@ -1389,9 +1389,9 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "title": "Progressive delivery",
-      "words": 1300,
-      "headings": 22,
-      "sections": 22,
+      "words": 1456,
+      "headings": 23,
+      "sections": 23,
       "findings": 15,
       "critical": 1,
       "high": 10,
@@ -1403,9 +1403,9 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "title": "Quality gates a approvals",
-      "words": 1531,
-      "headings": 23,
-      "sections": 23,
+      "words": 1731,
+      "headings": 24,
+      "sections": 24,
       "findings": 22,
       "critical": 3,
       "high": 9,
@@ -1417,9 +1417,9 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "title": "Recreate deployment",
-      "words": 1341,
-      "headings": 21,
-      "sections": 21,
+      "words": 1497,
+      "headings": 22,
+      "sections": 22,
       "findings": 12,
       "critical": 0,
       "high": 6,
@@ -1431,9 +1431,9 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "title": "Release management",
-      "words": 1535,
-      "headings": 24,
-      "sections": 24,
+      "words": 1725,
+      "headings": 25,
+      "sections": 25,
       "findings": 21,
       "critical": 2,
       "high": 7,
@@ -1445,9 +1445,9 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "title": "Reusable a parallel pipelines",
-      "words": 1557,
-      "headings": 22,
-      "sections": 22,
+      "words": 1741,
+      "headings": 23,
+      "sections": 23,
       "findings": 16,
       "critical": 0,
       "high": 7,
@@ -1459,9 +1459,9 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "title": "Ring deployment",
-      "words": 1268,
-      "headings": 22,
-      "sections": 22,
+      "words": 1428,
+      "headings": 23,
+      "sections": 23,
       "findings": 11,
       "critical": 0,
       "high": 8,
@@ -1473,9 +1473,9 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "title": "Rollback a roll-forward",
-      "words": 1310,
-      "headings": 23,
-      "sections": 23,
+      "words": 1473,
+      "headings": 24,
+      "sections": 24,
       "findings": 16,
       "critical": 1,
       "high": 10,
@@ -1487,9 +1487,9 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "title": "Rolling update",
-      "words": 1459,
-      "headings": 22,
-      "sections": 22,
+      "words": 1636,
+      "headings": 23,
+      "sections": 23,
       "findings": 15,
       "critical": 0,
       "high": 6,
@@ -1501,23 +1501,23 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "title": "Semantic Versioning",
-      "words": 1488,
-      "headings": 23,
-      "sections": 23,
-      "findings": 20,
+      "words": 1681,
+      "headings": 24,
+      "sections": 24,
+      "findings": 21,
       "critical": 0,
       "high": 8,
       "medium": 1,
-      "low": 11,
-      "score": 84,
+      "low": 12,
+      "score": 85,
       "grade": "D"
     },
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "title": "Shadow deployment",
-      "words": 1277,
-      "headings": 22,
-      "sections": 22,
+      "words": 1443,
+      "headings": 23,
+      "sections": 23,
       "findings": 12,
       "critical": 0,
       "high": 7,
@@ -1529,15 +1529,15 @@
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
       "title": "Trigger, artifact a cache",
-      "words": 1637,
-      "headings": 22,
-      "sections": 22,
-      "findings": 16,
+      "words": 1852,
+      "headings": 23,
+      "sections": 23,
+      "findings": 17,
       "critical": 0,
       "high": 7,
       "medium": 0,
-      "low": 9,
-      "score": 67,
+      "low": 10,
+      "score": 68,
       "grade": "C"
     },
     {
@@ -37784,7 +37784,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "11. Connected incident REL-PAY-70",
-      "line": 146,
+      "line": 162,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -37793,7 +37793,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "11. Connected incident REL-PAY-70",
-      "line": 146,
+      "line": 162,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -37802,7 +37802,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "13. Troubleshooting flow",
-      "line": 182,
+      "line": 198,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -37811,7 +37811,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "Traffic split ako celý experiment",
-      "line": 200,
+      "line": 216,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37820,7 +37820,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "Exposed-only analysis bez bias modelu",
-      "line": 204,
+      "line": 220,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37829,7 +37829,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "Zmena primary metric po výsledkoch",
-      "line": 208,
+      "line": 224,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37838,7 +37838,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "Stop pri prvom zelenom grafe",
-      "line": 212,
+      "line": 228,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37847,7 +37847,7 @@
     {
       "path": "docs/05-ci-cd-and-release/a-b-testing.md",
       "section": "Experiment flag ponechaný navždy",
-      "line": 216,
+      "line": 232,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37891,16 +37891,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "12. Connected incident REL-PAY-68",
-      "line": 202,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
-      "section": "12. Connected incident REL-PAY-68",
+      "section": "Doplnenie výkladu: checksum, hash, digest, signature a provenance",
       "line": 202,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -37909,8 +37900,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "12. Connected incident REL-PAY-68",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
+      "section": "12. Connected incident REL-PAY-68",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "section": "Version ako jediná identity",
-      "line": 258,
+      "line": 297,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37919,7 +37928,7 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "section": "Tag promotion bez digestu",
-      "line": 262,
+      "line": 301,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37928,7 +37937,7 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "section": "Jeden image digest ako celá release unit",
-      "line": 266,
+      "line": 305,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37937,7 +37946,7 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "section": "Delete tagu ako revocation",
-      "line": 270,
+      "line": 309,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -37946,7 +37955,7 @@
     {
       "path": "docs/05-ci-cd-and-release/artifact-versioning.md",
       "section": "Rebuild a overwrite rovnakej version",
-      "line": 274,
+      "line": 313,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38018,7 +38027,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "11. Connected incident REL-PAY-69",
-      "line": 161,
+      "line": 184,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -38027,7 +38036,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "11. Connected incident REL-PAY-69",
-      "line": 161,
+      "line": 184,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -38036,7 +38045,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "13. Troubleshooting flow",
-      "line": 197,
+      "line": 220,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -38045,7 +38054,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Dve deployments znamenajú úplnú izoláciu",
-      "line": 214,
+      "line": 237,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38054,7 +38063,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Green test cez interný Pod IP",
-      "line": 218,
+      "line": 241,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38063,7 +38072,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Cutover success podľa API response",
-      "line": 222,
+      "line": 245,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38072,7 +38081,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Blue je vždy rollback target",
-      "line": 226,
+      "line": 249,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38081,7 +38090,7 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Okamžité vypnutie blue",
-      "line": 230,
+      "line": 253,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38162,7 +38171,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "11. Connected incident REL-PAY-69",
-      "line": 172,
+      "line": 195,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -38171,7 +38180,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "13. Troubleshooting flow",
-      "line": 208,
+      "line": 231,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -38180,7 +38189,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "Canary iba podľa replica percenta",
-      "line": 226,
+      "line": 249,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38189,7 +38198,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "Per-request random assignment",
-      "line": 230,
+      "line": 253,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38198,7 +38207,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "HTTP attempts ako business denominator",
-      "line": 234,
+      "line": 257,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38207,7 +38216,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "No data znamená no errors",
-      "line": 238,
+      "line": 261,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38216,7 +38225,7 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "Promotion podľa krátkeho green okna",
-      "line": 242,
+      "line": 265,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38266,6 +38275,15 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md",
+      "section": "Doplnenie výkladu: ako čítať artifact, digest a atomic promotion v walkthroughu",
+      "line": 398,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
@@ -38377,16 +38395,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "11. Connected incident REL-PAY-66",
-      "line": 212,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "11. Connected incident REL-PAY-66",
+      "section": "Doplnenie výkladu: čo znamená deployable a prečo delivery nekončí buildom",
       "line": 212,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -38395,8 +38404,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "11. Connected incident REL-PAY-66",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "11. Connected incident REL-PAY-66",
+      "line": 255,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Rebuild per environment",
-      "line": 269,
+      "line": 312,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38405,7 +38432,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Staging ako ceremoniálny krok",
-      "line": 273,
+      "line": 316,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38414,7 +38441,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Approval nad release názvom",
-      "line": 277,
+      "line": 320,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38423,7 +38450,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Rollout success ako business acceptance",
-      "line": 281,
+      "line": 324,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38432,7 +38459,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Runbook-only production deploy",
-      "line": 285,
+      "line": 328,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38603,7 +38630,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-deployment.md",
       "section": "Green CI rovno na 100 % trafficu",
-      "line": 305,
+      "line": 340,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38612,7 +38639,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-deployment.md",
       "section": "Missing data ako success",
-      "line": 313,
+      "line": 348,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38621,7 +38648,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-deployment.md",
       "section": "Readiness ako business oracle",
-      "line": 317,
+      "line": 352,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38630,7 +38657,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-deployment.md",
       "section": "Percento bez stable assignment",
-      "line": 321,
+      "line": 356,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38747,7 +38774,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "10. Connected incident REL-PAY-66",
-      "line": 198,
+      "line": 238,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -38756,7 +38783,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "10. Connected incident REL-PAY-66",
-      "line": 198,
+      "line": 238,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -38765,7 +38792,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "11. Recovery a acceptance",
-      "line": 218,
+      "line": 258,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -38774,7 +38801,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "12. Troubleshooting flow",
-      "line": 238,
+      "line": 278,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -38783,7 +38810,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "Branch green ako merge proof",
-      "line": 257,
+      "line": 297,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38792,7 +38819,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "Rebuild pred publication",
-      "line": 265,
+      "line": 305,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38801,7 +38828,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "Privileged persistent runner pre PRs",
-      "line": 269,
+      "line": 309,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38810,7 +38837,7 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-integration.md",
       "section": "Rerun-until-green",
-      "line": 273,
+      "line": 313,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38909,7 +38936,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "12. Connected incident REL-PAY-71",
-      "line": 213,
+      "line": 243,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -38918,7 +38945,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "14. Troubleshooting flow",
-      "line": 250,
+      "line": 280,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -38927,7 +38954,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Add a drop v jednom rolling release",
-      "line": 268,
+      "line": 298,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38936,7 +38963,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "COALESCE ako automaticky správny fallback",
-      "line": 272,
+      "line": 302,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38945,7 +38972,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Backfill bez optimistic generation",
-      "line": 276,
+      "line": 306,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38954,7 +38981,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Zero mismatch ako complete migration proof",
-      "line": 280,
+      "line": 310,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -38963,7 +38990,7 @@
     {
       "path": "docs/05-ci-cd-and-release/database-compatibility-during-deployment.md",
       "section": "Application rollback ako database rollback",
-      "line": 284,
+      "line": 314,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39061,8 +39088,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
-      "section": "11. Connected incident REL-PAY-67",
+      "section": "Doplnenie výkladu: environment identity a build-once promotion",
       "line": 211,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
+      "section": "11. Connected incident REL-PAY-67",
+      "line": 248,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39071,7 +39107,7 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "section": "Environment definovaný iba názvom",
-      "line": 268,
+      "line": 305,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39080,7 +39116,7 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "section": "Promotion ako rebuild",
-      "line": 272,
+      "line": 309,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39089,7 +39125,7 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "section": "kubectl diff ako race-free plan",
-      "line": 276,
+      "line": 313,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39098,7 +39134,7 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "section": "Manual approval ako environment lock",
-      "line": 280,
+      "line": 317,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39107,7 +39143,7 @@
     {
       "path": "docs/05-ci-cd-and-release/environment-and-promotion.md",
       "section": "Break-glass bez reconciliation",
-      "line": 284,
+      "line": 321,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39160,8 +39196,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Doplnenie výkladu: flag evaluation je samostatný runtime control plane",
+      "line": 220,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release flag dočasne skrýva novú funkcionalitu;`, `experiment flag prideľuje variants;`, `operational kill switch vypína rizikový path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
+      "section": "Doplnenie výkladu: flag evaluation je samostatný runtime control plane",
+      "line": 220,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "15. Troubleshooting flow",
-      "line": 255,
+      "line": 283,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -39170,7 +39224,7 @@
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "Flag ako permanentná configuration bez ownera",
-      "line": 272,
+      "line": 300,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39179,7 +39233,7 @@
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "Fail-open pre high-risk financial path",
-      "line": 276,
+      "line": 304,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39188,7 +39242,7 @@
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "UI targeting ako jediný evidence",
-      "line": 280,
+      "line": 308,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39197,7 +39251,7 @@
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "Account ID v metric labels",
-      "line": 284,
+      "line": 312,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39206,7 +39260,7 @@
     {
       "path": "docs/05-ci-cd-and-release/feature-flags.md",
       "section": "Zmazanie flagu pred code cleanup",
-      "line": 288,
+      "line": 316,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39295,7 +39349,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Connected incident REL-PAY-67",
+      "section": "Doplnenie výkladu: source YAML nie je resolved pipeline",
       "line": 280,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -39304,7 +39358,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
-      "section": "12. Connected incident REL-PAY-67",
+      "section": "Doplnenie výkladu: source YAML nie je resolved pipeline",
       "line": 280,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -39313,8 +39367,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Connected incident REL-PAY-67",
+      "line": 308,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
+      "section": "12. Connected incident REL-PAY-67",
+      "line": 308,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "„YAML je reviewnutý, pipeline je bezpečná“",
-      "line": 336,
+      "line": 364,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39323,7 +39395,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Reusable workflow cez mutable branch",
-      "line": 340,
+      "line": 368,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39332,7 +39404,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Workflow-level broad permissions",
-      "line": 344,
+      "line": 372,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39341,7 +39413,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "String inputs bez domain validation",
-      "line": 348,
+      "line": 376,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39350,7 +39422,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-as-code.md",
       "section": "Shared workflow big-bang update",
-      "line": 352,
+      "line": 380,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39440,7 +39512,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "11. Connected incident REL-PAY-66",
-      "line": 244,
+      "line": 277,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39449,7 +39521,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "11. Connected incident REL-PAY-66",
-      "line": 244,
+      "line": 277,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -39458,7 +39530,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "12. Redesign a acceptance verdict",
-      "line": 264,
+      "line": 297,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39467,7 +39539,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Stages ako dôkaz správneho ordering-u",
-      "line": 302,
+      "line": 335,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39476,7 +39548,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Shared filesystem medzi jobs",
-      "line": 306,
+      "line": 339,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39485,7 +39557,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Final job s always() bez explicitného fan-inu",
-      "line": 310,
+      "line": 343,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39494,7 +39566,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Jeden runner pool pre všetky trust classes",
-      "line": 314,
+      "line": 347,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39503,7 +39575,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Retry jobu bez identity invariants",
-      "line": 318,
+      "line": 351,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39584,7 +39656,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "11. Connected incident REL-PAY-71",
-      "line": 188,
+      "line": 209,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39593,7 +39665,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "13. Troubleshooting flow",
-      "line": 222,
+      "line": 243,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -39602,7 +39674,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "Jeden progress bar pre viac axes",
-      "line": 239,
+      "line": 260,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39611,7 +39683,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "Súčasná zmena trafficu, flagu a data",
-      "line": 243,
+      "line": 264,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39620,7 +39692,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "Metrics analysis nad invalid state-om",
-      "line": 247,
+      "line": 268,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39629,7 +39701,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "Automatický global rollback",
-      "line": 251,
+      "line": 272,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39638,7 +39710,7 @@
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
       "section": "Full traffic ako okamžitá closure",
-      "line": 255,
+      "line": 276,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39791,7 +39863,7 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "section": "12. Connected incident REL-PAY-67",
-      "line": 275,
+      "line": 297,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -39800,7 +39872,7 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "section": "Gate podľa počtu zelených checks",
-      "line": 332,
+      "line": 354,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39809,7 +39881,7 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "section": "Human ako fallback scanner",
-      "line": 336,
+      "line": 358,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39818,7 +39890,7 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "section": "Permanent exception",
-      "line": 340,
+      "line": 362,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39827,7 +39899,7 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "section": "Approval viazané na tag",
-      "line": 344,
+      "line": 366,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39836,7 +39908,7 @@
     {
       "path": "docs/05-ci-cd-and-release/quality-gates-and-approvals.md",
       "section": "Policy decision bez enforcement coverage",
-      "line": 348,
+      "line": 370,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39899,7 +39971,7 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "section": "10. Connected incident REL-PAY-69",
-      "line": 174,
+      "line": 195,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -39908,7 +39980,7 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "section": "Scale to zero ako dôkaz zero writers",
-      "line": 229,
+      "line": 250,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39917,7 +39989,7 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "section": "Downtime odhad podľa startup času",
-      "line": 233,
+      "line": 254,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39926,7 +39998,7 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "section": "Snapshot existence ako restore proof",
-      "line": 237,
+      "line": 258,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39935,7 +40007,7 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "section": "Automatický old-version restart po migration failure",
-      "line": 241,
+      "line": 262,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -39944,7 +40016,7 @@
     {
       "path": "docs/05-ci-cd-and-release/recreate-deployment.md",
       "section": "Otvorenie trafficu po readiness",
-      "line": 245,
+      "line": 266,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40088,7 +40160,7 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "13. Connected incident REL-PAY-68",
-      "line": 251,
+      "line": 277,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40097,7 +40169,7 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Git tag ako celý release",
-      "line": 306,
+      "line": 332,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40106,7 +40178,7 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Release notes z commit titles iba",
-      "line": 310,
+      "line": 336,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40115,7 +40187,7 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Deployed ako Released",
-      "line": 314,
+      "line": 340,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40124,7 +40196,7 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Emergency ako evidence-free cesta",
-      "line": 318,
+      "line": 344,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40133,7 +40205,7 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Prepísanie chybnej release version",
-      "line": 322,
+      "line": 348,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40223,7 +40295,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "11. Connected incident REL-PAY-68",
-      "line": 218,
+      "line": 240,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40232,7 +40304,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "11. Connected incident REL-PAY-68",
-      "line": 218,
+      "line": 240,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40241,7 +40313,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Reusable workflow ako copy-paste reduction iba",
-      "line": 277,
+      "line": 299,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40250,7 +40322,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Expected inventory z actual jobs",
-      "line": 281,
+      "line": 303,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40259,7 +40331,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Empty output fallback na latest artifact",
-      "line": 285,
+      "line": 307,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40268,7 +40340,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Maximálny počet shards",
-      "line": 289,
+      "line": 311,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40277,7 +40349,7 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Consumer bez rollbacku provider generation",
-      "line": 293,
+      "line": 315,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40331,7 +40403,7 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "13. Troubleshooting flow",
-      "line": 188,
+      "line": 210,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40340,7 +40412,7 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "Ring ako percento trafficu",
-      "line": 205,
+      "line": 227,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40349,7 +40421,7 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "Current membership ako historical denominator",
-      "line": 209,
+      "line": 231,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40358,7 +40430,7 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "Viac membership writers",
-      "line": 213,
+      "line": 235,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40367,7 +40439,7 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "Ring promotion bez new-risk contractu",
-      "line": 217,
+      "line": 239,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40376,7 +40448,7 @@
     {
       "path": "docs/05-ci-cd-and-release/ring-deployment.md",
       "section": "Permanent old release ring bez support policy",
-      "line": 221,
+      "line": 243,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40457,7 +40529,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "12. Connected incident REL-PAY-71",
-      "line": 182,
+      "line": 207,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40466,7 +40538,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "13. Redesign a acceptance verdict",
-      "line": 199,
+      "line": 224,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40475,7 +40547,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "14. Troubleshooting flow",
-      "line": 218,
+      "line": 243,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40484,7 +40556,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Previous ReplicaSet ako safe rollback proof",
-      "line": 235,
+      "line": 260,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40493,7 +40565,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Rollback all axes naraz bez inventory",
-      "line": 239,
+      "line": 264,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40502,7 +40574,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Retry unknown external operation",
-      "line": 243,
+      "line": 268,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40511,7 +40583,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Roll-forward cez live patch",
-      "line": 247,
+      "line": 272,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40520,7 +40592,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rollback-and-roll-forward.md",
       "section": "Health green ako recovery closure",
-      "line": 251,
+      "line": 276,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40601,7 +40673,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "11. Connected incident REL-PAY-69",
-      "line": 156,
+      "line": 172,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40610,7 +40682,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "11. Connected incident REL-PAY-69",
-      "line": 156,
+      "line": 172,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40619,7 +40691,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "Percentá bez absolute výpočtu",
-      "line": 214,
+      "line": 230,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40628,7 +40700,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "Rollout pri unhealthy baseline",
-      "line": 218,
+      "line": 234,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40637,7 +40709,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "Process health ako readiness",
-      "line": 222,
+      "line": 238,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40646,7 +40718,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "PDB ako ochrana pred Deployment rolloutom",
-      "line": 226,
+      "line": 242,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40655,7 +40727,7 @@
     {
       "path": "docs/05-ci-cd-and-release/rolling-update.md",
       "section": "rollout undo ako univerzálny rollback",
-      "line": 230,
+      "line": 246,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40780,8 +40852,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
-      "section": "12. Connected incident REL-PAY-68",
+      "section": "Doplnenie výkladu: SemVer je contract o kompatibilite, nie dôkaz kvality",
       "line": 207,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
+      "section": "12. Connected incident REL-PAY-68",
+      "line": 238,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40790,7 +40871,7 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "section": "13. Recovery a acceptance verdict",
-      "line": 226,
+      "line": 257,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40799,7 +40880,7 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "section": "Bump podľa veľkosti diffu",
-      "line": 265,
+      "line": 296,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40808,7 +40889,7 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "section": "feat automaticky znamená MINOR",
-      "line": 269,
+      "line": 300,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40817,7 +40898,7 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "section": "Additive field je vždy safe",
-      "line": 273,
+      "line": 304,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40826,7 +40907,7 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "section": "OpenAPI ako celý public API",
-      "line": 277,
+      "line": 308,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40835,7 +40916,7 @@
     {
       "path": "docs/05-ci-cd-and-release/semantic-versioning.md",
       "section": "MAJOR bez migration lifecycle-u",
-      "line": 281,
+      "line": 312,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40898,7 +40979,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "11. Connected incident REL-PAY-70",
-      "line": 154,
+      "line": 174,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40907,7 +40988,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "13. Troubleshooting flow",
-      "line": 190,
+      "line": 210,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40916,7 +40997,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "Synchronous shadow v primary requeste",
-      "line": 212,
+      "line": 232,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40925,7 +41006,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "Production mutation credentials pre fidelity",
-      "line": 216,
+      "line": 236,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40934,7 +41015,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "Porovnanie iba response body",
-      "line": 220,
+      "line": 240,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -40943,7 +41024,7 @@
     {
       "path": "docs/05-ci-cd-and-release/shadow-deployment.md",
       "section": "Unlimited replay po outage",
-      "line": 224,
+      "line": 244,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -41050,8 +41131,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
-      "section": "11. Connected incident REL-PAY-67",
+      "section": "Doplnenie výkladu: trigger, artifact a cache sú tri odlišné kontrakty",
       "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
+      "section": "11. Connected incident REL-PAY-67",
+      "line": 222,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41060,7 +41150,7 @@
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
       "section": "Každý trigger používa rovnaké permissions",
-      "line": 252,
+      "line": 278,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -41069,7 +41159,7 @@
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
       "section": "Cache key iba podľa branch name",
-      "line": 256,
+      "line": 282,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -41078,7 +41168,7 @@
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
       "section": "Release artifact uložený iba ako pipeline ZIP",
-      "line": 260,
+      "line": 286,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -41087,7 +41177,7 @@
     {
       "path": "docs/05-ci-cd-and-release/trigger-artifact-cache.md",
       "section": "Blind retry po upload timeout-e",
-      "line": 268,
+      "line": 294,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

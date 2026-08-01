@@ -169,6 +169,29 @@ freeze exposure generation
 → verify stable and forbidden outcomes
 ```
 
+## Doplnenie výkladu: stabilná cohorta, baseline a analysis oracle
+
+Canary vystaví novú generation obmedzenej časti trafficu alebo users a porovná outcome s baseline. Percento trafficu samo o sebe nevytvára kvalitný experiment.
+
+Cohorta musí byť stabilná podľa user, tenant alebo request identity. Náhodné assignment per request môže poslať jednu session medzi versions a skryť stateful defects.
+
+Canary analysis porovnáva compatible populations:
+
+```text
+old vs new generation
+rovnaký región a request mix
+rovnaké dependency conditions
+rovnaký observation interval
+```
+
+Technical metrics zahŕňajú errors, latency, saturation a restarts. Business oracle zahŕňa final completion, correctness a forbidden side effects. Rýchle failed requests môžu znížiť latency, preto sa metrics segmentujú podľa result class.
+
+Malá cohorta nemusí mať dostatok sample pre zriedkavé chyby. Absencia failure pri 100 requests nepreukazuje error rate 0.01 %. Analysis policy potrebuje minimálny sample alebo čas a confidence podľa rizika.
+
+Automatic promotion musí rozlíšiť no-data od pass. Ak telemetry query zlyhá alebo canary nedostane traffic, verdict je `MISSING/ERROR`, nie green.
+
+Abort zastaví ďalšie exposure a podľa eligibility odstráni canary. Potom sa overí, že route weight je nula, cohort nebeží a business backlog je reconciled.
+
 ## 11. Connected incident `REL-PAY-69`
 
 Atlas canary používala per-request random 2 % routing. Multi-step settlement mohol začať na stable a dokončiť na canary. Canary metric sledovala HTTP attempts a denominator tvorili iba requests, ktoré dosiahli handler instrumentation. Fast TLS failures na new provider sidecar nemali release label a vypadli z ratio.

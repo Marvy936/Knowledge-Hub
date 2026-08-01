@@ -208,6 +208,43 @@ incident reason a approver
 
 „Neskôr to prepíšeme do Git-u“ bez reconciliation deadline-u vytvára druhý source of truth.
 
+## Doplnenie výkladu: environment identity a build-once promotion
+
+Environment nie je iba názov `dev`, `staging` alebo `prod`. Je to konkrétny target subject:
+
+```text
+cloud account/subscription
++ region/cluster/namespace
++ configuration generation
++ data dependencies
++ credentials a policy
+```
+
+Dva clustre s rovnakým labelom `production` sú odlišné environments. Deployment evidence musí uviesť immutable target identity, nie iba human name.
+
+**Promotion** znamená schválenie a presun tej istej release identity do ďalšieho exposure contextu. Pri build-once-promote-many sa artifact nerebuildí. Mení sa deployment record a environment configuration, nie aplikačné bytes.
+
+```text
+artifact digest A
+→ staging deployment A
+→ staging acceptance evidence pre A
+→ production deployment A
+```
+
+Ak production job znovu buildne source, vznikne digest B. Aj pri rovnakom commite môžu timestamps, dependencies alebo builder vytvoriť odlišné bytes. Staging evidence pre A sa automaticky nevzťahuje na B.
+
+Promotion record má viazať:
+
+```text
+release manifest digest
+source environment evidence
+cieľový environment identity/config generation
+approval/policy generation
+deployment operation ID
+```
+
+Environment protection riadi, kto alebo čo smie transition vykonať. Neoveruje automaticky, že live runtime načítal správny digest alebo config. Po promotion nasleduje target read-back a acceptance.
+
 ## 11. Connected incident `REL-PAY-67`
 
 Atlas schválil release `payments-10.0-rc4` podľa staging evidence. Promotion record obsahoval tag a environment name `production`, nie digest, cluster UID ani overlay SHA. Po staging teste platform tím zmenil admission policy a production namespace bol počas incident drill-u delete/recreate-nutý s novým UID.

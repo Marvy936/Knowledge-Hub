@@ -241,6 +241,39 @@ pipeline creates resource with run/candidate labels
 
 Job success bez potvrdenia critical cleanup-u môže byť `SUCCEEDED_WITH_RESIDUAL_RISK`, nie čistý pass.
 
+## Doplnenie výkladu: pipeline graph, job isolation a runner
+
+**Pipeline** je jedna konkrétna execution instance vytvorená z versionovanej definície a eventu. **Stage** je logická skupina alebo ordering barrier. **Job** je jednotka execution s vlastnými commands, environmentom a výsledkom. **Runner** je agent, ktorý job prijme a spustí cez executor, napríklad shell, container alebo VM.
+
+Tieto pojmy opisujú odlišné vrstvy:
+
+```text
+pipeline definition
+→ resolved job graph
+→ scheduler rozhodne readiness
+→ runner vyberie job
+→ executor vytvorí execution environment
+→ commands vrátia exit statuses a artifacts
+```
+
+Stage-based pipeline často čaká, kým všetky jobs v predchádzajúcom stage skončia. DAG pipeline môže cez dependencies spustiť job skôr. Poradie v YAML preto nemusí byť reálne execution poradie.
+
+Job success typicky vznikne z process exit statusu. Ak shell pipeline zakryje failure skoršieho commandu, CI systém vidí nulu a označí job green. Runner nevie, že business validation zlyhala.
+
+Runner identity je trust boundary. Persistent shell runner môže zachovať workspace, credentials alebo cache medzi jobs. Ephemeral container znižuje residue, ale host daemon, mounted socket alebo privileged mode môžu stále poskytovať širokú authority.
+
+Pri pending jobe kontroluj:
+
+```text
+job tags a protected status
+→ dostupní runners
+→ runner online/paused state
+→ executor capacity
+→ project/group eligibility
+```
+
+Successful job preukazuje execution na konkrétnom runneri a návratový stav commands. Nepreukazuje čistotu workspace, kompletnosť outputs ani dôveryhodnosť runner hosta bez ďalšej evidence.
+
 ## 11. Connected incident `REL-PAY-66`
 
 Atlas používal persistent self-hosted runner pre validate, build aj deploy. Workflow zobrazoval stages `test → build → deploy`, ale build job nemal explicitnú dependency na generated-client step. Warm workspace obsahoval starý output, takže test prešiel. Matrix pre arm64 mala štyri shards, no condition po chybe v expression vytvorila iba tri; verdict job používal `always()` a kontroloval iba, že aspoň jeden `test` result bol success.

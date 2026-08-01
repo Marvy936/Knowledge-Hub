@@ -248,6 +248,32 @@ what was exposed
 
 Tag delete alebo UI status `failed` nevráti external side effects a neodstráni already issued events.
 
+## Doplnenie výkladu: release candidate, release record a lifecycle
+
+Release management koordinuje technickú release identity, komunikáciu, support a recovery. **Release candidate** je konkrétna potenciálna release jednotka určená na finálne overenie; nie je to pohyblivá branch alebo priečinok `latest`.
+
+Release record typicky obsahuje:
+
+```text
+release ID a logical version
+source/candidate identity
+artifact digests
+configuration a schema contracts
+evidence inventory
+known risks a compatibility
+owner, approval a timestamps
+```
+
+Changelog opisuje používateľsky alebo operatívne významné zmeny. Nie je automaticky generovaný zoznam commit messages. Release notes majú uviesť breaking changes, migration, feature flags, rollback limits a support dopady.
+
+Release freeze obmedzuje transitions počas citlivého obdobia, ale nemá nahradiť readiness. Emergency exception potrebuje explicitný owner, scope, expiry a post-release review.
+
+Publication, deployment a exposure sú odlišné udalosti. Artifact môže byť publikovaný, ale nikde nenasadený. Deployment môže existovať bez trafficu. Feature môže byť nasadená, ale disabled flagom.
+
+Retirement zahŕňa koniec supportu, odstránenie artifactov podľa retention policy, revocation credentials a cleanup flags/config paths. Zmazanie tagu bez inventory running digests môže poškodiť recovery.
+
+Release management sa uzatvára až vtedy, keď je známy outcome a evidence je archivovaná. Successful release job samostatne nepreukazuje user impact ani absenciu delayed side effects.
+
 ## 13. Connected incident `REL-PAY-68`
 
 Atlas release `9.10.0` zahŕňal API image, worker, migration a event schema. Release automation vytvorila notes z commit labels a manifest ukladal iba mutable tags. Reusable workflow vynechal arm64 shard; SemVer policy označila breaking event/idempotency/platform changes ako MINOR.

@@ -199,6 +199,45 @@ Ak dva buildy publikujú rovnaký logical version s odlišným digestom, vzniká
 
 Reproducible build môže vytvoriť rovnaké bytes, ale nie každý artifact format je deterministický bez explicitných timestamp, ordering a compression controls. Non-identical rebuild neznamená automaticky compromise; znamená, že digest identity je jediná presná authority a reproducibility assumptions treba overiť.
 
+## Doplnenie výkladu: checksum, hash, digest, signature a provenance
+
+**Hash function** vezme ľubovoľné bytes a deterministicky z nich vypočíta hodnotu pevnej dĺžky. SHA-256 vytvára 256-bitový výsledok, ktorý sa zvyčajne zapisuje ako 64 hexadecimálnych znakov. Malá zmena vstupu vytvorí odlišný hash.
+
+Pojmy **checksum** a **digest** sa v praxi prekrývajú. Checksum sa často používa pre hodnotu uloženú vedľa file-u na kontrolu poškodenia pri prenose. Digest zdôrazňuje content identity v registry alebo release manifeste. Kryptografický SHA-256 digest je vhodný na integrity kontrolu; jednoduché checksums ako CRC sú určené skôr na náhodné chyby, nie na odolnosť voči úmyselnej manipulácii.
+
+Príkaz:
+
+```bash
+sha256sum dist/payments-migrations-10.0.0-rc.4.tar.gz \
+  > dist/payments-migrations-10.0.0-rc.4.tar.gz.sha256
+```
+
+`sha256sum` otvorí archive, číta jeho bytes a vypočíta SHA-256. Shell redirection vytvorí checksum file obsahujúci hex digest a filename. Ak archive neexistuje alebo sa nedá čítať, command vráti non-zero; prázdny alebo partial output sa nemá publikovať ako validný checksum.
+
+```bash
+sha256sum --check \
+  dist/payments-migrations-10.0.0-rc.4.tar.gz.sha256
+```
+
+`--check` načíta očakávaný digest a filename z checksum file-u, znovu vypočíta hash aktuálnych bytes a porovná hodnoty. `OK` preukazuje, že local archive zodpovedá tomuto checksum file-u.
+
+Nevyriešená je otázka: kto vytvoril checksum file? Útočník, ktorý nahradí archive aj `.sha256`, dosiahne successful check. Preto sa trusted release manifest alebo checksum file podpisuje, prípadne sa digest viaže do cryptographic provenance.
+
+Rozdiel:
+
+```text
+checksum/digest
+→ identita a integrity bytes
+
+signature
+→ private key podpísal subject; verifier overí key/policy
+
+provenance
+→ tvrdenie o source, builderi a build inputs viazané na subject
+```
+
+Ani validný podpis nepreukazuje, že archive je bezpečný. Pred extraction treba kontrolovať allowed file paths, symlinks, ownership, permissions a content policy; tar archive môže obsahovať `../` path traversal alebo nečakané executable files.
+
 ## 12. Connected incident `REL-PAY-68`
 
 Atlas release automation vytvorila version `10.0.0-rc.4`. API amd64 a arm64 images vznikli v parallel jobs. Arm64 shard chýbal, no reusable workflow bol green. Release job publikoval tag `10.0.0-rc.4` najprv na amd64-only index. Neskorší retry pridal arm64 manifest a prepísal ten istý tag na nový index digest.

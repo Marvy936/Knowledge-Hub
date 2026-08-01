@@ -179,6 +179,31 @@ recovery does not reintroduce defect
 
 Second operation odhaľuje stale cache, session alebo idempotency state, ktoré first canary po recovery nemusí zachytiť.
 
+## Doplnenie výkladu: recovery sa rozhoduje po vrstvách
+
+Rollback znamená návrat určitej vrstvy na staršiu generation. Roll-forward znamená nasadenie novej opravy. Ani jeden pojem sám nehovorí, čo sa stalo s dátami, eventmi alebo external side effects.
+
+Recovery matrix:
+
+```text
+application bytes
+configuration
+schema/data
+events/messages
+traffic/flags
+external operations
+```
+
+Application rollback je vhodný iba ak stará verzia dokáže pracovať s aktuálnym shared state-om. Po destructive migration alebo novom event formáte môže byť nebezpečný.
+
+Roll-forward býva lepší, keď je root cause známy a oprava malá, no vyžaduje čas na build/test/deploy. Feature disable môže rýchlo zastaviť nový path bez zmeny bytes. Compensation vytvorí business inverse operation, napríklad refund; nie je to technické zmazanie histórie.
+
+Restore obnovuje dáta z recovery generation a môže stratiť novšie legitímne writes. Potrebuje reconciliation s external systems a RPO/RTO decision.
+
+Unknown outcome sa nerieši blind retryom. Najprv sa query-ne operation ID, live route, deployment generation alebo provider ledger.
+
+Recovery prejde až po overení original operation, forbidden duplicate path, adjacent cohorts a druhej novej operácie.
+
 ## 12. Connected incident `REL-PAY-71`
 
 Atlas progressive controller videl latency alert a vykonal `kubectl rollout undo`. Application Pods sa vrátili na `payments-9.9.3`, ale feature flag generation 882 zostala enabled pre enterprise accounts a backfill pokračoval. New release už emitoval event v18 a prepísal 83 rows zo stale snapshotu. Old consumer nepoznal new enum.

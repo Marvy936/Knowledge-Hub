@@ -143,6 +143,22 @@ SEGMENTED_ROLLOUT
 
 Po ship-e sa treatment stane novým defaultom cez versionovaný flag/release transition. Experiment artifacts a stale branches sa odstránia; inak permanentná experiment complexity zvyšuje risk.
 
+## Doplnenie výkladu: experiment, randomizácia a kauzálny výsledok
+
+A/B test je experiment určený na odhad kauzálneho vplyvu variantu na outcome. Nie je to iba rollout na dve verzie.
+
+Najprv sa definuje hypotéza, primary metric, guardrails a **unit of assignment**. Unit môže byť user, tenant alebo session. Musí zodpovedať tomu, kde vzniká interference a opakované správanie.
+
+Randomizácia vytvára porovnateľné skupiny v priemere. Assignment sa má uložiť stabilne; per-request randomization mieša experience a porušuje assumptions.
+
+**Sample Ratio Mismatch** znamená, že observed počet participants v A/B sa významne líši od očakávaného pomeru. Môže signalizovať chybu assignmentu, filtering alebo telemetry loss a diskvalifikuje causal interpretation.
+
+Primary metric sa vyberá pred experimentom. Hľadanie ľubovoľnej zlepšenej metriky po výsledkoch zvyšuje false discoveries. Guardrails chránia napríklad error rate, latency, fraud alebo support contacts.
+
+Statistical significance neznamená praktickú významnosť. Malý efekt pri obrovskom sample môže byť štatisticky presný, ale business bezvýznamný. Report uvádza effect size a interval neistoty.
+
+A/B test neslúži ako jediný safety gate. Variant musí prejsť technickými controls pred experimentom. Experiment rozhoduje o value, nie o základnej correctness alebo security.
+
 ## 11. Connected incident `REL-PAY-70`
 
 Atlas testoval nový settlement review flow. Assignment sa vykonával per HTTP request a experiment dashboard počítal conversion iba z requests s exposure eventom. Treatment JavaScript error zabránil časti users emitovať exposure, takže failed journeys zmizli z denominatora.

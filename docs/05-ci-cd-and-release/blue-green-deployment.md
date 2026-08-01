@@ -158,6 +158,29 @@ Route rollback je vhodný, keď blue je healthy a compatible s current shared st
 
 Blue retention má cost a security limit. Standby target potrebuje patched dependencies a valid credentials. Po retention window sa old resources retirujú až po potvrdení recovery alternative.
 
+## Doplnenie výkladu: dve environments a samostatný traffic switch
+
+Blue-green udržiava dve samostatné application generations. Jedna obsluhuje production traffic, druhá je candidate. Deployment a exposure sú oddelené transitions.
+
+```text
+blue active
+→ deploy green
+→ warm-up a verification green
+→ traffic switch
+→ observe
+→ retire alebo ponechať blue na recovery
+```
+
+Farba nemá stabilný význam; po ďalšom release sa role môžu vymeniť. Evidence preto používa generation/digest, nie iba `green`.
+
+Traffic switch môže byť load balancer target, Service selector, route weight alebo DNS. DNS zmena nie je okamžitá kvôli TTL a resolver caches, takže cohorts môžu určitý čas koexistovať.
+
+Ak obe environments zdieľajú databázu, blue-green nie je plná izolácia. Candidate môže vykonať migration alebo side effect ovplyvňujúci active generation. Pre-release tests používajú read-only alebo izolované operácie, prípadne explicitný data compatibility contract.
+
+Rollback trafficu je rýchly iba ak old environment zostáva healthy a kompatibilný so shared state. Dlhé ponechanie old environmentu zvyšuje cost a config drift; retirement má časový contract.
+
+Switch response môže byť lost/unknown. Pred retryom sa read-backne effective route a active generation, aby sa traffic neprepol dvakrát alebo na nesprávny target.
+
 ## 11. Connected incident `REL-PAY-69`
 
 Atlas pripravil green release s novou session serialization a expand migration, ale cache prefix neobsahoval release generation. Green pre-production validation zapísala session objects, ktoré blue nevedelo dekódovať. Cutover controller zmenil route generation 1844, no client timeout spôsobil, že pipeline transition zopakovala s pôvodným expected state.

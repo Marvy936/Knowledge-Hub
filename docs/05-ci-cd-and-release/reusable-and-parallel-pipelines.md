@@ -215,6 +215,28 @@ consumer grants minimum capability
 
 Provider update je supply-chain change. Compromise platform-ci repository môže zasiahnuť všetkých consumers, preto sú potrebné branch protection, signed reviews, pinning a staged adoption.
 
+## Doplnenie výkladu: fan-out, shard manifest a fan-in
+
+Parallel pipeline rozdelí prácu na viac jobs alebo matrix combinations. **Fan-out** vytvorí shards; **fan-in** zhromaždí ich outputs a rozhodne o complete výsledku.
+
+```text
+candidate
+→ linux/windows/macos alebo test shard 1..N
+→ per-shard result a artifact
+→ fan-in completeness check
+→ aggregate verdict
+```
+
+Zelený agregátor nie je dôveryhodný, ak nevie, koľko shards sa očakávalo. Potrebuje **shard manifest** obsahujúci exact inventory, napríklad platform, dependency version a test partition.
+
+Matrix expression môže vytvoriť nula jobs pri chybnom filtri. Pipeline potom vyzerá green, hoci required platform sa nevykonala. Fan-in preto porovná expected a observed shard IDs.
+
+Fail-fast zruší ostatné jobs po prvom failure. Šetrí čas, ale môže znížiť diagnostic evidence. Pri compatibility matrix môže byť vhodné nechať všetky shards dobehnúť a uložiť kompletný failure obraz.
+
+Reusable workflow je versionovaný contract s inputs, outputs, secrets a permissions. Caller musí pinovať verziu a chápať defaults. Zmena template môže zmeniť runner image alebo gate behavior pre mnoho repositories naraz.
+
+Outputs z parallel jobs potrebujú unikátne names a checksums. Ak všetky shards uploadnú `report.xml`, posledný môže prepísať ostatné. Aggregate report bez jedného shardu je `INCOMPLETE`, nie legitímne nižšie coverage.
+
 ## 11. Connected incident `REL-PAY-68`
 
 Atlas shared workflow `test-artifact.yml@v3` rozbalil matrix podľa platforms a shard count. Provider release `v3.2.1` zmenil expression: arm64 shard `1` sa nevytvoril pri `fail-fast=false`, pretože podmienka používala index ako boolean. Expected inventory sa generovalo z actual matrix jobs, takže fan-in zostal green.

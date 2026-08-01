@@ -185,6 +185,27 @@ full desired/effective exposure
 + evidence and decision record retained
 ```
 
+## Doplnenie výkladu: viac control planes a postupný verdict
+
+Progressive delivery automatizuje alebo riadi postupné exposure podľa evidence. Môže kombinovať deployment cohorts, traffic weights, rings a feature flags. Každá os má vlastnú generation.
+
+```text
+application generation
+traffic route generation
+feature-flag generation
+configuration/schema generation
+```
+
+Verdict musí vedieť, ktorá kombinácia bola pozorovaná. „Canary 10 %“ je neúplné, ak polovica canary cohorty mala flag off.
+
+Controller vykonáva state machine: nastaví exposure, čaká na convergence, zbiera metrics, vyhodnotí analysis a rozhodne promote/hold/abort. Timeout alebo lost response môže zanechať unknown route state; pred ďalšou mutation sa vykoná read-back.
+
+Analysis template je code/policy. Query musí mať správne labels, denominator a no-data semantics. Green dashboard screenshot nie je reprodukovateľný verdict.
+
+Step duration musí pokryť warm-up a delayed outcomes. Príliš rýchle promotion môže prejsť skôr, než sa objavia queue, memory leak alebo business reconciliation failures.
+
+Progressive delivery znižuje blast radius, nie pravdepodobnosť všetkých defectov. Shared database migration môže ovplyvniť 100 % users aj pri 1 % traffic canary.
+
 ## 11. Connected incident `REL-PAY-71`
 
 Atlas rollout mal application controller, service-mesh traffic, feature platform a backfill job. Portal ukazoval jeden progress `25 %`, ale axes boli:

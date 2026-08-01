@@ -209,6 +209,49 @@ Continuous Delivery garantuje, že candidate možno bezpečne nasadiť. Continuo
 
 Organizácia môže mať Continuous Delivery a manuálne business timing rozhodnutie. Ak však produkčný deploy vyžaduje ručný shell postup, rebuild alebo ručné DB kroky, nejde o Continuous Delivery bez ohľadu na existenciu pipeline.
 
+## Doplnenie výkladu: čo znamená deployable a prečo delivery nekončí buildom
+
+Continuous Delivery udržiava systém v stave, v ktorom je možné vydať overenú release jednotku na požiadanie. Slovo **deployable** neznamená iba „artifact existuje“. Znamená, že artifact má známu identitu, complete evidence, kompatibilnú konfiguráciu a pripravenú deployment/recovery cestu.
+
+Delivery chain preto oddeľuje:
+
+```text
+buildable source
+→ verified artifact
+→ release candidate
+→ promotable release manifest
+→ environment-ready deployment plan
+```
+
+Manuálny krok v Continuous Delivery nie je manuálne prepisovanie príkazov. Môže ísť o explicitné business alebo risk rozhodnutie „promote this exact release subject“. Po approval sa vykoná už pripravená automatizovaná transition.
+
+Príklad release manifestu:
+
+```yaml
+releaseId: payments-10.0.0-rc.4
+sourceSha: d94e1c6
+artifacts:
+  api: registry.example/payments-api@sha256:abc
+  migrations: object://releases/migrations@sha256:def
+configurationSchema: 7
+evidenceBundle: sha256:789
+```
+
+Manifest viaže viac outputs do jednej release identity. Samotný image digest nehovorí, ktorú migration alebo config generation treba použiť.
+
+Delivery readiness má explicitné gates:
+
+```text
+required tests complete
+artifact publication immutable
+security/license evidence complete
+migration compatibility potvrdená
+target prerequisites známe
+rollback/roll-forward eligibility vyhodnotená
+```
+
+Ak je posledný deployment krok manuálny, stále ide o Continuous Delivery, pokiaľ release candidate priebežne zostáva pripravený a deployment je reprodukovateľný. Ak tím po každom release ručne skladá config, hľadá správny artifact a improvizuje runbook, nejde o continuous delivery capability, aj keby CI bola zelená.
+
 ## 11. Connected incident `REL-PAY-66`
 
 Atlas pipeline prevzala CI label `green`, rebuildla image s tagom `10.0-rc4` a staging nasadila digest `sha256:pay1000a`. Po staging validácii base image tag a dependency mirror zmenili obsah. Production rebuild vytvoril `sha256:pay1000b`, no approval UI stále zobrazovalo rovnaký release ID a staré staging evidence.

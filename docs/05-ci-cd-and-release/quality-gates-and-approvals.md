@@ -272,6 +272,28 @@ Gate môže byť technicky dostupný a organizačne nefunkčný. Sledujú sa:
 
 Cieľ nie je maximalizovať deny rate. Gate má rýchlo a presne blokovať relevantný risk a poskytovať actionable reason.
 
+## Doplnenie výkladu: gate je rozhodovacia policy nad evidence
+
+Quality gate nie je test. Je to policy, ktorá z viacerých evidence items vytvorí decision, či subject môže pokračovať do ďalšieho stavu.
+
+```text
+exact subject
++ required evidence inventory
++ policy generation
+→ PASS, FAIL, ERROR alebo MISSING
+→ allow alebo block transition
+```
+
+Gate musí najprv overiť completeness. Nulový počet security findings môže znamenať bezpečný artifact alebo chýbajúci scanner report. Ak sa `MISSING` preloží na PASS, gate je false-green.
+
+Approval je ľudský alebo externý policy verdict nad konkrétnym subjectom. Schválenie textu „release 10.0“ je slabé, ak tag môže zmeniť digest. Approval má obsahovať release manifest digest, target environment a evidence snapshot.
+
+Approval freshness sa invaliduje pri zmene subjectu alebo relevantnej policy. Nový commit, rebuilt artifact, zmenený deployment plan alebo force-push môže vyžadovať nové schválenie. UI status „approved“ bez subject bindingu je nedostatočný.
+
+Separation of duties znamená, že rovnaká osoba alebo identity nemá nekontrolovane vytvoriť change, meniť evidence a schváliť production transition. Automatizácia môže presadzovať reviewer independence a protected environment roles, no emergency break-glass potrebuje audit, expiry a následnú reconciliation.
+
+Gate failure musí byť diagnostický: čo chýba, ktoré pravidlo zlyhalo, pre aký subject a aký owner má reagovať. Neurčité „quality gate failed“ predlžuje feedback a podporuje obchádzanie.
+
 ## 12. Connected incident `REL-PAY-67`
 
 Atlas release `payments-10.0-rc4` mal chýbajúci image-vulnerability report, pretože scanner job zlyhal na infrastructure timeout. Final gate vytváral expected inventory z doručených reports, takže scanner sa v zozname neobjavil. Policy vrátila `ALLOW`.

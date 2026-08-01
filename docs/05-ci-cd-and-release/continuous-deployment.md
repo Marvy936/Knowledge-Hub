@@ -246,6 +246,41 @@ Acceptance kombinuje:
 - second operation a adjacent cohort;
 - old-generation retirement.
 
+## Doplnenie výkladu: automatický release ako uzavretý feedback loop
+
+Continuous Deployment automaticky posúva každú zmenu, ktorá splní policy, až do production exposure. Nejde iba o odstránenie approval tlačidla. Automatizácia musí vytvoriť uzavretý control loop:
+
+```text
+candidate
+→ evidence verdict
+→ deployment mutation
+→ controller convergence
+→ runtime verification
+→ business outcome
+→ promote, stop alebo recover
+```
+
+Ak pipeline vykoná `kubectl apply` a označí job za successful, automatizovala iba mutation request. Continuous Deployment potrebuje aj read-back desired/live generation, rollout completion a outcome oracle.
+
+Automatická policy musí rozlíšiť tri stavy:
+
+```text
+PASS
+→ evidence potvrdzuje požadovaný subject
+
+FAIL
+→ test alebo policy našli porušenie
+
+ERROR/MISSING
+→ evidence sa nevytvorila alebo nedá vyhodnotiť
+```
+
+Fail-open preloží chýbajúci scanner report alebo nefunkčný analysis service na PASS. Pri required controls je bezpečnejší fail-closed alebo explicitný degraded decision s ownerom a časovým limitom.
+
+Continuous Deployment zvyšuje požiadavky na batch size, observability, idempotenciu a recovery. Malá zmena sa ľahšie lokalizuje a roll-forwardne. Veľký batch s databázovou, aplikačnou a config zmenou vytvára viac recovery combinations.
+
+Automatický rollback nie je univerzálna poistka. Ak nová verzia zapísala nekompatibilné dáta, publikovala eventy alebo vykonala external side effects, návrat image-u môže zhoršiť stav. Deployment policy preto pred exposure hodnotí per-layer rollback eligibility a môže namiesto rollbacku zvoliť feature disable, roll-forward alebo compensation.
+
 ## 11. Connected incident `REL-PAY-66`
 
 Atlas automatic deployment prijal release `payments-10.0-rc4`, pretože CI a staging statuses boli zelené. Policy čítala mutable tag a neoverila digest ani changed production environment generation. Rollout controller nasadil `sha256:pay1000b`, zatiaľ čo staging evidence patrilo `sha256:pay1000a`.
