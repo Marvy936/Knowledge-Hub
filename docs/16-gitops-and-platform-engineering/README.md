@@ -34,12 +34,20 @@ Odporúča sa najprv dokončiť:
 13. [Service catalog](service-catalog.md)
 14. [Guardrails](guardrails.md)
 15. [Multi-tenancy](multi-tenancy.md)
+16. [Praktický GitOps projekt od Git revision po overený runtime](gitops-practical-walkthrough.md)
+17. [GitOps troubleshooting](gitops-troubleshooting.md)
 
-Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**.
+Aktuálny authoritative stav sekcie je **17/17 · Ready for user review**.
 
 ## Completion state
 
-Všetkých 15 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch. Každá kapitola má explicitný authority/subject/generation/evidence model, connected incident a vysvetlené positive, recovery, failure alebo forbidden acceptance paths; per-file gates vykazujú nulové critical, high a medium learning-depth findings. Authoritative ordering, celý navigation chain, glossary fragments a incidenty `GITOPS-PAY-61` až `GITOPS-PAY-64` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
+Všetkých 17 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch. Každá kapitola má explicitný authority/subject/generation/evidence model, connected incident a vysvetlené positive, recovery, failure alebo forbidden acceptance paths; per-file gates vykazujú nulové critical, high a medium learning-depth findings. Authoritative ordering, celý navigation chain, glossary fragments a incidenty `GITOPS-PAY-61` až `GITOPS-PAY-64` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
+
+## Hlavný GitOps walkthrough a troubleshooting
+
+[Praktický GitOps projekt od Git revision po overený runtime](gitops-practical-walkthrough.md) vytvára pinned kind cluster a Argo CD installation, versionovaný Kustomize environment, scoped AppProject a automated Application. Walkthrough overuje resolved Git revision, controller render, Kubernetes generations, Pod imageID, EndpointSlice a application version/business outcome. Reprodukuje Git-owned manual drift, self-heal, broken image release, Git revert recovery a prune/finalizer safety.
+
+[GitOps troubleshooting](gitops-troubleshooting.md) rozkladá incident na source/auth, revision resolution, render inputs, desired/live diff, field ownership, apply/prune, runtime health, secrets, promotion a multi-tenancy. Connected false-green incident ukazuje rozídený Git, hidden override, live patch a ignored fields a uzatvára ho jediným authoritative release manifestom a druhou reconciliation.
 
 ## Connected learning scenarios
 
@@ -431,7 +439,6 @@ stable tenant ID tenant-vega-71 + restricted-v3 profile
 
 Containment zrušil foreign connection, rotoval Orion credential, zastavil cross-namespace reconciliation, izoloval Vega egress a reconciled exported records. Catalog, policy a tenant boundaries boli opravené a testované spolu; izolovaná zmena jedného layeru by ponechala ďalší indirect privilege path.
 
-
 ## Cieľ zvládnutia aktívnych blokov
 
 ### Git ako source of truth
@@ -588,7 +595,6 @@ Containment zrušil foreign connection, rotoval Orion credential, zastavil cross
 - vysvetliť confused-deputy, cross-namespace reference a noisy-neighbor failure modes;
 - vytvoriť durable onboarding, migration, offboarding a residual-scan lifecycle;
 - overiť positive workflow, foreign-tenant negative paths, second tenant a controller compromise.
-
 
 ## Dominantný model sekcie
 

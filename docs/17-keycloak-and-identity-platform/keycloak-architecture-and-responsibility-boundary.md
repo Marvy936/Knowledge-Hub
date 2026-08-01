@@ -341,5 +341,5 @@ Relevantné pojmy: Keycloak deployment subject, realm issuer, frontend endpoint,
 
 **Navigácia**
 
-[← Predchádzajúca: Multi-tenancy](../16-gitops-and-platform-engineering/multi-tenancy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Realm, client, user, group, role a session →](realm-client-user-group-role-session.md)
+[← Predchádzajúca: GitOps troubleshooting](../16-gitops-and-platform-engineering/gitops-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Realm, client, user, group, role a session →](realm-client-user-group-role-session.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

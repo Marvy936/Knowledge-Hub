@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **323**
-- Audited conceptual sections: **6641**
-- Total words: **582,739**
-- Findings: **6993** (critical 939, high 1497, medium 575, low 3982)
-- File grades: A 112, B 92, C 25, D 94
+- Audited authoritative articles: **327**
+- Audited conceptual sections: **6711**
+- Total words: **591,349**
+- Findings: **7039** (critical 939, high 1504, medium 575, low 4021)
+- File grades: A 114, B 93, C 26, D 94
 
 ## Interpretation
 
@@ -133,6 +133,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 5 | 0 | 12 | 1816 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1603 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
+| C | 53 | 0 | 6 | 0 | 4 | 2266 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 1822 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | C | 48 | 0 | 3 | 3 | 10 | 1889 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
@@ -144,6 +145,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 36 | 0 | 4 | 0 | 3 | 1133 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | B | 33 | 0 | 1 | 0 | 22 | 2086 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
+| B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 31 | 0 | 2 | 0 | 11 | 1612 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
@@ -238,7 +240,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 14 | 0 | 0 | 0 | 13 | 1484 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1406 | `docs/16-gitops-and-platform-engineering/argo-cd.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1741 | `docs/16-gitops-and-platform-engineering/flux.md` |
-| A | 14 | 0 | 0 | 0 | 14 | 1694 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
+| A | 14 | 0 | 0 | 0 | 14 | 1698 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 888 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | B | 13 | 0 | 1 | 0 | 3 | 1195 | `docs/09-kubernetes/scheduling.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 1987 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
@@ -277,6 +279,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 9 | 1795 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1801 | `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md` |
 | A | 11 | 0 | 0 | 0 | 11 | 1696 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
+| A | 11 | 0 | 0 | 0 | 9 | 1910 | `docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | A | 10 | 0 | 0 | 0 | 7 | 896 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -299,7 +302,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 9 | 0 | 1 | 0 | 1 | 833 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | A | 9 | 0 | 0 | 0 | 5 | 1187 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 2240 | `docs/10-helm-and-cka/chart-dependencies.md` |
-| A | 9 | 0 | 0 | 0 | 8 | 2124 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
+| A | 9 | 0 | 0 | 0 | 8 | 2131 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1631 | `docs/12-observability/fluent-bit.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 2033 | `docs/14-sre-and-operations/capacity-planning.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1972 | `docs/14-sre-and-operations/reliability-availability-durability.md` |
@@ -317,6 +320,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 8 | 1281 | `docs/13-security-and-identity/policy-as-code.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1588 | `docs/15-databases-and-distributed-systems/caching.md` |
 | A | 8 | 0 | 0 | 0 | 8 | 1794 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
+| A | 8 | 0 | 0 | 0 | 7 | 1984 | `docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1136 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
@@ -331,9 +335,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 6 | 0 | 0 | 0 | 5 | 967 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 1724 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 1297 | `docs/12-observability/metrics-logs-traces-events.md` |
-| A | 6 | 0 | 0 | 0 | 5 | 1425 | `docs/12-observability/monitoring-vs-observability.md` |
+| A | 6 | 0 | 0 | 0 | 5 | 1424 | `docs/12-observability/monitoring-vs-observability.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 1273 | `docs/12-observability/use-method.md` |
-| A | 6 | 0 | 0 | 0 | 6 | 2513 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
+| A | 6 | 0 | 0 | 0 | 6 | 2514 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
 | A | 5 | 0 | 0 | 0 | 5 | 1047 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | A | 5 | 0 | 0 | 0 | 3 | 897 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 844 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
@@ -3203,18 +3207,31 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 7, `single-sentence-concept` — **Presný current a target inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/11-cloud-and-aws/aws-practical-walkthrough.md`
+
+- **HIGH** line 157, `list-first-introduction` — **2. Reprodukovateľný zip a lokálny checksum**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 174, `list-first-introduction` — **3. DynamoDB table**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 265, `list-first-introduction` — **5. Vytvorenie Lambda $LATEST**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 406, `list-first-introduction` — **8. DynamoDB remote read-back**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 678, `list-first-introduction` — **Acceptance walkthroughu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 678, `single-sentence-concept` — **Acceptance walkthroughu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
+### `docs/11-cloud-and-aws/aws-troubleshooting.md`
+
+- **HIGH** line 20, `list-first-introduction` — **Minimálny incident manifest**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1848 | 1848 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1147 | 1147 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 987 | 987 |
-| `single-sentence-concept` | 0 | 571 | 0 | 0 | 571 |
+| `example-not-explicit` | 0 | 0 | 0 | 1871 | 1871 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1156 | 1156 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 994 | 994 |
+| `single-sentence-concept` | 0 | 572 | 0 | 0 | 572 |
 | `term-before-explanation` | 0 | 81 | 392 | 0 | 473 |
 | `outline-instead-of-explanation` | 431 | 0 | 0 | 0 | 431 |
 | `bare-bullet-items` | 351 | 55 | 0 | 0 | 406 |
-| `list-first-introduction` | 0 | 368 | 0 | 0 | 368 |
+| `list-first-introduction` | 0 | 374 | 0 | 0 | 374 |
 | `thin-concept-section` | 0 | 340 | 0 | 0 | 340 |
 | `short-concept-section` | 0 | 0 | 183 | 0 | 183 |
 | `no-prose-concept` | 84 | 0 | 0 | 0 | 84 |
