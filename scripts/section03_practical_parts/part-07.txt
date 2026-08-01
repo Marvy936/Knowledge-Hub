@@ -1,0 +1,110 @@
+    if ($PSCmdlet.ShouldProcess($StatePath, 'Apply Atlas Orders configuration')) {
+        & python $Tool apply --config $ConfigPath --state $StatePath --plan $Plan
+        if ($LASTEXITCODE -ne 0) { throw "apply failed: $LASTEXITCODE" }
+
+        $verified = & python $Tool verify --config $ConfigPath --state $StatePath
+        if ($LASTEXITCODE -ne 0) { throw "verify failed: $LASTEXITCODE" }
+        $verified | ConvertFrom-Json
+    }
+    else {
+        Get-Content -LiteralPath $Plan -Raw | ConvertFrom-Json
+    }
+}
+finally {
+    Remove-Item -LiteralPath $Plan -Force -ErrorAction SilentlyContinue
+}
+```
+
+Wrapper používa object output, `ShouldProcess`, `LiteralPath` a okamžitú kontrolu `$LASTEXITCODE`. `-WhatIf` vytvorí plan, ale nevykoná apply.
+
+## 13. Tests
+
+Vytvor `tests/test_atlasctl.py`:
+
+```python
+from __future__ import annotations
+
+import importlib.util
+import json
+import tempfile
+import unittest
+import sys
+from pathlib import Path
+
+MODULE_PATH = Path(__file__).parents[1] / "tools" / "atlasctl.py"
+spec = importlib.util.spec_from_file_location("atlasctl", MODULE_PATH)
+assert spec and spec.loader
+atlasctl = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = atlasctl
+spec.loader.exec_module(atlasctl)
+
+
+class AtlasCtlTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name)
+        self.config = self.root / "orders.yaml"
+        self.state = self.root / "state.json"
+        self.plan = self.root / "plan.json"
+        self.write_config(5000)
+
+    def tearDown(self) -> None:
+        self.temp.cleanup()
+
+    def write_config(self, amount: int) -> None:
+        self.config.write_text(
+            json.dumps(
+                {
+                    "service": "orders-api",
+                    "environment": "dev",
+                    "release": "4.2.0",
+                    "maxOrderAmount": amount,
+                    "currency": "EUR",
+                }
+            ),
+            encoding="utf-8",
+        )
+
+    def make_plan(self) -> None:
+        config = atlasctl.load_config(self.config)
+        state = atlasctl.load_state(self.state)
+        self.plan.write_text(
+            json.dumps(atlasctl.build_plan(config, state)), encoding="utf-8"
+        )
+
+    def test_apply_and_second_noop(self) -> None:
+        self.make_plan()
+        args = type("Args", (), {
+            "config": str(self.config),
+            "state": str(self.state),
+            "plan": str(self.plan),
+        })()
+        self.assertEqual(atlasctl.command_apply(args), 0)
+        self.make_plan()
+        self.assertEqual(atlasctl.command_apply(args), 0)
+        self.assertEqual(
+            json.loads(self.state.read_text(encoding="utf-8"))["maxOrderAmount"],
+            5000,
+        )
+
+    def test_stale_desired_plan_is_rejected(self) -> None:
+        self.make_plan()
+        self.write_config(6000)
+        args = type("Args", (), {
+            "config": str(self.config),
+            "state": str(self.state),
+            "plan": str(self.plan),
+        })()
+        with self.assertRaises(atlasctl.PreconditionFailed):
+            atlasctl.command_apply(args)
+
+    def test_unknown_key_is_rejected(self) -> None:
+        value = json.loads(self.config.read_text(encoding="utf-8"))
+        value["unexpected"] = True
+        self.config.write_text(json.dumps(value), encoding="utf-8")
+        with self.assertRaises(atlasctl.InvalidInput):
+            atlasctl.load_config(self.config)
+
+
+if __name__ == "__main__":
+    unittest.main()
