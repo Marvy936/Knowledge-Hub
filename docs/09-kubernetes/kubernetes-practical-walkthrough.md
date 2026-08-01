@@ -166,6 +166,10 @@ Secret existence ešte nepreukazuje, že Pod ho mountol alebo že process hodnot
 
 ## 6. Deployment: jedna úplná Pod template
 
+Pod template je rollout identity Deploymentu. Každá zmena labels, annotations, image digestu, configuration alebo secret generation, ServiceAccountu, SecurityContextu, resources, volumes alebo probes vytvorí nový Pod-template hash a tým nový ReplicaSet. Manifest preto skladá tieto polia ako jeden reviewovateľný runtime contract, nie ako nezávislý zoznam YAML možností.
+
+V walkthroughe musí template súčasne spĺňať Restricted security boundary, mať explicitné writable paths, stabilné scheduling inputs a probes viazané na skutočný application lifecycle. Neskorší read-back prepojí source digest a generations s ReplicaSet UID, Pod UIDs, Node assignmentom, runtime imageID, loaded configuration a ready EndpointSlice.
+
 Vytvor `deployment.yaml`:
 
 ```yaml
@@ -804,6 +808,10 @@ kubectl get secret payments-runtime-se08 -n production
 
 ## 17. Diff
 
+Diff je pre-mutation porovnanie medzi serverom resolve-nutým proposed objectom a aktuálnym live objectom pre rovnaký field manager. Server-side režim zahŕňa schema, defaulting, admission a managed-field ownership, takže výsledok je bližšie apply semantics než lokálny textový diff. CI musí rozlíšiť exit code pre nulový rozdiel, nájdený rozdiel a tool alebo API chybu.
+
+Review kontroluje nielen zmenené YAML fields, ale aj identity a následky: či sa mení Pod template a vznikne revision, či selector zostáva immutable-compatible, či sa nepreberá field vlastnený HPA alebo iným managerom a či security alebo admission defaulting nevytvorili neočakávaný effective object. Diff stále nepreukazuje controller convergence ani runtime outcome.
+
 ```bash
 kubectl diff \
   --server-side \
@@ -816,6 +824,10 @@ kubectl diff \
 Diff nepreukazuje runtime convergence. Je to pre-mutation evidence.
 
 ## 18. Apply
+
+Server-side apply odošle deklarované fields s explicitným field managerom. API server request autentizuje, autorizuje, preženie admissionom, vyrieši field ownership a persistuje novú object generation; úspešná odpoveď preto potvrdzuje API transition, nie vytvorený ReplicaSet, schedulovaný Pod alebo fungujúci Service.
+
+Bezprostredne po mutation sa zachová Deployment UID, generation a resourceVersion a sleduje sa observedGeneration, nový ReplicaSet, Pod UIDs, Node assignment, imageID, readiness a EndpointSlice. Ak klient stratí odpoveď, apply sa neopakuje naslepo ako nový intent; najprv sa read-backne live object a managedFields, aby sa unknown outcome zmenil na known persisted alebo not-persisted state.
 
 ```bash
 kubectl apply \
@@ -1238,6 +1250,10 @@ kubectl delete namespace production
 V shared clustri nepoužívaj production namespace pre lab. Zvoľ samostatný názov a uprav manifests. Delete Namespace odstráni namespaced Kubernetes objekty, ale external cloud resources, retained PVs, logs a secret targets môžu mať samostatný lifecycle.
 
 ## 30. Čo walkthrough dokázal
+
+Záverečný verdict je evidence matrix nad jednou walkthrough generation, nie tvrdenie, že Kubernetes je všeobecne zdravý. Každý bod nižšie patrí ku konkrétnemu source renderu, admitted objectom, controller graphu, Pod alebo Node a runtime identitám a request pathu vykonanému v tomto prostredí.
+
+Rovnako dôležitá je negatívna hranica. Nevykonané external Gateway, production database, multi-zone, CSI recovery alebo upgrade scenáre nemožno odvodiť z úspešného namespace labu. Výsledok preto oddeľuje presne preukázané transitions od capabilities, ktoré vyžadujú samostatný target environment a acceptance test.
 
 Po úspešnom prechode máme evidence, že:
 

@@ -86,6 +86,10 @@ Aplikácia, ktorá nekontrolovane loguje do container filesystemu, môže poško
 
 ## QoS classes
 
+QoS class sa vypočíta z requests a limits všetkých containers v Pode. `Guaranteed` vyžaduje pre každý CPU a memory resource rovnaký request a limit; `Burstable` pokrýva ostatné Pods s aspoň jedným requestom alebo limitom a `BestEffort` nemá ani jedno. Class je teda vlastnosť admitted Pod specu, nie voľne nastavený label.
+
+Kubelet používa QoS spolu s usage, priority a Node pressure pri eviction rozhodovaní. Vyššia class znižuje relatívne riziko, ale negarantuje prežitie, výkon ani absenciu OOM v container limite. Read-back musí kontrolovať effective requests a limits po admission a skutočný Pod `status.qosClass`.
+
 Kubernetes odvodzuje Pod QoS class.
 
 ### Guaranteed

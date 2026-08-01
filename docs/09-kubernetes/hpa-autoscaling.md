@@ -6,6 +6,10 @@ Pri `payments-api` chceme škálovať medzi šiestimi a tridsiatimi replikami po
 
 ## Základný HPA
 
+HPA je writerom scale subresource-u cieľového workloadu. `scaleTargetRef` musí resolve-nuť presný Deployment a metric contract musí mať známu unit, aggregation window a population; pri CPU utilization je denominatorom resource request každého eligible Podu. `minReplicas` a `maxReplicas` sú bounds desired countu, nie rezervovaná serving kapacita.
+
+Po prijatí objektu treba oddeliť HPA recommendation, zapísaný Deployment replica count, vytvorené Pods, schedulované a Ready Pods a Service capacity. GitOps alebo iný controller nesmie súčasne neustále zapisovať statickú `.spec.replicas`, inak vznikne ownership oscillation medzi dvoma správne fungujúcimi control loops.
+
 ```yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -209,6 +213,10 @@ Queue consumers musia pred termination prestať prijímať novú prácu, dokonč
 PodDisruptionBudget typicky nekontroluje všetky voluntary scale-down transitions rovnako ako drain; HPA safety musí byť navrhnutá na application úrovni.
 
 ## Observácia HPA
+
+Observácia začína exact HPA generation a scale targetom, potom porovná current metrics s timestamps, computed desired replicas a skutočným scale subresource-om Deploymentu. Conditions `AbleToScale`, `ScalingActive` a `ScalingLimited` opisujú jednotlivé controller decisions; bez reason alebo message a aktuálnosti metrík nie sú samostatným health verdictom.
+
+Ak desired count rastie, diagnostika pokračuje cez ReplicaSet Events, quota alebo admission, scheduler a Node capacity až po readiness a EndpointSlice. HPA môže byť úplne zdravá, aj keď serving capacity nerastie, pretože ďalší transition vlastní iný controller alebo platform component.
 
 ```bash
 kubectl get hpa payments-api -n production

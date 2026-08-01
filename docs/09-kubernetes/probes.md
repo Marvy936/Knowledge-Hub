@@ -168,6 +168,10 @@ Custom controller musí condition viazať na Pod UID a generation. Ak zapíše s
 
 ## Conditions a EndpointSlice
 
+Kubelet zapisuje container a Pod conditions, ale Service backend eligibility vzniká až kombináciou Pod readiness, Service selectoru a EndpointSlice controllera. `ContainersReady=True` opisuje container readiness v Pode; `Ready=True` môže zahŕňať additional readiness gates. EndpointSlice condition `ready=true` následne hovorí, že konkrétny endpoint je publikovaný ako ready backend pre daný Service inventory.
+
+Diagnostika preto koreluje Pod UID a conditions s EndpointSlice targetRef UID. Liveness success nepreukazuje readiness a Ready Pod nepreukazuje, že ho vyberá správny Service. Request test cez Service uzatvára dataplane boundary, ktorú samotné conditions neoverujú.
+
 ```bash
 kubectl get pod -n production <pod-name> \
   -o jsonpath='{range .status.conditions[*]}{.type}{"="}{.status}{" reason="}{.reason}{"\n"}{end}'

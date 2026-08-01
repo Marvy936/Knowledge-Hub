@@ -136,15 +136,9 @@ Reconcile cleanup-u musí byť rovnako idempotentný ako create. Timeout pri del
 
 Controllers môžu používať periodický resync, aby objekty opäť zaradili na spracovanie aj bez novej API udalosti. Resync pomáha pri drift-e alebo strate lokálnej udalosti, ale nie je ospravedlnením pre nepravdivý status alebo závislosť na presnom poradí eventov.
 
-Reconcile musí byť správny aj vtedy, keď dostane:
+Reconcile nesmie odvodzovať správnosť z toho, že event stream je úplný a presne zoradený. Viac rovnakých eventov musí viesť k rovnakému effective state-u, pretože queue môže objekt zaradiť opakovane. Ak sa niekoľko zmien udeje rýchlo za sebou, controller môže vidieť iba poslednú resourceVersion; autoritatívnym vstupom je preto aktuálny objekt z cache alebo API, nie historická sekvencia callbackov.
 
-- viac rovnakých eventov,
-- iba poslednú z viacerých rýchlych zmien,
-- delete tombstone namiesto plného objektu,
-- stale cache snapshot,
-- event po reštarte controllera.
-
-Tieto prípady sú prirodzenou súčasťou distribuovaného systému.
+Delete tombstone môže niesť iba identity potrebné na cleanup, stale cache snapshot môže dočasne zaostávať za API serverom a po reštarte controllera prídu objekty bez zachovanej lokálnej histórie. Controller má v každom prípade znovu zostaviť exact subject z UID, generation a external identity, porovnať desired a observed state a vykonať iba idempotentný transition. Periodický resync zvyšuje šancu na opätovné spracovanie; neopravuje reconcile logiku, ktorá potrebuje stratený event alebo poradie eventov na dosiahnutie správneho výsledku.
 
 ## Dvaja controllers nad rovnakým fieldom
 
@@ -202,17 +196,9 @@ Oprava vyžadovala stabilný external key odvodený z Kubernetes UID, provider-s
 
 ## Ako čítať reconcile pri troubleshootingu
 
-Pri zlyhaní sa pýtaj v tomto poradí:
+Troubleshooting reconcile začína persistovaným desired state-om, nie logom controllera. Najprv zafixuj API object cez name, UID, generation a resourceVersion a urč, ktorý controller alebo field manager vlastní nasledujúci transition. Potom porovnaj `metadata.generation` s `status.observedGeneration`; staršia observed generation znamená, že status ešte nepatrí aktuálnemu intentu.
 
-1. Aký desired state je aktuálne persistovaný?
-2. Ktorý controller vlastní ďalší transition?
-3. Spracoval aktuálnu generation?
-4. Aký dependent object alebo external effect mal vzniknúť?
-5. Existuje, ale má zlý stav, alebo vôbec nevznikol?
-6. Je retry bezpečný a idempotentný?
-7. Ktorý writer vlastní problematický field?
-
-Takto sa vyhneš plošnému restartovaniu controllerov bez pochopenia, či je problém v stale cache, admission, ownership konflikte alebo samotnom external API.
+Ďalší krok sleduje konkrétny dependent object alebo external effect. Over ownerReference alebo stabilnú external identity a rozlíš tri outcomes: objekt nevznikol, vznikol so zlým stavom alebo mutation mohla uspieť, ale výsledok zostal neznámy. Až podľa tohto read-backu rozhodni, či je retry bezpečný. Nakoniec skontroluj managedFields a ďalších writerov problematického fieldu, pretože restart controllera nevyrieši admission odmietnutie, ownership konflikt ani chybu externého API a môže iba prekryť pôvodnú evidence.
 
 ## Model, ktorý si treba odniesť
 

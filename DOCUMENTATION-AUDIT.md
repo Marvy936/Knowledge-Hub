@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **638,095**
-- Findings: **6539** (critical 660, high 895, medium 470, low 4514)
-- File grades: A 126, B 110, C 31, D 60
+- Total words: **640,197**
+- Findings: **6534** (critical 654, high 872, medium 469, low 4539)
+- File grades: A 135, B 105, C 28, D 59
 
 ## Interpretation
 
@@ -88,7 +88,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 67 | 0 | 7 | 0 | 9 | 1869 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | C | 64 | 0 | 7 | 0 | 5 | 1468 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 63 | 0 | 7 | 0 | 6 | 1655 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
-| D | 62 | 3 | 1 | 1 | 11 | 1385 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
@@ -102,27 +101,22 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 48 | 0 | 0 | 0 | 37 | 2819 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
-| C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
-| C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
-| C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
-| B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
-| B | 26 | 0 | 2 | 0 | 6 | 1305 | `docs/09-kubernetes/hpa-autoscaling.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
@@ -134,16 +128,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | B | 23 | 0 | 0 | 0 | 19 | 1927 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
-| B | 23 | 0 | 1 | 0 | 10 | 1241 | `docs/09-kubernetes/cni-networkpolicy.md` |
+| B | 23 | 0 | 0 | 0 | 16 | 2656 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 3437 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 2027 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
-| B | 22 | 0 | 1 | 0 | 9 | 1319 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
-| B | 22 | 0 | 1 | 0 | 8 | 1291 | `docs/09-kubernetes/probes.md` |
-| B | 22 | 0 | 1 | 0 | 8 | 1336 | `docs/09-kubernetes/requests-limits-qos.md` |
-| B | 22 | 0 | 1 | 0 | 9 | 1145 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | B | 21 | 0 | 0 | 0 | 14 | 1821 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2662 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
@@ -157,7 +147,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1844 | `docs/09-kubernetes/etcd-backup-restore.md` |
-| B | 20 | 0 | 1 | 0 | 8 | 1592 | `docs/09-kubernetes/upgrades.md` |
 | B | 20 | 0 | 0 | 0 | 12 | 1304 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 2076 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1452 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
@@ -166,7 +155,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
-| B | 19 | 0 | 1 | 0 | 8 | 1084 | `docs/09-kubernetes/configmap-secret.md` |
 | B | 19 | 0 | 0 | 0 | 16 | 2103 | `docs/11-cloud-and-aws/cost-management-finops.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
@@ -185,7 +173,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 1887 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
-| B | 17 | 0 | 1 | 0 | 5 | 1262 | `docs/09-kubernetes/job-cronjob.md` |
+| B | 17 | 0 | 0 | 0 | 15 | 3965 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | B | 17 | 0 | 0 | 0 | 11 | 1617 | `docs/09-kubernetes/logging-metrics-events.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1839 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 1808 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
@@ -199,7 +187,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 12 | 2628 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 2379 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 1713 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
-| B | 16 | 0 | 1 | 0 | 6 | 1351 | `docs/09-kubernetes/deployment.md` |
+| B | 16 | 0 | 0 | 0 | 11 | 1332 | `docs/09-kubernetes/cni-networkpolicy.md` |
+| B | 16 | 0 | 0 | 0 | 10 | 1378 | `docs/09-kubernetes/probes.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 1327 | `docs/09-kubernetes/securitycontext-pod-security.md` |
 | B | 16 | 0 | 0 | 0 | 15 | 2097 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1662 | `docs/11-cloud-and-aws/aws-backup.md` |
@@ -212,9 +201,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 15 | 1682 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1511 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1401 | `docs/03-git-and-automation/git-object-model.md` |
+| B | 15 | 0 | 0 | 0 | 10 | 1429 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1367 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1564 | `docs/09-kubernetes/pod.md` |
+| B | 15 | 0 | 0 | 0 | 9 | 1427 | `docs/09-kubernetes/requests-limits-qos.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1252 | `docs/09-kubernetes/statefulset.md` |
+| B | 15 | 0 | 0 | 0 | 10 | 1233 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1991 | `docs/11-cloud-and-aws/rds.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1522 | `docs/11-cloud-and-aws/systems-manager.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1357 | `docs/12-observability/loki.md` |
@@ -226,6 +218,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
+| A | 14 | 0 | 0 | 0 | 10 | 1700 | `docs/09-kubernetes/upgrades.md` |
 | A | 14 | 0 | 0 | 0 | 14 | 1980 | `docs/10-helm-and-cka/hooks.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 1794 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 2112 | `docs/14-sre-and-operations/chaos-engineering.md` |
@@ -238,7 +231,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1600 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | A | 13 | 0 | 0 | 0 | 9 | 3923 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2192 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
-| B | 13 | 0 | 1 | 0 | 3 | 1195 | `docs/09-kubernetes/scheduling.md` |
+| A | 13 | 0 | 0 | 0 | 10 | 1186 | `docs/09-kubernetes/configmap-secret.md` |
+| A | 13 | 0 | 0 | 0 | 7 | 1328 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 1987 | `docs/11-cloud-and-aws/cloudops-hands-on-labs.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1459 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1585 | `docs/12-observability/cardinality.md` |
@@ -269,6 +263,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 9 | 1642 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1510 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1447 | `docs/09-kubernetes/control-plane-components.md` |
+| A | 11 | 0 | 0 | 0 | 9 | 1517 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
+| A | 11 | 0 | 0 | 0 | 7 | 1472 | `docs/09-kubernetes/hpa-autoscaling.md` |
 | A | 11 | 0 | 0 | 0 | 7 | 1129 | `docs/09-kubernetes/service-endpointslice.md` |
 | A | 11 | 0 | 0 | 0 | 10 | 1515 | `docs/12-observability/elasticsearch-opensearch.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1293 | `docs/13-security-and-identity/active-directory.md` |
@@ -298,7 +294,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 6 | 825 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 1189 | `docs/03-git-and-automation/branching-strategies.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 3308 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md` |
+| A | 9 | 0 | 0 | 0 | 7 | 1457 | `docs/09-kubernetes/deployment.md` |
 | A | 9 | 0 | 0 | 0 | 5 | 1187 | `docs/09-kubernetes/ingress-gateway-api.md` |
+| A | 9 | 0 | 0 | 0 | 5 | 1359 | `docs/09-kubernetes/job-cronjob.md` |
+| A | 9 | 0 | 0 | 0 | 7 | 1344 | `docs/09-kubernetes/rbac.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 2240 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 2131 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 1631 | `docs/12-observability/fluent-bit.md` |
@@ -332,6 +331,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 7 | 0 | 0 | 0 | 6 | 1405 | `docs/13-security-and-identity/cia-triad.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1277 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 967 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
+| A | 6 | 0 | 0 | 0 | 4 | 1285 | `docs/09-kubernetes/scheduling.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 1724 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 1297 | `docs/12-observability/metrics-logs-traces-events.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 1424 | `docs/12-observability/monitoring-vs-observability.md` |
@@ -1935,25 +1935,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/09-kubernetes/desired-state-reconciliation-loops.md`
-
-- **CRITICAL** line 135, `bare-bullet-items` — **Resync nie je náhrada za správny watch model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac rovnakých eventov,`, `iba poslednú z viacerých rýchlych zmien,`, `delete tombstone namiesto plného objektu,`, `stale cache snapshot,`.
-- **CRITICAL** line 203, `bare-bullet-items` — **Ako čítať reconcile pri troubleshootingu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký desired state je aktuálne persistovaný?`, `Ktorý controller vlastní ďalší transition?`, `Spracoval aktuálnu generation?`, `Aký dependent object alebo external effect mal vzniknúť?`.
-- **CRITICAL** line 203, `outline-instead-of-explanation` — **Ako čítať reconcile pri troubleshootingu**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **HIGH** line 203, `single-sentence-concept` — **Ako čítať reconcile pri troubleshootingu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/09-kubernetes/kubernetes-troubleshooting.md`
-
-- **CRITICAL** line 365, `empty-section` — **Detailný incident: green cluster, intermittent 502 po Node upgrade-e**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 233, `list-first-introduction` — **Service nemá endpoints**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/rbac.md`
-
-- **CRITICAL** line 188, `bare-bullet-items` — **Workload creation ako nepriama authority**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vybrať povolený ServiceAccount,`, `mountnúť dostupný Secret,`, `použiť hostPath alebo privileged context, ak admission dovolí,`, `spustiť image s vlastným kódom,`.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **Workload creation ako nepriama authority**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **HIGH** line 142, `list-first-introduction` — **Kontrola permissions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 188, `thin-concept-section` — **Workload creation ako nepriama authority**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
 ### `docs/00-foundations/value-stream-mapping.md`
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2114,64 +2095,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/09-kubernetes/cluster-installation-lifecycle.md`
-
-- **HIGH** line 138, `single-sentence-concept` — **Capability gate pre nový Node**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/09-kubernetes/cni-networkpolicy.md`
-
-- **HIGH** line 108, `list-first-introduction` — **Povolenie databázového egressu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/configmap-secret.md`
-
-- **HIGH** line 125, `list-first-introduction` — **Deployment rollout cez explicitnú generáciu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/deployment.md`
-
-- **HIGH** line 182, `single-sentence-concept` — **Rollout evidence po vrstvách**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/09-kubernetes/hpa-autoscaling.md`
-
-- **HIGH** line 7, `list-first-introduction` — **Základný HPA**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 211, `list-first-introduction` — **Observácia HPA**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/job-cronjob.md`
-
-- **HIGH** line 212, `list-first-introduction` — **Pozorovanie a logs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/kubernetes-practical-walkthrough.md`
-
-- **HIGH** line 167, `single-sentence-concept` — **6. Deployment: jedna úplná Pod template**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 805, `list-first-introduction` — **17. Diff**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 818, `list-first-introduction` — **18. Apply**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 1240, `single-sentence-concept` — **30. Čo walkthrough dokázal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/09-kubernetes/probes.md`
-
-- **HIGH** line 169, `list-first-introduction` — **Conditions a EndpointSlice**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/requests-limits-qos.md`
-
-- **HIGH** line 87, `single-sentence-concept` — **QoS classes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/09-kubernetes/resourcequota-limitrange.md`
-
-- **HIGH** line 7, `list-first-introduction` — **ResourceQuota pre compute**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 77, `list-first-introduction` — **LimitRange defaults**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 116, `list-first-introduction` — **LimitRange pre PVC**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/scheduling.md`
-
-- **HIGH** line 209, `list-first-introduction` — **Events a unschedulable message**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/taints-tolerations-affinity-topology.md`
-
-- **HIGH** line 17, `list-first-introduction` — **Toleration v Pode**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/09-kubernetes/upgrades.md`
-
-- **HIGH** line 7, `single-sentence-concept` — **Presný current a target inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
 ### `docs/11-cloud-and-aws/aws-practical-walkthrough.md`
 
 - **HIGH** line 157, `list-first-introduction` — **2. Reprodukovateľný zip a lokálny checksum**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2189,19 +2112,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2097 | 2097 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1290 | 1290 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1127 | 1127 |
+| `example-not-explicit` | 0 | 0 | 0 | 2108 | 2108 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1291 | 1291 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
-| `single-sentence-concept` | 0 | 353 | 0 | 0 | 353 |
-| `outline-instead-of-explanation` | 316 | 0 | 0 | 0 | 316 |
-| `bare-bullet-items` | 239 | 33 | 0 | 0 | 272 |
-| `thin-concept-section` | 0 | 244 | 0 | 0 | 244 |
-| `short-concept-section` | 0 | 0 | 150 | 0 | 150 |
-| `list-first-introduction` | 0 | 144 | 0 | 0 | 144 |
+| `single-sentence-concept` | 0 | 346 | 0 | 0 | 346 |
+| `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
+| `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
+| `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
+| `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
+| `list-first-introduction` | 0 | 129 | 0 | 0 | 129 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
-| `empty-section` | 49 | 0 | 0 | 0 | 49 |
+| `empty-section` | 48 | 0 | 0 | 0 | 48 |
 
 ## Required remediation pattern
 

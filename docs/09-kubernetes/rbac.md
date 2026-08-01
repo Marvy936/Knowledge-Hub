@@ -141,6 +141,8 @@ kubectl get clusterrole <name> -o yaml
 
 ## Kontrola permissions
 
+Permission check musí používať rovnaký subject, namespace, verb, resource a subresource ako plánovaná operácia. `kubectl auth can-i` posiela API serveru authorization review a odpovedá na otázku, či by authorizer daný request povolil; nepreukazuje, že objekt existuje, že admission request prijme ani že external cloud identity dovolí následný efekt. Pozitívny test preto dopĺňa explicitný forbidden test pre susedný Secret, namespace alebo verb.
+
 ```bash
 kubectl auth can-i get configmap/payments-api-runtime-metadata \
   -n production \
@@ -187,15 +189,9 @@ Použitie funguje iba ak caller smie impersonovať daný subject. Broad imperson
 
 ## Workload creation ako nepriama authority
 
-Identita, ktorá smie vytvárať Pods, môže:
+Právo vytvoriť Pod je nepriamou code-execution authority v namespace. Caller môže zvoliť ServiceAccount, ktorý Pod použije, a tým získať jeho Kubernetes alebo federovanú cloud identity. Môže pripojiť Secret, ktorý kubelet smie materializovať pre workload, aj keď caller nemá priamy `get` na Secret API. Vložením vlastného image alebo commandu potom dokáže hodnotu prečítať z procesu alebo filesystemu.
 
-- vybrať povolený ServiceAccount,
-- mountnúť dostupný Secret,
-- použiť hostPath alebo privileged context, ak admission dovolí,
-- spustiť image s vlastným kódom,
-- pristúpiť k network a cloud metadata podľa platformy.
-
-Preto „nemá get secrets“ nemusí znamenať „nevie získať secret“. Admission, ServiceAccount use policy, Pod Security a node isolation musia doplniť RBAC.
+Ak admission dovolí `hostPath`, privileged SecurityContext alebo neobmedzené capabilities, Pod creation môže prekročiť namespace boundary až k Node-u. Aj bez host accessu môže workload použiť povolený network egress alebo cloud metadata endpoint. Preto tvrdenie „identita nemá `get secrets`“ nie je kompletný confidentiality verdict. Effective boundary vzniká kombináciou RBAC, obmedzenia použiteľných ServiceAccounts, Pod Security alebo admission, secret mounting policy, Node isolation, NetworkPolicy a cloud workload identity controls.
 
 ## Update workloadu ako code execution
 

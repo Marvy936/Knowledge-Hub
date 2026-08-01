@@ -211,6 +211,10 @@ Taký Job musí dostať explicitný batch ID a nesmie kolidovať s plánovaným 
 
 ## Pozorovanie a logs
 
+Job status agreguje completion a failure nad viacerými Pod attempts, ale root cause patrí ku konkrétnemu Pod UID, container restart alebo termination state a časovej osi. Pri retry môže nový Pod vykonať rovnakú business operáciu znova; preto treba uchovať všetky attempt identities a nekontrolovať iba log posledného úspešného Podu.
+
+Pozorovanie spája Job UID a generation, ownerReferences Podov, completion indexes alebo schedule time, exit codes a application operation key. `kubectl logs job/<name>` je convenience view, nie garantovaný kompletný audit všetkých attempts; pri incidente sa logs a status čítajú per Pod a porovnajú sa s durable business ledgerom.
+
 ```bash
 kubectl get cronjob settlement-export -n production -o yaml
 kubectl get jobs -n production -l app=settlement-export

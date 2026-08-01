@@ -181,6 +181,10 @@ Dry-run ukáže admitted template, ale nevytvorí nový ReplicaSet.
 
 ## Rollout evidence po vrstvách
 
+Rollout nie je jeden status, ale reťazec identít. Source manifest a image digest vedú k admitted Deployment generation; Deployment controller vytvorí ReplicaSet s konkrétnym UID a Pod-template hashom; ReplicaSet vytvorí Pods s vlastnými UID; kubelet spustí runtime s imageID a probes rozhodnú o readiness; EndpointSlice až potom publikuje serving backends.
+
+`kubectl rollout status` uzatvára iba Deployment controller contract podľa observedGeneration, available replicas a progress conditions. Release acceptance preto koreluje Deployment, ReplicaSet a Pod identities, runtime image a configuration generation, ready endpoints a request alebo business outcome. Tak možno rozlíšiť green rollout so zlým imageID, ready Pods mimo Service selectoru alebo dostupnú kapacitu s chybným payment behaviorom.
+
 Rozumná kontrola ide od controller state-u k business výsledku:
 
 ```bash

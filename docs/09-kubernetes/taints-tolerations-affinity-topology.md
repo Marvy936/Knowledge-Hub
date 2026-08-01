@@ -16,6 +16,10 @@ Taint neznamená, že Node je vyhradený iba pre payments workload. Pods s toler
 
 ## Toleration v Pode
 
+Taint odpudzuje Pods podľa key, value a effect a toleration iba ruší túto konkrétnu prekážku. Toleration nevyberá Node, negarantuje scheduling na tainted cohortu a neoveruje, že Node má požadovanú capability. Ak má workload bežať iba na GPU alebo hardened Nodes, potrebuje popri toleration aj nodeSelector alebo required node affinity viazanú na dôveryhodný Node label.
+
+Exact effect mení lifecycle: `NoSchedule` blokuje nové umiestnenie, `PreferNoSchedule` je mäkký signal a `NoExecute` môže evictovať existujúci Pod podľa `tolerationSeconds`. Read-back preto kontroluje Pod spec, Node taints, scheduler decision a prípadnú eviction časovú os.
+
 ```yaml
 spec:
   tolerations:

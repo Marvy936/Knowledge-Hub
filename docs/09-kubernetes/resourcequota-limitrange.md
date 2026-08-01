@@ -6,6 +6,10 @@ Pri `payments-api` chceme, aby namespace `production` mal dostatočnú kapacitu 
 
 ## ResourceQuota pre compute
 
+ResourceQuota je namespace admission accounting boundary. Pri create alebo update requeste quota controller porovná nový aggregate request alebo limit a object count s hard limitom; ak by ho prekročil, API object nevznikne. Quota nereprezentuje voľnú Node kapacitu ani negarantuje, že prijatý Pod bude schedulovateľný.
+
+Kontrola preto porovnáva `hard` a `used` pre presný namespace a následne sleduje ReplicaSet Events. HPA alebo Deployment môže zvýšiť desired replicas, zatiaľ čo quota odmieta nové Pods; controller intent a serving capacity zostanú rozdielne states.
+
 ```yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -76,6 +80,10 @@ Viac quotas v namespace sa uplatňuje spoločne. Pod musí spĺňať všetky rel
 
 ## LimitRange defaults
 
+LimitRange admission môže doplniť default requests alebo limits a odmietnuť hodnoty mimo min, max alebo ratio contractu. Effective Pod spec preto nemusí byť totožný so source YAML. Doplnený CPU request ovplyvní scheduler aj HPA utilization denominator a doplnený memory limit vytvorí runtime OOM boundary.
+
+Pred rolloutom sa používa server-side dry-run a číta admitted Pod template alebo vytvorený Pod, aby sa defaulting zahrnul do capacity a autoscaling modelu. Následný quota výpočet pracuje s týmito effective hodnotami, nie s tým, čo autor vynechal zo source manifestu.
+
 ```yaml
 apiVersion: v1
 kind: LimitRange
@@ -114,6 +122,10 @@ Legacy aplikácia bez CPU limitu môže po zavedení LimitRange dostať default 
 LimitRange je admission default, nie performance tuning. Zmena namespace defaultov musí prejsť workload inventory a canary.
 
 ## LimitRange pre PVC
+
+PVC LimitRange môže obmedziť alebo defaultovať requested storage pre claims v namespace. Admission tým kontroluje API request size, ale nepreukazuje dostupnú StorageClass kapacitu, topology-compatible PV ani úspešný CSI provisioning.
+
+Read-back preto sleduje admitted PVC request, StorageClass, PVC alebo PV UID, binding mode, selected Node pri delayed bindingu a CSI volumeHandle. Prijatý PVC môže zostať Pending a `Bound` PVC stále nepreukazuje attach, mount ani správnu data generation.
 
 ```yaml
 limits:
