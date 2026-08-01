@@ -318,6 +318,8 @@ Handler success preukazuje systemd operation result. Nepreukazuje, že process n
 
 ## 11. Role tasks: complete rolling host transition
 
+Role task graph musí uzavrieť celý host transition: drain, package/config mutation, complete validation, handler, loaded-state check a návrat do trafficu. Jedna správna template task nie je rolling rollout; nasledujúci blok sa preto číta ako transaction-like workflow s explicitnými partial outcomes.
+
 `roles/payments_runtime/tasks/main.yml`:
 
 ```yaml
@@ -993,47 +995,11 @@ Pri legitímnom targeted recovery musí byť expected scope explicitne zmenený 
 
 ## 28. Diagnostický walkthrough pri mixed fleet
 
-Symptom: external `/version` vracia dve config generations.
+Diagnostika najprv porovná expected, resolved a attempted host manifests. Tým testuje H1–H3: omitted inventory host, pattern/limit exclusion alebo connection failure. Per-host variable fingerprints a rendered checksums testujú H4, teda odlišný effective config.
 
-Stabilizuj subject:
+Callback events, notification/handler result a systemd process start time testujú H5/H6: file mohol byť nový, ale handler neprebehol alebo host skončil partial. Load-balancer member inventory a backend identity testujú H7, pretože healthy host nemusí byť serving cohortou.
 
-```text
-source commit
-execution image digest
-ansible.cfg digest
-collections manifest
-inventory sources/cache timestamp
-pattern a --limit
-expected/resolved asset manifests
-run ID a batches
-per-host template checksums
-handler events
-service start times
-LB member states
-/version payloads
-```
-
-Competing hypotheses:
-
-```text
-H1: host chýbal v inventory
-H2: host bol vylúčený patternom alebo --limit
-H3: SSH mutation zlyhala alebo bola ignored
-H4: host dostal inú variable generation
-H5: file sa zmenil, handler nebežal
-H6: handler bežal, process načítal starý file/path
-H7: host je healthy lokálne, ale LB stále routuje starý member
-H8: verifier alebo LB telemetry je stale
-```
-
-Discriminating evidence:
-
-- expected/resolved/attempted manifests testujú H1–H3;
-- `ansible-inventory --host`, rendered checksum a backup files testujú H4;
-- callback/handler result a systemd start time testujú H5;
-- process command line, loaded generation a open file path testujú H6;
-- LB member inventory a backend identity testujú H7;
-- direct per-host request a timestamps testujú H8.
+Direct per-host request a timestamps testujú H8 a odlišujú stale aggregated verifier od reálneho loaded state-u. Recovery sa viaže na prvý divergentný transition a targeted manifest; full-fleet second converge a business journey potom uzatvoria mixed-state incident.
 
 ## 29. Evidence-preserving containment a recovery
 

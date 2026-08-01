@@ -6,6 +6,8 @@ Kapitola pokračuje incidentom `IAC-PAY-79`. Database credential unikne do CI lo
 
 ## 1. Dominantný secret-to-revocation lifecycle
 
+Vault lifecycle nezačína ciphertextom, ale logical credentialom, ownerom a consumer inventory. Encryption chráni repository state; po decryption vzniká nový plaintext exposure graph a po publication musí nasledovať process reload, target-side revocation a forbidden-old-credential test.
+
 ```text
 logical secret intent, owner a consumer inventory
 → target credential epoch creation
@@ -47,33 +49,11 @@ Bez logical ID, epoch a consumer inventory nemožno dokázať, čo sa rotuje, kt
 
 ## 3. Čo Vault chráni a čo nechráni
 
-Vault vytvára:
+Vault šifruje variable alebo file content at rest v repository a automation artifacts. Tým obmedzuje náhodné čítanie source-u bez Vault password materialu. Nechráni však plaintext po autorizovanom dešifrovaní.
 
-```text
-plaintext
-→ encryption s Vault secretom
-→ ciphertext versionovaný v repository
-```
+Controller memory, temporary files, rendered target files, module arguments, registered results, validator stderr, callbacks a debug logs sú samostatné exposure boundaries. Malicious collection/plugin s decrypt accessom môže value exfiltrovať a credential uniknutý pred encryption zostáva kompromitovaný.
 
-Oficiálna dokumentácia popisuje Vault ako mechanizmus na encryption variables/files, aby citlivý obsah nebol uložený ako plaintext. citeturn329472search23turn329472search26
-
-Nechráni automaticky:
-
-- controller memory;
-- temporary files;
-- rendered target files;
-- module arguments a registered results;
-- validator stderr;
-- callback/debug logs;
-- malicious collection/plugin s decryption accessom;
-- credential, ktorý unikol pred encryption;
-- starý target credential bez revocation.
-
-```text
-repository confidentiality
-≠ runtime plaintext confidentiality
-≠ credential lifecycle completion
-```
+Vault zároveň nevykonáva target credential lifecycle. Rekey mení wrapper key, nie database password alebo API token. Old credential bez provider-side revocation môže fungovať aj po perfektnom re-encryption. Dôkaz preto oddeľuje repository confidentiality, runtime plaintext confidentiality a revocation completion.
 
 ## 4. Encrypted file a encrypted value
 
@@ -106,24 +86,11 @@ oddeľuje consumer interface od storage implementation.
 
 ## 5. Vault ID
 
-Header môže obsahovať label:
+Vault ID v headeri, napríklad `prod-database`, je routing label, ktorý vyberá password source pri decryption. Nie je samostatnou authorization policy, logical secret identity ani credential epoch.
 
-```text
-$ANSIBLE_VAULT;1.2;AES256;prod-database
-```
+Vault domains sa navrhujú podľa environmentu, ownera, consumer scope-u, rotation lifecycle-u, blast radiusu a decryption authorization. Jeden password pre dev a prod znamená, že compromise jednej boundary umožní decrypt druhej.
 
-Vault ID je routing label pre password source. Nie je samostatná authorization policy ani secret identity.
-
-Vault domains sa navrhujú podľa:
-
-- environmentu;
-- ownera;
-- consumer scope-u;
-- rotation lifecycle-u;
-- blast radiusu;
-- decryption authorization.
-
-Jeden password pre dev aj prod rozširuje production compromise boundary.
+Execution subject preto zachováva vault ID aj workload identity a logical secret/epoch. Forbidden test musí potvrdiť, že non-production controller alebo untrusted source nedokáže použiť production password client.
 
 ## 6. Decryption identity
 

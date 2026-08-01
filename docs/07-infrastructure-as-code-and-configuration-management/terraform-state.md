@@ -71,20 +71,7 @@ Názov tagu `atlas-prod-eu` nie je binding. Dva objekty môžu mať rovnaký tag
 
 ## 3. Desired, known a actual state
 
-Pri diagnostike vždy oddeľ:
-
-```text
-desired state
-= HCL + resolved variables + module/provider selections
-
-known state
-= address bindings + posledné známe attributes v snapshot-e
-
-actual state
-= remote objects a values pozorované cez provider API
-```
-
-Plan vzniká približne z:
+Desired state je HCL, resolved variables a selected module/provider behavior. Known state je snapshot resource addresses, provider associations, remote IDs a posledných známych attributes. Actual state sú objekty a hodnoty, ktoré provider API práve pozoruje v konkrétnom account-e a regione.
 
 ```text
 configuration C71
@@ -93,17 +80,9 @@ configuration C71
 → saved plan P209
 ```
 
-Ak plan navrhuje create, môže to znamenať:
+Create action môže znamenať, že objekt naozaj neexistuje, ale aj chýbajúci binding, wrong backend/workspace, zmenený key/address, iného ownera, wrong target/permission alebo predchádzajúci remote success bez state commitu. Jeden symbol `+` tieto mechanizmy nerozlišuje.
 
-- objekt skutočne neexistuje;
-- state binding chýba;
-- načítal sa nesprávny backend/workspace;
-- address/key sa zmenila;
-- objekt vytvoril iný owner;
-- provider read objekt nevidí pre account/region/permission mismatch;
-- predchádzajúci remote create uspel, ale state write zlyhal.
-
-Jeden plan symbol `+` nerozlišuje tieto mechanizmy.
+Diagnostika preto spája state address a provider association s remote inventory a audit trailom. Plan je verdict nad konkrétnym desired/known/observed subjectom, nie globálne tvrdenie o cloude.
 
 ## 4. State snapshot, lineage a serial
 
@@ -132,25 +111,11 @@ State JSON format je implementation detail. Preferuj CLI a backend versioning pr
 
 ## 5. Refresh mení observation model, nie desired intent
 
-Provider Read aktualizuje known attributes:
+Refresh použije state remote ID a effective provider target na Read operáciu a aktualizuje Terraform knowledge o remote attributes. Môže odhaliť manual firewall change, deletion, server-side normalization, attribute spravovaný iným controllerom, eventual-consistency stav alebo wrong-account `not found`.
 
-```text
-state remote ID
-→ provider Read(account, region, ID)
-→ observed attributes
-→ refreshed state model
-```
+Refresh tým nevytvára nový business intent. Až následný decision určí, či sa remote rozdiel revertuje, adoptuje configuration change-om, deleguje ownershipom alebo rieši ako binding recovery. `refresh-only apply` zapisuje nový known snapshot, ale desired HCL nemení.
 
-Refresh môže odhaliť:
-
-- manuálne zmenený firewall rule;
-- objekt odstránený mimo Terraformu;
-- cloudom normalizovanú hodnotu;
-- attribute spravovaný iným controllerom;
-- eventual-consistency stav;
-- wrong-account alebo permission-induced „not found“.
-
-Refresh nevytvára nový desired intent. Plan až následne rozhoduje, či sa rozdiel vráti, prijme configuration change-om, deleguje ownershipom, importuje alebo rieši recovery.
+Preto sa pred refresh-only commitom zachová predecessor lineage/serial a overí writer/intent. Inak môže operátor legitimizovať attacker alebo incidentný override iba tým, že ho zapíše do state knowledge.
 
 ## 6. State a saved plan freshness
 
@@ -230,6 +195,8 @@ state stále bez NAT bindingu
 Správna reakcia je freeze writers a remote reconciliation.
 
 ## 9. Evidence-preserving containment
+
+Pri rozdiele medzi state a remote objektmi sa zastavia writers skôr, než ďalší refresh alebo apply prepíše volatile evidence. Zachová sa state snapshot, backend version ID, plan, provider request IDs a remote audit; až potom sa rozhoduje medzi restore, importom, moved transitionom alebo compensation.
 
 Pri unknown alebo state-write failure:
 
@@ -525,7 +492,7 @@ Remote mutation a state commit sú oddelené failure boundaries.
 
 ### „Najnovší timestamp je správny backup“
 
-Recovery potrebuje správnu lineage, serial, environment a compatibility.
+Najnovšia object-store verzia môže patriť chybnému writerovi, wrong backend migration alebo už poškodenému successor snapshotu. Restore candidate sa vyberá podľa lineage, serial, writer/run identity a expected bindings a pred aktiváciou sa testuje offline planom a remote inventory.
 
 ### „Lock zabráni všetkým konfliktom“
 
@@ -533,7 +500,7 @@ Lock serializuje writers nad jedným backend subjectom. Nezabráni druhému stat
 
 ### „Import znamená, že configuration je správna“
 
-Import vytvorí binding; fresh plan odhalí configuration/actual mismatch.
+Import vytvorí address-to-remote-ID binding. Neoverí, že HCL opisuje current object, provider target je správny alebo ownership má byť v tomto state-e. Po importe musí fresh plan vysvetliteľne smerovať k no-op alebo reviewed update bez neplánovaného replacementu.
 
 ## 23. Kontrolné otázky
 

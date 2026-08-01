@@ -307,29 +307,11 @@ Checksum preukazuje bytes na destination path v čase stat tasku. Nepreukazuje, 
 
 ## 16. Worked failure: stale extra var smeruje do staging DB
 
-Recovery job template ponechal:
+Recovery job template ponechal `atlas_database_endpoint: db.stage.internal:5432` ako extra var. Extra var mala vyššiu precedence než production inventory, template bola syntakticky validná a process sa úspešne pripojil do staging databázy. Parser ani service health preto chybu neodhalili.
 
-```yaml
-atlas_database_endpoint: db.stage.internal:5432
-```
+Containment odoberie affected hosts z trafficu a zachová job metadata, variable provenance, rendered files, process environment/command line a database audit. Security/data owner posúdi cross-environment access skôr, než sa logs alebo sessions odstránia.
 
-ako extra var.
-
-```text
-inventory production endpoint
-→ extra var má vyššiu precedence
-→ template validný
-→ process sa pripojí do staging database
-```
-
-Parser validation neoverila environment identity. Recovery:
-
-1. odobrať hosts z trafficu;
-2. zachovať job extra-var metadata a rendered files;
-3. auditovať cross-environment data access;
-4. odstrániť stale override;
-5. pridať production endpoint assertion a allowed source policy;
-6. re-render/restart/verify.
+Autoritatívna oprava odstráni stale override, definuje allowed source policy pre endpoint a pridá assertion `database_environment == prod-eu`. Host sa re-renderuje, handler reloadne process a runtime endpoint aj DB identity probe potvrdia production target. Forbidden fixture so staging extra-varom musí zlyhať pred file mutation.
 
 ## 17. Worked failure: timestamp spôsobí restart loop
 
@@ -383,53 +365,17 @@ Preukazuje local process response a allowlisted runtime fields. Nepreukazuje loa
 
 ## 20. Competing hypotheses pri wrong endpoint na jednom hoste
 
-```text
-H1: host/group variable override
-H2: stale extra var
-H3: duplicate inventory identity/group membership
-H4: stale fact/derived branch
-H5: unstable hostvars selection
-H6: lookup čítal wrong environment path
-H7: process číta iný destination
-H8: second writer zmenil file po run-e
-```
+H1/H3 porovnávajú inventory host/group provenance a duplicate membership. H2 číta controller job metadata a explicitné extra vars. H4 overuje fact timestamp a branch, ktorá z factu odvodila endpoint.
 
-Dôkazy:
+H5/H6 auditujú `hostvars` selection a lookup path/credential, pretože controller mohol načítať správny key z nesprávneho environment store-u. H7 porovná destination file s process command line a loaded runtime fields. H8 používa filesystem audit timeline na odhalenie druhého writera po run-e.
 
-- inventory host/group output H1/H3;
-- controller job metadata H2;
-- fact timestamps H4;
-- lookup audit H5/H6;
-- file checksum/process command line/runtime endpoint H7;
-- filesystem audit timeline H8.
+Každý dôkaz je host-scoped a časovo korelovaný. Až po potvrdení source-u sa opravuje precedence, cache, lookup alebo writer ownership; jednoduché re-renderovanie môže nesprávnu hodnotu iba zopakovať.
 
 ## 21. Recovery a acceptance
 
-```text
-host removed from traffic
-→ preserve run/value/fact/template evidence
-→ identify wrong source or stale observation
-→ correct authoritative value/cache/lookup
-→ deterministic render + validate
-→ handler reload/restart
-→ loaded config verification
-→ fleet manifest verification
-→ second no-change run
-```
+Host zostáva mimo trafficu, kým sa nezachová a nevyhodnotí run/value/fact/template evidence a neurčí prvý nesprávny source alebo stale observation. Oprava mení autoritatívnu value, cache alebo lookup contract, potom vykoná deterministic render, parser validation a handler transition.
 
-Acceptance:
-
-```text
-critical values majú one-source contract
-+ facts sú fresh pre risk class
-+ rendered checksums sú deterministic
-+ parser validation prešla
-+ process načítal expected version/environment
-+ extra-var wrong endpoint je odmietnutý
-+ timestamp fixture nevytvára perpetual change
-+ secret nie je v diff/log/cache
-+ second run reports no unintended change
-```
+Loaded config endpoint musí potvrdiť release aj environment a fleet manifest musí ukázať complete coverage. Second no-change run dokazuje stabilitu template inputs a absenciu second writera. Acceptance zároveň vyžaduje, aby extra-var wrong endpoint a timestamp fixture skončili failureom alebo no-op podľa explicitného contractu.
 
 ## 22. Kontrolné otázky
 

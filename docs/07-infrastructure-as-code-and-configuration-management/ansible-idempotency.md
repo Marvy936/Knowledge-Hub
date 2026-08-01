@@ -6,6 +6,8 @@ Kapitola pokračuje incidentom `IAC-PAY-79`. Atlas Payments používa custom com
 
 ## 1. Dominantný subject-to-convergence lifecycle
 
+Convergence sa posudzuje nad immutable run subjectom a complete target/item inventory. Observation, mutation result, handler/runtime transition a external side effects musia patriť tým istým identities; až potom má second-run `changed=0` význam.
+
 ```text
 immutable run subject a authoritative desired state
 → complete target/item inventory
@@ -22,25 +24,11 @@ immutable run subject a authoritative desired state
 
 ## 2. Idempotencia, convergence, reproducibility a correctness
 
-Formálne pre jednu operation `f`:
+Pre jednu operation formálne platí `f(f(S)) = f(S)`: po dosiahnutí výsledku ďalšie opakovanie nevytvorí nový side effect. Configuration management však potrebuje aj convergence, teda schopnosť priblížiť partial alebo drifted system k desired state-u.
 
-```text
-f(f(S)) = f(S)
-```
+Reproducibility znamená, že rovnaký explicitný source, execution environment, inventory, variables, secret epoch a dependency graph vedú k porovnateľnému behavioru. Correctness je ešte vyššia vrstva: desired state musí byť správny pre business a security intent.
 
-Configuration management potrebuje viac:
-
-- **Idempotencia** — opakovanie úspešnej operation nemení stav znova.
-- **Convergence** — systém sa po drift-e alebo partial failure približuje k desired state-u.
-- **Reproducibility** — rovnaký explicitný run subject vytvára porovnateľný behavior.
-- **Correctness** — desired state je skutočne správny pre business/security intent.
-
-```text
-production host stabilne používa staging DB
-→ second run changed=0
-→ idempotentné a converged
-→ business nesprávne
-```
+Production host môže stabilne používať staging DB. Druhý run bude `changed=0`, takže task je technicky idempotentný a converged, ale výsledok je business nesprávny. Acceptance preto kombinuje no-change signal s target identity a runtime/business oracle-om.
 
 ## 3. Exact convergence subject
 
@@ -74,6 +62,8 @@ Observation musí čítať celý state, ktorý task tvrdí, že vlastní. File c
 
 ## 5. State-aware module contract
 
+State-aware module musí explicitne pozorovať attributes, ktoré tvrdí, že vlastní, porovnať ich s requested state-om a mutovať iba rozdiel. Contract definuje význam `changed`, check-mode support, normalization a vedľajšie side effects.
+
 ```yaml
 - name: Ensure Atlas Payments service is enabled and running
   ansible.builtin.service:
@@ -82,14 +72,9 @@ Observation musí čítať celý state, ktorý task tvrdí, že vlastní. File c
     state: started
 ```
 
-Module typicky pozoruje current state a mutuje iba rozdiel. Názov modulu však nie je dôkaz. Pre konkrétnu version/platformu treba poznať:
+Pre konkrétnu module/version/platform kombináciu treba poznať aj failure a unknown-outcome semantics. Service `started` nemusí overovať loaded config alebo business readiness. Custom `changed_when` nesmie prepisovať actual mutation iba kvôli potlačeniu noise.
 
-- ktoré attributes pozoruje;
-- čo znamená `changed`;
-- check-mode podporu;
-- normalization;
-- side effects;
-- failure/unknown outcome semantics.
+Module name preto nie je idempotency proof. First/second run sa dopĺňa independent state a runtime observationom a forbidden drift fixture-om.
 
 ## 6. Command guards sú slabý observation model
 
@@ -256,23 +241,11 @@ Recovery:
 
 ## 14. Partial failure a resumability
 
-```text
-package updated
-→ config C44 written
-→ validation/handler fails
-→ host = new package + new file + old process
-```
+Partial run môže zanechať nový package, nový config file a starý process alebo remote API record bez local response. Nasledujúci run nesmie predpokladať all-applied ani all-rolled-back; musí znovu pozorovať každý owned state component a operation identity.
 
-Nasledujúci run musí pozorovať mixed state a pokračovať bezpečne. Nemá predpokladať all-applied ani all-rolled-back.
+Resumability potrebuje stable artifact/remote IDs, pre-validation, per-step postconditions, explicitný partial/unknown verdict, recoverable handler a bounded cleanup. Marker alebo recap status nie sú sufficient ledgerom.
 
-Resumability potrebuje:
-
-- stable artifact/remote identities;
-- pre-validation;
-- per-step postconditions;
-- explicit partial verdict;
-- recoverable handler;
-- bounded cleanup.
+Acceptance reprodukuje failure medzi file mutation a handlerom a overí, že ďalší run bezpečne dokončí transition bez duplicate external side effectu.
 
 ## 15. Multi-writer oscillation
 
@@ -345,23 +318,11 @@ Idempotency sa dokazuje reálnym first/second converge v representative isolated
 
 ## 19. Competing hypotheses pri perpetual restartoch
 
-```text
-H1: timestamp/random v template
-H2: unstable ordering
-H3: mutable secret/lookup
-H4: owner/mode/ACL oscillation
-H5: provider/module normalization
-H6: application prepíše file
-H7: druhý automation writer
-H8: false changed result
-```
+H1–H4 porovnávajú exact before/after bytes a metadata: timestamp, random, unstable ordering, mutable lookup alebo owner/mode/ACL oscillation. H5 číta module/version normalization a current-state output. H6/H7 používajú filesystem audit na odhalenie application alebo druhého automation writera.
 
-Dôkazy:
+H8 porovná `changed` result s actual mutation. Task môže reportovať change bez byte/state rozdielu alebo naopak zmenu zatajiť. Každá hypotéza sa testuje na canary s rovnakým immutable subjectom a zachovaným diffom.
 
-- exact before/after checksums/diff H1–H4;
-- module version/current-state output H5;
-- filesystem audit H6/H7;
-- result vs actual mutation H8.
+Recovery odstráni nondeterministic input alebo ownership conflict a potom vyžaduje runtime correctness aj second no-change run; potlačenie handlera nie je oprava.
 
 ## 20. Evidence-preserving containment a recovery
 
@@ -379,28 +340,11 @@ pause scheduled runs
 
 ## 21. Acceptance a forbidden paths
 
-```text
-run subject je immutable a complete
-+ current-state observation je fresh
-+ changed signal je truthful
-+ templates sú deterministic
-+ external writes majú stable idempotency identity
-+ unknown outcome sa queryuje pred retry
-+ partial run je resumable
-+ exact target coverage je complete
-+ second run nemá unintended changes
-+ runtime/business outcome je správny
-+ competing writer fixture je odmietnutý
-```
+Acceptance vyžaduje complete immutable run subject, fresh current-state observation, truthful results, deterministic artifacts a stable external idempotency identity. Unknown remote outcome sa queryuje pred retry a partial run musí byť resumable.
 
-Forbidden fixtures:
+Forbidden fixtures pokrývajú marker pred completion, mutating task s `changed_when: false`, timestamp template, duplicate POST retry, omitted host a dvoch writerov s opposing values. Každý musí odhaliť neúplnosť alebo konflikt.
 
-- marker pred completion;
-- mutating task s `changed_when: false`;
-- timestamp template;
-- duplicate POST retry;
-- omitted host;
-- two-writer opposing values.
+Second complete run bez unintended changes je prijatý iba pri complete target coverage a správnom loaded/business outcome-e.
 
 ## 22. Anti-patterny
 

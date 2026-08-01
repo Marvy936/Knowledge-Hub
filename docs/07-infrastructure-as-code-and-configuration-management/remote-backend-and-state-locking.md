@@ -6,6 +6,8 @@ Kapitola otvára incident `IAC-PAY-76`. Atlas Payments migruje produkčný netwo
 
 ## 1. Dominantný backend-to-commit lifecycle
 
+Backend lifecycle je optimistic change-control transakcia nad jedným explicitným state subjectom. Lock, predecessor snapshot a conditional successor write dávajú zmysel iba vtedy, keď všetci writers používajú rovnaký endpoint/key/workspace. Diagram preto začína subject identity, nie samotným lock acquisitionom.
+
 ```text
 writer identity a intended state subject
 → backend initialization
@@ -160,6 +162,8 @@ state pozná iba B
 ```
 
 ## 8. Dvaja writers nad dvoma backendmi
+
+Tento failure je dôležitý, pretože oba locking systémy môžu fungovať bez chyby. Konflikt vzniká nad remote resource ownershipom, zatiaľ čo každý writer serializuje iba svoju vlastnú state históriu. Diagnostika preto musí korelovať backend registry, workload identities a remote IDs naprieč oboma lineages.
 
 Závažnejší incident `IAC-PAY-76`:
 
@@ -384,6 +388,8 @@ network state output
 Tak producer neodhaľuje celý state subject a môže definovať freshness/compatibility.
 
 ## 20. Competing hypotheses pri stale locku
+
+Stale lock je iba jedna hypotéza. Rovnaký symptóm môže vytvoriť živý worker bez UI heartbeat-u, asynchronous provider operation, wrong backend key alebo nový writer čakajúci v inej queue. Každá H-hypotéza musí mať observation point, ktorý ju odlíši pred `force-unlock`.
 
 Symptom: `Error acquiring the state lock`, no CI dashboard neukazuje aktívny apply.
 

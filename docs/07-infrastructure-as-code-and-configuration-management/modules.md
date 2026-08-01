@@ -22,41 +22,11 @@ Dobrý module znižuje počet nebezpečných rozhodnutí, ktoré musí robiť ka
 
 ## 2. Root module verzus child module
 
-Root module vlastní:
+Root module je deployment a state owner. Vyberá backend/state subject, environment composition, provider configurations a credentials, top-level inputs, apply identity, queue, recovery a acceptance lifecycle. Jeho repository a pipeline preto určujú, nad akým remote subjectom sa reusable code vykoná.
 
-- backend a state subject;
-- environment composition;
-- provider configurations a credentials;
-- top-level inputs a policy;
-- plan/apply identity a queue;
-- recovery a acceptance lifecycle.
+Child module poskytuje versionovanú capability cez inputs, outputs, required providers, resources a migration semantics. Caller ho instancuje `module` blockom a jeho resources sa rozvinú do caller graphu a state-u, napríklad `module.payments_service.aws_lb.api`.
 
-Child module je volaný cez `module` block:
-
-```hcl
-module "payments_service" {
-  source  = "app.terraform.io/atlas/service-platform/aws"
-  version = "3.4.2"
-
-  environment  = "prod-eu"
-  image_digest = "sha256:8f7c..."
-  replicas     = 6
-
-  providers = {
-    aws = aws.production
-  }
-}
-```
-
-State addresses sa rozvinú napríklad takto:
-
-```text
-module.payments_service.aws_lb.api
-module.payments_service.aws_iam_role.runtime
-module.payments_service.aws_ecs_service.api
-```
-
-Child module teda nezískava vlastný lock ani izolovaný blast radius. Samostatný state vzniká až samostatným root module a backend lifecycle-om.
+Child module teda automaticky nedostáva vlastný lock, permissions ani blast-radius isolation. Samostatná state boundary vzniká iba samostatným root module-om, backendom a execution lifecycle-om. Module boundary rieši code/interface coupling; root/state boundary rieši ownership a failure domain.
 
 ## 3. Module source je executable dependency
 
@@ -245,18 +215,11 @@ Module-wide `depends_on` môže vytvoriť false uncertainty a odložiť reads un
 
 ## 9. Module boundary podľa capability a coupling-u
 
-Primeraný module má:
+Primeraný module reprezentuje jednu koherentnú capability so známym ownerom, spoločným lifecycle-om a release cadence. Jeho public contract má stabilné inputs/outputs, zvládnuteľný state space a jasnú policy alebo abstraction hodnotu.
 
-- jednu koherentnú capability;
-- jasného ownera;
-- spoločný lifecycle a release cadence;
-- testovateľný state space;
-- stabilný public contract;
-- zmysluplnú policy/abstraction hodnotu.
+Mega-module pre celý account mieša nezávislé security domains a vytvára široký upgrade blast radius. Extrémne tenký wrapper iba premenúva provider arguments a zvyšuje nesting bez stabilizácie behavioru. Počet `.tf` files preto nie je boundary criterion.
 
-Mega-module pre celý cloud account vytvára desiatky modes a široký upgrade blast radius. Extrémne tenký wrapper zvyšuje nesting bez pridanej stability.
-
-Boundary sa nevyberá podľa počtu `.tf` files. Vyberá sa podľa ownershipu, behavioru, change coupling-u a support lifecycle-u.
+Boundary sa vyberá podľa change coupling-u, ownershipu, failure/recovery jednotky a support lifecycle-u. Consumer musí vedieť capability otestovať a upgradovať bez neúmyselného prebratia unrelated resources.
 
 ## 10. Module instance identity
 
@@ -280,24 +243,11 @@ Key je state identity. Premenovanie `payments` na `payments-api` môže vyzerať
 
 ## 11. Versioning ako compatibility promise
 
-Kompatibilné zmeny môžu byť:
+Module version je promise o caller contracte a existing-state transitione. Nový optional input s bezpečným defaultom, nový output alebo interný refactor s úplným `moved` chainom môžu byť kompatibilné, ak nemenia effective identity, exposure ani behavior existujúcich callerov.
 
-- nový optional input s bezpečným defaultom;
-- nový output;
-- interný refactor s úplným moved chainom;
-- bug fix bez zmeny identity a behavior contractu.
+Zmena default/null semantics, provider requirements, instance keys alebo resource addresses je risk-significant. Rovnako breaking môže byť nový replacement/destroy behavior alebo privilege/exposure expansion, aj keď HCL caller zostane syntakticky platný.
 
-Potenciálne breaking zmeny:
-
-- zmena default/null semantics;
-- odstránenie alebo premenovanie inputu/outputu;
-- zmena provider requirementu;
-- zmena instance keys;
-- resource address refactor bez migration;
-- nový replacement alebo destroy behavior;
-- privilege/exposure expansion.
-
-Semantic version label nie je dôkaz compatibility. Autoritatívny je consumer upgrade plan a test.
+Semantic version label je deklarácia, nie dôkaz. Dôveryhodný release publikuje compatibility matrix a consumer upgrade test nad reprezentatívnym state-om. Plan musí vysvetliť migrations a runtime canary musí potvrdiť capability; druhý no-op plan uzatvára stabilitu successor verzie.
 
 ## 12. Worked incident: mutable source zmenil exposure
 

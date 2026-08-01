@@ -6,6 +6,8 @@ Kapitola otvára incident `IAC-PAY-79`. Atlas platform team publikuje collection
 
 ## 1. Dominantný capability-to-runtime lifecycle
 
+Role/collection lifecycle spája source, distribution artifact, execution environment a expanded host behavior. FQCN a semantic version sú locators; exact implementation tvoria artifact digest, transitive dependencies a image/plugin paths. Runtime verdict sa preto viaže na celý resolved dependency graph.
+
 ```text
 capability intent a owner
 → role public contract
@@ -21,18 +23,11 @@ capability intent a owner
 
 ## 2. Kedy vzniká role boundary
 
-Role má zmysel, keď capability má:
+Role boundary má zmysel, keď capability má jasný purpose a non-goals, verejné inputs/defaults a vlastné tasks, templates a handlers. Contract musí pomenovať privilege, package a network dependencies, podporované platformy, idempotency/recovery behavior a ownera s release lifecycle-om.
 
-- jasný purpose a non-goals;
-- verejné inputs a defaults;
-- vlastné tasks/templates/handlers;
-- privilege, package a network dependencies;
-- supported platforms;
-- idempotency a recovery behavior;
-- ownera a release lifecycle;
-- viac consumers alebo opakovateľné použitie.
+Dvojriadkový task file nemusí byť role, ak nemá samostatnú capability ani consumer contract. Jedna mega-role pre celý server naopak mieša odlišné ownership, failure a release domains. Boundary sa vyberá podľa coherent behavioru a support lifecycle-u, nie podľa directory template-u.
 
-Dvojriadkový task file nemusí byť role. Jedna mega-role pre celý server naopak skrýva odlišné ownership a failure domains.
+Reusable role má viac consumerov alebo opakovateľné použitie a jej public topics, facts a generated artifacts sa verziujú. Upgrade fixture musí preukázať, že existing host prejde na successor bez hidden dependency alebo perpetual change.
 
 ## 3. Role public contract
 
@@ -287,19 +282,11 @@ Observed manifest je evidence aktuálneho runtime. Silnejší build pipeline gen
 
 ## 15. Supply-chain review
 
-Pred adopciou external collection over:
+External collection je executable supply-chain artifact. Review overuje publisher a source repository, release/maintenance históriu, artifact provenance/integrity a direct aj transitive dependencies. Osobitne sa kontrolujú controller-side action, lookup, inventory a callback plugins, pretože pracujú s credentials, filesystemom a networkom ešte pred remote module executionom.
 
-- publisher/source repository;
-- release a maintenance history;
-- artifact provenance/integrity;
-- custom controller-side plugins;
-- shell/command usage;
-- logging a secret behavior;
-- network/privilege requirements;
-- direct/transitive dependencies;
-- supported core/runtime matrix.
+Shell/command usage, logging/secret behavior, privilege/network requirements a supported `ansible-core`/Python/system matrix určujú blast radius a compatibility. Download count alebo populárny namespace nie sú trust verdict.
 
-Download count nie je security verdict.
+Adoption gate pinne artifact a execution-environment digest, generuje SBOM/provenance a vykoná forbidden egress/secret fixture. Upgrade sa posudzuje ako explicitná dependency change s consumer integration a second-converge testom.
 
 ## 16. Role a collection test lifecycle
 
@@ -330,17 +317,11 @@ Assertions kontrolujú package version, config checksum, service state, loaded v
 
 ## 17. Compatibility policy
 
-Breaking changes zahŕňajú:
+Breaking change nie je iba odstránenie variable. Rename/type/default zmena, nový required privilege, handler topic rename, generated-config format change, package replacement, published fact/result schema alebo supported runtime matrix môžu zmeniť consumer behavior bez playbook source diffu.
 
-- variable rename/type/default change;
-- new required privilege;
-- handler topic rename;
-- generated config format change;
-- package removal/replacement;
-- published result/fact schema change;
-- supported platform/core change.
+Semantic version je owner claim. Evidence poskytuje consumer upgrade fixture nad existing hostom, handler integration a loaded-runtime test. Compatibility policy definuje supported predecessor versions, deprecation window a migration aliasy/topics.
 
-Semantic version je owner claim. Consumer integration a upgrade tests sú evidence.
+Consumer inventory je potrebný na bezpečné retirement. Bez neho nemožno vedieť, či old topic alebo result field ešte používa production repository.
 
 ## 18. Consumer inventory
 
@@ -374,34 +355,17 @@ Root cause bol unresolved reusable dependency a breaking public contract bez con
 
 ## 20. Competing hypotheses pri local/controller rozdiele
 
-```text
-H1: collection versions/digests sa líšia
-H2: transitive Python/system dependency sa líši
-H3: plugin search path resolve-ne iný content
-H4: static/dynamic invocation mení handler visibility
-H5: role defaults/vars sa líšia
-H6: controller cache má stale content
-H7: target inventory/values sa líšia
-```
+H1 porovná collection artifact/version/digest; H2 execution image SBOM a Python/system dependencies. H3 číta FQCN, collection/search path a plugin resolution, pretože rovnaké meno môže resolve-núť iný content.
 
-Dôkazy:
+H4 porovná static/dynamic invocation a handler visibility. H5/H7 čítajú role source checksums a effective values/target inventory. H6 skúma controller cache path a timestamps.
 
-- image/collection digests H1;
-- package/SBOM H2;
-- FQCN/search config H3;
-- task/handler graph H4;
-- source checksums/effective values H5/H7;
-- cache path/timestamps H6.
+Dôkazy sa viažu na rovnaký run subject. Obnova lokálneho `requirements.yml` bez kontroly controller image-u nemusí zmeniť effective bytes a preto nie je recovery closure.
 
 ## 21. Evidence-preserving containment a recovery
 
-1. pozastaviť rollout;
-2. zachovať local aj controller images/manifests;
-3. identifikovať exact collection bytes a topic/result changes;
-4. obnoviť pinned known-good image alebo publikovať compatible fix;
-5. overiť handler execution a runtime version na canary hoste;
-6. spustiť second converge;
-7. aktualizovať consumer inventory a deprecation controls.
+Rollout sa pozastaví a zachovajú sa local aj controller image/collection manifests, task/handler graph a affected host evidence. Exact breaking change sa identifikuje na artifact, dependency, topic alebo result-schema úrovni.
+
+Containment môže pinne obnoviť known-good execution image alebo publikovať compatible fix s aliasom. Canary musí preukázať file mutation, handler execution, loaded version a second converge. Až potom sa aktualizuje consumer inventory a deprecation/retirement policy.
 
 ## 22. Acceptance a forbidden paths
 

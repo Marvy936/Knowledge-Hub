@@ -72,28 +72,11 @@ Rovnaký `payments.yml` nie je rovnaký run, ak sa zmení collection, inventory 
 
 ## 3. Control node ako privilegovaná boundary
 
-Control node alebo automation controller:
+Control node alebo automation controller resolve-ne `ansible.cfg`, execution runtime, inventory, variables, content paths a host pattern a následne vytvára per-host task contexts. Otvára connections alebo vykonáva local/API actions a zhromažďuje results, notifications a callback evidence. Preto je súčasne compilerom execution graphu, credential brokerom a často sieťovým pivotom k veľkej časti fleet-u.
 
-```text
-načíta ansible.cfg a runtime
-→ resolve-ne inventory, variables a content paths
-→ vyhodnotí host pattern a limit
-→ vytvorí per-host task contexts
-→ otvorí connections alebo vykoná local/API action
-→ zhromaždí results, notifications a callback evidence
-```
+Immutable execution-environment digest stabilizuje `ansible-core`, Python/system libraries a helper tools. Pinned collections stabilizujú modules a plugins; read-only source checkout bráni jobu prepísať approved content. Short-lived credentials, restricted egress a oddelené untrusted-validation/production-execution pools obmedzujú blast radius. Audit callback musí zachovať per-host/task identity bez vypísania secrets.
 
-Control node má často prístup k SSH keys, Vault password source-u, cloud credentials, inventory API a množstvu produkčných hosts. Kompromitovaný execution image, collection plugin alebo checkout preto môže zasiahnuť celý target scope.
-
-Controls:
-
-- immutable execution environment digest;
-- pinned collections;
-- read-only source checkout;
-- short-lived credentials;
-- restricted network egress;
-- oddelené untrusted validation a production execution pools;
-- audit callback a log redaction.
+Tieto controls sa overujú cez effective image digest, collection manifest, plugin/search paths, resulting target identity a forbidden egress/credential probes. Samotný controller job status nepreukazuje, že runtime graph alebo credential boundary boli tie, ktoré reviewer schválil.
 
 ## 4. Managed node a API target
 
@@ -122,29 +105,11 @@ action alebo module na controlleri
 
 ## 5. Content graph: playbook, play, task, module, plugin
 
-- **Playbook** je ordered collection plays.
-- **Play** viaže host pattern na tasks, variables, privilege, strategy a failure policy.
-- **Task** volá module/action alebo riadi flow.
-- **Module** implementuje observation a mutation unit.
-- **Action plugin** môže vykonať časť logiky na controlleri.
-- **Connection plugin** určuje transport.
-- **Inventory plugin** vytvára host graph.
-- **Callback plugin** spracúva výsledky.
-- **Collection** distribuuje modules, plugins, roles a ďalší content.
+Playbook je ordered orchestration viacerých plays. Každý play viaže host pattern na variables, privilege, strategy, batch a failure policy. Task potom vytvára samostatnú invocation pre každý eligible host a volá module/action alebo mení control flow.
 
-Používaj FQCN:
+Module implementuje observation a bounded mutation unit a vracia structured result. Action plugin môže časť logiky vykonať na controlleri, connection plugin určuje transport, inventory plugin vytvára target graph a callback plugin spracúva evidence. Collection všetky tieto executable prvky distribuuje ako versionovaný artifact.
 
-```yaml
-- name: Render payments configuration
-  ansible.builtin.template:
-    src: payments.conf.j2
-    dest: /etc/payments/payments.conf
-    owner: root
-    group: payments
-    mode: '0640'
-```
-
-FQCN znižuje namespace ambiguity. Nepreukazuje pinned collection bytes ani správny execution environment.
+FQCN, napríklad `ansible.builtin.template`, znižuje namespace ambiguity, ale neidentifikuje exact collection bytes ani execution environment. Run subject preto zachováva FQCN spolu s collection/image digestom a per-host dynamic include pathom. Vďaka tomu možno odlíšiť rovnaký YAML s odlišným plugin behaviorom.
 
 ## 6. Execution environment ako reproducibility subject
 
@@ -251,24 +216,22 @@ Host-key checking je target identity control. Jeho vypnutie môže umožniť mut
 
 ## 10. Strategy, forks a serial
 
-- **strategy** určuje, ako hosts postupujú tasks;
-- **forks** obmedzuje controller concurrency;
-- **serial** určuje rollout batch;
-- **throttle** môže obmedziť konkrétnu task concurrency.
+`strategy` určuje, ako hosts postupujú ordered tasks a či rýchlejší host môže predbehnúť ostatných. `forks` obmedzuje controller concurrency naprieč hosts, `serial` rozdeľuje play na rollout batches a `throttle` môže ešte užšie obmedziť konkrétnu task alebo block.
 
 ```yaml
 - name: Rolling configuration rollout
   hosts: payments_app:&production
   serial: 4
   max_fail_percentage: 0
-
   tasks:
     - name: Configure host
       ansible.builtin.include_role:
         name: atlas.payments.runtime
 ```
 
-`serial: 4` preukazuje intended batch size, nie health gate medzi batches. Playbook musí explicitne overiť readiness a zastaviť ďalší batch pri failure.
+`serial: 4` definuje intended batch size, ale nevytvára readiness gate. Playbook musí po každom batchi overiť loaded version, local health, load-balancer membership a capacity pred pokračovaním. `forks` ani `throttle` nenahrádzajú external API idempotency alebo distributed lock.
+
+Evidence preto obsahuje expected batch manifest, attempted/converged hosts a synchronization point medzi batches. Partial batch alebo host removed from play nie je úspešný rollout iba preto, že ďalšie hosts skončili green.
 
 ## 11. Structured result a truthfulness
 
@@ -424,64 +387,27 @@ API task musí pred mutation read-backnúť account/region a používať environ
 
 ## 18. Competing hypotheses pri mixed fleet
 
-Symptom: controller job success, ale dva hosts používajú starú konfiguráciu.
+Symptóm „controller job success, dva hosts používajú starú konfiguráciu“ môže vzniknúť pred executionom, počas task/handler flowu alebo až v serving vrstve. H1–H3 testujú target completeness: host mohol chýbať v resolved inventory, byť vylúčený patternom/limitom alebo skončiť connection failureom, ktorý workflow nesprávne ignoroval.
 
-```text
-H1: hosts chýbali v resolved inventory
-H2: pattern/limit ich vylúčil
-H3: connection failed a failure bol ignored
-H4: variable precedence vyrenderovala starý content
-H5: template changed, handler neprebehol
-H6: service reštartoval, ale load balancer stále routuje starý backend
-H7: post-run verifier číta stale cache
-```
+H4/H5 testujú configuration transition. Variable precedence mohla vyrenderovať staré bytes alebo file change neviedol k handler executionu. Per-host vars, rendered checksum, notification event, process PID/start time a loaded config version tieto možnosti rozlíšia.
 
-Dôkazy:
-
-- expected/resolved/recap manifests testujú H1–H3;
-- per-host vars a rendered checksum H4;
-- notifications/handler results/process start time H5;
-- LB target health/version endpoint H6;
-- direct host query a cache timestamps H7.
+H6/H7 testujú observation path. Load balancer môže stále routovať old backend alebo verifier môže čítať stale cache/jediný host. LB member inventory, backend identity, direct per-host request a timestamps preto dopĺňajú controller recap. Hypotéza je prijatá iba vtedy, keď predpovie konkrétny rozdiel medzi týmito observation points.
 
 ## 19. Evidence-preserving containment a recovery
 
-Atlas:
+Atlas najprv zastaví ďalší batch a zachová inventory JSON, execution-environment manifest, run events, per-host results, rendered checksums a handler notifications. Z expected/resolved/attempted/converged manifestov vytvorí presný mixed-state inventory a unverified hosts odoberie z trafficu.
 
-1. zastaví ďalší batch;
-2. zachová inventory JSON, run events, per-host results a rendered checksums;
-3. identifikuje omitted, failed a mixed-state hosts;
-4. odoberie unhealthy hosts z trafficu;
-5. opraví inventory cache a variable contract;
-6. vykoná targeted recovery s explicitným `--limit` nad reviewed host manifestom;
-7. overí process, endpoint a business journey;
-8. spustí full-fleet second converge run;
-9. potvrdí `changed=0` pre managed config tasks a complete host coverage.
+Recovery opraví prvý divergentný transition: cache/target contract, variable source, connection, handler alebo serving membership. Targeted rerun používa reviewed immutable host manifest a nesmie sa opierať o rovnaký stale dynamic query. Host sa vracia do trafficu až po process, endpoint a LB health verification.
+
+Closure tvorí fleet-level business journey a complete second converge run nad fresh inventory. `changed=0` je prijaté iba pri complete host coverage, správnej loaded generation a nulovom residual recovery sete.
 
 ## 20. Acceptance a forbidden paths
 
-Architecture blok je prijatý, keď:
+Architecture acceptance viaže pinned execution environment a collections na complete target a runtime evidence. Expected a resolved host manifests sa musia zhodovať, per-host effective identity/variables musia byť auditovateľné a delegated API task musí read-backnúť target account/region. Serial batch má explicitný health gate a handler completion sa overuje cez process generation.
 
-```text
-execution environment a collections sú pinned
-+ expected a resolved host manifests sú rovnaké
-+ per-host effective identity/variables sú auditovateľné
-+ API delegated tasks read-backnú target account
-+ serial batch má health gate
-+ handler completion je overený
-+ omitted host nie je success
-+ check-mode unsupported task je incomplete evidence
-+ full-fleet second run converguje
-+ runtime payment journey prejde
-```
+Forbidden fixtures zahŕňajú undersized inventory, wrong controller API identity, unsupported check-mode task, missing handler a omitted host. Každý musí skončiť `INCOMPLETE` alebo failure, nie success bez task attempts.
 
-Forbidden tests:
-
-- undersized inventory;
-- staging controller credential pri production play;
-- mutable execution tag;
-- unsupported check-mode task interpretovaný ako pass;
-- handler skipped po config mutation.
+Po positive rollout-e nasleduje full-fleet second run a payment journey. Tým sa dokazuje convergence aj to, že green controller recap patrí správnej serving cohort-e.
 
 ## 21. Kontrolné otázky
 

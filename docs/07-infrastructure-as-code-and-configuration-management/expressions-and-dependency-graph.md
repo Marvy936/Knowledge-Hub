@@ -109,33 +109,9 @@ Konverzia setu na list a následné používanie indexu môže vytvoriť nestabi
 
 ## 5. Unknown values a hranica plan-time rozhodovania
 
-Provider môže hodnotu poskytnúť až po remote create:
+Unknown value znamená, že Terraform pozná type a dependency edge, ale konkrétnu hodnotu poskytne provider až počas apply. Taká hodnota môže bezpečne napĺňať argument existujúceho graph vertexu, napríklad DNS target vytvoreného load balancera.
 
-```hcl
-resource "aws_route53_record" "api" {
-  zone_id = data.aws_route53_zone.payments.zone_id
-  name    = "api.payments.example.com"
-  type    = "A"
-
-  alias {
-    name                   = aws_lb.api.dns_name
-    zone_id                = aws_lb.api.zone_id
-    evaluate_target_health = true
-  }
-}
-```
-
-Počas planu môže byť `aws_lb.api.dns_name` unknown. Terraform však pozná type, consumer a dependency edge.
-
-Niektoré values musia byť známe pred apply, pretože určujú graph shape:
-
-- `count`;
-- `for_each` keys;
-- module instance keys;
-- provider configuration selection;
-- resource addresses.
-
-Toto je problematické:
+Graph shape však musí byť známy pred remote mutation. `count`, `for_each` keys, module instance keys, provider configuration selection a resource addresses určujú, aké vertices Terraform plánuje a ktoré state identities vzniknú. Apply-time unknown value preto nesmie byť zdrojom ich identity.
 
 ```hcl
 resource "example_monitor" "instance" {
@@ -144,7 +120,7 @@ resource "example_monitor" "instance" {
 }
 ```
 
-Ak names vzniknú až po create, Terraform nevie pred apply určiť inventory ani addresses monitorov. Riešením je použiť desired keys z configuration alebo monitorovať dynamické instances cez service discovery/controller, nie hardcoded placeholderom predstierať známy graph.
+Ak names vzniknú až po create, Terraform nevie zostaviť complete inventory ani addresses monitorov. Riešením sú desired stable keys z configuration alebo samostatný discovery/controller lifecycle. Placeholder alebo `-target` graph deterministickým neurobí.
 
 ## 6. `for_each` ako identity contract
 
@@ -341,34 +317,11 @@ ktorý upstream behavior musí byť complete
 
 ## 14. Prečo module-wide dependency znižuje plan precision
 
-```hcl
-module "application" {
-  source = "./modules/application"
+`depends_on = [module.platform]` vytvorí edge na celý expanded upstream module, hoci consumer často potrebuje iba jeden subnet output alebo jednu readiness capability. Terraform potom musí konzervatívne čakať na všetky upstream resources, čo znižuje paralelizáciu a môže odložiť data-source reads.
 
-  depends_on = [module.platform]
-}
-```
+Široký edge zároveň vytvorí viac unknown values a zväčší apparent plan blast radius. Reviewer vidí uncertainty aj pri resources, ktoré s reálnym contractom nesúvisia, a konkrétna chýbajúca dependency zostane skrytá.
 
-Taký edge môže:
-
-- čakať na celý upstream module;
-- znížiť paralelizáciu;
-- odložiť data-source reads;
-- vytvoriť viac unknown values;
-- rozšíriť plan blast radius;
-- skryť konkrétny contract.
-
-Preferuj konkrétny output:
-
-```hcl
-module "application" {
-  source = "./modules/application"
-
-  subnet_ids = module.platform.private_subnet_ids
-}
-```
-
-Ak zostáva skrytá behavior dependency, má byť úzka a vysvetlená.
+Preferovaný model prenáša narrow output, napríklad `subnet_ids = module.platform.private_subnet_ids`, čím vznikne value aj dependency contract. Ak existuje behaviorálna dependency bez value-u, musí pomenovať konkrétny completion condition, failure bez edge-u a independent verifier; module-wide edge je posledná, nie prvá možnosť.
 
 ## 15. Vizualizácia graphu
 
@@ -409,20 +362,11 @@ runner capacity
 
 ## 17. Cycles ako architecture signal
 
-Cycle:
+Cycle `A → B → C → A` znamená, že graph nemá počiatočný vertex s dostatočne známymi inputs. Typicky provider configuration závisí od resource spravovaného tým istým providerom, dve security objects potrebujú navzájom computed IDs, module output sa vracia do vlastného lifecycle-u alebo locals vytvoria kruhový value chain.
 
-```text
-A → B → C → A
-```
+Cycle sa neopravuje ďalším `depends_on`; ten pridáva edge a problém môže iba spraviť explicitnejším. Architecture musí oddeliť identity creation od attachments, rozdeliť bootstrap a steady-state lifecycle alebo zmeniť ownership/state boundary.
 
-vzniká napríklad, keď:
-
-- provider configuration závisí od resource spravovaného tým istým providerom;
-- dve security objects potrebujú vzájomne computed IDs;
-- module output sa vracia ako input do vlastného lifecycle;
-- locals sa kruhovo referencujú.
-
-Riešením je oddeliť identity creation od attachments, rozdeliť lifecycle fázy alebo zmeniť ownership boundary. Ďalší `depends_on` cycle neodstráni.
+Acceptance po refaktore overí, že prvá fáza publikuje stabilný narrow contract a druhá ho spotrebuje bez reverse dependency. Druhý no-op plan dokazuje, že rozdelenie nevytvorilo oscilujúce transitions.
 
 ## 18. Worked incident: vloženie list itemu presunulo identities
 
@@ -496,6 +440,8 @@ terraform graph -type=plan > graph.dot
 Address diff testuje H1/H2/H4, replacement reasons a provider lock H3, unknown inventory/graph edges H5 a lineage/serial H6.
 
 ## 21. Acceptance a forbidden paths
+
+Graph acceptance overuje stable identity aj dependency precision. Positive fixture vytvorí očakávané keys a order, forbidden fixture vloží alebo premenuje list item a musí odhaliť neplánovaný address transition. Broad module dependency a cycle sa nesmú maskovať `-target` alebo nízkou parallelism.
 
 Graph kapitola je prijatá, keď:
 

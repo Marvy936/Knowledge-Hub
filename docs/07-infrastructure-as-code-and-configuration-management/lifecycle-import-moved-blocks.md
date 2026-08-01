@@ -36,68 +36,21 @@ Má sa zmeniť remote object, ownership binding alebo iba configuration address?
 
 ## 2. Tri transition classes
 
-### Remote lifecycle change
+Remote lifecycle change, ownership adoption a address refactor menia tri odlišné vrstvy identity. Pri remote lifecycle change zostáva management address, ale provider vykoná update alebo replacement a remote object môže dostať nové ID. Availability, data a downstream references preto patria do transition risku.
 
-```text
-same management address
-→ provider update alebo replacement
-→ remote object môže dostať nové ID
-```
+Ownership adoption používa import: existujúci remote object bez current bindingu sa pripojí ku konkrétnej Terraform address-e a provider configuration. Import nemení automaticky remote bytes ani HCL; vytvára knowledge/ownership transition, ktorú musí následný plan porovnať s configuration.
 
-### Ownership adoption
+Address refactor používa `moved` mapping: existujúci binding prejde z old address na new address pri rovnakom remote ID. Je to configuration/state identity migration bez zamýšľanej remote mutation. Ak chain nie je úplný alebo caller preskočí verziu, plan môže stále navrhnúť destroy/create.
 
-```text
-existujúci remote object bez current bindingu
-→ import
-→ nová Terraform address/remote-ID väzba
-```
-
-### Address refactor
-
-```text
-existujúci binding na old address
-→ moved mapping
-→ rovnaký remote ID na new address
-```
-
-Import ani `moved` samy osebe negarantujú no-op remote outcome. Následný plan môže odhaliť configuration mismatch, provider normalization alebo lifecycle rule, ktorá stále navrhne update/replacement.
+Import ani `moved` negarantujú no-op. Fresh plan musí preukázať správny provider target, remote ID a configuration compatibility a forbidden fixture musí zachytiť chýbajúci migration contract.
 
 ## 3. Replacement je identity a availability event
 
-Plan môže pre resource ukázať:
+Replacement nie je iba kombinácia `delete` a `create`. Môže zmeniť remote ID, IP/DNS endpoint, attached policies, encryption alebo data identity, sessions, traffic routing, downstream references a rollback možnosti. Poradie `destroy→create` alebo `create→destroy` mení availability a coexistence risk, nie samotný dôvod replacementu.
 
-```text
-no-op
-update in-place
-create
-destroy
-replace destroy→create
-replace create→destroy
-```
+Plan JSON musí pomenovať address, actions a `replace_paths`; reviewer potom posúdi data, capacity, quota a naming constraints. `create_before_destroy` môže zlyhať, ak platforma nepovolí dve rovnaké names alebo ak downstream consumer nevie paralelne prijať starú a novú identity.
 
-Replacement môže zmeniť:
-
-- remote ID;
-- IP, DNS alebo endpoint;
-- attached policies;
-- data alebo encryption identity;
-- sessions a traffic;
-- downstream references;
-- rollback možnosti.
-
-Praktické čítanie plan JSON:
-
-```bash
-terraform show -json tfplan > tfplan.json
-jq -r '
-  .resource_changes[]
-  | select(.change.actions | index("delete"))
-  | [.address, (.change.actions|join(",")), (.change.replace_paths // [])]
-  | @json
-' tfplan.json
-```
-
-Výstup preukazuje addresses a actions, ktoré plan artifact obsahuje. Nepreukazuje, že plan je fresh voči current state alebo že provider remote operation bude úspešná. Replacement reason sa musí spojiť s exact provider/module/state subjectom.
+Acceptance zahŕňa successor remote ID, traffic/data migration, state binding a retirement predecessor-a. Zelený create bez týchto checks môže ponechať dva active objects alebo odstrániť jediný recovery subject.
 
 ## 4. `create_before_destroy` mení poradie, nie risk model
 
@@ -325,6 +278,8 @@ Pre plánovanú adoption je configuration-driven import preferovaný.
 
 ## 13. Worked failure: import do nesprávneho accountu
 
+Import command môže byť syntakticky úspešný a napriek tomu viazať address k objectu v nesprávnom provider targete. Pred importom sa preto read-backuje account/region a immutable remote ID a po importe sa porovná state show, remote API a fresh plan.
+
 Atlas chcel importovať `company-prod-logs`. Operátor použil default provider, ktorý smeroval do test accountu, kde existoval bucket s rovnakým názvom.
 
 ```text
@@ -413,20 +368,11 @@ moved {
 
 ### `moved` block
 
-- versionovaný a reviewovateľný;
-- opakovateľný naprieč environments;
-- vhodný pre reusable module releases;
-- podporuje neskorých consumers;
-- je súčasťou plan evidence.
+`moved` je versionovaný configuration contract, ktorý Terraform vie aplikovať pre každého caller-a prechádzajúceho podporovanou upgrade cestou. Zachováva remote ID pri address refaktore a je reviewovateľný spolu so source change-om. Musí zostať dostatočne dlho, aby pokryl podporované predecessor verzie.
 
 ### `terraform state mv`
 
-- okamžitá mutation jedného state subjectu;
-- vyžaduje lock a backup;
-- nie je automaticky reprodukovaná inde;
-- vhodná pre recovery alebo jednorazovú legacy migration.
-
-Plánovaný refactor patrí do code. Manuálna surgery v každom environment-e vytvára divergentnú migration history.
+`terraform state mv` je imperative mutation jedného konkrétneho state snapshotu. Je vhodná pre bounded recovery alebo legacy migration, ale ďalší caller ju z configuration nezdedí. Vyžaduje backup, exclusive lock, exact source/destination identity a bezprostredný fresh plan; pri opakovateľnom refaktore je preferovaný `moved` block.
 
 ## 18. Retained moved chain
 

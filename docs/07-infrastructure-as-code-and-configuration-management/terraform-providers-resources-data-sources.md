@@ -6,9 +6,11 @@ Táto kapitola pokračuje incidentom `IAC-PAY-75`. Atlas Payments chce spravova�
 
 ## 1. Dominantný provider-to-object lifecycle
 
+Provider lifecycle prepája tri identity domains: executable dependency, effective API target a Terraform management address. Provider requirement vyberá plugin family, dependency lock stabilizuje konkrétnu package selection a provider configuration určuje endpoint, account, region a credentials. Až potom resource alebo data-source address vstupuje do graphu.
+
 ```text
 provider source a version constraint
-→ selected package a lock checksums
+→ selected package a checksums
 → provider configuration a alias
 → workload identity, account a region
 → resource alebo data-source address
@@ -19,17 +21,7 @@ provider source a version constraint
 → downstream dependency a runtime verification
 ```
 
-Každá vrstva má inú autoritu:
-
-- **Provider requirement** určuje, ktorý plugin family konfigurácia používa.
-- **Dependency lock** identifikuje konkrétnu selected version a package checksums.
-- **Provider configuration** určuje effective endpoint, account, region a credentials.
-- **Resource address** určuje Terraform ownership identity.
-- **Remote ID** určuje objekt v externom systéme.
-- **State binding** spája Terraform address s remote ID.
-- **Data source** iba číta hodnotu; lifecycle objektu nevlastní.
-
-Syntakticky platná HCL konfigurácia môže zasiahnuť nesprávny account alebo region, ak effective provider configuration nie je tá, ktorú reviewer predpokladal.
+Resource address je Terraform ownership identity; remote ID je platform identity a state binding ich spája. Data source remote lifecycle nevlastní, ale jeho resolved value môže zmeniť graph alebo release. Syntakticky platná HCL preto môže zasiahnuť nesprávny target alebo vybrať inú immutable dependency bez source diffu.
 
 ## 2. Terraform Core verzus provider responsibility
 
@@ -348,28 +340,19 @@ Pri timeout-e sa najprv overí request ID, remote object a state binding. Retry 
 
 ## 12. Worked incident: alias sa nepreniesol
 
-Atlas chcel replica bucket v `eu-west-1`. Root configuration mala `aws.replica`, ale child module neuviedol `configuration_aliases` a caller neposlal mapping.
+Atlas chcel replica bucket v `eu-west-1`. Root configuration poznala `aws.replica`, ale child module nedeklaroval `configuration_aliases` a caller neposlal explicitný mapping. Child resource preto zdedil default provider a validná workload identity vytvorila bucket v `eu-central-1`.
 
 ```text
 root pozná aws.replica
-→ child resource zdedí default aws
-→ validná identity vytvorí bucket
-→ bucket vznikne v eu-central-1
-→ pipeline je green
+→ child resource dostane default aws
+→ API request uspeje v primary regione
+→ state binding je technicky konzistentný
+→ replication capability je business nesprávna
 ```
 
-Root cause nebol cloud outage ani permission failure. Effective provider mapping sa nezhodoval s intended targetom.
+Containment zastaví ďalšiu replication promotion a zachová plan, provider mapping a audit events. Remote inventory musí identifikovať oba buckets podľa accountu, regionu, ARN a data state-u; názov alebo tag nestačí. Až potom sa pridá explicitný alias contract a zvolí copy, import alebo recreate podľa obsahu a consumers.
 
-Recovery:
-
-1. zastaviť ďalšiu replication promotion;
-2. identifikovať oba buckets podľa accountu, regionu, ARN a object inventory;
-3. overiť, či nesprávny bucket obsahuje dáta;
-4. vytvoriť explicitný alias contract;
-5. zvoliť copy/import/recreate podľa data state-u;
-6. aktualizovať consumers;
-7. overiť správny state binding a replication journey;
-8. až potom odstrániť nesprávny object.
+Recovery sa uzatvára správnym provider mappingom v module graph-e, presným state bindingom, replication journey testom a forbidden fixture, ktorá zámerne vynechá alias a musí zlyhať pred mutation. Nesprávny bucket sa odstraňuje až po potvrdení, že nie je jediným nositeľom dát alebo active consumer dependency.
 
 ## 13. Worked incident: mutable data source zmenil release
 
@@ -435,11 +418,11 @@ Constraint povoľuje rozsah; lock identifikuje konkrétnu selection a checksums.
 
 ### „Alias je iba meno“
 
-Alias vyberá target configuration a tým account, region a identity.
+Alias vyberá konkrétnu provider configuration a tým endpoint, account, region aj credential chain. Zmena alebo chýbajúci mapping môže vytvoriť správny resource type v nesprávnom targete. Provider relationship sa preto read-backuje cez resolved graph a testuje forbidden mappingom.
 
 ### „Data source nič nemení, takže je bez rizika“
 
-Mutable query môže zmeniť resolved release input a vyvolať replacement.
+Data source priamo nevlastní remote lifecycle, ale jeho value môže vybrať image, subnet, policy alebo počet resource instances. Mutable query teda môže bez source diffu zmeniť plan a vyvolať replacement. Release-critical values sa pinujú ako immutable inputs a evidujú v resolved manifest-e.
 
 ### „State address a cloud ID sú to isté“
 
@@ -447,7 +430,7 @@ Address je Terraform management identity; remote ID je platform identity. Bindin
 
 ### „Successful API response znamená správny objekt“
 
-Preukazuje úspech v effective targete, nie zhodu s intended targetom.
+API success dokazuje, že effective caller mohol vykonať operation v effective targete. Nehovorí, či account, region, remote ID alebo attribute set zodpovedali approved subjectu. Verdict dopĺňa target read-back, state binding a runtime/business test.
 
 ## 17. Kontrolné otázky
 
