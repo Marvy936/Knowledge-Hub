@@ -1,12 +1,16 @@
 # Linux namespaces
 
-## Metadata
+Linux namespace mení pohľad procesu na vybraný kernel resource. PID, mount, network, UTS, IPC, user, cgroup a time namespaces nevirtualizujú celý kernel; vytvárajú samostatné identity alebo lookup contexts nad zdieľanými kernel subsystems.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Kernel a user space](kernel-and-user-space.md), [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [Linux networking](linux-networking.md)
-- Súvisiace témy: containers, cgroups, capabilities, mounts, process isolation, user namespaces
+```text
+process
+→ namespace membership per resource type
+→ namespace-specific lookup a identity
+→ shared kernel enforcement
+→ host alebo peer namespace boundary
+```
+
+Process môže mať PID `1` vo svojom namespace a iný PID na hoste, vidieť vlastné mounty a interfaces, no stále používa ten istý kernel. User namespace môže mapovať namespace root na neprivilegované host UID, ale capabilities platia iba voči resources v zodpovedajúcom user-namespace scope-e. Namespace preto nie je kompletná security boundary. Potrebuje cgroups, capabilities, seccomp, LSM, filesystem a device controls a pri silnejšom threat modeli aj VM isolation.
 
 ## 1. Definícia
 

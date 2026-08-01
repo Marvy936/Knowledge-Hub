@@ -1,12 +1,17 @@
 # systemd, services a daemons
 
-## Metadata
+systemd je service manager a dependency/job engine, ktorý prekladá unit configuration na runtime procesy, cgroups, sockets, mounts a lifecycle actions. Unit file je source configuration; loaded unit, queued job, active state, main PID a skutočná service readiness sú odlišné stavy.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [Environment variables](environment-variables.md)
-- Súvisiace témy: journald, boot, cgroups, timers, service reliability
+```text
+unit files a drop-ins
+→ manager load a dependency graph
+→ start/stop/reload job
+→ process creation a cgroup
+→ activation/readiness notification
+→ restart, timeout alebo failure handling
+```
+
+`systemctl start` s úspešným exit statusom preukazuje, že manager dokončil svoj job podľa unit semantics. Pri `Type=simple` to môže znamenať iba úspešný fork/exec, nie funkčný listener alebo pripravenú databázovú dependency. Diagnostika preto kombinuje `systemctl show/status`, resolved unit cez `systemctl cat`, journal, process/cgroup state, sockets a application-level probe. Ručný štart binary mimo systemd môže fungovať s iným userom, environmentom, limits a namespaces a nie je dôkazom správnej unit configuration.
 
 ## 1. Daemon, service a service manager
 

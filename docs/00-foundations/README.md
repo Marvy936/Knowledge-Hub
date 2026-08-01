@@ -6,7 +6,7 @@ Táto sekcia vytvára procesný a mentálny základ pre všetky ďalšie technic
 
 Táto sekcia nemá technické predpoklady. Je východiskovým bodom Knowledge Hubu.
 
-## Odporúčané poradie
+## Authoritative poradie
 
 1. [Software Development Life Cycle](sdlc.md)
 2. [DevOps](devops.md)
@@ -33,6 +33,24 @@ Nadväzujúce témy `shift-left`, `shift-right`, CI/CD a deployment stratégie b
 
 Nasledujúca hlavná sekcia: [Linux and Systems](../01-linux-and-systems/README.md).
 
+## Spôsob spracovania sekcie
+
+Sekcia používa jeden prose-first learning chain od software lifecycle-u cez DevOps flow, feedback a systems thinking až po ownership, automation, state convergence, infrastructure lifecycle a meranie delivery outcome-u. Každá kapitola začína priamo vysvetlením mechanizmu; legacy `Metadata`, `Learning` a `L2` scaffold sa už nepoužíva.
+
+Nosný section model je:
+
+```text
+business alebo user potreba
+→ versionovaná zmena a value stream
+→ flow, feedback a learning controls
+→ ownership a automation boundary
+→ desired/effective state transition
+→ delivery a reliability evidence
+→ system-level improvement alebo recovery
+```
+
+Príklady a zoznamy sumarizujú už vysvetlený model. Príkaz, metrika alebo procesný krok sa nepovažuje za dôkaz sám osebe; text oddeľuje vykonanú aktivitu, authoritative state, effective runtime a používateľský alebo business outcome. Aktuálny authoritative stav sekcie je **20/20 · Ready for user review** po odstránení legacy štruktúry a chapter-by-chapter explanation-depth passe.
+
 ## Cieľ zvládnutia
 
 Po dokončení tejto sekcie má byť možné:
@@ -47,28 +65,3 @@ Po dokončení tejto sekcie má byť možné:
 - identifikovať toil, technical debt a systémové anti-patterny,
 - použiť value stream mapping a DORA metriky na riadenie zlepšenia,
 - obhájiť, prečo konkrétny nástroj alebo proces v systéme existuje.
-
-## Stav
-
-| Téma | Status | Úroveň |
-|---|---|---|
-| SDLC | Learning | L2 |
-| DevOps | Learning | L2 |
-| DevOps lifecycle | Learning | L2 |
-| CALMS | Learning | L2 |
-| Three Ways | Learning | L2 |
-| Systems thinking | Learning | L2 |
-| Feedback loops | Learning | L2 |
-| Continuous improvement | Learning | L2 |
-| T-shaped engineer | Learning | L2 |
-| Ownership mindset | Learning | L2 |
-| You build it, you run it | Learning | L2 |
-| Automation mindset | Learning | L2 |
-| Declarative vs. imperative | Learning | L2 |
-| Idempotencia | Learning | L2 |
-| Desired state and reconciliation | Learning | L2 |
-| Immutable vs. mutable infrastructure | Learning | L2 |
-| Toil and technical debt | Learning | L2 |
-| Value stream mapping | Learning | L2 |
-| DORA metrics | Learning | L2 |
-| DevOps anti-patterns | Learning | L2 |

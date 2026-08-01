@@ -1,12 +1,19 @@
 # Kernel a user space
 
-## Metadata
+Linux rozdeľuje execution do privilegovaného kernel space a obmedzeného user space, aby jeden proces nemohol priamo meniť spoločnú pamäť, device state, routing ani credentials iných procesov. Hranicu vynucuje CPU privilege model, page-table protection a kernelové access checks; nie je to iba konvencia medzi programátormi.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: DevOps Foundations
-- Súvisiace témy: procesy, system calls, permissions, namespaces, containers, virtual memory
+Keď user-space program potrebuje službu kernelu, request prejde cez presne definovanú boundary:
+
+```text
+application alebo runtime
+→ library wrapper
+→ system call ABI
+→ kernel subsystem
+→ driver, filesystem, scheduler alebo network stack
+→ return value a errno
+```
+
+Úspešný system call preukazuje iba výsledok danej kernelovej operácie pre konkrétny process context. Nepreukazuje, že vyšší application workflow uspel. Pri diagnostike treba preto oddeliť library behavior, syscall result, kernel log, device response a business outcome; rovnaký používateľský symptóm môže vzniknúť v každej z týchto vrstiev.
 
 ## 1. Čo oddeľuje kernel space od user space
 

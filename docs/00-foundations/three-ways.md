@@ -1,14 +1,21 @@
 # Three Ways of DevOps
 
-## Metadata
+Three Ways vysvetľujú tri dynamické vlastnosti delivery systému. First Way zlepšuje flow od potreby k používateľovi. Second Way skracuje a spresňuje feedback opačným smerom. Third Way vytvára podmienky pre experimentovanie, učenie a pravidelné zlepšovanie samotného systému práce.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md), [DevOps Lifecycle](devops-lifecycle.md), [CALMS](calms.md)
-- Súvisiace témy: systems thinking, feedback loops, continuous learning, CI/CD, observability, incident management
+Tieto cesty sa nedajú zaviesť oddelene. Rýchlejší flow bez kvalitného feedbacku zvyšuje defect escape a incident load. Veľmi prísny feedback bez obmedzenia WIP môže iba vytvoriť ďalšie fronty a approvals. Experimentovanie bez bounded blast radiusu a recovery mechanizmu premieňa učenie na nekontrolované riziko.
 
-Metadata zaraďuje Three Ways za základný DevOps a CALMS model. Princípy neopisujú tri projektové fázy ani tri tímy; ide o súčasne fungujúce vlastnosti jedného delivery a operations systému.
+Praktický model je uzavretý loop:
+
+```text
+zmenši batch a obmedz WIP
+→ skráť čas k relevantnému pozorovaniu
+→ vráť dôkaz k správnemu ownerovi
+→ uprav produkt, architektúru alebo proces
+→ štandardizuj zlepšenie
+→ opakuj s novou hypotézou
+```
+
+Three Ways teda nie sú motivačné heslá. Sú návrhom control systemu, v ktorom sa optimalizuje celý value stream, nie lokálna rýchlosť jedného tímu.
 
 ## 1. Definícia
 

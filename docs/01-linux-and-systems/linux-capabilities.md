@@ -1,12 +1,10 @@
 # Linux capabilities
 
-## Metadata
+Linux capabilities rozdeľujú tradičné root privileges na jemnejšie operation classes, napríklad bind na privileged port, zmenu network configuration alebo obídenie vybraných DAC checks. Capability nie je role priradená userovi navždy; kernel vyhodnocuje capability sets konkrétneho threadu pri konkrétnej operácii.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md), [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [Linux namespaces](namespaces.md)
-- Súvisiace témy: least privilege, containers, systemd hardening, seccomp, SELinux/AppArmor, user namespaces
+Process pracuje s permitted, effective, inheritable, bounding a ambient sets. Pri `execve()` sa nové sets vypočítajú z parent state-u, file capabilities, bounding setu, `no_new_privs` a user-namespace contextu. Container configuration typu `cap_add` preto ešte nepreukazuje, že capability je effective v bežiacom procese ani že pôsobí voči host resource.
+
+Least privilege znamená identifikovať konkrétny kernel check a ponechať iba potrebnú capability v správnom scope-e. Pridanie `CAP_SYS_ADMIN` alebo `privileged` často skryje skutočný denial a výrazne rozšíri attack surface. Overenie musí zahŕňať allowed operation, forbidden adjacent operation, effective sets po exec a MAC/seccomp boundary.
 
 ## 1. Definícia
 

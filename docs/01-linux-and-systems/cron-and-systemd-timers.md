@@ -1,12 +1,19 @@
 # Cron a systemd timers
 
-## Metadata
+Scheduler neurčuje iba čas spustenia; vytvára opakovaný lifecycle operácie s environmentom, identity, concurrency a failure semantics. Cron spustí command podľa kalendárneho matchu v obmedzenom environment-e. systemd timer aktivuje unit a môže použiť monotonic triggers, persistence po missed run-e a service-manager observability.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Shell, Bash, pipes, redirection a exit codes](shell-bash-pipes-redirection-exit-codes.md), [Environment variables](environment-variables.md), [systemd, services a daemons](systemd-services-daemons.md)
-- Súvisiace témy: automation, batch processing, idempotency, locking, observability, retries
+```text
+schedule generation
+→ trigger eligibility
+→ process identity a environment
+→ lock alebo concurrency decision
+→ idempotent operation
+→ durable output/checkpoint
+→ exit a runtime evidence
+→ retry, alert alebo next run
+```
+
+Úspešný scheduler trigger nepreukazuje úspech jobu a úspešný exit nemusí preukazovať expected business effect. Overlap dvoch behov môže poškodiť state; missed run po vypnutom hoste môže zostať navždy neuskutočnený; retry po lost response môže duplikovať external action. Robustný scheduled job potrebuje locking, stable operation identity, bounded timeout, atomic output, logging/metrics a druhý-run convergence test.
 
 ## 1. Čo scheduling skutočne rieši
 

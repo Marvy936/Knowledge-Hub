@@ -1,12 +1,18 @@
 # Storage, mounty a filesystems
 
-## Metadata
+Storage path v Linuxe skladá viac nezávislých vrstiev. Application zapisuje cez VFS do mounted filesystemu; ten môže ležať na partition, device mapper targete, LVM logical volume, encrypted mappingu, RAID-e alebo virtual block device. Každá vrstva má vlastnú identity, capacity, failure a persistence semantics.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md), [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md)
-- Súvisiace témy: block devices, LVM, RAID, encryption, persistence, backups, container storage
+```text
+application file operation
+→ pathname a mount namespace
+→ filesystem a page cache
+→ block layer a queues
+→ mapper/LVM/RAID/encryption
+→ physical alebo virtual device
+→ durable media acknowledgement
+```
+
+`df` meria filesystem allocation, `du` prechádza reachable pathnames a `lsblk` zobrazuje block topology; preto môžu ukazovať rozdielne hodnoty bez chyby. Mount point môže byť prekrytý ďalším mountom, deleted-open file môže držať space a úspešný `write()` môže znamenať iba prijatie do page cache. Prevádzkové overenie potrebuje rozlíšiť visibility, capacity, I/O completion, flush/durability, filesystem consistency a schopnosť obnovy.
 
 ## 1. Mentálny model storage stacku
 

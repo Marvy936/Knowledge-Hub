@@ -1,12 +1,20 @@
 # CPU a memory fundamentals
 
-## Metadata
+CPU a memory telemetry opisuje odlišné resources a časy. CPU utilization ukazuje, koľko scheduling time-u tasky spotrebovali; nehovorí sama o sebe, či workload čaká v run queue, je throttled cgroupou alebo blokuje na I/O. Load average zahŕňa runnable a vybrané uninterruptible tasks a nie je percento CPU.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Kernel a user space](kernel-and-user-space.md), [Procesy, thready, PID a signals](processes-threads-pid-signals.md)
-- Súvisiace témy: scheduling, virtual memory, page cache, swap, cgroups, performance troubleshooting
+Memory model spája virtual address spaces, page tables, anonymous pages, file-backed page cache, reclaim, swap a cgroup accounting. `free` memory blízka nule môže byť zdravá, ak je väčšina RAM reclaimable cache. Problém vzniká pri sustained pressure, vysokých major faults, reclaim/compaction cost, swap thrash alebo OOM decisione.
+
+```text
+user symptom
+→ task/cgroup/host scope
+→ utilization, saturation a pressure
+→ scheduler alebo memory-state hypothesis
+→ discriminating observation
+→ bounded change
+→ latency/throughput a forbidden-outcome validation
+```
+
+Výkonová diagnóza preto nevyvodzuje root cause z jednej vysokej hodnoty. Musí zistiť effective quota/limit, workload concurrency, run-queue alebo allocation path a následne preukázať, že náprava zlepšila user outcome bez presunutia bottlenecku.
 
 ## 1. Mentálny model
 

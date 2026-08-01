@@ -1,14 +1,10 @@
 # Ownership Mindset
 
-## Metadata
+Ownership mindset znamená niesť zodpovednosť za výsledok počas celého relevantného lifecycle-u, nie iba dokončiť pridelenú aktivitu. Owner potrebuje jasný subject, decision rights, rozhrania voči ostatným tímom a evidence, podľa ktorého vie posúdiť, či systém funguje. Bez týchto právomocí sa „ownership“ mení na morálnu požiadavku bez možnosti konať.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md), [Systems Thinking](systems-thinking.md)
-- Súvisiace témy: service ownership, team topology, on-call, incident management, platform engineering
+Rozdiel je viditeľný pri incidente. Activity ownership končí vetou „deployment job bol zelený“. Outcome ownership pokračuje otázkami, ktorá generation beží, aký traffic ju používa, či business operation dokončuje a ako sa riešia unknown outcomes. Owner neznamená, že všetku prácu vykoná sám; znamená, že zabezpečí koordináciu, rozhodnutie a closure.
 
-Metadata zaraďuje ownership medzi organizačné mechanizmy DevOps. Ownership nie je morálna vlastnosť jednotlivca ani synonymum neobmedzeného scope-u; je to explicitný contract medzi outcome-om, decision authority, capabilities a accountability.
+Zdravé ownership boundaries zároveň bránia hero culture. Tím vlastní službu alebo capability, nie konkrétny človek 24 hodín denne. Potrebuje shared on-call, dokumentované dependencies, bezpečný escalation path a platform capabilities. Ownership sa preukazuje opakovateľným výsledkom a učením, nie osobnou obetavosťou.
 
 ## 1. Definícia
 

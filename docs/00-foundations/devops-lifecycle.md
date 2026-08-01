@@ -1,14 +1,22 @@
 # DevOps Lifecycle
 
-## Metadata
+DevOps lifecycle opisuje opakujúci sa tok od zámeru po overený runtime outcome. Názvy fáz ako Plan, Code, Build, Test, Release, Deploy, Operate a Monitor sú orientačné observation points; nie sú to samostatné oddelenia ani povinný lineárny workflow. Jedna zmena sa môže medzi nimi vracať, zastaviť na gate-e alebo byť po produkčnom pozorovaní úplne preformulovaná.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [SDLC](sdlc.md), [DevOps](devops.md)
-- Súvisiace témy: CI/CD, testing, observability, incident management, DORA metrics
+Dôležitejšie než názvy fáz je sledovať identitu a stav tej istej zmeny:
 
-Táto kapitola neopakuje celý SDLC. SDLC opisuje univerzálny život softvéru od potreby po retirement, zatiaľ čo DevOps lifecycle vysvetľuje, ako sa jedna konkrétna zmena pohybuje cez delivery systém, aké identity a dôkazy pri tom vznikajú a ako sa produkčné zistenie vráti späť do ďalšieho rozhodnutia.
+```text
+change intent
+→ candidate source tree
+→ build inputs a artifact
+→ verification evidence
+→ release manifest
+→ environment mutation
+→ loaded runtime generation
+→ traffic alebo feature exposure
+→ business result
+```
+
+Ak sa identita medzi krokmi stratí, lifecycle vytvára false-green verdicty. Testy môžu patriť commitu A, artifact commitu B a produkčný tag môže ukazovať na ďalší digest. Continuous lifecycle preto potrebuje traceability, immutable alebo presne versionované subjects, explicitné failure semantics a feedback, ktorý sa vracia k ownerovi schopnému zmeniť systém.
 
 ## 1. DevOps lifecycle ako uzavretá regulačná slučka
 

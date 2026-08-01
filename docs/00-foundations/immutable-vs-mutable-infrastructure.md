@@ -1,12 +1,15 @@
 # Immutable vs. Mutable Infrastructure
 
-## Metadata
+Mutable infrastructure sa mení in place: existujúci server alebo instance dostáva package updates, configuration mutations a ručné opravy. Immutable model vytvorí novú versionovanú generation, overí ju a starú generation nahradí alebo vyradí. Rozdiel je v lifecycle-e identity a recovery, nie v tom, že by immutable systém nikdy nemenil žiadny stav.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Desired State and Reconciliation](desired-state-and-reconciliation.md)
-- Súvisiace témy: images, configuration management, containers, deployments, rollback, drift
+```text
+mutable:   instance A → patch 1 → patch 2 → emergency edit
+immutable: image A → image B → validated replacement → retire A
+```
+
+Immutable replacement znižuje configuration drift a uľahčuje reprodukciu, pretože runtime sa viaže na build artifact a deklarovanú konfiguráciu. Zároveň potrebuje externalizovaný durable state, capacity na súbežné generations, bezpečný rollout a kompatibilitu s database či event schema. Databáza, queue alebo filesystem state nemôžu byť bezmyšlienkovite nahradené spolu s compute vrstvou.
+
+Mutable zmena môže byť vhodná pri firmware, veľkých stateful systémoch alebo urgentnom containment-e. Potrebuje však authoritative change record, read-back a následné zosúladenie source of truth, inak vznikne snowflake. Praktická voľba je často hybridná: immutable application compute, deklaratívna konfigurácia a kontrolované mutable data transitions.
 
 ## 1. Definícia
 

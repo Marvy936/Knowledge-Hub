@@ -1,14 +1,10 @@
 # Declarative vs. Imperative Approach
 
-## Metadata
+Imperatívny prístup opisuje konkrétnu sekvenciu operácií. Deklaratívny prístup opisuje požadovaný výsledný stav a ponecháva mechanizmu, aby vypočítal potrebné zmeny. Rozdiel teda nie je iba syntaktický; mení, kde sa nachádza decision logic, kto vlastní current state a ako sa rieši drift.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Automation Mindset](automation-mindset.md)
-- Súvisiace témy: idempotency, desired state, reconciliation, Infrastructure as Code, Kubernetes, configuration management
+Imperatívny postup môže povedať `vytvor server, nainštaluj package, prepíš config a reštartuj službu`. Deklarácia môže povedať `služba má bežať v tejto generation s týmto configuration contractom`. Controller následne porovná desired a observed state, vytvorí plan a opakuje reconciliation, kým systém nedosiahne prijateľnú konvergenciu alebo explicitne nezlyhá.
 
-Metadata zaraďuje kapitolu medzi základné automation modely. Deklaratívny a imperatívny prístup nie sú dve súperiace technológie; opisujú, kde sa nachádza procedurálna logika a kto zodpovedá za prechod zo súčasného do požadovaného stavu.
+Deklaratívny model nie je automaticky bezpečnejší. Nesprávny desired state môže controller spoľahlivo rozšíriť na celý fleet. Hidden defaults, mutable dependencies alebo viac writers môžu spôsobiť, že deklarácia nie je úplným source of truth. Imperatívny krok je naopak vhodný pre jednorazové externé side effects, ak má idempotency, journaling a recovery. Voľba preto závisí od state modelu, authority a failure contractu, nie od preferencie YAML verzus shell.
 
 ## 1. Definícia
 

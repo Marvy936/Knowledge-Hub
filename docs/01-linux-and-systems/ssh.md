@@ -1,12 +1,17 @@
 # SSH
 
-## Metadata
+SSH vytvára šifrovaný a autentifikovaný transport medzi clientom a serverom, ale kombinuje viac oddelených trust decisions. Client najprv overuje host identity, následne strany dohodnú algorithms a session keys, server overí user alebo workload identity a až potom vznikajú channels pre shell, command, forwarding alebo subsystem.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Linux networking](linux-networking.md), [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md)
-- Súvisiace témy: public-key cryptography, bastion hosts, port forwarding, automation, secrets management
+```text
+TCP connection
+→ protocol a key exchange
+→ server host-key verification
+→ user authentication
+→ authorization a session setup
+→ channel operation
+```
+
+Private user key nie je heslo posielané serveru; client podpisuje challenge a server overuje public key podľa `authorized_keys`, certificate authority alebo iného backendu. Ak client slepo prijme zmenený host key, encryption stále funguje, ale môže byť ukončená u útočníka. Bastion a agent forwarding pridávajú ďalšie trust boundaries. Bezpečné overenie preto zahŕňa known-host policy, key scope/rotation, server-side restrictions, effective sshd configuration a command/channel behavior.
 
 ## 1. Mentálny model
 

@@ -1,14 +1,22 @@
 # Software Development Life Cycle
 
-## Metadata
+Software Development Life Cycle nie je iba zoznam fáz medzi požiadavkou a nasadením. Je to riadený chain rozhodnutí a stavov, v ktorom sa musí dať preukázať, prečo zmena vznikla, ktorá verzia požiadavky a návrhu bola implementovaná, aký artifact z nej vznikol, kde bol nasadený a či priniesol zamýšľaný používateľský alebo prevádzkový výsledok.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: žiadne
-- Súvisiace témy: DevOps, testing, CI/CD, release engineering, observability, SRE
+Užitočný mentálny model preto nezačína slovami `plan → code → deploy`, ale exact change subjectom a evidence chainom:
 
-Metadata je referenčná časť. Jej účelom je zaradiť kapitolu do učebnej cesty, nie vysvetliť samotný mechanizmus SDLC.
+```text
+potreba a očakávaný outcome
+→ versionovaná požiadavka a acceptance contract
+→ návrh a risk boundaries
+→ source change a review
+→ build artifact a verification evidence
+→ release a deployment generation
+→ runtime exposure
+→ user/business observation
+→ maintenance, recovery alebo retirement
+```
+
+Každá šípka predstavuje state transition, ktorá môže uspieť, zlyhať či skončiť s neznámym výsledkom. Zelený build napríklad preukazuje iba vlastnosti konkrétneho build subjectu; nepreukazuje, že produkcia načítala rovnaký artifact ani že používateľ dokončil svoj workflow. SDLC je preto uzavretý feedback system, nie jednosmerná výrobná linka.
 
 ## 1. Definícia
 

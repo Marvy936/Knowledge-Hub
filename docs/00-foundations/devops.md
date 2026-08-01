@@ -1,14 +1,20 @@
 # DevOps
 
-## Metadata
+DevOps je socio-technický operating model pre rýchle a spoľahlivé premieňanie zmien na prevádzkový výsledok. Nevzniká tým, že organizácia pomenuje tím `DevOps`, kúpi CI nástroj alebo presunie deployment skripty k vývojárom. Vzniká až vtedy, keď delivery a operations zdieľajú outcome, evidence, rozhodovacie práva a následky svojich technických rozhodnutí.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Software Development Life Cycle](sdlc.md)
-- Súvisiace témy: CALMS, Three Ways, CI/CD, testing, SRE, platform engineering
+Mechanizmus možno čítať ako regulačný loop:
 
-Metadata zaraďuje kapitolu do učebnej cesty. Samotný pojem DevOps treba chápať cez tok hodnoty, spoločný ownership a feedback, nie cez zoznam technológií uvedený pri pracovnej pozícii.
+```text
+business alebo user potreba
+→ malá verzovaná zmena
+→ automatizované a manuálne dôkazy
+→ bounded release decision
+→ produkčný outcome a telemetry
+→ incident, feedback alebo learning
+→ zmena produktu, procesu alebo platformy
+```
+
+Flow bez spätnej väzby iba zrýchľuje produkciu chýb. Feedback bez ownershipu vytvára reporty bez nápravy. Automation bez bezpečných boundaries škáluje nesprávny proces. DevOps preto spája kultúru, architektúru, platformu, delivery controls a prevádzkové učenie do jedného systému, ktorého kvalita sa posudzuje podľa lead time, reliability, recovery a schopnosti meniť sa bez heroického zásahu.
 
 ## 1. Definícia
 

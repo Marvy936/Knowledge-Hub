@@ -1,12 +1,19 @@
 # Toil and Technical Debt
 
-## Metadata
+Toil a technical debt sú príbuzné, ale odlišné javy. Toil je opakovaná operational práca s nízkou trvalou hodnotou, ktorá je manuálna, reaktívna, automatizovateľná a rastie so službou. Technical debt je budúci náklad vytvorený designovým alebo implementačným rozhodnutím, ktoré zvyšuje cenu ďalších zmien, reliability alebo recovery.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Automation Mindset](automation-mindset.md), [Continuous Improvement](continuous-improvement.md)
-- Súvisiace témy: SRE, automation, incident management, platform engineering, prioritization
+Technical debt môže generovať toil, napríklad chýbajúca idempotencia vytvára každodenné manuálne reconciliation. Nie každý toil však vzniká z dlhu a nie každý dlh okamžite vytvára manuálnu prácu. Povinný audit v regulovanom procese môže byť enduring operational work, zatiaľ čo zastaraná knižnica je debt aj bez aktuálneho incidentu.
+
+Rozhodovanie potrebuje demand model:
+
+```text
+frequency × touch time × interruption × risk × growth
+→ root operational demand
+→ eliminate, redesign, automate, self-service alebo accept
+→ verify durable reduction
+```
+
+Automatizácia symptómu bez odstránenia root demandu môže iba zrýchliť nebezpečnú operáciu. Splatenie debt-u bez merania outcome-u môže byť technicky príjemné, ale bez business hodnoty. Priorita preto vychádza z dopadu na flow, reliability, security, cost a budúcu schopnosť meniť systém.
 
 ## 1. Definícia
 

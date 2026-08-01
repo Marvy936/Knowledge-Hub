@@ -1,14 +1,20 @@
 # DevOps Anti-patterns
 
-## Metadata
+DevOps anti-pattern je opakujúca sa štruktúra rozhodnutí, ktorá lokálne pôsobí rozumne, ale systematicky zhoršuje flow, feedback, reliability alebo ownership. Nejde iba o zoznam zlých praktík. Anti-pattern sa udržiava reinforcing loopom: problém vyvolá reakciu, reakcia zosilní pôvodnú príčinu a organizácia následne pridá ešte viac tej istej kontroly.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md), [Systems Thinking](systems-thinking.md), [Ownership Mindset](ownership-mindset.md)
-- Súvisiace témy: team topology, platform engineering, CI/CD, SRE, continuous improvement
+Príkladom je centralizovaná deployment queue. Incident vedie k ďalšiemu approvalu, approval predĺži lead time a zväčší batch, väčší batch zvyšuje risk a ďalší incident legitimizuje ešte prísnejšiu queue. Podobne hero culture krátkodobo zachráni outage, ale obíde dokumentáciu, automation a shared capability, čím sa závislosť od hero človeka ďalej zväčší.
 
-Táto záverečná kapitola nespája anti-patterny iba do katalógu varovaní. Sleduje jeden neúspešný transformačný program a ukazuje, ako lokálne rozumné rozhodnutia vytvoria fronty, stratu feedbacku, nejasný ownership a metriky, ktoré následne posilňujú rovnaké správanie.
+Diagnostika preto začína causal loopom, nie pomenovaním symptómu:
+
+```text
+pozorovaný outcome
+→ local incentive alebo constraint
+→ opakované rozhodnutie
+→ system-level consequence
+→ feedback, ktorý správanie posilňuje
+```
+
+Náprava musí zmeniť mechanizmus: ownership a decision rights, batch/WIP, platform capability, evidence quality alebo incentive. Nahradenie jedného toolu druhým bez zmeny loopu anti-pattern iba prefarbí. Closure vyžaduje opakované meranie flowu, failure demandu, reliability a správania tímov po tom, čo počiatočná pozornosť transformačného programu opadne.
 
 ## 1. Čo je anti-pattern
 

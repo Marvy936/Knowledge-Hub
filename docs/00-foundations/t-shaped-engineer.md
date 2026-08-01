@@ -1,14 +1,10 @@
 # T-shaped, I-shaped a π-shaped Engineer
 
-## Metadata
+T-shaped, I-shaped a π-shaped profily opisujú rozloženie odbornosti, nie hodnotu človeka ani pevné pracovné pozície. Vertikálna časť predstavuje hĺbku potrebnú na samostatné riešenie náročných problémov. Horizontálna časť predstavuje dostatočné porozumenie susedných domén na komunikáciu, návrh hraníc a bezpečný handoff.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md), [Systems Thinking](systems-thinking.md)
-- Súvisiace témy: skill matrix, ownership, platform engineering, career development, team topology
+I-shaped engineer má veľkú hĺbku v jednej oblasti, ale môže mať slabšiu schopnosť orientovať sa mimo nej. T-shaped engineer kombinuje jednu dominantnú hĺbku s praktickým rozhľadom. π-shaped profil má dve výrazné hĺbky, napríklad application engineering a distributed systems. Žiadny profil automaticky nerieši ownership, mentoring ani tímovú redundanciu.
 
-Metadata zaraďuje kapitolu medzi organizačné a profesijné základy. Skill-shape model nie je hodnotenie osobnosti ani požiadavka naučiť sa všetky technológie; opisuje rozloženie pracovnej šírky a expertnej hĺbky.
+Organizačný význam vzniká až pri mapovaní capability na tím. Ak jediný človek rozumie production database recovery, vzniká key-person risk bez ohľadu na jeho profil. Ak všetci poznajú všetko iba povrchne, tím nemá hĺbku na diagnostiku zložitých failure modes. Cieľom je komplementárna topológia: dostatočná expert depth, spoločný jazyk na hraniciach a mechanizmy, ktoré prenášajú znalosti cez pairing, review, runbooks a rehearsals.
 
 ## 1. Definícia
 
