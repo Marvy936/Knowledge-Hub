@@ -67,14 +67,6 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      # SECTION08_FULL_REWRITE_CLOSEOUT_START
-      - name: Close Section 08 full prose rewrite
-        if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]'
-        shell: bash
-        run: |
-          set -euo pipefail
-          "$PYTHON_BIN" scripts/close_section_08_full_prose_rewrite.py
-      # SECTION08_FULL_REWRITE_CLOSEOUT_END
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
