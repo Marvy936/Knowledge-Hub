@@ -1,5 +1,42 @@
 # Smoke a regression tests
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú smoke a regression test
+
+Smoke test je krátka sada kontrol, ktorá overuje, že nový build alebo deployment je dostatočne funkčný na ďalšie testovanie alebo exposure. Neoveruje celý systém. Jeho účelom je rýchlo zachytiť hrubé failures, napríklad neštartujúci process, nedostupný endpoint alebo nefunkčný kritický journey.
+
+Regression test chráni správanie, ktoré už raz fungovalo alebo opravuje známy failure mode. Regression suite nie je automaticky „všetky testy“. Je to kurátorované portfolio dôkazov proti riziku, že nová zmena poškodila existujúce capabilities.
+
+Neutrálny deployment smoke:
+
+```text
+process je ready
+→ login funguje
+→ jeden read journey prejde
+→ jeden bounded write journey prejde
+→ základná observability prijíma data
+```
+
+Smoke musí byť krátky, deterministický a mať jasný rollback alebo stop verdict. Plytký `/healthz` s `200` môže byť súčasťou smoke-u, ale sám nepreukazuje funkčný user flow.
+
+Regression test vzniká často po incidente:
+
+```text
+failure: nulová cena pre určitý discount
+→ root cause opravený
+→ pridaný test pre presný invariant
+→ širšia property alebo boundary kontrola
+```
+
+Test nemá iba zakonzervovať chybnú implementáciu. Má zachytiť intent, ktorý incident porušil. Inak refactoring rozbije test bez reálnej regresie alebo bug prejde cez príliš úzky example.
+
+Risk-based výber zohľadňuje kritickosť journey, pravdepodobnosť zmeny, historické incidenty, blast radius a execution cost. Suite sa musí aj čistiť: duplicity, stále zelené nízkohodnotné testy a testy bez jasného ownera zvyšujú čas bez primeranej confidence.
+
+Smoke a regression sú labels podľa účelu, nie podľa frameworku. Ten istý API test môže byť deployment smoke v jednom pipeline gate a regression check v inom kontexte.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Smoke test a regression test opisujú účel kontroly, nie jej technický scope:
 
 ```text

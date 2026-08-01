@@ -1,5 +1,38 @@
 # Shift-right
 
+<!-- CONCEPT-FIRST:START -->
+## Čo znamená shift-right
+
+Shift-right znamená získavať quality a behavior evidence v neskorších fázach delivery a v produkčnom alebo production-like prostredí. Nejde o testovanie namiesto pre-release kontrol, ale o overenie assumptions, ktoré sa naplno prejavia až pri reálnom trafficu, dátach, topológii a používateľoch.
+
+Bežné mechanizmy:
+
+```text
+post-deploy smoke
+synthetic transactions
+real-user monitoring
+canary alebo ring exposure
+feature flags
+shadow traffic
+runtime assertions
+business metrics
+```
+
+Technická validácia sleduje readiness, errors, latency a resource state. Funkčná validácia overuje user journey. Business validácia sleduje výsledok ako dokončená objednávka, successful payment alebo správny export. Zelená infraštruktúra nemusí znamenať zelený business outcome.
+
+Synthetic test je umelý kontrolovaný actor. RUM pozoruje skutočných users a cohorts. Synthetic poskytuje deterministický probe, RUM reprezentatívnosť reálneho sveta; každý má odlišné bias a privacy hranice.
+
+Canary znižuje exposure tým, že nový artifact dostane časť trafficu. Verdict musí porovnávať relevantné cohorts a metriky. Ak canary dostáva iba interných users alebo ľahšie requests, môže byť nereprezentatívna.
+
+Neutrálny príklad: release je technicky zdravý a server vracia `200`, ale nový frontend skrýva tlačidlo pre mobile viewport. Backend metrics sú zelené; synthetic mobile journey alebo RUM conversion odhalí functional/business regresiu.
+
+Shift-right potrebuje safety controls: bounded blast radius, abort criteria, immutable artifact identity, traffic/feature/data state inventory a recovery plan. Experimentovanie priamo v produkcii bez týchto hraníc nie je quality strategy.
+
+Observability nie je automaticky test. Metrika sa stane oracle-om až po definovaní expected behavior, threshold, cohortu a rozhodnutia. Produkčný signal treba korelovať s exact release a exposure state-om.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning

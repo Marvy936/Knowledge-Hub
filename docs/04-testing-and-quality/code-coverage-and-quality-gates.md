@@ -1,5 +1,48 @@
 # Code coverage a quality gates
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú code coverage a quality gate
+
+Code coverage meria, ktoré časti instrumentovaného programu vykonal konkrétny test run. Nehodnotí správnosť assertions ani business význam. Vysoká coverage môže vzniknúť testom bez oracle a nízka coverage môže byť prijateľná pri generated alebo defensive code.
+
+Bežné metriky:
+
+```text
+line coverage
+ktoré riadky sa vykonali
+
+branch coverage
+ktoré vetvy rozhodnutia sa vykonali
+
+condition coverage
+ktoré boolean podmienky nadobudli hodnoty
+
+function coverage
+ktoré funkcie sa zavolali
+```
+
+Coverage denominator závisí od toolu, compileru, generated code a exclusions. Čísla z dvoch toolchains preto nemusia byť priamo porovnateľné.
+
+Neutrálny príklad:
+
+```python
+if user.is_admin or user.is_owner:
+    allow()
+```
+
+Test s admin userom môže vykonať riadok a dosiahnuť line coverage, ale neoverí owner branch ani unauthorized case. Branch/condition coverage odhalí chýbajúce paths, no stále nezaručí správny authorization oracle.
+
+Diff coverage meria nový alebo zmenený code a je vhodná na ratcheting. Globálny threshold môže motivovať k bezvýznamným testom alebo penalizovať legacy code, ktorý aktuálny change nezhoršil.
+
+Quality gate kombinuje evidence a rozhoduje, či subject smie pokračovať. Môže byť blocking alebo advisory. Dobrý gate viaže findings na presný commit/artifact, má stabilné pravidlá, jasné owners a auditovateľnú exception.
+
+Gate nemá zamieňať signál za výsledok. `coverage >= 80 %` nepreukazuje correctness. Lepší model kombinuje required tests, diff coverage, critical risk checks, security findings a explicitné policy.
+
+Flaky alebo environment-sensitive checks nesmú byť maskované rerun-until-green. Gate musí zachovať first-attempt evidence a failure artifacts. Exception má mať dôvod, scope, expiry a compensating control.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning

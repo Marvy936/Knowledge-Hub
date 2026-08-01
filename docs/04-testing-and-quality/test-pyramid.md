@@ -1,5 +1,54 @@
 # Test pyramid
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je test pyramid
+
+Test pyramid je heuristický model portfólia testov. Odporúča mať veľa rýchlych a úzko scoped testov pri základe, menej integračných testov v strede a malý počet drahých end-to-end testov na vrchu. Nie je to fixná percentuálna kvóta ani tvrdenie, že všetky systémy potrebujú rovnaký pomer.
+
+Základná myšlienka vychádza z trade-offu:
+
+```text
+nižší scope
+→ rýchlejší feedback
+→ lepšia lokalizácia chyby
+→ nižšia environment fidelity
+
+vyšší scope
+→ viac reálnych hraníc
+→ vyššia confidence pre celý journey
+→ pomalší a menej diagnostický feedback
+```
+
+Test trophy alebo iné varianty kladú väčší dôraz na integration tests, najmä pri aplikáciách, kde riziko vzniká hlavne medzi modulmi a frameworkom. Dôležitý nie je tvar diagramu, ale risk-based umiestnenie dôkazu.
+
+Najnižší vhodný scope je taký, ktorý spoľahlivo aktivuje failure mode. Čistú business funkciu je výhodné testovať unit testom. SQL transaction behavior potrebuje reálnu alebo fidelity-valid databázovú hranicu. DNS, TLS alebo browser behavior nemožno presvedčivo nahradiť čistým unit testom.
+
+Neutrálny príklad e-shopu:
+
+```text
+unit:
+výpočet ceny a dane
+
+integration:
+repository voči databáze
+
+component:
+celá API služba s controlled dependencies
+
+contract:
+kompatibilita client–provider
+
+E2E:
+používateľ vytvorí a zaplatí objednávku
+```
+
+Portfólio musí zohľadniť execution time, determinism, maintenance cost, diagnostickosť a unikátny risk coverage. Desať E2E testov, ktoré všetky zlyhajú pri rovnakom database outage-i, neposkytuje desať nezávislých dôkazov.
+
+Pyramid tiež nehovorí, že testy vyššieho scope-u sú menej dôležité. Kritický end-to-end journey môže byť release-blocking aj pri jednom teste, pretože overuje unikátnu kombináciu boundaries, ktorú nižšie testy nevidia.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning

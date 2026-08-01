@@ -1,5 +1,37 @@
 # Performance, load a stress tests
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú performance, load, stress, spike a soak test
+
+Performance testing meria správanie systému vzhľadom na latency, throughput, concurrency, saturation a resource usage. Nie je to iba poslanie veľkého počtu requestov. Experiment potrebuje workload model, environment, warm-up, measurement window, oracle a koreláciu so systémovými metrics.
+
+**Load test** overuje očakávanú alebo plánovanú záťaž. **Stress test** zvyšuje load za normálnu kapacitu a hľadá breaking point a recovery. **Spike test** sleduje náhlu zmenu záťaže. **Soak test** beží dlho a hľadá leaks, queue growth alebo degradáciu. **Capacity test** určuje, koľko workloadu systém zvládne pri stanovenom SLO.
+
+Closed workload model udržiava pevný počet virtuálnych users, ktorí čakajú na response. Keď systém spomalí, arrival rate prirodzene klesá. Open model generuje arrivals nezávisle od response time a lepšie odhaľuje queue collapse pri externom trafficu.
+
+Neutrálny contract:
+
+```text
+500 requestov/s počas 20 minút
+payload distribution podľa production profilu
+p95 < 250 ms
+p99 < 600 ms
+error rate < 0,5 %
+CPU < 75 %
+queue bez trvalého rastu
+```
+
+Priemer latency môže skryť zlý tail. Coordinated omission vznikne, keď load generator počas spomalenia neposiela plánované requests a podhodnotí problém. Workload tool a model preto ovplyvňujú meranú pravdu.
+
+Výsledky bez resource a dependency metrics sú málo diagnostické. Rovnaká latency môže pochádzať z CPU saturation, lock contention, connection poolu, disk I/O, GC alebo downstream rate limitu.
+
+Environment musí byť dostatočne reprezentatívny pre testované riziko. Malá databáza, prázdne cache alebo odlišná network path môžu viesť k falošnému capacity verdictu. Performance result platí iba pre konkrétny artifact, config, data volume a topology.
+
+Po stress experimente sa overuje recovery: backlog drain, error normalization, resource release a business reconciliation. Prežitie peak-u bez návratu do stabilného stavu nie je úspech.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning

@@ -1,5 +1,41 @@
 # Mocks, stubs a fakes
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú dummy, stub, fake, spy a mock
+
+Test double je kontrolovaná náhrada dependency použitá na izoláciu subjectu alebo vytvorenie ťažko reprodukovateľného stavu. Jednotlivé typy doubles majú odlišný účel.
+
+**Dummy** iba vyplní parameter a test ho nepoužíva. **Stub** vracia vopred pripravené odpovede. **Fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository. **Spy** zaznamenáva calls pre neskoršie assertions. **Mock** overuje očakávané interactions a často je naprogramovaný na presný call sequence.
+
+Neutrálny príklad payment service:
+
+```text
+stub:
+Authorize() vždy vráti approved
+
+fake:
+in-memory ledger udržiava balances
+
+spy:
+zaznamená, či bol odoslaný receipt
+
+mock:
+očakáva presne jeden call Authorize(amount=10)
+```
+
+Double znižuje fidelity. In-memory fake databázy nemusí reprodukovať constraints, transactions, isolation alebo SQL dialect reálneho systému. Stub HTTP response môže ignorovať headers, latency, streaming a retry behavior.
+
+Mock, ktorý overuje každý interný method call, viaže test na implementáciu a zhoršuje refactoring. Interaction assertion je vhodná, keď interaction samotná predstavuje contract alebo side effect, napríklad presne jeden payment authorization.
+
+Contract drift vzniká, keď double naďalej vracia tvar, ktorý reálny provider už nepodporuje. Prevenciou je generovanie z contractu, shared compatibility tests alebo pravidelná verification proti reálnej dependency.
+
+Výber double-u vychádza z failure mode. Čistá domain logika môže používať stub. SQL mapping potrebuje reálnu databázu. Network retry môže potrebovať controllable fake server, ktorý vie simulovať timeout po prijatí requestu.
+
+Doubles nesmú byť ľahšou náhradou všetkých boundaries. Portfólio musí obsahovať aj testy, ktoré overia assumptions voči reálnym dependencies.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning

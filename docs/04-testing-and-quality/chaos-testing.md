@@ -1,5 +1,53 @@
 # Chaos testing
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je chaos testing
+
+Chaos testing je riadený experiment, ktorý overuje správanie a recovery systému pri konkrétnom failure mode. Nie je to náhodné rozbíjanie infraštruktúry. Experiment začína hypotézou o steady state a presným fault modelom.
+
+Experiment contract obsahuje:
+
+```text
+subject a environment
+steady-state hypothesis
+fault a injection point
+blast radius
+observation window
+abort criteria
+recovery expectation
+business reconciliation
+owner a communication
+```
+
+Steady state je merateľný normálny outcome, napríklad successful request rate, queue delay alebo completed orders. Hypotéza predpovedá, čo sa stane počas faultu a ako rýchlo sa systém zotaví.
+
+Fault môže byť process crash, network latency/loss, dependency error, resource exhaustion, clock skew alebo data inconsistency. Injection point musí zodpovedať reálnemu threat modelu. Zastavenie jedného stateless procesu neoverí region failure ani corrupted message.
+
+Neutrálny príklad: systém má dve instances a tvrdí, že výpadok jednej nespôsobí user-visible outage. Experiment najprv potvrdí steady state, potom ukončí jednu instance, sleduje errors, load redistribution a recovery a napokon overí, že backlog a business state sú konzistentné.
+
+Safety state machine môže byť:
+
+```text
+precheck
+→ arm
+→ inject
+→ observe
+→ abort alebo continue
+→ remove fault
+→ wait for recovery
+→ reconcile
+→ close experiment
+```
+
+Abort criterion musí byť automaticky pozorovateľný a rýchlejší než neprijateľný impact. Manual observation bez jasného threshold-u nie je dostatočný control.
+
+Experiment nekončí odstránením faultu. Treba overiť backlog drain, duplicate alebo lost operations, resource release a návrat všetkých SLO/business metrics. Recovery time a data outcome sú často dôležitejšie než okamžitá dostupnosť.
+
+Výsledok chaos testu má viesť k trvalej zmene: retry budget, circuit breaker, capacity, runbook, alert, architecture alebo nový regression test. Opakovanie rovnakého experimentu bez remediation closure má nízku hodnotu.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning

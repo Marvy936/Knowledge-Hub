@@ -1,5 +1,37 @@
 # Shift-left
 
+<!-- CONCEPT-FIRST:START -->
+## Čo znamená shift-left
+
+Shift-left znamená presunúť vhodnú kontrolu bližšie k momentu, keď chyba vzniká, aby bol feedback rýchlejší, lacnejší a diagnostickejší. Neznamená mechanicky vykonať všetky produkčné testy na notebooku ani presunúť zodpovednosť za kvalitu iba na developera.
+
+„Doľava“ je relatívne k delivery flow:
+
+```text
+idea a requirement
+→ design
+→ code
+→ local feedback
+→ CI
+→ pre-production
+→ production
+```
+
+Najskorší test je hodnotný iba vtedy, ak má dostatočnú fidelity pre daný failure mode. Schema alebo type error možno zachytiť veľmi skoro. Cloud IAM propagation, database engine behavior alebo reálny browser/TLS path môže vyžadovať neskoršiu vrstvu.
+
+Shift-left začína už pri requirements a design reviewe. Ambiguous acceptance criterion, threat model alebo migration plan možno opraviť skôr než vznikne code. Static checks, unit tests, local containers, contract tests a ephemeral environments sú ďalšie vrstvy.
+
+Neutrálny príklad: migration používa syntax nepodporovanú cieľovou PostgreSQL verziou. Linter nad všeobecným SQL to nemusí odhaliť. Najskorší spoľahlivý dôkaz je integration test proti rovnakej engine verzii, nie presun ešte viac doľava za cenu nižšej fidelity.
+
+Dobrý developer loop má krátky čas, stabilné tools a rovnaké authoritative pravidlá ako CI. Ak lokálny wrapper používa inú verziu lintera než pipeline, vzniká false confidence.
+
+Golden path poskytuje templates, scripts a defaults, ktoré uľahčujú správny postup. Guardrail v CI zostáva autoritatívny, pretože local kontrolu možno preskočiť alebo mať odlišné prostredie.
+
+Shift-left nemá duplikovať drahý test na každom commite bez dôvodu. Controls sa umiestňujú podľa risk, feedback time, maintenance cost a diagnostickosti. Neskoršia kontrola môže zostať potrebná ako nezávislé overenie.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 ## Metadata
 
 - Status: Learning
