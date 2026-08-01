@@ -429,5 +429,5 @@ Relevantné pojmy: Infrastructure as Code, desired state, known state, actual st
 
 **Navigácia**
 
-[← Predchádzajúca: Security scanning](../06-gitlab/security-scanning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform providers, resources a data sources →](terraform-providers-resources-data-sources.md)
+[← Predchádzajúca: GitLab troubleshooting](../06-gitlab/gitlab-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform providers, resources a data sources →](terraform-providers-resources-data-sources.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

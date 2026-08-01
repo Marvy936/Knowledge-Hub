@@ -591,5 +591,5 @@ Relevantné pojmy: Terraform–Ansible boundary, authoritative writer, attribute
 
 **Navigácia**
 
-[← Predchádzajúca: Praktický Ansible projekt od inventory po overený rolling configuration rollout](ansible-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Containers vs. virtual machines →](../08-container-fundamentals-and-docker/containers-vs-virtual-machines.md)
+[← Predchádzajúca: Ansible troubleshooting](ansible-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Containers vs. virtual machines →](../08-container-fundamentals-and-docker/containers-vs-virtual-machines.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

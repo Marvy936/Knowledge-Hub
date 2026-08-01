@@ -2,7 +2,7 @@
 
 Táto sekcia vysvetľuje Terraform a Ansible ako dva rozdielne change-control systémy nad vzdialeným stavom. Terraform skladá deklarovanú konfiguráciu, provider schemas, state bindings a remote observations do dependency graphu a plánu infraštruktúrnych mutations. Ansible skladá inventory, variables, facts, reusable content a per-host execution výsledky do riadenej konfigurácie existujúcich systémov. Ani jeden nástroj nie je bezpečný iba preto, že používa HCL alebo YAML. Dôveryhodnosť vzniká až vtedy, keď exact source, inputs, target, identity, state alebo inventory generation vedú k overenému remote a business outcome-u.
 
-Všetkých 21 kapitol bolo kompletne znovu spracovaných podľa rovnakého prose-first a practical-example štandardu ako Keycloak, Security, Observability, CI/CD a GitLab. Každá kapitola používa dominantný mechanistický lifecycle, presný change subject, reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell alebo API walkthroughy, vysvetlené proof boundaries, competing hypotheses, evidence-preserving containment, authoritative recovery a validáciu pôvodnej, zakázanej aj druhej operácie.
+Všetkých 23 kapitol bolo kompletne znovu spracovaných podľa rovnakého prose-first a practical-example štandardu ako Keycloak, Security, Observability, CI/CD a GitLab. Každá kapitola používa dominantný mechanistický lifecycle, presný change subject, reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell alebo API walkthroughy, vysvetlené proof boundaries, competing hypotheses, evidence-preserving containment, authoritative recovery a validáciu pôvodnej, zakázanej aj druhej operácie.
 
 ## Section-wide infrastructure lifecycle
 
@@ -59,26 +59,32 @@ Odporúča sa najprv dokončiť:
 9. [Drift](drift.md)
 10. [Terraform testing a policy](terraform-testing-and-policy.md)
 11. [Praktický Terraform projekt od prázdneho adresára po overený remote state](terraform-practical-walkthrough.md)
-12. [Ansible architecture](ansible-architecture.md)
-13. [Inventory](inventory.md)
-14. [Modules, tasks, plays a playbooks](modules-tasks-plays-playbooks.md)
-15. [Variables, facts a templates](variables-facts-templates.md)
-16. [Handlers, loops a conditionals](handlers-loops-conditionals.md)
-17. [Roles a collections](roles-and-collections.md)
-18. [Vault](vault.md)
-19. [Ansible idempotencia](ansible-idempotency.md)
-20. [Praktický Ansible projekt od inventory po overený rolling configuration rollout](ansible-practical-walkthrough.md)
-21. [Terraform vs. Ansible](terraform-vs-ansible.md)
+12. [Terraform troubleshooting](terraform-troubleshooting.md)
+13. [Ansible architecture](ansible-architecture.md)
+14. [Inventory](inventory.md)
+15. [Modules, tasks, plays a playbooks](modules-tasks-plays-playbooks.md)
+16. [Variables, facts a templates](variables-facts-templates.md)
+17. [Handlers, loops a conditionals](handlers-loops-conditionals.md)
+18. [Roles a collections](roles-and-collections.md)
+19. [Vault](vault.md)
+20. [Ansible idempotencia](ansible-idempotency.md)
+21. [Praktický Ansible projekt od inventory po overený rolling configuration rollout](ansible-practical-walkthrough.md)
+22. [Ansible troubleshooting](ansible-troubleshooting.md)
+23. [Terraform vs. Ansible](terraform-vs-ansible.md)
 
 Po tejto sekcii nasleduje [Container Fundamentals and Docker](../08-container-fundamentals-and-docker/README.md). IaC ownership, state, immutable dependencies, Linux configuration a execution-environment model tam vytvoria základ pre image, container, runtime a registry lifecycle.
 
 ## Hlavné praktické walkthroughy
 
-Sekcia obsahuje dve referenčné executable kapitoly, ktoré skladajú predchádzajúce concepts do celého projektu.
+Sekcia obsahuje dve referenčné executable kapitoly a dve samostatné troubleshooting kapitoly, ktoré skladajú predchádzajúce concepts do celého projektu.
 
 [Praktický Terraform projekt od prázdneho adresára po overený remote state](terraform-practical-walkthrough.md) vytvára root module, reusable AWS network module, typed variables, stable `for_each` identities, outputs, S3 backend configuration, `.terraform.lock.hcl` subject, native `.tftest.hcl` happy aj forbidden test, saved plan, `terraform show -json`, `jq` destructive-action gate, Rego policy, apply presne schváleného planu, state inspection, AWS CLI remote read-back a second no-op plan. Obsahuje aj GitLab plan/policy/apply flow a recovery pri nesprávnom backend key, chýbajúcom `moved` blocku a úspešnej remote mutation bez state commitu.
 
 [Praktický Ansible projekt od inventory po overený rolling configuration rollout](ansible-practical-walkthrough.md) vytvára `ansible.cfg`, pinned collection manifest, static inventory s logical a immutable asset identity, expected-vs-resolved fleet manifest, `group_vars`, role defaults, Jinja template, application-level `validate`, handler, rolling `serial` playbook, drain/restart/readiness/rejoin transition, per-host loaded-generation oracle, load-balancer verification a druhý `changed=0` run. Obsahuje aj GitLab validation/check/apply jobs a partial-fleet recovery.
+
+[Terraform troubleshooting](terraform-troubleshooting.md) sleduje failure od backend/workspace/lineage identity cez provider/module resolution, saved plan a lock až po partial alebo unknown apply outcome, remote read-back, state binding recovery a druhý no-op plan. Osobitne vysvetľuje, prečo `force-unlock`, `state rm`, `import` a `-target` nie sú univerzálne opravy.
+
+[Ansible troubleshooting](ansible-troubleshooting.md) rozkladá incident na control-node configuration, resolved inventory, variable/fact provenance, connection a become identity, module result, handler/batch state, loaded application generation a full-fleet verification. Zelený recap a `changed=0` sú akceptované iba spolu s complete target setom a independent runtime oracle-om.
 
 Tieto walkthroughy sú referenčným štandardom pre code-oriented learning. Samostatný HCL alebo YAML snippet je užitočný iba vtedy, keď je jasné, do ktorého súboru patrí, aké inputs používa, aký graph alebo target set z neho vznikne, akú mutation vykoná a akým independent read-backom sa overí výsledok.
 
@@ -193,7 +199,7 @@ Po dokončení sekcie má byť možné navrhnúť a diagnostikovať change chain
 
 Sekcia je označená `Ready for user review`, pretože repository pass pokrýva tieto podmienky:
 
-1. všetkých 21 authoritative kapitol vrátane Terraform a Ansible end-to-end walkthroughov používa connected Keycloak-style prose, dominantný lifecycle a primeraný executable surface;
+1. všetkých 23 authoritative kapitol vrátane Terraform a Ansible end-to-end walkthroughov používa connected Keycloak-style prose, dominantný lifecycle a primeraný executable surface;
 2. každá kapitola definuje exact configuration, provider, state, module, host, inventory, task, secret alebo ownership subject;
 3. kapitoly obsahujú reálne HCL, Terraform CLI/JSON, Ansible YAML/CLI, shell a API walkthroughy tam, kde to téma umožňuje;
 4. významné outputs vysvetľujú, čo preukazujú a čo nepreukazujú;
@@ -215,4 +221,4 @@ Sekcia je označená `Ready for user review`, pretože repository pass pokrýva 
 | `IAC-PAY-79` — reusable content, secrets, idempotency a ownership | 4/4 | Complete |
 | Terraform a Ansible end-to-end practical walkthroughs | 2/2 | Complete |
 
-Celkový authoritative stav: **21/21 · Ready for user review**. Pôvodný 19-kapitolový prose-first pass zostáva zachovaný a dva nové walkthroughy dopĺňajú súvislé code, command, output a runtime-verification flows. Tento stav neznamená automatické používateľské schválenie, Accepted, Verified ani Stable.
+Celkový authoritative stav: **23/23 · Ready for user review**. Pôvodný 19-kapitolový prose-first pass zostáva zachovaný a dva nové walkthroughy dopĺňajú súvislé code, command, output a runtime-verification flows. Tento stav neznamená automatické používateľské schválenie, Accepted, Verified ani Stable.

@@ -515,5 +515,5 @@ Relevantné pojmy: Ansible control node, managed node, execution environment, co
 
 **Navigácia**
 
-[← Predchádzajúca: Praktický Terraform projekt od prázdneho adresára po overený remote state](terraform-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Inventory →](inventory.md)
+[← Predchádzajúca: Terraform troubleshooting](terraform-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Inventory →](inventory.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

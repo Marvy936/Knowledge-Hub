@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **319**
-- Audited conceptual sections: **6588**
-- Total words: **576,322**
-- Findings: **6959** (critical 938, high 1495, medium 575, low 3951)
-- File grades: A 110, B 91, C 24, D 94
+- Audited authoritative articles: **323**
+- Audited conceptual sections: **6641**
+- Total words: **582,739**
+- Findings: **6993** (critical 939, high 1497, medium 575, low 3982)
+- File grades: A 112, B 92, C 25, D 94
 
 ## Interpretation
 
@@ -43,7 +43,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 417 | 17 | 19 | 11 | 17 | 2272 | `docs/04-testing-and-quality/shift-left.md` |
 | D | 416 | 14 | 29 | 5 | 3 | 2318 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | D | 384 | 13 | 29 | 0 | 1 | 1488 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
-| D | 378 | 12 | 28 | 3 | 3 | 1950 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
+| D | 378 | 12 | 28 | 3 | 3 | 1942 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 375 | 15 | 14 | 11 | 35 | 3125 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 374 | 13 | 13 | 19 | 37 | 2915 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 363 | 12 | 27 | 2 | 0 | 1542 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
@@ -53,7 +53,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 303 | 12 | 12 | 7 | 32 | 3032 | `docs/04-testing-and-quality/verification-vs-validation.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 299 | 10 | 19 | 5 | 8 | 1906 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
-| D | 291 | 10 | 19 | 3 | 9 | 1886 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
+| D | 291 | 10 | 19 | 3 | 9 | 1878 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 285 | 12 | 17 | 2 | 2 | 1776 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | D | 277 | 10 | 18 | 3 | 5 | 1684 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
@@ -104,16 +104,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1731 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1300 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
-| D | 90 | 0 | 9 | 0 | 11 | 1375 | `docs/06-gitlab/security-scanning.md` |
+| D | 90 | 0 | 9 | 0 | 11 | 1373 | `docs/06-gitlab/security-scanning.md` |
 | D | 86 | 1 | 8 | 1 | 5 | 1401 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 84 | 0 | 8 | 1 | 11 | 1488 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 84 | 0 | 9 | 0 | 9 | 1469 | `docs/06-gitlab/runners-and-executors.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | D | 80 | 0 | 9 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 79 | 0 | 8 | 0 | 10 | 1303 | `docs/06-gitlab/merge-requests-and-approvals.md` |
-| D | 79 | 1 | 8 | 0 | 3 | 1460 | `docs/06-gitlab/projects-groups-permissions.md` |
+| D | 79 | 1 | 8 | 0 | 3 | 1466 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 77 | 0 | 9 | 0 | 5 | 3195 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
-| D | 76 | 0 | 8 | 0 | 9 | 1608 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
+| D | 76 | 0 | 8 | 0 | 9 | 1614 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 76 | 0 | 9 | 0 | 3 | 1351 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 72 | 0 | 8 | 0 | 5 | 1261 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | C | 69 | 0 | 8 | 0 | 3 | 1408 | `docs/05-ci-cd-and-release/feature-flags.md` |
@@ -121,7 +121,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 68 | 0 | 8 | 0 | 3 | 1268 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | C | 67 | 0 | 7 | 0 | 9 | 1557 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | C | 67 | 0 | 7 | 0 | 9 | 1637 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
-| C | 65 | 1 | 5 | 0 | 10 | 3779 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
+| C | 65 | 1 | 5 | 0 | 10 | 3778 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
 | C | 64 | 0 | 7 | 0 | 5 | 1277 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 64 | 0 | 7 | 0 | 7 | 1333 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | C | 62 | 0 | 6 | 0 | 12 | 3535 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
@@ -140,6 +140,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 39 | 0 | 3 | 0 | 10 | 2411 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
+| C | 37 | 1 | 2 | 0 | 8 | 1568 | `docs/06-gitlab/gitlab-troubleshooting.md` |
 | C | 36 | 0 | 4 | 0 | 3 | 1133 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | B | 33 | 0 | 1 | 0 | 22 | 2086 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
@@ -204,6 +205,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 12 | 1877 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
+| B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 1713 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | B | 16 | 0 | 1 | 0 | 6 | 1351 | `docs/09-kubernetes/deployment.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 1327 | `docs/09-kubernetes/securitycontext-pod-security.md` |
@@ -307,6 +309,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | B | 8 | 0 | 1 | 0 | 0 | 1022 | `docs/03-git-and-automation/bash-automation.md` |
+| A | 8 | 0 | 0 | 0 | 7 | 1427 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 960 | `docs/09-kubernetes/daemonset.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 1391 | `docs/09-kubernetes/worker-node-components.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 2037 | `docs/10-helm-and-cka/helm-chart-practical-walkthrough.md` |
@@ -318,6 +321,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | A | 7 | 0 | 0 | 0 | 4 | 825 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
+| A | 7 | 0 | 0 | 0 | 5 | 1718 | `docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1057 | `docs/09-kubernetes/serviceaccount.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1725 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1619 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
@@ -2153,6 +2157,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 622, `bare-bullet-items` — **14. Server-side dry-run pred mutation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že rollout controller vytvorí ready Pods;`, `že image sa dá pull-núť;`, `že Service selector nájde backendy;`, `že aplikácia načíta správnu konfiguráciu;`.
 
+### `docs/06-gitlab/gitlab-troubleshooting.md`
+
+- **CRITICAL** line 206, `bare-bullet-items` — **10. Preserve-first troubleshooting walkthrough**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ulož project/pipeline/job/deployment IDs a UTC timeline.`, `Over build producer a artifact/image digest, nie tag.`, `Over, ktorý pipeline a job vytvoril deployment record.`, `Read-backni target identity a live runtime digest.`.
+- **HIGH** line 206, `list-heavy-section` — **10. Preserve-first troubleshooting walkthrough**: 8 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 206, `term-before-explanation` — **10. Preserve-first troubleshooting walkthrough**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `SHA`, `ID`, `identity`, `workload`
+
 ### `docs/06-gitlab/projects-groups-permissions.md`
 
 - **CRITICAL** line 65, `bare-bullet-items` — **4. Effective membership graph**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct project membership;`, `inherited parent-group membership;`, `project alebo group sharing s inou group;`, `invited external user;`.
@@ -3197,18 +3207,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1828 | 1828 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1137 | 1137 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 986 | 986 |
+| `example-not-explicit` | 0 | 0 | 0 | 1848 | 1848 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1147 | 1147 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 987 | 987 |
 | `single-sentence-concept` | 0 | 571 | 0 | 0 | 571 |
-| `term-before-explanation` | 0 | 80 | 392 | 0 | 472 |
+| `term-before-explanation` | 0 | 81 | 392 | 0 | 473 |
 | `outline-instead-of-explanation` | 431 | 0 | 0 | 0 | 431 |
-| `bare-bullet-items` | 350 | 55 | 0 | 0 | 405 |
+| `bare-bullet-items` | 351 | 55 | 0 | 0 | 406 |
 | `list-first-introduction` | 0 | 368 | 0 | 0 | 368 |
 | `thin-concept-section` | 0 | 340 | 0 | 0 | 340 |
 | `short-concept-section` | 0 | 0 | 183 | 0 | 183 |
 | `no-prose-concept` | 84 | 0 | 0 | 0 | 84 |
-| `list-heavy-section` | 0 | 81 | 0 | 0 | 81 |
+| `list-heavy-section` | 0 | 82 | 0 | 0 | 82 |
 | `empty-section` | 73 | 0 | 0 | 0 | 73 |
 
 ## Required remediation pattern

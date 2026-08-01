@@ -1097,5 +1097,5 @@ Takto sa Ansible neučí ako YAML zoznam tasks. Učí sa ako target resolution, 
 
 **Navigácia**
 
-[← Predchádzajúca: Ansible idempotencia](ansible-idempotency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Terraform vs. Ansible →](terraform-vs-ansible.md)
+[← Predchádzajúca: Ansible idempotencia](ansible-idempotency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ansible troubleshooting →](ansible-troubleshooting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

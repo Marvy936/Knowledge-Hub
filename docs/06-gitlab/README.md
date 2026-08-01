@@ -54,6 +54,7 @@ Odporúča sa najprv dokončiť:
 9. [Container a package registry](container-and-package-registry.md)
 10. [Environments, deployments a releases](environments-deployments-releases.md)
 11. [Security scanning](security-scanning.md)
+12. [GitLab troubleshooting](gitlab-troubleshooting.md)
 
 Po tejto sekcii nasleduje Infrastructure as Code and Configuration Management. GitLab merge, pipeline, registry, credential a environment subjects sa tam použijú na plánovanie a bezpečné aplikovanie Terraform a Ansible state transitions.
 
@@ -64,6 +65,12 @@ Kapitola [Praktický GitLab pipeline od source change po overený deployment](gi
 Walkthrough vysvetľuje `workflow: rules`, job `rules`, `needs` DAG, JUnit a dotenv reports, trusted Docker build runner, build-once image digest, registry read-back, scanner nad exact digestom, server-side dry-run, `resource_group`, protected staging/production environments, rollout status, live Deployment image a Service/EndpointSlice smoke test. Pri každom kroku oddeľuje source YAML, resolved graph, runner execution, artifact/report state, GitLab deployment record, Kubernetes live state a aplikačný outcome.
 
 Praktický acceptance contract pre túto sekciu preto vyžaduje, aby čitateľ vedel nielen vysvetliť GitLab concepts, ale aj prejsť konkrétny pipeline riadok po riadku, určiť trust boundary každého jobu, identifikovať artifact hand-off a dokázať, že staging aj production používajú rovnaký immutable image digest. Missing scanner job, mutable tag, nesprávny cluster context a rollout-ready-but-business-broken paths musia byť diagnostikovateľné z konkrétnych outputs.
+
+## GitLab troubleshooting
+
+[GitLab troubleshooting](gitlab-troubleshooting.md) používa jeden preserve-first model naprieč pipeline source, resolved YAML, runner eligibility, variables a workload identity, artifacts/cache, registry digest, environment deployment, runtime generation a security evidence. Kapitola ukazuje, prečo `green pipeline`, `successful deployment` alebo `closed finding` nie sú samostatne complete verdicty.
+
+Connected incident `green pipeline, old production image` sa diagnostikuje cez pipeline/job/deployment IDs, expected job inventory, producer artifact checksum, OCI digest, target identity, live workload a business operation. Recovery overuje aj forbidden alternate path a druhú operáciu.
 
 ## Connected learning scenarios
 
@@ -139,14 +146,14 @@ Po dokončení sekcie má byť možné:
 
 Sekcia bude `Ready for user review` iba vtedy, keď:
 
-1. všetkých 11 authoritative kapitol vrátane end-to-end pipeline walkthroughu používa connected Keycloak-style prose, dominantný lifecycle a primeraný executable surface;
+1. všetkých 12 authoritative kapitol vrátane end-to-end pipeline walkthroughu používa connected Keycloak-style prose, dominantný lifecycle a primeraný executable surface;
 2. každá kapitola definuje exact namespace, merge, pipeline, runner, credential, artifact, deployment alebo finding subject;
 3. každá kapitola obsahuje reálne GitLab API/CLI, YAML, shell, policy alebo runtime read-back príklady;
 4. každý významný output vysvetľuje, čo preukazuje a čo nepreukazuje;
 5. source/configured/resolved/loaded/effective/runtime/business states sa nezlievajú;
 6. complex failures obsahujú competing hypotheses a discriminating evidence;
 7. recovery overuje allowed, forbidden, alternate-path a second-operation outcome;
-8. strict learning-depth audit je 11/11 bez critical/high/medium findings a practical gate nemá failures;
+8. strict learning-depth audit je 12/12 bez critical/high/medium findings a practical gate nemá failures;
 9. README, navigation, glossary a centrálny ledger sú synchronizované;
 10. čistý PR head bez dočasných artifacts prejde štandardným documentation workflowom.
 
@@ -158,5 +165,6 @@ Sekcia bude `Ready for user review` iba vtedy, keď:
 | `GL-PAY-73` — CI graph, runner a secret capabilities | 3/3 | Complete |
 | `GL-PAY-74` — artifacts, registry, deployments a security closure | 4/4 | Complete |
 | End-to-end GitLab pipeline walkthrough | 1/1 | Complete |
+| GitLab troubleshooting | 1/1 | Complete |
 
-Celkový authoritative stav: **11/11 · Ready for user review**. Pôvodný prose-first pass zostáva zachovaný a nový walkthrough dopĺňa chýbajúcu súvislú code-execution vrstvu. Tento stav neznamená automatické používateľské schválenie, Accepted, Verified ani Stable.
+Celkový authoritative stav: **12/12 · Ready for user review**. Pôvodný prose-first pass zostáva zachovaný a nový walkthrough dopĺňa chýbajúcu súvislú code-execution vrstvu. Tento stav neznamená automatické používateľské schválenie, Accepted, Verified ani Stable.

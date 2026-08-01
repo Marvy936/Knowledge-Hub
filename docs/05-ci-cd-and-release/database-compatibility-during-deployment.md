@@ -317,5 +317,5 @@ Relevantné pojmy: database compatibility protocol, consumer inventory, expand�
 
 **Navigácia**
 
-[← Predchádzajúca: Rollback a roll-forward](rollback-and-roll-forward.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Projects, groups a permissions →](../06-gitlab/projects-groups-permissions.md)
+[← Predchádzajúca: Rollback a roll-forward](rollback-and-roll-forward.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický CI/CD projekt od source change po overený production release →](ci-cd-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

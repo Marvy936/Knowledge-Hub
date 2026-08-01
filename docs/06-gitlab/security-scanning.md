@@ -281,5 +281,5 @@ Relevantné pojmy: security analyzer, expected analyzer inventory, security repo
 
 **Navigácia**
 
-[← Predchádzajúca: Environments, deployments a releases](environments-deployments-releases.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Infrastructure as Code principles →](../07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md)
+[← Predchádzajúca: Environments, deployments a releases](environments-deployments-releases.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: GitLab troubleshooting →](gitlab-troubleshooting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

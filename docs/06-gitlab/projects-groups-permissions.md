@@ -276,5 +276,5 @@ Relevantné pojmy: GitLab namespace, group, subgroup, project, namespace generat
 
 **Navigácia**
 
-[← Predchádzajúca: Databázová kompatibilita počas deploymentu](../05-ci-cd-and-release/database-compatibility-during-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Merge requests a approvals →](merge-requests-and-approvals.md)
+[← Predchádzajúca: Praktický CI/CD projekt od source change po overený production release](../05-ci-cd-and-release/ci-cd-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Merge requests a approvals →](merge-requests-and-approvals.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
