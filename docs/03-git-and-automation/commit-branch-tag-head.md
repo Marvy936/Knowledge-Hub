@@ -123,6 +123,8 @@ Signed tag pridáva cryptographic provenance, ale dôveryhodnosť závisí od ke
 
 ## Reflog ako lokálny pohyb refs
 
+Reflog je lokálny append-oriented záznam o tom, na ktoré object IDs konkrétny ref alebo `HEAD` v tomto repository postupne ukazoval. Nezapisuje nový commit do zdieľanej histórie a neposiela sa fetchom ani pushom. Jeho hlavná dôkazná hodnota je recovery po reset-e, rebase alebo branch movement-e, kým príslušné objects ešte neboli odstránené garbage collection.
+
 ```bash
 git reflog show HEAD
 git reflog show feature/ord-8421

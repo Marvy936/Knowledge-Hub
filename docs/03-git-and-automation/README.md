@@ -120,4 +120,6 @@ Python a Bash ukážky sú executable na Linuxe. PowerShell ukážka je syntakti
 
 ## Stav
 
-Všetkých pätnásť kapitol je po full prose rewritingu pripravených na používateľskú kontrolu. `Ready for user review` neznamená automatické používateľské schválenie ani overenie každého príkazu na každej platforme. Git/Python/Bash practical flow má samostatnú executable validation hranicu; PowerShell a hosting-specific protection rules zostávajú platformovou hranicou.
+Všetkých pätnásť kapitol prešlo chapter-by-chapter explanation-depth revalidáciou. Existujúci object/state a code-mechanism základ zostal zachovaný; cielené doplnenia uzavreli code-first transitions pri Git reflogu, three-way merge, odstageovaní, Bash argument parseri, PowerShell parameter/native-process boundaries, Python CLI/model/fingerprint/atomic-write boundaries a YAML/JSON/regex parser modeloch. Praktický walkthrough teraz explicitnejšie oddeľuje clone state, blob/index/commit transition, non-fast-forward evidence, publikovaný automation subject, second no-op operation a stale-plan rejection.
+
+Sekcia je pripravená na používateľskú kontrolu. `Ready for user review` neznamená automatické používateľské schválenie ani overenie každého príkazu na každej platforme. Git/Python/Bash practical flow má samostatnú executable validation hranicu; PowerShell a hosting-specific protection rules zostávajú platformovou hranicou.

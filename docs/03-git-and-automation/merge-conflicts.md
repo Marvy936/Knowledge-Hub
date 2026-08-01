@@ -34,7 +34,9 @@ Alice zmení `maxOrderAmount` na 5000 a Bob na 7500. Git nevie automaticky rozho
 
 ## Three-way merge
 
-Git porovnáva tri snapshots:
+Three-way merge nepáruje iba dva aktuálne files. Git najprv nájde spoločný ancestor snapshot, potom samostatne vypočíta zmenu z base do `ours` a z base do druhej strany. Konflikt vzniká tam, kde tieto dve delty nemožno bezpečne skombinovať podľa textového merge modelu; aj čistá kombinácia však môže byť domainovo nesprávna.
+
+Git teda pracuje s tromi snapshots:
 
 ```text
 merge base

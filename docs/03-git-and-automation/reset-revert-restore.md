@@ -177,6 +177,8 @@ Source je HEAD tree, destination iba working tree. Index zostane nedotknutý. Ak
 
 ### Odstageovanie
 
+Odstageovanie mení iba index entry pre zvolený path. Source snapshot je v tomto príklade `HEAD`, takže Git vloží do indexu blob identitu z aktuálneho commitu, ale pracovný file ponechá s používateľskými editmi. Operácia preto nemení históriu ani nestráca working-tree obsah; mení candidate snapshot budúceho commitu.
+
 ```bash
 git restore --source=HEAD --staged -- config/orders.yaml
 ```
