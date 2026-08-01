@@ -1,700 +1,291 @@
 # Pod
 
-Pod je najmenší deployable compute object v Kubernetes, ale nie je synonymom containeru ani malou VM. Je to versionovaný runtime envelope pre jednu workload repliku: scheduler ho pridelí jednému Node-u, kubelet z jeho immutable specu vytvorí sandbox, mounts a containers a vyššie controllers ho pri strate nahradia novým Pod UID.
+Pod je najmenšia Kubernetes runtime jednotka, ktorú scheduler pridelí jednému Node-u. Nie je to synonymum containeru ani malá virtuálna mašina. Pod môže obsahovať jeden alebo viac containers, ale všetky zdieľajú spoločnú Pod identitu, placement, network namespace a replacement lifecycle. Keď Pod zanikne, controller typicky vytvorí nový Pod s novým UID; neopravuje pôvodnú runtime inštanciu na mieste.
 
-Dominantný lifecycle tejto kapitoly:
+Pri `payments-api` bude jeden Pod predstavovať jednu aplikačnú repliku. Deployment generation 12 vytvorí ReplicaSet a ten vytvorí Pod s konkrétnym UID, image digestom, configuration generation `C52` a service accountom `payments-api`. Práve Pod spája deklarovaný template so skutočným Node runtime-om.
 
-```text
-controller Pod template a release intent
-→ admitted Pod UID a spec snapshot
-→ scheduling a Node assignment
-→ local admission, sandbox, network a volumes
-→ projected configuration a image resolution
-→ init, sidecar a application startup
-→ startup/liveness/readiness evaluation
-→ Pod conditions a EndpointSlice eligibility
-→ steady execution, restart alebo degradation
-→ graceful termination a cleanup
-→ controller-managed replacement a outcome verification
+## Pod nie je iba zoznam containers
+
+Zjednodušený manifest:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: payments-api-example
+  namespace: production
+  labels:
+    app: payments-api
+spec:
+  serviceAccountName: payments-api
+  containers:
+    - name: api
+      image: registry.example.com/atlas/payments-api@sha256:payments420
+      ports:
+        - name: http
+          containerPort: 8080
 ```
 
-Pri diagnostike sa nepýtaj iba „aký má Pod status?“. Pýtaj sa:
+`containers` sú iba časť Pod specu. Pod zároveň definuje volumes, init containers, scheduling constraints, restart policy, security context, DNS policy, termination grace period a probe contract.
 
-```text
-Ktorý Pod UID a template generation skúmam?
-Ktoré časti specu sú immutable snapshoty?
-Vznikol sandbox, mount, image a application process?
-Je process Running, container Ready, Pod Ready a endpoint eligible?
-Ide o restart toho istého Podu alebo replacement novou UID?
+Containers v jednom Pode zdieľajú Pod IP a port namespace. Ak sidecar počúva na `localhost:15000`, hlavný container sa k nemu môže pripojiť cez loopback. Dva containers však nemôžu bindovať rovnaký port na rovnakej adrese.
+
+Spoločné umiestnenie dáva zmysel iba pri silnom coupling-u. Dve nezávislé business služby s odlišným scalingom a rolloutom patria do samostatných Podov.
+
+## Pod identity a replacement
+
+Presná identita Podu zahŕňa cluster, namespace, meno a `metadata.uid`.
+
+```bash
+kubectl get pod -n production <pod-name> \
+  -o custom-columns='NAME:.metadata.name,UID:.metadata.uid,NODE:.spec.nodeName,IP:.status.podIP'
 ```
 
-## 1. Atlas Pod subject
+Controller replacement vytvorí nový UID, nový sandbox, nové container IDs a často novú IP. Meno môže byť podobné, ale runtime lifetime je nový.
 
-Atlas Payments release `4.2.0` má Pod:
+To má praktické dôsledky. `emptyDir` dáta zaniknú s Pod UID. Writable layer containeru zanikne s containerom. In-memory connections, process state a lokálne caches sa nevynesú do replacementu. Durable state musí mať explicitného vlastníka mimo tejto runtime inštancie.
+
+## Pod template je snapshot
+
+Deployment vytvára Pods zo svojej `.spec.template`. Keď sa template zmení, existujúci Pod sa bežne neprepíše. Vznikne nový ReplicaSet a nové Pods.
 
 ```text
-Deployment UID/generation: D42/12
-ReplicaSet UID: RS42
-Pod: production/payments-api-7d6f9d8b7b-k4m2p
-Pod UID: P42
-Pod template hash: 7d6f9d8b7b
-Node UID: N7
-image digest: sha256:4a20...
-config generation: C52
-secret epoch: SE08
-service account: payments-api
-readiness gate: atlas.example/lb-registered
-termination grace: 45 s
+Deployment template T12
+→ Pod UID P12-A
+
+Deployment template T13
+→ nový ReplicaSet
+→ Pod UID P13-A
 ```
 
-Pôvodný outcome:
+Environment variables z ConfigMap alebo Secretu sú snapshot pri container start-e. Zmena source objektu nemení environment už bežiaceho procesu. Mounted projected files sa môžu časom aktualizovať, ale aplikácia ich nemusí automaticky reloadnúť.
 
-- application a sidecar používajú správny digest a config;
-- init úloha dokončí iba idempotentnú local prípravu;
-- Pod sa stane Ready až po application readiness a external LB registration;
-- Service pošle traffic iba na new-generation endpoint;
-- graceful termination prestane prijímať nové requests a dokončí in-flight payment;
-- replacement novým Pod UID nevytvorí duplicate authorization ani nestratí durable state.
+Ručná úprava súboru v containeri nevytvára novú Pod template ani auditovateľný release. Pri replacement-e sa stratí.
 
-## 2. Pod je runtime envelope jednej repliky
+## Ako Pod vzniká
 
-Pod zoskupuje containers, ktoré musia zdieľať placement a lifecycle.
-
-Typicky zdieľajú:
-
-- jeden Node;
-- Pod network namespace, IP a port space;
-- loopback `localhost`;
-- explicitne mountované Pod volumes;
-- scheduling a disruption boundary;
-- Pod-level identity, service account a časť security contextu.
-
-Každý container stále môže mať vlastný image, command, environment, mounts, cgroup resources, probes a container-level security context.
-
-Správny dôvod pre multi-container Pod je silný runtime coupling:
+Po vytvorení Pod objektu scheduler vyberie Node. Kubelet na danom Node-e potom pripraví runtime:
 
 ```text
-musí byť co-scheduled
-+ musí zdieľať localhost alebo volume
-+ má spoločný replacement lifecycle
-+ nezávislé škálovanie nedáva zmysel
-```
-
-Dve nezávislé business services s odlišným scalingom alebo rolloutom nemajú byť v jednom Pode.
-
-## 3. Pod identity a immutable instance
-
-Pod identity jednej inštancie tvorí najmä:
-
-```text
-cluster
-+ namespace/name
-+ metadata.uid
-+ ownerReferences
-+ template hash/revision
-+ effective admitted spec
-```
-
-Controller replacement vytvorí nový Pod:
-
-- s novým UID;
-- často s novým generated name;
-- potenciálne na inom Node-e;
-- typicky s novou Pod IP;
-- s novými container a sandbox IDs;
-- bez pôvodnej writable layer a `emptyDir` dát.
-
-Meno alebo label nestačí na lifetime identity. Diagnostika, log correlation a external registration majú používať Pod UID alebo vyšší release subject.
-
-## 4. Pod spec je prevažne snapshot, update je často replacement
-
-Mnohé Pod fields sa po vytvorení nedajú bezpečne alebo vôbec meniť in-place. Bežný update model je:
-
-```text
-zmena Pod template-u vyššieho controlleru
-→ nový template hash/revision
-→ nový Pod UID
-→ starý Pod graceful termination
-```
-
-Dôsledky:
-
-- zmena ConfigMap/Secret použitá cez environment nemení už bežiaci process environment;
-- oprava súboru vo writable layer nie je súčasťou template-u;
-- ručný zásah do containeru sa pri replacement-e stratí;
-- mutable image tag bez template transitionu nevytvára spoľahlivú release identity.
-
-## 5. Creation chain
-
-```text
-Pod template
-→ API conversion/defaulting/admission
-→ persisted Pod UID a spec
-→ scheduler assignment
-→ kubelet local admission
-→ volumes a projected data
-→ CRI sandbox a CNI
-→ image pull/unpack
+Pod admitted v API
+→ scheduler doplní nodeName
+→ kubelet pripraví volumes a projected data
+→ runtime vytvorí sandbox
+→ CNI pridá network a Pod IP
+→ runtime stiahne image
 → init containers
-→ sidecars/application containers
+→ application containers
 → probes a status
 ```
 
-Každý transition má iného vlastníka. `Pending` bez Node assignmentu patrí scheduler boundary. `ContainerCreating` po assignment-e patrí worker-node dependencies. `Running` s `Ready=False` patrí runtime/probe/readiness contractu.
+Pri troubleshootingu sa oplatí určiť prvý chýbajúci krok. Pod bez Node assignmentu je scheduling problém. Pod s `FailedCreatePodSandBox` ešte nemá funkčný network sandbox. `ErrImagePull` vzniká pred application processom. `Running` s `Ready=False` už presúva pozornosť k probes, dependencies alebo aplikácii.
 
-## 6. Shared network identity
+## Pod phase a conditions
 
-Containers v jednom Pode používajú rovnaký Pod IP a port namespace.
-
-```text
-main container → localhost:15000 → proxy sidecar
-```
-
-Dôsledky:
-
-- dva containers nemôžu bindovať rovnakú adresu a port;
-- `localhost` neoznačuje iba aktuálny container;
-- network policy a Service routing typicky pracujú s Pod endpointom;
-- kompromitovaný sidecar môže pozorovať alebo meniť Pod-local traffic podľa architektúry;
-- `hostNetwork` presúva workload do host network boundary a mení exposure aj scheduling constraints.
-
-Pod IP nie je stabilná service identity. Stabilnejší routing poskytuje Service, prípadne StatefulSet/headless Service pre per-replica model.
-
-## 7. Pod sandbox a readiness na štart containers
-
-Runtime sandbox drží zdieľané runtime resources Podu, najmä network namespace.
-
-```text
-CRI RunPodSandbox
-→ CNI setup a Pod IP
-→ volume/projected-data readiness
-→ init a application containers
-```
-
-Ak sandbox nevznikne, application troubleshooting je predčasný. Pod môže mať `FailedCreatePodSandBox`, IPAM, CNI, runtime alebo Node disk problém.
-
-Niektoré clustre reportujú samostatnú Pod condition pre pripravenosť sandboxu a networku na štart containers. Pri jej použití vždy viaž interpretáciu na konkrétnu cluster verziu a feature configuration.
-
-## 8. Volumes a data lifecycle
-
-Pod definuje volumes a containers ich mountujú do vlastných filesystem views.
-
-Dôležité lifecycle rozdiely:
-
-```text
-emptyDir
-→ prežije container restart
-→ neprežije zánik Pod UID
-
-PVC-backed volume
-→ môže prežiť Pod replacement
-→ potrebuje attach/mount a application consistency contract
-
-projected ConfigMap/Secret/token
-→ node materialization a update semantics podľa source/mount typu
-→ process nemusí automaticky reloadnúť obsah
-
-hostPath
-→ host-specific data a vysoká security/portability väzba
-```
-
-Persistentný volume nechráni pred application-level corruption. `emptyDir` nie je cache vhodná na jedinú durable kópiu výsledku.
-
-## 9. Configuration a secret effective state
-
-Source object, mounted bytes a process-loaded state sú tri odlišné subjects.
-
-```text
-Secret SE09 existuje v API
-→ kubelet/projected volume môže aktualizovať súbor
-→ application stále používa connection vytvorenú zo SE08
-```
-
-Pri environment variables je snapshot vytvorený pri container start-e. Pri mounted súboroch sa obsah môže aktualizovať, ale application musí mať správny reload contract.
-
-Rollout verdict má overiť:
-
-- source ConfigMap/Secret generation;
-- Pod spec reference;
-- mounted checksum alebo file identity podľa bezpečného modelu;
-- process-loaded config/secret epoch bez vypísania tajomstva;
-- downstream authentication a old-credential revocation podľa secret lifecycle-u.
-
-## 10. Init containers
-
-Regular init containers bežia postupne pred application containers a každý musí úspešne skončiť.
-
-Vhodné úlohy:
-
-- lokálna príprava shared volume;
-- schema alebo config validation bez durable side effectu;
-- fetch immutable artifactu s overením digestu;
-- bounded dependency preflight.
-
-Riziká:
-
-- nekonečný dependency wait maskuje permanentný problém;
-- ne-idempotentná migrácia sa zopakuje po Pod replacement-e;
-- marker súbor vznikne pred dokončením operácie;
-- init container má odlišnú identity alebo network policy než application;
-- veľké init requests ovplyvnia scheduling/resource calculation.
-
-Cluster-wide alebo shared database migration potrebuje external coordination; Pod init container nie je automaticky singleton.
-
-## 11. Sidecar containers
-
-Sidecar je pomocný container so spoločným placementom a Pod lifecycle-om. Môže poskytovať proxy, telemetry, config sync alebo local security službu.
-
-Jeho contract musí definovať:
-
-- podporovanú startup a shutdown semantics konkrétneho Kubernetes API;
-- localhost port ownership;
-- resources a failure behavior;
-- readiness príspevok;
-- log/metric ownership;
-- behavior pri main-container completion alebo restart-e.
-
-Failure boundaries:
-
-- sidecar bindne port skôr než application;
-- proxy je Ready, ale main application nie;
-- sidecar memory leak vyvolá Pod pressure/OOM;
-- shutdown sidecaru blokuje alebo predlžuje Pod termination;
-- sidecar používa širšie credentials než main container.
-
-## 12. Ephemeral containers a debugging
-
-Ephemeral container je break-glass diagnostický zásah do existujúceho Podu, nie trvalá oprava desired state-u.
+Pod phase je hrubá kategória ako `Pending`, `Running`, `Succeeded`, `Failed` alebo `Unknown`. Nie je to kompletný health model.
 
 ```bash
-kubectl debug pod/<pod> -n <namespace> -it --image=<approved-debug-image>
+kubectl get pod -n production <pod-name> -o yaml
 ```
 
-Kontroluj:
+Dôležitejšie sú conditions a container statuses. Pod môže mať phase `Running`, ale condition `Ready=False`. Container môže byť v stave `Waiting` s reason `CrashLoopBackOff`, hoci Pod object stále existuje.
 
-- RBAC na ephemeral-container subresource;
-- approved image a supply chain;
-- namespace/process visibility;
-- secret a network exposure;
-- audit trail;
-- cleanup a následnú opravu v source/template vrstve.
+```bash
+kubectl get pod -n production <pod-name> \
+  -o jsonpath='{range .status.conditions[*]}{.type}{"="}{.status}{" reason="}{.reason}{"\n"}{end}'
 
-Diagnostický container nemení fakt, že poškodený Pod môže byť disposable a jeho manual fix zanikne.
+kubectl get pod -n production <pod-name> \
+  -o jsonpath='{.status.containerStatuses}' | jq .
+```
 
-## 13. Pod phase, conditions a container states
+`restartCount` sa vzťahuje na container v jednom Pod lifetime. Po replacement-e novým Pod UID sa počítadlo začne odznova.
 
-Tri rozdielne evidence vrstvy:
+## Init containers
+
+Init containers bežia pred bežnými application containers a dokončujú sa postupne. Sú vhodné na lokálnu prípravu volume-u, validáciu konfigurácie alebo získanie immutable artifactu.
+
+```yaml
+initContainers:
+  - name: validate-config
+    image: registry.example.com/atlas/config-validator@sha256:validator7
+    args:
+      - /config/application.yaml
+    volumeMounts:
+      - name: config
+        mountPath: /config
+```
+
+Init container nie je vhodné miesto pre ne-idempotentnú globálnu databázovú migráciu bez coordination. Pod replacement môže init krok zopakovať. Ak sa po partial side effectu vytvorí marker príliš skoro, ďalší pokus môže nesprávne preskočiť nedokončenú operáciu.
+
+Pri zaseknutom Pode čítaj `status.initContainerStatuses` oddelene od hlavného containeru.
+
+## Sidecars a spoločný lifecycle
+
+Sidecar môže poskytovať proxy, log forwarding alebo lokálnu pomocnú funkciu. Jeho failure však ovplyvňuje celý Pod outcome. Ak proxy sidecar nie je ready, hlavná aplikácia môže byť zdravá na localhoste, ale Service traffic nebude fungovať.
+
+Kubernetes podporuje sidecar lifecycle modely podľa API a cluster verzie. Pri návrhu vždy over konkrétny contract init/sidecar semantics v cieľovej verzii. Dôležité je, aby startup a termination poradie zodpovedali dependency medzi containers.
+
+## Volumes v Pode
+
+Pod deklaruje volumes a jednotlivé containers si ich mountujú.
+
+```yaml
+volumes:
+  - name: config
+    configMap:
+      name: payments-api-config
+  - name: work
+    emptyDir:
+      sizeLimit: 256Mi
+```
+
+`emptyDir` prežije restart containeru v tom istom Pode, ale neprežije zánik Pod UID. PVC-backed volume môže prežiť replacement, ak storage a access mode umožnia nové pripojenie. Projected Secret alebo ConfigMap prináša bytes z API source-u, nie automaticky process-loaded state.
+
+Mount môže zakryť obsah image-u na rovnakom path-e. Ak image obsahoval `/app/defaults`, ale volume sa mountne na `/app`, pôvodné súbory v runtime pohľade zmiznú.
+
+## Environment a loaded configuration
+
+Source objekt, Pod spec a application-loaded hodnota sú tri vrstvy.
 
 ```text
-Pod phase
-→ high-level lifecycle summary
-
-Pod conditions
-→ structured readiness/scheduling/initialization facts
-
-container state/status
-→ Waiting, Running alebo Terminated + reason/exit/restarts/imageID
+Secret SE09 existuje
+→ Pod template stále odkazuje na starý checksum
+→ starý Pod používa environment zo SE08
+→ nový Pod môže dostať SE09
+→ application ešte musí úspešne otvoriť connection
 ```
 
-Príklad:
+Aplikácia by mala vedieť bezpečne publikovať configuration generation bez odhalenia secretu, napríklad cez `/version` alebo metrics label s bounded cardinality.
 
-```text
-phase=Running
-ContainersReady=True
-Ready=False
+## Resource requests a limits
+
+Pod template definuje resources pre každý container. Scheduler používa requests pri placement-e. Runtime a kernel uplatňujú limits.
+
+```yaml
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 512Mi
 ```
 
-Možné vysvetlenie: všetky containers sú ready, ale custom readiness gate chýba alebo je `False`.
+Pod môže byť schedulovaný podľa requests a neskôr CPU throttled alebo OOM-killed pri limite. `Running` neznamená, že resource contract stačí na SLO.
 
-`CrashLoopBackOff`, `ContainerCreating` a `Terminating` nie sú samostatné Pod phases. Sú to reasons alebo CLI presentation states, ktoré treba rozložiť na underlying conditions a container states.
+## Probes a readiness
 
-## 14. Startup, liveness a readiness
+Startup probe chráni pomalý štart pred liveness zásahom. Liveness rozhoduje, či kubelet reštartuje container. Readiness rozhoduje, či je Pod pripravený prijímať traffic.
 
-```text
-startup probe
-→ chráni pomalý štart pred liveness rozhodnutím
+```yaml
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  failureThreshold: 30
+  periodSeconds: 2
 
-liveness probe
-→ rozhoduje o restart-e containeru
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: http
+  periodSeconds: 5
 
-readiness probe
-→ rozhoduje o container/Pod traffic eligibility
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  periodSeconds: 10
 ```
 
-Probe je control signal, preto musí testovať mechanizmus, ktorý jej action dokáže napraviť.
+Readiness endpoint pre `payments-api` kontroluje, či aplikácia načítala config a môže používať kritickú dependency v rozsahu navrhnutom pre probe. Nemá vykonávať drahú payment transakciu pri každom probe ticku.
 
-Nesprávna liveness závislá od vzdialenej databázy:
+Zelená readiness stále nemusí dokazovať business správnosť. Preto rollout potrebuje aj syntetický request cez Service alebo edge path.
 
-```text
-databáza má incident
-→ liveness zlyhá na všetkých Pods
-→ kubelet restartuje zdravé application processes
-→ kapacita klesne a load na databázu rastie
-→ restart storm zosilní incident
+## Readiness gates
+
+Pod môže mať custom readiness gates. Externý controller potom zapisuje condition, napríklad až po registrácii v externom load balanceri.
+
+```yaml
+readinessGates:
+  - conditionType: atlas.example/lb-registered
 ```
 
-Readiness môže dependency zohľadniť opatrnejšie, ale úplné odpojenie všetkých replicas pri shared dependency incidente môže tiež zhoršiť recovery. Probe contract musí vychádzať z application failure modelu.
+Pod je Ready až keď sú splnené bežné container readiness aj custom condition. Ak controller prestane condition aktualizovať, Pods môžu zostať NotReady napriek zdravej aplikácii. Gate preto potrebuje jasného ownera a recovery model.
 
-## 15. Readiness gates a Service eligibility
+## Restart a replacement nie sú to isté
 
-Custom readiness gate pridáva external/platform condition do Pod readiness.
-
-```text
-containers ready
-+ všetky readiness gates True
-+ Node readiness rules
-→ Pod Ready
-→ EndpointSlice ready endpoint
-```
-
-Ak condition chýba, gate je nesplnená. Controller, ktorý gate vlastní, potrebuje:
-
-- stabilný Pod UID correlation;
-- generation-aware external registration;
-- cleanup pri Pod deletion;
-- failure a timeout condition;
-- leader/retry/idempotency model.
-
-Pod `Ready=True` ešte nepreukazuje správny Service selector, dataplane ani business response.
-
-## 16. Resource requests, limits a Pod-level result
-
-Requests ovplyvňujú placement a resource shares; limits ovplyvňujú enforcement.
-
-Pod footprint zahŕňa:
-
-- všetky application containers;
-- sidecars;
-- init-container scheduling calculation;
-- sandbox/runtime overhead;
-- volumes, logs a kernel buffers;
-- RuntimeClass overhead podľa konfigurácie.
-
-Failure boundaries:
-
-- CPU throttling pri nízkej priemernej utilization;
-- cgroup OOM pri voľnej Node memory;
-- sidecar spotrebuje väčšinu Pod budgetu;
-- `emptyDir` alebo logs vyvolajú DiskPressure;
-- BestEffort/Burstable workload je skôr evictovaný pri pressure.
-
-## 17. Security a workload identity
-
-Pod-level a container-level security contract môže zahŕňať:
-
-- service account a projected token;
-- runAsUser/runAsGroup/fsGroup;
-- capabilities a privilege escalation;
-- read-only root filesystem;
-- seccomp, SELinux a ďalšie runtime controls;
-- host namespaces, devices a hostPath;
-- image identity a executable ownership.
-
-`runAsNonRoot` alebo numeric UID nestačia, ak image files alebo mounted volume nemajú kompatibilné ownership/permissions. `privileged` ako rýchla oprava odstraňuje viac isolation controls naraz a mení threat boundary celého Node-u.
-
-## 18. Container restart vs. Pod replacement
+Pri liveness failure môže kubelet reštartovať container v rovnakom Pod UID. Network namespace a volumes Podu môžu zostať. Pri Node loss alebo rollout-e controller vytvorí nový Pod UID.
 
 ```text
 container restart
 → rovnaký Pod UID
-→ spravidla rovnaký sandbox, Pod IP a emptyDir
-→ rastie restart count
+→ nový container ID
 
 Pod replacement
 → nový Pod UID
-→ nový sandbox/processes
-→ často iný Node/IP
-→ emptyDir a writable layer sa stratia
+→ nový sandbox, IP a container IDs
 ```
 
-CrashLoopBackOff je kubelet backoff pri opakovanom container failure. Vyšší controller môže súčasne považovať Pod za existujúcu repliku, hoci nie je Ready.
+Pri incident review treba presne pomenovať, ktorý typ zmeny nastal.
 
-## 19. Pod disruption a recovery owner
+## Graceful termination
 
-Pod môže zaniknúť pre:
+Pri delete alebo rollout scale-down dostane Pod `deletionTimestamp`. Endpoint eligibility sa mení a kubelet spustí termination sequence. Application process dostane signal podľa runtime a image contractu a má čas v rámci `terminationGracePeriodSeconds`.
 
-- Deployment rollout alebo scale-down;
-- Node drain či pressure eviction;
-- preemption;
-- Node failure/partition;
-- user deletion;
-- Job completion;
-- autoscaling;
-- policy alebo platform recovery.
-
-Pod sám si nevytvorí replacement na inom Node-e. Recovery owner je workload controller. Priamo vytvorený Pod po Node failure nemá bežný replica replacement contract.
-
-PDB obmedzuje iba určitú triedu voluntary disruptions. Nechráni pred Node failure, application crashom ani chybným rolloutom.
-
-## 20. Graceful termination lifecycle
-
-Zjednodušený flow:
-
-```text
-delete/eviction intent a grace period
-→ Pod označený na termination
-→ endpoint readiness/traffic transition
-→ PreStop, ak existuje
-→ termination signal container PID 1
-→ application drain a flush
-→ force kill po grace period
-→ CNI/CSI/runtime cleanup
-→ object a external-registration cleanup
+```yaml
+terminationGracePeriodSeconds: 45
 ```
 
-Pod termination grace countdown zahŕňa aj čas `PreStop`. Ak hook spotrebuje celý budget, application môže dostať minimum času na vlastný shutdown.
-
-Application musí:
-
-- prestať prijímať novú prácu;
-- dokončiť alebo bezpečne odovzdať in-flight operácie;
-- flushnúť relevantný state;
-- reagovať na termination signal;
-- mať bounded shutdown;
-- tolerovať hard kill a retry podľa business invariantov.
-
-## 21. Static, mirror a direct Pods
-
-### Direct Pod
-
-Je vytvorený priamo cez API bez higher-level controlleru. Vhodný je hlavne na learning alebo diagnostiku; nemá rollout a replica replacement model.
-
-### Static Pod
-
-Autoritatívny manifest je na konkrétnom Node-e a kubelet ho reconcile-uje lokálne. Mirror Pod v API je observability reprezentácia, nie source of truth.
-
-### Controller-managed Pod
-
-Owner chain vedie na ReplicaSet, StatefulSet, DaemonSet, Job alebo iný controller. Desired state sa mení na vyššej vrstve, nie ručnou opravou Podu.
-
-## 22. Worked failure: Secret sa zmenil, Pod používal starú credential epoch
-
-API Secret bol aktualizovaný z `SE08` na `SE09`. Pod používal Secret cez environment variable a nebol nahradený.
-
-```text
-Secret object generation sa zmení
-→ bežiaci process environment zostane snapshot SE08
-→ dashboard sleduje iba source Secret
-→ rollout vyzerá „aktualizovaný“
-→ downstream po revokácii SE08 odmieta requests
-```
-
-Recovery vyžaduje nový container/Pod subject a overenie process-loaded epoch. Ručný refresh source Secretu bez consumer rollout-u nie je rotation completion.
-
-## 23. Worked failure: liveness probe vytvorila restart storm
-
-Liveness endpoint vracal failure pri nedostupnej shared databáze.
-
-```text
-dependency outage
-→ všetky liveness probes fail
-→ všetky main containers restartujú
-→ readiness a capacity klesnú na nulu
-→ reconnect burst zaťaží databázu po návrate
-```
-
-Fix nie je iba zvýšiť `failureThreshold`. Treba oddeliť process deadlock/liveness od dependency readiness a navrhnúť reconnect/backoff behavior.
-
-## 24. Worked failure: PreStop spotreboval celý termination budget
-
-Pod mal 30-sekundový grace period a `PreStop` vykonával 30-sekundový sleep. Main process potom nestihol dokončiť in-flight payment a dostal force kill.
-
-```text
-grace countdown začne
-→ PreStop spotrebuje budget
-→ termination signal príde neskoro
-→ application nemá čas na drain
-→ request retry vytvorí duplicate risk
-```
-
-Recovery musí zväčšiť alebo lepšie rozdeliť termination budget a overiť end-to-end draining, nie iba hook completion.
-
-## 25. Worked failure: sidecar a main container súťažili o port
-
-Proxy sidecar a application sa pokúsili bindovať `0.0.0.0:8443` v spoločnom Pod network namespace. Sidecar vyhral race a main process skončil s `address already in use`.
-
-Pod zostal v CrashLoopBackOff, hoci network a image pull boli healthy. Observation port listenera v Pod namespace odlíšila runtime configuration od CNI alebo Service failure.
-
-## 26. Causal troubleshooting walkthrough: Pod je Running, ale nie je Ready
-
-Pod `P42` má:
-
-```text
-phase=Running
-ContainersReady=True
-Ready=False
-restartCount=0
-Node N7 Ready=True
-```
-
-Service ešte posiela traffic iba na starú revision.
-
-### 1. Zafixuj subject a pôvodný outcome
-
-Zaznamenaj:
-
-```text
-cluster, namespace/name/Pod UID
-owner ReplicaSet/Deployment UID a generation
-template hash a image digest
-Node UID a Pod IP
-container imageIDs, states a restart counts
-C52 a SE08 effective-state evidence
-startup/liveness/readiness probe spec a results
-readinessGates a Pod conditions
-EndpointSlice targetRef UID/conditions
-external LB registration subject
-required payment transaction outcome
-```
-
-### 2. Competing hypotheses
-
-1. Application readiness probe zlyháva.
-2. Sidecar container nie je ready, hoci main container je.
-3. Custom readiness gate chýba alebo je `False`.
-4. Gate controller koreluje podľa mena namiesto Pod UID.
-5. Node readiness alebo control-plane observation je stale.
-6. Pod condition status patrí predchádzajúcemu sandbox/container pokusu.
-7. Mutating admission pridala gate alebo sidecar, ktorý source manifest neobsahoval.
-8. Application process načítal starú config/secret epoch a readiness to správne odmieta.
-9. EndpointSlice controller zaostáva; Pod už je Ready, ale endpoint ešte nie.
-10. Service selector nevyberá nový Pod, čo je odlišné od Pod readiness.
-11. Readiness endpoint kontroluje external dependency a je v global outage.
-12. Probe ide na nesprávny port/path kvôli shared-port alebo proxy contractu.
-
-### 3. Discriminating observation points
-
-- live admitted Pod YAML, UID, conditions a readiness gates;
-- per-container `ready`, state, imageID a last state;
-- kubelet probe Events/logs a direct probe z rovnakého network contextu;
-- listeners a localhost path v Pod network namespace;
-- main/sidecar loaded config generation a secret epoch;
-- gate-controller logs, owner UID a external registration ID;
-- Node Lease/condition timeline;
-- EndpointSlice targetRef UID a readiness/serving/terminating conditions;
-- Service selector match;
-- audit/admission mutation evidence.
-
-`ContainersReady=True` diskriminuje základnú per-container readiness, ale nevylučuje custom readiness gate. `Ready=True` bez EndpointSlice match by posunulo problém za Pod boundary.
-
-### 4. Containment
-
-- ponechaj staré Ready replicas a traffic;
-- nezmaž Pod pred zachovaním conditions, Events, logs a external registration evidence;
-- neodstraňuj readiness gate naslepo;
-- nezmeň liveness tak, aby maskovala deadlock;
-- zastav conflicting automation nad probe/gate fields;
-- obmedz rollout scale-down, kým nový Pod nie je accepted.
-
-### 5. Recovery podľa boundary
-
-- probe contract → oprav path/port/timeout alebo application readiness semantics;
-- sidecar readiness → oprav sidecar startup/resources/health;
-- missing gate → obnov gate controller a nastav condition pre exact Pod UID;
-- stale external registration → cleanup-ni old UID a zaregistruj P42 idempotentne;
-- old config/secret → vytvor nový Pod s correct consumer snapshot;
-- EndpointSlice lag → obnov controller path a over targetRef;
-- selector mismatch → oprav higher-level immutable selection contract bezpečným rolloutom;
-- global dependency outage → použite reviewovaný degradation model namiesto restart stormu.
-
-### 6. Over pôvodný outcome
-
-Potvrď:
-
-- Pod UID P42 alebo jeho reviewovaný replacement má správny digest, C52 a SE08;
-- všetky required containers sú ready;
-- všetky readiness gates sú `True` a viazané na správny UID;
-- EndpointSlice obsahuje iba správne new-generation ready endpoints;
-- traffic prechádza cez Service/proxy path;
-- payment authorization prejde presne raz;
-- old revision sa začne scale-downovať až po acceptance;
-- termination test dokončí in-flight request bez force killu.
-
-### 7. Posuň control skôr
-
-Pridaj:
-
-- admitted-Pod diff v release evidence;
-- UID-aware readiness-gate controller testy;
-- probe contract tests pri dependency outage a overload-e;
-- process-loaded config/secret epoch metric;
-- EndpointSlice targetRef verification;
-- graceful termination experiment;
-- immutable image digest a template-generation correlation.
-
-## 27. Pod observation matrix
-
-| Boundary | Subject | Kľúčové observations |
-|---|---|---|
-| API/template | owner UID/generation, Pod UID | admitted spec, template hash, managed fields |
-| Scheduling | Pod UID, Node UID | nodeName, scheduling conditions/Events |
-| Sandbox | Pod UID, sandbox ID | PodReadyToStartContainers podľa clusteru, CRI/CNI |
-| Data/config | volume/source/process snapshot | mounts, checksum, loaded epoch |
-| Containers | container ID/imageID | state, exit, restart, logs, cgroup evidence |
-| Probes | probe generation/target | results, kubelet Events, listener/path |
-| Readiness | Pod UID/conditions/gates | ContainersReady, Ready, gate owner |
-| Service | EndpointSlice targetRef UID | selector, endpoint conditions, dataplane |
-| Termination | Pod UID/deletion subject | grace, PreStop, signals, drain, cleanup |
-| Business | operation ID | SLI, downstream audit, exactly-once invariant |
-
-## 28. Referenčné príkazy
+Aplikácia má prestať prijímať nové requesty, dokončiť alebo bezpečne prerušiť in-flight operácie a uzavrieť connections. `preStop` hook môže pomôcť, ale jeho trvanie sa započítava do rovnakého grace budgetu.
 
 ```bash
-kubectl get pod <pod> -n <namespace> -o wide
-kubectl get pod <pod> -n <namespace> -o yaml
-kubectl describe pod <pod> -n <namespace>
-kubectl logs <pod> -n <namespace> -c <container>
-kubectl logs <pod> -n <namespace> -c <container> --previous
-kubectl get events -A --sort-by=.metadata.creationTimestamp
-kubectl get endpointslice -n <namespace> -o yaml
+kubectl delete pod -n production <pod-name> --wait=false
+kubectl get pod -n production <pod-name> -w
 ```
 
-Príkazy poskytujú observations. Root cause vznikne až porovnaním subject identity, timeline a mechanizmu.
+Force delete odstraňuje API objekt bez čakania na potvrdený Node cleanup a môže vytvoriť dve súčasné inštancie pri partitioned Node-e. Pri stateful alebo external writer workload-e je potrebné fencing.
 
-## 29. Referenčné pravidlá
+## Ephemeral containers pre debugging
 
-- Pod je runtime envelope jednej workload repliky, nie stabilná service identity.
-- Pod name bez UID nie je lifetime subject.
-- Pod spec a process environment sú snapshoty; source object update nemusí zmeniť effective state.
-- Sandbox, container process, readiness a Service eligibility sú odlišné transitions.
-- Containers v Pode zdieľajú port space a localhost.
-- `Running` neznamená `Ready`; `Ready` neznamená business-correct.
-- Liveness má opravovať process failure, nie zosilňovať dependency outage.
-- Readiness gate potrebuje UID-aware external controller.
-- Container restart nie je Pod replacement.
-- `emptyDir` prežije container restart, nie Pod UID replacement.
-- PreStop sa vykonáva v rámci termination grace budgetu.
-- Priamy alebo static Pod má iný recovery owner než Deployment-managed Pod.
-- Manual debug zmena musí skončiť opravou authoritative template-u.
+Ephemeral container možno pridať na diagnostiku bežiaceho Podu, keď production image nemá shell alebo nástroje.
 
-## 30. Kontrolné otázky
+```bash
+kubectl debug -n production -it <pod-name> \
+  --image=busybox:1.36 --target=api
+```
 
-1. Aký lifecycle vytvára z Pod template-u business-ready endpoint?
-2. Prečo je Pod UID dôležitejší než meno?
-3. Ktoré resources containers v Pode zdieľajú a ktoré nie?
-4. Ako sa líši source Secret, mounted value a process-loaded secret?
-5. Prečo init container nie je automaticky bezpečné miesto pre databázovú migráciu?
-6. Ako odlíšiš Running, ContainersReady, Ready a Service eligibility?
-7. Prečo liveness závislá od shared databázy vytvára restart storm?
-8. Ako sa líši container restart od Pod replacementu?
-9. Čo sa môže stratiť pri replacement-e Pod UID?
-10. Čo musí Pod recovery verdict overiť?
+Debug container nemení pôvodný image ani template. Má vlastné security a audit riziká. Nemá sa používať ako trvalá oprava alebo cesta na inštaláciu balíkov do production runtime-u.
 
-## Glossary impact
+## Incident: Pod je Running, ale payment traffic zlyháva
 
-Relevantné pojmy: Pod runtime-envelope subject, admitted Pod snapshot, Pod UID generation, Pod sandbox transition, shared-port contract, projected-data subject, process-loaded configuration, init side-effect boundary, sidecar lifecycle contract, probe control signal, readiness-gate subject, EndpointSlice eligibility subject, container-restart subject, Pod replacement subject, termination-budget subject, direct-Pod recovery boundary, Pod observation matrix a Pod acceptance verdict.
+Pod mal phase `Running` a hlavný process počúval. Readiness však bola `False`, pretože aplikácia načítala config `C52`, ale Secret volume ešte obsahoval starú credential generation, ktorú databáza už zrušila.
 
-## Oficiálna dokumentácia
+```bash
+kubectl describe pod -n production <pod-name>
+kubectl logs -n production <pod-name> -c api
+kubectl get pod -n production <pod-name> -o yaml
+```
+
+Service správne Pod nevložila do ready endpointov. Oprava nebola „vypnúť readiness“. Tím zladil secret rollout: nový Secret, checksum v Pod template, controlled Deployment rollout, loaded epoch read-back a až potom revokácia starej credential generation.
+
+## Incident: container restart vyzeral ako nový release
+
+Dashboard agregoval iba Pod name prefix a image tag. Container v tom istom Pod UID sa po OOM reštartoval, ale tag medzitým ukazoval na nový digest v registry. Tím nesprávne predpokladal, že nový artifact bol nasadený.
+
+Runtime používal pôvodný resolved digest. Root cause bol memory limit a burst, nie release. Skorší control je digest-pinned image, Pod UID/container ID korelácia a cgroup/OOM evidence.
+
+## Model, ktorý si treba odniesť
+
+Pod je jedna plánovateľná a nahraditeľná runtime replika. Spája template snapshot, Node placement, sandbox, network, volumes, containers, probes, security a termination. Pri diagnostike odlišuj Pod UID od mena, container restart od Pod replacementu, process state od readiness a API source konfigurácie od hodnôt skutočne načítaných aplikáciou.
+
+## Referencie
 
 - [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
-- [Pod lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
-- [Pod conditions](https://kubernetes.io/docs/concepts/workloads/pods/pod-condition/)
-- [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
-- [Sidecar containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/)
-- [Ephemeral containers](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/)
-- [Container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/)
-- [Liveness, readiness and startup probes](https://kubernetes.io/docs/concepts/workloads/pods/probes/)
-- [Configure a security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
+- [Pod Lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
+- [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
+- [Container Lifecycle Hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/)
+- [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

@@ -1,515 +1,498 @@
 # Kubernetes troubleshooting
 
-Kubernetes troubleshooting nie je postupné spustenie všetkých známych `kubectl` príkazov. Je to riadené zúženie incidentu od používateľského symptómu k presnému cluster, release, object, process, data alebo packet subjectu. Cieľom je získať diskriminačný dôkaz skôr, než remediation zničí evidence alebo rozšíri blast radius.
+Kubernetes troubleshooting nie je zoznam príkazov, ktoré sa spustia nad každým incidentom. Je to postupné hľadanie prvej vrstvy, na ktorej sa očakávaný prechod nestal. Používateľský request môže zlyhať na DNS, Gateway, Service dataplane, Pod sockete, konfigurácii alebo databáze. Nový Pod môže chýbať pre admission, controller, scheduling, CNI, image alebo mount. Rovnaký symptom `timeout` preto nemá jednu univerzálnu príčinu.
 
-Táto záverečná kapitola používa jeden dominantný incident lifecycle:
+Dobrý postup začína presným symptómom, zachová volatile evidence a rozdelí control path od data pathu. Až potom vytvorí konkurenčné hypotézy a vyberie observation point, ktorý ich najrýchlejšie rozdelí. Reštart, delete, rollback alebo Node reboot sa vykonáva až vtedy, keď rozumieme, aký state zmení a aký dôkaz môže odstrániť.
 
-```text
-user alebo business symptom
-→ scope, timeline a recent-change correlation
-→ exact cluster/release/object/process/data/flow subject
-→ volatile evidence preservation
-→ expected control-plane a data-plane path
-→ competing causal hypotheses
-→ najlacnejší diskriminačný observation point
-→ containment
-→ authoritative repair, reconciliation, replacement alebo recovery
-→ original aj forbidden outcome verification
-→ adjacent-cohort a recurrence checks
-→ earlier control a incident closure
-```
+## Začni používateľským výsledkom
 
-## 1. Symptom musí byť falsifikovateľný
-
-Nedostatočný opis:
+Namiesto:
 
 ```text
 Kubernetes nefunguje.
 ```
 
-Použiteľný incident statement:
+použi statement:
 
 ```text
-Od 14:05 UTC približne 20 % payment requests vracia 502.
-Zlyhania vznikajú iba na Pods umiestnených na Node pool-e np-136-v1.
-Control plane, Deployment availability a readiness sú green.
-Posledná zmena bol Kubernetes/Node-pool upgrade.
-Retries môžu vytvoriť duplicate authorization risk.
+Od 06:12 UTC vracia približne 20 % POST /payments odpoveď 502.
+Zlyhania vznikajú iba pri backend Pods na Node pool-e np-136-v1.
+Deployment má šesť available replicas a Pods sú Ready.
+Posledná zmena bol rollout novej Node image generation.
+Retries môžu vytvoriť duplicate authorization.
 ```
 
-Dobrý statement obsahuje:
+Taký opis určuje čas, scope, affected cohort, recent change a business riziko. Zároveň pomenúva, čo funguje: control plane a controller readiness sú green. Tým sa znižuje počet hypotéz.
 
-- pôvodný používateľský alebo business outcome;
-- začiatok a časovú zónu;
-- affected a unaffected cohort;
-- permanentnosť alebo intermittency;
-- posledné zmeny;
-- čo stále funguje;
-- data, security a retry riziko;
-- akceptačný cieľ recovery.
+## Zafixuj presný subject
 
-## 2. Incident subject pred príkazom
-
-Pred diagnostikou fixuj identities, ktoré sa nesmú počas vyšetrovania potichu meniť:
+Názov `payments-api` nestačí. Pred diagnostikou zachovaj identities:
 
 ```text
-cluster/context/API endpoint a operator identity
-incident a upgrade/deployment operation ID
-release, image digest a workload revision
-object kind/namespace/name/UID/generation
-Pod UID, container ID, restart a process-loaded config generation
-Node UID, host image, runtime a add-on generation
-Service UID, EndpointSlice cohort a backend Pod UIDs
-PVC/PV/backend/data/fencing identity
-request/trace/payment ID
-timestamp a telemetry coverage generation
+cluster context, API endpoint a operator identity
+incident a release/upgrade operation ID
+Deployment UID/generation a ReplicaSet UID
+Pod namespace/name/UID, imageID a config generation
+container ID a restart attempt
+Node name/UID, Node image, kubelet/runtime a CNI generation
+Service UID, EndpointSlice a backend targetRef UID
+PVC/PV/backend identity pri storage incidente
+request, trace a payment ID s timestampom
 ```
 
-Názov `payments-api-abc` bez UID neodlišuje starý a nový Pod. Tag `latest` neodlišuje artifact. PVC `Bound` neodlišuje správnu data generation.
+Praktické minimum:
 
-## 3. Preserve-first boundary
+```bash
+kubectl config current-context
+kubectl cluster-info
+kubectl auth whoami
 
-Pred restartom, delete, rollbackom, drainom alebo force-detach zachovaj podľa incidentu:
+kubectl get deployment payments-api -n production \
+  -o custom-columns='NAME:.metadata.name,UID:.metadata.uid,GEN:.metadata.generation,OBSERVED:.status.observedGeneration'
 
-- object spec/status/conditions/managed fields a owner graph;
-- Events a audit records;
-- current aj previous container logs;
-- runtime/container ID a Node-local logs;
-- controller, scheduler, kubelet, CNI, CSI a admission evidence;
-- cgroup/OOM/pressure a packet/conntrack state;
-- Service/EndpointSlice a flow tuples;
-- mount, attachment, data a writer identities;
-- exact recent changes, images, configs a certificates;
-- external provider operation/audit state;
-- metrics/traces a absent-evidence stav.
+kubectl get pods -n production -l app.kubernetes.io/name=payments-api \
+  -o custom-columns='NAME:.metadata.name,UID:.metadata.uid,NODE:.spec.nodeName,IP:.status.podIP,IMAGE_ID:.status.containerStatuses[0].imageID,READY:.status.containerStatuses[0].ready'
+```
 
-`kubectl delete pod`, Node reboot, collector restart alebo `etcd restore` môžu odstrániť jediný causal dôkaz.
+Ak pracuješ s nesprávnym contextom alebo namespace, každý ďalší dôkaz môže byť presvedčivý a zároveň irelevantný.
 
-## 4. Control path a data path
+## Preserve-first boundary
 
-Každý incident mapuj na očakávaný mechanizmus.
+Pred `kubectl delete pod`, rollbackom, drainom alebo restartom komponentu ulož stav, ktorý sa môže stratiť:
 
-### Control path
+```bash
+mkdir -p evidence
+
+kubectl get deployment,replicasets,pods,service,endpointslices \
+  -n production -o yaml \
+  > evidence/payments-objects.yaml
+
+kubectl get events -n production --sort-by=.lastTimestamp \
+  > evidence/production-events.txt
+
+kubectl logs -n production <pod-name> -c api \
+  --timestamps \
+  > evidence/pod-current.log
+
+kubectl logs -n production <pod-name> -c api \
+  --previous --timestamps \
+  > evidence/pod-previous.log 2>/dev/null || true
+```
+
+Pod delete odstráni Pod UID, container IDs, `emptyDir`, current logs a časť network state-u. Node reboot odstráni conntrack, process a runtime evidence. Etcd restore prepíše cluster-wide state. Destructive operácia môže symptom dočasne odstrániť a zároveň znemožniť root-cause analýzu.
+
+Preserve neznamená slepo exportovať celý cluster a všetky Secrets. Evidence má byť scoped, bezpečne uložené a redigované.
+
+## Control path a data path
+
+Control path vytvára runtime:
 
 ```text
-client intent
-→ API endpoint/authentication/authorization/admission
+client request
+→ API authentication, authorization a admission
 → persisted object generation
 → controller reconciliation
 → scheduler binding
-→ kubelet/runtime/CNI/CSI execution
-→ status, readiness a EndpointSlice update
+→ kubelet, CRI, CNI a CSI
+→ Pod status, readiness a EndpointSlice
 ```
 
-### Request/data path
+Data path nesie používateľský request:
 
 ```text
-client DNS/TLS/edge
-→ Gateway/Ingress/LB
-→ Service a per-Node dataplane
+client DNS a TLS
+→ Gateway alebo Ingress
+→ Service dataplane
 → EndpointSlice backend
-→ Pod socket/process/config/resources
-→ dependency/storage/data
-→ response/reverse path
-→ business commit
+→ Pod network a socket
+→ application process a loaded config
+→ dependency alebo storage
+→ response a business commit
 ```
 
-Ak Pod object neexistuje, scheduler a kubelet ešte nie sú relevantné. Ak direct Pod IP funguje, ale ClusterIP nie, application process pravdepodobne nie je prvá failure boundary.
+Control path môže byť zelený a data path chybný. Deployment môže mať available replicas, no Gateway route môže smerovať na zlý Service. Naopak, existujúce requesty môžu fungovať počas etcd quorum outage, kým sa nepokúsime meniť objekty.
 
-## 5. Observation matrix
+## Hľadaj prvý chýbajúci transition
 
-Vyber observation point, ktorý najlepšie rozdelí hypotézy:
+Pri rollout-e čítaj graph zhora nadol:
 
-| Boundary | Dôkaz | Čo oddeľuje |
-|---|---|---|
-| API request | status code, audit, admission | auth/RBAC/policy/quota vs. persistence |
-| Object/controller | generation, conditions, owner graph | stale intent vs. reconcile failure |
-| Scheduler | PodScheduled, Events, feasible set | absent capacity/constraint vs. Node execution |
-| Kubelet/runtime | sandbox, image, mount, container state | Node/runtime/CNI/CSI vs. process |
-| Process/config | PID, loaded config, logs, cgroup | runtime contract vs. application |
-| Service path | EndpointSlices, translation, packet | selector/readiness/dataplane |
-| Storage | PVC/PV/attachment/mount/data ID | provisioning/attach/mount/data correctness |
-| Business | trace, idempotency, commit ledger | technical green vs. user outcome |
-
-Najlepší test eliminuje viac hypotéz pri minimálnom riziku. Najhlasnejší log nemusí byť root cause.
-
-## 6. Cohort differential diagnosis
-
-Intermittent incidenty často vznikajú iba v jednej generácii alebo failure domain-e. Rozdeľ výsledky podľa:
-
-- old/new release;
-- old/new Node image alebo Kubernetes generation;
-- zone, Node alebo runtime;
-- Pod template/config/secret generation;
-- Service endpoint a edge instance;
-- storage backend alebo data generation;
-- authenticated identity;
-- request type alebo tenant;
-- telemetry-covered a blind cohort.
-
-Porovnanie jedného úspešného a jedného zlyhávajúceho subjectu je často silnejšie než cluster-wide dump.
-
-## 7. Causal walkthrough: green cluster, intermittent payment failures
-
-### Incident
-
-Po upgrade-e na target Node pool `np-136-v1` približne 20 % payment requests končí `502`. Deployment má desired a available replicas, Pods sú `Running/Ready` a control plane je green. Zlyhania sa objavujú iba pri backendoch na target Nodes. Central logs z týchto Nodes chýbajú, ale `kubectl logs` funguje.
-
-### Exact subject
-
-Fixuj:
-
-- payment/request/trace ID a presný timestamp;
-- cluster a upgrade operation;
-- release/image digest a Deployment/ReplicaSet generation;
-- selected EndpointSlice a backend Pod UID;
-- Pod sandbox, IP, container ID a loaded config;
-- source/destination Node UID a Node-image/runtime generation;
-- CNI/Service-dataplane revision a config;
-- pre/post-NAT flow tuple, route, policy a conntrack state;
-- collector generation, local log source a query tenant.
-
-### Competing hypotheses
-
-1. edge alebo Gateway instance má stale route;
-2. Service selector obsahuje nesprávny backend;
-3. readiness je plytká a target Pods nie sú funkčné;
-4. target cohort používa inú config/secret epoch;
-5. CPU throttling alebo OOM vytvára timeout;
-6. DNS/application cache smeruje na stale endpoint;
-7. NetworkPolicy blokuje flow iba na target Nodes;
-8. CNI route/tunnel/MTU alebo host firewall je partial;
-9. Service dataplane/conntrack má stale generation;
-10. databáza alebo storage zlyháva iba z target cohorty;
-11. collector blind spot skrýva application alebo CNI evidence;
-12. retries zosilňujú downstream failure a menia symptóm.
-
-### Discriminating observation order
-
-1. Zachyť jeden zlyhaný request a backend Pod UID.
-2. Porovnaj úspešný old-Node a zlyhaný target-Node Pod s rovnakým image/configom.
-3. Over EndpointSlice cohort, conditions a targetRef UID.
-4. Testuj local process socket, direct Pod IP, ClusterIP a edge path oddelene.
-5. Porovnaj same-Node a cross-Node flow.
-6. Sleduj packet pred Service translationom, po translatione a na destination Node-e.
-7. Porovnaj CNI config, host routes/tunnels, MTU, policy a dataplane state old/new Nodes.
-8. Čítaj Node-local application/CNI logs cez runtime, aj keď central pipeline je slepá.
-9. Over cgroup, config/secret epoch a downstream connection audit.
-
-Finding:
-
-```text
-Node image np-136-v1 neobsahuje expected host-networking prerequisite
-→ CNI agent process a shallow health endpoint sú green
-→ host dataplane initialization je partial
-→ direct/same-Node test môže uspieť
-→ cross-Node a Service-translated traffic intermittentne zlyháva
-→ application retries zvyšujú 502 a DB pressure
-
-zároveň collector sleduje iba legacy runtime log path
-→ central evidence z target cohorty chýba
-→ diagnóza sa oneskorí, ale nejde o payment root cause
+```bash
+kubectl get deployment payments-api -n production -o yaml
+kubectl get rs -n production -l app.kubernetes.io/name=payments-api -o wide
+kubectl get pods -n production -l app.kubernetes.io/name=payments-api -o wide
 ```
 
-Root cause a evidence-control failure sú dva rozdielne subjects. Oprava collector pipeline sama neopraví packet path.
+Ak nová Deployment generation neexistuje, problém je v client/API/admission. Ak generation existuje, ale nový ReplicaSet nie, problém je v Deployment controlleri alebo jeho create requeste. Ak ReplicaSet existuje bez Podov, kontroluj ReplicaSet conditions, Events, quota a Pod admission. Ak Pod existuje bez Node, kontroluj scheduler. Ak Node existuje a Pod je `ContainerCreating`, presuň sa na kubelet, CNI, CSI alebo image.
 
-### Containment
+Tento postup je presnejší než okamžité čítanie application logov, ktoré možno ešte ani neexistujú.
 
-- pozastav Node-pool a workload rollout;
-- cordon target cohortu a bezpečne ju vyber z serving pathu;
-- drain vykonaj iba po PDB, storage a stateful/fencing kontrole;
-- zachovaj Nodes, Pods, runtime logs, routes/maps/rules a packet captures;
-- obmedz client/application retries a chráň idempotency;
-- nevypínaj NetworkPolicy, host firewall ani TLS validation plošne;
-- nepatchuj každý Node ručne bez versionovaného replacement planu.
+## API request zlyhal
 
-### Authoritative recovery
+Pri `Forbidden`, `Invalid`, webhook timeout-e alebo conflict-e zachovaj HTTP status a server response:
 
-- oprav versionovaný Node image a host-networking prerequisite;
-- vytvor novú Node generation `np-136-v2`;
-- spusti CNI, Service, DNS, policy, storage a telemetry capability canary;
-- nasuň bounded Payments canary;
-- over old/new cohort differential a external journey;
-- rolloutni po failure domains;
-- oprav collector path/config a coverage SLO;
-- retire-ni chybnú aj starú Node generation a ich credentials.
-
-### Verify original a forbidden outcomes
-
-Over:
-
-1. rovnaký payment request class funguje na každom target Node-e;
-2. payment commit vznikne exactly once;
-3. direct, ClusterIP, DNS a Gateway paths fungujú;
-4. same-Node aj cross-Node flows fungujú;
-5. forbidden NetworkPolicy flows zostávajú blokované;
-6. EndpointSlice neobsahuje stale alebo chybnú cohortu;
-7. CPU, config, storage a downstream state sú správne;
-8. central aj node-local telemetry pokrýva target cohortu;
-9. replacement a druhý reconciliation cycle nezmenia verdict;
-10. retry/duplicate rate a business SLO sa vrátia do normálu.
-
-### Earlier controls
-
-Použi immutable Node conformance, per-generation packet-path a telemetry canary, cohort-aware dashboards, upgrade abort gate, expected-source coverage SLO, request idempotency, packet-flow observability a pravidelný Node replacement game day.
-
-## 8. Symptom-to-boundary patterns
-
-### Pod object nevznikol
-
-Sleduj controller create request, admission, quota, Pod Security, webhook a API error. Scheduler nie je relevantný, kým Pod neexistuje.
-
-### Pod je `Pending`
-
-Rozlišuj `PodScheduled=False`, PVC binding, hard constraints, requests/capacity, taints/topology a scheduler profile. Live Node utilization nie je scheduler reservation.
-
-### Pod je `ContainerCreating`
-
-Sleduj sandbox/CNI, image pull/unpack, projected config, volume attach/mount a Node runtime. Application liveness ešte nie je vstup.
-
-### Pod je `Running`, ale nie `Ready`
-
-Over exact probe generation, sidecars, readiness gates, loaded config a EndpointSlice propagation. `Running` neznamená traffic eligibility.
-
-### Pod je `Ready`, ale business zlyháva
-
-Readiness môže byť plytká alebo testovať inú request class. Over actual dependency, data, identity, configuration, traffic a transaction outcome.
-
-### `CrashLoopBackOff`
-
-Fixuj container ID/restart generation, `lastState`, previous logs, exit signal, OOM/cgroup, startup/liveness a config. Delete Podu iba reprodukuje chybný contract.
-
-### Object ostáva `Terminating`
-
-Over deletionTimestamp, finalizers, owner/controller, external cleanup, kubelet/Node a storage detach. Odstránenie finalizeru bez cleanup verdictu môže orphanovať resource.
-
-## 9. API, controller a etcd boundaries
-
-HTTP/API verdict orientuje ďalší krok:
-
-- `401` — credential/authentication;
-- `403` — effective authorization graph;
-- `409` — optimistic concurrency/field ownership;
-- `422` — schema/validation alebo semantic request;
-- timeout pred persistence — admission, API alebo etcd write path;
-- successful request s absent outcome — controller/reconciliation/external operation.
-
-Ak API reads fungujú, ale writes timeoutujú, existujúce workloads môžu maskovať degraded management plane. Over per-endpoint readiness, admission latency, etcd quorum/fsync/commit a controller queues. Etcd restore nie je prvý troubleshooting krok, ak quorum alebo repair cesta stále existuje.
-
-## 10. Service, DNS a edge boundary
-
-Použi exact chain:
-
-```text
-client resolver/cache
-→ DNS answer a address generation
-→ edge/LB/Gateway route a certificate
-→ Service UID/ports
-→ full EndpointSlice cohort
-→ per-Node Service dataplane
-→ backend Pod socket
-→ application response a reverse path
+```bash
+kubectl apply --server-side --dry-run=server \
+  --field-manager=atlas-release \
+  -f manifest.yaml -o yaml
 ```
 
-Direct Pod IP success nepreukazuje Service dataplane. DNS success nepreukazuje ready backend. Edge `503` môže vzniknúť pred Service alebo v backende; identifikuj response producer a selected route/backend.
+Over identitu a permission:
 
-## 11. Storage a stateful boundary
-
-Sleduj:
-
-```text
-logical data identity
-→ PVC UID
-→ PV UID a volumeHandle
-→ backend asset/topology
-→ VolumeAttachment a Node
-→ stage/publish/mount
-→ filesystem a application data generation
-→ writer/fencing epoch
+```bash
+kubectl auth whoami
+kubectl auth can-i patch deployments.apps -n production
 ```
 
-PVC `Bound` nepreukazuje správne dáta. Pri Multi-Attach po Node partition nepoužívaj force-detach, kým starý writer nie je hard-fenced a application membership overené.
+`Forbidden` patrí authorization vrstve. `Invalid` môže byť schema alebo immutable-field problém. Admission webhook error patrí webhook Service/TLS/configuration pathu. `Conflict` pri server-side apply ukazuje field ownership, nie automaticky nedostupný API server.
 
-## 12. Resources, probes a autoscaling boundary
+Ak request vôbec nedorazil do očakávaného API endpointu, audit event môže chýbať. Client kubeconfig, proxy a DNS control-plane endpointu sú pred API serverom.
+
+## Controller nerobí progress
+
+Porovnaj generation a observedGeneration:
+
+```bash
+kubectl get deployment payments-api -n production \
+  -o jsonpath='generation={.metadata.generation} observed={.status.observedGeneration}{"\n"}'
+```
+
+Ak observed zaostáva, controller nemusí spracúvať latest intent. Skontroluj leader election, controller logs/metrics a API watches. Ak observed sedí, čítaj conditions a child objects.
+
+Events sú užitočné, ale nie úplné:
+
+```bash
+kubectl get events -n production --sort-by=.lastTimestamp
+```
+
+Controller môže opakovane zlyhávať na quota, admission alebo external API. Restart controller-managera nie je oprava neplatného desired state-u.
+
+## Pod je Pending bez Node
+
+```bash
+kubectl describe pod -n production <pod-name>
+```
+
+Scheduling message môže kombinovať insufficient resources, taints, affinity a volume topology. Potrebujeme zistiť, či existuje aspoň jeden Node spĺňajúci všetky hard constraints.
+
+Skontroluj requests, Node labels/taints, PVC topology a host ports. Pridanie všeobecnej Node kapacity nepomôže, ak volume je viazaný na inú zone alebo required anti-affinity už obsadila všetky eligible hosts.
+
+Scheduler diagnosis končí, keď Pod dostane `.spec.nodeName`. Ďalšie zlyhanie patrí Node vrstve.
+
+## Pod má Node, ale container nevznikol
+
+`ContainerCreating`, `ErrImagePull`, `FailedCreatePodSandBox`, `FailedMount` a `FailedAttachVolume` vznikajú pred application serving state-om.
+
+```bash
+kubectl describe pod -n production <pod-name>
+kubectl get pod -n production <pod-name> -o yaml
+```
 
 Rozlišuj:
 
 ```text
-source resource intent
-→ admitted requests/limits
-→ scheduler reservation
-→ cgroup runtime enforcement
-→ usage/throttling/OOM/pressure
-→ probe verdict
-→ HPA recommendation
-→ serving capacity
+sandbox/CNI failure
+image resolution alebo pull
+volume provision/attach/mount
+local Node admission a resource pressure
+container create security/config error
 ```
 
-`kubectl top` je current sample, nie historický OOM alebo throttling dôkaz. HPA môže správne zvýšiť desired replicas, ale quota, scheduling, readiness alebo downstream capacity môžu zabrániť business scale-upu.
+Pri Node-local diagnostike použite nástroje platformy, napríklad `crictl`, kubelet/runtime/CNI/CSI logs a host filesystem/network state. Zachovaj sandbox/container ID a správny CRI endpoint.
 
-## 13. Security a identity boundary
+Application logs pri `FailedCreatePodSandBox` nedávajú zmysel, pretože process nevznikol.
 
-Pri access alebo permission incidente fixuj:
+## Container crashuje
 
-- credential generation a authenticated subject/groups;
-- exact verb/group/resource/subresource/namespace;
-- všetky bindings a aggregated rules;
-- admission a runtime consequences;
-- external credential alebo secret už získaný pred revokáciou.
+Prečítaj current a previous state:
 
-Nepridávaj `cluster-admin`, privileged Pod, hostNetwork alebo široký hostPath ako diagnostický shortcut. Debug capability musí mať ownera, scope, audit a expiry.
+```bash
+kubectl get pod -n production <pod-name> \
+  -o jsonpath='{.status.containerStatuses[0]}' | jq .
 
-## 14. Unknown operation outcome
+kubectl logs -n production <pod-name> -c api --previous
+```
 
-Timeout neznamená, že mutation neprebehla. Pri controller/cloud/storage/identity operácii:
+Exit code a reason sú signály, nie úplná príčina. `OOMKilled` smeruje k memory/cgroup analýze. `Error` s exit 1 potrebuje application logs. Exit 137 môže byť OOM alebo iný SIGKILL. `permission denied` môže byť filesystem, seccomp, capabilities alebo LSM.
+
+`CrashLoopBackOff` je backoff po opakovaných failures, nie root cause. Hľadaj prvý terminated state a startup inputs.
+
+## Running nie je Ready
+
+Ak process beží, ale readiness zlyháva:
+
+```bash
+kubectl describe pod -n production <pod-name>
+kubectl get pod -n production <pod-name> \
+  -o jsonpath='{range .status.conditions[*]}{.type}{"="}{.status}{" reason="}{.reason}{"\n"}{end}'
+```
+
+Testuj endpoint z relevantného pathu. Kubelet HTTP probe ide priamo na Pod IP, nie cez Service. Application môže odpovedať na localhost a nie na Pod interface. Readiness môže používať zlý path, port alebo Host header.
+
+Ak dependency zlyháva, rozhodni, či readiness contract správne odpojuje Pod alebo zbytočne premieňa shared incident na total outage. Vypnutie readiness iba skryje problematický serving state.
+
+## Service nemá endpoints
+
+```bash
+kubectl get service payments-api -n production -o yaml
+kubectl get endpointslices -n production \
+  -l kubernetes.io/service-name=payments-api -o yaml
+kubectl get pods -n production --show-labels
+```
+
+Prázdny EndpointSlice backend inventory zvyčajne znamená selector mismatch alebo žiadne Ready matching Pods. Kontroluj named targetPort a targetRef UID.
+
+Service selector nepozná Deployment ownership. Debug Pod s rovnakým labelom môže byť nesprávne vybraný.
+
+## Direct Pod funguje, Service nie
+
+Controlled debug Pod môže porovnať:
 
 ```text
-operation request s idempotency/owner key
-→ external side effect
-→ response sa stratí
-→ Kubernetes status ostane stale
+Pod IP:containerPort
+Service DNS/ClusterIP:servicePort
 ```
 
-Pred retry najprv read-back-ni authoritative external state podľa stable owner/operation identity. Blind retry môže vytvoriť duplicate load balancer, disk, certificate alebo payment.
+Ak direct Pod path funguje a Service path nie, hypotézy zahŕňajú Service port mapping, EndpointSlice, NetworkPolicy, per-Node Service dataplane alebo return path.
 
-## 15. Controlled reproduction
+Test musí pochádzať z affected source Node/Pod identity. Service dataplane môže byť chybný iba na jednej Node generácii.
 
-Najmenší bezpečný test zachová relevantné boundaries:
+## DNS zlyháva
 
-- rovnaký namespace, ServiceAccount a policies;
-- rovnaký Node/failure-domain alebo target cohort;
-- server-side dry-run pre admission;
-- direct Pod vs. Service vs. edge test;
-- read-only data verification;
-- approved ephemeral debug container;
-- isolated restore alebo upgrade lab.
+Zachovaj exact query a Pod resolver config:
 
-Test nesmie vytvoriť nevratné business side effects. Použi synthetic IDs, idempotency keys alebo read-only request class.
+```bash
+kubectl exec -n production <pod-name> -- cat /etc/resolv.conf
+```
 
-## 16. Remediation decision
+Porovnaj krátke meno, namespace-qualified meno a FQDN, A/AAAA, UDP/TCP a affected/unaffected Node.
 
-Vyber podľa authoritative state:
+CoreDNS Pod Ready nepreukazuje Service path z affected Node-u. NodeLocal DNSCache pridáva per-Node failure boundary. NetworkPolicy musí povoľovať actual resolver destination a TCP fallback.
 
-1. **Reconcile deklaratívny drift**, ak desired state je správny a controller vstup chýba.
-2. **Roll-forward**, ak nová immutable generation môže bezpečne opraviť image/config/Node/add-on.
-3. **Rollback**, iba ak stará generácia je compatible s current API/data/external state-om.
-4. **Replace Pod/Node**, ak lifecycle je disposable a state/fencing je overený.
-5. **Repair external dependency**, ak Kubernetes state je správny, ale provider asset je chybný.
-6. **Compensate**, ak side effect už prebehol a nemožno ho jednoducho vrátiť.
-7. **Restore**, iba pri strate authoritative state-u a s complete recovery setom.
+## NetworkPolicy alebo CNI
 
-Restart je experiment iba vtedy, keď má explicitnú hypotézu, scope a následné recurrence overenie.
-
-## 17. Verification a incident closure
-
-Technická remediation nie je closure. Over:
+Pri network failure fixuj source Pod UID/IP/Node, destination UID/IP/Node, port, protocol a timestamp. Potom oddeľ:
 
 ```text
-original user/business outcome
-exact accepted artifact/config/data/identity generations
-allowed aj forbidden network/security operations
-replacement/restart/failover behavior
-adjacent Nodes/zones/releases/tenants
-second reconciliation alebo retry no-op
-telemetry coverage a alert recovery
-old broken/stale generations retired
-follow-up control s ownerom a termínom
+application bind/listener
+NetworkPolicy verdict
+same-Node path
+cross-Node route/tunnel
+Service NAT/translation
+MTU a conntrack
+reverse path
 ```
 
-Incident timeline musí oddeľovať fakt, hypotézu, test a zmenu:
+Policy YAML môže vyzerať správne, ale selector môže vybrať inú množinu. Allowed flow musí prejsť a forbidden flow musí zlyhať z očakávaného dôvodu.
+
+Plošné zmazanie NetworkPolicy počas incidentu rozšíri exposure a môže odstrániť dôkaz. Bezpečnejšie je controlled temporary allow pre presný subject s ownerom a expiry, ak je containment rozhodnutie schválené.
+
+## Storage
+
+```bash
+kubectl get pvc -n production -o wide
+kubectl get pv
+kubectl get volumeattachments.storage.k8s.io
+kubectl describe pod -n production <pod-name>
+```
+
+`PVC Bound` nepreukazuje attach alebo mount. `Mounted` nepreukazuje správnu data generation. Sleduj PVC UID, PV UID, CSI volumeHandle, topology, attachment a backend state.
+
+Force detach alebo force delete bez fencing-u môže vytvoriť dvoch writerov. Pri stateful incidente najprv potvrď, že starý Node/process už nemôže zapisovať.
+
+## CPU, memory a Node pressure
+
+`kubectl top` je začiatok:
+
+```bash
+kubectl top pod -n production <pod-name> --containers
+kubectl top node <node-name>
+```
+
+CPU throttling nemusí byť viditeľný z usage sample. Memory limit môže spôsobiť OOM. Node disk/inode/PID pressure môže evictovať Pods alebo zablokovať image pull.
+
+Čítaj Pod terminated reason, Node conditions a Node-local cgroup/pressure/filesystem evidence. Rozlišuj container OOM restart v rovnakom Pod UID od Pod eviction a replacementu.
+
+## HPA nereaguje alebo scale nepomáha
+
+```bash
+kubectl describe hpa payments-api -n production
+kubectl get deployment payments-api -n production
+kubectl get events -n production --sort-by=.lastTimestamp
+```
+
+HPA môže nemať fresh metrics, môže byť na min/max limite alebo môže správne zvýšiť desired replicas, ktoré sa následne nevytvoria pre quota alebo sa neschedulujú.
+
+End-to-end autoscaling chain je:
 
 ```text
-14:07 — request P-884 skončil 502 na Pod UID X, Node UID N7 (fakt)
-14:09 — target Node dataplane je kandidát (hypotéza)
-14:12 — packet vstúpil na source Node, nedorazil do tunnel peeru (dôkaz)
-14:25 — target cohort odstránená z trafficu (containment)
-15:10 — np-136-v2 canary prešiel packet/business testom (recovery evidence)
+metric
+→ HPA desired replicas
+→ Deployment scale
+→ Pod create/admission
+→ scheduling/Node capacity
+→ runtime/readiness
+→ Service capacity
 ```
 
-## 18. Referenčná failure-domain mapa
+Zelený HPA condition nie je serving capacity.
+
+## API server alebo etcd
+
+Ak writes zlyhávajú cluster-wide, over stable endpoint a readiness:
+
+```bash
+kubectl get --raw='/readyz?verbose'
+```
+
+API server listener môže byť dostupný a etcd quorum nie. Bežiace workloads môžu pokračovať. Nevykonávaj etcd restore ako prvú reakciu na transient latency alebo jeden broken API server backend.
+
+Etcd recovery vyžaduje snapshot identity, fencing a cluster-wide DR runbook. Najprv preserve component logs, member state a exact error.
+
+## Observability môže klamať absenciou
+
+Ak central logs neobsahujú errors z affected cohorty, over telemetry coverage:
 
 ```text
-context/identity
-API/auth/RBAC/admission
-etcd/persistence/watch
-controller/owner/finalizer
-scheduler/capacity/topology
-kubelet/runtime/cgroups
-CNI/Service/DNS/Gateway
-CSI/storage/data/fencing
-config/secret/process-loaded state
-application/dependency/business transaction
-telemetry/evidence pipeline
-external provider resources
+má každý affected Node collector Pod?
+sleduje správnu runtime log path?
+kedy prišiel posledný record z Pod UID?
+funguje local kubectl logs?
+majú metrics/traces rovnakú medzeru?
 ```
 
-Mapa sumarizuje mechanizmy z celej sekcie. Nie je povinným poradím príkazov.
+Chýbajúce telemetry je vlastný failure. Nemusí byť root cause application incidentu.
 
-## 19. Anti-patterny
+## Detailný incident: green cluster, intermittent 502 po Node upgrade-e
 
-- restart alebo delete pred evidence preservation;
-- meniť viac vrstiev naraz;
-- dashboard považovaný za authoritative runtime state;
-- Pod name, mutable tag alebo PVC name považované za úplnú identity;
-- `nodeName`, hostNetwork alebo privileged mode ako rýchla oprava;
-- vypnutie NetworkPolicy, Pod Security alebo TLS verification plošne;
-- `chmod 777` bez identity/LSM analýzy;
-- force delete alebo force detach stateful subjectu bez fencing;
-- `cluster-admin` pre `Forbidden`;
-- etcd restore pri bežnom application/add-on incidente;
-- green readiness považovaná za business acceptance;
-- absent logs považované za absent failure;
-- retry po unknown outcome bez read-backu;
-- incident uzavretý bez forbidden a adjacent-cohort testu.
+### Symptom
 
-## 20. Praktický incident record
+Po rollout-e Node poolu `np-136-v1` začalo približne 20 % payment requestov vracať 502. Deployment `payments-api` mal desired, ready aj available replicas. Pods boli rozdelené medzi staré a nové Nodes. Zlyhané requesty sa vždy mapovali na Pod na novej Node generation. Central logs z týchto Podov chýbali, ale logs zo starých Nodes boli normálne.
+
+### Zafixovanie requestu
+
+Z edge logu sa vybral request `req-81f2`, payment ID `pay-100` a backend Pod IP. EndpointSlice targetRef priradil IP ku konkrétnemu Pod UID.
+
+```bash
+kubectl get endpointslices -n production \
+  -l kubernetes.io/service-name=payments-api -o json \
+  > evidence/endpointslices.json
+
+kubectl get pod -n production <affected-pod> -o json \
+  > evidence/affected-pod.json
+
+kubectl get node <affected-node> -o json \
+  > evidence/affected-node.json
+```
+
+Zaznamenal sa imageID, config generation, Node UID, Node image label, kubelet/runtime a CNI DaemonSet revision.
+
+### Konkurenčné hypotézy
+
+Aplikácia mohla mať inú konfiguráciu, readiness mohla byť plytká, CPU mohol byť throttled, Service selector mohol publikovať nesprávny Pod, NetworkPolicy mohla blokovať iba novú cohortu, CNI route/tunnel alebo Service dataplane mohli byť partial a chýbajúci collector mohol skrývať application error.
+
+Namiesto okamžitého restartu sa porovnal jeden zdravý old-Node Pod a jeden zlyhávajúci new-Node Pod s rovnakým imageID a config generation.
+
+### Rozdelenie application a network hypotéz
+
+Z affected Node-u fungoval request na application localhost v Pode a same-Node Pod-to-Pod traffic. Cross-Node direct Pod IP a Service path intermittently zlyhávali pri väčších payloads. Application logs cez `kubectl logs` neukazovali request, ktorý sa k procesu nikdy nedostal.
+
+EndpointSlice bol správny a NetworkPolicy engine reportoval allow verdict. Packet capture ukázal packet na source Node-i, ale nie na destination Node-i pri tunelovanej ceste.
+
+### Root cause
+
+Nový Node image nepoužil kernel module a MTU configuration očakávanú CNI revision. CNI agent process a shallow health endpoint boli zelené, no dataplane initialization bola partial. Malé a same-Node flows fungovali, cross-Node payloads sa strácali.
+
+Collector failure bol druhý problém. Nový runtime zapisoval logs do zmenenej path generation a collector DaemonSet sledoval starý path. Preto central query bola slepá iba na nových Nodes.
+
+### Containment
+
+Nový Node pool sa zastavil. Affected Nodes sa cordonovali a application endpoints sa z nich postupne odobrali cez bezpečný drain, pričom sa rešpektoval PDB a payment idempotency. Nodes, CNI state, routes a packet captures sa zachovali pred replacementom.
+
+NetworkPolicy ani TLS sa nevypínali plošne. Client retries sa dočasne obmedzili, aby nezosilňovali duplicate-payment riziko.
+
+### Autoritatívna oprava
+
+Platforma vytvorila immutable Node image `np-136-v2` s opraveným kernel/CNI prerequisite a zladenou MTU. Nové Nodes zostali pod bootstrap taintom, kým capability canary neoverila sandbox, DNS, same/cross-Node traffic, Service, allowed/forbidden NetworkPolicy, storage a telemetry.
+
+Collector konfigurácia sa aktualizovala na nový runtime path a coverage gate vyžadovala fresh logs a metrics z každého Node-u.
+
+### Recovery verification
+
+Na novej cohort-e prešli:
 
 ```text
-symptom a business impact
-scope/cohorts/timeline
-recent change inventory
-exact subject identities
-expected control/data path
-competing hypotheses
-observation/test/result log
-preserved evidence locations
-containment a approver
-root cause a contributing control failures
-authoritative recovery
-original/forbidden/adjacent verification
-RTO/RPO/data-loss/duplicate outcome
-follow-up control, owner a deadline
+malé aj veľké cross-Node payloady
+ClusterIP a Gateway request
+allowed NetworkPolicy flow
+forbidden NetworkPolicy flow
+payment commit exactly once
+image/config/secret identity
+central aj local telemetry
+Node replacement a druhý reconcile cycle
 ```
 
-## 21. Kontrolné otázky
+Starý chybný Node pool sa odstránil až po stabilnom canary a business SLO. Incident sa neuzavrel iba zmiznutím 502; overila sa aj absencia duplicate authorizations.
 
-1. Ako preložíš používateľský symptóm na exact Kubernetes subjects?
-2. Ktoré evidence musíš zachovať pred Pod/Node restartom?
-3. Ako control path odlíšiš od request/data pathu?
-4. Prečo cohort comparison často zrýchli intermittent incident?
-5. Ktorý test odlíši application failure od Service dataplane failure?
-6. Ako rozlíšiš root cause od telemetry blind spotu?
-7. Kedy je scheduler irelevantný pre chýbajúci Pod?
-8. Prečo timeout external operácie neznamená, že side effect nevznikol?
-9. Kedy je replacement bezpečný a kedy potrebuje fencing?
-10. Ktoré dôkazy tvoria subject-bound incident closure?
+## Controlled reproduction
 
-## Glossary impact
+Keď production evidence nestačí, vytvor controlled reproduction s rovnakým image, config a Node generation, ale bez production trafficu. Meníš iba jednu premennú:
 
-Relevantné pojmy: Kubernetes incident subject, symptom-to-subject translation, control/data-path map, cohort differential diagnosis, discriminating observation boundary, volatile evidence envelope, telemetry blind-spot subject, containment generation, unknown-operation outcome, authoritative remediation subject, original-outcome verification, forbidden-outcome verification, adjacent-cohort verification, second-reconciliation verdict a subject-bound incident closure.
+```text
+old vs. new Node
+same vs. cross-Node path
+Service vs. direct Pod
+small vs. MTU-sized payload
+policy on vs. presný controlled allow
+```
 
-## Oficiálna dokumentácia
+Reproduction nemá používať production Secret alebo vykonať reálny payment. Jej cieľom je rozdeliť technické hypotézy.
 
-- [Monitoring, logging and debugging](https://kubernetes.io/docs/tasks/debug/)
-- [Troubleshooting clusters](https://kubernetes.io/docs/tasks/debug/debug-cluster/)
-- [Debug running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)
-- [Debug Services](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/)
-- [Troubleshooting kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
+## Remediation podľa chybnej vrstvy
+
+Restart je vhodný pri dočasnom process state-e, ktorý application nevie obnoviť. Recreate Podu je vhodný, keď Pod runtime/config generation je chybná, ale template je správna. Rebuild a rollout sú potrebné pri chybnom image alebo template. Node replacement rieši host/runtime drift. Etcd restore patrí cluster state disaster recovery.
+
+```text
+process state → restart container/Pod podľa contractu
+effective Pod runtime → controlled recreate
+source template/image → versionovaný roll-forward
+Node/kernel/runtime → cordon, drain a immutable replacement
+control-plane data loss → DR restore
+```
+
+Najnižší zásah, ktorý odstráni root cause a zachová safety, je lepší než plošný reboot.
+
+## Recovery acceptance
+
+Po oprave over pôvodný outcome aj zakázané outcomes:
+
+```text
+pôvodný request funguje
+payment vznikne práve raz
+nová aj susedné cohorts sú zdravé
+forbidden network/RBAC/security paths zostávajú blokované
+old digest/config/Node generation nie sú v serving inventory
+telemetry pokrýva všetky sources
+second reconcile/restart nemení verdict
+```
+
+Bez forbidden testu môže incidentná oprava obnoviť dostupnosť tým, že odstráni security control. Bez second-cycle testu môže byť oprava iba ručný drift.
+
+## Model, ktorý si treba odniesť
+
+Kubernetes incident rieš od používateľského symptómu k presnému cluster, object, Pod, Node, data a flow subjectu. Zachovaj evidence, rozdeľ control path a data path, nájdi prvý chýbajúci transition a vyber test, ktorý rozdelí viac hypotéz. Remediation musí meniť autoritatívnu vrstvu a recovery sa uzatvára technickým, business aj forbidden-outcome dôkazom.
+
+## Referencie
+
+- [Troubleshooting Applications](https://kubernetes.io/docs/tasks/debug/debug-application/)
+- [Troubleshooting Clusters](https://kubernetes.io/docs/tasks/debug/debug-cluster/)
+- [Debugging Kubernetes Nodes with crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
+- [Services, Load Balancing, and Networking](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
 
 **Navigácia**
 
-[← Predchádzajúca: Logging, metrics a events](logging-metrics-events.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Helm chart, template, values a release →](../10-helm-and-cka/helm-chart-template-values-release.md)
+[← Predchádzajúca: Praktický Kubernetes projekt od manifestov po overený rollout](kubernetes-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Helm chart, template, values a release →](../10-helm-and-cka/helm-chart-template-values-release.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

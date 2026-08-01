@@ -1,717 +1,218 @@
 # Control plane components
 
-Kubernetes control plane nie je jeden process ani jeden health endpoint. Je to sada navzájom previazaných capabilities, ktoré musia zachovať API read/write path, persistent cluster state, scheduling, reconciliation a integration transitions.
+Control plane je súbor komponentov, ktoré chránia Kubernetes API, uchovávajú cluster state a robia cluster-wide rozhodnutia. Nie je to jedna monolitická služba. API server, etcd, scheduler a controller-manager majú odlišné úlohy, odlišný state a odlišné failure semantics. Keď ich zle zlejeme do jednej predstavy „master node“, pri incidente často hľadáme v nesprávnej vrstve.
 
-Dominantný lifecycle:
+V našom scenári pipeline mení Deployment `production/payments-api` na generation 12. Control plane musí request prijať, uložiť, vytvoriť nový ReplicaSet, vytvoriť Pods a prideliť ich Nodes. Samotné spustenie containerov už patrí worker-node vrstve.
 
-```text
-client intent a cluster endpoint
-→ API load balancer a server readiness
-→ authentication a authorization
-→ mutation, validation a admission
-→ etcd persistence a watch publication
-→ scheduler alebo controller queue
-→ leader-owned decision a API write
-→ cloud/platform integration
-→ effective workload transition
-→ capability-specific verification a recovery
+## API server: vstupná a autorizačná hranica
+
+`kube-apiserver` vystavuje Kubernetes REST API. Každý write prechádza authentication, authorization, admission, validation a persistence. API server je jediný komponent, cez ktorý má bežný controller meniť Kubernetes objekty; priamy zápis do etcd by obišiel API invariants, audit a field ownership.
+
+Základné overenie:
+
+```bash
+kubectl cluster-info
+kubectl get --raw='/livez?verbose'
+kubectl get --raw='/readyz?verbose'
 ```
 
-Pri incidente sa nepýtaj iba „je control plane up?“. Pýtaj sa:
+Liveness odpovedá, či proces žije. Readiness odpovedá, či je pripravený bezpečne obsluhovať requests. Ani jeden endpoint nepreukazuje, že konkrétny webhook, resource alebo business rollout funguje end-to-end.
 
-```text
-Ktorá capability mala vykonať ktorý transition?
-Bol request prijatý, povolený, admitted a persistovaný?
-Videli ho watches a queues?
-Mal príslušný component leadera, permissions a capacity?
-Bol jeho output uložený a následne vykonaný?
+Pri requeste možno sledovať serverový výsledok bez persistovania:
+
+```bash
+kubectl apply --server-side --dry-run=server \
+  --field-manager=atlas-release \
+  -f deployment.yaml -o yaml
 ```
 
-## 1. Atlas control-plane subject
+Tento príkaz vykoná API parsing, conversion, defaulting a admission podľa serverovej konfigurácie. Nevykoná controller reconciliation ani scheduler.
 
-Atlas Payments rollout `4.2.0` používa:
+### Authentication a authorization
 
-```text
-cluster: atlas-prod-eu1
-API endpoint: api.atlas-prod-eu1.example
-Kubernetes version: v1.x supported release line
-Deployment UID/generation: D42/12
-expected Pods: 6
-control-plane topology:
-  3 API servers za load balancerom
-  3-member etcd cluster
-  3 scheduler replicas s leader election
-  3 controller-manager replicas s leader election
-admission generation: AP17
-cloud-controller generation: CC9
-required outcome:
-  write/read/watch funguje
-  generation 12 sa reconcile-ne
-  Pods sa naplánujú
-  Service traffic vykoná payment transaction
+API server najprv určí identitu caller-a. Potom RBAC alebo iný authorizer rozhodne, či identita smie vykonať konkrétny verb nad konkrétnym resource a scope.
+
+```bash
+kubectl auth whoami
+kubectl auth can-i patch deployments.apps -n production
+kubectl auth can-i create pods -n production --as=system:serviceaccount:production:payments-operator
 ```
 
-Control-plane success nie je iba:
-
-```text
-TCP 6443 open
-```
-
-Je to:
-
-```text
-request reaches correct cluster
-+ identity/policy decision is correct
-+ object persists durably
-+ watches and queues progress
-+ scheduler/controllers produce valid outputs
-+ outputs reach workload and business state
-```
-
-## 2. Capability inventory
-
-| Capability | Hlavný owner | Primary state/output |
-|---|---|---|
-| API serving | API server + load balancer | request/response, discovery, read/write/watch |
-| Persistence | etcd cez API server | durable object revisions |
-| Authentication | API server authenticators | user/groups/extra identity |
-| Authorization | API server authorizers | allow/deny verdict |
-| Admission | built-in plugins/webhooks | mutated alebo accepted/rejected object |
-| Scheduling | kube-scheduler | Pod-to-Node binding |
-| Built-in reconciliation | kube-controller-manager | dependent objects a status |
-| Cloud reconciliation | cloud-controller-manager/provider controllers | Nodes, routes, load balancers podľa platformy |
-| API extension | CRDs/aggregated APIs | additional resource contracts |
-| Leadership | Lease coordination | active scheduler/controller instance |
-
-Jedna capability môže byť healthy, kým iná zlyháva. `kubectl get` môže fungovať pri nefunkčných writes. Existing Pods môžu bežať pri nefunkčnom schedulerovi. API môže byť ready pre reads, ale matching writes môžu timeoutovať na admission webhooku.
-
-## 3. API endpoint a load-balancer boundary
-
-Client path:
-
-```text
-kubeconfig context
-→ DNS
-→ route/firewall
-→ API load balancer
-→ selected API server
-→ TLS a HTTP request
-```
-
-Load balancer má odstraňovať unhealthy API instances, ale jeho TCP healthcheck nepreukazuje semantic API readiness.
-
-Relevantné stavy:
-
-- `/livez` — process nemá byť reštartovaný;
-- `/readyz` — instance je pripravená obsluhovať relevantný traffic;
-- verbose readiness — ukáže jednotlivé failing checks;
-- API request metrics — ukážu latency, response codes a saturation.
-
-### Failure boundary: TCP success, API write failure
-
-```text
-load balancer otvorí TCP
-→ API process odpovie
-→ readiness dependency na etcd zlyháva
-→ read alebo cached path môže čiastočne fungovať
-→ writes timeoutujú
-```
-
-Health model musí testovať capability, ktorú traffic potrebuje.
-
-## 4. API write-path subject
-
-Pre jeden write zafixuj:
-
-```text
-cluster endpoint a CA
-API server instance/request ID
-caller identity a groups
-verb, GVR, namespace, name/subresource
-request object digest
-field manager a preconditions
-admission configuration generation
-response code a latency
-etcd revision/resourceVersion outcome
-audit record
-```
-
-Rovnaký error text bez request subjectu môže patriť inému clusteru, API serveru, webhooku alebo object generation.
-
-## 5. Authentication, authorization a admission
-
-### Authentication
-
-Odpovedá:
-
-```text
-Kto je caller?
-```
-
-Výsledok zahŕňa user, groups a extra attributes.
-
-### Authorization
-
-Odpovedá:
-
-```text
-Môže táto identita vykonať verb nad týmto resource/subresource v tomto scope?
-```
-
-`pods` a `pods/exec` sú odlišné authorization targets.
+`can-i` je užitočný pre otázku policy intentu, ale nezachytí všetky runtime detaily external authorizerov alebo admission webhooks. Skutočný request a audit event ostávajú autoritatívnym dôkazom.
 
 ### Admission
 
-Po identity a authorization rozhodnutí môže request:
+Po authorization môže request zmeniť alebo odmietnuť admission. Mutating webhook môže doplniť sidecar alebo labels. Validating policy môže zakázať mutable image tag, privileged container alebo chýbajúce requests.
 
-- mutovať;
-- defaultovať;
-- validovať;
-- odmietnuť;
-- podliehať quota alebo policy.
+Failure tu znamená, že object generation nevznikla. Scheduler alebo kubelet nemajú čo riešiť. Hľadaj API status code, reason, webhook name, timeout policy a audit event.
 
-Tieto boundaries majú odlišné evidence:
-
-```text
-Unauthorized
-≠ Forbidden
-≠ admission rejection
-≠ schema validation error
-≠ persistence timeout
+```bash
+kubectl apply -f deployment.yaml -v=8
 ```
 
-## 6. Admission webhook ako synchronous dependency
+Verbose client output môže ukázať HTTP request a response. Pri produkčnom incidente však chráň credentials a nezverejňuj citlivé payloady.
 
-Matching API request čaká na webhook response podľa timeout/failure policy.
+## etcd: trvalý cluster state a quorum
 
-Webhook contract potrebuje:
+Etcd uchováva Kubernetes API state. Control-plane HA nie je iba počet API serverov; potrebuje zdravé etcd quorum, správne membership, disk latency a obnoviteľné snapshots.
 
-- narrow match scope;
-- vysokú dostupnosť;
-- nízku latency;
-- správny CA/DNS/network path;
-- bounded timeout;
-- reviewovaný fail-open/fail-closed model;
-- side-effect discipline;
-- upgrade compatibility;
-- break-glass postup.
-
-### Failure boundary: webhook závisí od workloadu, ktorý sám blokuje
-
-Policy webhook mal jednu repliku. Pri rollout-e starej repliky sa nový Pod nedal vytvoriť, pretože webhook fail-closed blokoval všetky Pod creates vrátane vlastného replacementu.
+Pri troch members môže cluster tolerovať výpadok jedného. Pri strate quorum sa writes zastavia. Bežiace Pods na Nodes môžu ďalej spracúvať traffic, pretože kubelet a aplikácia už majú lokálny runtime state. Control plane však nevie bezpečne uložiť novú Deployment generation alebo status update.
 
 ```text
-webhook unavailable
-→ API odmietne create webhook Podu
-→ webhook sa nemôže obnoviť cez bežný controller path
-→ matching writes v clusteri ostanú blokované
+API listener je dostupný
++ etcd quorum chýba
+→ reads môžu byť čiastočne dostupné podľa operácie
+→ writes zlyhávajú alebo sa blokujú
+→ existujúce workloads nemusia okamžite spadnúť
 ```
 
-Availability dependency graph musí zabrániť self-deadlocku.
+Etcd health sa posudzuje na control-plane hostoch cez nástroje a certifikáty zodpovedajúce konkrétnej distribúcii. Generické kopírovanie `etcdctl` príkazov bez správnych endpoints, CA a member identity môže viesť k diagnostike nesprávneho clusteru.
 
-## 7. Persistence cez etcd
+Dôležité signály sú leader stability, proposal latency, fsync/disk latency, database size, alarms a member health. Samotný „endpoint health=true“ nie je backup ani restore proof.
 
-API server používa etcd ako authoritative backing store pre Kubernetes API state.
+## Controller manager: viac controllers v jednom procese
 
-Write transition:
+`kube-controller-manager` hostí množstvo control loops, napríklad Deployment, ReplicaSet, Node lifecycle, Job, namespace a service-account token controllers. V cloud prostredí môžu cloud-specific controllers bežať v samostatnom cloud-controller-manageri.
+
+Controller manager typicky používa leader election. V HA control plane môže bežať viac replík, ale aktívny leader vykonáva príslušné controllers. Krátka leader zmena môže spomaliť reconciliation bez straty persisted intentu.
+
+```bash
+kubectl get leases -n kube-system
+```
+
+Leases ukazujú leader-election state, ale interpretácia závisí od názvov a distribúcie clusteru. Ak controller-manager proces žije, no informer cache sa nevie synchronizovať s API, controllers nemusia robiť progress.
+
+Pre `payments-api` sleduj objektový graph:
+
+```bash
+kubectl get deployment payments-api -n production -o yaml
+kubectl get rs -n production -l app=payments-api -o yaml
+kubectl get events -n production --sort-by=.lastTimestamp
+```
+
+Ak generation 12 existuje a `observedGeneration` zostáva 11, Deployment controller nemusí spracúvať najnovší intent. Ak observed generation sedí, ale ReplicaSet create zlyhal, conditions a Events môžu ukázať admission, quota alebo selector problém.
+
+## Scheduler: placement decision
+
+`kube-scheduler` sleduje Pods bez Node assignmentu. Pre každý Pod vytvorí candidate inventory, vykoná filter plugins nad hard constraints, score plugins nad vhodnými Nodes a zapíše binding.
+
+Scheduler nepripravuje CNI, nemountuje volume a nespúšťa image. Jeho úspešný výsledok je priradenie `.spec.nodeName`.
+
+```bash
+kubectl get pods -n production -l app=payments-api \
+  -o custom-columns='NAME:.metadata.name,NODE:.spec.nodeName,SCHEDULED:.status.conditions[?(@.type=="PodScheduled")].status'
+```
+
+Pri `Pending` Pode bez Node assignmentu čítaj scheduling Events:
+
+```bash
+kubectl describe pod -n production <pod-name>
+```
+
+Message môže obsahovať kombináciu dôvodov, napríklad insufficient memory, untolerated taint a topology constraints. Nevyberaj iba prvú frázu. Scheduler hodnotí množinu Nodes a viac constraints môže platiť naraz.
+
+Scheduler má tiež leader election a internal queues. Backoff alebo unschedulable queue neznamená, že Pod sa už nikdy nepridelí; zmena cluster state-u ho môže znovu aktivovať.
+
+## Cloud controller manager
+
+V external cloud-provider modeli rieši cloud-controller-manager Node lifecycle, routes alebo Service typu LoadBalancer podľa konkrétnej integrácie. Kubernetes Service môže mať `status.loadBalancer`, ale external cloud resource má vlastnú identitu a lifecycle.
+
+```bash
+kubectl get service payments-api -n production -o yaml
+```
+
+`spec.type: LoadBalancer` je request. `status.loadBalancer.ingress` je controller observation. Ani prítomná adresa nedokazuje funkčný listener, health checks, security groups alebo DNS.
+
+Unknown outcome pri cloud API mutation vyžaduje provider read-back. Blind create retry môže vytvoriť duplicate load balancer alebo IP allocation.
+
+## Leader election a HA
+
+Viac replík control-plane komponentu zvyšuje dostupnosť iba vtedy, keď majú spoločnú funkčnú dependency a správnu leader-election konfiguráciu. Tri API servery pred load balancerom nepomôžu, ak všetky používajú nedostupný etcd cluster alebo expirovaný signing key.
+
+Pri výpadku leadera controller alebo scheduler krátko zastaví mutations, kým nový leader nezíska Lease. Desired state zostáva v API a nový leader pokračuje. Dlhý výpadok leader election však spomalí Pod replacement, Jobs, rollouts a scheduling.
+
+## Certificates a identities
+
+Control-plane komponenty používajú viac certifikátov a identities: API serving certificate, etcd client/server/peer certificates, kubelet client identities, service-account signing keys a controller credentials. Expiry alebo nesprávna trust chain môže poškodiť iba jednu cestu.
+
+Napríklad:
 
 ```text
-admitted object
-→ etcd quorum proposal
-→ durable commit
-→ new revision/resourceVersion
+API server HTTPS funguje pre kubectl
+→ API server nevie autentizovať voči etcd
+→ readiness zlyhá a writes nie sú bezpečné
+```
+
+Alebo:
+
+```text
+API server a etcd fungujú
+→ controller-manager client certificate expiroval
+→ objects sa ukladajú, ale controllers nereagujú
+```
+
+Preto „control plane certificate“ nie je jedna položka. Inventory musí rozlišovať purpose, issuer, subject, expiry a rollout generation.
+
+## Static Pods v kubeadm-style clustri
+
+Pri self-managed kubeadm clustri bývajú control-plane komponenty definované ako static Pod manifests na jednotlivých Nodes. Kubelet ich spúšťa bez bežného scheduleru a API zobrazuje mirror Pods.
+
+```bash
+kubectl get pods -n kube-system -o wide
+```
+
+Zmena manifestu na jednom control-plane Node-e vytvorí novú lokálnu generation iba tam. Rolling update musí rešpektovať etcd quorum, API endpoint capacity a version skew. Ručné narazové prepísanie všetkých manifests môže vyradiť celý control plane.
+
+## Audit a observability
+
+API audit log odpovedá, kto, kedy a s akým výsledkom vykonal request. Component metrics a logs vysvetľujú latency, queue depth, errors a leader state. Events poskytujú používateľsky orientované správy, ale sú rate-limited a nie sú kompletným auditom.
+
+Pri incidente koreluj:
+
+```text
+request timestamp a audit ID
 → API response
-→ watch delivery
+→ object resourceVersion/generation
+→ controller reconcile
+→ scheduler decision
+→ Node execution
 ```
 
-etcd potrebuje:
+Chýbajúci audit event môže znamenať, že request nedorazil do očakávaného API endpointu. Chýbajúci Event neznamená, že chyba neexistovala.
 
-- quorum;
-- stabilnú nízku disk latency;
-- dostatok capacity/IOPS;
-- nízku peer latency;
-- správne certificates;
-- compaction/defragmentation policy;
-- quota monitoring;
-- snapshots a testovaný restore.
+## Incident: API je dostupné, rollout stojí
 
-## 8. Quorum a availability
+Pipeline úspešne vytvorila Deployment generation 12. `kubectl get` fungoval a API readiness bola zelená. Nový ReplicaSet však nevznikol.
 
-Pri troch voting members treba väčšinu dvoch. Pri piatich troch.
+Najprv sa overilo:
 
-Strata quorum znamená:
-
-```text
-existing workload processes môžu pokračovať
-+ niektoré reads môžu byť dočasne možné podľa pathu
-− bezpečné persistent writes nemôžu pokračovať
-− controllers/scheduler nemôžu spoľahlivo commitovať transitions
+```bash
+kubectl get deployment payments-api -n production \
+  -o jsonpath='{.metadata.generation}{" "}{.status.observedGeneration}{"\n"}'
+kubectl get leases -n kube-system
 ```
 
-Neobnovuj quorum náhodným force-new-cluster postupom bez identity, revision a restore protocolu. Nesprávna obnova môže vytvoriť divergent cluster state.
+`observedGeneration` zostávala na 11. Controller-manager leader Lease sa opakovane menila, pretože všetky repliky mali extrémnu CPU throttling a nestíhali renew deadline. API a etcd boli zdravé, ale controller leadership nebola stabilná.
 
-## 9. etcd latency ako system-wide amplifier
+Containment spočíval v pozastavení ďalších releases. Oprava upravila control-plane resource reservation a obnovila stabilnú leader election. Recovery sa overila spracovaním generation 12, vytvorením ReplicaSetu, schedulingom, readiness a payment synthetics.
 
-Pomalé fsync/commit operations spôsobia:
+## Incident: scheduler je zdravý, Pod zostáva Pending
 
-```text
-etcd latency
-→ API write latency a timeouts
-→ watch disconnects alebo lag
-→ controller client retries
-→ scheduler/controller queues rastú
-→ viac API pressure
-→ ďalšia latency
-```
+Scheduler logs neobsahovali internú chybu. Pod Event uvádzal, že všetky Nodes boli nevhodné pre kombináciu zone-bound PVC a podAntiAffinity. Pridanie ďalšej všeobecnej CPU kapacity nepomohlo, pretože nové Nodes boli v nesprávnej zone.
 
-Ide o reinforcing loop. Restart clients nemusí odstrániť storage príčinu a môže pressure zvýšiť.
+Root cause nebol scheduler process, ale nesplniteľný placement contract. Oprava zladila StorageClass topology, Node pool a workload spread pravidlá.
 
-Observation points:
+## Model, ktorý si treba odniesť
 
-- etcd leader/member health;
-- proposal failures;
-- fsync a commit latency;
-- database size/quota alarms;
-- peer RTT;
-- API etcd request duration;
-- watch reconnects;
-- controller client throttling.
+API server prijíma a chráni requests. Etcd drží autoritatívny cluster state. Controller-manager realizuje object graph a lifecycle control loops. Scheduler rozhoduje o Node placement-e. Cloud controller prepája vybrané objekty s cloud API. Každý komponent má vlastný dôkaz úspechu a vlastnú failure boundary. Produkčný outcome vzniká až ich spoločným fungovaním s worker Nodes a aplikáciou.
 
-## 10. Scheduler capability
+## Referencie
 
-Scheduler input:
-
-```text
-Pod bez nodeName
-+ current Node/resource/topology inventory
-+ scheduling profile/plugins
-```
-
-Output:
-
-```text
-binding na konkrétny Node
-```
-
-Scheduler:
-
-- filtruje hard constraints;
-- skóruje candidates;
-- rieši queueing/backoff a podľa konfigurácie preemption;
-- zapisuje assignment cez API.
-
-Nevytvára container a neoveruje readiness.
-
-### Failure boundary: scheduler down
-
-```text
-existing assigned Pods bežia
-new Pods existujú v API bez nodeName
-→ Pending
-```
-
-Toto je iný incident než Pod s `nodeName`, ktorý nevie vytvoriť sandbox alebo container.
-
-## 11. Scheduler subject a queues
-
-Zafixuj:
-
-```text
-Pod UID/generation
-schedulerName
-active scheduler leader
-scheduler version/profile digest
-queue state a attempts
-Node inventory generation
-requests/constraints/PVC/host-port state
-binding audit
-```
-
-Observation points:
-
-- `FailedScheduling` Events;
-- pending/unschedulable queue metrics;
-- scheduling attempt latency;
-- plugin latency/reasons;
-- leader Lease;
-- API conflicts/throttling;
-- Node/PVC/topology state.
-
-Permanent unschedulable input nemá byť zamieňaný s nefunkčným scheduler processom.
-
-## 12. Controller-manager capability
-
-`kube-controller-manager` hostí viac built-in control loops, napríklad:
-
-- Deployment/ReplicaSet-related controllers;
-- Node controller;
-- Job controller;
-- EndpointSlice controller;
-- Namespace controller;
-- ServiceAccount/token-related controllers;
-- garbage collector;
-- certificate controllers;
-- attach/detach controller podľa architektúry.
-
-Controller-manager process môže byť healthy, ale konkrétna queue môže byť preťažená alebo controller môže zlyhávať na permissions či object contracte.
-
-### Failure boundary: API writes fungujú, dependents nevznikajú
-
-```text
-Deployment create accepted
-→ etcd persistence successful
-→ controller-manager bez active leader alebo reconcile capability
-→ žiadny ReplicaSet
-```
-
-Scheduler nie je relevantný, kým Pod objects nevzniknú.
-
-## 13. Leader election
-
-Scheduler a controller-manager replicas typicky koordinujú active leadera cez Lease.
-
-Leader election poskytuje:
-
-- active instance selection;
-- failover po lease loss;
-- standby readiness.
-
-Neposkytuje:
-
-- exactly-once execution;
-- idempotenciu;
-- external transaction atomicity;
-- nulový overlap pri partitions/timeouts;
-- automatický queue recovery verdict.
-
-Po leader transition treba overiť queue progress, stale in-flight operations a generation closure.
-
-## 14. Cloud-controller boundary
-
-Cloud-controller-manager alebo provider-specific controllers môžu spravovať:
-
-- Node cloud identity/initialization;
-- routes;
-- Service load balancers;
-- cloud metadata a lifecycle.
-
-Core API môže byť healthy, hoci:
-
-- LoadBalancer Service ostáva pending;
-- Node má cloud initialization taint;
-- route sa nevytvorí;
-- cloud API rate limituje requests.
-
-Cloud API request IDs, workload identity, region/account a external resource IDs patria do control-plane subjectu.
-
-## 15. Aggregated APIs a CRDs
-
-### CRD
-
-Používa core API server storage/schema model.
-
-### Aggregated API
-
-`APIService` smeruje danú API group/version na extension API server.
-
-Failure aggregated API môže poškodiť konkrétnu discovery/resource capability bez toho, aby core Pods API bolo down.
-
-Diagnostika rozlišuje:
-
-- core discovery;
-- `APIService` availability condition;
-- extension Service/endpoints/TLS;
-- aggregation proxy path;
-- extension backend logs.
-
-## 16. Certificates, signing keys a time
-
-Control plane závisí od:
-
-- API server serving certificates;
-- client certificates;
-- etcd peer/client certificates;
-- service account signing keys;
-- webhook certificates;
-- front-proxy/aggregation trust;
-- presného času.
-
-Expiry alebo clock skew môže spôsobiť:
-
-- TLS failures;
-- unauthorized component requests;
-- webhook outage;
-- etcd peer loss;
-- leader-election instability;
-- token validation failure.
-
-Certificate inventory potrebuje ownera, expiration monitoring, rotation protocol a post-rotation verification.
-
-## 17. Static Pod a packaging boundary
-
-V kubeadm-like clusteri môžu control-plane components bežať ako static Pods:
-
-```text
-local manifest
-→ kubelet
-→ container runtime
-→ mirror Pod
-```
-
-Pri nefunkčnom API:
-
-- `kubectl logs` nemusí fungovať;
-- mirror Pod nemusí byť authoritative;
-- treba host filesystem, kubelet, runtime a journal evidence;
-- restart mechanism je zmena local manifestu alebo kubelet/runtime lifecycle podľa platformy.
-
-Iné distribúcie môžu používať systemd, dedicated VMs alebo managed provider control plane. Diagnostika musí poznať packaging a ownership.
-
-## 18. Stacked a external etcd
-
-### Stacked
-
-etcd zdieľa control-plane Nodes.
-
-Výhoda: jednoduchšia topológia.
-
-Riziko: zdieľaný host/resource/failure domain.
-
-### External
-
-etcd má samostatné Nodes a lifecycle.
-
-Výhoda: oddelený failure/resource domain.
-
-Riziko: viac network, certificate, bootstrap a restore complexity.
-
-Topológia musí byť súčasťou incident subjectu; inak operator môže diagnostikovať nesprávny host alebo failure domain.
-
-## 19. Worked failure: reads fungujú, writes timeoutujú a rollout laguje
-
-Atlas observuje:
-
-- `kubectl get pods` väčšinou funguje;
-- create/update requests občas timeoutujú;
-- Deployment generation 12 má starý `observedGeneration`;
-- scheduler a controller queues rastú;
-- existujúce Payments Pods ďalej obsluhujú traffic.
-
-### 1. Zafixuj subject
-
-```text
-cluster endpoint/CA a API server instances
-request IDs, verbs, GVRs a response latency
-API server readiness a version
-admission generation a matching webhook inventory
-etcd cluster/member IDs, leader, revision, DB size a disk
-scheduler/controller leader a queue generations
-certificate/time state
-audit sink/config generation
-last upgrade/config change
-Deployment D42 generation 12
-required workload/business outcome
-```
-
-### 2. Competing hypotheses
-
-1. API load balancer posiela writes na unready instance.
-2. Authentication alebo authorization backend je pomalý.
-3. Matching admission webhook timeoutuje.
-4. etcd disk fsync latency je vysoká.
-5. etcd stráca quorum alebo leadera.
-6. API server je saturovaný inflight requests/watchmi.
-7. Audit sink/backpressure blokuje request path podľa configuration.
-8. Scheduler/controller queues sú príčina, nie následok persistence latency.
-9. API client-side throttling sa javí ako server timeout.
-10. Certificate expiry alebo clock skew spôsobuje intermittent component failures.
-11. Aggregated API outage ovplyvňuje iba konkrétny resource, nie core writes.
-12. Network partition je medzi API servermi a etcd members.
-13. Recent admission/config upgrade vytvoril version-skew problém.
-14. Existing workload success maskuje nefunkčný management plane.
-
-### 3. Discriminating observations
-
-- `/readyz?verbose` per API instance;
-- API request duration histogram podľa verb/resource/code;
-- admission webhook duration/rejection/timeout a audit annotations;
-- etcd fsync/commit latency, leader changes, proposal failures a peer health;
-- API-to-etcd network latency;
-- API inflight, watch count a client throttling;
-- scheduler/controller queue age vs. API latency timeline;
-- leader Leases a component logs;
-- certificate expiration a clock offsets;
-- request ID correlation medzi API, webhook a audit;
-- direct core API request vs. aggregated API request;
-- static Pod/runtime logs na jednotlivých control-plane Nodes.
-
-### 4. Containment
-
-- zmraz nonessential writers a rollout automation;
-- zachovaj API/etcd/component metrics, logs a request IDs;
-- nereštartuj všetky control-plane components naraz;
-- neforce-ni etcd membership alebo restore bez quorum/state analýzy;
-- neodstraňuj admission policy naslepo; použi narrow, audited break-glass iba pri potvrdenej boundary;
-- udržuj existujúce healthy workloads a minimalizuj ďalšie replacements;
-- chráň etcd disk pred ďalším pressure.
-
-### 5. Recovery podľa príčiny
-
-- unready API instance/LB → oprav readiness routing a over každú instance;
-- webhook latency → obnov endpoint, CA/network, zúž match scope/timeout a revalidate writes;
-- etcd disk/quorum → obnov storage/network/member health podľa supported protocol;
-- API saturation → odstráň dominantný request/watch source a obnov capacity/backpressure;
-- audit pressure → obnov sink/policy podľa configured fail behavior;
-- scheduler/controller queue → obnov leader, permissions alebo hot-loop príčinu až po potvrdení healthy API persistence;
-- certificates/time → vykonaj riadenú rotation/synchronizáciu a component-by-component verification;
-- client throttling → oprav client QPS/concurrency bez skrytia server SLO problému.
-
-### 6. Over pôvodný outcome
-
-Potvrď:
-
-```text
-API read/write/watch synthetics
-+ /readyz na všetkých routovaných instances
-+ etcd quorum, commit latency a snapshot freshness
-+ admission write test
-+ scheduler Pod binding test
-+ controller dependent-object test
-+ Deployment observedGeneration 12
-+ six ready Payments Pods
-+ Service payment transaction exactly once
-```
-
-„Writes už menej timeoutujú“ nie je úplný recovery verdict.
-
-### 7. Posuň control skôr
-
-Pridaj:
-
-- control-plane capability matrix a synthetics;
-- per-instance semantic API readiness;
-- etcd fsync/commit SLO a disk isolation;
-- webhook availability/match-scope tests;
-- scheduler/controller queue-age alerts;
-- certificate inventory/rotation rehearsal;
-- control-plane request correlation IDs;
-- restore a leader-failover drills;
-- management-plane degradation runbook chrániaci existujúce workloads.
-
-## 20. Worked failure: scheduler vyzerá down, ale Pod je permanentne unschedulable
-
-Pod ostáva `Pending`. Scheduler leader a queue processing sú healthy. Event ukazuje kombináciu untolerated taint a unbound topology-constrained PVC.
-
-```text
-Pod v queue
-→ scheduler vykoná filters
-→ žiadny feasible Node
-→ correct FailedScheduling condition
-→ retry po relevantnej Node/PVC zmene
-```
-
-Restart schedulera by nezmenil input. Recovery musí opraviť requests/constraints/toleration/storage topology alebo capacity podľa workload contractu.
-
-## 21. Worked failure: controller-manager process beží, queue je v hot loope
-
-Jeden built-in alebo extension controller opakovane zapisuje status bez semantic zmeny.
-
-```text
-status update
-→ watch event
-→ enqueue
-→ status update
-```
-
-Process liveness je green, no queue age pre ďalšie objects rastie. Recovery vyžaduje zastaviť self-trigger, obnoviť backoff a overiť generation closure, nie iba reštartovať leadera.
-
-## 22. Control-plane observation matrix
-
-| Boundary | Subject | Diskriminačné observations |
-|---|---|---|
-| Endpoint | API LB a server instance | DNS/TLS, routing, `/readyz`, per-instance latency |
-| Identity | caller/authenticator | audit user/groups, token/cert/OIDC latency |
-| Authorization | verb/GVR/scope | allow/deny reason, RBAC evaluation |
-| Admission | webhook/policy generation | mutation, reject, timeout, match scope |
-| Persistence | etcd cluster/revision | quorum, fsync/commit, proposal, DB quota |
-| API capacity | request class | inflight, codes, watch count, throttling |
-| Scheduler | Pod UID/profile/leader | queue, FailedScheduling, binding audit |
-| Controller | owner UID/generation/leader | queue age, reconcile errors, dependents |
-| Cloud integration | external request/resource | provider audit, rate limits, external ID |
-| Certificates/time | credential generation | expiry, trust chain, clock offset |
-| Packaging | static Pod/systemd/managed | local manifests, runtime/journal/provider evidence |
-
-## 23. Upgrade a configuration transitions
-
-Control-plane upgrade musí rešpektovať:
-
-- supported version skew;
-- API removals a conversion;
-- etcd compatibility;
-- admission/webhook compatibility;
-- scheduler profiles;
-- controller flags/features;
-- certificates/signing keys;
-- rollback boundaries;
-- API/queue/workload validation.
-
-Pred transitionom:
-
-```text
-backup + restore proof
-→ deprecated API inventory
-→ webhook/add-on compatibility
-→ HA/capacity check
-→ staged component upgrade
-→ write/read/watch/schedule/reconcile tests
-→ workload business verification
-```
-
-Rollback binary version nemusí bezpečne rollbacknúť persisted API or etcd state.
-
-## 24. Referenčné pravidlá
-
-- Control plane je capability graph, nie jeden health status.
-- TCP success nie je semantic API readiness.
-- Authentication, authorization, admission, validation a persistence sú odlišné boundaries.
-- Admission webhook je synchronous write-path dependency.
-- etcd latency sa šíri do API, watches a controller queues.
-- Strata etcd quorum neznamená okamžitý stop všetkých workloads, ale blokuje bezpečné state transitions.
-- Scheduler vytvára binding, nie container.
-- Running controller-manager process nepreukazuje progress každej queue.
-- Leader election neposkytuje exactly-once.
-- Core API, aggregated APIs a CRDs majú odlišné serving/storage boundaries.
-- Static Pod mirror object nie je authoritative deployment source.
-- Existujúce workloady môžu maskovať degraded management plane.
-- Recovery musí overiť read, write, watch, schedule, reconcile aj pôvodný workload outcome.
-
-## 25. Kontrolné otázky
-
-1. Aký lifecycle tvorí Kubernetes control-plane write path?
-2. Prečo load-balancer TCP check nestačí pre API readiness?
-3. Ako odlíšiš authentication, authorization, admission a persistence failure?
-4. Ako etcd disk latency ovplyvní controllers a scheduler?
-5. Čo znamená strata etcd quorum pre existujúce a nové workloads?
-6. Ako sa prejaví scheduler outage oproti unschedulable Podu?
-7. Prečo controller-manager liveness nepreukazuje queue progress?
-8. Aké riziko vytvára fail-closed admission webhook?
-9. Ako static Pod topológia mení diagnostiku pri API outage?
-10. Čo musí control-plane recovery verdict overiť?
-
-## Glossary impact
-
-Relevantné pojmy: control-plane capability subject, API write-path subject, semantic API readiness, admission dependency subject, etcd persistence subject, etcd latency amplification loop, scheduler capability subject, controller queue subject, control-plane leader generation, cloud reconciliation subject, static control-plane authority, control-plane observation matrix a control-plane recovery verdict.
-
-## Oficiálna dokumentácia
-
-- [Kubernetes components](https://kubernetes.io/docs/concepts/overview/components/)
-- [`kube-apiserver`](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)
-- [`kube-scheduler`](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
-- [`kube-controller-manager`](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)
-- [Admission control](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)
-- [Scheduler configuration](https://kubernetes.io/docs/reference/scheduling/config/)
+- [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
+- [kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)
+- [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 - [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-- [API aggregation layer](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

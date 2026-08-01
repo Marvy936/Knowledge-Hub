@@ -1,130 +1,137 @@
 # Probes
 
-Kubernetes probe nie je všeobecné tvrdenie, že aplikácia je „zdravá“. Je to opakovaný test konkrétneho container generation z konkrétnej kubelet perspektívy. Výsledok sa premení na presne definovanú akciu: povoliť ďalšie health hodnotenie, reštartovať container alebo zmeniť traffic eligibility Podu. Business dostupnosť musí byť overená samostatne.
+Kubernetes probes dávajú kubeletu tri odlišné signály o containeri. Startup probe chráni pomalú inicializáciu. Liveness probe rozhoduje, či má kubelet container reštartovať. Readiness probe rozhoduje, či má Pod prijímať traffic. Ak tieto otázky zlejeme do jedného endpointu bez premysleného contractu, môžeme vytvoriť restart storm, odpojiť celý fleet pri shared dependency incidente alebo pustiť traffic na aplikáciu, ktorá ešte nie je pripravená.
 
-Táto kapitola používa jeden dominantný lifecycle:
+Pre `payments-api` používame `/healthz` ako veľmi plytký process-health endpoint a `/readyz` ako readiness kontrolu loaded configuration a kritickej lokálnej inicializácie. Business correctness overuje samostatný syntetický payment request, nie kubelet probe každých päť sekúnd.
 
-```text
-serviceability intent a failure/action model
-→ Pod, container a probe generation
-→ kubelet probe executor a observation path
-→ jednotlivé attempts, timeouty a hysterézia
-→ startup/liveness/readiness verdict
-→ container action, Pod condition a EndpointSlice cohort
-→ rollout, drain a client traffic
-→ business outcome
-→ containment, recovery a skorší control
-```
-
-## 1. Atlas Payments health subject
-
-Atlas Payments API 5.3.1 spracúva autorizácie platieb. Pre jednu repliku musí incidentný záznam fixovať:
-
-```text
-release a image digest
-Deployment/ReplicaSet revision
-Pod UID a Node
-container name, container ID a restart count
-probe type, handler, port/path a timing generation
-kubelet a Node generation
-probe attempt time, latency, result a reason
-Pod Ready/ContainersReady conditions
-EndpointSlice endpoint generation
-konkrétny payment request a client outcome
-```
-
-Názov Podu alebo text „readiness failed“ nestačí. Replacement Pod môže mať rovnaké labels, ale inú container, probe, endpoint a runtime generation.
-
-## 2. Tri verdicty, tri odlišné akcie
-
-### Startup
-
-Startup probe odpovedá:
-
-```text
-Dokončil tento container generation inicializáciu natoľko,
-aby sa mohlo začať liveness a readiness hodnotenie?
-```
-
-Kým startup probe neuspeje, kubelet pre daný container nevykonáva liveness ani readiness probes. Opakované startup zlyhanie nakoniec vedie k restartu containeru.
-
-### Liveness
-
-Liveness probe odpovedá:
-
-```text
-Je tento process v stave, z ktorého mu pravdepodobne pomôže restart?
-```
-
-Po dosiahnutí failure threshold kubelet reštartuje konkrétny container podľa jeho lifecycle a restart policy. Liveness nemá zlyhávať iba preto, že shared databáza, DNS alebo vzdialená služba má incident, ak restart lokálneho processu túto príčinu neodstráni.
-
-### Readiness
-
-Readiness probe odpovedá:
-
-```text
-Má tento Pod generation práve teraz prijímať novú prácu alebo traffic?
-```
-
-Readiness failure container nereštartuje. Mení container/Pod readiness a následne endpoint eligibility. Už otvorené spojenia a externé load balancery môžu mať vlastný drain a propagation lifecycle.
-
-Jedna URL použitá pre všetky tri probe typy je správna iba vtedy, keď má rovnaký test naozaj správnu startup, restart aj traffic-removal semantics.
-
-## 3. Probe execution path je samostatný subject
-
-HTTP, TCP a gRPC probe vykonáva kubelet z Node kontextu proti Pod endpointu. Exec probe spúšťa command v container environment-e. Probe preto typicky neprechádza rovnakou cestou ako používateľ:
-
-```text
-kubelet/Node
-→ Pod IP alebo container exec boundary
-→ health handler
-```
-
-Externý klient môže používať:
-
-```text
-DNS
-→ load balancer
-→ Gateway alebo Ingress
-→ Service dataplane
-→ EndpointSlice
-→ Pod
-→ application a dependencies
-```
-
-Kubelet probe success nepreukazuje edge TLS, DNS, Service translation, external authorization ani business transakciu. External synthetic success zase nepreukazuje, že každý konkrétny Pod má správne local lifecycle verdicty.
-
-## 4. Handler je observation mechanism, nie význam verdictu
-
-### HTTP
-
-HTTP probe otvorí spojenie na definovaný host/Pod IP, port a path a vyhodnotí HTTP výsledok. Endpoint má byť bounded, lacný, bez side effects a s reason codes použiteľnými v logs/metrics.
+## HTTP probe
 
 ```yaml
 readinessProbe:
   httpGet:
-    path: /ready
-    port: health
+    path: /readyz
+    port: http
+    scheme: HTTP
   periodSeconds: 5
+  timeoutSeconds: 2
+  failureThreshold: 3
+  successThreshold: 1
+```
+
+Kubelet posiela request z Node contextu na Pod IP a port podľa probe semantics. Nejde cez Service, Gateway ani external DNS. Zelená HTTP readiness preto nepreukazuje celý používateľský path.
+
+Named port znižuje coupling na numeric port:
+
+```yaml
+ports:
+  - name: http
+    containerPort: 8080
+```
+
+Ak application počúva iba na `127.0.0.1`, probe na Pod IP môže zlyhať, hoci process odpovedá vo vlastnom loopbacku.
+
+## TCP probe
+
+```yaml
+livenessProbe:
+  tcpSocket:
+    port: http
+```
+
+TCP probe overí, že sa dá otvoriť connection. Neoverí protokol, loaded config ani dependency. Service, ktorá akceptuje socket a okamžite vracia 500, môže mať zelenú TCP probe.
+
+TCP probe je vhodná iba vtedy, keď otvorený listener skutočne odpovedá na požadovanú liveness otázku.
+
+## Exec probe
+
+```yaml
+livenessProbe:
+  exec:
+    command:
+      - /usr/local/bin/payments-api
+      - healthcheck
+```
+
+Exec probe spustí process v containeri. Je užitočná pre distroless image s vlastným health subcommandom alebo pre kontrolu lokálneho Unix socketu. Každé spustenie však spotrebúva CPU, memory a PID. Drahý shell script môže sám vytvoriť pressure.
+
+Probe command nesmie vypisovať secrets ani vykonávať ne-idempotentný side effect.
+
+## gRPC probe
+
+Kubernetes podporuje gRPC health probing podľa API contractu. Aplikácia musí implementovať gRPC health checking protocol a probe používa numeric port podľa podporovaných fields.
+
+Pri použití over konkrétnu Kubernetes verziu a obmedzenia. HTTP a gRPC probes nie sú zameniteľné iba zmenou scheme.
+
+## Startup probe
+
+Pomalá Java alebo data-initialization aplikácia môže potrebovať desiatky sekúnd, kým je schopná reagovať. Ak liveness začne príliš skoro, kubelet container reštartuje ešte pred dokončením startupu.
+
+```yaml
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  periodSeconds: 2
+  failureThreshold: 30
+```
+
+Tento contract dáva približne 60 sekúnd podľa period/failure semantics. Kým startup probe neuspeje, liveness a readiness sa neaplikujú podľa probe lifecycle-u.
+
+Startup probe nie je bezodný timeout. Ak aplikácia potrebuje čoraz dlhší štart pre narastajúce dáta, treba opraviť startup model alebo kapacitu, nie len neustále zvyšovať failure threshold.
+
+## Liveness probe
+
+Liveness má odpovedať: je process v stave, z ktorého sa bez reštartu pravdepodobne neobnoví?
+
+Dobrá liveness býva lokálna a stabilná. Nemá priamo závisieť od databázy, DNS alebo external provideru, ak reštart containeru tieto dependencies neopraví.
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  periodSeconds: 10
   timeoutSeconds: 2
   failureThreshold: 3
 ```
 
-### TCP
+Ak databáza vypadne a liveness ju kontroluje, všetky Pods sa môžu naraz reštartovať. Tým sa zvýši load na runtime, DNS, image filesystem a databázu pri obnove.
 
-TCP probe preukazuje iba možnosť vytvoriť TCP connection. Neoveruje protocol correctness, request completion, tenant identity ani business stav. Listening socket môže zostať dostupný aj pri zamrznutom worker poole.
+## Readiness probe
 
-### Exec
+Readiness má odpovedať: smie tento Pod teraz prijímať nový traffic?
 
-Exec probe môže overiť local file, process alebo Unix socket, ale vytvára process/runtime overhead. Command musí byť priamy, bounded a bez secret outputu či opravovania stavu. `curl` alebo shell pipeline spúšťaná každú sekundu sa môže sama stať zdrojom loadu.
+Pre `payments-api` môže kontrolovať:
 
-### gRPC
+```text
+process dokončil startup
++ loaded config generation je validná
++ worker queue prijíma prácu
++ local resource pressure nie je kritická
++ critical dependency path je dostupná v rozumnom, plytkom rozsahu
+```
 
-Built-in gRPC probe používa gRPC health protocol a numeric port. Pre TLS, authentication alebo service-mesh path over, či kubelet handler reprezentuje požadovaný contract; production client path sa musí testovať samostatne.
+Readiness failure odstráni Pod z ready Service endpoints podľa controller convergence. Process zostáva bežať a môže sa zotaviť bez restartu.
 
-## 5. Timing vytvára hysteréziu a failure budget
+Ak readiness kontroluje shared database príliš agresívne, krátky database incident môže odpojiť všetky Pods a vytvoriť úplnú nedostupnosť aj pre endpointy, ktoré databázu nepotrebujú. Dependency design musí zohľadniť degraded modes.
 
-Probe generation zahŕňa minimálne:
+## Business check nepatrí do každej probe
+
+Payment POST môže mať external side effect a nemá sa vykonávať ako readiness probe. Business synthetics patria do rollout verification alebo monitoring-u s explicitným test accountom a idempotency.
+
+```text
+kubelet readiness
+→ lacný per-Pod serving signal
+
+release synthetic
+→ end-to-end Service/edge/business outcome
+```
+
+Zelená readiness je nutná pre traffic eligibility, nie dostatočná pre release acceptance.
+
+## Timing parameters
+
+Probe timing vzniká kombináciou:
 
 ```text
 initialDelaySeconds
@@ -132,230 +139,95 @@ periodSeconds
 timeoutSeconds
 failureThreshold
 successThreshold
-prípadný probe-level termination grace
 ```
 
-Jedno zlyhanie nie je automaticky konečný verdict. Kubelet zbiera sequence attempts a až threshold mení stav alebo vykoná akciu. Praktické startup okno približne tvorí počet povolených zlyhaní, interval a čas jednotlivých attemptov; musí pokryť najpomalšiu prijateľnú inicializáciu, nie iba priemer.
+`initialDelaySeconds` sa pri startup probe interpretuje v kontexte probe lifecycle-u; často je čitateľnejšie nechať startup budget riadiť startup probe.
 
-Krátky timeout mení CPU throttling, GC pause, I/O contention alebo kubelet pressure na false failure. Príliš dlhý threshold naopak odďaľuje detekciu skutočného deadlocku alebo traffic-unsafe Podu.
+Readiness môže mať `successThreshold > 1`, aby sa Pod nevrátil do trafficu po jednom náhodnom úspechu. Liveness success threshold má obmedzené semantics podľa API contractu.
 
-## 6. Od probe verdictu po traffic
+Timeout musí byť kratší než period a zodpovedať Node/app latency. Príliš nízky timeout vytvára false failures pri CPU throttlingu. Príliš vysoký odkladá detection.
 
-Readiness prechádza viacerými asynchrónnymi stavmi:
+## Probe load
 
-```text
-readiness attempt
-→ container Ready state
-→ Pod Ready/ContainersReady conditions
-→ EndpointSlice endpoint conditions
-→ node/service dataplane alebo external LB update
-→ nový client connection
+Šesť Podov s troma HTTP probes každé dve sekundy môže vytvoriť významný QPS. Pri stovkách replík sa probes stávajú vlastným traffic source-om.
+
+Endpoint má byť lacný, bounded a bez high-cardinality logovania. Logovanie každého probe requestu na info level môže zahltiť pipeline a disk.
+
+## Readiness gates
+
+Pod readiness gates pridávajú custom Pod conditions:
+
+```yaml
+readinessGates:
+  - conditionType: atlas.example/edge-registered
 ```
 
-Pod `Ready=False` preto nemusí okamžite znamenať, že žiadny packet už nepríde. Existujúce keep-alive sessions, conntrack, proxy cache alebo external target registration môžu dobiehať. Bezpečný scale-down a rollout stále potrebuje drain, `preStop`, termination grace a application idempotency.
+Kubelet môže mať všetky containers Ready, ale Pod zostane NotReady, kým external controller nezapíše condition `True`.
 
-Custom readiness gate pridáva ďalší controller-owned Pod condition. Gate je platný iba vtedy, ak je známy jeho owner, observed generation, freshness a recovery behavior. Stale `False` blokuje rollout; stale `True` môže vpustiť traffic pred dokončením external registrácie.
+Custom controller musí condition viazať na Pod UID a generation. Ak zapíše starý result na nový Pod s podobným menom, môže pustiť traffic pred registráciou.
 
-## 7. Stateful a viac-containerové Pody
-
-Stateful replika môže byť process-live, ale nie traffic-ready, keď:
-
-- replayuje log alebo obnovuje volume;
-- čaká na membership alebo quorum;
-- nie je leader pre write traffic;
-- používa neplatnú data alebo fencing generation.
-
-Liveness ju nemá reštartovať iba preto, že správne čaká na recovery alebo rolu.
-
-Každý container má vlastné probes. Pod readiness zohľadňuje relevantné application a sidecar containers. Observability helper nemá blokovať business traffic, pokiaľ jeho dostupnosť nie je skutočnou podmienkou bezpečného requestu. Naopak auth, proxy alebo policy sidecar môže byť súčasťou traffic contractu.
-
-## 8. Worked failure: deep probe vytvorila restart storm
-
-Po rolloute Payments API 5.3.1 nastal tento stav:
-
-```text
-nové Pody sa inicializujú 60 až 90 sekúnd
-→ startup probe chýba
-→ liveness aj readiness volajú /health/deep
-→ endpoint synchronne kontroluje shared ledger DB
-→ DB latency dočasne prekročí 1 s
-→ readiness odstráni nové endpointy
-→ liveness reštartuje rovnaké containers
-→ inicializácia a DB connection churn sa opakujú
-→ rollout nemá stabilnú ready cohortu
-→ payment latency a retry rate rastú
-```
-
-Restart neodstraňuje shared DB latency. Naopak opakovane zahrieva runtime a vytvára nové connection pools, čím incident zosilňuje.
-
-Správny model rozdelí:
-
-```text
-startup: dokončený local bootstrap a schema/config validation
-liveness: local event-loop/progress verdict odstrániteľný restartom
-readiness: schopnosť bezpečne prijať nový payment request
-synthetic: reálny edge payment journey
-```
-
-## 9. Causal troubleshooting walkthrough
-
-### Fixuj subject a timeline
-
-Pre incident fixuj release digest, Pod UID, container ID/restart count, Node, probe config generation, kubelet, sequence attemptov, Pod conditions, EndpointSlice generation a konkrétny payment request. Nezmiešavaj starý a nový container po restarte.
-
-### Competing hypotheses
-
-1. handler path alebo named port sa po rolloute zmenili;
-2. process počúva iba na inom address-e;
-3. startup trvá dlhšie než probe budget;
-4. CPU throttling alebo GC predlžujú health handler;
-5. kubelet alebo Node je preťažený;
-6. NetworkPolicy/host path blokuje kubelet probe;
-7. deep dependency check timeoutuje;
-8. readiness gate je stale;
-9. sidecar drží Pod NotReady;
-10. EndpointSlice alebo external LB stále používa starý verdict;
-11. liveness restartuje stav, ktorý restart neopraví;
-12. probe success je local, ale client path zlyháva inde.
-
-### Discriminating observation points
+## Conditions a EndpointSlice
 
 ```bash
-kubectl get pod -n production <pod> -o yaml
-kubectl describe pod -n production <pod>
-kubectl logs -n production <pod> -c payments --previous
-kubectl get endpointslice -n production -l kubernetes.io/service-name=payments-api -o yaml
-kubectl get events -n production --sort-by=.metadata.creationTimestamp
+kubectl get pod -n production <pod-name> \
+  -o jsonpath='{range .status.conditions[*]}{.type}{"="}{.status}{" reason="}{.reason}{"\n"}{end}'
+
+kubectl get endpointslices -n production \
+  -l kubernetes.io/service-name=payments-api -o yaml
 ```
 
-Koreluj:
+Pod `Ready=True` a endpoint `ready=true` sú blízke, ale aktualizácia nie je jedna okamžitá transakcia. Pri termination alebo rýchlom flappingu môže existovať krátke convergence okno.
 
-- exact attempt timestamps a response latency;
-- application health reason codes;
-- container restart/termination reason;
-- CPU throttling, memory pressure a thread-pool saturation;
-- Pod IP test z kubelet-like Node pathu, nie iba `localhost` cez `kubectl exec`;
-- readiness gate owner a freshness;
-- endpoint removal/registration čas;
-- external synthetic a payment trace.
+## Probe failures a logs
 
-### Containment bez zničenia evidence
+`kubectl describe pod` ukazuje probe Events, ale Events sú agregované a rate-limited. Application logs a kubelet logs môžu ukázať presný timeout alebo response.
 
-Zastav alebo spomaľ rollout a retry amplification. Zachovaj previous-container logs, Pod/EndpointSlice YAML, kubelet Events, metrics a request traces. Nereštartuj všetky Pody a nezvyšuj thresholds naslepo. Versionovaná dočasná zmena liveness je bezpečnejšia než manuálne nekorelované restarty.
+```bash
+kubectl describe pod -n production <pod-name>
+kubectl logs -n production <pod-name> -c api
+kubectl logs -n production <pod-name> -c api --previous
+```
 
-### Authoritative recovery
+Previous logs sú dôležité po liveness restart-e.
 
-- pridaj startup probe pokrývajúcu bounded initialization;
-- oddeľ local-progress liveness od shared dependency health;
-- navrhni readiness podľa traffic safety a graceful degradation;
-- oprav timeouty až po load a latency analýze;
-- uprav resource contract, ak probe zlyháva pre throttling;
-- oprav gate controller alebo endpoint propagation, ak je root cause mimo handlera;
-- rolloutni novú Pod/probe generation a sleduj stabilizáciu.
+## Probes a graceful termination
 
-### Verify original a forbidden outcomes
+Pri termination má application readiness prejsť na false skôr, než ukončí listener, aby nové requests prestali prichádzať. Kubelet a EndpointSlice convergence však nie sú okamžité.
 
-Over:
+Aplikácia má zároveň reagovať na SIGTERM a dokončiť in-flight requesty v grace period. `preStop` sleep používaný ako jediný drain mechanizmus je krehký; potrebuje meranie reálneho propagation času a connection lifecycle-u.
 
-1. nový container dokončí startup bez predčasného restartu;
-2. deadlock stále vyvolá bounded liveness recovery;
-3. traffic-unsafe Pod nie je v ready endpoint cohort-e;
-4. krátky shared dependency incident nespustí fleet-wide restart storm;
-5. edge payment journey uspeje bez duplicate authorization;
-6. scale-down a replacement zachovajú drain;
-7. health endpoint neodhaľuje secrets ani nevykonáva writes.
+## Incident: liveness spôsobila cluster-wide restart storm
 
-### Earlier controls
+Liveness endpoint kontroloval databázové `SELECT 1`. Databáza mala 30-sekundový failover. Všetky Pods po troch zlyhaniach reštartovali. Pri štarte vytvorili nové connection pools a zvýšili load na obnovujúcu sa databázu.
 
-Použi probe contract review, versionovaný health reason schema, startup/load test, chaos test shared dependency outage-u, per-probe metrics, rollout gate podľa stable readiness cohorty a samostatný external synthetic journey.
+Oprava odstránila shared dependency z liveness. Readiness naďalej signalizovala neschopnosť obslúžiť payment path, ale process ostal bežať a connection pools sa obnovili bez fleet restartu.
 
-## 10. Ďalšie failure boundaries
+## Incident: readiness bola zelená pred načítaním novej konfigurácie
 
-### Probe funguje cez exec, ale kubelet HTTP probe nie
+Aplikácia otvorila HTTP listener a `/readyz` vracala 200 ešte pred dokončením asynchronous config loadu. Deployment začal scale-downovať staré Pods. Prvé requesty na nové Pods používali default staging endpoint.
 
-`localhost` v containeri a Pod IP z Node-u sú odlišné observation paths. Over listen address, port, host header, CNI/host policy a exact handler.
+Oprava zaviedla internal startup state machine. Readiness sa stala green až po validácii config generation a dependency targetu. Release test navyše overil `/version` cez Service.
 
-### Probe cez Service meno testuje inú repliku
+## Incident: CPU throttling vyzeral ako liveness failure
 
-Health request môže skončiť na zdravom Pode a skryť lokálny failure. Lifecycle probe musí byť viazaná na vlastný container/Pod subject.
+Probe timeout bol 100 ms a container mal nízky CPU limit. Pri traffic burstoch health handler nedostal CPU včas, liveness zlyhala a kubelet process reštartoval. Restart zhoršil cache warmup a latency.
 
-### HTTPS probe je zelená, edge TLS zlyháva
+Root cause bol resource/probe contract. Oprava zvýšila timeout, upravila CPU limit a sledovala cgroup throttling. Health handler zostal lacný, ale dostal realistický execution budget.
 
-Local kubelet path nereprezentuje verejný hostname, trust chain, Gateway certificate selection ani mTLS client identity. Over edge TLS samostatne.
+## Incident: readiness odpojila všetky repliky pri DNS incidente
 
-### Readiness je príliš hlboká
+Readiness vykonávala lookup troch optional partner endpoints. Výpadok cluster DNS spôsobil `Ready=False` na všetkých Pods, vrátane interných payment read endpointov, ktoré partnerov nepotrebovali.
 
-Shared dependency outage odstráni všetky endpointy a zruší možnosť graceful degradation. Rozdeľ, ktoré request classes sú bezpečné a ktoré musia byť odmietnuté.
+Oprava rozdelila critical a optional dependencies a zaviedla degraded behavior. Readiness ostala viazaná iba na serving contract konkrétnej služby.
 
-### Readiness je príliš plytká
+## Model, ktorý si treba odniesť
 
-Socket odpovedá, ale process nemá loaded config, správnu rolu alebo funkčný worker pool. Traffic sa posiela na nefunkčný backend.
+Startup, liveness a readiness odpovedajú na rozdielne otázky. Startup chráni inicializáciu, liveness opravuje neobnoviteľný process state reštartom a readiness riadi traffic eligibility. Probe endpoint musí byť lacný, bezpečný a zodpovedať tomu, čo kubelet dokáže svojou reakciou skutočne opraviť. Business acceptance patrí do samostatného end-to-end testu.
 
-### Probe endpoint má side effects
+## Referencie
 
-Opakované attempts vytvoria writes, lock contention alebo opravy stavu. Probe musí iba pozorovať bounded state.
-
-## 11. Referenčný návrhový katalóg
-
-### Probe handlers
-
-- `httpGet` — protocol-aware local endpoint;
-- `tcpSocket` — iba connection establishment;
-- `exec` — local command v container boundary;
-- `grpc` — gRPC health protocol.
-
-### Probe actions
-
-| Probe | Success znamená | Failure action |
-|---|---|---|
-| Startup | inicializácia dokončená | po threshold restart containeru |
-| Liveness | local progress je obnoviteľný bez restartu | po threshold restart containeru |
-| Readiness | Pod smie prijímať novú prácu | zmena readiness/endpoint eligibility |
-
-### Endpoint design controls
-
-- bounded latency a práca;
-- žiadne writes ani repair actions;
-- stabilné reason codes;
-- žiadny fan-out na veľa dependencies;
-- žiadne secrets v response/logu;
-- oddelené local lifecycle a user-path testy;
-- resource a timeout hodnoty overené pod loadom.
-
-## 12. Anti-patterny
-
-- rovnaký deep dependency test pre startup, liveness aj readiness;
-- liveness bez startup probe pre dlhú inicializáciu;
-- readiness, ktorá vždy vracia success;
-- `curl` exec probe s vysokou frekvenciou;
-- probe cez Service alebo inú repliku;
-- health handler, ktorý zapisuje alebo opravuje stav;
-- thresholds zväčšené bez identifikácie latency mechanizmu;
-- probe považovaná za náhradu metrics, traces a external synthetics.
-
-## 13. Kontrolné otázky
-
-1. Aký exact action contract má startup, liveness a readiness probe?
-2. Prečo kubelet probe nepreukazuje user-path dostupnosť?
-3. Ktorý subject sa zmení pri container restarte, aj keď názov Podu zostane?
-4. Prečo liveness nemá zlyhávať iba pre shared dependency outage?
-5. Ako readiness verdict prechádza do EndpointSlice a client trafficu?
-6. Prečo `kubectl exec` test nemusí reprodukovať HTTP probe?
-7. Ako CPU throttling vytvorí false probe failure?
-8. Čo musí obsahovať readiness gate freshness contract?
-9. Ako overíš, že recovery neopravila iba probe, ale payment outcome?
-10. Ktoré preventive controls odhalia restart storm pred produkciou?
-
-## Glossary impact
-
-Relevantné pojmy: probe generation, probe execution subject, probe attempt sequence, startup verdict, liveness recovery contract, readiness eligibility verdict, health-handler observation boundary, probe hysteresis, endpoint-readiness propagation, readiness-gate generation, false probe failure, restart amplification, probe evidence-preservation boundary a subject-bound health verification.
-
-## Oficiálna dokumentácia
-
-- [Liveness, Readiness, and Startup Probes](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/)
 - [Configure Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 - [Pod Lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
-- [Container Lifecycle Hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---

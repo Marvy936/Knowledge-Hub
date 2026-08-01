@@ -1,423 +1,249 @@
 # Cluster installation a lifecycle
 
-Kubernetes cluster nie je výsledok jedného úspešného `kubeadm init`. Je to versionovaný platformový subject tvorený infraštruktúrou, failure domains, host image-om, PKI, etcd, control-plane endpointom, Node bootstrapom, CNI/CSI a ďalšími add-ons. Cluster je prijatý až vtedy, keď jeho management plane, workload plane, recovery set a day-2 ownership fungujú ako jeden lifecycle.
+Kubernetes cluster nie je hotový iba vtedy, keď odpovie API server a prvý Node má `Ready=True`. Produkčný cluster je zložený z control-plane endpointu, etcd, PKI, Nodes, runtime-u, CNI, CSI, DNS, admission, observability, backupu a identity integrations. Každá vrstva má vlastnú verziu, ownera a recovery model.
 
-Táto kapitola používa jeden dominantný model:
+V Atlas scenári prevádzkujeme cluster `atlas-prod-eu1` cez tri failure domains. Control plane má tri repliky a external endpoint, worker Nodes vznikajú z immutable machine image-u a do serving poolu vstúpia až po capability canary. Workloads používajú pinned image digests a platform add-ons majú samostatné release generations.
 
-```text
-platform intent, SLO a ownership matrix
-→ cluster architecture a immutable generation contract
-→ infrastructure, network a host baseline
-→ PKI, etcd a stable control-plane endpoint
-→ control-plane bootstrap
-→ worker join a Node identity
-→ CNI/CSI/DNS/Service/policy add-on generations
-→ capability a workload acceptance
-→ certificate, Node, backup a upgrade lifecycle
-→ replacement, disaster recovery a decommission closure
-```
+## Managed a self-managed responsibility
 
-## 1. Atlas production cluster subject
+Managed Kubernetes môže poskytovateľ spravovať control plane, etcd backup alebo upgrades. To však neznamená, že zákazník nemá zodpovednosť za Kubernetes objects, Nodes, add-ons, IAM, network, storage, version skew a application recovery.
 
-Atlas Payments cluster `atlas-prod-eu2` je self-managed kubeadm platforma:
+Self-managed cluster pridáva priamu zodpovednosť za:
 
 ```text
-Kubernetes minor/patch: pinned release generation
-control-plane endpoint: api.atlas-prod.internal:6443
-control-plane Nodes: 3, rozdelené medzi failure domains
-etcd: stacked, 3-member quorum
-Pod/Service CIDRs a cluster domain: immutable architecture fields
-runtime/cgroup model: versionovaný Node image
-CNI, CSI, CoreDNS a policy stack: pinned add-on matrix
-PKI a ServiceAccount signing keys: explicitný owner
-recovery set: etcd + PKI/encryption/add-on/infra/application data
+control-plane hosts a endpoint
+etcd membership a storage
+PKI a certificate rotation
+component flags/config
+bootstrap a upgrades
+backup/restore
+host OS a runtime
 ```
 
-Cluster generation nie je iba Kubernetes version. Obsahuje:
+Pred návrhom runbooku treba presne vedieť, čo platforma poskytuje a čo iba marketingovo označuje ako „managed“.
 
-- infra a host-image release;
-- kubeadm config;
-- control-plane component images/configs;
-- etcd topology/version;
-- PKI a trust generation;
-- CNI/CSI/DNS/Service dataplane versions;
-- admission a security policy generations;
-- Node pool templates;
-- backup/restore runbook generation.
+## Control-plane topology
 
-## 2. Ownership pred bootstrapom
-
-Managed a self-managed platformy majú odlišný ownership, ale žiadna nie je „bez prevádzky“.
-
-Pre každú capability urč:
-
-| Capability | Provider | Platform team | Application team |
-|---|---|---|---|
-| Control-plane availability | | | |
-| etcd backup/restore | | | |
-| Node image a patching | | | |
-| CNI/CSI/DNS | | | |
-| cluster upgrades | | | |
-| workload manifests | | | |
-| application data backup | | | |
-| identity/RBAC/policy | | | |
-| incident escalation | | | |
-
-Nejasný owner sa prejaví pri certifikáte, add-on upgrade, restore alebo cloud resource cleanup-e.
-
-## 3. Architecture contract
-
-Pred vytvorením hosts musí byť explicitné:
+HA control plane potrebuje viac než tri API server processes. External alebo virtual endpoint musí smerovať na ready API servery. Etcd members musia byť rozložené medzi failure domains s nízkou a stabilnou latency. Controller-manager a scheduler používajú leader election.
 
 ```text
-supported Kubernetes version a upgrade path
-control-plane endpoint a load-balancer ownership
-stacked alebo external etcd
-member/Node count a skutočné failure domains
-Pod/Service CIDRs, IP families a cluster domain
-runtime a cgroup driver
-CNI, policy a Service dataplane
-CSI, StorageClasses a topology
-identity provider, CA a signing-key ownership
-encryption-at-rest/KMS
-backup RPO/RTO a restore target
-decommission a credential-revocation model
+client
+→ stable control-plane endpoint
+→ ready API server
+→ etcd quorum
 ```
 
-CIDR, cluster domain, PKI root a storage topology majú vysoký migration cost. Nesmú vzniknúť ako náhodný default bootstrap toolu.
+Strata jednej zone nemá zničiť endpoint ani etcd quorum. Na druhej strane natiahnutie etcd cez príliš vzdialené regions môže porušiť latency a availability.
 
-## 4. Infrastructure a host generation
+## kubeadm bootstrap model
 
-Node musí vzniknúť z reprodukovateľného baseline-u:
+V kubeadm-style clustri prvý control-plane Node typicky vykoná `kubeadm init`. Nástroj pripraví PKI, kubeconfigy, static Pod manifests a bootstrap configuration podľa verzie a flags.
 
-- OS/kernel a security policy;
-- container runtime a CRI socket;
-- cgroup a resource-manager config;
-- routes, firewall, DNS a time sync;
-- disk/filesystem/inode capacity;
-- CNI-required modules a sysctls;
-- package/image mirror a signature policy;
-- kubelet configuration a credential bootstrap.
+```bash
+kubeadm init --config kubeadm-config.yaml
+```
 
-Ručne opravený host je nová, často nezdokumentovaná generation. Preferuj immutable image alebo automatizovaný host convergence s conformance testom.
+Tento príkaz nie je univerzálny recept. Config musí obsahovať správny control-plane endpoint, networking CIDRs, certificate SANs, Kubernetes version a runtime socket. Pred produkčným použitím sa uchová versionovaný kubeadm config a preflight output.
 
-## 5. PKI a control-plane endpoint
+Ďalšie control-plane Nodes a workers sa pripájajú cez `kubeadm join` s krátkodobým bootstrap tokenom a discovery trustom.
 
-Stable endpoint je cluster API identity. API server certificates, kubeconfigs, bootstrap discovery a load balancer musia používať rovnaký contract.
+```bash
+kubeadm token create --print-join-command
+```
 
-Dôležité trust subjects:
+Join command je credential a nemá sa ukladať do verejných logs.
 
-- Kubernetes CA;
-- API server serving cert a SAN inventory;
-- API server client identities pre kubelet a etcd;
-- etcd peer/server/client PKI;
-- front-proxy CA;
-- ServiceAccount signing keys;
-- administrator a controller kubeconfigs.
+## Static Pods control plane-u
 
-Certificate file na disku nie je loaded certificate. Rotation sa uzatvára až po reload-e všetkých consumers a testovaní old/new trust behavioru.
-
-## 6. Etcd a failure domains
-
-Stacked etcd zdieľa host a failure domain s control plane. External etcd oddeľuje lifecycle, ale pridáva hosts, PKI, networking a upgrade complexity.
-
-Quorum availability závisí od majority a fyzického umiestnenia. Tri VM v jednej zone nie sú tri nezávislé failure domains.
-
-Pred control-plane maintenance over:
+Kubeadm často zapisuje manifests do `/etc/kubernetes/manifests`. Kubelet ich spúšťa ako static Pods. API server zobrazuje mirror Pods, ale desired source je lokálny súbor na každom control-plane Node-e.
 
 ```text
-member list a health
-leader a quorum margin
-fsync/commit latency
-snapshot freshness a restore rehearsal
-API server backend inventory
-certificate expiry
+manifest na Node filesysteme
+→ kubelet static Pod
+→ mirror Pod v API
 ```
 
-## 7. Control-plane bootstrap
+`kubectl edit pod kube-apiserver-...` neopraví manifest. Kubelet znovu vytvorí Pod z lokálneho source-u.
 
-Kubeadm typicky vytvorí PKI/kubeconfigs, static Pod manifests, stacked etcd, bootstrap/RBAC resources, CoreDNS a kube-proxy resources podľa configu. Nevytvorí však automaticky úplnú produkčnú platformu.
+Rolling zmena control-plane manifestov sa robí po jednom Node-e a s quorum/endpoint guardrails.
 
-Authoritative input má byť versionovaný kubeadm config, nie jednorazový command line. Static Pod manifests pod `/etc/kubernetes/manifests` sú executable control-plane state; lokálna odlišná editácia vytvára component drift.
+## PKI
 
-Bootstrap success nepreukazuje:
-
-- Pod networking;
-- storage provisioning;
-- policy enforcement;
-- external API endpoint failover;
-- application data recovery;
-- supported add-on matrix.
-
-## 8. Node join a identity
-
-Join je trust establishment:
+Cluster používa viac certifikátov a kľúčov:
 
 ```text
-prepared host generation
-→ discovery stable API endpointu a CA
-→ bootstrap credential
-→ CSR/Node identity
-→ kubelet config a certificates
-→ Node object
-→ CNI/CSI/DaemonSet capability realization
-→ workload acceptance
+cluster CA
+API serving certificate
+API→etcd client certificate
+etcd server/peer/client certificates
+kubelet client/serving certificates
+controller a scheduler kubeconfigs
+service-account signing keys
+front-proxy CA a clients podľa modelu
 ```
 
-Bootstrap tokens majú byť krátkodobé, auditované a po použití zrušené alebo expirované. Node `Ready=True` je iba časť acceptance. Over CNI, Service dataplane, CSI, labels/taints, DNS, time, runtime a replacement behavior.
+Každý artifact má purpose, ownera, expiry a rotation path. Obnova iba API serving certificate nepomôže, ak controller-manager client credential expiroval.
 
-## 9. Add-on dependency graph
+```bash
+kubeadm certs check-expiration
+```
 
-Prakticky použiteľný cluster potrebuje kompatibilnú zostavu:
+Príkaz platí pre kubeadm-managed PKI a konkrétnu verziu. External CA alebo managed platforma môže mať iný lifecycle.
+
+## Cluster networking bootstrap
+
+Po init môže API fungovať, ale bežné Pods sa bez CNI nespustia správne. CNI installation musí zodpovedať Pod CIDR, kube-proxy alebo replacement dataplane-u, kernel prerequisites a NetworkPolicy requirements.
 
 ```text
-CNI/IPAM/policy
-Service dataplane
-CoreDNS alebo NodeLocal DNS
-CSI a StorageClasses
-metrics pipeline
-Ingress/Gateway
-admission/security policy
-logging/monitoring
-image/secret integrations
+API/control plane bootstrap
+→ CNI controller/DaemonSet
+→ Pod networking
+→ CoreDNS readiness
+→ workload scheduling
 ```
 
-Add-on je cluster-critical release. Každý potrebuje image digest, config generation, supported Kubernetes matrix, staged rollout, observation points a recovery postup.
+CoreDNS Pods môžu zostať Pending alebo NotReady, kým CNI nie je funkčné. To nie je dôvod meniť DNS config pred dokončením network bootstrapu.
 
-API server môže byť zelený, zatiaľ čo cluster nedokáže vytvoriť Pod sandbox, pripojiť volume alebo resolvovať Service.
+## Runtime a cgroup contract
 
-## 10. Cluster acceptance matrix
+Kubelet a container runtime musia používať kompatibilný cgroup driver a CRI endpoint. Host kernel, cgroup v2, seccomp, AppArmor/SELinux a filesystem drivers sú súčasťou Node contractu.
 
-Po bootstrap-e testuj capability, nie iba component process:
-
-| Oblasť | Acceptance evidence |
-|---|---|
-| API | read, write, watch cez každý LB/backend path |
-| etcd | quorum, leader, latency, snapshot |
-| Nodes | join, Ready, restart a replacement |
-| CNI | same/cross-Node flow, policy, MTU |
-| Service/DNS | ClusterIP, EndpointSlice a DNS fresh lookup |
-| CSI | provision, attach, mount, detach a restore |
-| Security | RBAC, PSA a forbidden operation tests |
-| Workload | rollout, drain, HPA a business journey |
-| Recovery | real artifact restore rehearsal |
-
-Cluster `Ready` je verdict nad touto maticou, nie jeden boolean.
-
-## 11. Day-2 lifecycle
-
-### Certificate rotation
-
-Sleduj expiry, issuer, SANs, loaded generation a consumer restart. ServiceAccount signing-key rotation má odlišný overlap a token-validity model než TLS certificate renewal.
-
-### Node replacement
+Immutable Node image má pinovať:
 
 ```text
-new versioned Node
-→ join
-→ capability conformance
-→ workload admission
-→ cordon/drain old Node
-→ storage/network cleanup
-→ delete Node identity a host
-→ revoke credentials
+OS/kernel generation
+container runtime version/config
+kubelet version/config
+CNI/CSI prerequisites
+sysctls a modules
+certificate/bootstrap agents
+observability/security agents
 ```
 
-`kubectl drain` musí rešpektovať PDB, StatefulSet/fencing, local data, volume detach a replacement capacity.
+Ručný patch jedného Node-u vytvára drift, ktorý sa pri replacement-e stratí.
 
-### Control-plane maintenance
+## Node bootstrap a join
 
-Mení sa sekvenčne podľa quorum a endpoint capacity. Nikdy neodstavuj naraz majority etcd členov ani všetky API backends.
+Nový Node najprv získa bootstrap identity, pošle CSR a dostane kubelet client credential podľa approval policy. Potom sa registruje ako Node a publikuje capacity/conditions.
 
-### Backup a upgrade
+Automatické CSR approval je security boundary. Broad approval pre ľubovoľný subject môže vpustiť neautorizovaný Node alebo vystaviť serving certificate.
 
-Backup scope zahŕňa etcd, PKI/encryption, configs, add-ons, infra a application data. Upgrade používa samostatnú kapitolu, ale patrí do cluster generation lifecycle-u od prvého dňa.
+```bash
+kubectl get csr
+kubectl get nodes -o wide
+```
 
-## 12. Decommission lifecycle
+Node `Ready=True` neznamená, že critical DaemonSets, CNI policy, CSI, DNS a telemetry sú plne funkčné.
 
-`kubeadm reset` čistí časť lokálneho kubeadm state-u. Neodstráni automaticky cloud VM, disks, LB, DNS, firewall, IAM ani application data.
+## Capability gate pre nový Node
 
-Decommission subject musí uzavrieť:
-
-1. traffic a nové writes;
-2. final application backups a retention;
-3. workloads/PVs/external resources;
-4. Nodes a control-plane identities;
-5. certificates, bootstrap tokens a cloud credentials;
-6. LB, IP, DNS, firewall a IAM;
-7. logs/audit/compliance evidence;
-8. hosts, disks a encryption keys.
-
-## 13. Causal walkthrough: časť API requestov zlyháva po control-plane replacement-e
-
-### Symptom
-
-Po výmene `cp-1` za `cp-4` prejde `kubectl get nodes` väčšinou úspešne, ale približne tretina nových TLS spojení na `api.atlas-prod.internal:6443` zlyhá. Existujúce workloads naďalej obsluhujú traffic.
-
-### Exact subject
-
-Fixuj:
-
-- cluster generation a kubeadm config hash;
-- stable endpoint, DNS a LB backend generation;
-- všetky API server Pod UIDs/container IDs;
-- serving certificate fingerprint/SAN/expiry loaded na každom backende;
-- Node host image a clock generation;
-- etcd member/leader/quorum state;
-- client request timestamp a selected backend;
-- admission/add-on state oddelene od TLS pathu.
-
-### Competing hypotheses
-
-1. LB stále smeruje na odstránený cp-1;
-2. cp-4 API static Pod nebeží;
-3. cp-4 serving cert nemá stable endpoint SAN;
-4. cp-4 má expirovaný alebo iný CA-signed cert;
-5. clock skew robí certifikát neplatný;
-6. firewall blokuje iba cp-4;
-7. cp-4 nevie komunikovať s etcd;
-8. etcd stratilo quorum;
-9. DNS vracia stale API address;
-10. klient používa stale kubeconfig alebo proxy.
-
-### Discriminating observations
-
-Testuj TLS a `/readyz` cez každý backend samostatne, porovnaj cert fingerprints/SANs, static Pod manifesty, kubeadm config, host clocks, LB health a etcd health.
-
-Finding:
+Atlas necháva nový Node tainted:
 
 ```text
-cp-4 vznikol zo stale kubeadm configu
-→ local API cert bol vydaný iba pre cp-4 host/IP
-→ LB health testoval TCP, preto backend označil healthy
-→ klient s hostname api.atlas-prod.internal odmietol cert
-→ iba requesty vybrané na cp-4 zlyhávali
+atlas.example/bootstrap=true:NoSchedule
 ```
 
-API process a etcd boli zdravé; zlyhal endpoint identity contract.
-
-### Containment
-
-- odstráň cp-4 z LB rotation bez zmazania evidence;
-- pozastav ďalšie control-plane replacementy;
-- zachovaj certificates, manifests, kubeadm config a LB logs;
-- over quorum margin pred zásahom;
-- neznižuj TLS verification ani nemeníš klientsky hostname.
-
-### Authoritative recovery
-
-- obnov jeden canonical kubeadm/PKI source;
-- vydať API cert s approved stable endpoint a Node SAN inventory;
-- reloadni/reštartuj iba affected API server controlled spôsobom;
-- over backend `/readyz`, etcd connectivity a LB semantic health;
-- znovu pridaj cp-4 do rotation;
-- zosúlaď host/bootstrap pipeline a odstráň stale config source.
-
-### Verify original a forbidden outcomes
-
-Over:
-
-1. read/write/watch funguje cez každý backend;
-2. klient overí rovnakú CA a stable endpoint SAN;
-3. etcd quorum a latency sú zdravé;
-4. scheduler/controller leadership a admission fungujú;
-5. Node join, CNI, CSI a DNS sú nedotknuté;
-6. payment rollout a end-to-end journey uspejú;
-7. odstránený/stale backend a starý cert už nie sú používané;
-8. ďalší Node replacement reprodukuje rovnaký cluster generation contract.
-
-### Earlier controls
-
-Použi immutable kubeadm config, preflight cert-SAN test, semantic LB health, per-backend synthetic, PKI inventory, control-plane conformance test, quorum-aware change gate a replacement rehearsal.
-
-## 14. Ďalšie failure boundaries
-
-### `kubeadm init` zlyhá v preflight
-
-Oprav runtime, cgroups, ports, hostname, existing state alebo firewall. Ignorovanie checku bez cause modelu iba presunie failure ďalej.
-
-### Node sa joinne, ale zostáva `NotReady`
-
-Join/identity prešli. Over CNI config, Pod CIDR, runtime, kubelet a Node conditions.
-
-### CoreDNS je `Pending`
-
-Môže ísť o chýbajúci CNI, capacity, taints alebo scheduler constraint. DNS je downstream symptom cluster bootstrapu.
-
-### Certifikát bol obnovený, ale component stále zlyháva
-
-File generation sa zmenila, loaded generation nie. Over reload a všetky replicas/clients.
-
-### Tri control-plane Nodes neprežijú jednu zone failure
-
-Count nie je failure-domain diversity. Oprav topology a recovery plan, nie iba replica number.
-
-### Add-on upgrade rozbije workload plane
-
-API môže zostať healthy. Hodnoť CNI/CSI/DNS capability canaries a staged rollback.
-
-## 15. Referenčný katalóg
-
-### Cluster generation inventory
+Platform canary na ňom overí:
 
 ```text
-infrastructure a host image
-Kubernetes/control-plane/etcd versions
-kubeadm/component configs
-PKI a endpoint identity
-Node pools a runtime
-CNI/CSI/DNS/Service/policy add-ons
-backup/recovery artifacts
-ownership a support matrix
+CRI image pull a process start
+same-Node a cross-Node CNI traffic
+Service ClusterIP a DNS
+allowed aj forbidden NetworkPolicy
+CSI attach/mount
+Pod Security/seccomp
+logs a metrics delivery
+Node pressure a time sync
 ```
 
-### Lifecycle operations
+Až potom controller odstráni bootstrap taint a Node prijme production workloads.
 
-- bootstrap;
-- Node/control-plane join;
-- certificate renewal/rotation;
-- Node replacement a drain;
-- add-on change;
-- backup/restore;
-- upgrade;
-- decommission.
+## Add-ons ako samostatné releases
 
-## 16. Anti-patterny
+CoreDNS, CNI, CSI, ingress/Gateway controller, metrics server, autoscaler a policy engine majú vlastné images, CRDs, RBAC a upgrade matrices. „Cluster version 1.x“ neidentifikuje ich generations.
 
-- produkčný single-control-plane cluster bez recovery;
-- tri replicas v jednom failure domain-e;
-- mutable bootstrap URL alebo unpinned images;
-- ručne odlišné control-plane Nodes;
-- TCP-only API LB health;
-- backup iba etcd bez PKI/encryption/application data;
-- `kubeadm reset` považovaný za decommission;
-- Node `Ready` považovaný za úplný cluster acceptance;
-- add-ons bez compatibility a rollback modelu.
+Add-on upgrade môže meniť dataplane bez zmeny Kubernetes minor version. Inventory preto spája cluster, Node pool a add-on release IDs.
 
-## 17. Kontrolné otázky
+## Admission a policy bootstrap
 
-1. Čo tvorí exact cluster generation?
-2. Ktoré architecture fields majú vysoký migration cost?
-3. Prečo stable API endpoint musí byť v PKI aj LB contracte?
-4. Ako sa líši count control-plane Nodes od failure-domain resilience?
-5. Ktoré capability tests musia nasledovať po Node join-e?
-6. Prečo kubeadm config nie je celý day-2 source of truth?
-7. Ako odlíšiš API health od workload-plane health?
-8. Čo musí obsahovať Node replacement closure?
-9. Prečo etcd snapshot nestačí na cluster recovery?
-10. Ako overíš cluster decommission bez orphan resources a credentials?
+Validating/mutating webhooks a admission policies môžu zablokovať aj system bootstrap, ak nemajú správne namespace selectors, failure policy alebo CA bundle.
 
-## Glossary impact
+Pri zavádzaní webhooku:
 
-Relevantné pojmy: Kubernetes cluster generation, platform ownership matrix, architecture contract, host baseline generation, control-plane endpoint identity, PKI generation, add-on release matrix, cluster capability acceptance, Node replacement subject, certificate loaded generation, cluster recovery set, semantic API health, platform decommission subject a subject-bound cluster verification.
+```text
+nasadiť backend
+→ overiť Service a TLS
+→ vytvoriť webhook v audit/fail-open režime podľa rizika
+→ overiť allowed/forbidden requests
+→ až potom sprísniť enforcement
+```
 
-## Oficiálna dokumentácia
+Fail-closed webhook bez dostupného backendu môže zablokovať vytvorenie Pods potrebných na opravu samotného webhooku.
 
-- [Production environment](https://kubernetes.io/docs/setup/production-environment/)
-- [Bootstrapping clusters with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/)
+## Lifecycle Nodes: cordon, drain, replace
+
+Immutable Node maintenance:
+
+```bash
+kubectl cordon <node>
+kubectl drain <node> --ignore-daemonsets --delete-emptydir-data=false
+```
+
+Cordon zastaví nové scheduling. Drain používa eviction API pre vhodné Pods a rešpektuje PDB podľa flags/semantics. Stateful Pods, local storage, DaemonSets a unmanaged Pods potrebujú osobitné rozhodnutie.
+
+Po drain-e sa Node odstráni z infraštruktúry a clusteru podľa owner workflowu. Zmazanie Node objektu samo nevypne machine.
+
+## Decommission
+
+Cluster decommission nie je `kubectl delete namespace --all`. Potrebuje inventory:
+
+```text
+workloads a business data
+PVs, snapshots a backups
+LoadBalancers, DNS a IPs
+cloud identities a credentials
+certificate/key material
+registry a release evidence
+external webhooks/integrations
+logs, audit a compliance retention
+```
+
+Najprv sa migruje alebo zastaví business traffic a dáta, potom sa odstraňujú dependents. Etcd snapshot po decommissione môže obsahovať Secrets a osobné údaje a potrebuje secure retention/destruction.
+
+## Incident: cluster bol Ready, ale DNS nefungovalo
+
+Kubeadm init prešiel, API server a worker Node boli Ready. CNI manifest bol aplikovaný s nesprávnym Pod CIDR. CNI agent bežal, ale routes nezodpovedali controller-manager cluster CIDR. CoreDNS Pods sa spustili, no cross-Node traffic zlyhával.
+
+Oprava nebola restartovať CoreDNS. Tím zladil versionovaný networking config a znovu vytvoril test cluster. Produkčný bootstrap gate začal porovnávať kubeadm Pod CIDR, CNI config a actual Node routes.
+
+## Incident: nový Node pool prijal traffic pred CNI inicializáciou
+
+Node condition prešla na Ready a bootstrap taint sa odstraňoval iba podľa tejto condition. Application Pods sa schedulovali skôr, než CNI DaemonSet dokončil dataplane sync. Same-Node traffic fungoval, cross-Node intermittently zlyhával.
+
+Oprava pridala capability canary a explicitný platform condition pred untaint. Node Ready ostala iba jedným vstupom.
+
+## Incident: certifikáty boli obnovené iba na jednom control-plane Node-e
+
+Operátor spustil kubeadm certificate renewal na jednom Node-e a reštartoval jeho static Pods. Ostatné API servery ďalej podávali starý expirovaný certificate za load balancerom. Klienti videli intermittent TLS failure.
+
+Oprava vykonala riadenú per-Node renewal/restart sekvenciu a overila certificate fingerprint na každom backend-e aj cez stable endpoint.
+
+## Incident: fail-closed webhook zablokoval vlastnú opravu
+
+Validating webhook backend bežal v namespace, ktorý sám podliehal webhooku. Po expirovaní serving certificate API server nemohol zavolať webhook a odmietal nové Pods vrátane opraveného backendu.
+
+Recovery použila pripravený break-glass postup s auditom a dočasnou úpravou webhook configuration. Skorší control je namespace exemption pre úzky bootstrap path, certificate monitoring a staged failurePolicy.
+
+## Model, ktorý si treba odniesť
+
+Cluster lifecycle zahŕňa control-plane endpoint, etcd, PKI, Nodes, runtime, CNI/CSI, add-ons, admission, observability a recovery. API a Node Ready sú iba čiastkové signals. Nová cluster alebo Node generation vstupuje do production až po capability tests a exact inventory. Údržba má preferovať versionované replacementy pred ručným driftom.
+
+## Referencie
+
 - [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-- [Creating highly available clusters with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/)
+- [Highly Available Topology Options](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/)
 - [PKI certificates and requirements](https://kubernetes.io/docs/setup/best-practices/certificates/)
+- [Safely Drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
