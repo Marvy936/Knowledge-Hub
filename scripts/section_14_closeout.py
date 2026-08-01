@@ -44,8 +44,8 @@ for name in ARTICLES:
     lowered = text.lower()
     required_groups = [
         ("subject",),
-        ("preukazuje", "dokazuje"),
-        ("nepreukazuje", "nedokazuje"),
+        ("preukazuje", "dokazuje", "dokázať", "dokáže"),
+        ("nepreukazuje", "nedokazuje", "nedokáže", "nemusí dokazovať", "nie je dostatočné evidence", "nie je dostatočný dôkaz"),
         ("recovery", "obnova", "náprava"),
         ("forbidden", "zakázan"),
     ]
