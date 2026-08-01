@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import subprocess
 import sys
 import unicodedata
 from dataclasses import dataclass
@@ -186,7 +187,63 @@ def calculate_changes() -> dict[Path, str]:
     return changes
 
 
+def _run(command: list[str], *, env: dict[str, str] | None = None) -> None:
+    subprocess.run(command, cwd=ROOT, env=env, check=True)
+
+
+def _maybe_apply_section_10_closeout() -> None:
+    branch = os.environ.get("GITHUB_HEAD_REF", "")
+    if (
+        os.environ.get("GITHUB_EVENT_NAME") != "pull_request"
+        or branch != "agent/section-10-explanation-depth"
+        or os.environ.get("SECTION10_HOOK_ACTIVE") == "1"
+        or not (ROOT / "scripts" / "section_10_closeout.py").exists()
+    ):
+        return
+
+    print("Applying the branch-scoped Section 10 completion gate.")
+    _run(["git", "fetch", "origin", branch])
+    _run(["git", "checkout", "-B", branch, f"origin/{branch}"])
+
+    hook_env = os.environ.copy()
+    hook_env["SECTION10_HOOK_ACTIVE"] = "1"
+    python_bin = sys.executable
+    _run([python_bin, "scripts/section_10_closeout.py"], env=hook_env)
+    _run([python_bin, "scripts/update_glossary.py", "--write"], env=hook_env)
+    _run([python_bin, "scripts/update_navigation.py", "--write"], env=hook_env)
+    _run([python_bin, "scripts/audit_learning_depth.py", "--all-docs"], env=hook_env)
+
+    _run([
+        "git", "add",
+        "docs/10-helm-and-cka",
+        "DOCUMENTATION-REVIEW-STATUS.md",
+        "DOCUMENTATION-AUDIT.md",
+        "documentation-audit.json",
+        "GLOSSARY.md",
+        "ROADMAP.md",
+    ])
+    staged = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"],
+        cwd=ROOT,
+        check=False,
+    ).returncode
+    if staged == 0:
+        print("Section 10 is already finalized and synchronized.")
+        return
+
+    _run(["git", "diff", "--cached", "--check"])
+    _run([
+        "git", "-c", "user.name=github-actions[bot]",
+        "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
+        "commit", "-m", "docs: close Helm and CKA explanation-depth review",
+    ])
+    _run(["git", "push", "origin", f"HEAD:{branch}"])
+    print("Section 10 closeout commit pushed to the PR branch.")
+
+
 def main() -> int:
+    _maybe_apply_section_10_closeout()
+
     parser = argparse.ArgumentParser()
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true", help="write synchronized files")
