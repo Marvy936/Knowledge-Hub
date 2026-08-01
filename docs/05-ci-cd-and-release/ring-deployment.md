@@ -149,27 +149,17 @@ Recovery môže vrátiť iba affected ring, zatiaľ čo previous ring zostane na
 
 Membership rollback nesmie presunúť in-flight operations medzi releases bez reconciliation. Account-level release pinning môže byť potrebné do ukončenia workflowu.
 
-## Doplnenie výkladu: ring ako stabilná risk cohorta
+## Ako stabilné rings riadia expozíciu release-u
 
-Ring deployment rozdeľuje populáciu do postupných cohort podľa rizika a reprezentatívnosti. Ring 0 môže byť interný tím, ďalší vybraní tenants a posledný všeobecná populácia.
+Ring deployment rozdeľuje population alebo infraštruktúru do vopred definovaných skupín a release postupuje od menšieho, lepšie pozorovateľného ringu k širšiemu. Ring môže predstavovať interných users, vybrané tenants, jeden región alebo určitú fleet. Jeho membership musí byť stabilný a versionovaný, inak sa počas observation window mení samotný subject experimentu.
 
-Membership musí byť stabilné a auditovateľné. Ak sa users medzi rings presúvajú počas observation window, evidence sa mieša. Assignment môže používať tenant ID, account allowlist alebo region.
+Poradie rings vyjadruje risk model. Prvý ring má nízky blast radius a kvalitnú telemetry, ale nemusí reprezentovať production workload. Ďalšie rings pridávajú scale, dependency alebo tenant diversity. Promotion criteria preto nie sú identické pre každý krok; neskorší ring môže vyžadovať vyšší sample a odlišné business oracles.
 
-Rings nie sú iba percentá. Každý ring môže mať iný risk profil, support readiness a rollback capability. Interní users nemusia reprezentovať high-volume alebo regulated tenants, preto postupnosť zahŕňa rozmanité cohorts.
+Assignment sa robí podľa identity relevantnej pre celý workflow. Ak account počas release-u preskočí medzi rings, jeho multi-step operácia môže používať zmiešané generations. Membership changes sa preto plánujú mimo observation window alebo sa viažu na novú assignment generation.
 
-Promotion contract:
+Každý ring step má exact artifact, configuration, exposed population, start time, evidence a abort path. No-data v malom ringu môže znamenať nedostatočnú reprezentatívnosť, nie success. Pred promotion sa overí aj forbidden outcome a backlog.
 
-```text
-ring subject a size
-→ minimum observation/sample
-→ technical a business criteria
-→ explicit promotion
-→ next ring
-```
-
-Failure v jednom ring-u zastaví ďalšie exposure. Recovery musí znížiť membership alebo disable behavior pre exact cohort a overiť, že membership cache sa aktualizovala.
-
-Ring deployment sa môže kombinovať s canary, ale pojmy sa neprekrývajú úplne. Canary často hodnotí novú generation na malej traffic vzorke; rings sú dlhodobejšie named cohorts s ownershipom a support modelom.
+Po full rollout-e sa temporary ring rules a overrides odstránia alebo sa stanú explicitnou dlhodobou policy. Ring deployment nie je iba zoznam prostredí; je to state machine expozície s kontrolovaným prechodom a recovery na každom kroku.
 
 ## 11. Connected incident `REL-PAY-70`
 

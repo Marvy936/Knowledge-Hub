@@ -215,27 +215,17 @@ consumer grants minimum capability
 
 Provider update je supply-chain change. Compromise platform-ci repository môže zasiahnuť všetkých consumers, preto sú potrebné branch protection, signed reviews, pinning a staged adoption.
 
-## Doplnenie výkladu: fan-out, shard manifest a fan-in
+## Ako fungujú fan-out, shardy a fan-in
 
-Parallel pipeline rozdelí prácu na viac jobs alebo matrix combinations. **Fan-out** vytvorí shards; **fan-in** zhromaždí ich outputs a rozhodne o complete výsledku.
+Reusable pipeline oddeľuje spoločný workflow contract od konkrétnej aplikácie. Caller poskytuje versionované inputs a callee definuje jobs, permissions a outputs. Reuse znižuje duplicitu, ale vytvára dependency: mutable ref alebo nekompatibilná zmena template môže zmeniť veľa pipelines naraz. Caller preto pinne callee revision a evidence zaznamená resolved template.
 
-```text
-candidate
-→ linux/windows/macos alebo test shard 1..N
-→ per-shard result a artifact
-→ fan-in completeness check
-→ aggregate verdict
-```
+Parallelizácia rozdelí kontrolu na shardy podľa platformy, test suite, regiónu alebo package-u. Každý shard potrebuje rovnaký candidate a kompatibilný toolchain, ale má vlastnú identity a output. Fan-out znižuje čas, nie požiadavku na úplnosť. Zelených deväť shardov z desiatich nepredstavuje deväťdesiatpercentný pass.
 
-Zelený agregátor nie je dôveryhodný, ak nevie, koľko shards sa očakávalo. Potrebuje **shard manifest** obsahujúci exact inventory, napríklad platform, dependency version a test partition.
+Fan-in job načíta manifest očakávaných shardov a porovná ho s prijatými artifacts. Kontroluje candidate SHA, workflow generation, shard key, status, report digest a producer. Missing, duplicate alebo stale shard vedie k `INCOMPLETE`, nie k successu. Retry jedného shardu nesmie zmiešať output z dvoch candidate generations.
 
-Matrix expression môže vytvoriť nula jobs pri chybnom filtri. Pipeline potom vyzerá green, hoci required platform sa nevykonala. Fan-in preto porovná expected a observed shard IDs.
+Matrix include/exclude rules sú súčasťou resolved graphu. Chybná condition môže ticho odstrániť arm64 alebo security variant. Preto sa očakávaný shard inventory generuje nezávisle od samotných results a review zobrazuje, ktoré dimensions boli pokryté.
 
-Fail-fast zruší ostatné jobs po prvom failure. Šetrí čas, ale môže znížiť diagnostic evidence. Pri compatibility matrix môže byť vhodné nechať všetky shards dobehnúť a uložiť kompletný failure obraz.
-
-Reusable workflow je versionovaný contract s inputs, outputs, secrets a permissions. Caller musí pinovať verziu a chápať defaults. Zmena template môže zmeniť runner image alebo gate behavior pre mnoho repositories naraz.
-
-Outputs z parallel jobs potrebujú unikátne names a checksums. Ak všetky shards uploadnú `report.xml`, posledný môže prepísať ostatné. Aggregate report bez jedného shardu je `INCOMPLETE`, nie legitímne nižšie coverage.
+Reusable a parallel pipeline je dôveryhodná až vtedy, keď sa dá spätne preukázať complete graph od caller inputov cez všetky shardy po jediný fan-in verdict a immutable artifact.
 
 ## 11. Connected incident `REL-PAY-68`
 

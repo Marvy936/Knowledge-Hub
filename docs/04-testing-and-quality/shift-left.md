@@ -261,34 +261,17 @@ Observability sa navrhuje pred incidentom. Atlas definuje:
 
 Component tests môžu overiť, že telemetry vzniká a obsahuje potrebné fields. Až produkcia však ukáže, či signál vedie k rýchlej diagnóze pri reálnom trafficu a cardinality.
 
-## Doplnenie výkladu: skorší feedback nie je presun všetkého do unit testov
+## Ako presunúť feedback skôr bez straty fidelity
 
-Shift-left znamená dostať relevantný feedback bližšie k momentu, keď vzniká rozhodnutie alebo chyba. „Left“ je metafora časovej osi delivery. Neznamená to, že všetky production, integration alebo security kontroly sa majú nahradiť statickým checkom.
+Shift-left znamená posunúť vhodný dôkaz bližšie k vzniku rozhodnutia. Neznamená presunúť všetky produkčné testy na laptop ani očakávať, že statická analýza nahradí runtime. Cieľom je odhaliť defect v najskoršom bode, kde už existuje dostatočný model jeho príčiny.
 
-Mechanizmus je:
+Design review môže zachytiť chýbajúcu idempotency boundary ešte pred kódom. Schema validation a type checking odhalia nekompatibilný tvar dát pred spustením služby. Unit a component testy dávajú rýchlu spätnú väzbu o logike, contract tests o rozhraní a policy-as-code o plánovanej infraštruktúre. Každá kontrola však zostáva viazaná na svoju fidelity; validný Terraform plan nepreukazuje applied cloud state a mockovaný API test nepreukazuje reálnu TLS alebo authorization cestu.
 
-```text
-neskorý drahý failure
-→ identifikácia jeho skoršie pozorovateľného signálu
-→ lacnejší control pri source/design/build hranici
-→ zachovanie vyššej runtime kontroly pre zvyškové riziko
-```
+Shift-left je účinný, keď testovateľnosť vzniká v designe. Explicitné interfaces, deterministické functions, injectable clock, local emulators a versionované schemas znižujú cenu skorých testov. Ak architektúra skrýva state v globálnych singletons alebo vyžaduje celý cluster pre každú business rule, problémom nie je iba chýbajúci test, ale slabá testovateľnosť systému.
 
-Ak produkčný incident spôsobila chýbajúca database column, skorší control môže byť migration compatibility test v CI. Runtime smoke však zostáva, pretože CI nepreukáže správny target database ani oprávnenia.
+Defect zistený neskoro sa používa na zlepšenie skoršieho controlu. Produkčný incident môže viesť k novému invariant testu, contractu alebo policy. Nemá však automaticky zrušiť vyšší runtime dôkaz, pretože rovnaký failure mode môže závisieť od konfigurácie alebo interakcie, ktorú skorý model nevie vidieť.
 
-Príklady shift-left:
-
-- threat modeling pred implementáciou namiesto iba penetračného testu na konci;
-- schema/contract review pred consumer deploymentom;
-- local formatter, linter a unit test pred remote pipeline;
-- Terraform plan policy pred apply;
-- ephemeral integration environment pred production rolloutom.
-
-Každý skorší model má fidelity limit. Mockovaný provider nedokáže potvrdiť reálnu TLS alebo quota policy. Preto sa shift-left kombinuje so shift-right, nie stavia proti nemu.
-
-Dôležitá je aj developer experience. Gate, ktorý beží skoro, ale trvá 40 minút alebo dáva neurčitý output, vytvára obchádzanie. Skorý control má byť rýchly, lokálne reprodukovateľný a diagnostický. Ak potrebuje drahé prostredie, môže sa spustiť asynchrónne, ale merge policy musí jasne povedať, či je evidence required.
-
-Shift-left success sa nemeria počtom pridaných tools. Meria sa napríklad skrátením času od zavedenia defectu po detekciu, nižším počtom escaped defects a menšou opravnou náročnosťou bez neprimeraného nárastu false positives.
+Kvalitný shift-left preto optimalizuje čas do diskriminačného dôkazu, nie iba počet kontrol pred mergeom. Rýchly, hlučný scanner bez ownera môže spomaliť feedback viac než menší súbor presných kontrol.
 
 ## 12. Worked failure: migration bola posunutá príliš doľava
 

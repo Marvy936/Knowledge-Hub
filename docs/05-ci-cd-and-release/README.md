@@ -177,11 +177,11 @@ rollout contract
 
 Sekcia sa uzatvára až vtedy, keď recovery rozhodnutie zahŕňa application, configuration, data, events, external side effects a business outcome.
 
-## Rozšírený výklad pojmov, príkazov a release dôkazov
+## Výklad pojmov je integrovaný do release lifecycle-u
 
-Všetkých 24 kapitol teraz pri kľúčových pojmoch a ukážkach explicitne vysvetľuje, čo mechanizmus znamená, načo sa používa, ako sa príkaz alebo controller transition vyhodnotí a čo jeho successful výsledok preukazuje alebo nepreukazuje. Doplnenia zachovávajú existujúce authoritative lifecycle, incidenty, commands a konfigurácie.
+Integration candidate, pipeline execution, artifact, cache, digest, promotion, cohort, rollout a recovery sú vysvetlené súvislým textom v tom kroku lifecycle-u, kde menia stav alebo podporujú rozhodnutie. Príkazy a controller transitions sú spojené s vysvetlením vstupu, vykonanej mutácie, read-backu a dôkaznej hranice.
 
-Rozšírenie pokrýva integration candidate a stale evidence, delivery/deployment readiness, pipeline graph a runner trust, trigger/artifact/cache hranice, immutable promotion, gate/approval subject, resolved Pipeline as Code, fan-out/fan-in, checksum/hash/digest/signature/provenance, SemVer a release lifecycle, state machines deployment stratégií, experiment/cohort/flag control planes, progressive delivery, per-layer recovery, database expand/contract a detailné čítanie end-to-end walkthroughu.
+Opisné odrážkové dodatky boli nahradené explicitne napísanými odbornými podkapitolami. Zoznamy zostávajú pri presných porovnaniach deployment stratégií, acceptance podmienkach, zdrojoch a evidence inventories; nenahrádzajú základný výklad.
 
 ## Cieľ zvládnutia
 

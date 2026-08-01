@@ -209,48 +209,15 @@ Continuous Delivery garantuje, že candidate možno bezpečne nasadiť. Continuo
 
 Organizácia môže mať Continuous Delivery a manuálne business timing rozhodnutie. Ak však produkčný deploy vyžaduje ručný shell postup, rebuild alebo ručné DB kroky, nejde o Continuous Delivery bez ohľadu na existenciu pipeline.
 
-## Doplnenie výkladu: čo znamená deployable a prečo delivery nekončí buildom
+## Ako sa artifact stane pripraveným na release
 
-Continuous Delivery udržiava systém v stave, v ktorom je možné vydať overenú release jednotku na požiadanie. Slovo **deployable** neznamená iba „artifact existuje“. Znamená, že artifact má známu identitu, complete evidence, kompatibilnú konfiguráciu a pripravenú deployment/recovery cestu.
+Continuous Delivery znamená, že každý akceptovaný candidate môže prejsť do releasable stavu opakovateľným a kontrolovaným procesom. Neznamená automatické nasadenie do production. Delivery pipeline vytvára immutable artifact, viaže k nemu complete evidence a pripravuje promotion tak, aby release nevyžadoval nový build alebo nezdokumentovanú manuálnu úpravu.
 
-Delivery chain preto oddeľuje:
+Deployable artifact musí mať presnú content identity, podporovanú configuration contract a známe runtime požiadavky. Zelené testy nad source revision nestačia, ak deployment neskôr zostaví iné bytes. Build-once-promote-many preto oddeľuje vytvorenie artifactu od jeho expozície v prostrediach. Staging a production majú dostať rovnaký digest; meniť sa môže environment-specific configuration, ktorej generation sa zaznamená samostatne.
 
-```text
-buildable source
-→ verified artifact
-→ release candidate
-→ promotable release manifest
-→ environment-ready deployment plan
-```
+Release readiness je rozhodnutie nad subject-bound evidence. Zahŕňa testy, security findings, provenance, compatibility a recovery eligibility. Manual approval môže byť súčasťou policy, ale človek nemá schvaľovať iba názov version. Approval sa viaže na exact artifact, release manifest, target environment a evidence generation. Ak sa ktorýkoľvek z týchto vstupov zmení, approval je stale.
 
-Manuálny krok v Continuous Delivery nie je manuálne prepisovanie príkazov. Môže ísť o explicitné business alebo risk rozhodnutie „promote this exact release subject“. Po approval sa vykoná už pripravená automatizovaná transition.
-
-Príklad release manifestu:
-
-```yaml
-releaseId: payments-10.0.0-rc.4
-sourceSha: d94e1c6
-artifacts:
-  api: registry.example/payments-api@sha256:abc
-  migrations: object://releases/migrations@sha256:def
-configurationSchema: 7
-evidenceBundle: sha256:789
-```
-
-Manifest viaže viac outputs do jednej release identity. Samotný image digest nehovorí, ktorú migration alebo config generation treba použiť.
-
-Delivery readiness má explicitné gates:
-
-```text
-required tests complete
-artifact publication immutable
-security/license evidence complete
-migration compatibility potvrdená
-target prerequisites známe
-rollback/roll-forward eligibility vyhodnotená
-```
-
-Ak je posledný deployment krok manuálny, stále ide o Continuous Delivery, pokiaľ release candidate priebežne zostáva pripravený a deployment je reprodukovateľný. Ak tím po každom release ručne skladá config, hľadá správny artifact a improvizuje runbook, nejde o continuous delivery capability, aj keby CI bola zelená.
+Delivery pipeline pripravuje aj rollback alebo roll-forward cestu, retention last-known-good artifacts a runbook pre unknown outcomes. To, že candidate je „ready to deploy“, nepreukazuje, že production mutation už prebehla ani že runtime loaded state a business outcome sú správne. Tieto dôkazy patria do deployment a post-deployment lifecycle-u.
 
 ## 11. Connected incident `REL-PAY-66`
 

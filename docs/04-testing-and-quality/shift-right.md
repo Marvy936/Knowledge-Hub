@@ -312,37 +312,17 @@ memory leak, retention alebo billing side effect
 
 Automatická promotion po krátkom technickom okne môže prehliadnuť business alebo delayed-state failure. Observation window sa odvodzuje z mechanizmu, nie z univerzálneho časovača.
 
-## Doplnenie výkladu: kontrolované učenie z reálneho runtime
+## Ako získavať produkčný dôkaz bezpečne
 
-Shift-right používa post-deployment a production-like evidence, pretože niektoré vlastnosti vzniknú až v reálnom trafficu, topológii, dátach a závislostiach. Neznamená to testovať nebezpečné hypotézy priamo na všetkých používateľoch.
+Shift-right používa runtime a produkčné prostredie na otázky, ktoré pre-production model nedokáže úplne zodpovedať. Reálny traffic, topology, identity, data distribution a dependencies odhaľujú failure modes, ktoré sa v stagingu nemusia objaviť. Nejde však o ospravedlnenie chýbajúcich testov; ide o riadené doplnenie evidence po deploymente.
 
-Typické mechanizmy:
+Synthetics vykonávajú známu bezpečnú operáciu a poskytujú stabilný oracle. Canary porovnáva obmedzenú cohortu novej generation so stable baseline. Shadow traffic posiela kópiu requestu kandidátovi bez autoritatívneho side effectu. Observability a business reconciliation sledujú final outcomes. Každá technika má iný subject a nemá sa zamieňať so všeobecným „monitorovaním“.
 
-- synthetic transaction pravidelne vykonáva bezpečnú známu cestu;
-- canary alebo ring vystaví novú generation malej stabilnej cohorte;
-- feature flag oddelí deployment od behavior exposure;
-- runtime verification číta loaded version, config a business outcome;
-- production telemetry odhaľuje neznáme kombinácie a dlhodobé trendy.
+Produkčný experiment potrebuje blast radius, allowlisted target, identity, privacy policy a abort criteria. Test data sa musí dať odlíšiť od používateľských dát a nesmie spúšťať nevratné externé operácie bez explicitného contractu. No-data alebo pokazená telemetry cesta nie je success; je to `MISSING` alebo `ERROR` verdict.
 
-Synthetic request potrebuje stabilnú operation identity a cleanup. Ak vytvára reálne objednávky bez označenia, znečisťuje business dáta. Ak používa úplne obídenú test route, nemusí reprezentovať user path.
+Runtime dôkaz sa viaže na release, configuration, region, cohort a časové okno. Globálny dashboard môže skryť problém jedného tenanta alebo AZ. Request a operation IDs musia umožniť prepojiť ingress, application state, eventy a downstream side effects. Pri asynchrónnom workflowe sa analysis window nekončí pri rýchlej HTTP odpovedi, ale pri terminal business outcome-e.
 
-Canary verdict musí porovnávať compatible cohorts:
-
-```text
-nová a stará generation
-+ rovnaký región, tenant class a request mix
-+ stabilné assignment pravidlo
-+ dostatočné observation window
-+ technical aj business metrics
-```
-
-Zelené CPU a HTTP 5xx môžu prehliadnuť nesprávne ceny alebo duplicate side effects. Preto shift-right oracle zahŕňa final business completion a forbidden outcomes.
-
-Feature flag je runtime control plane. Source default, remote flag value, targeting rules, SDK cache a loaded process state môžu byť odlišné generations. Test „flag je off v UI“ nepreukazuje, že všetky processes správanie vypli. Read-back a telemetry majú publikovať effective generation bez secretov.
-
-Experiment musí mať blast radius, ownera, abort podmienku a recovery. Pozorovanie production failure bez vopred pripravenej akcie nie je bezpečný shift-right. Rovnako monitoring bez rozhodovacieho contractu iba zhromažďuje dáta.
-
-Shift-right dôkaz je časovo ohraničený. Canary prešiel pri určitej záťaži a dependency state; nepreukazuje správanie pri budúcom peak-u alebo inom regióne. Výsledok sa viaže na cohort, interval, release a configuration generation.
+Shift-right kontrola sa uzatvára containmentom a recovery. Ak canary zlyhá, treba zastaviť novú expozíciu, zachovať evidence a reconciliovať in-flight operations. Samotný návrat route weightu na nulu nepreukazuje, že pending alebo unknown side effects boli vyriešené.
 
 ## 15. Worked failure: technický canary bol zelený, journey zlyhal
 

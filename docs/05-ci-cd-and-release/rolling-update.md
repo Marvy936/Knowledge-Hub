@@ -153,21 +153,17 @@ kubectl -n payments get deployment payments-api \
 
 Condition preukazuje controller interpretation. Nepreukazuje business acceptance ani že `rollout undo` je data-compatible. Previous ReplicaSet môže existovať, ale old version nemusí vedieť čítať current state.
 
-## Doplnenie výkladu: surge, unavailable a dve súbežné cohorts
+## Ako funguje rolling update počas mixed-version intervalu
 
-Rolling update postupne nahrádza staré replicas novými. Počas transition existujú minimálne dve cohorts s odlišnou generation.
+Rolling update postupne nahrádza staré repliky novými, takže určitý čas bežia obe generations súčasne. Tento **mixed-version interval** je hlavná compatibility boundary. Staré a nové processes musia spolupracovať s rovnakou databázou, eventmi, caches a klientmi, kým posledná stará replika neodíde.
 
-`maxUnavailable` určuje, koľko desired replicas môže byť nedostupných. `maxSurge` určuje, koľko replicas nad desired count môže dočasne vzniknúť. Percentá sa prepočítavajú a zaokrúhľujú podľa controller contractu, preto malé deploymenty môžu mať prekvapivé absolútne hodnoty.
+`maxSurge` určuje, koľko nových replík možno vytvoriť nad desired count. `maxUnavailable` určuje, koľko požadovaných replík môže byť dočasne nedostupných. Percentá sa prepočítavajú na absolútne hodnoty a musia sa hodnotiť spolu s existujúcim unhealthy baseline-om. Ak je kapacita porušená už pred rolloutom, ďalšie odstránenie starej batch môže spôsobiť outage aj pri syntakticky validnej stratégii.
 
-Pri desired `10`, `maxUnavailable=20%` a `maxSurge=30%` môže controller cieliť približne na minimálne 8 available a maximálne 13 total replicas. Existing unavailable baseline znižuje reálnu rezervu.
+Readiness má odpovedať, či konkrétna nová replika dokáže bezpečne dostať traffic v aktuálnom shared state-e. Process health alebo otvorený port nestačí. Controller status a EndpointSlice dokazujú deployment a routing eligibility, ale business synthetic musí potvrdiť reálnu operáciu. Pomer replík navyše nemusí zodpovedať pomeru requestov pri sticky sessions alebo nerovnomernom load balancingu.
 
-Readiness odstraňuje nový Pod z unavailable countu, ale nepreukazuje stabilitu počas observation window. Pod môže byť ready pred warm-upom alebo pred načítaním všetkých routes.
+Pred odstránením ďalšej starej batch sa sleduje capacity, error/latency, queue a compatibility. Terminating Pod potrebuje drain a grace period; in-flight writes a background jobs sa musia dokončiť alebo odovzdať bez duplication.
 
-Traffic počas rolloutu smeruje na old aj new cohort. Session, cache, events a database musia byť mixed-version compatible. Ak nová verzia zapisuje formát, ktorý stará nevie čítať, samotné replica poradie problém nevyrieši.
-
-Termination potrebuje drain: odstrániť endpoint eligibility, počkať na in-flight requests a až potom ukončiť process. Príliš krátky grace period vytvára reset connections.
-
-Rollback controllera vytvorí ďalší rolling transition. Nie je instantný návrat a nemusí byť data-compatible.
+Rollback vytvorí ďalší rolling transition a je bezpečný iba pri zachovanej backward compatibility. Ak nová generation už zmenila schema alebo event semantics, návrat image-u nemusí obnoviť systém. Rolling update je preto state machine nad application aj shared state-om, nie iba poradie Podov.
 
 ## 11. Connected incident `REL-PAY-69`
 

@@ -241,38 +241,17 @@ pipeline creates resource with run/candidate labels
 
 Job success bez potvrdenia critical cleanup-u môže byť `SUCCEEDED_WITH_RESIDUAL_RISK`, nie čistý pass.
 
-## Doplnenie výkladu: pipeline graph, job isolation a runner
+## Ako sa pipeline mení na reálne procesy na runneri
 
-**Pipeline** je jedna konkrétna execution instance vytvorená z versionovanej definície a eventu. **Stage** je logická skupina alebo ordering barrier. **Job** je jednotka execution s vlastnými commands, environmentom a výsledkom. **Runner** je agent, ktorý job prijme a spustí cez executor, napríklad shell, container alebo VM.
+Pipeline je versionovaný execution graph. Stage zoskupuje jobs podľa dependency alebo policy, job je konkrétna jednotka práce a runner je runtime, ktorý ju skutočne vykoná. Graf v YAML nepreukazuje, že job dostal očakávaný image, credentials, filesystem alebo network path. Resolved graph a runner environment sú samostatné evidence.
 
-Tieto pojmy opisujú odlišné vrstvy:
+Scheduler vyberá runner podľa labels, capacity a protection rules. Persistent runner môže zachovať workspace, containers alebo credentials z predchádzajúceho jobu; ephemeral runner znižuje tento drift, ale stále potrebuje pinned image a bootstrap. Privileged Docker socket alebo broad cloud role rozširujú trust boundary pipeline-u a musia byť viazané na trusted triggers.
 
-```text
-pipeline definition
-→ resolved job graph
-→ scheduler rozhodne readiness
-→ runner vyberie job
-→ executor vytvorí execution environment
-→ commands vrátia exit statuses a artifacts
-```
+Job success je odvodený z exit statusov jednotlivých steps a z pravidiel shellu. Pipeline môže byť zelená, ak validator zlyhá v pipeline bez `pipefail`, ak script prehltne exception alebo ak native command exit code nie je skontrolovaný. Machine-readable result a diagnostics majú oddelené streams, aby ďalší job neparsoval progress text ako artifact.
 
-Stage-based pipeline často čaká, kým všetky jobs v predchádzajúcom stage skončia. DAG pipeline môže cez dependencies spustiť job skôr. Poradie v YAML preto nemusí byť reálne execution poradie.
+Artifacts prenášajú výstup medzi jobs a musia mať digest, producer identity a retention. Workspace alebo cache nie je spoľahlivý hand-off, pretože môže byť mutable a neúplný. Downstream job má overiť manifest a checksum skôr, než výstup použije.
 
-Job success typicky vznikne z process exit statusu. Ak shell pipeline zakryje failure skoršieho commandu, CI systém vidí nulu a označí job green. Runner nevie, že business validation zlyhala.
-
-Runner identity je trust boundary. Persistent shell runner môže zachovať workspace, credentials alebo cache medzi jobs. Ephemeral container znižuje residue, ale host daemon, mounted socket alebo privileged mode môžu stále poskytovať širokú authority.
-
-Pri pending jobe kontroluj:
-
-```text
-job tags a protected status
-→ dostupní runners
-→ runner online/paused state
-→ executor capacity
-→ project/group eligibility
-```
-
-Successful job preukazuje execution na konkrétnom runneri a návratový stav commands. Nepreukazuje čistotu workspace, kompletnosť outputs ani dôveryhodnosť runner hosta bez ďalšej evidence.
+Pri diagnóze sa postupuje od resolved graphu cez scheduler decision, runner identity, checkout subject, environment a process exit až po publikované evidence. Zelená stage ikona bez týchto detailov nehovorí, ktorý kód a runtime skutočne vytvorili výsledok.
 
 ## 11. Connected incident `REL-PAY-66`
 

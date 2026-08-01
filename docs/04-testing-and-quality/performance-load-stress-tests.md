@@ -391,36 +391,13 @@ pôvodný demand
 
 Testuj max attempts, retryable errors, backoff/jitter, retry budget, idempotency a deadline propagation. Recovery nesmie vytvoriť oneskorené duplicity.
 
-## Doplnenie výkladu: workload, percentile a saturation
+## Ako čítať workload, percentily a saturation
 
-Performance test nie je „pošli veľa requestov a pozri priemer“. Je to kontrolovaný experiment s definovaným workloadom a oraclom.
+Performance test je kontrolovaný experiment, nie iba veľký počet requestov. **Latency** meria čas jednej operácie medzi presne zvoleným začiatkom a koncom. **Throughput** vyjadruje počet dokončených operácií za čas, zatiaľ čo **concurrency** opisuje rozpracované operácie. **Saturation** nastáva vtedy, keď práca čaká na resource, queue alebo limit. Tieto hodnoty sa musia čítať spolu: throughput môže vyzerať stabilne aj v čase, keď backlog rastie a používatelia čakajú čoraz dlhšie.
 
-Základné pojmy:
+Percentile `p95` je hodnota, pod ktorou skončilo približne 95 percent nameraných latencies. Neznamená priemer ani maximálnu dobu. Jeho význam závisí od sample countu, operation type, result class a histogramu. Ak sa do jednej distribúcie zmiešajú rýchle errors so successful requests, p95 sa môže zlepšiť práve preto, že systém zlyháva rýchlejšie. Preto sa latency reportuje pre samostatné operácie a výsledkové triedy.
 
-- **latency** je čas jednej operácie od zvoleného začiatku po zvolený koniec;
-- **throughput** je počet dokončených operácií za jednotku času;
-- **concurrency** je počet operácií rozpracovaných naraz;
-- **saturation** znamená, že resource alebo queue už nemá voľnú kapacitu a práca čaká;
-- **error rate** musí mať explicitný denominator, napríklad failed logical orders / all logical orders.
-
-Pri percentile `p95` zoradíme pozorované latencies a hľadáme hranicu, pod ktorou skončilo približne 95 % operácií. Neznamená to „95 % času bol systém taký rýchly“ ani „najhorších 5 % malo presne túto hodnotu“. Pri malom sample je percentile nestabilný; pri zmiešaných cohorts môže skryť problém jednej route alebo AZ.
-
-Workload model musí popísať:
-
-```text
-arrival rate alebo počet virtuálnych používateľov
-request mix
-payload distribution
-session/think time
-warm-up
-trvanie steady window
-cache state
-external dependency behavior
-```
-
-**Load test** overuje očakávaný alebo peak workload. **Stress test** zvyšuje tlak za očakávanú hranicu a sleduje failure mode a recovery. **Spike test** skúma náhly skok. **Soak test** trvá dlho a hľadá leak, backlog alebo postupnú degradáciu.
-
-Ukážka s k6:
+Workload model určuje, akú realitu experiment simuluje. Open model plánuje arrivals nezávisle od response time; closed model používa pevný počet users, ktorí čakajú na odpoveď. Keď closed generator pri spomalení odošle menej requestov, vzniká coordinated omission: práca, ktorá by v produkcii prišla a čakala, sa vôbec nezmeria. Pre verejné API je preto často vhodnejší arrival-rate model.
 
 ```javascript
 export const options = {
@@ -441,11 +418,9 @@ export const options = {
 };
 ```
 
-`constant-arrival-rate` sa snaží začínať 100 iterations za sekundu. VUs sú workers potrební na udržanie arrival rate; ak operácie spomalia a `maxVUs` nestačí, generator nedokáže vytvoriť požadovaný workload. Threshold je oracle, nie samotné meranie. `p(95)<400` platí pre metriku a tags zahrnuté v query; môže miešať rôzne endpointy, ak ich nerozdelíme.
+Konfigurácia žiada od k6 začínať sto iterations za sekundu. Virtuálni users sú workers, ktorých generator potrebuje na udržanie tohto tempa. Ak `maxVUs` nestačí, test nedodá plánovaný workload a výsledok nemožno interpretovať ako limit servera. Threshold `p(95)<400` je oracle nad konkrétnou metrikou; bez tags môže miešať rôzne endpointy a payloady.
 
-Pozor na **coordinated omission**: closed-loop generator čaká na dokončenie pomalého requestu a počas stall-u neposiela ďalšie. Tým vynechá operácie, ktoré by v reálnom arrival modeli čakali, a nameria príliš dobrú latency. Arrival-rate model alebo korekcia histogramu lepšie reprezentuje frontu.
-
-Performance verdict musí spojiť client measurements so server-side CPU, memory, queue, pool, database waits a errors. Rýchly client result bez potvrdenia dokončeného business outcome-u môže merať iba accepted request, nie celú operáciu.
+Client metrics sa pri diagnóze spájajú s queue depth, pool waitom, CPU throttlingom, lockmi, I/O, broker lagom a downstream quotas. Prvý rastúci wait signal často odhalí bottleneck skôr než utilization dosiahne sto percent. Experiment sa uzatvára až po ramp-down a recovery: backlog sa musí vyprázdniť, retries skončiť a delayed side effects sa musia reconciliovať. Prežitie peak-u bez návratu do stabilného stavu nie je úspešný performance verdikt.
 
 ## 19. Worked failure: closed model skryl overload
 

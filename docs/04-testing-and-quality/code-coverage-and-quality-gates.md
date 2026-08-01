@@ -340,42 +340,17 @@ Mutant je killed, ak test odhalí zmenu. Surviving mutant môže znamenať slab�
 
 Pre Atlas je mutation testing vhodné na authorization a retry state machine. Nie je potrebné plošne pre celý repository pri každom PR; môže bežať nad changed critical code alebo periodicky.
 
-## Doplnenie výkladu: denominator coverage a význam gate-u
+## Ako čítať coverage a quality gate
 
-Coverage je pomer pozorovaných programových prvkov k zvolenému denominatoru. **Line coverage** sleduje vykonané riadky, **branch coverage** výsledky podmienok, **function coverage** volané funkcie a **condition coverage** jednotlivé boolean časti. Hodnota 80 % bez uvedenia typu, scope a exclusions je neúplná.
+Coverage opisuje, ktoré programové prvky test počas vykonania navštívil. Line coverage používa ako denominator merateľné riadky, branch coverage jednotlivé výsledky rozhodnutí a function coverage volateľné funkcie. Percento bez uvedenia denominatoru, scope-u, exclusions a source revision je neúplné. Rovnakých osemdesiat percent môže znamenať veľmi odlišný dôkaz podľa toho, či chýbajú generated getters alebo authorization branches.
 
-Príklad:
+Vykonanie riadku neznamená, že test overil jeho význam. Test môže prejsť cez chybnú vetvu bez assertion alebo iba skontrolovať, že process nespadol. Coverage je preto mapa pozorovaných a nepozorovaných častí, nie dôkaz correctness. Chýbajúca branch coverage pomáha nájsť slabé miesto; prítomná coverage nenahrádza oracle.
 
-```python
-def classify(amount: int) -> str:
-    if amount <= 0:
-        return "invalid"
-    if amount > 1000:
-        return "review"
-    return "accepted"
-```
+Mutation testing skúša silu oraclu tým, že nástroj vytvorí malú semantic zmenu, napríklad nahradí `>` za `>=` alebo odstráni authorization condition. Ak suite zlyhá, mutant bol „killed“ a testy zmenu rozpoznali. Preživší mutant môže ukazovať chýbajúci scenár alebo slabú assertion, ale môže byť aj semanticky ekvivalentný, preto výsledok potrebuje triage.
 
-Jeden test s `amount=100` vykoná väčšinu riadkov, ale neoverí `invalid` ani `review` branch. Vysoká line coverage preto nemusí znamenať silný oracle. Test môže riadok vykonať bez assertion na jeho výsledok.
+Quality gate kombinuje viac evidence a aplikuje versionovanú policy. Môže vyhodnotiť test results, blocking findings, diff coverage, mutation score a povinné kritické scenáre. Gate musí rozlišovať `FAIL`, keď subject porušil kontrolu, `ERROR`, keď kontrola nevedela korektne bežať, a `MISSING`, keď evidence nebola dodaná. Fail-open preklad chýbajúceho reportu na success ničí dôveryhodnosť required controlu.
 
-Coverage report odpovedá „čo testy vykonali“, nie „čo správne overili“. Chýbajúca coverage je užitočná mapa nepozorovaného kódu; prítomná coverage nie je dôkaz correctness.
-
-**Mutation testing** skúša silu testov tak, že nástroj úmyselne zmení program, napríklad `>` na `>=` alebo odstráni volanie, a sleduje, či testy zlyhajú. Preživší mutant naznačuje slabý alebo chýbajúci oracle, ale nie každý mutant je významný alebo neekvivalentný.
-
-Quality gate je policy decision nad evidence:
-
-```text
-coverage delta
-+ blocking findings
-+ test results
-+ risk/ownership pravidlá
-→ allow alebo block transition
-```
-
-Gate `coverage >= 80 %` môže motivovať bezcenné testy alebo trestať generated code. Lepší gate môže sledovať coverage zmeneného rizikového kódu, branch coverage a zakázaný pokles, pričom kritické paths majú explicitné tests nezávisle od percenta.
-
-Pri pull requeste rozlišuj absolute a differential gate. Absolute gate hodnotí celý repository. Differential gate hodnotí novú zmenu. Oba potrebujú stabilný baseline; ak sa base branch medzitým zmenila, porovnanie sa môže stať stale.
-
-Gate failure neznamená automaticky product defect. Môže ísť o missing report, parser error alebo policy service outage. Fail-open prekladá chýbajúce evidence na PASS a je nebezpečný pri required controls. Pipeline má odlíšiť `FAIL`, `ERROR` a `MISSING`, aby owner vedel, či opraviť kód, test alebo evidence path.
+Dobrá policy nezaobchádza so všetkým kódom rovnako. Authorization, money, destructive automation a recovery potrebujú explicitné scenáre nezávisle od globálneho percenta. Differential gate chráni nový diff, zatiaľ čo absolute gate sleduje celý repository; oba musia používať správny merge base a complete report z relevantných shardov.
 
 ## 18. Worked failure: 96 % coverage, ale tenant mutant prežil
 

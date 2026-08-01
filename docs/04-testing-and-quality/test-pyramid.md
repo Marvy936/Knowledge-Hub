@@ -400,51 +400,17 @@ Počet testov nie je dostatočná metrika. Sleduj vlastnosti feedback systému:
 
 Metriky majú viesť k zmene scope, isolation alebo ownershipu, nie k penalizácii tímu za červený test.
 
-## Doplnenie výkladu: čo pyramída skutočne optimalizuje
+## Ako vybrať správny test scope
 
-Test pyramid nie je predpis na pevný počet unit, integration a E2E testov. Je to model **feedback economics**: čím väčší scope test spúšťa, tým viac reálnych hraníc môže overiť, ale spravidla rastie čas, cena setupu, počet failure príčin a náročnosť diagnostiky.
+Test pyramid nie je príkaz, aby každá codebase mala presný počet unit, integration a end-to-end testov. Je to heuristika o cene spätnej väzby. Čím väčší scope test vykonáva, tým viac reálnych hraníc môže pozorovať, ale zároveň rastie čas, množstvo setupu, počet možných príčin zlyhania a náročnosť diagnostiky. Malý test býva rýchly a presný, no neposkytuje dôkaz o konfigurácii, sieti alebo spolupráci procesov.
 
-Pojem **scope** označuje časť systému zahrnutú do jedného testu. Unit test môže spustiť jednu funkciu v jednom procese. Integration test môže pridať reálnu databázu. E2E test môže zahrnúť browser, API gateway, služby, broker a databázu. Väčší scope nie je automaticky lepší; prináša vyššiu **fidelity**, teda podobnosť testovacieho prostredia s reálnym systémom, ale zároveň viac neznámych.
+Správna otázka preto nie je „do ktorej vrstvy patrí tento test podľa názvu frameworku“, ale „aký najmenší scope dokáže zachytiť konkrétny failure mode“. Výpočet ceny alebo authorization decision možno overiť unit testom, pretože riziko leží v lokálnej logike. SQL transakcia, serializácia eventu alebo správanie retry klienta potrebuje reálny adapter a integration scope. Kritická používateľská cesta potrebuje niekoľko end-to-end kontrol, pretože jej riziko vzniká až spojením identity, routingu, aplikácie, databázy a side effectu.
 
-Prakticky si každý test predstav ako kombináciu:
+Fidelity označuje, do akej miery testované prostredie a závislosti reprodukujú mechanizmus, o ktorom chceme rozhodovať. Fake databáza môže byť vhodná pre domain workflow, ale nevie potvrdiť isolation level, index behavior alebo engine-specific SQL. Vyššia fidelity však sama osebe nevytvára lepší test. End-to-end test s neurčitým oraclom môže byť menej hodnotný než malý component test, ktorý presne kontroluje invariant a forbidden outcome.
 
-```text
-subject
-+ zahrnuté hranice
-+ nahradené hranice
-+ setup cost
-+ execution time
-+ oracle
-+ failure localization
-```
+Portfólio preto vzniká od rizík. Veľa lacných testov chráni lokálnu logiku a hraničné prípady, menší počet integračných testov chráni technologické kontrakty a úzky súbor vyšších testov overuje najdôležitejšie cesty. Keď vyšší test odhalí defect, tím sa má pýtať, či možno rovnaký failure mode zachytiť skôr a lacnejšie. To neznamená odstrániť pôvodný end-to-end dôkaz, ale doplniť rýchlejšiu regresnú kontrolu na vhodnej hranici.
 
-Napríklad test objednávky môže mať tri podoby:
-
-```text
-unit:
-pricing function + in-memory inputs
-
-integration:
-orders repository + reálna PostgreSQL schema
-
-E2E:
-HTTP request + identity + orders service + database + event broker
-```
-
-Unit test rýchlo vysvetlí chybu vo výpočte. Integration test odhalí chybný SQL typ alebo transaction behavior. E2E test odhalí, že route, credentials alebo serialization medzi komponentmi nefungujú. Žiadna vrstva nenahrádza ostatné, pretože každá pozoruje iný failure mode.
-
-Pyramída sa pokazí, keď sa všetko overuje cez hornú vrstvu. Jeden E2E failure potom môže znamenať defect v UI, DNS, identity, API, databáze, test data alebo samotnom teste. Naopak príliš veľa izolovaných unit testov môže vytvoriť zelenú suite nad systémom, ktorého komponenty sa nevedia spojiť.
-
-Pri návrhu testu preto nezačínaj otázkou „na ktorú vrstvu patrí?“, ale:
-
-```text
-Aké riziko chceme zachytiť?
-Ktorá najnižšia vrstva ho dokáže pozorovať s dostatočnou fidelity?
-Ktoré reálne hranice musia zostať v teste?
-Aký failure artifact umožní rýchlu diagnózu?
-```
-
-**Test diamond**, **trophy** alebo iné tvary nie sú konkurenčné pravdy. Vyjadrujú inú architektúru, tooling a rizikový profil. Frontend s lacnými component tests môže mať viac strednej vrstvy. Data pipeline môže potrebovať viac integration testov. Dôležitá je výsledná feedback latency a pokrytie failure modes, nie vizuálny pomer.
+Pyramid sa mení podľa architektúry. Služba s bohatou domain logikou bude mať inú skladbu než tenký integračný gateway alebo dátová pipeline. Dôležité je, aby žiadne kritické riziko nezostalo pokryté iba pomalým, flaky alebo slabo diagnostickým testom.
 
 ## 24. Anti-patterny
 

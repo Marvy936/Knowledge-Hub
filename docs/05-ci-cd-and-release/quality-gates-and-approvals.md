@@ -272,27 +272,17 @@ Gate môže byť technicky dostupný a organizačne nefunkčný. Sledujú sa:
 
 Cieľ nie je maximalizovať deny rate. Gate má rýchlo a presne blokovať relevantný risk a poskytovať actionable reason.
 
-## Doplnenie výkladu: gate je rozhodovacia policy nad evidence
+## Ako gate a approval rozhodujú nad presným subjectom
 
-Quality gate nie je test. Je to policy, ktorá z viacerých evidence items vytvorí decision, či subject môže pokračovať do ďalšieho stavu.
+Quality gate je automatizované policy rozhodnutie nad evidence. Gate nevytvára kvalitu sám; interpretuje test results, findings, coverage, provenance alebo runtime metrics pre konkrétny subject. Preto musí poznať artifact alebo candidate identity, policy generation, complete evidence inventory a target transition.
 
-```text
-exact subject
-+ required evidence inventory
-+ policy generation
-→ PASS, FAIL, ERROR alebo MISSING
-→ allow alebo block transition
-```
+Verdict má viac stavov než zelený a červený. `FAIL` znamená, že subject porušil kontrolu. `ERROR` znamená, že kontrola sa nevedela korektne vykonať. `MISSING` znamená, že povinná evidence nebola dodaná. Pre required control sa error ani missing nesmie preložiť na pass, inak outage scanneru alebo stratený artifact otvorí release cestu.
 
-Gate musí najprv overiť completeness. Nulový počet security findings môže znamenať bezpečný artifact alebo chýbajúci scanner report. Ak sa `MISSING` preloží na PASS, gate je false-green.
+Approval je ľudské rozhodnutie nad rovnakým presným subjectom. Reviewer potrebuje vidieť artifact digest, release manifest, target environment, zmenu risku a relevantné evidence. Schválenie názvu `10.0.0` alebo pipeline URL bez content identity je nejednoznačné. Zmena artifactu, configu, policy alebo environment generation musí approval invalidovať.
 
-Approval je ľudský alebo externý policy verdict nad konkrétnym subjectom. Schválenie textu „release 10.0“ je slabé, ak tag môže zmeniť digest. Approval má obsahovať release manifest digest, target environment a evidence snapshot.
+Separation of duties môže vyžadovať iného autora a approvera, ale počet kliknutí nie je bezpečnostný dôkaz. Approval má jasné rozhodovacie kritériá a audit trail. Emergency override potrebuje bounded scope, dôvod, expiry a následnú reconciliáciu, nie permanentný bypass required gates.
 
-Approval freshness sa invaliduje pri zmene subjectu alebo relevantnej policy. Nový commit, rebuilt artifact, zmenený deployment plan alebo force-push môže vyžadovať nové schválenie. UI status „approved“ bez subject bindingu je nedostatočný.
-
-Separation of duties znamená, že rovnaká osoba alebo identity nemá nekontrolovane vytvoriť change, meniť evidence a schváliť production transition. Automatizácia môže presadzovať reviewer independence a protected environment roles, no emergency break-glass potrebuje audit, expiry a následnú reconciliation.
-
-Gate failure musí byť diagnostický: čo chýba, ktoré pravidlo zlyhalo, pre aký subject a aký owner má reagovať. Neurčité „quality gate failed“ predlžuje feedback a podporuje obchádzanie.
+Po gate alebo approval success sa ešte overuje, že downstream transition použil schválený subject. Ak deployment job znovu resolve-ne mutable tag, môže nasadiť iné bytes než tie, ktoré boli testované. Gate preto musí byť viazaný na immutable release manifest, nie iba na poradie jobov.
 
 ## 12. Connected incident `REL-PAY-67`
 

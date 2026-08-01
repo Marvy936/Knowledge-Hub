@@ -204,36 +204,17 @@ old producer + old consumer
 
 SemVer release label nenahrádza deployment compatibility plan.
 
-## Doplnenie výkladu: SemVer je contract o kompatibilite, nie dôkaz kvality
+## Ako čítať Semantic Versioning ako compatibility contract
 
-Semantic Versioning zapisuje verziu ako `MAJOR.MINOR.PATCH` pre software s definovaným **public API**. Public API nie je iba HTTP endpoint. Môže zahŕňať package symbols, CLI flags, config schema, event payloads alebo behavior, na ktorý sa consumers spoliehajú.
+Semantic Versioning zapisuje version ako `MAJOR.MINOR.PATCH` a vyjadruje tvrdenie o zmene verejného contractu. `PATCH` má byť backward-compatible oprava, `MINOR` backward-compatible rozšírenie a `MAJOR` breaking change. Schéma nemeria kvalitu ani veľkosť diffu; komunikuje očakávania consumerom a dependency resolverom.
 
-```text
-MAJOR
-→ nekompatibilná zmena public contractu
+Najťažšia časť nie je zvýšiť číslo, ale definovať **public API**. Do contractu môžu patriť HTTP fields, events, CLI flags, configuration keys, database schema pre externých consumerov alebo behavior a error semantics. Zmena enum hodnoty či default timeoutu môže byť breaking, hoci function signature zostane rovnaká.
 
-MINOR
-→ backward-compatible nová funkcionalita
+Pre-release identifikátor, napríklad `10.0.0-rc.4`, má nižšiu precedence než final version a signalizuje nestabilný candidate. Build metadata za `+` nemení precedence a nemá sa používať na rozlíšenie dvoch podporovaných obsahov pod rovnakou version. Exact bytes stále identifikuje digest.
 
-PATCH
-→ backward-compatible oprava
-```
+Automation môže navrhnúť bump z conventional commits alebo diffu schémy, ale final verdict potrebuje ownera verejného contractu. Tool nevie automaticky poznať všetkých hidden consumerov alebo business semantics. Compatibility tests a deprecation policy poskytujú dôkaz, ktorý samotný názov version nemá.
 
-Version `2.4.1` sama nepreukazuje, že zmena je správne klasifikovaná. Tím musí vedieť, čo public contract zahŕňa a aké consumers existujú.
-
-Pre-release:
-
-```text
-2.4.0-alpha.1 < 2.4.0-beta.1 < 2.4.0-rc.1 < 2.4.0
-```
-
-Pre-release versions majú nižšiu precedence než final release. Build metadata za `+`, napríklad `2.4.0+build.17`, nemení SemVer precedence a nemá sa používať ako jediná immutable artifact identity.
-
-Breaking change môže byť skrytý v semantics: pole zostane string, ale zmení význam; timeout default sa skráti; event ordering sa zmení. Schema diff preto nemusí stačiť.
-
-SemVer je komunikácia pre dependency resolver a používateľov. Nezaručuje security, support duration, artifact immutability ani deployment compatibility so zmenenou databázou. Release manifest stále potrebuje digest a compatibility metadata.
-
-Ak sa už publikovaná version ukáže chybná, neprepisuje sa novými bytes. Vydá sa nová PATCH alebo ďalšia pre-release version. Rovnaké číslo s dvoma digestmi rozbíja resolver, cache aj audit.
+Ak dva buildy publikujú rovnakú logical version s odlišnými digestmi, vzniká collision. Správna reakcia je zastaviť publication a vyšetriť inputs, nie prepísať starý artifact. SemVer zostáva komunikačný contract; immutable content identity a release manifest zostávajú technickou autoritou.
 
 ## 12. Connected incident `REL-PAY-68`
 

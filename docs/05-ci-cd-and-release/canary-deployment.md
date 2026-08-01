@@ -169,28 +169,17 @@ freeze exposure generation
 → verify stable and forbidden outcomes
 ```
 
-## Doplnenie výkladu: stabilná cohorta, baseline a analysis oracle
+## Ako vyhodnocovať canary cohortu
 
-Canary vystaví novú generation obmedzenej časti trafficu alebo users a porovná outcome s baseline. Percento trafficu samo o sebe nevytvára kvalitný experiment.
+Canary vystaví novú generation obmedzenej časti users alebo trafficu a porovná jej outcome so stable baseline. Percento replík alebo route weight samo o sebe nevytvára dôveryhodnú cohortu. Assignment musí byť stabilný podľa identity, ktorá zodpovedá workflowu, napríklad account alebo tenant. Náhodné rozhodnutie pri každom requeste môže jednu session rozdeliť medzi versions a skryť stateful defect.
 
-Cohorta musí byť stabilná podľa user, tenant alebo request identity. Náhodné assignment per request môže poslať jednu session medzi versions a skryť stateful defects.
+Porovnanie potrebuje compatible populations. Stable a canary majú mať rovnaký región, request mix, dependency route a observation interval. Ak canary dostane iba low-volume tenantov alebo inú provider cestu, rozdiel nemožno pripísať samotnému release-u.
 
-Canary analysis porovnáva compatible populations:
+Technical oracle sleduje errors, latency, saturation a restarts. Business oracle sleduje final completion, correctness a forbidden side effects. Rýchle failures môžu znížiť priemernú latency, preto sa výsledky segmentujú podľa result class. Denominator má pochádzať z authoritative admitted operations, nie iba z requestov, ktoré dosiahli úspešnú instrumentation path.
 
-```text
-old vs new generation
-rovnaký región a request mix
-rovnaké dependency conditions
-rovnaký observation interval
-```
+Malý sample nevie vylúčiť zriedkavý defect. Analysis policy preto stanoví minimálny počet operácií alebo čas a rozlišuje `PASS`, `FAIL`, `MISSING` a `INCONCLUSIVE`. No-data pri nulovom trafficu alebo pokazenej query nie je success.
 
-Technical metrics zahŕňajú errors, latency, saturation a restarts. Business oracle zahŕňa final completion, correctness a forbidden side effects. Rýchle failed requests môžu znížiť latency, preto sa metrics segmentujú podľa result class.
-
-Malá cohorta nemusí mať dostatok sample pre zriedkavé chyby. Absencia failure pri 100 requests nepreukazuje error rate 0.01 %. Analysis policy potrebuje minimálny sample alebo čas a confidence podľa rizika.
-
-Automatic promotion musí rozlíšiť no-data od pass. Ak telemetry query zlyhá alebo canary nedostane traffic, verdict je `MISSING/ERROR`, nie green.
-
-Abort zastaví ďalšie exposure a podľa eligibility odstráni canary. Potom sa overí, že route weight je nula, cohort nebeží a business backlog je reconciled.
+Abort zastaví novú expozíciu, ale musí zachovať identity a reconciliovať in-flight canary work. Route weight nula nepreukazuje, že pending alebo unknown operations boli bezpečne uzavreté. Promotion pokračuje až po technickom aj business verdikte a druhom stabilnom observation windowe.
 
 ## 11. Connected incident `REL-PAY-69`
 

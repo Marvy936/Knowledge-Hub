@@ -210,35 +210,17 @@ WHERE version = '42';
 
 Journal output sa porovná s actual catalog. Journal row môže existovať pred/po partial operation podľa tool behavior. Blind rerun bez engine-aware read-back môže zlyhať alebo poškodiť state.
 
-## Doplnenie výkladu: expand/contract a mixed-version window
+## Ako expand/contract chráni mixed-version databázu
 
-Počas rolling alebo progressive deploymentu stará a nová application version často používajú rovnakú databázu. Schema zmena preto musí byť kompatibilná počas **mixed-version window**.
+Počas rolling alebo progressive deploymentu stará a nová application generation používajú spoločnú databázu. Schema a data protocol preto musia byť kompatibilné počas celého mixed-version intervalu. Expand/contract rozdelí zmenu na viac release-ov namiesto okamžitého premenovania alebo odstránenia contractu.
 
-Expand/contract pattern:
+V **expand** fáze sa pridá nový nullable column, table, index alebo event field bez zrušenia starej cesty. Nová application začne podľa potreby dual-write alebo čítať s fallbackom. **Migrate** fáza backfilluje existujúce dáta a porovnáva old/new representations. Po potvrdení completeness sa **switch** presunie na nový read path. Až **contract** fáza odstráni starý field alebo constraint, keď žiadny podporovaný consumer starú formu nepoužíva.
 
-```text
-expand:
-pridať nový nullable column/table/index bez odstránenia starého contractu
+DDL success nepreukazuje, že operation bola online alebo že replicas a backfill sú complete. Engine, dataset size, lock a replication behavior patria do planu. Migration journal iba hovorí, čo tool zaznamenal; catalog a data queries musia potvrdiť effective state.
 
-migrate:
-nová verzia dual-write/dual-read alebo backfilluje dáta
+Backfill je production workload. Potrebuje batches, checkpoint, rate limit a idempotenciu. Stale batch nesmie prepísať novší live write, preto používa row version alebo conditional update. Dual-write môže mať partial outcome, ak jeden zápis uspeje a druhý zlyhá; authority a reconciliation musia byť explicitné.
 
-switch:
-consumers prejdú na nový contract po overení completeness
-
-contract:
-odstrániť starý column/path až keď ho žiadna supported verzia nepoužíva
-```
-
-`ALTER TABLE` success nepreukazuje, že operation bola online alebo že replicas/backfill sú complete. DDL môže držať lock, prepísať table alebo zvýšiť replication lag. Plan zahŕňa engine/version a dataset size.
-
-Backfill je production workload. Potrebuje batches, checkpoint, rate limit, idempotenciu a verification query. Stale backfill nesmie prepísať novší live write; používa conditional update alebo version comparison.
-
-Dual-write môže vytvoriť partial outcome, ak jeden write uspeje a druhý zlyhá. Transaction alebo reconciliation contract musí určiť authority.
-
-Schema version v migration table preukazuje, že migration runner zaznamenal krok. Nepreukazuje data completeness ani to, že všetky processes načítali nový model.
-
-Contract removal je samostatný release po telemetry dôkaze, že starý field/path sa nepoužíva. Rollback eligibility sa posudzuje pred každou fázou.
+Contract removal je samostatné rozhodnutie po telemetry dôkaze, že starí readers/writers a backlog zmizli. Rollback eligibility sa mení v každej fáze. Návrat application image-u po destructive cleanup-e nemusí byť možný, preto recovery môže vyžadovať roll-forward alebo data restore a business reconciliation.
 
 ## 12. Connected incident `REL-PAY-71`
 

@@ -158,28 +158,17 @@ Route rollback je vhodný, keď blue je healthy a compatible s current shared st
 
 Blue retention má cost a security limit. Standby target potrebuje patched dependencies a valid credentials. Po retention window sa old resources retirujú až po potvrdení recovery alternative.
 
-## Doplnenie výkladu: dve environments a samostatný traffic switch
+## Ako funguje blue-green prepnutie
 
-Blue-green udržiava dve samostatné application generations. Jedna obsluhuje production traffic, druhá je candidate. Deployment a exposure sú oddelené transitions.
+Blue-green deployment udržiava dve oddelené application generations. Jedna obsluhuje production traffic a druhá sa pripravuje a overuje bez všeobecnej expozície. Názvy farieb nie sú identity; release manifest musí presne povedať, ktorý artifact, configuration a environment predstavujú active a candidate stranu.
 
-```text
-blue active
-→ deploy green
-→ warm-up a verification green
-→ traffic switch
-→ observe
-→ retire alebo ponechať blue na recovery
-```
+Candidate potrebuje kapacitu, dependencies a data access porovnateľné s active prostredím. Warm-up, cache a background jobs sa musia navrhnúť tak, aby candidate nevykonával duplicitné side effects ešte pred prepnutím. Ak obe strany zdieľajú databázu, schema a event contracts musia byť kompatibilné pre obe generations.
 
-Farba nemá stabilný význam; po ďalšom release sa role môžu vymeniť. Evidence preto používa generation/digest, nie iba `green`.
+Traffic switch je samostatná mutation route, load balancera alebo DNS. API success pri zmene konfigurácie nepreukazuje effective traffic. Read-back sleduje route generation, actual request distribution a business synthetics. Pri DNS treba rátať s cache a TTL; pri proxy s existing connections a session affinity.
 
-Traffic switch môže byť load balancer target, Service selector, route weight alebo DNS. DNS zmena nie je okamžitá kvôli TTL a resolver caches, takže cohorts môžu určitý čas koexistovať.
+Rollback môže byť rýchly, ak staré prostredie zostalo warm a kompatibilné. Nie je však automaticky bezpečný po data migration, new events alebo external side effects. Unknown outcome počas switchu sa rieši observation-first: najprv sa zistí effective route a in-flight cohort, potom sa vykoná ďalšia mutation.
 
-Ak obe environments zdieľajú databázu, blue-green nie je plná izolácia. Candidate môže vykonať migration alebo side effect ovplyvňujúci active generation. Pre-release tests používajú read-only alebo izolované operácie, prípadne explicitný data compatibility contract.
-
-Rollback trafficu je rýchly iba ak old environment zostáva healthy a kompatibilný so shared state. Dlhé ponechanie old environmentu zvyšuje cost a config drift; retirement má časový contract.
-
-Switch response môže byť lost/unknown. Pred retryom sa read-backne effective route a active generation, aby sa traffic neprepol dvakrát alebo na nesprávny target.
+Po stabilizácii sa old environment nevypína okamžite bez retention a recovery decisionu. Blue-green kupuje oddelenie a rýchly traffic reversal za dvojnásobnú kapacitu a potrebu riadiť shared state. Jeho hodnota závisí od presného switch a compatibility contractu.
 
 ## 11. Connected incident `REL-PAY-69`
 

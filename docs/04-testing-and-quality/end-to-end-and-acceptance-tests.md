@@ -296,39 +296,17 @@ Operational Acceptance Testing overuje, či je release prevádzkovateľný:
 
 Funkčne správny systém bez diagnostiky a recovery nie je prijateľný pre produkciu.
 
-## Doplnenie výkladu: čo znamená „od konca po koniec“
+## Ako ohraničiť end-to-end a acceptance dôkaz
 
-End-to-end test musí pomenovať, kde jeho „end“ začína a kde končí. Pre browser workflow môže byť začiatkom používateľský click a koncom potvrdený business stav v backend-e. Pre event pipeline môže byť začiatkom prijatý event a koncom materializovaný read model. Bez tejto definície môže test nazývaný E2E v skutočnosti obísť identity, gateway alebo databázu.
+End-to-end test sleduje operáciu cez viac vrstiev systému. Jeho „end“ musí byť pomenovaný: môže začínať na verejnom API alebo v browseri a končiť final state-om v databáze, odoslaným eventom či potvrdeným externým side effectom. Test, ktorý skončí pri HTTP `202`, nie je end-to-end dôkazom asynchrónneho workflowu, ak skutočný používateľský výsledok vzniká až po spracovaní queue a provider response.
 
-Praktický E2E subject vyzerá napríklad takto:
+Acceptance test odpovedá na inú otázku. Posudzuje, či výsledok spĺňa používateľské alebo business pravidlo. Môže byť vykonaný end-to-end, ale nemusí; business pravidlo možno často overiť aj component testom s vysokou fidelity. Naopak technický end-to-end smoke test môže potvrdiť routing a persistence bez toho, aby dokazoval, že workflow je pre používateľa správny alebo zrozumiteľný.
 
-```text
-browser alebo API client
-→ DNS/TLS/routing
-→ identity
-→ application services
-→ database a broker
-→ business completion oracle
-```
+Vyšší scope potrebuje disciplinovaný setup. Test data musí mať unikátnu identity, tenant a cleanup policy. Identity, feature flags, time, dependencies a environment generation musia byť zaznamenané, inak failure nie je reprodukovateľný. Pri paralelných runoch nesmú testy zdieľať rovnaký order ID alebo meniť globálnu konfiguráciu bez izolácie.
 
-**Acceptance test** vyjadruje podmienku, za ktorej stakeholder prijme správanie. Môže byť E2E, ale nemusí. Business acceptance pravidlo pre cenu sa dá overiť component testom, ak nepotrebuje celý systém. Naopak technický E2E smoke test nemusí dokazovať, že funkcionalita spĺňa používateľskú potrebu.
+Oracle má sledovať finálny outcome aj forbidden outcomes. Pri objednávke nestačí nájsť row so stavom `COMPLETED`; test má overiť cenu, tenant ownership, jeden audit event, jeden provider side effect a absenciu duplicitnej operácie po retry. Ak test zlyhá, evidence má zachovať request ID, trace, deployment generation a relevantné state transitions pred cleanupom.
 
-Pri UI teste rozlišuj action a oracle:
-
-```python
-page.get_by_role("button", name="Submit order").click()
-expect(page.get_by_test_id("order-status")).to_have_text("Accepted")
-```
-
-Prvý riadok vykoná používateľskú akciu. Druhý čaká na konkrétny UI stav. Ak aplikácia zobrazí `Accepted` ešte pred durable backend commitom, oracle je príliš blízko prezentácii. Silnejší test môže cez podporované API alebo audit read-back potvrdiť exact `orderId` a final state.
-
-Selectors sú súčasť stability testu. CSS selector viazaný na layout sa rozbije pri vizuálnom refactore bez zmeny správania. Role, accessible name alebo explicitný test ID lepšie reprezentujú používateľský alebo stabilný kontrakt. Test ID však nesmie nahradiť accessibility verification.
-
-Test data setup musí vytvoriť známy počiatočný stav. „Použi existujúceho usera test@example“ vytvára shared mutable dependency. Lepší setup vygeneruje jedinečnú identitu, uloží ju do evidence a cleanup vykoná podľa owner contractu. Pri failure sa data nemajú okamžite zmazať, ak sú potrebné na diagnózu.
-
-E2E suite býva pomalšia, preto sa delí na kritické journeys, širšiu regression sadu a experimentálne scenáre. Retry celého testu môže odlíšiť infra noise od deterministického defectu iba vtedy, ak sa zachová prvý attempt. Zelený retry nesmie prepísať screenshot, trace, network log a backend correlation ID z pôvodného failure-u.
-
-Verdict musí uviesť aj nevykonané hranice. Test proti staging fake payment providerovi nepreukazuje produkčnú provider integráciu. Test cez API nepreukazuje browser behavior. E2E označenie samo osebe nevytvára úplný dôkaz.
+End-to-end testy sú drahé a citlivé na okolité systémy, preto nemajú niesť celé regresné portfólio. Používajú sa na kritické reťazce a integračné predpoklady, ktoré nižšie scope-y nevedia pozorovať. Defect zistený na tejto vrstve sa má doplniť menším testom tam, kde vznikla najskoršia diskriminačná hranica, zatiaľ čo vyšší test zostane dôkazom celého workflowu.
 
 ## 15. Worked failure: fixture vytvorila false green
 

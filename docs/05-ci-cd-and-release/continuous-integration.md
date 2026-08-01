@@ -195,45 +195,17 @@ deployment
 
 Container executor nie je automatická hard security boundary. Privileged mounts, shared host kernel, persistent workspace, Docker socket a broad egress môžu spojiť untrusted job s ďalšími runs. Runner sa klasifikuje podľa identity, persistence, networku a oprávnení, nie iba podľa executor labelu.
 
-## Doplnenie výkladu: integration candidate a stale evidence
+## Ako vzniká dôveryhodný integration candidate
 
-Continuous Integration neznamená iba to, že sa po pushi spustí test job. Jej hlavným subjectom je **integration candidate**: presný snapshot, ktorý vznikne spojením navrhovanej zmeny s aktuálnym cieľovým stavom.
+Continuous Integration neoveruje izolovanú feature branch, ale konkrétny candidate, ktorý by po integrácii existoval v cieľovej histórii. Keď sa target branch medzi spustením testov a mergeom zmení, starý zelený výsledok môže byť stale. Dve branches môžu byť jednotlivo zelené a napriek tomu vytvoriť nekompatibilnú kombináciu.
 
-Pri pull requeste existujú minimálne tri rozdielne identity:
+Candidate preto potrebuje exact identity. Merge queue alebo CI systém môže vytvoriť synthetic merge commit, ktorý spája aktuálny feature tip s aktuálnym targetom. Test evidence sa viaže na commit alebo tree tohto kandidáta, resolved workflow generation, build inputs a runner trust boundary. Samotný názov branch alebo pull requestu nie je stabilný subject.
 
-```text
-feature branch tip
-cieľová branch tip
-synthetic merge candidate
-```
+Build má začať z čistého workspace-u a z deklarovaných dependencies. Warm runner, generated files alebo shared cache môžu vložiť bytes, ktoré nie sú súčasťou candidate tree-u. Cache môže zrýchliť dependency resolution, ale nesmie byť autoritou pre release output. Reprodukovateľný build zaznamená compiler, base image, lock files a build script generation.
 
-Feature branch môže byť zelená voči starému `main`, no po integrácii s novším `main` vznikne iný tree. Hosting platforma alebo merge queue preto často vytvorí dočasný commit, ktorý má ako parents feature a cieľový tip. Testy nad týmto synthetic merge commitom poskytujú evidence pre budúci integrated snapshot.
+CI verdict vznikne až po complete fan-in požadovaných kontrol. Zelený unit shard nepreukazuje, že integration, security alebo platform matrix prešli. Missing shard nie je success; pipeline má rozlišovať `FAIL`, `ERROR` a `MISSING`. Výsledok platí iba pre candidate, nad ktorým sa kontroly skutočne vykonali.
 
-Príkazy:
-
-```bash
-feature_sha=$(git rev-parse HEAD)
-target_sha=$(git rev-parse origin/main)
-merge_base=$(git merge-base HEAD origin/main)
-printf 'feature=%s target=%s base=%s\n' \
-  "$feature_sha" "$target_sha" "$merge_base"
-```
-
-`rev-parse` resolve-ne refs na commit IDs. `merge-base` nájde spoločného predka používaného na porovnanie zmien. Tieto hodnoty ešte nevytvárajú merge candidate; iba presne identifikujú vstupy.
-
-CI evidence musí viazať:
-
-```text
-source commit
-+ target commit
-+ výsledný candidate tree alebo merge commit
-+ workflow generation
-+ dependency/build inputs
-```
-
-Ak sa target branch po úspešnom teste posunie, pôvodný verdict môže byť **stale**. Neznamená to, že test klamal; znamená to, že platil pre iný subject. Merge queue tento problém rieši sériou alebo skupinou kandidátov testovaných v poradí budúcej integrácie.
-
-Zelená CI teda preukazuje, že konkrétny candidate prešiel konkrétnymi checks. Nepreukazuje, že všetky required checks skutočne existovali, že runner bol trusted, že artifact neskôr vznikol z rovnakých bytes alebo že produkcia používa tento candidate.
+Po mergei sa môže vyžadovať ďalšia validácia, ak publish alebo release používa inú workflow generation, credentials či runner class. Continuous Integration tak nie je synonymom pre „všetky branches sú zelené“, ale mechanizmom, ktorý udržiava hlavný integračný subject v známom a reprodukovateľnom stave.
 
 ## 10. Connected incident `REL-PAY-66`
 
