@@ -7,6 +7,12 @@ on:
     paths:
       - scripts/section_10_closeout.py
       - .github/workflows/section-10-closeout.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/section_10_closeout.py
+      - .github/workflows/section-10-closeout.yml
 
 permissions:
   contents: write
