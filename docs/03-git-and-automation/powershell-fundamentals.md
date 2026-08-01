@@ -1,8 +1,5 @@
 # PowerShell fundamentals
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je PowerShell
-
 PowerShell je shell a automatizačný jazyk postavený nad .NET. Jeho pipeline neprenáša iba textové riadky; prenáša objekty s properties a methods. Formatting je oddelená prezentačná vrstva, preto to, čo vidíš v tabuľke, nemusí byť celý objekt ani jeho serialization.
 
 ```powershell
@@ -26,9 +23,6 @@ if ($PSCmdlet.ShouldProcess($Target, 'Apply configuration')) {
 PowerShell objekty sa pri prechode cez external process alebo JSON serialization menia na text/serialized representation. Type fidelity sa môže stratiť. Dates, enums, large integers a nested objects preto potrebujú explicitný contract.
 
 Pri cross-platform automation treba rozlišovať PowerShell language behavior od platformových APIs, filesystem semantics a dostupnosti native commands. Rovnaký `.ps1` môže syntakticky fungovať na Linuxe aj Windows, ale jeho mutation a locking semantics sa môžu líšiť.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas Windows operátori potrebujú rovnaký release contract ako Linux tím. PowerShell nie je Bash so syntaxou `$env:`. Jeho pipeline prenáša .NET objekty, cmdlets používajú parameter binding a errors majú viac streams a terminating semantics. Bez tejto hranice skript môže zobraziť červenú chybu a napriek tomu pokračovať alebo môže úspešne spracovať text, ktorý už stratil objektovú štruktúru.
 

@@ -1,8 +1,5 @@
 # Contract a API tests
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú contract test a API test
-
 API test a contract test nie sú synonymá. **API test** posiela request na runtime rozhranie a overuje jeho aktuálne správanie: status, headers, body, authorization, side effects alebo latency. **Contract test** overuje kompatibilitu medzi producerom a consumerom podľa explicitnej dohody o messages a semantics.
 
 Provider contract môže byť OpenAPI, AsyncAPI, protobuf schema, event schema alebo iný versioned artifact. Schema však zachytí iba časť contractu. Dôležité sú aj required/optional fields, error semantics, ordering, idempotency, authorization a lifecycle.
@@ -28,17 +25,6 @@ Backward compatibility znamená, že nový provider funguje so starým consumero
 Contract test nepreukazuje dostupnosť runtime prostredia, routing ani reálny database side effect. API test zase nemusí odhaliť, že zmena rozbije consumer, ak testuje iba providerov vlastný pohľad. Preto sa kombinujú contract artifact, provider verification, consumer tests a vybrané runtime API journeys.
 
 Pri event-driven systéme treba testovať nielen schema, ale aj key, ordering, duplicate, retry a evolution semantics. Syntakticky validný event môže byť semanticky nekompatibilný.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Unit, integration a component tests](unit-integration-component-tests.md), [REST APIs a WebSockets](../02-networking-and-web/rest-apis-and-websockets.md)
-- Súvisiace témy: OpenAPI, AsyncAPI, consumer-driven contracts, schema evolution, idempotency, compatibility matrix
 
 ## 1. Cieľ kapitoly
 

@@ -1,8 +1,5 @@
 # Shift-right
 
-<!-- CONCEPT-FIRST:START -->
-## Čo znamená shift-right
-
 Shift-right znamená získavať quality a behavior evidence v neskorších fázach delivery a v produkčnom alebo production-like prostredí. Nejde o testovanie namiesto pre-release kontrol, ale o overenie assumptions, ktoré sa naplno prejavia až pri reálnom trafficu, dátach, topológii a používateľoch.
 
 Bežné mechanizmy:
@@ -29,30 +26,6 @@ Neutrálny príklad: release je technicky zdravý a server vracia `200`, ale nov
 Shift-right potrebuje safety controls: bounded blast radius, abort criteria, immutable artifact identity, traffic/feature/data state inventory a recovery plan. Experimentovanie priamo v produkcii bez týchto hraníc nie je quality strategy.
 
 Observability nie je automaticky test. Metrika sa stane oracle-om až po definovaní expected behavior, threshold, cohortu a rozhodnutia. Produkčný signal treba korelovať s exact release a exposure state-om.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Level: L2
-- Domain: Testing and Software Quality
-
-Shift-right rozširuje verification, validation a experimentovanie do deploymentu a produkčnej prevádzky. Jeho cieľom nie je „testovať až na používateľoch“, ale bezpečne získať dôkaz o vlastnostiach, ktoré predprodukčné prostredie nevie úplne reprodukovať: reálny traffic mix, identity, tenant skew, objem dát, regionálnu sieť, quotas, dlhodobý state a emergentné distribuované správanie.
-
-```text
-release hypotéza a riziko
-→ immutable artifact a configuration identity
-→ obmedzená cohort/exposure
-→ technical + functional + business oracle
-→ porovnateľný baseline alebo control
-→ promote, pause, rollback alebo roll-forward
-→ dlhšie recovery a delayed-effect pozorovanie
-→ poznatok prevedený na skorší control
-```
-
-Shift-right nadväzuje na shift-left. Skoré kontroly znižujú počet predvídateľných chýb; produkčný feedback odhaľuje zostávajúce blind spots a spätne zlepšuje requirements, testy, policies a platform defaults.
 
 ## 1. Cieľ kapitoly
 

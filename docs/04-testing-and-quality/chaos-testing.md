@@ -1,8 +1,5 @@
 # Chaos testing
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je chaos testing
-
 Chaos testing je riadený experiment, ktorý overuje správanie a recovery systému pri konkrétnom failure mode. Nie je to náhodné rozbíjanie infraštruktúry. Experiment začína hypotézou o steady state a presným fault modelom.
 
 Experiment contract obsahuje:
@@ -44,30 +41,6 @@ Abort criterion musí byť automaticky pozorovateľný a rýchlejší než nepri
 Experiment nekončí odstránením faultu. Treba overiť backlog drain, duplicate alebo lost operations, resource release a návrat všetkých SLO/business metrics. Recovery time a data outcome sú často dôležitejšie než okamžitá dostupnosť.
 
 Výsledok chaos testu má viesť k trvalej zmene: retry budget, circuit breaker, capacity, runbook, alert, architecture alebo nový regression test. Opakovanie rovnakého experimentu bez remediation closure má nízku hodnotu.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Level: L2
-- Domain: Testing and Software Quality
-
-Chaos testing je riadený resilience experiment. Zámerne vytvorí konkrétny fault a overí, či používateľsky významný steady state zostane v prijateľných hraniciach, či safety controls fungujú a či sa systém po odstránení faultu úplne zotaví.
-
-```text
-failure risk
-→ vyvrátiteľná steady-state hypotéza
-→ zdravý baseline a experiment contract
-→ presný target a bounded fault
-→ live guardrails a observation
-→ complete / abort / invalid / inconclusive verdict
-→ fault removal a recovery observation
-→ root cause, remediation a regression control
-```
-
-Chaos experiment nie je náhodné vypínanie komponentov ani demonštrácia nástroja. Dôkaz vzniká iba vtedy, keď je fault platne aplikovaný, oracle meria business aj technický outcome a recovery je pozorovaná až do stabilného konca.
 
 ## 1. Cieľ kapitoly
 

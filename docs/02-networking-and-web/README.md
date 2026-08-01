@@ -42,23 +42,11 @@ Poradie sleduje reálnu cestu komunikácie. Najprv sa vytvorí analytická mapa 
 
 ## Výkladový štandard
 
-Každá koncepčná kapitola najprv samostatne vysvetlí, čo protokol alebo mechanizmus je, aký problém rieši, ktoré identity a vrstvy stavu vlastní a ako funguje bez väzby na Atlas topológiu. Nasleduje jednoduchý neutrálny príklad a jasná hranica toho, čo daný dôkaz potvrdzuje. Až potom kapitola prejde k sekcii `Atlas scenár a praktické použitie`, kde sa model aplikuje na spoločný request, doplnia sa CLI, packet fields, konfigurácia, incident a recovery. Scenár je teda aplikáciou už vysvetleného modelu, nie jeho náhradou.
+Každá kapitola začína priamo súvislým vysvetlením protokolu alebo mechanizmu: čo rieši, aké identity a state vlastní, ako sa rozhodnutie vykonáva a kde sa dá pozorovať. Atlas request sa do výkladu zapája priebežne ako konkrétna aplikácia všeobecného modelu; nevytvára sa samostatná školská vrstva s learning statusom alebo metadata blokom.
 
-Odrážky zostávajú iba pri krátkom inventári fields, stavov alebo acceptance podmienok. Hlavný výklad nesú súvislé odseky. Incidenty používajú presnú flow identity, čas, direction a observation points; nekončia neurčitým záverom „bol problém v sieti“.
+CLI, packet fields, konfigurácia a HTTP ukážky sú vložené pri mechanizme, ktorý objasňujú. Kapitola potom prirodzene pokračuje cez dôkaznú hranicu, konkrétny incident, competing hypotheses, recovery a overenie pôvodného business outcome-u. Odrážky zostávajú iba pri krátkom inventári fields, stavov alebo acceptance podmienok.
 
-Sekcia dôsledne rozlišuje tieto identity:
-
-```text
-hostname a DNS answer
-≠ IP packet a route
-≠ transportný flow
-≠ socket a process
-≠ TLS peer identity
-≠ HTTP request
-≠ business operácia
-```
-
-Proxy alebo NAT môže medzi dvoma bodmi vytvoriť nové flow identities. HTTP/2 môže niesť viac request streams v jednom TCP spojení. Retry môže vytvoriť viac HTTP requestov pre jednu používateľskú operáciu. Pri diagnostike sa preto vždy viaže dôkaz na presný objekt a čas.
+Sekcia dôsledne rozlišuje hostname a DNS answer, IP packet a route, transportný flow, socket a process, TLS peer identity, HTTP request a business operáciu. Proxy alebo NAT môže vytvoriť novú flow identity a retry môže vytvoriť viac requestov pre jednu používateľskú operáciu, preto sa každý dôkaz viaže na presný subject a čas.
 
 ## Praktický walkthrough
 

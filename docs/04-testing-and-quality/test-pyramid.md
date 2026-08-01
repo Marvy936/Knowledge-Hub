@@ -1,8 +1,5 @@
 # Test pyramid
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je test pyramid
-
 Test pyramid je heuristický model portfólia testov. Odporúča mať veľa rýchlych a úzko scoped testov pri základe, menej integračných testov v strede a malý počet drahých end-to-end testov na vrchu. Nie je to fixná percentuálna kvóta ani tvrdenie, že všetky systémy potrebujú rovnaký pomer.
 
 Základná myšlienka vychádza z trade-offu:
@@ -45,17 +42,6 @@ používateľ vytvorí a zaplatí objednávku
 Portfólio musí zohľadniť execution time, determinism, maintenance cost, diagnostickosť a unikátny risk coverage. Desať E2E testov, ktoré všetky zlyhajú pri rovnakom database outage-i, neposkytuje desať nezávislých dôkazov.
 
 Pyramid tiež nehovorí, že testy vyššieho scope-u sú menej dôležité. Kritický end-to-end journey môže byť release-blocking aj pri jednom teste, pretože overuje unikátnu kombináciu boundaries, ktorú nižšie testy nevidia.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Verification vs. validation](verification-vs-validation.md)
-- Súvisiace témy: test trophy, test scope, feedback latency, fidelity, flakiness, risk-based testing
 
 ## 1. Definícia
 

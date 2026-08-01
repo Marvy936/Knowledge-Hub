@@ -67,13 +67,6 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Clean Sections 02-04 prose structure
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: |
-          set -euo pipefail
-          "$PYTHON_BIN" scripts/cleanup_sections_02_04_prose_structure.py
-
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash

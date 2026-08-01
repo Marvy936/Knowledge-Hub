@@ -1,8 +1,5 @@
 # Ethernet, MAC a ARP
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú Ethernet, MAC adresa a ARP
-
 Ethernet je linkový protokol používaný na prenos frames v jednej lokálnej broadcast doméne alebo VLAN. Neurčuje end-to-end cestu cez internet. Jeho scope končí na jednom linku; router prijatý frame odstráni a pre ďalší link vytvorí nový.
 
 Ethernet frame obsahuje source a destination MAC adresu, EtherType a payload, ktorým býva IPv4, IPv6 alebo iný linkový protokol. MAC adresa identifikuje linkový interface alebo logický endpoint v danej doméne. Destination MAC pri routovanom packete patrí next hopu, nie vzdialenému serveru.
@@ -24,9 +21,6 @@ Server nie je on-link. Host preto nevykonáva ARP pre `198.51.100.20`; vykoná A
 IPv6 nepoužíva ARP. Neighbor Discovery Protocol prenáša neighbor a router discovery cez ICMPv6. Blokovanie ICMPv6 preto môže rozbiť základnú konektivitu, nie iba diagnostický `ping`.
 
 Zdravý ARP alebo NDP mapping dokazuje iba lokálnu schopnosť doručiť frame next hopu. Nepotvrdzuje, že next hop má funkčnú route, firewall policy alebo vzdialenú aplikáciu.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Klient `10.24.8.37` chce odoslať packet na verejnú API adresu `203.0.113.40`. Destination nie je v lokálnom prefixe, takže kernel vyberie gateway `10.24.8.1`. Pred odoslaním IP packetu však potrebuje linkovú adresu gatewaya. Ethernet a ARP riešia práve tento prvý lokálny hop.
 

@@ -1,8 +1,5 @@
 # YAML, JSON a regular expressions
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú YAML, JSON a regular expressions
-
 JSON a YAML sú dátové serializačné formáty. Regex je jazyk na rozpoznávanie textových vzorov. Riešia odlišné problémy a nemajú sa zamieňať.
 
 **JSON** má malý, presný dátový model: object, array, string, number, boolean a null. Neobsahuje comments ani natívny date alebo binary typ. Duplicate object keys sú problematické, pretože parsers môžu vybrať prvú, poslednú alebo chybu. Bez schema validation syntakticky platný JSON ešte nemusí byť platnou configuration.
@@ -32,9 +29,6 @@ Schema overí shape a typy. Domain validation overí význam medzi fields, napr�
 Regex engine môže mať backtracking a pri nevhodnom pattern-e spôsobiť ReDoS. Vstupná dĺžka, anchors, bounded quantifiers a engine semantics sú súčasťou bezpečnosti.
 
 Ak potrebuješ zmeniť hodnotu v YAML alebo JSON, dokument sa má parse-nuť, zmeniť cez dátový model, validovať a serialize-nuť. Regexové nahradenie môže trafiť comment, podobný key v inom scope alebo quoted text.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas automation načítava `orders.yaml`, overuje ho proti schema contractu, vytvára canonical plan JSON a v logoch hľadá presné operation IDs. Tieto tri formy textu majú odlišné parsery a riziká. YAML a JSON sú structured data formáty; regex je pattern language nad textom. Regex nemá nahrádzať parser hierarchical data.
 
@@ -62,7 +56,6 @@ JSON má objects, arrays, strings, numbers, booleans a null. Neobsahuje komentá
 
 ```python
 import json
-
 
 def no_duplicates(pairs):
     result = {}

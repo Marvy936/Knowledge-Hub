@@ -82,9 +82,11 @@ Prvých desať kapitol vysvetľuje Git ako databázu immutable objektov a systé
 
 ## Výkladový štandard
 
-Každá koncepčná kapitola najprv samostatne vysvetlí, čo daný pojem znamená, aký problém rieši, ktoré objekty alebo vrstvy stavu zahŕňa a aký mechanizmus vykonáva. Nasleduje jednoduchý neutrálny príklad, ktorý nepredpokladá znalosť Atlas projektu. Až potom kapitola prejde k sekcii `Atlas scenár a praktické použitie`, kde sa pojem aplikuje na change `ORD-8421`, doplnia sa CLI príkazy, read-back, failure path a recovery. Scenár teda upevňuje už vysvetlený model; nenahrádza definíciu ani všeobecný výklad.
+Každá kapitola začína priamo výkladom Git alebo automation mechanizmu. Najprv vysvetlí objektový alebo execution model, mutable a immutable state, dôsledok operácie a hranicu dôkazu. Change `ORD-8421` sa objavuje priebežne ako konkrétna aplikácia a diagnostický subject; nie je oddelený umelým nadpisom ani learning metadata blokom.
 
-Odrážky zostávajú iba pri krátkom inventári states, acceptance podmienok alebo porovnaní. Hlavný výklad nesú súvislé odseky. Pri history rewrite sa vždy pomenúva collaboration boundary. Pri automatizácii sa oddelí source configuration, observed state, plan subject, mutation outcome a verified state.
+Príkazy sú umiestnené pri stave, ktorý čítajú alebo menia. Po každej operácii nasleduje read-back, vysvetlenie toho, čo výsledok preukazuje, a failure alebo recovery path. Pri Git histórii sa oddeľuje snapshot, commit identity, ref a remote state. Pri automatizácii sa oddeľuje source configuration, observed state, plan, mutation a verified runtime outcome.
+
+Záverečný walkthrough zostáva integráciou už vysvetlených mechanizmov: nepoužíva sa ako náhrada definície, ale ako ich súvislé vykonanie od repository initialization po idempotentný apply a no-op verification.
 
 ## Praktický walkthrough
 

@@ -1,8 +1,5 @@
 # Firewally
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je firewall
-
 Firewall je enforcement point, ktorý povoľuje alebo zahadzuje packets alebo flows podľa policy. Verdict nevzniká iba z čísla portu. Závisí od source, destination, protocolu, direction, interface-u, connection state-u, hooku a poradia pravidiel.
 
 Stateless ACL hodnotí každý packet samostatne. Stateful firewall používa connection tracking a rozlišuje napríklad `new`, `established`, `related` a `invalid`. Bežná policy povolí vznik spojenia iba v jednom directione a return packets na základe established state-u.
@@ -27,9 +24,6 @@ Pravidlá sa spracúvajú podľa platformového modelu a priority. Skorší šir
 NAT môže zmeniť fields pred filter verdictom. Policy musí byť napísaná pre identitu, ktorú daný hook vidí. To je častý dôvod, prečo rule vyzerá správne, ale jeho counter zostáva nula.
 
 Bezpečná zmena firewallu potrebuje syntax validation, management-path ochranu, timed rollback alebo out-of-band access a následné positive aj negative tests. Úspešný apply príkaz nepreukazuje, že požadovaný flow prejde ani že zakázaný flow zostal zablokovaný.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Firewall rozhoduje, či konkrétny packet alebo flow môže prejsť cez daný enforcement point. Rozhodnutie závisí od direction, hooku, viditeľných fields, connection state-u a poradia pravidiel. Neexistuje univerzálna veta „port 443 je povolený“ bez uvedenia source, destination, protocolu, interface-u a cesty.
 

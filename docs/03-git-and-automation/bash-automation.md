@@ -1,8 +1,5 @@
 # Bash automation
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je Bash automation
-
 Bash je shell a programovací jazyk orientovaný na spúšťanie procesov, prepájanie streams a prácu s Unixovým prostredím. Je vhodný pre menšie orchestration tasks, ktoré skladajú existujúce CLI nástroje. Nie je automaticky bezpečný iba preto, že skript má málo riadkov.
 
 Shell vykonáva viac fáz expanzie: parameter expansion, command substitution, word splitting, pathname expansion a redirections. Quoting určuje, ktoré fázy sa aplikujú. Premenná nepredstavuje typed string argument; po nequoted expanzii môže vzniknúť nula, jeden alebo mnoho arguments.
@@ -35,9 +32,6 @@ Idempotencia znamená, že opakované vykonanie nad už požadovaným stavom nev
 Temporary files sa vytvárajú cez bezpečný mechanizmus ako `mktemp`, cleanup sa viaže na `trap` a writes sa podľa potreby dokončujú atomic rename-om. Lock musí mať jasný scope a stale-owner contract. Log nesmie miešať machine-readable stdout s diagnostickým stderr, ak ho používa ďalší program.
 
 Bash je slabší pri komplexnom dátovom modeli, concurrency, HTTP clients a veľkej testovateľnej doménovej logike. Vtedy je vhodnejšie presunúť jadro do Pythonu alebo iného jazyka a shell ponechať ako tenký entrypoint.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas potrebuje jednoduchý wrapper, ktorý overí repository stav, vytvorí automation plan, vykoná apply a zachová diagnostické outputs. Bash je vhodný, keď orchestration zostáva prevažne nad command-line tools a dátový model je malý. Je však nemilosrdný k nequotovaným hodnotám, pipeline exit statusom a nejasnej cleanup hranici.
 

@@ -1,8 +1,5 @@
 # OSI a TCP/IP model
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú OSI a TCP/IP model
-
 OSI a TCP/IP modely sú analytické rámce, ktoré rozdeľujú sieťovú komunikáciu na vrstvy s odlišnými zodpovednosťami. Neopisujú presnú implementáciu každého operačného systému ani zariadenia. Ich účelom je oddeliť typy identít, protokolov a failure boundaries, aby bolo jasné, čo konkrétny dôkaz potvrdzuje.
 
 OSI model tradične rozlišuje sedem vrstiev: physical, data link, network, transport, session, presentation a application. TCP/IP model ich zoskupuje praktickejšie na linkovú, internetovú, transportnú a aplikačnú vrstvu. Moderné protokoly sa nemusia dokonale zmestiť do jednej priehradky. TLS napríklad pracuje nad transportom a pod HTTP, zatiaľ čo QUIC spája transportné a cryptographic funkcie nad UDP.
@@ -32,9 +29,6 @@ browser vytvorí HTTP GET
 ```
 
 Router typicky odstráni pôvodný Ethernet frame a vytvorí nový pre ďalší link, zatiaľ čo IP destination zostáva rovnaká, ak ju nemení NAT. Proxy môže ukončiť jedno TCP/TLS spojenie a vytvoriť druhé, takže „end-to-end“ treba vždy presne definovať.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Klient Atlas odošle `POST /v1/orders` na `https://api.atlas.example`. Používateľ vidí jednu operáciu, ale systém ju realizuje cez viac kontraktov. DNS preloží meno na adresu, kernel vyberie route, lokálny link doručí frame k next hopu, transport vytvorí spojenie, TLS overí peer identity a HTTP prenesie aplikačný request. Vrstvený model je mapa týchto zodpovedností a observation points.
 

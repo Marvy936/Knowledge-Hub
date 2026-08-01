@@ -1,8 +1,5 @@
 # IPv4, IPv6 a subnetting
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú IP adresy, prefixy a subnetting
-
 IP vrstva poskytuje routované adresovanie medzi sieťami. IP adresa sama nestačí; prefix length určuje, ktorá časť adresy identifikuje network a ktoré destinations host považuje za on-link. Subnetting je návrh týchto prefixových hraníc.
 
 Pri IPv4 zápis `192.0.2.10/24` znamená 32-bitovú adresu s prvými 24 bitmi network prefixu. Prefix `192.0.2.0/24` pokrýva rozsah 256 adries. Kernel podľa prefixu rozhoduje, či destination pošle priamo cez neighbor resolution alebo cez router. Textová podobnosť adries nemá význam bez masky.
@@ -22,9 +19,6 @@ destination B: 10.10.2.50
 A je on-link a host preň rieši MAC. B je mimo `/24` a potrebuje route cez gateway. Ak by mal host omylom `/16`, pokúšal by sa B nájsť lokálnym ARP a packet by gatewayu nikdy neposlal.
 
 Dual-stack znamená dva samostatné dataplanes. DNS môže vrátiť A aj AAAA, klient môže preferovať IPv6 a pri chybe fallbacknúť na IPv4. Zdravý bežný request preto nemusí dokazovať funkčnosť oboch address families. Diagnostika musí explicitne testovať source address, prefix a family.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Po vyriešení lokálneho next hopu potrebuje Atlas klient správne IP adresy a prefixy. IP vrstva pomenúva routované endpoints a umožňuje, aby packet prešiel cez viac sietí. Prefix neurčuje iba „masku“; definuje, ktoré destinations sú priamo pripojené, ako sa agregujú routes a aký blast radius má broadcast alebo policy domain.
 

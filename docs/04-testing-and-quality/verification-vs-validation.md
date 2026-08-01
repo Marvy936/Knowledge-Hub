@@ -1,8 +1,5 @@
 # Verification vs. validation
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú verification a validation
-
 Verification a validation sú dve odlišné otázky kvality. **Verification** skúma, či systém alebo artefakt zodpovedá špecifikácii, designu alebo explicitnému contractu. **Validation** skúma, či výsledný systém rieši správny používateľský alebo business problém v reálnom kontexte.
 
 Zjednodušene:
@@ -35,17 +32,6 @@ Bez tejto väzby môže suite obsahovať veľa testov, ale nepokrývať najdôle
 Neutrálny príklad: kalkulačka má requirement, že delenie nulou musí vrátiť definovanú chybu. Unit test, ktorý overí konkrétny error type, je verification. Používateľské testovanie môže odhaliť, že text chyby je pre cieľovú skupinu nezrozumiteľný; to je validation.
 
 Verification ani validation nie sú jednorazové fázy na konci projektu. Prebiehajú na rôznych úrovniach od requirements reviewu cez static checks a tests až po produkčné business outcomes. Dôkaz musí vždy pomenovať, pre ktorý subject, verziu, prostredie a čas platí.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [YAML, JSON a regular expressions](../03-git-and-automation/yaml-json-regular-expressions.md), [Feedback loops](../00-foundations/feedback-loops.md)
-- Súvisiace témy: test oracle, traceability, quality gates, acceptance testing, shift-right, SLI/SLO
 
 ## 1. Dve rozdielne otázky o kvalite
 

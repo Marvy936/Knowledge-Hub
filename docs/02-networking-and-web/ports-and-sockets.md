@@ -1,8 +1,5 @@
 # Porty a sockety
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú porty a sockety
-
 Port je 16-bitové číslo v transportnom protokole, ktoré pomáha kernelu doručiť traffic správnej aplikácii. Samotný port neidentifikuje službu globálne. Jeho význam závisí od protocolu, local address, network namespace a socket state-u.
 
 Socket je kernelový komunikačný objekt dostupný procesu cez file descriptor alebo ekvivalent runtime handle. TCP server najprv vytvorí listening socket. Po prijatí spojenia vznikne nový connected socket s vlastným remote endpointom, buffers a transportným state-om.
@@ -24,9 +21,6 @@ Client dostáva ephemeral source port z lokálneho range. Pri vysokom connection
 Listen backlog a accept queue oddeľujú transportný handshake od rýchlosti, akou aplikácia prijíma connections. Otvorený listener ešte neznamená, že process stíha `accept()`, má voľné file descriptors alebo obsluhuje requests.
 
 Neutrálny incident: lokálny health check na `127.0.0.1:8080` prejde, ale remote client dostane connection refused. Process je bindnutý iba na loopback. Dôkaz o procese a porte je pravdivý, ale pre inú address scope než používa klient.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 IP adresa určí host alebo interface, port pomôže kernelu doručiť transportný traffic správnemu socketu. Port však nie je služba a socket nie je iba číslo. Význam vzniká kombináciou protocolu, local address, local port, remote address, remote portu, network namespace a process state-u.
 

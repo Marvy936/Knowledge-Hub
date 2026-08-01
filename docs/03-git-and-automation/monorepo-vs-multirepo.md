@@ -1,8 +1,5 @@
 # Monorepo vs. multirepo
 
-<!-- CONCEPT-FIRST:START -->
-## Čo znamenajú monorepo a multirepo
-
 Repository topology určuje, ktoré source subjects, ownership boundaries a changes sa verzujú spolu. **Monorepo** ukladá viac komponentov alebo služieb v jednom repository a commit graph-e. **Multirepo** ich rozdeľuje do viacerých repositories. Hybrid kombinuje obe podľa change a governance boundaries.
 
 Monorepo neznamená automaticky jeden build alebo jeden deploy. Multirepo neznamená automaticky nezávislé služby. Skutočná nezávislosť závisí od contracts, build graphu, release procesu a runtime coupling.
@@ -25,9 +22,6 @@ V monorepe možno source changes commitnúť spolu, ale production deployments s
 Rozhodovanie má vychádzať z **change coupling**: ktoré súbory, komponenty a tímy sa často menia ako jedna business zmena. Ďalšie faktory sú ownership, security boundaries, build scale, tooling, artifact promotion, dependency update automation a compliance.
 
 Repository boundary nie je service boundary ani team boundary. Jedno repository môže obsahovať mnoho tímov a jedna služba môže závisieť od viacerých repositories. Topology je optimalizácia toku zmien a governance, nie architektonická pravda sama o sebe.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas change `ORD-8421` upravuje API schema, service config, shared client library a deployment policy. Otázka repository modelu nie je ideologická. Ide o to, ktoré zmeny musia byť atomické, kto vlastní hranice, ako sa počíta affected graph a ako sa verzujú a publikujú outputs.
 

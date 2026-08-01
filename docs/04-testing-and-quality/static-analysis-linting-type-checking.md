@@ -1,8 +1,5 @@
 # Static analysis, linting a type checking
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú static analysis, linting a type checking
-
 Statické kontroly analyzujú source code, configuration alebo intermediate representation bez vykonania celého programu v cieľovom runtime. Poskytujú rýchly feedback, ale ich dôkaz je obmedzený na model, ktorý analyzátor pozná.
 
 Formatter mení alebo kontroluje konzistentný textový štýl. Linter hľadá syntaktické, idiomatické alebo konfigurovateľné patterns. Type checker overuje vzťahy medzi deklarovanými alebo odvodenými typmi. Hlbšia static analysis môže sledovať control flow, data flow, taint, nullability alebo resource lifecycle.
@@ -30,32 +27,6 @@ Pravidlá musia byť versionované a pinované. Upgrade analyzátora môže vytv
 Generated code, vendored dependencies a test fixtures môžu vyžadovať odlišný scope, ale exclusions majú byť explicitné. Inline suppression musí obsahovať dôvod a podľa rizika expiry alebo ownera.
 
 Static checks sú najhodnotnejšie, keď sú rýchle, lokálne reprodukovateľné a ich failure message vedie k presnému source subjectu. Nemajú nahrádzať runtime tests, ale odstraňovať lacno detegovateľné failures skôr.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Security a infrastructure tests](security-and-infrastructure-tests.md), [YAML, JSON a regular expressions](../03-git-and-automation/yaml-json-regular-expressions.md)
-- Súvisiace témy: compiler diagnostics, AST, control-flow graph, call graph, data-flow analysis, taint analysis, soundness, baseline, suppression, incremental analysis
-
-Statická kontrolná vrstva odvodzuje vlastnosti source kódu alebo konfigurácie bez vykonania celého produkčného workflowu. Jej sila spočíva v skorom a presne lokalizovanom feedbacku; jej hranicou je, že pracuje s modelom programu, nie so skutočným runtime výsledkom.
-
-```text
-source a build context
-→ parse a symbol resolution
-→ AST, CFG, call graph a data-flow model
-→ pravidlá a typové constraints
-→ finding s location a evidence pathom
-→ triage, fix alebo expirovateľná suppression
-→ autoritatívny CI verdict
-→ runtime dôkaz v príslušnej vyššej vrstve
-```
-
-Formatter, linter, type checker a security analyzer preto nie sú štyri názvy pre tú istú kontrolu. Každý z nich vytvára iný interný model, hľadá inú triedu failure a poskytuje inak silný dôkaz.
 
 ## 1. Cieľ kapitoly
 

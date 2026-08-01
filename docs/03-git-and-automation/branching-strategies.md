@@ -1,8 +1,5 @@
 # Branching strategies
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je branching strategy
-
 Branching strategy je tímový contract určujúci, kde vzniká zmena, ako dlho sa branch diverguje, akými gates prejde, ako sa integruje a ako sa udržiavajú podporované release lines. Nie je to iba diagram názvov branchí.
 
 Každá dlhšie žijúca branch vytvára divergence debt. Počas divergenčného času sa mení base, dependencies, schemas aj assumptions. Čím neskôr sa zmeny integrujú, tým väčší je priestor pre konflikty a neplatné dôkazy.
@@ -32,9 +29,6 @@ Strategy musí definovať aj to, čo sa deje po hotfixe. Oprava aplikovaná iba 
 Branch protection, required checks a merge queue chránia ref transition. Nezaručujú, že výsledný commit bol testovaný proti presne rovnakému base, ak queue nevytvorí alebo neoverí aktuálny merge candidate. Correctness teda závisí od vzťahu medzi review subjectom, tested subjectom a integrated subjectom.
 
 Dobrá strategy minimalizuje batch size a divergence pri zachovaní požadovaného release a compliance modelu. Nemá sa kopírovať podľa popularity bez analýzy cadence, CI času, coupling, rollbacku a počtu podporovaných línií.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Branching strategy nie je diagram názvov branches. Je to dohoda o tom, kde vzniká zmena, ako rýchlo dostane integration evidence, ktoré refs sú stabilné, ako sa podporujú staršie releases a ako sa hotfix propaguje. Nesprávna stratégia zväčšuje divergence debt: čím dlhšie branches žijú oddelene, tým viac assumptions a conflicts sa nahromadí.
 

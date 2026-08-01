@@ -1,8 +1,5 @@
 # Load balancing
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je load balancing
-
 Load balancing rozdeľuje connections alebo requests medzi viac eligible targets. Nie je to iba výber algoritmu. Zahŕňa backend inventory, health, readiness, capacity, selection, draining a feedback z reálnych outcomes.
 
 L4 load balancer rozhoduje najmä podľa transportných fields a pracuje s TCP alebo UDP flows. L7 load balancer rozumie aplikačnému protokolu, typicky HTTP, a môže routovať podľa hostname, pathu, headers alebo cookies.
@@ -34,9 +31,6 @@ Draining znamená zastaviť nové assignments a ponechať in-flight requests ale
 Session affinity môže pomôcť legacy stateful aplikácii, ale zhoršuje rebalancing a fault tolerance. Source-IP affinity za NAT-om môže poslať veľkú user cohortu na jediný backend.
 
 Zelený VIP alebo jeden úspešný request nepreukazuje zdravie všetkých backend cohorts. Overenie potrebuje target identity, distribution, business outcome a správanie pri removal alebo recovery.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas reverse proxy má dva backendy: `10.60.1.21:8080` a `10.60.1.22:8080`. Load balancing nie je iba algoritmus „round robin“. Je to lifecycle, ktorý udržiava inventory, rozhoduje o eligibility, vyberá target, sleduje health a capacity a bezpečne vyraďuje backend počas rollout-u.
 
