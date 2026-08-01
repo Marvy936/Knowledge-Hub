@@ -1,8 +1,5 @@
 # Proxy a reverse proxy
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú forward proxy a reverse proxy
-
 Proxy prijme komunikáciu na jednej strane a vytvorí novú komunikáciu na druhej. Tým rozdelí pôvodnú cestu na samostatné connections, timeout budgets, identities a trust boundaries.
 
 Forward proxy koná v mene klienta. Client vie, že request posiela proxy, ktorá následne komunikuje s vybraným destination. Používa sa pre outbound access control, inspection, caching alebo privacy.
@@ -26,9 +23,6 @@ Buffering mení backpressure a timing. Proxy môže prijať celé request body p
 Retry musí rešpektovať aplikačnú idempotenciu a unknown outcome. Proxy nevie bezpečne zopakovať mutating request iba preto, že nedostala response. Server mohol side effect dokončiť.
 
 Proxy config v control plane nie je automaticky effective worker state. Po zmene treba overiť runtime route, listener, certificate a reálny request cez rovnakú cestu ako client.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Proxy ukončí jedno aplikačné alebo transportné spojenie a vytvorí ďalšie. Tým vzniká nová identity, nový timeout budget a nový trust boundary. Pri Atlas requeste klient komunikuje s edge proxy na `203.0.113.40:443`; proxy následne komunikuje s backendom `10.60.1.21:8080`.
 

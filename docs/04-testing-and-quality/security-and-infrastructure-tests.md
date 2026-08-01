@@ -1,8 +1,5 @@
 # Security a infrastructure tests
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú security a infrastructure testy
-
 Security testing overuje, či definované threats a abuse cases sú blokované alebo detegované. Infrastructure testing overuje deklarovaný a effective stav infraštruktúry, policy a runtime boundaries. Ani jedno nie je jeden scanner ani jednorazový audit.
 
 Threat-informed prístup začína assetom, actorom, trust boundary a možným dopadom:
@@ -38,27 +35,6 @@ Neutrálny authorization test: user A vytvorí resource a user B sa ho pokúsi p
 Security testy potrebujú safe scope, test identities a cleanup. Destruktívny alebo production test musí mať blast-radius a abort contract. Controls sa overujú positive aj negative cestou: legitímna operácia musí prejsť a zakázaná musí zlyhať správnym spôsobom.
 
 Exception vo quality gate musí mať ownera, dôvod, expiry a compensating control. Trvalé ignorovanie findingu bez lifecycle-u premieňa scanner na noise generator.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Level: L2
-- Domain: Testing and Software Quality
-
-Security testing overuje, či systém odoláva konkrétnemu abuse case-u a či bezpečnostná kontrola funguje aj pri negatívnom scenári. Infrastructure testing overuje, či desired, planned a effective runtime state spĺňajú technické, bezpečnostné a prevádzkové invariants.
-
-```text
-threat alebo infrastructure risk
-→ control
-→ test na správnej boundary
-→ evidence
-→ release, remediation alebo risk decision
-```
-
-Scanner output ani syntakticky platný manifest nie sú samy osebe dôkazom účinnosti kontroly.
 
 ## 1. Cieľ kapitoly
 

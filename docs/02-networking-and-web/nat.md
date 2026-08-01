@@ -1,8 +1,5 @@
 # NAT
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je NAT
-
 Network Address Translation mení IP adresu alebo transportný port packetu pri prechode cez middlebox. NAT nie je routing a nie je firewall policy, hoci všetky tri funkcie často vykonáva rovnaké zariadenie.
 
 Source NAT mení source identity odchádzajúceho flowu. Port Address Translation umožní viacerým interným clients zdieľať jednu verejnú adresu tým, že pridelí rozdielne translated source ports. Destination NAT mení destination a používa sa napríklad na publikovanie interného listenera cez verejný VIP.
@@ -31,9 +28,6 @@ NAT nevytvára aplikáciu ani listener a sám osebe nepovoľuje traffic. Packet 
 Port pool a tuple space majú kapacitu. Pri mnohých outbound connections k rovnakému destination môže vzniknúť NAT port exhaustion, hoci clients aj server majú voľné resources.
 
 NAT source adresa nie je spoľahlivá user identity. Za jednou adresou môže byť celá kancelária, carrier-grade NAT alebo egress gateway. Ak aplikácia potrebuje pôvodnú identity, musí ju prenášať cez dôveryhodný proxy alebo autentizačný contract.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas klient používa private adresu `10.24.8.37`, ale verejný edge a internet túto adresu neroutujú ako globálnu identitu. NAT môže pri prechode middleboxom zmeniť source alebo destination IP a port. Nejde o routing ani o firewall policy, hoci všetky tri mechanizmy často existujú na rovnakom zariadení.
 

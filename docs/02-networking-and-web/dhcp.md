@@ -1,8 +1,5 @@
 # DHCP
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je DHCP
-
 DHCP je protokol a lease lifecycle, ktorým host získava sieťovú konfiguráciu. Neprideľuje iba IP adresu. Môže odovzdať prefix, default gateway, DNS servery, search domains, lease time, classless routes a ďalšie options.
 
 Nový IPv4 klient často používa DORA výmenu:
@@ -33,9 +30,6 @@ Host môže dostať správnu adresu a gateway, ale nesprávny DNS. Lokálny ping
 Redundantné servery a relays musia zdieľať správny scope a lease state. Rogue DHCP server môže klientom poslať útočníkov gateway alebo DNS. Ochrany ako DHCP snooping určujú trusted server paths a vytvárajú bindings pre ďalšie linkové controls.
 
 IPv6 configuration sa delí medzi Router Advertisements, SLAAC, NDP a DHCPv6. DHCPv6 bežne neposkytuje default router rovnakým spôsobom ako IPv4 DHCP; ten pochádza z router discovery. IPv6 incident preto nemožno diagnostikovať iba čítaním DHCPv6 lease.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas notebook sa pripojí do pobočkovej siete a potrebuje viac než IP adresu. Musí získať prefix, default gateway, DNS resolvery, lease lifetime a prípadné routes alebo ďalšie options. DHCP je lifecycle prenájmu konfigurácie, nie jednorazové pridelenie čísla.
 

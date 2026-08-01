@@ -1,8 +1,5 @@
 # DNS
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je DNS
-
 DNS je distribuovaný, hierarchický a cacheovaný naming systém. Preklad hostname na IP adresu je iba jedna jeho funkcia. DNS publikuje records, deleguje zóny a umožňuje resolverom dočasne uchovávať odpovede podľa TTL.
 
 Aplikácia typicky volá stub resolver operačného systému. Ten používa configured recursive resolver. Recursive resolver môže výsledok nájsť v cache alebo postupne získať referrals od root, TLD a authoritative serverov. Authoritative server publikuje data pre konkrétnu zónu; nevykonáva bežne rekurziu za klienta.
@@ -36,9 +33,6 @@ edge.example AAAA  2001:db8::20
 Klient musí vyriešiť alias chain a následne vybrať address family. Bežný request môže fallbacknúť z nefunkčného IPv6 na IPv4 a skryť chybu.
 
 `dig` overuje DNS query voči konkrétnemu serveru. `getent` alebo aplikačný test môže používať celý OS naming path vrátane hosts file a NSS. Rovnaký hostname preto treba testovať cez rovnaký resolver path ako reálna aplikácia.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas klient nezačína IP adresou. Aplikácia pozná `api.atlas.example` a resolver musí vrátiť použiteľný address set. DNS je distribuovaná databáza s delegáciou, cachingom a časovou platnosťou. Zelený `dig` output dokazuje odpoveď konkrétneho servera; nepreukazuje, že aplikácia použila rovnaký resolver, cache, search path alebo address family.
 

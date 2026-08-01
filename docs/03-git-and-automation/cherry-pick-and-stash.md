@@ -1,8 +1,5 @@
 # Cherry-pick a stash
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú cherry-pick a stash
-
 **Cherry-pick** prenesie zmenu reprezentovanú vybraným commitom na aktuálnu branch. Git vezme rozdiel medzi commitom a jeho parentom, aplikuje ho na aktuálny `HEAD` a pri úspechu vytvorí nový commit. Neprenáša pôvodnú ancestry; nový commit má iného parenta a nový object ID.
 
 Používa sa pri selektívnom backporte, hotfixe alebo prenose konkrétnej opravy medzi release lines. Nie je náhradou za pravidelnú integráciu branchí. Ak sa veľká séria commitov cherry-pickuje opakovane, vzniká duplicate history a komplikované budúce merges.
@@ -29,9 +26,6 @@ C2 a C2' môžu mať podobný patch, ale nie sú tým istým commitom.
 Stash je vhodný pre krátkodobé prerušenie práce. Nie je reviewovateľná, zdieľaná ani dlhodobá forma uloženia. Ak práca potrebuje prežiť, byť zálohovaná alebo zdieľaná, lepší je WIP commit na branchi.
 
 Pri cherry-picku aj stash apply Git vykonáva merge-like aplikáciu voči odlišnému kontextu. Textovo úspešná aplikácia stále potrebuje diff a tests, pretože nový baseline môže zmeniť semantics.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Release branch `release/4.1` potrebuje malý bezpečnostný fix z main, ale nie celý nový feature set. Alice zároveň pracuje na rozrobenej lokálnej zmene a potrebuje rýchlo prepnúť context. Cherry-pick a stash riešia tieto dve situácie, no ani jeden mechanizmus nie je náhradou za normálnu integráciu ancestry.
 

@@ -1,8 +1,5 @@
 # HTTP
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je HTTP
-
 HTTP je aplikačný request-response protokol. Definuje method, target, headers, message body a response status, ale nedefinuje interný database model ani automaticky nezaručuje business side effect. Jeden HTTP request môže prejsť cez cache, proxy alebo load balancer a môže byť prenášaný cez HTTP/1.1, HTTP/2 alebo HTTP/3.
 
 URL obsahuje scheme, authority, path a voliteľný query a fragment. DNS používa hostname, TLS ho môže používať pri SNI a certificate validation a HTTP routing používa `Host` alebo `:authority`. Path pomenúva aplikačný target v rámci originu.
@@ -26,9 +23,6 @@ Response representation má `Content-Type`; JSON syntax sama nehovorí o domain 
 HTTP/2 multiplexuje viac streams v jednom TCP connection. HTTP/3 prenáša HTTP semantics cez QUIC nad UDP. Connection-level health preto nemusí reprezentovať každý request stream.
 
 Retry mutating requestu musí rešpektovať idempotency key alebo iný deduplication contract. Timeout môže znamenať unknown business outcome, nie jednoznačné zlyhanie servera.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Po DNS, routing, TCP a TLS dostane Atlas reverse proxy aplikačný request:
 

@@ -1,8 +1,5 @@
 # Code coverage a quality gates
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú code coverage a quality gate
-
 Code coverage meria, ktoré časti instrumentovaného programu vykonal konkrétny test run. Nehodnotí správnosť assertions ani business význam. Vysoká coverage môže vzniknúť testom bez oracle a nízka coverage môže byť prijateľná pri generated alebo defensive code.
 
 Bežné metriky:
@@ -39,32 +36,6 @@ Quality gate kombinuje evidence a rozhoduje, či subject smie pokračovať. Mô�
 Gate nemá zamieňať signál za výsledok. `coverage >= 80 %` nepreukazuje correctness. Lepší model kombinuje required tests, diff coverage, critical risk checks, security findings a explicitné policy.
 
 Flaky alebo environment-sensitive checks nesmú byť maskované rerun-until-green. Gate musí zachovať first-attempt evidence a failure artifacts. Exception má mať dôvod, scope, expiry a compensating control.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Static analysis, linting a type checking](static-analysis-linting-type-checking.md), [Test pyramid](test-pyramid.md)
-- Súvisiace témy: instrumentation, line coverage, branch coverage, condition coverage, diff coverage, mutation testing, quality gate, ratcheting, waiver
-
-Code coverage je mapa vykonania konkrétneho instrumentovaného programu počas konkrétneho súboru testov. Quality gate je rozhodovací contract, ktorý z coverage a ďalších dôkazov určí, či sa konkrétny kandidát môže posunúť do ďalšej delivery fázy.
-
-```text
-source a build artifact
-→ instrumentation
-→ test execution a raw probes
-→ complete merge a source mapping
-→ coverage pohľady s provenance
-→ risk policy spolu s ďalšími dôkazmi
-→ pass, fail, advisory, incomplete alebo waived
-→ auditované merge/release rozhodnutie
-```
-
-Coverage neodpovedá, či test mal správny oracle. Gate preto nemá optimalizovať percento, ale chrániť konkrétne riziko pred konkrétnym rozhodnutím.
 
 ## 1. Cieľ kapitoly
 

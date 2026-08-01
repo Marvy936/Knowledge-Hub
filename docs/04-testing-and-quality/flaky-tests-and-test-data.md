@@ -1,8 +1,5 @@
 # Flaky tests a test data
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú flaky test a test-data isolation
-
 Flaky test má pri rovnakom zamýšľanom subjecte a inputs premenlivý výsledok. Môže striedavo prejsť a zlyhať bez relevantnej zmeny product code-u. Flakiness ničí dôveru v gate a často vedie k nebezpečnému rerun-until-green behavioru.
 
 Typické zdroje:
@@ -31,30 +28,6 @@ Retry môže byť diagnostický signál, nie pass override. First-attempt pass r
 Failure artifacts zahŕňajú seed, timestamps, thread dumps, logs, screenshots, network trace a environment identity. Bez nich sa intermittent failure ťažko lokalizuje.
 
 Test data management musí rešpektovať privacy a retention. Production data sa nemá nekontrolovane kopírovať do test environmentu; používa sa syntetická alebo anonymizovaná reprezentatívna data sada.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Mocks, stubs a fakes](mocks-stubs-fakes.md), [End-to-end a acceptance tests](end-to-end-and-acceptance-tests.md)
-- Súvisiace témy: nondeterminism, first-attempt pass rate, quarantine, retries, test isolation, fixtures, synthetic data, cleanup, environment saturation
-
-Flaky test pri rovnakom kandidátovi a deklarovane rovnakých vstupoch niekedy prejde a niekedy zlyhá. Premenlivý verdict znamená, že testovací systém obsahuje skrytý alebo nekontrolovaný vstup, prípadne korektne odhaľuje intermittent product failure.
-
-```text
-candidate identity
-+ test contract
-+ fixture a environment contract
-+ execution schedule
-→ observation a oracle
-→ first-attempt verdict
-```
-
-Ak sa verdict mení, diagnostika musí nájsť boundary, na ktorej sa zmenil čas, poradie, state, resource, dependency alebo orchestration. Automatický rerun túto príčinu neurčí.
 
 ## 1. Cieľ kapitoly
 

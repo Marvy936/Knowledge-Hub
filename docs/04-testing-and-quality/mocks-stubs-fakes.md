@@ -1,8 +1,5 @@
 # Mocks, stubs a fakes
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú dummy, stub, fake, spy a mock
-
 Test double je kontrolovaná náhrada dependency použitá na izoláciu subjectu alebo vytvorenie ťažko reprodukovateľného stavu. Jednotlivé typy doubles majú odlišný účel.
 
 **Dummy** iba vyplní parameter a test ho nepoužíva. **Stub** vracia vopred pripravené odpovede. **Fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository. **Spy** zaznamenáva calls pre neskoršie assertions. **Mock** overuje očakávané interactions a často je naprogramovaný na presný call sequence.
@@ -32,32 +29,6 @@ Contract drift vzniká, keď double naďalej vracia tvar, ktorý reálny provide
 Výber double-u vychádza z failure mode. Čistá domain logika môže používať stub. SQL mapping potrebuje reálnu databázu. Network retry môže potrebovať controllable fake server, ktorý vie simulovať timeout po prijatí requestu.
 
 Doubles nesmú byť ľahšou náhradou všetkých boundaries. Portfólio musí obsahovať aj testy, ktoré overia assumptions voči reálnym dependencies.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Unit, integration a component tests](unit-integration-component-tests.md), [Contract a API tests](contract-and-api-tests.md)
-- Súvisiace témy: test double, seam, state verification, interaction verification, conformance, service virtualization, deterministic time, contract drift
-
-Test double je kontrolovaná náhrada dependency. Jeho úlohou je riadiť vstup, simulovať konkrétny failure alebo pozorovať boundary interaction bez toho, aby test stratil relevantný behavior contract.
-
-```text
-failure mode alebo behavior
-→ určiť testovaný subject a boundary
-→ rozhodnúť, čo musí zostať reálne
-→ zvoliť najjednoduchší double s dostatočnou fidelity
-→ riadiť vstupy a čas
-→ overiť observable state alebo významnú interaction
-→ priznať blind spots
-→ potvrdiť boundary contract conformance alebo vyšším reálnym testom
-```
-
-Double nie je dôkaz, že reálna dependency funguje. Je dôkaz, že subject sa správa podľa testu pri behavior-e, ktorý double deklaruje a skutočne modeluje.
 
 ## 1. Cieľ kapitoly
 

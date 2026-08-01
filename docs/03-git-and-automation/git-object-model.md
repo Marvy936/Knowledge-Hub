@@ -1,8 +1,5 @@
 # Git object model
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je Git object model
-
 Git object model je vnútorný dátový model, ktorým Git reprezentuje obsah a históriu repository. Git neukladá projekt ako postupnosť celých adresárov ani ako databázu názvov súborov s očíslovanými verziami. Ukladá immutable objekty adresované hashom ich obsahu a medzi nimi vytvára odkazy. Základné typy sú `blob`, `tree`, `commit` a annotated `tag`.
 
 **Blob** obsahuje bytes jedného súboru, ale nepozná jeho názov ani umiestnenie. **Tree** priraďuje názvy a file modes blobom alebo ďalším trees, takže vytvára snapshot adresárovej štruktúry. **Commit** ukazuje na jeden root tree, na svojho parenta alebo parents a obsahuje author, committer, čas a message. **Annotated tag** je samostatný objekt, ktorý pomenúva iný objekt a pridáva tagger metadata, message a prípadne cryptographic signature.
@@ -42,9 +39,6 @@ message "Add README"
 ```
 
 Keď sa branch posunie z `C0` na `C1`, starý commit sa nemení. Mení sa iba ref, ktorý ukazuje na nový immutable graph. Tento model je základom pre staging, commits, branches, merge, rebase, reset aj recovery.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Atlas developer upraví `config/orders.yaml` a pridá `maxOrderAmount: 5000`. Na disku je to obyčajný file content. Git ho však neukladá ako „verziu súboru s názvom orders.yaml“. Najprv vytvorí blob objekt z bytes, potom tree objekt priradí blob k pathu a commit ukáže na root tree spolu s parents a metadata. Git história je preto graf immutable snapshots, nie databáza patchov.
 

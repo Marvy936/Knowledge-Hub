@@ -1,8 +1,5 @@
 # Clone, fetch, pull a push
 
-<!-- CONCEPT-FIRST:START -->
-## Čo znamenajú clone, fetch, pull a push
-
 Git je distribuovaný systém: každá plnohodnotná clone má vlastnú object database, refs a históriu. Remote nie je centrálna pracovná kópia, ale iné repository dostupné cez transport. Názov `origin` je iba lokálny alias URL.
 
 **Clone** vytvorí nové lokálne repository, stiahne dostupné objekty a refs, nastaví remote a checkoutne úvodnú branch. **Fetch** prenesie nové objekty a aktualizuje remote-tracking refs, napríklad `origin/main`. Nemení automaticky working tree ani lokálny `main`.
@@ -27,9 +24,6 @@ main        → C2
 Refspec určuje mapovanie source a destination refs. Typický fetch refspec mapuje `refs/heads/*` na `refs/remotes/origin/*`. Push môže explicitne poslať `HEAD:refs/heads/main`. Upstream configuration iba určuje predvolený vzťah branch–remote branch pre commands ako `pull` alebo `push`.
 
 `--force-with-lease` je bezpečnejší než slepý `--force`, pretože remote ref prepíše iba ak stále zodpovedá očakávanému tipu. Chráni pred nevedomým zahodením práce, ktorú remote získal po tvojom poslednom observation pointe; stále však ide o history rewrite a potrebuje collaboration contract.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Alice a Bob pracujú s rovnakým serverovým repository, ale každý má vlastnú object database, branches, index a working tree. Git nie je klient s permanentne živou serverovou branch. Distribuovaná synchronizácia explicitne prenáša objekty a aktualizuje refs.
 

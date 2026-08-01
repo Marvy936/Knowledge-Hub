@@ -1,8 +1,5 @@
 # Merge a rebase
 
-<!-- CONCEPT-FIRST:START -->
-## Čo riešia merge a rebase
-
 Keď dve lines of development vzniknú zo spoločného predka, Git musí ich výsledky integrovať. **Merge** a **rebase** riešia rovnaký vstupný problém odlišným spôsobom: merge spája ancestry, rebase prenáša sériu zmien na nový základ.
 
 Three-way merge pracuje s tromi snapshots:
@@ -43,9 +40,6 @@ Fast-forward nie je skutočný three-way merge. Ak current tip je ancestor targe
 Voľba merge alebo rebase preto nie je iba estetika logu. Ovplyvňuje collaboration, signatures, review anchors, bisect, release provenance a downstream clones. Rebase je prirodzený pre unpublished alebo koordinovane rewriteovateľný subject. Merge je bezpečnejší pre už zdieľanú stabilnú históriu.
 
 Textovo bezkonfliktný výsledok stále nemusí byť správny. Semantic conflict vznikne, keď dve samostatne platné zmeny spolu porušia domain pravidlo, test alebo runtime contract. Git môže potvrdiť syntaktickú integráciu, nie business correctness.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Alice má feature commits nad starším `main`, Bob medzitým posunul `main`. Obe vetvy obsahujú platnú prácu. Git musí vytvoriť históriu, v ktorej sú obe zmeny reachable. Merge zachová pôvodné ancestry lines a vytvorí spoločný descendant. Rebase replay-ne commits nad novým base a vytvorí nové identities.
 

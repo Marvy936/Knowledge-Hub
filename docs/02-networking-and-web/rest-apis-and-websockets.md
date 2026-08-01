@@ -1,8 +1,5 @@
 # REST API a WebSockety
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú REST API a WebSocket
-
 REST je architektonický štýl pre resource-oriented systémy, často implementovaný cez HTTP. Nie je synonymom pre „JSON endpoint“. Dôležité sú resource identity, representations, stateless request context, uniform interface, cache semantics a evolvovateľný contract.
 
 API contract zahŕňa method a path, request/response schemas, authentication, authorization, errors, pagination, idempotency, concurrency a version lifecycle. `POST /orders` môže vytvoriť resource, ale bezpečné opakovanie po timeoute potrebuje idempotency key alebo operation lookup.
@@ -26,9 +23,6 @@ Transportné poradie platí v rámci jedného WebSocket connection. Reconnect vy
 Heartbeat overuje channel liveness, nie business processing. Pomalý consumer vytvára backpressure; server musí mať bounded buffer a rozhodnúť, či spomalí producer, odpojí client s resume cursorom alebo zahodí nahraditeľné updates.
 
 REST request a WebSocket event môžu reprezentovať rovnaký domain state, ale majú odlišný retry, ordering, scaling a observability model. API correctness sa preto neodvodzuje iba z transportnej dostupnosti.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 HTTP poskytuje transportné semantics pre aplikačné messages. REST API pridáva resource-oriented contract a WebSocket vytvára dlhodobý obojsmerný channel. Obe riešenia používajú sieťový path z predchádzajúcich kapitol, ale majú odlišný state, retry, scaling a observability model.
 

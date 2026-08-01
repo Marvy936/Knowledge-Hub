@@ -1,8 +1,5 @@
 # Reset, revert a restore
 
-<!-- CONCEPT-FIRST:START -->
-## Čo menia reset, revert a restore
-
 Tieto tri commands sa často zamieňajú, pretože všetky môžu „vrátiť zmenu“. V skutočnosti pracujú s odlišnými vrstvami.
 
 **Restore** kopíruje obsah zo zvoleného source tree alebo indexu do working tree a voliteľne do indexu. Je určený najmä na obnovu pathov. Nehýbe branch refom a nevytvára commit.
@@ -41,9 +38,6 @@ C1---C2---C3---C4
 História zostáva append-only. Pri revertovaní merge commit-u treba určiť mainline parent, pretože Git musí vedieť, voči ktorej ancestry line má efekt merge-u obrátiť. Neskoršie opätovné mergovanie môže byť prekvapivé, pretože merge commit zostáva súčasťou ancestry.
 
 Pred deštruktívnou operáciou je vhodné vytvoriť recovery ref a pozrieť `git status`, `git diff`, `git diff --cached` a `git reflog`. Recovery nie je argument pre bezhlavé používanie `--hard`; reflog má retention a untracked files nemusí chrániť.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Git ponúka viac operácií, ktoré sa v bežnej reči opisujú ako „vráť zmenu“. Menia však odlišné vrstvy. `restore` pracuje s working tree alebo indexom. `reset` posúva branch alebo HEAD a podľa mode môže meniť index a working tree. `revert` vytvára nový commit, ktorý aplikuje inverznú zmenu. Bez určenia vrstvy je príkaz nebezpečne nejednoznačný.
 

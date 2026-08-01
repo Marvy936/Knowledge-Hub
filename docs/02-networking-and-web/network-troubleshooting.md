@@ -1,8 +1,5 @@
 # Network troubleshooting
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je systematický network troubleshooting
-
 Network troubleshooting je proces lokalizácie prvého chýbajúceho alebo nesprávneho transitionu na komunikačnej ceste. Nezačína zoznamom príkazov, ale presným symptómom, subject identity, časom a scope-om.
 
 Jedna používateľská operácia môže zahŕňať viac identít:
@@ -42,9 +39,6 @@ Competing hypotheses majú predpovedať odlišné dôkazy. Pri timeoute väčš�
 Preserve-first znamená zachovať pcap, counters, conntrack, route, ruleset, logs a generation identity pred zásahom, ktorý volatile state zničí. Containment má mať úzky scope a rollback.
 
 Incident sa uzatvára až pôvodným user journey a business outcome-om, nie iba zeleným technickým probe. Zároveň sa overuje zakázaný flow a susedné cohorts, aby oprava nevytvorila security alebo availability regresiu.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Network troubleshooting nezačína príkazom. Začína presným používateľským symptómom, flow identity a časom. Vrstvy z predchádzajúcich kapitol poskytujú mapu, no incident sa rieši hľadaním prvého chýbajúceho transitionu, nie mechanickým vykonaním rovnakého checklistu pri každom probléme.
 

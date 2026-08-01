@@ -1,8 +1,5 @@
 # TCP a UDP
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú TCP a UDP
-
 TCP a UDP sú transportné protokoly, ktoré pridávajú porty a komunikačné semantics nad IP. IP sa pokúša doručiť jednotlivé packets medzi adresami; transport určuje, ako aplikácie rozlíšia svoje flows a čo môžu očakávať od prenosu.
 
 TCP je connection-oriented byte-stream protokol. Pred prenosom vytvorí obojsmerný state cez handshake. Používa sequence numbers, acknowledgements, retransmission, receive window a congestion control. Zachová poradie bytes, ale nezachová hranice aplikačných messages. Jeden `write()` sa nemusí rovnať jednému segmentu ani jednému `read()`.
@@ -28,9 +25,6 @@ Neutrálny príklad UDP je DNS query. Klient odošle jeden datagram na port 53 a
 „TCP je spoľahlivý“ neznamená exactly-once business operáciu. Server môže request commitnúť a response sa môže stratiť. Klient vidí timeout, no side effect existuje. Idempotency a unknown-outcome recovery patria aplikačnej vrstve.
 
 Rovnako „UDP je bez spojenia“ neznamená, že celá infraštruktúra nemá state. NAT, firewall, load balancer alebo QUIC implementation môžu nad UDP tuple udržiavať časovo obmedzený state.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Po route lookupu musí Atlas klient preniesť bytes k API. Transportná vrstva pridáva porty a komunikačné semantics. TCP vytvára obojsmerné spojenie s poradím, retransmission a flow control. UDP prenáša samostatné datagramy bez transportnej garancie doručenia alebo poradia. Ani jeden protokol však neposkytuje aplikačnú exactly-once garanciu.
 

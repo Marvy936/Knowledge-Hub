@@ -1,8 +1,5 @@
 # Shift-left
 
-<!-- CONCEPT-FIRST:START -->
-## Čo znamená shift-left
-
 Shift-left znamená presunúť vhodnú kontrolu bližšie k momentu, keď chyba vzniká, aby bol feedback rýchlejší, lacnejší a diagnostickejší. Neznamená mechanicky vykonať všetky produkčné testy na notebooku ani presunúť zodpovednosť za kvalitu iba na developera.
 
 „Doľava“ je relatívne k delivery flow:
@@ -28,30 +25,6 @@ Dobrý developer loop má krátky čas, stabilné tools a rovnaké authoritative
 Golden path poskytuje templates, scripts a defaults, ktoré uľahčujú správny postup. Guardrail v CI zostáva autoritatívny, pretože local kontrolu možno preskočiť alebo mať odlišné prostredie.
 
 Shift-left nemá duplikovať drahý test na každom commite bez dôvodu. Controls sa umiestňujú podľa risk, feedback time, maintenance cost a diagnostickosti. Neskoršia kontrola môže zostať potrebná ako nezávislé overenie.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Level: L2
-- Domain: Testing and Software Quality
-
-Shift-left je rozhodovací princíp pre umiestnenie dôkazu. Pri každom failure mode hľadá najskorší bod delivery toku, v ktorom možno získať dostatočne spoľahlivý, diagnostický a akčný signál bez odstránenia boundary, na ktorej chyba reálne vzniká.
-
-```text
-riziko alebo chybný predpoklad
-→ potrebný oracle
-→ najskoršia vrstva s dostatočnou fidelity
-→ rýchly lokálny feedback
-→ autoritatívny CI dôkaz
-→ neskoršie potvrdenie zostávajúcich boundaries
-→ produkčné učenie
-→ presun nového poznatku do skoršej kontroly
-```
-
-Shift-left preto neznamená „všetko testovať lokálne“ ani „presunúť zodpovednosť security a operations na vývojára“. Skoršia kontrola má hodnotu iba vtedy, keď zachová mechanizmus testovaného rizika a jej zelený výsledok sa nevydáva za silnejší dôkaz, než skutočne poskytuje.
 
 ## 1. Cieľ kapitoly
 

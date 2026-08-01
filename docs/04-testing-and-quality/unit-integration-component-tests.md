@@ -1,8 +1,5 @@
 # Unit, integration a component tests
 
-<!-- CONCEPT-FIRST:START -->
-## Čo odlišuje unit, integration a component test
-
 Rozdiel medzi unit, integration a component testom neurčuje názov frameworku ani to, či test beží „lokálne“. Určuje ho subject, boundary a ktoré dependencies sú reálne alebo nahradené.
 
 **Unit test** overuje malú jednotku správania v izolovanom a kontrolovanom prostredí. Unit môže byť funkcia, class alebo coherent modul. Dôležité je, že test rýchlo a deterministicky lokalizuje logic failure a nepoužíva drahé externé boundaries.
@@ -30,17 +27,6 @@ Test double nie je automaticky známkou unit testu. Component test môže použ�
 Hermetic test má explicitné inputs, izolovaný state a kontrolované dependencies. Parallelizability vyžaduje unikátne test data, ports, files alebo database schemas. Cleanup musí fungovať aj pri failure; ešte lepšie je vytvárať disposable environment.
 
 Nižší scope zvyšuje diagnostickosť, ale môže skryť boundary bugs. Vyšší scope zvyšuje fidelity, ale failure má viac možných príčin. Dobré portfolio používa oba a nevytvára component test pre logic, ktorú možno presnejšie overiť unit testom.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Testing and Software Quality
-- Predpoklady: [Test pyramid](test-pyramid.md), [Python for automation](../03-git-and-automation/python-for-automation.md)
-- Súvisiace témy: test seams, fixtures, hermetic tests, test doubles, ephemeral dependencies, mutation testing
 
 ## 1. Cieľ kapitoly
 
@@ -162,13 +148,11 @@ Príklad doménových typov:
 from dataclasses import dataclass
 from decimal import Decimal
 
-
 @dataclass(frozen=True)
 class Line:
     sku: str
     unit_price: Decimal
     quantity: int
-
 
 @dataclass(frozen=True)
 class CreateOrder:

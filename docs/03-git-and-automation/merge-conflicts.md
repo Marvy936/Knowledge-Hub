@@ -1,8 +1,5 @@
 # Konflikty
 
-<!-- CONCEPT-FIRST:START -->
-## Čo je konflikt
-
 Konflikt vzniká, keď Git pri merge-like operácii nedokáže jednoznačne vytvoriť výsledný snapshot. Nie je to automaticky chyba developera ani poškodenie repository. Je to explicitné priznanie, že mechanický algoritmus nemá dostatok domain informácií na bezpečný verdict.
 
 Pri textovom three-way merge používa Git merge base a dve sides. Pre konfliktný pathname index drží stages:
@@ -32,9 +29,6 @@ Git nevie, či výsledok má byť 20, 30, maximum, minimum alebo úplne nový mo
 Počas merge alebo rebase musíš vedieť, ktorú operáciu dokončuješ. `git merge --abort`, `git rebase --abort` a `git cherry-pick --abort` obnovujú odlišné sequencer states. Pred ručným mazaním `.git` files je bezpečnejšie použiť operation-aware commands.
 
 Conflict resolution je nový change. Má mať reviewovateľný výsledok a dôkaz, že zachováva požadovaný intent oboch strán alebo vedome jednu odmieta.
-<!-- CONCEPT-FIRST:END -->
-
-## Atlas scenár a praktické použitie
 
 Alice zmení `maxOrderAmount` na 5000 a Bob na 7500. Git nevie automaticky rozhodnúť, ktorá business hodnota je správna. Textový conflict je viditeľný, ale mnohé nebezpečné konflikty sa zlúčia bez markerov. Conflict resolution je preto domain integration, nie mechanické odstránenie `<<<<<<<` riadkov.
 

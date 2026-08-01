@@ -30,61 +30,18 @@ Po tejto sekcii nasleduje CI/CD and Release Engineering. Testovacie stratégie s
 
 ## Výkladový štandard
 
-Každá kapitola najprv samostatne vysvetlí, čo daný testovací typ, technika alebo stratégia znamená, aký failure mode alebo riziko rieši, aký subject a scope používa, akú fidelity potrebuje a aký oracle vytvára pass/fail verdict. Nasleduje neutrálny príklad a hranica dôkazu — teda čo test preukazuje a čo z neho nemožno odvodiť. Až potom kapitola prejde k sekcii `Detailný výklad a Atlas aplikácia`, kde sa model aplikuje na Atlas Orders release, doplnia sa artifacts, failure path, diagnosis a recovery. Scenár upevňuje všeobecný výklad; nenahrádza ho.
+Každá kapitola začína priamo výkladom testovacieho typu, techniky alebo stratégie. Vysvetľuje subject, scope, failure mode, potrebnú fidelity, oracle a hranicu dôkazu a následne tieto pojmy priebežne aplikuje na Atlas Orders. Kapitola je jeden súvislý odborný text bez samostatnej learning alebo metadata vrstvy.
 
-Hlavný výklad nesú súvislé odseky. Inventáre, matice a checklisty zostávajú iba tam, kde pomáhajú presne porovnať scope, evidence alebo acceptance podmienky.
+Konkrétne testy, konfigurácia, výsledky a failure artifacts sa objavujú pri rozhodnutí, ktoré podporujú. Výklad pokračuje od všeobecného mechanizmu cez experiment alebo test contract k Atlas incidentu, diagnosis, recovery a skoršiemu controlu. Inventáre, matice a checklisty zostávajú iba tam, kde presne porovnávajú scope, evidence alebo acceptance podmienky.
 
-## Cieľ zvládnutia
+## Čo má čitateľ po sekcii vedieť
 
-Po dokončení sekcie má byť možné:
+Čitateľ má vedieť začať od rizika alebo failure mode-u a zvoliť najnižší test scope, ktorý poskytne dostatočný dôkaz. Musí odlíšiť verification od validation, pomenovať oracle a jeho false-positive alebo false-negative riziko a vysvetliť, pre ktorý artifact, prostredie, konfiguráciu a čas výsledok platí.
 
-- rozlíšiť verification od validation a navrhnúť traceability od požiadavky cez riziko po dôkaz,
-- definovať test oracle a posúdiť false-positive a false-negative riziko,
-- používať test pyramid alebo test trophy ako risk-based model, nie ako fixnú percentuálnu kvótu,
-- zvoliť najnižší test scope, ktorý spoľahlivo odhalí daný failure mode,
-- rozlíšiť unit, integration a component test podľa reálnych boundaries a dependencies,
-- navrhnúť hermetic, paralelizovateľné testy s deterministickým setupom a cleanupom,
-- rozlíšiť API test od contract testu a používať producer-driven aj consumer-driven contracts,
-- posúdiť backward/forward compatibility API alebo event schema,
-- navrhnúť kritické E2E journeys, acceptance criteria, test data a failure artifacts,
-- vytvoriť krátky deployment smoke gate a risk-based regression suite,
-- rozlíšiť load, stress, spike, soak, capacity a scalability test,
-- navrhnúť realistický open alebo closed workload model a interpretovať tail latency, throughput, concurrency a saturation,
-- korelovať performance výsledky s CPU, memory, I/O, network, queue a dependency metrics,
-- navrhovať threat-informed security tests pre application, supply chain, IAM, network a infrastructure boundaries,
-- vrstviť IaC syntax, policy, plan a runtime verification,
-- rozlíšiť SAST, DAST, IAST, SCA a artifact scanning a triagovať findings podľa reachability a impactu,
-- používať formatter, linter, type checker a data-flow analysis bez zamieňania statického signálu za runtime dôkaz,
-- interpretovať line, branch, condition a diff coverage bez používania coverage ako priamej metriky kvality,
-- navrhnúť blocking/advisory quality gates, ratcheting a auditovateľný exception lifecycle,
-- zvoliť medzi dummy, stub, fake, spy, mock a reálnou dependency podľa testovaného rizika,
-- minimalizovať contract drift a over-specification test doubles,
-- diagnostikovať flaky tests, izolovať test data a odstrániť timing, shared-state a order dependencies,
-- spravovať quarantine, retries, first-attempt pass rate a failure artifacts bez rerun-until-green anti-patternu,
-- posúvať kontroly doľava podľa rizika, fidelity, času feedbacku a maintenance costu,
-- navrhovať developer feedback loops, golden paths a autoritatívne CI guardrails,
-- používať shift-right produkčnú validáciu, synthetics, RUM, canary, feature flags a progressive delivery,
-- rozlíšiť technickú, funkčnú a business validáciu po deploymente,
-- definovať steady-state hypothesis, experiment contract, blast radius a abort criteria,
-- navrhnúť bezpečný chaos experiment pre process, network, dependency, resource alebo data failure,
-- overiť recovery, graceful degradation, RPO/RTO a previesť výsledok experimentu na trvalú kontrolu.
+Má vedieť navrhnúť unit, integration, component, contract, API, E2E, acceptance, smoke a regression kontroly bez zamieňania ich boundaries. Pri performance experimente musí vedieť definovať workload model, tail-latency a saturation oracle; pri security a infrastructure testoch zase threat, control, plan a runtime evidence. Coverage, static analysis a quality gate má interpretovať ako ohraničený signál, nie ako priamy dôkaz kvality.
+
+Pri nedeterministických alebo produkčných kontrolách má vedieť zachovať first-attempt evidence, izolovať test data, rozlíšiť flaky test od skutočného defectu a bezpečne používať shift-right a chaos experimenty. Výsledok sa uzatvára až recovery, business reconciliation a trvalým regression controlom.
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Verification vs. validation | Learning | L2 |
-| Test pyramid | Learning | L2 |
-| Unit, integration a component tests | Learning | L2 |
-| Contract a API tests | Learning | L2 |
-| End-to-end a acceptance tests | Learning | L2 |
-| Smoke a regression tests | Learning | L2 |
-| Performance, load a stress tests | Learning | L2 |
-| Security a infrastructure tests | Learning | L2 |
-| Static analysis, linting a type checking | Learning | L2 |
-| Code coverage a quality gates | Learning | L2 |
-| Mocks, stubs a fakes | Learning | L2 |
-| Flaky tests a test data | Learning | L2 |
-| Shift-left | Learning | L2 |
-| Shift-right | Learning | L2 |
-| Chaos testing | Learning | L2 |
+Všetkých pätnásť kapitol je po integrovanom full prose rewritingu pripravených na používateľskú kontrolu. Tento stav neznamená automatické používateľské schválenie ani runtime overenie každého nástroja a experimentu.

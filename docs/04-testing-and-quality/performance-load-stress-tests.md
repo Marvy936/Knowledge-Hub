@@ -1,8 +1,5 @@
 # Performance, load a stress tests
 
-<!-- CONCEPT-FIRST:START -->
-## Čo sú performance, load, stress, spike a soak test
-
 Performance testing meria správanie systému vzhľadom na latency, throughput, concurrency, saturation a resource usage. Nie je to iba poslanie veľkého počtu requestov. Experiment potrebuje workload model, environment, warm-up, measurement window, oracle a koreláciu so systémovými metrics.
 
 **Load test** overuje očakávanú alebo plánovanú záťaž. **Stress test** zvyšuje load za normálnu kapacitu a hľadá breaking point a recovery. **Spike test** sleduje náhlu zmenu záťaže. **Soak test** beží dlho a hľadá leaks, queue growth alebo degradáciu. **Capacity test** určuje, koľko workloadu systém zvládne pri stanovenom SLO.
@@ -28,26 +25,6 @@ Výsledky bez resource a dependency metrics sú málo diagnostické. Rovnaká la
 Environment musí byť dostatočne reprezentatívny pre testované riziko. Malá databáza, prázdne cache alebo odlišná network path môžu viesť k falošnému capacity verdictu. Performance result platí iba pre konkrétny artifact, config, data volume a topology.
 
 Po stress experimente sa overuje recovery: backlog drain, error normalization, resource release a business reconciliation. Prežitie peak-u bez návratu do stabilného stavu nie je úspech.
-<!-- CONCEPT-FIRST:END -->
-
-## Detailný výklad a Atlas aplikácia
-
-## Metadata
-
-- Status: Learning
-- Level: L2
-- Domain: Testing and Software Quality
-
-Performance test je kontrolovaný experiment nad konkrétnym workloadom, artifactom a prostredím. Jeho výsledkom nie je iba číslo requests za sekundu, ale dôkaz o tom:
-
-```text
-aký demand prišiel
-→ kde vzniklo čakanie alebo saturation
-→ aký používateľský výsledok systém poskytol
-→ ako sa správal pri prekročení limitu
-→ či sa po záťaži obnovil
-→ aké capacity alebo release rozhodnutie z toho vyplýva
-```
 
 ## 1. Cieľ kapitoly
 
