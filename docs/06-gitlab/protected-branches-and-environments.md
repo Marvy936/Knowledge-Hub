@@ -22,6 +22,8 @@ Každá boundary môže mať alternate path. Maintainer môže meniť branch rul
 
 ## 2. Exact protection subject
 
+Protection verdict musí pomenovať source ref, rule generation, actor capability, deployment target a artifact policy naraz. Human-readable pattern ako `main` alebo `production/*` je iba locator; effective behavior závisí od overlapping rules, current namespace a exact environment name. Nasledujúci subject preto oddeľuje source enforcement od runtime enforcement a spája ich release digestom.
+
 ```yaml
 protectionSubject:
   projectId: 481
@@ -189,6 +191,8 @@ branch/tag/environment rules and generations sú exact
 
 ## 13. Troubleshooting flow
 
+Pri bypass-e sa branch, tag a environment badges nesmú zliať do jedného tvrdenia „bolo to protected“. Investigation sleduje každú capability osobitne: kto mohol meniť ref, kto vytvoril tag, aký pipeline/ref context dostal credential, ktorý environment pattern matchol a aká external identity vykonala runtime mutation. Prvý divergentný verdict určí skutočný bypass.
+
 ```text
 source actor and effective role
 → branch/tag rules and overlapping patterns
@@ -206,23 +210,23 @@ Competing hypotheses môžu byť direct push, force-push, unprotect permission, 
 
 ### Maintainer push ako no-bypass policy
 
-Maintainer stále môže obísť MR, ak direct push nie je zakázaný.
+Maintainer-only push stále povoľuje direct source mutation mimo MR, iba ju obmedzuje na silnejšiu rolu. Ak policy vyžaduje review, `allowed_to_push` musí byť prázdne alebo presne bounded break-glass path a forbidden push test musí preukázať odmietnutie. Samotný protected badge no-bypass semantics nedokazuje.
 
 ### Protected tag ako immutable release
 
-Git ref protection nepreukazuje artifact bytes ani evidence.
+Protected tag chráni creation Git refu, nie bytes v registry ani dôkazy, ktoré pipeline neskôr vytvorí. Rovnaký tag-triggered job môže rebuildnúť odlišný image alebo publikovať mutable tag. Release authority preto patrí immutable digestu a subject-bound provenance, nie samotnému Git tagu.
 
 ### Production kubeconfig v variable
 
-Vytvára long-lived alternate environment authority.
+Long-lived kubeconfig v CI variable je reusable alternate authority priamo k runtime API. Môže prežiť job, byť skopírovaný do workspace-u a obísť protected-environment approval cez job bez environment declaration. Short-lived federation viazaná na exact project/ref/environment zmenšuje capability aj revocation window.
 
 ### Environment protection podľa nesprávneho mena
 
-Job môže vytvoriť unprotected dynamic environment.
+Protected-environment policy sa vyhodnocuje nad effective environment name. Ak job použije `prod/eu` a rule chráni iba `production`, credential a approval path môžu byť úplne odlišné. Naming contract sa preto validuje v resolved pipeline a testuje sa reprezentatívny dynamic name aj forbidden variant.
 
 ### Review app status `stopped` ako cleanup proof
 
-External resources môžu prežiť.
+GitLab status `stopped` je workflow record, nie inventory external resources. DNS, database, storage, IAM identity alebo namespace môžu zostať po partial cleanup-e. Closure potrebuje ownership labels, independent reconciliation a read-back absencie na každom authoritative targete.
 
 ## 15. Kontrolné otázky
 

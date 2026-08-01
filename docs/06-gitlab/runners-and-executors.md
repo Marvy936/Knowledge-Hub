@@ -6,6 +6,8 @@ Runner nie je executor. Runner je agent a scheduling/credential boundary; execut
 
 ## 1. Dominantný job-to-cleanup model
 
+Lifecycle opisuje celú execution lease od scheduler verdictu po odstránenie residual state-u. Job status uzatvára iba GitLab execution record; workspace, process, container, VM, cloud resource alebo credential môže prežiť mimo neho. Runner acceptance preto potrebuje creation aj teardown identity a independent cleanup read-back.
+
 ```text
 pipeline job a trust context
 → runner scope/tags/protected eligibility
@@ -22,6 +24,8 @@ pipeline job a trust context
 Successful job status nepreukazuje clean runner. Persistent workspace, process, container, Docker layer, cache, cloud resource alebo credential môže prežiť.
 
 ## 2. Exact runner execution subject
+
+Runner ID je iba vstupný locator. Reálny subject zahŕňa manager instance, executor a image generation, job trust class, mounts, network a credential policy, pretože rovnaký logical runner môže po autoscale alebo upgrade vykonať job v inom boundary. YAML nižšie spája scheduling a runtime evidence do jedného execution subjectu.
 
 ```yaml
 runnerExecutionSubject:
@@ -208,6 +212,8 @@ runner scope/tags/protected status match trust class
 
 ## 15. Troubleshooting flow
 
+Pri runner incidente sa najprv potvrdí, prečo scheduler vybral konkrétny pool, a potom sa rekonštruuje runtime generation a residual state. Tags alebo protected flag nevysvetlia host mounts, workspace, metadata access ani external side effects. Discriminating test preto pracuje s exact jobom a forbidden capability, nie iba s runner UI.
+
 ```text
 job/pipeline trust subject
 → runner selection and tags
@@ -225,23 +231,23 @@ Competing hypotheses môžu byť wrong runner scope, untagged eligibility, privi
 
 ### Container executor equals secure isolation
 
-Privilege, mounts and shared kernel can still expose host.
+Container executor mení process packaging, nie automaticky trust boundary. Privileged mode, host mounts, devices, Docker socket alebo shared kernel umožňujú host escape alebo cross-job observation. Isolation verdict sa viaže na effective runtime config a forbidden capability probes.
 
 ### Protected runner equals trusted code
 
-Stale approvals/direct push can place untrusted code on protected refs.
+Protected runner obmedzuje eligibility podľa ref/job contextu, ale nepreukazuje, že code na protected refe je dôveryhodný. Direct push, retained approval alebo mutable include môže dostať untrusted bytes do protected pipeline. Source policy a runner policy sa musia testovať ako dva samostatné boundaries.
 
 ### Shared shell runner
 
-Persistent host state and arbitrary code create cross-project compromise.
+Shell executor spúšťa arbitrary code priamo na persistent hoste. Workspace, process table, home directory, sockets a local credentials sa môžu preniesť medzi projektmi, takže jeden job kompromituje celý runner scope. Použiteľný je iba pre úzko trusted code na dedicated alebo disposable hoste s independent cleanupom.
 
 ### Static cloud credentials on runner
 
-Capability survives jobs and weakens attribution/revocation.
+Static cloud credential na runneri nie je viazaný na jeden job ani pipeline subject. Prežíva cancellation, zhoršuje attribution a pri úniku vyžaduje broad rotation. Short-lived federation s exact claims a target-side auditom umožní bounded issuance a rýchle forbidden-old-session overenie.
 
 ### Job success equals cleanup success
 
-External resources and credentials can remain.
+Successful job znamená, že runner odovzdal výsledný status, nie že všetky descendants zanikli. Child process, pushed image, cloud VM alebo temp credential môže pokračovať po ukončení jobu. Teardown sa preto read-backne a external reconciler odstráni resources podľa immutable job labels a TTL.
 
 ## 17. Kontrolné otázky
 

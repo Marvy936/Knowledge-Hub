@@ -6,6 +6,8 @@ Nejasnosť vzniká, keď UI ukáže „pipeline skipped“, duplicate branch+MR 
 
 ## 1. Dominantný source-to-job model
 
+Tento model treba čítať ako compiler pipeline. Root YAML ešte nie je executable graph: includes sa resolve-nú, inheritance zmení fields, rules rozhodnú o existencii pipeline a jobs a až validný DAG sa odovzdá scheduleru. Každý troubleshooting krok preto musí uviesť, ktorú kompilovanú vrstvu pozoruje.
+
 ```text
 pipeline source a event context
 → root `.gitlab-ci.yml`
@@ -22,6 +24,8 @@ pipeline source a event context
 Pipeline môže byť validná a nevzniknúť. Pipeline môže vzniknúť bez expected jobu. Job môže existovať, ale byť manual, delayed, allowed-to-fail alebo blocked. Každý state má odlišný meaning.
 
 ## 2. Exact pipeline configuration subject
+
+Pipeline configuration subject viaže event, source/target candidate, root a transitive dependencies, variable context a očakávaný job inventory. Pipeline ID bez týchto vstupov nehovorí, či retry alebo nová pipeline vykonali rovnaký graph. Nasledujúci envelope je preto reproducibility a evidence contract, nie iba metadata export.
 
 ```yaml
 pipelineConfigSubject:
@@ -218,6 +222,8 @@ root and transitive config generations sú exact
 
 ## 14. Troubleshooting flow
 
+Keď job chýba alebo vznikla nesprávna pipeline, script jobu ešte nemusel byť nikdy spustený. Investigation ide od eventu cez config resolution a rules k resolved jobs; až potom rieši runner execution. Tento ordering odlíši compile-time omission od scheduling alebo runtime failure.
+
 ```text
 pipeline source/event
 → root config and includes
@@ -235,23 +241,23 @@ Competing hypotheses môžu byť duplicate event, mutable include, condition ord
 
 ### `.gitlab-ci.yml` diff ako whole graph review
 
-Includes, defaults, variables a platform evaluation tvoria effective config.
+Root `.gitlab-ci.yml` je iba vstup do resolved graphu. Includes, components, defaults, `extends`, variables a GitLab evaluation môžu zmeniť image, scripts, credentials aj job existence bez viditeľného lokálneho diffu. Review preto potrebuje pinned dependency inventory a merged/resolved configuration pre konkrétny event.
 
 ### Broad final `when: always`
 
-Môže vytvoriť duplicate pipelines alebo unexpected jobs.
+Broad catch-all rule môže vytvoriť job v push, MR, schedule aj child pipeline contextoch, prípadne vytvoriť duplicate pipelines. Taký job môže dostať iné variables, runner alebo credentials než author očakával. Rules sa uzatvárajú explicitným `when: never` a testovacou maticou eventov.
 
 ### Security job iba podľa narrow `changes`
 
-Pipeline/security config changes môžu control vypnúť.
+Narrow `changes` optimalizácia môže odstrániť security evidence pri zmene CI konfigurácie, generated source, lockfile-u alebo rename, ktorý diff-base nevyhodnotí podľa očakávania. Missing analyzer job nie je pass. Gate porovnáva expected analyzer inventory s resolved jobs a každý skip má explicitný applicability verdict.
 
 ### Mutable include
 
-Rovnaký application SHA môže vykonať iný privileged graph.
+Mutable include znamená, že rovnaký application SHA môže neskôr resolve-núť iný privileged graph. Tým sa stráca reproducibility aj význam predchádzajúceho reviewu. Include alebo component sa pinne na immutable revision a transitívne dependencies sa evidujú v resolved subjecte.
 
 ### Latest successful pipeline bez subject checku
 
-Môže patriť push, branch alebo stale candidate-u.
+„Latest successful“ je časový locator, nie dôkaz správneho candidate-u. Môže označiť push pipeline, branch pipeline alebo starú target generation s odlišným job inventory. Merge/deploy gate kontroluje pipeline source, candidate SHA, resolved config digest a expected evidence, nie iba status a timestamp.
 
 ## 16. Kontrolné otázky
 

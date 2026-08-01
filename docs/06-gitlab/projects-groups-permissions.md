@@ -20,6 +20,8 @@ Role je agregát permissions. Capability verdict je vždy viazaný na operation 
 
 ## 2. Exact namespace subject
 
+Access sa nedá vyhodnotiť bez presného namespace subjectu. Potrebujeme vedieť nielen názov projektu, ale aj GitLab inštanciu, numeric IDs, aktuálny parent chain, ownership boundary a generation po transfere alebo policy zmene. Nasledujúci YAML je preto identity envelope pre authorization rozhodnutie, nie iba inventár názvov.
+
 ```yaml
 namespaceSubject:
   instance: gitlab.atlas.example
@@ -64,19 +66,19 @@ Ak `atlas` obsahuje široký Maintainer membership, všetky regulated subproject
 
 ## 4. Effective membership graph
 
-Access paths zahŕňajú:
+Access path je konkrétny mechanizmus, ktorým principal získa capability nad projectom alebo jeho resource-mi. Inventár musí pri každom path-e uviesť source authority, rolu alebo scopes, expiry, vlastníka a operation, ktorú path povoľuje:
 
-- direct project membership;
-- inherited parent-group membership;
-- project alebo group sharing s inou group;
-- invited external user;
-- service account alebo bot;
-- personal, project alebo group access token;
-- deploy token a CI job token;
-- custom role permissions;
-- instance administrator alebo external authorization system.
+- **Direct project membership** je explicitný member record v projekte. Je ľahko viditeľný, ale môže byť iba jedným z viacerých súbežných paths.
+- **Inherited parent-group membership** vzniká z parent group alebo subgroup. Odstránenie direct project role ho nemení a project transfer môže pridať úplne nový inherited graph.
+- **Project alebo group sharing** pozýva inú groupu s maximálnou rolou a voliteľnou expiráciou. Effective user access potom závisí aj od membershipu v zdieľanej groupe.
+- **Invited external user** je stále human principal so session, tokenmi a možným accessom cez ďalšie groups. Atribút external sám nevytvára least privilege.
+- **Service account alebo bot** je non-human principal. Musí mať systémového ownera, bounded purpose, credential lifecycle a samostatnú audit identity.
+- **Personal, project alebo group access token** prenáša capability cez kombináciu principalu, role, scopes, target resource-u a expiry. Zmazanie member row nemusí zneplatniť všetky token paths.
+- **Deploy token a CI job token** majú užší product contract, ale stále môžu čítať alebo publikovať repository/package subjects podľa effective allowlistu a job contextu.
+- **Custom role permission** dopĺňa base access level o konkrétne operations. Názov roly nepreukazuje effective permission set ani resource policy.
+- **Instance administrator alebo external authorization systém** môže vytvárať authority mimo project member graphu. Takýto path sa musí evidovať oddelene, pretože bežný project API ho nemusí ukázať.
 
-Effective capability je union allowed paths obmedzená resource-specific policy. Expired direct role neodstráni access, ak user stále dedí vyššiu parent role.
+Effective capability je union všetkých platných paths, ktorú následne obmedzujú protected-resource a operation-specific policies. Expired direct role teda neodstráni access, ak principal stále dedí vyššiu parent rolu, používa share alebo drží aktívny token. Review sa uzatvára až po positive operation teste a forbidden teste každého významného alternate pathu.
 
 Praktický API read-back:
 
@@ -209,6 +211,8 @@ namespace IDs, paths a ownership sú exact
 
 ## 13. Troubleshooting flow
 
+Troubleshooting nezačína otázkou „akú rolu ukazuje UI“, ale presnou operáciou, ktorá bola povolená alebo odmietnutá. Každý krok nižšie zužuje authority graph: najprv identita resource-u a principalu, potom všetky membership/token paths, resource policy a napokon audit konkrétneho requestu. Až discriminating operation test odlíši inherited access od tokenu, admin bypassu alebo stale session.
+
 ```text
 subject identity
 → group/project namespace and transfer history
@@ -225,23 +229,23 @@ Competing hypotheses môžu byť parent inheritance, shared group, admin, token,
 
 ### Project member list ako celý access inventory
 
-Ignoruje inheritance, shares, tokens, admin a protected-resource policy.
+Project member list zobrazuje iba časť authority graphu. Nezahŕňa spoľahlivo všetky inherited, shared, token, admin a external-authorization paths, preto zelený export direct members nemôže uzavrieť access review. Complete verdict potrebuje effective membership API, token inventory, protected-resource policies a bounded operation test.
 
 ### Broad parent Maintainer pre convenience
 
-Propaguje high capability do všetkých descendants.
+Broad Maintainer membership na parent groupe sa dedí do descendants a zväčšuje blast radius každej chyby alebo kompromitácie. Convenience rola navyše často povoľuje meniť CI, variables, runners alebo project settings mimo pôvodného use case-u. High-risk subgroup má používať explicitnú boundary, menšie role a pravidelný forbidden-path test.
 
 ### Shared bot user
 
-Niči attribution, ownera a bezpečný leaver lifecycle.
+Shared bot user spája viac systémov a ľudí pod jednu audit identity. Pri incidente nemožno určiť actor-a, bezpečne vykonať leaver transition ani rotovať credential bez neplánovaného výpadku všetkých consumerov. Každá automatizácia má mať vlastný non-human principal, ownera, purpose a revocation contract.
 
 ### Token bez expiry
 
-Capability prežíva project, team a purpose changes.
+Token bez expiry prežíva zmenu tímu, projektu aj pôvodného účelu. Aj keď sa nepoužíva, zostáva aktívnym alternate authority pathom a môže byť uložený v runner cache, credential store alebo externom systéme. Expiry, last-use evidence, rotation a target-side revocation sú súčasťou token lifecycle-u.
 
 ### Transfer bez before/after authority diffu
 
-Nový parent môže pridať members, runners, variables a policies.
+Project transfer mení parent inheritance, shares, runners, variables, registry paths a policy context, aj keď numeric project ID zostane rovnaké. Bez before/after authority diffu tím nevie, ktoré capabilities pribudli alebo zanikli. Transfer gate preto predpovedá nový graph, po operácii ho read-backne a testuje aj forbidden old a newly inherited paths.
 
 ## 15. Kontrolné otázky
 

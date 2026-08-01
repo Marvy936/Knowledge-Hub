@@ -6,6 +6,8 @@ MR nie je statická stránka. Source branch sa môže meniť, target branch napr
 
 ## 1. Dominantný change-to-merge model
 
+Lifecycle nižšie opisuje kompiláciu merge verdictu, nie iba poradie obrazoviek v GitLab UI. Každý transition mení subject alebo evidence, na ktoré sa approval viaže: source SHA, target SHA, synthetic candidate, diff version, policy generation alebo pipeline context. Ak sa ktorýkoľvek z nich zmení, predchádzajúci verdict sa musí explicitne invalidovať alebo znovu preukázať.
+
 ```text
 change intent a issue/risk context
 → exact source SHA a current target SHA
@@ -22,6 +24,8 @@ change intent a issue/risk context
 Approval je decision nad subjectom, nie trvalý súhlas s branch name. Force-push alebo target movement môže zmeniť bytes, ktoré sa mergnú.
 
 ## 2. Exact merge-decision subject
+
+Merge decision potrebuje identity envelope, ktorý umožní dokázať, aké bytes a aký target context reviewer a pipeline skutočne posudzovali. Branch name alebo MR IID sú iba locators; bez source, target, candidate a diff generation nemožno odlíšiť fresh approval od stale badge-u. YAML preto spája source, policy a evidence do jedného auditovateľného subjectu.
 
 ```yaml
 mergeDecisionSubject:
@@ -155,6 +159,8 @@ source/target/candidate/diff subjects sú exact
 
 ## 13. Troubleshooting flow
 
+Pri nesprávnom merge verdict-e sa najprv rekonštruuje časová os subjectu. Diff versions, force-push, target movement, approval reset a pipeline type sa čítajú ako samostatné state transitions; až potom sa skúma, ktorý alternate merge alebo direct-push path policy obišiel. Aggregate green badge je iba index do týchto záznamov.
+
 ```text
 project/MR identity
 → diff versions a source SHA history
@@ -172,23 +178,23 @@ Competing hypotheses môžu byť retained approval, wrong approver eligibility, 
 
 ### Approval ako permanentný branch property
 
-Approval patrí exact diff/candidate generation.
+Approval patrí konkrétnej diff/candidate generation, nie názvu branchu. Force-push alebo target movement môže zmeniť výsledný tree bez zmeny MR URL, takže retained approval môže autorizovať bytes, ktoré reviewer nikdy nevidel. Policy musí definovať reset/revalidation trigger a acceptance test ho musí reprodukovať.
 
 ### Reviewer rovná sa approver
 
-Review participation nepreukazuje eligibility pre policy rule.
+Reviewer participation je technical evidence; approver eligibility je authorization decision podľa konkrétneho rule-u. User môže komentovať alebo resolve-núť discussion bez toho, aby spĺňal required ownership, independence alebo role constraints. Verdict preto kontroluje approved_by proti effective rule evaluation, nie iba zoznam reviewerov.
 
 ### Branch pipeline ako merge result
 
-Nezahŕňa current target ani concurrent changes.
+Branch pipeline testuje source branch v jednom target context-e alebo bez neho. Nezahŕňa automaticky current target SHA ani concurrent changes, ktoré vytvoria final merge candidate. Pre high-risk integráciu sa evidence viaže na merged-results alebo merge-train candidate a po target movement-e sa znovu vytvorí.
 
 ### Code Owners file bez enforcement testu
 
-Pattern môže nematchovať alebo branch rule approval nevyžadovať.
+CODEOWNERS je source declaration, nie samostatný enforcement verdict. Pattern môže nematchovať presunutý file, protected branch nemusí vyžadovať Code Owner approval alebo alternate merge path môže rule obísť. Test musí zmeniť reprezentatívny owned path a potvrdiť, že neeligible actor merge nedokončí.
 
 ### Emergency direct push bez reconciliation
 
-Obchádza review/evidence a vytvára alternate authority path.
+Emergency direct push obchádza merge-decision subject, approval freshness a často aj iný pipeline graph. Ak je break-glass nevyhnutný, credential musí byť incident-scoped, short-lived a auditovaný a výsledný mainline/runtime state sa následne reconciliuje cez normálny source a release lifecycle. Bez tejto closure zostáva production na nepreukázanom alternate authority path-e.
 
 ## 15. Kontrolné otázky
 

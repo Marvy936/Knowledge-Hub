@@ -633,15 +633,11 @@ kubectl apply \
 
 Tento krok posiela objekty API serveru bez uloženia. Overuje aktuálnu API schema, admission policy a authorization identity pre daný cluster context.
 
-Nedokazuje:
+Server-side dry-run má presnú dôkaznú hranicu. API server overil object schema, admission a caller authorization pre daný request, ale nevytvoril novú persisted generation a nespustil controller lifecycle.
 
-- že rollout controller vytvorí ready Pods;
-- že image sa dá pull-núť;
-- že Service selector nájde backendy;
-- že aplikácia načíta správnu konfiguráciu;
-- že business request prejde.
+Dry-run preto nepreukazuje, že Deployment controller vytvorí ready Pods ani že scheduler, kubelet a registry dokážu image pull-nuť. Nevykoná Service selector/EndpointSlice convergence, takže neukazuje, či traffic nájde backendy. Application process nevznikol, a preto nemohol načítať ConfigMap, Secret ani environment-specific configuration. Napokon neprebehol žiadny request cez reálnu route, takže business outcome zostáva úplne neoverený.
 
-Preto po dry-run nasleduje reálny apply a runtime read-back.
+Po dry-run nasleduje reálny apply, controller/runtime read-back, exact image/config identity, Service/EndpointSlice kontrola a business probe. Ak dry-run zlyhá, mutation sa nesmie vykonať; ak prejde, je to iba povolenie pokračovať do ďalších acceptance vrstiev.
 
 ## 15. `resource_group`: serializácia environment mutation
 

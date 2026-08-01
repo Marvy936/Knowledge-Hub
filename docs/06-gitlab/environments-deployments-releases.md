@@ -6,6 +6,8 @@ Dôveryhodný lifecycle preto koreluje GitLab source/pipeline/job records s immu
 
 ## 1. Dominantný request-to-runtime model
 
+Lifecycle oddeľuje request, GitLab workflow record, external controller convergence, runtime state a business acceptance. Tieto transitions môžu skončiť v rôznych časoch a s rôznym verdictom; job success preto nesmie automaticky nastaviť production success. Diagram nižšie je correlation contract medzi GitLabom a authoritative targetom.
+
 ```text
 immutable release manifest and target intent
 → exact GitLab environment subject
@@ -21,6 +23,8 @@ immutable release manifest and target intent
 Deployment record should distinguish request accepted, mutation applied, controller converged and release accepted.
 
 ## 2. Exact environment/deployment subject
+
+Environment name je policy locator, nie úplná target identity. Exact subject musí pridať environment ID a generation, cluster/namespace alebo controller context, release manifest, deployment request a expected runtime digests. Bez toho sa rovnaké meno môže po migrácii alebo recreate viazať na iný target.
 
 ```yaml
 deploymentSubject:
@@ -52,6 +56,8 @@ Environment name is locator and policy input; generation identifies current targ
 
 ## 3. Environment declaration
 
+`environment:` block pripája job ku GitLab environment recordu a ovplyvňuje protection, variables, deployment tracking a stop lifecycle. Je to source declaration, ktorú treba porovnať s resolved jobom a effective environment patternom. Samotný YAML nevie potvrdiť cluster context ani úspešnú external mutation.
+
 ```yaml
 production_deploy:
   stage: deploy
@@ -67,6 +73,8 @@ production_deploy:
 YAML declares environment association. It does not prove protected-environment match, correct URL, external controller completion or cleanup. Dynamic environment names require bounded input and policy.
 
 ## 4. Deployment record API
+
+Deployment API je GitLab-side read-back workflow recordu. Query musí byť viazaná na exact project a environment locator a výsledok sa koreluje s pipeline, deployable jobom a release manifestom. API status nepreukazuje controller ani runtime outcome, ale umožní zistiť, ktorý request a actor GitLab považuje za deployment.
 
 ```bash
 curl --fail --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
@@ -113,6 +121,8 @@ Approval should bind artifact digest, target generation and requested transition
 Manual job is not approval evidence if any eligible operator can run it without policy. Emergency path has separate incident-scoped capability and closure.
 
 ## 8. Runtime read-back
+
+Runtime read-back sa vykonáva až po potvrdení target contextu, aby presný output nepatril nesprávnemu clusteru alebo namespace-u. Najprv sa číta desired/controller state Deploymentu a potom per-Pod resolved image identity. Tieto outputs stále nepreukazujú serving route ani business behavior, preto na ne nadväzuje traffic a capability canary.
 
 ```bash
 kubectl -n payments get deployment payments-api -o json | jq '{generation:.metadata.generation,observed:.status.observedGeneration,images:[.spec.template.spec.containers[].image],release:.metadata.annotations["atlas.example/release-manifest"]}'
@@ -197,6 +207,8 @@ environment identity and generation are exact
 
 ## 14. Troubleshooting flow
 
+False-green deployment sa rieši koreláciou jednej operation identity naprieč GitLab recordom, deploy jobom, external controllerom a runtime workloadom. Každý krok odpovedá na inú otázku: čo bolo požadované, čo bolo prijaté, čo sa convergovalo a čo reálne obsluhuje traffic. Až business probe uzatvára pôvodný outcome.
+
 ```text
 GitLab environment/deployment/release records
 → pipeline/job/ref/artifact subject
@@ -214,23 +226,23 @@ Competing hypotheses include stale job, wrong environment name, failed controlle
 
 ### Deployment job success equals production success
 
-May prove only request or Git commit.
+Successful deploy job môže dokazovať iba API acknowledgement alebo Git commit. Controller môže neskôr zlyhať, rollout zostať partial alebo traffic smerovať na starú cohort. Production verdict potrebuje controller observed state, runtime digest/config read-back a business acceptance.
 
 ### GitLab environment name as exact target identity
 
-Same name can represent changed cluster/namespace generation.
+Rovnaký environment name môže po migrácii ukazovať na iný cluster, namespace, account alebo policy generation. Name preto zostáva locatorom a approval inputom, kým exact subject pridáva target IDs a generation. Deploy script aj read-back musia používať ten istý target envelope.
 
 ### Release linked to expiring artifact
 
-Support and recovery lose durable bytes.
+Release asset URL na job artifact môže expirovať alebo zmeniť access semantics počas support window-u. GitLab Release má odkazovať na immutable durable registry/package subject a release manifest. Pipeline artifact zostáva doplnkovou execution evidence, nie jediným distribučným zdrojom.
 
 ### Environment stopped before cleanup proof
 
-External resources remain.
+Environment record môže byť označený `stopped` skôr, než sa odstránia DNS, IAM, storage, database alebo workload resources. Taký status vytvorí false-green lifecycle a orphan cost/security exposure. Cleanup closure vyžaduje independent inventory a read-back absencie pred finálnym stavom.
 
 ### Fixed branch equals fixed production
 
-Runtime may still use vulnerable digest.
+Fix na default branchi mení source subject, nie automaticky deployed artifact ani runtime. Build, scan, promotion, controller convergence a workload replacement môžu stále chýbať. Remediation sa uzatvára až keď production image/config identity zodpovedá fixed release manifestu a vulnerable cohort je odstránená.
 
 ## 16. Kontrolné otázky
 
