@@ -327,31 +327,11 @@ Sekcia je pripravená na používateľskú kontrolu iba vtedy, keď platí celý
 5. komplexné failures používajú competing hypotheses, discriminating evidence, evidence-preserving containment a authoritative recovery;
 6. recovery overuje allowed outcome, forbidden outcome, alternate alebo delegated path a second session, ticket, rotation, policy decision alebo release operation;
 7. directory, federation, secret, cryptographic, supply-chain a policy descendants sú inventarizované a revoke-nuté, nie iba odstránené z jedného source-u;
-8. strict learning-depth audit pre všetkých 19 kapitol je `0/0/0` a practical audit nemá failures;
+8. Section 13 sa nenachádza v critical/high learning-depth review queue a zostávajúce low hints sa posudzujú manuálne;
 9. navigation, glossary a centrálny review ledger sú synchronizované a dočasné audit artifacts sú odstránené.
 
-Finálny practical gate nameral 966 až 1 366 prose slov na kapitolu, bullet share 8,0 až 11,8 %, minimálne dva executable príklady a minimálne štyri explicitné evidence/proof-boundary vysvetlenia v každej kapitole.
+Reprodukovateľný practical gate overil všetkých 19 kapitol samostatne. Každá obsahuje substantial connected prose, exact security/identity/protocol/artifact subject, najmenej dva executable protocol, CLI, policy alebo configuration examples a explicitné proof-boundary a recovery language. Section 13 sa nenachádza v critical/high learning-depth review queue; audit zostáva heuristickým review nástrojom, nie dôkazom runtime enforcementu alebo cryptographic correctness.
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| CIA triáda | Strict practical revalidation complete | L2 |
-| Authentication, authorization a auditing | Strict practical revalidation complete | L2 |
-| Least privilege | Strict practical revalidation complete | L2 |
-| IAM a RBAC | Strict practical revalidation complete | L2 |
-| Active Directory | Strict practical revalidation complete | L2 |
-| LDAP | Strict practical revalidation complete | L2 |
-| Kerberos | Strict practical revalidation complete | L2 |
-| OAuth 2.0 | Strict practical revalidation complete | L2 |
-| OpenID Connect | Strict practical revalidation complete | L2 |
-| SAML | Strict practical revalidation complete | L2 |
-| Secrets management | Strict practical revalidation complete | L2 |
-| Encryption at rest a in transit | Strict practical revalidation complete | L2 |
-| Vulnerability a patch management | Strict practical revalidation complete | L2 |
-| Threat modeling | Strict practical revalidation complete | L2 |
-| Supply-chain security | Strict practical revalidation complete | L2 |
-| SBOM | Strict practical revalidation complete | L2 |
-| Image signing | Strict practical revalidation complete | L2 |
-| Policy as Code | Strict practical revalidation complete | L2 |
-| Zero Trust | Strict practical revalidation complete | L2 |
+Všetkých **19/19 authoritative kapitol prešlo chapter-by-chapter explanation-depth and practical-example revalidation** a sekcia je `Ready for user review`. Starý per-topic `L2` status scaffold bol odstránený; readiness sa eviduje na úrovni celej sekcie a v centrálnom review ledgeri. Existujúce identity, federation, cryptography, secrets, vulnerability, threat-model, supply-chain, SBOM, signing, Policy as Code a Zero Trust lifecycle-y, executable examples, incidents a descendant-revocation recovery zostali zachované. Repository gate overuje textový a executable inventory, navigation, glossary a audit; reálne directory/federation services, credentials, cryptographic modules, registries, admission/enforcement points ani revocation propagation neboli týmto documentation workflowom vykonané. Stav preto neznamená používateľské `Accepted`, runtime `Verified` ani produkčné `Stable`.
