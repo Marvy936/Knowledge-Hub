@@ -1711,15 +1711,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "title": "Ansible architecture",
-      "words": 2817,
+      "words": 2662,
       "headings": 23,
       "sections": 23,
-      "findings": 15,
+      "findings": 16,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 15,
-      "score": 20,
+      "low": 16,
+      "score": 21,
       "grade": "B"
     },
     {
@@ -2019,7 +2019,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "title": "Vault",
-      "words": 2671,
+      "words": 2591,
       "headings": 32,
       "sections": 32,
       "findings": 25,
@@ -40493,7 +40493,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "7. Inventory resolution pred execution",
-      "line": 184,
+      "line": 174,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40502,7 +40502,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "8. Variable context per host",
-      "line": 217,
+      "line": 207,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40511,7 +40511,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "10. Strategy, forks a serial",
-      "line": 256,
+      "line": 246,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40520,7 +40520,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "10. Strategy, forks a serial",
-      "line": 256,
+      "line": 246,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40528,8 +40528,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "10. Strategy, forks a serial",
+      "line": 246,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "11. Structured result a truthfulness",
-      "line": 291,
+      "line": 265,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40538,7 +40547,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "13. Failure a coverage model",
-      "line": 347,
+      "line": 321,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40547,7 +40556,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "13. Failure a coverage model",
-      "line": 347,
+      "line": 321,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40556,7 +40565,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "17. Worked incident: delegated API task v nesprávnom účte",
-      "line": 429,
+      "line": 403,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40565,7 +40574,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "18. Competing hypotheses pri mixed fleet",
-      "line": 449,
+      "line": 423,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40574,7 +40583,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "19. Evidence-preserving containment a recovery",
-      "line": 473,
+      "line": 447,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40583,7 +40592,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
       "section": "20. Acceptance a forbidden paths",
-      "line": 485,
+      "line": 459,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44705,7 +44714,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "8. Plaintext path",
-      "line": 162,
+      "line": 152,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44714,7 +44723,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "Vault rekey",
-      "line": 217,
+      "line": 207,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44723,7 +44732,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "Target credential rotation",
-      "line": 230,
+      "line": 220,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44732,7 +44741,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "12. Consumer rollout",
-      "line": 261,
+      "line": 251,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44741,7 +44750,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "12. Consumer rollout",
-      "line": 261,
+      "line": 251,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44750,7 +44759,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "12. Consumer rollout",
-      "line": 261,
+      "line": 251,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44759,7 +44768,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "13. Runtime verification",
-      "line": 279,
+      "line": 269,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44768,7 +44777,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "13. Runtime verification",
-      "line": 279,
+      "line": 269,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44777,7 +44786,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "13. Runtime verification",
-      "line": 279,
+      "line": 269,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44786,7 +44795,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "17. Temporary files a cleanup",
-      "line": 339,
+      "line": 329,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44795,7 +44804,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "17. Temporary files a cleanup",
-      "line": 339,
+      "line": 329,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44804,7 +44813,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "17. Temporary files a cleanup",
-      "line": 339,
+      "line": 329,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44813,7 +44822,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "19. Competing hypotheses pri partial fleet rotation",
-      "line": 374,
+      "line": 364,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44822,7 +44831,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "19. Competing hypotheses pri partial fleet rotation",
-      "line": 374,
+      "line": 364,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -44831,7 +44840,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "20. Evidence-preserving containment a recovery",
-      "line": 393,
+      "line": 383,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44840,7 +44849,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Vault vyriešil secrets management“",
-      "line": 431,
+      "line": 421,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44849,7 +44858,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Rekey je rotation“",
-      "line": 437,
+      "line": 427,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44858,7 +44867,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Rekey je rotation“",
-      "line": 437,
+      "line": 427,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44867,7 +44876,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„ no log zabráni všetkým leakom“",
-      "line": 443,
+      "line": 433,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44876,7 +44885,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„ no log zabráni všetkým leakom“",
-      "line": 443,
+      "line": 433,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -44885,7 +44894,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Nový secret funguje, môžeme skončiť“",
-      "line": 449,
+      "line": 439,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -44894,7 +44903,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
       "section": "„Vault password môže byť v image“",
-      "line": 455,
+      "line": 445,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

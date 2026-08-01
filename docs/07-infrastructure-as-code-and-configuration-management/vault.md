@@ -67,10 +67,6 @@ plaintext
 
 Oficiálna dokumentácia popisuje Vault ako mechanizmus na encryption variables/files, aby citlivý obsah nebol uložený ako plaintext. citeturn329472search23turn329472search26
 
-Exposure inventory zahŕňa controller memory, temporary files, rendered target files, module arguments, registered results, validator stderr a callback/debug logs.
-
-Dopĺňa ho malicious collection/plugin s decryption accessom, credential, ktorý unikol pred encryption a starý target credential bez revocation.
-
 ```text
 repository confidentiality
 ≠ runtime plaintext confidentiality
@@ -119,12 +115,6 @@ Header môže obsahovať label:
 ```text
 $ANSIBLE_VAULT;1.2;AES256;prod-database
 ```
-
-Vault ID je routing label pre password source. Nie je samostatná authorization policy ani secret identity.
-
-Pri návrhu Vault domainu sa hodnotí environment, owner, consumer scope, rotation lifecycle, blast radius a decryption authorization.
-
-Jeden password pre dev aj prod rozširuje production compromise boundary.
 
 ## 6. Decryption identity
 

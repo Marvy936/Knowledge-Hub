@@ -93,10 +93,6 @@ načíta ansible.cfg a runtime
 
 Control node má často prístup k SSH keys, Vault password source-u, cloud credentials, inventory API a množstvu produkčných hosts. Kompromitovaný execution image, collection plugin alebo checkout preto môže zasiahnuť celý target scope.
 
-Contract eviduje immutable execution environment digest, pinned collections, read-only source checkout, short-lived credentials, restricted network egress a oddelené untrusted validation a production execution pools.
-
-Dopĺňa ho audit callback a log redaction.
-
 ## 4. Managed node a API target
 
 Target nemusí byť Linux host. Môže to byť Windows, network device, Kubernetes API, cloud API alebo appliance. Execution location závisí od module/action/connection designu.
@@ -129,12 +125,6 @@ Playbook je ordered orchestration viacerých plays. Každý play viaže host pat
 Module implementuje observation a bounded mutation unit a vracia structured result. Action plugin môže časť logiky vykonať na controlleri, connection plugin určuje transport, inventory plugin vytvára target graph a callback plugin spracúva evidence. Collection všetky tieto executable prvky distribuuje ako versionovaný artifact.
 
 FQCN, napríklad `ansible.builtin.template`, znižuje namespace ambiguity, ale neidentifikuje exact collection bytes ani execution environment. Run subject preto zachováva FQCN spolu s collection/image digestom a per-host dynamic include pathom. Vďaka tomu možno odlíšiť rovnaký YAML s odlišným plugin behaviorom.
-
-Playbook je ordered collection plays. Play viaže host pattern na tasks, variables, privilege, strategy a failure policy. Task volá module/action alebo riadi flow. Module implementuje observation a mutation unit.
-
-Action plugin môže vykonať časť logiky na controlleri. Connection plugin určuje transport. Inventory plugin vytvára host graph. Callback plugin spracúva výsledky.
-
-Collection distribuuje modules, plugins, roles a ďalší content.
 
 Používaj FQCN:
 
@@ -271,22 +261,6 @@ Host-key checking je target identity control. Jeho vypnutie môže umožniť mut
 `serial: 4` definuje intended batch size, ale nevytvára readiness gate. Playbook musí po každom batchi overiť loaded version, local health, load-balancer membership a capacity pred pokračovaním. `forks` ani `throttle` nenahrádzajú external API idempotency alebo distributed lock.
 
 Evidence preto obsahuje expected batch manifest, attempted/converged hosts a synchronization point medzi batches. Partial batch alebo host removed from play nie je úspešný rollout iba preto, že ďalšie hosts skončili green.
-
-Strategy určuje, ako hosts postupujú tasks, forks obmedzuje controller concurrency, serial určuje rollout batch a throttle môže obmedziť konkrétnu task concurrency.
-
-```yaml
-- name: Rolling configuration rollout
-  hosts: payments_app:&production
-  serial: 4
-  max_fail_percentage: 0
-
-  tasks:
-    - name: Configure host
-      ansible.builtin.include_role:
-        name: atlas.payments.runtime
-```
-
-`serial: 4` preukazuje intended batch size, nie health gate medzi batches. Playbook musí explicitne overiť readiness a zastaviť ďalší batch pri failure.
 
 ## 11. Structured result a truthfulness
 

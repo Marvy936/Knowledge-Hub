@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **637,259**
-- Findings: **6533** (critical 660, high 908, medium 470, low 4495)
+- Total words: **637,024**
+- Findings: **6534** (critical 660, high 908, medium 470, low 4496)
 - File grades: A 125, B 109, C 33, D 60
 
 ## Interpretation
@@ -114,7 +114,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
-| C | 37 | 0 | 0 | 0 | 25 | 2671 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
+| C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
@@ -148,6 +148,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 22 | 0 | 1 | 0 | 9 | 1145 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | B | 21 | 0 | 0 | 0 | 14 | 1821 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
+| B | 21 | 0 | 0 | 0 | 16 | 2662 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 1768 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 1658 | `docs/14-sre-and-operations/blameless-postmortems.md` |
 | B | 21 | 0 | 0 | 0 | 13 | 1798 | `docs/14-sre-and-operations/incident-management.md` |
@@ -157,7 +158,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
-| B | 20 | 0 | 0 | 0 | 15 | 2817 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1844 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | B | 20 | 0 | 1 | 0 | 8 | 1592 | `docs/09-kubernetes/upgrades.md` |
 | B | 20 | 0 | 0 | 0 | 12 | 1304 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
@@ -2219,7 +2219,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 |---|---:|---:|---:|---:|---:|
 | `example-not-explicit` | 0 | 0 | 0 | 2090 | 2090 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1289 | 1289 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1116 | 1116 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1117 | 1117 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
 | `single-sentence-concept` | 0 | 357 | 0 | 0 | 357 |
 | `outline-instead-of-explanation` | 316 | 0 | 0 | 0 | 316 |
