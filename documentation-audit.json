@@ -647,15 +647,15 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "title": "Load balancing",
-      "words": 926,
-      "headings": 9,
-      "sections": 9,
-      "findings": 12,
+      "words": 1113,
+      "headings": 10,
+      "sections": 10,
+      "findings": 13,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 12,
-      "score": 17,
+      "low": 13,
+      "score": 18,
       "grade": "B"
     },
     {
@@ -675,30 +675,30 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "title": "Network troubleshooting",
-      "words": 1889,
-      "headings": 16,
-      "sections": 16,
+      "words": 2736,
+      "headings": 22,
+      "sections": 22,
       "findings": 16,
       "critical": 0,
-      "high": 3,
-      "medium": 3,
-      "low": 10,
-      "score": 48,
-      "grade": "C"
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 21,
+      "grade": "B"
     },
     {
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
       "title": "Praktický sieťový projekt od namespace po HTTPS request",
-      "words": 2460,
-      "headings": 13,
-      "sections": 13,
-      "findings": 4,
+      "words": 3162,
+      "headings": 19,
+      "sections": 19,
+      "findings": 6,
       "critical": 0,
-      "high": 2,
+      "high": 0,
       "medium": 0,
-      "low": 2,
-      "score": 18,
-      "grade": "B"
+      "low": 6,
+      "score": 7,
+      "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
@@ -745,15 +745,15 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "title": "REST API a WebSockety",
-      "words": 994,
-      "headings": 11,
-      "sections": 11,
-      "findings": 12,
+      "words": 1220,
+      "headings": 12,
+      "sections": 12,
+      "findings": 14,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 12,
-      "score": 18,
+      "low": 14,
+      "score": 20,
       "grade": "B"
     },
     {
@@ -21493,25 +21493,7 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Incident: každý druhý request zlyhá",
-      "line": 110,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Incident: každý druhý request zlyhá",
-      "line": 110,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Incident: každý druhý request zlyhá",
+      "section": "Request attempt, assignment a business outcome",
       "line": 110,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -21520,8 +21502,35 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Incident: každý druhý request zlyhá",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Incident: každý druhý request zlyhá",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Incident: každý druhý request zlyhá",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Zhrnutie",
-      "line": 116,
+      "line": 132,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -21585,45 +21594,36 @@
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
       "line": 135,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
       "line": 135,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Client alebo proxy má request-body size limit.`, `Edge proxy bufferuje veľký request a prekročí timeout.`, `Backend číta body pomaly alebo čaká na dependency.`.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
       "line": 135,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "5. Competing hypotheses",
-      "line": 135,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`, `TLS`",
-      "score": 4
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "6. Porovnaj malý a veľký request",
       "line": 148,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
@@ -21638,7 +21638,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "9. Path MTU Discovery",
-      "line": 231,
+      "line": 233,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -21647,7 +21647,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "10. Effective tunnel a firewall state",
-      "line": 254,
+      "line": 256,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -21656,7 +21656,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "11. Proxy a backend evidence",
-      "line": 271,
+      "line": 273,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -21665,16 +21665,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 292,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/network-troubleshooting.md",
-      "section": "13. Autoritatívna oprava",
-      "line": 292,
+      "line": 294,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -21683,7 +21674,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 292,
+      "line": 294,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -21692,16 +21683,34 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 292,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `ICMP`, `TCP`, `MSS`, `policy`",
-      "score": 7
+      "line": 294,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Proxy, backend a client correlation",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Second operation a recovery generation",
+      "line": 329,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Zhrnutie",
-      "line": 342,
+      "line": 356,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -21711,37 +21720,55 @@
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
       "section": "2. Predpoklady a adresár",
       "line": 46,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
+      "section": "2. Predpoklady a adresár",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
       "section": "3. Backend aplikácia",
-      "line": 83,
+      "line": 89,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
-      "section": "8. Cleanup",
-      "line": 473,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
       "section": "12. Failure 2: allow rule na nesprávnej NAT identite",
-      "line": 666,
+      "line": 698,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
+      "section": "13. Cleanup a acceptance",
+      "line": 776,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/networking-practical-walkthrough.md",
+      "section": "Recovery a second run",
+      "line": 802,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
@@ -22069,7 +22096,7 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
-      "section": "Incident: reconnect vytvára duplicate notifications",
+      "section": "Operation identity a acceptance cez opakovanie",
       "line": 122,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -22078,8 +22105,26 @@
     },
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Operation identity a acceptance cez opakovanie",
+      "line": 122,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Incident: reconnect vytvára duplicate notifications",
+      "line": 140,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Zhrnutie",
-      "line": 128,
+      "line": 146,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

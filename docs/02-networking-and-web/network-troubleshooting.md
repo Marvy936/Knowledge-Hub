@@ -134,16 +134,16 @@ Zdravý `GET /healthz` dokazuje DNS, route, handshake a malý HTTP round trip pr
 
 ## 5. Competing hypotheses
 
-Namiesto okamžitého záveru „MTU“ sa zachovajú aspoň tieto možnosti:
+Namiesto okamžitého záveru „MTU“ sa zachovajú možnosti, ktoré predpovedajú navzájom odlišné observation results:
 
-1. Client alebo proxy má request-body size limit.
-2. Edge proxy bufferuje veľký request a prekročí timeout.
-3. Backend číta body pomaly alebo čaká na dependency.
-4. Packet loss alebo congestion sa prejavuje až pri dlhšom prenose.
-5. Path MTU sa po novom tunnel-e znížil a ICMP feedback je blokovaný.
-6. Security device zahadzuje konkrétny TLS record alebo payload pattern.
+1. **Client alebo lokálny proxy limituje request body.** Predikciou je lokálne odmietnutie alebo rýchly `4xx`, často bez odoslania celého body na WAN. Client log alebo lokálny proxy log má obsahovať konkrétny limit; packet capture nemá ukazovať opakované retransmissions rovnakého sequence range-u.
+2. **Edge proxy bufferuje request a prekročí vlastný timeout.** Client môže upload dokončiť a edge môže prijať headers alebo celé body, ale upstream attempt vznikne neskoro alebo vôbec. Rozhodujú proxy timing fields, buffer counters a rozdiel medzi client-side a upstream-side capture.
+3. **Backend číta body pomaly alebo čaká na dependency.** Edge už request priradil backendu, backend log pozná request ID a transport môže ukázať zmenšujúce sa receive window alebo application stall. Táto hypotéza predpovedá backend evidence, ktoré pri path failure chýba.
+4. **Packet loss alebo congestion sa prejavuje pri dlhšom prenose.** Failure nemusí mať stabilný size threshold; mení sa s časom, loadom a route. Captures môžu ukázať loss aj pri menších flows, rast RTT alebo congestion-window recovery namiesto stále rovnakého chýbajúceho segmentu.
+5. **Path MTU sa po novom tunnel-e znížil a ICMP feedback je blokovaný.** Predikciou je opakovateľný threshold, retransmission rovnakých väčších sequence ranges, absencia requestu za chybným hopom a chýbajúca ICMP `fragmentation needed` alebo ICMPv6 `Packet Too Big` správa.
+6. **Security zariadenie zahadzuje konkrétny TLS record alebo payload pattern.** Failure sa viaže na stabilný record alebo content signature, nie iba na veľkosť packetu. Dôkazom sú policy/drop counters, trace na zariadení alebo controlled test s rovnakou veľkosťou a odlišným payloadom.
 
-Každá hypotéza predpovedá iný dôkaz. Size limit typicky vráti rýchly HTTP status alebo proxy log. Pomalý backend bude viditeľný po prijatí requestu. PMTU black hole vytvorí opakované retransmissions rovnakých väčších segmentov bez backendového requestu.
+Hypotéza je užitočná iba vtedy, keď možno pomenovať observation point, očakávaný dôkaz a výsledok, ktorý ju oslabí. Controlled pair malého a veľkého requestu rozlíši size threshold; captures pred a za tunnelom lokalizujú prvý chýbajúci hop; proxy a backend logs oddelia network path od application processingu. Takýto test má vyššiu diskriminačnú hodnotu než séria restartov, ktorá naraz zmení transportný, aplikačný aj volatile evidence state.
 
 ## 6. Porovnaj malý a veľký request
 
@@ -168,9 +168,9 @@ PY
 done
 ```
 
-Jasný threshold okolo packet size podporuje MTU alebo fragmentation hypothesis. Náhodná väzba na čas alebo backend by skôr ukazovala capacity, LB cohort alebo intermittent loss.
+Jasný threshold okolo packet size podporuje MTU alebo fragmentation hypothesis. Náhodná väzba na čas alebo backend by skôr ukazovala capacity, LB cohort alebo intermittent loss. `|| true` v ukážke zámerne zabraňuje ukončeniu loopu po prvom neúspešnom `curl`; zároveň však maskuje výsledný shell exit status. Úspech sa preto nesmie odvodzovať z toho, že loop dobehol. Pre každý size sa číta HTTP code, total time, stderr a podľa potreby samostatne zachytený `curl` return code.
 
-Test stále mení application state, preto používa diagnostický tenant a stable deduplication. Bez bezpečného endpointu sa veľkostný test vykoná proti echo alebo upload canary mimo produkčnej business operácie.
+Test stále mení application state, preto používa diagnostický tenant a stable deduplication. Bez bezpečného endpointu sa veľkostný test vykoná proti echo alebo upload canary mimo produkčnej business operácie. Rovnaký payload sa neopakuje s náhodne menenou business identitou bez kontroly backend store-u, pretože timeout môže mať unknown outcome.
 
 ## 7. Client observation
 
@@ -184,6 +184,8 @@ ip link show
 tracepath 203.0.113.40
 ss -ti dst 203.0.113.40
 ```
+
+Tieto commands nemajú spoločnú success semantics. `getent` ukazuje address set cez OS name-service path, `ip route get` vykoná lokálny lookup pre aktuálny namespace a `tracepath` iba odhaduje path a PMTU podľa prijatého feedbacku. `ss -ti` číta existujúci socket a jeho transportný state; prázdny výstup môže znamenať, že flow už zanikol alebo sa command spustil v inom namespace. Exit status nula preto nie je spoločným oracle-om. Každý output sa uloží s časom a interpretuje iba pre vrstvu, ktorú pozoruje.
 
 Potom capture:
 
@@ -291,32 +293,44 @@ Rollback WAN zmeny je možný iba ak je stále kompatibilný s routing a securit
 
 ## 13. Autoritatívna oprava
 
-Trvalá oprava zladí tri vrstvy:
+Maximum Transmission Unit (MTU) je najväčší IP packet, ktorý konkrétny link alebo tunnel interface prenesie bez ďalšieho rozdelenia. Path MTU (PMTU) je najnižšia takáto hranica na celej ceste. ICMP pri IPv4 a ICMPv6 pri IPv6 prenášajú spätnú väzbu, že packet je pre ďalší hop príliš veľký. TCP Maximum Segment Size (MSS) je iná hodnota: počas handshake-u obmedzuje TCP payload v jednom segmente a nepokrýva UDP ani všetky neskoršie zmeny pathu.
 
-1. Tunnel alebo underlay má správny effective MTU.
-2. Routers a firewally povoľujú potrebné ICMP fragmentation-needed alebo Packet-Too-Big feedback.
-3. TCP MSS policy je použitá iba tam, kde je súčasťou schváleného designu.
+Trvalá oprava preto zladí viac states, nie iba jeden command:
 
-Source of truth, deployment a runtime state sa zosynchronizujú. Ad-hoc command na jednom edge by obnovil službu, ale ponechal drift a pri replacement-e by sa problém vrátil.
+1. **Tunnel a underlay majú správny configured aj effective MTU.** Source-of-truth hodnota zohľadní encapsulation overhead a runtime read-back na active aj standby generation potvrdí, že ju data plane skutočne používa.
+2. **Routers a firewally povoľujú potrebný PMTU feedback.** Policy explicitne povoľuje príslušné ICMP `fragmentation needed` a ICMPv6 `Packet Too Big` messages v správnom directione; counters a capture dokazujú, že feedback prechádza, nie iba že allow rule existuje.
+3. **TCP MSS clamping sa používa iba ako schválený doplnkový mechanizmus.** Je scope-nutý na správne interface-y a TCP handshakes, má zdokumentovanú hodnotu a neprezentuje sa ako oprava UDP, ICMP alebo všeobecného MTU contractu.
+4. **Ad-hoc containment sa premietne do autoritatívnej konfigurácie a rollout lifecycle-u.** Candidate prejde review, nasadí sa na všetky požadované generations a po replacement-e alebo failoveri sa znova overí. Ručný `ip route ... mtu` na jednom edge môže obnoviť službu, ale bez tejto transformácie ponechá drift a problém sa vráti.
 
 ## 14. Verification po oprave
 
-Overenie musí reprodukovať pôvodný symptóm:
+Overenie sa viaže na pôvodný symptóm a používa viac nezávislých acceptance paths. Positive path je povolená používateľská operácia, ktorú mala oprava obnoviť. Negative path je flow, ktorý musí zostať zakázaný. Adjacent cohort je susedná skupina hostov, address family alebo tunnel generation, ktorá nebola pôvodne chybná, ale mohla byť opravou nechtiac ovplyvnená.
 
-```text
-malý GET prejde
-veľký POST prejde
-p99 latency je v limite
-client capture nemá opakované rovnaké retransmissions
-ICMP feedback je povolený a counter kontrolovaný
-proxy vidí request ID
-backend eviduje jeden idempotentný business outcome
-response sa vráti klientovi
-zdravé pobočky nemajú regresiu
-zakázané inbound flows zostávajú blocked
-```
+### Positive application path
 
-Large-payload synthetic sa pridá do branch capability canary. Monitoring sleduje PMTU-related drops, retransmissions a tunnel generation coverage.
+Z pôvodne chybnej pobočky musí prejsť malý `GET`, teda read-only HTTP request, aj veľký `POST`, teda mutating request s request body. POST používa novú operation identity a idempotency key. Backend store potvrdí presne jeden durable outcome, zatiaľ čo client response sa overí samostatne; tým sa nezamieňa úspešný commit za úspešné doručenie odpovede.
+
+### Transport recovery
+
+Packet capture už nesmie ukazovať opakované retransmissions rovnakého TCP sequence range-u a latency aj throughput musia zostať v definovanom limite. Controlled oversized probe zároveň vyvolá očakávaný ICMP alebo ICMPv6 PMTU feedback na správnych observation points, prípadne zvýši presne určené counters. Samotná absencia timeoutu bez tohto transportného read-backu by nevysvetlila, prečo oprava funguje.
+
+### Proxy, backend a client correlation
+
+Rovnaký request ID sa musí objaviť na edge proxy aj na backend-e a odpoveď sa musí vrátiť pôvodnému clientovi. Request ID je korelačná identita konkrétneho pokusu, nie automaticky durable business operation. Samotný backend log preto nie je postačujúci: môže dokazovať prijatie alebo spracovanie requestu, ale nie client completion.
+
+### Negative security path
+
+Zakázaný inbound flow a priame obídenie reverse proxy zostávajú blocked. Firewall policy po zmene povoľuje iba PMTU feedback a presne definovaný service path; nesmie vytvoriť všeobecnú ICMP alebo application reachability. Negative test sa vykoná z reprezentatívneho nedôveryhodného source-u a jeho očakávané odmietnutie sa odlíši od náhodného timeoutu.
+
+### Adjacent cohorts
+
+Zdravé pobočky, obe používané address families a reprezentatívne tunnel generations nesmú mať regresiu. Tento test odhalí opravu viazanú iba na jeden host, jednu cache alebo active edge. Porovnáva sa rovnaký operation contract a rovnaké observation boundaries, nie iba všeobecný ping.
+
+### Second operation a recovery generation
+
+Po skončení prvého requestu sa vykoná druhý veľký POST s novým idempotency keyom, aby sa preukázalo, že systém nefungoval iba vďaka stale connection alebo jednorazovému cache state-u. Následne sa vykoná controlled failover alebo replacement edge-u a rovnaký positive aj negative contract sa zopakuje bez ručného runtime patchu. Tým sa dokazuje, že oprava prežila novú configuration a process generation.
+
+Large-payload synthetic sa pridá do branch capability canary. Monitoring sleduje PMTU-related drops, retransmissions, ICMP feedback a tunnel generation coverage, aby sa rovnaká odchýlka zistila skôr než používateľským timeoutom.
 
 ## 15. Všeobecný preserve-first workflow
 

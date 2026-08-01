@@ -119,6 +119,24 @@ Rýchly producer a pomalý client vytvárajú buffer. Neobmedzená queue vedie k
 
 Policy závisí od semantics. Price ticker môže zahodiť intermediate values, payment state transitions nie. Backpressure nie je iba socket tuning; je to aplikačné rozhodnutie o strate a obnove.
 
+## Operation identity a acceptance cez opakovanie
+
+REST request, business operation, resource a WebSocket event nie sú rovnaký subject. Jeden client request môže mať viac transportných attempts, durable operation môže vytvoriť resource a následne viac domain events. Korelácia preto používa oddelené identities:
+
+```text
+idempotency key / operation ID
+→ HTTP request ID a attempt ID
+→ resource ID
+→ event ID a stream sequence
+→ subscription alebo resume cursor
+```
+
+Idempotency sa overuje tromi odlišnými operáciami. Rovnaký key s rovnakým canonical payloadom musí vrátiť pôvodný resource/result bez druhého side effectu. Rovnaký key s odlišným payloadom musí skončiť explicitným konfliktom, nie tichým reuse. Nový key musí vytvoriť novú operáciu, aby sa deduplication nezamieňala za globálne blokovanie ďalšej práce. Po client timeout-e sa najprv číta operation resource alebo durable store a až potom sa rozhoduje o retry.
+
+WebSocket acceptance začína baseline sequence, následne zámerne preruší connection, vytvorí nový channel s resume cursorom a overí replay bez medzery. Duplicate event môže byť transportne doručený, ale consumer ho podľa `eventId` nesmie aplikovať dvakrát. Druhá nezávislá domain zmena musí dostať vyššiu sequence a byť viditeľná po reconnecte. Negative path overí, že subscription iného tenant-a nevráti cudzie resource IDs ani rozdielny error detail, z ktorého by sa dala odvodiť ich existencia.
+
+Tento model oddeľuje transportnú obnovu od business correctness. Zelený ping/pong, HTTP `101 Switching Protocols` alebo automatický reconnect dokazujú channel lifecycle, nie úplnosť event view ani exactly-once user outcome.
+
 ## Incident: reconnect vytvára duplicate notifications
 
 Mobile client po krátkom network výpadku otvorí nový WebSocket, no starý channel na proxy ešte chvíľu žije. Server registruje dve subscriptions a pošle `OrderConfirmed` dvakrát. UI nemá event deduplication a používateľ vidí dve notifications.

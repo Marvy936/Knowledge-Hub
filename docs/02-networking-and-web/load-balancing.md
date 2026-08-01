@@ -107,6 +107,22 @@ DNS môže rozdeľovať clients medzi regióny, L4 balancer medzi nodes a L7 pro
 
 Recovery preto potrebuje transition plan cez všetky balancing layers, nie iba zmenu jedného poolu.
 
+## Request attempt, assignment a business outcome
+
+Jedna používateľská operácia nemusí zodpovedať jednému load-balancer assignmentu. Client, proxy alebo service mesh môže request retryovať a každý attempt môže dostať nový transportný tuple a iný backend. Stabilný `X-Request-ID` preto identifikuje client request, zatiaľ čo proxy potrebuje samostatný attempt index alebo upstream request ID. Business operation, napríklad vytvorenie objednávky, používa ešte inú durable identity a idempotency key.
+
+```text
+user operation op-8421
+→ client request req-7f31
+→ upstream attempt 1 → app1 → timeout po možnom commite
+→ upstream attempt 2 → app2 → response
+→ jeden alebo dva možné business outcomes
+```
+
+LB stats dokazujú assignment a transportný výsledok konkrétneho attemptu. Nepreukazujú automaticky, či prvý backend side effect commitol. Pri mutating requests sa retry povoľuje iba s end-to-end idempotency contractom a attempt logs sa korelujú s durable operation recordom.
+
+Acceptance load-balancer zmeny preto obsahuje viac než jeden zelený request. Prvá operácia overí routing a target identity, druhá nezávislá operácia overí ďalší assignment bez závislosti od warmed connection. Controlled removal jedného backendu musí zastaviť nové assignments a nechať in-flight request dokončiť podľa drain contractu. Po recovery sa backend vracia až po splnení readiness a business canary; forbidden direct-backend path zostáva neprístupný.
+
 ## Incident: každý druhý request zlyhá
 
 Po deploymente Atlas vidí približne 50 % error rate. DNS aj edge sú stabilné. Runtime LB stats ukážu dva eligible backends; `app2` vracia `503` na business request, ale `/healthz` stále `200`.
