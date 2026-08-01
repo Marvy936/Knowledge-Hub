@@ -34,7 +34,7 @@ Odporúča sa najprv dokončiť:
 14. [Chaos engineering](chaos-engineering.md)
 15. [Operational readiness](operational-readiness.md)
 
-Aktuálny authoritative stav sekcie je **15/15 · Ready for user review**. Všetkých 15 kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch; každá kapitola má nulové critical, high a medium learning-depth findings. Authoritative ordering, connected incidents, navigation, glossary a section-level consistency zostávajú zachované.
+Aktuálny authoritative stav sekcie je **15/15 chapter-by-chapter explanation-depth and practical-example revalidation · Ready for user review**. Všetkých 15 kapitol bolo po pôvodnom authoring passe znovu spracovaných v štyroch strict prose-first blokoch a teraz prešlo reprodukovateľným subject/evidence/recovery/forbidden-path/acceptance gate-om. Section 14 sa nenachádza v critical/high learning-depth review queue; audit zostáva heuristickým review nástrojom, nie runtime reliability dôkazom. Authoritative ordering, connected incidents, navigation, glossary a section-level consistency zostávajú zachované.
 
 ## Connected learning scenarios
 
@@ -299,22 +299,4 @@ Každá komplexná kapitola rozlišuje:
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Reliability, availability a durability | Learning | L2 |
-| SLI, SLO a SLA | Learning | L2 |
-| Error budgets | Learning | L2 |
-| Toil | Learning | L2 |
-| Capacity planning | Learning | L2 |
-| Incident management | Learning | L2 |
-| On-call a escalation | Learning | L2 |
-| Runbooks a playbooks | Learning | L2 |
-| Root cause analysis | Learning | L2 |
-| Blameless postmortems | Learning | L2 |
-| Backup a restore | Learning | L2 |
-| RPO a RTO | Learning | L2 |
-| Disaster recovery | Learning | L2 |
-| Chaos engineering | Learning | L2 |
-| Operational readiness | Learning | L2 |
-
-Sekcia je **Ready for user review**. Finálny section-level pass overil authoritative ordering všetkých 15 kapitol, incident chain `SRE-PAY-52` až `SRE-PAY-55`, obojsmernú navigation `Zero Trust ↔ Reliability` a celý vnútorný chain po `Operational readiness → ROADMAP`, synchronizovaný glossary, prázdne audit-failure artifacts, jednotné subject/generation/effective-state/business-outcome terminology a current primary-source facts. Stav neznamená automatické **User reviewed** ani používateľské schválenie.
+Všetkých **15/15 authoritative kapitol prešlo chapter-by-chapter explanation-depth and practical-example revalidation** a sekcia je `Ready for user review`. Starý per-topic `Learning / L2` status scaffold bol odstránený; readiness sa eviduje na úrovni celej sekcie a v centrálnom review ledgeri. Existujúce SLI/SLO/error-budget, toil, capacity, incident command, on-call, runbook, RCA/postmortem, backup/restore, RPO/RTO, DR, chaos a operational-readiness lifecycle-y, executable models, incidents a recovery acceptance zostali zachované. Repository gate overuje textový a executable inventory, navigation, glossary a audit; reálne production telemetry, incident response, restore, regional failover, chaos injection ani readiness exercise neboli týmto documentation workflowom vykonané. Stav preto neznamená používateľské `Accepted`, runtime `Verified` ani produkčné `Stable`.
