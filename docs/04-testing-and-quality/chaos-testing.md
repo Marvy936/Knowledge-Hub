@@ -331,6 +331,49 @@ Odstránenie faultu nie je koniec experimentu. Atlas sleduje:
 
 Systém môže po fault-e vyzerať healthy, ale backlog drain môže znovu saturovať DB alebo provider. Recovery phase potrebuje vlastný oracle a abort criteria.
 
+## Doplnenie výkladu: hypothesis, steady state a fault injection
+
+Chaos testing je riadený experiment nad odolnosťou systému. Nejde o náhodné vypínanie komponentov. Experiment začína **hypotézou**: konkrétnym tvrdením o observable business alebo service outcome-e počas definovaného zlyhania.
+
+Príklad:
+
+```text
+Hypotéza:
+Ak jedna z troch API replík zanikne,
+úspešnosť idempotentných objednávok zostane >= 99.9 %
+a p95 completion latency zostane < 800 ms.
+```
+
+**Steady state** je merateľný normálny stav pred experimentom. Môže obsahovať success rate, queue depth, reconciliation lag alebo business invariant. Nie je to všeobecná veta „systém je zdravý“. Pred fault injection sa overí, že steady-state podmienky platia; inak experiment nevie odlíšiť existujúci problém od vyvolaného efektu.
+
+**Fault injection** je kontrolovaná mutation, napríklad ukončenie procesu, latency, packet loss, dependency error alebo resource pressure. Fault musí mať exact target identity a trvanie. `kill random pod` bez zaznamenania Pod UID, Node, generation a ownera vytvára slabý experiment.
+
+Experiment flow:
+
+```text
+hypotéza a risk
+→ exact target a blast radius
+→ steady-state baseline
+→ observability a abort oracle
+→ fault injection
+→ system response a user/business outcome
+→ fault removal
+→ recovery a backlog reconciliation
+→ lessons a permanent control
+```
+
+Abort condition chráni systém. Napríklad experiment sa zastaví pri error rate > 2 %, queue > 10 000 alebo strate redundantnej druhej AZ. Automation musí mať nezávislú cestu na zastavenie faultu; nemá závisieť iba od systému, ktorý práve poškodzuje.
+
+Príkaz ako:
+
+```bash
+kubectl delete pod payments-api-abc123 -n payments
+```
+
+preukazuje prijatie delete requestu pre konkrétny object. Nepreukazuje, že Pod naozaj zanikol, že controller vytvoril náhradu alebo že traffic zostal úspešný. Read-back potrebuje Deployment/ReplicaSet/Pod convergence, EndpointSlice a business synthetic result.
+
+Chaos experiment prejde iba vtedy, keď sa potvrdí hypotéza a systém sa po odstránení faultu vráti do akceptovaného stavu. Ak používateľské requests uspeli, ale backlog zostal nekonečne rásť, experiment odhalil latentný failure. Recovery a druhá operácia sú rovnako dôležité ako správanie počas faultu.
+
 ## 15. Worked failure: brownout vytvoril retry amplification a duplicity
 
 Atlas aplikoval 12-sekundovú provider latency na 20 % payment requestov. Každá vrstva mala vlastný retry:
@@ -533,49 +576,6 @@ Iba pre boundaries, ktoré staging zachováva. Traffic, quotas, identity a state
 ### „Viac chaosu znamená vyššiu odolnosť“
 
 Bez remediation a regresných controls sa iba opakovane vytvára rovnaký incident.
-
-## Doplnenie výkladu: hypothesis, steady state a fault injection
-
-Chaos testing je riadený experiment nad odolnosťou systému. Nejde o náhodné vypínanie komponentov. Experiment začína **hypotézou**: konkrétnym tvrdením o observable business alebo service outcome-e počas definovaného zlyhania.
-
-Príklad:
-
-```text
-Hypotéza:
-Ak jedna z troch API replík zanikne,
-úspešnosť idempotentných objednávok zostane >= 99.9 %
-a p95 completion latency zostane < 800 ms.
-```
-
-**Steady state** je merateľný normálny stav pred experimentom. Môže obsahovať success rate, queue depth, reconciliation lag alebo business invariant. Nie je to všeobecná veta „systém je zdravý“. Pred fault injection sa overí, že steady-state podmienky platia; inak experiment nevie odlíšiť existujúci problém od vyvolaného efektu.
-
-**Fault injection** je kontrolovaná mutation, napríklad ukončenie procesu, latency, packet loss, dependency error alebo resource pressure. Fault musí mať exact target identity a trvanie. `kill random pod` bez zaznamenania Pod UID, Node, generation a ownera vytvára slabý experiment.
-
-Experiment flow:
-
-```text
-hypotéza a risk
-→ exact target a blast radius
-→ steady-state baseline
-→ observability a abort oracle
-→ fault injection
-→ system response a user/business outcome
-→ fault removal
-→ recovery a backlog reconciliation
-→ lessons a permanent control
-```
-
-Abort condition chráni systém. Napríklad experiment sa zastaví pri error rate > 2 %, queue > 10 000 alebo strate redundantnej druhej AZ. Automation musí mať nezávislú cestu na zastavenie faultu; nemá závisieť iba od systému, ktorý práve poškodzuje.
-
-Príkaz ako:
-
-```bash
-kubectl delete pod payments-api-abc123 -n payments
-```
-
-preukazuje prijatie delete requestu pre konkrétny object. Nepreukazuje, že Pod naozaj zanikol, že controller vytvoril náhradu alebo že traffic zostal úspešný. Read-back potrebuje Deployment/ReplicaSet/Pod convergence, EndpointSlice a business synthetic result.
-
-Chaos experiment prejde iba vtedy, keď sa potvrdí hypotéza a systém sa po odstránení faultu vráti do akceptovaného stavu. Ak používateľské requests uspeli, ale backlog zostal nekonečne rásť, experiment odhalil latentný failure. Recovery a druhá operácia sú rovnako dôležité ako správanie počas faultu.
 
 ## 25. Zhrnutie
 

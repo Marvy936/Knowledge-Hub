@@ -385,6 +385,43 @@ client odoslal request
 
 Double, ktorý každý timeout modeluje ako nulový side effect, učí aplikáciu nebezpečnú semantics. Správny simulator potrebuje query-by-idempotency-key alebo následnú reconciliation path.
 
+## Doplnenie výkladu: rozdiel medzi stubom, fake-om, mockom a spy
+
+Test double je náhradná implementácia dependency používaná v teste. Jednotlivé názvy opisujú odlišný účel:
+
+- **stub** vracia pripravené odpovede; test sa pýta na výsledok subjectu;
+- **fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository;
+- **mock** obsahuje očakávania na interakcie a test verifikuje, že boli splnené;
+- **spy** zaznamenáva volania reálnej alebo náhradnej implementácie na neskoršie assertions;
+- **dummy** iba vypĺňa parameter a test ho nepoužíva.
+
+Stub príklad:
+
+```python
+class ExchangeRateStub:
+    def get_rate(self, currency: str) -> float:
+        return 1.10
+```
+
+Test s ním overí pricing behavior pre fixnú sadzbu. Neoverí HTTP client, timeout ani parser skutočného provider response.
+
+Mock príklad:
+
+```python
+mailer.send.assert_called_once_with(
+    recipient="user@example.com",
+    template="order-confirmed",
+)
+```
+
+Assertion kontroluje interaction contract. Je vhodný, ak samotné volanie je dôležitý side effect. Ak test mockuje každý interný call, začne kopírovať implementáciu a zlyhá pri refactore bez zmeny behavioru.
+
+Fake repository môže zrýchliť component tests, ale musí priznať rozdiel oproti reálnej databáze. Python dictionary nemá SQL constraints, isolation ani collation. Ak fake dovolí stav, ktorý produkčná databáza odmietne, zelený test je false confidence. Contract suite môže byť spustená proti fake-u aj reálnej implementácii a overiť spoločné behavior pravidlá.
+
+Dôležité je, kto double vlastní. Consumer-defined stub môže postupne driftovať od providera. Generated client alebo provider contract verification znižuje túto medzeru. Pri externom API sa fake server má viazať na versionovaný contract a podporovať aj chybové odpovede, latency a retry-relevant behavior.
+
+Test double nesmie z testu odstrániť presne tú hranicu, ktorej riziko chceme overiť. Ak rizikom je transaction isolation, in-memory fake nie je vhodný. Ak rizikom je čisto rozhodovacia logika po prijatí provider statusu, stub môže byť najnižší a najlepší scope.
+
 ## 22. Worked failure: payment fake zaručoval nemožný timeout
 
 Atlas unit a component tests používali payment fake:
@@ -607,43 +644,6 @@ Sleep nevytvára completion contract a mení sa s loadom runnera.
 ### „Sandbox stačí pre všetky testy“
 
 Je pomalší, menej deterministický a nemusí umožniť všetky failure paths. Patrí do vrstveného portfólia.
-
-## Doplnenie výkladu: rozdiel medzi stubom, fake-om, mockom a spy
-
-Test double je náhradná implementácia dependency používaná v teste. Jednotlivé názvy opisujú odlišný účel:
-
-- **stub** vracia pripravené odpovede; test sa pýta na výsledok subjectu;
-- **fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository;
-- **mock** obsahuje očakávania na interakcie a test verifikuje, že boli splnené;
-- **spy** zaznamenáva volania reálnej alebo náhradnej implementácie na neskoršie assertions;
-- **dummy** iba vypĺňa parameter a test ho nepoužíva.
-
-Stub príklad:
-
-```python
-class ExchangeRateStub:
-    def get_rate(self, currency: str) -> float:
-        return 1.10
-```
-
-Test s ním overí pricing behavior pre fixnú sadzbu. Neoverí HTTP client, timeout ani parser skutočného provider response.
-
-Mock príklad:
-
-```python
-mailer.send.assert_called_once_with(
-    recipient="user@example.com",
-    template="order-confirmed",
-)
-```
-
-Assertion kontroluje interaction contract. Je vhodný, ak samotné volanie je dôležitý side effect. Ak test mockuje každý interný call, začne kopírovať implementáciu a zlyhá pri refactore bez zmeny behavioru.
-
-Fake repository môže zrýchliť component tests, ale musí priznať rozdiel oproti reálnej databáze. Python dictionary nemá SQL constraints, isolation ani collation. Ak fake dovolí stav, ktorý produkčná databáza odmietne, zelený test je false confidence. Contract suite môže byť spustená proti fake-u aj reálnej implementácii a overiť spoločné behavior pravidlá.
-
-Dôležité je, kto double vlastní. Consumer-defined stub môže postupne driftovať od providera. Generated client alebo provider contract verification znižuje túto medzeru. Pri externom API sa fake server má viazať na versionovaný contract a podporovať aj chybové odpovede, latency a retry-relevant behavior.
-
-Test double nesmie z testu odstrániť presne tú hranicu, ktorej riziko chceme overiť. Ak rizikom je transaction isolation, in-memory fake nie je vhodný. Ak rizikom je čisto rozhodovacia logika po prijatí provider statusu, stub môže byť najnižší a najlepší scope.
 
 ## 35. Zhrnutie
 

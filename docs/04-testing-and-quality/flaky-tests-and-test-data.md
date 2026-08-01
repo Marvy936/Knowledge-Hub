@@ -169,6 +169,52 @@ HTTP `202` nie je dôkaz finálneho exportu. Oracle musí pomenovať konkrétny 
 
 Ak timeout nastane, artifacts majú ukázať posledný dosiahnutý míľnik. To odlíši chýbajúci event, worker backlog, storage failure a pomalý read model.
 
+## Doplnenie výkladu: nondeterminizmus, seed a first-attempt evidence
+
+Flaky test dáva pri nezmenenom relevantnom subjecte rozdielne verdicty. Príčina môže byť v produkte, teste alebo prostredí. Označenie „flaky“ preto nie je diagnóza; je to pozorovanie nestability.
+
+Typické zdroje:
+
+```text
+čas a timezone
+random input bez zachovaného seed-u
+race a scheduling
+shared mutable data
+poradie testov
+network/dependency noise
+eventual consistency
+resource exhaustion
+```
+
+Pri random teste sa seed uloží do failure outputu:
+
+```python
+seed = int(os.environ.get("TEST_SEED", "20260801"))
+rng = random.Random(seed)
+```
+
+Rovnaký seed umožní znovu vytvoriť pseudonáhodnú sekvenciu. Nepreukazuje úplnú reprodukovateľnosť, ak sú prítomné threads, clock alebo external services.
+
+Čas sa v unit teste injectuje namiesto čítania wall clocku. Assertion typu `sleep(2); assert ready` je krehký, pretože háda timing. Pri eventual consistency je lepšie bounded polling:
+
+```python
+deadline = time.monotonic() + 10
+while time.monotonic() < deadline:
+    if read_state(order_id) == "complete":
+        break
+    time.sleep(0.2)
+else:
+    raise AssertionError("order did not become complete within 10 s")
+```
+
+Polling používa monotonic clock a explicitný deadline. Stále treba zachovať posledný observed state a correlation ID, inak timeout nepomôže diagnóze.
+
+Retry policy testu nesmie zahodiť prvý failure. Ak prvý attempt zlyhá a druhý prejde, výsledok je „unstable“, nie čistý PASS. Ulož screenshot, trace, logs, seed, worker, timing a dependency state z prvého pokusu.
+
+Test data potrebuje identity a ownership. Shared účet alebo pevné `order-1` spôsobí kolízie pri parallel runoch. Jedinečný prefix viazaný na run ID znižuje konflikt. Cleanup sa vykoná iba nad dátami vytvorenými testom; pri failure môže byť odložený podľa retention policy pre investigation.
+
+Quarantine je dočasné oddelenie nestabilného testu, nie odstránenie problému. Musí mať ownera, issue, dátum a zachované signalovanie. Ak sa flaky test iba ignoruje, suite prestáva pokrývať príslušné riziko.
+
 ## 8. Worked failure: rerun skryl product race
 
 Atlas test niekedy timeoutol pri `EXPORT_READY`. Automatický retry testu prešiel, preto bol označený ako flaky.
@@ -658,52 +704,6 @@ Môžu vytvoriť privacy incident a stále nereprezentovať potrebné edge cases
 ### „Cleanup failure môžeme ignorovať“
 
 Kontaminuje ďalšie tests, resources a náklady.
-
-## Doplnenie výkladu: nondeterminizmus, seed a first-attempt evidence
-
-Flaky test dáva pri nezmenenom relevantnom subjecte rozdielne verdicty. Príčina môže byť v produkte, teste alebo prostredí. Označenie „flaky“ preto nie je diagnóza; je to pozorovanie nestability.
-
-Typické zdroje:
-
-```text
-čas a timezone
-random input bez zachovaného seed-u
-race a scheduling
-shared mutable data
-poradie testov
-network/dependency noise
-eventual consistency
-resource exhaustion
-```
-
-Pri random teste sa seed uloží do failure outputu:
-
-```python
-seed = int(os.environ.get("TEST_SEED", "20260801"))
-rng = random.Random(seed)
-```
-
-Rovnaký seed umožní znovu vytvoriť pseudonáhodnú sekvenciu. Nepreukazuje úplnú reprodukovateľnosť, ak sú prítomné threads, clock alebo external services.
-
-Čas sa v unit teste injectuje namiesto čítania wall clocku. Assertion typu `sleep(2); assert ready` je krehký, pretože háda timing. Pri eventual consistency je lepšie bounded polling:
-
-```python
-deadline = time.monotonic() + 10
-while time.monotonic() < deadline:
-    if read_state(order_id) == "complete":
-        break
-    time.sleep(0.2)
-else:
-    raise AssertionError("order did not become complete within 10 s")
-```
-
-Polling používa monotonic clock a explicitný deadline. Stále treba zachovať posledný observed state a correlation ID, inak timeout nepomôže diagnóze.
-
-Retry policy testu nesmie zahodiť prvý failure. Ak prvý attempt zlyhá a druhý prejde, výsledok je „unstable“, nie čistý PASS. Ulož screenshot, trace, logs, seed, worker, timing a dependency state z prvého pokusu.
-
-Test data potrebuje identity a ownership. Shared účet alebo pevné `order-1` spôsobí kolízie pri parallel runoch. Jedinečný prefix viazaný na run ID znižuje konflikt. Cleanup sa vykoná iba nad dátami vytvorenými testom; pri failure môže byť odložený podľa retention policy pre investigation.
-
-Quarantine je dočasné oddelenie nestabilného testu, nie odstránenie problému. Musí mať ownera, issue, dátum a zachované signalovanie. Ak sa flaky test iba ignoruje, suite prestáva pokrývať príslušné riziko.
 
 ## 38. Zhrnutie
 

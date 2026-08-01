@@ -261,6 +261,35 @@ Observability sa navrhuje pred incidentom. Atlas definuje:
 
 Component tests môžu overiť, že telemetry vzniká a obsahuje potrebné fields. Až produkcia však ukáže, či signál vedie k rýchlej diagnóze pri reálnom trafficu a cardinality.
 
+## Doplnenie výkladu: skorší feedback nie je presun všetkého do unit testov
+
+Shift-left znamená dostať relevantný feedback bližšie k momentu, keď vzniká rozhodnutie alebo chyba. „Left“ je metafora časovej osi delivery. Neznamená to, že všetky production, integration alebo security kontroly sa majú nahradiť statickým checkom.
+
+Mechanizmus je:
+
+```text
+neskorý drahý failure
+→ identifikácia jeho skoršie pozorovateľného signálu
+→ lacnejší control pri source/design/build hranici
+→ zachovanie vyššej runtime kontroly pre zvyškové riziko
+```
+
+Ak produkčný incident spôsobila chýbajúca database column, skorší control môže byť migration compatibility test v CI. Runtime smoke však zostáva, pretože CI nepreukáže správny target database ani oprávnenia.
+
+Príklady shift-left:
+
+- threat modeling pred implementáciou namiesto iba penetračného testu na konci;
+- schema/contract review pred consumer deploymentom;
+- local formatter, linter a unit test pred remote pipeline;
+- Terraform plan policy pred apply;
+- ephemeral integration environment pred production rolloutom.
+
+Každý skorší model má fidelity limit. Mockovaný provider nedokáže potvrdiť reálnu TLS alebo quota policy. Preto sa shift-left kombinuje so shift-right, nie stavia proti nemu.
+
+Dôležitá je aj developer experience. Gate, ktorý beží skoro, ale trvá 40 minút alebo dáva neurčitý output, vytvára obchádzanie. Skorý control má byť rýchly, lokálne reprodukovateľný a diagnostický. Ak potrebuje drahé prostredie, môže sa spustiť asynchrónne, ale merge policy musí jasne povedať, či je evidence required.
+
+Shift-left success sa nemeria počtom pridaných tools. Meria sa napríklad skrátením času od zavedenia defectu po detekciu, nižším počtom escaped defects a menšou opravnou náročnosťou bez neprimeraného nárastu false positives.
+
 ## 12. Worked failure: migration bola posunutá príliš doľava
 
 Atlas tím chcel zrýchliť feedback. Backfill testoval cez in-memory repository a malý SQLite dataset:
@@ -430,35 +459,6 @@ Hlučné a pomalé gates vytvárajú bypassy, batch growth a stratu dôvery.
 ### „Shift-left odstráni potrebu produkčnej validácie“
 
 Reálny workload a emergentné správanie nemožno úplne simulovať.
-
-## Doplnenie výkladu: skorší feedback nie je presun všetkého do unit testov
-
-Shift-left znamená dostať relevantný feedback bližšie k momentu, keď vzniká rozhodnutie alebo chyba. „Left“ je metafora časovej osi delivery. Neznamená to, že všetky production, integration alebo security kontroly sa majú nahradiť statickým checkom.
-
-Mechanizmus je:
-
-```text
-neskorý drahý failure
-→ identifikácia jeho skoršie pozorovateľného signálu
-→ lacnejší control pri source/design/build hranici
-→ zachovanie vyššej runtime kontroly pre zvyškové riziko
-```
-
-Ak produkčný incident spôsobila chýbajúca database column, skorší control môže byť migration compatibility test v CI. Runtime smoke však zostáva, pretože CI nepreukáže správny target database ani oprávnenia.
-
-Príklady shift-left:
-
-- threat modeling pred implementáciou namiesto iba penetračného testu na konci;
-- schema/contract review pred consumer deploymentom;
-- local formatter, linter a unit test pred remote pipeline;
-- Terraform plan policy pred apply;
-- ephemeral integration environment pred production rolloutom.
-
-Každý skorší model má fidelity limit. Mockovaný provider nedokáže potvrdiť reálnu TLS alebo quota policy. Preto sa shift-left kombinuje so shift-right, nie stavia proti nemu.
-
-Dôležitá je aj developer experience. Gate, ktorý beží skoro, ale trvá 40 minút alebo dáva neurčitý output, vytvára obchádzanie. Skorý control má byť rýchly, lokálne reprodukovateľný a diagnostický. Ak potrebuje drahé prostredie, môže sa spustiť asynchrónne, ale merge policy musí jasne povedať, či je evidence required.
-
-Shift-left success sa nemeria počtom pridaných tools. Meria sa napríklad skrátením času od zavedenia defectu po detekciu, nižším počtom escaped defects a menšou opravnou náročnosťou bez neprimeraného nárastu false positives.
 
 ## 21. Zhrnutie
 
