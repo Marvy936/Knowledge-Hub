@@ -1,14 +1,20 @@
 # Automation Mindset
 
-## Metadata
+Automation mindset začína otázkou, ktorý opakovateľný decision alebo state transition má byť bezpečnejší, nie otázkou, ktorý skript napísať. Automatizácia musí mať presný input contract, authoritative state, plánovanú mutáciu, read-back, failure semantics a recovery path. Inak iba zrýchľuje manuálny postup bez kontroly jeho predpokladov.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Continuous Improvement](continuous-improvement.md), [Ownership Mindset](ownership-mindset.md)
-- Súvisiace témy: idempotency, Infrastructure as Code, CI/CD, scripting, platform engineering, toil
+```text
+observe current state
+→ validate inputs a identity
+→ calculate plan alebo intended action
+→ apply bounded mutation
+→ read back effective state
+→ verify technical a business outcome
+→ reconcile, compensate alebo escalate
+```
 
-Metadata zaraďuje automation mindset za ownership a continuous improvement. Automatizácia nie je cieľom sama osebe; je to spôsob, ako z opakovanej a pochopenej práce vytvoriť bezpečne opakovateľnú capability s explicitným contractom, evidence a ownerom.
+Skript, ktorý skončí exit code `0`, preukazuje iba to, že jeho vlastný execution path neohlásil chybu. Nemusí preukazovať, že vzdialené API operáciu dokončilo, že controller konvergoval alebo že spotrebiteľ načítal novú konfiguráciu. Robustná automation preto rozlišuje request acceptance, persisted state, effective runtime a user outcome.
+
+Automatizovať treba aj forbidden paths, concurrency, retries, partial completion a retirement. Proces bez ownera, merania adoptionu a maintenance plánu sa po čase stane ďalším zdrojom toil-u alebo nebezpečným stale runbookom zakódovaným do pipeline.
 
 ## 1. Definícia
 

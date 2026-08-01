@@ -1,14 +1,22 @@
 # Continuous Improvement
 
-## Metadata
+Continuous improvement je disciplinovaný spôsob meniť systém práce na základe explicitnej hypotézy a merateľného výsledku. Neznamená neustále zavádzať nové nástroje ani udržiavať nekonečný backlog „improvements“. Každá zmena musí mať pomenovaný problém, baseline, ownera, bounded experiment a pravidlo, podľa ktorého sa prijme, upraví alebo vráti späť.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Feedback Loops](feedback-loops.md), [Systems Thinking](systems-thinking.md)
-- Súvisiace témy: retrospectives, postmortems, DORA metrics, toil, technical debt, value stream mapping
+Praktický lifecycle je:
 
-Metadata zaraďuje continuous improvement za feedback a systems thinking. Zlepšovanie nie je samostatná aktivita mimo delivery; je to riadený spôsob, ako meniť technický aj organizačný systém na základe evidence.
+```text
+pozorovaný problém alebo constraint
+→ baseline a causal hypothesis
+→ malá bezpečná zmena
+→ leading a outcome evidence
+→ porovnanie s baseline
+→ standardize, iterate alebo revert
+→ overenie po čase
+```
+
+Bez baseline nemožno odlíšiť zlepšenie od prirodzenej variability. Bez causal hypothesis vzniká change theater: vykoná sa školenie, reorganizácia alebo nový pipeline, no nie je jasné, ktorý mechanizmus mal zmeniť výsledok. Bez následného read-backu sa lokálne úspešný pilot môže pri širšom používaní zmeniť na nový bottleneck.
+
+Continuous improvement preto zahŕňa aj odstránenie neúspešnej zmeny, aktualizáciu štandardu a sledovanie vedľajších účinkov. Cieľom nie je maximalizovať počet iniciatív, ale zvyšovať schopnosť systému učiť sa bez neprimeraného rizika.
 
 ## 1. Definícia
 

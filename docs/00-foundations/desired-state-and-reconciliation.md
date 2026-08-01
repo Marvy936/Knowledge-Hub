@@ -1,12 +1,20 @@
 # Desired State and Reconciliation
 
-## Metadata
+Desired state je explicitný opis toho, ako má vybraný subject vyzerať. Observed state je to, čo controller alebo operátor v danom observation point-e skutočne vidí. Reconciliation je opakovaný control loop, ktorý rozdiel vyhodnotí a vykoná bounded action smerujúcu ku konvergencii.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Declarative vs. Imperative Approach](declarative-vs-imperative.md), [Idempotency](idempotency.md)
-- Súvisiace témy: Kubernetes controllers, Terraform state, GitOps, drift, control loops
+```text
+desired generation
+→ observe current generation
+→ normalize a compare
+→ calculate action
+→ apply
+→ read back
+→ repeat alebo report failure
+```
+
+Controller nesmie predpokladať, že úspešná API odpoveď znamená dosiahnutý stav. Vytvorenie Deployment objektu napríklad nepreukazuje ready Pods, správny image digest, funkčný dataplane ani business request. Každá vrstva potrebuje vlastný convergence a acceptance oracle.
+
+Reconciliation zároveň rieši drift, ale iba v boundaries, ktoré controller vlastní. Ak rovnaké pole mení GitOps controller, autoscaler aj človek, systém môže oscilovať alebo drift ignorovať. Bez liveness limitu môže controller retryovať navždy; bez safety constraints môže pri oprave odstrániť legitímny state. Dobrý reconciliation model preto definuje authority, field ownership, retry/backoff, terminal conditions, deletion semantics a spôsob recovery po partial alebo unknown apply.
 
 ## 1. Definícia
 

@@ -1,14 +1,10 @@
 # Systems Thinking
 
-## Metadata
+Systems thinking skúma výsledok ako správanie celého prepojeného systému, nie ako súčet izolovaných komponentov. Systém má boundary, actors, stocks, flows, constraints, delays a feedback loops. Zmena jedného prvku preto môže vytvoriť vzdialený alebo oneskorený dôsledok, ktorý lokálna metrika neukáže.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md), [Three Ways of DevOps](three-ways.md)
-- Súvisiace témy: feedback loops, value stream mapping, bottlenecks, observability, SRE
+Pri delivery systéme môže tím zrýchliť coding throughput, no ak security review alebo environment provisioning zostane úzkym miestom, celkový lead time sa nezlepší. Vyšší počet rozpracovaných zmien navyše zväčší queues, context switching a rework. Lokálne „zlepšenie“ tak môže zhoršiť globálny outcome.
 
-Metadata zaraďuje systems thinking medzi základné mentálne modely DevOps. Kapitola sa nesústredí iba na technickú architecture; analyzuje aj ľudí, fronty, incentives, decision points a oneskorené dôsledky.
+Analýza musí pomenovať exact system boundary a jednotku toku, napríklad jednu produkčnú zmenu od prijatej potreby po overené použitie. Potom sa sleduje, kde sa hromadí práca, ktoré rozhodnutia majú delay, čo je authoritative evidence a aké reinforcing alebo balancing loops vznikajú. Systems thinking neznamená analyzovať všetko naraz; znamená zvoliť dostatočne širokú hranicu, aby náprava nepresunula problém do susednej časti systému.
 
 ## 1. Definícia
 

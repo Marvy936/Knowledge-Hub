@@ -1,12 +1,18 @@
 # Idempotency
 
-## Metadata
+Idempotencia znamená, že opakované vykonanie tej istej logickej operácie má po prvom úspešnom effecte rovnaký relevantný výsledný stav. Neznamená, že request sa vykoná iba raz, že odpoveď bude vždy byte-identická ani že operácia nemá žiadne vedľajšie effects. Rozhodujúce je, ako systém identifikuje jednu logical operation a ktorý effect považuje za autoritatívny.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Declarative vs. Imperative Approach](declarative-vs-imperative.md)
-- Súvisiace témy: retries, APIs, message delivery, Ansible, Terraform, Kubernetes, workflows
+```text
+stable operation identity
++ semantic request fingerprint
++ atomic claim alebo existing-result lookup
+→ jeden authoritative effect
+→ opakované requesty vracajú kompatibilný outcome
+```
+
+Najväčšiu hodnotu má idempotencia pri retries a unknown outcomes. Klient môže stratiť odpoveď po tom, čo server commitol platbu. Blind retry s novým identifierom môže vytvoriť druhý effect; retry s rovnakým keyom umožní serveru nájsť pôvodnú operáciu. Samotný key však nestačí, ak sa dá znovu použiť s iným payloadom, ak vyprší skôr než retry window alebo ak claim a business write nie sú atómové.
+
+Idempotentný API contract musí preto definovať scope identity, retention, concurrency, conflict behavior, response replay a reconciliation s externými systémami. Test zahŕňa paralelný duplicate, retry po stratenej odpovedi, rovnaký key s odlišným payloadom a opakovanie po recovery.
 
 ## 1. Definícia
 

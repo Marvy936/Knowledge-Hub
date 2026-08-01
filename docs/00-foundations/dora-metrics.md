@@ -1,13 +1,10 @@
 # DORA Metrics
 
-## Metadata
+DORA metrics opisujú delivery performance cez Deployment Frequency, Lead Time for Changes, Change Failure Rate a Time to Restore Service alebo Failed Deployment Recovery Time podľa použitej metodiky a dátového contractu. Ich hodnota nevzniká samotným číslom, ale konzistentnou definíciou eventov, population a observation window.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Value Stream Mapping](value-stream-mapping.md), [Continuous Improvement](continuous-improvement.md)
-- Súvisiace témy: CI/CD, deployment strategies, SRE, observability, flow metrics
-- Model: aktuálny päťmetrikový model DORA
+Deployment musí znamenať production change pre definovaný service boundary, nie každý pipeline job. Lead time potrebuje stabilný začiatok a koniec, napríklad commit alebo merge až po successful production deployment. Change failure rate potrebuje explicitne určiť, ktoré deployments vyvolali rollback, fix-forward alebo incident. Recovery metric musí merať obnovenie user capability, nie iba ukončenie incident ticketu.
+
+Metriky tvoria systém trade-offov. Vyššia deployment frequency bez stability nie je úspech; nízky failure rate dosiahnutý obrovskými batchmi a zriedkavými releases môže skrývať veľký risk. DORA metriky sú outcome signals pre trend a segmentáciu, nie individuálne KPI ani automatický dôkaz causality. Zmenu treba porovnávať v rámci rovnakej service/change cohorty a doplniť kvalitatívnym vysvetlením mechanizmu, ktorý trend spôsobil.
 
 ## 1. Čo DORA metriky merajú
 

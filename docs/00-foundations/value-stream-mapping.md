@@ -1,12 +1,22 @@
 # Value Stream Mapping
 
-## Metadata
+Value stream mapping zobrazuje end-to-end tok jednej jednotky hodnoty od vzniku potreby po overený výsledok. Jeho cieľom nie je nakresliť organizačný proces, ale oddeliť process time od waiting time, odhaliť queues, handoffs, rework, approvals a information gaps, ktoré určujú skutočný lead time.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Systems Thinking](systems-thinking.md), [Feedback Loops](feedback-loops.md)
-- Súvisiace témy: lead time, flow efficiency, constraints, DORA metrics, continuous improvement
+Najprv sa musí zvoliť stabilná flow unit, napríklad jedna production change určitej triedy. Ak mapa zmieša urgentný hotfix, veľký projekt a rutinnú configuration change, priemery skryjú rozdielne paths a constraints. Pre každý krok sa zaznamenáva vstup, owner, elapsed time, active work, queue, defect/rework a evidence potrebné na pokračovanie.
+
+```text
+request
+→ waiting
+→ analysis
+→ waiting
+→ implementation
+→ review/test queue
+→ release decision
+→ deployment
+→ production verification
+```
+
+Najväčší potenciál často neleží v zrýchlení codingu, ale v znížení batch size, WIP, approval latency alebo failure demandu. Po zmene sa mapa vytvorí znovu nad rovnakou population a obdobím; inak nemožno preukázať, že sa zlepšil celý stream namiesto jedného lokálneho kroku.
 
 ## 1. Čo je value stream
 

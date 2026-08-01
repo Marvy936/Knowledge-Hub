@@ -1,14 +1,19 @@
 # Feedback Loops
 
-## Metadata
+Feedback loop je mechanizmus, ktorý z pozorovaného výsledku vytvorí korekciu budúceho správania. Potrebuje sensor alebo observation point, interpretáciu voči očakávaniu, ownera rozhodnutia a actuator, ktorý vie zmeniť systém. Samotný dashboard alebo notifikácia ešte feedback loop nevytvára.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Systems Thinking](systems-thinking.md), [DevOps lifecycle](devops-lifecycle.md)
-- Súvisiace témy: observability, CI/CD, shift-left, shift-right, SRE, continuous improvement
+```text
+zmena alebo disturbance
+→ pozorovanie
+→ porovnanie s cieľom alebo invariantom
+→ rozhodnutie
+→ korekčná akcia
+→ nové pozorovanie
+```
 
-Metadata zaraďuje feedback loops za systems thinking, pretože spätná väzba je jedným zo základných mechanizmov, ktorými systém upravuje vlastné správanie. Kapitola rozlišuje signal, measurement, decision a correction namiesto všeobecného tvrdenia „potrebujeme viac feedbacku“.
+Kvalitu loopu určujú najmä latency, signal fidelity, scope a authority. Rýchly, ale nesprávny test môže poskytovať škodlivý feedback. Presný incident report doručený o tri mesiace neskôr už nemusí ovplyvniť pôvodné rozhodnutie. Alert bez ownera vytvára noise, zatiaľ čo automatický controller bez safety limits môže zosilniť chybný signál.
+
+Balancing loop smeruje systém k cieľu, napríklad autoscaler pridávajúci kapacitu pri raste queue age. Reinforcing loop sám seba zosilňuje, napríklad timeouty vyvolávajúce retries, ktoré ešte viac preťažia dependency. Diagnostika preto musí rozlíšiť, aký typ loopu pozorujeme a kde možno bezpečne zmeniť jeho gain, delay alebo boundary.
 
 ## 1. Definícia
 

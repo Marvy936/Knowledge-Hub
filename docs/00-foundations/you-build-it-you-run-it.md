@@ -1,14 +1,18 @@
 # You Build It, You Run It
 
-## Metadata
+Princíp `you build it, you run it` spája design a implementation decisions s reálnymi prevádzkovými dôsledkami. Tím, ktorý rozhoduje o architektúre, dependencies, telemetry a rollout-e, má zostať zapojený aj do reliability, supportu a recovery. Tým sa skracuje feedback medzi technickou voľbou a jej dopadom.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [Ownership Mindset](ownership-mindset.md), [Feedback Loops](feedback-loops.md)
-- Súvisiace témy: on-call, SRE, service ownership, observability, platform engineering
+Princíp však neznamená, že každý developer musí samostatne spravovať hardware, Kubernetes control plane alebo 24/7 pager. Platform, security, network a database tímy môžu vlastniť shared capabilities, pokiaľ sú ich boundaries a service contracts explicitné. Application tím stále vlastní business behavior, operability svojho workloadu a rozhodnutie, ako reagovať na failure dependency.
 
-Metadata zaraďuje princíp za všeobecný ownership model. „You build it, you run it“ nie je povinnosť každého developera spravovať všetku infraštruktúru; je to spôsob uzavretia feedbacku medzi designom, delivery a produkčným výsledkom.
+Dobrý model oddeľuje vrstvy:
+
+```text
+platform owner → bezpečná a podporovaná runtime capability
+service owner → application, configuration a business outcome
+shared incident command → koordinácia naprieč hranicami
+```
+
+Ak sa prevádzka odovzdá bez kontextu, vzniká ticket queue a pomalý learning. Ak sa všetka infraštruktúrna komplexita prenesie na každý product tím, vzniká duplicita a nekonzistentná bezpečnosť. Cieľom je lifecycle accountability s rozumnými platform boundaries, nie zrušenie špecializácie.
 
 ## 1. Definícia
 

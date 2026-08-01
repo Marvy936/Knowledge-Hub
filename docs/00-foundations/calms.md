@@ -1,14 +1,10 @@
 # CALMS Framework
 
-## Metadata
+CALMS je diagnostický rámec pre päť navzájom závislých schopností: Culture, Automation, Lean, Measurement a Sharing. Nie je to maturity checklist, v ktorom organizácia samostatne „splní“ päť položiek. Každá dimenzia mení správanie ostatných a slabá hranica v jednej oblasti môže znehodnotiť zvyšok systému.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: DevOps Foundations
-- Predpoklady: [DevOps](devops.md), [DevOps Lifecycle](devops-lifecycle.md)
-- Súvisiace témy: culture, automation, Lean, measurement, sharing, DORA metrics
+Automation napríklad zrýchli deployment, ale bez culture bezpečného priznania chyby sa incidenty skryjú. Measurement vytvorí veľa dashboardov, ale bez Lean práce s WIP a bottleneckmi sa metriky nepremenia na rozhodnutie. Sharing rozšíri runbooky, no bez ownershipu a reálnych rehearsals zostanú neaktuálnou dokumentáciou.
 
-CALMS nasleduje po všeobecnom DevOps operating modeli a po lifecycle konkrétnej zmeny. Jeho úlohou nie je znovu opísať celý delivery proces, ale diagnostikovať, prečo organizácia nedokáže tento proces vykonávať rýchlo, spoľahlivo a opakovateľne.
+CALMS sa preto používa nad konkrétnym value streamom. Najprv sa určí user alebo business outcome, následne sa sleduje tok práce, rozhodnutia, automation boundaries, dostupné evidence a spôsob učenia. Výsledkom nie je skóre samo osebe, ale hypotéza o tom, ktorý systémový constraint bráni bezpečnejšiemu a rýchlejšiemu flowu.
 
 ## 1. CALMS nie je zoznam piatich nezávislých iniciatív
 
