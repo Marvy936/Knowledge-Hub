@@ -26,7 +26,7 @@ E2E suite má zostať malá a risk-based. Duplikovanie každého input variantu 
 Test data a environment musia byť kontrolované. Zdieľané účty, časovo citlivé inventory alebo neizolované payment sandboxy vytvárajú nondeterminism. Cleanup musí rešpektovať business side effects a unknown outcome.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 End-to-end test a acceptance test odpovedajú na dve rozdielne otázky:
 

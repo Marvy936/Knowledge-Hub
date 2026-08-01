@@ -30,7 +30,7 @@ Po tejto sekcii nasleduje CI/CD and Release Engineering. Testovacie stratégie s
 
 ## Výkladový štandard
 
-Každá kapitola najprv samostatne vysvetlí, čo daný testovací typ, technika alebo stratégia znamená, aký failure mode alebo riziko rieši, aký subject a scope používa, akú fidelity potrebuje a aký oracle vytvára pass/fail verdict. Nasleduje neutrálny príklad a hranica dôkazu — teda čo test preukazuje a čo z neho nemožno odvodiť. Až potom kapitola prejde k sekcii `Atlas scenár a praktické použitie`, kde sa model aplikuje na Atlas Orders release, doplnia sa artifacts, failure path, diagnosis a recovery. Scenár upevňuje všeobecný výklad; nenahrádza ho.
+Každá kapitola najprv samostatne vysvetlí, čo daný testovací typ, technika alebo stratégia znamená, aký failure mode alebo riziko rieši, aký subject a scope používa, akú fidelity potrebuje a aký oracle vytvára pass/fail verdict. Nasleduje neutrálny príklad a hranica dôkazu — teda čo test preukazuje a čo z neho nemožno odvodiť. Až potom kapitola prejde k sekcii `Detailný výklad a Atlas aplikácia`, kde sa model aplikuje na Atlas Orders release, doplnia sa artifacts, failure path, diagnosis a recovery. Scenár upevňuje všeobecný výklad; nenahrádza ho.
 
 Hlavný výklad nesú súvislé odseky. Inventáre, matice a checklisty zostávajú iba tam, kde pomáhajú presne porovnať scope, evidence alebo acceptance podmienky.
 

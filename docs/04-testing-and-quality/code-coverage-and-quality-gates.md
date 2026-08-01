@@ -41,7 +41,7 @@ Gate nemá zamieňať signál za výsledok. `coverage >= 80 %` nepreukazuje corr
 Flaky alebo environment-sensitive checks nesmú byť maskované rerun-until-green. Gate musí zachovať first-attempt evidence a failure artifacts. Exception má mať dôvod, scope, expiry a compensating control.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

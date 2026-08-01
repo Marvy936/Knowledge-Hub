@@ -31,7 +31,7 @@ Shift-right potrebuje safety controls: bounded blast radius, abort criteria, imm
 Observability nie je automaticky test. Metrika sa stane oracle-om až po definovaní expected behavior, threshold, cohortu a rozhodnutia. Produkčný signal treba korelovať s exact release a exposure state-om.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

@@ -32,7 +32,7 @@ Hermetic test má explicitné inputs, izolovaný state a kontrolované dependenc
 Nižší scope zvyšuje diagnostickosť, ale môže skryť boundary bugs. Vyšší scope zvyšuje fidelity, ale failure má viac možných príčin. Dobré portfolio používa oba a nevytvára component test pre logic, ktorú možno presnejšie overiť unit testom.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

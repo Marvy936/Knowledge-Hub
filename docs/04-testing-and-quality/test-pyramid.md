@@ -47,7 +47,7 @@ Portfólio musí zohľadniť execution time, determinism, maintenance cost, diag
 Pyramid tiež nehovorí, že testy vyššieho scope-u sú menej dôležité. Kritický end-to-end journey môže byť release-blocking aj pri jednom teste, pretože overuje unikátnu kombináciu boundaries, ktorú nižšie testy nevidia.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

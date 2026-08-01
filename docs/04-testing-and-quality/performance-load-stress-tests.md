@@ -30,7 +30,7 @@ Environment musí byť dostatočne reprezentatívny pre testované riziko. Malá
 Po stress experimente sa overuje recovery: backlog drain, error normalization, resource release a business reconciliation. Prežitie peak-u bez návratu do stabilného stavu nie je úspech.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

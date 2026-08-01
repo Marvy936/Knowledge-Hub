@@ -33,7 +33,7 @@ Failure artifacts zahŕňajú seed, timestamps, thread dumps, logs, screenshots,
 Test data management musí rešpektovať privacy a retention. Production data sa nemá nekontrolovane kopírovať do test environmentu; používa sa syntetická alebo anonymizovaná reprezentatívna data sada.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

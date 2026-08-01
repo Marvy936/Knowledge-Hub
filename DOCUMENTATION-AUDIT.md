@@ -1119,7 +1119,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/chaos-testing.md`
 
-- **CRITICAL** line 49, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 49, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 120, `bare-bullet-items` — **3. Steady state je používateľský výsledok**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CreateOrder acceptance rate zostane nad dohodnutou hranicou;`, `používateľ dostane explicitný pending alebo retry-safe výsledok;`, `nevznikne žiadna duplicate payment authorization;`, `queue oldest-message age zostane bounded;`.
 - **CRITICAL** line 120, `outline-instead-of-explanation` — **3. Steady state je používateľský výsledok**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
 - **CRITICAL** line 152, `outline-instead-of-explanation` — **5. Experiment contract**: 14 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
@@ -1174,7 +1174,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/code-coverage-and-quality-gates.md`
 
-- **CRITICAL** line 44, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 44, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 86, `bare-bullet-items` — **2. Nosný scenár: Atlas Orders 3.9.1**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-tenant export;`, `chýbajúci header spôsobí crash namiesto bounded retry;`, `path builder umožní object key mimo tenant prefixu;`, `failure state nevytvorí audit event;`.
 - **CRITICAL** line 152, `bare-bullet-items` — **4. Coverage experiment contract**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo synthetic merge commit;`, `instrumentovaný artifact a build configuration;`, `test suites, shards a processes;`, `coverage tool a configuration version;`.
 - **CRITICAL** line 152, `outline-instead-of-explanation` — **4. Coverage experiment contract**: 11 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
@@ -1236,7 +1236,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/contract-and-api-tests.md`
 
-- **CRITICAL** line 33, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 33, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 35, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 35, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
 - **CRITICAL** line 127, `outline-instead-of-explanation` — **3. Interface ako distribuovaná dohoda**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
@@ -1395,7 +1395,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/flaky-tests-and-test-data.md`
 
-- **CRITICAL** line 36, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 36, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 102, `bare-bullet-items` — **3. Determinism contract**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a immutable artifact;`, `test code, config a framework;`, `fixture, schema a migration version;`, `tenant/resource IDs;`.
 - **CRITICAL** line 102, `outline-instead-of-explanation` — **3. Determinism contract**: 12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
 - **CRITICAL** line 121, `empty-section` — **4. Štyri kategórie premenlivého failure**: Sekcia nemá vysvetľovací obsah.
@@ -1484,7 +1484,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/mocks-stubs-fakes.md`
 
-- **CRITICAL** line 37, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 37, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 79, `bare-bullet-items` — **2. Nosný scenár: Atlas CreateOrder a platba**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain calculation alebo transition je chybná;`, `order a outbox nie sú atomické;`, `rovnaký idempotency key vytvorí viac payment attempts;`, `payment timeout má unknown outcome;`.
 - **CRITICAL** line 79, `outline-instead-of-explanation` — **2. Nosný scenár: Atlas CreateOrder a platba**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
 - **CRITICAL** line 123, `bare-bullet-items` — **3. Test seam**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a unit-of-work port;`, `outbox publisher boundary;`, `Payments API client;`, `clock a scheduler;`.
@@ -1546,7 +1546,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/performance-load-stress-tests.md`
 
-- **CRITICAL** line 33, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 33, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 99, `bare-bullet-items` — **3. Performance experiment contract**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotézu a rozhodnutie ;`, `artifact digest a source revision ;`, `environment a konfiguráciu ;`, `dataset fingerprint ;`.
 - **CRITICAL** line 99, `outline-instead-of-explanation` — **3. Performance experiment contract**: 12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
 - **CRITICAL** line 141, `outline-instead-of-explanation` — **5. Arrival rate, concurrency a completed throughput**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
@@ -1621,7 +1621,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/security-and-infrastructure-tests.md`
 
-- **CRITICAL** line 43, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 43, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 81, `bare-bullet-items` — **2. Nosný scenár: Atlas Orders 3.9.0**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaznícke a objednávkové dáta;`, `tenant authorization decision;`, `auditná stopa;`, `release artifact a deployment identity;`.
 - **CRITICAL** line 81, `outline-instead-of-explanation` — **2. Nosný scenár: Atlas Orders 3.9.0**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
 - **CRITICAL** line 139, `bare-bullet-items` — **4. Threat-informed test contract**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asset a požadovanú property;`, `actor alebo failure source;`, `entry point a trust boundary;`, `abuse path alebo zakázaný effective state;`.
@@ -1704,7 +1704,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/shift-left.md`
 
-- **CRITICAL** line 33, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 33, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 74, `bare-bullet-items` — **2. Nosný scenár: Atlas Orders 3.9.2**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový export objednávok pre veľkých tenantov;`, `rozšírenie event schema o optional exportProfile ;`, `PostgreSQL index a backfill;`, `nový worker retry policy;`.
 - **CRITICAL** line 74, `outline-instead-of-explanation` — **2. Nosný scenár: Atlas Orders 3.9.2**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
 - **CRITICAL** line 109, `outline-instead-of-explanation` — **3. Najskorší bod nie je automaticky najlepší bod**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
@@ -1745,7 +1745,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/shift-right.md`
 
-- **CRITICAL** line 34, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 34, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 76, `bare-bullet-items` — **2. Nosný scenár: Atlas Orders 3.9.2**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant authorization a event contract;`, `compatibility starého a nového workeru;`, `PostgreSQL migration a restartovateľný backfill;`, `component load pri syntetickom datasete;`.
 - **CRITICAL** line 76, `outline-instead-of-explanation` — **2. Nosný scenár: Atlas Orders 3.9.2**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
 - **CRITICAL** line 107, `bare-bullet-items` — **3. Predpoklady bezpečnej produkčnej validácie**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest a source provenance;`, `deployment a configuration revision;`, `feature-flag snapshot a routing policy;`, `cohort identity a stabilné assignment semantics;`.
@@ -1880,7 +1880,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/static-analysis-linting-type-checking.md`
 
-- **CRITICAL** line 35, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 35, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 76, `outline-instead-of-explanation` — **2. Nosný scenár: Atlas Orders 3.9.1**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
 - **CRITICAL** line 138, `bare-bullet-items` — **4. Source a build context ako vstup dôkazu**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision a submodules;`, `language a compiler version;`, `target platform a feature flags;`, `dependency lock a module path;`.
 - **CRITICAL** line 304, `bare-bullet-items` — **13. Formatter**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší diff noise;`, `menej konfliktov o whitespace;`, `jednoduchší review behavior zmien;`, `reprodukovateľný generated output;`.
@@ -1925,7 +1925,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/test-pyramid.md`
 
-- **CRITICAL** line 50, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 50, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 52, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: Verification vs. validation`.
 - **CRITICAL** line 52, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 52, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
@@ -1963,7 +1963,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/unit-integration-component-tests.md`
 
-- **CRITICAL** line 35, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 35, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 37, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: Test pyramid, Python for automation`.
 - **CRITICAL** line 37, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 37, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
@@ -2045,7 +2045,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/verification-vs-validation.md`
 
-- **CRITICAL** line 40, `empty-section` — **Atlas scenár a praktické použitie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 40, `empty-section` — **Detailný výklad a Atlas aplikácia**: Sekcia nemá vysvetľovací obsah.
 - **CRITICAL** line 42, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`, `Predpoklady: YAML, JSON a regular expressions, Feedback loops`.
 - **CRITICAL** line 42, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 42, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.

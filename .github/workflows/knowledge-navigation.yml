@@ -67,13 +67,6 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Fix Section 04 concept headings
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: |
-          set -euo pipefail
-          "$PYTHON_BIN" scripts/fix_section_04_concept_heading.py
-
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash

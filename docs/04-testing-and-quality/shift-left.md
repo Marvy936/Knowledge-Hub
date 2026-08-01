@@ -30,7 +30,7 @@ Golden path poskytuje templates, scripts a defaults, ktoré uľahčujú správny
 Shift-left nemá duplikovať drahý test na každom commite bez dôvodu. Controls sa umiestňujú podľa risk, feedback time, maintenance cost a diagnostickosti. Neskoršia kontrola môže zostať potrebná ako nezávislé overenie.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

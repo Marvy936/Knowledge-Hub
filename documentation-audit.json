@@ -25206,7 +25206,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 49,
       "severity": "critical",
       "rule": "empty-section",
@@ -26025,7 +26025,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 44,
       "severity": "critical",
       "rule": "empty-section",
@@ -26862,7 +26862,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/contract-and-api-tests.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 33,
       "severity": "critical",
       "rule": "empty-section",
@@ -28896,7 +28896,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 36,
       "severity": "critical",
       "rule": "empty-section",
@@ -29967,7 +29967,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 37,
       "severity": "critical",
       "rule": "empty-section",
@@ -30741,7 +30741,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 33,
       "severity": "critical",
       "rule": "empty-section",
@@ -31695,7 +31695,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 43,
       "severity": "critical",
       "rule": "empty-section",
@@ -32622,7 +32622,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 33,
       "severity": "critical",
       "rule": "empty-section",
@@ -33225,7 +33225,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/shift-right.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 34,
       "severity": "critical",
       "rule": "empty-section",
@@ -34872,7 +34872,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 35,
       "severity": "critical",
       "rule": "empty-section",
@@ -35565,7 +35565,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 50,
       "severity": "critical",
       "rule": "empty-section",
@@ -36303,7 +36303,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/unit-integration-component-tests.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 35,
       "severity": "critical",
       "rule": "empty-section",
@@ -37419,7 +37419,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/verification-vs-validation.md",
-      "section": "Atlas scenár a praktické použitie",
+      "section": "Detailný výklad a Atlas aplikácia",
       "line": 40,
       "severity": "critical",
       "rule": "empty-section",

@@ -40,7 +40,7 @@ Security testy potrebujú safe scope, test identities a cleanup. Destruktívny a
 Exception vo quality gate musí mať ownera, dôvod, expiry a compensating control. Trvalé ignorovanie findingu bez lifecycle-u premieňa scanner na noise generator.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

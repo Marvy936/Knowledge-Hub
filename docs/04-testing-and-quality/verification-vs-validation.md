@@ -37,7 +37,7 @@ Neutrálny príklad: kalkulačka má requirement, že delenie nulou musí vráti
 Verification ani validation nie sú jednorazové fázy na konci projektu. Prebiehajú na rôznych úrovniach od requirements reviewu cez static checks a tests až po produkčné business outcomes. Dôkaz musí vždy pomenovať, pre ktorý subject, verziu, prostredie a čas platí.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

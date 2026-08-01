@@ -34,7 +34,7 @@ Výber double-u vychádza z failure mode. Čistá domain logika môže používa
 Doubles nesmú byť ľahšou náhradou všetkých boundaries. Portfólio musí obsahovať aj testy, ktoré overia assumptions voči reálnym dependencies.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

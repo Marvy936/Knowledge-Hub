@@ -30,7 +30,7 @@ Contract test nepreukazuje dostupnosť runtime prostredia, routing ani reálny d
 Pri event-driven systéme treba testovať nielen schema, ale aj key, ordering, duplicate, retry a evolution semantics. Syntakticky validný event môže byť semanticky nekompatibilný.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

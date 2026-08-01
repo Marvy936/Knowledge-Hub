@@ -35,7 +35,7 @@ Risk-based výber zohľadňuje kritickosť journey, pravdepodobnosť zmeny, hist
 Smoke a regression sú labels podľa účelu, nie podľa frameworku. Ten istý API test môže byť deployment smoke v jednom pipeline gate a regression check v inom kontexte.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 Smoke test a regression test opisujú účel kontroly, nie jej technický scope:
 

@@ -32,7 +32,7 @@ Generated code, vendored dependencies a test fixtures môžu vyžadovať odlišn
 Static checks sú najhodnotnejšie, keď sú rýchle, lokálne reprodukovateľné a ich failure message vedie k presnému source subjectu. Nemajú nahrádzať runtime tests, ale odstraňovať lacno detegovateľné failures skôr.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 

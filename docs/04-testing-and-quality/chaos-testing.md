@@ -46,7 +46,7 @@ Experiment nekončí odstránením faultu. Treba overiť backlog drain, duplicat
 Výsledok chaos testu má viesť k trvalej zmene: retry budget, circuit breaker, capacity, runbook, alert, architecture alebo nový regression test. Opakovanie rovnakého experimentu bez remediation closure má nízku hodnotu.
 <!-- CONCEPT-FIRST:END -->
 
-## Atlas scenár a praktické použitie
+## Detailný výklad a Atlas aplikácia
 
 ## Metadata
 
