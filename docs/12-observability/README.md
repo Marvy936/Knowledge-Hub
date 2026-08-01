@@ -176,28 +176,11 @@ Sekcia je pripravená na používateľskú kontrolu, keď:
 6. každý executable artifact vysvetľuje vstup, interný mechanizmus, read-back, proof boundary a failure alebo recovery path;
 7. navigation chain funguje od CloudOps troubleshooting po CIA triádu;
 8. section glossary je synchronizovaný do `GLOSSARY.md`;
-9. learning-depth audit artifacts sú prázdne;
+9. Section 12 sa nenachádza v critical/high learning-depth review queue a zostávajúce low hints sa posudzujú manuálne;
 10. current product facts sú overené proti official primary documentation.
 
-Finálny prose/practical gate overil všetkých 16 kapitol samostatne. Každá dosiahla `critical/high/medium = 0/0/0`, obsahuje najmenej dva executable PromQL, LogQL, TraceQL, CLI alebo configuration príklady a vysvetľuje, čo ich output preukazuje aj čo ešte nepreukazuje. Súvislý prose rozsah je 918–1 199 slov na kapitolu a bullet-word share zostáva medzi 9.1 % a 14.9 %, takže zoznamy nenesú hlavnú učebnú záťaž.
+Reprodukovateľný prose/practical gate overil všetkých 16 kapitol samostatne. Každá obsahuje substantial connected prose, explicitný evidence subject, najmenej dva executable PromQL, LogQL, TraceQL, CLI alebo configuration príklady a vysvetľuje, čo ich output preukazuje aj čo ešte nepreukazuje. Section 12 sa nenachádza v critical/high learning-depth review queue; audit zostáva heuristickým review nástrojom, nie dôkazom technickej správnosti alebo runtime funkčnosti.
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Monitoring vs. observability | Prose/practical revalidation complete | L2 |
-| Metrics, logs, traces a events | Prose/practical revalidation complete | L2 |
-| Instrumentation a telemetry | Prose/practical revalidation complete | L2 |
-| RED method | Prose/practical revalidation complete | L2 |
-| USE method | Prose/practical revalidation complete | L2 |
-| Golden Signals | Prose/practical revalidation complete | L2 |
-| Prometheus | Prose/practical revalidation complete | L2 |
-| Alertmanager | Prose/practical revalidation complete | L2 |
-| Grafana | Prose/practical revalidation complete | L2 |
-| Loki | Prose/practical revalidation complete | L2 |
-| Elasticsearch alebo OpenSearch | Prose/practical revalidation complete | L2 |
-| Fluent Bit | Prose/practical revalidation complete | L2 |
-| Jaeger a Tempo | Prose/practical revalidation complete | L2 |
-| OpenTelemetry | Prose/practical revalidation complete | L2 |
-| Alert design a alert fatigue | Prose/practical revalidation complete | L2 |
-| Cardinality | Prose/practical revalidation complete | L2 |
+Všetkých **16/16 authoritative kapitol prešlo chapter-by-chapter explanation-depth and practical-example revalidation** a sekcia je `Ready for user review`. Starý per-topic `L2` status scaffold bol odstránený; readiness sa teraz eviduje na úrovni celej sekcie a v centrálnom review ledgeri. Existujúce lifecycle modely, PromQL/LogQL/TraceQL, CLI, configuration examples, worked incidents, recovery a cardinality/cost closure zostali zachované. Repository gate overuje textový a executable inventory, navigation, glossary a audit; reálne telemetry producers, Collectors, Prometheus/Alertmanager/Grafana/Loki/OpenSearch/Jaeger/Tempo backends, notification receivers ani retention/cost behavior neboli týmto documentation workflowom vykonané. Stav preto neznamená používateľské `Accepted`, runtime `Verified` ani produkčné `Stable`.
