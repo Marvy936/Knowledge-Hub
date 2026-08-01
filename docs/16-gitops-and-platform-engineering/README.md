@@ -37,11 +37,11 @@ Odporúča sa najprv dokončiť:
 16. [Praktický GitOps projekt od Git revision po overený runtime](gitops-practical-walkthrough.md)
 17. [GitOps troubleshooting](gitops-troubleshooting.md)
 
-Aktuálny authoritative stav sekcie je **17/17 · Ready for user review**.
+Aktuálny authoritative stav sekcie je **17/17 chapter-by-chapter explanation-depth and practical-example revalidation · Ready for user review**.
 
 ## Completion state
 
-Všetkých 17 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v štyroch prose-first strict blokoch. Každá kapitola má explicitný authority/subject/generation/evidence model, connected incident a vysvetlené positive, recovery, failure alebo forbidden acceptance paths; per-file gates vykazujú nulové critical, high a medium learning-depth findings. Authoritative ordering, celý navigation chain, glossary fragments a incidenty `GITOPS-PAY-61` až `GITOPS-PAY-64` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
+Všetkých 17 authoritative kapitol bolo po pôvodnom authoring passe znovu spracovaných v štyroch prose-first strict blokoch a teraz prešlo reprodukovateľným authority/identity/evidence/recovery/acceptance gate-om. Každá kapitola obsahuje substantial connected prose a minimálne dva executable Git, Kubernetes, Helm, Argo CD, Flux, portal, policy alebo state-machine examples. Section 16 sa nenachádza v critical/high learning-depth review queue; audit zostáva heuristickým review nástrojom, nie runtime reconciliation alebo platform-product dôkazom. Authoritative ordering, celý navigation chain, glossary fragments a incidenty `GITOPS-PAY-61` až `GITOPS-PAY-64` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
 
 ## Hlavný GitOps walkthrough a troubleshooting
 
@@ -663,24 +663,4 @@ Každá komplexná kapitola musí rozlišovať:
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Git ako source of truth | Learning | L2 |
-| Pull-based deployment | Learning | L2 |
-| Reconciliation a drift detection | Learning | L2 |
-| Argo CD | Learning | L2 |
-| Flux | Learning | L2 |
-| Application promotion | Learning | L2 |
-| GitOps secrets | Learning | L2 |
-| Internal Developer Platform | Learning | L2 |
-| Platform as a Product | Learning | L2 |
-| Golden paths a paved road | Learning | L2 |
-| Self-service | Learning | L2 |
-| Developer experience | Learning | L2 |
-| Service catalog | Learning | L2 |
-| Guardrails | Learning | L2 |
-| Multi-tenancy | Learning | L2 |
-
-Sekcia je **15/15 · Ready for user review**. Všetkých 15 authoritative kapitol je vytvorených, ordering a navigation chain sú complete, glossary fragmenty `16a`–`16d` sú synchronizované a finálny section-level consistency pass spája authority, reconciliation, platform product, catalog, guardrail a tenant model bez zamenenia projection alebo local successu za effective runtime a business verdict.
-
-Tento stav neznamená **User reviewed**, **Accepted**, **Verified** ani **Stable**. Označuje, že repository-native obsah a validačné artifacts sú pripravené na používateľskú kontrolu.
+Všetkých **17/17 authoritative kapitol prešlo chapter-by-chapter explanation-depth and practical-example revalidation** a sekcia je `Ready for user review`. Starý per-topic `Learning / L2` status scaffold bol odstránený; readiness sa eviduje na úrovni celej sekcie a v centrálnom review ledgeri. Existujúce Git authority, pull deployment, reconciliation/drift, Argo CD, Flux, promotion, secrets, IDP, platform-product, golden path, self-service, DevEx, catalog, guardrail, tenancy, practical walkthrough a troubleshooting lifecycle-y, incidenty a recovery acceptance zostali zachované. Repository gate overuje textový a executable inventory, navigation, glossary a audit; reálne GitOps controllers, clusters, secret decryption, promotion, platform workflows, tenant isolation a business outcomes neboli týmto documentation workflowom vykonané. Stav preto neznamená používateľské `Accepted`, runtime `Verified` ani produkčné `Stable`.
