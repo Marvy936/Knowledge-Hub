@@ -58,7 +58,16 @@ Observation má byť bounded. Timed exam nevyžaduje kompletný incident report;
 
 ## 6. Execution path: imperative skeleton a declarative finish
 
-Imperative príkazy sú efektívne, keď presne mapujú požadovanú zmenu: `set image`, `scale`, `label`, `taint`, `expose` alebo dry-run generátory. Pri multi-field resource-e je často rýchlejšie vytvoriť validný YAML skeleton, doplniť ho a použiť client a server dry-run pred apply.
+Imperative príkazy sú efektívne, keď presne mapujú požadovanú zmenu: `set image`, `scale`, `label`, `taint`, `expose` alebo dry-run generátory. Pri multi-field resource-e je často rýchlejšie vytvoriť validný YAML skeleton, doplniť ho a použiť client a server dry-run pred apply. Napríklad Service skeleton možno vytvoriť bez mutation:
+
+```bash
+kubectl -n payments create service clusterip payments-api \
+  --tcp=80:8080 \
+  --dry-run=client \
+  -o yaml > /tmp/payments-api-service.yaml
+```
+
+`--dry-run=client -o yaml` používa lokálny kubectl generator a preukazuje iba syntakticky vytvorený client-side object podľa zadaných flags. Neoveruje current cluster schema, namespace policy, RBAC, admission mutation ani to, že selector nájde správne Pody. Kandidát preto YAML doplní a skontroluje, následne použije server-side dry-run alebo apply a uzatvorí úlohu live Service, EndpointSlice a request validáciou.
 
 Voľba nástroja sa odvodzuje od risku a complexity. Jednoduchý patch je vhodný pre exact field. Declarative file je vhodný, keď treba kontrolovať viac fields, zachovať evidence alebo opravu zopakovať. Pri Node/control-plane úlohe môže byť správna cesta systemd, static Pod manifest, certificate alebo etcd command namiesto Kubernetes object mutation.
 

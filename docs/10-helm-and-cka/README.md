@@ -25,7 +25,7 @@ Odporúča sa najprv dokončiť:
 9. [CKA timed labs](cka-timed-labs.md)
 10. [CKA troubleshooting drills](cka-troubleshooting-drills.md)
 
-Aktuálny authoritative stav sekcie je **10 kapitol · practical-example remediation in progress**. Pôvodný prose-first pass zostáva platný, ale používateľská kontrola odhalila nedostatok konkrétnych chartov, príkazov, rendered outputs a vysvetlených diagnostických postupov. Sekcia preto zatiaľ nie je používateľsky schválená.
+Aktuálny authoritative stav sekcie je **10/10 chapter-by-chapter explanation-depth and practical-example revalidation · Ready for user review**. Všetkých desať kapitol spĺňa prose-first mechanistický štandard a obsahuje primeraný executable surface: konkrétne chart files, values/schema/templates, Helm a `kubectl` commands, rendered alebo runtime observations, failure read-back a recovery closure. Section 10 nemá critical ani high learning-depth findings. Repository workflow overuje dokumentačnú konzistenciu, navigation, glossary, required example inventory a audit; reálny Helm release, Kubernetes cluster a CKA exam environment tým nie sú runtime overené. Stav preto neznamená používateľské `Accepted`, runtime `Verified` ani produkčné `Stable`.
 
 ## Practical-example acceptance contract
 
