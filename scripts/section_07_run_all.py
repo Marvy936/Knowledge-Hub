@@ -20,6 +20,12 @@ run_script(
     {
         '"### moved block"': '"### `moved` block"',
         '"### terraform state mv"': '"### `terraform state mv`"',
+        '    replace_section("terraform-troubleshooting.md", heading, body)': (
+            '    try:\n'
+            '        replace_section("terraform-troubleshooting.md", heading, body)\n'
+            '    except RuntimeError:\n'
+            '        pass'
+        ),
     },
 )
 run_script(ROOT / "scripts" / "section_07_ansible_depth.py")
