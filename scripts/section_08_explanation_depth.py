@@ -10,3 +10,4 @@ for script in (
     exec(code, {"__name__": "__main__", "__file__": str(script)})
 
 print("Section 08 explanation-depth pass completed.")
+# Explicit retrigger after workflow registration.
