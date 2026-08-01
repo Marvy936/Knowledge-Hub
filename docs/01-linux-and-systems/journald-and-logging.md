@@ -1,12 +1,17 @@
 # journald and Logging
 
-## Metadata
+Log je event record vytvorený konkrétnym producerom v konkrétnom observation point-e. journald prijíma messages zo stdout/stderr services, syslog socketu, kernelu a audit-adjacent sources, dopĺňa trusted metadata a ukladá ich do volatile alebo persistent journal files podľa configuration a dostupnosti storage.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [systemd, services a daemons](systemd-services-daemons.md), [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md)
-- Súvisiace témy: observability, log rotation, incident response, centralized logging
+```text
+system occurrence
+→ application/kernel log emission
+→ transport do journald
+→ trusted a producer fields
+→ journal storage/rotation
+→ query, forwarding alebo alert
+```
+
+Neexistujúci log nie je dôkazom, že udalosť nenastala. Producer mohol crashnúť pred zápisom, rate limit mohol message dropnúť, boot scope mohol byť nesprávny alebo retention mohla záznam odstrániť. Naopak prítomný text `started` nepreukazuje service readiness. Diagnostika musí viazať journal na boot ID, unit, PID, monotonic/realtime timestamp a runtime generation a následne korelovať record s kernel, network alebo business evidence.
 
 ## 1. Logging ako event pipeline
 

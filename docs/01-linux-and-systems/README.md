@@ -6,7 +6,7 @@ Táto sekcia vysvetľuje Linux od hranice kernel/user space cez procesy, filesys
 
 Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md), najmä systems thinking, automation mindset, idempotenciu a desired state.
 
-## Odporúčané poradie
+## Authoritative poradie
 
 1. [Kernel a user space](kernel-and-user-space.md)
 2. [Procesy, thready, PID a signals](processes-threads-pid-signals.md)
@@ -29,6 +29,25 @@ Odporúča sa najprv dokončiť [DevOps Foundations](../00-foundations/README.md
 19. [Performance a troubleshooting](performance-and-troubleshooting.md)
 
 Po tejto sekcii nasleduje samostatná oblasť Networking and Web Fundamentals, ktorá rozšíri Linux packet-path základ o protokoly, subnetting, DNS, HTTP, TLS, proxies a load balancing.
+
+## Spôsob spracovania sekcie
+
+Sekcia používa jeden prose-first runtime chain od kernel/user-space boundary cez process, filesystem a identity state až po service management, packages, logging, storage, resources, networking, remote access, scheduling, isolation a systematický troubleshooting. Každá kapitola začína priamo vysvetlením mechanizmu; legacy `Metadata`, `Learning` a `L2` scaffold sa už nepoužíva.
+
+Nosný section model je:
+
+```text
+user alebo service intent
+→ process identity a execution context
+→ system call a kernel subsystem
+→ resource, filesystem alebo network state
+→ policy a isolation decision
+→ runtime evidence
+→ application/user outcome
+→ diagnosis, recovery a second-scenario validation
+```
+
+Príkazy sú observation alebo mutation tools nad konkrétnou vrstvou. Text preto pri outputoch oddeľuje requested, configured, loaded, effective a user-visible state. Zoznamy zostávajú pri command/field references, porovnaniach a troubleshooting inventories; nenahrádzajú základný mechanistický výklad. Aktuálny authoritative stav sekcie je **19/19 · Ready for user review** po odstránení legacy štruktúry a chapter-by-chapter explanation-depth passe.
 
 ## Cieľ zvládnutia
 
@@ -53,27 +72,3 @@ Po dokončení sekcie má byť možné:
 - navrhnúť least-privilege capability sets namiesto plného root procesu,
 - diagnostikovať DAC, capability a SELinux/AppArmor zamietnutia po jednotlivých vrstvách,
 - viesť výkonový incident od používateľského symptómu cez testovateľnú hypotézu až po overenú nápravu.
-
-## Stav
-
-| Téma | Status | Úroveň |
-|---|---|---|
-| Kernel a user space | Learning | L2 |
-| Procesy, thready, PID a signals | Learning | L2 |
-| Filesystem hierarchy, inodes a links | Learning | L2 |
-| Users, groups, permissions, sudo a PAM | Learning | L2 |
-| Shell, Bash, pipes, redirection a exit codes | Learning | L2 |
-| Environment variables | Learning | L2 |
-| systemd, services a daemons | Learning | L2 |
-| Package management | Learning | L2 |
-| journald a logging | Learning | L2 |
-| Storage, mounty a filesystems | Learning | L2 |
-| CPU a memory fundamentals | Learning | L2 |
-| Linux networking | Learning | L2 |
-| SSH | Learning | L2 |
-| Cron a systemd timers | Learning | L2 |
-| Namespaces | Learning | L2 |
-| cgroups | Learning | L2 |
-| Linux capabilities | Learning | L2 |
-| SELinux a AppArmor | Learning | L2 |
-| Performance a troubleshooting | Learning | L2 |

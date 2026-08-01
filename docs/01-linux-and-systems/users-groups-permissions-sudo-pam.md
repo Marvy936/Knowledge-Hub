@@ -1,12 +1,18 @@
 # Users, groups, permissions, sudo a PAM
 
-## Metadata
+Linux access decision nezačína názvom používateľa v `/etc/passwd`, ale credentials aktuálneho procesu. Kernel pri operácii vyhodnocuje effective UID/GID, supplementary groups, filesystem ownership a mode bits, ACLs, capabilities a podľa systému aj MAC policy. User name je user-space mapovanie čísla UID na čitateľný label.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md)
-- Súvisiace témy: process credentials, SSH, capabilities, SELinux, containers, service identity
+```text
+login alebo service identity
+→ PAM a credential establishment
+→ process UID/GID/groups/capability sets
+→ object owner, mode a ACL
+→ kernel DAC decision
+→ optional SELinux/AppArmor decision
+→ allow alebo errno
+```
+
+`sudo` nevypína permissions. Po policy, authentication a environment rozhodnutí vytvorí nový process s inými credentials a audit contextom. Úspešný `sudo` command preto nepreukazuje, že pôvodná service identity má potrebný least-privilege access. Diagnostika musí čítať identity procesu, celý pathname, ACLs, mount flags, capabilities a MAC denial namiesto automatického riešenia cez `chmod 777` alebo permanentný root.
 
 ## 1. Linux identity je číselný kernelový stav
 

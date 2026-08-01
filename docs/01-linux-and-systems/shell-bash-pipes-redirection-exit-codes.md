@@ -1,12 +1,18 @@
 # Shell, Bash, pipes, redirection a exit codes
 
-## Metadata
+Shell je parser a process orchestrator, nie iba miesto na zapisovanie príkazov. Bash najprv rozpozná syntax, následne vykoná parameter, command, arithmetic a pathname expansions, aplikuje quoting a word splitting, nastaví redirections a až potom spustí builtin alebo externý program. Malá zmena úvodzoviek preto môže zmeniť počet argumentov skôr, než cieľový command vôbec začne.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md)
-- Súvisiace témy: automation, CI/CD, environment variables, file descriptors, process substitution
+Pipeline vytvára viac procesov a file descriptors:
+
+```text
+producer stdout
+→ pipe buffer
+→ consumer stdin
+→ jednotlivé exit statuses
+→ shell pipeline status
+```
+
+Bez `pipefail` typicky rozhoduje posledný command, takže `producer | tee file` môže byť zelený aj po zlyhaní producer-a. Redirection sa navyše môže vytvoriť pred execution a zanechať prázdny alebo partial output. Robustný skript musí rozumieť parseru, arrays, `"$@"`, file descriptors, `PIPESTATUS`, traps, signal forwarding a atomic replacementu; samotné `set -e` nie je úplný error model.
 
 ## 1. Shell je jazykový runtime a process orchestrator
 

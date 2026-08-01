@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **327**
-- Audited conceptual sections: **6779**
-- Total words: **609,527**
-- Findings: **6965** (critical 897, high 1470, medium 553, low 4045)
-- File grades: A 112, B 94, C 31, D 90
+- Audited conceptual sections: **6760**
+- Total words: **611,348**
+- Findings: **6851** (critical 853, high 1415, medium 538, low 4045)
+- File grades: A 112, B 94, C 32, D 89
 
 ## Interpretation
 
@@ -24,8 +24,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Grade | Score | Critical | High | Medium | Low | Words | File |
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 1056 | 50 | 46 | 19 | 21 | 2975 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
-| D | 970 | 43 | 38 | 32 | 24 | 3838 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
 | D | 926 | 45 | 39 | 18 | 14 | 2977 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
+| D | 915 | 40 | 36 | 31 | 24 | 3956 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
 | D | 834 | 38 | 35 | 20 | 24 | 3208 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 789 | 31 | 47 | 10 | 12 | 2663 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 734 | 33 | 34 | 13 | 19 | 2648 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
@@ -35,8 +35,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 629 | 30 | 27 | 11 | 14 | 2920 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
 | D | 579 | 24 | 27 | 15 | 18 | 2371 | `docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md` |
 | D | 575 | 25 | 25 | 13 | 24 | 2831 | `docs/04-testing-and-quality/chaos-testing.md` |
-| D | 541 | 19 | 28 | 9 | 46 | 3195 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 495 | 23 | 17 | 15 | 20 | 3220 | `docs/04-testing-and-quality/static-analysis-linting-type-checking.md` |
+| D | 490 | 17 | 25 | 8 | 46 | 3288 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 478 | 15 | 37 | 2 | 1 | 1433 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | D | 422 | 17 | 25 | 4 | 4 | 1930 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | D | 417 | 17 | 19 | 11 | 17 | 2500 | `docs/04-testing-and-quality/shift-left.md` |
@@ -46,56 +46,55 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 378 | 12 | 28 | 3 | 3 | 1942 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 375 | 15 | 14 | 11 | 35 | 3422 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 363 | 12 | 27 | 2 | 0 | 1542 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
-| D | 353 | 13 | 13 | 10 | 46 | 3589 | `docs/01-linux-and-systems/cgroups.md` |
-| D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 331 | 11 | 12 | 17 | 35 | 3016 | `docs/00-foundations/you-build-it-you-run-it.md` |
 | D | 312 | 12 | 16 | 7 | 9 | 2066 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | D | 303 | 12 | 12 | 7 | 32 | 3328 | `docs/04-testing-and-quality/verification-vs-validation.md` |
+| D | 299 | 11 | 9 | 10 | 46 | 3682 | `docs/01-linux-and-systems/cgroups.md` |
 | D | 299 | 10 | 19 | 5 | 8 | 1906 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | D | 291 | 10 | 19 | 3 | 9 | 1878 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
-| D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
+| D | 286 | 9 | 13 | 5 | 44 | 3462 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 285 | 12 | 17 | 2 | 2 | 1776 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | D | 277 | 10 | 18 | 3 | 5 | 1684 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 276 | 8 | 19 | 6 | 5 | 1856 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | D | 263 | 7 | 22 | 1 | 1 | 1792 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 261 | 8 | 9 | 15 | 31 | 2766 | `docs/00-foundations/ownership-mindset.md` |
-| D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
-| D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
-| D | 226 | 6 | 12 | 5 | 33 | 3073 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
+| D | 236 | 8 | 9 | 6 | 35 | 3189 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 222 | 7 | 15 | 3 | 7 | 1953 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | D | 219 | 4 | 21 | 1 | 1 | 1751 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
-| D | 216 | 5 | 9 | 9 | 40 | 2608 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
-| D | 215 | 6 | 8 | 6 | 46 | 3667 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
+| D | 200 | 5 | 10 | 7 | 28 | 3413 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 195 | 5 | 8 | 9 | 30 | 2380 | `docs/00-foundations/toil-and-technical-debt.md` |
-| D | 192 | 4 | 11 | 6 | 28 | 2425 | `docs/01-linux-and-systems/linux-networking.md` |
-| D | 192 | 6 | 8 | 5 | 28 | 3160 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 191 | 7 | 9 | 6 | 8 | 2082 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
+| D | 185 | 4 | 8 | 9 | 33 | 2863 | `docs/01-linux-and-systems/ssh.md` |
 | D | 184 | 5 | 12 | 1 | 16 | 2723 | `docs/00-foundations/calms.md` |
 | D | 181 | 5 | 6 | 9 | 29 | 3573 | `docs/00-foundations/continuous-improvement.md` |
-| D | 175 | 5 | 6 | 8 | 31 | 2698 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
-| D | 175 | 6 | 9 | 1 | 22 | 1931 | `docs/01-linux-and-systems/journald-and-logging.md` |
-| D | 169 | 5 | 6 | 8 | 29 | 3013 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
-| D | 168 | 5 | 6 | 7 | 24 | 1943 | `docs/01-linux-and-systems/package-management.md` |
+| D | 175 | 4 | 9 | 4 | 33 | 3160 | `docs/01-linux-and-systems/cron-and-systemd-timers.md` |
 | D | 165 | 5 | 4 | 11 | 26 | 3123 | `docs/00-foundations/feedback-loops.md` |
+| D | 165 | 3 | 6 | 8 | 40 | 2721 | `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md` |
 | D | 162 | 5 | 7 | 6 | 20 | 2374 | `docs/00-foundations/t-shaped-engineer.md` |
-| D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
-| D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
+| D | 160 | 3 | 6 | 5 | 46 | 3770 | `docs/01-linux-and-systems/processes-threads-pid-signals.md` |
 | D | 150 | 4 | 10 | 4 | 6 | 1963 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 142 | 3 | 5 | 9 | 28 | 2901 | `docs/00-foundations/systems-thinking.md` |
 | D | 139 | 2 | 13 | 0 | 9 | 1406 | `docs/06-gitlab/variables-and-secrets.md` |
+| D | 138 | 2 | 7 | 6 | 28 | 2511 | `docs/01-linux-and-systems/linux-networking.md` |
+| D | 138 | 4 | 4 | 5 | 28 | 3254 | `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md` |
 | D | 132 | 2 | 7 | 6 | 25 | 2626 | `docs/00-foundations/declarative-vs-imperative.md` |
 | D | 131 | 4 | 5 | 5 | 17 | 2725 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 127 | 3 | 9 | 2 | 8 | 1753 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
+| D | 124 | 3 | 3 | 7 | 31 | 2789 | `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md` |
+| D | 124 | 4 | 6 | 0 | 22 | 2019 | `docs/01-linux-and-systems/journald-and-logging.md` |
 | D | 124 | 2 | 11 | 1 | 5 | 1249 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 122 | 2 | 9 | 3 | 11 | 1933 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 120 | 3 | 7 | 2 | 16 | 2053 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | D | 117 | 2 | 5 | 7 | 22 | 2840 | `docs/00-foundations/automation-mindset.md` |
+| D | 117 | 3 | 3 | 6 | 24 | 2035 | `docs/01-linux-and-systems/package-management.md` |
 | D | 116 | 0 | 13 | 0 | 8 | 1292 | `docs/06-gitlab/environments-deployments-releases.md` |
+| D | 114 | 2 | 4 | 7 | 29 | 3111 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
 | D | 105 | 1 | 10 | 2 | 3 | 1513 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 103 | 1 | 10 | 0 | 7 | 1202 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 102 | 2 | 7 | 2 | 10 | 1736 | `docs/05-ci-cd-and-release/release-management.md` |
+| D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 100 | 4 | 3 | 3 | 15 | 2584 | `docs/00-foundations/devops-anti-patterns.md` |
-| D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
+| D | 100 | 3 | 4 | 1 | 23 | 2469 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1951 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1505 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 93 | 3 | 2 | 3 | 22 | 2801 | `docs/00-foundations/sdlc.md` |
@@ -137,6 +136,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
 | C | 44 | 1 | 2 | 0 | 11 | 1647 | `docs/03-git-and-automation/powershell-fundamentals.md` |
+| C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 42 | 1 | 0 | 1 | 19 | 3182 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
@@ -586,451 +586,352 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/01-linux-and-systems/cgroups.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `bare-bullet-items` — **13. Cpuset controller**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preťažiť jeden core,`, `znížiť scheduler flexibility,`, `zvýšiť remote NUMA access,`, `vytvoriť nerovnomerné IRQ a workload placement,`.
-- **CRITICAL** line 303, `bare-bullet-items` — **17. memory.max**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application heap,`, `page cache charge,`, `thread stacks,`, `socket buffers,`.
-- **CRITICAL** line 342, `outline-instead-of-explanation` — **19. Memory events a local OOM**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 452, `bare-bullet-items` — **25. Delegácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastníctvo a write oprávnenia cgroup filesystem nodes,`, `ktoré controllery môže delegate aktivovať,`, `hranicu, za ktorú nesmie presúvať processes,`, `parent resource budget,`.
-- **CRITICAL** line 538, `bare-bullet-items` — **28. Containers**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container PID na hoste,`, `jeho /proc/<pid /cgroup path,`, `parent Pod alebo service cgroup,`, `runtime a systemd properties,`.
-- **CRITICAL** line 581, `bare-bullet-items` — **30. Kubernetes QoS a hierarchy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process-level OOM v container cgroup,`, `Pod alebo parent cgroup limit,`, `node-wide OOM,`, `kubelet eviction pre memory pressure,`.
-- **CRITICAL** line 615, `outline-instead-of-explanation` — **33. Troubleshooting: služba má vysokú latency pri nízkom host CPU**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 629, `no-prose-concept` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 629, `outline-instead-of-explanation` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 640, `outline-instead-of-explanation` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 650, `empty-section` — **36. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 119, `list-heavy-section` — **7. Controllers a subtree activation**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 303, `list-heavy-section` — **17. memory.max**: 7 odrážok a iba 68 slov súvislého vysvetlenia.
-- **HIGH** line 452, `list-heavy-section` — **25. Delegácia**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
-- **HIGH** line 629, `list-first-introduction` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 640, `list-first-introduction` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 640, `single-sentence-concept` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CPU`, `OOM`, `PSI`
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 615, `thin-concept-section` — **33. Troubleshooting: služba má vysokú latency pri nízkom host CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 629, `thin-concept-section` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 640, `thin-concept-section` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 241, `bare-bullet-items` — **13. Cpuset controller**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preťažiť jeden core,`, `znížiť scheduler flexibility,`, `zvýšiť remote NUMA access,`, `vytvoriť nerovnomerné IRQ a workload placement,`.
+- **CRITICAL** line 308, `bare-bullet-items` — **17. memory.max**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application heap,`, `page cache charge,`, `thread stacks,`, `socket buffers,`.
+- **CRITICAL** line 347, `outline-instead-of-explanation` — **19. Memory events a local OOM**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 457, `bare-bullet-items` — **25. Delegácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastníctvo a write oprávnenia cgroup filesystem nodes,`, `ktoré controllery môže delegate aktivovať,`, `hranicu, za ktorú nesmie presúvať processes,`, `parent resource budget,`.
+- **CRITICAL** line 543, `bare-bullet-items` — **28. Containers**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container PID na hoste,`, `jeho /proc/<pid /cgroup path,`, `parent Pod alebo service cgroup,`, `runtime a systemd properties,`.
+- **CRITICAL** line 586, `bare-bullet-items` — **30. Kubernetes QoS a hierarchy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process-level OOM v container cgroup,`, `Pod alebo parent cgroup limit,`, `node-wide OOM,`, `kubelet eviction pre memory pressure,`.
+- **CRITICAL** line 620, `outline-instead-of-explanation` — **33. Troubleshooting: služba má vysokú latency pri nízkom host CPU**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 634, `no-prose-concept` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 634, `outline-instead-of-explanation` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 645, `outline-instead-of-explanation` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 655, `empty-section` — **36. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 124, `list-heavy-section` — **7. Controllers a subtree activation**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 308, `list-heavy-section` — **17. memory.max**: 7 odrážok a iba 68 slov súvislého vysvetlenia.
+- **HIGH** line 457, `list-heavy-section` — **25. Delegácia**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 634, `list-first-introduction` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 645, `list-first-introduction` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 645, `single-sentence-concept` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 620, `thin-concept-section` — **33. Troubleshooting: služba má vysokú latency pri nízkom host CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 634, `thin-concept-section` — **34. Troubleshooting: OOM v kontajneri, host má voľnú RAM**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 645, `thin-concept-section` — **35. Troubleshooting: fork() zlyháva pri voľnej memory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/cpu-and-memory-fundamentals.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 166, `outline-instead-of-explanation` — **11. VIRT, RSS a PSS**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 329, `outline-instead-of-explanation` — **22. Diagnostika vysokého loadu pri nízkom CPU**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 358, `outline-instead-of-explanation` — **24. Diagnostika memory incidentu**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 358, `single-sentence-concept` — **24. Diagnostika memory incidentu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 166, `term-before-explanation` — **11. VIRT, RSS a PSS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VIRT`, `VSZ`, `RAM`, `PSS`, `USS`
-- **HIGH** line 166, `thin-concept-section` — **11. VIRT, RSS a PSS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 329, `thin-concept-section` — **22. Diagnostika vysokého loadu pri nízkom CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 358, `term-before-explanation` — **24. Diagnostika memory incidentu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`, `RSS`, `PSS`, `OOM`, `scope`
-- **HIGH** line 358, `thin-concept-section` — **24. Diagnostika memory incidentu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 174, `outline-instead-of-explanation` — **11. VIRT, RSS a PSS**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 337, `outline-instead-of-explanation` — **22. Diagnostika vysokého loadu pri nízkom CPU**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 366, `outline-instead-of-explanation` — **24. Diagnostika memory incidentu**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **HIGH** line 366, `single-sentence-concept` — **24. Diagnostika memory incidentu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 174, `term-before-explanation` — **11. VIRT, RSS a PSS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VIRT`, `VSZ`, `RAM`, `PSS`, `USS`
+- **HIGH** line 174, `thin-concept-section` — **11. VIRT, RSS a PSS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 337, `thin-concept-section` — **22. Diagnostika vysokého loadu pri nízkom CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 366, `term-before-explanation` — **24. Diagnostika memory incidentu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`, `RSS`, `PSS`, `OOM`, `scope`
+- **HIGH** line 366, `thin-concept-section` — **24. Diagnostika memory incidentu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/cron-and-systemd-timers.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 364, `bare-bullet-items` — **16. Dependencies a remote readiness**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout pre connect a request,`, `bounded retry s backoffom,`, `rozlíšenie authentication, validation a transient network failure,`, `kontrolu, že remote side effect neprebehol pred timeoutom,`.
-- **CRITICAL** line 440, `outline-instead-of-explanation` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 461, `outline-instead-of-explanation` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 474, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 35, `list-heavy-section` — **2. Požiadavky na spoľahlivý scheduled job**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 119, `list-heavy-section` — **6. Cron environment a execution identity**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
-- **HIGH** line 191, `list-heavy-section` — **9. Idempotencia, checkpoint a retry**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
-- **HIGH** line 440, `single-sentence-concept` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `single-sentence-concept` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 35, `term-before-explanation` — **2. Požiadavky na spoľahlivý scheduled job**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `scope`, `policy`
-- **HIGH** line 333, `term-before-explanation` — **15. Systemd service lifecycle pre job**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGTERM`, `CPU`, `Resource`, `blast radius`
-- **HIGH** line 440, `thin-concept-section` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 461, `thin-concept-section` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 371, `bare-bullet-items` — **16. Dependencies a remote readiness**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timeout pre connect a request,`, `bounded retry s backoffom,`, `rozlíšenie authentication, validation a transient network failure,`, `kontrolu, že remote side effect neprebehol pred timeoutom,`.
+- **CRITICAL** line 447, `outline-instead-of-explanation` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 468, `outline-instead-of-explanation` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 481, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 42, `list-heavy-section` — **2. Požiadavky na spoľahlivý scheduled job**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 126, `list-heavy-section` — **6. Cron environment a execution identity**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 198, `list-heavy-section` — **9. Idempotencia, checkpoint a retry**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
+- **HIGH** line 447, `single-sentence-concept` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 468, `single-sentence-concept` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 42, `term-before-explanation` — **2. Požiadavky na spoľahlivý scheduled job**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `scope`, `policy`
+- **HIGH** line 340, `term-before-explanation` — **15. Systemd service lifecycle pre job**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGTERM`, `CPU`, `Resource`, `blast radius`
+- **HIGH** line 447, `thin-concept-section` — **20. Troubleshooting: job funguje ručne, ale nie z cronu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 468, `thin-concept-section` — **21. Troubleshooting: timer čaká, ale job nevytvára výsledok**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/environment-variables.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Shell, Bash, pipes, redirection a exit codes`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 216, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 220, `empty-section` — **18. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 
 ### `docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `no-prose-concept` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 270, `outline-instead-of-explanation` — **19. Troubleshooting: No space left on device**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 236, `list-first-introduction` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 236, `thin-concept-section` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 270, `thin-concept-section` — **19. Troubleshooting: No space left on device**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 242, `no-prose-concept` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 242, `outline-instead-of-explanation` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 276, `outline-instead-of-explanation` — **19. Troubleshooting: No space left on device**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **HIGH** line 242, `list-first-introduction` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 242, `thin-concept-section` — **17. Diagnostické nástroje a otázka, ktorú odpovedajú**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 276, `thin-concept-section` — **19. Troubleshooting: No space left on device**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/journald-and-logging.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 40, `empty-section` — **3. Zdroje records a ich failure boundaries**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 227, `outline-instead-of-explanation` — **20. Diagnostika zlyhania služby**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 245, `outline-instead-of-explanation` — **21. Diagnostika chýbajúcich logov**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 258, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 227, `list-first-introduction` — **20. Diagnostika zlyhania služby**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 227, `single-sentence-concept` — **20. Diagnostika zlyhania služby**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 245, `single-sentence-concept` — **21. Diagnostika chýbajúcich logov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 227, `term-before-explanation` — **20. Diagnostika zlyhania služby**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `OOM`, `ID`, `scope`
-- **HIGH** line 227, `thin-concept-section` — **20. Diagnostika zlyhania služby**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 245, `thin-concept-section` — **21. Diagnostika chýbajúcich logov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 45, `empty-section` — **3. Zdroje records a ich failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 232, `outline-instead-of-explanation` — **20. Diagnostika zlyhania služby**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 250, `outline-instead-of-explanation` — **21. Diagnostika chýbajúcich logov**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 263, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 232, `list-first-introduction` — **20. Diagnostika zlyhania služby**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 232, `single-sentence-concept` — **20. Diagnostika zlyhania služby**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 250, `single-sentence-concept` — **21. Diagnostika chýbajúcich logov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 232, `term-before-explanation` — **20. Diagnostika zlyhania služby**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `OOM`, `ID`, `scope`
+- **HIGH** line 232, `thin-concept-section` — **20. Diagnostika zlyhania služby**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 250, `thin-concept-section` — **21. Diagnostika chýbajúcich logov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/kernel-and-user-space.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: DevOps Foundations`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 174, `outline-instead-of-explanation` — **14. Bezpečnostné rozhodnutie pri system calle**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 197, `list-heavy-section` — **15. User space nie je jedna úroveň dôvery**: 6 odrážok a iba 47 slov súvislého vysvetlenia.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 36, `term-before-explanation` — **3. Vrstvy Linux systému**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JVM`, `API`, `ABI`, `VFS`
-- **HIGH** line 174, `term-before-explanation` — **14. Bezpečnostné rozhodnutie pri system calle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `DAC`, `ACL`, `resource`, `policy`
-- **HIGH** line 197, `term-before-explanation` — **15. User space nie je jedna úroveň dôvery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `DAC`, `LSM`, `identity`, `scope`, `resource`, `policy`
+- **CRITICAL** line 181, `outline-instead-of-explanation` — **14. Bezpečnostné rozhodnutie pri system calle**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 204, `list-heavy-section` — **15. User space nie je jedna úroveň dôvery**: 6 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 43, `term-before-explanation` — **3. Vrstvy Linux systému**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JVM`, `API`, `ABI`, `VFS`
+- **HIGH** line 181, `term-before-explanation` — **14. Bezpečnostné rozhodnutie pri system calle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `DAC`, `ACL`, `resource`, `policy`
+- **HIGH** line 204, `term-before-explanation` — **15. User space nie je jedna úroveň dôvery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `DAC`, `LSM`, `identity`, `scope`, `resource`, `policy`
 
 ### `docs/01-linux-and-systems/linux-capabilities.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 186, `outline-instead-of-explanation` — **12. Filesystem a deployment dôsledky file capabilities**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 276, `bare-bullet-items` — **18. Root v kontajneri**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host UID 0 v rovnakom user namespace,`, `obmedzený runtime capability allowlistom,`, `ďalej obmedzený seccomp, LSM a read-only mountmi.`.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **19. Systemd capability policy**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 324, `bare-bullet-items` — **20. Service startup: root then drop verzus direct least privilege**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť socket alebo dodať capability,`, `spustiť aplikáciu priamo pod neprivilegovaným UID,`, `odstrániť všetky ostatné capabilities,`, `aplikovať sandbox pred prvou aplikačnou inštrukciou.`.
-- **CRITICAL** line 418, `bare-bullet-items` — **26. Interpreters a scripts**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capability na malom auditovanom native helperi,`, `helper vykoná jednu presne validovanú privilegovanú operáciu,`, `hlavná aplikácia komunikuje cez úzky interface,`, `helper nespúšťa shell ani pluginy.`.
-- **CRITICAL** line 472, `outline-instead-of-explanation` — **29. Troubleshooting: bind na port 80 zlyhá**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 485, `outline-instead-of-explanation` — **30. Troubleshooting: capability zmizla po deploymente**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 496, `outline-instead-of-explanation` — **31. Troubleshooting: kontajner funguje iba s privileged**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 510, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 289, `single-sentence-concept` — **19. Systemd capability policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 404, `bare-bullet-items` — **25. Capability leakage cez child proces**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia s ambient capability spustí shell hook,`, `executable hľadá helper cez manipulovateľný PATH ,`, `interpreter dostane capability a následne vykoná ľubovoľný script.`.
-- **HIGH** line 472, `single-sentence-concept` — **29. Troubleshooting: bind na port 80 zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 485, `list-first-introduction` — **30. Troubleshooting: capability zmizla po deploymente**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 496, `single-sentence-concept` — **31. Troubleshooting: kontajner funguje iba s privileged**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 524, `single-sentence-concept` — **„File capability zostane po každom deploymente“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 528, `single-sentence-concept` — **„Root v kontajneri má všetky host capabilities“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **19. Systemd capability policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 472, `term-before-explanation` — **29. Troubleshooting: bind na port 80 zlyhá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `CAP`, `NET`, `BIND`, `SERVICE`, `EADDRINUSE`, `scope`
-- **HIGH** line 472, `thin-concept-section` — **29. Troubleshooting: bind na port 80 zlyhá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 485, `thin-concept-section` — **30. Troubleshooting: capability zmizla po deploymente**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 496, `term-before-explanation` — **31. Troubleshooting: kontajner funguje iba s privileged**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `ALL`, `policy`, `workload`
-- **HIGH** line 496, `thin-concept-section` — **31. Troubleshooting: kontajner funguje iba s privileged**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 184, `outline-instead-of-explanation` — **12. Filesystem a deployment dôsledky file capabilities**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 274, `bare-bullet-items` — **18. Root v kontajneri**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host UID 0 v rovnakom user namespace,`, `obmedzený runtime capability allowlistom,`, `ďalej obmedzený seccomp, LSM a read-only mountmi.`.
+- **CRITICAL** line 287, `outline-instead-of-explanation` — **19. Systemd capability policy**: 5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `bare-bullet-items` — **20. Service startup: root then drop verzus direct least privilege**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť socket alebo dodať capability,`, `spustiť aplikáciu priamo pod neprivilegovaným UID,`, `odstrániť všetky ostatné capabilities,`, `aplikovať sandbox pred prvou aplikačnou inštrukciou.`.
+- **CRITICAL** line 416, `bare-bullet-items` — **26. Interpreters a scripts**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `capability na malom auditovanom native helperi,`, `helper vykoná jednu presne validovanú privilegovanú operáciu,`, `hlavná aplikácia komunikuje cez úzky interface,`, `helper nespúšťa shell ani pluginy.`.
+- **CRITICAL** line 470, `outline-instead-of-explanation` — **29. Troubleshooting: bind na port 80 zlyhá**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 483, `outline-instead-of-explanation` — **30. Troubleshooting: capability zmizla po deploymente**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 494, `outline-instead-of-explanation` — **31. Troubleshooting: kontajner funguje iba s privileged**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 508, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 287, `single-sentence-concept` — **19. Systemd capability policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 402, `bare-bullet-items` — **25. Capability leakage cez child proces**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia s ambient capability spustí shell hook,`, `executable hľadá helper cez manipulovateľný PATH ,`, `interpreter dostane capability a následne vykoná ľubovoľný script.`.
+- **HIGH** line 470, `single-sentence-concept` — **29. Troubleshooting: bind na port 80 zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `list-first-introduction` — **30. Troubleshooting: capability zmizla po deploymente**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 494, `single-sentence-concept` — **31. Troubleshooting: kontajner funguje iba s privileged**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 522, `single-sentence-concept` — **„File capability zostane po každom deploymente“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 526, `single-sentence-concept` — **„Root v kontajneri má všetky host capabilities“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 287, `thin-concept-section` — **19. Systemd capability policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 470, `term-before-explanation` — **29. Troubleshooting: bind na port 80 zlyhá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `CAP`, `NET`, `BIND`, `SERVICE`, `EADDRINUSE`, `scope`
+- **HIGH** line 470, `thin-concept-section` — **29. Troubleshooting: bind na port 80 zlyhá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 483, `thin-concept-section` — **30. Troubleshooting: capability zmizla po deploymente**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 494, `term-before-explanation` — **31. Troubleshooting: kontajner funguje iba s privileged**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `ALL`, `policy`, `workload`
+- **HIGH** line 494, `thin-concept-section` — **31. Troubleshooting: kontajner funguje iba s privileged**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/linux-networking.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 341, `bare-bullet-items` — **23. Firewall nie je jediná policy vrstva**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination address po prípadnom NAT-e,`, `protocol a port,`, `direction,`, `namespace a interface,`.
-- **CRITICAL** line 381, `outline-instead-of-explanation` — **26. Diagnostika spojenia na databázu**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 341, `list-heavy-section` — **23. Firewall nie je jediná policy vrstva**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 381, `single-sentence-concept` — **26. Diagnostika spojenia na databázu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `TCP`, `IP`, `DNS`
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 150, `term-before-explanation` — **10. TCP handshake**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN-SENT`, `SYN-RECV`, `ACK`, `ESTABLISHED`
-- **HIGH** line 233, `term-before-explanation` — **16. Netfilter hooks**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OUTPUT`, `PREROUTING`, `POSTROUTING`, `DNAT`, `SNAT`
-- **HIGH** line 308, `term-before-explanation` — **21. Packet capture**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `DNS`, `RST`, `TLS`, `policy`
-- **HIGH** line 381, `term-before-explanation` — **26. Diagnostika spojenia na databázu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`, `IP`, `SYN-SENT`, `OUTPUT`, `SYN`, `TCP`, `TLS`, `policy`
-- **HIGH** line 381, `thin-concept-section` — **26. Diagnostika spojenia na databázu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 349, `bare-bullet-items` — **23. Firewall nie je jediná policy vrstva**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination address po prípadnom NAT-e,`, `protocol a port,`, `direction,`, `namespace a interface,`.
+- **CRITICAL** line 389, `outline-instead-of-explanation` — **26. Diagnostika spojenia na databázu**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **HIGH** line 349, `list-heavy-section` — **23. Firewall nie je jediná policy vrstva**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 389, `single-sentence-concept` — **26. Diagnostika spojenia na databázu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 158, `term-before-explanation` — **10. TCP handshake**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN-SENT`, `SYN-RECV`, `ACK`, `ESTABLISHED`
+- **HIGH** line 241, `term-before-explanation` — **16. Netfilter hooks**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OUTPUT`, `PREROUTING`, `POSTROUTING`, `DNAT`, `SNAT`
+- **HIGH** line 316, `term-before-explanation` — **21. Packet capture**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `DNS`, `RST`, `TLS`, `policy`
+- **HIGH** line 389, `term-before-explanation` — **26. Diagnostika spojenia na databázu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NSS`, `IP`, `SYN-SENT`, `OUTPUT`, `SYN`, `TCP`, `TLS`, `policy`
+- **HIGH** line 389, `thin-concept-section` — **26. Diagnostika spojenia na databázu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/namespaces.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 129, `bare-bullet-items` — **8. PID 1 semantics v namespace**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reapovať child procesy,`, `preposielať alebo spracovať shutdown signals,`, `nenechať shell wrapper zadržať SIGTERM ,`, `ukončiť celý child tree pred runtime timeoutom.`.
-- **CRITICAL** line 232, `bare-bullet-items` — **14. Network namespace a DNS**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolver configuration v mount namespace,`, `network path k DNS serveru v network namespace,`, `NSS policy aplikácie,`, `prípadný sidecar alebo local DNS proxy.`.
-- **CRITICAL** line 344, `outline-instead-of-explanation` — **23. Namespaces a kontajner runtime**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 358, `bare-bullet-items` — **24. Namespace sharing v Kubernetes Pode**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sidecar komunikuje s aplikáciou cez localhost ,`, `všetky kontajnery zdieľajú Pod network policy identity,`, `process inventory závisí od PID namespace sharing nastavenia.`.
-- **CRITICAL** line 371, `bare-bullet-items` — **25. Namespaces nie sú kompletný sandbox**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `--privileged alebo široké capabilities,`, `host PID/network namespace sharing,`, `writable host filesystem bind mounts,`, `host device passthrough,`.
-- **CRITICAL** line 425, `outline-instead-of-explanation` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 441, `outline-instead-of-explanation` — **28. Troubleshooting: ownership bind mountu nesedí**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 453, `empty-section` — **29. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 245, `bare-bullet-items` — **15. User namespace**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `subordinate UID/GID ranges musia byť pridelené a spravované,`, `device a kernel-global operácie zostávajú obmedzené,`, `security policy musí rozumieť namespace mapovaniu.`.
-- **HIGH** line 371, `list-heavy-section` — **25. Namespaces nie sú kompletný sandbox**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 425, `single-sentence-concept` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 463, `single-sentence-concept` — **„Nový network namespace automaticky má internet“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 344, `term-before-explanation` — **23. Namespaces a kontajner runtime**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CNI`, `UID`, `GID`, `LSM`, `PID`, `policy`, `resource`
-- **HIGH** line 344, `thin-concept-section` — **23. Namespaces a kontajner runtime**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 425, `term-before-explanation` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `NAT`, `NIC`, `policy`
-- **HIGH** line 425, `thin-concept-section` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 441, `thin-concept-section` — **28. Troubleshooting: ownership bind mountu nesedí**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 133, `bare-bullet-items` — **8. PID 1 semantics v namespace**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reapovať child procesy,`, `preposielať alebo spracovať shutdown signals,`, `nenechať shell wrapper zadržať SIGTERM ,`, `ukončiť celý child tree pred runtime timeoutom.`.
+- **CRITICAL** line 236, `bare-bullet-items` — **14. Network namespace a DNS**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolver configuration v mount namespace,`, `network path k DNS serveru v network namespace,`, `NSS policy aplikácie,`, `prípadný sidecar alebo local DNS proxy.`.
+- **CRITICAL** line 348, `outline-instead-of-explanation` — **23. Namespaces a kontajner runtime**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 362, `bare-bullet-items` — **24. Namespace sharing v Kubernetes Pode**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sidecar komunikuje s aplikáciou cez localhost ,`, `všetky kontajnery zdieľajú Pod network policy identity,`, `process inventory závisí od PID namespace sharing nastavenia.`.
+- **CRITICAL** line 375, `bare-bullet-items` — **25. Namespaces nie sú kompletný sandbox**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `--privileged alebo široké capabilities,`, `host PID/network namespace sharing,`, `writable host filesystem bind mounts,`, `host device passthrough,`.
+- **CRITICAL** line 429, `outline-instead-of-explanation` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 445, `outline-instead-of-explanation` — **28. Troubleshooting: ownership bind mountu nesedí**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 457, `empty-section` — **29. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 249, `bare-bullet-items` — **15. User namespace**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `subordinate UID/GID ranges musia byť pridelené a spravované,`, `device a kernel-global operácie zostávajú obmedzené,`, `security policy musí rozumieť namespace mapovaniu.`.
+- **HIGH** line 375, `list-heavy-section` — **25. Namespaces nie sú kompletný sandbox**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 429, `single-sentence-concept` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 467, `single-sentence-concept` — **„Nový network namespace automaticky má internet“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 348, `term-before-explanation` — **23. Namespaces a kontajner runtime**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CNI`, `UID`, `GID`, `LSM`, `PID`, `policy`, `resource`
+- **HIGH** line 348, `thin-concept-section` — **23. Namespaces a kontajner runtime**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 429, `term-before-explanation` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `NAT`, `NIC`, `policy`
+- **HIGH** line 429, `thin-concept-section` — **27. Troubleshooting: port existuje v kontajneri, nie na hoste**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 445, `thin-concept-section` — **28. Troubleshooting: ownership bind mountu nesedí**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/package-management.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 166, `outline-instead-of-explanation` — **12. Lifecycle scripts sú privilegované side effects**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 276, `outline-instead-of-explanation` — **20. Produkčný update workflow**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `list-heavy-section` — **1. Čo package management skutočne riadi**: 6 odrážok a iba 44 slov súvislého vysvetlenia.
-- **HIGH** line 276, `single-sentence-concept` — **20. Produkčný update workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 276, `thin-concept-section` — **20. Produkčný update workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 172, `outline-instead-of-explanation` — **12. Lifecycle scripts sú privilegované side effects**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 282, `outline-instead-of-explanation` — **20. Produkčný update workflow**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 302, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 17, `list-heavy-section` — **1. Čo package management skutočne riadi**: 6 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 282, `single-sentence-concept` — **20. Produkčný update workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 282, `thin-concept-section` — **20. Produkčný update workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/performance-and-troubleshooting.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: všetky predchádzajúce kapitoly sekcie Linux and Systems`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 41, `outline-instead-of-explanation` — **3. Začni používateľským dopadom**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 73, `bare-bullet-items` — **5. Baseline a porovnávací kontext**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ten istý host pred incidentom,`, `zdravý sibling host s rovnakou verziou,`, `rovnaký request class pri nižšom loade,`, `load-test profil,`.
-- **CRITICAL** line 148, `bare-bullet-items` — **9. Zachovanie evidence**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas a host/container identity,`, `process tree a cgroup path,`, `CPU/memory/I/O/network snapshot,`, `relevantný journal interval,`.
-- **CRITICAL** line 179, `bare-bullet-items` — **11. Rýchly host-level snapshot**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU idle verzus runnable queue,`, `memory available verzus reclaim/swap,`, `I/O await a queue verzus device errors,`, `network drops/retransmissions verzus socket states,`.
-- **CRITICAL** line 179, `outline-instead-of-explanation` — **11. Rýchly host-level snapshot**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 239, `bare-bullet-items` — **14. Load average**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU runnable queue,`, `storage alebo NFS waits v stave D ,`, `kernel lock alebo device wait,`, `kombináciou viacerých zdrojov.`.
-- **CRITICAL** line 239, `outline-instead-of-explanation` — **14. Load average**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 257, `bare-bullet-items` — **15. Jeden core na 100 percent**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-threaded event loop,`, `global lock alebo mutex convoy,`, `CPU affinity/cpuset,`, `hot shard alebo partition,`.
-- **CRITICAL** line 257, `outline-instead-of-explanation` — **15. Jeden core na 100 percent**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 343, `bare-bullet-items` — **21. Memory leak verzus pracovná množina**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočný leak nedostupných objektov,`, `zámerná aplikačná cache,`, `allocator arena retention,`, `väčší workload working set,`.
-- **CRITICAL** line 343, `outline-instead-of-explanation` — **21. Memory leak verzus pracovná množina**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 392, `bare-bullet-items` — **24. OOM analýza**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host-wide OOM,`, `cgroup-local OOM,`, `systemd OOM policy,`, `Kubernetes/container OOM event,`.
-- **CRITICAL** line 392, `outline-instead-of-explanation` — **24. OOM analýza**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 411, `bare-bullet-items` — **25. Storage capacity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data blocks,`, `inodes,`, `user/project quota,`, `reserved blocks,`.
-- **CRITICAL** line 411, `outline-instead-of-explanation` — **25. Storage capacity**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 434, `bare-bullet-items` — **26. Storage latency a queueing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request latency,`, `queue depth,`, `throughput,`, `read/write mix,`.
-- **CRITICAL** line 434, `outline-instead-of-explanation` — **26. Storage latency a queueing**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 558, `bare-bullet-items` — **33. TLS a application layer**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect latency,`, `TLS handshake latency,`, `certificate validation,`, `request queueing,`.
-- **CRITICAL** line 558, `outline-instead-of-explanation` — **33. TLS a application layer**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 589, `bare-bullet-items` — **35. strace**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované failed file opens,`, `connect timeouts,`, `blocking reads/writes/futex waits,`, `permission denials,`.
-- **CRITICAL** line 589, `outline-instead-of-explanation` — **35. strace**: 10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 624, `bare-bullet-items` — **37. File descriptors**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process soft/hard rlimit,`, `systemd LimitNOFILE ,`, `host-wide file table,`, `aplikáčný descriptor leak,`.
-- **CRITICAL** line 624, `outline-instead-of-explanation` — **37. File descriptors**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 664, `bare-bullet-items` — **39. Locks a futex contention**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký off-CPU čas,`, `veľa threadov v rovnakom futex wait,`, `nízky throughput napriek dostupným resources,`.
-- **CRITICAL** line 664, `outline-instead-of-explanation` — **39. Locks a futex contention**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 739, `bare-bullet-items` — **44. Tail latency**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queueing bursts,`, `GC alebo compaction,`, `cgroup quota periods,`, `storage outliers,`.
-- **CRITICAL** line 761, `bare-bullet-items` — **46. Hypotéza a falzifikácia**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `throttle counters rastú v rovnakom intervale,`, `latency postihuje iba túto cgroup,`, `stack samples ukazujú runnable CPU work,`, `dočasné zvýšenie quota zníži latency bez zmeny trafficu.`.
-- **CRITICAL** line 761, `outline-instead-of-explanation` — **46. Hypotéza a falzifikácia**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 778, `bare-bullet-items` — **47. Bezpečný experiment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvýš CPU quota iba jednej canary instance,`, `zníž concurrency pre jednu worker group,`, `presmeruj malú časť trafficu na predchádzajúci artifact,`, `vypni konkrétny feature flag,`.
-- **CRITICAL** line 778, `outline-instead-of-explanation` — **47. Bezpečný experiment**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 808, `bare-bullet-items` — **49. Overenie nápravy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency/error/throughput SLI,`, `resource pressure a queue,`, `absence nových errors,`, `stabilitu počas dostatočného obdobia,`.
-- **CRITICAL** line 808, `outline-instead-of-explanation` — **49. Overenie nápravy**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 824, `empty-section` — **50. Antipatterny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 850, `empty-section` — **51. Praktický host checklist**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 852, `no-prose-concept` — **Scope a timeline**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 858, `no-prose-concept` — **CPU**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 864, `no-prose-concept` — **Memory**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 870, `no-prose-concept` — **Storage**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 876, `no-prose-concept` — **Network**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 882, `no-prose-concept` — **Process**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 130, `list-first-introduction` — **8. Golden troubleshooting workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 148, `list-heavy-section` — **9. Zachovanie evidence**: 7 odrážok a iba 46 slov súvislého vysvetlenia.
-- **HIGH** line 434, `list-first-introduction` — **26. Storage latency a queueing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 485, `single-sentence-concept` — **29. Network troubleshooting path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 578, `list-first-introduction` — **34. Process states**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 589, `list-first-introduction` — **35. strace**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 613, `list-first-introduction` — **36. Stack traces a wchan**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 624, `single-sentence-concept` — **37. File descriptors**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 739, `list-heavy-section` — **44. Tail latency**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 842, `single-sentence-concept` — **Priemer bez distribúcie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 852, `bare-bullet-items` — **Scope a timeline**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Definuj presný používateľský symptóm a request/job class.`, `Urči začiatok, duration, affected scope a nedávne zmeny.`, `Zachovaj artifact, config, host, namespace a cgroup identity.`.
-- **HIGH** line 852, `list-first-introduction` — **Scope a timeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 858, `bare-bullet-items` — **CPU**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Porovnaj utilization, run queue, PSI a cgroup throttling.`, `Skontroluj per-core a per-thread rozloženie.`, `Použi on-CPU alebo off-CPU profiler podľa hypotézy.`.
-- **HIGH** line 858, `list-first-introduction` — **CPU**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 864, `list-first-introduction` — **Memory**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 870, `bare-bullet-items` — **Storage**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over správny mount a device topology.`, `Rozlíš blocks, inodes, quota a deleted-open files.`, `Sleduj latency, queue, PSI a kernel errors.`.
-- **HIGH** line 870, `list-first-introduction` — **Storage**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 876, `bare-bullet-items` — **Network**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over namespace a source address.`, `Koreluj drops/retransmissions a socket queues s request dopadom.`.
-- **HIGH** line 876, `list-first-introduction` — **Network**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 882, `bare-bullet-items` — **Process**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over file descriptors, rlimits, signals a syscalls.`, `Over capability/LSM denials a service manager policy.`.
-- **HIGH** line 882, `list-first-introduction` — **Process**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 41, `term-before-explanation` — **3. Začni používateľským dopadom**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SSH`, `SLO`, `resource`, `availability`
-- **HIGH** line 179, `thin-concept-section` — **11. Rýchly host-level snapshot**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 343, `thin-concept-section` — **21. Memory leak verzus pracovná množina**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 411, `thin-concept-section` — **25. Storage capacity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 434, `thin-concept-section` — **26. Storage latency a queueing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 558, `thin-concept-section` — **33. TLS a application layer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 589, `thin-concept-section` — **35. strace**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 624, `thin-concept-section` — **37. File descriptors**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 761, `thin-concept-section` — **46. Hypotéza a falzifikácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 852, `thin-concept-section` — **Scope a timeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 858, `thin-concept-section` — **CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 864, `thin-concept-section` — **Memory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 870, `thin-concept-section` — **Storage**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 876, `thin-concept-section` — **Network**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 882, `thin-concept-section` — **Process**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 50, `outline-instead-of-explanation` — **3. Začni používateľským dopadom**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 82, `bare-bullet-items` — **5. Baseline a porovnávací kontext**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ten istý host pred incidentom,`, `zdravý sibling host s rovnakou verziou,`, `rovnaký request class pri nižšom loade,`, `load-test profil,`.
+- **CRITICAL** line 157, `bare-bullet-items` — **9. Zachovanie evidence**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas a host/container identity,`, `process tree a cgroup path,`, `CPU/memory/I/O/network snapshot,`, `relevantný journal interval,`.
+- **CRITICAL** line 188, `bare-bullet-items` — **11. Rýchly host-level snapshot**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU idle verzus runnable queue,`, `memory available verzus reclaim/swap,`, `I/O await a queue verzus device errors,`, `network drops/retransmissions verzus socket states,`.
+- **CRITICAL** line 188, `outline-instead-of-explanation` — **11. Rýchly host-level snapshot**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 248, `bare-bullet-items` — **14. Load average**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU runnable queue,`, `storage alebo NFS waits v stave D ,`, `kernel lock alebo device wait,`, `kombináciou viacerých zdrojov.`.
+- **CRITICAL** line 248, `outline-instead-of-explanation` — **14. Load average**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 266, `bare-bullet-items` — **15. Jeden core na 100 percent**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single-threaded event loop,`, `global lock alebo mutex convoy,`, `CPU affinity/cpuset,`, `hot shard alebo partition,`.
+- **CRITICAL** line 266, `outline-instead-of-explanation` — **15. Jeden core na 100 percent**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 352, `bare-bullet-items` — **21. Memory leak verzus pracovná množina**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočný leak nedostupných objektov,`, `zámerná aplikačná cache,`, `allocator arena retention,`, `väčší workload working set,`.
+- **CRITICAL** line 352, `outline-instead-of-explanation` — **21. Memory leak verzus pracovná množina**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 401, `bare-bullet-items` — **24. OOM analýza**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host-wide OOM,`, `cgroup-local OOM,`, `systemd OOM policy,`, `Kubernetes/container OOM event,`.
+- **CRITICAL** line 401, `outline-instead-of-explanation` — **24. OOM analýza**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 420, `bare-bullet-items` — **25. Storage capacity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data blocks,`, `inodes,`, `user/project quota,`, `reserved blocks,`.
+- **CRITICAL** line 420, `outline-instead-of-explanation` — **25. Storage capacity**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 443, `bare-bullet-items` — **26. Storage latency a queueing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request latency,`, `queue depth,`, `throughput,`, `read/write mix,`.
+- **CRITICAL** line 443, `outline-instead-of-explanation` — **26. Storage latency a queueing**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 567, `bare-bullet-items` — **33. TLS a application layer**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect latency,`, `TLS handshake latency,`, `certificate validation,`, `request queueing,`.
+- **CRITICAL** line 567, `outline-instead-of-explanation` — **33. TLS a application layer**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 598, `bare-bullet-items` — **35. strace**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opakované failed file opens,`, `connect timeouts,`, `blocking reads/writes/futex waits,`, `permission denials,`.
+- **CRITICAL** line 598, `outline-instead-of-explanation` — **35. strace**: 10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 633, `bare-bullet-items` — **37. File descriptors**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process soft/hard rlimit,`, `systemd LimitNOFILE ,`, `host-wide file table,`, `aplikáčný descriptor leak,`.
+- **CRITICAL** line 633, `outline-instead-of-explanation` — **37. File descriptors**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 673, `bare-bullet-items` — **39. Locks a futex contention**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoký off-CPU čas,`, `veľa threadov v rovnakom futex wait,`, `nízky throughput napriek dostupným resources,`.
+- **CRITICAL** line 673, `outline-instead-of-explanation` — **39. Locks a futex contention**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 748, `bare-bullet-items` — **44. Tail latency**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queueing bursts,`, `GC alebo compaction,`, `cgroup quota periods,`, `storage outliers,`.
+- **CRITICAL** line 770, `bare-bullet-items` — **46. Hypotéza a falzifikácia**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `throttle counters rastú v rovnakom intervale,`, `latency postihuje iba túto cgroup,`, `stack samples ukazujú runnable CPU work,`, `dočasné zvýšenie quota zníži latency bez zmeny trafficu.`.
+- **CRITICAL** line 770, `outline-instead-of-explanation` — **46. Hypotéza a falzifikácia**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 787, `bare-bullet-items` — **47. Bezpečný experiment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvýš CPU quota iba jednej canary instance,`, `zníž concurrency pre jednu worker group,`, `presmeruj malú časť trafficu na predchádzajúci artifact,`, `vypni konkrétny feature flag,`.
+- **CRITICAL** line 787, `outline-instead-of-explanation` — **47. Bezpečný experiment**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 817, `bare-bullet-items` — **49. Overenie nápravy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency/error/throughput SLI,`, `resource pressure a queue,`, `absence nových errors,`, `stabilitu počas dostatočného obdobia,`.
+- **CRITICAL** line 817, `outline-instead-of-explanation` — **49. Overenie nápravy**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 833, `empty-section` — **50. Antipatterny**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 859, `empty-section` — **51. Praktický host checklist**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 861, `no-prose-concept` — **Scope a timeline**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 867, `no-prose-concept` — **CPU**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 873, `no-prose-concept` — **Memory**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 879, `no-prose-concept` — **Storage**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 885, `no-prose-concept` — **Network**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 891, `no-prose-concept` — **Process**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **HIGH** line 139, `list-first-introduction` — **8. Golden troubleshooting workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 157, `list-heavy-section` — **9. Zachovanie evidence**: 7 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 443, `list-first-introduction` — **26. Storage latency a queueing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 494, `single-sentence-concept` — **29. Network troubleshooting path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 587, `list-first-introduction` — **34. Process states**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 598, `list-first-introduction` — **35. strace**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 622, `list-first-introduction` — **36. Stack traces a wchan**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 633, `single-sentence-concept` — **37. File descriptors**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 748, `list-heavy-section` — **44. Tail latency**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 851, `single-sentence-concept` — **Priemer bez distribúcie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 861, `bare-bullet-items` — **Scope a timeline**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Definuj presný používateľský symptóm a request/job class.`, `Urči začiatok, duration, affected scope a nedávne zmeny.`, `Zachovaj artifact, config, host, namespace a cgroup identity.`.
+- **HIGH** line 861, `list-first-introduction` — **Scope a timeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 867, `bare-bullet-items` — **CPU**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Porovnaj utilization, run queue, PSI a cgroup throttling.`, `Skontroluj per-core a per-thread rozloženie.`, `Použi on-CPU alebo off-CPU profiler podľa hypotézy.`.
+- **HIGH** line 867, `list-first-introduction` — **CPU**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 873, `list-first-introduction` — **Memory**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 879, `bare-bullet-items` — **Storage**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over správny mount a device topology.`, `Rozlíš blocks, inodes, quota a deleted-open files.`, `Sleduj latency, queue, PSI a kernel errors.`.
+- **HIGH** line 879, `list-first-introduction` — **Storage**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 885, `bare-bullet-items` — **Network**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over namespace a source address.`, `Koreluj drops/retransmissions a socket queues s request dopadom.`.
+- **HIGH** line 885, `list-first-introduction` — **Network**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 891, `bare-bullet-items` — **Process**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over file descriptors, rlimits, signals a syscalls.`, `Over capability/LSM denials a service manager policy.`.
+- **HIGH** line 891, `list-first-introduction` — **Process**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 50, `term-before-explanation` — **3. Začni používateľským dopadom**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SSH`, `SLO`, `resource`, `availability`
+- **HIGH** line 188, `thin-concept-section` — **11. Rýchly host-level snapshot**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 352, `thin-concept-section` — **21. Memory leak verzus pracovná množina**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 420, `thin-concept-section` — **25. Storage capacity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 443, `thin-concept-section` — **26. Storage latency a queueing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 567, `thin-concept-section` — **33. TLS a application layer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 598, `thin-concept-section` — **35. strace**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 633, `thin-concept-section` — **37. File descriptors**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 770, `thin-concept-section` — **46. Hypotéza a falzifikácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 861, `thin-concept-section` — **Scope a timeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 867, `thin-concept-section` — **CPU**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 873, `thin-concept-section` — **Memory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 879, `thin-concept-section` — **Storage**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 885, `thin-concept-section` — **Network**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 891, `thin-concept-section` — **Process**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/processes-threads-pid-signals.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Kernel a user space`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 277, `outline-instead-of-explanation` — **26. /proc ako kernelový process view**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 307, `outline-instead-of-explanation` — **28. Diagnostické nástroje a čo dokazujú**: 5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 369, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 26, `list-heavy-section` — **2. Čo tvorí process context**: 7 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 307, `list-first-introduction` — **28. Diagnostické nástroje a čo dokazujú**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 307, `single-sentence-concept` — **28. Diagnostické nástroje a čo dokazujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 26, `term-before-explanation` — **2. Čo tvorí process context**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `Resource`, `policy`
-- **HIGH** line 277, `thin-concept-section` — **26. /proc ako kernelový process view**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 307, `thin-concept-section` — **28. Diagnostické nástroje a čo dokazujú**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 284, `outline-instead-of-explanation` — **26. /proc ako kernelový process view**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 314, `outline-instead-of-explanation` — **28. Diagnostické nástroje a čo dokazujú**: 5 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 376, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 33, `list-heavy-section` — **2. Čo tvorí process context**: 7 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 314, `list-first-introduction` — **28. Diagnostické nástroje a čo dokazujú**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 314, `single-sentence-concept` — **28. Diagnostické nástroje a čo dokazujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 33, `term-before-explanation` — **2. Čo tvorí process context**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `Resource`, `policy`
+- **HIGH** line 284, `thin-concept-section` — **26. /proc ako kernelový process view**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 314, `thin-concept-section` — **28. Diagnostické nástroje a čo dokazujú**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/selinux-and-apparmor.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 206, `bare-bullet-items` — **12. SELinux object classes**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file, dir, symlink a filesystem,`, `process a capability,`, `TCP/UDP socket a node,`, `network port,`.
-- **CRITICAL** line 237, `bare-bullet-items` — **14. SELinux booleans**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítať význam booleanu,`, `potvrdiť legitímnu aplikačnú potrebu,`, `porovnať užšiu alternatívu,`, `zapísať rozhodnutie do source of truth.`.
-- **CRITICAL** line 257, `bare-bullet-items` — **15. SELinux policy modules**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétna source domain,`, `konkrétny target type,`, `konkrétna object class,`, `minimálne permissions,`.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **16. AVC audit evidence**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 292, `outline-instead-of-explanation` — **17. Bezpečný SELinux troubleshooting**: 9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 356, `outline-instead-of-explanation` — **21. AppArmor profile anatomy**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 389, `bare-bullet-items` — **22. AppArmor execute transitions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zostať v current profile,`, `prejsť do named child profile,`, `použiť profile attached k executable,`, `bežať unconfined podľa konkrétneho execute rule.`.
-- **CRITICAL** line 420, `outline-instead-of-explanation` — **24. AppArmor tooling a logs**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 446, `no-prose-concept` — **25. Bezpečný AppArmor troubleshooting**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 446, `outline-instead-of-explanation` — **25. Bezpečný AppArmor troubleshooting**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 495, `bare-bullet-items` — **29. Kubernetes integration**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod security context,`, `node runtime config,`, `process context/profile na konkrétnom node,`, `volume labels a mount options,`.
-- **CRITICAL** line 527, `outline-instead-of-explanation` — **31. Policy maintenance lifecycle**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 541, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 575, `no-prose-concept` — **33. Troubleshooting: služba nevie čítať nový data path**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 575, `outline-instead-of-explanation` — **33. Troubleshooting: služba nevie čítať nový data path**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 586, `bare-bullet-items` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj denial s enforcementom zapnutým.`, `Získaj presný audit record.`, `Over, či aplikácia beží v správnej domain/profile.`, `Skontroluj podporovaný boolean, port type alebo abstraction.`.
-- **CRITICAL** line 586, `outline-instead-of-explanation` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 206, `list-heavy-section` — **12. SELinux object classes**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
-- **HIGH** line 257, `list-heavy-section` — **15. SELinux policy modules**: 6 odrážok a iba 49 slov súvislého vysvetlenia.
-- **HIGH** line 272, `bare-bullet-items` — **16. AVC audit evidence**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `scontext — source process context.`, `tcontext — target object context.`, `tclass — object class.`.
-- **HIGH** line 292, `single-sentence-concept` — **17. Bezpečný SELinux troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 356, `bare-bullet-items` — **21. AppArmor profile anatomy**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `w — zápis.`, `k — file locking.`, `l — link operation.`.
-- **HIGH** line 356, `single-sentence-concept` — **21. AppArmor profile anatomy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 420, `list-first-introduction` — **24. AppArmor tooling a logs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 420, `single-sentence-concept` — **24. AppArmor tooling a logs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 446, `list-first-introduction` — **25. Bezpečný AppArmor troubleshooting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 543, `single-sentence-concept` — **„Keď mode bits povoľujú prístup, kernel ho musí povoliť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 547, `single-sentence-concept` — **„Root obíde SELinux alebo AppArmor“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 559, `single-sentence-concept` — **„Každý AVC denial treba povoliť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 567, `single-sentence-concept` — **„AppArmor profil je iba zoznam paths“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 571, `single-sentence-concept` — **„Container label/profile nahrádza ostatné kontroly“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 575, `list-first-introduction` — **33. Troubleshooting: služba nevie čítať nový data path**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 586, `single-sentence-concept` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 71, `term-before-explanation` — **5. SELinux security context**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MLS`, `MCS`, `identity`, `Enforcement`
-- **HIGH** line 292, `thin-concept-section` — **17. Bezpečný SELinux troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 356, `thin-concept-section` — **21. AppArmor profile anatomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 420, `thin-concept-section` — **24. AppArmor tooling a logs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 446, `thin-concept-section` — **25. Bezpečný AppArmor troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 527, `thin-concept-section` — **31. Policy maintenance lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 575, `term-before-explanation` — **33. Troubleshooting: služba nevie čítať nový data path**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `MAC`, `workload`
-- **HIGH** line 575, `thin-concept-section` — **33. Troubleshooting: služba nevie čítať nový data path**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 586, `thin-concept-section` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 204, `bare-bullet-items` — **12. SELinux object classes**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `file, dir, symlink a filesystem,`, `process a capability,`, `TCP/UDP socket a node,`, `network port,`.
+- **CRITICAL** line 235, `bare-bullet-items` — **14. SELinux booleans**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítať význam booleanu,`, `potvrdiť legitímnu aplikačnú potrebu,`, `porovnať užšiu alternatívu,`, `zapísať rozhodnutie do source of truth.`.
+- **CRITICAL** line 255, `bare-bullet-items` — **15. SELinux policy modules**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétna source domain,`, `konkrétny target type,`, `konkrétna object class,`, `minimálne permissions,`.
+- **CRITICAL** line 270, `outline-instead-of-explanation` — **16. AVC audit evidence**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 290, `outline-instead-of-explanation` — **17. Bezpečný SELinux troubleshooting**: 9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 354, `outline-instead-of-explanation` — **21. AppArmor profile anatomy**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 387, `bare-bullet-items` — **22. AppArmor execute transitions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zostať v current profile,`, `prejsť do named child profile,`, `použiť profile attached k executable,`, `bežať unconfined podľa konkrétneho execute rule.`.
+- **CRITICAL** line 418, `outline-instead-of-explanation` — **24. AppArmor tooling a logs**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 444, `no-prose-concept` — **25. Bezpečný AppArmor troubleshooting**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 444, `outline-instead-of-explanation` — **25. Bezpečný AppArmor troubleshooting**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 493, `bare-bullet-items` — **29. Kubernetes integration**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod security context,`, `node runtime config,`, `process context/profile na konkrétnom node,`, `volume labels a mount options,`.
+- **CRITICAL** line 525, `outline-instead-of-explanation` — **31. Policy maintenance lifecycle**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 539, `empty-section` — **32. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 573, `no-prose-concept` — **33. Troubleshooting: služba nevie čítať nový data path**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 573, `outline-instead-of-explanation` — **33. Troubleshooting: služba nevie čítať nový data path**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 584, `bare-bullet-items` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Reprodukuj denial s enforcementom zapnutým.`, `Získaj presný audit record.`, `Over, či aplikácia beží v správnej domain/profile.`, `Skontroluj podporovaný boolean, port type alebo abstraction.`.
+- **CRITICAL** line 584, `outline-instead-of-explanation` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **HIGH** line 204, `list-heavy-section` — **12. SELinux object classes**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 255, `list-heavy-section` — **15. SELinux policy modules**: 6 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 270, `bare-bullet-items` — **16. AVC audit evidence**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `scontext — source process context.`, `tcontext — target object context.`, `tclass — object class.`.
+- **HIGH** line 290, `single-sentence-concept` — **17. Bezpečný SELinux troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 354, `bare-bullet-items` — **21. AppArmor profile anatomy**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `w — zápis.`, `k — file locking.`, `l — link operation.`.
+- **HIGH** line 354, `single-sentence-concept` — **21. AppArmor profile anatomy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 418, `list-first-introduction` — **24. AppArmor tooling a logs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 418, `single-sentence-concept` — **24. AppArmor tooling a logs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 444, `list-first-introduction` — **25. Bezpečný AppArmor troubleshooting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 541, `single-sentence-concept` — **„Keď mode bits povoľujú prístup, kernel ho musí povoliť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 545, `single-sentence-concept` — **„Root obíde SELinux alebo AppArmor“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 557, `single-sentence-concept` — **„Každý AVC denial treba povoliť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 565, `single-sentence-concept` — **„AppArmor profil je iba zoznam paths“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 569, `single-sentence-concept` — **„Container label/profile nahrádza ostatné kontroly“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 573, `list-first-introduction` — **33. Troubleshooting: služba nevie čítať nový data path**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 584, `single-sentence-concept` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 69, `term-before-explanation` — **5. SELinux security context**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MLS`, `MCS`, `identity`, `Enforcement`
+- **HIGH** line 290, `thin-concept-section` — **17. Bezpečný SELinux troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 354, `thin-concept-section` — **21. AppArmor profile anatomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 418, `thin-concept-section` — **24. AppArmor tooling a logs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 444, `thin-concept-section` — **25. Bezpečný AppArmor troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 525, `thin-concept-section` — **31. Policy maintenance lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 573, `term-before-explanation` — **33. Troubleshooting: služba nevie čítať nový data path**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `MAC`, `workload`
+- **HIGH** line 573, `thin-concept-section` — **33. Troubleshooting: služba nevie čítať nový data path**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 584, `thin-concept-section` — **34. Troubleshooting: aplikácia funguje iba po vypnutí MAC**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 558, `no-prose-concept` — **30. Diagnostika skriptu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 558, `outline-instead-of-explanation` — **30. Diagnostika skriptu**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 602, `no-prose-concept` — **32. Troubleshooting: CI hlási úspech po failure**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 602, `outline-instead-of-explanation` — **32. Troubleshooting: CI hlási úspech po failure**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 558, `list-first-introduction` — **30. Diagnostika skriptu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 602, `list-first-introduction` — **32. Troubleshooting: CI hlási úspech po failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PID`, `CI`, `CD`
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 558, `thin-concept-section` — **30. Diagnostika skriptu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 602, `thin-concept-section` — **32. Troubleshooting: CI hlási úspech po failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 564, `no-prose-concept` — **30. Diagnostika skriptu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 564, `outline-instead-of-explanation` — **30. Diagnostika skriptu**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 608, `no-prose-concept` — **32. Troubleshooting: CI hlási úspech po failure**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 608, `outline-instead-of-explanation` — **32. Troubleshooting: CI hlási úspech po failure**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 564, `list-first-introduction` — **30. Diagnostika skriptu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 608, `list-first-introduction` — **32. Troubleshooting: CI hlási úspech po failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 564, `thin-concept-section` — **30. Diagnostika skriptu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 608, `thin-concept-section` — **32. Troubleshooting: CI hlási úspech po failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/ssh.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 305, `outline-instead-of-explanation` — **21. SFTP a SCP**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 387, `outline-instead-of-explanation` — **28. Debugging klienta**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 405, `outline-instead-of-explanation` — **29. Server-side diagnostika**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 425, `outline-instead-of-explanation` — **30. Diagnostika port forwardingu**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 345, `list-heavy-section` — **24. Hardening ako model hrozieb**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 387, `list-first-introduction` — **28. Debugging klienta**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 405, `list-first-introduction` — **29. Server-side diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 405, `single-sentence-concept` — **29. Server-side diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 425, `bare-bullet-items` — **30. Diagnostika port forwardingu**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over SSH session a server policy AllowTcpForwarding / PermitOpen .`, `Z bastionu over DNS a TCP reachability cieľa.`, `Použi ssh -vvv na zobrazenie channel open failure.`.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 387, `thin-concept-section` — **28. Debugging klienta**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 405, `term-before-explanation` — **29. Server-side diagnostika**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAM`, `LSM`, `identity`, `policy`
-- **HIGH** line 405, `thin-concept-section` — **29. Server-side diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 310, `outline-instead-of-explanation` — **21. SFTP a SCP**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 392, `outline-instead-of-explanation` — **28. Debugging klienta**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 410, `outline-instead-of-explanation` — **29. Server-side diagnostika**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 430, `outline-instead-of-explanation` — **30. Diagnostika port forwardingu**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **HIGH** line 350, `list-heavy-section` — **24. Hardening ako model hrozieb**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 392, `list-first-introduction` — **28. Debugging klienta**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 410, `list-first-introduction` — **29. Server-side diagnostika**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 410, `single-sentence-concept` — **29. Server-side diagnostika**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 430, `bare-bullet-items` — **30. Diagnostika port forwardingu**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over SSH session a server policy AllowTcpForwarding / PermitOpen .`, `Z bastionu over DNS a TCP reachability cieľa.`, `Použi ssh -vvv na zobrazenie channel open failure.`.
+- **HIGH** line 392, `thin-concept-section` — **28. Debugging klienta**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 410, `term-before-explanation` — **29. Server-side diagnostika**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAM`, `LSM`, `identity`, `policy`
+- **HIGH** line 410, `thin-concept-section` — **29. Server-side diagnostika**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/storage-mounts-and-filesystems.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 184, `outline-instead-of-explanation` — **12. Filesystem check a repair**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **19. Diagnostika No space left on device**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 289, `single-sentence-concept` — **19. Diagnostika No space left on device**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `term-before-explanation` — **Metadata**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `PAM`, `LVM`, `RAID`
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **19. Diagnostika No space left on device**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 190, `outline-instead-of-explanation` — **12. Filesystem check a repair**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 295, `outline-instead-of-explanation` — **19. Diagnostika No space left on device**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **HIGH** line 295, `single-sentence-concept` — **19. Diagnostika No space left on device**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 295, `thin-concept-section` — **19. Diagnostika No space left on device**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/systemd-services-daemons.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Procesy, thready, PID a signals, Environment variables`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 122, `empty-section` — **8. Service types určujú okamih považovaný za štart**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 305, `outline-instead-of-explanation` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 317, `empty-section` — **23. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 27, `list-heavy-section` — **2. Unit je desired configuration aj runtime state**: 7 odrážok a iba 55 slov súvislého vysvetlenia.
-- **HIGH** line 305, `single-sentence-concept` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 27, `term-before-explanation` — **2. Unit je desired configuration aj runtime state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `scope`, `resource`
-- **HIGH** line 305, `thin-concept-section` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 127, `empty-section` — **8. Service types určujú okamih považovaný za štart**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 310, `outline-instead-of-explanation` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: 7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `empty-section` — **23. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 32, `list-heavy-section` — **2. Unit je desired configuration aj runtime state**: 7 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 310, `single-sentence-concept` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 32, `term-before-explanation` — **2. Unit je desired configuration aj runtime state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `scope`, `resource`
+- **HIGH** line 310, `thin-concept-section` — **22. Diagnostika služby, ktorá funguje manuálne, ale nie pod systemd**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md`
 
-- **CRITICAL** line 3, `bare-bullet-items` — **Metadata**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Linux and Systems`, `Predpoklady: Filesystem hierarchy, inodes a links`.
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 308, `outline-instead-of-explanation` — **18. Sudoers riziká**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 359, `no-prose-concept` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 359, `outline-instead-of-explanation` — **23. Diagnostické nástroje a otázky**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 388, `no-prose-concept` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 388, `outline-instead-of-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 84, `list-heavy-section` — **6. Klasické DAC mode bits**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
-- **HIGH** line 164, `single-sentence-concept` — **11. Setuid, setgid a sticky bit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 253, `list-heavy-section` — **16. Kompletný filesystem authorization path**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 308, `list-first-introduction` — **18. Sudoers riziká**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 359, `list-first-introduction` — **23. Diagnostické nástroje a otázky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 388, `list-first-introduction` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 253, `term-before-explanation` — **16. Kompletný filesystem authorization path**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `ID`, `LSM`, `policy`
-- **HIGH** line 359, `thin-concept-section` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 388, `term-before-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `LSM`, `UID`, `GID`, `policy`
-- **HIGH** line 388, `thin-concept-section` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 314, `outline-instead-of-explanation` — **18. Sudoers riziká**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 365, `no-prose-concept` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 365, `outline-instead-of-explanation` — **23. Diagnostické nástroje a otázky**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 394, `no-prose-concept` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 394, `outline-instead-of-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 90, `list-heavy-section` — **6. Klasické DAC mode bits**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 170, `single-sentence-concept` — **11. Setuid, setgid a sticky bit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 259, `list-heavy-section` — **16. Kompletný filesystem authorization path**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 314, `list-first-introduction` — **18. Sudoers riziká**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 365, `list-first-introduction` — **23. Diagnostické nástroje a otázky**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 394, `list-first-introduction` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 259, `term-before-explanation` — **16. Kompletný filesystem authorization path**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAC`, `ACL`, `ID`, `LSM`, `policy`
+- **HIGH** line 365, `thin-concept-section` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 394, `term-before-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `LSM`, `UID`, `GID`, `policy`
+- **HIGH** line 394, `thin-concept-section` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/03-git-and-automation/powershell-fundamentals.md`
 
@@ -3149,15 +3050,15 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1155 | 1155 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1014 | 1014 |
 | `single-sentence-concept` | 0 | 572 | 0 | 0 | 572 |
-| `term-before-explanation` | 0 | 75 | 379 | 0 | 454 |
-| `outline-instead-of-explanation` | 412 | 0 | 0 | 0 | 412 |
-| `bare-bullet-items` | 331 | 55 | 0 | 0 | 386 |
-| `list-first-introduction` | 0 | 356 | 0 | 0 | 356 |
-| `thin-concept-section` | 0 | 330 | 0 | 0 | 330 |
+| `term-before-explanation` | 0 | 71 | 364 | 0 | 435 |
+| `outline-instead-of-explanation` | 393 | 0 | 0 | 0 | 393 |
+| `bare-bullet-items` | 325 | 42 | 0 | 0 | 367 |
+| `list-first-introduction` | 0 | 337 | 0 | 0 | 337 |
+| `thin-concept-section` | 0 | 311 | 0 | 0 | 311 |
 | `short-concept-section` | 0 | 0 | 174 | 0 | 174 |
 | `list-heavy-section` | 0 | 82 | 0 | 0 | 82 |
-| `no-prose-concept` | 78 | 0 | 0 | 0 | 78 |
 | `empty-section` | 76 | 0 | 0 | 0 | 76 |
+| `no-prose-concept` | 59 | 0 | 0 | 0 | 59 |
 
 ## Required remediation pattern
 

@@ -1,12 +1,17 @@
 # Linux control groups — cgroups
 
-## Metadata
+Control groups organizujú processes do hierarchie pre resource accounting, limits, prioritization a pressure control. V cgroup v2 má každý process jedno miesto v unified hierarchy a controllers distribuujú CPU, memory, I/O a PIDs policy cez parent-child boundaries.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Procesy, thready, PID a signals](processes-threads-pid-signals.md), [CPU and Memory Fundamentals](cpu-and-memory-fundamentals.md), [Linux namespaces](namespaces.md)
-- Súvisiace témy: systemd, containers, Kubernetes resources, capacity management, OOM, PSI
+```text
+service/container identity
+→ cgroup placement
+→ inherited a local controller configuration
+→ effective quota/weight/limit
+→ runtime consumption a pressure
+→ throttle, reclaim, OOM alebo admission failure
+```
+
+Configured hodnota nie je automaticky effective capacity. CPU quota sa interpretuje spolu s periodou a konkurenciou, memory limit spolu s page cache, swap a reclaim a I/O control závisí od device mappingu. Host môže mať voľné resources, kým workload je lokálne throttled alebo dostane cgroup OOM. Diagnostika preto číta `/proc/<pid>/cgroup`, effective files v `cgroup.controllers` hierarchy, pressure stall information a workload outcome namiesto iba host-wide utilization.
 
 ## 1. Definícia
 

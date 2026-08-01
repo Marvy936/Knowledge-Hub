@@ -1,12 +1,16 @@
 # Environment variables
 
-## Metadata
+Environment je množina stringových `name=value` položiek pripojená ku konkrétnemu procesu. Nie je to globálna tabuľka operačného systému. Parent pri vytvorení child procesu odovzdá snapshot environmentu a neskoršia zmena v parentovi automaticky neprepíše už bežiace children.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Shell, Bash, pipes, redirection a exit codes](shell-bash-pipes-redirection-exit-codes.md)
-- Súvisiace témy: process creation, systemd, containers, CI/CD, secrets
+```text
+shell alebo service manager environment
+→ expansion a override rules
+→ fork/execve environment vector
+→ application parsing
+→ loaded runtime configuration
+```
+
+Export v shelli iba označí shell variable na dedenie do budúcich externých procesov. Súbor `.env`, systemd `EnvironmentFile=` alebo Kubernetes Secret je zase source input; application môže hodnotu načítať iba pri štarte, cacheovať ju alebo vôbec nepoužiť. Pri overovaní preto treba odlíšiť declared value, environment procesu a effective application state. Environment je tiež slabá secret boundary: hodnoty môžu uniknúť cez process inspection, crash dump, debug log alebo child proces.
 
 ## 1. Čo environment skutočne je
 

@@ -1,12 +1,18 @@
 # Package Management
 
-## Metadata
+Package manager koordinuje repository metadata, dependency solving, cryptographic trust, download, unpacking, maintainer scripts a lokálnu package database. Príkaz `apt install` alebo `dnf upgrade` preto nie je iba kopírovanie binary; je to transakcia meniaca files, services, alternatives, triggers a niekedy aj boot artifacts.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md), [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md)
-- Súvisiace témy: repositories, dependency resolution, supply-chain security, immutable infrastructure
+```text
+configured repositories a trust roots
+→ metadata refresh
+→ dependency/version solution
+→ package download a verification
+→ unpack/configure scripts
+→ local database a service effects
+→ runtime read-back
+```
+
+Úspešná transakcia preukazuje, že package manager dokončil deklarované kroky. Nepreukazuje, že daemon používa nové libraries, že pending reboot nie je potrebný ani že application contract zostal kompatibilný. Repository freshness, pinning, holds, partial transactions a script failures môžu vytvoriť rozdiel medzi requested, installed a loaded version. Bezpečný upgrade preto zahŕňa plan/read-back, service restart alebo replacement, functional verification a recovery strategy.
 
 ## 1. Čo package management skutočne riadi
 

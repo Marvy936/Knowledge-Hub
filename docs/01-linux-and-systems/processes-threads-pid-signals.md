@@ -1,12 +1,19 @@
 # Procesy, thready, PID a signals
 
-## Metadata
+Proces je runtime container pre address space, credentials, file descriptors, signal dispositions a ďalší kernel state. Thread je samostatne schedulovateľný task, ktorý zdieľa vybrané resources s ostatnými threadmi procesu. PID je identifikátor v konkrétnom PID namespace, nie globálna a navždy stabilná identita workloadu.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Kernel a user space](kernel-and-user-space.md)
-- Súvisiace témy: scheduling, memory, systemd, containers, observability, cgroups
+Lifecycle možno čítať ako state machine:
+
+```text
+create/fork/clone
+→ runnable alebo sleeping task
+→ scheduled execution
+→ block, wake-up, stop alebo signal handling
+→ exit
+→ parent wait a resource reaping
+```
+
+Signal nie je priamy remote function call. Kernel ho eviduje ako pending event, vyhodnotí masku a disposition a doručí ho v bezpečnom execution point-e; `SIGKILL` a `SIGSTOP` nemožno zachytiť. Úspešné odoslanie signalu iba znamená, že kernel prijal request pre matching task. Nepreukazuje, že process vykonal zamýšľaný graceful shutdown, flushol dáta alebo že service manager už vytvoril náhradnú generation.
 
 ## 1. Program, proces a thread
 

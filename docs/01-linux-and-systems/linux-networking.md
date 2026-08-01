@@ -1,12 +1,20 @@
 # Linux networking
 
-## Metadata
+Linux networking prepája application socket s namespace-local interfaces, addresses, routes, neighbor cache, netfilter hooks, qdisc a device driverom. DNS resolution, TCP connect a application protocol sú samostatné transitions; úspech jedného nepreukazuje ďalší.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Kernel a user space](kernel-and-user-space.md), [Procesy, thready, PID a signals](processes-threads-pid-signals.md)
-- Súvisiace témy: TCP/IP, DNS, routing, firewalls, network namespaces, containers
+```text
+name resolution
+→ destination address
+→ socket bind/connect
+→ route a source-address selection
+→ firewall/NAT hooks
+→ neighbor resolution
+→ interface/qdisc/driver
+→ remote path
+→ transport a application response
+```
+
+`ping` používa ICMP a nemusí testovať rovnakú policy ani port ako application. `ss` ukazuje local socket state, `ip route get` kernelový routing decision a packet capture observation point, nie automaticky end-to-end truth. Namespaces, policy routing, reverse-path filtering, conntrack a NAT môžu spôsobiť asymetriu. Systematický troubleshooting ide od exact flow tuple a namespace cez route/socket/firewall evidence až po remote listener a application semantics.
 
 ## 1. Mentálny model
 

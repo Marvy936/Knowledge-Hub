@@ -1,12 +1,21 @@
 # Linux performance a troubleshooting
 
-## Metadata
+Performance troubleshooting je evidence-driven proces premeny používateľského symptómu na testovateľnú príčinu. Začína presným outcome-om, časovým oknom a affected cohortou, nie príkazom `top`. Každý nástroj pozoruje iba jednu vrstvu a jeho hodnota musí byť interpretovaná voči workloadu, limits a dependencies.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: všetky predchádzajúce kapitoly sekcie Linux and Systems
-- Súvisiace témy: observability, SRE, incident response, capacity planning, profiling, eBPF
+```text
+user-visible symptom
+→ exact scope, timeline a baseline
+→ request/process/resource/data path
+→ competing hypotheses
+→ discriminating observation
+→ evidence-preserving containment
+→ authoritative repair
+→ original, forbidden a adjacent-scenario validation
+```
+
+Vysoké CPU môže byť expected productive work, runaway loop, spinlock alebo consequence retry stormu. Nízke CPU môže sprevádzať lock contention, storage latency, network timeout alebo cgroup throttling. Memory growth môže byť cache, leak alebo backlog. Preto sa najprv oddeľuje utilization od saturation, host od cgroup scope-u a correlation od causality.
+
+Náprava nie je uzavretá poklesom jednej metriky. Musí zlepšiť latency, throughput alebo completion outcome, zachovať correctness a overiť druhú load alebo failure situáciu. Inak sa bottleneck iba presunie alebo sa symptóm potlačí bez odstránenia mechanizmu.
 
 ## 1. Definícia
 

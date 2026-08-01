@@ -1,12 +1,10 @@
 # SELinux a AppArmor
 
-## Metadata
+SELinux a AppArmor sú Linux Security Modules poskytujúce Mandatory Access Control nad rámec klasického DAC. Kernel najprv vyhodnotí bežné identity a permissions a následne LSM policy pre subject, object, operation a context. Root alebo capability preto nemusia obísť MAC denial.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Users, groups, permissions, sudo a PAM](users-groups-permissions-sudo-pam.md), [Linux capabilities](linux-capabilities.md), [Filesystem hierarchy, inodes a links](filesystem-hierarchy-inodes-links.md)
-- Súvisiace témy: mandatory access control, least privilege, containers, systemd hardening, audit logging, seccomp
+SELinux používa labels a type-enforcement rules; AppArmor primárne viaže profile na executable a path-oriented access. Obe platformy majú policy generation, loaded kernel state, enforcement mode a audit evidence. Súbor s opravenými Unix mode bits môže byť stále blokovaný nesprávnym SELinux type-om alebo AppArmor profile transitionom.
+
+Bezpečný troubleshooting zachová denial evidence, identifikuje exact process/object/action a opraví label, transition alebo policy pri správnej boundary. Vypnutie enforcementu alebo broad allow rule iba potvrdí, že MAC vrstva mala vplyv; nepreukazuje správnu least-privilege nápravu. Acceptance testuje pôvodný povolený flow aj zakázaný susedný flow po reload/restart generation.
 
 ## 1. Definícia
 

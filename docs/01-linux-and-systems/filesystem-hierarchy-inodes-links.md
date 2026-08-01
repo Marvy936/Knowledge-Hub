@@ -1,12 +1,18 @@
 # Filesystem hierarchy, inodes a links
 
-## Metadata
+Linux filesystem model oddeľuje pathname od objektu, na ktorý meno ukazuje. Pathname sa pri každom lookup-e rozkladá cez mount namespace, directory entries a permissions až k inode; inode drží metadata a odkazy na data blocks, nie pôvodný názov súboru.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Linux and Systems
-- Predpoklady: [Kernel a user space](kernel-and-user-space.md), [Procesy, thready, PID a signals](processes-threads-pid-signals.md)
-- Súvisiace témy: permissions, storage, mounts, containers, backups, file descriptors
+```text
+pathname
+→ mount a directory traversal
+→ dentry
+→ inode
+→ open-file description
+→ process file descriptor
+→ data alebo device operation
+```
+
+Hard link vytvára ďalšie directory meno pre rovnaký inode. Symbolic link je samostatný inode obsahujúci ďalšiu path, ktorá sa pri použití znovu vyhodnotí. Zmazanie mena preto nemusí odstrániť otvorený obsah: process môže ďalej držať file descriptor a disk space sa uvoľní až po poslednom linku a poslednej open reference. Pri troubleshooting treba rozlíšiť path visibility, inode identity, mount view, open handles a skutočnú storage alokáciu.
 
 ## 1. Filesystem nie je iba strom názvov
 
