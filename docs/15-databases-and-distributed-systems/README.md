@@ -40,11 +40,11 @@ Odporúča sa najprv dokončiť:
 17. [Rate limiting](rate-limiting.md)
 18. [Idempotency a backpressure](idempotency-and-backpressure.md)
 
-Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
+Aktuálny authoritative stav sekcie je **18/18 chapter-by-chapter explanation-depth and practical-example revalidation · Ready for user review**.
 
 ## Completion state
 
-Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe kompletne znovu spracovaných v piatich prose-first strict blokoch. Každá kapitola má explicitný subject/generation/evidence model, connected failure a vysvetlené positive, recovery, overload alebo forbidden acceptance paths; per-file gate vykazuje nulové critical, high a medium learning-depth findings. Authoritative ordering, navigation, glossary a päť incidentov `DB-PAY-56` až `DB-PAY-60` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
+Všetkých 18 authoritative kapitol bolo po pôvodnom authoring passe znovu spracovaných v piatich prose-first strict blokoch a teraz prešlo reprodukovateľným subject/evidence/recovery/acceptance gate-om. Každá kapitola obsahuje substantial connected prose, explicitný authority alebo operation subject a minimálne dva executable SQL, CLI, protocol, configuration alebo state-machine examples. Section 15 sa nenachádza v critical/high learning-depth review queue; audit zostáva heuristickým review nástrojom, nie runtime durability alebo distributed-safety dôkazom. Authoritative ordering, navigation, glossary a päť incidentov `DB-PAY-56` až `DB-PAY-60` zostávajú zachované. Sekcia je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
 
 ## Connected learning scenarios
 
@@ -622,25 +622,4 @@ Stav **Ready for user review** znamená dokončené authoritative drafting a rep
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Relational vs. non-relational databases | Learning | L2 |
-| Transactions a ACID | Learning | L2 |
-| Indexy, locks a migrations | Learning | L2 |
-| Replication a high availability | Learning | L2 |
-| Backups a point-in-time recovery | Learning | L2 |
-| Connection pooling | Learning | L2 |
-| PostgreSQL, MySQL a Redis | Learning | L2 |
-| Monolith, modular monolith a microservices | Learning | L2 |
-| Synchronous vs. asynchronous communication | Learning | L2 |
-| Message queues a event-driven architecture | Learning | L2 |
-| Service discovery a API gateway | Learning | L2 |
-| Caching | Learning | L2 |
-| CAP theorem | Learning | L2 |
-| Consistency models | Learning | L2 |
-| Leader election a consensus | Learning | L2 |
-| Retry, timeout a circuit breaker | Learning | L2 |
-| Rate limiting | Learning | L2 |
-| Idempotency a backpressure | Learning | L2 |
-
-Sekcia je **18/18 · Ready for user review**. Všetky authoritative kapitoly, connected scenarios, navigation, glossary a audit gates sú dokončené; stav neznamená automatické používateľské schválenie.
+Všetkých **18/18 authoritative kapitol prešlo chapter-by-chapter explanation-depth and practical-example revalidation** a sekcia je `Ready for user review`. Starý per-topic `Learning / L2` status scaffold bol odstránený; readiness sa eviduje na úrovni celej sekcie a v centrálnom review ledgeri. Existujúce database authority, transactions, indexes/locks/migrations, replication, PITR, pooling, data-product roles, service boundaries, messaging, routing, caching, CAP/consistency/consensus, retry, rate limiting, idempotency a backpressure lifecycle-y, incidenty a recovery acceptance zostali zachované. Repository gate overuje textový a executable inventory, navigation, glossary a audit; reálne database engines, replicas, brokers, gateways, caches, consensus clusters, provider effects, failover a recovery neboli týmto documentation workflowom vykonané. Stav preto neznamená používateľské `Accepted`, runtime `Verified` ani produkčné `Stable`.
