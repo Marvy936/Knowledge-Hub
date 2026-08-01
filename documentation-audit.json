@@ -1711,15 +1711,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "title": "Temporary Section 07 critical/high findings",
-      "words": 8801,
-      "headings": 21,
-      "sections": 21,
-      "findings": 159,
-      "critical": 38,
-      "high": 62,
+      "words": 10392,
+      "headings": 22,
+      "sections": 22,
+      "findings": 167,
+      "critical": 40,
+      "high": 65,
       "medium": 1,
-      "low": 58,
-      "score": 993,
+      "low": 61,
+      "score": 1043,
       "grade": "D"
     },
     {
@@ -40470,7 +40470,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "critical",
       "rule": "no-prose-concept",
@@ -40479,7 +40479,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -40488,16 +40488,16 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "100 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -40506,7 +40506,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "low",
       "rule": "mechanism-not-explicit",
@@ -40515,7 +40515,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -40524,7 +40524,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -40533,8 +40533,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
-      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "line": 5,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `H1`, `H3`, `H4`, `H5`, `LB`, `H6`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
+      "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md",
+      "line": 108,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `H1`, `H3`, `H4`, `H5`, `LB`, `H6`, `HIGH`",
@@ -40543,7 +40615,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40552,7 +40624,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40561,7 +40633,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "33 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -40570,7 +40642,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -40579,7 +40651,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40588,7 +40660,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40597,7 +40669,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40606,7 +40678,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "line": 20,
+      "line": 123,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `H1`, `H4`, `H5`, `H6`, `H7`, `H8`",
@@ -40615,7 +40687,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40624,7 +40696,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40633,7 +40705,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "18 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -40642,7 +40714,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -40651,7 +40723,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40660,7 +40732,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40669,7 +40741,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40678,7 +40750,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "line": 56,
+      "line": 159,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `JSON`, `HIGH`, `IAC-PAY-77`, `IAM`, `resource`, `identity`",
@@ -40687,7 +40759,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40696,7 +40768,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40705,7 +40777,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -40714,7 +40786,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -40723,7 +40795,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40732,7 +40804,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40741,7 +40813,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40750,7 +40822,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "line": 77,
+      "line": 180,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `identity`",
@@ -40759,7 +40831,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40768,7 +40840,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40777,7 +40849,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "20 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -40786,7 +40858,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -40795,7 +40867,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40804,7 +40876,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40813,7 +40885,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40822,7 +40894,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "line": 87,
+      "line": 190,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `POST`, `API`, `H1`, `H3`, `H4`, `H5`, `H6`",
@@ -40831,7 +40903,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40840,7 +40912,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40849,7 +40921,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -40858,7 +40930,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40867,7 +40939,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40876,7 +40948,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40885,7 +40957,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md",
-      "line": 110,
+      "line": 213,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `IAC-PAY-75`, `HCL`, `HIGH`, `VPC`, `identity`",
@@ -40894,7 +40966,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40903,7 +40975,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40912,7 +40984,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "17 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -40921,7 +40993,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -40930,7 +41002,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -40939,7 +41011,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -40948,7 +41020,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -40957,7 +41029,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "line": 116,
+      "line": 219,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `IP`, `SSH`, `ID`, `API`, `H1`, `H2`, `H3`",
@@ -40966,7 +41038,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -40975,7 +41047,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -40984,7 +41056,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "31 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -40993,7 +41065,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41002,7 +41074,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41011,7 +41083,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41020,7 +41092,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41029,7 +41101,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "line": 136,
+      "line": 239,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `IP`, `DNS`, `CLI`, `HIGH`, `identity`, `availability`",
@@ -41038,7 +41110,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41047,7 +41119,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41056,7 +41128,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41065,7 +41137,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41074,7 +41146,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41083,7 +41155,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41092,7 +41164,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41101,7 +41173,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "line": 170,
+      "line": 273,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `API`, `H1`, `H2`, `H5`, `H3`, `H4`, `H7`",
@@ -41110,7 +41182,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41119,7 +41191,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41128,7 +41200,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "23 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41137,7 +41209,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41146,7 +41218,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41155,7 +41227,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41164,7 +41236,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41173,7 +41245,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "line": 185,
+      "line": 288,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `policy`, `identity`, `resource`",
@@ -41182,7 +41254,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41191,7 +41263,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41200,7 +41272,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41209,7 +41281,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41218,7 +41290,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41227,7 +41299,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41236,7 +41308,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41245,7 +41317,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "line": 211,
+      "line": 314,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `H1`, `H2`, `H3`, `H4`, `H5`, `H7`",
@@ -41254,7 +41326,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41263,7 +41335,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41272,7 +41344,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "26 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41281,7 +41353,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41290,7 +41362,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41299,7 +41371,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41308,7 +41380,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41317,7 +41389,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md",
-      "line": 227,
+      "line": 330,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `H1`, `SBOM`, `H2`, `FQCN`, `H3`, `H4`, `HIGH`",
@@ -41326,7 +41398,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
-      "line": 256,
+      "line": 359,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41335,7 +41407,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
-      "line": 256,
+      "line": 359,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41344,7 +41416,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
-      "line": 256,
+      "line": 359,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41353,7 +41425,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md",
-      "line": 256,
+      "line": 359,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `H1`, `H2`, `H3`, `H7`, `H4`, `H5`, `H6`",
@@ -41362,7 +41434,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41371,7 +41443,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41380,7 +41452,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41389,7 +41461,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41398,7 +41470,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41407,7 +41479,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41416,7 +41488,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "line": 260,
+      "line": 363,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `ID`, `Resource`, `identity`",
@@ -41425,7 +41497,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41434,7 +41506,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41443,7 +41515,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "20 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41452,7 +41524,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41461,7 +41533,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41470,7 +41542,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41479,7 +41551,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41488,7 +41560,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "line": 266,
+      "line": 369,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `IAC-PAY-75`, `blast radius`, `identity`",
@@ -41497,7 +41569,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41506,7 +41578,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41515,7 +41587,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "32 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41524,7 +41596,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41533,7 +41605,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41542,7 +41614,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41551,7 +41623,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41560,7 +41632,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "line": 289,
+      "line": 392,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `API`, `TTL`, `H1`, `H3`, `H6`, `H4`, `H5`",
@@ -41569,7 +41641,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41578,7 +41650,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41587,7 +41659,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "26 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41596,7 +41668,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41605,7 +41677,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41614,7 +41686,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41623,7 +41695,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41632,7 +41704,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "line": 324,
+      "line": 427,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `SSH`, `CA`, `VM`, `H1`, `H2`, `H8`, `H3`",
@@ -41641,7 +41713,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41650,7 +41722,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41659,7 +41731,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "16 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41668,7 +41740,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41677,7 +41749,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41686,7 +41758,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41695,7 +41767,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41704,7 +41776,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "line": 353,
+      "line": 456,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `DB`, `H1`, `H3`, `H2`, `H4`, `H5`, `H6`",
@@ -41713,7 +41785,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41722,7 +41794,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41731,7 +41803,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41740,7 +41812,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41749,7 +41821,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41758,7 +41830,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41767,7 +41839,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41776,7 +41848,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "line": 372,
+      "line": 475,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `API`, `availability`, `resource`, `identity`",
@@ -41785,7 +41857,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41794,7 +41866,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41803,7 +41875,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "34 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -41812,7 +41884,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41821,7 +41893,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41830,7 +41902,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41839,7 +41911,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -41848,7 +41920,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/vault.md",
-      "line": 382,
+      "line": 485,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `H1`, `H2`, `H3`, `H4`, `H5`, `H8`",
@@ -41857,7 +41929,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
-      "line": 419,
+      "line": 522,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -41866,7 +41938,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
-      "line": 419,
+      "line": 522,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -41875,7 +41947,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
-      "line": 419,
+      "line": 522,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -41884,7 +41956,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
-      "line": 419,
+      "line": 522,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41893,7 +41965,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md",
       "section": "docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md",
-      "line": 419,
+      "line": 522,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HIGH`, `H1`, `H3`, `H5`, `LB`, `H7`, `H8`, `identity`",
