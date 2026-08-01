@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **640,197**
-- Findings: **6534** (critical 654, high 872, medium 469, low 4539)
+- Total words: **640,403**
+- Findings: **6532** (critical 654, high 872, medium 469, low 4537)
 - File grades: A 135, B 105, C 28, D 59
 
 ## Interpretation
@@ -114,8 +114,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
-| B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
+| B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
@@ -190,7 +190,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 11 | 1332 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 1378 | `docs/09-kubernetes/probes.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 1327 | `docs/09-kubernetes/securitycontext-pod-security.md` |
-| B | 16 | 0 | 0 | 0 | 15 | 2097 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1662 | `docs/11-cloud-and-aws/aws-backup.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 1732 | `docs/11-cloud-and-aws/lambda.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 1482 | `docs/12-observability/alertmanager.md` |
@@ -207,6 +206,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 9 | 1427 | `docs/09-kubernetes/requests-limits-qos.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1252 | `docs/09-kubernetes/statefulset.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 1233 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
+| B | 15 | 0 | 0 | 0 | 14 | 2226 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1991 | `docs/11-cloud-and-aws/rds.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1522 | `docs/11-cloud-and-aws/systems-manager.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1357 | `docs/12-observability/loki.md` |
@@ -2112,7 +2112,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2108 | 2108 |
+| `example-not-explicit` | 0 | 0 | 0 | 2106 | 2106 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1291 | 1291 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |

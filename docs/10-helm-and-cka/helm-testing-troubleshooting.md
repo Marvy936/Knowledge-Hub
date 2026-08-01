@@ -182,7 +182,20 @@ helm upgrade payments-dev ./atlas-payments \
   --timeout 3m
 ```
 
-Helm upgrade a Deployment rollout môžu zostať zelené, pretože Pods sú ready a Service resource nemá vlastnú application readiness. Helm test, ktorý volá Service, má zlyhať. Diagnostika potom sleduje request path, nie náhodný restart:
+Helm upgrade a Deployment rollout môžu zostať zelené, pretože Pods sú ready a Service resource nemá vlastnú application readiness. Helm test, ktorý volá Service, má zlyhať. Pred čítaním live dataplane-u sa zafixuje release-stored subject pre presný release, namespace a revision:
+
+```bash
+helm get values payments-dev -n payments-dev --all
+
+helm get manifest payments-dev -n payments-dev \
+  > /tmp/payments-dev-release-manifest.yaml
+
+helm get hooks payments-dev -n payments-dev
+```
+
+`helm get values --all` ukazuje values uložené pri release vrátane computed defaults; nepreukazuje, že live object alebo proces používa rovnakú hodnotu. `helm get manifest` zachová Helm-stored rendered intent konkrétnej revision a umožní porovnať Service `targetPort`, selectors a workload references s live API objectmi. `helm get hooks` inventarizuje release hooks a test Pods, ale ich existencia nepreukazuje completion ani external side effect. Ak stored manifest už obsahuje `targetPort: 9999`, chyba vznikla v release inpute alebo renderi. Ak stored manifest obsahuje 8080, ale live Service 9999, treba skúmať admission, ďalšieho field managera alebo post-release mutation.
+
+Až potom diagnostika sleduje request path, nie náhodný restart:
 
 ```bash
 helm test payments-dev -n payments-dev --logs

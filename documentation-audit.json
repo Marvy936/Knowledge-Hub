@@ -2761,15 +2761,15 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "title": "CKA timed labs",
-      "words": 2019,
+      "words": 2096,
       "headings": 17,
       "sections": 17,
-      "findings": 22,
+      "findings": 21,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 22,
-      "score": 29,
+      "low": 21,
+      "score": 28,
       "grade": "B"
     },
     {
@@ -2817,15 +2817,15 @@
     {
       "path": "docs/10-helm-and-cka/helm-testing-troubleshooting.md",
       "title": "Helm testing a troubleshooting",
-      "words": 2097,
+      "words": 2226,
       "headings": 16,
       "sections": 16,
-      "findings": 15,
+      "findings": 14,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 15,
-      "score": 16,
+      "low": 14,
+      "score": 15,
       "grade": "B"
     },
     {
@@ -50377,15 +50377,6 @@
       "section": "6. Execution path: imperative skeleton a declarative finish",
       "line": 59,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "6. Execution path: imperative skeleton a declarative finish",
-      "line": 59,
-      "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
@@ -50393,7 +50384,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "7. Hard validation podľa vrstvy",
-      "line": 67,
+      "line": 76,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50402,7 +50393,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "8. Časový control loop",
-      "line": 77,
+      "line": 86,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50411,7 +50402,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "8. Časový control loop",
-      "line": 77,
+      "line": 86,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50420,7 +50411,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "9. Connected walkthrough: correct command v nesprávnom contexte",
-      "line": 85,
+      "line": 94,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50429,7 +50420,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "9. Connected walkthrough: correct command v nesprávnom contexte",
-      "line": 85,
+      "line": 94,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50438,7 +50429,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "9. Connected walkthrough: correct command v nesprávnom contexte",
-      "line": 85,
+      "line": 94,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50447,7 +50438,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "10. Failure boundaries pri timed labs",
-      "line": 97,
+      "line": 106,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50456,7 +50447,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "10. Failure boundaries pri timed labs",
-      "line": 97,
+      "line": 106,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50465,7 +50456,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "11. Domain-weighted blueprint a progresia",
-      "line": 105,
+      "line": 114,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50474,7 +50465,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "11. Domain-weighted blueprint a progresia",
-      "line": 105,
+      "line": 114,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -50483,7 +50474,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "12. Self-grading a learning loop",
-      "line": 111,
+      "line": 120,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -50492,7 +50483,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "12. Self-grading a learning loop",
-      "line": 111,
+      "line": 120,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50501,7 +50492,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Executable timed lab: bezpečný image rollout a Service verification",
-      "line": 136,
+      "line": 145,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -50925,15 +50916,6 @@
       "path": "docs/10-helm-and-cka/helm-testing-troubleshooting.md",
       "section": "12. Recovery hierarchy a regression closure",
       "line": 127,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/10-helm-and-cka/helm-testing-troubleshooting.md",
-      "section": "Practical gate: od lint-u po runtime failure, ktorý readiness neodhalí",
-      "line": 146,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
