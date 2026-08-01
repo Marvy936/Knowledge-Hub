@@ -1,329 +1,101 @@
 # OSI a TCP/IP model
 
-## Metadata
+Klient Atlas odošle `POST /v1/orders` na `https://api.atlas.example`. Používateľ vidí jednu operáciu, ale systém ju realizuje cez viac kontraktov. DNS preloží meno na adresu, kernel vyberie route, lokálny link doručí frame k next hopu, transport vytvorí spojenie, TLS overí peer identity a HTTP prenesie aplikačný request. Vrstvený model je mapa týchto zodpovedností a observation points.
 
-- Status: Learning
-- Úroveň: L2 — rozumiem mechanizmu
-- Doména: Networking and Web Fundamentals
-- Predpoklady: [Linux networking](../01-linux-and-systems/linux-networking.md)
-- Súvisiace témy: Ethernet, IP, TCP, UDP, DNS, HTTP, TLS, routing, troubleshooting
+Nie je to presný obrázok implementácie. Moderný kernel, QUIC, proxy alebo smartNIC môže spájať viac funkcií a jeden komponent môže pracovať na viacerých vrstvách. Model je užitočný vtedy, keď pomôže odpovedať: *ktorý kontrakt zlyhal, kde ho možno pozorovať a čo tento dôkaz ešte nedokazuje?*
 
-## 1. Definícia
+## Jeden request, viac obálok
 
-OSI a TCP/IP sú **vrstvené modely sieťovej komunikácie**. Rozdeľujú prenos dát na zodpovednosti s relatívne stabilnými rozhraniami: lokálny prenos po linke, routovanie medzi sieťami, transport medzi procesmi a význam dát pre aplikáciu.
-
-Model nie je packet, konkrétny protokol ani presný popis implementácie kernelu. Je to analytická mapa, ktorá pomáha určiť:
-
-- ktorý mechanizmus rieši konkrétnu časť komunikácie,
-- ktoré metadata sa v danej vrstve pridávajú,
-- ktoré zariadenia alebo procesy ich interpretujú,
-- kde možno komunikáciu pozorovať,
-- a na ktorej hranici mohol vzniknúť failure.
-
-## 2. Prečo vrstvenie existuje
-
-Bez vrstvenia by každá aplikácia musela implementovať fyzický prenos, framing, adresovanie, routing, spoľahlivosť, šifrovanie aj aplikačnú syntax ako jeden nerozdeliteľný systém. Zmena sieťového média alebo transportného protokolu by potom vyžadovala prepis celej aplikácie.
-
-Vrstvenie vytvára kontrakty. Aplikácia môže poslať byte stream cez TCP bez znalosti Ethernet MAC adries. Router môže preposlať IP packet bez znalosti HTTP metódy. Ethernet switch môže forwardovať frame bez znalosti cieľového TCP portu.
-
-Toto oddelenie nie je absolútne. Firewally, load balancery, proxy servery a observability nástroje môžu analyzovať viac vrstiev naraz. Stále však pomáha pomenovať, **ktoré informácie konkrétna funkcia potrebuje na rozhodnutie**.
-
-## 3. OSI model
-
-OSI model používa sedem konceptuálnych vrstiev:
-
-| Vrstva | Názov | Hlavná zodpovednosť | Typické príklady |
-|---:|---|---|---|
-| 7 | Application | Význam requestov a aplikačné operácie | HTTP, DNS, SMTP, SSH |
-| 6 | Presentation | Reprezentácia, encoding, serializácia, kompresia a kryptografická transformácia | JSON, ASN.1, TLS record representation |
-| 5 | Session | Riadenie dialógu, session state a obnovenie komunikácie | aplikačné sessions, RPC conversation state |
-| 4 | Transport | Komunikácia medzi procesmi, ports, reliability, ordering a congestion control | TCP, UDP, QUIC transport functions |
-| 3 | Network | Logické adresovanie a prechod cez routované siete | IPv4, IPv6, ICMP, routing |
-| 2 | Data Link | Prenos frames v lokálnom linkovom scope | Ethernet, Wi-Fi, VLAN, MAC forwarding |
-| 1 | Physical | Prenos bitov cez konkrétne médium | elektrický, optický alebo rádiový signál |
-
-OSI model je vhodný na precízne pomenovanie zodpovedností. Reálny internetový stack však nezachováva všetky hranice ako samostatné implementačné moduly. Presentation a session funkcie sú napríklad často súčasťou aplikačných knižníc alebo TLS stacku.
-
-Preto sa OSI nemá používať ako dogma typu „každá technológia patrí presne do jednej vrstvy“. Je to referenčný rámec na analýzu kontraktov a failure boundaries.
-
-## 4. TCP/IP model
-
-TCP/IP model zodpovedá praktickému internetovému stacku a zvyčajne používa štyri vrstvy:
-
-| TCP/IP vrstva | Približné OSI vrstvy | Zodpovednosť | Príklady |
-|---|---:|---|---|
-| Application | 5–7 | Aplikačný protokol, formát dát, identity a session logika | HTTP, DNS, SSH, SMTP, TLS nad TCP |
-| Transport | 4 | End-to-end komunikácia medzi procesmi | TCP, UDP, QUIC |
-| Internet | 3 | Adresovanie a routing medzi sieťami | IPv4, IPv6, ICMP |
-| Link | 1–2 | Prenos v jednom lokálnom linkovom segmente | Ethernet, Wi-Fi, VLAN, ARP/NDP kontext |
-
-Často sa používa aj päťvrstvový model, ktorý oddeľuje physical a data-link vrstvu. Počet vrstiev nie je hlavný cieľ. Dôležité je vedieť, ktorý kontrakt sa práve testuje.
-
-Napríklad „sieť nefunguje“ môže znamenať chýbajúci link, nesprávnu VLAN, zlyhaný ARP, chybnú route, blokovaný TCP handshake, neplatný certifikát alebo HTTP chybu. Každý z týchto problémov patrí do inej diagnostickej vetvy.
-
-## 5. Encapsulation
-
-Pri odosielaní dát nižšia vrstva prijme výstup vyššej vrstvy ako payload a pridá svoje metadata. Tento proces sa nazýva **encapsulation**.
+Aplikácia vytvorí HTTP message. TLS ju chráni v recordoch, transport ju prenesie ako TCP byte stream, IP ju rozdelí do packetov a lokálny link vloží packet do Ethernet frame-u.
 
 ```text
 HTTP request
-  ↓ TCP pridá source/destination port, sequence state a flags
-TCP segment
-  ↓ IP pridá source/destination IP, TTL/hop limit a protocol identifier
-IP packet
-  ↓ Ethernet pridá source/destination MAC a frame metadata
-Ethernet frame
-  ↓ fyzická vrstva zakóduje frame do signálu
-bits / symbols / signal
+└── TLS records
+    └── TCP segments
+        └── IP packets
+            └── Ethernet frames
 ```
 
-Na prijímacej strane prebieha **decapsulation**. Driver prijme frame, linková vrstva overí jeho základnú integritu a cieľ, IP vrstva spracuje network header, transportná vrstva nájde socket a aplikácia interpretuje aplikačné bytes.
+Na príjme sa proces obráti. Ethernet interface prijme frame, kernel spracuje IP a TCP state, TLS knižnica overí a dešifruje records a HTTP server zrekonštruuje request. Aplikácia nedostáva „packet“; dostáva stream bytes alebo aplikačnú message podľa svojho runtime-u.
 
-Každá vrstva teda vidí iný objekt a iný scope. Ethernet switch forwarduje frame. Router routuje packet. TCP stack spravuje connection state. HTTP server interpretuje request method, headers a body.
+Encapsulation neznamená, že jedna aplikačná message vždy zodpovedá jednému transportnému segmentu. Jeden HTTP request môže byť rozdelený do mnohých segmentov a naopak jeden segment môže niesť časti viacerých vyšších messages. Packet capture preto treba interpretovať podľa protokolu, nie podľa vizuálnej hranice jedného riadku v nástroji.
 
-## 6. Protocol Data Units
+## OSI a TCP/IP ako dve analytické mapy
 
-Názvy prenášaných jednotiek pomáhajú presne určiť vrstvu:
+OSI model rozlišuje sedem logických vrstiev. TCP/IP model ich zoskupuje praktickejšie do linkovej, internetovej, transportnej a aplikačnej oblasti. Pri diagnostike nie je dôležité hádať, či TLS patrí „presne“ do vrstvy 5, 6 alebo 7. Dôležité je, že má vlastný handshake, identity, cryptographic state a failure evidence odlišné od TCP a HTTP.
 
-- **message alebo application data** — aplikačný význam, napríklad HTTP request,
-- **TCP segment** — časť TCP byte streamu s TCP headerom,
-- **UDP datagram** — jedna transportná správa s UDP headerom,
-- **IP packet** — routovateľná jednotka internetovej vrstvy,
-- **Ethernet frame** — linková jednotka platná v konkrétnom L2 segmente,
-- **bits alebo symbols** — fyzická reprezentácia na médiu.
-
-V bežnej reči sa slovo „packet“ používa všeobecne. Pri diagnostike však presná terminológia zabraňuje chybným záverom. Packet capture na Ethernet interface môže obsahovať Ethernet frame, IP packet aj TCP segment ako vnorené vrstvy jedného záznamu.
-
-## 7. Header, payload a trailer
-
-Každá vrstva pridáva metadata potrebné pre svoju zodpovednosť. Vyššia vrstva sa pre nižšiu vrstvu stáva payloadom:
+Pre Atlas request možno zodpovednosti čítať takto:
 
 ```text
-Ethernet payload = IP packet
-IP payload       = TCP segment alebo UDP datagram
-TCP payload      = application bytes
+application: HTTP semantics, API contract, business result
+security/session: TLS handshake, peer identity, encryption
+transport: TCP connection, ordering, retransmission, flow control
+internet: IPv4/IPv6 address, route, TTL/hop limit
+link: Ethernet frame, VLAN, neighbor resolution, next hop
+physical: signal, interface, medium a link state
 ```
 
-Ethernet frame môže mať aj trailer, napríklad frame check sequence na detekciu linkovej chyby. IP header obsahuje informácie potrebné pre routing. TCP header obsahuje porty, sequence numbers, flags a flow-control state.
+Každá vrstva používa fields, ktoré nemusia byť viditeľné na inom observation pointe. Switch pracuje s MAC adresami a VLAN, router s IP prefixmi, TCP stack s tuple a sequence state-om, reverse proxy s SNI, authority, path a headers.
 
-Router typicky nepotrebuje interpretovať aplikačný payload, aby vykonal longest-prefix route lookup. Stateful firewall však môže čítať transportné metadata a reverse proxy môže ukončiť TLS a analyzovať HTTP. To ukazuje, že zariadenie sa nemá klasifikovať iba marketingovým názvom, ale podľa informácií, ktoré pri rozhodovaní používa.
+## Hop-by-hop a end-to-end identity
 
-## 8. Adresovanie a identity podľa vrstvy
-
-Rôzne identifikátory riešia rozdielne scope a nemožno ich navzájom zamieňať:
-
-| Identifikátor | Scope | Čo identifikuje |
-|---|---|---|
-| MAC address | lokálny L2 segment | linkový interface alebo virtuálny endpoint v konkrétnom broadcast domaine |
-| IP address | routovaný L3 priestor | network endpoint alebo interface podľa routing kontextu |
-| Port | transportný namespace hosta | aplikačný endpoint v rámci IP/protokolu |
-| DNS name | naming vrstva | meno mapované resolverom na jeden alebo viac cieľov |
-| URL | aplikačný resource identifier | scheme, authority, path a ďalšie časti requestu |
-
-Úplný TCP flow sa bežne rozlišuje pomocou päťprvku:
+Ethernet frame platí iba na jednom lokálnom linku. Keď router prijme frame, odstráni linkovú obálku a vytvorí nový frame pre ďalší hop. MAC adresy sa teda menia, hoci source a destination IP typicky zostávajú rovnaké.
 
 ```text
-source IP, source port, destination IP, destination port, protocol
+client frame:
+src MAC = client
+dst MAC = gateway
+
+router → next network:
+src MAC = router egress
+dst MAC = next hop
 ```
 
-Samotný port `443` neidentifikuje službu. Rovnaký port môže existovať na tisícoch IP adries a jeden listening socket môže obsluhovať viac virtuálnych hostov cez TLS SNI alebo HTTP `Host` header.
+NAT môže zmeniť IP adresu alebo port, proxy vytvorí úplne nové transportné spojenie a TLS termination ukončí jeden cryptographic channel a prípadne vytvorí druhý. Preto „end-to-end“ treba vždy spresniť. Client-to-proxy TCP spojenie nie je backendové TCP spojenie a client TLS identity nemusí byť prenesená upstreamu bez explicitného mechanizmu.
 
-## 9. Linkový scope a routovaný scope
+## Data plane, control plane a management plane
 
-Ethernet frame je platný iba v konkrétnom linkovom segmente. Router frame prijme, odstráni pôvodný linkový header, rozhodne o ďalšom hop-e podľa IP packetu a vytvorí nový frame pre nasledujúci link.
+Request cestuje data plane-om: forwarding tables, conntrack, proxy workers a backend sockets vykonávajú rozhodnutia pre konkrétny flow. Control plane vytvára stav, podľa ktorého data plane pracuje. Routing protocol môže naučiť route, DNS control plane publikuje záznam, load balancer controller mení backend inventory.
 
-```text
-Host A → Router 1
-L2: MAC-A → MAC-R1
-L3: IP-A  → IP-B
+Management plane je cesta, ktorou operátor alebo automatizácia konfiguráciu mení. Zelený management API response ešte nepreukazuje, že data plane používa nový state. Po zmene firewall rule alebo route preto treba čítať effective ruleset a vykonať reálny flow.
 
-Router 1 → Router 2
-L2: MAC-R1-out → MAC-R2-in
-L3: IP-A       → IP-B
-```
+## Observation point mení význam dôkazu
 
-Zdrojová a cieľová IP typicky zostávajú end-to-end rovnaké, kým ich nezmení NAT alebo iný packet transformation mechanizmus. MAC adresy sa menia na každom routovanom linku, pretože riešia iba doručenie k lokálnemu next hopu.
-
-Táto hranica vysvetľuje častú chybu: host pri komunikácii s internetovým serverom nehľadá MAC adresu vzdialeného servera. Hľadá MAC adresu svojho lokálneho next hopu, typicky default gateway.
-
-## 10. Hop-by-hop a end-to-end mechanizmy
-
-**Hop-by-hop mechanizmus** sa aplikuje medzi susednými uzlami alebo na každom routeri. Patrí sem linkový framing, neighbor resolution, queueing na interface a znižovanie TTL alebo hop limitu.
-
-**End-to-end mechanizmus** vytvára logický kontrakt medzi pôvodnými endpointmi. TCP connection, aplikačný request alebo TLS session sú typicky end-to-end voči endpointu, ktorý daný protokol ukončuje.
-
-Middlebox môže end-to-end vzťah rozdeliť. Reverse proxy môže ukončiť klientsky TLS a vytvoriť nový TLS alebo plaintext connection k backendu. Load balancer môže mať samostatné TCP spojenie na každej strane. Z pohľadu klienta je proxy cieľovým transportným a kryptografickým endpointom, aj keď business request pokračuje ďalej.
-
-## 11. Data plane, control plane a management plane
-
-**Data plane** spracúva konkrétne frames, packets alebo requests podľa už existujúceho stavu. Vykonáva forwarding, filtering, NAT, queueing, load-balancing decision alebo packet encapsulation.
-
-**Control plane** vytvára a distribuuje stav, ktorý data plane používa. Routing protocols napĺňajú routing information base, ARP/NDP vytvára neighbor state, load-balancer controller publikuje backend membership a DNS control plane mení records.
-
-**Management plane** poskytuje administratívne rozhranie pre konfiguráciu a pozorovanie zariadenia alebo systému. Patrí sem CLI, API, configuration database, identity a audit prístupov.
-
-Tieto roviny môžu zlyhať nezávisle:
-
-- data plane môže stále forwardovať podľa starej route, hoci control plane je nedostupný,
-- control plane môže distribuovať chybnú policy do inak zdravého data plane,
-- management API môže byť nedostupné, hoci produkčný traffic pokračuje,
-- preťažený data plane môže dropovať packets, hoci konfigurácia je správna.
-
-## 12. Protocol, implementation, service a endpoint
-
-**Protocol** je súbor pravidiel komunikácie, napríklad HTTP alebo DNS. **Implementation** je konkrétny software, ktorý protokol implementuje, napríklad NGINX alebo BIND. **Service** je schopnosť poskytovaná používateľovi alebo inému systému. **Endpoint** je konkrétny adresovateľný bod, cez ktorý je služba dostupná.
-
-Tieto pojmy sa nesmú zamieňať. Proces môže počúvať na porte, ale nemusí odpovedať korektným protokolom. Viac implementácií môže poskytovať rovnakú službu. Jeden endpoint môže smerovať cez proxy na viac backendov. Jeden backend môže poskytovať viac virtuálnych služieb.
-
-Pri troubleshooting-u treba preto overiť postupne:
-
-```text
-existuje endpoint?
-→ prijíma transportné spojenie?
-→ prebehne TLS alebo iný session handshake?
-→ rozumie očakávanému aplikačnému protokolu?
-→ poskytuje správnu business operáciu?
-```
-
-## 13. Kde patria TLS a QUIC
-
-Niektoré technológie prekračujú jednoduché hranice vrstiev.
-
-TLS poskytuje kryptografickú ochranu, integritu a peer authentication. Pri HTTPS typicky beží nad TCP a pod HTTP, ale jeho session a presentation funkcie zodpovedajú viacerým OSI konceptom. TLS terminujúci proxy sa stáva bezpečnostným endpointom, aj keď aplikačný request pokračuje ďalej.
-
-QUIC beží nad UDP, ale implementuje reliable streams, ordering, congestion control, connection migration a integrovaný TLS handshake. Funkčne teda pokrýva časť transportnej aj session/security zodpovednosti. HTTP/3 následne používa QUIC namiesto TCP.
-
-Vrstvený model je mapa zodpovedností, nie pravidlo, že každý protokol musí patriť do jednej bunky tabuľky.
-
-## 14. Observation points
-
-Každý nástroj pozoruje komunikáciu na konkrétnej vrstve a v konkrétnom namespace alebo procese:
-
-| Nástroj | Primárny observation point |
-|---|---|
-| `ip link`, `ethtool` | interface a link state |
-| `ip addr`, `ip route`, `ip neigh` | lokálny L3 a neighbor state |
-| `ss` | socket a transport state konkrétneho network namespace |
-| `tcpdump` | packets viditeľné na vybranom interface/hooku |
-| `dig`, `getent` | DNS alebo NSS resolution path |
-| `openssl s_client` | TLS handshake a certificate presentation |
-| `curl` | resolver, transport, TLS a HTTP klientsky pohľad |
-| aplikačné logy a traces | aplikačný request, dependency calls a business outcome |
-
-Negatívny výsledok jedného observation pointu nehovorí automaticky, kde je root cause. `curl` timeout môže vzniknúť pred HTTP vrstvou. Hostový `ss` nemusí vidieť socket v inom namespace. `tcpdump` na nesprávnom interface nemusí zachytiť relevantný flow.
-
-## 15. Diagnostika HTTPS requestu po vrstvách
-
-Pri HTTPS timeout-e je vhodné najprv definovať konkrétny endpoint, source context a očakávaný výsledok. Potom možno testovať jednotlivé hranice:
-
-```text
-Naming:     vyriešilo sa správne meno a address family?
-Link/L3:    existuje interface, source IP a route?
-Neighbor:   je dostupný lokálny next hop?
-Transport:  prebehol TCP handshake alebo QUIC exchange?
-Security:   prebehol TLS handshake, SNI a certificate validation?
-HTTP:       bol request odoslaný a prišla response?
-Application: spracoval backend request v očakávanom čase?
-```
-
-Príklad nástrojov:
+`curl` na klientovi ukáže DNS timing, connect, TLS a HTTP výsledok z pohľadu daného procesu. `tcpdump` na klientskom interface ukáže frames a packets, ktoré dosiahli tento interface. Capture na reverse proxy ukáže iný transportný flow. Backend access log ukáže request, ktorý proxy skutočne odoslala.
 
 ```bash
-getent ahosts example.com
-ip route get <resolved-ip>
-ip neigh show
-ss -tan dst <resolved-ip>:443
-sudo tcpdump -ni any host <resolved-ip> and port 443
-openssl s_client -connect example.com:443 -servername example.com
-curl --verbose --connect-timeout 5 https://example.com/
+curl --verbose --trace-time https://api.atlas.example/v1/orders
+sudo tcpdump -ni eth0 'host 203.0.113.40 and port 443'
 ```
 
-Každý krok má testovať konkrétnu hypotézu. Nie je efektívne zbierať všetky možné výstupy bez otázky, ktorú majú potvrdiť alebo vyvrátiť.
+Úspešný `SYN, SYN-ACK, ACK` potvrdzuje transportný handshake na pozorovanom path-e. Nepotvrdzuje platný certifikát, správny HTTP route ani vytvorenie objednávky. Backend log s `req-7f31` potvrdzuje, že request dosiahol daný proces, ale nie že databázový commit alebo event publication skončili správne.
 
-## 16. Bottom-up, top-down a divide-and-conquer
+## Timeout budget cez vrstvy
 
-**Bottom-up diagnostika** začína linkom a pokračuje smerom k aplikácii. Je vhodná, keď neexistuje základná konektivita alebo nie je známy prvý funkčný bod.
-
-**Top-down diagnostika** začína používateľským requestom a identifikuje, v ktorej fáze zlyhal. Je efektívna pri kvalitných logoch, distributed traces a jasných erroroch klienta.
-
-**Divide-and-conquer** začne na strednej vrstve, napríklad packet capture alebo TCP connect testom. Ak handshake neprebehne, pokračuje smerom nadol. Ak prebehne, pokračuje k TLS a aplikácii.
-
-Metóda sa má vybrať podľa dostupných dôkazov. Mechanické „vždy začni od L1“ môže byť rovnako neefektívne ako okamžité obvinenie aplikácie.
-
-## 17. Failure boundaries a timeout budget
-
-Každá vrstva môže mať vlastný timeout, retry a failure semantics. DNS resolver môže čakať na nameserver, TCP môže retransmitovať SYN, TLS môže zlyhať na validácii chainu a HTTP klient môže mať celkový request timeout.
-
-Ak celkový request trvá 30 sekúnd, treba zistiť, kde sa čas spotreboval:
+Používateľský timeout je súčet viacerých fáz:
 
 ```text
-DNS lookup       5 s
-TCP connect     10 s
-TLS handshake    0.2 s
-HTTP backend    14.8 s
+DNS lookup          40 ms
+TCP connect         35 ms
+TLS handshake       55 ms
+proxy queue         10 ms
+backend processing 180 ms
+response transfer   20 ms
 ```
 
-Bez tejto dekompozície môže byť „HTTP timeout“ nesprávne interpretovaný ako pomalá aplikácia, hoci polovicu času spotreboval transportný retry.
+Pri incidente môže jedna fáza spotrebovať celý budget. DNS retry, SYN retransmission, TLS validation fetch alebo backend queue môžu navonok skončiť rovnakým hlásením „request timed out“. Preto treba merať jednotlivé transitions.
 
-Retry na viacerých vrstvách sa môže násobiť. Klient, proxy a backend SDK môžu každý opakovať pokus, čím jeden používateľský request vytvorí veľké množstvo downstream práce. Vrstvenie preto pomáha nielen diagnostike, ale aj návrhu konzistentného timeout a retry budgetu.
+Retry na viacerých vrstvách sa môže násobiť. Klient vykoná dva pokusy, proxy tri a backend SDK ďalšie dva; jedna používateľská operácia môže vytvoriť dvanásť downstream attempts. Vrstvený model preto pomáha aj pri návrhu jednotného deadline a retry budgetu.
 
-## 18. Anti-patterny
+## Priebežný incident
 
-### Model ako memorovanie siedmich názvov
+Po zmene edge siete Atlas pozoruje, že malé `GET /healthz` fungujú, ale väčší `POST /v1/orders` z pobočky timeoutuje. DNS, TCP aj TLS handshake prejdú. Tento dôkaz posúva prvý chýbajúci transition za handshake, ale ešte nerozhoduje medzi HTTP bufferingom, PMTU black hole, proxy timeoutom a backendom.
 
-Poznať poradie OSI vrstiev bez schopnosti sledovať konkrétny request neposkytuje praktickú diagnostickú hodnotu. Dôležité je rozumieť zodpovednostiam, metadata a observation points.
+Client capture ukáže opakované TCP retransmissions po prvých väčších segmentoch. Edge capture tieto segmenty nevidí a ICMP „fragmentation needed“ alebo IPv6 Packet Too Big sa nevracia. Root cause je path-MTU discovery failure, nie HTTP server. V troubleshooting kapitole sa tento incident rozvinie až po business outcome a recovery.
 
-### Root cause podľa názvu symptómu
+## Zhrnutie
 
-`HTTP timeout` neznamená automaticky L7 problém. Môže ho spôsobiť DNS delay, packet loss, SYN retry, MTU black hole, TLS failure alebo backend queueing.
-
-### Zariadenie priradené jednej vrstve navždy
-
-Moderný switch môže routovať, firewall môže analyzovať TLS metadata a load balancer môže fungovať na L4 aj L7. Rozhodujú konkrétne funkcie a headers, ktoré používa.
-
-### Predpoklad end-to-end spojenia cez proxy
-
-Keď proxy terminujú transport alebo TLS, klient a backend nemusia zdieľať jednu connection ani jeden security context. Diagnostika musí skúmať obe strany proxy oddelene.
-
-## 19. Praktický mini-lab
-
-Spusť HTTPS request a zachyť jednotlivé vrstvy:
-
-```bash
-getent ahosts example.com
-ip route get <IP>
-ip neigh show
-sudo tcpdump -ni any host <IP> and port 443
-curl --verbose https://example.com/
-```
-
-Pri capture identifikuj:
-
-1. linkový source a destination pre lokálny hop,
-2. end-to-end source a destination IP,
-3. TCP source a destination ports,
-4. SYN, SYN-ACK a ACK,
-5. TLS ClientHello a ServerHello, ak nie sú skryté konkrétnou capture podmienkou,
-6. moment, po ktorom začne aplikačná výmena.
-
-Potom odpovedz, ktoré polia by sa zmenili po prechode routerom, ktoré po NAT-e a ktoré po TLS termination proxy.
-
-## 20. Kontrolné otázky
-
-1. Prečo je vrstvený model analytická mapa a nie presný obraz implementácie?
-2. Aký je rozdiel medzi Ethernet frame, IP packetom a TCP segmentom?
-3. Prečo sa MAC adresy menia na routovaných hopoch, ale IP adresy typicky nie?
-4. Aký je rozdiel medzi hop-by-hop a end-to-end mechanizmom?
-5. Ako sa líši data plane, control plane a management plane?
-6. Prečo port neidentifikuje službu bez ďalšieho kontextu?
-7. Kde funkčne patria TLS a QUIC a prečo ich nemožno zaradiť úplne mechanicky?
-8. Čo je observation point a prečo môže viesť nesprávne miesto pozorovania k chybnému záveru?
-9. Ako rozložíš HTTPS timeout na DNS, transport, TLS a application fázu?
-10. Kedy je vhodná bottom-up, top-down alebo divide-and-conquer diagnostika?
-
-## 21. Zhrnutie
-
-OSI a TCP/IP modely rozdeľujú komunikáciu na zodpovednosti, metadata a failure boundaries. Ich praktická hodnota nie je v memorovaní názvov vrstiev, ale v schopnosti sledovať konkrétny request cez encapsulation, lokálny link, routing, transport, security a aplikačný protokol. Správne použitý vrstvený model určuje, ktorý kontrakt testujeme, kde ho pozorujeme a aký dôkaz potrebujeme pred ďalším zásahom.
+OSI a TCP/IP model je praktický iba vtedy, keď sa viaže na konkrétny flow. Pomáha odlíšiť linkový frame, IP packet, transportné spojenie, TLS session, HTTP request a business operáciu. Každá identita má vlastné fields, state a observation points. Diagnostika postupuje po prvom chýbajúcom transitione, nie mechanicky od najnižšej vrstvy.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
