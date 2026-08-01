@@ -1,0 +1,51 @@
+name: Section 09 explanation depth v2
+
+on:
+  push:
+    branches:
+      - agent/section-09-explanation-depth-v2
+    paths:
+      - scripts/section_09_explanation_depth_v2.py
+      - .github/workflows/section-09-explanation-depth-v2.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: section-09-explanation-depth-v2
+  cancel-in-progress: true
+
+jobs:
+  transform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-09-explanation-depth-v2
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply preserve-first Kubernetes pass
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/section_09_explanation_depth_v2.py
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+      - name: Commit documentation result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/09-kubernetes DOCUMENTATION-REVIEW-STATUS.md DOCUMENTATION-AUDIT.md documentation-audit.json GLOSSARY.md ROADMAP.md
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "No documentation changes to commit."
+            exit 0
+          fi
+          git commit -m "docs: deepen Kubernetes explanation boundaries"
+          git pull --rebase origin agent/section-09-explanation-depth-v2
+          git push origin HEAD:agent/section-09-explanation-depth-v2
